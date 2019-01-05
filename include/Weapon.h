@@ -17,11 +17,19 @@ public:
     Weapon() = default;
     Weapon(const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage);
 
+    void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }
+
     int rollToHit() const;
     int rollToWound(int numHits) const;
 
     int rend() const { return m_rend; }
-    int damage() const { return m_damage; }
+    int damage() const;
+
+protected:
+
+    int numAttacks() const;
+    int numTotalHits() const;
+    int rollSpecial(int number) const;
 
 private:
     std::string m_name;
@@ -31,7 +39,8 @@ private:
     int m_toWound = 4;
     int m_rend = 0;
     int m_damage = 1;
-};
 
+    int m_hitsPerAttack = 1;
+};
 
 #endif //WARHAMMERSIM_WEAPON_H

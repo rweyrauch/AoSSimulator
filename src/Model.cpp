@@ -7,7 +7,7 @@
  */
 
 #include "Model.h"
-
+#include "Weapon.h"
 
 void Model::addMeleeWeapon(const Weapon &weapon)
 {

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
         WarhammerSim
         app/main.cpp
-)
+        include/WarhammerSim.h)
 
 target_link_libraries(
         WarhammerSim

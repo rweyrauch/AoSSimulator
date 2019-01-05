@@ -35,6 +35,7 @@ add_executable(
         WarhammerSimTest
         testmain.cpp
         dicetest.cpp
+        weapontest.cpp
 )
 
 target_link_libraries(

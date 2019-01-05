@@ -29,6 +29,11 @@ int Dice::roll3D6()
     return (m_d6(m_gen) + m_d6(m_gen) + m_d6(m_gen));
 }
 
+int Dice::roll4D6()
+{
+    return (m_d6(m_gen) + m_d6(m_gen) + m_d6(m_gen) + m_d6(m_gen));
+}
+
 int Dice::rollD3()
 {
     return (m_d6(m_gen)+1)/2;
