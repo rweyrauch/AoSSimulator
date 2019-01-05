@@ -16,7 +16,7 @@ class Model
 {
 public:
     Model() : m_baseSize(0) {}
-    Model(int baseSize) : m_baseSize(baseSize) {}
+    Model(int baseSize, int wounds) : m_baseSize(baseSize), m_woundsRemaining(wounds) {}
 
     int basesize() const { return m_baseSize; }
 
@@ -34,9 +34,13 @@ public:
     std::vector<Weapon>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
     std::vector<Weapon>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 
+    const int& woundsRemaining() const { return m_woundsRemaining; }
+    int& woundsRemaining() { return m_woundsRemaining; }
+
 private:
-    int m_baseSize;
+    int m_baseSize = 0;
     float m_x = 0.0f, m_y = 0.0f, m_z = 0.0f;
+    int m_woundsRemaining = 0;
 
     std::vector<Weapon> m_melee;
     std::vector<Weapon> m_missile;

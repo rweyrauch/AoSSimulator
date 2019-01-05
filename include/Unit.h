@@ -22,20 +22,28 @@ public:
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
     virtual ~Unit() = default;
 
+    const std::string& name() const { return m_name; }
+    int wounds() const { return m_wounds; }
+    int move() const { return m_move; }
+    int bravery() const { return m_bravery; }
+    int save() const { return m_save; }
     bool fly() const { return m_fly; }
+
     void addModel(const Model& model);
 
     virtual void beginTurn();
 
     virtual void hero();
-    virtual void move(bool run = false);
-    virtual void shoot(int numAttackingModels, Unit& unit);
+    virtual void movement(bool run = false);
+    virtual void shooting(int numAttackingModels, Unit& unit);
     virtual void charge();
-    virtual void combat(int numAttackingModels, Unit& unit);
+    virtual int combat(int numAttackingModels, Unit& unit);
     virtual int battleshock(int modifier = 0);
     virtual int takeDamage(int numWoundingHits, const Weapon& weapon);
 
-    virtual bool applyDamage(int totalDamage);
+    virtual int applyDamage(int totalDamage);
+
+    int remainingModels() const { return (int)m_models.size(); }
 
 private:
     std::string m_name;

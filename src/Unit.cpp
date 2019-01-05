@@ -18,12 +18,12 @@ void Unit::hero()
 
 }
 
-void Unit::move(bool run)
+void Unit::movement(bool run)
 {
     m_ran = run;
 }
 
-void Unit::shoot(int numAttackingModels, Unit &unit)
+void Unit::shooting(int numAttackingModels, Unit &unit)
 {
     if (m_ran && !m_runAndShoot)
     {
@@ -63,7 +63,7 @@ void Unit::charge()
     m_charged = true;
 }
 
-void Unit::combat(int numAttackingModels, Unit &unit)
+int Unit::combat(int numAttackingModels, Unit &unit)
 {
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
@@ -77,9 +77,14 @@ void Unit::combat(int numAttackingModels, Unit &unit)
         for (auto w = model.meleeWeaponBegin(); w != model.meleeWeaponEnd(); ++w)
         {
             auto numHits = w->rollToHit();
-            auto numWounds = w->rollToWound(numHits);
-
-            totalDamage += unit.takeDamage(numWounds, *w);
+            if (numHits > 0)
+            {
+                auto numWounds = w->rollToWound(numHits);
+                if (numWounds > 0)
+                {
+                    totalDamage += unit.takeDamage(numWounds, *w);
+                }
+            }
         }
     }
 
@@ -88,6 +93,8 @@ void Unit::combat(int numAttackingModels, Unit &unit)
     {
         // unit was slain
     }
+
+    return totalDamage;
 }
 
 int Unit::battleshock(int modifier)
@@ -98,6 +105,16 @@ int Unit::battleshock(int modifier)
     auto roll = dice.rollD6();
     roll += modifier;
     int numFleeing = (m_modelsSlain + roll) - (m_bravery + modifier);
+    numFleeing = std::min((int)m_models.size(), numFleeing);
+
+    // remove fleeing models
+    int numFled = numFleeing;
+    while (numFled > 0)
+    {
+        m_models.pop_back();
+        --numFled;
+    }
+
     return numFleeing;
 }
 
@@ -106,7 +123,7 @@ int Unit::takeDamage(int numWoundingHits, const Weapon& weapon)
     Dice dice;
     auto rolls = dice.rollD6(numWoundingHits);
     auto toSave = m_save + weapon.rend();
-    auto damageCheck = [toSave](int v) { return v >= toSave; };
+    auto damageCheck = [toSave](int v) { return v < toSave; };
     auto numHits = std::count_if(rolls.begin(), rolls.end(), damageCheck);
     auto totalDamage = numHits * weapon.damage();
     return totalDamage;
@@ -135,8 +152,31 @@ void Unit::addModel(const Model &model)
     m_models.push_back(model);
 }
 
-bool Unit::applyDamage(int totalDamage)
+int Unit::applyDamage(int totalDamage)
 {
-    return false;
+    int numSlain = 0;
+    for (auto m = m_models.begin(); m != m_models.end(); ++m)
+    {
+        auto wounds = m->woundsRemaining();
+        if (totalDamage > wounds)
+        {
+            m->woundsRemaining() = 0;
+            totalDamage -= wounds;
+        }
+        else
+        {
+            m->woundsRemaining() -= totalDamage;
+            totalDamage = 0;
+        }
+        if (m->woundsRemaining() <= 0)
+        {
+            m = m_models.erase(m);
+            numSlain++;
+        }
+    }
+
+    m_modelsSlain = numSlain;
+
+    return numSlain;
 }
 

@@ -36,6 +36,7 @@ add_executable(
         testmain.cpp
         dicetest.cpp
         weapontest.cpp
+        unittest.cpp
 )
 
 target_link_libraries(
