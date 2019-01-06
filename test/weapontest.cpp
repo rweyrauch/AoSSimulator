@@ -33,8 +33,8 @@ TEST(Weapon, Attacks)
     {
         for (auto w : weapons)
         {
-            auto numHits = w.rollToHit();
-            auto numWounds = w.rollToWound(numHits);
+            auto numHits = w.rollToHit(0, NoRerolls, 0, NoExtraHits);
+            auto numWounds = w.rollToWound(numHits, 0, NoRerolls);
             auto totalDamage = numWounds * w.damage();
             if (numHits > 0)
             {

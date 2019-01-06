@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include "Model.h"
-#include "Weapon.h"
+#include <Model.h>
+#include <Weapon.h>
 
 void Model::addMeleeWeapon(const Weapon &weapon)
 {

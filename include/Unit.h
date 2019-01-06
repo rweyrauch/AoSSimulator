@@ -12,14 +12,13 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include "Weapon.h"
-#include "Model.h"
+#include <Weapon.h>
+#include <Model.h>
 
 class Unit
 {
 public:
     Unit() = default;
-    Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
     virtual ~Unit() = default;
 
     const std::string& name() const { return m_name; }
@@ -31,22 +30,51 @@ public:
 
     void addModel(const Model& model);
 
-    virtual void beginTurn();
+    void beginTurn();
 
-    virtual void hero();
-    virtual void movement(bool run = false);
-    virtual void shooting(int numAttackingModels, Unit& unit);
-    virtual void charge();
-    virtual int combat(int numAttackingModels, Unit& unit);
-    virtual int battleshock(int modifier = 0);
-    virtual int takeDamage(int numWoundingHits, const Weapon& weapon);
+    void hero();
+    void movement(bool run = false);
+    void shooting(int numAttackingModels, Unit& unit);
+    void charge();
+    int combat(int numAttackingModels, Unit& unit);
+    int battleshock(int modifier = 0);
 
-    virtual int applyDamage(int totalDamage);
-
+    int computeDamage(int numWoundingHits, const Weapon &weapon);
+    int applyDamage(int totalDamage);
     int remainingModels() const { return (int)m_models.size(); }
 
-private:
-    std::string m_name;
+    virtual bool hasKeyword(const std::string& word) const { return false; }
+
+protected:
+
+    Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
+
+    virtual int toHitModifier(const Unit& unit) const { return 0; }
+    virtual Rerolls toHitRerolls(const Unit& unit) const { return NoRerolls; }
+
+    virtual int toWoundModifier(const Unit& unit) const { return 0; }
+    virtual Rerolls toWoundRerolls(const Unit& unit) const { return NoRerolls; }
+
+    virtual int toHitModifierMissile(const Unit& unit) const { return 0; }
+    virtual Rerolls toHitRerollsMissile(const Unit& unit) const { return NoRerolls; }
+
+    virtual int toWoundModifierMissile(const Unit& unit) const { return 0; }
+    virtual Rerolls toWoundRerollsMissile(const Unit& unit) const { return NoRerolls; }
+
+    virtual int toSaveModifier() const { return 0; }
+    virtual Rerolls toSaveRerolls() const { return NoRerolls; }
+
+    virtual int battlshockModifier() const { return 0; }
+    virtual Rerolls battleshockRerolls() const { return NoRerolls; }
+
+    virtual int extraAttacks() const { return 0; }
+    virtual int extraAttacksMissile() const { return 0; }
+
+    virtual HitModifier hitModifier() const { return NoExtraHits; }
+    virtual HitModifier hitModifierMissile() const { return NoExtraHits; }
+
+protected:
+    std::string m_name = "";
     int m_move = 0;
     int m_wounds = 0;
     int m_bravery = 0;
@@ -64,5 +92,11 @@ private:
     int m_charged = false;
 };
 
+class CustomUnit : public Unit
+{
+public:
+    CustomUnit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
+
+};
 
 #endif //WARHAMMERSIM_UNIT_H

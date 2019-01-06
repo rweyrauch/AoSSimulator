@@ -8,10 +8,7 @@
 
 #include <algorithm>
 #include <Unit.h>
-
-#include "Unit.h"
-#include "Dice.h"
-
+#include <Dice.h>
 
 void Unit::hero()
 {
@@ -40,10 +37,10 @@ void Unit::shooting(int numAttackingModels, Unit &unit)
         const Model& model = m_models.at(i);
         for (auto w = model.missileWeaponBegin(); w != model.missileWeaponEnd(); ++w)
         {
-            auto numHits = w->rollToHit();
-            auto numWounds = w->rollToWound(numHits);
+            auto numHits = w->rollToHit(toHitModifierMissile(unit), toHitRerollsMissile(unit), extraAttacksMissile(), hitModifierMissile());
+            auto numWounds = w->rollToWound(numHits, toWoundModifierMissile(unit), toWoundRerollsMissile(unit));
 
-            totalDamage += unit.takeDamage(numWounds, *w);
+            totalDamage += unit.computeDamage(numWounds, *w);
         }
     }
 
@@ -67,7 +64,7 @@ int Unit::combat(int numAttackingModels, Unit &unit)
 {
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
-        numAttackingModels = m_models.size();
+        numAttackingModels = (int)m_models.size();
     }
 
     int totalDamage = 0;
@@ -76,13 +73,13 @@ int Unit::combat(int numAttackingModels, Unit &unit)
         const Model& model = m_models.at(i);
         for (auto w = model.meleeWeaponBegin(); w != model.meleeWeaponEnd(); ++w)
         {
-            auto numHits = w->rollToHit();
+            auto numHits = w->rollToHit(toHitModifier(unit), toHitRerolls(unit), extraAttacks(), hitModifier());
             if (numHits > 0)
             {
-                auto numWounds = w->rollToWound(numHits);
+                auto numWounds = w->rollToWound(numHits, toWoundModifier(unit), toWoundRerolls(unit));
                 if (numWounds > 0)
                 {
-                    totalDamage += unit.takeDamage(numWounds, *w);
+                    totalDamage += unit.computeDamage(numWounds, *w);
                 }
             }
         }
@@ -99,13 +96,13 @@ int Unit::combat(int numAttackingModels, Unit &unit)
 
 int Unit::battleshock(int modifier)
 {
-    if (m_modelsSlain <= 0) return true;
+    if (m_modelsSlain <= 0) return 0;
 
     Dice dice;
     auto roll = dice.rollD6();
     roll += modifier;
     int numFleeing = (m_modelsSlain + roll) - (m_bravery + modifier);
-    numFleeing = std::min((int)m_models.size(), numFleeing);
+    numFleeing = std::max(0, std::min((int)m_models.size(), numFleeing));
 
     // remove fleeing models
     int numFled = numFleeing;
@@ -118,14 +115,40 @@ int Unit::battleshock(int modifier)
     return numFleeing;
 }
 
-int Unit::takeDamage(int numWoundingHits, const Weapon& weapon)
+int Unit::computeDamage(int numWoundingHits, const Weapon &weapon)
 {
     Dice dice;
-    auto rolls = dice.rollD6(numWoundingHits);
-    auto toSave = m_save + weapon.rend();
-    auto damageCheck = [toSave](int v) { return v < toSave; };
-    auto numHits = std::count_if(rolls.begin(), rolls.end(), damageCheck);
-    auto totalDamage = numHits * weapon.damage();
+    Dice::RollResult rollResult;
+
+    auto effectiveRend = m_ignoreRend ? 0 : weapon.rend();
+    auto toSave = m_save + effectiveRend;
+
+    int numMadeSaves = 0;
+    if (toSaveModifier() == RerollOnes)
+    {
+        dice.rollD6(numWoundingHits, 1, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+    }
+    else if (toSaveModifier() == RerollFailed)
+    {
+        dice.rollD6(numWoundingHits, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+        int numFails = numWoundingHits - numMadeSaves;
+        if (numFails > 0)
+        {
+            dice.rollD6(numFails, rollResult);
+            auto numRerolledSaves = rollResult.rollsGE(toSave);
+            numMadeSaves += numRerolledSaves;
+        }
+    }
+    else
+    {
+        dice.rollD6(numWoundingHits, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+    }
+
+    auto numFails = numWoundingHits - numMadeSaves;
+    auto totalDamage = numFails * weapon.damage();
     return totalDamage;
 }
 
@@ -180,3 +203,8 @@ int Unit::applyDamage(int totalDamage)
     return numSlain;
 }
 
+CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
+                       bool fly) :
+    Unit(name, move, wounds, bravery, save, fly)
+{
+}

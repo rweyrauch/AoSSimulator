@@ -78,6 +78,15 @@ TEST(Dice, MultipleD6)
             ASSERT_GE(r, 1);
             ASSERT_LE(r, 6);
         }
+
+        Dice::RollResult rr;
+        dice.rollD6(numDice, rr);
+        int total = 0;
+        for (int v : rr.distribution)
+        {
+            total += v;
+        }
+        ASSERT_EQ(total, numDice);
     }
 }
 
@@ -100,5 +109,14 @@ TEST(Dice, MultipleD6Rerolling)
             ASSERT_GE(r, 1);
             ASSERT_LE(r, 6);
         }
+
+        Dice::RollResult rr;
+        dice.rollD6(numDice, 1, rr);
+        int total = 0;
+        for (int v : rr.distribution)
+        {
+            total += v;
+        }
+        ASSERT_EQ(total, numDice);
     }
 }

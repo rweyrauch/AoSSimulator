@@ -9,6 +9,8 @@
 #ifndef WARHAMMERSIM_WARHAMMERSIM_H
 #define WARHAMMERSIM_WARHAMMERSIM_H
 
+#include <cinttypes>
+
 enum RandomNumber
 {
     RAND_D3 = -1,
@@ -16,6 +18,35 @@ enum RandomNumber
     RAND_2D6 = -3,
     RAND_3D6 = -4,
     RAND_4D6 = -5
+};
+
+enum class PlayerId
+{
+    One = 0,
+    Two = 1
+};
+
+enum Rerolls
+{
+    NoRerolls = 0,
+    RerollOnes,
+    RerollFailed,
+};
+
+enum HitModifier
+{
+    NoExtraHits = 0,
+    ExtraHitOn6,
+};
+
+enum AttackModifier
+{
+    ExtraAttackOnCharge,
+};
+
+enum DamageModifier
+{
+    PlusOneDamage,
 };
 
 #endif //WARHAMMERSIM_WARHAMMERSIM_H

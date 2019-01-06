@@ -10,6 +10,7 @@
 #define WARHAMMERSIM_WEAPON_H
 
 #include <string>
+#include <WarhammerSim.h>
 
 class Weapon
 {
@@ -19,15 +20,15 @@ public:
 
     void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }
 
-    int rollToHit() const;
-    int rollToWound(int numHits) const;
+    int rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifier hitModifier) const;
+    int rollToWound(int numHits, int modifier, Rerolls rerolls) const;
 
     int rend() const { return m_rend; }
     int damage() const;
 
 protected:
 
-    int numAttacks() const;
+    int numAttacks(int extraAttacks) const;
     int numTotalHits() const;
     int rollSpecial(int number) const;
 

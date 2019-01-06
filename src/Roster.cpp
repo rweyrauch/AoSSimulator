@@ -6,4 +6,12 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include "Roster.h"
+#include <Roster.h>
+
+void Roster::doBattleshockPhase()
+{
+    for (auto u : m_units)
+    {
+        u.battleshock(0);
+    }
+}

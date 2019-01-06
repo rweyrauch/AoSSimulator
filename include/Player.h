@@ -9,12 +9,19 @@
 #ifndef WARHAMMERSIM_PLAYER_H
 #define WARHAMMERSIM_PLAYER_H
 
-#include "Roster.h"
+#include <Roster.h>
 
 class Player
 {
 public:
     Player() = default;
+
+    void doHeroPhase();
+    void doMovementPhase();
+    void doShootingPhase();
+    void doChargePhase();
+    void doCombatPhase();
+    void doBattleshockPhase();
 
 private:
 

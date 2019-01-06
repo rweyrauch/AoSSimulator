@@ -15,11 +15,15 @@ int main()
 {
     Battle battle;
 
-    battle.start();
+    Player player1, player2;
+
+    battle.addPlayers(player1, player2);
+
+    battle.start(PlayerId::One);
 
     while (!battle.done())
     {
-        battle.run();
+        battle.simulate();
 
         battle.next();
     }

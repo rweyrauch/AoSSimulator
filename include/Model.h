@@ -10,7 +10,7 @@
 #define WARHAMMERSIM_MODEL_H
 
 #include <vector>
-#include "Weapon.h"
+#include <Weapon.h>
 
 class Model
 {

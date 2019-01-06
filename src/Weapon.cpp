@@ -8,10 +8,8 @@
 
 #include <algorithm>
 #include <Weapon.h>
-
-#include "WarhammerSim.h"
-#include "Weapon.h"
-#include "Dice.h"
+#include <WarhammerSim.h>
+#include <Dice.h>
 
 Weapon::Weapon(const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) :
     m_name(name),
@@ -24,18 +22,46 @@ Weapon::Weapon(const std::string& name, int range, int attacks, int toHit, int t
 {
 }
 
-int Weapon::rollToHit() const
+int Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifier hitModifier) const
 {
     Dice dice;
-    auto rolls = dice.rollD6(numAttacks());
-    const int toHit = m_toHit;
-    auto hitCheck = [toHit](int v) { return v >= toHit; };
-    return (int)std::count_if(rolls.begin(), rolls.end(), hitCheck);
+    Dice::RollResult rollResult;
+
+    const int totalAttacks = numAttacks(extraAttacks);
+
+    const int toHit = m_toHit - modifier;
+
+    int numHits = 0;
+    if (rerolls == RerollOnes)
+    {
+        dice.rollD6(totalAttacks, 1, rollResult);
+        numHits = rollResult.rollsGE(toHit);
+    }
+    else if (rerolls == RerollFailed)
+    {
+        dice.rollD6(totalAttacks, rollResult);
+        numHits = rollResult.rollsGE(toHit);
+        int numFails = totalAttacks - numHits;
+        if (numFails > 0)
+        {
+            dice.rollD6(numFails, rollResult);
+            auto numRerolledHits = rollResult.rollsGE(toHit);
+            numHits += numRerolledHits;
+        }
+    }
+    else
+    {
+        dice.rollD6(totalAttacks, rollResult);
+        numHits = rollResult.rollsGE(toHit);
+    }
+    return numHits;
 }
 
-int Weapon::rollToWound(int numHits) const
+int Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
 {
     Dice dice;
+    Dice::RollResult rollResult;
+
     int totalHits = numHits;
     if (m_hitsPerAttack > 1)
     {
@@ -44,17 +70,38 @@ int Weapon::rollToWound(int numHits) const
             totalHits += numTotalHits();
         }
     }
+    const int toWound = m_toWound - modifier;
 
-    auto rolls = dice.rollD6(totalHits);
-    const int toWound = m_toWound;
-    auto woundCheck = [toWound](int v)
-    { return v >= toWound; };
-    return (int) std::count_if(rolls.begin(), rolls.end(), woundCheck);
+    int numWoundingHits = 0;
+
+    if (rerolls == RerollOnes)
+    {
+        dice.rollD6(totalHits, 1, rollResult);
+        numWoundingHits = rollResult.rollsGE(toWound);
+    }
+    else if (rerolls == RerollFailed)
+    {
+        dice.rollD6(totalHits, rollResult);
+        numWoundingHits = rollResult.rollsGE(toWound);
+        int numFails = totalHits - numWoundingHits;
+        if (numFails > 0)
+        {
+            dice.rollD6(numFails, rollResult);
+            auto numRerolledHits = rollResult.rollsGE(toWound);
+            numWoundingHits += numRerolledHits;
+        }
+    }
+    else
+    {
+        dice.rollD6(totalHits, rollResult);
+        numWoundingHits = rollResult.rollsGE(toWound);
+    }
+    return numWoundingHits;
 }
 
-int Weapon::numAttacks() const
+int Weapon::numAttacks(int extraAttacks) const
 {
-    return rollSpecial(m_attacks);
+    return rollSpecial(m_attacks) + extraAttacks;
 }
 
 int Weapon::damage() const

@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <cassert>
-#include "Dice.h"
+#include <Dice.h>
 
 Dice::Dice() :
     m_rd(),
@@ -64,4 +64,31 @@ std::vector<int> Dice::rollD6(int number, int rerolling)
         }
     }
     return result;
+}
+
+void Dice::rollD6(int number, Dice::RollResult &result)
+{
+    result.clear();
+    for (auto i = 0; i < number; i++)
+    {
+        result.distribution[m_d6(m_gen)]++;
+    }
+}
+
+void Dice::rollD6(int number, int rerolling, Dice::RollResult &result)
+{
+    assert(rerolling >= 1);
+    assert(rerolling <= 6);
+
+    result.clear();
+
+    for (auto i = 0; i < number; i++)
+    {
+        int roll = m_d6(m_gen);
+        if (roll <= rerolling)
+        {
+            roll = m_d6(m_gen);
+        }
+        result.distribution[roll]++;
+    }
 }

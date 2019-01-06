@@ -11,6 +11,11 @@ add_library(
         Battle.cpp
         Board.cpp
         TerrainFeature.cpp
+        stormcast/Liberators.cpp
+        stormcast/Judicators.cpp
+        stormcast/CelestarBallista.cpp
+        khorne/Bloodreavers.cpp
+        sylvaneth/Alarielle.cpp
 )
 
 target_include_directories(

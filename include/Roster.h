@@ -10,12 +10,14 @@
 #define WARHAMMERSIM_ARMY_H
 
 #include <vector>
-#include "Unit.h"
+#include <Unit.h>
 
 class Roster
 {
 public:
     Roster() = default;
+
+    void doBattleshockPhase();
 
 private:
     std::vector<Unit> m_units;
