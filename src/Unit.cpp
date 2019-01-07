@@ -180,28 +180,35 @@ void Unit::addModel(const Model &model)
 int Unit::applyDamage(int totalDamage)
 {
     int numSlain = 0;
-    for (auto m = m_models.begin(); m != m_models.end(); ++m)
+    for (auto &model : m_models)
     {
-        auto wounds = m->woundsRemaining();
+        auto wounds = model.woundsRemaining();
         if (totalDamage > wounds)
         {
-            m->woundsRemaining() = 0;
+            model.woundsRemaining() = 0;
             totalDamage -= wounds;
+            numSlain++;
         }
         else
         {
-            m->woundsRemaining() -= totalDamage;
+            model.woundsRemaining() -= totalDamage;
             totalDamage = 0;
         }
-        if (m->woundsRemaining() <= 0)
-        {
-            numSlain++;
-        }
     }
-
     m_modelsSlain = numSlain;
 
-    return numSlain;
+    // Remove slain models. Put models with no wounds remaining at the end of the
+    // model list.  Then remove them from the end (back) of the vector.
+    auto compFunc = [](const Model& a, const Model& b)->bool {
+        return a.woundsRemaining() > b.woundsRemaining();
+    };
+    std::sort(m_models.begin(), m_models.end(), compFunc);
+    while (numSlain > 0)
+    {
+        m_models.pop_back();
+        --numSlain;
+    }
+    return m_modelsSlain;
 }
 
 int Unit::remainingModels() const
