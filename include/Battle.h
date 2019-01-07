@@ -33,6 +33,8 @@ public:
     void setBoard(const Board& board) { m_board = board; }
     void setNumRounds(int rounds) { m_numRounds = rounds; }
 
+    void deployment();
+
     void start(PlayerId firstPlayer);
     void simulate();
     void next();

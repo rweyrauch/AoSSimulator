@@ -23,6 +23,11 @@ public:
     int rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifier hitModifier) const;
     int rollToWound(int numHits, int modifier, Rerolls rerolls) const;
 
+    const std::string& name() const { return m_name; }
+    int range() const { return m_range; }
+    int attacks() const { return m_attacks; }
+    int toHit() const { return m_toHit; }
+    int toWound() const { return m_toWound; }
     int rend() const { return m_rend; }
     int damage() const;
 

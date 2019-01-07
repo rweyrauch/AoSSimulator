@@ -17,6 +17,12 @@ class Roster
 public:
     Roster() = default;
 
+    void beginTurn();
+    void doHeroPhase();
+    void doMovementPhase();
+    void doShootingPhase();
+    void doChargePhase();
+    void doCombatPhase();
     void doBattleshockPhase();
 
 private:

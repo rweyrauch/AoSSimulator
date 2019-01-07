@@ -32,12 +32,19 @@ public:
 
     void beginTurn();
 
-    void hero();
-    void movement(bool run = false);
-    int shooting(int numAttackingModels, Unit& unit);
-    void charge();
-    int combat(int numAttackingModels, Unit& unit);
-    int battleshock(int modifier = 0);
+    // Phase functions (these are the 'think' functions that decide what this unit
+    // is to do in each of the phases.
+    virtual void hero() {}
+    virtual void movement() {}
+    virtual void shooting() {}
+    virtual void charge() {}
+    virtual void combat() {}
+    virtual void battleshock() {}
+
+
+    int shoot(int numAttackingModels, Unit& unit);
+    int fight(int numAttackingModels, Unit& unit);
+    int applyBattleshock();
 
     int computeDamage(int numWoundingHits, const Weapon &weapon);
     int applyDamage(int totalDamage);

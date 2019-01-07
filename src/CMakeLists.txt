@@ -16,6 +16,7 @@ add_library(
         stormcast/Judicators.cpp
         stormcast/CelestarBallista.cpp
         stormcast/LordOrdinator.cpp
+        stormcast/Sequitors.cpp
         khorne/Bloodreavers.cpp
         sylvaneth/Alarielle.cpp
 )

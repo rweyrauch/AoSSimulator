@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
+#include <Dice.h>
 #include <sylvaneth/Alarielle.h>
 
 namespace Sylvaneth
@@ -36,11 +37,29 @@ bool Alarielle::configure()
 int Alarielle::toHitModifier(const Unit& unit) const
 {
     // Sweeping Blows
+    // TODO: need to limit this buff to the Antler's only.
     if (unit.remainingModels() >= 5)
     {
         return 1;
     }
     return Unit::toHitModifier(unit);
+}
+
+void Alarielle::hero()
+{
+    // Lifebloom
+    if (remainingWounds() < WOUNDS && remainingWounds() > 0)
+    {
+        // heal D3
+        Dice dice;
+        int woundsHealed = dice.rollD3();
+        for (auto& m : m_models)
+        {
+            m.woundsRemaining() += woundsHealed;
+            if (m.woundsRemaining() > WOUNDS)
+                m.woundsRemaining() = WOUNDS;
+        }
+    }
 }
 
 } // namespace Sylvaneth

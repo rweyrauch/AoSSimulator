@@ -27,6 +27,8 @@ public:
 
     bool configure();
 
+    void hero() override;
+
 protected:
 
     int toHitModifier(const Unit& unit) const override;

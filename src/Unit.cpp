@@ -10,17 +10,7 @@
 #include <Unit.h>
 #include <Dice.h>
 
-void Unit::hero()
-{
-
-}
-
-void Unit::movement(bool run)
-{
-    m_ran = run;
-}
-
-int Unit::shooting(int numAttackingModels, Unit &unit)
+int Unit::shoot(int numAttackingModels, Unit &unit)
 {
     if (m_ran && !m_runAndShoot)
     {
@@ -53,16 +43,7 @@ int Unit::shooting(int numAttackingModels, Unit &unit)
     return totalDamage;
 }
 
-void Unit::charge()
-{
-    if (m_ran && !m_runAndCharge)
-    {
-        return;
-    }
-    m_charged = true;
-}
-
-int Unit::combat(int numAttackingModels, Unit &unit)
+int Unit::fight(int numAttackingModels, Unit &unit)
 {
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
@@ -96,14 +77,13 @@ int Unit::combat(int numAttackingModels, Unit &unit)
     return totalDamage;
 }
 
-int Unit::battleshock(int modifier)
+int Unit::applyBattleshock()
 {
     if (m_modelsSlain <= 0) return 0;
 
     Dice dice;
     auto roll = dice.rollD6();
-    roll += modifier;
-    int numFleeing = (m_modelsSlain + roll) - (m_bravery + modifier);
+    int numFleeing = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
     numFleeing = std::max(0, std::min((int)m_models.size(), numFleeing));
 
     // remove fleeing models

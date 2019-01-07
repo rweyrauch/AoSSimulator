@@ -74,6 +74,7 @@ enum Keyword
     REDEEMER,
     LIBERATORS,
     LORD_ORDINATOR,
+    SEQUITORS,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

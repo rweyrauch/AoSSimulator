@@ -55,6 +55,10 @@ void Battle::next()
                 {
                     m_currentPlayer = PlayerId::One;
                 }
+
+                const auto playerIdx = (int)m_currentPlayer;
+                m_players[playerIdx].beginTurn();
+
                 m_currentPhase = Phase::Hero;
             }
             else
@@ -139,6 +143,9 @@ void Battle::runInitiativePhase()
         m_currentPlayer = PlayerId::Two;
     }
 
+    const auto playerIdx = (int)m_currentPlayer;
+    m_players[playerIdx].beginTurn();
+
     std::cout << "Player " << playerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
         p1 << " P2: " << p2 << std::endl;
 }
@@ -209,4 +216,14 @@ std::string Battle::playerIdToString(PlayerId id) const
         case PlayerId::Two:
             return "Two";
     }
+}
+
+void Battle::deployment()
+{
+    //
+    // initiative to select player deploying first
+
+    // loop until all units have been deployed
+
+
 }

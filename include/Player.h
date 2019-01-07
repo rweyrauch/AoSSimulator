@@ -16,6 +16,7 @@ class Player
 public:
     Player() = default;
 
+    void beginTurn();
     void doHeroPhase();
     void doMovementPhase();
     void doShootingPhase();
