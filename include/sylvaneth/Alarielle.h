@@ -27,8 +27,6 @@ public:
 
     bool configure();
 
-    bool hasKeyword(const std::string& word) const override;
-
 protected:
 
     int toHitModifier(const Unit& unit) const override;
@@ -38,9 +36,6 @@ private:
     static Weapon s_spearOfKurnoth,
         s_talonOfDwindling,
         s_beetleGreatAntlers;
-
-
-    static std::vector<std::string> s_keywords;
 };
 
 } // namespace Sylvaneth

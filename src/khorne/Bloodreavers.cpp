@@ -17,14 +17,10 @@ Weapon Bloodreavers::s_reaverBladesChieftain("Reaver Blades", 1, 2, 4, 4, 0, 1);
 Weapon Bloodreavers::s_meatripperAxe("Meatripper Axe", 1, 1, 4, 4, -1, 1);
 Weapon Bloodreavers::s_meatripperAxeChieftain("Meatripper Axe", 1, 2, 4, 4, -1, 1);
 
-std::vector<std::string> Bloodreavers::s_keywords =
-{
-    "CHAOS", "MORTAL", "KHORNE", "BLOODBOUND", "BLOODREAVERS"
-};
-
 Bloodreavers::Bloodreavers() :
     Unit("Bloodreavers", 6, WOUNDS, 5, 6, false)
 {
+    m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
 }
 
 
@@ -63,12 +59,6 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     }
 
     return true;
-}
-
-bool Bloodreavers::hasKeyword(const std::string& word) const
-{
-    auto kw = std::find(s_keywords.begin(), s_keywords.end(), word);
-    return (kw != s_keywords.end());
 }
 
 Rerolls Bloodreavers::toHitRerolls(const Unit &unit) const

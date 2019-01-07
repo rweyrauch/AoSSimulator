@@ -32,8 +32,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers);
 
-    bool hasKeyword(const std::string& word) const override;
-
 protected:
 
     Rerolls toHitRerolls(const Unit& unit) const override;
@@ -46,8 +44,6 @@ protected:
                   s_reaverBladesChieftain,
                   s_meatripperAxe,
                   s_meatripperAxeChieftain;
-
-    static std::vector<std::string> s_keywords;
 };
 
 } // namespace Khorne

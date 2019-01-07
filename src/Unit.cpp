@@ -20,12 +20,13 @@ void Unit::movement(bool run)
     m_ran = run;
 }
 
-void Unit::shooting(int numAttackingModels, Unit &unit)
+int Unit::shooting(int numAttackingModels, Unit &unit)
 {
     if (m_ran && !m_runAndShoot)
     {
-        return;
+        return 0;
     }
+
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
         numAttackingModels = m_models.size();
@@ -49,6 +50,7 @@ void Unit::shooting(int numAttackingModels, Unit &unit)
     {
         // unit was slain
     }
+    return totalDamage;
 }
 
 void Unit::charge()
@@ -121,7 +123,7 @@ int Unit::computeDamage(int numWoundingHits, const Weapon &weapon)
     Dice::RollResult rollResult;
 
     auto effectiveRend = m_ignoreRend ? 0 : weapon.rend();
-    auto toSave = m_save + effectiveRend;
+    auto toSave = m_save - effectiveRend;
 
     int numMadeSaves = 0;
     if (toSaveModifier() == RerollOnes)
@@ -193,7 +195,6 @@ int Unit::applyDamage(int totalDamage)
         }
         if (m->woundsRemaining() <= 0)
         {
-            m = m_models.erase(m);
             numSlain++;
         }
     }
@@ -201,6 +202,39 @@ int Unit::applyDamage(int totalDamage)
     m_modelsSlain = numSlain;
 
     return numSlain;
+}
+
+int Unit::remainingModels() const
+{
+    int models = 0;
+    for (auto m : m_models)
+    {
+        if (m.woundsRemaining() > 0)
+            models++;
+    }
+    return models;
+}
+
+int Unit::remainingWounds() const
+{
+    int wounds = 0;
+    for (auto m : m_models)
+    {
+        wounds += m.woundsRemaining();
+    }
+    return wounds;
+}
+
+bool Unit::hasKeyword(Keyword word) const
+{
+    auto kw = std::find(m_keywords.begin(), m_keywords.end(), word);
+    return (kw != m_keywords.end());
+}
+
+bool Unit::addKeyword(Keyword word)
+{
+    m_keywords.push_back(word);
+    return true;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

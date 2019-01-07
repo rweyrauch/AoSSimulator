@@ -11,9 +11,11 @@ add_library(
         Battle.cpp
         Board.cpp
         TerrainFeature.cpp
+        stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp
         stormcast/CelestarBallista.cpp
+        stormcast/LordOrdinator.cpp
         khorne/Bloodreavers.cpp
         sylvaneth/Alarielle.cpp
 )

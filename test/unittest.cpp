@@ -11,6 +11,9 @@
 #include <Unit.h>
 #include <stormcast/Liberators.h>
 #include <khorne/Bloodreavers.h>
+#include <sylvaneth/Alarielle.h>
+#include <stormcast/CelestarBallista.h>
+#include <stormcast/LordOrdinator.h>
 
 TEST(Unit, Combat)
 {
@@ -131,4 +134,59 @@ TEST(Unit, LiberatorsVsBloodreavers)
     }
     std::cout << liberators.remainingModels() << " Liberators at the end of the battle." << std::endl;
     std::cout << bloodreavers.remainingModels() << " Bloodreavers at the end of the battle." << std::endl;
+}
+
+TEST(Unit, BallistaVsAlarielle)
+{
+    StormcastEternals::CelestarBallista ballista0, ballista1, ballista2;
+    StormcastEternals::LordOrdinator lordOrdinator;
+
+    bool ok = lordOrdinator.configure(StormcastEternals::LordOrdinator::AstralHammers);
+    ASSERT_TRUE(ok);
+
+    const bool singleShot = false;
+    ok = ballista0.configure(singleShot);
+    ASSERT_TRUE(ok);
+    ballista0.addKeyword(ASTRAL_TEMPLARS);
+
+    ok = ballista1.configure(singleShot);
+    ASSERT_TRUE(ok);
+    ballista1.addKeyword(ASTRAL_TEMPLARS);
+
+    ok = ballista2.configure(singleShot);
+    ASSERT_TRUE(ok);
+    ballista2.addKeyword(ASTRAL_TEMPLARS);
+
+    // apply Lord-Ordinator buffs
+    ballista0.buffToHitMissile(1);
+    ballista1.buffToHitMissile(1);
+    ballista2.buffToHitMissile(1);
+
+    Sylvaneth::Alarielle alarielle;
+    ok = alarielle.configure();
+    ASSERT_TRUE(ok);
+
+    for (auto i = 0; i < 5; i++)
+    {
+        std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining." << std::endl;
+        alarielle.beginTurn();
+        ballista0.beginTurn();
+        ballista1.beginTurn();
+        ballista2.beginTurn();
+        lordOrdinator.beginTurn();
+
+        auto totalDamage = ballista0.shooting(-1, alarielle);
+        std::cout << "Ballista0 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
+        totalDamage = ballista1.shooting(-1, alarielle);
+        std::cout << "Ballista1 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
+        totalDamage = ballista2.shooting(-1, alarielle);
+        std::cout << "Ballista2 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
+
+        if (alarielle.remainingWounds() <= 0)
+        {
+            std::cout << "Alarielle has been slain." << std::endl;
+            break;
+        }
+    }
+    std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after the battle." << std::endl;
 }

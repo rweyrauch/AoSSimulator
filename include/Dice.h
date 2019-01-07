@@ -43,13 +43,13 @@ public:
             if (roll < 1 || roll > 6) return 0;
 
             int rolls = 0;
-            for (auto i = roll; i < 6; i++)
+            for (auto i = roll; i < 7; i++)
                 rolls += distribution[i];
             return rolls;
         }
         int numUnmodified6s() const
         {
-            return distribution[6];
+            return distribution[7];
         }
     };
 

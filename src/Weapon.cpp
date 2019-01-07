@@ -63,8 +63,9 @@ int Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
     Dice::RollResult rollResult;
 
     int totalHits = numHits;
-    if (m_hitsPerAttack > 1)
+    if (m_hitsPerAttack < 0)
     {
+        totalHits = 0;
         for (int i = 0; i < numHits; i++)
         {
             totalHits += numTotalHits();

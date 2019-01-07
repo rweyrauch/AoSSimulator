@@ -34,28 +34,33 @@ public:
 
     void hero();
     void movement(bool run = false);
-    void shooting(int numAttackingModels, Unit& unit);
+    int shooting(int numAttackingModels, Unit& unit);
     void charge();
     int combat(int numAttackingModels, Unit& unit);
     int battleshock(int modifier = 0);
 
     int computeDamage(int numWoundingHits, const Weapon &weapon);
     int applyDamage(int totalDamage);
-    int remainingModels() const { return (int)m_models.size(); }
+    int remainingModels() const;
+    int remainingWounds() const;
 
-    virtual bool hasKeyword(const std::string& word) const { return false; }
+    bool addKeyword(Keyword word);
+    bool hasKeyword(Keyword word) const;
+
+    void buffToHit(int modifier) { m_toHitBuff = modifier; }
+    void buffToHitMissile(int modifier) { m_toHitBuffMissile = modifier; }
 
 protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
 
-    virtual int toHitModifier(const Unit& unit) const { return 0; }
+    virtual int toHitModifier(const Unit& unit) const { return m_toHitBuff; }
     virtual Rerolls toHitRerolls(const Unit& unit) const { return NoRerolls; }
 
     virtual int toWoundModifier(const Unit& unit) const { return 0; }
     virtual Rerolls toWoundRerolls(const Unit& unit) const { return NoRerolls; }
 
-    virtual int toHitModifierMissile(const Unit& unit) const { return 0; }
+    virtual int toHitModifierMissile(const Unit& unit) const { return m_toHitBuffMissile; }
     virtual Rerolls toHitRerollsMissile(const Unit& unit) const { return NoRerolls; }
 
     virtual int toWoundModifierMissile(const Unit& unit) const { return 0; }
@@ -90,6 +95,10 @@ protected:
     int m_modelsSlain = 0;
     int m_ran = false;
     int m_charged = false;
+    int m_toHitBuff = 0;
+    int m_toHitBuffMissile = 0;
+
+    std::vector<Keyword> m_keywords;
 };
 
 class CustomUnit : public Unit

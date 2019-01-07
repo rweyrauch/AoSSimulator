@@ -12,38 +12,30 @@ namespace StormcastEternals
 {
 
 Weapon CelestarBallista::s_stormboltsSingle("Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1);
-Weapon CelestarBallista::s_stormboltsRapid("Celestar Stormbolts: Rapid Far", 18, 4, 5, 4, -2, 1);
+Weapon CelestarBallista::s_stormboltsRapid("Celestar Stormbolts: Rapid Far", 18, 4, 5, 3, -2, 1);
 Weapon CelestarBallista::s_sigmariteBlades("Sigmarite Blades", 1, 4, 4, 4, 0, 1);
 
-std::vector<std::string> CelestarBallista::s_keywords =
-    {
-        "ORDER", "CELESTIAL", "HUMAN", "STORMCAST ETERNAL", "SACROSANCT", "ORDINATOS", "WAR MACHINE",
-        "CELESTAR BALLISTA"
-    };
-
 CelestarBallista::CelestarBallista() :
-    Unit("Celestar Ballista", 3, WOUNDS, 7, 4, false)
+    StormcastEternal("Celestar Ballista", 3, WOUNDS, 7, 4, false)
 {
     // Burst of Celestial Energy
     s_stormboltsSingle.setHitsPerAttack(RAND_D6);
     s_stormboltsRapid.setHitsPerAttack(RAND_D6);
+
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE, CELESTAR_BALLISTA};
 }
 
-bool CelestarBallista::configure()
+bool CelestarBallista::configure(bool singleShot)
 {
     Model model(BASESIZE, WOUNDS);
     model.addMeleeWeapon(s_sigmariteBlades);
-    model.addMissileWeapon(s_stormboltsSingle);
-    model.addMissileWeapon(s_stormboltsRapid);
+    if (singleShot)
+        model.addMissileWeapon(s_stormboltsSingle);
+    else
+        model.addMissileWeapon(s_stormboltsRapid);
     addModel(model);
 
     return true;
-}
-
-bool CelestarBallista::hasKeyword(const std::string& word) const
-{
-    auto kw = std::find(s_keywords.begin(), s_keywords.end(), word);
-    return (kw != s_keywords.end());
 }
 
 } // namespace StormcastEternals

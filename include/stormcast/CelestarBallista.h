@@ -9,13 +9,14 @@
 #ifndef WARHAMMERSIM_CELESTARBALLISTA_H
 #define WARHAMMERSIM_CELESTARBALLISTA_H
 
-#include <Unit.h>
+#include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
+
 
 namespace StormcastEternals
 {
 
-class CelestarBallista : public Unit
+class CelestarBallista : public StormcastEternal
 {
 public:
 
@@ -25,9 +26,7 @@ public:
     CelestarBallista();
     ~CelestarBallista() override = default;
 
-    bool configure();
-
-    bool hasKeyword(const std::string& word) const override;
+    bool configure(bool singleShot);
 
 protected:
 
@@ -36,8 +35,6 @@ private:
     static Weapon s_stormboltsSingle,
         s_stormboltsRapid,
         s_sigmariteBlades;
-
-    static std::vector<std::string> s_keywords;
 };
 
 } // namespace StormcastEternals

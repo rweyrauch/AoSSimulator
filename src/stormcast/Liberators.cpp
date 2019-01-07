@@ -18,14 +18,10 @@ Weapon Liberators::s_warbladePrime("Warblade", 1, 3, 3, 4, 0, 1);
 Weapon Liberators::s_grandhammer("Grandhammer", 1, 2, 4, 3, -1, 2);
 Weapon Liberators::s_grandblade("Grandblade", 1, 2, 3, 4, -1, 2);
 
-std::vector<std::string> Liberators::s_keywords =
-{
-    "ORDER", "CELESTIAL", "HUMAN", "STORMCAST ETERNAL", "REDEEMER", "LIBERATORS"
-};
-
 Liberators::Liberators() :
-    Unit("Liberators", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false)
 {
+    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS };
 }
 
 bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhammers, int numGrandblades)
@@ -83,19 +79,15 @@ bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhamm
     return true;
 }
 
-bool Liberators::hasKeyword(const std::string& word) const
-{
-    auto kw = std::find(s_keywords.begin(), s_keywords.end(), word);
-    return (kw != s_keywords.end());
-}
-
 int Liberators::toHitModifier(const Unit &unit) const
 {
+    int modifier = StormcastEternal::toHitModifier(unit);
+
     // Lay Low the Tyrants
     if (unit.wounds() >= 5)
-        return 1;
+        modifier += 1;
 
-    return Unit::toHitModifier(unit);
+    return modifier;
 }
 
 Rerolls Liberators::toSaveRerolls() const
@@ -104,7 +96,7 @@ Rerolls Liberators::toSaveRerolls() const
     if (m_weaponOption == Warhammer || m_weaponOption == Warblade)
         return RerollOnes;
 
-    return Unit::toSaveRerolls();
+    return StormcastEternal::toSaveRerolls();
 }
 
 } // namespace StormcastEternals

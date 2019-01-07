@@ -9,13 +9,13 @@
 #ifndef WARHAMMERSIM_JUDICATORS_H
 #define WARHAMMERSIM_JUDICATORS_H
 
-#include <Unit.h>
+#include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
 namespace StormcastEternals
 {
 
-class Judicators : public Unit
+class Judicators : public StormcastEternal
 {
 public:
 
@@ -33,8 +33,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows);
 
-    bool hasKeyword(const std::string& word) const override;
-
 protected:
 
     Rerolls toHitRerollsMissile(const Unit& unit) const override;
@@ -49,8 +47,6 @@ private:
                   s_shockboltBow,
                   s_thunderboldCrossbow,
                   s_stormGladius;
-
-    static std::vector<std::string> s_keywords;
 };
 
 } // namespace StormcastEternals

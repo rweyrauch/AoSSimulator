@@ -9,13 +9,13 @@
 #ifndef WARHAMMERSIM_LIBERATORS_H
 #define WARHAMMERSIM_LIBERATORS_H
 
-#include <Unit.h>
+#include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
 namespace StormcastEternals
 {
 
-class Liberators : public Unit
+class Liberators : public StormcastEternal
 {
 public:
 
@@ -35,8 +35,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, int numGrandhammers, int numGrandblades);
 
-    bool hasKeyword(const std::string& word) const override;
-
 protected:
 
     int toHitModifier(const Unit& unit) const override;
@@ -53,8 +51,6 @@ private:
                   s_grandhammer,
                   s_grandblade;
 
-
-    static std::vector<std::string> s_keywords;
 };
 
 } // namespace StormcastEternals

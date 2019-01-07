@@ -1,0 +1,38 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#ifndef WARHAMMERSIM_STORMCASTETERNALS_H
+#define WARHAMMERSIM_STORMCASTETERNALS_H
+
+#include <Unit.h>
+#include <Weapon.h>
+
+namespace StormcastEternals
+{
+
+class StormcastEternal : public Unit
+{
+public:
+    StormcastEternal() = default;
+    ~StormcastEternal() override = default;
+
+protected:
+    StormcastEternal(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
+        Unit(name, move, wounds, bravery, save, fly) {}
+
+    int toHitModifier(const Unit& unit) const override;
+    Rerolls toHitRerolls(const Unit& unit) const override;
+    int toHitModifierMissile(const Unit& unit) const override;
+    int battlshockModifier() const override;
+    Rerolls battleshockRerolls() const override;
+
+};
+
+} // namespace StormcastEternals
+
+#endif //WARHAMMERSIM_STORMCASTETERNALS_H

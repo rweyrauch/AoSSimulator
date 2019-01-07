@@ -17,14 +17,11 @@ Weapon Judicators::s_shockboltBow("Shockbolt Bow", 24, 1, 3, 3, -1, 1);
 Weapon Judicators::s_thunderboldCrossbow("Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0);
 Weapon Judicators::s_stormGladius("Storm Gladius", 1, 1, 3, 4, 0, 1);
 
-std::vector<std::string> Judicators::s_keywords =
-{
-    "ORDER", "CELESTIAL", "HUMAN", "STORMCAST ETERNAL", "JUSTICAR", "JUDICATORS"
-};
-
 Judicators::Judicators() :
-    Unit("Judicators", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Judicators", 5, WOUNDS, 7, 4, false)
 {
+    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS };
+
     // Chained Lightning
     s_shockboltBow.setHitsPerAttack(RAND_D6);
 }
@@ -93,11 +90,11 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
 Rerolls Judicators::toHitRerollsMissile(const Unit& unit) const
 {
     // External Judgement
-    if (unit.hasKeyword("CHAOS"))
+    if (unit.hasKeyword(CHAOS))
     {
         return RerollOnes;
     }
-    return Unit::toHitRerollsMissile(unit);
+    return StormcastEternal::toHitRerollsMissile(unit);
 }
 
 int Judicators::extraAttacksMissile() const
@@ -107,13 +104,7 @@ int Judicators::extraAttacksMissile() const
     {
         return 1;
     }
-    return Unit::extraAttacksMissile();
-}
-
-bool Judicators::hasKeyword(const std::string& word) const
-{
-    auto kw = std::find(s_keywords.begin(), s_keywords.end(), word);
-    return (kw != s_keywords.end());
+    return StormcastEternal::extraAttacksMissile();
 }
 
 } // namespace StormcastEternals
