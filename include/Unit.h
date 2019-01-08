@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_UNIT_H
-#define WARHAMMERSIM_UNIT_H
+#ifndef UNIT_H
+#define UNIT_H
 
 #include <memory>
 #include <vector>
@@ -106,6 +106,25 @@ protected:
     int m_toHitBuffMissile = 0;
 
     std::vector<Keyword> m_keywords;
+
+    enum BuffableAttribute
+    {
+        MoveDistance = 0,
+        ChargeDistance,
+        ToHit_Combat,
+        ToHit_Missile,
+        ToWound_Combat,
+        ToWound_Missile,
+        ToSave_Combat,
+        ToSave_Missile,
+        Bravery,
+
+        NUM_BUFFABLE_ATTRIBUTES
+    };
+    // TODO: How best manage buff/debuffs?  Data or code?
+    // How to manage buff/debuff lifecycle?
+    int m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
+    Rerolls m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
 };
 
 class CustomUnit : public Unit
@@ -115,4 +134,4 @@ public:
 
 };
 
-#endif //WARHAMMERSIM_UNIT_H
+#endif //UNIT_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_WEAPON_H
-#define WARHAMMERSIM_WEAPON_H
+#ifndef WEAPON_H
+#define WEAPON_H
 
 #include <string>
 #include <WarhammerSim.h>
@@ -49,4 +49,4 @@ private:
     int m_hitsPerAttack = 1;
 };
 
-#endif //WARHAMMERSIM_WEAPON_H
+#endif //WEAPON_H

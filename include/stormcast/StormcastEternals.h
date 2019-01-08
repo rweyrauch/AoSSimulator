@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_STORMCASTETERNALS_H
-#define WARHAMMERSIM_STORMCASTETERNALS_H
+#ifndef STORMCASTETERNALS_H
+#define STORMCASTETERNALS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -35,4 +35,4 @@ protected:
 
 } // namespace StormcastEternals
 
-#endif //WARHAMMERSIM_STORMCASTETERNALS_H
+#endif //STORMCASTETERNALS_H

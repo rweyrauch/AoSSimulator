@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_CELESTARBALLISTA_H
-#define WARHAMMERSIM_CELESTARBALLISTA_H
+#ifndef CELESTARBALLISTA_H
+#define CELESTARBALLISTA_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -39,4 +39,4 @@ private:
 
 } // namespace StormcastEternals
 
-#endif //WARHAMMERSIM_CELESTARBALLISTA_H
+#endif //CELESTARBALLISTA_H

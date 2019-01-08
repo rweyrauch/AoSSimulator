@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_PLAYER_H
-#define WARHAMMERSIM_PLAYER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include <Roster.h>
 
@@ -15,6 +15,11 @@ class Player
 {
 public:
     Player() = default;
+
+    void setRoster(const Roster& roster)
+    {
+        m_roster = roster;
+    }
 
     void beginTurn();
     void doHeroPhase();
@@ -30,4 +35,4 @@ private:
 };
 
 
-#endif //WARHAMMERSIM_PLAYER_H
+#endif //PLAYER_H

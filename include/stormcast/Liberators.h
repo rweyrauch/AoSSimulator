@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_LIBERATORS_H
-#define WARHAMMERSIM_LIBERATORS_H
+#ifndef LIBERATORS_H
+#define LIBERATORS_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -55,4 +55,4 @@ private:
 
 } // namespace StormcastEternals
 
-#endif //WARHAMMERSIM_LIBERATORS_H
+#endif //LIBERATORS_H

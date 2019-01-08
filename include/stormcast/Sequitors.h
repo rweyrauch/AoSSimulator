@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_SEQUITORS_H
-#define WARHAMMERSIM_SEQUITORS_H
+#ifndef SEQUITORS_H
+#define SEQUITORS_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -54,4 +54,4 @@ private:
 
 } // namespace StormcastEternals
 
-#endif //WARHAMMERSIM_SEQUITORS_H
+#endif //SEQUITORS_H

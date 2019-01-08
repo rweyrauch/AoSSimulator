@@ -12,6 +12,24 @@
 namespace Sylvaneth
 {
 
+struct TableEntry
+{
+    int m_move;
+    int m_spearKurnothRange;
+    int m_greatAntlerDamage;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 0, 5, 8, 11, 14 };
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+{
+    { 16, 30, 5 },
+    { 14, 25, 4 },
+    { 10, 20, 3 },
+    { 8, 15, 2 },
+    { 6, 10, 1 }
+};
+
 Weapon Alarielle::s_spearOfKurnoth("Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6);
 Weapon Alarielle::s_talonOfDwindling("Talon of Dwindling", 1, 4, 3, 4, 0, 1);
 Weapon Alarielle::s_beetleGreatAntlers("Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5);
@@ -47,12 +65,13 @@ int Alarielle::toHitModifier(const Unit& unit) const
 
 void Alarielle::hero()
 {
-    // Lifebloom
     if (remainingWounds() < WOUNDS && remainingWounds() > 0)
     {
-        // heal D3
         Dice dice;
+        // Lifebloom - heal herself D3
         int woundsHealed = dice.rollD3();
+        // Soul Amphorae (healing part).  TODO: only do this if not summoning
+        woundsHealed += dice.rollD3();
         for (auto& m : m_models)
         {
             m.woundsRemaining() += woundsHealed;
@@ -60,6 +79,11 @@ void Alarielle::hero()
                 m.woundsRemaining() = WOUNDS;
         }
     }
+}
+
+int Alarielle::getDamageTableIndex() const
+{
+    return 0;
 }
 
 } // namespace Sylvaneth

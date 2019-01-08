@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_LORDORDINATOR_H
-#define WARHAMMERSIM_LORDORDINATOR_H
+#ifndef LORDORDINATOR_H
+#define LORDORDINATOR_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -45,4 +45,4 @@ private:
 
 } // namespace StormcastEternals
 
-#endif //WARHAMMERSIM_LORDORDINATOR_H
+#endif //LORDORDINATOR_H

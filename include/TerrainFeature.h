@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_TERRAINFEATURE_H
-#define WARHAMMERSIM_TERRAINFEATURE_H
+#ifndef TERRAINFEATURE_H
+#define TERRAINFEATURE_H
 
 
 class TerrainFeature
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //WARHAMMERSIM_TERRAINFEATURE_H
+#endif //TERRAINFEATURE_H

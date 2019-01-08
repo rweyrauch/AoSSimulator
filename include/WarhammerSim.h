@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_WARHAMMERSIM_H
-#define WARHAMMERSIM_WARHAMMERSIM_H
+#ifndef WARHAMMERSIM_H
+#define WARHAMMERSIM_H
 
 #include <cinttypes>
 
@@ -91,7 +91,15 @@ enum Keyword
     BLOODREAVERS,
 
     SYLVANETH,
-    ALARIELLE_THE_EVERQUEEN
+    ALARIELLE_THE_EVERQUEEN,
+
+    SQUIG,
+    GLOOMSPITE_GITZ,
+    MOONCLAN,
+    SQUIG_HERD,
+    SQUIG_HOPPERS,
+    BOINGROT_BOUNDERZ,
+
 };
 
-#endif //WARHAMMERSIM_WARHAMMERSIM_H
+#endif //WARHAMMERSIM_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_ALARIELLE_H
-#define WARHAMMERSIM_ALARIELLE_H
+#ifndef ALARIELLE_H
+#define ALARIELLE_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -33,6 +33,7 @@ protected:
 
     int toHitModifier(const Unit& unit) const override;
 
+    int getDamageTableIndex() const;
 private:
 
     static Weapon s_spearOfKurnoth,
@@ -42,4 +43,4 @@ private:
 
 } // namespace Sylvaneth
 
-#endif //WARHAMMERSIM_ALARIELLE_H
+#endif //ALARIELLE_H

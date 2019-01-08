@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_BATTLE_H
-#define WARHAMMERSIM_BATTLE_H
+#ifndef BATTLE_H
+#define BATTLE_H
 
 #include <WarhammerSim.h>
 #include <Player.h>

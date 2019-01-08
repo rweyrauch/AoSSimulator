@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_BLOODREAVERS_H
-#define WARHAMMERSIM_BLOODREAVERS_H
+#ifndef BLOODREAVERS_H
+#define BLOODREAVERS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -48,4 +48,4 @@ protected:
 
 } // namespace Khorne
 
-#endif //WARHAMMERSIM_BLOODREAVERS_H
+#endif //BLOODREAVERS_H

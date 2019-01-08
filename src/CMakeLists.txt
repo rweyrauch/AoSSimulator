@@ -19,6 +19,9 @@ add_library(
         stormcast/Sequitors.cpp
         khorne/Bloodreavers.cpp
         sylvaneth/Alarielle.cpp
+        gloomspitegitz/SquigHerd.cpp
+        gloomspitegitz/SquigHoppers.cpp
+        gloomspitegitz/BoingrotBounderz.cpp
 )
 
 target_include_directories(

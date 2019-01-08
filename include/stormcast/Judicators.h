@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_JUDICATORS_H
-#define WARHAMMERSIM_JUDICATORS_H
+#ifndef JUDICATORS_H
+#define JUDICATORS_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -51,4 +51,4 @@ private:
 
 } // namespace StormcastEternals
 
-#endif //WARHAMMERSIM_JUDICATORS_H
+#endif //JUDICATORS_H

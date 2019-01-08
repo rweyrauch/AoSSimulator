@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_BOARD_H
-#define WARHAMMERSIM_BOARD_H
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <vector>
 #include <TerrainFeature.h>

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_ARMY_H
-#define WARHAMMERSIM_ARMY_H
+#ifndef ROSTER_H
+#define ROSTER_H
 
 #include <vector>
 #include <Unit.h>
@@ -16,6 +16,11 @@ class Roster
 {
 public:
     Roster() = default;
+
+    void addUnit(const Unit& unit)
+    {
+        m_units.push_back(unit);
+    }
 
     void beginTurn();
     void doHeroPhase();
@@ -30,4 +35,4 @@ private:
 };
 
 
-#endif //WARHAMMERSIM_ARMY_H
+#endif //ROSTER_H

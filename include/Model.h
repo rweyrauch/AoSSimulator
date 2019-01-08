@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_MODEL_H
-#define WARHAMMERSIM_MODEL_H
+#ifndef MODEL_H
+#define MODEL_H
 
 #include <vector>
 #include <Weapon.h>
@@ -47,4 +47,4 @@ private:
 };
 
 
-#endif //WARHAMMERSIM_MODEL_H
+#endif //MODEL_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_DICE_H
-#define WARHAMMERSIM_DICE_H
+#ifndef DICE_H
+#define DICE_H
 
 #include <random>
 #include <vector>
@@ -63,4 +63,4 @@ private:
 };
 
 
-#endif //WARHAMMERSIM_DICE_H
+#endif //DICE_H
