@@ -224,6 +224,15 @@ int Unit::battlshockModifier() const
     return remainingModels() / 10;
 }
 
+void Unit::restore()
+{
+    for (auto& m : m_models)
+    {
+        m.woundsRemaining() = m_wounds;
+        m.restore();
+    }
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

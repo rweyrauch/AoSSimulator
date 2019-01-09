@@ -30,6 +30,7 @@ public:
 
     void addModel(const Model& model);
 
+    void restore();
     void beginTurn();
 
     // Phase functions (these are the 'think' functions that decide what this unit

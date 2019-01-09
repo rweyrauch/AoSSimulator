@@ -54,24 +54,27 @@ TEST(ManoAMano, StatsLibsVsReavers)
     int blueVictories = 0;
     int ties = 0;
 
+    ManoAMano battle(5, false);
+
+    auto board = Board::Instance();
+    board->setSize(72, 48);
+
+    auto libs = new StormcastEternals::Liberators();
+    auto reavers = new Khorne::Bloodreavers();
+
+    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 0, 0);
+    ASSERT_TRUE(ok);
+
+    ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ASSERT_TRUE(ok);
+
+    battle.combatants(libs, reavers);
+
     const int NUM_BATTLES = 1000;
     for (auto i = 0; i < NUM_BATTLES; i++)
     {
-        ManoAMano battle(5, false);
-
-        auto board = Board::Instance();
-        board->setSize(72, 48);
-
-        auto libs = new StormcastEternals::Liberators();
-        auto reavers = new Khorne::Bloodreavers();
-
-        bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 0, 0);
-        ASSERT_TRUE(ok);
-
-        ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
-        ASSERT_TRUE(ok);
-
-        battle.combatants(libs, reavers);
+        libs->restore();
+        reavers->restore();
 
         battle.start();
 
@@ -88,13 +91,13 @@ TEST(ManoAMano, StatsLibsVsReavers)
             redVictories++;
         else
             ties++;
-
-        delete libs;
-        delete reavers;
     }
 
     std::cout << "Victor Breakdown (%):" << std::endl
         << "\tRed: " << (float)redVictories * 100.0f/NUM_BATTLES << std::endl
         << "\tBlue: " << (float)blueVictories * 100.0f/NUM_BATTLES << std::endl
         << "\tTies: " << (float)ties * 100.0f/NUM_BATTLES << std::endl;
+
+    delete libs;
+    delete reavers;
 }

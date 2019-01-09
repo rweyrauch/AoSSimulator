@@ -18,3 +18,9 @@ void Model::addMissileWeapon(const Weapon &weapon)
 {
     m_missile.push_back(weapon);
 }
+
+void Model::restore()
+{
+    m_slain = false;
+    m_fled = false;
+}

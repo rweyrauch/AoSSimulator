@@ -42,6 +42,8 @@ public:
     void flee() { m_fled = true; }
     bool fled() const { return m_fled; }
 
+    void restore();
+
 private:
     int m_baseSize = 0;
     float m_x = 0.0f, m_y = 0.0f, m_z = 0.0f;
