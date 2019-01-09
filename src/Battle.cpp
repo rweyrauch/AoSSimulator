@@ -47,13 +47,13 @@ void Battle::next()
             {
                 // Next players turn
                 m_topOfRound = false;
-                if (m_currentPlayer == PlayerId::One)
+                if (m_currentPlayer == PlayerId::Red)
                 {
-                    m_currentPlayer = PlayerId::Two;
+                    m_currentPlayer = PlayerId::Blue;
                 }
                 else
                 {
-                    m_currentPlayer = PlayerId::One;
+                    m_currentPlayer = PlayerId::Red;
                 }
 
                 const auto playerIdx = (int)m_currentPlayer;
@@ -87,8 +87,8 @@ void Battle::simulate()
 {
     std::cout << "Battle State:" << std::endl;
     std::cout << "\tRound: " << m_round << " of " << m_numRounds << ".  Top of round: " << m_topOfRound << std::endl;
-    std::cout << "\tPhase: " << phaseToString(m_currentPhase) << std::endl;
-    std::cout << "\tCurrent Player: " << playerIdToString(m_currentPlayer) << std::endl;
+    std::cout << "\tPhase: " << PhaseToString(m_currentPhase) << std::endl;
+    std::cout << "\tCurrent Player: " << PlayerIdToString(m_currentPlayer) << std::endl;
 
     // run the simulation for the current state
     switch (m_currentPhase)
@@ -132,21 +132,21 @@ void Battle::runInitiativePhase()
     if (p1 == p2)
     {
         // Ties go to the player that went first in the previous round.
-        m_currentPlayer = (m_currentPlayer == PlayerId::One) ? PlayerId::Two : PlayerId::One;
+        m_currentPlayer = (m_currentPlayer == PlayerId::Red) ? PlayerId::Blue : PlayerId::Red;
     }
     else if (p1 > p2)
     {
-        m_currentPlayer = PlayerId::One;
+        m_currentPlayer = PlayerId::Red;
     }
     else
     {
-        m_currentPlayer = PlayerId::Two;
+        m_currentPlayer = PlayerId::Blue;
     }
 
     const auto playerIdx = (int)m_currentPlayer;
     m_players[playerIdx].beginTurn();
 
-    std::cout << "Player " << playerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
+    std::cout << "Player " << PlayerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
         p1 << " P2: " << p2 << std::endl;
 }
 
@@ -184,38 +184,6 @@ void Battle::runBattleshockPhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
     m_players[playerIdx].doBattleshockPhase();
-}
-
-std::string Battle::phaseToString(Phase phase) const
-{
-    switch (phase)
-    {
-        case Phase::Initiative:
-            return "Initiative";
-        case Phase::Hero:
-            return "Hero";
-        case Phase::Movement:
-            return "Movement";
-        case Phase::Shooting:
-            return "Shooting";
-        case Phase::Charge:
-            return "Charge";
-        case Phase::Combat:
-            return "Combat";
-        case Phase::Battleshock:
-            return "Battleshock";
-    }
-}
-
-std::string Battle::playerIdToString(PlayerId id) const
-{
-    switch (id)
-    {
-        case PlayerId::One:
-            return "One";
-        case PlayerId::Two:
-            return "Two";
-    }
 }
 
 void Battle::deployment()

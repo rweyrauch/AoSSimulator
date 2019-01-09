@@ -56,11 +56,12 @@ TEST(Unit, Combat)
         liberators.beginTurn();
         bloodreavers.beginTurn();
 
-        auto totalDamage = liberators.fight(-1, bloodreavers);
+        int numSlain = 0;
+        auto totalDamage = liberators.fight(-1, &bloodreavers, numSlain);
         std::cout << "   Liberators inflicted " << totalDamage << " damage onto Bloodreavers. " <<
             bloodreavers.remainingModels() << " Bloodreavers remain." << std::endl;
 
-        totalDamage = bloodreavers.fight(-1, liberators);
+        totalDamage = bloodreavers.fight(-1, &liberators, numSlain);
         std::cout << "   Bloodreavers inflicted " << totalDamage << " damage onto Liberators. " <<
             liberators.remainingModels() << " Liberators remain." << std::endl;
 
@@ -114,11 +115,12 @@ TEST(Unit, LiberatorsVsBloodreavers)
         liberators.beginTurn();
         bloodreavers.beginTurn();
 
-        auto totalDamage = liberators.fight(-1, bloodreavers);
+        int numSlain = 0;
+        auto totalDamage = liberators.fight(-1, &bloodreavers, numSlain);
         std::cout << "   Liberators inflicted " << totalDamage << " damage onto Bloodreavers. " <<
                   bloodreavers.remainingModels() << " Bloodreavers remain." << std::endl;
 
-        totalDamage = bloodreavers.fight(-1, liberators);
+        totalDamage = bloodreavers.fight(-1, &liberators, numSlain);
         std::cout << "   Bloodreavers inflicted " << totalDamage << " damage onto Liberators. " <<
                   liberators.remainingModels() << " Liberators remain." << std::endl;
 
@@ -178,36 +180,37 @@ TEST(Unit, BallistaVsAlarielle)
         alarielle.hero();
         std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after hero phase." << std::endl;
 
-        auto totalDamage = ballista0.shoot(-1, alarielle);
+        int numSlain = 0;
+        auto totalDamage = ballista0.shoot(-1, &alarielle, numSlain);
         std::cout << "Ballista0 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
-        totalDamage = ballista1.shoot(-1, alarielle);
+        totalDamage = ballista1.shoot(-1, &alarielle, numSlain);
         std::cout << "Ballista1 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
-        totalDamage = ballista2.shoot(-1, alarielle);
+        totalDamage = ballista2.shoot(-1, &alarielle, numSlain);
         std::cout << "Ballista2 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
 
         if (alarielle.remainingWounds() > 0)
         {
             if (ballista0.remainingWounds() > 0)
             {
-                totalDamage = alarielle.shoot(-1, ballista0);
+                totalDamage = alarielle.shoot(-1, &ballista0, numSlain);
                 std::cout << "Alarielle inflicted " << totalDamage << " wounds on Ballista0."
                           << std::endl;
             }
             else if (ballista1.remainingWounds() > 0)
             {
-                totalDamage = alarielle.shoot(-1, ballista1);
+                totalDamage = alarielle.shoot(-1, &ballista1, numSlain);
                 std::cout << "Alarielle inflicted " << totalDamage << " wounds on Ballista1."
                           << std::endl;
             }
             else if (ballista2.remainingWounds() > 0)
             {
-                totalDamage = alarielle.shoot(-1, ballista2);
+                totalDamage = alarielle.shoot(-1, &ballista2, numSlain);
                 std::cout << "Alarielle inflicted " << totalDamage << " wounds on Ballista2."
                           << std::endl;
             }
             else
             {
-                totalDamage = alarielle.shoot(-1, lordOrdinator);
+                totalDamage = alarielle.shoot(-1, &lordOrdinator, numSlain);
                 std::cout << "Alarielle inflicted " << totalDamage << " wounds on "
                           << lordOrdinator.name() << "." << std::endl;
             }

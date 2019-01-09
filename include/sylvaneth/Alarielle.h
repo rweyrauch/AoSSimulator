@@ -31,7 +31,7 @@ public:
 
 protected:
 
-    int toHitModifier(const Unit& unit) const override;
+    int toHitModifier(const Unit* unit) const override;
 
     int getDamageTableIndex() const;
 private:

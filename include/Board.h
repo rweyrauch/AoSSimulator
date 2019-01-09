@@ -10,7 +10,10 @@
 #define BOARD_H
 
 #include <vector>
+#include <WarhammerSim.h>
 #include <TerrainFeature.h>
+
+class Roster;
 
 struct Objective
 {
@@ -21,7 +24,7 @@ struct Objective
 class Board
 {
 public:
-    Board() = default;
+    static Board* Instance();
 
     void setSize(float width, float depth)
     {
@@ -29,14 +32,32 @@ public:
         m_depth = depth;
     }
 
-    void addFeature(const TerrainFeature& feature);
-    void addObjective(const Objective& objective);
-    void moveObjective(int id, float x, float y);
+    void addFeature(TerrainFeature* feature);
+    void addObjective(Objective* objective);
+    void moveObjective(int which, float x, float y);
+    void addRosters(const Roster* pRedRoster, const Roster* pBlueRoster);
+
+    float width() const { return m_width; }
+    float depth() const { return m_depth; }
+
+    int getNumFeatures() const { return (int)m_features.size(); }
+    const TerrainFeature* getFeature(int which) const { return m_features.at((size_t)which); }
+
+    int getNumObjectives() const { return (int)m_objectives.size(); }
+    const Objective* getObjective(int which) const { return m_objectives.at((size_t)which); }
+
+    const Roster* getPlayerRoster(PlayerId which) const { return m_rosters[(int)which]; }
+
+protected:
+    Board() = default;
 
 private:
     float m_width = 0.0f, m_depth = 0.0f;
-    std::vector<TerrainFeature> m_features;
-    std::vector<Objective> m_objectives;
+    std::vector<TerrainFeature*> m_features;
+    std::vector<Objective*> m_objectives;
+    const Roster* m_rosters[2] = {nullptr, nullptr};
+
+    static Board* s_pInstance;
 };
 
 

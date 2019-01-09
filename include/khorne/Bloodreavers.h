@@ -34,7 +34,8 @@ public:
 
 protected:
 
-    Rerolls toHitRerolls(const Unit& unit) const override;
+    Rerolls toHitRerolls(const Unit* unit) const override;
+    int battlshockModifier() const override;
 
     WeaponOption m_weaponOption = ReaverBlades;
     bool m_iconBearer = false;

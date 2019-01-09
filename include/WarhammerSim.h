@@ -10,6 +10,18 @@
 #define WARHAMMERSIM_H
 
 #include <cinttypes>
+#include <string>
+
+enum class Phase
+{
+    Initiative,
+    Hero,
+    Movement,
+    Shooting,
+    Charge,
+    Combat,
+    Battleshock
+};
 
 enum RandomNumber
 {
@@ -22,8 +34,9 @@ enum RandomNumber
 
 enum class PlayerId
 {
-    One = 0,
-    Two = 1
+    None = -1,
+    Red = 0,
+    Blue = 1
 };
 
 enum Rerolls
@@ -101,5 +114,9 @@ enum Keyword
     BOINGROT_BOUNDERZ,
 
 };
+
+
+std::string PhaseToString(Phase phase);
+std::string PlayerIdToString(PlayerId id);
 
 #endif //WARHAMMERSIM_H

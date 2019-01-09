@@ -52,11 +52,11 @@ bool Alarielle::configure()
     return true;
 }
 
-int Alarielle::toHitModifier(const Unit& unit) const
+int Alarielle::toHitModifier(const Unit* unit) const
 {
     // Sweeping Blows
     // TODO: need to limit this buff to the Antler's only.
-    if (unit.remainingModels() >= 5)
+    if (unit->remainingModels() >= 5)
     {
         return 1;
     }

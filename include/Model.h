@@ -37,10 +37,17 @@ public:
     const int& woundsRemaining() const { return m_woundsRemaining; }
     int& woundsRemaining() { return m_woundsRemaining; }
 
+    void slay() { m_slain = true; }
+    bool slain() const { return m_slain; }
+    void flee() { m_fled = true; }
+    bool fled() const { return m_fled; }
+
 private:
     int m_baseSize = 0;
     float m_x = 0.0f, m_y = 0.0f, m_z = 0.0f;
     int m_woundsRemaining = 0;
+    bool m_slain = false;
+    bool m_fled = false;
 
     std::vector<Weapon> m_melee;
     std::vector<Weapon> m_missile;

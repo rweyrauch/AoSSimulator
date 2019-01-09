@@ -38,6 +38,7 @@ add_executable(
         weapontest.cpp
         unittest.cpp
         battletest.cpp
+        manoamanotest.cpp
 )
 
 target_link_libraries(

@@ -87,10 +87,10 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     return true;
 }
 
-Rerolls Judicators::toHitRerollsMissile(const Unit& unit) const
+Rerolls Judicators::toHitRerollsMissile(const Unit* unit) const
 {
     // External Judgement
-    if (unit.hasKeyword(CHAOS))
+    if (unit->hasKeyword(CHAOS))
     {
         return RerollOnes;
     }

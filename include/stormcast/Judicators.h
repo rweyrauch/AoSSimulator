@@ -35,7 +35,7 @@ public:
 
 protected:
 
-    Rerolls toHitRerollsMissile(const Unit& unit) const override;
+    Rerolls toHitRerollsMissile(const Unit* unit) const override;
     int extraAttacksMissile() const override;
 
 private:

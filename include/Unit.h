@@ -42,8 +42,8 @@ public:
     virtual void battleshock() {}
 
 
-    int shoot(int numAttackingModels, Unit& unit);
-    int fight(int numAttackingModels, Unit& unit);
+    int shoot(int numAttackingModels, Unit* targetUnit, int& numSlain);
+    int fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
     int applyBattleshock();
 
     int computeDamage(int numWoundingHits, const Weapon &weapon);
@@ -61,22 +61,22 @@ protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
 
-    virtual int toHitModifier(const Unit& unit) const { return m_toHitBuff; }
-    virtual Rerolls toHitRerolls(const Unit& unit) const { return NoRerolls; }
+    virtual int toHitModifier(const Unit* unit) const { return m_toHitBuff; }
+    virtual Rerolls toHitRerolls(const Unit* unit) const { return NoRerolls; }
 
-    virtual int toWoundModifier(const Unit& unit) const { return 0; }
-    virtual Rerolls toWoundRerolls(const Unit& unit) const { return NoRerolls; }
+    virtual int toWoundModifier(const Unit* unit) const { return 0; }
+    virtual Rerolls toWoundRerolls(const Unit* unit) const { return NoRerolls; }
 
-    virtual int toHitModifierMissile(const Unit& unit) const { return m_toHitBuffMissile; }
-    virtual Rerolls toHitRerollsMissile(const Unit& unit) const { return NoRerolls; }
+    virtual int toHitModifierMissile(const Unit* unit) const { return m_toHitBuffMissile; }
+    virtual Rerolls toHitRerollsMissile(const Unit* unit) const { return NoRerolls; }
 
-    virtual int toWoundModifierMissile(const Unit& unit) const { return 0; }
-    virtual Rerolls toWoundRerollsMissile(const Unit& unit) const { return NoRerolls; }
+    virtual int toWoundModifierMissile(const Unit* unit) const { return 0; }
+    virtual Rerolls toWoundRerollsMissile(const Unit* unit) const { return NoRerolls; }
 
     virtual int toSaveModifier() const { return 0; }
     virtual Rerolls toSaveRerolls() const { return NoRerolls; }
 
-    virtual int battlshockModifier() const { return 0; }
+    virtual int battlshockModifier() const;
     virtual Rerolls battleshockRerolls() const { return NoRerolls; }
 
     virtual int extraAttacks() const { return 0; }

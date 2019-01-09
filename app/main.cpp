@@ -19,7 +19,7 @@ int main()
 
     battle.addPlayers(player1, player2);
 
-    battle.start(PlayerId::One);
+    battle.start(PlayerId::Red);
 
     while (!battle.done())
     {

@@ -17,7 +17,7 @@ class Roster
 public:
     Roster() = default;
 
-    void addUnit(const Unit& unit)
+    void addUnit(Unit* unit)
     {
         m_units.push_back(unit);
     }
@@ -31,7 +31,7 @@ public:
     void doBattleshockPhase();
 
 private:
-    std::vector<Unit> m_units;
+    std::vector<Unit*> m_units;
 };
 
 

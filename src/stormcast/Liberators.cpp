@@ -79,12 +79,12 @@ bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhamm
     return true;
 }
 
-int Liberators::toHitModifier(const Unit &unit) const
+int Liberators::toHitModifier(const Unit* unit) const
 {
     int modifier = StormcastEternal::toHitModifier(unit);
 
     // Lay Low the Tyrants
-    if (unit.wounds() >= 5)
+    if (unit->wounds() >= 5)
         modifier += 1;
 
     return modifier;

@@ -5,12 +5,12 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
+#include <iostream>
 #include <algorithm>
 #include <Unit.h>
 #include <Dice.h>
 
-int Unit::shoot(int numAttackingModels, Unit &unit)
+int Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 {
     if (m_ran && !m_runAndShoot)
     {
@@ -19,31 +19,29 @@ int Unit::shoot(int numAttackingModels, Unit &unit)
 
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
-        numAttackingModels = m_models.size();
+        numAttackingModels = (int)m_models.size();
     }
 
     int totalDamage = 0;
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
+        if (model.fled() || model.slain()) continue;
+
         for (auto w = model.missileWeaponBegin(); w != model.missileWeaponEnd(); ++w)
         {
             auto numHits = w->rollToHit(toHitModifierMissile(unit), toHitRerollsMissile(unit), extraAttacksMissile(), hitModifierMissile());
             auto numWounds = w->rollToWound(numHits, toWoundModifierMissile(unit), toWoundRerollsMissile(unit));
 
-            totalDamage += unit.computeDamage(numWounds, *w);
+            totalDamage += unit->computeDamage(numWounds, *w);
         }
     }
 
-    auto slain = unit.applyDamage(totalDamage);
-    if (slain)
-    {
-        // unit was slain
-    }
+    numSlain = unit->applyDamage(totalDamage);
     return totalDamage;
 }
 
-int Unit::fight(int numAttackingModels, Unit &unit)
+int Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
 {
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
@@ -54,6 +52,8 @@ int Unit::fight(int numAttackingModels, Unit &unit)
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
+        if (model.fled() || model.slain()) continue;
+
         for (auto w = model.meleeWeaponBegin(); w != model.meleeWeaponEnd(); ++w)
         {
             auto numHits = w->rollToHit(toHitModifier(unit), toHitRerolls(unit), extraAttacks(), hitModifier());
@@ -62,18 +62,13 @@ int Unit::fight(int numAttackingModels, Unit &unit)
                 auto numWounds = w->rollToWound(numHits, toWoundModifier(unit), toWoundRerolls(unit));
                 if (numWounds > 0)
                 {
-                    totalDamage += unit.computeDamage(numWounds, *w);
+                    totalDamage += unit->computeDamage(numWounds, *w);
                 }
             }
         }
     }
 
-    auto slain = unit.applyDamage(totalDamage);
-    if (slain)
-    {
-        // unit was slain
-    }
-
+    numSlain = unit->applyDamage(totalDamage);
     return totalDamage;
 }
 
@@ -83,18 +78,25 @@ int Unit::applyBattleshock()
 
     Dice dice;
     auto roll = dice.rollD6();
-    int numFleeing = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
-    numFleeing = std::max(0, std::min((int)m_models.size(), numFleeing));
+    int numFled = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
+    numFled = std::max(0, std::min(remainingModels(), numFled));
 
-    // remove fleeing models
-    int numFled = numFleeing;
-    while (numFled > 0)
+    //std::cout << "Battleshock: Models Slain: " << m_modelsSlain << "  Roll: "
+    //    << roll << "  Bravery: " << m_bravery << " modifier: " << battlshockModifier() << std::endl;
+
+    // mark fleeing models
+    int numFleeing = numFled;
+
+    for (auto ip = m_models.rbegin(); ip != m_models.rend() && numFleeing > 0; ++ip)
     {
-        m_models.pop_back();
-        --numFled;
+        if (ip->fled() || ip->slain()) continue;
+        ip->flee();
+        numFleeing--;
     }
 
-    return numFleeing;
+    m_modelsSlain = 0;
+
+    return numFled;
 }
 
 int Unit::computeDamage(int numWoundingHits, const Weapon &weapon)
@@ -148,8 +150,8 @@ Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save,
 
 void Unit::beginTurn()
 {
-    m_modelsSlain = 0;
     m_ran = false;
+    m_charged = false;
 }
 
 void Unit::addModel(const Model &model)
@@ -162,10 +164,14 @@ int Unit::applyDamage(int totalDamage)
     int numSlain = 0;
     for (auto &model : m_models)
     {
+        if (model.slain() || model.fled()) continue;
+
         auto wounds = model.woundsRemaining();
-        if (totalDamage > wounds)
+        if (totalDamage >= wounds)
         {
             model.woundsRemaining() = 0;
+            model.slay();
+
             totalDamage -= wounds;
             numSlain++;
         }
@@ -176,27 +182,15 @@ int Unit::applyDamage(int totalDamage)
         }
     }
     m_modelsSlain = numSlain;
-
-    // Remove slain models. Put models with no wounds remaining at the end of the
-    // model list.  Then remove them from the end (back) of the vector.
-    auto compFunc = [](const Model& a, const Model& b)->bool {
-        return a.woundsRemaining() > b.woundsRemaining();
-    };
-    std::sort(m_models.begin(), m_models.end(), compFunc);
-    while (numSlain > 0)
-    {
-        m_models.pop_back();
-        --numSlain;
-    }
     return m_modelsSlain;
 }
 
 int Unit::remainingModels() const
 {
     int models = 0;
-    for (auto m : m_models)
+    for (const auto& m : m_models)
     {
-        if (m.woundsRemaining() > 0)
+        if (!m.slain() && !m.fled())
             models++;
     }
     return models;
@@ -205,9 +199,10 @@ int Unit::remainingModels() const
 int Unit::remainingWounds() const
 {
     int wounds = 0;
-    for (auto m : m_models)
+    for (const auto& m : m_models)
     {
-        wounds += m.woundsRemaining();
+        if (!m.slain() && !m.fled())
+            wounds += m.woundsRemaining();
     }
     return wounds;
 }
@@ -222,6 +217,11 @@ bool Unit::addKeyword(Keyword word)
 {
     m_keywords.push_back(word);
     return true;
+}
+
+int Unit::battlshockModifier() const
+{
+    return remainingModels() / 10;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

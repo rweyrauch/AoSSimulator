@@ -61,13 +61,24 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     return true;
 }
 
-Rerolls Bloodreavers::toHitRerolls(const Unit &unit) const
+Rerolls Bloodreavers::toHitRerolls(const Unit* unit) const
 {
     // Reaver Blades
     if (m_weaponOption == ReaverBlades)
         return RerollOnes;
 
     return Unit::toHitRerolls(unit);
+}
+
+int Bloodreavers::battlshockModifier() const
+{
+    int modifier = Unit::battlshockModifier();
+
+    // Icon Bearer
+    if (m_iconBearer)
+        modifier++;
+
+    return modifier;
 }
 
 } // namespace Khorne

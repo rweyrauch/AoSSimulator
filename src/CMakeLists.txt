@@ -11,6 +11,8 @@ add_library(
         Battle.cpp
         Board.cpp
         TerrainFeature.cpp
+        ManoAMano.cpp
+        WarhammerSim.cpp
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp

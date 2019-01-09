@@ -11,27 +11,27 @@
 namespace StormcastEternals
 {
 
-int StormcastEternal::toHitModifier(const Unit &unit) const
+int StormcastEternal::toHitModifier(const Unit* unit) const
 {
     int modifier = Unit::toHitModifier(unit);
 
-    if (hasKeyword(ASTRAL_TEMPLARS) && unit.hasKeyword(MONSTER))
+    if (hasKeyword(ASTRAL_TEMPLARS) && unit->hasKeyword(MONSTER))
         modifier += 1;
 
     return modifier;
 }
 
-int StormcastEternal::toHitModifierMissile(const Unit &unit) const
+int StormcastEternal::toHitModifierMissile(const Unit* unit) const
 {
     int modifier = Unit::toHitModifierMissile(unit);
 
-    if (hasKeyword(ASTRAL_TEMPLARS) && unit.hasKeyword(MONSTER))
+    if (hasKeyword(ASTRAL_TEMPLARS) && unit->hasKeyword(MONSTER))
         modifier += 1;
 
     return modifier;
 }
 
-Rerolls StormcastEternal::toHitRerolls(const Unit& unit) const
+Rerolls StormcastEternal::toHitRerolls(const Unit* unit) const
 {
     if (hasKeyword(CELESTIAL_VINDICATORS) && m_charged)
         return RerollOnes;
