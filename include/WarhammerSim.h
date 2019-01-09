@@ -112,7 +112,8 @@ enum Keyword
     SQUIG_HERD,
     SQUIG_HOPPERS,
     BOINGROT_BOUNDERZ,
-
+    LOONBOSS,
+    MANGLER_SQUIG,
 };
 
 

@@ -28,7 +28,7 @@ Sequitors::Sequitors() :
 bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache)
 {
     // validate inputs
-    if (numModels < 5 || numModels > 20)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         // Invalid model count.
         return false;

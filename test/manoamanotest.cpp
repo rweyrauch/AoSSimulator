@@ -70,7 +70,7 @@ TEST(ManoAMano, StatsLibsVsReavers)
 
     battle.combatants(libs, reavers);
 
-    const int NUM_BATTLES = 1000;
+    const int NUM_BATTLES = 10000;
     for (auto i = 0; i < NUM_BATTLES; i++)
     {
         libs->restore();

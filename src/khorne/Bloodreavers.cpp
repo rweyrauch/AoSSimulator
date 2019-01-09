@@ -26,7 +26,7 @@ Bloodreavers::Bloodreavers() :
 
 bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, bool iconBearer, bool hornblowers)
 {
-    if (numModels < 10 || numModels > 30)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }

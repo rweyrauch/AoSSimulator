@@ -29,7 +29,7 @@ Judicators::Judicators() :
 bool Judicators::configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows)
 {
     // validate inputs
-    if (numModels < 5 || numModels > 10)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         // Invalid model count.
         return false;

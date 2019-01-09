@@ -57,9 +57,10 @@ public:
     void rollD6(int number, int rerolling, RollResult& result);
 
 private:
-    std::random_device m_rd;
-    std::mt19937 m_gen;
-    std::uniform_int_distribution<int> m_d6;
+    // Only create/initialize the random number generator once.
+    static std::random_device s_rd;
+    static std::mt19937 s_gen;
+    static std::uniform_int_distribution<int> s_d6;
 };
 
 

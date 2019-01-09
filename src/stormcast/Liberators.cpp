@@ -27,7 +27,7 @@ Liberators::Liberators() :
 bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhammers, int numGrandblades)
 {
     // validate inputs
-    if (numModels < 5 || numModels > 30)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         // Invalid model count.
         return false;

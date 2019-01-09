@@ -8,35 +8,36 @@
 #include <cassert>
 #include <Dice.h>
 
-Dice::Dice() :
-    m_rd(),
-    m_gen(m_rd()),
-    m_d6(1, 6)
+std::random_device Dice::s_rd;
+std::mt19937 Dice::s_gen(s_rd());
+std::uniform_int_distribution<int> Dice::s_d6(1, 6);
+
+Dice::Dice()
 {}
 
 int Dice::rollD6()
 {
-    return m_d6(m_gen);
+    return s_d6(s_gen);
 }
 
 int Dice::roll2D6()
 {
-    return (m_d6(m_gen) + m_d6(m_gen));
+    return (s_d6(s_gen) + s_d6(s_gen));
 }
 
 int Dice::roll3D6()
 {
-    return (m_d6(m_gen) + m_d6(m_gen) + m_d6(m_gen));
+    return (s_d6(s_gen) + s_d6(s_gen) + s_d6(s_gen));
 }
 
 int Dice::roll4D6()
 {
-    return (m_d6(m_gen) + m_d6(m_gen) + m_d6(m_gen) + m_d6(m_gen));
+    return (s_d6(s_gen) + s_d6(s_gen) + s_d6(s_gen) + s_d6(s_gen));
 }
 
 int Dice::rollD3()
 {
-    return (m_d6(m_gen)+1)/2;
+    return (s_d6(s_gen)+1)/2;
 }
 
 std::vector<int> Dice::rollD6(int number)
@@ -44,7 +45,7 @@ std::vector<int> Dice::rollD6(int number)
     std::vector<int> result(number);
     for (auto i = 0; i < number; i++)
     {
-        result[i] = m_d6(m_gen);
+        result[i] = s_d6(s_gen);
     }
     return result;
 }
@@ -57,10 +58,10 @@ std::vector<int> Dice::rollD6(int number, int rerolling)
     std::vector<int> result(number);
     for (auto i = 0; i < number; i++)
     {
-        result[i] = m_d6(m_gen);
+        result[i] = s_d6(s_gen);
         if (result[i] <= rerolling)
         {
-            result[i] = m_d6(m_gen);
+            result[i] = s_d6(s_gen);
         }
     }
     return result;
@@ -71,7 +72,7 @@ void Dice::rollD6(int number, Dice::RollResult &result)
     result.clear();
     for (auto i = 0; i < number; i++)
     {
-        result.distribution[m_d6(m_gen)]++;
+        result.distribution[s_d6(s_gen)]++;
     }
 }
 
@@ -84,10 +85,10 @@ void Dice::rollD6(int number, int rerolling, Dice::RollResult &result)
 
     for (auto i = 0; i < number; i++)
     {
-        int roll = m_d6(m_gen);
+        int roll = s_d6(s_gen);
         if (roll <= rerolling)
         {
-            roll = m_d6(m_gen);
+            roll = s_d6(s_gen);
         }
         result.distribution[roll]++;
     }

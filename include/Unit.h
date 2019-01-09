@@ -86,6 +86,8 @@ protected:
     virtual HitModifier hitModifier() const { return NoExtraHits; }
     virtual HitModifier hitModifierMissile() const { return NoExtraHits; }
 
+    virtual void onSlain() {}
+
 protected:
     std::string m_name = "";
     int m_move = 0;
