@@ -35,8 +35,15 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache);
 
+    // Buff shields when not our combat phase.
+    void hero() override { m_aethericChannellingWeapons = false; }
+
+    // Buff weapons during our combat phase
+    void combat() override { m_aethericChannellingWeapons = true; }
+
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toSaveRerolls() const override;
 
 private:

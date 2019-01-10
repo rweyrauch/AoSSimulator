@@ -39,7 +39,7 @@ public:
 
 protected:
 
-    int toHitModifier(const Unit* unit) const override;
+    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toSaveRerolls() const override;
 
 private:

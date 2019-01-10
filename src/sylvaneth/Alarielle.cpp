@@ -44,15 +44,15 @@ bool Alarielle::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(s_spearOfKurnoth);
-    model.addMeleeWeapon(s_talonOfDwindling);
-    model.addMeleeWeapon(s_beetleGreatAntlers);
+    model.addMissileWeapon(&s_spearOfKurnoth);
+    model.addMeleeWeapon(&s_talonOfDwindling);
+    model.addMeleeWeapon(&s_beetleGreatAntlers);
     addModel(model);
 
     return true;
 }
 
-int Alarielle::toHitModifier(const Unit* unit) const
+int Alarielle::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
     // Sweeping Blows
     // TODO: need to limit this buff to the Antler's only.
@@ -60,7 +60,7 @@ int Alarielle::toHitModifier(const Unit* unit) const
     {
         return 1;
     }
-    return Unit::toHitModifier(unit);
+    return Unit::toHitModifier(weapon, unit);
 }
 
 void Alarielle::hero()

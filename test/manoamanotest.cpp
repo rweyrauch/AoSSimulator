@@ -11,6 +11,7 @@
 #include <Unit.h>
 #include <Board.h>
 #include <stormcast/Liberators.h>
+#include <stormcast/Sequitors.h>
 #include <khorne/Bloodreavers.h>
 #include <ManoAMano.h>
 
@@ -24,7 +25,7 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
     auto libs = new StormcastEternals::Liberators();
     auto reavers = new Khorne::Bloodreavers();
 
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 0, 0);
+    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 2, 0);
     ASSERT_TRUE(ok);
 
     ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
@@ -62,10 +63,10 @@ TEST(ManoAMano, StatsLibsVsReavers)
     auto libs = new StormcastEternals::Liberators();
     auto reavers = new Khorne::Bloodreavers();
 
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 0, 0);
+    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 2, 0);
     ASSERT_TRUE(ok);
 
-    ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ok = reavers->configure(Khorne::Bloodreavers::MAX_UNIT_SIZE, Khorne::Bloodreavers::ReaverBlades, true, true);
     ASSERT_TRUE(ok);
 
     battle.combatants(libs, reavers);
@@ -99,5 +100,60 @@ TEST(ManoAMano, StatsLibsVsReavers)
         << "\tTies: " << (float)ties * 100.0f/NUM_BATTLES << std::endl;
 
     delete libs;
+    delete reavers;
+}
+
+
+TEST(ManoAMano, StatsSequitersVsReavers)
+{
+    int redVictories = 0;
+    int blueVictories = 0;
+    int ties = 0;
+
+    ManoAMano battle(5, false);
+
+    auto board = Board::Instance();
+    board->setSize(72, 48);
+
+    auto seqs = new StormcastEternals::Sequitors();
+    auto reavers = new Khorne::Bloodreavers();
+
+    bool ok = seqs->configure(5, StormcastEternals::Sequitors::TempestBlade, 2, true, false);
+    ASSERT_TRUE(ok);
+
+    ok = reavers->configure(Khorne::Bloodreavers::MAX_UNIT_SIZE, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ASSERT_TRUE(ok);
+
+    battle.combatants(seqs, reavers);
+
+    const int NUM_BATTLES = 10000;
+    for (auto i = 0; i < NUM_BATTLES; i++)
+    {
+        seqs->restore();
+        reavers->restore();
+
+        battle.start();
+
+        while (!battle.done())
+        {
+            battle.simulate();
+            battle.next();
+        }
+
+        auto victor = battle.getVictor();
+        if (victor == PlayerId::Blue)
+            blueVictories++;
+        else if (victor == PlayerId::Red)
+            redVictories++;
+        else
+            ties++;
+    }
+
+    std::cout << "Victor Breakdown (%):" << std::endl
+              << "\tRed: " << (float)redVictories * 100.0f/NUM_BATTLES << std::endl
+              << "\tBlue: " << (float)blueVictories * 100.0f/NUM_BATTLES << std::endl
+              << "\tTies: " << (float)ties * 100.0f/NUM_BATTLES << std::endl;
+
+    delete seqs;
     delete reavers;
 }

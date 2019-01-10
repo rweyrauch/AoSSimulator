@@ -47,7 +47,7 @@ public:
     int fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
     int applyBattleshock();
 
-    int computeDamage(int numWoundingHits, const Weapon &weapon);
+    int computeDamage(int numWoundingHits, const Weapon *weapon);
     int applyDamage(int totalDamage);
     int remainingModels() const;
     int remainingWounds() const;
@@ -62,17 +62,17 @@ protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
 
-    virtual int toHitModifier(const Unit* unit) const { return m_toHitBuff; }
-    virtual Rerolls toHitRerolls(const Unit* unit) const { return NoRerolls; }
+    virtual int toHitModifier(const Weapon* weapon, const Unit* unit) const { return m_toHitBuff; }
+    virtual Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
 
-    virtual int toWoundModifier(const Unit* unit) const { return 0; }
-    virtual Rerolls toWoundRerolls(const Unit* unit) const { return NoRerolls; }
+    virtual int toWoundModifier(const Weapon* weapon, const Unit* unit) const { return 0; }
+    virtual Rerolls toWoundRerolls(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
 
-    virtual int toHitModifierMissile(const Unit* unit) const { return m_toHitBuffMissile; }
-    virtual Rerolls toHitRerollsMissile(const Unit* unit) const { return NoRerolls; }
+    virtual int toHitModifierMissile(const Weapon* weapon, const Unit* unit) const { return m_toHitBuffMissile; }
+    virtual Rerolls toHitRerollsMissile(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
 
-    virtual int toWoundModifierMissile(const Unit* unit) const { return 0; }
-    virtual Rerolls toWoundRerollsMissile(const Unit* unit) const { return NoRerolls; }
+    virtual int toWoundModifierMissile(const Weapon* weapon, const Unit* unit) const { return 0; }
+    virtual Rerolls toWoundRerollsMissile(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
 
     virtual int toSaveModifier() const { return 0; }
     virtual Rerolls toSaveRerolls() const { return NoRerolls; }
@@ -80,11 +80,11 @@ protected:
     virtual int battlshockModifier() const;
     virtual Rerolls battleshockRerolls() const { return NoRerolls; }
 
-    virtual int extraAttacks() const { return 0; }
-    virtual int extraAttacksMissile() const { return 0; }
+    virtual int extraAttacks(const Weapon* weapon) const { return 0; }
+    virtual int extraAttacksMissile(const Weapon* weapon) const { return 0; }
 
-    virtual HitModifier hitModifier() const { return NoExtraHits; }
-    virtual HitModifier hitModifierMissile() const { return NoExtraHits; }
+    virtual HitModifier hitModifier(const Weapon* weapon) const { return NoExtraHits; }
+    virtual HitModifier hitModifierMissile(const Weapon* weapon) const { return NoExtraHits; }
 
     virtual void onSlain() {}
 

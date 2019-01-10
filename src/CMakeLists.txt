@@ -18,8 +18,10 @@ add_library(
         stormcast/Judicators.cpp
         stormcast/CelestarBallista.cpp
         stormcast/LordOrdinator.cpp
+        stormcast/Retributors.cpp
         stormcast/Sequitors.cpp
         khorne/Bloodreavers.cpp
+        khorne/BloodWarriors.cpp
         sylvaneth/Alarielle.cpp
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp

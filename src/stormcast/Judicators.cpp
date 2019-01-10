@@ -12,8 +12,10 @@ namespace StormcastEternals
 {
 
 Weapon Judicators::s_skyboltBow("Skybolt Bow", 24, 1, 3, 3, -1, 1);
+Weapon Judicators::s_skyboltPrime("Skybolt Bow", 24, 1, 2, 3, -1, 1);
 Weapon Judicators::s_boltstormCrossbow("Boltstorm Crossbow", 12, 3, 3, 4, 0, 1);
 Weapon Judicators::s_shockboltBow("Shockbolt Bow", 24, 1, 3, 3, -1, 1);
+Weapon Judicators::s_shockboltPrime("Shockbolt Bow", 24, 1, 2, 3, -1, 1);
 Weapon Judicators::s_thunderboldCrossbow("Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0);
 Weapon Judicators::s_stormGladius("Storm Gladius", 1, 1, 3, 4, 0, 1);
 
@@ -47,29 +49,27 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     Model primeModel(BASESIZE, WOUNDS);
     if (m_weaponOption == SkyboltBow)
     {
-        Weapon skyboltPrime("Skybolt Bow", 24, 1, 2, 3, -1, 1);
-        primeModel.addMissileWeapon(skyboltPrime);
+        primeModel.addMissileWeapon(&s_skyboltPrime);
     }
     else if (m_weaponOption == BoltstormCrossbow)
     {
-        Weapon shockboltPrime("Shockbolt Bow", 24, 1, 2, 3, -1, 1);
-        primeModel.addMissileWeapon(shockboltPrime);
+        primeModel.addMissileWeapon(&s_shockboltPrime);
     }
-    primeModel.addMeleeWeapon(s_stormGladius);
+    primeModel.addMeleeWeapon(&s_stormGladius);
     addModel(primeModel);
 
     for (auto i = 0; i < numShockboltBows; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(s_shockboltBow);
-        model.addMeleeWeapon(s_stormGladius);
+        model.addMissileWeapon(&s_shockboltBow);
+        model.addMeleeWeapon(&s_stormGladius);
         addModel(model);
     }
     for (auto i = 0; i < numThunderboltCrossbows; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(s_thunderboldCrossbow);
-        model.addMeleeWeapon(s_stormGladius);
+        model.addMissileWeapon(&s_thunderboldCrossbow);
+        model.addMeleeWeapon(&s_stormGladius);
         addModel(model);
     }
     int currentModelCount = (int)m_models.size();
@@ -77,34 +77,34 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == SkyboltBow)
-            model.addMissileWeapon(s_skyboltBow);
+            model.addMissileWeapon(&s_skyboltBow);
         else if (m_weaponOption == BoltstormCrossbow)
-            model.addMissileWeapon(s_boltstormCrossbow);
-        model.addMeleeWeapon(s_stormGladius);
+            model.addMissileWeapon(&s_boltstormCrossbow);
+        model.addMeleeWeapon(&s_stormGladius);
         addModel(model);
     }
 
     return true;
 }
 
-Rerolls Judicators::toHitRerollsMissile(const Unit* unit) const
+Rerolls Judicators::toHitRerollsMissile(const Weapon* weapon, const Unit* unit) const
 {
     // External Judgement
     if (unit->hasKeyword(CHAOS))
     {
         return RerollOnes;
     }
-    return StormcastEternal::toHitRerollsMissile(unit);
+    return StormcastEternal::toHitRerollsMissile(weapon, unit);
 }
 
-int Judicators::extraAttacksMissile() const
+int Judicators::extraAttacksMissile(const Weapon* weapon) const
 {
     // Rapid Fire
     if (!m_ran)
     {
         return 1;
     }
-    return StormcastEternal::extraAttacksMissile();
+    return StormcastEternal::extraAttacksMissile(weapon);
 }
 
 } // namespace StormcastEternals

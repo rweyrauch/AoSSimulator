@@ -52,22 +52,22 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     Model primeModel(BASESIZE, WOUNDS);
     if (primeGreatmace)
     {
-        primeModel.addMeleeWeapon(s_stormsmiteGreatmacePrime);
+        primeModel.addMeleeWeapon(&s_stormsmiteGreatmacePrime);
     }
     else if (m_weaponOption == StormsmiteMaul)
     {
-        primeModel.addMeleeWeapon(s_stormsmiteMaulPrime);
+        primeModel.addMeleeWeapon(&s_stormsmiteMaulPrime);
     }
     else if (m_weaponOption == TempestBlade)
     {
-        primeModel.addMeleeWeapon(s_tempestBladePrime);
+        primeModel.addMeleeWeapon(&s_tempestBladePrime);
     }
     addModel(primeModel);
 
     for (auto i = 0; i < numGreatmaces; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(s_stormsmiteGreatmace);
+        model.addMeleeWeapon(&s_stormsmiteGreatmace);
         addModel(model);
     }
 
@@ -76,9 +76,9 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == StormsmiteMaul)
-            model.addMeleeWeapon(s_stormsmiteMaul);
+            model.addMeleeWeapon(&s_stormsmiteMaul);
         else if (m_weaponOption == TempestBlade)
-            model.addMeleeWeapon(s_tempestBlade);
+            model.addMeleeWeapon(&s_tempestBlade);
         addModel(model);
     }
 
@@ -96,7 +96,7 @@ Rerolls Sequitors::toSaveRerolls() const
         // check if remaining models have a shield
         for (auto ip = m.meleeWeaponBegin(); ip != m.meleeWeaponEnd(); ++ip)
         {
-            if (ip->name() == s_stormsmiteMaul.name() || ip->name() == s_tempestBlade.name())
+            if ((*ip)->name() == s_stormsmiteMaul.name() || (*ip)->name() == s_tempestBlade.name())
             {
                 if (m_aethericChannellingWeapons || shootingPhase)
                     return RerollOnes; // weapons empowered
@@ -107,6 +107,13 @@ Rerolls Sequitors::toSaveRerolls() const
     }
 
     return NoRerolls;
+}
+
+Rerolls Sequitors::toHitRerolls(const Weapon* weapon, const Unit *unit) const
+{
+    if (m_aethericChannellingWeapons)
+        return RerollFailed;
+    return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
 } // namespace StormcastEternals

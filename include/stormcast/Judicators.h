@@ -37,16 +37,18 @@ public:
 
 protected:
 
-    Rerolls toHitRerollsMissile(const Unit* unit) const override;
-    int extraAttacksMissile() const override;
+    Rerolls toHitRerollsMissile(const Weapon* weapon, const Unit* unit) const override;
+    int extraAttacksMissile(const Weapon* weapon) const override;
 
 private:
 
     WeaponOption m_weaponOption = SkyboltBow;
 
     static Weapon s_skyboltBow,
+                  s_skyboltPrime,
                   s_boltstormCrossbow,
                   s_shockboltBow,
+                  s_shockboltPrime,
                   s_thunderboldCrossbow,
                   s_stormGladius;
 };

@@ -76,11 +76,11 @@ enum Keyword
     HERO,
     WIZARD,
     CELESTIAL,
+    WAR_MACHINE,
 
     STORMCAST_ETERNAL,
     SACROSANCT,
     ORDINATOS,
-    WAR_MACHINE,
     CELESTAR_BALLISTA,
     JUSTICAR,
     JUDICATORS,
@@ -88,6 +88,8 @@ enum Keyword
     LIBERATORS,
     LORD_ORDINATOR,
     SEQUITORS,
+    PALADIN,
+    RETRIBUTORS,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
@@ -102,6 +104,7 @@ enum Keyword
     KHORNE,
     BLOODBOUND,
     BLOODREAVERS,
+    BLOOD_WARRIORS,
 
     SYLVANETH,
     ALARIELLE_THE_EVERQUEEN,

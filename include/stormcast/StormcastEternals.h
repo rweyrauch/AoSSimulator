@@ -25,9 +25,9 @@ protected:
     StormcastEternal(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {}
 
-    int toHitModifier(const Unit* unit) const override;
-    Rerolls toHitRerolls(const Unit* unit) const override;
-    int toHitModifierMissile(const Unit* unit) const override;
+    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+    int toHitModifierMissile(const Weapon* weapon, const Unit* unit) const override;
     int battlshockModifier() const override;
     Rerolls battleshockRerolls() const override;
 

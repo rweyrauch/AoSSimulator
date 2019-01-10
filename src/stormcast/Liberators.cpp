@@ -45,24 +45,24 @@ bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhamm
     Model primeModel(BASESIZE, WOUNDS);
     if (m_weaponOption == Warhammer)
     {
-        primeModel.addMeleeWeapon(s_warhammerPrime);
+        primeModel.addMeleeWeapon(&s_warhammerPrime);
     }
     else if (m_weaponOption == Warblade)
     {
-        primeModel.addMeleeWeapon(s_warbladePrime);
+        primeModel.addMeleeWeapon(&s_warbladePrime);
     }
     addModel(primeModel);
 
     for (auto i = 0; i < numGrandblades; i++)
     {
         Model grandbladeModel(BASESIZE, WOUNDS);
-        grandbladeModel.addMeleeWeapon(s_grandblade);
+        grandbladeModel.addMeleeWeapon(&s_grandblade);
         addModel(grandbladeModel);
     }
     for (auto i = 0; i < numGrandhammers; i++)
     {
         Model grandhammerModel(BASESIZE, WOUNDS);
-        grandhammerModel.addMeleeWeapon(s_grandhammer);
+        grandhammerModel.addMeleeWeapon(&s_grandhammer);
         addModel(grandhammerModel);
     }
     int currentModelCount = (int)m_models.size();
@@ -70,18 +70,18 @@ bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhamm
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == Warhammer)
-            model.addMeleeWeapon(s_warhammer);
+            model.addMeleeWeapon(&s_warhammer);
         else if (m_weaponOption == Warblade)
-            model.addMeleeWeapon(s_warblade);
+            model.addMeleeWeapon(&s_warblade);
         addModel(model);
     }
 
     return true;
 }
 
-int Liberators::toHitModifier(const Unit* unit) const
+int Liberators::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
-    int modifier = StormcastEternal::toHitModifier(unit);
+    int modifier = StormcastEternal::toHitModifier(weapon, unit);
 
     // Lay Low the Tyrants
     if (unit->wounds() >= 5)

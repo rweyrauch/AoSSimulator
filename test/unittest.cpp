@@ -23,8 +23,8 @@ TEST(Unit, Combat)
 
     Model troop(40, liberators.wounds());
     Model prime(40, liberators.wounds());
-    prime.addMeleeWeapon(warhammerPrime);
-    troop.addMeleeWeapon(warhammer);
+    prime.addMeleeWeapon(&warhammerPrime);
+    troop.addMeleeWeapon(&warhammer);
 
     liberators.addModel(prime);
     for (int i = 0; i < 4; i++)
@@ -37,9 +37,9 @@ TEST(Unit, Combat)
     Weapon reaverBlades("Reaver Blades", 1, 1, 4, 4, 0, 1);
     Weapon chieftanBlades("Reaver Blades", 1, 2, 4, 4, 0, 1);
     Model reaver(32, bloodreavers.wounds());
-    reaver.addMeleeWeapon(reaverBlades);
+    reaver.addMeleeWeapon(&reaverBlades);
     Model chieftan(32, bloodreavers.wounds());
-    chieftan.addMeleeWeapon(chieftanBlades);
+    chieftan.addMeleeWeapon(&chieftanBlades);
 
     bloodreavers.addModel(chieftan);
     for (int i = 0; i < 19; i++)

@@ -44,19 +44,19 @@ bool LoonbossOnManglerSquigs::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(s_moonCutta);
-    model.addMeleeWeapon(s_hugeFangFilledGob);
-    model.addMeleeWeapon(s_ballsAndChains);
-    model.addMeleeWeapon(s_grotsBashinStikk);
+    model.addMeleeWeapon(&s_moonCutta);
+    model.addMeleeWeapon(&s_hugeFangFilledGob);
+    model.addMeleeWeapon(&s_ballsAndChains);
+    model.addMeleeWeapon(&s_grotsBashinStikk);
 
     addModel(model);
 
     return true;
 }
 
-int LoonbossOnManglerSquigs::toHitModifier(const Unit* unit) const
+int LoonbossOnManglerSquigs::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
-    int modifier = Unit::toHitModifier(unit);
+    int modifier = Unit::toHitModifier(weapon, unit);
 
     // Ker-splat!
     if (m_charged)

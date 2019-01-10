@@ -9,12 +9,12 @@
 #include <Model.h>
 #include <Weapon.h>
 
-void Model::addMeleeWeapon(const Weapon &weapon)
+void Model::addMeleeWeapon(Weapon *weapon)
 {
     m_melee.push_back(weapon);
 }
 
-void Model::addMissileWeapon(const Weapon &weapon)
+void Model::addMissileWeapon(Weapon *weapon)
 {
     m_missile.push_back(weapon);
 }

@@ -28,12 +28,13 @@ int Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
         const Model& model = m_models.at(i);
         if (model.fled() || model.slain()) continue;
 
-        for (auto w = model.missileWeaponBegin(); w != model.missileWeaponEnd(); ++w)
+        for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
         {
-            auto numHits = w->rollToHit(toHitModifierMissile(unit), toHitRerollsMissile(unit), extraAttacksMissile(), hitModifierMissile());
-            auto numWounds = w->rollToWound(numHits, toWoundModifierMissile(unit), toWoundRerollsMissile(unit));
+            Weapon* w = *wip;
+            auto numHits = w->rollToHit(toHitModifierMissile(w, unit), toHitRerollsMissile(w, unit), extraAttacksMissile(w), hitModifierMissile(w));
+            auto numWounds = w->rollToWound(numHits, toWoundModifierMissile(w, unit), toWoundRerollsMissile(w, unit));
 
-            totalDamage += unit->computeDamage(numWounds, *w);
+            totalDamage += unit->computeDamage(numWounds, w);
         }
     }
 
@@ -54,15 +55,16 @@ int Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         const Model& model = m_models.at(i);
         if (model.fled() || model.slain()) continue;
 
-        for (auto w = model.meleeWeaponBegin(); w != model.meleeWeaponEnd(); ++w)
+        for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
         {
-            auto numHits = w->rollToHit(toHitModifier(unit), toHitRerolls(unit), extraAttacks(), hitModifier());
+            Weapon* w = *wip;
+            auto numHits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w), hitModifier(w));
             if (numHits > 0)
             {
-                auto numWounds = w->rollToWound(numHits, toWoundModifier(unit), toWoundRerolls(unit));
+                auto numWounds = w->rollToWound(numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
                 if (numWounds > 0)
                 {
-                    totalDamage += unit->computeDamage(numWounds, *w);
+                    totalDamage += unit->computeDamage(numWounds, w);
                 }
             }
         }
@@ -99,12 +101,12 @@ int Unit::applyBattleshock()
     return numFled;
 }
 
-int Unit::computeDamage(int numWoundingHits, const Weapon &weapon)
+int Unit::computeDamage(int numWoundingHits, const Weapon *weapon)
 {
     Dice dice;
     Dice::RollResult rollResult;
 
-    auto effectiveRend = m_ignoreRend ? 0 : weapon.rend();
+    auto effectiveRend = m_ignoreRend ? 0 : weapon->rend();
     auto toSave = m_save - effectiveRend;
 
     int numMadeSaves = 0;
@@ -132,7 +134,7 @@ int Unit::computeDamage(int numWoundingHits, const Weapon &weapon)
     }
 
     auto numFails = numWoundingHits - numMadeSaves;
-    auto totalDamage = numFails * weapon.damage();
+    auto totalDamage = numFails * weapon->damage();
     return totalDamage;
 }
 

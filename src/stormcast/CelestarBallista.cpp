@@ -28,11 +28,11 @@ CelestarBallista::CelestarBallista() :
 bool CelestarBallista::configure(bool singleShot)
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(s_sigmariteBlades);
+    model.addMeleeWeapon(&s_sigmariteBlades);
     if (singleShot)
-        model.addMissileWeapon(s_stormboltsSingle);
+        model.addMissileWeapon(&s_stormboltsSingle);
     else
-        model.addMissileWeapon(s_stormboltsRapid);
+        model.addMissileWeapon(&s_stormboltsRapid);
     addModel(model);
 
     return true;

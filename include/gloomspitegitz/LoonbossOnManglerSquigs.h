@@ -28,7 +28,7 @@ public:
 
 protected:
 
-    int toHitModifier(const Unit* unit) const override;
+    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
 
     static Weapon s_hugeFangFilledGob,
         s_moonCutta,

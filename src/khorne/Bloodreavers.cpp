@@ -39,11 +39,11 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     Model chieftainModel(BASESIZE, WOUNDS);
     if (m_weaponOption == ReaverBlades)
     {
-        chieftainModel.addMeleeWeapon(s_reaverBladesChieftain);
+        chieftainModel.addMeleeWeapon(&s_reaverBladesChieftain);
     }
     else if (m_weaponOption == MeatripperAxe)
     {
-        chieftainModel.addMeleeWeapon(s_meatripperAxeChieftain);
+        chieftainModel.addMeleeWeapon(&s_meatripperAxeChieftain);
     }
     addModel(chieftainModel);
 
@@ -52,22 +52,22 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == ReaverBlades)
-            model.addMeleeWeapon(s_reaverBlades);
+            model.addMeleeWeapon(&s_reaverBlades);
         else if (m_weaponOption == MeatripperAxe)
-            model.addMeleeWeapon(s_meatripperAxe);
+            model.addMeleeWeapon(&s_meatripperAxe);
         addModel(model);
     }
 
     return true;
 }
 
-Rerolls Bloodreavers::toHitRerolls(const Unit* unit) const
+Rerolls Bloodreavers::toHitRerolls(const Weapon* weapon, const Unit* unit) const
 {
     // Reaver Blades
     if (m_weaponOption == ReaverBlades)
         return RerollOnes;
 
-    return Unit::toHitRerolls(unit);
+    return Unit::toHitRerolls(weapon, unit);
 }
 
 int Bloodreavers::battlshockModifier() const
