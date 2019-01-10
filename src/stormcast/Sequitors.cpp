@@ -11,13 +11,15 @@
 namespace StormcastEternals
 {
 
-Weapon Sequitors::s_stormsmiteMaul("Stormsmite Maul", 1, 2, 3, 3, 0, 1);
-Weapon Sequitors::s_tempestBlade("Tempest Blade", 1, 3, 3, 4, 0, 1);
-Weapon Sequitors::s_stormsmiteGreatmace("Stormsmite Greatmace", 1, 2, 3, 3, -1, 2);
+Weapon Sequitors::s_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1);
+Weapon Sequitors::s_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1);
+Weapon Sequitors::s_stormsmiteGreatmace(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 2, 3, 3, -1, 2);
 
-Weapon Sequitors::s_stormsmiteMaulPrime("Stormsmite Maul", 1, 3, 3, 3, 0, 1);
-Weapon Sequitors::s_tempestBladePrime("Tempest Blade", 1, 4, 3, 4, 0, 1);
-Weapon Sequitors::s_stormsmiteGreatmacePrime("Stormsmite Greatmace", 1, 3, 3, 3, -1, 2);
+Weapon Sequitors::s_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul", 1, 3, 3, 3, 0, 1);
+Weapon Sequitors::s_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade", 1, 4, 3, 4, 0, 1);
+Weapon Sequitors::s_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 3, 3, 3, -1, 2);
+
+Weapon Sequitors::s_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1);
 
 Sequitors::Sequitors() :
     StormcastEternal("Sequitors", 5, WOUNDS, 7, 4, false)
@@ -62,6 +64,10 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     {
         primeModel.addMeleeWeapon(&s_tempestBladePrime);
     }
+    if (m_redemptionCache)
+    {
+        primeModel.addMissileWeapon(&s_redemptionCache);
+    }
     addModel(primeModel);
 
     for (auto i = 0; i < numGreatmaces; i++)
@@ -85,10 +91,9 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     return true;
 }
 
-Rerolls Sequitors::toSaveRerolls() const
+Rerolls Sequitors::toSaveRerolls(const Weapon* weapon) const
 {
-    // TODO: determine phase
-    bool shootingPhase = false;
+    const bool isMissile = weapon->isMissile();
 
     // Soulshields Shields
     for (const auto &m : m_models)
@@ -98,7 +103,7 @@ Rerolls Sequitors::toSaveRerolls() const
         {
             if ((*ip)->name() == s_stormsmiteMaul.name() || (*ip)->name() == s_tempestBlade.name())
             {
-                if (m_aethericChannellingWeapons || shootingPhase)
+                if (m_aethericChannellingWeapons || isMissile)
                     return RerollOnes; // weapons empowered
                 else
                     return RerollFailed; // shields empowered
@@ -114,6 +119,25 @@ Rerolls Sequitors::toHitRerolls(const Weapon* weapon, const Unit *unit) const
     if (m_aethericChannellingWeapons)
         return RerollFailed;
     return StormcastEternal::toHitRerolls(weapon, unit);
+}
+
+Hits Sequitors::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+{
+    Hits modifiedHits = hits;
+    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == s_stormsmiteGreatmace.name()) &&
+        (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT)))
+    {
+        Dice dice;
+        // each 6 inflicts d3 hits instead of 1
+        modifiedHits.numHits -= hits.rolls.numUnmodified6s();
+        for (auto i = 0; i < hits.rolls.numUnmodified6s(); i++)
+        {
+            modifiedHits.numHits += dice.rollD3();
+        }
+    }
+
+    // modifiers accumulate
+    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
 }
 
 } // namespace StormcastEternals

@@ -11,17 +11,40 @@
 
 #include <string>
 #include <WarhammerSim.h>
+#include <Dice.h>
+
+struct Hits
+{
+    Hits(int n, const Dice::RollResult& r) : numHits(n), rolls(r) {}
+    int numHits;
+    Dice::RollResult rolls;
+};
+
+struct WoundingHits
+{
+public:
+    WoundingHits(int w, const Dice::RollResult& r) : numWoundingHit(w), rolls(r) {}
+    int numWoundingHit;
+    Dice::RollResult rolls;
+};
 
 class Weapon
 {
 public:
+
+    enum class Type
+    {
+        Missile,
+        Melee
+    };
+
     Weapon() = default;
-    Weapon(const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage);
+    Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage);
 
     void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }
 
-    int rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifier hitModifier) const;
-    int rollToWound(int numHits, int modifier, Rerolls rerolls) const;
+    Hits rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const;
+    WoundingHits rollToWound(int numHits, int modifier, Rerolls rerolls) const;
 
     const std::string& name() const { return m_name; }
     int range() const { return m_range; }
@@ -30,6 +53,7 @@ public:
     int toWound() const { return m_toWound; }
     int rend() const { return m_rend; }
     int damage() const;
+    bool isMissile() const { return (m_type == Type::Missile); }
 
 protected:
 
@@ -38,6 +62,7 @@ protected:
     int rollSpecial(int number) const;
 
 private:
+    Type m_type = Type::Melee;
     std::string m_name;
     int m_range = 1;
     int m_attacks = 1;

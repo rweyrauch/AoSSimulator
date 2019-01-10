@@ -10,8 +10,8 @@
 namespace StormcastEternals
 {
 
-Weapon LordOrdinator::s_astralHammers("Astral Hammers", 1, 6, 4, 3, 0, 1);
-Weapon LordOrdinator::s_astralGrandhammer("Astral Grandhammer", 1, 3, 3, 3, -1, 2);
+Weapon LordOrdinator::s_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1);
+Weapon LordOrdinator::s_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2);
 
 LordOrdinator::LordOrdinator() :
     StormcastEternal("Lord-Ordinator", 5, WOUNDS, 9, 4, false)

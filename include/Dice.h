@@ -37,7 +37,11 @@ public:
             for (auto i = 0; i < 7; i++)
                 distribution[i] = 0;
         }
-
+        void add(const RollResult& r)
+        {
+            for (auto i = 0; i < 7; i++)
+                distribution[i] += r.distribution[i];
+        }
         int rollsGE(int roll) const
         {
             if (roll < 1 || roll > 6) return 0;
@@ -47,9 +51,18 @@ public:
                 rolls += distribution[i];
             return rolls;
         }
+        void clearLT(int roll)
+        {
+            if (roll < 1 || roll > 6) return;
+            for (auto i = 1; i < roll; i++)
+            {
+                distribution[i] = 0;
+            }
+        }
+
         int numUnmodified6s() const
         {
-            return distribution[7];
+            return distribution[6];
         }
     };
 

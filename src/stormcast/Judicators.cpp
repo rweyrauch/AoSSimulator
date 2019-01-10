@@ -11,13 +11,13 @@
 namespace StormcastEternals
 {
 
-Weapon Judicators::s_skyboltBow("Skybolt Bow", 24, 1, 3, 3, -1, 1);
-Weapon Judicators::s_skyboltPrime("Skybolt Bow", 24, 1, 2, 3, -1, 1);
-Weapon Judicators::s_boltstormCrossbow("Boltstorm Crossbow", 12, 3, 3, 4, 0, 1);
-Weapon Judicators::s_shockboltBow("Shockbolt Bow", 24, 1, 3, 3, -1, 1);
-Weapon Judicators::s_shockboltPrime("Shockbolt Bow", 24, 1, 2, 3, -1, 1);
-Weapon Judicators::s_thunderboldCrossbow("Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0);
-Weapon Judicators::s_stormGladius("Storm Gladius", 1, 1, 3, 4, 0, 1);
+Weapon Judicators::s_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1);
+Weapon Judicators::s_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 2, 3, -1, 1);
+Weapon Judicators::s_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1);
+Weapon Judicators::s_shockboltBow(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 3, 3, -1, 1);
+Weapon Judicators::s_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 2, 3, -1, 1);
+Weapon Judicators::s_thunderboldCrossbow(Weapon::Type::Missile, "Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0);
+Weapon Judicators::s_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1);
 
 Judicators::Judicators() :
     StormcastEternal("Judicators", 5, WOUNDS, 7, 4, false)

@@ -18,8 +18,8 @@
 TEST(Unit, Combat)
 {
     CustomUnit liberators("Liberators", 5, 2, 7, 4, false);
-    Weapon warhammer("Warhammer", 1, 2, 4, 3, 0, 1);
-    Weapon warhammerPrime("Warhammer", 1, 3, 4, 3, 0, 1);
+    Weapon warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
+    Weapon warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1);
 
     Model troop(40, liberators.wounds());
     Model prime(40, liberators.wounds());
@@ -34,8 +34,8 @@ TEST(Unit, Combat)
     int initialNumLibs = liberators.remainingModels();
 
     CustomUnit bloodreavers("Bloodreavers", 6, 1, 5, 6, false);
-    Weapon reaverBlades("Reaver Blades", 1, 1, 4, 4, 0, 1);
-    Weapon chieftanBlades("Reaver Blades", 1, 2, 4, 4, 0, 1);
+    Weapon reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
+    Weapon chieftanBlades(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1);
     Model reaver(32, bloodreavers.wounds());
     reaver.addMeleeWeapon(&reaverBlades);
     Model chieftan(32, bloodreavers.wounds());
@@ -58,11 +58,11 @@ TEST(Unit, Combat)
 
         int numSlain = 0;
         auto totalDamage = liberators.fight(-1, &bloodreavers, numSlain);
-        std::cout << "   Liberators inflicted " << totalDamage << " damage onto Bloodreavers. " <<
+        std::cout << "   Liberators inflicted " << (totalDamage.normal+totalDamage.mortal) << " damage onto Bloodreavers. " <<
             bloodreavers.remainingModels() << " Bloodreavers remain." << std::endl;
 
         totalDamage = bloodreavers.fight(-1, &liberators, numSlain);
-        std::cout << "   Bloodreavers inflicted " << totalDamage << " damage onto Liberators. " <<
+        std::cout << "   Bloodreavers inflicted " << (totalDamage.normal+totalDamage.mortal) << " damage onto Liberators. " <<
             liberators.remainingModels() << " Liberators remain." << std::endl;
 
         auto numModels = bloodreavers.remainingModels();
@@ -95,7 +95,7 @@ TEST(Unit, LiberatorsVsBloodreavers)
     StormcastEternals::Liberators liberators;
     Khorne::Bloodreavers bloodreavers;
 
-    bool ok = liberators.configure(5, StormcastEternals::Liberators::Warhammer, 0, 0);
+    bool ok = liberators.configure(5, StormcastEternals::Liberators::Warhammer, false, 0, 0);
     ASSERT_TRUE(ok);
 
     int initialNumLibs = liberators.remainingModels();
@@ -117,11 +117,11 @@ TEST(Unit, LiberatorsVsBloodreavers)
 
         int numSlain = 0;
         auto totalDamage = liberators.fight(-1, &bloodreavers, numSlain);
-        std::cout << "   Liberators inflicted " << totalDamage << " damage onto Bloodreavers. " <<
+        std::cout << "   Liberators inflicted " << (totalDamage.normal+totalDamage.mortal) << " damage onto Bloodreavers. " <<
                   bloodreavers.remainingModels() << " Bloodreavers remain." << std::endl;
 
         totalDamage = bloodreavers.fight(-1, &liberators, numSlain);
-        std::cout << "   Bloodreavers inflicted " << totalDamage << " damage onto Liberators. " <<
+        std::cout << "   Bloodreavers inflicted " << (totalDamage.normal+totalDamage.mortal) << " damage onto Liberators. " <<
                   liberators.remainingModels() << " Liberators remain." << std::endl;
 
         auto numModels = bloodreavers.remainingModels();
@@ -182,36 +182,36 @@ TEST(Unit, BallistaVsAlarielle)
 
         int numSlain = 0;
         auto totalDamage = ballista0.shoot(-1, &alarielle, numSlain);
-        std::cout << "Ballista0 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
+        std::cout << "Ballista0 inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Alarielle." << std::endl;
         totalDamage = ballista1.shoot(-1, &alarielle, numSlain);
-        std::cout << "Ballista1 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
+        std::cout << "Ballista1 inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Alarielle." << std::endl;
         totalDamage = ballista2.shoot(-1, &alarielle, numSlain);
-        std::cout << "Ballista2 inflicted " << totalDamage << " wounds on Alarielle." << std::endl;
+        std::cout << "Ballista2 inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Alarielle." << std::endl;
 
         if (alarielle.remainingWounds() > 0)
         {
             if (ballista0.remainingWounds() > 0)
             {
                 totalDamage = alarielle.shoot(-1, &ballista0, numSlain);
-                std::cout << "Alarielle inflicted " << totalDamage << " wounds on Ballista0."
+                std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Ballista0."
                           << std::endl;
             }
             else if (ballista1.remainingWounds() > 0)
             {
                 totalDamage = alarielle.shoot(-1, &ballista1, numSlain);
-                std::cout << "Alarielle inflicted " << totalDamage << " wounds on Ballista1."
+                std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Ballista1."
                           << std::endl;
             }
             else if (ballista2.remainingWounds() > 0)
             {
                 totalDamage = alarielle.shoot(-1, &ballista2, numSlain);
-                std::cout << "Alarielle inflicted " << totalDamage << " wounds on Ballista2."
+                std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Ballista2."
                           << std::endl;
             }
             else
             {
                 totalDamage = alarielle.shoot(-1, &lordOrdinator, numSlain);
-                std::cout << "Alarielle inflicted " << totalDamage << " wounds on "
+                std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on "
                           << lordOrdinator.name() << "." << std::endl;
             }
         }

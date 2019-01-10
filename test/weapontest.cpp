@@ -12,12 +12,12 @@
 
 TEST(Weapon, Attacks)
 {
-    Weapon starblade("Starblade", 1, 4, 3, 3, -1, 1);
-    Weapon halberd("Castellant's Halberd", 2, 3, 3, 3, -1, 2);
-    Weapon stave("Redemption Stave", 2, 4, 3, 3, -1, RAND_D3);
-    Weapon bowStave("Bow Stave", 1, 2, 3, 4, 0, 1);
-    Weapon shockBoltBow("Shockbolt Bow", 24, 1, 3, 3, -1, 1);
-    Weapon stormshoal("Stormshoal", 3, RAND_2D6, 4, 4, 0, 1);
+    Weapon starblade(Weapon::Type::Melee, "Starblade", 1, 4, 3, 3, -1, 1);
+    Weapon halberd(Weapon::Type::Melee, "Castellant's Halberd", 2, 3, 3, 3, -1, 2);
+    Weapon stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3);
+    Weapon bowStave(Weapon::Type::Melee, "Bow Stave", 1, 2, 3, 4, 0, 1);
+    Weapon shockBoltBow(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 3, 3, -1, 1);
+    Weapon stormshoal(Weapon::Type::Melee, "Stormshoal", 3, RAND_2D6, 4, 4, 0, 1);
 
     shockBoltBow.setHitsPerAttack(RAND_D6);
 
@@ -33,12 +33,12 @@ TEST(Weapon, Attacks)
     {
         for (auto w : weapons)
         {
-            auto numHits = w.rollToHit(0, NoRerolls, 0, NoExtraHits);
-            auto numWounds = w.rollToWound(numHits, 0, NoRerolls);
-            auto totalDamage = numWounds * w.damage();
-            if (numHits > 0)
+            auto hits = w.rollToHit(0, NoRerolls, 0);
+            auto totalWounds = w.rollToWound(hits.numHits, 0, NoRerolls);
+            auto totalDamage = totalWounds.numWoundingHit * w.damage();
+            if (hits.numHits > 0)
             {
-                if (numWounds > 0)
+                if (totalWounds.numWoundingHit > 0)
                 {
                     ASSERT_GT(totalDamage, 0);
                 }
@@ -49,7 +49,7 @@ TEST(Weapon, Attacks)
             }
             else
             {
-                ASSERT_EQ(numWounds, 0);
+                ASSERT_EQ(totalWounds.numWoundingHit, 0);
                 ASSERT_EQ(totalDamage, 0);
             }
         }

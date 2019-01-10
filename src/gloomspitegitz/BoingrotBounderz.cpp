@@ -11,9 +11,9 @@
 namespace GloomspiteGitz
 {
 
-Weapon BoingrotBounderz::s_fangFilledGob("Fang-filled Gob", 1, 2, 4, 3, -1, 1);
-Weapon BoingrotBounderz::s_pokinLance("Pokin' Lance", 2, 2, 4, 4, -1, 1);
-Weapon BoingrotBounderz::s_pokinLanceBoss("Pokin' Lance", 2, 2, 3, 4, -1, 1);
+Weapon BoingrotBounderz::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
+Weapon BoingrotBounderz::s_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1);
+Weapon BoingrotBounderz::s_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 3, 4, -1, 1);
 
 BoingrotBounderz::BoingrotBounderz() :
     Unit("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true)

@@ -11,8 +11,8 @@
 namespace GloomspiteGitz
 {
 
-Weapon SquiqHerd::s_fangFilledGob("Fang-filled Gob", 1, 2, 4, 3, -1, 1);
-Weapon SquiqHerd::s_squigProdder("Squig Prodder", 1, 2, 5, 5, 0, 1);
+Weapon SquiqHerd::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
+Weapon SquiqHerd::s_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1);
 
 SquiqHerd::SquiqHerd() :
     Unit("Squig Herd", 5, WOUNDS, 3, 6, false)

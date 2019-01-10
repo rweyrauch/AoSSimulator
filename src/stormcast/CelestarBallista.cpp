@@ -11,9 +11,9 @@
 namespace StormcastEternals
 {
 
-Weapon CelestarBallista::s_stormboltsSingle("Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1);
-Weapon CelestarBallista::s_stormboltsRapid("Celestar Stormbolts: Rapid Far", 18, 4, 5, 3, -2, 1);
-Weapon CelestarBallista::s_sigmariteBlades("Sigmarite Blades", 1, 4, 4, 4, 0, 1);
+Weapon CelestarBallista::s_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1);
+Weapon CelestarBallista::s_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Far", 18, 4, 5, 3, -2, 1);
+Weapon CelestarBallista::s_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1);
 
 CelestarBallista::CelestarBallista() :
     StormcastEternal("Celestar Ballista", 3, WOUNDS, 7, 4, false)

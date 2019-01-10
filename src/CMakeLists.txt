@@ -20,6 +20,7 @@ add_library(
         stormcast/LordOrdinator.cpp
         stormcast/Retributors.cpp
         stormcast/Sequitors.cpp
+        stormcast/Evocators.cpp
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         sylvaneth/Alarielle.cpp

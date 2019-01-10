@@ -224,14 +224,14 @@ void ManoAMano::runShootingPhase()
     m_units[(int)m_attackingUnit]->shooting();
 
     int numSlain = 0;
-    int totalDamage = m_units[(int)m_attackingUnit]->shoot(-1, m_units[(int)m_defendingUnit], numSlain);
-    if (totalDamage > 0)
+    auto totalDamage = m_units[(int)m_attackingUnit]->shoot(-1, m_units[(int)m_defendingUnit], numSlain);
+    if (totalDamage.normal > 0 || totalDamage.mortal > 0)
     {
         if (m_verbose)
         {
             std::cout << PlayerIdToString(m_attackingUnit) << ":"
                       << m_units[(int) m_attackingUnit]->name()
-                      << " did " << totalDamage << " shooting damage to "
+                      << " did " << (totalDamage.normal+totalDamage.mortal) << " shooting damage to "
                       << PlayerIdToString(m_defendingUnit)
                       << ":" << m_units[(int) m_defendingUnit]->name() << " slaying " << numSlain
                       << " models. " << std::endl;
@@ -249,13 +249,13 @@ void ManoAMano::runCombatPhase()
     m_units[(int)m_attackingUnit]->combat();
 
     int numSlain = 0;
-    int totalDamage = m_units[(int)m_attackingUnit]->fight(-1, m_units[(int)m_defendingUnit], numSlain);
+    auto totalDamage = m_units[(int)m_attackingUnit]->fight(-1, m_units[(int)m_defendingUnit], numSlain);
 
     if (m_verbose)
     {
         std::cout << PlayerIdToString(m_attackingUnit) << ":"
                   << m_units[(int) m_attackingUnit]->name()
-                  << " did " << totalDamage << " damage to " << PlayerIdToString(m_defendingUnit)
+                  << " did " << (totalDamage.normal+totalDamage.mortal) << " damage to " << PlayerIdToString(m_defendingUnit)
                   << ":" << m_units[(int) m_defendingUnit]->name() << " slaying " << numSlain
                   << " models in the combat phase." << std::endl;
     }
@@ -266,7 +266,7 @@ void ManoAMano::runCombatPhase()
     {
         std::cout << PlayerIdToString(m_defendingUnit) << ":"
                   << m_units[(int) m_defendingUnit]->name()
-                  << " did " << totalDamage << " damage to " << PlayerIdToString(m_attackingUnit)
+                  << " did " << (totalDamage.normal+totalDamage.mortal) << " damage to " << PlayerIdToString(m_attackingUnit)
                   << ":" << m_units[(int) m_attackingUnit]->name() << " slaying " << numSlain
                   << " model in the counter attack." << std::endl;
     }

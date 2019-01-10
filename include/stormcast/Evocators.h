@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef RETRIBUTORS_H
-#define RETRIBUTORS_H
+#ifndef EVOCATORS_H
+#define EVOCATORS_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace StormcastEternals
 {
 
-class Retributors : public StormcastEternal
+class Evocators : public StormcastEternal
 {
 public:
 
@@ -24,22 +24,24 @@ public:
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
 
-    Retributors();
-    ~Retributors() override = default;
+    Evocators();
+    ~Evocators() override = default;
 
-    bool configure(int numModels, int numStarsoulMaces);
+    bool configure(int numModels, int numGrandstaves, bool primeGrandstave);
 
 protected:
 
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
 
 private:
 
-    static Weapon s_lightningHammer,
-                  s_lightningHammerPrime,
-                  s_starsoulMace;
+    static Weapon s_tempestBladeAndStave,
+        s_tempestBladeAndStavePrime,
+        s_grandStave,
+        s_grandStavePrime;
 };
 
 } // namespace StormcastEternals
 
-#endif //RETRIBUTORS_H
+#endif //EVOCATORS_H

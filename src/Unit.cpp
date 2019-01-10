@@ -10,11 +10,11 @@
 #include <Unit.h>
 #include <Dice.h>
 
-int Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
+Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 {
     if (m_ran && !m_runAndShoot)
     {
-        return 0;
+        return {0, 0};
     }
 
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
@@ -22,7 +22,7 @@ int Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
         numAttackingModels = (int)m_models.size();
     }
 
-    int totalDamage = 0;
+    Wounds totalDamage = {0, 0};
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
@@ -31,10 +31,19 @@ int Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
         for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
         {
             Weapon* w = *wip;
-            auto numHits = w->rollToHit(toHitModifierMissile(w, unit), toHitRerollsMissile(w, unit), extraAttacksMissile(w), hitModifierMissile(w));
-            auto numWounds = w->rollToWound(numHits, toWoundModifierMissile(w, unit), toWoundRerollsMissile(w, unit));
 
-            totalDamage += unit->computeDamage(numWounds, w);
+            auto hits = w->rollToHit(toHitModifierMissile(w, unit), toHitRerollsMissile(w, unit), extraAttacksMissile(w));
+
+            // apply hit modifiers on returned hits
+            hits = applyHitModifiers(w, unit, hits);
+
+            auto numWounds = w->rollToWound(hits.numHits, toWoundModifierMissile(w, unit), toWoundRerollsMissile(w, unit));
+
+            int numMortalWounds = generateMortalWounds(w, unit, hits);
+
+            auto damage = unit->computeDamage(numWounds, numMortalWounds, w);
+            totalDamage.normal += damage.normal;
+            totalDamage.mortal += damage.mortal;
         }
     }
 
@@ -42,14 +51,14 @@ int Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
     return totalDamage;
 }
 
-int Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
+Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
 {
     if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
     {
         numAttackingModels = (int)m_models.size();
     }
 
-    int totalDamage = 0;
+    Wounds totalDamage = {0, 0};
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
@@ -58,15 +67,16 @@ int Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
         {
             Weapon* w = *wip;
-            auto numHits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w), hitModifier(w));
-            if (numHits > 0)
-            {
-                auto numWounds = w->rollToWound(numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
-                if (numWounds > 0)
-                {
-                    totalDamage += unit->computeDamage(numWounds, w);
-                }
-            }
+            auto hits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w));
+            // apply hit modifiers on returned hits
+            hits = applyHitModifiers(w, unit, hits);
+
+            auto totalWounds = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
+            int numMortalWounds = generateMortalWounds(w, unit, hits);
+
+            auto damage = unit->computeDamage(totalWounds, numMortalWounds, w);
+            totalDamage.normal += damage.normal;
+            totalDamage.mortal += damage.mortal;
         }
     }
 
@@ -101,7 +111,7 @@ int Unit::applyBattleshock()
     return numFled;
 }
 
-int Unit::computeDamage(int numWoundingHits, const Weapon *weapon)
+Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon)
 {
     Dice dice;
     Dice::RollResult rollResult;
@@ -110,16 +120,16 @@ int Unit::computeDamage(int numWoundingHits, const Weapon *weapon)
     auto toSave = m_save - effectiveRend;
 
     int numMadeSaves = 0;
-    if (toSaveModifier() == RerollOnes)
+    if (toSaveModifier(weapon) == RerollOnes)
     {
-        dice.rollD6(numWoundingHits, 1, rollResult);
+        dice.rollD6(woundingHits.numWoundingHit, 1, rollResult);
         numMadeSaves = rollResult.rollsGE(toSave);
     }
-    else if (toSaveModifier() == RerollFailed)
+    else if (toSaveModifier(weapon) == RerollFailed)
     {
-        dice.rollD6(numWoundingHits, rollResult);
+        dice.rollD6(woundingHits.numWoundingHit, rollResult);
         numMadeSaves = rollResult.rollsGE(toSave);
-        int numFails = numWoundingHits - numMadeSaves;
+        int numFails = woundingHits.numWoundingHit - numMadeSaves;
         if (numFails > 0)
         {
             dice.rollD6(numFails, rollResult);
@@ -129,13 +139,16 @@ int Unit::computeDamage(int numWoundingHits, const Weapon *weapon)
     }
     else
     {
-        dice.rollD6(numWoundingHits, rollResult);
+        dice.rollD6(woundingHits.numWoundingHit, rollResult);
         numMadeSaves = rollResult.rollsGE(toSave);
     }
 
-    auto numFails = numWoundingHits - numMadeSaves;
+    auto numFails = woundingHits.numWoundingHit - numMadeSaves;
     auto totalDamage = numFails * weapon->damage();
-    return totalDamage;
+
+    // TODO: add mortal wound save
+
+    return {totalDamage, mortalWounds};
 }
 
 Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
@@ -161,8 +174,10 @@ void Unit::addModel(const Model &model)
     m_models.push_back(model);
 }
 
-int Unit::applyDamage(int totalDamage)
+int Unit::applyDamage(const Wounds& totalWounds)
 {
+    // TODO: apply mortal wounds
+    int totalDamage = totalWounds.normal;
     int numSlain = 0;
     for (auto &model : m_models)
     {

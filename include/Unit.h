@@ -43,12 +43,13 @@ public:
     virtual void battleshock() {}
 
 
-    int shoot(int numAttackingModels, Unit* targetUnit, int& numSlain);
-    int fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
+    Wounds shoot(int numAttackingModels, Unit* targetUnit, int& numSlain);
+    Wounds fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
     int applyBattleshock();
 
-    int computeDamage(int numWoundingHits, const Weapon *weapon);
-    int applyDamage(int totalDamage);
+    Wounds computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon);
+
+    int applyDamage(const Wounds& totalWounds);
     int remainingModels() const;
     int remainingWounds() const;
 
@@ -74,8 +75,8 @@ protected:
     virtual int toWoundModifierMissile(const Weapon* weapon, const Unit* unit) const { return 0; }
     virtual Rerolls toWoundRerollsMissile(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
 
-    virtual int toSaveModifier() const { return 0; }
-    virtual Rerolls toSaveRerolls() const { return NoRerolls; }
+    virtual int toSaveModifier(const Weapon* weapon) const { return 0; }
+    virtual Rerolls toSaveRerolls(const Weapon* weapon) const { return NoRerolls; }
 
     virtual int battlshockModifier() const;
     virtual Rerolls battleshockRerolls() const { return NoRerolls; }
@@ -83,8 +84,8 @@ protected:
     virtual int extraAttacks(const Weapon* weapon) const { return 0; }
     virtual int extraAttacksMissile(const Weapon* weapon) const { return 0; }
 
-    virtual HitModifier hitModifier(const Weapon* weapon) const { return NoExtraHits; }
-    virtual HitModifier hitModifierMissile(const Weapon* weapon) const { return NoExtraHits; }
+    virtual Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return hits; }
+    virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return 0; }
 
     virtual void onSlain() {}
 

@@ -11,7 +11,8 @@
 #include <WarhammerSim.h>
 #include <Dice.h>
 
-Weapon::Weapon(const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) :
+Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) :
+    m_type(type),
     m_name(name),
     m_range(range),
     m_attacks(attacks),
@@ -22,7 +23,7 @@ Weapon::Weapon(const std::string& name, int range, int attacks, int toHit, int t
 {
 }
 
-int Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifier hitModifier) const
+Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
 {
     Dice dice;
     Dice::RollResult rollResult;
@@ -44,9 +45,13 @@ int Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifi
         int numFails = totalAttacks - numHits;
         if (numFails > 0)
         {
-            dice.rollD6(numFails, rollResult);
-            auto numRerolledHits = rollResult.rollsGE(toHit);
+            rollResult.clearLT(toHit);
+            Dice::RollResult rerollResult;
+            dice.rollD6(numFails, rerollResult);
+            auto numRerolledHits = rerollResult.rollsGE(toHit);
             numHits += numRerolledHits;
+            // merge roll results from rerolls into a single result.
+            rollResult.add(rerollResult);
         }
     }
     else
@@ -54,10 +59,10 @@ int Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks, HitModifi
         dice.rollD6(totalAttacks, rollResult);
         numHits = rollResult.rollsGE(toHit);
     }
-    return numHits;
+    return {numHits, rollResult};
 }
 
-int Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
+WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
 {
     Dice dice;
     Dice::RollResult rollResult;
@@ -87,9 +92,13 @@ int Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
         int numFails = totalHits - numWoundingHits;
         if (numFails > 0)
         {
-            dice.rollD6(numFails, rollResult);
-            auto numRerolledHits = rollResult.rollsGE(toWound);
+            rollResult.clearLT(toWound);
+            Dice::RollResult rerollResult;
+            dice.rollD6(numFails, rerollResult);
+            auto numRerolledHits = rerollResult.rollsGE(toWound);
             numWoundingHits += numRerolledHits;
+            // merge roll results from rerolls into a single result.
+            rollResult.add(rerollResult);
         }
     }
     else
@@ -97,7 +106,8 @@ int Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
         dice.rollD6(totalHits, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
     }
-    return numWoundingHits;
+
+    return {numWoundingHits, rollResult};
 }
 
 int Weapon::numAttacks(int extraAttacks) const

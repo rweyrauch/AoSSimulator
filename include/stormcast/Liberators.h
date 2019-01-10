@@ -35,16 +35,18 @@ public:
     Liberators();
     ~Liberators() override = default;
 
-    bool configure(int numModels, WeaponOption weapons, int numGrandhammers, int numGrandblades);
+    bool configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades);
 
 protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls() const override;
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
 
 private:
 
     WeaponOption m_weaponOption = Warhammer;
+    bool m_pairedWeapons = false;
 
     static Weapon s_warhammer,
                   s_warhammerPrime,

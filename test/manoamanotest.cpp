@@ -25,7 +25,7 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
     auto libs = new StormcastEternals::Liberators();
     auto reavers = new Khorne::Bloodreavers();
 
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 2, 0);
+    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
 
     ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
@@ -63,7 +63,7 @@ TEST(ManoAMano, StatsLibsVsReavers)
     auto libs = new StormcastEternals::Liberators();
     auto reavers = new Khorne::Bloodreavers();
 
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, 2, 0);
+    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
 
     ok = reavers->configure(Khorne::Bloodreavers::MAX_UNIT_SIZE, Khorne::Bloodreavers::ReaverBlades, true, true);
@@ -118,7 +118,7 @@ TEST(ManoAMano, StatsSequitersVsReavers)
     auto seqs = new StormcastEternals::Sequitors();
     auto reavers = new Khorne::Bloodreavers();
 
-    bool ok = seqs->configure(5, StormcastEternals::Sequitors::TempestBlade, 2, true, false);
+    bool ok = seqs->configure(10, StormcastEternals::Sequitors::TempestBlade, 2, true, false);
     ASSERT_TRUE(ok);
 
     ok = reavers->configure(Khorne::Bloodreavers::MAX_UNIT_SIZE, Khorne::Bloodreavers::ReaverBlades, true, true);

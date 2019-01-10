@@ -12,10 +12,10 @@
 namespace Khorne
 {
 
-Weapon Bloodreavers::s_reaverBlades("Reaver Blades", 1, 1, 4, 4, 0, 1);
-Weapon Bloodreavers::s_reaverBladesChieftain("Reaver Blades", 1, 2, 4, 4, 0, 1);
-Weapon Bloodreavers::s_meatripperAxe("Meatripper Axe", 1, 1, 4, 4, -1, 1);
-Weapon Bloodreavers::s_meatripperAxeChieftain("Meatripper Axe", 1, 2, 4, 4, -1, 1);
+Weapon Bloodreavers::s_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
+Weapon Bloodreavers::s_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1);
+Weapon Bloodreavers::s_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1);
+Weapon Bloodreavers::s_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1);
 
 Bloodreavers::Bloodreavers() :
     Unit("Bloodreavers", 6, WOUNDS, 5, 6, false)

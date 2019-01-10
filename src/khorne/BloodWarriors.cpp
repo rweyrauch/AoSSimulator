@@ -12,9 +12,9 @@
 namespace Khorne
 {
 
-Weapon BloodWarriors::s_goreaxe("Goreaxe", 1, 2, 3, 4, 0, 1);
-Weapon BloodWarriors::s_goreaxeChampion("Goreaxe", 1, 3, 3, 4, 0, 1);
-Weapon BloodWarriors::s_goreglaive("Goreglaive", 1, 2, 3, 3, -1, 2);
+Weapon BloodWarriors::s_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1);
+Weapon BloodWarriors::s_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1);
+Weapon BloodWarriors::s_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2);
 
 BloodWarriors::BloodWarriors() :
     Unit("Blood Warriors", 5, WOUNDS, 6, 4, false)

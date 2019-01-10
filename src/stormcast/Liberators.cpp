@@ -11,12 +11,12 @@
 namespace StormcastEternals
 {
 
-Weapon Liberators::s_warhammer("Warhammer", 1, 2, 4, 3, 0, 1);
-Weapon Liberators::s_warhammerPrime("Warhammer", 1, 3, 4, 3, 0, 1);
-Weapon Liberators::s_warblade("Warblade", 1, 2, 3, 4, 0, 1);
-Weapon Liberators::s_warbladePrime("Warblade", 1, 3, 3, 4, 0, 1);
-Weapon Liberators::s_grandhammer("Grandhammer", 1, 2, 4, 3, -1, 2);
-Weapon Liberators::s_grandblade("Grandblade", 1, 2, 3, 4, -1, 2);
+Weapon Liberators::s_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
+Weapon Liberators::s_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1);
+Weapon Liberators::s_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1);
+Weapon Liberators::s_warbladePrime(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1);
+Weapon Liberators::s_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2);
+Weapon Liberators::s_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2);
 
 Liberators::Liberators() :
     StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false)
@@ -24,7 +24,7 @@ Liberators::Liberators() :
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS };
 }
 
-bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhammers, int numGrandblades)
+bool Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
@@ -40,6 +40,8 @@ bool Liberators::configure(int numModels, WeaponOption weapons, int numGrandhamm
     }
 
     m_weaponOption = weapons;
+    // TODO: add buff for paired weapons
+    m_pairedWeapons = pairedWeapons;
 
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
@@ -90,13 +92,27 @@ int Liberators::toHitModifier(const Weapon* weapon, const Unit* unit) const
     return modifier;
 }
 
-Rerolls Liberators::toSaveRerolls() const
+Rerolls Liberators::toSaveRerolls(const Weapon* weapon) const
 {
     // Sigmarite Shields
     if (m_weaponOption == Warhammer || m_weaponOption == Warblade)
         return RerollOnes;
 
-    return StormcastEternal::toSaveRerolls();
+    return StormcastEternal::toSaveRerolls(weapon);
+}
+
+Hits Liberators::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+{
+    Hits modifiedHits = hits;
+    if ((hits.rolls.numUnmodified6s() > 0) && m_pairedWeapons &&
+        (weapon->name() == s_warblade.name() || weapon->name() == s_warhammer.name()))
+    {
+        // each 6 inflicts an additional hit
+        modifiedHits.numHits += hits.rolls.numUnmodified6s();
+    }
+
+    // modifiers accumulate
+    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
 }
 
 } // namespace StormcastEternals

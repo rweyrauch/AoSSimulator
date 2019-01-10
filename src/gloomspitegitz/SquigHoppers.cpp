@@ -11,9 +11,9 @@
 namespace GloomspiteGitz
 {
 
-Weapon SquiqHoppers::s_fangFilledGob("Fang-filled Gob", 1, 2, 4, 3, -1, 1);
-Weapon SquiqHoppers::s_slitta("Slitta", 1, 1, 5, 5, 0, 1);
-Weapon SquiqHoppers::s_slittaBoss("Slitta", 1, 1, 4, 5, 0, 1);
+Weapon SquiqHoppers::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
+Weapon SquiqHoppers::s_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1);
+Weapon SquiqHoppers::s_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1);
 
 SquiqHoppers::SquiqHoppers() :
     Unit("Squig Hoppers", RAND_3D6, WOUNDS, 4, 6, true)

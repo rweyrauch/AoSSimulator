@@ -30,9 +30,9 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     { 6, 10, 1 }
 };
 
-Weapon Alarielle::s_spearOfKurnoth("Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6);
-Weapon Alarielle::s_talonOfDwindling("Talon of Dwindling", 1, 4, 3, 4, 0, 1);
-Weapon Alarielle::s_beetleGreatAntlers("Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5);
+Weapon Alarielle::s_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6);
+Weapon Alarielle::s_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1);
+Weapon Alarielle::s_beetleGreatAntlers(Weapon::Type::Melee, "Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5);
 
 Alarielle::Alarielle() :
     Unit("Alarielle", 16, WOUNDS, 10, 3, true)

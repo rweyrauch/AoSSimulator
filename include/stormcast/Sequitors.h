@@ -44,7 +44,8 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls() const override;
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
 
 private:
 
@@ -57,7 +58,8 @@ private:
         s_tempestBlade,
         s_tempestBladePrime,
         s_stormsmiteGreatmace,
-        s_stormsmiteGreatmacePrime;
+        s_stormsmiteGreatmacePrime,
+        s_redemptionCache;
 
 };
 

@@ -11,6 +11,7 @@
 
 #include <cinttypes>
 #include <string>
+#include "Dice.h"
 
 enum class Phase
 {
@@ -46,11 +47,6 @@ enum Rerolls
     RerollFailed,
 };
 
-enum HitModifier
-{
-    NoExtraHits = 0,
-    ExtraHitOn6,
-};
 
 enum AttackModifier
 {
@@ -64,11 +60,21 @@ enum DamageModifier
 
 enum Keyword
 {
+    // Grand alliances
     ORDER,
     CHAOS,
     DEATH,
     DESTRUCTION,
 
+    // Factions
+    STORMCAST_ETERNAL,
+    KHORNE,
+    SYLVANETH,
+    GLOOMSPITE_GITZ,
+    MOONCLAN,
+    NIGHTHAUNT,
+
+    // Common
     MORTAL,
     DAEMON,
     HUMAN,
@@ -78,7 +84,7 @@ enum Keyword
     CELESTIAL,
     WAR_MACHINE,
 
-    STORMCAST_ETERNAL,
+    // Stormcast
     SACROSANCT,
     ORDINATOS,
     CELESTAR_BALLISTA,
@@ -101,17 +107,16 @@ enum Keyword
     TEMPEST_LORDS,
     ASTRAL_TEMPLARS,
 
-    KHORNE,
+    // Khorne
     BLOODBOUND,
     BLOODREAVERS,
     BLOOD_WARRIORS,
 
-    SYLVANETH,
+    // Sylvaneth
     ALARIELLE_THE_EVERQUEEN,
 
+    // Gloomspite Gitz
     SQUIG,
-    GLOOMSPITE_GITZ,
-    MOONCLAN,
     SQUIG_HERD,
     SQUIG_HOPPERS,
     BOINGROT_BOUNDERZ,
@@ -119,6 +124,11 @@ enum Keyword
     MANGLER_SQUIG,
 };
 
+struct Wounds
+{
+    int normal;
+    int mortal;
+};
 
 std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);
