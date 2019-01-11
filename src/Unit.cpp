@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <Unit.h>
 #include <Dice.h>
+#include <Board.h>
 
 Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 {
@@ -22,6 +23,8 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
         numAttackingModels = (int)m_models.size();
     }
 
+    //std::cout << "Distance between " << name() << " and target " << unit->name() << " is " << distanceTo(unit) << std::endl;
+
     Wounds totalDamage = {0, 0};
     for (auto i = 0; i < numAttackingModels; i++)
     {
@@ -31,6 +34,14 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
         for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
         {
             Weapon* w = *wip;
+
+            // check range to target unit
+            float distanceToTarget = distanceBetween(&model, unit);
+            if (distanceToTarget > w->range())
+            {
+                // out of range
+                continue;
+            }
 
             auto hits = w->rollToHit(toHitModifierMissile(w, unit), toHitRerollsMissile(w, unit), extraAttacksMissile(w));
 
@@ -58,6 +69,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         numAttackingModels = (int)m_models.size();
     }
 
+    //std::cout << "Distance between " << name() << " and target " << unit->name() << " is " << distanceTo(unit) << std::endl;
+
     Wounds totalDamage = {0, 0};
     for (auto i = 0; i < numAttackingModels; i++)
     {
@@ -67,6 +80,15 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
         {
             Weapon* w = *wip;
+
+            // check range to target unit
+            float distanceToTarget = distanceBetween(&model, unit);
+            if (distanceToTarget > w->range())
+            {
+                // out of range
+                continue;
+            }
+
             auto hits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w));
             // apply hit modifiers on returned hits
             hits = applyHitModifiers(w, unit, hits);
@@ -248,6 +270,58 @@ void Unit::restore()
         m.woundsRemaining() = m_wounds;
         m.restore();
     }
+}
+
+bool Unit::position(float x, float y, float z)
+{
+    // TODO: pack models into block of (numModels x m_ranks)
+    for (auto& m : m_models)
+    {
+        m.position(x, y, z);
+    }
+    return true;
+}
+
+bool Unit::formation(int ranks)
+{
+    if (ranks < 1 || ranks > m_models.size())
+        return false;
+
+    m_ranks = ranks;
+    return true;
+}
+
+float Unit::distanceTo(const Unit* unit) const
+{
+    if (unit == nullptr || unit->remainingModels() == 0 || remainingModels() == 0)
+        return 0.0f;
+
+    // TODO: find closest models in this unit and the target unit
+    auto model = m_models.at(0);
+    return distanceBetween(&model, unit);
+}
+
+float Unit::distanceBetween(const Model* model, const Unit* unit) const
+{
+    if (model == nullptr || unit == nullptr || unit->remainingModels() == 0)
+        return 0.0f;
+
+    // TODO: find closes model in target unit
+    const float tx = unit->m_models.begin()->x();
+    const float ty = unit->m_models.begin()->y();
+
+    const float x = model->x();
+    const float y = model->y();
+
+    const float dx = fabsf(tx - x);
+    const float dy = fabsf(ty - y);
+
+    return sqrtf(dx*dx + dy*dy);
+}
+
+void Unit::movement(PlayerId player)
+{
+    auto board = Board::Instance();
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

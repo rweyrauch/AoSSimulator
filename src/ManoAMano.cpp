@@ -9,11 +9,14 @@
 #include <ManoAMano.h>
 #include <Dice.h>
 #include <Roster.h>
+#include <Board.h>
 
 ManoAMano::ManoAMano(int numRounds, bool verbose) :
     m_numRounds(numRounds),
     m_verbose(verbose)
 {
+    auto board = Board::Instance();
+    board->setSize(BoardWidth, BoardDepth);
 }
 
 void ManoAMano::combatants(Unit *red, Unit *blue)
@@ -24,11 +27,34 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     m_units[0] = red;
     m_units[1] = blue;
 
-    m_rosters[0] = new Roster();
+    m_rosters[0] = new Roster(PlayerId::Red);
     m_rosters[0]->addUnit(red);
 
-    m_rosters[1] = new Roster();
+    m_rosters[1] = new Roster(PlayerId::Blue);
     m_rosters[1]->addUnit(blue);
+
+    // +-----------------------+
+    // |                       |
+    // |                       |
+    // | red              blue |
+    // |                       |
+    // |                       |
+    // +-----------------------+
+
+    float redX = BoardWidth / 20.0f;
+    float redY = BoardDepth / 2.0f;
+
+    // left center
+    red->position(redX, redY);
+
+    float blueX = BoardWidth - (BoardWidth / 20.0f);
+    float blueY = BoardDepth / 2.0f;
+
+    // right center
+    blue->position(blueX, blueY);
+
+    auto board = Board::Instance();
+    board->addRosters(m_rosters[0], m_rosters[1]);
 }
 
 void ManoAMano::start()
@@ -211,17 +237,17 @@ void ManoAMano::runInitiativePhase()
 
 void ManoAMano::runHeroPhase()
 {
-    m_units[(int)m_attackingUnit]->hero();
+    m_units[(int)m_attackingUnit]->hero(m_attackingUnit);
 }
 
 void ManoAMano::runMovementPhase()
 {
-    m_units[(int)m_attackingUnit]->movement();
+    m_units[(int)m_attackingUnit]->movement(m_attackingUnit);
 }
 
 void ManoAMano::runShootingPhase()
 {
-    m_units[(int)m_attackingUnit]->shooting();
+    m_units[(int)m_attackingUnit]->shooting(m_attackingUnit);
 
     int numSlain = 0;
     auto totalDamage = m_units[(int)m_attackingUnit]->shoot(-1, m_units[(int)m_defendingUnit], numSlain);
@@ -241,12 +267,12 @@ void ManoAMano::runShootingPhase()
 
 void ManoAMano::runChargePhase()
 {
-    m_units[(int)m_attackingUnit]->charge();
+    m_units[(int)m_attackingUnit]->charge(m_attackingUnit);
 }
 
 void ManoAMano::runCombatPhase()
 {
-    m_units[(int)m_attackingUnit]->combat();
+    m_units[(int)m_attackingUnit]->combat(m_attackingUnit);
 
     int numSlain = 0;
     auto totalDamage = m_units[(int)m_attackingUnit]->fight(-1, m_units[(int)m_defendingUnit], numSlain);
@@ -274,8 +300,8 @@ void ManoAMano::runCombatPhase()
 
 void ManoAMano::runBattleshockPhase()
 {
-    m_units[(int)m_attackingUnit]->battleshock();
-    m_units[(int)m_defendingUnit]->battleshock();
+    m_units[(int)m_attackingUnit]->battleshock(m_attackingUnit);
+    m_units[(int)m_defendingUnit]->battleshock(m_defendingUnit);
 
     int numFleeing = m_units[(int)m_attackingUnit]->applyBattleshock();
     if (numFleeing > 0)

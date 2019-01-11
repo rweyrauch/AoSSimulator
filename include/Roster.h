@@ -15,7 +15,7 @@
 class Roster
 {
 public:
-    Roster() = default;
+    Roster(PlayerId id) : m_id(id) {}
 
     void addUnit(Unit* unit)
     {
@@ -31,6 +31,7 @@ public:
     void doBattleshockPhase();
 
 private:
+    const PlayerId m_id;
     std::vector<Unit*> m_units;
 };
 

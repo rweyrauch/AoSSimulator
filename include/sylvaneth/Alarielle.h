@@ -27,7 +27,7 @@ public:
 
     bool configure();
 
-    void hero() override;
+    void hero(PlayerId player) override;
 
 protected:
 

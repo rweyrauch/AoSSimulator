@@ -17,7 +17,7 @@ class Battle
 public:
     Battle() = default;
 
-    void addPlayers(const Player& player1, const Player& player2);
+    void addPlayers(Player* player1, Player* player2);
     void setNumRounds(int rounds) { m_numRounds = rounds; }
 
     void deployment();
@@ -42,7 +42,7 @@ protected:
     void runBattleshockPhase();
 
 private:
-    Player m_players[2];
+    Player* m_players[2] = {nullptr, nullptr};
     int m_numRounds = 5;
 
     int m_round = 0;

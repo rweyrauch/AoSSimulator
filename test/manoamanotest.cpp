@@ -112,9 +112,6 @@ TEST(ManoAMano, StatsSequitersVsReavers)
 
     ManoAMano battle(5, false);
 
-    auto board = Board::Instance();
-    board->setSize(72, 48);
-
     auto seqs = new StormcastEternals::Sequitors();
     auto reavers = new Khorne::Bloodreavers();
 

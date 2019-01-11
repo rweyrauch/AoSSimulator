@@ -57,7 +57,7 @@ void Battle::next()
                 }
 
                 const auto playerIdx = (int)m_currentPlayer;
-                m_players[playerIdx].beginTurn();
+                m_players[playerIdx]->beginTurn();
 
                 m_currentPhase = Phase::Hero;
             }
@@ -117,7 +117,7 @@ void Battle::simulate()
     }
 }
 
-void Battle::addPlayers(const Player &player1, const Player &player2)
+void Battle::addPlayers(Player* player1, Player* player2)
 {
     m_players[0] = player1;
     m_players[1] = player2;
@@ -144,7 +144,7 @@ void Battle::runInitiativePhase()
     }
 
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].beginTurn();
+    m_players[playerIdx]->beginTurn();
 
     std::cout << "Player " << PlayerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
         p1 << " P2: " << p2 << std::endl;
@@ -153,37 +153,37 @@ void Battle::runInitiativePhase()
 void Battle::runHeroPhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].doHeroPhase();
+    m_players[playerIdx]->doHeroPhase();
 }
 
 void Battle::runMovementPhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].doMovementPhase();
+    m_players[playerIdx]->doMovementPhase();
 }
 
 void Battle::runShootingPhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].doShootingPhase();
+    m_players[playerIdx]->doShootingPhase();
 }
 
 void Battle::runChargePhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].doChargePhase();
+    m_players[playerIdx]->doChargePhase();
 }
 
 void Battle::runCombatPhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].doCombatPhase();
+    m_players[playerIdx]->doCombatPhase();
 }
 
 void Battle::runBattleshockPhase()
 {
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx].doBattleshockPhase();
+    m_players[playerIdx]->doBattleshockPhase();
 }
 
 void Battle::deployment()

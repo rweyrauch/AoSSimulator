@@ -14,9 +14,9 @@
 class Player
 {
 public:
-    Player() = default;
+    Player(PlayerId id) : m_id(id) {}
 
-    void setRoster(const Roster& roster)
+    void setRoster(Roster* roster)
     {
         m_roster = roster;
     }
@@ -30,8 +30,8 @@ public:
     void doBattleshockPhase();
 
 private:
-
-    Roster m_roster;
+    const PlayerId m_id;
+    Roster* m_roster = nullptr;
 };
 
 

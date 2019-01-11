@@ -35,13 +35,17 @@ public:
 
     // Phase functions (these are the 'think' functions that decide what this unit
     // is to do in each of the phases.
-    virtual void hero() {}
-    virtual void movement() {}
-    virtual void shooting() {}
-    virtual void charge() {}
-    virtual void combat() {}
-    virtual void battleshock() {}
+    virtual void hero(PlayerId player) {}
+    virtual void movement(PlayerId player);
+    virtual void shooting(PlayerId player) {}
+    virtual void charge(PlayerId player) {}
+    virtual void combat(PlayerId player) {}
+    virtual void battleshock(PlayerId player) {}
 
+    bool formation(int ranks);
+    bool position(float x, float y, float z = 0.0f);
+    float distanceTo(const Unit* unit) const;
+    float distanceBetween(const Model* model, const Unit* unit) const;
 
     Wounds shoot(int numAttackingModels, Unit* targetUnit, int& numSlain);
     Wounds fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
@@ -101,6 +105,7 @@ protected:
     bool m_runAndCharge = false;
     bool m_ignoreRend = false;
 
+    int m_ranks = 1;
     std::vector<Model> m_models;
 
     int m_modelsSlain = 0;

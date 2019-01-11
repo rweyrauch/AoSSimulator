@@ -48,7 +48,7 @@ TEST(Battle, BallistaVsAlarielle)
     ok = alarielle.configure();
     ASSERT_TRUE(ok);
 
-    Roster roster1, roster2;
+    Roster roster1(PlayerId::Red), roster2(PlayerId::Blue);
     roster1.addUnit(&ballista0);
     roster1.addUnit(&ballista1);
     roster1.addUnit(&ballista2);
@@ -56,11 +56,11 @@ TEST(Battle, BallistaVsAlarielle)
 
     roster2.addUnit(&alarielle);
 
-    Player player1, player2;
-    player1.setRoster(roster1);
-    player2.setRoster(roster2);
+    Player player1(PlayerId::Red), player2(PlayerId::Blue);
+    player1.setRoster(&roster1);
+    player2.setRoster(&roster2);
 
-    battle.addPlayers(player1, player2);
+    battle.addPlayers(&player1, &player2);
 
     battle.setNumRounds(5);
     battle.start(PlayerId::Red);

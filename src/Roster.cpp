@@ -12,7 +12,7 @@ void Roster::doHeroPhase()
 {
     for (auto u : m_units)
     {
-        u->hero();
+        u->hero(m_id);
     }
 }
 
@@ -20,7 +20,7 @@ void Roster::doMovementPhase()
 {
     for (auto u : m_units)
     {
-        u->movement();
+        u->movement(m_id);
     }
 }
 
@@ -28,7 +28,7 @@ void Roster::doShootingPhase()
 {
     for (auto u : m_units)
     {
-        u->shooting();
+        u->shooting(m_id);
     }
 }
 
@@ -36,7 +36,7 @@ void Roster::doChargePhase()
 {
     for (auto u : m_units)
     {
-        u->charge();
+        u->charge(m_id);
     }
 }
 
@@ -44,7 +44,7 @@ void Roster::doCombatPhase()
 {
     for (auto u : m_units)
     {
-        u->combat();
+        u->combat(m_id);
     }
 }
 
@@ -52,7 +52,7 @@ void Roster::doBattleshockPhase()
 {
     for (auto u : m_units)
     {
-        u->battleshock();
+        u->battleshock(m_id);
     }
 }
 

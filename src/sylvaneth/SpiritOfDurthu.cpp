@@ -52,7 +52,7 @@ bool SpiritOfDurthu::configure()
     return true;
 }
 
-void SpiritOfDurthu::hero()
+void SpiritOfDurthu::hero(PlayerId id)
 {
 }
 

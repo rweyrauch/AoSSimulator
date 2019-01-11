@@ -63,7 +63,7 @@ int Alarielle::toHitModifier(const Weapon* weapon, const Unit* unit) const
     return Unit::toHitModifier(weapon, unit);
 }
 
-void Alarielle::hero()
+void Alarielle::hero(PlayerId player)
 {
     if (remainingWounds() < WOUNDS && remainingWounds() > 0)
     {
