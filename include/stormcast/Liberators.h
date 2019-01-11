@@ -27,9 +27,7 @@ public:
     enum WeaponOption
     {
         Warhammer,
-        PairedWarhammer,
         Warblade,
-        PairedWarblade
     };
 
     Liberators();

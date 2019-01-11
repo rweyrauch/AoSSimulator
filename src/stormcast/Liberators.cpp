@@ -40,7 +40,6 @@ bool Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapo
     }
 
     m_weaponOption = weapons;
-    // TODO: add buff for paired weapons
     m_pairedWeapons = pairedWeapons;
 
     // Add the Prime

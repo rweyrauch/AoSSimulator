@@ -176,8 +176,8 @@ void Unit::addModel(const Model &model)
 
 int Unit::applyDamage(const Wounds& totalWounds)
 {
-    // TODO: apply mortal wounds
-    int totalDamage = totalWounds.normal;
+    // apply both normal and mortal wounds
+    int totalDamage = totalWounds.normal + totalWounds.mortal;
     int numSlain = 0;
     for (auto &model : m_models)
     {

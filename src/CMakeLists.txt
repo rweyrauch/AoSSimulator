@@ -24,6 +24,8 @@ add_library(
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         sylvaneth/Alarielle.cpp
+        sylvaneth/SpiritOfDurthu.cpp
+        sylvaneth/KurnothHunters.cpp
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp
         gloomspitegitz/BoingrotBounderz.cpp

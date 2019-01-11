@@ -114,6 +114,8 @@ enum Keyword
 
     // Sylvaneth
     ALARIELLE_THE_EVERQUEEN,
+    SPIRIT_OF_DURTHU,
+    KURNOTH_HUNTERS,
 
     // Gloomspite Gitz
     SQUIG,
