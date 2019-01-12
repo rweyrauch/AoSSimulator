@@ -15,9 +15,9 @@ int main()
 {
     Battle battle;
 
-    Player player1, player2;
+    Player player1(PlayerId::Red), player2(PlayerId::Blue);
 
-    battle.addPlayers(player1, player2);
+    battle.addPlayers(&player1, &player2);
 
     battle.start(PlayerId::Red);
 
