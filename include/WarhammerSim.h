@@ -126,6 +126,12 @@ enum Keyword
     MANGLER_SQUIG,
 };
 
+enum Duration
+{
+    CurrentPhase,       // Spell, prayer, ability lasts unit the end of the current phase.
+    StartOfNextHero,    // .. lasts unit the start of player's next hero phase.
+};
+
 struct Wounds
 {
     int normal;
