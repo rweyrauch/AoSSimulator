@@ -23,7 +23,7 @@ public:
 
     const std::string& name() const { return m_name; }
     int wounds() const { return m_wounds; }
-    int move() const { return m_move; }
+    virtual int move() const { return m_move; }
     int bravery() const { return m_bravery; }
     int save() const { return m_save; }
     bool fly() const { return m_fly; }
@@ -92,6 +92,7 @@ protected:
     virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return 0; }
 
     virtual void onSlain() {}
+    virtual void onWounded() {}
 
 protected:
     std::string m_name = "";

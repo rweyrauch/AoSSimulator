@@ -220,6 +220,7 @@ int Unit::applyDamage(const Wounds& totalWounds)
             totalDamage = 0;
         }
     }
+    onWounded();
     m_modelsSlain = numSlain;
     return m_modelsSlain;
 }

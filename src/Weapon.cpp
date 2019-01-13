@@ -22,6 +22,17 @@ Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int t
     m_damage(damage)
 {
 }
+Weapon::Weapon(const Weapon& w) :
+    m_type(w.m_type),
+    m_name(w.m_name),
+    m_range(w.m_range),
+    m_attacks(w.m_attacks),
+    m_toHit(w.m_toHit),
+    m_toWound(w.m_toWound),
+    m_rend(w.m_rend),
+    m_damage(w.m_damage)
+{
+}
 
 Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
 {

@@ -30,6 +30,7 @@ add_library(
         gloomspitegitz/SquigHoppers.cpp
         gloomspitegitz/BoingrotBounderz.cpp
         gloomspitegitz/LoonbossOnManglerSquigs.cpp
+        gloomspitegitz/ManglerSquigs.cpp
 )
 
 target_include_directories(

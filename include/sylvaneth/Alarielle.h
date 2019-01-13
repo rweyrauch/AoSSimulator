@@ -23,18 +23,26 @@ public:
     static const int WOUNDS = 16;
 
     Alarielle();
-    ~Alarielle() override = default;
+    ~Alarielle() override
+    {
+        delete m_pSpearOfKurnoth;
+        delete m_pBeetleGreatAntlers;
+    }
 
     bool configure();
-
+    int move() const override;
     void hero(PlayerId player) override;
 
 protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-
+    void onWounded() override;
     int getDamageTableIndex() const;
+
 private:
+
+    Weapon* m_pSpearOfKurnoth = nullptr;
+    Weapon* m_pBeetleGreatAntlers = nullptr;
 
     static Weapon s_spearOfKurnoth,
         s_talonOfDwindling,

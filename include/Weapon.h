@@ -40,6 +40,7 @@ public:
 
     Weapon() = default;
     Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage);
+    Weapon(const Weapon& w);
 
     void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }
 
@@ -48,11 +49,17 @@ public:
 
     const std::string& name() const { return m_name; }
     int range() const { return m_range; }
+    void setRange(int r) { m_range = r; }
     int attacks() const { return m_attacks; }
+    void setAttacks(int a) { m_attacks = a; }
     int toHit() const { return m_toHit; }
+    void setToHit(int h) { m_toHit = h; }
     int toWound() const { return m_toWound; }
+    void setToWound(int w) { m_toWound = w; }
     int rend() const { return m_rend; }
+    void setRend(int r) { m_rend = r; }
     int damage() const;
+    void setDamage(int d) { m_damage = d; }
     bool isMissile() const { return (m_type == Type::Missile); }
 
 protected:

@@ -20,7 +20,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 0, 3, 5, 8, 10 };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 2, 4, 7, 9, SpiritOfDurthu::WOUNDS };
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 {
     { 6, 6, 2 },
@@ -44,9 +44,13 @@ bool SpiritOfDurthu::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&s_verdantBlast);
-    model.addMeleeWeapon(&s_guardianSword);
-    model.addMeleeWeapon(&s_massiveImpalingTalons);
+    m_pVerdantBlast = new Weapon(s_verdantBlast);
+    m_pGuardianSword = new Weapon(s_guardianSword);
+    m_pMassiveImpalingTalons = new Weapon(s_massiveImpalingTalons);
+
+    model.addMissileWeapon(m_pVerdantBlast);
+    model.addMeleeWeapon(m_pGuardianSword);
+    model.addMeleeWeapon(m_pMassiveImpalingTalons);
     addModel(model);
 
     return true;
@@ -56,8 +60,24 @@ void SpiritOfDurthu::hero(PlayerId id)
 {
 }
 
+void SpiritOfDurthu::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_pVerdantBlast->setAttacks(g_damageTable[damageIndex].m_verdantBlastAttacks);
+    m_pGuardianSword->setDamage(g_damageTable[damageIndex].m_guardianSwordDamage);
+    m_pMassiveImpalingTalons->setToWound(g_damageTable[damageIndex].m_talonsToWound);
+}
+
 int SpiritOfDurthu::getDamageTableIndex() const
 {
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
     return 0;
 }
 

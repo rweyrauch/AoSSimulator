@@ -223,3 +223,21 @@ TEST(Unit, BallistaVsAlarielle)
     }
     std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after the battle." << std::endl;
 }
+
+TEST(Unit, DamageTable)
+{
+    Sylvaneth::Alarielle alarielle;
+    bool ok = alarielle.configure();
+    ASSERT_TRUE(ok);
+
+    Wounds wounds;
+    wounds.normal = 1;
+    wounds.mortal = 0;
+
+
+    for (auto i = 0; i < Sylvaneth::Alarielle::WOUNDS; i++)
+    {
+        alarielle.applyDamage(wounds);
+        std::cout << "Wound: " << alarielle.remainingWounds() << "  Move: " << alarielle.move() << std::endl;
+    }
+}

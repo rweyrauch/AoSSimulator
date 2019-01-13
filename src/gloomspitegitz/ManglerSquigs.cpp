@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <gloomspitegitz/LoonbossOnManglerSquigs.h>
+#include <gloomspitegitz/ManglerSquigs.h>
 
 namespace GloomspiteGitz
 {
@@ -19,7 +19,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 2, 4, 7, 9, LoonbossOnManglerSquigs::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 2, 4, 7, 9, ManglerSquigs::WOUNDS };
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 {
     { RAND_3D6, 3, 7 },
@@ -29,25 +29,28 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     { RAND_3D6, 3, 7 }
 };
 
-Weapon LoonbossOnManglerSquigs::s_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1);
-Weapon LoonbossOnManglerSquigs::s_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6);
-Weapon LoonbossOnManglerSquigs::s_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3);
-Weapon LoonbossOnManglerSquigs::s_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1);
+Weapon ManglerSquigs::s_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6);
+Weapon ManglerSquigs::s_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3);
+Weapon ManglerSquigs::s_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1);
 
-LoonbossOnManglerSquigs::LoonbossOnManglerSquigs() :
-    Unit("Loonboss on Mangler Squigs", RAND_3D6, WOUNDS, 10, 4, true)
+ManglerSquigs::ManglerSquigs() :
+    Unit("Mangler Squigs", RAND_3D6, WOUNDS, 10, 4, true)
 {
-    m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, LOONBOSS, MANGLER_SQUIG };
+    m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, MANGLER_SQUIG };
 }
 
-bool LoonbossOnManglerSquigs::configure()
+int ManglerSquigs::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+bool ManglerSquigs::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
     m_pHugeFangFilledGob = new Weapon(s_hugeFangFilledGob);
     m_pBallsAndChains = new Weapon(s_ballsAndChains);
 
-    model.addMeleeWeapon(&s_moonCutta);
     model.addMeleeWeapon(m_pHugeFangFilledGob);
     model.addMeleeWeapon(m_pBallsAndChains);
     model.addMeleeWeapon(&s_grotsBashinStikk);
@@ -57,7 +60,7 @@ bool LoonbossOnManglerSquigs::configure()
     return true;
 }
 
-int LoonbossOnManglerSquigs::toHitModifier(const Weapon* weapon, const Unit* unit) const
+int ManglerSquigs::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
     int modifier = Unit::toHitModifier(weapon, unit);
 
@@ -70,21 +73,14 @@ int LoonbossOnManglerSquigs::toHitModifier(const Weapon* weapon, const Unit* uni
     return modifier;
 }
 
-
-int LoonbossOnManglerSquigs::move() const
-{
-    return g_damageTable[getDamageTableIndex()].m_move;
-}
-
-
-void LoonbossOnManglerSquigs::onWounded()
+void ManglerSquigs::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_pHugeFangFilledGob->setToHit(g_damageTable[damageIndex].m_gobsToHig);
     m_pBallsAndChains->setAttacks(g_damageTable[damageIndex].m_ballsAndChainsAttack);
 }
 
-int LoonbossOnManglerSquigs::getDamageTableIndex() const
+int ManglerSquigs::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
     for (auto i = 0; i < NUM_TABLE_ENTRIES; i++)

@@ -23,7 +23,12 @@ public:
     static const int WOUNDS = 12;
 
     SpiritOfDurthu();
-    ~SpiritOfDurthu() override = default;
+    ~SpiritOfDurthu() override
+    {
+        delete m_pVerdantBlast;
+        delete m_pGuardianSword;
+        delete m_pMassiveImpalingTalons;
+    }
 
     bool configure();
 
@@ -31,9 +36,14 @@ public:
 
 protected:
 
+    void onWounded() override;
     int getDamageTableIndex() const;
 
 private:
+
+    Weapon* m_pVerdantBlast = nullptr;
+    Weapon* m_pGuardianSword = nullptr;
+    Weapon* m_pMassiveImpalingTalons = nullptr;
 
     static Weapon s_verdantBlast,
         s_guardianSword,

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LOONBOSSMANGLERSQUIGS_H
-#define LOONBOSSMANGLERSQUIGS_H
+#ifndef MANGLERSQUIGS_H
+#define MANGLERSQUIGS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,14 +15,14 @@
 namespace GloomspiteGitz
 {
 
-class LoonbossOnManglerSquigs : public Unit
+class ManglerSquigs : public Unit
 {
 public:
     static const int BASESIZE = 80;
     static const int WOUNDS = 12;
 
-    LoonbossOnManglerSquigs();
-    ~LoonbossOnManglerSquigs() override
+    ManglerSquigs();
+    ~ManglerSquigs() override
     {
         delete m_pHugeFangFilledGob;
         delete m_pBallsAndChains;
@@ -35,19 +35,21 @@ public:
 protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
+
     void onWounded() override;
 
     int getDamageTableIndex() const;
+
+private:
 
     Weapon* m_pHugeFangFilledGob = nullptr;
     Weapon* m_pBallsAndChains = nullptr;
 
     static Weapon s_hugeFangFilledGob,
-        s_moonCutta,
         s_ballsAndChains,
         s_grotsBashinStikk;
 };
 
 } // namespace GloomspiteGitz
 
-#endif //LOONBOSSMANGLERSQUIGS_H
+#endif //MANGLERSQUIGS_H

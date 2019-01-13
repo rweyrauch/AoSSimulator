@@ -20,7 +20,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 0, 5, 8, 11, 14 };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 4, 7, 10, 13, Alarielle::WOUNDS };
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 {
     { 16, 30, 5 },
@@ -44,19 +44,26 @@ bool Alarielle::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&s_spearOfKurnoth);
+    m_pSpearOfKurnoth = new Weapon(s_spearOfKurnoth);
+    m_pBeetleGreatAntlers = new Weapon(s_beetleGreatAntlers);
+
+    model.addMissileWeapon(m_pSpearOfKurnoth);
     model.addMeleeWeapon(&s_talonOfDwindling);
-    model.addMeleeWeapon(&s_beetleGreatAntlers);
+    model.addMeleeWeapon(m_pBeetleGreatAntlers);
     addModel(model);
 
     return true;
 }
 
+int Alarielle::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
 int Alarielle::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
     // Sweeping Blows
-    // TODO: need to limit this buff to the Antler's only.
-    if (unit->remainingModels() >= 5)
+    if (weapon->name() == s_beetleGreatAntlers.name() && unit->remainingModels() >= 5)
     {
         return 1;
     }
@@ -81,8 +88,23 @@ void Alarielle::hero(PlayerId player)
     }
 }
 
+void Alarielle::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_pSpearOfKurnoth->setRange(g_damageTable[damageIndex].m_spearKurnothRange);
+    m_pBeetleGreatAntlers->setDamage(g_damageTable[damageIndex].m_greatAntlerDamage);
+}
+
 int Alarielle::getDamageTableIndex() const
 {
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
     return 0;
 }
 
