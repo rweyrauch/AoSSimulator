@@ -123,33 +123,18 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
 
 int Weapon::numAttacks(int extraAttacks) const
 {
-    return rollSpecial(m_attacks) + extraAttacks;
+    Dice dice;
+    return dice.rollSpecial(m_attacks) + extraAttacks;
 }
 
 int Weapon::damage() const
 {
-    return rollSpecial(m_damage);
-}
-
-int Weapon::rollSpecial(int number) const
-{
     Dice dice;
-    if (number >= 0)
-        return number;
-    else if (number == RAND_D3)
-        return dice.rollD3();
-    else if (number == RAND_D6)
-        return dice.rollD6();
-    else if (number == RAND_2D6)
-        return dice.roll2D6();
-    else if (number == RAND_3D6)
-        return dice.roll3D6();
-    else if (number == RAND_4D6)
-        return dice.roll4D6();
-    return 0;
+    return dice.rollSpecial(m_damage);
 }
 
 int Weapon::numTotalHits() const
 {
-    return rollSpecial(m_hitsPerAttack);
+    Dice dice;
+    return dice.rollSpecial(m_hitsPerAttack);
 }

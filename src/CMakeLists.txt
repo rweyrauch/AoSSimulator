@@ -13,6 +13,7 @@ add_library(
         TerrainFeature.cpp
         ManoAMano.cpp
         WarhammerSim.cpp
+        Spell.cpp
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp

@@ -44,6 +44,8 @@ public:
 
     bool formation(int ranks);
     bool position(float x, float y, float z = 0.0f);
+    void getPosition(float& x, float& y, float& z) const;
+
     float distanceTo(const Unit* unit) const;
     float distanceBetween(const Model* model, const Unit* unit) const;
 

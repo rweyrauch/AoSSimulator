@@ -7,6 +7,7 @@
  */
 #include <cassert>
 #include <Dice.h>
+#include <WarhammerSim.h>
 
 std::random_device Dice::s_rd;
 std::mt19937 Dice::s_gen(s_rd());
@@ -92,4 +93,21 @@ void Dice::rollD6(int number, int rerolling, Dice::RollResult &result)
         }
         result.distribution[roll]++;
     }
+}
+
+int Dice::rollSpecial(int number)
+{
+    if (number >= 0)
+        return number;
+    else if (number == RAND_D3)
+        return rollD3();
+    else if (number == RAND_D6)
+        return rollD6();
+    else if (number == RAND_2D6)
+        return roll2D6();
+    else if (number == RAND_3D6)
+        return roll3D6();
+    else if (number == RAND_4D6)
+        return roll4D6();
+    return 0;
 }

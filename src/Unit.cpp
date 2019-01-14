@@ -283,6 +283,21 @@ bool Unit::position(float x, float y, float z)
     return true;
 }
 
+void Unit::getPosition(float& x, float& y, float& z) const
+{
+    x = 0.0f;
+    y = 0.0f;
+    z = 0.0f;
+    if (!m_models.empty())
+    {
+        auto model = m_models.begin();
+        x = model->x();
+        y = model->y();
+        z = model->z();
+    }
+}
+
+
 bool Unit::formation(int ranks)
 {
     if (ranks < 1 || ranks > m_models.size())

@@ -66,7 +66,6 @@ protected:
 
     int numAttacks(int extraAttacks) const;
     int numTotalHits() const;
-    int rollSpecial(int number) const;
 
 private:
     Type m_type = Type::Melee;

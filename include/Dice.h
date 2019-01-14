@@ -22,6 +22,7 @@ public:
     int roll3D6();
     int roll4D6();
     int rollD3();
+    int rollSpecial(int number);
 
     std::vector<int> rollD6(int number);
     std::vector<int> rollD6(int number, int rerolling);
