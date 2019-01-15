@@ -14,7 +14,7 @@ namespace GloomspiteGitz
 struct TableEntry
 {
     int m_move;
-    int m_gobsToHig;
+    int m_gobsToHit;
     int m_ballsAndChainsAttack;
 };
 
@@ -76,7 +76,7 @@ int ManglerSquigs::toHitModifier(const Weapon* weapon, const Unit* unit) const
 void ManglerSquigs::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pHugeFangFilledGob->setToHit(g_damageTable[damageIndex].m_gobsToHig);
+    m_pHugeFangFilledGob->setToHit(g_damageTable[damageIndex].m_gobsToHit);
     m_pBallsAndChains->setAttacks(g_damageTable[damageIndex].m_ballsAndChainsAttack);
 }
 

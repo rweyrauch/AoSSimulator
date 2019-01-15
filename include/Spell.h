@@ -42,6 +42,8 @@ public:
     int cast(float x, float y) override { return 0; }
 
 protected:
+
+    virtual int getDamage(int castingRoll) const { return m_damage; }
     int m_range = 0;
     int m_damage = 0;
 };
@@ -51,6 +53,8 @@ class ArcaneBolt : public DamageSpell
 public:
     ArcaneBolt(Unit* caster);
 
+protected:
+    int getDamage(int castingRoll) const override;
 };
 
 #endif// SPELL_H

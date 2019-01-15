@@ -26,19 +26,29 @@ int DamageSpell::cast(const Unit* target)
 
     Dice dice;
 
+    int mortalWounds = 0;
     const int castingRoll = dice.rollD6();
     if (castingRoll >= m_castingValue)
     {
         // TODO: Implement unbinding roll
+        bool unbound = false;
         //bool unbound = otherplayer->unbind(m_caster, castingRoll);
-
-        const int mortalWounds = dice.rollSpecial(m_damage);
-        return mortalWounds;
+        if (!unbound)
+        {
+            mortalWounds = dice.rollSpecial(getDamage(castingRoll));
+        }
     }
 
-    return 0;
+    return mortalWounds;
 }
 
 ArcaneBolt::ArcaneBolt(Unit *caster) :
     DamageSpell(caster, "Arcane Bolt", 5, 18, 1)
 {}
+
+int ArcaneBolt::getDamage(int castingRoll) const
+{
+    if (castingRoll >= 10)
+        return RAND_D3;
+    return m_damage;
+}

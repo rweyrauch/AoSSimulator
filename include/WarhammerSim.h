@@ -124,6 +124,7 @@ enum Keyword
     BOINGROT_BOUNDERZ,
     LOONBOSS,
     MANGLER_SQUIG,
+    COLOSSAL_SQUIG,
 };
 
 enum Duration
