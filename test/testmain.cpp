@@ -7,9 +7,13 @@
  */
 
 #include <gtest/gtest.h>
+#include "WarhammerSim.h"
 
 int main(int argc, char* argv[])
 {
     testing::InitGoogleTest(&argc, argv);
+
+    Initialize();
+
     return RUN_ALL_TESTS();
 }

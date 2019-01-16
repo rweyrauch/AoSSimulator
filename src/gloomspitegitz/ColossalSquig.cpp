@@ -44,7 +44,7 @@ int ColossalSquig::move() const
     return g_damageTable[getDamageTableIndex()].m_move;
 }
 
-void ColossalSquig::charge(PlayerId player) override
+void ColossalSquig::charge(PlayerId player)
 {
     // TODO: should charge
     bool charging = false;
@@ -77,7 +77,7 @@ void ColossalSquig::onWounded()
     m_pTramplingFeet->setAttacks(g_damageTable[damageIndex].m_tramplingAttacks);
 }
 
-void ColossalSquig::onSlain() override
+void ColossalSquig::onSlain()
 {
     // Fungoid Squig Explosion
     // TODO: Roll D6 for each enemy unit w/in 3", on 2+ unit suffers D3 mortal wounds.
@@ -85,7 +85,7 @@ void ColossalSquig::onSlain() override
     // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
 }
 
-int ColossalSquig::generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override
+int ColossalSquig::generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const
 {
     // Swallowed Whole
     if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == s_enormousJaws.name()))

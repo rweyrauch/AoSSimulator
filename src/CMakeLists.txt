@@ -14,6 +14,8 @@ add_library(
         ManoAMano.cpp
         WarhammerSim.cpp
         Spell.cpp
+        UnitFactory.cpp
+        UnitInit.cpp
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp

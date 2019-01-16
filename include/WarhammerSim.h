@@ -139,7 +139,27 @@ struct Wounds
     int mortal;
 };
 
+
+enum class ParamType
+{
+    Boolean,
+    Integer
+};
+struct Parameter
+{
+    ParamType m_paramType;
+    std::string m_name;
+    union
+    {
+        bool m_boolValue;
+        int m_intValue;
+    };
+    int m_minValue, m_maxValue;
+};
+
 std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);
+
+void Initialize();
 
 #endif //WARHAMMERSIM_H

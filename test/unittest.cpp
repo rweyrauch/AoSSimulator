@@ -241,3 +241,25 @@ TEST(Unit, DamageTable)
         std::cout << "Wound: " << alarielle.remainingWounds() << "  Move: " << alarielle.move() << std::endl;
     }
 }
+
+TEST(Unit, RegisteredUnits)
+{
+    for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
+    {
+        std::cout << "Unit name: " << ruip->first << std::endl;
+
+        for (auto pip : ruip->second.m_parameters)
+        {
+            if (pip.m_paramType == ParamType::Integer)
+            {
+                std::cout << "\tParam: " << pip.m_name << " Type: Integer  Value: " << pip.m_intValue
+                          << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue << std::endl;
+            }
+            else if (pip.m_paramType == ParamType::Boolean)
+            {
+                std::cout << "\tParam: " << pip.m_name << " Type: Boolean  Value: "
+                          << (pip.m_boolValue ? "true" : "false") << std::endl;
+            }
+        }
+    }
+}

@@ -11,6 +11,7 @@
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
+#include <UnitFactory.h>
 
 namespace StormcastEternals
 {
@@ -26,9 +27,12 @@ public:
 
     enum WeaponOption
     {
-        Warhammer,
+        Warhammer = 0,
         Warblade,
     };
+
+    static Unit* Create(const std::vector<Parameter>& parameters);
+    static void Init();
 
     Liberators();
     ~Liberators() override = default;
@@ -52,6 +56,9 @@ private:
                   s_warbladePrime,
                   s_grandhammer,
                   s_grandblade;
+
+    static FactoryMethod s_factoryMethod;
+    static bool s_registered;
 
 };
 

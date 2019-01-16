@@ -18,7 +18,9 @@
 class Unit
 {
 public:
-    Unit() = default;
+    Unit() : m_isRegistered(false) {}
+    Unit(bool isRegistered) : m_isRegistered(isRegistered) {}
+
     virtual ~Unit() = default;
 
     const std::string& name() const { return m_name; }
@@ -137,6 +139,8 @@ protected:
     // How to manage buff/debuff lifecycle?
     int m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
     Rerolls m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
+
+    const bool m_isRegistered;
 };
 
 class CustomUnit : public Unit
