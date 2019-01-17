@@ -13,13 +13,14 @@
 namespace Khorne
 {
 static FactoryMethod factoryMethod = {
-        BloodWarriors::Create,
-        {
-                {ParamType::Integer, "numModels", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MAX_UNIT_SIZE},
-                {ParamType::Boolean, "pairedGoreax", false, false, false},
-                {ParamType::Integer, "numGoreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE/10},
-                {ParamType::Boolean, "iconBearer", false, false, false}
-        }
+    BloodWarriors::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
+         BloodWarriors::MAX_UNIT_SIZE},
+        {ParamType::Boolean, "pairedGoreax", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
+        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false}
+    }
 };
 
 bool BloodWarriors::s_registered = false;

@@ -13,9 +13,9 @@
 namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
-        Alarielle::Create,
-        {
-        }
+    Alarielle::Create,
+    {
+    }
 };
 
 bool Alarielle::s_registered = false;

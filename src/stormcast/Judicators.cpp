@@ -12,13 +12,14 @@
 namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
-        Judicators::Create,
-        {
-                {ParamType::Integer, "numModels", 5, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE},
-                {ParamType::Integer, "weapons", Judicators::SkyboltBow, Judicators::SkyboltBow, Judicators::BoltstormCrossbow},
-                {ParamType::Integer, "numShockboltBows", 0, 0, Judicators::MAX_UNIT_SIZE / 5},
-                {ParamType::Integer, "numThunderboltCrossbows", 0, 0, Judicators::MAX_UNIT_SIZE / 5}
-        }
+    Judicators::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE},
+        {ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
+         Judicators::BoltstormCrossbow},
+        {ParamType::Integer, "numShockboltBows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5},
+        {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5}
+    }
 };
 
 bool Judicators::s_registered = false;

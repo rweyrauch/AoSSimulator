@@ -13,12 +13,12 @@ namespace StormcastEternals
 {
 
 static FactoryMethod factoryMethod = {
-        Evocators::Create,
-        {
-                {ParamType::Integer, "numModels", 5, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE},
-                {ParamType::Boolean, "primeGrandstave", false, false, false},
-                {ParamType::Integer, "numGrandstaves", 0, 0, Evocators::MAX_UNIT_SIZE},
-        }
+    Evocators::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE},
+        {ParamType::Boolean, "primeGrandstave", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "numGrandstaves", {.m_intValue = 0}, 0, Evocators::MAX_UNIT_SIZE},
+    }
 };
 
 bool Evocators::s_registered = false;

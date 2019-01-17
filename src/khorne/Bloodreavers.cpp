@@ -13,13 +13,15 @@
 namespace Khorne
 {
 static FactoryMethod factoryMethod = {
-        Bloodreavers::Create,
-        {
-                {ParamType::Integer, "numModels", Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MAX_UNIT_SIZE},
-                {ParamType::Integer, "weapons", Bloodreavers::ReaverBlades, Bloodreavers::ReaverBlades, Bloodreavers::MeatripperAxe},
-                {ParamType::Boolean, "iconBearer", false, false, false},
-                {ParamType::Boolean, "hornblowers", false, false, false}
-        }
+    Bloodreavers::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
+         Bloodreavers::MAX_UNIT_SIZE},
+        {ParamType::Integer, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
+         Bloodreavers::MeatripperAxe},
+        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false}
+    }
 };
 
 bool Bloodreavers::s_registered = false;

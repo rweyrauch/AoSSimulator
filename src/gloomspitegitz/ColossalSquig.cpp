@@ -12,9 +12,9 @@
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
-        ColossalSquig::Create,
-        {
-        }
+    ColossalSquig::Create,
+    {
+    }
 };
 
 bool ColossalSquig::s_registered = false;

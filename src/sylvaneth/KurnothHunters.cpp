@@ -13,11 +13,13 @@
 namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
-        KurnothHunters::Create,
-        {
-                {ParamType::Integer, "numModels", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MAX_UNIT_SIZE},
-                {ParamType::Integer, "weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords, KurnothHunters::Greatbows}
-        }
+    KurnothHunters::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
+         KurnothHunters::MAX_UNIT_SIZE},
+        {ParamType::Integer, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
+         KurnothHunters::Greatbows}
+    }
 };
 
 bool KurnothHunters::s_registered = false;

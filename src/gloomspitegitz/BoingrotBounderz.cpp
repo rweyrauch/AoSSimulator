@@ -12,10 +12,11 @@
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
-        BoingrotBounderz::Create,
-        {
-                {ParamType::Integer, "numModels", BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE}
-        }
+    BoingrotBounderz::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
+         BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE}
+    }
 };
 
 bool BoingrotBounderz::s_registered = false;

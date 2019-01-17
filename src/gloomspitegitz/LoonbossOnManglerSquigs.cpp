@@ -12,9 +12,9 @@
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
-        LoonbossOnManglerSquigs::Create,
-        {
-        }
+    LoonbossOnManglerSquigs::Create,
+    {
+    }
 };
 
 bool LoonbossOnManglerSquigs::s_registered = false;

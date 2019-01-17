@@ -13,9 +13,9 @@
 namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
-        SpiritOfDurthu::Create,
-        {
-        }
+    SpiritOfDurthu::Create,
+    {
+    }
 };
 
 bool SpiritOfDurthu::s_registered = false;

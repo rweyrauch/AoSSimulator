@@ -13,10 +13,10 @@ namespace StormcastEternals
 {
 
 static FactoryMethod factoryMethod = {
-        CelestarBallista::Create,
-        {
-                {ParamType::Boolean, "singleShot", false, false, false},
-        }
+    CelestarBallista::Create,
+    {
+        {ParamType::Boolean, "singleShot", {.m_boolValue = false}, false, false},
+    }
 };
 
 bool CelestarBallista::s_registered = false;

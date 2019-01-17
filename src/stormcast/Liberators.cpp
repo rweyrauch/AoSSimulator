@@ -12,14 +12,15 @@
 namespace StormcastEternals {
 
 static FactoryMethod factoryMethod = {
-        Liberators::Create,
-        {
-                {ParamType::Integer, "numModels", 5, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE},
-                {ParamType::Integer, "weapons", Liberators::Warhammer, Liberators::Warhammer, Liberators::Warblade},
-                {ParamType::Boolean, "pairedWeapons", false, false, false},
-                {ParamType::Integer, "numGrandhammers", 0, 0, Liberators::MAX_UNIT_SIZE / 5},
-                {ParamType::Integer, "numGrandblades", 0, 0, Liberators::MAX_UNIT_SIZE / 5}
-        }
+    Liberators::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE},
+        {ParamType::Integer, "weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
+         Liberators::Warblade},
+        {ParamType::Boolean, "pairedWeapons", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "numGrandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5},
+        {ParamType::Integer, "numGrandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5}
+    }
 };
 
 bool Liberators::s_registered = false;

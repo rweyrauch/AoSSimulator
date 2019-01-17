@@ -12,9 +12,9 @@
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
-        ManglerSquigs::Create,
-        {
-        }
+    ManglerSquigs::Create,
+    {
+    }
 };
 
 bool ManglerSquigs::s_registered = false;

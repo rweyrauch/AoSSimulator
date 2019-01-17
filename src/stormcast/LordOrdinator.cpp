@@ -12,10 +12,11 @@
 namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
-        LordOrdinator::Create,
-        {
-                {ParamType::Integer, "weaponOption", LordOrdinator::AstralHammers, LordOrdinator::AstralHammers, LordOrdinator::AstralGrandhammer},
-        }
+    LordOrdinator::Create,
+    {
+        {ParamType::Integer, "weaponOption", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
+         LordOrdinator::AstralGrandhammer},
+    }
 };
 
 bool LordOrdinator::s_registered = false;

@@ -12,11 +12,11 @@
 namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
-        Retributors::Create,
-        {
-                {ParamType::Integer, "numModels", 5, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE},
-                {ParamType::Integer, "numStarsoulMaces", 0, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
-        }
+    Retributors::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE},
+        {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 0}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
+    }
 };
 
 bool Retributors::s_registered = false;

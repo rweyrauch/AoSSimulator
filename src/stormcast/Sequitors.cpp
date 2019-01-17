@@ -12,14 +12,15 @@
 namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
-        Sequitors::Create,
-        {
-                {ParamType::Integer, "numModels", 5, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE},
-                {ParamType::Integer, "weapons", Sequitors::StormsmiteMaul, Sequitors::StormsmiteMaul, Sequitors::TempestBlade},
-                {ParamType::Integer, "numGreatmaces", 0, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
-                {ParamType::Boolean, "primeGreatmace", false, false, false},
-                {ParamType::Boolean, "redemptionCache", false, false, false}
-        }
+    Sequitors::Create,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE},
+        {ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
+         Sequitors::TempestBlade},
+        {ParamType::Integer, "numGreatmaces", {.m_intValue = 0}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
+        {ParamType::Boolean, "primeGreatmace", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "redemptionCache", {.m_boolValue = false}, false, false}
+    }
 };
 
 bool Sequitors::s_registered = false;
