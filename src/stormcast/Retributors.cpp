@@ -7,9 +7,19 @@
  */
 #include <algorithm>
 #include <stormcast/Retributors.h>
+#include <UnitFactory.h>
 
 namespace StormcastEternals
 {
+static FactoryMethod factoryMethod = {
+        Retributors::Create,
+        {
+                {ParamType::Integer, "numModels", 5, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE},
+                {ParamType::Integer, "numStarsoulMaces", 0, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
+        }
+};
+
+bool Retributors::s_registered = false;
 
 Weapon Retributors::s_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2);
 Weapon Retributors::s_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2);
@@ -29,7 +39,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
         // Invalid model count.
         return false;
     }
-    const int maxStarsoulMaces = numModels / 5;
+    const int maxStarsoulMaces = (numModels / 5) * 2;
     if (numStarsoulMaces > maxStarsoulMaces)
     {
         // Invalid weapon configuration.
@@ -85,6 +95,29 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
         }
     }
     return Unit::generateMortalWounds(weapon, unit, hits);
+}
+
+Unit *Retributors::Create(const ParameterList &parameters)
+{
+    auto unit = new Retributors();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numStarsoulMaces = GetIntParam("numStarsoulMaces", parameters, 0);
+
+    bool ok = unit->configure(numModels, numStarsoulMaces);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void Retributors::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Retributors", factoryMethod);
+    }
 }
 
 } // namespace StormcastEternals

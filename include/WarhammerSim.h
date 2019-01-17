@@ -11,6 +11,7 @@
 
 #include <cinttypes>
 #include <string>
+#include <vector>
 #include "Dice.h"
 
 enum class Phase
@@ -156,6 +157,13 @@ struct Parameter
     };
     int m_minValue, m_maxValue;
 };
+
+typedef std::vector<Parameter> ParameterList;
+
+ParameterList::const_iterator FindParam(const std::string& name, const ParameterList& parameters);
+int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue);
+bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue);
+
 
 std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);

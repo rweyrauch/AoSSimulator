@@ -23,6 +23,9 @@ public:
     static const int BASESIZE = 60;
     static const int WOUNDS = 7;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     CelestarBallista();
     ~CelestarBallista() override = default;
 
@@ -35,6 +38,8 @@ private:
     static Weapon s_stormboltsSingle,
         s_stormboltsRapid,
         s_sigmariteBlades;
+
+    static bool s_registered;
 };
 
 } // namespace StormcastEternals

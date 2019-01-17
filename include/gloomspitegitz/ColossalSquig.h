@@ -21,6 +21,9 @@ public:
     static const int BASESIZE = 120; // oval
     static const int WOUNDS = 16;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     ColossalSquig();
     ~ColossalSquig() override
     {
@@ -50,6 +53,8 @@ private:
     static Weapon s_puffSpores,
         s_enormousJaws,
         s_tramplingFeet;
+
+    static bool s_registered;
 };
 
 } // namespace GloomspiteGitz

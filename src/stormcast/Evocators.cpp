@@ -6,10 +6,22 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
+#include <UnitFactory.h>
 #include <stormcast/Evocators.h>
 
 namespace StormcastEternals
 {
+
+static FactoryMethod factoryMethod = {
+        Evocators::Create,
+        {
+                {ParamType::Integer, "numModels", 5, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE},
+                {ParamType::Boolean, "primeGrandstave", false, false, false},
+                {ParamType::Integer, "numGrandstaves", 0, 0, Evocators::MAX_UNIT_SIZE},
+        }
+};
+
+bool Evocators::s_registered = false;
 
 Weapon Evocators::s_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1);
 Weapon Evocators::s_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1);
@@ -36,7 +48,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         return false;
     }
 
-    const int maxGrandstaves = numModels / 5;
+    const int maxGrandstaves = numModels;
     if (numGrandstaves > maxGrandstaves)
     {
         // Invalid weapon configuration.
@@ -95,6 +107,30 @@ int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, cons
         mortalWounds++;
 
     return mortalWounds;
+}
+
+Unit *Evocators::Create(const ParameterList &parameters)
+{
+    auto *evos = new Evocators();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    bool primeGrandstave = GetBoolParam("primeGrandstave", parameters, false);
+    int numGrandstaves = GetIntParam("numGrandstaves", parameters, 0);
+
+    bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave);
+    if (!ok)
+    {
+        delete evos;
+        evos = nullptr;
+    }
+    return evos;
+}
+
+void Evocators::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Evocators", factoryMethod);
+    }
 }
 
 } // namespace StormcastEternals

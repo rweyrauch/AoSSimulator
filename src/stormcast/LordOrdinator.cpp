@@ -5,10 +5,20 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+
 #include <stormcast/LordOrdinator.h>
+#include "UnitFactory.h"
 
 namespace StormcastEternals
 {
+static FactoryMethod factoryMethod = {
+        LordOrdinator::Create,
+        {
+                {ParamType::Integer, "weaponOption", LordOrdinator::AstralHammers, LordOrdinator::AstralHammers, LordOrdinator::AstralGrandhammer},
+        }
+};
+
+bool LordOrdinator::s_registered = false;
 
 Weapon LordOrdinator::s_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1);
 Weapon LordOrdinator::s_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2);
@@ -35,6 +45,28 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
     addModel(model);
 
     return true;
+}
+
+Unit *LordOrdinator::Create(const ParameterList &parameters)
+{
+    auto unit = new LordOrdinator();
+    WeaponOption weapons = (WeaponOption)GetIntParam("weaponOption", parameters, false);
+
+    bool ok = unit->configure(weapons);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void LordOrdinator::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Lord-Ordinator", factoryMethod);
+    }
 }
 
 } // namespace StormcastEternals

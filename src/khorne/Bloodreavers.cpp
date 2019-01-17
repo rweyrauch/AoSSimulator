@@ -8,9 +8,21 @@
 
 #include <algorithm>
 #include <khorne/Bloodreavers.h>
+#include <UnitFactory.h>
 
 namespace Khorne
 {
+static FactoryMethod factoryMethod = {
+        Bloodreavers::Create,
+        {
+                {ParamType::Integer, "numModels", Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MAX_UNIT_SIZE},
+                {ParamType::Integer, "weapons", Bloodreavers::ReaverBlades, Bloodreavers::ReaverBlades, Bloodreavers::MeatripperAxe},
+                {ParamType::Boolean, "iconBearer", false, false, false},
+                {ParamType::Boolean, "hornblowers", false, false, false}
+        }
+};
+
+bool Bloodreavers::s_registered = false;
 
 Weapon Bloodreavers::s_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
 Weapon Bloodreavers::s_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1);
@@ -79,6 +91,31 @@ int Bloodreavers::battlshockModifier() const
         modifier++;
 
     return modifier;
+}
+
+Unit *Bloodreavers::Create(const ParameterList &parameters)
+{
+    auto unit = new Bloodreavers();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, ReaverBlades);
+    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
+    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+
+    bool ok = unit->configure(numModels, weapons, iconBearer, hornblowers);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void Bloodreavers::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Bloodreavers", factoryMethod);
+    }
 }
 
 } // namespace Khorne

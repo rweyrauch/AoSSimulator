@@ -24,6 +24,9 @@ public:
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     Retributors();
     ~Retributors() override = default;
 
@@ -38,6 +41,8 @@ private:
     static Weapon s_lightningHammer,
                   s_lightningHammerPrime,
                   s_starsoulMace;
+
+    static bool s_registered;
 };
 
 } // namespace StormcastEternals

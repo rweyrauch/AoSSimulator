@@ -7,9 +7,22 @@
  */
 #include <algorithm>
 #include <stormcast/Sequitors.h>
+#include <UnitFactory.h>
 
 namespace StormcastEternals
 {
+static FactoryMethod factoryMethod = {
+        Sequitors::Create,
+        {
+                {ParamType::Integer, "numModels", 5, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE},
+                {ParamType::Integer, "weapons", Sequitors::StormsmiteMaul, Sequitors::StormsmiteMaul, Sequitors::TempestBlade},
+                {ParamType::Integer, "numGreatmaces", 0, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
+                {ParamType::Boolean, "primeGreatmace", false, false, false},
+                {ParamType::Boolean, "redemptionCache", false, false, false}
+        }
+};
+
+bool Sequitors::s_registered = false;
 
 Weapon Sequitors::s_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1);
 Weapon Sequitors::s_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1);
@@ -138,6 +151,32 @@ Hits Sequitors::applyHitModifiers(const Weapon *weapon, const Unit *unit, const 
 
     // modifiers accumulate
     return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+}
+
+Unit *Sequitors::Create(const ParameterList &parameters)
+{
+    auto unit = new Sequitors();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, StormsmiteMaul);
+    int numGreatmaces = GetIntParam("numGreatmaces", parameters, 0);
+    bool primeGreatmace = GetBoolParam("primeGreatmace", parameters, false);
+    bool redemptionCache = GetBoolParam("redemptionCache", parameters, false);
+
+    bool ok = unit->configure(numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void Sequitors::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Sequitors", factoryMethod);
+    }
 }
 
 } // namespace StormcastEternals

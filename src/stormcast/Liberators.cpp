@@ -11,7 +11,7 @@
 
 namespace StormcastEternals {
 
-FactoryMethod Liberators::s_factoryMethod = {
+static FactoryMethod factoryMethod = {
         Liberators::Create,
         {
                 {ParamType::Integer, "numModels", 5, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE},
@@ -127,27 +127,15 @@ Hits Liberators::applyHitModifiers(const Weapon *weapon, const Unit *unit, const
     return Unit::applyHitModifiers(weapon, unit, modifiedHits);
 }
 
-std::vector<Parameter>::const_iterator findParam(const std::string& name, const std::vector<Parameter> &parameters)
+Unit *Liberators::Create(const ParameterList &parameters)
 {
-    auto matchName = [name](const Parameter& param)->bool { return (param.m_name == name); };
-    auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
-    return pip;
-}
+    auto libs = new Liberators();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, Warblade);
+    bool pairedWeapons = GetBoolParam("pairedWeapons", parameters, false);
+    int numGrandhammers = GetIntParam("numGrandhammers", parameters, 0);
+    int numGrandblades = GetIntParam("numGrandblades", parameters, 0);
 
-Unit *Liberators::Create(const std::vector<Parameter> &parameters)
-{
-    Liberators *libs = new Liberators();
-    int numModels = MIN_UNIT_SIZE;
-    WeaponOption weapons = Warblade;
-    bool pairedWeapons = false;
-    int numGrandhammers = 0;
-    int numGrandblades = 0;
-
-    auto pip = findParam("numModels", parameters);
-    if (pip != parameters.end())
-    {
-        numModels = pip->m_intValue;
-    }
     bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
     if (!ok)
     {
@@ -161,7 +149,7 @@ void Liberators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Liberators", Liberators::s_factoryMethod);
+        s_registered = UnitFactory::Register("Liberators", factoryMethod);
     }
 }
 

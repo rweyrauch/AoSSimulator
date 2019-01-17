@@ -31,7 +31,7 @@ public:
         Warblade,
     };
 
-    static Unit* Create(const std::vector<Parameter>& parameters);
+    static Unit* Create(const ParameterList& parameters);
     static void Init();
 
     Liberators();
@@ -57,7 +57,6 @@ private:
                   s_grandhammer,
                   s_grandblade;
 
-    static FactoryMethod s_factoryMethod;
     static bool s_registered;
 
 };

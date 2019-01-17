@@ -23,6 +23,9 @@ public:
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 30;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     BloodWarriors();
     ~BloodWarriors() override = default;
 
@@ -39,6 +42,8 @@ protected:
     static Weapon s_goreaxe,
                   s_goreaxeChampion,
                   s_goreglaive;
+
+    static bool s_registered;
 };
 
 } // namespace Khorne

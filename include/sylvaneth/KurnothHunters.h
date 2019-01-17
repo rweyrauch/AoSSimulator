@@ -31,6 +31,9 @@ public:
         Greatbows
     };
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     KurnothHunters();
     ~KurnothHunters() override = default;
 
@@ -49,6 +52,8 @@ private:
         s_scythe,
         s_scytheHuntmaster,
         s_viciousClaws;
+
+    static bool s_registered;
 };
 
 } // namespace Sylvaneth

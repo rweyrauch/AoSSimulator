@@ -8,9 +8,17 @@
 #include <algorithm>
 #include <Dice.h>
 #include <sylvaneth/SpiritOfDurthu.h>
+#include <UnitFactory.h>
 
 namespace Sylvaneth
 {
+static FactoryMethod factoryMethod = {
+        SpiritOfDurthu::Create,
+        {
+        }
+};
+
+bool SpiritOfDurthu::s_registered = false;
 
 struct TableEntry
 {
@@ -79,6 +87,27 @@ int SpiritOfDurthu::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+Unit *SpiritOfDurthu::Create(const ParameterList &parameters)
+{
+    auto unit = new SpiritOfDurthu();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void SpiritOfDurthu::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Spirit of Durthu", factoryMethod);
+    }
 }
 
 } // namespace Sylvaneth

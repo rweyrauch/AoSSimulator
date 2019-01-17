@@ -20,6 +20,11 @@ class BoingrotBounderz : public Unit
 public:
     static const int BASESIZE = 32;
     static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 20;
+
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
 
     BoingrotBounderz();
     ~BoingrotBounderz() override = default;
@@ -31,6 +36,8 @@ protected:
     static Weapon s_fangFilledGob,
         s_pokinLance,
         s_pokinLanceBoss;
+
+    static bool s_registered;
 };
 
 } // namespace GloomspiteGitz

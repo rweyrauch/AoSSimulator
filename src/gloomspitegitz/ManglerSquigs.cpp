@@ -7,9 +7,17 @@
  */
 #include <algorithm>
 #include <gloomspitegitz/ManglerSquigs.h>
+#include <UnitFactory.h>
 
 namespace GloomspiteGitz
 {
+static FactoryMethod factoryMethod = {
+        ManglerSquigs::Create,
+        {
+        }
+};
+
+bool ManglerSquigs::s_registered = false;
 
 struct TableEntry
 {
@@ -91,6 +99,28 @@ int ManglerSquigs::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+
+Unit *ManglerSquigs::Create(const ParameterList &parameters)
+{
+    auto unit = new ManglerSquigs();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void ManglerSquigs::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Mangler Squigs", factoryMethod);
+    }
 }
 
 } // namespace GloomspiteGitz

@@ -8,9 +8,17 @@
 #include <algorithm>
 #include <Dice.h>
 #include <sylvaneth/Alarielle.h>
+#include <UnitFactory.h>
 
 namespace Sylvaneth
 {
+static FactoryMethod factoryMethod = {
+        Alarielle::Create,
+        {
+        }
+};
+
+bool Alarielle::s_registered = false;
 
 struct TableEntry
 {
@@ -106,6 +114,27 @@ int Alarielle::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+Unit *Alarielle::Create(const ParameterList &parameters)
+{
+    auto unit = new Alarielle();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void Alarielle::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Alarielle", factoryMethod);
+    }
 }
 
 } // namespace Sylvaneth

@@ -20,6 +20,11 @@ class SquiqHerd : public Unit
 public:
     static const int BASESIZE = 25;
     static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 6;
+    static const int MAX_UNIT_SIZE = 24;
+
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
 
     SquiqHerd();
     ~SquiqHerd() override = default;
@@ -30,6 +35,8 @@ protected:
 
     static Weapon s_fangFilledGob,
         s_squigProdder;
+
+    static bool s_registered;
 };
 
 } // namespace GloomspiteGitz

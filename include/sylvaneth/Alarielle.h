@@ -22,6 +22,9 @@ public:
     static const int BASESIZE = 160;
     static const int WOUNDS = 16;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     Alarielle();
     ~Alarielle() override
     {
@@ -47,6 +50,8 @@ private:
     static Weapon s_spearOfKurnoth,
         s_talonOfDwindling,
         s_beetleGreatAntlers;
+
+    static bool s_registered;
 };
 
 } // namespace Sylvaneth

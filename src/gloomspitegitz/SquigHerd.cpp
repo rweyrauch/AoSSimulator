@@ -7,9 +7,18 @@
  */
 #include <algorithm>
 #include <gloomspitegitz/SquigHerd.h>
+#include <UnitFactory.h>
 
 namespace GloomspiteGitz
 {
+static FactoryMethod factoryMethod = {
+        SquiqHerd::Create,
+        {
+                {ParamType::Integer, "numModels", SquiqHerd::MIN_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE, SquiqHerd::MAX_UNIT_SIZE}
+        }
+};
+
+bool SquiqHerd::s_registered = false;
 
 Weapon SquiqHerd::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
 Weapon SquiqHerd::s_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1);
@@ -23,7 +32,7 @@ SquiqHerd::SquiqHerd() :
 bool SquiqHerd::configure(int numModels)
 {
     // validate inputs
-    if (numModels < 6 || numModels > 24)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         // Invalid model count.
         return false;
@@ -48,6 +57,28 @@ bool SquiqHerd::configure(int numModels)
     }
 
     return true;
+}
+
+Unit *SquiqHerd::Create(const ParameterList &parameters)
+{
+    auto unit = new SquiqHerd();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void SquiqHerd::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Squiq Herd", factoryMethod);
+    }
 }
 
 } // namespace GloomspiteGitz

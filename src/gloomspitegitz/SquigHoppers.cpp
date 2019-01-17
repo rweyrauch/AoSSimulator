@@ -7,9 +7,18 @@
  */
 #include <algorithm>
 #include <gloomspitegitz/SquigHoppers.h>
+#include <UnitFactory.h>
 
 namespace GloomspiteGitz
 {
+static FactoryMethod factoryMethod = {
+        SquiqHoppers::Create,
+        {
+                {ParamType::Integer, "numModels", SquiqHoppers::MIN_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE, SquiqHoppers::MAX_UNIT_SIZE}
+        }
+};
+
+bool SquiqHoppers::s_registered = false;
 
 Weapon SquiqHoppers::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
 Weapon SquiqHoppers::s_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1);
@@ -24,7 +33,7 @@ SquiqHoppers::SquiqHoppers() :
 bool SquiqHoppers::configure(int numModels)
 {
     // validate inputs
-    if (numModels < 5 || numModels > 20)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         // Invalid model count.
         return false;
@@ -46,6 +55,28 @@ bool SquiqHoppers::configure(int numModels)
     }
 
     return true;
+}
+
+Unit *SquiqHoppers::Create(const ParameterList &parameters)
+{
+    auto unit = new SquiqHoppers();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void SquiqHoppers::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Squiq Hoppers", factoryMethod);
+    }
 }
 
 } // namespace GloomspiteGitz

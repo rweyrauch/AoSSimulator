@@ -6,7 +6,44 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <algorithm>
 #include <WarhammerSim.h>
+
+
+std::vector<Parameter>::const_iterator FindParam(const std::string& name, const ParameterList &parameters)
+{
+    auto matchName = [name](const Parameter& param)->bool { return (param.m_name == name); };
+    auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
+    return pip;
+}
+
+int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue)
+{
+    int value = defaultValue;
+    auto pip = FindParam(name, parameters);
+    if (pip != parameters.end())
+    {
+        if (pip->m_paramType == ParamType::Integer)
+        {
+            value = pip->m_intValue;
+        }
+    }
+    return value;
+}
+
+bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue)
+{
+    bool value = defaultValue;
+    auto pip = FindParam(name, parameters);
+    if (pip != parameters.end())
+    {
+        if (pip->m_paramType == ParamType::Boolean)
+        {
+            value = pip->m_boolValue;
+        }
+    }
+    return value;
+}
 
 std::string PhaseToString(Phase phase)
 {

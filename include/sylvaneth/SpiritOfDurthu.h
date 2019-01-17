@@ -22,6 +22,9 @@ public:
     static const int BASESIZE = 105;
     static const int WOUNDS = 12;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     SpiritOfDurthu();
     ~SpiritOfDurthu() override
     {
@@ -48,6 +51,8 @@ private:
     static Weapon s_verdantBlast,
         s_guardianSword,
         s_massiveImpalingTalons;
+
+    static bool s_registered;
 };
 
 } // namespace Sylvaneth

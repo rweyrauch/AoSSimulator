@@ -24,6 +24,9 @@ public:
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     Evocators();
     ~Evocators() override = default;
 
@@ -40,6 +43,8 @@ private:
         s_tempestBladeAndStavePrime,
         s_grandStave,
         s_grandStavePrime;
+
+    static bool s_registered;
 };
 
 } // namespace StormcastEternals

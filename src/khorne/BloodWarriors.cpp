@@ -8,9 +8,21 @@
 
 #include <algorithm>
 #include <khorne/BloodWarriors.h>
+#include <UnitFactory.h>
 
 namespace Khorne
 {
+static FactoryMethod factoryMethod = {
+        BloodWarriors::Create,
+        {
+                {ParamType::Integer, "numModels", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MAX_UNIT_SIZE},
+                {ParamType::Boolean, "pairedGoreax", false, false, false},
+                {ParamType::Integer, "numGoreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE/10},
+                {ParamType::Boolean, "iconBearer", false, false, false}
+        }
+};
+
+bool BloodWarriors::s_registered = false;
 
 Weapon BloodWarriors::s_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1);
 Weapon BloodWarriors::s_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1);
@@ -80,6 +92,31 @@ int BloodWarriors::battlshockModifier() const
         modifier++;
 
     return modifier;
+}
+
+Unit *BloodWarriors::Create(const ParameterList &parameters)
+{
+    auto unit = new BloodWarriors();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    bool pairedGoreax = GetBoolParam("pairedGoreax", parameters, false);
+    int numGoreglaives = GetIntParam("numGoreglaives", parameters, 0);
+    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
+
+    bool ok = unit->configure(numModels, pairedGoreax, numGoreglaives, iconBearer);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void BloodWarriors::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Blood Warriors", factoryMethod);
+    }
 }
 
 } // namespace Khorne

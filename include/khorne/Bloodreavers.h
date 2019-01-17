@@ -29,6 +29,9 @@ public:
         MeatripperAxe
     };
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     Bloodreavers();
     ~Bloodreavers() override = default;
 
@@ -47,6 +50,8 @@ protected:
                   s_reaverBladesChieftain,
                   s_meatripperAxe,
                   s_meatripperAxeChieftain;
+
+    static bool s_registered;
 };
 
 } // namespace Khorne

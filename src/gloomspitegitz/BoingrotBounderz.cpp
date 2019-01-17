@@ -7,9 +7,18 @@
  */
 #include <algorithm>
 #include <gloomspitegitz/BoingrotBounderz.h>
+#include <UnitFactory.h>
 
 namespace GloomspiteGitz
 {
+static FactoryMethod factoryMethod = {
+        BoingrotBounderz::Create,
+        {
+                {ParamType::Integer, "numModels", BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE}
+        }
+};
+
+bool BoingrotBounderz::s_registered = false;
 
 Weapon BoingrotBounderz::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
 Weapon BoingrotBounderz::s_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1);
@@ -24,7 +33,7 @@ BoingrotBounderz::BoingrotBounderz() :
 bool BoingrotBounderz::configure(int numModels)
 {
     // validate inputs
-    if (numModels < 5 || numModels > 20)
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         // Invalid model count.
         return false;
@@ -46,6 +55,28 @@ bool BoingrotBounderz::configure(int numModels)
     }
 
     return true;
+}
+
+Unit *BoingrotBounderz::Create(const ParameterList &parameters)
+{
+    auto unit = new BoingrotBounderz();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void BoingrotBounderz::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Boingrot Bounderz", factoryMethod);
+    }
 }
 
 } // namespace GloomspiteGitz

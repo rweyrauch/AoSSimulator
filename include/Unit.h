@@ -18,8 +18,7 @@
 class Unit
 {
 public:
-    Unit() : m_isRegistered(false) {}
-    Unit(bool isRegistered) : m_isRegistered(isRegistered) {}
+    Unit() = default;
 
     virtual ~Unit() = default;
 
@@ -139,8 +138,6 @@ protected:
     // How to manage buff/debuff lifecycle?
     int m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
     Rerolls m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
-
-    const bool m_isRegistered;
 };
 
 class CustomUnit : public Unit

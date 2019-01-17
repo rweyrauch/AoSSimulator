@@ -7,9 +7,19 @@
  */
 #include <algorithm>
 #include <stormcast/CelestarBallista.h>
+#include <UnitFactory.h>
 
 namespace StormcastEternals
 {
+
+static FactoryMethod factoryMethod = {
+        CelestarBallista::Create,
+        {
+                {ParamType::Boolean, "singleShot", false, false, false},
+        }
+};
+
+bool CelestarBallista::s_registered = false;
 
 Weapon CelestarBallista::s_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1);
 Weapon CelestarBallista::s_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Far", 18, 4, 5, 3, -2, 1);
@@ -36,6 +46,28 @@ bool CelestarBallista::configure(bool singleShot)
     addModel(model);
 
     return true;
+}
+
+Unit *CelestarBallista::Create(const ParameterList &parameters)
+{
+    auto ballista = new CelestarBallista();
+    bool singleShot = GetBoolParam("singleShot", parameters, false);
+
+    bool ok = ballista->configure(singleShot);
+    if (!ok)
+    {
+        delete ballista;
+        ballista = nullptr;
+    }
+    return ballista;
+}
+
+void CelestarBallista::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Celestar Ballista", factoryMethod);
+    }
 }
 
 } // namespace StormcastEternals

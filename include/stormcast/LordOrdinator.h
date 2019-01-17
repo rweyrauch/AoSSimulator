@@ -28,6 +28,9 @@ public:
         AstralGrandhammer
     };
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     LordOrdinator();
     ~LordOrdinator() override = default;
 
@@ -41,6 +44,8 @@ private:
 
     static Weapon s_astralHammers,
         s_astralGrandhammer;
+
+    static bool s_registered;
 };
 
 } // namespace StormcastEternals

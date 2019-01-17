@@ -21,6 +21,9 @@ public:
     static const int BASESIZE = 80;
     static const int WOUNDS = 12;
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     LoonbossOnManglerSquigs();
     ~LoonbossOnManglerSquigs() override
     {
@@ -46,6 +49,8 @@ protected:
         s_moonCutta,
         s_ballsAndChains,
         s_grotsBashinStikk;
+
+    static bool s_registered;
 };
 
 } // namespace GloomspiteGitz

@@ -30,6 +30,9 @@ public:
         BoltstormCrossbow,
     };
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     Judicators();
     ~Judicators() override = default;
 
@@ -51,6 +54,8 @@ private:
                   s_shockboltPrime,
                   s_thunderboldCrossbow,
                   s_stormGladius;
+
+    static bool s_registered;
 };
 
 } // namespace StormcastEternals

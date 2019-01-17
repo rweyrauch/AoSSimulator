@@ -7,9 +7,21 @@
  */
 #include <algorithm>
 #include <stormcast/Judicators.h>
+#include <UnitFactory.h>
 
 namespace StormcastEternals
 {
+static FactoryMethod factoryMethod = {
+        Judicators::Create,
+        {
+                {ParamType::Integer, "numModels", 5, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE},
+                {ParamType::Integer, "weapons", Judicators::SkyboltBow, Judicators::SkyboltBow, Judicators::BoltstormCrossbow},
+                {ParamType::Integer, "numShockboltBows", 0, 0, Judicators::MAX_UNIT_SIZE / 5},
+                {ParamType::Integer, "numThunderboltCrossbows", 0, 0, Judicators::MAX_UNIT_SIZE / 5}
+        }
+};
+
+bool Judicators::s_registered = false;
 
 Weapon Judicators::s_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1);
 Weapon Judicators::s_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 2, 3, -1, 1);
@@ -105,6 +117,31 @@ int Judicators::extraAttacksMissile(const Weapon* weapon) const
         return 1;
     }
     return StormcastEternal::extraAttacksMissile(weapon);
+}
+
+Unit *Judicators::Create(const ParameterList &parameters)
+{
+    auto juds = new Judicators();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, SkyboltBow);
+    int numShockboltBows = GetIntParam("numShockboltBows", parameters, 0);
+    int numThunderboltCrossbows = GetIntParam("numThunderboltCrossbows", parameters, 0);
+
+    bool ok = juds->configure(numModels, weapons, numShockboltBows, numThunderboltCrossbows);
+    if (!ok)
+    {
+        delete juds;
+        juds = nullptr;
+    }
+    return juds;
+}
+
+void Judicators::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Judicators", factoryMethod);
+    }
 }
 
 } // namespace StormcastEternals

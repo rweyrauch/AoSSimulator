@@ -30,6 +30,9 @@ public:
         TempestBlade
     };
 
+    static Unit* Create(const ParameterList& parameters);
+    static void Init();
+
     Sequitors();
     ~Sequitors() override = default;
 
@@ -61,6 +64,7 @@ private:
         s_stormsmiteGreatmacePrime,
         s_redemptionCache;
 
+    static bool s_registered;
 };
 
 } // namespace StormcastEternals

@@ -7,9 +7,17 @@
  */
 #include <algorithm>
 #include <gloomspitegitz/LoonbossOnManglerSquigs.h>
+#include <UnitFactory.h>
 
 namespace GloomspiteGitz
 {
+static FactoryMethod factoryMethod = {
+        LoonbossOnManglerSquigs::Create,
+        {
+        }
+};
+
+bool LoonbossOnManglerSquigs::s_registered = false;
 
 struct TableEntry
 {
@@ -95,6 +103,27 @@ int LoonbossOnManglerSquigs::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+Unit *LoonbossOnManglerSquigs::Create(const ParameterList &parameters)
+{
+    auto unit = new LoonbossOnManglerSquigs();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void LoonbossOnManglerSquigs::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Loonboss on Mangler Squigs", factoryMethod);
+    }
 }
 
 } // namespace GloomspiteGitz

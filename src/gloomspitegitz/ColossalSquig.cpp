@@ -7,9 +7,17 @@
  */
 #include <algorithm>
 #include <gloomspitegitz/ColossalSquig.h>
+#include <UnitFactory.h>
 
 namespace GloomspiteGitz
 {
+static FactoryMethod factoryMethod = {
+        ColossalSquig::Create,
+        {
+        }
+};
+
+bool ColossalSquig::s_registered = false;
 
 struct TableEntry
 {
@@ -113,6 +121,28 @@ int ColossalSquig::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+
+Unit *ColossalSquig::Create(const ParameterList &parameters)
+{
+    auto unit = new ColossalSquig();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void ColossalSquig::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Colossal Squig", factoryMethod);
+    }
 }
 
 } // namespace GloomspiteGitz

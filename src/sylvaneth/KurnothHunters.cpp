@@ -8,9 +8,19 @@
 #include <algorithm>
 #include <Dice.h>
 #include <sylvaneth/KurnothHunters.h>
+#include <UnitFactory.h>
 
 namespace Sylvaneth
 {
+static FactoryMethod factoryMethod = {
+        KurnothHunters::Create,
+        {
+                {ParamType::Integer, "numModels", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MAX_UNIT_SIZE},
+                {ParamType::Integer, "weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords, KurnothHunters::Greatbows}
+        }
+};
+
+bool KurnothHunters::s_registered = false;
 
 Weapon KurnothHunters::s_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3);
 Weapon KurnothHunters::s_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 3, 3, -1, RAND_D3);
@@ -72,6 +82,29 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
         addModel(model);
     }
     return true;
+}
+
+Unit *KurnothHunters::Create(const ParameterList &parameters)
+{
+    auto unit = new KurnothHunters();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, KurnothHunters::Greatswords);
+
+    bool ok = unit->configure(numModels, weapons);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void KurnothHunters::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Kurnoth Hunters", factoryMethod);
+    }
 }
 
 } // namespace Sylvaneth

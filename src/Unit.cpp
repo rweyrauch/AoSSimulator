@@ -174,7 +174,6 @@ Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, c
 }
 
 Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-    m_isRegistered(false),
     m_name(name),
     m_move(move),
     m_wounds(wounds),
