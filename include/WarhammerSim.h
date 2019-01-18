@@ -112,6 +112,7 @@ enum Keyword
     BLOODBOUND,
     BLOODREAVERS,
     BLOOD_WARRIORS,
+    BLOODLETTERS,
 
     // Sylvaneth
     ALARIELLE_THE_EVERQUEEN,

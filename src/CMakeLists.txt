@@ -26,6 +26,7 @@ add_library(
         stormcast/Evocators.cpp
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
+        khorne/Bloodletters.cpp
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
         sylvaneth/KurnothHunters.cpp
