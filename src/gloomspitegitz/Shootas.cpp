@@ -119,15 +119,15 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
 int Shootas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
 {
     int modifier = Unit::toWoundModifier(weapon, unit);
-    if (remainingModels() > 30) modifier += 2;
-    else if (remainingModels() > 15) modifier += 1;
+    if (remainingModels() >= 30) modifier += 2;
+    else if (remainingModels() >= 15) modifier += 1;
     return modifier;
 }
 
 int Shootas::toHitModifierMissile(const Weapon* weapon, const Unit* unit) const
 {
     int modifier = Unit::toHitModifierMissile(weapon, unit);
-    if (remainingModels() > 15) modifier += 1;
+    if (remainingModels() >= 15) modifier += 1;
     return modifier;
 }
 

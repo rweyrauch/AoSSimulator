@@ -21,9 +21,12 @@
 #include "gloomspitegitz/ManglerSquigs.h"
 #include "gloomspitegitz/SquigHerd.h"
 #include "gloomspitegitz/SquigHoppers.h"
+#include "gloomspitegitz/Stabbas.h"
+#include "gloomspitegitz/Shootas.h"
 
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
+#include "khorne/Bloodletters.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -45,9 +48,12 @@ void Initialize()
     GloomspiteGitz::ManglerSquigs::Init();
     GloomspiteGitz::SquiqHerd::Init();
     GloomspiteGitz::SquiqHoppers::Init();
+    GloomspiteGitz::Stabbas::Init();
+    GloomspiteGitz::Shootas::Init();
 
     Khorne::Bloodreavers::Init();
     Khorne::BloodWarriors::Init();
+    Khorne::Bloodletters::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();

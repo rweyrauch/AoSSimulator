@@ -13,6 +13,7 @@
 #include <stormcast/Liberators.h>
 #include <stormcast/Sequitors.h>
 #include <khorne/Bloodreavers.h>
+#include <gloomspitegitz/Stabbas.h>
 #include <ManoAMano.h>
 
 TEST(ManoAMano, LiberatorsVsBloodreavers)
@@ -49,7 +50,7 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
     delete reavers;
 }
 
-TEST(ManoAMano, StatsLibsVsReavers)
+TEST(ManoAMano, StatsLiberatorsVsReavers)
 {
     int redVictories = 0;
     int blueVictories = 0;
@@ -153,4 +154,55 @@ TEST(ManoAMano, StatsSequitersVsReavers)
 
     delete seqs;
     delete reavers;
+}
+
+TEST(ManoAMano, StatsLiberatorsVsStabbas)
+{
+    int redVictories = 0;
+    int blueVictories = 0;
+    int ties = 0;
+
+    ManoAMano battle(5, false);
+
+    auto libs = new StormcastEternals::Liberators();
+    auto grots = new GloomspiteGitz::Stabbas();
+
+    bool ok = libs->configure(StormcastEternals::Liberators::MIN_UNIT_SIZE, StormcastEternals::Liberators::Warhammer, false, 1, 0);
+    ASSERT_TRUE(ok);
+
+    ok = grots->configure(GloomspiteGitz::Stabbas::MIN_UNIT_SIZE, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
+    ASSERT_TRUE(ok);
+
+    battle.combatants(libs, grots);
+
+    const int NUM_BATTLES = 10000;
+    for (auto i = 0; i < NUM_BATTLES; i++)
+    {
+        libs->restore();
+        grots->restore();
+
+        battle.start();
+
+        while (!battle.done())
+        {
+            battle.simulate();
+            battle.next();
+        }
+
+        auto victor = battle.getVictor();
+        if (victor == PlayerId::Blue)
+            blueVictories++;
+        else if (victor == PlayerId::Red)
+            redVictories++;
+        else
+            ties++;
+    }
+
+    std::cout << "Victor Breakdown (%):" << std::endl
+              << "\tRed: " << (float)redVictories * 100.0f/NUM_BATTLES << std::endl
+              << "\tBlue: " << (float)blueVictories * 100.0f/NUM_BATTLES << std::endl
+              << "\tTies: " << (float)ties * 100.0f/NUM_BATTLES << std::endl;
+
+    delete libs;
+    delete grots;
 }

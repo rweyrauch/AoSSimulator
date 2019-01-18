@@ -127,8 +127,8 @@ void Stabbas::Init()
 int Stabbas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
 {
     int modifier = Unit::toWoundModifier(weapon, unit);
-    if (remainingModels() > 30) modifier += 2;
-    else if (remainingModels() > 15) modifier += 1;
+    if (remainingModels() >= 30) modifier += 2;
+    else if (remainingModels() >= 15) modifier += 1;
     return modifier;
 }
 
@@ -143,6 +143,8 @@ int Stabbas::toSaveModifier(const Weapon* weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
     if (m_numIconbearers > 0 && weapon->isMissile())
+        modifier += 1;
+    if (remainingModels() >= 10)
         modifier += 1;
     return modifier;
 }
