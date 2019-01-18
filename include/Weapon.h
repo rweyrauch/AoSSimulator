@@ -39,7 +39,7 @@ public:
     };
 
     Weapon() = default;
-    Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage);
+    Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) noexcept;
     Weapon(const Weapon& w);
 
     void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }

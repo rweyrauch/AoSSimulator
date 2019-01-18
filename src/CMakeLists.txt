@@ -36,6 +36,8 @@ add_library(
         gloomspitegitz/LoonbossOnManglerSquigs.cpp
         gloomspitegitz/ManglerSquigs.cpp
         gloomspitegitz/ColossalSquig.cpp
+        gloomspitegitz/Stabbas.cpp
+        gloomspitegitz/Shootas.cpp
 )
 
 target_include_directories(

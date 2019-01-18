@@ -84,6 +84,7 @@ enum Keyword
     WIZARD,
     CELESTIAL,
     WAR_MACHINE,
+    GROT,
 
     // Stormcast
     SACROSANCT,
@@ -127,6 +128,8 @@ enum Keyword
     LOONBOSS,
     MANGLER_SQUIG,
     COLOSSAL_SQUIG,
+    SHOOTAS,
+    STABBAS,
 };
 
 enum Duration

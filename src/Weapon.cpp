@@ -11,7 +11,7 @@
 #include <WarhammerSim.h>
 #include <Dice.h>
 
-Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) :
+Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) noexcept :
     m_type(type),
     m_name(name),
     m_range(range),

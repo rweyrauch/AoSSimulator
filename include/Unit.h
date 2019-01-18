@@ -94,6 +94,9 @@ protected:
     virtual Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return hits; }
     virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return 0; }
 
+    virtual int runModifier() const { return 0; }
+    virtual int chargeModifier() const { return 0; }
+
     virtual void onSlain() {}
     virtual void onWounded() {}
 
