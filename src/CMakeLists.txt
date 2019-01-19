@@ -30,6 +30,9 @@ add_library(
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
         sylvaneth/KurnothHunters.cpp
+        sylvaneth/Dryads.cpp
+        sylvaneth/TreeRevenants.cpp
+        sylvaneth/SpiteRevenants.cpp
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp
         gloomspitegitz/BoingrotBounderz.cpp
@@ -38,6 +41,8 @@ add_library(
         gloomspitegitz/ColossalSquig.cpp
         gloomspitegitz/Stabbas.cpp
         gloomspitegitz/Shootas.cpp
+        dok/WitchAelves.cpp
+        idonethdeepkin/NamartiThralls.cpp
 )
 
 target_include_directories(

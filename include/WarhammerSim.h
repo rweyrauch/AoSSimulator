@@ -74,6 +74,8 @@ enum Keyword
     GLOOMSPITE_GITZ,
     MOONCLAN,
     NIGHTHAUNT,
+    DAUGHTERS_OF_KHAINE,
+    IDONETH_DEEPKIN,
 
     // Common
     MORTAL,
@@ -82,9 +84,11 @@ enum Keyword
     MONSTER,
     HERO,
     WIZARD,
+    PRIEST,
     CELESTIAL,
     WAR_MACHINE,
     GROT,
+    AELF,
 
     // Stormcast
     SACROSANCT,
@@ -119,6 +123,9 @@ enum Keyword
     ALARIELLE_THE_EVERQUEEN,
     SPIRIT_OF_DURTHU,
     KURNOTH_HUNTERS,
+    DRYADS,
+    TREE_REVENANTS,
+    SPITE_REVENANTS,
 
     // Gloomspite Gitz
     SQUIG,
@@ -130,6 +137,23 @@ enum Keyword
     COLOSSAL_SQUIG,
     SHOOTAS,
     STABBAS,
+
+    // Daughters of Khaine
+    MELUSAI,
+    KHINERAI_HARPIES,
+    WITCH_AELVES,
+    BLOOD_SISTERS,
+    SISTERS_OF_SLAUGHTER,
+    KHINERAI_LIFETAKERS,
+    HAG_QUEEN,
+
+    // Idoneth Deepkin
+    NAMARTI,
+    THRALLS,
+    AKHELIAN,
+    AKHELIAN_GUARD,
+    MORRSARR_GUARD,
+    ISHLAEN_GUARD,
 };
 
 enum Duration
