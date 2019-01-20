@@ -40,8 +40,8 @@ public:
 
 protected:
 
-    Rerolls toHitRerollsMissile(const Weapon* weapon, const Unit* unit) const override;
-    int extraAttacksMissile(const Weapon* weapon) const override;
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+    int extraAttacks(const Weapon* weapon) const override;
 
 private:
 

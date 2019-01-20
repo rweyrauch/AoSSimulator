@@ -27,11 +27,20 @@ public:
     static void Init();
 
     CelestarBallista();
-    ~CelestarBallista() override = default;
+    ~CelestarBallista() override
+    {
+        delete m_stormboltsRapid;
+        delete m_stormboltsSingle;
+    }
 
-    bool configure(bool singleShot);
+    void shooting(PlayerId player) override;
+
+    bool configure();
 
 protected:
+
+    Weapon* m_stormboltsSingle = 0;
+    Weapon* m_stormboltsRapid = 0;
 
 private:
 

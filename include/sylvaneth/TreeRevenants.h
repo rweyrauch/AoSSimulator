@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    bool m_gladeBanners = false;
+    bool m_waypipes = false;
 
 private:
 

@@ -35,7 +35,7 @@ public:
 protected:
 
     int toWoundModifier(const Weapon* weapon, const Unit* unit) const override;
-    int toHitModifierMissile(const Weapon* weapon, const Unit* unit) const override;
+    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     int runModifier() const override;
     int battlshockModifier() const override;
     int toSaveModifier(const Weapon* weapon) const override;

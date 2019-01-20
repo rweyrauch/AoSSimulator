@@ -38,9 +38,9 @@ public:
     // is to do in each of the phases.
     virtual void hero(PlayerId player) {}
     virtual void movement(PlayerId player);
-    virtual void shooting(PlayerId player) {}
+    virtual void shooting(PlayerId player);
     virtual void charge(PlayerId player) {}
-    virtual void combat(PlayerId player) {}
+    virtual void combat(PlayerId player);
     virtual void battleshock(PlayerId player) {}
 
     bool formation(int ranks);
@@ -51,7 +51,10 @@ public:
     float distanceBetween(const Model* model, const Unit* unit) const;
 
     Wounds shoot(int numAttackingModels, Unit* targetUnit, int& numSlain);
+    Wounds shoot(int &numSlain);
     Wounds fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
+    Wounds fight(int& numSlain);
+
     int applyBattleshock();
 
     Wounds computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon);
@@ -66,6 +69,12 @@ public:
     void buffToHit(int modifier) { m_toHitBuff = modifier; }
     void buffToHitMissile(int modifier) { m_toHitBuffMissile = modifier; }
 
+    void setShootingTarget(Unit* unit) { m_shootingTarget = unit; }
+    void setMeleeTarget(Unit* unit) { m_meleeTarget = unit; }
+
+    Unit* shootingTarget() { return m_shootingTarget; }
+    Unit* meleeTarget() { return m_meleeTarget; }
+
 protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
@@ -76,20 +85,15 @@ protected:
     virtual int toWoundModifier(const Weapon* weapon, const Unit* unit) const { return 0; }
     virtual Rerolls toWoundRerolls(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
 
-    virtual int toHitModifierMissile(const Weapon* weapon, const Unit* unit) const { return m_toHitBuffMissile; }
-    virtual Rerolls toHitRerollsMissile(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
-
-    virtual int toWoundModifierMissile(const Weapon* weapon, const Unit* unit) const { return 0; }
-    virtual Rerolls toWoundRerollsMissile(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
-
     virtual int toSaveModifier(const Weapon* weapon) const { return 0; }
     virtual Rerolls toSaveRerolls(const Weapon* weapon) const { return NoRerolls; }
 
     virtual int battlshockModifier() const;
     virtual Rerolls battleshockRerolls() const { return NoRerolls; }
 
+    virtual int rollBattleshock() const;
+
     virtual int extraAttacks(const Weapon* weapon) const { return 0; }
-    virtual int extraAttacksMissile(const Weapon* weapon) const { return 0; }
 
     virtual Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return hits; }
     virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return 0; }
@@ -122,6 +126,9 @@ protected:
     int m_toHitBuffMissile = 0;
 
     std::vector<Keyword> m_keywords;
+
+    Unit* m_shootingTarget = nullptr;
+    Unit* m_meleeTarget = nullptr;
 
     enum BuffableAttribute
     {

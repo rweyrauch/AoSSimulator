@@ -19,7 +19,9 @@ Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int t
     m_toHit(toHit),
     m_toWound(toWound),
     m_rend(rend),
-    m_damage(damage)
+    m_damage(damage),
+    m_hitsPerAttack(1),
+    m_isActive(true)
 {
 }
 Weapon::Weapon(const Weapon& w) :
@@ -30,7 +32,9 @@ Weapon::Weapon(const Weapon& w) :
     m_toHit(w.m_toHit),
     m_toWound(w.m_toWound),
     m_rend(w.m_rend),
-    m_damage(w.m_damage)
+    m_damage(w.m_damage),
+    m_hitsPerAttack(w.m_hitsPerAttack),
+    m_isActive(w.m_isActive)
 {
 }
 

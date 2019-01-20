@@ -37,17 +37,51 @@ TreeRevenants::TreeRevenants() :
 
 bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+        return false;
+
+    m_gladeBanners = gladeBanners;
+    m_waypipes = waypipes;
+
+    Model scion(BASESIZE, WOUNDS);
+    if (scionGlaive)
+        scion.addMeleeWeapon(&s_protectorGlaive);
+    else
+        scion.addMeleeWeapon(&s_enchantedBladeScion);
+    addModel(scion);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&s_enchantedBlade);
+        addModel(model);
+    }
+    return true;
 }
 
 Unit *TreeRevenants::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new TreeRevenants();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    bool scionGlaive = GetBoolParam("scionGlaive", parameters, false);
+    bool gladeBanners = GetBoolParam("gladeBanners", parameters, false);
+    bool waypipes = GetBoolParam("waypipes", parameters, false);
+
+    bool ok = unit->configure(numModels, scionGlaive, gladeBanners, waypipes);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void TreeRevenants::Init()
 {
-
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Tree-Revenants", factoryMethod);
+    }
 }
 
 } // namespace Sylvaneth

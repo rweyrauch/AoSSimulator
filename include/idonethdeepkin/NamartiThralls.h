@@ -34,6 +34,7 @@ public:
 
 protected:
 
+    int m_numIconBearers = 0;
 
 private:
 

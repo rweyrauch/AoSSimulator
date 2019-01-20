@@ -26,16 +26,15 @@ TEST(Battle, BallistaVsAlarielle)
     bool ok = lordOrdinator.configure(StormcastEternals::LordOrdinator::AstralHammers);
     ASSERT_TRUE(ok);
 
-    const bool singleShot = false;
-    ok = ballista0.configure(singleShot);
+    ok = ballista0.configure();
     ASSERT_TRUE(ok);
     ballista0.addKeyword(ASTRAL_TEMPLARS);
 
-    ok = ballista1.configure(singleShot);
+    ok = ballista1.configure();
     ASSERT_TRUE(ok);
     ballista1.addKeyword(ASTRAL_TEMPLARS);
 
-    ok = ballista2.configure(singleShot);
+    ok = ballista2.configure();
     ASSERT_TRUE(ok);
     ballista2.addKeyword(ASTRAL_TEMPLARS);
 
@@ -47,6 +46,10 @@ TEST(Battle, BallistaVsAlarielle)
     Sylvaneth::Alarielle alarielle;
     ok = alarielle.configure();
     ASSERT_TRUE(ok);
+
+    ballista0.setShootingTarget(&alarielle);
+    ballista1.setShootingTarget(&alarielle);
+    ballista2.setShootingTarget(&alarielle);
 
     Roster roster1(PlayerId::Red), roster2(PlayerId::Blue);
     roster1.addUnit(&ballista0);

@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <stormcast/CelestarBallista.h>
 #include <UnitFactory.h>
+#include <Board.h>
+#include <Roster.h>
 
 namespace StormcastEternals
 {
@@ -15,7 +17,6 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     CelestarBallista::Create,
     {
-        {ParamType::Boolean, "singleShot", {.m_boolValue = false}, false, false},
     }
 };
 
@@ -35,14 +36,18 @@ CelestarBallista::CelestarBallista() :
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE, CELESTAR_BALLISTA};
 }
 
-bool CelestarBallista::configure(bool singleShot)
+bool CelestarBallista::configure()
 {
     Model model(BASESIZE, WOUNDS);
     model.addMeleeWeapon(&s_sigmariteBlades);
-    if (singleShot)
-        model.addMissileWeapon(&s_stormboltsSingle);
-    else
-        model.addMissileWeapon(&s_stormboltsRapid);
+
+    m_stormboltsRapid = new Weapon(s_stormboltsRapid);
+    m_stormboltsRapid->activate(true);
+    m_stormboltsSingle = new Weapon(s_stormboltsSingle);
+    m_stormboltsSingle->activate(false);
+
+    model.addMissileWeapon(m_stormboltsSingle);
+    model.addMissileWeapon(m_stormboltsRapid);
     addModel(model);
 
     return true;
@@ -51,9 +56,8 @@ bool CelestarBallista::configure(bool singleShot)
 Unit *CelestarBallista::Create(const ParameterList &parameters)
 {
     auto ballista = new CelestarBallista();
-    bool singleShot = GetBoolParam("singleShot", parameters, false);
 
-    bool ok = ballista->configure(singleShot);
+    bool ok = ballista->configure();
     if (!ok)
     {
         delete ballista;
@@ -70,4 +74,29 @@ void CelestarBallista::Init()
     }
 }
 
+void CelestarBallista::shooting(PlayerId player)
+{
+    auto board = Board::Instance();
+    PlayerId otherPlayer = PlayerId::Red;
+    if (player == PlayerId::Red)
+        otherPlayer = PlayerId::Blue;
+    auto otherRoster = board->getPlayerRoster(otherPlayer);
+
+    auto nearestUnit = otherRoster->nearestUnit(this);
+    if (nearestUnit)
+    {
+        float rangeTo = distanceTo(nearestUnit);
+        if (rangeTo < m_stormboltsRapid->range())
+        {
+            m_stormboltsRapid->activate(true);
+            m_stormboltsSingle->activate(false);
+        }
+        else
+        {
+            m_stormboltsRapid->activate(false);
+            m_stormboltsSingle->activate(true);
+        }
+    }
+    Unit::shooting(player);
+}
 } // namespace StormcastEternals

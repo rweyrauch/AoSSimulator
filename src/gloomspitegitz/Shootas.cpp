@@ -124,10 +124,10 @@ int Shootas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
     return modifier;
 }
 
-int Shootas::toHitModifierMissile(const Weapon* weapon, const Unit* unit) const
+int Shootas::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
-    int modifier = Unit::toHitModifierMissile(weapon, unit);
-    if (remainingModels() >= 15) modifier += 1;
+    int modifier = Unit::toHitModifier(weapon, unit);
+    if (remainingModels() >= 15 && weapon->isMissile()) modifier += 1;
     return modifier;
 }
 

@@ -100,24 +100,24 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     return true;
 }
 
-Rerolls Judicators::toHitRerollsMissile(const Weapon* weapon, const Unit* unit) const
+Rerolls Judicators::toHitRerolls(const Weapon* weapon, const Unit* unit) const
 {
     // External Judgement
-    if (unit->hasKeyword(CHAOS))
+    if (unit->hasKeyword(CHAOS) && weapon->isMissile())
     {
         return RerollOnes;
     }
-    return StormcastEternal::toHitRerollsMissile(weapon, unit);
+    return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
-int Judicators::extraAttacksMissile(const Weapon* weapon) const
+int Judicators::extraAttacks(const Weapon* weapon) const
 {
     // Rapid Fire
-    if (!m_ran)
+    if (!m_ran && weapon->isMissile())
     {
         return 1;
     }
-    return StormcastEternal::extraAttacksMissile(weapon);
+    return StormcastEternal::extraAttacks(weapon);
 }
 
 Unit *Judicators::Create(const ParameterList &parameters)

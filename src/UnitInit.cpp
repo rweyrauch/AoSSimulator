@@ -31,6 +31,13 @@
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
 #include "sylvaneth/SpiritOfDurthu.h"
+#include "sylvaneth/Dryads.h"
+#include "sylvaneth/TreeRevenants.h"
+#include "sylvaneth/SpiteRevenants.h"
+
+#include "dok/WitchAelves.h"
+
+#include "idonethdeepkin/NamartiThralls.h"
 
 void Initialize()
 {
@@ -58,4 +65,11 @@ void Initialize()
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();
     Sylvaneth::SpiritOfDurthu::Init();
+    Sylvaneth::Dryads::Init();
+    Sylvaneth::TreeRevenants::Init();
+    Sylvaneth::SpiteRevenants::Init();
+
+    DaughtersOfKhaine::WitchAelves::Init();
+
+    IdonethDeepkin::NamartiThralls::Init();
 }
