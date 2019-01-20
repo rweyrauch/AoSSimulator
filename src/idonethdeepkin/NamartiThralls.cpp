@@ -32,17 +32,45 @@ NamartiThralls::NamartiThralls() :
 
 bool NamartiThralls::configure(int numModels, int numIconBearers)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+        return false;
+
+    if (numIconBearers > MAX_UNIT_SIZE / 10)
+        return false;
+
+    m_numIconBearers = numIconBearers;
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&s_lanmariBlade);
+        addModel(model);
+    }
+
+    return true;
 }
 
 Unit *NamartiThralls::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new NamartiThralls();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numIconBearers = GetIntParam("numIconBearers", parameters, 0);
+
+    bool ok = unit->configure(numModels, numIconBearers);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void NamartiThralls::Init()
 {
-
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Namarti Thralls", factoryMethod);
+    }
 }
 
 } // namespace IdonethDeepkin

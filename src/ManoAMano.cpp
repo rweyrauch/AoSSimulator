@@ -250,7 +250,7 @@ void ManoAMano::runShootingPhase()
     m_units[(int)m_attackingUnit]->shooting(m_attackingUnit);
 
     int numSlain = 0;
-    auto totalDamage = m_units[(int)m_attackingUnit]->shoot(-1, m_units[(int)m_defendingUnit], numSlain);
+    auto totalDamage = m_units[(int)m_attackingUnit]->shoot(numSlain);
     if (totalDamage.normal > 0 || totalDamage.mortal > 0)
     {
         if (m_verbose)
@@ -275,7 +275,7 @@ void ManoAMano::runCombatPhase()
     m_units[(int)m_attackingUnit]->combat(m_attackingUnit);
 
     int numSlain = 0;
-    auto totalDamage = m_units[(int)m_attackingUnit]->fight(-1, m_units[(int)m_defendingUnit], numSlain);
+    auto totalDamage = m_units[(int)m_attackingUnit]->fight(numSlain);
 
     if (m_verbose)
     {
@@ -286,7 +286,7 @@ void ManoAMano::runCombatPhase()
                   << " models in the combat phase." << std::endl;
     }
     numSlain = 0;
-    totalDamage = m_units[(int)m_defendingUnit]->fight(-1, m_units[(int)m_attackingUnit], numSlain);
+    totalDamage = m_units[(int)m_defendingUnit]->fight(numSlain);
 
     if (m_verbose)
     {

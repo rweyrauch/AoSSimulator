@@ -72,7 +72,7 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
 
     battle.combatants(libs, reavers);
 
-    const int NUM_BATTLES = 10000;
+    const int NUM_BATTLES = 1; //0000;
     for (auto i = 0; i < NUM_BATTLES; i++)
     {
         libs->restore();
