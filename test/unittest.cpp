@@ -146,15 +146,16 @@ TEST(Unit, BallistaVsAlarielle)
     bool ok = lordOrdinator.configure(StormcastEternals::LordOrdinator::AstralHammers);
     ASSERT_TRUE(ok);
 
-    ok = ballista0.configure();
+    const bool singleShot = false;
+    ok = ballista0.configure(singleShot);
     ASSERT_TRUE(ok);
     ballista0.addKeyword(ASTRAL_TEMPLARS);
 
-    ok = ballista1.configure();
+    ok = ballista1.configure(singleShot);
     ASSERT_TRUE(ok);
     ballista1.addKeyword(ASTRAL_TEMPLARS);
 
-    ok = ballista2.configure();
+    ok = ballista2.configure(singleShot);
     ASSERT_TRUE(ok);
     ballista2.addKeyword(ASTRAL_TEMPLARS);
 

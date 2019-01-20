@@ -34,14 +34,12 @@ public:
 
 protected:
 
-    bool m_gladeBanners = false;
-    bool m_waypipes = false;
 
 private:
 
-        static Weapon s_enchantedBlade,
-            s_enchantedBladeScion,
-            s_protectorGlaive;
+    static Weapon s_enchantedBlade,
+        s_enchantedBladeScion,
+        s_protectorGlaive;
 
     static bool s_registered;
 };

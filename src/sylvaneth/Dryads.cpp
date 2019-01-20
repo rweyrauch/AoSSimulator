@@ -33,44 +33,17 @@ Dryads::Dryads() :
 
 bool Dryads::configure(int numModels)
 {
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
-    }
-
-    Model nymph(BASESIZE, WOUNDS);
-    nymph.addMeleeWeapon(&s_wrackingTalonsNymph);
-    addModel(nymph);
-
-    for (auto i = 1; i < numModels; i++)
-    {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_wrackingTalons);
-        addModel(model);
-    }
-    return true;
+    return false;
 }
 
 Unit *Dryads::Create(const ParameterList &parameters)
 {
-    auto unit = new Dryads();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
+    return nullptr;
 }
 
 void Dryads::Init()
 {
-    if (!s_registered)
-    {
-        s_registered = UnitFactory::Register("Dryads", factoryMethod);
-    }
+
 }
 
 } // namespace Sylvaneth

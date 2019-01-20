@@ -30,8 +30,6 @@ public:
     void doCombatPhase();
     void doBattleshockPhase();
 
-    Unit* nearestUnit(const Unit* unit) const;
-
 private:
     const PlayerId m_id;
     std::vector<Unit*> m_units;

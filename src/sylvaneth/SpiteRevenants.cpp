@@ -33,42 +33,17 @@ SpiteRevenants::SpiteRevenants() :
 
 bool SpiteRevenants::configure(int numModels)
 {
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-        return false;
-
-    Model shadestalker(BASESIZE, WOUNDS);
-    shadestalker.addMeleeWeapon(&s_cruelTalonsAndFangsShadestalker);
-    addModel(shadestalker);
-
-    for (auto i = 1; i < numModels; i++)
-    {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_cruelTalonsAndFangs);
-        addModel(model);
-    }
-    return true;
+    return false;
 }
 
 Unit *SpiteRevenants::Create(const ParameterList &parameters)
 {
-    auto unit = new SpiteRevenants();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
+    return nullptr;
 }
 
 void SpiteRevenants::Init()
 {
-    if (!s_registered)
-    {
-        s_registered = UnitFactory::Register("Spite-Revenants", factoryMethod);
-    }
+
 }
 
 } // namespace Sylvaneth

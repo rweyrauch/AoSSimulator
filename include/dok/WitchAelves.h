@@ -34,15 +34,6 @@ public:
 
 protected:
 
-    int extraAttacks(const Weapon* weapon) const override;
-    int rollBattleshock() const override;
-    int toSaveModifier(const Weapon* weapon) const override;
-
-protected:
-
-    bool m_pairedKnives = true;
-    bool m_hornblowers = false;
-    bool m_standardBearers = false;
 
 private:
 

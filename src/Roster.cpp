@@ -63,19 +63,3 @@ void Roster::beginTurn()
         u->beginTurn();
     }
 }
-
-Unit *Roster::nearestUnit(const Unit *unit) const
-{
-    Unit* nearestUnit = m_units.front();
-    float minDistance = MAXFLOAT;
-    for (auto u : m_units)
-    {
-        float dist = unit->distanceTo(u);
-        if (dist < minDistance)
-        {
-            minDistance = dist;
-            nearestUnit = u;
-        }
-    }
-    return nearestUnit;
-}

@@ -61,8 +61,6 @@ public:
     int damage() const;
     void setDamage(int d) { m_damage = d; }
     bool isMissile() const { return (m_type == Type::Missile); }
-    void activate(bool isActive = true) { m_isActive = isActive; }
-    bool isActive() const { return m_isActive; }
 
 protected:
 
@@ -80,8 +78,6 @@ private:
     int m_damage = 1;
 
     int m_hitsPerAttack = 1;
-
-    bool m_isActive = true;
 };
 
 #endif //WEAPON_H

@@ -10,7 +10,6 @@
 #include <Unit.h>
 #include <Dice.h>
 #include <Board.h>
-#include <Roster.h>
 
 Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 {
@@ -36,11 +35,6 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
         {
             Weapon* w = *wip;
 
-            if (!w->isActive())
-            {
-                // not active
-                continue;
-            }
             // check range to target unit
             float distanceToTarget = distanceBetween(&model, unit);
             if (distanceToTarget > w->range())
@@ -49,12 +43,12 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
                 continue;
             }
 
-            auto hits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w));
+            auto hits = w->rollToHit(toHitModifierMissile(w, unit), toHitRerollsMissile(w, unit), extraAttacksMissile(w));
 
             // apply hit modifiers on returned hits
             hits = applyHitModifiers(w, unit, hits);
 
-            auto numWounds = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
+            auto numWounds = w->rollToWound(hits.numHits, toWoundModifierMissile(w, unit), toWoundRerollsMissile(w, unit));
 
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
@@ -66,16 +60,6 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 
     numSlain = unit->applyDamage(totalDamage);
     return totalDamage;
-}
-
-Wounds Unit::shoot(int& numSlain)
-{
-    if (m_shootingTarget == nullptr)
-    {
-        numSlain = 0;
-        return {0, 0};
-    }
-    return shoot(-1, m_shootingTarget, numSlain);
 }
 
 Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
@@ -96,11 +80,6 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
         {
             Weapon* w = *wip;
-            if (!w->isActive())
-            {
-                // not active
-                continue;
-            }
 
             // check range to target unit
             float distanceToTarget = distanceBetween(&model, unit);
@@ -127,21 +106,12 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
     return totalDamage;
 }
 
-Wounds Unit::fight(int &numSlain)
-{
-    if (m_meleeTarget == nullptr)
-    {
-        numSlain = 0;
-        return {0, 0};
-    }
-    return fight(-1, m_meleeTarget, numSlain);
-}
-
 int Unit::applyBattleshock()
 {
     if (m_modelsSlain <= 0) return 0;
 
-    auto roll = rollBattleshock();
+    Dice dice;
+    auto roll = dice.rollD6();
     int numFled = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
     numFled = std::max(0, std::min(remainingModels(), numFled));
 
@@ -368,45 +338,6 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
 void Unit::movement(PlayerId player)
 {
     auto board = Board::Instance();
-}
-
-int Unit::rollBattleshock() const
-{
-    Dice dice;
-    return dice.rollD6();
-}
-
-void Unit::shooting(PlayerId player)
-{
-    auto board = Board::Instance();
-
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
-
-    m_shootingTarget = otherRoster->nearestUnit(this);
-    if (m_shootingTarget)
-    {
-        std::cout << "Shooting at " << m_shootingTarget->name() << std::endl;
-    }
-}
-
-void Unit::combat(PlayerId player)
-{
-    auto board = Board::Instance();
-
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
-
-    m_meleeTarget = otherRoster->nearestUnit(this);
-
-    if (m_meleeTarget)
-    {
-        std::cout << "Fighting with " << m_meleeTarget->name() << std::endl;
-    }
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

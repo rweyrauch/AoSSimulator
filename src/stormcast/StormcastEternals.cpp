@@ -21,6 +21,16 @@ int StormcastEternal::toHitModifier(const Weapon* weapon, const Unit* unit) cons
     return modifier;
 }
 
+int StormcastEternal::toHitModifierMissile(const Weapon* weapon, const Unit* unit) const
+{
+    int modifier = Unit::toHitModifierMissile(weapon, unit);
+
+    if (hasKeyword(ASTRAL_TEMPLARS) && unit->hasKeyword(MONSTER))
+        modifier += 1;
+
+    return modifier;
+}
+
 Rerolls StormcastEternal::toHitRerolls(const Weapon* weapon, const Unit* unit) const
 {
     if (hasKeyword(CELESTIAL_VINDICATORS) && m_charged)
