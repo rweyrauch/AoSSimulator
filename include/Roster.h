@@ -22,7 +22,7 @@ public:
         m_units.push_back(unit);
     }
 
-    void beginTurn();
+    void beginTurn(int battleRound);
     void doHeroPhase();
     void doMovementPhase();
     void doShootingPhase();

@@ -21,7 +21,7 @@ public:
         m_roster = roster;
     }
 
-    void beginTurn();
+    void beginTurn(int battleRound);
     void doHeroPhase();
     void doMovementPhase();
     void doShootingPhase();

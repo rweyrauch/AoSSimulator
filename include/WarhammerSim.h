@@ -150,6 +150,13 @@ enum Keyword
     KHINERAI_LIFETAKERS,
     HAG_QUEEN,
 
+    // Daughters of Khaine Temples
+    HAGG_NAR,
+    DRAICHI_GANETH,
+    THE_KRAITH,
+    KHAILEBRON,
+    KHELT_NAR,
+
     // Idoneth Deepkin
     NAMARTI,
     THRALLS,

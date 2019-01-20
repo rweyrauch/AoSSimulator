@@ -28,7 +28,7 @@ Weapon WitchAelves::s_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knif
 bool WitchAelves::s_registered = false;
 
 WitchAelves::WitchAelves() :
-    Unit("Witch Aelves", 6, WOUNDS, 7, 6, false)
+    DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false)
 {
     m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES };
 }

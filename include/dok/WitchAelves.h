@@ -9,13 +9,13 @@
 #ifndef WITCHAELVES_H
 #define WITCHAELVES_H
 
-#include <Unit.h>
+#include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
 namespace DaughtersOfKhaine
 {
 
-class WitchAelves : public Unit
+class WitchAelves : public DaughterOfKhaine
 {
 public:
 

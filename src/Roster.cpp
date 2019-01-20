@@ -56,11 +56,11 @@ void Roster::doBattleshockPhase()
     }
 }
 
-void Roster::beginTurn()
+void Roster::beginTurn(int battleRound)
 {
     for (auto u : m_units)
     {
-        u->beginTurn();
+        u->beginTurn(battleRound);
     }
 }
 

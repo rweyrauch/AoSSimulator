@@ -32,7 +32,7 @@ public:
     void addModel(const Model& model);
 
     void restore();
-    void beginTurn();
+    void beginTurn(int battleRound);
 
     // Phase functions (these are the 'think' functions that decide what this unit
     // is to do in each of the phases.
@@ -101,7 +101,9 @@ protected:
     virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return 0; }
 
     virtual int runModifier() const { return 0; }
+    virtual Rerolls runRerolls() const { return NoRerolls; }
     virtual int chargeModifier() const { return 0; }
+    virtual Rerolls chargeRerolls() const { return NoRerolls; }
 
     virtual void onSlain() {}
     virtual void onWounded() {}
@@ -121,6 +123,7 @@ protected:
     int m_ranks = 1;
     std::vector<Model> m_models;
 
+    int m_battleRound = 0;
     int m_modelsSlain = 0;
     int m_ran = false;
     int m_charged = false;

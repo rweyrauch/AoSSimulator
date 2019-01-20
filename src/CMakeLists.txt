@@ -41,6 +41,7 @@ add_library(
         gloomspitegitz/ColossalSquig.cpp
         gloomspitegitz/Stabbas.cpp
         gloomspitegitz/Shootas.cpp
+        dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
         idonethdeepkin/NamartiThralls.cpp
         nighthaunt/GrimghastReapers.cpp

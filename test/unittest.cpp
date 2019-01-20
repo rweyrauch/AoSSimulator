@@ -53,8 +53,8 @@ TEST(Unit, Combat)
         std::cout << liberators.remainingModels() << " Liberators at the start of round " << i << std::endl;
         std::cout << bloodreavers.remainingModels() << " Bloodreavers at the start of round " << i << std::endl;
 
-        liberators.beginTurn();
-        bloodreavers.beginTurn();
+        liberators.beginTurn(i);
+        bloodreavers.beginTurn(i);
 
         int numSlain = 0;
         auto totalDamage = liberators.fight(-1, &bloodreavers, numSlain);
@@ -112,8 +112,8 @@ TEST(Unit, LiberatorsVsBloodreavers)
         std::cout << liberators.remainingModels() << " Liberators at the start of round " << i << std::endl;
         std::cout << bloodreavers.remainingModels() << " Bloodreavers at the start of round " << i << std::endl;
 
-        liberators.beginTurn();
-        bloodreavers.beginTurn();
+        liberators.beginTurn(i);
+        bloodreavers.beginTurn(i);
 
         int numSlain = 0;
         auto totalDamage = liberators.fight(-1, &bloodreavers, numSlain);
@@ -170,11 +170,11 @@ TEST(Unit, BallistaVsAlarielle)
     for (auto i = 0; i < 5; i++)
     {
         std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining." << std::endl;
-        alarielle.beginTurn();
-        ballista0.beginTurn();
-        ballista1.beginTurn();
-        ballista2.beginTurn();
-        lordOrdinator.beginTurn();
+        alarielle.beginTurn(i);
+        ballista0.beginTurn(i);
+        ballista1.beginTurn(i);
+        ballista2.beginTurn(i);
+        lordOrdinator.beginTurn(i);
 
         alarielle.hero(PlayerId::Red);
         std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after hero phase." << std::endl;

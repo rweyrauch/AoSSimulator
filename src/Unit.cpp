@@ -141,8 +141,6 @@ int Unit::applyBattleshock()
         numFleeing--;
     }
 
-    m_modelsSlain = 0;
-
     return numFled;
 }
 
@@ -198,10 +196,12 @@ Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save,
 
 }
 
-void Unit::beginTurn()
+void Unit::beginTurn(int battleRound)
 {
+    m_battleRound = battleRound;
     m_ran = false;
     m_charged = false;
+    m_modelsSlain = 0;
 }
 
 void Unit::addModel(const Model &model)
@@ -234,8 +234,8 @@ int Unit::applyDamage(const Wounds& totalWounds)
         }
     }
     onWounded();
-    m_modelsSlain = numSlain;
-    return m_modelsSlain;
+    m_modelsSlain += numSlain;
+    return numSlain;
 }
 
 int Unit::remainingModels() const

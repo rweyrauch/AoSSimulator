@@ -155,8 +155,8 @@ void ManoAMano::next()
                 m_topOfRound = false;
                 std::swap(m_attackingUnit, m_defendingUnit);
 
-                m_units[(int)m_attackingUnit]->beginTurn();
-                m_units[(int)m_defendingUnit]->beginTurn();
+                m_units[(int)m_attackingUnit]->beginTurn(m_round);
+                m_units[(int)m_defendingUnit]->beginTurn(m_round);
 
                 m_currentPhase = Phase::Hero;
             }
@@ -176,8 +176,8 @@ void ManoAMano::next()
                 m_topOfRound = true;
                 m_round++;
 
-                m_units[(int)m_attackingUnit]->beginTurn();
-                m_units[(int)m_defendingUnit]->beginTurn();
+                m_units[(int)m_attackingUnit]->beginTurn(m_round);
+                m_units[(int)m_defendingUnit]->beginTurn(m_round);
 
                 // End of battle.
                 if (m_round > m_numRounds)
@@ -229,7 +229,7 @@ void ManoAMano::runInitiativePhase()
     }
 
     const auto unitIdx = (int)m_attackingUnit;
-    m_units[unitIdx]->beginTurn();
+    m_units[unitIdx]->beginTurn(m_round);
 
     //std::cout << "Unit " << PlayerIdToString(m_attackingUnit) << " wins initiative.  Red: " <<
      //         p1 << " Blue: " << p2 << std::endl;
