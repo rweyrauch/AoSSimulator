@@ -45,6 +45,7 @@ enum Rerolls
 {
     NoRerolls = 0,
     RerollOnes,
+    RerollSixes,
     RerollFailed,
 };
 
@@ -89,6 +90,8 @@ enum Keyword
     WAR_MACHINE,
     GROT,
     AELF,
+    MALIGNANT,
+    SUMMONABLE,
 
     // Stormcast
     SACROSANCT,
@@ -154,6 +157,14 @@ enum Keyword
     AKHELIAN_GUARD,
     MORRSARR_GUARD,
     ISHLAEN_GUARD,
+
+    // Nighthaunt
+    GRIMGHAST_REAPERS,
+    CHAINRASP_HORDE,
+    BLADEGHEIST_REVENANTS,
+    GLAIVEWRAITH_STALKERS,
+    DREADSCYTHE_HARRIDANS,
+
 };
 
 enum Duration

@@ -75,6 +75,8 @@ public:
     Unit* shootingTarget() { return m_shootingTarget; }
     Unit* meleeTarget() { return m_meleeTarget; }
 
+    bool charged() const { return m_charged; }
+
 protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);

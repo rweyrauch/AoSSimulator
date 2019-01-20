@@ -43,6 +43,11 @@ add_library(
         gloomspitegitz/Shootas.cpp
         dok/WitchAelves.cpp
         idonethdeepkin/NamartiThralls.cpp
+        nighthaunt/GrimghastReapers.cpp
+        nighthaunt/ChainraspHorde.cpp
+        nighthaunt/BladegheistRevenants.cpp
+        nighthaunt/GlaivewraithStalkers.cpp
+        nighthaunt/DreadscytheHarridans.cpp
 )
 
 target_include_directories(

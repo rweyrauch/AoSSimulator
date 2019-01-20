@@ -39,6 +39,12 @@
 
 #include "idonethdeepkin/NamartiThralls.h"
 
+#include "nighthaunt/ChainraspHorde.h"
+#include "nighthaunt/GrimghastReapers.h"
+#include "nighthaunt/BladegheistRevenants.h"
+#include "nighthaunt/GlaivewraithStalkers.h"
+#include "nighthaunt/DreadscytheHarridans.h"
+
 void Initialize()
 {
     StormcastEternals::Liberators::Init();
@@ -72,4 +78,10 @@ void Initialize()
     DaughtersOfKhaine::WitchAelves::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
+
+    Nighthaunt::ChainraspHorde::Init();
+    Nighthaunt::GrimghastReapers::Init();
+    Nighthaunt::BladegheistRevenants::Init();
+    Nighthaunt::GlaivewraithStalkers::Init();
+    Nighthaunt::DreadscytheHarridans::Init();
 }
