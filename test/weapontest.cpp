@@ -54,4 +54,11 @@ TEST(Weapon, Attacks)
             }
         }
     }
+
+    // computed strength
+    std::cout << "Weapon Strengths: " << std::endl;
+    for (auto w : weapons)
+    {
+        std::cout << w.name() << " : " << w.strength() << std::endl;
+    }
 }

@@ -39,13 +39,13 @@ public:
     virtual void hero(PlayerId player) {}
     virtual void movement(PlayerId player);
     virtual void shooting(PlayerId player);
-    virtual void charge(PlayerId player) {}
+    virtual void charge(PlayerId player);
     virtual void combat(PlayerId player);
-    virtual void battleshock(PlayerId player) {}
+    virtual void battleshock(PlayerId player);
 
     bool formation(int ranks);
-    bool position(float x, float y, float z = 0.0f);
-    void getPosition(float& x, float& y, float& z) const;
+    bool setPosition(float x, float y, float z = 0.0f);
+    const Math::Point3& position() const { return m_position; };
 
     float distanceTo(const Unit* unit) const;
     float distanceBetween(const Model* model, const Unit* unit) const;
@@ -77,6 +77,10 @@ public:
 
     bool charged() const { return m_charged; }
 
+    std::vector<Model>::const_iterator modelBegin() const { return m_models.begin(); }
+    std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }
+
+    float basesizeInches() const { return m_basesize_mm / 25.4; }
 protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
@@ -108,6 +112,9 @@ protected:
     virtual void onSlain() {}
     virtual void onWounded() {}
 
+    int rollRunDistance() const;
+    int rollChargeDistance() const;
+
 protected:
     std::string m_name = "";
     int m_move = 0;
@@ -122,6 +129,8 @@ protected:
 
     int m_ranks = 1;
     std::vector<Model> m_models;
+    Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
+    float m_basesize_mm = 0.0f;
 
     int m_battleRound = 0;
     int m_modelsSlain = 0;
@@ -134,6 +143,8 @@ protected:
 
     Unit* m_shootingTarget = nullptr;
     Unit* m_meleeTarget = nullptr;
+
+    bool m_verbose = true;
 
     enum BuffableAttribute
     {

@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <khorne/Bloodletters.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Khorne
 {
@@ -17,15 +18,16 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "numModels", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
          Bloodletters::MAX_UNIT_SIZE},
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false}
+        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
     }
 };
 
 bool Bloodletters::s_registered = false;
 
 Weapon Bloodletters::s_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1);
+Weapon Bloodletters::s_hellbladeReaper(Weapon::Type::Melee, "Hellblade (Reaper)", 1, 2, 4, 3, -1, 1);
 
 Bloodletters::Bloodletters() :
     Unit("Bloodletters", 5, WOUNDS, 10, 5, false)
@@ -45,24 +47,24 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     m_standarBearer = standardBearer;
     m_hornblower = hornblowers;
 
-    m_pHellblade = new Weapon(s_hellblade);
-    if (numModels > 20) m_pHellblade->setAttacks(2);
-
-    m_pHellbladeReaper = new Weapon(s_hellblade);
-    m_pHellbladeReaper->setAttacks(2);
-    if (numModels > 20) m_pHellbladeReaper->setAttacks(3);
-
     // Add the Hellreaper
     Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(m_pHellbladeReaper);
+    reaperModel.addMeleeWeapon(&s_hellbladeReaper);
     addModel(reaperModel);
 
     int currentModelCount = (int)m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(m_pHellblade);
+        model.addMeleeWeapon(&s_hellblade);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_hellblade.name() << ": " << s_hellblade.strength() << std::endl;
+        std::cout << "\t" << s_hellbladeReaper.name() << ": " << s_hellbladeReaper.strength() << std::endl;
     }
 
     return true;
@@ -101,6 +103,14 @@ void Bloodletters::Init()
     {
         s_registered = UnitFactory::Register("Bloodletters", factoryMethod);
     }
+}
+
+int Bloodletters::extraAttacks(const Weapon *weapon) const
+{
+    int attacks = Unit::extraAttacks(weapon);
+    if (remainingModels() >= 20)
+        attacks += 1;
+    return attacks;
 }
 
 } // namespace Khorne

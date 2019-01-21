@@ -9,6 +9,7 @@
 #include <Dice.h>
 #include <sylvaneth/TreeRevenants.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Sylvaneth {
 
@@ -18,15 +19,15 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numModels", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
          TreeRevenants::MAX_UNIT_SIZE},
         {ParamType::Boolean, "scionGlaive", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "gladeBanners", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "waypipes", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "gladeBanners", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "waypipes", {.m_boolValue = true}, false, false},
     }
 };
 
 bool TreeRevenants::s_registered = false;
 
 Weapon TreeRevenants::s_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1);
-Weapon TreeRevenants::s_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade", 1, 4, 4, 3, -1, 1);
+Weapon TreeRevenants::s_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade (Scion)", 1, 4, 4, 3, -1, 1);
 Weapon TreeRevenants::s_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2);
 
 TreeRevenants::TreeRevenants() :
@@ -56,6 +57,15 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
         model.addMeleeWeapon(&s_enchantedBlade);
         addModel(model);
     }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_enchantedBlade.name() << ": " << s_enchantedBlade.strength() << std::endl;
+        std::cout << "\t" << s_enchantedBladeScion.name() << ": " << s_enchantedBladeScion.strength() << std::endl;
+        std::cout << "\t" << s_protectorGlaive.name() << ": " << s_protectorGlaive.strength() << std::endl;
+    }
+
     return true;
 }
 

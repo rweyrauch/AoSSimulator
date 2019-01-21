@@ -10,6 +10,7 @@
 #define MODEL_H
 
 #include <vector>
+#include <MathUtils.h>
 #include <Weapon.h>
 
 class Model
@@ -20,10 +21,11 @@ public:
 
     int basesize() const { return m_baseSize; }
 
-    void position(float x, float y, float z) { m_x = x; m_y = y; m_z = z; }
-    float x() const { return m_x; }
-    float y() const { return m_y; }
-    float z() const { return m_z; }
+    void setPosition(float x, float y, float z) { m_position.set(x, y, z); }
+    const Math::Point3& position() const { return m_position; }
+    float x() const { return m_position.x(); }
+    float y() const { return m_position.y(); }
+    float z() const { return m_position.z(); }
 
     void addMeleeWeapon(Weapon* weapon);
     void addMissileWeapon(Weapon* weapon);
@@ -44,15 +46,19 @@ public:
 
     void restore();
 
+    const Weapon* preferredWeapon() const { return m_preferredWeapon; }
+
 private:
     int m_baseSize = 0;
-    float m_x = 0.0f, m_y = 0.0f, m_z = 0.0f;
+    Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
     int m_woundsRemaining = 0;
     bool m_slain = false;
     bool m_fled = false;
 
     std::vector<Weapon*> m_melee;
     std::vector<Weapon*> m_missile;
+
+    Weapon* m_preferredWeapon = nullptr;
 };
 
 

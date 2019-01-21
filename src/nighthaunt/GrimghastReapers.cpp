@@ -7,6 +7,7 @@
  */
 #include <nighthaunt/GrimghastReapers.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Nighthaunt
 {
@@ -45,6 +46,13 @@ bool GrimghastReapers::configure(int numModels)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_slasherScythe);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_slasherScythe.name() << ": " << s_slasherScythe.strength() << std::endl;
+        std::cout << "\t" << s_deathKnell.name() << ": " << s_deathKnell.strength() << std::endl;
     }
 
     return true;

@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/ColossalSquig.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz
 {
@@ -74,6 +75,14 @@ bool ColossalSquig::configure()
     model.addMeleeWeapon(&s_puffSpores);
 
     addModel(model);
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_enormousJaws.name() << ": " << s_enormousJaws.strength() << std::endl;
+        std::cout << "\t" << s_tramplingFeet.name() << ": " << s_tramplingFeet.strength() << std::endl;
+        std::cout << "\t" << s_puffSpores.name() << ": " << s_puffSpores.strength() << std::endl;
+    }
 
     return true;
 }

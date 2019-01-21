@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stormcast/Sequitors.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace StormcastEternals
 {
@@ -17,8 +18,8 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
          Sequitors::TempestBlade},
-        {ParamType::Integer, "numGreatmaces", {.m_intValue = 0}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
-        {ParamType::Boolean, "primeGreatmace", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
+        {ParamType::Boolean, "primeGreatmace", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "redemptionCache", {.m_boolValue = false}, false, false}
     }
 };
@@ -29,9 +30,9 @@ Weapon Sequitors::s_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2,
 Weapon Sequitors::s_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1);
 Weapon Sequitors::s_stormsmiteGreatmace(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 2, 3, 3, -1, 2);
 
-Weapon Sequitors::s_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul", 1, 3, 3, 3, 0, 1);
-Weapon Sequitors::s_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade", 1, 4, 3, 4, 0, 1);
-Weapon Sequitors::s_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 3, 3, 3, -1, 2);
+Weapon Sequitors::s_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul (Prime)", 1, 3, 3, 3, 0, 1);
+Weapon Sequitors::s_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade (Prime)", 1, 4, 3, 4, 0, 1);
+Weapon Sequitors::s_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace (Prime)", 1, 3, 3, 3, -1, 2);
 
 Weapon Sequitors::s_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1);
 
@@ -102,6 +103,16 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
         addModel(model);
     }
 
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_stormsmiteMaul.name() << ": " << s_stormsmiteMaul.strength() << std::endl;
+        std::cout << "\t" << s_stormsmiteMaulPrime.name() << ": " << s_stormsmiteMaulPrime.strength() << std::endl;
+        std::cout << "\t" << s_tempestBlade.name() << ": " << s_tempestBlade.strength() << std::endl;
+        std::cout << "\t" << s_tempestBladePrime.name() << ": " << s_tempestBladePrime.strength() << std::endl;
+        std::cout << "\t" << s_stormsmiteGreatmace.name() << ": " << s_stormsmiteGreatmace.strength() << std::endl;
+        std::cout << "\t" << s_stormsmiteGreatmacePrime.name() << ": " << s_stormsmiteGreatmacePrime.strength() << std::endl;
+    }
     return true;
 }
 

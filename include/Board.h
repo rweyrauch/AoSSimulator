@@ -48,6 +48,8 @@ public:
 
     const Roster* getPlayerRoster(PlayerId which) const { return m_rosters[(int)which]; }
 
+    void render(const std::string filename) const;
+
 protected:
     Board() = default;
 

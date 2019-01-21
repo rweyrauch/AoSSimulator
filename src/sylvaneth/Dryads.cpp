@@ -9,6 +9,7 @@
 #include <Dice.h>
 #include <sylvaneth/Dryads.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Sylvaneth {
 
@@ -23,7 +24,7 @@ static FactoryMethod factoryMethod = {
 bool Dryads::s_registered = false;
 
 Weapon Dryads::s_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1);
-Weapon Dryads::s_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons", 2, 3, 4, 4, 0, 1);
+Weapon Dryads::s_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons (Nymph)", 2, 3, 4, 4, 0, 1);
 
 Dryads::Dryads() :
     Unit("Dryads", 7, WOUNDS, 6, 5, false)
@@ -48,6 +49,14 @@ bool Dryads::configure(int numModels)
         model.addMeleeWeapon(&s_wrackingTalons);
         addModel(model);
     }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_wrackingTalons.name() << ": " << s_wrackingTalons.strength() << std::endl;
+        std::cout << "\t" << s_wrackingTalonsNymph.name() << ": " << s_wrackingTalonsNymph.strength() << std::endl;
+    }
+
     return true;
 }
 

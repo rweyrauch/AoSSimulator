@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <khorne/BloodWarriors.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Khorne
 {
@@ -18,15 +19,15 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numModels", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
          BloodWarriors::MAX_UNIT_SIZE},
         {ParamType::Boolean, "pairedGoreax", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false}
+        {ParamType::Integer, "numGoreglaives", {.m_intValue = 1}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
+        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false}
     }
 };
 
 bool BloodWarriors::s_registered = false;
 
 Weapon BloodWarriors::s_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1);
-Weapon BloodWarriors::s_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1);
+Weapon BloodWarriors::s_goreaxeChampion(Weapon::Type::Melee, "Goreaxe (Champion)", 1, 3, 3, 4, 0, 1);
 Weapon BloodWarriors::s_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2);
 
 BloodWarriors::BloodWarriors() :
@@ -70,6 +71,14 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_goreaxe);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_goreaxe.name() << ": " << s_goreaxe.strength() << std::endl;
+        std::cout << "\t" << s_goreaxeChampion.name() << ": " << s_goreaxeChampion.strength() << std::endl;
+        std::cout << "\t" << s_goreglaive.name() << ": " << s_goreglaive.strength() << std::endl;
     }
 
     return true;

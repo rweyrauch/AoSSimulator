@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/Stabbas.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz {
 
@@ -18,17 +19,17 @@ static FactoryMethod factoryMethod = {
          Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear},
         {ParamType::Integer, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear},
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numGongbashers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numBarbedNets", {.m_intValue = 2}, 0, 3 * Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numIconbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
     }
 };
 
 Weapon Stabbas::s_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1);
-Weapon Stabbas::s_stabbaBoss(Weapon::Type::Melee, "Stabba", 1, 1, 3, 4, 0, 1);
+Weapon Stabbas::s_stabbaBoss(Weapon::Type::Melee, "Stabba (Boss)", 1, 1, 3, 4, 0, 1);
 Weapon Stabbas::s_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1);
-Weapon Stabbas::s_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 4, 4, 0, 1);
+Weapon Stabbas::s_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear (Boss)", 2, 1, 4, 4, 0, 1);
 Weapon Stabbas::s_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1);
 
 bool Stabbas::s_registered = false;
@@ -91,6 +92,16 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
         else if (weapons == PokinSpear)
             model.addMeleeWeapon(&s_pokinSpear);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_stabba.name() << ": " << s_stabba.strength() << std::endl;
+        std::cout << "\t" << s_stabbaBoss.name() << ": " << s_stabbaBoss.strength() << std::endl;
+        std::cout << "\t" << s_pokinSpear.name() << ": " << s_pokinSpear.strength() << std::endl;
+        std::cout << "\t" << s_pokinSpearBoss.name() << ": " << s_pokinSpearBoss.strength() << std::endl;
+        std::cout << "\t" << s_barbedNet.name() << ": " << s_barbedNet.strength() << std::endl;
     }
 
     return true;

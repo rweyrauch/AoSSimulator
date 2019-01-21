@@ -7,6 +7,7 @@
  */
 #include <nighthaunt/ChainraspHorde.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Nighthaunt
 {
@@ -20,7 +21,7 @@ static FactoryMethod factoryMethod = {
 };
 
 Weapon ChainraspHorde::s_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1);
-Weapon ChainraspHorde::s_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1);
+Weapon ChainraspHorde::s_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon (Warden)", 1, 3, 4, 4, 0, 1);
 
 bool ChainraspHorde::s_registered = false;
 
@@ -44,6 +45,13 @@ bool ChainraspHorde::configure(int numModels)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_malignantWeapon);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_malignantWeapon.name() << ": " << s_malignantWeapon.strength() << std::endl;
+        std::cout << "\t" << s_malignantWeaponWarden.name() << ": " << s_malignantWeaponWarden.strength() << std::endl;
     }
 
     return true;

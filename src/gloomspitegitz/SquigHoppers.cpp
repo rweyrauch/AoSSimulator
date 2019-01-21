@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/SquigHoppers.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz
 {
@@ -23,7 +24,7 @@ bool SquiqHoppers::s_registered = false;
 
 Weapon SquiqHoppers::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
 Weapon SquiqHoppers::s_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1);
-Weapon SquiqHoppers::s_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1);
+Weapon SquiqHoppers::s_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1);
 
 SquiqHoppers::SquiqHoppers() :
     Unit("Squig Hoppers", RAND_3D6, WOUNDS, 4, 6, true)
@@ -53,6 +54,14 @@ bool SquiqHoppers::configure(int numModels)
         model.addMeleeWeapon(&s_slitta);
         model.addMeleeWeapon(&s_fangFilledGob);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_slitta.name() << ": " << s_slitta.strength() << std::endl;
+        std::cout << "\t" << s_slittaBoss.name() << ": " << s_slittaBoss.strength() << std::endl;
+        std::cout << "\t" << s_fangFilledGob.name() << ": " << s_fangFilledGob.strength() << std::endl;
     }
 
     return true;

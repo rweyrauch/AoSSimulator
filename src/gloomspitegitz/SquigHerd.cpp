@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/SquigHerd.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz
 {
@@ -55,6 +56,13 @@ bool SquiqHerd::configure(int numModels)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_fangFilledGob);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_squigProdder.name() << ": " << s_squigProdder.strength() << std::endl;
+        std::cout << "\t" << s_fangFilledGob.name() << ": " << s_fangFilledGob.strength() << std::endl;
     }
 
     return true;

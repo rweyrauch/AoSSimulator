@@ -12,11 +12,15 @@
 void Model::addMeleeWeapon(Weapon *weapon)
 {
     m_melee.push_back(weapon);
+
+    m_preferredWeapon = weapon;
 }
 
 void Model::addMissileWeapon(Weapon *weapon)
 {
     m_missile.push_back(weapon);
+
+    m_preferredWeapon = weapon;
 }
 
 void Model::restore()

@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <iostream>
+#include <cassert>
 #include <ManoAMano.h>
 #include <Dice.h>
 #include <Roster.h>
@@ -21,6 +22,8 @@ ManoAMano::ManoAMano(int numRounds, bool verbose) :
 
 void ManoAMano::combatants(Unit *red, Unit *blue)
 {
+    auto board = Board::Instance();
+
     delete m_rosters[0];
     delete m_rosters[1];
 
@@ -41,19 +44,18 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     // |                       |
     // +-----------------------+
 
-    float redX = BoardWidth / 20.0f;
-    float redY = BoardDepth / 2.0f;
+    float redX = board->width() / 20.0f;
+    float redY = board->depth() / 2.0f;
 
     // left center
-    red->position(redX, redY);
+    red->setPosition(redX, redY);
 
-    float blueX = BoardWidth - (BoardWidth / 20.0f);
-    float blueY = BoardDepth / 2.0f;
+    float blueX = board->width() - (board->width() / 20.0f);
+    float blueY = board->depth() / 2.0f;
 
     // right center
-    blue->position(blueX, blueY);
+    blue->setPosition(blueX, blueY);
 
-    auto board = Board::Instance();
     board->addRosters(m_rosters[0], m_rosters[1]);
 }
 
@@ -231,8 +233,11 @@ void ManoAMano::runInitiativePhase()
     const auto unitIdx = (int)m_attackingUnit;
     m_units[unitIdx]->beginTurn(m_round);
 
-    //std::cout << "Unit " << PlayerIdToString(m_attackingUnit) << " wins initiative.  Red: " <<
-     //         p1 << " Blue: " << p2 << std::endl;
+    if (m_verbose)
+    {
+        std::cout << "Unit " << PlayerIdToString(m_attackingUnit) << " wins initiative.  Red: "
+                  << p1 << " Blue: " << p2 << std::endl;
+    }
 }
 
 void ManoAMano::runHeroPhase()
@@ -247,10 +252,12 @@ void ManoAMano::runMovementPhase()
 
 void ManoAMano::runShootingPhase()
 {
+    // Think...
     m_units[(int)m_attackingUnit]->shooting(m_attackingUnit);
 
+    // Act...
     int numSlain = 0;
-    auto totalDamage = m_units[(int)m_attackingUnit]->shoot(-1, m_units[(int)m_defendingUnit], numSlain);
+    auto totalDamage = m_units[(int)m_attackingUnit]->shoot(numSlain);
     if (totalDamage.normal > 0 || totalDamage.mortal > 0)
     {
         if (m_verbose)
@@ -272,10 +279,13 @@ void ManoAMano::runChargePhase()
 
 void ManoAMano::runCombatPhase()
 {
+    // Think.
     m_units[(int)m_attackingUnit]->combat(m_attackingUnit);
 
+    assert( m_units[(int)m_attackingUnit]->meleeTarget() == m_units[(int)m_defendingUnit]);
+
     int numSlain = 0;
-    auto totalDamage = m_units[(int)m_attackingUnit]->fight(-1, m_units[(int)m_defendingUnit], numSlain);
+    auto totalDamage = m_units[(int)m_attackingUnit]->fight(numSlain);
 
     if (m_verbose)
     {

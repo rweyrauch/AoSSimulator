@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include <iostream>
 
 namespace StormcastEternals
 {
@@ -23,7 +24,7 @@ static FactoryMethod factoryMethod = {
 bool CelestarBallista::s_registered = false;
 
 Weapon CelestarBallista::s_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1);
-Weapon CelestarBallista::s_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Far", 18, 4, 5, 3, -2, 1);
+Weapon CelestarBallista::s_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1);
 Weapon CelestarBallista::s_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1);
 
 CelestarBallista::CelestarBallista() :
@@ -49,6 +50,13 @@ bool CelestarBallista::configure()
     model.addMissileWeapon(m_stormboltsSingle);
     model.addMissileWeapon(m_stormboltsRapid);
     addModel(model);
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_stormboltsRapid.name() << ": " << s_stormboltsRapid.strength() << std::endl;
+        std::cout << "\t" << s_stormboltsSingle.name() << ": " << s_stormboltsSingle.strength() << std::endl;
+    }
 
     return true;
 }
@@ -97,6 +105,7 @@ void CelestarBallista::shooting(PlayerId player)
             m_stormboltsSingle->activate(true);
         }
     }
-    Unit::shooting(player);
+    StormcastEternal::shooting(player);
 }
+
 } // namespace StormcastEternals

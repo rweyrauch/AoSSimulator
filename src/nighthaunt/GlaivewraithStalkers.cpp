@@ -7,6 +7,7 @@
  */
 #include <nighthaunt/GlaivewraithStalkers.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Nighthaunt
 {
@@ -43,6 +44,12 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_huntersGlaive);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_huntersGlaive.name() << ": " << s_huntersGlaive.strength() << std::endl;
     }
 
     return true;

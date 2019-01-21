@@ -7,6 +7,7 @@
  */
 #include <nighthaunt/BladegheistRevenants.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Nighthaunt
 {
@@ -41,6 +42,12 @@ bool BladegheistRevenants::configure(int numModels)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_tombGreatblade);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_tombGreatblade.name() << ": " << s_tombGreatblade.strength() << std::endl;
     }
 
     return true;

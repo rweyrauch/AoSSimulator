@@ -8,6 +8,7 @@
 
 #include <idonethdeepkin/NamartiThralls.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace IdonethDeepkin {
 
@@ -45,6 +46,12 @@ bool NamartiThralls::configure(int numModels, int numIconBearers)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_lanmariBlade);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_lanmariBlade.name() << ": " << s_lanmariBlade.strength() << std::endl;
     }
 
     return true;

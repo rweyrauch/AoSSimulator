@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stormcast/Judicators.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace StormcastEternals
 {
@@ -17,7 +18,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
          Judicators::BoltstormCrossbow},
-        {ParamType::Integer, "numShockboltBows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5},
+        {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5},
         {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5}
     }
 };
@@ -25,10 +26,10 @@ static FactoryMethod factoryMethod = {
 bool Judicators::s_registered = false;
 
 Weapon Judicators::s_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1);
-Weapon Judicators::s_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 2, 3, -1, 1);
+Weapon Judicators::s_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow (Prime)", 24, 1, 2, 3, -1, 1);
 Weapon Judicators::s_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1);
 Weapon Judicators::s_shockboltBow(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 3, 3, -1, 1);
-Weapon Judicators::s_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 2, 3, -1, 1);
+Weapon Judicators::s_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow (Prime)", 24, 1, 2, 3, -1, 1);
 Weapon Judicators::s_thunderboldCrossbow(Weapon::Type::Missile, "Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0);
 Weapon Judicators::s_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1);
 
@@ -95,6 +96,18 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
             model.addMissileWeapon(&s_boltstormCrossbow);
         model.addMeleeWeapon(&s_stormGladius);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_stormGladius.name() << ": " << s_stormGladius.strength() << std::endl;
+        std::cout << "\t" << s_shockboltBow.name() << ": " << s_shockboltBow.strength() << std::endl;
+        std::cout << "\t" << s_shockboltPrime.name() << ": " << s_shockboltPrime.strength() << std::endl;
+        std::cout << "\t" << s_skyboltBow.name() << ": " << s_skyboltBow.strength() << std::endl;
+        std::cout << "\t" << s_skyboltPrime.name() << ": " << s_skyboltPrime.strength() << std::endl;
+        std::cout << "\t" << s_thunderboldCrossbow.name() << ": " << s_thunderboldCrossbow.strength() << std::endl;
+        std::cout << "\t" << s_boltstormCrossbow.name() << ": " << s_boltstormCrossbow.strength() << std::endl;
     }
 
     return true;

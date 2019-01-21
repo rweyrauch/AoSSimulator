@@ -39,10 +39,10 @@ public:
     bool configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache);
 
     // Buff shields when not our combat phase.
-    void hero(PlayerId id) override { m_aethericChannellingWeapons = false; }
+    void hero(PlayerId id) override { m_aethericChannellingWeapons = false; StormcastEternal::hero(id);}
 
     // Buff weapons during our combat phase
-    void combat(PlayerId id) override { m_aethericChannellingWeapons = true; }
+    void combat(PlayerId id) override { m_aethericChannellingWeapons = true; StormcastEternal::combat(id); }
 
 protected:
 

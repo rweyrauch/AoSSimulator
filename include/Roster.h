@@ -32,6 +32,9 @@ public:
 
     Unit* nearestUnit(const Unit* unit) const;
 
+    std::vector<Unit*>::const_iterator unitBegin() const { return m_units.begin(); }
+    std::vector<Unit*>::const_iterator unitEnd() const { return m_units.end(); }
+
 private:
     const PlayerId m_id;
     std::vector<Unit*> m_units;

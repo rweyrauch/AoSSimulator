@@ -78,3 +78,30 @@ std::string PlayerIdToString(PlayerId id)
             return "Blue";
     }
 }
+
+float AverageRandomValue(int value)
+{
+    float avgValue = value;
+    switch (value)
+    {
+        case RAND_D3:
+            avgValue = 2.0f;
+            break;
+        case RAND_D6:
+            avgValue = 3.5;
+            break;
+        case RAND_2D6:
+            avgValue = 3.5f * 2;
+            break;
+        case RAND_3D6:
+            avgValue = 3.5f * 3;
+            break;
+        case RAND_4D6:
+            avgValue = 3.5f * 4;
+            break;
+        default:
+            avgValue = value;
+            break;
+    }
+    return avgValue;
+}

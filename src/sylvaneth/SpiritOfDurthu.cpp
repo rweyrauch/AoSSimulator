@@ -9,6 +9,7 @@
 #include <Dice.h>
 #include <sylvaneth/SpiritOfDurthu.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Sylvaneth
 {
@@ -60,6 +61,14 @@ bool SpiritOfDurthu::configure()
     model.addMeleeWeapon(m_pGuardianSword);
     model.addMeleeWeapon(m_pMassiveImpalingTalons);
     addModel(model);
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_verdantBlast.name() << ": " << s_verdantBlast.strength() << std::endl;
+        std::cout << "\t" << s_guardianSword.name() << ": " << s_guardianSword.strength() << std::endl;
+        std::cout << "\t" << s_massiveImpalingTalons.name() << ": " << s_massiveImpalingTalons.strength() << std::endl;
+    }
 
     return true;
 }

@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/ManglerSquigs.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz
 {
@@ -64,6 +65,14 @@ bool ManglerSquigs::configure()
     model.addMeleeWeapon(&s_grotsBashinStikk);
 
     addModel(model);
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_hugeFangFilledGob.name() << ": " << s_hugeFangFilledGob.strength() << std::endl;
+        std::cout << "\t" << s_ballsAndChains.name() << ": " << s_ballsAndChains.strength() << std::endl;
+        std::cout << "\t" << s_grotsBashinStikk.name() << ": " << s_grotsBashinStikk.strength() << std::endl;
+    }
 
     return true;
 }

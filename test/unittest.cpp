@@ -262,3 +262,27 @@ TEST(Unit, RegisteredUnits)
         }
     }
 }
+
+TEST(Unit, ConfigureRegisteredUnits)
+{
+    for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
+    {
+        std::vector<Parameter> parameters;
+        for (auto pip : ruip->second.m_parameters)
+        {
+            Parameter param = pip;
+            if ((param.m_paramType == ParamType::Integer) && (param.m_name == "numModels"))
+            {
+                param.m_intValue = param.m_maxValue;
+            }
+            parameters.push_back(param);
+        }
+
+        auto unit = UnitFactory::Create(ruip->first, parameters);
+        if (unit == nullptr)
+        {
+            std::cerr << "Failed to create unit: " << ruip->first << std::endl;
+            ASSERT_NE(unit, nullptr);
+        }
+    }
+}

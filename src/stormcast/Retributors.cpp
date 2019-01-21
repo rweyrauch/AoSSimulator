@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stormcast/Retributors.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace StormcastEternals
 {
@@ -15,14 +16,14 @@ static FactoryMethod factoryMethod = {
     Retributors::Create,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE},
-        {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 0}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
+        {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 2}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
     }
 };
 
 bool Retributors::s_registered = false;
 
 Weapon Retributors::s_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2);
-Weapon Retributors::s_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2);
+Weapon Retributors::s_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer (Prime)", 1, 3, 3, 3, -1, 2);
 Weapon Retributors::s_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0);
 
 Retributors::Retributors() :
@@ -64,6 +65,14 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_lightningHammer);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_lightningHammer.name() << ": " << s_lightningHammer.strength() << std::endl;
+        std::cout << "\t" << s_lightningHammerPrime.name() << ": " << s_lightningHammerPrime.strength() << std::endl;
+        std::cout << "\t" << s_starsoulMace.name() << ": " << s_starsoulMace.strength() << std::endl;
     }
 
     return true;

@@ -27,16 +27,13 @@ public:
     static void Init();
 
     Bloodletters();
-    ~Bloodletters() override
-    {
-        delete m_pHellblade;
-        delete m_pHellbladeReaper;
-    }
+    ~Bloodletters() override = default;
 
     bool configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
 
 protected:
 
+    int extraAttacks(const Weapon* weapon) const override;
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
 
 private:
@@ -45,10 +42,8 @@ private:
     bool m_standarBearer = false;
     bool m_hornblower = false;
 
-    Weapon* m_pHellblade = nullptr;
-    Weapon* m_pHellbladeReaper = nullptr;
-
-    static Weapon s_hellblade;
+    static Weapon s_hellblade,
+        s_hellbladeReaper;
 
     static bool s_registered;
 };

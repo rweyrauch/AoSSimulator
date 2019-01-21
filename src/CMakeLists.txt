@@ -16,6 +16,7 @@ add_library(
         Spell.cpp
         UnitFactory.cpp
         UnitInit.cpp
+        MathUtils.cpp
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp
@@ -53,5 +54,11 @@ add_library(
 
 target_include_directories(
         whSim PUBLIC
+        ${GTK2_INCLUDE_DIRS}
         ../include
+)
+
+target_link_libraries(
+        whSim
+        ${GTK2_LIBRARIES}
 )

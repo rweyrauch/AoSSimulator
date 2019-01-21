@@ -12,6 +12,9 @@
 #include <Board.h>
 #include <Roster.h>
 
+const float PILE_IN_DISTANCE = 3.0f;
+const float MAX_CHARGE_DISTANCE = 12.0f;
+
 Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 {
     if (m_ran && !m_runAndShoot)
@@ -207,6 +210,7 @@ void Unit::beginTurn(int battleRound)
 void Unit::addModel(const Model &model)
 {
     m_models.push_back(model);
+    m_basesize_mm = model.basesize();
 }
 
 int Unit::applyDamage(const Wounds& totalWounds)
@@ -286,30 +290,16 @@ void Unit::restore()
     }
 }
 
-bool Unit::position(float x, float y, float z)
+bool Unit::setPosition(float x, float y, float z)
 {
     // TODO: pack models into block of (numModels x m_ranks)
+    m_position.set(x, y, z);
     for (auto& m : m_models)
     {
-        m.position(x, y, z);
+        m.setPosition(x, y, z);
     }
     return true;
 }
-
-void Unit::getPosition(float& x, float& y, float& z) const
-{
-    x = 0.0f;
-    y = 0.0f;
-    z = 0.0f;
-    if (!m_models.empty())
-    {
-        auto model = m_models.begin();
-        x = model->x();
-        y = model->y();
-        z = model->z();
-    }
-}
-
 
 bool Unit::formation(int ranks)
 {
@@ -336,8 +326,9 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
         return 0.0f;
 
     // TODO: find closes model in target unit
-    const float tx = unit->m_models.begin()->x();
-    const float ty = unit->m_models.begin()->y();
+    const float tx = unit->m_models.front().x();
+    const float ty = unit->m_models.front().y();
+    const float tbs = unit->basesizeInches() / 2;
 
     const float x = model->x();
     const float y = model->y();
@@ -345,12 +336,74 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     const float dx = fabsf(tx - x);
     const float dy = fabsf(ty - y);
 
-    return sqrtf(dx*dx + dy*dy);
+    return std::max(0.0f, sqrtf(dx*dx + dy*dy) - (basesizeInches() / 2 + tbs));
 }
 
 void Unit::movement(PlayerId player)
 {
     auto board = Board::Instance();
+
+    auto weapon = m_models.front().preferredWeapon();
+
+    PlayerId otherPlayer = PlayerId::Red;
+    if (player == PlayerId::Red)
+        otherPlayer = PlayerId::Blue;
+    auto otherRoster = board->getPlayerRoster(otherPlayer);
+    auto closestTarget = otherRoster->nearestUnit(this);
+
+    if (closestTarget)
+    {
+        Dice dice;
+        auto distance = distanceTo(closestTarget);
+        float totalMoveDistance = 0.0f;
+        if (weapon->isMissile())
+        {
+            // get into range (run or not?)
+            if (distance > weapon->range() + move())
+            {
+                // too far to get into range with normal move - run
+                totalMoveDistance = move() + rollRunDistance();
+                m_ran = true;
+            }
+            else if (distance > weapon->range())
+            {
+                // move toward unit
+                totalMoveDistance = move();
+            }
+            else
+            {
+                // already in range - stand still
+                totalMoveDistance = 0.0f;
+            }
+        }
+        else
+        {
+            // get into range (run or not?)
+            if (distance > weapon->range() + move() + PILE_IN_DISTANCE) // todo: pile-in should be unit-specific
+            {
+                // too far to get into range with normal move - run
+                totalMoveDistance = move() + rollRunDistance();
+                m_ran = true;
+            }
+            else if (distance > PILE_IN_DISTANCE) // pile-in
+            {
+                // move toward unit
+                totalMoveDistance = std::min((float)move(), distance - PILE_IN_DISTANCE);
+            }
+            else
+            {
+                // already in range - stand still
+                totalMoveDistance = 0.0f;
+            }
+        }
+        Math::Ray ray(position(), closestTarget->position());
+        auto newPos = ray.point_at(totalMoveDistance);
+        setPosition(newPos.x(), newPos.y(), newPos.z());
+    }
+    else
+    {
+        // no target units - stand here confused!!!
+    }
 }
 
 int Unit::rollBattleshock() const
@@ -401,6 +454,63 @@ void Unit::combat(PlayerId player)
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
     m_meleeTarget = otherRoster->nearestUnit(this);
+}
+
+void Unit::charge(PlayerId player)
+{
+    auto board = Board::Instance();
+
+    auto weapon = m_models.front().preferredWeapon();
+    if (weapon->isMissile()) return;
+
+    PlayerId otherPlayer = PlayerId::Red;
+    if (player == PlayerId::Red)
+        otherPlayer = PlayerId::Blue;
+    auto otherRoster = board->getPlayerRoster(otherPlayer);
+    auto closestTarget = otherRoster->nearestUnit(this);
+
+    if (closestTarget)
+    {
+        Dice dice;
+        auto distance = distanceTo(closestTarget);
+
+        if (distance < MAX_CHARGE_DISTANCE)
+        {
+            float chargeDist = rollChargeDistance();
+            if (chargeDist >= distance)
+            {
+                m_charged = true;
+
+                chargeDist = distance;
+
+                Math::Ray ray(position(), closestTarget->position());
+                auto newPos = ray.point_at(chargeDist);
+                setPosition(newPos.x(), newPos.y(), newPos.z());
+            }
+        }
+    }
+    else
+    {
+        // no target units - stand here confused!!!
+    }
+
+}
+
+void Unit::battleshock(PlayerId player)
+{
+
+}
+
+int Unit::rollChargeDistance() const
+{
+    Dice dice;
+    return dice.roll2D6() + chargeModifier();
+}
+
+int Unit::rollRunDistance() const
+{
+    Dice dice;
+    return dice.rollD6() + runModifier();
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

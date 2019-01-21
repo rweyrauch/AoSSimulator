@@ -7,6 +7,7 @@
  */
 
 #include <stormcast/LordOrdinator.h>
+#include <iostream>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -44,6 +45,13 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
         model.addMeleeWeapon(&s_astralGrandhammer);
     }
     addModel(model);
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_astralHammers.name() << ": " << s_astralHammers.strength() << std::endl;
+        std::cout << "\t" << s_astralGrandhammer.name() << ": " << s_astralGrandhammer.strength() << std::endl;
+    }
 
     return true;
 }

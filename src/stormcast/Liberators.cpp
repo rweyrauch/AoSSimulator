@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <UnitFactory.h>
 #include <stormcast/Liberators.h>
+#include <iostream>
 
 namespace StormcastEternals {
 
@@ -26,9 +27,9 @@ static FactoryMethod factoryMethod = {
 bool Liberators::s_registered = false;
 
 Weapon Liberators::s_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
-Weapon Liberators::s_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1);
+Weapon Liberators::s_warhammerPrime(Weapon::Type::Melee, "Warhammer (Prime)", 1, 3, 4, 3, 0, 1);
 Weapon Liberators::s_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1);
-Weapon Liberators::s_warbladePrime(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1);
+Weapon Liberators::s_warbladePrime(Weapon::Type::Melee, "Warblade (Prime)", 1, 3, 3, 4, 0, 1);
 Weapon Liberators::s_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2);
 Weapon Liberators::s_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2);
 
@@ -89,6 +90,17 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
         else if (m_weaponOption == Warblade)
             model.addMeleeWeapon(&s_warblade);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_grandblade.name() << ": " << s_grandblade.strength() << std::endl;
+        std::cout << "\t" << s_grandhammer.name() << ": " << s_grandhammer.strength() << std::endl;
+        std::cout << "\t" << s_warhammer.name() << ": " << s_warhammer.strength() << std::endl;
+        std::cout << "\t" << s_warhammerPrime.name() << ": " << s_warhammerPrime.strength() << std::endl;
+        std::cout << "\t" << s_warblade.name() << ": " << s_warblade.strength() << std::endl;
+        std::cout << "\t" << s_warbladePrime.name() << ": " << s_warbladePrime.strength() << std::endl;
     }
 
     return true;

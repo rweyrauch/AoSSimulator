@@ -64,6 +64,10 @@ public:
     void activate(bool isActive = true) { m_isActive = isActive; }
     bool isActive() const { return m_isActive; }
 
+    // Returns/computes the weapon's relative 'strength' heuristic.  The larger the 'strength'
+    // value the more powerful the weapon is.
+    float strength();
+
 protected:
 
     int numAttacks(int extraAttacks) const;
@@ -81,6 +85,8 @@ private:
 
     int m_hitsPerAttack = 1;
     bool m_isActive = true;
+
+    float m_strength = -1.0f;
 };
 
 #endif //WEAPON_H

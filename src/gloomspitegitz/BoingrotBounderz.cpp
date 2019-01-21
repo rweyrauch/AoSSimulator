@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/BoingrotBounderz.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz
 {
@@ -23,7 +24,7 @@ bool BoingrotBounderz::s_registered = false;
 
 Weapon BoingrotBounderz::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
 Weapon BoingrotBounderz::s_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1);
-Weapon BoingrotBounderz::s_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 3, 4, -1, 1);
+Weapon BoingrotBounderz::s_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance (Boss)", 2, 2, 3, 4, -1, 1);
 
 BoingrotBounderz::BoingrotBounderz() :
     Unit("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true)
@@ -53,6 +54,14 @@ bool BoingrotBounderz::configure(int numModels)
         model.addMeleeWeapon(&s_pokinLance);
         model.addMeleeWeapon(&s_fangFilledGob);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_pokinLance.name() << ": " << s_pokinLance.strength() << std::endl;
+        std::cout << "\t" << s_pokinLanceBoss.name() << ": " << s_pokinLanceBoss.strength() << std::endl;
+        std::cout << "\t" << s_fangFilledGob.name() << ": " << s_fangFilledGob.strength() << std::endl;
     }
 
     return true;

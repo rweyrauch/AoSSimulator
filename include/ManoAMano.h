@@ -17,9 +17,8 @@ class Roster;
 class ManoAMano
 {
 public:
-    // TODO: restore board size after units learn to move
-    static const int BoardWidth = 1; // 30;
-    static const int BoardDepth = 1; // 24;
+    static const int BoardWidth = 30;
+    static const int BoardDepth = 24;
 
     ManoAMano(int numRounds, bool verbose);
     ~ManoAMano();

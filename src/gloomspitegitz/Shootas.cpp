@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/Shootas.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace GloomspiteGitz {
 
@@ -18,15 +19,15 @@ static FactoryMethod factoryMethod = {
          Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE},
         {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
         {ParamType::Integer, "numGongbashers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numIconbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
     }
 };
 
 Weapon Shootas::s_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1);
-Weapon Shootas::s_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1);
+Weapon Shootas::s_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1);
 Weapon Shootas::s_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1);
-Weapon Shootas::s_moonclanBowBoss(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 4, 5, 0, 1);
+Weapon Shootas::s_moonclanBowBoss(Weapon::Type::Missile, "Moonclan Bow (Boss)", 16, 1, 4, 5, 0, 1);
 Weapon Shootas::s_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1);
 
 bool Shootas::s_registered = false;
@@ -111,6 +112,16 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
         model.addMeleeWeapon(&s_slitta);
         model.addMissileWeapon(&s_moonclanBow);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_slitta.name() << ": " << s_slitta.strength() << std::endl;
+        std::cout << "\t" << s_slittaBoss.name() << ": " << s_slittaBoss.strength() << std::endl;
+        std::cout << "\t" << s_moonclanBow.name() << ": " << s_moonclanBow.strength() << std::endl;
+        std::cout << "\t" << s_moonclanBowBoss.name() << ": " << s_moonclanBowBoss.strength() << std::endl;
+        std::cout << "\t" << s_barbedNet.name() << ": " << s_barbedNet.strength() << std::endl;
     }
 
     return true;

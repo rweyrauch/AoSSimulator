@@ -9,6 +9,7 @@
 #include <Dice.h>
 #include <sylvaneth/Alarielle.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Sylvaneth
 {
@@ -59,6 +60,14 @@ bool Alarielle::configure()
     model.addMeleeWeapon(&s_talonOfDwindling);
     model.addMeleeWeapon(m_pBeetleGreatAntlers);
     addModel(model);
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_spearOfKurnoth.name() << ": " << s_spearOfKurnoth.strength() << std::endl;
+        std::cout << "\t" << s_talonOfDwindling.name() << ": " << s_talonOfDwindling.strength() << std::endl;
+        std::cout << "\t" << s_beetleGreatAntlers.name() << ": " << s_beetleGreatAntlers.strength() << std::endl;
+    }
 
     return true;
 }

@@ -9,6 +9,7 @@
 #include <Dice.h>
 #include <sylvaneth/SpiteRevenants.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Sylvaneth {
 
@@ -23,7 +24,7 @@ static FactoryMethod factoryMethod = {
 bool SpiteRevenants::s_registered = false;
 
 Weapon SpiteRevenants::s_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 4, 4, 0, 1);
-Weapon SpiteRevenants::s_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 4, 4, 4, 0, 1);
+Weapon SpiteRevenants::s_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs (Stalker)", 1, 4, 4, 4, 0, 1);
 
 SpiteRevenants::SpiteRevenants() :
     Unit("Spite Revenants", 5, WOUNDS, 6, 5, false)
@@ -46,6 +47,14 @@ bool SpiteRevenants::configure(int numModels)
         model.addMeleeWeapon(&s_cruelTalonsAndFangs);
         addModel(model);
     }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_cruelTalonsAndFangs.name() << ": " << s_cruelTalonsAndFangs.strength() << std::endl;
+        std::cout << "\t" << s_cruelTalonsAndFangsShadestalker.name() << ": " << s_cruelTalonsAndFangsShadestalker.strength() << std::endl;
+    }
+
     return true;
 }
 

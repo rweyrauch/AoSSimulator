@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <khorne/Bloodreavers.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Khorne
 {
@@ -19,17 +20,17 @@ static FactoryMethod factoryMethod = {
          Bloodreavers::MAX_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
          Bloodreavers::MeatripperAxe},
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false}
+        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
     }
 };
 
 bool Bloodreavers::s_registered = false;
 
 Weapon Bloodreavers::s_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
-Weapon Bloodreavers::s_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1);
+Weapon Bloodreavers::s_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades (Chief)", 1, 2, 4, 4, 0, 1);
 Weapon Bloodreavers::s_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1);
-Weapon Bloodreavers::s_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1);
+Weapon Bloodreavers::s_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe (Chief)", 1, 2, 4, 4, -1, 1);
 
 Bloodreavers::Bloodreavers() :
     Unit("Bloodreavers", 6, WOUNDS, 5, 6, false)
@@ -70,6 +71,15 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
         else if (m_weaponOption == MeatripperAxe)
             model.addMeleeWeapon(&s_meatripperAxe);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_reaverBlades.name() << ": " << s_reaverBlades.strength() << std::endl;
+        std::cout << "\t" << s_reaverBladesChieftain.name() << ": " << s_reaverBladesChieftain.strength() << std::endl;
+        std::cout << "\t" << s_meatripperAxe.name() << ": " << s_meatripperAxe.strength() << std::endl;
+        std::cout << "\t" << s_meatripperAxeChieftain.name() << ": " << s_meatripperAxeChieftain.strength() << std::endl;
     }
 
     return true;

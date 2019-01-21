@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <UnitFactory.h>
 #include <stormcast/Evocators.h>
+#include <iostream>
 
 namespace StormcastEternals
 {
@@ -17,16 +18,16 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE},
         {ParamType::Boolean, "primeGrandstave", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGrandstaves", {.m_intValue = 0}, 0, Evocators::MAX_UNIT_SIZE},
+        {ParamType::Integer, "numGrandstaves", {.m_intValue = 2}, 0, Evocators::MAX_UNIT_SIZE},
     }
 };
 
 bool Evocators::s_registered = false;
 
 Weapon Evocators::s_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1);
-Weapon Evocators::s_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1);
+Weapon Evocators::s_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave (Prime)", 1, 5, 3, 3, -1, 1);
 Weapon Evocators::s_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2);
-Weapon Evocators::s_grandStavePrime(Weapon::Type::Melee, "Grandstave", 2, 4, 3, 3, 0, 2);
+Weapon Evocators::s_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2);
 
 Evocators::Evocators() :
     StormcastEternal("Evocators", 5, WOUNDS, 8, 4, false)
@@ -79,6 +80,15 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_tempestBladeAndStave);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_tempestBladeAndStave.name() << ": " << s_tempestBladeAndStave.strength() << std::endl;
+        std::cout << "\t" << s_tempestBladeAndStavePrime.name() << ": " << s_tempestBladeAndStavePrime.strength() << std::endl;
+        std::cout << "\t" << s_grandStave.name() << ": " << s_grandStave.strength() << std::endl;
+        std::cout << "\t" << s_grandStavePrime.name() << ": " << s_grandStavePrime.strength() << std::endl;
     }
 
     return true;

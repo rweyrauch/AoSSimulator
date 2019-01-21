@@ -7,6 +7,7 @@
  */
 #include <nighthaunt/DreadscytheHarridans.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace Nighthaunt
 {
@@ -20,7 +21,7 @@ static FactoryMethod factoryMethod = {
 };
 
 Weapon DreadscytheHarridans::s_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1);
-Weapon DreadscytheHarridans::s_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs", 1, 4, 4, 3, -1, 1);
+Weapon DreadscytheHarridans::s_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs (Crone)", 1, 4, 4, 3, -1, 1);
 
 bool DreadscytheHarridans::s_registered = false;
 
@@ -44,6 +45,13 @@ bool DreadscytheHarridans::configure(int numModels)
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_scythedLimbs);
         addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_scythedLimbs.name() << ": " << s_scythedLimbs.strength() << std::endl;
+        std::cout << "\t" << s_scythedLimbsCrone.name() << ": " << s_scythedLimbsCrone.strength() << std::endl;
     }
 
     return true;

@@ -21,7 +21,6 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
     ManoAMano battle(5, true);
 
     auto board = Board::Instance();
-    board->setSize(72, 48);
 
     auto libs = new StormcastEternals::Liberators();
     auto reavers = new Khorne::Bloodreavers();
@@ -36,15 +35,23 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
 
     battle.start();
 
+    board->render("LibsVsBlood_Start.png");
+
     while (!battle.done())
     {
         battle.simulate();
 
+        auto round = battle.currentRound();
+        std::stringstream str;
+        str << "LibsVsBlook_Rnd_" << round << ".png";
+        board->render(str.str());
         battle.next();
     }
 
     auto victor = battle.getVictor();
     std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
+
+    board->render("LibsVsBlood_End.png");
 
     delete libs;
     delete reavers;
@@ -59,7 +66,6 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
     ManoAMano battle(5, false);
 
     auto board = Board::Instance();
-    board->setSize(72, 48);
 
     auto libs = new StormcastEternals::Liberators();
     auto reavers = new Khorne::Bloodreavers();

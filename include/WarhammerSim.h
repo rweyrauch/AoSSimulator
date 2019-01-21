@@ -216,4 +216,6 @@ std::string PlayerIdToString(PlayerId id);
 
 void Initialize();
 
+float AverageRandomValue(int value);
+
 #endif //WARHAMMERSIM_H

@@ -8,6 +8,7 @@
 
 #include <dok/WitchAelves.h>
 #include <UnitFactory.h>
+#include <iostream>
 
 namespace DaughtersOfKhaine {
 
@@ -17,13 +18,13 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numModels", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
          WitchAelves::MAX_UNIT_SIZE},
         {ParamType::Boolean, "pairedKnives", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
     }
 };
 
 Weapon WitchAelves::s_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1);
-Weapon WitchAelves::s_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1);
+Weapon WitchAelves::s_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife (Hag)", 1, 2, 2, 4, 0, 1);
 
 bool WitchAelves::s_registered = false;
 
@@ -57,6 +58,14 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
         witch.addMeleeWeapon(&s_sacrificialKnife);
         addModel(witch);
     }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_sacrificialKnife.name() << ": " << s_sacrificialKnife.strength() << std::endl;
+        std::cout << "\t" << s_sacrificialKnifeHag.name() << ": " << s_sacrificialKnifeHag.strength() << std::endl;
+    }
+
     return true;
 }
 
@@ -101,7 +110,7 @@ int WitchAelves::rollBattleshock() const
         int r2 = dice.rollD6();
         return std::min(r1, r2);
     }
-    return 0; // Unit::rollBattleshock();
+    return Unit::rollBattleshock();
 }
 
 int WitchAelves::toSaveModifier(const Weapon *weapon) const
