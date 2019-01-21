@@ -19,13 +19,6 @@ enum
     COORD_X = 0,
     COORD_Y = 1,
     COORD_Z = 2,
-    COORD_W = 3,
-    
-    COORD_U = 0,
-    COORD_V = 1,
-    
-    COORD_S = 0,
-    COORD_T = 1,
 };
 
 // How close to zero is to considered zero?
@@ -82,24 +75,6 @@ template<class T> inline T DegToRad(T deg)
 template<class T> inline T RadToDeg(T rad)
 {   
     return (rad * static_cast<T>(180) / static_cast<T>(M_PI));
-}
-
-inline bool IsPowOfTwo(unsigned int size)
-{
-    return !((size - 1) & size);
-}
-
-inline unsigned int NextPowOfTwo(unsigned int val)
-{
-     val -= 1;
-
-     val |= val >> 16;
-     val |= val >> 8;
-     val |= val >> 4;
-     val |= val >> 2;
-     val |= val >> 1;
-
-     return val + 1;
 }
 
 template<class T> T Lerp(T t, T a, T b)

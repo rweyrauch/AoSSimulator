@@ -15,9 +15,10 @@ namespace Sylvaneth {
 
 static FactoryMethod factoryMethod = {
     Dryads::Create,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
-         Dryads::MAX_UNIT_SIZE},
+         Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE},
     }
 };
 

@@ -14,11 +14,12 @@ namespace GloomspiteGitz {
 
 static FactoryMethod factoryMethod = {
     Stabbas::Create,
+    Stabbas::ValueToString,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
-         Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear},
-        {ParamType::Integer, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear},
+         Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Integer, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
         {ParamType::Integer, "numBarbedNets", {.m_intValue = 2}, 0, 3 * Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
         {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
         {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
@@ -165,6 +166,18 @@ int Stabbas::battlshockModifier() const
     int modifier = Unit::battlshockModifier();
     if (m_numFlagbearers > 0) modifier += 1;
     return modifier;
+}
+
+std::string Stabbas::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons" || parameter.m_name == "bossWeapon")
+    {
+        if (parameter.m_intValue == Stabba)
+            return "Stabba";
+        else if (parameter.m_intValue == PokinSpear)
+            return "PokinSpear";
+    }
+    return ParameterValueToString(parameter);
 }
 
 } // namespace GloomspiteGitz

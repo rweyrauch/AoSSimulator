@@ -14,9 +14,10 @@ namespace Nighthaunt
 
 static FactoryMethod factoryMethod = {
     ChainraspHorde::Create,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
-         ChainraspHorde::MAX_UNIT_SIZE},
+         ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE},
     }
 };
 

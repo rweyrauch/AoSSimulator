@@ -17,6 +17,7 @@ namespace StormcastEternals
 
 static FactoryMethod factoryMethod = {
     CelestarBallista::Create,
+    nullptr,
     {
     }
 };

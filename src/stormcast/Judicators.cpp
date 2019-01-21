@@ -14,10 +14,11 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Judicators::Create,
+    Judicators::ValueToString,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE},
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
-         Judicators::BoltstormCrossbow},
+         Judicators::BoltstormCrossbow, 1},
         {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5},
         {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5}
     }
@@ -156,6 +157,18 @@ void Judicators::Init()
     {
         s_registered = UnitFactory::Register("Judicators", factoryMethod);
     }
+}
+
+std::string Judicators::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == SkyboltBow)
+            return "SkyboltBow";
+        else if (parameter.m_intValue == BoltstormCrossbow)
+            return "BoltstormCrossbow";
+    }
+    return ParameterValueToString(parameter);
 }
 
 } // namespace StormcastEternals

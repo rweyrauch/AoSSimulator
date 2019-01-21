@@ -14,9 +14,10 @@ namespace IdonethDeepkin {
 
 static FactoryMethod factoryMethod = {
     NamartiThralls::Create,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = NamartiThralls::MIN_UNIT_SIZE}, NamartiThralls::MIN_UNIT_SIZE,
-         NamartiThralls::MAX_UNIT_SIZE},
+         NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE},
         {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE/10}
     }
 };

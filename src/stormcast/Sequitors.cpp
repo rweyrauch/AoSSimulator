@@ -14,10 +14,11 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Sequitors::Create,
+    Sequitors::ValueToString,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE},
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
-         Sequitors::TempestBlade},
+         Sequitors::TempestBlade, 1},
         {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
         {ParamType::Boolean, "primeGreatmace", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "redemptionCache", {.m_boolValue = false}, false, false}
@@ -189,6 +190,18 @@ void Sequitors::Init()
     {
         s_registered = UnitFactory::Register("Sequitors", factoryMethod);
     }
+}
+
+std::string Sequitors::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == StormsmiteMaul)
+            return "StormsmiteMaul";
+        else if (parameter.m_intValue == TempestBlade)
+            return "TempestBlade";
+    }
+    return ParameterValueToString(parameter);
 }
 
 } // namespace StormcastEternals

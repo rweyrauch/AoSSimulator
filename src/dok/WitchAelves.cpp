@@ -14,9 +14,10 @@ namespace DaughtersOfKhaine {
 
 static FactoryMethod factoryMethod = {
     WitchAelves::Create,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
-         WitchAelves::MAX_UNIT_SIZE},
+         WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE},
         {ParamType::Boolean, "pairedKnives", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},

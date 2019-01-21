@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <WarhammerSim.h>
+#include <sstream>
 
 
 std::vector<Parameter>::const_iterator FindParam(const std::string& name, const ParameterList &parameters)
@@ -104,4 +105,14 @@ float AverageRandomValue(int value)
             break;
     }
     return avgValue;
+}
+
+std::string ParameterValueToString(const Parameter &param)
+{
+    std::stringstream ss;
+    if (param.m_paramType == ParamType::Integer)
+        ss << param.m_intValue;
+    else if (param.m_paramType == ParamType::Boolean)
+        ss << param.m_boolValue ? "true" : "false";
+    return ss.str();
 }

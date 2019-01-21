@@ -350,9 +350,8 @@ float Unit::distanceTo(const Unit* unit) const
     if (unit == nullptr || unit->remainingModels() == 0 || remainingModels() == 0)
         return 0.0f;
 
-    // TODO: find closest models in this unit and the target unit
-    auto model = m_models.at(0);
-    return distanceBetween(&model, unit);
+    float dist = position().distance(unit->position());
+    return std::max(0.0f, dist - (basesizeInches() + unit->basesizeInches())/2.0f);
 }
 
 float Unit::distanceBetween(const Model* model, const Unit* unit) const

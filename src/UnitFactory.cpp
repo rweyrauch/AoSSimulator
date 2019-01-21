@@ -11,13 +11,13 @@
 
 std::map<std::string, FactoryMethod> UnitFactory::s_registeredUnits = { };
 
-bool UnitFactory::Register(std::string name, FactoryMethod factoryMethod)
+bool UnitFactory::Register(const std::string& name, FactoryMethod factoryMethod)
 {
     auto registeredPair = UnitFactory::s_registeredUnits.insert(std::make_pair(name.c_str(), factoryMethod));
     return registeredPair.second;
 }
 
-Unit* UnitFactory::Create(std::string name, const std::vector<Parameter>& parameters)
+Unit* UnitFactory::Create(const std::string& name, const std::vector<Parameter>& parameters)
 {
     auto registeredPair = UnitFactory::s_registeredUnits.find(name);
 

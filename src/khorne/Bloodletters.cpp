@@ -15,9 +15,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Bloodletters::Create,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
-         Bloodletters::MAX_UNIT_SIZE},
+         Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE},
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}

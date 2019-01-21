@@ -15,11 +15,12 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Bloodreavers::Create,
+    Bloodreavers::ValueToString,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
-         Bloodreavers::MAX_UNIT_SIZE},
+         Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
-         Bloodreavers::MeatripperAxe},
+         Bloodreavers::MeatripperAxe, 1},
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
     }
@@ -128,6 +129,16 @@ void Bloodreavers::Init()
     {
         s_registered = UnitFactory::Register("Bloodreavers", factoryMethod);
     }
+}
+
+std::string Bloodreavers::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == ReaverBlades) return "ReaverBlades";
+        else if (parameter.m_intValue == MeatripperAxe) return "MeatripperAxe";
+    }
+    return ParameterValueToString(parameter);
 }
 
 } // namespace Khorne

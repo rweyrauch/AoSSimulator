@@ -14,6 +14,7 @@ namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
     LoonbossOnManglerSquigs::Create,
+    nullptr,
     {
     }
 };

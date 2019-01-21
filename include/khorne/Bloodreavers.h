@@ -30,6 +30,7 @@ public:
     };
 
     static Unit* Create(const ParameterList& parameters);
+    static std::string ValueToString(const Parameter& parameter);
     static void Init();
 
     Bloodreavers();

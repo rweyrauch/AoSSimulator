@@ -251,8 +251,16 @@ TEST(Unit, RegisteredUnits)
         {
             if (pip.m_paramType == ParamType::Integer)
             {
-                std::cout << "\tParam: " << pip.m_name << " Type: Integer  Value: " << pip.m_intValue
-                          << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue << std::endl;
+                if (ruip->second.m_paramToString == nullptr)
+                {
+                    std::cout << "\tParam: " << pip.m_name << " Type: Integer  Value: " << pip.m_intValue
+                              << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue << std::endl;
+                }
+                else
+                {
+                    std::cout << "\tParam: " << pip.m_name << " Type: Integer  Value: " << ruip->second.m_paramToString(pip)
+                              << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue << std::endl;
+                }
             }
             else if (pip.m_paramType == ParamType::Boolean)
             {

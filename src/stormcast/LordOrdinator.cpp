@@ -14,9 +14,10 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     LordOrdinator::Create,
+    LordOrdinator::ValueToString,
     {
-        {ParamType::Integer, "weaponOption", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
-         LordOrdinator::AstralGrandhammer},
+        {ParamType::Integer, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
+         LordOrdinator::AstralGrandhammer, 1},
     }
 };
 
@@ -59,7 +60,7 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 Unit *LordOrdinator::Create(const ParameterList &parameters)
 {
     auto unit = new LordOrdinator();
-    WeaponOption weapons = (WeaponOption)GetIntParam("weaponOption", parameters, false);
+    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, false);
 
     bool ok = unit->configure(weapons);
     if (!ok)
@@ -76,6 +77,19 @@ void LordOrdinator::Init()
     {
         s_registered = UnitFactory::Register("Lord-Ordinator", factoryMethod);
     }
+}
+
+std::string LordOrdinator::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == AstralHammers)
+            return "AstralHammers";
+        else if (parameter.m_intValue == AstralGrandhammer)
+            return "AstralGrandhammer";
+    }
+
+    return ParameterValueToString(parameter);
 }
 
 } // namespace StormcastEternals

@@ -14,10 +14,11 @@ namespace StormcastEternals {
 
 static FactoryMethod factoryMethod = {
     Liberators::Create,
+    Liberators::ValueToString,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE},
+        {ParamType::Integer, "numModels", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
-         Liberators::Warblade},
+         Liberators::Warblade, 1},
         {ParamType::Boolean, "pairedWeapons", {.m_boolValue = false}, false, false},
         {ParamType::Integer, "numGrandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5},
         {ParamType::Integer, "numGrandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5}
@@ -164,6 +165,19 @@ void Liberators::Init()
     {
         s_registered = UnitFactory::Register("Liberators", factoryMethod);
     }
+}
+
+std::string Liberators::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == Warhammer)
+            return "Warhammer";
+        else if (parameter.m_intValue == Warblade)
+            return "Warblade";
+    }
+
+    return ParameterValueToString(parameter);
 }
 
 } // namespace StormcastEternals

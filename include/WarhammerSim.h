@@ -201,11 +201,14 @@ struct Parameter
         bool m_boolValue;
         int m_intValue;
     };
-    int m_minValue, m_maxValue;
+    int m_minValue = 0;
+    int m_maxValue = 0;
+    int m_increment = 0;
 };
 
 typedef std::vector<Parameter> ParameterList;
 
+std::string ParameterValueToString(const Parameter& param);
 ParameterList::const_iterator FindParam(const std::string& name, const ParameterList& parameters);
 int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue);
 bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue);

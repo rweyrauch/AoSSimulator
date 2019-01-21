@@ -15,9 +15,10 @@ namespace Sylvaneth {
 
 static FactoryMethod factoryMethod = {
     TreeRevenants::Create,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
-         TreeRevenants::MAX_UNIT_SIZE},
+         TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE},
         {ParamType::Boolean, "scionGlaive", {.m_boolValue = false}, false, false},
         {ParamType::Boolean, "gladeBanners", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "waypipes", {.m_boolValue = true}, false, false},

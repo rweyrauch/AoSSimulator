@@ -25,6 +25,7 @@ public:
     static const int MAX_UNIT_SIZE = 30;
 
     static Unit* Create(const ParameterList& parameters);
+
     static void Init();
 
     WitchAelves();

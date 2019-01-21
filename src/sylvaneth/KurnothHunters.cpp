@@ -15,11 +15,12 @@ namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
     KurnothHunters::Create,
+    KurnothHunters::ValueToString,
     {
         {ParamType::Integer, "numModels", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
-         KurnothHunters::MAX_UNIT_SIZE},
+         KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
-         KurnothHunters::Greatbows}
+         KurnothHunters::Greatbows, 1}
     }
 };
 
@@ -121,6 +122,20 @@ void KurnothHunters::Init()
     {
         s_registered = UnitFactory::Register("Kurnoth Hunters", factoryMethod);
     }
+}
+
+std::string KurnothHunters::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == Greatswords)
+            return "Greatswords";
+        else if (parameter.m_intValue == Scythes)
+            return "Scythes";
+        else if (parameter.m_intValue == Greatbows)
+            return "Greatbows";
+    }
+    return ParameterValueToString(parameter);
 }
 
 } // namespace Sylvaneth

@@ -15,6 +15,7 @@ namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
     Alarielle::Create,
+    nullptr,
     {
     }
 };

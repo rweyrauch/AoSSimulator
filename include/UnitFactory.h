@@ -16,11 +16,13 @@
 class Unit;
 
 typedef Unit* (*CreateMethod)(const std::vector<Parameter>& parameters);
+typedef std::string (*ParamValueToString)(const Parameter& parameter);
 
 struct FactoryMethod
 {
 public:
     CreateMethod m_create;
+    ParamValueToString m_paramToString;
     std::vector<Parameter> m_parameters;
 };
 
@@ -28,9 +30,9 @@ class UnitFactory
 {
 public:
 
-    static bool Register(std::string name, FactoryMethod factoryMethod);
+    static bool Register(const std::string& name, FactoryMethod factoryMethod);
 
-    static Unit* Create(std::string name, const std::vector<Parameter>& parameters);
+    static Unit* Create(const std::string& name, const std::vector<Parameter>& parameters);
 
     static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsBegin() { return s_registeredUnits.begin(); }
     static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsEnd() { return s_registeredUnits.end(); }

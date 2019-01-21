@@ -89,8 +89,6 @@ void ManoAMano::start()
     }
     m_currentPhase = Phase::Hero;
     m_round = 1;
-
-
 }
 
 void ManoAMano::simulate()
