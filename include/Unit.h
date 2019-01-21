@@ -44,7 +44,7 @@ public:
     virtual void battleshock(PlayerId player);
 
     bool formation(int ranks);
-    bool setPosition(float x, float y, float z = 0.0f);
+    bool setPosition(const Math::Point3& pos, const Math::Vector3& orientation);
     const Math::Point3& position() const { return m_position; };
 
     float distanceTo(const Unit* unit) const;
@@ -130,6 +130,7 @@ protected:
     int m_ranks = 1;
     std::vector<Model> m_models;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
+    Math::Vector3 m_orientation = {1.0f, 0.0f, 0.0f};
     float m_basesize_mm = 0.0f;
 
     int m_battleRound = 0;

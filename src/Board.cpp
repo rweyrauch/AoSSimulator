@@ -82,7 +82,6 @@ void Board::render(const std::string filename) const
     // Draw red team units.
     cr->save();
     cr->set_line_width(1.0);
-    cr->set_source_rgb(1.0, 0.0, 0.0);
 
     const Roster* red = m_rosters[0];
     for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
@@ -91,6 +90,8 @@ void Board::render(const std::string filename) const
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize*0.5f;
 
+        // label with the number of remaining models
+        cr->save();
         cr->move_to((unit->position().x()+radiusInches) * 10, (unit->position().y()-radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
@@ -98,6 +99,7 @@ void Board::render(const std::string filename) const
         std::stringstream text;
         text << unit->remainingModels();
         cr->show_text(text.str());
+        cr->restore();
 
         cr->set_source_rgb(1.0, 0.0, 0.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
@@ -106,6 +108,11 @@ void Board::render(const std::string filename) const
             cr->arc(pos.x() * 10.0, pos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
         }
+
+        auto upos = unit->position();
+        cr->set_source_rgb(0.5, 0.0, 0.0);
+        cr->arc(upos.x() * 10.0, upos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
+        cr->fill();
     }
     cr->restore();
 
@@ -120,6 +127,8 @@ void Board::render(const std::string filename) const
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize*0.5f;
 
+        // label with the number of remaining models
+        cr->save();
         cr->move_to((unit->position().x()+radiusInches) * 10, (unit->position().y()-radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
@@ -127,6 +136,7 @@ void Board::render(const std::string filename) const
         std::stringstream text;
         text << unit->remainingModels();
         cr->show_text(text.str());
+        cr->restore();
 
         cr->set_source_rgb(0.0, 0.0, 1.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
@@ -135,6 +145,11 @@ void Board::render(const std::string filename) const
             cr->arc(pos.x() * 10.0, pos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
         }
+
+        auto upos = unit->position();
+        cr->set_source_rgb(0.0, 0.0, 0.5);
+        cr->arc(upos.x() * 10.0, upos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
+        cr->fill();
     }
     cr->restore();
 

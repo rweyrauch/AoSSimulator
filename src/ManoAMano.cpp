@@ -48,13 +48,13 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     float redY = board->depth() / 2.0f;
 
     // left center
-    red->setPosition(redX, redY);
+    red->setPosition(Math::Point3(redX, redY, 0.0f), Math::Vector3(1.0f, 0.0f, 0.0f));
 
     float blueX = board->width() - (board->width() / 20.0f);
     float blueY = board->depth() / 2.0f;
 
     // right center
-    blue->setPosition(blueX, blueY);
+    blue->setPosition(Math::Point3(blueX, blueY, 0.0f), Math::Vector3(-1.0f, 0.0f, 0.0f));
 
     board->addRosters(m_rosters[0], m_rosters[1]);
 }

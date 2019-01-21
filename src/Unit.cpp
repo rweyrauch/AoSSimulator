@@ -290,14 +290,49 @@ void Unit::restore()
     }
 }
 
-bool Unit::setPosition(float x, float y, float z)
+bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation)
 {
     // TODO: pack models into block of (numModels x m_ranks)
-    m_position.set(x, y, z);
+    m_position = pos;
     for (auto& m : m_models)
     {
-        m.setPosition(x, y, z);
+        m.setPosition(pos);
     }
+
+    /*
+    int unitW = (int)m_models.size() / m_ranks;
+    float unitWidth = m_models.size() * basesizeInches() / (float)m_ranks;
+
+    Math::Vector3 up(0, 0, 1);
+    Math::Vector3 left = Math::Vector3::Cross(up, orientation);
+    left.normalize();
+
+    int xi = 0;
+    int yi = 0;
+
+    Math::Vector3 dx = -left * basesizeInches();
+    Math::Vector3 dy = -orientation * basesizeInches();
+
+    Math::Vector3 pos0 = Math::Vector3(pos.x(), pos.y(), pos.z()) + left * unitWidth / 2.0f;
+    Math::Vector3 curPos = pos0;
+
+    for (auto& m : m_models)
+    {
+        m.setPosition(Math::Point3(curPos.x(), curPos.y(), curPos.z()));
+        m.setPosition(pos);
+
+        xi++;
+        curPos += dx;
+        if (xi > unitW)
+        {
+            xi = 0;
+            yi++;
+
+            curPos = pos0;
+            curPos += (float)yi * dy;
+        }
+    }
+    */
     return true;
 }
 
@@ -398,7 +433,7 @@ void Unit::movement(PlayerId player)
         }
         Math::Ray ray(position(), closestTarget->position());
         auto newPos = ray.point_at(totalMoveDistance);
-        setPosition(newPos.x(), newPos.y(), newPos.z());
+        setPosition(newPos, ray.get_direction());
     }
     else
     {
@@ -485,7 +520,7 @@ void Unit::charge(PlayerId player)
 
                 Math::Ray ray(position(), closestTarget->position());
                 auto newPos = ray.point_at(chargeDist);
-                setPosition(newPos.x(), newPos.y(), newPos.z());
+                setPosition(newPos, ray.get_direction());
             }
         }
     }

@@ -126,18 +126,6 @@ inline float Trunc(float val)
     return ceilf(val);
 }
 
-inline float Rand()
-{
-    return (float)rand()/(float)RAND_MAX;
-}
-
-inline float RandRange(float rangeMin, float rangeMax)
-{
-    return Rand() * (rangeMax - rangeMin) + rangeMin;
-}
-
-float RandNormalDist(float variance);
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Point 3

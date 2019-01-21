@@ -30,6 +30,7 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
 
     ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
     ASSERT_TRUE(ok);
+    reavers->formation(2);
 
     battle.combatants(libs, reavers);
 

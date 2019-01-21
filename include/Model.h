@@ -21,7 +21,7 @@ public:
 
     int basesize() const { return m_baseSize; }
 
-    void setPosition(float x, float y, float z) { m_position.set(x, y, z); }
+    void setPosition(const Math::Point3& pos) { m_position = pos; }
     const Math::Point3& position() const { return m_position; }
     float x() const { return m_position.x(); }
     float y() const { return m_position.y(); }
