@@ -1,6 +1,7 @@
 # AoSManoAMano
 AosManoAMano simple Warhammer Age of Sigmar&trade; battle simulator.
-The application permits two units to conduct a simulator Age of Sigmar battle.
+The application permits two units to conduct a simulator Age of Sigmar battle.  These
+units are called Player 1 or Red and Player 2 or Blue.
 The battle is conducted following the Age of Sigmar 2.0 core rules.  The battle starts
 with an initiative roll for first turn and then progresses through a multiturn simulation
 of an Age of Sigmar battle.  The application aims to simulate each phase of the
@@ -59,6 +60,42 @@ Player units are specified using the following format:
 
     "<unit name>,<param1=value1>,<param2=value2>..."
     
+Use the --list and --versbose options to see a list of supported unit and their parameters.  Supported
+units include the following:
+
+    Alarielle
+    Bladegheist Revenants
+    Blood Warriors
+    Bloodletters
+    Bloodreavers
+    Boingrot Bounderz
+    Celestar Ballista
+    Chainrasp Horde
+    Colossal Squig
+    Dreadscythe Harridans
+    Dryads
+    Evocators
+    Glaivewraith Stalkers
+    Grimghast Reapers
+    Judicators
+    Kurnoth Hunters
+    Liberators
+    Loonboss on Mangler Squigs
+    Lord-Ordinator
+    Mangler Squigs
+    Namarti Thralls
+    Retributors
+    Sequitors
+    Shootas
+    Spirit of Durthu
+    Spite-Revenants
+    Squiq Herd
+    Squiq Hoppers
+    Stabbas
+    Tree-Revenants
+    Witch Aelves
+    
+    
 The following specifies the parameters needed to create a unit of 10 Liberators with 2 Grandhammers.
 
     "Liberators,numModels=10,numGrandhammers=2"    
@@ -66,14 +103,19 @@ The following specifies the parameters needed to create a unit of 10 Liberators 
 To simulate a battle between a unit of 10 Liberators and 20 Bloodreavers use the following command:
 
     % AosManoAMano -v -1 "Liberators,numModels=10,numGrandhammers=2" -2 "Bloodreavers,numModels=20,iconBearer=true,hornblowers=true"
-    
+
+The simulation supports a primitive graphic output depicting the location and number of remaining models for each
+player as a PNG image.  An image is created after unit deployment, each battle round and at the end of the battle.  Use the --save and
+--mapname arguments to enable the map generation.    
+        
 ## Future Plans
 
-1. Windows and Android ports.
+1. Windows, Android and iOS ports.
 2. Proper GUI wrapper.
-3. More units.
+3. More units and more abilities.
 4. Improve simulation to include spells, prayers and other buffs/de-buffs.
 5. Implement per-model positioning and pile in movement.
-6. ????
+6. More statistics and data collection.
+7. ????
 
     
