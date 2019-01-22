@@ -6,6 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <UnitFactory.h>
+
 #include "UnitFactory.h"
 
 
@@ -25,5 +27,13 @@ Unit* UnitFactory::Create(const std::string& name, const std::vector<Parameter>&
         return nullptr;
 
     return registeredPair->second.m_create(parameters);
+}
+
+const FactoryMethod* UnitFactory::LookupUnit(const std::string &name)
+{
+    auto ip = s_registeredUnits.find(name);
+    if (ip == s_registeredUnits.end())
+        return nullptr;
+    return &(ip->second);
 }
 

@@ -37,6 +37,8 @@ public:
     static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsBegin() { return s_registeredUnits.begin(); }
     static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsEnd() { return s_registeredUnits.end(); }
 
+    static const FactoryMethod* LookupUnit(const std::string& name);
+
 protected:
 
     static std::map<std::string, FactoryMethod> s_registeredUnits;

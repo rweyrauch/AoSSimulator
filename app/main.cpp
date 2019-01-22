@@ -17,19 +17,28 @@
 #include "cxxopts.hpp"
 
 void displayUnits(bool verbose);
+Unit* parseUnitDescription(const std::string& desc);
 
 int main(int argc, char* argv[])
 {
     int numRounds = 5;
     bool verbose = false;
     bool listUnits = false;
+    int numIterations = 1;
+    bool saveMaps = false;
+    std::string mapBaseName("battlemap");
 
-    cxxopts::Options options(argv[0], " - Age of Sigmar: Mano a Mano simulation.");
+    cxxopts::Options options(argv[0], "Age of Sigmar: Mano a Mano simulation.");
     options.add_options()
         ("h, help", "Print help")
         ("l, list", "List supported units")
-        ("r, rounds", "Number of battle rounds", cxxopts::value<int>(), "5")
+        ("r, rounds", "Number of battle rounds", cxxopts::value<int>(numRounds))
         ("v, verbose", "Enable verbose logging")
+        ("1, red", "Player 1 (Red) Unit", cxxopts::value<std::string>(), "")
+        ("2, blue", "Player 2 (Blue) Unit", cxxopts::value<std::string>(), "")
+        ("s, save", "Save battlemaps")
+        ("mapname", "Battlemap basename", cxxopts::value<std::string>(mapBaseName))
+        ("i, iterations", "Number of battle iterations", cxxopts::value<int>(numIterations))
         ;
     auto result = options.parse(argc, argv);
 
@@ -46,6 +55,10 @@ int main(int argc, char* argv[])
     {
         listUnits = true;
     }
+    if (result.count("save"))
+    {
+        saveMaps = true;
+    }
 
     Initialize();
 
@@ -59,38 +72,90 @@ int main(int argc, char* argv[])
 
     auto board = Board::Instance();
 
-    auto libs = new StormcastEternals::Liberators();
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
-
-    auto reavers = new Khorne::Bloodreavers();
-    ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
-    reavers->formation(2);
-
-    battle.combatants(libs, reavers);
-
-    battle.start();
-
-    board->render("LibsVsBlood_Start.png");
-
-    while (!battle.done())
+    if (result.count("red") == 0)
     {
-        battle.simulate();
-
-        auto round = battle.currentRound();
-        std::stringstream str;
-        str << "LibsVsBlook_Rnd_" << round << ".png";
-        board->render(str.str());
-
-        battle.next();
+        std::cout << "Must define a unit for player 1 (red)." << std::endl;
+        return EXIT_FAILURE;
+    }
+    if (result.count("blue") == 0)
+    {
+        std::cout << "Must define a unit for player 2 (blue)." << std::endl;
+        return EXIT_FAILURE;
     }
 
-    auto victor = battle.getVictor();
-    std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
+    // TODO: parse red string
+    std::string redUnit = result["red"].as<std::string>();
+    Unit* pRed = parseUnitDescription(redUnit);
 
-    board->render("LibsVsBlood_End.png");
+    // TODO: parse blue string
+    std::string blueUnit = result["blue"].as<std::string>();
+    Unit* pBlue = parseUnitDescription(blueUnit);
 
-    delete libs;
-    delete reavers;
+    battle.combatants(pRed, pBlue);
+
+    std::stringstream fn;
+
+    int redVictories = 0;
+    int blueVictories = 0;
+    int ties = 0;
+
+    for (auto i = 0; i < numIterations; i++)
+    {
+        pRed->restore();
+        pBlue->restore();
+
+        battle.start();
+
+        if (saveMaps)
+        {
+            fn.str("");
+            fn << mapBaseName << "_start.png";
+            board->render(fn.str());
+        }
+
+        while (!battle.done())
+        {
+            battle.simulate();
+
+            auto round = battle.currentRound();
+
+            if (saveMaps)
+            {
+                fn.str("");
+                fn << mapBaseName << "_round_" << round << ".png";
+                board->render(fn.str());
+            }
+
+            battle.next();
+        }
+
+        auto victor = battle.getVictor();
+
+        if (verbose)
+            std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
+
+        if (victor == PlayerId::Blue)
+            blueVictories++;
+        else if (victor == PlayerId::Red)
+            redVictories++;
+        else
+            ties++;
+
+        if (saveMaps)
+        {
+            fn.str("");
+            fn << mapBaseName << "_end.png";
+            board->render(fn.str());
+        }
+    }
+
+    std::cout << "Victor Breakdown (%):" << std::endl
+              << "\tRed: " << (float)redVictories * 100.0f/numIterations << std::endl
+              << "\tBlue: " << (float)blueVictories * 100.0f/numIterations << std::endl
+              << "\tTies: " << (float)ties * 100.0f/numIterations << std::endl;
+
+    delete pRed;
+    delete pBlue;
 
     return EXIT_SUCCESS;
 }
@@ -164,4 +229,78 @@ void displayUnits(bool verbose)
             }
         }
     }
+}
+
+std::vector<std::string> split(const std::string& str, char delim)
+{
+    std::stringstream ss(str);
+    std::string item;
+    std::vector<std::string> result;
+    while (std::getline(ss, item, delim))
+    {
+        result.push_back(item);
+    }
+    return result;
+}
+
+Unit* parseUnitDescription(const std::string& desc)
+{
+    if (desc.empty())
+        return nullptr;
+
+    // <unit name>,<param1=value>,<param2=value>,<param3=value>,etc...
+    auto args = split(desc, ',');
+    if (args.empty())
+        return nullptr;
+
+    Unit* unit = nullptr;
+
+    std::string unitName = *args.begin();
+    auto factory = UnitFactory::LookupUnit(unitName);
+    if (factory)
+    {
+        std::vector<Parameter> defaultParams = factory->m_parameters;
+
+        auto ip = args.begin();
+        ip++; // skip name
+        for (; ip != args.end(); ++ip)
+        {
+            // split param from value : "param=value"
+            auto paramValue = split(*ip, '=');
+
+            if (paramValue.size() == 2)
+            {
+                // find param with name paramValue[0]
+                auto paramName = paramValue[0];
+                auto value = paramValue[1];
+                // infer type of value
+                auto paramType = ParamType::Integer;
+                if (value == "true" || value == "false")
+                    paramType = ParamType::Boolean;
+                auto matchParam = [paramName](Parameter& p)->bool { return (p.m_name == paramName); };
+                auto pv = std::find_if(defaultParams.begin(), defaultParams.end(), matchParam);
+                if (pv != defaultParams.end())
+                {
+                    if (pv->m_paramType != paramType)
+                    {
+                        // invalid parameter
+                        continue;
+                    }
+                    if (paramType == ParamType::Boolean)
+                    {
+                        if (value == "true")
+                            pv->m_boolValue = true;
+                        else
+                            pv->m_boolValue = false;
+                    }
+                    else if (paramType == ParamType::Integer)
+                    {
+                        pv->m_intValue = std::stoi(value);
+                    }
+                }
+            }
+        }
+        unit = UnitFactory::Create(unitName, defaultParams);
+    }
+    return unit;
 }
