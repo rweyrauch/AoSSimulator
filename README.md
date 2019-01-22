@@ -1,18 +1,19 @@
 # AoSManoAMano
 AosManoAMano simple Warhammer Age of Sigmar&trade; battle simulator.
-The application permits two units to conduct a simulator Age of Sigmar battle.  These
+The application permits two units to conduct a simulated Age of Sigmar battle.  These
 units are called Player 1 or Red and Player 2 or Blue.
 The battle is conducted following the Age of Sigmar 2.0 core rules.  The battle starts
 with an initiative roll for first turn and then progresses through a multiturn simulation
 of an Age of Sigmar battle.  The application aims to simulate each phase of the
-game; Hero, Movement, Shooting, Charge, Combat and Battleshock.
+game; Hero, Movement, Shooting, Charge, Combat and Battleshock.  The default simulation is a 5
+round battle.
 
 ## Why Bother?
 This simulation attempts to answer questions like are 10 Liberators better than
 10 Sequitors and by how much?  The simulations can run thousands of times to 
 collect a set of statistics on battle results.  These statistics can then be used
 to determine the strength or weaknesses of various matchups.  Experiments can
-be done quickly with various weapon configurations to find the strongest setups for a
+be done quickly with various weapon configurations to find the strongest setups to combat a
 particular enemy unit.
 
 ## What Works?
@@ -26,7 +27,9 @@ The short answer is quite a lot.  The simulation is very much a work in progress
 that are missing include spells in general, many many units have not been implemented and per-model
 movement.  The 'intelligence' of the simulated units is quite primitive and in need of more
 work to make them 'think' strategically.  Currently units attempt to move or run toward their
-opponent if they prefer melee combat.  Shooting unit move to try to get in range for shooting.
+opponent if they prefer melee combat.  Shooting unit move to try to get in range for shooting.   To keep
+movement simple the simulation treats all models in a unit as having the same position.  This simplification
+makes movements and range checking simple and is satisfactory for the purposes of this simulation.
 
 ## Building
 AoSManoAMano is written in modern C++ (C++14) and intended to be highly portable.  Currently only 
@@ -116,6 +119,9 @@ player as a PNG image.  An image is created after unit deployment, each battle r
 4. Improve simulation to include spells, prayers and other buffs/de-buffs.
 5. Implement per-model positioning and pile in movement.
 6. More statistics and data collection.
-7. ????
+7. Expand to allow multiple units for each player.
+8. Import rosters from the various roster generation tools like BattleScribe or Warscroll Builder.
+9. ????
+
 
     
