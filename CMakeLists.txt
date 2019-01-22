@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(WarhammerSim)
+project(AoSSimulator)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
@@ -9,18 +9,18 @@ find_package(GTK2 REQUIRED gtk gtkmm)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(
-        WarhammerSim
+        AoSManoAMano
         app/main.cpp
         include/WarhammerSim.h)
 
 target_link_libraries(
-        WarhammerSim
+        AoSManoAMano
         whSim
         ${JSONCPP_LIBRARIES}
 )
 
 target_include_directories(
-        WarhammerSim PRIVATE
+        AoSManoAMano PRIVATE
         include
 )
 
