@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WITCHAELVES_H
-#define WITCHAELVES_H
+#ifndef SISTERSOFSLAUGHTER_H
+#define SISTERSOFSLAUGHTER_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace DaughtersOfKhaine
 {
 
-class WitchAelves : public DaughterOfKhaine
+class SistersOfSlaughter : public DaughterOfKhaine
 {
 public:
 
@@ -28,28 +28,29 @@ public:
 
     static void Init();
 
-    WitchAelves();
-    ~WitchAelves() override = default;
+    SistersOfSlaughter();
+    ~SistersOfSlaughter() override = default;
 
-    bool configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers);
+    bool configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers);
 
 protected:
 
-    int extraAttacks(const Weapon* weapon) const override;
     int rollBattleshock() const override;
-    int toSaveModifier(const Weapon* weapon) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
     Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
 
 protected:
 
-    bool m_pairedKnives = true;
+    bool m_sacrificialKnife = true;
     bool m_hornblowers = false;
     bool m_standardBearers = false;
 
 private:
 
     static Weapon s_sacrificialKnife,
-        s_sacrificialKnifeHag;
+        s_sacrificialKnifeHandmaiden,
+        s_barbedWhip,
+        s_barbedWhipHandmaiden;
 
     static bool s_registered;
 };
@@ -58,11 +59,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Paired Sacrificial Knives        Yes
-// Frenzied Fervour                 No
+// Dance of Death                   No
 // Bladed Bucklers                  Yes
 //
 
 } // namespace DaughtersOfKhaine
 
-#endif //WITCHAELVES_H
+#endif //SISTERSOFSLAUGHTER_H

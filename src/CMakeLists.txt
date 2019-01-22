@@ -44,6 +44,9 @@ add_library(
         gloomspitegitz/Shootas.cpp
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
+        dok/BloodSisters.cpp
+        dok/KhineraiLifetakers.cpp
+        dok/SistersOfSlaughter.cpp
         idonethdeepkin/NamartiThralls.cpp
         nighthaunt/GrimghastReapers.cpp
         nighthaunt/ChainraspHorde.cpp

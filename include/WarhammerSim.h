@@ -63,7 +63,7 @@ enum DamageModifier
 enum Keyword
 {
     // Grand alliances
-    ORDER,
+    ORDER = 0,
     CHAOS,
     DEATH,
     DESTRUCTION,

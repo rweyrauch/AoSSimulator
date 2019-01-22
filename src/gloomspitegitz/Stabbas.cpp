@@ -20,10 +20,10 @@ static FactoryMethod factoryMethod = {
          Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
         {ParamType::Integer, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 2}, 0, 3 * Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numBarbedNets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
         {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
         {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
     }
 };
 

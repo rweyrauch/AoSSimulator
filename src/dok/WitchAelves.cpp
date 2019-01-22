@@ -122,4 +122,18 @@ int WitchAelves::toSaveModifier(const Weapon *weapon) const
         modifier += 1;
     return modifier;
 }
+
+Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon,
+                                                 const Dice::RollResult &saveRolls) const
+{
+    // Bladed Bucklers
+    if (!weapon->isMissile())
+    {
+        // 1 mortal wound for each save of a 6
+        Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
+        return returnedDamage;
+    }
+    return Unit::computeReturnedDamage(weapon, saveRolls);
+}
+
 } // namespace DaughtersOfKhaine

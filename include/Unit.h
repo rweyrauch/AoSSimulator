@@ -57,7 +57,8 @@ public:
 
     int applyBattleshock();
 
-    Wounds computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon);
+    Wounds computeDamage(const WoundingHits& woundingHits, int mortalWounds,
+        const Weapon *weapon, Wounds& woundsReturned);
 
     int applyDamage(const Wounds& totalWounds);
     int remainingModels() const;
@@ -109,11 +110,16 @@ protected:
     virtual int chargeModifier() const { return 0; }
     virtual Rerolls chargeRerolls() const { return NoRerolls; }
 
+    virtual void onBeginTurn(int battleRound) {}
     virtual void onSlain() {}
     virtual void onWounded() {}
+    virtual void onRan() {}
+    virtual void onCharged() {}
 
     int rollRunDistance() const;
     int rollChargeDistance() const;
+
+    virtual Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const { return {0, 0}; }
 
 protected:
     std::string m_name = "";
@@ -145,7 +151,7 @@ protected:
     Unit* m_shootingTarget = nullptr;
     Unit* m_meleeTarget = nullptr;
 
-    bool m_verbose = true;
+    bool m_verbose = false;
 
     enum BuffableAttribute
     {

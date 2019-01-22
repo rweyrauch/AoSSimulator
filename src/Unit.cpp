@@ -30,6 +30,8 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
     //std::cout << "Distance between " << name() << " and target " << unit->name() << " is " << distanceTo(unit) << std::endl;
 
     Wounds totalDamage = {0, 0};
+    Wounds totalDamageReturned = {0, 0};
+
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
@@ -62,13 +64,27 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
-            auto damage = unit->computeDamage(numWounds, numMortalWounds, w);
+            // some units being targeted generate wounds to the attacking units on successful saves
+            Wounds damageReturned = {0, 0};
+            auto damage = unit->computeDamage(numWounds, numMortalWounds, w, damageReturned);
+
             totalDamage.normal += damage.normal;
             totalDamage.mortal += damage.mortal;
+
+            totalDamageReturned.normal += damageReturned.normal;
+            totalDamageReturned.mortal += damageReturned.mortal;
         }
     }
 
     numSlain = unit->applyDamage(totalDamage);
+
+    // apply returned damage to this unit
+    int numSlainInReturn = applyDamage(totalDamageReturned);
+    if (numSlainInReturn)
+    {
+        std::cout << "Return damage killed " << numSlainInReturn << " models in the attacking unit." << std::endl;
+    }
+
     return totalDamage;
 }
 
@@ -112,7 +128,9 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
             auto totalWounds = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
-            auto damage = unit->computeDamage(totalWounds, numMortalWounds, w);
+            // some units being targeted generate wounds to the attacking units on successful saves
+            Wounds damageReturned = {0, 0};
+            auto damage = unit->computeDamage(totalWounds, numMortalWounds, w, damageReturned);
             totalDamage.normal += damage.normal;
             totalDamage.mortal += damage.mortal;
         }
@@ -147,7 +165,8 @@ int Unit::applyBattleshock()
     return numFled;
 }
 
-Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon)
+Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon,
+    Wounds& woundsReturned)
 {
     Dice dice;
     Dice::RollResult rollResult;
@@ -184,6 +203,9 @@ Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, c
 
     // TODO: add mortal wound save
 
+    // add returned damage (damage inflicted by this unit on the attacking unit)
+    woundsReturned = computeReturnedDamage(weapon, rollResult);
+
     return {totalDamage, mortalWounds};
 }
 
@@ -196,7 +218,6 @@ Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save,
     m_fly(fly),
     m_modelsSlain(0)
 {
-
 }
 
 void Unit::beginTurn(int battleRound)
@@ -205,6 +226,8 @@ void Unit::beginTurn(int battleRound)
     m_ran = false;
     m_charged = false;
     m_modelsSlain = 0;
+
+    onBeginTurn(battleRound);
 }
 
 void Unit::addModel(const Model &model)
@@ -237,6 +260,7 @@ int Unit::applyDamage(const Wounds& totalWounds)
             totalDamage = 0;
         }
     }
+
     onWounded();
     m_modelsSlain += numSlain;
     return numSlain;
@@ -438,6 +462,9 @@ void Unit::movement(PlayerId player)
     {
         // no target units - stand here confused!!!
     }
+
+    if (m_ran)
+        onRan();
 }
 
 int Unit::rollBattleshock() const
@@ -528,6 +555,8 @@ void Unit::charge(PlayerId player)
         // no target units - stand here confused!!!
     }
 
+    if (m_charged)
+        onCharged();
 }
 
 void Unit::battleshock(PlayerId player)

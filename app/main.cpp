@@ -16,7 +16,7 @@
 #include "ManoAMano.h"
 #include "cxxopts.hpp"
 
-void displayUnits(bool verbose);
+void displayUnits(bool verbose, const std::string& faction);
 Unit* parseUnitDescription(const std::string& desc);
 
 int main(int argc, char* argv[])
@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
     int numRounds = 5;
     bool verbose = false;
     bool listUnits = false;
+    std::string listFaction("all");
     int numIterations = 1;
     bool saveMaps = false;
     std::string mapBaseName("battlemap");
@@ -31,7 +32,7 @@ int main(int argc, char* argv[])
     cxxopts::Options options(argv[0], "Age of Sigmar: Mano a Mano simulation.");
     options.add_options()
         ("h, help", "Print help")
-        ("l, list", "List supported units")
+        ("l, list", "List supported units", cxxopts::value<std::string>()->default_value("all")->implicit_value("all"))
         ("r, rounds", "Number of battle rounds", cxxopts::value<int>(numRounds))
         ("v, verbose", "Enable verbose logging")
         ("1, red", "Player 1 (Red) Unit", cxxopts::value<std::string>(), "")
@@ -54,6 +55,7 @@ int main(int argc, char* argv[])
     if (result.count("list"))
     {
         listUnits = true;
+        listFaction = result["list"].as<std::string>();
     }
     if (result.count("save"))
     {
@@ -64,7 +66,7 @@ int main(int argc, char* argv[])
 
     if (listUnits)
     {
-        displayUnits(verbose);
+        displayUnits(verbose, listFaction);
         return EXIT_SUCCESS;
     }
 
@@ -160,11 +162,48 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void displayUnits(bool verbose)
+static std::map<std::string, int> g_factionNameLookup = {
+    { "Stormcast Eternal", STORMCAST_ETERNAL, },
+    { "Khorne", KHORNE },
+    { "Sylvaneth", SYLVANETH },
+    { "Gloomspite Gitz", GLOOMSPITE_GITZ },
+    { "Moonclan", MOONCLAN },
+    { "Nighthaunt", NIGHTHAUNT },
+    { "Daughters of Khaine", DAUGHTERS_OF_KHAINE },
+    { "Idoneth Deepkin", IDONETH_DEEPKIN }
+};
+
+void displayUnits(bool verbose, const std::string& faction)
 {
-    std::cout << "Supported Units: " << std::endl;
+    bool listAll = (faction == "all");
+
+    std::cout << "Supported Units in Faction(" << faction << "):" << std::endl;
     for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
     {
+        if (!listAll)
+        {
+            auto ki = g_factionNameLookup.find(faction);
+            if (ki != g_factionNameLookup.end())
+            {
+                // filter based on keyword
+                auto unit = UnitFactory::Create(ruip->first, ruip->second.m_parameters);
+                if (unit)
+                {
+                    auto keyword = (Keyword) ki->second;
+                    const bool haveKeyword = unit->hasKeyword(keyword);
+                    delete unit;
+                    if (!haveKeyword)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
         std::cout << "\t" << ruip->first << std::endl;
 
         if (verbose)

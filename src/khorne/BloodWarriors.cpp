@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numModels", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
          BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE},
         {ParamType::Boolean, "pairedGoreax", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGoreglaives", {.m_intValue = 1}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
+        {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false}
     }
 };

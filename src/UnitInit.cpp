@@ -36,6 +36,9 @@
 #include "sylvaneth/SpiteRevenants.h"
 
 #include "dok/WitchAelves.h"
+#include "dok/BloodSisters.h"
+#include "dok/KhineraiLifetakers.h"
+#include "dok/SistersOfSlaughter.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 
@@ -76,6 +79,9 @@ void Initialize()
     Sylvaneth::SpiteRevenants::Init();
 
     DaughtersOfKhaine::WitchAelves::Init();
+    DaughtersOfKhaine::SistersOfSlaughter::Init();
+    DaughtersOfKhaine::BloodSisters::Init();
+    DaughtersOfKhaine::KhineraiLifetakers::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
 
