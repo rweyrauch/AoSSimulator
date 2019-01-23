@@ -83,7 +83,7 @@ void LordCelestantOnDracoth::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant on Dracoth", factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Celestant-on-Dracoth", factoryMethod);
     }
 }
 
@@ -101,6 +101,19 @@ std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
             return "StormstrikeGlaive";
     }
     return ParameterValueToString(parameter);
+}
+
+int LordCelestantOnDracoth::extraAttacks(const Weapon *weapon) const
+{
+    int attacks = Unit::extraAttacks(weapon);
+
+    // Tempestos Hammer
+    if (m_charged && weapon->name() == s_tempestosHammer.name())
+    {
+        Dice dice;
+        attacks += dice.rollD3();
+    }
+    return attacks;
 }
 
 } // namespace StormcastEternals

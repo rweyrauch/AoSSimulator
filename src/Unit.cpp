@@ -402,7 +402,6 @@ void Unit::movement(PlayerId player)
     auto board = Board::Instance();
 
     auto weapon = m_models.front().preferredWeapon();
-
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
         otherPlayer = PlayerId::Blue;
@@ -483,14 +482,18 @@ Wounds Unit::shoot(int& numSlain)
     return shoot(-1, m_shootingTarget, numSlain);
 }
 
-Wounds Unit::fight(int &numSlain)
+Wounds Unit::fight(PlayerId player, int &numSlain)
 {
     if (m_meleeTarget == nullptr)
     {
         numSlain = 0;
         return {0, 0};
     }
-    return fight(-1, m_meleeTarget, numSlain);
+    auto wounds = fight(-1, m_meleeTarget, numSlain);
+
+    onEndCombat(player);
+
+    return wounds;
 }
 
 void Unit::shooting(PlayerId player)
@@ -503,6 +506,8 @@ void Unit::shooting(PlayerId player)
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
     m_shootingTarget = otherRoster->nearestUnit(this);
+
+    onStartShooting(player);
 }
 
 void Unit::combat(PlayerId player)
@@ -515,6 +520,10 @@ void Unit::combat(PlayerId player)
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
     m_meleeTarget = otherRoster->nearestUnit(this);
+
+    // TODO: pile-in
+
+    onStartCombat(player);
 }
 
 void Unit::charge(PlayerId player)
@@ -574,6 +583,23 @@ int Unit::rollRunDistance() const
 {
     Dice dice;
     return dice.rollD6() + runModifier();
+}
+
+int Unit::slay(int numModels)
+{
+    int numSlain = 0;
+    for (auto &model : m_models)
+    {
+        if (model.slain() || model.fled()) continue;
+
+        model.woundsRemaining() = 0;
+        model.slay();
+
+        numSlain++;
+
+        if (numSlain > numModels) break;
+    }
+    return numSlain;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

@@ -43,6 +43,8 @@ protected:
 
     WeaponOption m_weapon;
 
+    int extraAttacks(const Weapon *weapon) const override;
+
 private:
 
     static Weapon s_stormstrikeGlaive,
@@ -63,7 +65,7 @@ private:
 // Sigmarite Thundershield          No
 // Stormstrike Glaive               No
 // Storm Breath                     No
-// Tempestos Hammer                 No
+// Tempestos Hammer                 Yes
 // Thunderaxe                       No
 // Lord of the Host                 No
 //

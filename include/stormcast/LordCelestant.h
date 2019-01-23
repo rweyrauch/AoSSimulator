@@ -32,6 +32,14 @@ public:
 
 protected:
 
+    int extraAttacks(const Weapon *weapon) const override
+    {
+        int attacks = Unit::extraAttacks(weapon);
+        // Inescapable Vengeance
+        if (m_charged) attacks += 1;
+        return attacks;
+    }
+
 private:
 
     static Weapon s_runeblade,
@@ -44,7 +52,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Inescapable Vengeance            No
+// Inescapable Vengeance            Yes
 // Sigmarite Warcloak               No
 // Furious Retribution              No
 //

@@ -53,7 +53,7 @@ public:
     Wounds shoot(int numAttackingModels, Unit* targetUnit, int& numSlain);
     Wounds shoot(int &numSlain);
     Wounds fight(int numAttackingModels, Unit* targetUnit, int& numSlain);
-    Wounds fight(int& numSlain);
+    Wounds fight(PlayerId player, int& numSlain);
 
     int applyBattleshock();
 
@@ -80,6 +80,8 @@ public:
 
     std::vector<Model>::const_iterator modelBegin() const { return m_models.begin(); }
     std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }
+
+    int slay(int numModels);
 
     float basesizeInches() const { return m_basesize_mm / 25.4; }
 protected:
@@ -115,6 +117,9 @@ protected:
     virtual void onWounded() {}
     virtual void onRan() {}
     virtual void onCharged() {}
+    virtual void onStartShooting(PlayerId player) {}
+    virtual void onStartCombat(PlayerId player) {}
+    virtual void onEndCombat(PlayerId player) {}
 
     int rollRunDistance() const;
     int rollChargeDistance() const;

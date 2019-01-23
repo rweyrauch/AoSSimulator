@@ -46,6 +46,14 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    int extraAttacks(const Weapon *weapon) const override;
+    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
+    void onStartShooting(PlayerId player) override;
+    void onStartCombat(PlayerId player) override;
+    void onEndCombat(PlayerId player) override;
+
 protected:
 
     WeaponOption m_weapons = CelestineHammer;
@@ -66,12 +74,12 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Lineage                   No
-// Cavernous Jaws                   No
-// Inescapable Vengeance            No
-// Lord of the Heavens              No
-// Sigmarite Thundershield          No
-// Stormbound Blade                 No
-// Sweeping Tail                    No
+// Cavernous Jaws                   Yes
+// Inescapable Vengeance            Yes
+// Lord of the Heavens              Yes
+// Sigmarite Thundershield          Yes
+// Stormbound Blade                 Yes
+// Sweeping Tail                    Yes
 // Lord of the Celestial Host       No
 //
 

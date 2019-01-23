@@ -8,6 +8,8 @@
 
 #include <stormcast/LordCelestantOnStardrake.h>
 #include <iostream>
+#include <Board.h>
+#include <Roster.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -98,7 +100,7 @@ void LordCelestantOnStardrake::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant on Stardrake", factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Celestant-on-Stardrake", factoryMethod);
     }
 }
 
@@ -132,6 +134,156 @@ int LordCelestantOnStardrake::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int LordCelestantOnStardrake::extraAttacks(const Weapon *weapon) const
+{
+    int attacks = Unit::extraAttacks(weapon);
+
+    // Inescapable Vengeance
+    if (m_charged)
+    {
+        Dice dice;
+        attacks += dice.rollD3();
+    }
+    return attacks;
+}
+
+Hits LordCelestantOnStardrake::applyHitModifiers(const Weapon *weapon, const Unit *unit,
+                                                 const Hits &hits) const
+{
+    // Stormbound Blade
+    if (weapon->name() == s_stormboundBlade.name())
+    {
+        int num6s = hits.rolls.numUnmodified6s();
+        Hits modHits = hits;
+        modHits.numHits += 2 * num6s; // add 2 additional hits for each 6 for a total of 3 hits per unmodified 6.
+        return modHits;
+    }
+    return StormcastEternal::applyHitModifiers(weapon, unit, hits);
+}
+
+Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon *weapon) const
+{
+    // Sigmarite Thundershield
+    return RerollOnes;
+}
+
+Wounds LordCelestantOnStardrake::computeReturnedDamage(const Weapon *weapon,
+                                          const Dice::RollResult &saveRolls) const
+{
+    // Sigmarite Thundershield
+    // 1 mortal wound for each save of a 6
+    Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
+    return returnedDamage;
+}
+
+void LordCelestantOnStardrake::onStartCombat(PlayerId player)
+{
+    StormcastEternal::onStartCombat(player);
+
+    // Cavernous Jaws
+    if (m_meleeTarget)
+    {
+        Dice dice;
+        auto numBites = g_damageTable[getDamageTableIndex()].m_cavernousJawsBits;
+        int numToSlay = 0;
+        for (auto i = 0; i < numBites; i++)
+        {
+            int roll = dice.rollD6();
+            if (roll > m_meleeTarget->wounds())
+            {
+                numToSlay++;
+            }
+        }
+        m_meleeTarget->slay(numToSlay);
+    }
+}
+
+void LordCelestantOnStardrake::onEndCombat(PlayerId player)
+{
+    StormcastEternal::onEndCombat(player);
+
+    // Sweeping Tail
+    {
+        auto board = Board::Instance();
+
+        PlayerId otherPlayer = PlayerId::Red;
+        if (player == PlayerId::Red)
+            otherPlayer = PlayerId::Blue;
+        auto otherRoster = board->getPlayerRoster(otherPlayer);
+
+        Dice dice;
+        // find all enemy units within 3"
+        for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
+        {
+            auto dist = distanceTo(*ip);
+            if (dist <= 3.0)
+            {
+                auto roll = dice.rollD6();
+                if (roll < (*ip)->remainingModels())
+                {
+                    // inflict D3 mortal wounds
+                    roll = dice.rollD3();
+                    Wounds mortalWounds = {0, roll};
+                    (*ip)->applyDamage(mortalWounds);
+                }
+            }
+        }
+    }
+}
+
+void LordCelestantOnStardrake::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    // Lord of the Heavens
+    // Decide: 'Roiling Thunder' or 'Rain of Stars'?
+    bool preferRainOfStars = true;
+    if (m_shootingTarget)
+    {
+        auto range = distanceTo(m_shootingTarget);
+        if (range <= 18.0f)
+        {
+            // Roiling Thunder
+            preferRainOfStars = false;
+        }
+    }
+
+    Dice dice;
+    if (preferRainOfStars)
+    {
+        auto board = Board::Instance();
+
+        PlayerId otherPlayer = PlayerId::Red;
+        if (player == PlayerId::Red)
+            otherPlayer = PlayerId::Blue;
+        auto otherRoster = board->getPlayerRoster(otherPlayer);
+        auto numUnits = dice.rollD6();
+
+        int unitsAffected = 0;
+        for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
+        {
+            int roll = dice.rollD6();
+            if (roll >= 4)
+            {
+                Wounds wounds = {0, dice.rollD3()};
+                (*ip)->applyDamage(wounds);
+            }
+            unitsAffected++;
+
+            if (unitsAffected > numUnits) break;
+        }
+    }
+    else // Roiling Thunder
+    {
+        auto numModels = m_shootingTarget->remainingModels();
+        Dice::RollResult rolls;
+        dice.rollD6(numModels, rolls);
+        int mortalWounds = rolls.numUnmodified6s();
+        Wounds wounds = {0, mortalWounds};
+        m_shootingTarget->applyDamage(wounds);
+    }
 }
 
 } // namespace StormcastEternals
