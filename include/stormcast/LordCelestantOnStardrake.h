@@ -33,15 +33,26 @@ public:
     static void Init();
 
     LordCelestantOnStardrake();
-    ~LordCelestantOnStardrake() override = default;
+    ~LordCelestantOnStardrake() override
+    {
+        delete m_pGreatClaws;
+    };
 
     bool configure(WeaponOption weapons);
+    int move() const override;
+
+protected:
+
+    void onWounded() override;
+    int getDamageTableIndex() const;
 
 protected:
 
     WeaponOption m_weapons = CelestineHammer;
 
 private:
+
+    Weapon* m_pGreatClaws = nullptr;
 
     static Weapon s_celestineHammer,
         s_stormboundBlade,

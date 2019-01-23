@@ -21,6 +21,23 @@ static FactoryMethod factoryMethod = {
     }
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_greatClawsToHit;
+    int m_cavernousJawsBits;
+};
+
+const size_t NUM_TABLE_ENTRIES = 4;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 4, 8, 12, LordCelestantOnStardrake::WOUNDS };
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        { 12, 3, 3 },
+        { 11, 3, 2 },
+        { 10, 4, 2 },
+        { 8, 4, 1 }
+    };
+
 bool LordCelestantOnStardrake::s_registered = false;
 
 Weapon LordCelestantOnStardrake::s_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3);
@@ -37,12 +54,14 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 {
     m_weapons = weapons;
 
+    m_pGreatClaws = new Weapon(s_greatClaws);
+
     Model model(BASESIZE, WOUNDS);
     if (weapons == CelestineHammer)
         model.addMeleeWeapon(&s_celestineHammer);
     else if (weapons == StormboundBlade)
         model.addMeleeWeapon(&s_stormboundBlade);
-    model.addMeleeWeapon(&s_greatClaws);
+    model.addMeleeWeapon(m_pGreatClaws);
     addModel(model);
 
     if (m_verbose)
@@ -54,6 +73,11 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
     }
 
     return true;
+}
+
+int LordCelestantOnStardrake::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
 }
 
 Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters)
@@ -88,6 +112,26 @@ std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter)
             return "StormboundBlade";
     }
     return ParameterValueToString(parameter);
+}
+
+
+void LordCelestantOnStardrake::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_pGreatClaws->setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
+}
+
+int LordCelestantOnStardrake::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace StormcastEternals

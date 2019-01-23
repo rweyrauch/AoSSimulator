@@ -67,7 +67,6 @@ void Initialize()
     StormcastEternals::LordCelestant::Init();
     StormcastEternals::LordCelestantOnDracoth::Init();
     StormcastEternals::LordCelestantOnStardrake::Init();
-
     StormcastEternals::KnightIncantor::Init();
     StormcastEternals::KnightQuestor::Init();
     StormcastEternals::KnightZephyros::Init();
