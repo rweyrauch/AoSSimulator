@@ -25,6 +25,13 @@ add_library(
         stormcast/Retributors.cpp
         stormcast/Sequitors.cpp
         stormcast/Evocators.cpp
+        stormcast/LordCelestant.cpp
+        stormcast/LordCelestantOnDracoth.cpp
+        stormcast/LordCelestantOnStardrake.cpp
+        stormcast/KnightIncantor.cpp
+        stormcast/KnightQuestor.cpp
+        stormcast/KnightZephyros.cpp
+        stormcast/VanguardHunters.cpp
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         khorne/Bloodletters.cpp

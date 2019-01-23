@@ -14,6 +14,13 @@
 #include "stormcast/Sequitors.h"
 #include "stormcast/LordOrdinator.h"
 #include "stormcast/Retributors.h"
+#include "stormcast/LordCelestant.h"
+#include "stormcast/LordCelestantOnDracoth.h"
+#include "stormcast/LordCelestantOnStardrake.h"
+#include "stormcast/KnightIncantor.h"
+#include "stormcast/KnightQuestor.h"
+#include "stormcast/KnightZephyros.h"
+#include "stormcast/VanguardHunters.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -57,6 +64,14 @@ void Initialize()
     StormcastEternals::Sequitors::Init();
     StormcastEternals::LordOrdinator::Init();
     StormcastEternals::Retributors::Init();
+    StormcastEternals::LordCelestant::Init();
+    StormcastEternals::LordCelestantOnDracoth::Init();
+    StormcastEternals::LordCelestantOnStardrake::Init();
+
+    StormcastEternals::KnightIncantor::Init();
+    StormcastEternals::KnightQuestor::Init();
+    StormcastEternals::KnightZephyros::Init();
+    StormcastEternals::VanguardHunters::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();

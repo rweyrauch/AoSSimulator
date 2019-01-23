@@ -32,7 +32,8 @@ int main(int argc, char* argv[])
     cxxopts::Options options(argv[0], "Age of Sigmar: Mano a Mano simulation.");
     options.add_options()
         ("h, help", "Print help")
-        ("l, list", "List supported units", cxxopts::value<std::string>()->default_value("all")->implicit_value("all"))
+        ("l, list", "List supported units")
+        ("f, faction", "List units the given faction", cxxopts::value<std::string>(), "all")
         ("r, rounds", "Number of battle rounds", cxxopts::value<int>(numRounds))
         ("v, verbose", "Enable verbose logging")
         ("1, red", "Player 1 (Red) Unit", cxxopts::value<std::string>(), "")
@@ -55,7 +56,10 @@ int main(int argc, char* argv[])
     if (result.count("list"))
     {
         listUnits = true;
-        listFaction = result["list"].as<std::string>();
+    }
+    if (result.count("faction"))
+    {
+        listFaction = result["faction"].as<std::string>();
     }
     if (result.count("save"))
     {
