@@ -198,7 +198,7 @@ struct Wounds
 enum class ParamType
 {
     Boolean,
-    Integer
+    Integer,
 };
 struct Parameter
 {

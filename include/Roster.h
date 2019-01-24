@@ -19,6 +19,8 @@ public:
 
     void addUnit(Unit* unit)
     {
+        if (unit == nullptr) return;
+        unit->setOwningPlayer(m_id);
         m_units.push_back(unit);
     }
 

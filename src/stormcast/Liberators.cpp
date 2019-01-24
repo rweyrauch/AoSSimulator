@@ -15,6 +15,7 @@ namespace StormcastEternals {
 static FactoryMethod factoryMethod = {
     Liberators::Create,
     Liberators::ValueToString,
+    Liberators::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
@@ -178,6 +179,15 @@ std::string Liberators::ValueToString(const Parameter &parameter)
     }
 
     return ParameterValueToString(parameter);
+}
+
+int Liberators::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Warhammer")
+        return Warhammer;
+    else if (enumString == "Warblade")
+        return Warblade;
+    return 0;
 }
 
 } // namespace StormcastEternals

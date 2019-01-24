@@ -15,6 +15,7 @@ namespace Nighthaunt
 static FactoryMethod factoryMethod = {
     DreadscytheHarridans::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
          DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE},

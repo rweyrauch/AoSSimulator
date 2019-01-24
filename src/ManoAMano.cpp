@@ -93,10 +93,16 @@ void ManoAMano::start()
 
 void ManoAMano::simulate()
 {
-    //std::cout << "Fight State:" << std::endl;
-    //std::cout << "\tRound: " << m_round << " of " << m_numRounds << ".  Top of round: " << m_topOfRound << std::endl;
-    //std::cout << "\tPhase: " << PhaseToString(m_currentPhase) << std::endl;
-    //std::cout << "\tCurrent Unit: " << PlayerIdToString(m_attackingUnit) << std::endl;
+    /*
+    if (m_verbose)
+    {
+        std::cout << "Fight State:" << std::endl;
+        std::cout << "\tRound: " << m_round << " of " << m_numRounds << ".  Top of round: "
+                  << m_topOfRound << std::endl;
+        std::cout << "\tPhase: " << PhaseToString(m_currentPhase) << std::endl;
+        std::cout << "\tCurrent Unit: " << PlayerIdToString(m_attackingUnit) << std::endl;
+    }
+    */
 
     // run the simulation for the current state
     switch (m_currentPhase)
@@ -166,9 +172,11 @@ void ManoAMano::next()
                 {
                     std::cout << "A the end of round " << m_round << "..." << std::endl;
                     std::cout << "   Team " << PlayerIdToString(PlayerId::Red) << " has "
-                              << m_units[0]->remainingModels() << " remaining model." << std::endl;
+                              << m_units[0]->remainingModels() << " remaining models with "
+                              << m_units[0]->remainingWounds() << " wounds remaining." << std::endl;
                     std::cout << "   Team " << PlayerIdToString(PlayerId::Blue) << " has "
-                              << m_units[1]->remainingModels() << " remaining models." << std::endl;
+                              << m_units[1]->remainingModels() << " remaining models with "
+                              << m_units[1]->remainingWounds() << " wounds remaining." << std::endl;
                 }
 
                 // End of round.
@@ -240,16 +248,40 @@ void ManoAMano::runInitiativePhase()
 
 void ManoAMano::runHeroPhase()
 {
+    if (m_verbose)
+    {
+        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " hero phase." << std::endl;
+    }
+
     m_units[(int)m_attackingUnit]->hero(m_attackingUnit);
 }
 
 void ManoAMano::runMovementPhase()
 {
+    if (m_verbose)
+    {
+        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " movement phase." << std::endl;
+    }
+
     m_units[(int)m_attackingUnit]->movement(m_attackingUnit);
+
+    if (m_verbose)
+    {
+        if (m_units[(int)m_attackingUnit]->ran())
+        {
+            std::cout << PlayerIdToString(m_attackingUnit) << ":" << m_units[(int) m_attackingUnit]->name()
+                      << " ran." << std::endl;
+        }
+    }
 }
 
 void ManoAMano::runShootingPhase()
 {
+    if (m_verbose)
+    {
+        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " shooting phase." << std::endl;
+    }
+
     // Think...
     m_units[(int)m_attackingUnit]->shooting(m_attackingUnit);
 
@@ -272,11 +304,30 @@ void ManoAMano::runShootingPhase()
 
 void ManoAMano::runChargePhase()
 {
+    if (m_verbose)
+    {
+        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " charge phase." << std::endl;
+    }
+
     m_units[(int)m_attackingUnit]->charge(m_attackingUnit);
+
+    if (m_verbose)
+    {
+        if (m_units[(int)m_attackingUnit]->charged())
+        {
+            std::cout << PlayerIdToString(m_attackingUnit) << ":" << m_units[(int) m_attackingUnit]->name()
+                << " charged " << PlayerIdToString(m_defendingUnit) << ":" << m_units[(int) m_defendingUnit]->name() << std::endl;
+        }
+    }
 }
 
 void ManoAMano::runCombatPhase()
 {
+    if (m_verbose)
+    {
+        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " combat phase." << std::endl;
+    }
+
     // Think.
     m_units[(int)m_attackingUnit]->combat(m_attackingUnit);
 
@@ -308,6 +359,11 @@ void ManoAMano::runCombatPhase()
 
 void ManoAMano::runBattleshockPhase()
 {
+    if (m_verbose)
+    {
+        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " battleshock phase." << std::endl;
+    }
+
     m_units[(int)m_attackingUnit]->battleshock(m_attackingUnit);
     m_units[(int)m_defendingUnit]->battleshock(m_defendingUnit);
 

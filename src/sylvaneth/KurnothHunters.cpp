@@ -16,6 +16,7 @@ namespace Sylvaneth
 static FactoryMethod factoryMethod = {
     KurnothHunters::Create,
     KurnothHunters::ValueToString,
+    KurnothHunters::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
          KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE},
@@ -136,6 +137,17 @@ std::string KurnothHunters::ValueToString(const Parameter &parameter)
             return "Greatbows";
     }
     return ParameterValueToString(parameter);
+}
+
+int KurnothHunters::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Greatswords")
+        return Greatswords;
+    else if (enumString == "Scythes")
+        return Scythes;
+    else if (enumString == "Greatbows")
+        return Greatbows;
+    return 0;
 }
 
 } // namespace Sylvaneth

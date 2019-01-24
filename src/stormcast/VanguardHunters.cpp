@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     VanguardHunters::Create,
     VanguardHunters::ValueToString,
+    VanguardHunters::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
@@ -126,6 +127,15 @@ std::string VanguardHunters::ValueToString(const Parameter &parameter)
             return "ShockHandaxe";
     }
     return ParameterValueToString(parameter);
+}
+
+int VanguardHunters::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "StormSabre")
+        return StormSabre;
+    else if (enumString == "ShockHandaxe")
+        return ShockHandaxe;
+    return 0;
 }
 
 } // namespace StormcastEternals

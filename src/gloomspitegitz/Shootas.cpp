@@ -15,6 +15,7 @@ namespace GloomspiteGitz {
 static FactoryMethod factoryMethod = {
     Shootas::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Shootas::MIN_UNIT_SIZE},
          Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE},

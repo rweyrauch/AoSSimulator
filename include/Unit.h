@@ -29,6 +29,9 @@ public:
     int save() const { return m_save; }
     bool fly() const { return m_fly; }
 
+    void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
+    PlayerId owningPlayer() const { return m_owningPlayer; }
+
     void addModel(const Model& model);
 
     void restore();
@@ -77,6 +80,7 @@ public:
     Unit* meleeTarget() { return m_meleeTarget; }
 
     bool charged() const { return m_charged; }
+    bool ran() const { return m_ran; }
 
     std::vector<Model>::const_iterator modelBegin() const { return m_models.begin(); }
     std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }

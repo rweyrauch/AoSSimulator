@@ -15,6 +15,7 @@ namespace Nighthaunt
 static FactoryMethod factoryMethod = {
     GrimghastReapers::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = GrimghastReapers::MIN_UNIT_SIZE}, GrimghastReapers::MIN_UNIT_SIZE,
          GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE},

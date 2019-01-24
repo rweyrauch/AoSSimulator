@@ -15,6 +15,7 @@ namespace DaughtersOfKhaine {
 static FactoryMethod factoryMethod = {
     KhineraiLifetakers::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = KhineraiLifetakers::MIN_UNIT_SIZE}, KhineraiLifetakers::MIN_UNIT_SIZE,
          KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE},

@@ -419,7 +419,7 @@ void Unit::movement(PlayerId player)
     if (player == PlayerId::Red)
         otherPlayer = PlayerId::Blue;
     auto otherRoster = board->getPlayerRoster(otherPlayer);
-    auto closestTarget = otherRoster->nearestUnit(this);
+    auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
     if (closestTarget)
     {
@@ -518,7 +518,7 @@ void Unit::shooting(PlayerId player)
         otherPlayer = PlayerId::Blue;
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
-    m_shootingTarget = otherRoster->nearestUnit(this);
+    m_shootingTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
     onStartShooting(player);
 }
@@ -532,7 +532,7 @@ void Unit::combat(PlayerId player)
         otherPlayer = PlayerId::Blue;
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
-    m_meleeTarget = otherRoster->nearestUnit(this);
+    m_meleeTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
     // TODO: pile-in
 
@@ -550,14 +550,20 @@ void Unit::charge(PlayerId player)
     if (player == PlayerId::Red)
         otherPlayer = PlayerId::Blue;
     auto otherRoster = board->getPlayerRoster(otherPlayer);
-    auto closestTarget = otherRoster->nearestUnit(this);
+    auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+
+    if (m_ran && !m_runAndCharge)
+    {
+        // Can't run and charge.
+        return;
+    }
 
     if (closestTarget)
     {
         Dice dice;
         auto distance = distanceTo(closestTarget);
 
-        if (distance < MAX_CHARGE_DISTANCE)
+        if (distance < MAX_CHARGE_DISTANCE && distance > 3.0)
         {
             float chargeDist = rollChargeDistance();
             if (chargeDist >= distance)

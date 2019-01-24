@@ -16,6 +16,7 @@ namespace Khorne
 static FactoryMethod factoryMethod = {
     Bloodreavers::Create,
     Bloodreavers::ValueToString,
+    Bloodreavers::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
          Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE},
@@ -139,6 +140,13 @@ std::string Bloodreavers::ValueToString(const Parameter &parameter)
         else if (parameter.m_intValue == MeatripperAxe) return "MeatripperAxe";
     }
     return ParameterValueToString(parameter);
+}
+
+int Bloodreavers::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "ReaverBlades") return ReaverBlades;
+    else if (enumString == "MeatripperAxe") return MeatripperAxe;
+    return 0;
 }
 
 } // namespace Khorne

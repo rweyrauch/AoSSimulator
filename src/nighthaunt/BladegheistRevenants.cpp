@@ -15,6 +15,7 @@ namespace Nighthaunt
 static FactoryMethod factoryMethod = {
     BladegheistRevenants::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = BladegheistRevenants::MIN_UNIT_SIZE}, BladegheistRevenants::MIN_UNIT_SIZE,
          BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE},

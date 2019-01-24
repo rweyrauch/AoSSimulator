@@ -15,6 +15,7 @@ namespace GloomspiteGitz
 static FactoryMethod factoryMethod = {
     ColossalSquig::Create,
     nullptr,
+    nullptr,
     {
     }
 };

@@ -15,6 +15,7 @@ namespace GloomspiteGitz {
 static FactoryMethod factoryMethod = {
     Stabbas::Create,
     Stabbas::ValueToString,
+    Stabbas::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
          Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE},
@@ -178,6 +179,15 @@ std::string Stabbas::ValueToString(const Parameter &parameter)
             return "PokinSpear";
     }
     return ParameterValueToString(parameter);
+}
+
+int Stabbas::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Stabba")
+        return Stabba;
+    else if (enumString == "PokinSpear")
+        return PokinSpear;
+    return 0;
 }
 
 } // namespace GloomspiteGitz

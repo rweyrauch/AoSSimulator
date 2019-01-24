@@ -15,6 +15,7 @@ namespace Nighthaunt
 static FactoryMethod factoryMethod = {
     GlaivewraithStalkers::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = GlaivewraithStalkers::MIN_UNIT_SIZE}, GlaivewraithStalkers::MIN_UNIT_SIZE,
          GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE},

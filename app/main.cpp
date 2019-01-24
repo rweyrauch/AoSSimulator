@@ -89,13 +89,23 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    // TODO: parse red string
+    // parse red string
     std::string redUnit = result["red"].as<std::string>();
     Unit* pRed = parseUnitDescription(redUnit);
+    if (pRed == nullptr)
+    {
+        std::cout << "Failed to parse player 1 (red) unit description." << std::endl;
+        return EXIT_FAILURE;
+    }
 
     // TODO: parse blue string
     std::string blueUnit = result["blue"].as<std::string>();
     Unit* pBlue = parseUnitDescription(blueUnit);
+    if (pBlue == nullptr)
+    {
+        std::cout << "Failed to parse player 2 (blue) unit description." << std::endl;
+        return EXIT_FAILURE;
+    }
 
     battle.combatants(pRed, pBlue);
 
@@ -338,7 +348,14 @@ Unit* parseUnitDescription(const std::string& desc)
                     }
                     else if (paramType == ParamType::Integer)
                     {
-                        pv->m_intValue = std::stoi(value);
+                        try
+                        {
+                            pv->m_intValue = std::stoi(value);
+                        }
+                        catch (std::invalid_argument)
+                        {
+                            pv->m_intValue = factory->m_enumStringToInt(value);
+                        }
                     }
                 }
             }

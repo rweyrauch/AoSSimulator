@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     Judicators::Create,
     Judicators::ValueToString,
+    Judicators::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
@@ -169,6 +170,15 @@ std::string Judicators::ValueToString(const Parameter &parameter)
             return "BoltstormCrossbow";
     }
     return ParameterValueToString(parameter);
+}
+
+int Judicators::EnumStringToInt(const std::string& enumString)
+{
+    if (enumString == "SkyboltBow")
+        return SkyboltBow;
+    else if (enumString == "BoltstormCrossbow")
+        return BoltstormCrossbow;
+    return 0;
 }
 
 } // namespace StormcastEternals

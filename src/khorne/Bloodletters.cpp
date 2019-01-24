@@ -16,6 +16,7 @@ namespace Khorne
 static FactoryMethod factoryMethod = {
     Bloodletters::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
          Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE},

@@ -16,6 +16,7 @@ namespace Sylvaneth {
 static FactoryMethod factoryMethod = {
     SpiteRevenants::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = SpiteRevenants::MIN_UNIT_SIZE}, SpiteRevenants::MIN_UNIT_SIZE,
          SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE},

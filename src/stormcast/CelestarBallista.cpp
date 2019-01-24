@@ -18,6 +18,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     CelestarBallista::Create,
     nullptr,
+    nullptr,
     {
     }
 };
@@ -91,7 +92,7 @@ void CelestarBallista::shooting(PlayerId player)
         otherPlayer = PlayerId::Blue;
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
-    auto nearestUnit = otherRoster->nearestUnit(this);
+    auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
     if (nearestUnit)
     {
         float rangeTo = distanceTo(nearestUnit);

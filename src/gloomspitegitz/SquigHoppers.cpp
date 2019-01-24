@@ -15,6 +15,7 @@ namespace GloomspiteGitz
 static FactoryMethod factoryMethod = {
     SquiqHoppers::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = SquiqHoppers::MIN_UNIT_SIZE}, SquiqHoppers::MIN_UNIT_SIZE,
          SquiqHoppers::MAX_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE}

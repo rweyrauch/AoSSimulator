@@ -15,6 +15,7 @@ namespace DaughtersOfKhaine {
 static FactoryMethod factoryMethod = {
     WitchAelves::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
          WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE},

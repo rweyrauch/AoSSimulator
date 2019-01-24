@@ -39,6 +39,7 @@ protected:
         if (m_charged) attacks += 1;
         return attacks;
     }
+    void onStartShooting(PlayerId player) override;
 
 private:
 
@@ -53,7 +54,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Inescapable Vengeance            Yes
-// Sigmarite Warcloak               No
+// Sigmarite Warcloak               Yes
 // Furious Retribution              No
 //
 

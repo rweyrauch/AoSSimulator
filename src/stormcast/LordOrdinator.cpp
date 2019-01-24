@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     LordOrdinator::Create,
     LordOrdinator::ValueToString,
+    LordOrdinator::EnumStringToInt,
     {
         {ParamType::Integer, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
          LordOrdinator::AstralGrandhammer, 1},
@@ -90,6 +91,16 @@ std::string LordOrdinator::ValueToString(const Parameter &parameter)
     }
 
     return ParameterValueToString(parameter);
+}
+
+int LordOrdinator::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "AstralHammers")
+        return AstralHammers;
+    else if (enumString == "AstralGrandhammer")
+        return AstralGrandhammer;
+
+    return 0;
 }
 
 } // namespace StormcastEternals

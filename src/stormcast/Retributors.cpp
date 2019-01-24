@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     Retributors::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE, Retributors::MIN_UNIT_SIZE},
         {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 2}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
@@ -84,28 +85,33 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
     // Blast to Ashes
     if (weapon->name() == s_lightningHammer.name())
     {
-        return hits.rolls.numUnmodified6s() * 2;
+        int mortalWounds = hits.rolls.numUnmodified6s() * 2;
+        if (mortalWounds)
+            std::cout << "Blast to Ashes did " << mortalWounds << " mortal wounds." << std::endl;
+        return mortalWounds;
     }
 
     // Starsoul Mace
     if (weapon->name() == s_starsoulMace.name())
     {
+        int mortalWounds = 0;
         Dice dice;
         int roll = dice.rollD6();
         if (roll >= 6)
         {
-            return dice.rollD3() + 1;
+            mortalWounds = dice.rollD3() + 1;
         }
         else if (roll >= 2)
         {
-            return dice.rollD3();
+            mortalWounds = dice.rollD3();
         }
-        else
-        {
-            return 0;
-        }
+
+        if (mortalWounds)
+            std::cout << "Starsoul Mace did " << mortalWounds << " mortal wounds." << std::endl;
+
+        return mortalWounds;
     }
-    return Unit::generateMortalWounds(weapon, unit, hits);
+    return StormcastEternal::generateMortalWounds(weapon, unit, hits);
 }
 
 Unit *Retributors::Create(const ParameterList &parameters)

@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     KnightZephyros::Create,
     nullptr,
+    nullptr,
     {
     }
 };

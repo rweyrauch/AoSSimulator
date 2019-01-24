@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     KnightQuestor::Create,
     nullptr,
+    nullptr,
     {
     }
 };

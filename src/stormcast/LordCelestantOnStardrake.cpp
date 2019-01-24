@@ -17,6 +17,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     LordCelestantOnStardrake::Create,
     LordCelestantOnStardrake::ValueToString,
+    LordCelestantOnStardrake::EnumStringToInt,
     {
         {ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
          LordCelestantOnStardrake::StormboundBlade, 1},
@@ -284,6 +285,15 @@ void LordCelestantOnStardrake::onStartShooting(PlayerId player)
         Wounds wounds = {0, mortalWounds};
         m_shootingTarget->applyDamage(wounds);
     }
+}
+
+int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "CelestineHammer")
+        return CelestineHammer;
+    else if (enumString == "StormboundBlade")
+        return StormboundBlade;
+    return 0;
 }
 
 } // namespace StormcastEternals

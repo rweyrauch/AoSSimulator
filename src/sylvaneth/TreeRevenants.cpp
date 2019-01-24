@@ -16,6 +16,7 @@ namespace Sylvaneth {
 static FactoryMethod factoryMethod = {
     TreeRevenants::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
          TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE},

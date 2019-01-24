@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     LordCelestantOnDracoth::Create,
     LordCelestantOnDracoth::ValueToString,
+    LordCelestantOnDracoth::EnumStringToInt,
     {
         {ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
          LordCelestantOnDracoth::StormstrikeGlaive, 1},
@@ -170,6 +171,19 @@ void LordCelestantOnDracoth::onBeginTurn(int battleRound)
         m_pStormstrikeGlaive->setDamage(s_stormstrikeGlaive.damage());
     }
     StormcastEternal::onBeginTurn(battleRound);
+}
+
+int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "TempestosHammer")
+        return TempestosHammer;
+    else if (enumString == "Thunderaxe")
+        return Thunderaxe;
+    else if (enumString == "LightningHammer")
+        return LightningHammer;
+    else if (enumString == "StormstrikeGlaive")
+        return StormstrikeGlaive;
+    return 0;
 }
 
 } // namespace StormcastEternals

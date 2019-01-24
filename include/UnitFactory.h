@@ -17,12 +17,14 @@ class Unit;
 
 typedef Unit* (*CreateMethod)(const std::vector<Parameter>& parameters);
 typedef std::string (*ParamValueToString)(const Parameter& parameter);
+typedef int (*EnumStringToInt)(const std::string& enumString);
 
 struct FactoryMethod
 {
 public:
     CreateMethod m_create;
     ParamValueToString m_paramToString;
+    EnumStringToInt m_enumStringToInt;
     std::vector<Parameter> m_parameters;
 };
 

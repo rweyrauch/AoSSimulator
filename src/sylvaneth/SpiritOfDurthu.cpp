@@ -16,6 +16,7 @@ namespace Sylvaneth
 static FactoryMethod factoryMethod = {
     SpiritOfDurthu::Create,
     nullptr,
+    nullptr,
     {
     }
 };

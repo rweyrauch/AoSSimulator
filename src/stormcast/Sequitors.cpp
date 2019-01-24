@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     Sequitors::Create,
     Sequitors::ValueToString,
+    Sequitors::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
         {ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
@@ -202,6 +203,15 @@ std::string Sequitors::ValueToString(const Parameter &parameter)
             return "TempestBlade";
     }
     return ParameterValueToString(parameter);
+}
+
+int Sequitors::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "StormsmiteMaul")
+        return StormsmiteMaul;
+    else if (enumString == "TempestBlade")
+        return TempestBlade;
+    return 0;
 }
 
 } // namespace StormcastEternals

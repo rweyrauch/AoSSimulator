@@ -15,6 +15,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     LordCelestant::Create,
     nullptr,
+    nullptr,
     {
     }
 };
@@ -65,6 +66,30 @@ void LordCelestant::Init()
     {
         s_registered = UnitFactory::Register("Lord-Celestant", factoryMethod);
     }
+}
+
+void LordCelestant::onStartShooting(PlayerId player)
+{
+    // Start of my shooting phase.
+    if (player == owningPlayer())
+    {
+        // TODO: select any target(s) within 16" rather than the nearest
+        if (m_shootingTarget)
+        {
+            auto dist = distanceTo(m_shootingTarget);
+            if (dist <= 16)
+            {
+                // Sigmarite Warcloak
+                Dice dice;
+                int numStrikes = dice.rollD6();
+                Dice::RollResult rolls;
+                dice.rollD6(numStrikes, rolls);
+                int mortalWounds = rolls.rollsGE(4);
+                m_shootingTarget->applyDamage({0, mortalWounds});
+            }
+        }
+    }
+    StormcastEternal::onStartShooting(player);
 }
 
 } // namespace StormcastEternals

@@ -16,6 +16,7 @@ namespace StormcastEternals
 static FactoryMethod factoryMethod = {
     Evocators::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
         {ParamType::Boolean, "primeGrandstave", {.m_boolValue = false}, false, false},

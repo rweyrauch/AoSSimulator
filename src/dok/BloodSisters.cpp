@@ -15,6 +15,7 @@ namespace DaughtersOfKhaine {
 static FactoryMethod factoryMethod = {
     BloodSisters::Create,
     nullptr,
+    nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = BloodSisters::MIN_UNIT_SIZE}, BloodSisters::MIN_UNIT_SIZE,
          BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE},
