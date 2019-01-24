@@ -82,10 +82,11 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
 int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
 {
     // Blast to Ashes
-    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == s_lightningHammer.name()))
+    if (weapon->name() == s_lightningHammer.name())
     {
-        return 2;
+        return hits.rolls.numUnmodified6s() * 2;
     }
+
     // Starsoul Mace
     if (weapon->name() == s_starsoulMace.name())
     {

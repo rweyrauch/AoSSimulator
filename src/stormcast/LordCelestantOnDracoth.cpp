@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
          LordCelestantOnDracoth::StormstrikeGlaive, 1},
+        {ParamType::Boolean, "sigmariteThundershield", {.m_boolValue = false}, false, false},
     }
 };
 
@@ -35,13 +36,17 @@ LordCelestantOnDracoth::LordCelestantOnDracoth() :
     m_keywords = { ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT };
 }
 
-bool LordCelestantOnDracoth::configure(WeaponOption weapons)
+bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield)
 {
     m_weapon = weapons;
+    m_sigmariteThundershield = sigmariteThundershield;
 
     Model model(BASESIZE, WOUNDS);
     if (m_weapon == StormstrikeGlaive)
-        model.addMeleeWeapon(&s_stormstrikeGlaive);
+    {
+        m_pStormstrikeGlaive = new Weapon(s_stormstrikeGlaive);
+        model.addMeleeWeapon(m_pStormstrikeGlaive);
+    }
     else if (m_weapon == LightningHammer)
         model.addMeleeWeapon(&s_lightningHammer);
     else if (m_weapon == Thunderaxe)
@@ -69,8 +74,9 @@ Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnDracoth();
     auto weapons = (WeaponOption)GetIntParam("weapons", parameters, LightningHammer);
+    bool sigmariteThundershield = GetBoolParam("sigmariteThundershield", parameters, false);
 
-    bool ok = unit->configure(weapons);
+    bool ok = unit->configure(weapons, sigmariteThundershield);
     if (!ok)
     {
         delete unit;
@@ -114,6 +120,56 @@ int LordCelestantOnDracoth::extraAttacks(const Weapon *weapon) const
         attacks += dice.rollD3();
     }
     return attacks;
+}
+
+Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon) const
+{
+    // Sigmarite Thundershield
+    if (m_sigmariteThundershield)
+        return RerollOnes;
+    return StormcastEternal::toSaveRerolls(weapon);
+}
+
+Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
+                                                       const Dice::RollResult &saveRolls) const
+{
+    // Sigmarite Thundershield
+    if (m_sigmariteThundershield)
+    {
+        // 1 mortal wound for each save of a 6
+        Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
+        return returnedDamage;
+    }
+    return StormcastEternal::computeReturnedDamage(weapon, saveRolls);
+}
+
+
+int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+{
+    // Lightning Hammer
+    if (weapon->name() == s_lightningHammer.name())
+    {
+        return hits.rolls.numUnmodified6s() * 2;
+    }
+    return StormcastEternal::generateMortalWounds(weapon, unit, hits);
+}
+
+void LordCelestantOnDracoth::onCharged()
+{
+    if (m_pStormstrikeGlaive)
+    {
+        m_pStormstrikeGlaive->setDamage(s_stormstrikeGlaive.damage()+2);
+    }
+    StormcastEternal::onCharged();
+}
+
+void LordCelestantOnDracoth::onBeginTurn(int battleRound)
+{
+    if (m_pStormstrikeGlaive)
+    {
+        m_pStormstrikeGlaive->setDamage(s_stormstrikeGlaive.damage());
+    }
+    StormcastEternal::onBeginTurn(battleRound);
 }
 
 } // namespace StormcastEternals

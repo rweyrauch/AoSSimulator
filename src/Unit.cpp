@@ -98,6 +98,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
     //std::cout << "Distance between " << name() << " and target " << unit->name() << " is " << distanceTo(unit) << std::endl;
 
     Wounds totalDamage = {0, 0};
+    Wounds totalDamageReflected = {0, 0};
+
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
@@ -129,14 +131,25 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
             // some units being targeted generate wounds to the attacking units on successful saves
-            Wounds damageReturned = {0, 0};
-            auto damage = unit->computeDamage(totalWounds, numMortalWounds, w, damageReturned);
+            Wounds damageReflected = {0, 0};
+            auto damage = unit->computeDamage(totalWounds, numMortalWounds, w, damageReflected);
             totalDamage.normal += damage.normal;
             totalDamage.mortal += damage.mortal;
+
+            totalDamageReflected.normal += damageReflected.normal;
+            totalDamageReflected.mortal += damageReflected.mortal;
         }
     }
 
     numSlain = unit->applyDamage(totalDamage);
+
+    int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
+    if (numSlainByReturnedDamage)
+    {
+        std::cout << "Number of attacking models slain by reflected damage: " << numSlainByReturnedDamage
+                  << "  Total reflected damage: " << totalDamageReflected.normal << "  Mortal: " << totalDamageReflected.mortal << std::endl;
+    }
+
     return totalDamage;
 }
 

@@ -35,17 +35,30 @@ public:
     static void Init();
 
     LordCelestantOnDracoth();
-    ~LordCelestantOnDracoth() override = default;
+    ~LordCelestantOnDracoth() override
+    {
+        delete m_pStormstrikeGlaive;
+    }
 
-    bool configure(WeaponOption weapons);
+    bool configure(WeaponOption weapons, bool sigmariteThundershield);
 
 protected:
 
     WeaponOption m_weapon;
+    bool m_sigmariteThundershield = false;
 
+protected:
+
+    void onBeginTurn(int battleRound) override;
+    void onCharged() override;
     int extraAttacks(const Weapon *weapon) const override;
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
+    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
 
 private:
+
+    Weapon* m_pStormstrikeGlaive = nullptr;
 
     static Weapon s_stormstrikeGlaive,
         s_lightningHammer,
@@ -62,8 +75,8 @@ private:
 // -------------------------------------------
 // Lightning Hammer                 No
 // Intolerable Damage               No
-// Sigmarite Thundershield          No
-// Stormstrike Glaive               No
+// Sigmarite Thundershield          Yes
+// Stormstrike Glaive               Yes
 // Storm Breath                     No
 // Tempestos Hammer                 Yes
 // Thunderaxe                       No

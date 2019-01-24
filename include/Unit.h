@@ -138,6 +138,8 @@ protected:
     bool m_runAndCharge = false;
     bool m_ignoreRend = false;
 
+    PlayerId m_owningPlayer = PlayerId::None;
+
     int m_ranks = 1;
     std::vector<Model> m_models;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
