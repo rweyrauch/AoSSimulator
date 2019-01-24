@@ -32,6 +32,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+
 private:
 
     static Weapon s_warblade;
@@ -44,8 +47,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Thundercharged Strike            No
-// Heroic Challenge                 No
-// Sigmarite Shield                 No
+// Heroic Challenge                 Yes
+// Sigmarite Shield                 Yes
 //
 
 } // namespace StormcastEternals

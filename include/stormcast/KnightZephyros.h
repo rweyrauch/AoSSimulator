@@ -32,6 +32,8 @@ public:
 
 protected:
 
+    int extraAttacks(const Weapon* weapon) const override;
+
 private:
 
     static Weapon s_boltstormPistol,
@@ -44,8 +46,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lightning-fast Strikes           No
-// Tireless Hunter                  No
+// Lightning-fast Strikes           Yes
+// Tireless Hunter                  Yes
 // Windrider                        No
 //
 

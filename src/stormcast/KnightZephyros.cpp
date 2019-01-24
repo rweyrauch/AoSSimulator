@@ -29,6 +29,8 @@ KnightZephyros::KnightZephyros() :
     StormcastEternal("Knight-Zephyros", 6, WOUNDS, 9, 3, false)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, KNIGHT_ZEPHYROS };
+    // Tireless hunder
+    m_runAndShoot = true;
 }
 
 bool KnightZephyros::configure()
@@ -66,6 +68,15 @@ void KnightZephyros::Init()
     {
         s_registered = UnitFactory::Register("Knight-Zephyros", factoryMethod);
     }
+}
+
+int KnightZephyros::extraAttacks(const Weapon *weapon) const
+{
+    // Lightning-fast Strikes
+    int attacks = Unit::extraAttacks(weapon);
+    if (charged())
+        attacks += 1;
+    return attacks;
 }
 
 } // namespace StormcastEternals

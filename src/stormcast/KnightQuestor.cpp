@@ -65,5 +65,21 @@ void KnightQuestor::Init()
     }
 }
 
+Rerolls KnightQuestor::toHitRerolls(const Weapon *weapon, const Unit *unit) const
+{
+    // Heroic Challenge
+    if (unit->hasKeyword(HERO))
+    {
+        return RerollFailed;
+    }
+    return StormcastEternal::toHitRerolls(weapon, unit);
+}
+
+Rerolls KnightQuestor::toSaveRerolls(const Weapon *weapon) const
+{
+    // Sigmarite Shield
+    return RerollFailed;
+}
+
 
 } // namespace StormcastEternals
