@@ -21,6 +21,9 @@
 #include "stormcast/KnightQuestor.h"
 #include "stormcast/KnightZephyros.h"
 #include "stormcast/VanguardHunters.h"
+#include "stormcast/VanguardRaptorsHurricane.h"
+#include "stormcast/VanguardRaptorsLongstrike.h"
+#include "stormcast/Castigators.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -71,6 +74,9 @@ void Initialize()
     StormcastEternals::KnightQuestor::Init();
     StormcastEternals::KnightZephyros::Init();
     StormcastEternals::VanguardHunters::Init();
+    StormcastEternals::Castigators::Init();
+    StormcastEternals::VanguardRaptorsHurricane::Init();
+    StormcastEternals::VanguardRaptorsLongstrike::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();

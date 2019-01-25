@@ -136,10 +136,14 @@ protected:
     int m_wounds = 0;
     int m_bravery = 0;
     int m_save = 0;
+    float m_basesize_mm = 0.0f;
+
+    std::vector<Keyword> m_keywords;
 
     bool m_fly = false;
     bool m_runAndShoot = false;
     bool m_runAndCharge = false;
+    bool m_retreatAncCharge = false;
     bool m_ignoreRend = false;
 
     PlayerId m_owningPlayer = PlayerId::None;
@@ -148,7 +152,6 @@ protected:
     std::vector<Model> m_models;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
     Math::Vector3 m_orientation = {1.0f, 0.0f, 0.0f};
-    float m_basesize_mm = 0.0f;
 
     int m_battleRound = 0;
     int m_modelsSlain = 0;
@@ -156,8 +159,6 @@ protected:
     bool m_charged = false;
     int m_toHitBuff = 0;
     int m_toHitBuffMissile = 0;
-
-    std::vector<Keyword> m_keywords;
 
     Unit* m_shootingTarget = nullptr;
     Unit* m_meleeTarget = nullptr;

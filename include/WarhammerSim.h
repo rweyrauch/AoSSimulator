@@ -113,6 +113,8 @@ enum Keyword
     ANGELOS,
     DRACOTH,
     STARDRAKE,
+    CASTIGATORS,
+    VANGUARD_RAPTORS,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

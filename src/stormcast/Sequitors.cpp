@@ -154,6 +154,7 @@ Hits Sequitors::applyHitModifiers(const Weapon *weapon, const Unit *unit, const 
     if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == s_stormsmiteGreatmace.name()) &&
         (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT)))
     {
+        // Greatmace Blast
         Dice dice;
         // each 6 inflicts d3 hits instead of 1
         modifiedHits.numHits -= hits.rolls.numUnmodified6s();

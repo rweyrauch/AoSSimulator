@@ -32,6 +32,9 @@ add_library(
         stormcast/KnightQuestor.cpp
         stormcast/KnightZephyros.cpp
         stormcast/VanguardHunters.cpp
+        stormcast/VanguardRaptorsHurricane.cpp
+        stormcast/VanguardRaptorsLongstrike.cpp
+        stormcast/Castigators.cpp
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         khorne/Bloodletters.cpp

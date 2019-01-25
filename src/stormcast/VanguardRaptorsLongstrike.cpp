@@ -1,0 +1,105 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+#include <algorithm>
+#include <stormcast/VanguardRaptorsLongstrike.h>
+#include <UnitFactory.h>
+#include <iostream>
+
+namespace StormcastEternals
+{
+static FactoryMethod factoryMethod = {
+    VanguardRaptorsLongstrike::Create,
+    nullptr,
+    nullptr,
+    {
+        {ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
+         VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE},
+    }
+};
+
+bool VanguardRaptorsLongstrike::s_registered = false;
+
+Weapon VanguardRaptorsLongstrike::s_longstikeCrossbow(Weapon::Type::Missile, "Longstrike Crossbow", 24, 1, 2, 3, -2, 2);
+Weapon VanguardRaptorsLongstrike::s_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 3, 0, 1);
+Weapon VanguardRaptorsLongstrike::s_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1);
+
+VanguardRaptorsLongstrike::VanguardRaptorsLongstrike() :
+    StormcastEternal("Vanguard Raptors with Longstrike Crossbows", 5, WOUNDS, 7, 4, false)
+{
+    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS };
+}
+
+bool VanguardRaptorsLongstrike::configure(int numModels)
+{
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Prime
+    Model primeModel(BASESIZE, WOUNDS);
+    primeModel.addMissileWeapon(&s_longstikeCrossbow);
+    primeModel.addMeleeWeapon(&s_heavyStock);
+    primeModel.addMeleeWeapon(&s_beakAndClaws);
+    addModel(primeModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&s_longstikeCrossbow);
+        model.addMeleeWeapon(&s_heavyStock);
+        addModel(model);
+    }
+
+    if (m_verbose)
+    {
+        std::cout << name() << " Weapon Strengths:" << std::endl;
+        std::cout << "\t" << s_longstikeCrossbow.name() << ": " << s_longstikeCrossbow.strength() << std::endl;
+        std::cout << "\t" << s_heavyStock.name() << ": " << s_heavyStock.strength() << std::endl;
+        std::cout << "\t" << s_beakAndClaws.name() << ": " << s_beakAndClaws.strength() << std::endl;
+    }
+
+    return true;
+}
+
+Unit *VanguardRaptorsLongstrike::Create(const ParameterList &parameters)
+{
+    auto unit = new VanguardRaptorsLongstrike();
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void VanguardRaptorsLongstrike::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("VanguardRaptorsLongstrike", factoryMethod);
+    }
+}
+
+int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+{
+    // Headshot
+    if (weapon->name() == s_longstikeCrossbow.name())
+    {
+        int mortalWounds = hits.rolls.numUnmodified6s() * 2;
+        return mortalWounds;
+    }
+    return StormcastEternal::generateMortalWounds(weapon, unit, hits);
+}
+
+} // namespace StormcastEternals
