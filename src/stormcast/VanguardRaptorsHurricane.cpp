@@ -90,4 +90,14 @@ void VanguardRaptorsHurricane::Init()
     }
 }
 
+int VanguardRaptorsHurricane::extraAttacks(const Weapon *weapon) const
+{
+    // Rapid Fire
+    if (!m_moved && weapon->name() == s_hurricaneCrossbow.name())
+    {
+        return 3;
+    }
+    return StormcastEternal::extraAttacks(weapon);
+}
+
 } // namespace StormcastEternals

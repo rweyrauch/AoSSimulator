@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    int extraAttacks(const Weapon* weapon) const override;
+
 private:
 
     static Weapon s_hurricaneCrossbow,
@@ -47,7 +49,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rapid Fire                       No
+// Rapid Fire                       Yes
 // Suppressing Fire                 No
 //
 

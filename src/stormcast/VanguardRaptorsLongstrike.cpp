@@ -43,9 +43,11 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
         return false;
     }
 
+    m_pLongstikeCrossbow = new Weapon(s_longstikeCrossbow);
+
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMissileWeapon(&s_longstikeCrossbow);
+    primeModel.addMissileWeapon(m_pLongstikeCrossbow);
     primeModel.addMeleeWeapon(&s_heavyStock);
     primeModel.addMeleeWeapon(&s_beakAndClaws);
     addModel(primeModel);
@@ -53,7 +55,7 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&s_longstikeCrossbow);
+        model.addMissileWeapon(m_pLongstikeCrossbow);
         model.addMeleeWeapon(&s_heavyStock);
         addModel(model);
     }
@@ -67,6 +69,23 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
     }
 
     return true;
+}
+
+void VanguardRaptorsLongstrike::onStartShooting(PlayerId player)
+{
+    if (player == m_owningPlayer)
+    {
+        // Longshot
+        if (!m_moved)
+        {
+            m_pLongstikeCrossbow->setRange(s_longstikeCrossbow.range() + 6);
+        }
+        else
+        {
+            m_pLongstikeCrossbow->setRange(s_longstikeCrossbow.range());
+        }
+    }
+    StormcastEternal::onStartShooting(player);
 }
 
 Unit *VanguardRaptorsLongstrike::Create(const ParameterList &parameters)

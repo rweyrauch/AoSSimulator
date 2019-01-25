@@ -60,13 +60,15 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
             // apply hit modifiers on returned hits
             hits = applyHitModifiers(w, unit, hits);
 
-            auto numWounds = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
+            auto numWoundingHits = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
 
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
+            // TODO: allow weapon damage characteristic to be set a function of the to hit rolls
+
             // some units being targeted generate wounds to the attacking units on successful saves
             Wounds damageReturned = {0, 0};
-            auto damage = unit->computeDamage(numWounds, numMortalWounds, w, damageReturned);
+            auto damage = unit->computeDamage(numWoundingHits, numMortalWounds, w, damageReturned);
 
             totalDamage.normal += damage.normal;
             totalDamage.mortal += damage.mortal;
@@ -238,6 +240,7 @@ void Unit::beginTurn(int battleRound)
     m_battleRound = battleRound;
     m_ran = false;
     m_charged = false;
+    m_moved = false;
     m_modelsSlain = 0;
 
     onBeginTurn(battleRound);
@@ -414,6 +417,8 @@ void Unit::movement(PlayerId player)
 {
     auto board = Board::Instance();
 
+    m_moved = false;
+
     auto weapon = m_models.front().preferredWeapon();
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
@@ -469,10 +474,13 @@ void Unit::movement(PlayerId player)
         Math::Ray ray(position(), closestTarget->position());
         auto newPos = ray.point_at(totalMoveDistance);
         setPosition(newPos, ray.get_direction());
+
+        m_moved = (totalMoveDistance > 0.0f);
     }
     else
     {
         // no target units - stand here confused!!!
+        m_moved = false;
     }
 
     if (m_ran)

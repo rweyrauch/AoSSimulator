@@ -28,13 +28,26 @@ public:
     static void Init();
 
     Castigators();
-    ~Castigators() override = default;
+    ~Castigators() override
+    {
+        delete m_pThunderheadGreatbow;
+        delete m_pThunderheadGreatbowPrime;
+    }
 
     bool configure(int numModels);
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    void onStartShooting(PlayerId player) override;
+
 private:
+
+    bool m_aethericChannellingPower = false;
+
+    Weapon* m_pThunderheadGreatbow = nullptr;
+    Weapon* m_pThunderheadGreatbowPrime = nullptr;
 
     static Weapon s_thunderheadGreatbow,
         s_thunderheadGreatbowPrime,
@@ -47,8 +60,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Burst of Celestial Energy        No
-// Aetheric Channeling              No
+// Burst of Celestial Energy        Yes
+// Aetheric Channeling              Yes
 //
 
 } // namespace StormcastEternals

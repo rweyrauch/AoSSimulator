@@ -28,15 +28,21 @@ public:
     static void Init();
 
     VanguardRaptorsLongstrike();
-    ~VanguardRaptorsLongstrike() override = default;
+    ~VanguardRaptorsLongstrike() override
+    {
+        delete m_pLongstikeCrossbow;
+    }
 
     bool configure(int numModels);
 
 protected:
 
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    void onStartShooting(PlayerId player) override;
 
 private:
+
+    Weapon* m_pLongstikeCrossbow = nullptr;
 
     static Weapon s_longstikeCrossbow,
                   s_heavyStock,
@@ -51,7 +57,7 @@ private:
 // -------------------------------------------
 // Headshot                         Yes
 // Hunting Call                     No
-// Longshot                         No
+// Longshot                         Yes
 //
 
 } // namespace StormcastEternals

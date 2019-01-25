@@ -28,10 +28,13 @@ public:
     int bravery() const { return m_bravery; }
     int save() const { return m_save; }
     bool fly() const { return m_fly; }
+    bool ignoreRend() const { return m_ignoreRend; }
+    int points() const { return m_points; }
 
     void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
     PlayerId owningPlayer() const { return m_owningPlayer; }
 
+    void setPoints(int points) { m_points = points; }
     void addModel(const Model& model);
 
     void restore();
@@ -137,6 +140,7 @@ protected:
     int m_bravery = 0;
     int m_save = 0;
     float m_basesize_mm = 0.0f;
+    int m_points = 0;
 
     std::vector<Keyword> m_keywords;
 
@@ -157,6 +161,7 @@ protected:
     int m_modelsSlain = 0;
     bool m_ran = false;
     bool m_charged = false;
+    bool m_moved = false;
     int m_toHitBuff = 0;
     int m_toHitBuffMissile = 0;
 
