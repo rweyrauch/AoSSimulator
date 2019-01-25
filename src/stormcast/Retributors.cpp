@@ -86,8 +86,10 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
     if (weapon->name() == s_lightningHammer.name())
     {
         int mortalWounds = hits.rolls.numUnmodified6s() * 2;
+        /*
         if (mortalWounds)
             std::cout << "Blast to Ashes did " << mortalWounds << " mortal wounds." << std::endl;
+        */
         return mortalWounds;
     }
 
@@ -105,10 +107,10 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
         {
             mortalWounds = dice.rollD3();
         }
-
+/*
         if (mortalWounds)
             std::cout << "Starsoul Mace did " << mortalWounds << " mortal wounds." << std::endl;
-
+*/
         return mortalWounds;
     }
     return StormcastEternal::generateMortalWounds(weapon, unit, hits);

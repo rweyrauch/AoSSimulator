@@ -58,3 +58,5 @@ include(GoogleTest)
 gtest_discover_tests(
         WarhammerSimTest
 )
+
+add_subdirectory("monkeybattle")

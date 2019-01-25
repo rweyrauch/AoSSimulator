@@ -108,7 +108,7 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     }
 
     // and the rest
-    for (auto i = numBarbedNets + 1; i < numModels; i++)
+    for (auto i = numBarbedNets; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&s_slitta);

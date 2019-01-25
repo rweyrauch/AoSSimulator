@@ -86,7 +86,7 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     }
 
     // and the rest
-    for (auto i = numBarbedNets + 1; i < numModels; i++)
+    for (auto i = numBarbedNets; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == Stabba)

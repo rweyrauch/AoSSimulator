@@ -152,8 +152,8 @@ protected:
 
     int m_battleRound = 0;
     int m_modelsSlain = 0;
-    int m_ran = false;
-    int m_charged = false;
+    bool m_ran = false;
+    bool m_charged = false;
     int m_toHitBuff = 0;
     int m_toHitBuffMissile = 0;
 

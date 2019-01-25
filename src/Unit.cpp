@@ -82,7 +82,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
     int numSlainInReturn = applyDamage(totalDamageReturned);
     if (numSlainInReturn)
     {
-        std::cout << "Return damage killed " << numSlainInReturn << " models in the attacking unit." << std::endl;
+        //std::cout << "Return damage killed " << numSlainInReturn << " models in the attacking unit." << std::endl;
     }
 
     return totalDamage;
