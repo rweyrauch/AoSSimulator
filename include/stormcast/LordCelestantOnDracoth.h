@@ -21,6 +21,7 @@ public:
 
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 220;
 
     enum WeaponOption
     {

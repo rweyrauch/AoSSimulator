@@ -60,6 +60,15 @@ enum DamageModifier
     PlusOneDamage,
 };
 
+enum class Role
+{
+    Battleline,
+    Leader,
+    Other,
+    Behemoth,
+    LeaderBehemoth,
+};
+
 enum Keyword
 {
     // Grand alliances

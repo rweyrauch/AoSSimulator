@@ -23,6 +23,8 @@ public:
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 18;
+    static const int POINTS_PER_BLOCK = 80;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

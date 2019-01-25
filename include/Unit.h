@@ -30,6 +30,7 @@ public:
     bool fly() const { return m_fly; }
     bool ignoreRend() const { return m_ignoreRend; }
     int points() const { return m_points; }
+    Role role() const { return m_battleFieldRole; }
 
     void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
     PlayerId owningPlayer() const { return m_owningPlayer; }
@@ -141,6 +142,7 @@ protected:
     int m_save = 0;
     float m_basesize_mm = 0.0f;
     int m_points = 0;
+    Role m_battleFieldRole = Role::Other;
 
     std::vector<Keyword> m_keywords;
 

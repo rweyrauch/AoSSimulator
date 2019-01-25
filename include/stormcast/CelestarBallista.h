@@ -22,6 +22,7 @@ public:
 
     static const int BASESIZE = 60;
     static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
