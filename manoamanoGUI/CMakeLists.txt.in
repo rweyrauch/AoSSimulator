@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.8.2)
+
+project(nanogui-download NONE)
+
+include(ExternalProject)
+ExternalProject_Add(nanogui
+  GIT_REPOSITORY    https://github.com/wjakob/nanogui.git
+  GIT_TAG           master
+  SOURCE_DIR        "${CMAKE_CURRENT_BINARY_DIR}/nanogui-src"
+  BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/nanogui-build"
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND     ""
+  INSTALL_COMMAND   ""
+  TEST_COMMAND      ""
+)

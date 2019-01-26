@@ -177,12 +177,9 @@ protected:
     {
         MoveDistance = 0,
         ChargeDistance,
-        ToHit_Combat,
-        ToHit_Missile,
-        ToWound_Combat,
-        ToWound_Missile,
-        ToSave_Combat,
-        ToSave_Missile,
+        ToHit,
+        ToWound,
+        ToSave,
         Bravery,
 
         NUM_BUFFABLE_ATTRIBUTES

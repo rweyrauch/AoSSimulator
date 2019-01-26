@@ -9,11 +9,10 @@
 #include <iostream>
 #include <cassert>
 #include <sstream>
-#include <stormcast/Liberators.h>
-#include <khorne/Bloodreavers.h>
 #include <Board.h>
-#include "Dice.h"
-#include "ManoAMano.h"
+#include <Dice.h>
+#include <ManoAMano.h>
+#include <UnitFactory.h>
 #include "cxxopts.hpp"
 
 void displayUnits(bool verbose, const std::string& faction);
