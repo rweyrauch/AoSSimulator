@@ -65,13 +65,6 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_sacrificialKnife.name() << ": " << s_sacrificialKnife.strength() << std::endl;
-        std::cout << "\t" << s_sacrificialKnifeHag.name() << ": " << s_sacrificialKnifeHag.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -139,6 +132,12 @@ Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon,
         return returnedDamage;
     }
     return Unit::computeReturnedDamage(weapon, saveRolls);
+}
+
+void WitchAelves::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_sacrificialKnife);
+    visitor(&s_sacrificialKnifeHag);
 }
 
 } // namespace DaughtersOfKhaine

@@ -34,6 +34,8 @@ public:
 
     bool configure(int numModels, int numGrandstaves, bool primeGrandstave);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     Rerolls toSaveRerolls(const Weapon* weapon) const override;

@@ -109,16 +109,6 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_stormsmiteMaul.name() << ": " << s_stormsmiteMaul.strength() << std::endl;
-        std::cout << "\t" << s_stormsmiteMaulPrime.name() << ": " << s_stormsmiteMaulPrime.strength() << std::endl;
-        std::cout << "\t" << s_tempestBlade.name() << ": " << s_tempestBlade.strength() << std::endl;
-        std::cout << "\t" << s_tempestBladePrime.name() << ": " << s_tempestBladePrime.strength() << std::endl;
-        std::cout << "\t" << s_stormsmiteGreatmace.name() << ": " << s_stormsmiteGreatmace.strength() << std::endl;
-        std::cout << "\t" << s_stormsmiteGreatmacePrime.name() << ": " << s_stormsmiteGreatmacePrime.strength() << std::endl;
-    }
     return true;
 }
 
@@ -217,6 +207,16 @@ int Sequitors::EnumStringToInt(const std::string &enumString)
     else if (enumString == "TempestBlade")
         return TempestBlade;
     return 0;
+}
+
+void Sequitors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_stormsmiteMaul);
+    visitor(&s_stormsmiteMaulPrime);
+    visitor(&s_tempestBlade);
+    visitor(&s_tempestBladePrime);
+    visitor(&s_stormsmiteGreatmace);
+    visitor(&s_stormsmiteGreatmacePrime);
 }
 
 } // namespace StormcastEternals

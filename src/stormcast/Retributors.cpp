@@ -73,14 +73,6 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_lightningHammer.name() << ": " << s_lightningHammer.strength() << std::endl;
-        std::cout << "\t" << s_lightningHammerPrime.name() << ": " << s_lightningHammerPrime.strength() << std::endl;
-        std::cout << "\t" << s_starsoulMace.name() << ": " << s_starsoulMace.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -141,6 +133,13 @@ void Retributors::Init()
     {
         s_registered = UnitFactory::Register("Retributors", factoryMethod);
     }
+}
+
+void Retributors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_lightningHammer);
+    visitor(&s_lightningHammerPrime);
+    visitor(&s_starsoulMace);
 }
 
 } // namespace StormcastEternals

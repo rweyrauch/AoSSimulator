@@ -38,12 +38,6 @@ bool KnightQuestor::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_warblade.name() << ": " << s_warblade.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -81,6 +75,11 @@ Rerolls KnightQuestor::toSaveRerolls(const Weapon *weapon) const
 {
     // Sigmarite Shield
     return RerollFailed;
+}
+
+void KnightQuestor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_warblade);
 }
 
 

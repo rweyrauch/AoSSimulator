@@ -60,16 +60,6 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_stormstrikeGlaive.name() << ": " << s_stormstrikeGlaive.strength() << std::endl;
-        std::cout << "\t" << s_lightningHammer.name() << ": " << s_lightningHammer.strength() << std::endl;
-        std::cout << "\t" << s_thunderaxe.name() << ": " << s_thunderaxe.strength() << std::endl;
-        std::cout << "\t" << s_tempestosHammer.name() << ": " << s_tempestosHammer.strength() << std::endl;
-        std::cout << "\t" << s_clawsAndFangs.name() << ": " << s_clawsAndFangs.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -186,6 +176,15 @@ int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
     else if (enumString == "StormstrikeGlaive")
         return StormstrikeGlaive;
     return 0;
+}
+
+void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_stormstrikeGlaive);
+    visitor(&s_lightningHammer);
+    visitor(&s_thunderaxe);
+    visitor(&s_tempestosHammer);
+    visitor(&s_clawsAndFangs);
 }
 
 } // namespace StormcastEternals

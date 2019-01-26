@@ -42,13 +42,6 @@ bool KnightZephyros::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_boltstormPistol.name() << ": " << s_boltstormPistol.strength() << std::endl;
-        std::cout << "\t" << s_tempestAxes.name() << ": " << s_tempestAxes.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -79,6 +72,12 @@ int KnightZephyros::extraAttacks(const Weapon *weapon) const
     if (charged())
         attacks += 1;
     return attacks;
+}
+
+void KnightZephyros::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_boltstormPistol);
+    visitor(&s_tempestAxes);
 }
 
 } // namespace StormcastEternals

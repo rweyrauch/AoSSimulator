@@ -65,14 +65,6 @@ bool Alarielle::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_spearOfKurnoth.name() << ": " << s_spearOfKurnoth.strength() << std::endl;
-        std::cout << "\t" << s_talonOfDwindling.name() << ": " << s_talonOfDwindling.strength() << std::endl;
-        std::cout << "\t" << s_beetleGreatAntlers.name() << ": " << s_beetleGreatAntlers.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -148,6 +140,13 @@ void Alarielle::Init()
     {
         s_registered = UnitFactory::Register("Alarielle", factoryMethod);
     }
+}
+
+void Alarielle::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_spearOfKurnoth);
+    visitor(&s_talonOfDwindling);
+    visitor(&s_beetleGreatAntlers);
 }
 
 } // namespace Sylvaneth

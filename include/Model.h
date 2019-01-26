@@ -30,9 +30,11 @@ public:
     void addMeleeWeapon(Weapon* weapon);
     void addMissileWeapon(Weapon* weapon);
 
+    int numMeleeWeapons() const { return (int)m_melee.size(); }
     std::vector<Weapon*>::const_iterator meleeWeaponBegin() const { return m_melee.begin(); }
     std::vector<Weapon*>::const_iterator meleeWeaponEnd() const { return m_melee.end(); }
 
+    int numMissileWeapons() const { return (int)m_missile.size(); }
     std::vector<Weapon*>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
     std::vector<Weapon*>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 

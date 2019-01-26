@@ -88,15 +88,6 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_tempestBladeAndStave.name() << ": " << s_tempestBladeAndStave.strength() << std::endl;
-        std::cout << "\t" << s_tempestBladeAndStavePrime.name() << ": " << s_tempestBladeAndStavePrime.strength() << std::endl;
-        std::cout << "\t" << s_grandStave.name() << ": " << s_grandStave.strength() << std::endl;
-        std::cout << "\t" << s_grandStavePrime.name() << ": " << s_grandStavePrime.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -147,6 +138,14 @@ void Evocators::Init()
     {
         s_registered = UnitFactory::Register("Evocators", factoryMethod);
     }
+}
+
+void Evocators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_tempestBladeAndStave);
+    visitor(&s_tempestBladeAndStavePrime);
+    visitor(&s_grandStave);
+    visitor(&s_grandStavePrime);
 }
 
 } // namespace StormcastEternals

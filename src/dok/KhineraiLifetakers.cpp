@@ -58,13 +58,6 @@ bool KhineraiLifetakers::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_barbedSickle.name() << ": " << s_barbedSickle.strength() << std::endl;
-        std::cout << "\t" << s_barbedSickleHarridynn.name() << ": " << s_barbedSickleHarridynn.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -119,6 +112,12 @@ Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon,
         return returnedDamage;
     }
     return Unit::computeReturnedDamage(weapon, saveRolls);
+}
+
+void KhineraiLifetakers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_barbedSickle);
+    visitor(&s_barbedSickleHarridynn);
 }
 
 } // namespace DaughtersOfKhaine

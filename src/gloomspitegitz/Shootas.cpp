@@ -120,16 +120,6 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_slitta.name() << ": " << s_slitta.strength() << std::endl;
-        std::cout << "\t" << s_slittaBoss.name() << ": " << s_slittaBoss.strength() << std::endl;
-        std::cout << "\t" << s_moonclanBow.name() << ": " << s_moonclanBow.strength() << std::endl;
-        std::cout << "\t" << s_moonclanBowBoss.name() << ": " << s_moonclanBowBoss.strength() << std::endl;
-        std::cout << "\t" << s_barbedNet.name() << ": " << s_barbedNet.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -168,6 +158,15 @@ int Shootas::toSaveModifier(const Weapon* weapon) const
     if (m_numIconbearers > 0 && weapon->isMissile())
         modifier += 1;
     return modifier;
+}
+
+void Shootas::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_slitta);
+    visitor(&s_slittaBoss);
+    visitor(&s_moonclanBow);
+    visitor(&s_moonclanBowBoss);
+    visitor(&s_barbedNet);
 }
 
 } // namespace GloomspiteGitz

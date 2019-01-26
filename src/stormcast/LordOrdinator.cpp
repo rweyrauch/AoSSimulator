@@ -50,13 +50,6 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_astralHammers.name() << ": " << s_astralHammers.strength() << std::endl;
-        std::cout << "\t" << s_astralGrandhammer.name() << ": " << s_astralGrandhammer.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -103,6 +96,12 @@ int LordOrdinator::EnumStringToInt(const std::string &enumString)
         return AstralGrandhammer;
 
     return 0;
+}
+
+void LordOrdinator::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_astralHammers);
+    visitor(&s_astralGrandhammer);
 }
 
 } // namespace StormcastEternals

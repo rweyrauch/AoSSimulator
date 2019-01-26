@@ -34,6 +34,8 @@ public:
 
     bool configure(int numModels, bool drummer);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     bool m_drummer = true;

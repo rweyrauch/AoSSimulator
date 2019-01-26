@@ -52,12 +52,6 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_huntersGlaive.name() << ": " << s_huntersGlaive.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -103,6 +97,11 @@ int GlaivewraithStalkers::toSaveModifier(const Weapon *weapon) const
         modifier = -weapon->rend();
 
     return modifier;
+}
+
+void GlaivewraithStalkers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_huntersGlaive);
 }
 
 } // namespace Nighthaunt

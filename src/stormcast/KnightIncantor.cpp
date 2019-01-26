@@ -38,12 +38,6 @@ bool KnightIncantor::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_staff.name() << ": " << s_staff.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -65,6 +59,11 @@ void KnightIncantor::Init()
     {
         s_registered = UnitFactory::Register("Knight-Incantor", factoryMethod);
     }
+}
+
+void KnightIncantor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_staff);
 }
 
 } // namespace StormcastEternals

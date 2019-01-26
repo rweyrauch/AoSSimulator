@@ -61,14 +61,6 @@ bool VanguardRaptorsHurricane::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_hurricaneCrossbow.name() << ": " << s_hurricaneCrossbow.strength() << std::endl;
-        std::cout << "\t" << s_hurricaneCrossbowPrime.name() << ": " << s_hurricaneCrossbowPrime.strength() << std::endl;
-        std::cout << "\t" << s_heavyStock.name() << ": " << s_heavyStock.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -102,6 +94,13 @@ int VanguardRaptorsHurricane::extraAttacks(const Weapon *weapon) const
         return 3;
     }
     return StormcastEternal::extraAttacks(weapon);
+}
+
+void VanguardRaptorsHurricane::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_hurricaneCrossbow);
+    visitor(&s_hurricaneCrossbowPrime);
+    visitor(&s_heavyStock);
 }
 
 } // namespace StormcastEternals

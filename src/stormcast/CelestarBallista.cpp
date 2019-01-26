@@ -55,13 +55,6 @@ bool CelestarBallista::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_stormboltsRapid.name() << ": " << s_stormboltsRapid.strength() << std::endl;
-        std::cout << "\t" << s_stormboltsSingle.name() << ": " << s_stormboltsSingle.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -110,6 +103,13 @@ void CelestarBallista::shooting(PlayerId player)
         }
     }
     StormcastEternal::shooting(player);
+}
+
+void CelestarBallista::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_stormboltsSingle);
+    visitor(&s_stormboltsRapid);
+    visitor(&s_sigmariteBlades);
 }
 
 } // namespace StormcastEternals

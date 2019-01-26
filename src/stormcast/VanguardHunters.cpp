@@ -83,17 +83,6 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_boltstormPistol.name() << ": " << s_boltstormPistol.strength() << std::endl;
-        std::cout << "\t" << s_boltstormPistolPrime.name() << ": " << s_boltstormPistolPrime.strength() << std::endl;
-        std::cout << "\t" << s_shockHandaxe.name() << ": " << s_shockHandaxe.strength() << std::endl;
-        std::cout << "\t" << s_shockHandaxePrime.name() << ": " << s_shockHandaxePrime.strength() << std::endl;
-        std::cout << "\t" << s_stormSabre.name() << ": " << s_stormSabre.strength() << std::endl;
-        std::cout << "\t" << s_stormSabrePrime.name() << ": " << s_stormSabrePrime.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -140,6 +129,16 @@ int VanguardHunters::EnumStringToInt(const std::string &enumString)
     else if (enumString == "ShockHandaxe")
         return ShockHandaxe;
     return 0;
+}
+
+void VanguardHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_boltstormPistol);
+    visitor(&s_boltstormPistolPrime);
+    visitor(&s_shockHandaxe);
+    visitor(&s_shockHandaxePrime);
+    visitor(&s_stormSabre);
+    visitor(&s_stormSabrePrime);
 }
 
 } // namespace StormcastEternals

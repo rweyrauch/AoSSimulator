@@ -38,6 +38,8 @@ public:
 
     bool configure(int numModels);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;

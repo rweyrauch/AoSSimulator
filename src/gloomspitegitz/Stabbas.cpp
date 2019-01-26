@@ -100,16 +100,6 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_stabba.name() << ": " << s_stabba.strength() << std::endl;
-        std::cout << "\t" << s_stabbaBoss.name() << ": " << s_stabbaBoss.strength() << std::endl;
-        std::cout << "\t" << s_pokinSpear.name() << ": " << s_pokinSpear.strength() << std::endl;
-        std::cout << "\t" << s_pokinSpearBoss.name() << ": " << s_pokinSpearBoss.strength() << std::endl;
-        std::cout << "\t" << s_barbedNet.name() << ": " << s_barbedNet.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -192,6 +182,15 @@ int Stabbas::EnumStringToInt(const std::string &enumString)
     else if (enumString == "PokinSpear")
         return PokinSpear;
     return 0;
+}
+
+void Stabbas::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_stabba);
+    visitor(&s_stabbaBoss);
+    visitor(&s_pokinSpear);
+    visitor(&s_pokinSpearBoss);
+    visitor(&s_barbedNet);
 }
 
 } // namespace GloomspiteGitz

@@ -64,14 +64,6 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_longstikeCrossbow.name() << ": " << s_longstikeCrossbow.strength() << std::endl;
-        std::cout << "\t" << s_heavyStock.name() << ": " << s_heavyStock.strength() << std::endl;
-        std::cout << "\t" << s_beakAndClaws.name() << ": " << s_beakAndClaws.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -123,6 +115,13 @@ int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const 
         return mortalWounds;
     }
     return StormcastEternal::generateMortalWounds(weapon, unit, hits);
+}
+
+void VanguardRaptorsLongstrike::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_longstikeCrossbow);
+    visitor(&s_heavyStock);
+    visitor(&s_beakAndClaws);
 }
 
 } // namespace StormcastEternals

@@ -31,6 +31,8 @@ public:
 
     bool configure();
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     int extraAttacks(const Weapon *weapon) const override

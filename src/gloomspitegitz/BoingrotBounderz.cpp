@@ -62,14 +62,6 @@ bool BoingrotBounderz::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_pokinLance.name() << ": " << s_pokinLance.strength() << std::endl;
-        std::cout << "\t" << s_pokinLanceBoss.name() << ": " << s_pokinLanceBoss.strength() << std::endl;
-        std::cout << "\t" << s_fangFilledGob.name() << ": " << s_fangFilledGob.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -124,6 +116,13 @@ int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) co
         modifier += 1;
 
     return modifier;
+}
+
+void BoingrotBounderz::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_pokinLance);
+    visitor(&s_pokinLanceBoss);
+    visitor(&s_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

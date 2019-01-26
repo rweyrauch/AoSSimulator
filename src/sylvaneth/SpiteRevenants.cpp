@@ -54,13 +54,6 @@ bool SpiteRevenants::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_cruelTalonsAndFangs.name() << ": " << s_cruelTalonsAndFangs.strength() << std::endl;
-        std::cout << "\t" << s_cruelTalonsAndFangsShadestalker.name() << ": " << s_cruelTalonsAndFangsShadestalker.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -84,6 +77,12 @@ void SpiteRevenants::Init()
     {
         s_registered = UnitFactory::Register("Spite-Revenants", factoryMethod);
     }
+}
+
+void SpiteRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_cruelTalonsAndFangs);
+    visitor(&s_cruelTalonsAndFangsShadestalker);
 }
 
 } // namespace Sylvaneth

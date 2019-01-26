@@ -34,6 +34,8 @@ public:
 
     bool configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     bool m_gladeBanners = false;

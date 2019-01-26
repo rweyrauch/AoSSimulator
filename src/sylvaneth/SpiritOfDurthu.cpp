@@ -66,14 +66,6 @@ bool SpiritOfDurthu::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_verdantBlast.name() << ": " << s_verdantBlast.strength() << std::endl;
-        std::cout << "\t" << s_guardianSword.name() << ": " << s_guardianSword.strength() << std::endl;
-        std::cout << "\t" << s_massiveImpalingTalons.name() << ": " << s_massiveImpalingTalons.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -121,6 +113,13 @@ void SpiritOfDurthu::Init()
     {
         s_registered = UnitFactory::Register("Spirit of Durthu", factoryMethod);
     }
+}
+
+void SpiritOfDurthu::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_verdantBlast);
+    visitor(&s_guardianSword);
+    visitor(&s_massiveImpalingTalons);
 }
 
 } // namespace Sylvaneth

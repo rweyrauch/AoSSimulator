@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
 
     nanogui::init();
 
-    nanogui::Screen *screen = new nanogui::Screen(nanogui::Vector2i(500, 700), "AoS Mano-a-mano GUI");
+    nanogui::Screen *screen = new nanogui::Screen(nanogui::Vector2i(256, 512), "AoS Mano-a-mano GUI");
     nanogui::FormHelper *gui = new nanogui::FormHelper(screen);
-    nanogui::ref<nanogui::Window> window = gui->addWindow(nanogui::Vector2i(10, 10), "Form helper example");
+    nanogui::ref<nanogui::Window> window = gui->addWindow(nanogui::Vector2i(0, 0), "Form helper example");
 
     gui->addGroup("Settings");
     gui->addVariable("Iterations", numIterations);
@@ -34,13 +34,18 @@ int main(int argc, char* argv[])
     gui->addVariable("Save Maps", saveMaps);
 
     gui->addGroup("Players");
-    gui->addButton("Red", [](){ std::cout << "Red button pressed." << std::endl; });
-    gui->addButton("Blue", [](){ std::cout << "Blue button pressed." << std::endl; });
+    gui->addButton("Red", [gui](){ auto redWindow = gui->addWindow(nanogui::Vector2i(0, 0), "Select Red Unit"); redWindow->center(); });
+    gui->addButton("Blue", [gui](){ auto blueWindow = gui->addWindow(nanogui::Vector2i(0, 0), "Select Blue Unit"); blueWindow->center(); });
+
+    gui->addGroup("Simulation");
+    gui->addButton("Start", [](){ std::cout << "Starting simulation." << std::endl; } );
 
     screen->setVisible(true);
     screen->performLayout();
 
     window->center();
+
+    Initialize();
 
     nanogui::mainloop();
 

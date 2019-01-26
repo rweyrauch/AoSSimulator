@@ -64,14 +64,6 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_enchantedBlade.name() << ": " << s_enchantedBlade.strength() << std::endl;
-        std::cout << "\t" << s_enchantedBladeScion.name() << ": " << s_enchantedBladeScion.strength() << std::endl;
-        std::cout << "\t" << s_protectorGlaive.name() << ": " << s_protectorGlaive.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -98,6 +90,13 @@ void TreeRevenants::Init()
     {
         s_registered = UnitFactory::Register("Tree-Revenants", factoryMethod);
     }
+}
+
+void TreeRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_enchantedBlade);
+    visitor(&s_enchantedBladeScion);
+    visitor(&s_protectorGlaive);
 }
 
 } // namespace Sylvaneth

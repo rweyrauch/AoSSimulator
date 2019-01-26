@@ -104,18 +104,6 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_stormGladius.name() << ": " << s_stormGladius.strength() << std::endl;
-        std::cout << "\t" << s_shockboltBow.name() << ": " << s_shockboltBow.strength() << std::endl;
-        std::cout << "\t" << s_shockboltPrime.name() << ": " << s_shockboltPrime.strength() << std::endl;
-        std::cout << "\t" << s_skyboltBow.name() << ": " << s_skyboltBow.strength() << std::endl;
-        std::cout << "\t" << s_skyboltPrime.name() << ": " << s_skyboltPrime.strength() << std::endl;
-        std::cout << "\t" << s_thunderboldCrossbow.name() << ": " << s_thunderboldCrossbow.strength() << std::endl;
-        std::cout << "\t" << s_boltstormCrossbow.name() << ": " << s_boltstormCrossbow.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -183,6 +171,17 @@ int Judicators::EnumStringToInt(const std::string& enumString)
     else if (enumString == "BoltstormCrossbow")
         return BoltstormCrossbow;
     return 0;
+}
+
+void Judicators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_stormGladius);
+    visitor(&s_shockboltBow);
+    visitor(&s_shockboltPrime);
+    visitor(&s_skyboltBow);
+    visitor(&s_skyboltPrime);
+    visitor(&s_thunderboldCrossbow);
+    visitor(&s_boltstormCrossbow);
 }
 
 } // namespace StormcastEternals

@@ -63,6 +63,7 @@ add_library(
         nighthaunt/BladegheistRevenants.cpp
         nighthaunt/GlaivewraithStalkers.cpp
         nighthaunt/DreadscytheHarridans.cpp
+        beastsofchaos/Ghorgon.cpp
 )
 
 target_include_directories(

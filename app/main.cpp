@@ -16,6 +16,7 @@
 #include "cxxopts.hpp"
 
 void displayUnits(bool verbose, const std::string& faction);
+void displayWeapons(bool verbose, const std::string& unit);
 Unit* parseUnitDescription(const std::string& desc);
 
 int main(int argc, char* argv[])
@@ -24,6 +25,8 @@ int main(int argc, char* argv[])
     bool verbose = false;
     bool listUnits = false;
     std::string listFaction("all");
+    std::string listWeapons("none");
+
     int numIterations = 1;
     bool saveMaps = false;
     std::string mapBaseName("battlemap");
@@ -40,6 +43,7 @@ int main(int argc, char* argv[])
         ("s, save", "Save battlemaps")
         ("mapname", "Battlemap basename", cxxopts::value<std::string>(mapBaseName))
         ("i, iterations", "Number of battle iterations", cxxopts::value<int>(numIterations))
+        ("w, weapons", "List weapons for the given unit", cxxopts::value<std::string>())
         ;
     auto result = options.parse(argc, argv);
 
@@ -64,12 +68,22 @@ int main(int argc, char* argv[])
     {
         saveMaps = true;
     }
+    if (result.count("weapons"))
+    {
+        listWeapons = result["weapons"].as<std::string>();
+    }
 
     Initialize();
 
     if (listUnits)
     {
         displayUnits(verbose, listFaction);
+        return EXIT_SUCCESS;
+    }
+
+    if (listWeapons != "none")
+    {
+        displayWeapons(verbose, listWeapons);
         return EXIT_SUCCESS;
     }
 
@@ -364,4 +378,35 @@ Unit* parseUnitDescription(const std::string& desc)
         unit = UnitFactory::Create(unitName, defaultParams);
     }
     return unit;
+}
+
+void displayWeapons(bool verbose, const std::string& unitName)
+{
+    std::function<void(const Weapon*)> weaponVistor = [](const Weapon* weapon) {
+        if (weapon)
+        {
+            std::cout << weapon->name() << "\t Strength: " << weapon->strength() << std::endl;
+        }
+    };
+
+    if (unitName == "none") return;
+    bool listAll = (unitName == "all");
+
+    if (listAll)
+    {
+
+    }
+    else
+    {
+        auto factory = UnitFactory::LookupUnit(unitName);
+        if (factory)
+        {
+            auto unit = UnitFactory::Create(unitName, factory->m_parameters);
+            if (unit)
+            {
+                unit->visitWeapons(weaponVistor);
+                delete unit;
+            }
+        }
+    }
 }

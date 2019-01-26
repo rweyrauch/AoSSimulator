@@ -48,6 +48,8 @@ public:
     // Buff weapons during our combat phase
     void combat(PlayerId id) override { m_aethericChannellingWeapons = true; StormcastEternal::combat(id); }
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;

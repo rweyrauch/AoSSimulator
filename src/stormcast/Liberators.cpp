@@ -98,17 +98,6 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_grandblade.name() << ": " << s_grandblade.strength() << std::endl;
-        std::cout << "\t" << s_grandhammer.name() << ": " << s_grandhammer.strength() << std::endl;
-        std::cout << "\t" << s_warhammer.name() << ": " << s_warhammer.strength() << std::endl;
-        std::cout << "\t" << s_warhammerPrime.name() << ": " << s_warhammerPrime.strength() << std::endl;
-        std::cout << "\t" << s_warblade.name() << ": " << s_warblade.strength() << std::endl;
-        std::cout << "\t" << s_warbladePrime.name() << ": " << s_warbladePrime.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -192,6 +181,16 @@ int Liberators::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Warblade")
         return Warblade;
     return 0;
+}
+
+void Liberators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_grandblade);
+    visitor(&s_grandhammer);
+    visitor(&s_warhammer);
+    visitor(&s_warhammerPrime);
+    visitor(&s_warblade);
+    visitor(&s_warbladePrime);
 }
 
 } // namespace StormcastEternals

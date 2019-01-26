@@ -34,6 +34,8 @@ public:
 
     bool configure(int numModels, int numStarsoulMaces);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;

@@ -50,12 +50,6 @@ bool BladegheistRevenants::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_tombGreatblade.name() << ": " << s_tombGreatblade.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -109,6 +103,11 @@ int BladegheistRevenants::extraAttacks(const Weapon *weapon) const
     if (m_charged)
         attacks += 1;
     return attacks;
+}
+
+void BladegheistRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_tombGreatblade);
 }
 
 } // namespace Nighthaunt

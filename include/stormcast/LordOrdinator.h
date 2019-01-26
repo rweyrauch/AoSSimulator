@@ -39,6 +39,8 @@ public:
 
     bool configure(WeaponOption weaponOption);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+
 protected:
 
 private:

@@ -54,13 +54,6 @@ bool GrimghastReapers::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_slasherScythe.name() << ": " << s_slasherScythe.strength() << std::endl;
-        std::cout << "\t" << s_deathKnell.name() << ": " << s_deathKnell.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -105,6 +98,12 @@ int GrimghastReapers::toSaveModifier(const Weapon *weapon) const
         modifier = -weapon->rend();
 
     return modifier;
+}
+
+void GrimghastReapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_slasherScythe);
+    visitor(&s_deathKnell);
 }
 
 } // namespace Nighthaunt

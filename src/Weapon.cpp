@@ -143,7 +143,7 @@ int Weapon::numTotalHits() const
     return dice.rollSpecial(m_hitsPerAttack);
 }
 
-float Weapon::strength()
+float Weapon::strength() const
 {
     if (m_strength < 0.0f)
     {

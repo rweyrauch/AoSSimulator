@@ -86,6 +86,7 @@ enum Keyword
     NIGHTHAUNT,
     DAUGHTERS_OF_KHAINE,
     IDONETH_DEEPKIN,
+    BEASTS_OF_CHAOS,
 
     // Common
     MORTAL,
@@ -191,6 +192,10 @@ enum Keyword
     GLAIVEWRAITH_STALKERS,
     DREADSCYTHE_HARRIDANS,
 
+    // Beasts of Chaos
+    BULLGOR,
+    WARHERD,
+    GHORGON,
 };
 
 enum Duration

@@ -66,13 +66,6 @@ bool SquiqHerd::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_squigProdder.name() << ": " << s_squigProdder.strength() << std::endl;
-        std::cout << "\t" << s_fangFilledGob.name() << ": " << s_fangFilledGob.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -146,6 +139,12 @@ void SquiqHerd::onFlee(int numFled)
         }
     }
     Unit::onFlee(numFled);
+}
+
+void SquiqHerd::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_squigProdder);
+    visitor(&s_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

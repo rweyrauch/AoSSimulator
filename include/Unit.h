@@ -14,6 +14,7 @@
 #include <string>
 #include <Weapon.h>
 #include <Model.h>
+#include <functional>
 
 class Unit
 {
@@ -92,6 +93,9 @@ public:
     int slay(int numModels);
 
     float basesizeInches() const { return m_basesize_mm / 25.4; }
+
+    virtual void visitWeapons(std::function<void(const Weapon*)>& visitor) = 0;
+
 protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
@@ -195,6 +199,7 @@ class CustomUnit : public Unit
 public:
     CustomUnit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
 
+    void visitWeapons(std::function<void(const Weapon*)>& visitor) override {}
 };
 
 #endif //UNIT_H

@@ -79,14 +79,6 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_goreaxe.name() << ": " << s_goreaxe.strength() << std::endl;
-        std::cout << "\t" << s_goreaxeChampion.name() << ": " << s_goreaxeChampion.strength() << std::endl;
-        std::cout << "\t" << s_goreglaive.name() << ": " << s_goreglaive.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -133,6 +125,13 @@ void BloodWarriors::Init()
     {
         s_registered = UnitFactory::Register("Blood Warriors", factoryMethod);
     }
+}
+
+void BloodWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_goreaxe);
+    visitor(&s_goreaxeChampion);
+    visitor(&s_goreglaive);
 }
 
 } // namespace Khorne

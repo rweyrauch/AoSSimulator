@@ -63,14 +63,6 @@ bool Castigators::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_thunderheadGreatbow.name() << ": " << s_thunderheadGreatbow.strength() << std::endl;
-        std::cout << "\t" << s_thunderheadGreatbowPrime.name() << ": " << s_thunderheadGreatbowPrime.strength() << std::endl;
-        std::cout << "\t" << s_heavyStock.name() << ": " << s_heavyStock.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -154,6 +146,13 @@ Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
             return RerollOnes;
     }
     return StormcastEternal::toHitRerolls(weapon, unit);
+}
+
+void Castigators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_thunderheadGreatbow);
+    visitor(&s_thunderheadGreatbowPrime);
+    visitor(&s_heavyStock);
 }
 
 } // namespace StormcastEternals

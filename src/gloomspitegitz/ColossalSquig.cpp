@@ -80,14 +80,6 @@ bool ColossalSquig::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_enormousJaws.name() << ": " << s_enormousJaws.strength() << std::endl;
-        std::cout << "\t" << s_tramplingFeet.name() << ": " << s_tramplingFeet.strength() << std::endl;
-        std::cout << "\t" << s_puffSpores.name() << ": " << s_puffSpores.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -156,6 +148,13 @@ void ColossalSquig::Init()
     {
         s_registered = UnitFactory::Register("Colossal Squig", factoryMethod);
     }
+}
+
+void ColossalSquig::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_enormousJaws);
+    visitor(&s_tramplingFeet);
+    visitor(&s_puffSpores);
 }
 
 } // namespace GloomspiteGitz

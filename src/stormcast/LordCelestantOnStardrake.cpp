@@ -69,14 +69,6 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_celestineHammer.name() << ": " << s_celestineHammer.strength() << std::endl;
-        std::cout << "\t" << s_stormboundBlade.name() << ": " << s_stormboundBlade.strength() << std::endl;
-        std::cout << "\t" << s_greatClaws.name() << ": " << s_greatClaws.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -296,6 +288,13 @@ int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
     else if (enumString == "StormboundBlade")
         return StormboundBlade;
     return 0;
+}
+
+void LordCelestantOnStardrake::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_celestineHammer);
+    visitor(&s_stormboundBlade);
+    visitor(&s_greatClaws);
 }
 
 } // namespace StormcastEternals

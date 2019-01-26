@@ -66,13 +66,6 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_hellblade.name() << ": " << s_hellblade.strength() << std::endl;
-        std::cout << "\t" << s_hellbladeReaper.name() << ": " << s_hellbladeReaper.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -117,6 +110,12 @@ int Bloodletters::extraAttacks(const Weapon *weapon) const
     if (remainingModels() >= 20)
         attacks += 1;
     return attacks;
+}
+
+void Bloodletters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_hellblade);
+    visitor(&s_hellbladeReaper);
 }
 
 } // namespace Khorne

@@ -56,13 +56,6 @@ bool Dryads::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_wrackingTalons.name() << ": " << s_wrackingTalons.strength() << std::endl;
-        std::cout << "\t" << s_wrackingTalonsNymph.name() << ": " << s_wrackingTalonsNymph.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -86,6 +79,12 @@ void Dryads::Init()
     {
         s_registered = UnitFactory::Register("Dryads", factoryMethod);
     }
+}
+
+void Dryads::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_wrackingTalons);
+    visitor(&s_wrackingTalonsNymph);
 }
 
 } // namespace Sylvaneth

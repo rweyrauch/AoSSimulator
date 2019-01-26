@@ -54,12 +54,6 @@ bool NamartiThralls::configure(int numModels, int numIconBearers)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_lanmariBlade.name() << ": " << s_lanmariBlade.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -84,6 +78,11 @@ void NamartiThralls::Init()
     {
         s_registered = UnitFactory::Register("Namarti Thralls", factoryMethod);
     }
+}
+
+void NamartiThralls::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_lanmariBlade);
 }
 
 } // namespace IdonethDeepkin

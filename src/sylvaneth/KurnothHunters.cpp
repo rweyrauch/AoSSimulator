@@ -91,18 +91,6 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_greatbow.name() << ": " << s_greatbow.strength() << std::endl;
-        std::cout << "\t" << s_greatbowHuntmaster.name() << ": " << s_greatbowHuntmaster.strength() << std::endl;
-        std::cout << "\t" << s_greatsword.name() << ": " << s_greatsword.strength() << std::endl;
-        std::cout << "\t" << s_greatswordHuntmaster.name() << ": " << s_greatswordHuntmaster.strength() << std::endl;
-        std::cout << "\t" << s_scythe.name() << ": " << s_scythe.strength() << std::endl;
-        std::cout << "\t" << s_scytheHuntmaster.name() << ": " << s_scytheHuntmaster.strength() << std::endl;
-        std::cout << "\t" << s_viciousClaws.name() << ": " << s_viciousClaws.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -152,6 +140,17 @@ int KurnothHunters::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Greatbows")
         return Greatbows;
     return 0;
+}
+
+void KurnothHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_greatbow);
+    visitor(&s_greatbowHuntmaster);
+    visitor(&s_greatsword);
+    visitor(&s_greatswordHuntmaster);
+    visitor(&s_scythe);
+    visitor(&s_scytheHuntmaster);
+    visitor(&s_viciousClaws);
 }
 
 } // namespace Sylvaneth

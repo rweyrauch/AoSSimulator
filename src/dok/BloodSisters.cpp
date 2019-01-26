@@ -59,13 +59,6 @@ bool BloodSisters::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_heartshardGlaive.name() << ": " << s_heartshardGlaive.strength() << std::endl;
-        std::cout << "\t" << s_heartshardGlaiveGorgai.name() << ": " << s_heartshardGlaiveGorgai.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -100,6 +93,12 @@ int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, c
     }
 
     return Unit::generateMortalWounds(weapon, unit, hits);
+}
+
+void BloodSisters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_heartshardGlaive);
+    visitor(&s_heartshardGlaiveGorgai);
 }
 
 } // namespace DaughtersOfKhaine

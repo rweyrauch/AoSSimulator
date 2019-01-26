@@ -79,15 +79,6 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_reaverBlades.name() << ": " << s_reaverBlades.strength() << std::endl;
-        std::cout << "\t" << s_reaverBladesChieftain.name() << ": " << s_reaverBladesChieftain.strength() << std::endl;
-        std::cout << "\t" << s_meatripperAxe.name() << ": " << s_meatripperAxe.strength() << std::endl;
-        std::cout << "\t" << s_meatripperAxeChieftain.name() << ": " << s_meatripperAxeChieftain.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -151,6 +142,14 @@ int Bloodreavers::EnumStringToInt(const std::string &enumString)
     if (enumString == "ReaverBlades") return ReaverBlades;
     else if (enumString == "MeatripperAxe") return MeatripperAxe;
     return 0;
+}
+
+void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_reaverBlades);
+    visitor(&s_reaverBladesChieftain);
+    visitor(&s_meatripperAxe);
+    visitor(&s_meatripperAxeChieftain);
 }
 
 } // namespace Khorne

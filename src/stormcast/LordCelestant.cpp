@@ -40,13 +40,6 @@ bool LordCelestant::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_runeblade.name() << ": " << s_runeblade.strength() << std::endl;
-        std::cout << "\t" << s_warhammer.name() << ": " << s_warhammer.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -92,6 +85,12 @@ void LordCelestant::onStartShooting(PlayerId player)
         }
     }
     StormcastEternal::onStartShooting(player);
+}
+
+void LordCelestant::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_runeblade);
+    visitor(&s_warhammer);
 }
 
 } // namespace StormcastEternals

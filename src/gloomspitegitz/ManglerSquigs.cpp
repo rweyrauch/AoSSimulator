@@ -70,14 +70,6 @@ bool ManglerSquigs::configure()
 
     m_points = POINTS_PER_UNIT;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_hugeFangFilledGob.name() << ": " << s_hugeFangFilledGob.strength() << std::endl;
-        std::cout << "\t" << s_ballsAndChains.name() << ": " << s_ballsAndChains.strength() << std::endl;
-        std::cout << "\t" << s_grotsBashinStikk.name() << ": " << s_grotsBashinStikk.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -134,6 +126,13 @@ void ManglerSquigs::Init()
     {
         s_registered = UnitFactory::Register("Mangler Squigs", factoryMethod);
     }
+}
+
+void ManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_hugeFangFilledGob);
+    visitor(&s_ballsAndChains);
+    visitor(&s_grotsBashinStikk);
 }
 
 } // namespace GloomspiteGitz

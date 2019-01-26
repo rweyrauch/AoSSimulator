@@ -53,13 +53,6 @@ bool ChainraspHorde::configure(int numModels)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_malignantWeapon.name() << ": " << s_malignantWeapon.strength() << std::endl;
-        std::cout << "\t" << s_malignantWeaponWarden.name() << ": " << s_malignantWeaponWarden.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -104,6 +97,12 @@ int ChainraspHorde::toSaveModifier(const Weapon *weapon) const
         modifier = -weapon->rend();
 
     return modifier;
+}
+
+void ChainraspHorde::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_malignantWeapon);
+    visitor(&s_malignantWeaponWarden);
 }
 
 } // namespace Nighthaunt

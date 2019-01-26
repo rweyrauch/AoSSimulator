@@ -71,15 +71,6 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_sacrificialKnife.name() << ": " << s_sacrificialKnife.strength() << std::endl;
-        std::cout << "\t" << s_sacrificialKnifeHandmaiden.name() << ": " << s_sacrificialKnifeHandmaiden.strength() << std::endl;
-        std::cout << "\t" << s_barbedWhip.name() << ": " << s_barbedWhip.strength() << std::endl;
-        std::cout << "\t" << s_barbedWhipHandmaiden.name() << ": " << s_barbedWhipHandmaiden.strength() << std::endl;
-    }
-
     return true;
 }
 
@@ -140,6 +131,14 @@ Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon,
         return returnedDamage;
     }
     return Unit::computeReturnedDamage(weapon, saveRolls);
+}
+
+void SistersOfSlaughter::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_sacrificialKnife);
+    visitor(&s_sacrificialKnifeHandmaiden);
+    visitor(&s_barbedWhip);
+    visitor(&s_barbedWhipHandmaiden);
 }
 
 } // namespace DaughtersOfKhaine
