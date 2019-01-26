@@ -105,6 +105,10 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
         addModel(model);
     }
 
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+        m_points = POINTS_MAX_UNIT_SIZE;
+
     if (m_verbose)
     {
         std::cout << name() << " Weapon Strengths:" << std::endl;

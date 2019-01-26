@@ -109,6 +109,8 @@ int main(int argc, char* argv[])
 
     battle.combatants(pRed, pBlue);
 
+    std::cout << "Red Points: " << pRed->points() << "   Blue Points: " << pBlue->points() << std::endl;
+
     std::stringstream fn;
 
     int redVictories = 0;

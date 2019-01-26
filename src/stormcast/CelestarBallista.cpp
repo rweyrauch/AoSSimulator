@@ -53,6 +53,8 @@ bool CelestarBallista::configure()
     model.addMissileWeapon(m_stormboltsRapid);
     addModel(model);
 
+    m_points = POINTS_PER_UNIT;
+
     if (m_verbose)
     {
         std::cout << name() << " Weapon Strengths:" << std::endl;

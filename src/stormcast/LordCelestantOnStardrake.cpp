@@ -67,6 +67,8 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
     model.addMeleeWeapon(m_pGreatClaws);
     addModel(model);
 
+    m_points = POINTS_PER_UNIT;
+
     if (m_verbose)
     {
         std::cout << name() << " Weapon Strengths:" << std::endl;

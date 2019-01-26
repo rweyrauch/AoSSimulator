@@ -79,3 +79,13 @@ Unit *Roster::nearestUnit(const Unit *unit) const
     }
     return nearestUnit;
 }
+
+int Roster::totalPoints() const
+{
+    int points = 0;
+    for (auto u : m_units)
+    {
+        points += u->points();
+    }
+    return points;
+}

@@ -37,6 +37,8 @@ public:
     std::vector<Unit*>::const_iterator unitBegin() const { return m_units.begin(); }
     std::vector<Unit*>::const_iterator unitEnd() const { return m_units.end(); }
 
+    int totalPoints() const;
+
 private:
     const PlayerId m_id;
     std::vector<Unit*> m_units;

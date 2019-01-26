@@ -65,6 +65,8 @@ bool LoonbossOnManglerSquigs::configure()
 
     addModel(model);
 
+    m_points = POINTS_PER_UNIT;
+
     if (m_verbose)
     {
         std::cout << name() << " Weapon Strengths:" << std::endl;

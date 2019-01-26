@@ -58,6 +58,8 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
     model.addMeleeWeapon(&s_clawsAndFangs);
     addModel(model);
 
+    m_points = POINTS_PER_UNIT;
+
     if (m_verbose)
     {
         std::cout << name() << " Weapon Strengths:" << std::endl;
