@@ -35,6 +35,11 @@ public:
 
 protected:
 
+    void onCharged() override;
+    int toWoundModifier(const Weapon* weapon, const Unit* unit) const override;
+
+private:
+
     static Weapon s_fangFilledGob,
         s_pokinLance,
         s_pokinLanceBoss;

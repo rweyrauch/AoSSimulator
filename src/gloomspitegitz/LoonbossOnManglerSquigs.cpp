@@ -140,4 +140,25 @@ void LoonbossOnManglerSquigs::Init()
     }
 }
 
+void LoonbossOnManglerSquigs::onSlain()
+{
+    // Watch Out!
+    // TODO: get all units within 6" (friend and foe)
+    if (m_meleeTarget)
+    {
+        float dist = distanceTo(m_meleeTarget);
+        if (dist <= 6.0f)
+        {
+            Dice dice;
+            int roll = dice.rollD6();
+            if (roll >= 4)
+            {
+                int mortalWounds = dice.rollD3();
+                m_meleeTarget->applyDamage({0, mortalWounds});
+            }
+        }
+    }
+    Unit::onSlain();
+}
+
 } // namespace GloomspiteGitz

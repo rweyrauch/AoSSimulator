@@ -177,6 +177,9 @@ int Unit::applyBattleshock()
         numFleeing--;
     }
 
+    if (numFled > 0)
+        onFlee(numFled);
+
     return numFled;
 }
 
@@ -437,7 +440,10 @@ void Unit::movement(PlayerId player)
             if (distance > weapon->range() + move())
             {
                 // too far to get into range with normal move - run
-                totalMoveDistance = move() + rollRunDistance();
+                auto runDist = rollRunDistance();
+                if ((runDist < 3) && (runRerolls() != NoRerolls))
+                    runDist = rollRunDistance();
+                totalMoveDistance = move() + runDist;
                 m_ran = true;
             }
             else if (distance > weapon->range())
@@ -457,7 +463,10 @@ void Unit::movement(PlayerId player)
             if (distance > weapon->range() + move() + PILE_IN_DISTANCE) // todo: pile-in should be unit-specific
             {
                 // too far to get into range with normal move - run
-                totalMoveDistance = move() + rollRunDistance();
+                auto runDist = rollRunDistance();
+                if ((runDist < 3) && (runRerolls() != NoRerolls))
+                    runDist = rollRunDistance();
+                totalMoveDistance = move() + runDist;
                 m_ran = true;
             }
             else if (distance > PILE_IN_DISTANCE) // pile-in
@@ -583,6 +592,20 @@ void Unit::charge(PlayerId player)
                 Math::Ray ray(position(), closestTarget->position());
                 auto newPos = ray.point_at(chargeDist);
                 setPosition(newPos, ray.get_direction());
+            }
+            else if (chargeRerolls() != NoRerolls)
+            {
+                float chargeDist = rollChargeDistance();
+                if (chargeDist >= distance)
+                {
+                    m_charged = true;
+
+                    chargeDist = distance;
+
+                    Math::Ray ray(position(), closestTarget->position());
+                    auto newPos = ray.point_at(chargeDist);
+                    setPosition(newPos, ray.get_direction());
+                }
             }
         }
     }

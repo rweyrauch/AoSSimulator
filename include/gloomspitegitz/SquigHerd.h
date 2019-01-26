@@ -35,6 +35,14 @@ public:
 
 protected:
 
+    bool hasHerder() const;
+
+    Rerolls runRerolls() const override;
+    Rerolls chargeRerolls() const override;
+    void onFlee(int numFled) override;
+
+private:
+
     static Weapon s_fangFilledGob,
         s_squigProdder;
 

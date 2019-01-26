@@ -95,4 +95,35 @@ void BoingrotBounderz::Init()
     }
 }
 
+void BoingrotBounderz::onCharged()
+{
+    if (m_meleeTarget)
+    {
+        // Boing! Smash!
+        auto dist = distanceTo(m_meleeTarget);
+        if (dist <= 1)
+        {
+            Dice dice;
+            int numEnemyModels = m_meleeTarget->remainingModels();
+
+            Dice::RollResult rolls;
+            dice.rollD6(numEnemyModels, rolls);
+            int numMortalWounds = rolls.rollsGE(4);
+
+            m_meleeTarget->applyDamage({0, numMortalWounds});
+        }
+    }
+    Unit::onCharged();
+}
+
+int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) const
+{
+    // Lances of the Bounderz
+    int modifier = Unit::toWoundModifier(weapon, unit);
+    if (m_charged && weapon->name() == s_pokinLance.name())
+        modifier += 1;
+
+    return modifier;
+}
+
 } // namespace GloomspiteGitz

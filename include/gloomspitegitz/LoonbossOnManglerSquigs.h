@@ -40,6 +40,9 @@ protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     void onWounded() override;
+    void onSlain() override;
+
+private:
 
     int getDamageTableIndex() const;
 

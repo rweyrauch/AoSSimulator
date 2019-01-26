@@ -9,6 +9,8 @@
 #include <gloomspitegitz/SquigHerd.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
+#include <Roster.h>
 
 namespace GloomspiteGitz
 {
@@ -94,6 +96,56 @@ void SquiqHerd::Init()
     {
         s_registered = UnitFactory::Register("Squiq Herd", factoryMethod);
     }
+}
+
+Rerolls SquiqHerd::runRerolls() const
+{
+    // Go Dat Way!
+    if (hasHerder())
+        return RerollFailed;
+
+    return Unit::runRerolls();
+}
+
+Rerolls SquiqHerd::chargeRerolls() const
+{
+    // Go Dat Way!
+    if (hasHerder())
+        return RerollFailed;
+
+    return Unit::chargeRerolls();
+}
+
+bool SquiqHerd::hasHerder() const
+{
+    // TODO: check for herders - assuming herder is always the last model removed.
+    return true;
+}
+
+void SquiqHerd::onFlee(int numFled)
+{
+    Dice dice;
+
+    // Squigs Go Wild
+    Dice::RollResult rolls;
+    dice.rollD6(numFled, rolls);
+    int numMortalWounds = rolls.rollsGE(4);
+
+    if (numMortalWounds)
+    {
+        auto board = Board::Instance();
+
+        PlayerId otherPlayer = PlayerId::Red;
+        if (m_owningPlayer == PlayerId::Red)
+            otherPlayer = PlayerId::Blue;
+        auto otherRoster = board->getPlayerRoster(otherPlayer);
+        auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+        if (closestTarget && distanceTo(closestTarget) <= 6.0f)
+        {
+            closestTarget->applyDamage({0, numMortalWounds});
+        }
+    }
+    Unit::onFlee(numFled);
 }
 
 } // namespace GloomspiteGitz

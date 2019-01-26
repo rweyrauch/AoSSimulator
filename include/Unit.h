@@ -128,6 +128,7 @@ protected:
     virtual void onStartShooting(PlayerId player) {}
     virtual void onStartCombat(PlayerId player) {}
     virtual void onEndCombat(PlayerId player) {}
+    virtual void onFlee(int numFled) {}
 
     int rollRunDistance() const;
     int rollChargeDistance() const;
