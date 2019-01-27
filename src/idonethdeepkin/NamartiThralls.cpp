@@ -31,6 +31,7 @@ NamartiThralls::NamartiThralls() :
     Unit("Namarti Thralls", 6, WOUNDS, 6, 5, false)
 {
     m_keywords = { ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS };
+    m_battleFieldRole = Role::Battleline;
 }
 
 bool NamartiThralls::configure(int numModels, int numIconBearers)

@@ -198,6 +198,11 @@ Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, c
         dice.rollD6(woundingHits.numWoundingHit, 1, rollResult);
         numMadeSaves = rollResult.rollsGE(toSave);
     }
+    else if (toSaveModifier(weapon) == RerollOnesAndTwos)
+    {
+        dice.rollD6(woundingHits.numWoundingHit, 2, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+    }
     else if (toSaveModifier(weapon) == RerollFailed)
     {
         dice.rollD6(woundingHits.numWoundingHit, rollResult);
@@ -331,6 +336,8 @@ void Unit::restore()
         m.woundsRemaining() = m_wounds;
         m.restore();
     }
+
+    onRestore();
 }
 
 bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation)

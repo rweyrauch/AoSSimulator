@@ -45,6 +45,7 @@ enum Rerolls
 {
     NoRerolls = 0,
     RerollOnes,
+    RerollOnesAndTwos,
     RerollSixes,
     RerollFailed,
 };
@@ -180,6 +181,7 @@ enum Keyword
     // Idoneth Deepkin
     NAMARTI,
     THRALLS,
+    REAVERS,
     AKHELIAN,
     AKHELIAN_GUARD,
     MORRSARR_GUARD,

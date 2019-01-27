@@ -58,6 +58,9 @@ add_library(
         dok/KhineraiLifetakers.cpp
         dok/SistersOfSlaughter.cpp
         idonethdeepkin/NamartiThralls.cpp
+        idonethdeepkin/NamartiReavers.cpp
+        idonethdeepkin/IshlaenGuard.cpp
+        idonethdeepkin/MorrsarrGuard.cpp
         nighthaunt/GrimghastReapers.cpp
         nighthaunt/ChainraspHorde.cpp
         nighthaunt/BladegheistRevenants.cpp

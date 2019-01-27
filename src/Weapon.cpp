@@ -53,6 +53,11 @@ Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
         dice.rollD6(totalAttacks, 1, rollResult);
         numHits = rollResult.rollsGE(toHit);
     }
+    else if (rerolls == RerollOnesAndTwos)
+    {
+        dice.rollD6(totalAttacks, 2, rollResult);
+        numHits = rollResult.rollsGE(toHit);
+    }
     else if (rerolls == RerollFailed)
     {
         dice.rollD6(totalAttacks, rollResult);
@@ -98,6 +103,11 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
     if (rerolls == RerollOnes)
     {
         dice.rollD6(totalHits, 1, rollResult);
+        numWoundingHits = rollResult.rollsGE(toWound);
+    }
+    else if (rerolls == RerollOnesAndTwos)
+    {
+        dice.rollD6(totalHits, 2, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
     }
     else if (rerolls == RerollFailed)

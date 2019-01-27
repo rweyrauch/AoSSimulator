@@ -138,6 +138,8 @@ void Ghorgon::onStartCombat(PlayerId player)
 {
     Unit::onStartCombat(player);
 
+    if (player != owningPlayer()) return;
+
     // Swallowed Whole
     if (m_meleeTarget)
     {

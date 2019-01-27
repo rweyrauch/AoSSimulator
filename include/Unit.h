@@ -124,6 +124,7 @@ protected:
     virtual int chargeModifier() const { return 0; }
     virtual Rerolls chargeRerolls() const { return NoRerolls; }
 
+    virtual void onRestore() {}
     virtual void onBeginTurn(int battleRound) {}
     virtual void onSlain() {}
     virtual void onWounded() {}

@@ -51,6 +51,9 @@
 #include "dok/SistersOfSlaughter.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
+#include "idonethdeepkin/NamartiReavers.h"
+#include "idonethdeepkin/IshlaenGuard.h"
+#include "idonethdeepkin/MorrsarrGuard.h"
 
 #include "nighthaunt/ChainraspHorde.h"
 #include "nighthaunt/GrimghastReapers.h"
@@ -110,6 +113,9 @@ void Initialize()
     DaughtersOfKhaine::KhineraiLifetakers::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
+    IdonethDeepkin::NamartiReavers::Init();
+    IdonethDeepkin::AkhelianMorrsarrGuard::Init();
+    IdonethDeepkin::AkhelianIshlaenGuard::Init();
 
     Nighthaunt::ChainraspHorde::Init();
     Nighthaunt::GrimghastReapers::Init();
