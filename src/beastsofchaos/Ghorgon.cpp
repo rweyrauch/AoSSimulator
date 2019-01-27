@@ -80,12 +80,23 @@ int BeastsOfChaos::Ghorgon::move() const
 
 Unit *BeastsOfChaos::Ghorgon::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new Ghorgon();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void BeastsOfChaos::Ghorgon::Init()
 {
-
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Ghorgon", factoryMethod);
+    }
 }
 
 void BeastsOfChaos::Ghorgon::onWounded()

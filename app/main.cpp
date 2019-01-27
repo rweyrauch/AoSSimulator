@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
         ("s, save", "Save battlemaps")
         ("mapname", "Battlemap basename", cxxopts::value<std::string>(mapBaseName))
         ("i, iterations", "Number of battle iterations", cxxopts::value<int>(numIterations))
-        ("w, weapons", "List weapons for the given unit", cxxopts::value<std::string>())
+        ("w, weapons", "List weapons for the given unit", cxxopts::value<std::string>(), "none")
         ;
     auto result = options.parse(argc, argv);
 
@@ -380,12 +380,37 @@ Unit* parseUnitDescription(const std::string& desc)
     return unit;
 }
 
+std::string damageToString(int damage)
+{
+    if (damage < 0)
+    {
+        switch (damage)
+        {
+            case RAND_D3:
+                return "D3";
+            case RAND_D6:
+                return "D6";
+            case RAND_2D6:
+                return "2D6";
+            case RAND_3D6:
+                return "3D6";
+            case RAND_4D6:
+                return "4D6";
+
+        }
+    }
+    return std::string(std::to_string(damage));
+}
 void displayWeapons(bool verbose, const std::string& unitName)
 {
     std::function<void(const Weapon*)> weaponVistor = [](const Weapon* weapon) {
         if (weapon)
         {
-            std::cout << weapon->name() << "\t Strength: " << weapon->strength() << std::endl;
+            std::cout << "        " << weapon->name() << "  Type: " << (weapon->isMissile() ? "Missile" : "Melee")
+                      << "  Range: " << weapon->range() << " Attacks: " << weapon->attacks()
+                      << " To Hit: " << weapon->toHit() << "+  To Wound: " << weapon->toWound()
+                      << "+  Rend: " << weapon->rend() << "  Damage: " << damageToString(weapon->damage())
+                      << " Strength: " << weapon->strength() << std::endl;
         }
     };
 
@@ -394,7 +419,17 @@ void displayWeapons(bool verbose, const std::string& unitName)
 
     if (listAll)
     {
-
+        std::cout << "Weapons: " << std::endl;
+        for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
+        {
+            auto unit = UnitFactory::Create(ruip->first, ruip->second.m_parameters);
+            if (unit)
+            {
+                std::cout << "    Unit: " << unit->name() << std::endl;
+                unit->visitWeapons(weaponVistor);
+                delete unit;
+            }
+        }
     }
     else
     {
@@ -404,6 +439,8 @@ void displayWeapons(bool verbose, const std::string& unitName)
             auto unit = UnitFactory::Create(unitName, factory->m_parameters);
             if (unit)
             {
+                std::cout << "Weapons: " << std::endl;
+                std::cout << "    Unit: " << unit->name() << std::endl;
                 unit->visitWeapons(weaponVistor);
                 delete unit;
             }

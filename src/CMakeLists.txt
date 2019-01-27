@@ -64,6 +64,10 @@ add_library(
         nighthaunt/GlaivewraithStalkers.cpp
         nighthaunt/DreadscytheHarridans.cpp
         beastsofchaos/Ghorgon.cpp
+        beastsofchaos/Gors.cpp
+        beastsofchaos/Bestigors.cpp
+        beastsofchaos/Bullgors.cpp
+        beastsofchaos/Ungors.cpp
 )
 
 target_include_directories(

@@ -194,8 +194,14 @@ enum Keyword
 
     // Beasts of Chaos
     BULLGOR,
+    BULLGORS,
     WARHERD,
     GHORGON,
+    BRAYHERD,
+    GOR,
+    GORS,
+    BESTIGORS,
+    UNGORS,
 };
 
 enum Duration

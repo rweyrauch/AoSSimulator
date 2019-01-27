@@ -58,6 +58,12 @@
 #include "nighthaunt/GlaivewraithStalkers.h"
 #include "nighthaunt/DreadscytheHarridans.h"
 
+#include "beastsofchaos/Gors.h"
+#include "beastsofchaos/Ghorgon.h"
+#include "beastsofchaos/Ungors.h"
+#include "beastsofchaos/Bestigors.h"
+#include "beastsofchaos/Bullgors.h"
+
 void Initialize()
 {
     StormcastEternals::Liberators::Init();
@@ -110,4 +116,10 @@ void Initialize()
     Nighthaunt::BladegheistRevenants::Init();
     Nighthaunt::GlaivewraithStalkers::Init();
     Nighthaunt::DreadscytheHarridans::Init();
+
+    BeastsOfChaos::Gors::Init();
+    BeastsOfChaos::Ghorgon::Init();
+    BeastsOfChaos::Bestigors::Init();
+    BeastsOfChaos::Bullgors::Init();
+    BeastsOfChaos::Ungors::Init();
 }
