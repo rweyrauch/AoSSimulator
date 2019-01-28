@@ -67,6 +67,10 @@
 #include "beastsofchaos/Bestigors.h"
 #include "beastsofchaos/Bullgors.h"
 
+#include "slaanesh/Fiends.h"
+#include "slaanesh/Seekers.h"
+#include "slaanesh/Daemonettes.h"
+
 void Initialize()
 {
     StormcastEternals::Liberators::Init();
@@ -128,4 +132,8 @@ void Initialize()
     BeastsOfChaos::Bestigors::Init();
     BeastsOfChaos::Bullgors::Init();
     BeastsOfChaos::Ungors::Init();
+
+    Slaanesh::Daemonettes::Init();
+    Slaanesh::Fiends::Init();
+    Slaanesh::Seekers::Init();
 }

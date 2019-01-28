@@ -3,7 +3,7 @@ AosManoAMano simple Warhammer Age of Sigmar&trade; battle simulator.
 The application permits two units to conduct a simulated Age of Sigmar battle.  These
 units are called Player 1 or Red and Player 2 or Blue.
 The battle is conducted following the Age of Sigmar 2.0 core rules.  The battle starts
-with an initiative roll for first turn and then progresses through a multiturn simulation
+with an initiative roll for first turn and then progresses through a multi-turn simulation
 of an Age of Sigmar battle.  The application aims to simulate each phase of the
 game; Hero, Movement, Shooting, Charge, Combat and Battleshock.  The default simulation is a 5
 round battle.
@@ -63,40 +63,61 @@ Player units are specified using the following format:
 
     "<unit name>,<param1=value1>,<param2=value2>..."
     
-Use the --list and --versbose options to see a list of supported unit and their parameters.  Supported
+Use the --list and --verbose options to see a list of supported unit and their parameters.  Supported
 units include the following:
 
-    Alarielle
-    Bladegheist Revenants
-    Blood Warriors
-    Bloodletters
-    Bloodreavers
-    Boingrot Bounderz
-    Celestar Ballista
-    Chainrasp Horde
-    Colossal Squig
-    Dreadscythe Harridans
-    Dryads
-    Evocators
-    Glaivewraith Stalkers
-    Grimghast Reapers
-    Judicators
-    Kurnoth Hunters
-    Liberators
-    Loonboss on Mangler Squigs
-    Lord-Ordinator
-    Mangler Squigs
-    Namarti Thralls
-    Retributors
-    Sequitors
-    Shootas
-    Spirit of Durthu
-    Spite-Revenants
-    Squiq Herd
-    Squiq Hoppers
-    Stabbas
-    Tree-Revenants
-    Witch Aelves
+	Akhelian Ishlaen Guard
+	Akhelian Morrsarr Guard
+	Alarielle
+	Bestigors
+	Bladegheist Revenants
+	Blood Sisters
+	Blood Warriors
+	Bloodletters
+	Bloodreavers
+	Boingrot Bounderz
+	Bullgors
+	Castigators
+	Celestar Ballista
+	Chainrasp Horde
+	Colossal Squig
+	Dreadscythe Harridans
+	Dryads
+	Evocators
+	Ghorgon
+	Glaivewraith Stalkers
+	Gors
+	Grimghast Reapers
+	Judicators
+	Khinerai Lifetakers
+	Knight-Incantor
+	Knight-Questor
+	Knight-Zephyros
+	Kurnoth Hunters
+	Liberators
+	Loonboss on Mangler Squigs
+	Lord-Celestant
+	Lord-Celestant-on-Dracoth
+	Lord-Celestant-on-Stardrake
+	Lord-Ordinator
+	Mangler Squigs
+	Namarti Reavers
+	Namarti Thralls
+	Retributors
+	Sequitors
+	Shootas
+	Sisters of Slaughter
+	Spirit of Durthu
+	Spite-Revenants
+	Squiq Herd
+	Squiq Hoppers
+	Stabbas
+	Tree-Revenants
+	Ungors
+	Vanguard-Hunters
+	VanguardRaptorsHurricane
+	VanguardRaptorsLongstrike
+	Witch Aelves
     
     
 The following specifies the parameters needed to create a unit of 10 Liberators with 2 Grandhammers.

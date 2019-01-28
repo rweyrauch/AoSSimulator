@@ -17,6 +17,7 @@ add_library(
         UnitFactory.cpp
         UnitInit.cpp
         MathUtils.cpp
+
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp
@@ -35,15 +36,18 @@ add_library(
         stormcast/VanguardRaptorsHurricane.cpp
         stormcast/VanguardRaptorsLongstrike.cpp
         stormcast/Castigators.cpp
+
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         khorne/Bloodletters.cpp
+
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
         sylvaneth/KurnothHunters.cpp
         sylvaneth/Dryads.cpp
         sylvaneth/TreeRevenants.cpp
         sylvaneth/SpiteRevenants.cpp
+
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp
         gloomspitegitz/BoingrotBounderz.cpp
@@ -52,25 +56,33 @@ add_library(
         gloomspitegitz/ColossalSquig.cpp
         gloomspitegitz/Stabbas.cpp
         gloomspitegitz/Shootas.cpp
+
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
         dok/BloodSisters.cpp
         dok/KhineraiLifetakers.cpp
         dok/SistersOfSlaughter.cpp
+
         idonethdeepkin/NamartiThralls.cpp
         idonethdeepkin/NamartiReavers.cpp
         idonethdeepkin/IshlaenGuard.cpp
         idonethdeepkin/MorrsarrGuard.cpp
+
         nighthaunt/GrimghastReapers.cpp
         nighthaunt/ChainraspHorde.cpp
         nighthaunt/BladegheistRevenants.cpp
         nighthaunt/GlaivewraithStalkers.cpp
         nighthaunt/DreadscytheHarridans.cpp
+
         beastsofchaos/Ghorgon.cpp
         beastsofchaos/Gors.cpp
         beastsofchaos/Bestigors.cpp
         beastsofchaos/Bullgors.cpp
         beastsofchaos/Ungors.cpp
+
+        slaanesh/Fiends.cpp
+        slaanesh/Daemonettes.cpp
+        slaanesh/Seekers.cpp
 )
 
 target_include_directories(

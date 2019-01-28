@@ -23,9 +23,9 @@ int main(int argc, char* argv[])
 
     nanogui::init();
 
-    nanogui::Screen *screen = new nanogui::Screen(nanogui::Vector2i(256, 512), "AoS Mano-a-mano GUI");
+    nanogui::Screen *screen = new nanogui::Screen({256, 512}, "AoS Mano-a-mano GUI", false);
     nanogui::FormHelper *gui = new nanogui::FormHelper(screen);
-    nanogui::ref<nanogui::Window> window = gui->addWindow(nanogui::Vector2i(0, 0), "Form helper example");
+    auto window = gui->addWindow({0, 0}, "Form helper example");
 
     gui->addGroup("Settings");
     gui->addVariable("Iterations", numIterations);

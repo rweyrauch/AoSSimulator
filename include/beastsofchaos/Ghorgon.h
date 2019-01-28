@@ -30,7 +30,7 @@ public:
     ~Ghorgon() override
     {
         delete m_pButcheringBlades;
-        delete m_pButcheringBlades;
+        delete m_pHugeSlaveringMaw;
     }
 
     bool configure();
