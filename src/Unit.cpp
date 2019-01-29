@@ -125,11 +125,13 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
                 continue;
             }
 
-            auto hits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w));
+            auto toHitMod = toHitModifier(w, unit) + targetHitModifier(w, this);
+            auto hits = w->rollToHit(toHitMod, toHitRerolls(w, unit), extraAttacks(w));
             // apply hit modifiers on returned hits
             hits = applyHitModifiers(w, unit, hits);
 
-            auto totalWounds = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
+            auto toWoundMod = toWoundModifier(w, unit) + targetWoundModifier(w, this);
+            auto totalWounds = w->rollToWound(hits.numHits, toWoundMod, toWoundRerolls(w, unit));
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
             // some units being targeted generate wounds to the attacking units on successful saves
@@ -224,12 +226,13 @@ Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, c
     auto numFails = woundingHits.numWoundingHit - numMadeSaves;
     auto totalDamage = numFails * weapon->damage();
 
-    // TODO: add mortal wound save
+    // apply wound/mortal wound save
+    Wounds totalWounds = applyWoundSave({totalDamage, mortalWounds});
 
     // add returned damage (damage inflicted by this unit on the attacking unit)
     woundsReturned = computeReturnedDamage(weapon, rollResult);
 
-    return {totalDamage, mortalWounds};
+    return totalWounds;
 }
 
 Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :

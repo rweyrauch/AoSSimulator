@@ -92,7 +92,7 @@ public:
 
     int slay(int numModels);
 
-    float basesizeInches() const { return m_basesize_mm / 25.4; }
+    float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
     virtual void visitWeapons(std::function<void(const Weapon*)>& visitor) = 0;
 
@@ -100,11 +100,35 @@ protected:
 
     Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly);
 
-    virtual int toHitModifier(const Weapon* weapon, const Unit* unit) const { return m_toHitBuff; }
-    virtual Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
+    /*
+     * To-hit modifier (buffs) when this unit uses the given weapon to attack the target.
+     */
+    virtual int toHitModifier(const Weapon* weapon, const Unit* target) const { return m_toHitBuff; }
 
-    virtual int toWoundModifier(const Weapon* weapon, const Unit* unit) const { return 0; }
-    virtual Rerolls toWoundRerolls(const Weapon* weapon, const Unit* unit) const { return NoRerolls; }
+    /*
+     * Target to-hit modifier (debuff) when the attacker unit targets this unit using the given weapon.
+     */
+    virtual int targetHitModifier(const Weapon* weapon, const Unit* attacker) const { return 0; }
+
+    /*
+     * To-hit rerolls when this unit uses the given weapon to attack the target.
+     */
+    virtual Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const { return NoRerolls; }
+
+    /*
+     * To-wound modifier (buffs) when this unit uses the given weapon to attack the target.
+     */
+    virtual int toWoundModifier(const Weapon* weapon, const Unit* target) const { return 0; }
+
+    /*
+     * Target to-wound modifier (debuff) when the attacker targets this unit using the given weapon.
+     */
+    virtual int targetWoundModifier(const Weapon* weapon, const Unit* attacker) const { return 0; }
+
+    /*
+     * To-wound rerolls when this unit use the given weapon to attack the target.
+     */
+    virtual Rerolls toWoundRerolls(const Weapon* weapon, const Unit* target) const { return NoRerolls; }
 
     virtual int toSaveModifier(const Weapon* weapon) const { return 0; }
     virtual Rerolls toSaveRerolls(const Weapon* weapon) const { return NoRerolls; }
@@ -139,6 +163,8 @@ protected:
     int rollChargeDistance() const;
 
     virtual Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const { return {0, 0}; }
+
+    virtual Wounds applyWoundSave(const Wounds& wounds) { return wounds; }
 
 protected:
     std::string m_name = "";

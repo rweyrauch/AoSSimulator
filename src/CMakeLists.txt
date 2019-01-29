@@ -83,6 +83,10 @@ add_library(
         slaanesh/Fiends.cpp
         slaanesh/Daemonettes.cpp
         slaanesh/Seekers.cpp
+
+        nurgle/Plaguebearers.cpp
+        nurgle/LordOfPlagues.cpp
+        nurgle/PutridBlightkings.cpp
 )
 
 target_include_directories(

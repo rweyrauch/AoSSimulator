@@ -71,6 +71,10 @@
 #include "slaanesh/Seekers.h"
 #include "slaanesh/Daemonettes.h"
 
+#include "nurgle/LordOfPlagues.h"
+#include "nurgle/Plaguebearers.h"
+#include "nurgle/PutridBlightkings.h"
+
 void Initialize()
 {
     StormcastEternals::Liberators::Init();
@@ -136,4 +140,8 @@ void Initialize()
     Slaanesh::Daemonettes::Init();
     Slaanesh::Fiends::Init();
     Slaanesh::Seekers::Init();
+
+    Nurgle::LordOfPlagues::Init();
+    Nurgle::Plaguebearers::Init();
+    Nurgle::PutridBlightkings::Init();
 }

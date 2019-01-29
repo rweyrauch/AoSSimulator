@@ -238,6 +238,14 @@ enum Keyword
     DAEMONETTES,
     SEEKERS,
     FIENDS,
+
+    // Nurgle
+    PLAGUEBEARER,
+    PLAGUEBEARERS,
+    ROTBRINGER,
+    PUTRID_BLIGHTKINGS,
+    LORD_OF_PLAGUES,
+
 };
 
 enum Duration
