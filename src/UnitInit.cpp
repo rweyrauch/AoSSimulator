@@ -33,6 +33,9 @@
 #include "gloomspitegitz/SquigHoppers.h"
 #include "gloomspitegitz/Stabbas.h"
 #include "gloomspitegitz/Shootas.h"
+#include "gloomspitegitz/RockgutTroggoths.h"
+#include "gloomspitegitz/DankholdTroggoths.h"
+#include "gloomspitegitz/DankholdTroggboss.h"
 
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
@@ -103,6 +106,9 @@ void Initialize()
     GloomspiteGitz::SquiqHoppers::Init();
     GloomspiteGitz::Stabbas::Init();
     GloomspiteGitz::Shootas::Init();
+    GloomspiteGitz::RockgutTroggoths::Init();
+    GloomspiteGitz::DankholdTroggboss::Init();
+    GloomspiteGitz::DankholdTroggoths::Init();
 
     Khorne::Bloodreavers::Init();
     Khorne::BloodWarriors::Init();

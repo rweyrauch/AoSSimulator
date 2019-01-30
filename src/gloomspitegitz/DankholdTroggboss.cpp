@@ -1,0 +1,128 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#include <gloomspitegitz/DankholdTroggboss.h>
+#include <UnitFactory.h>
+#include <Board.h>
+#include <Roster.h>
+
+namespace GloomspiteGitz
+{
+static FactoryMethod factoryMethod = {
+    DankholdTroggboss::Create,
+    nullptr,
+    nullptr,
+    {
+    }
+};
+
+Weapon DankholdTroggboss::s_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6);
+
+bool DankholdTroggboss::s_registered = false;
+
+DankholdTroggboss::DankholdTroggboss() :
+    Unit("Dankhold Troggboss", 6, WOUNDS, 7, 4, false)
+{
+    m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
+}
+
+bool DankholdTroggboss::configure()
+{
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&s_boulderClub);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
+}
+
+void DankholdTroggboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&s_boulderClub);
+}
+
+Unit *DankholdTroggboss::Create(const ParameterList &parameters)
+{
+    auto unit = new DankholdTroggboss();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void DankholdTroggboss::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Dankhold Troggboss", factoryMethod);
+    }
+}
+
+void DankholdTroggboss::hero(PlayerId player)
+{
+    Unit::hero(player);
+
+    if (remainingWounds() < WOUNDS && remainingWounds() > 0)
+    {
+        Dice dice;
+        // Regeneration - heal D3
+        if (dice.rollD6() >= 4)
+        {
+            int woundsHealed = dice.rollD3();
+            for (auto& m : m_models)
+            {
+                m.woundsRemaining() += woundsHealed;
+                if (m.woundsRemaining() > WOUNDS)
+                    m.woundsRemaining() = WOUNDS;
+            }
+        }
+    }
+
+    Unit::hero(player);
+}
+
+void DankholdTroggboss::onStartCombat(PlayerId player)
+{
+    Dice dice;
+    if (m_meleeTarget)
+    {
+        // Crushing Grip
+        int roll = dice.rollD6();
+        if (roll >= m_meleeTarget->wounds())
+        {
+            m_meleeTarget->slay(1);
+        }
+    }
+
+    // Squiggly-beast Followerers
+    PlayerId otherPlayer = PlayerId::Red;
+    if (player == PlayerId::Red)
+        otherPlayer = PlayerId::Blue;
+
+    auto units = Board::Instance()->getUnitsWithin(this, otherPlayer, 3.0f);
+    for (auto ip : units)
+    {
+        int roll = dice.rollD6();
+        if (roll >= ip->remainingModels())
+        {
+            ip->applyDamage({0, 1});
+        }
+    }
+
+    Unit::onStartCombat(player);
+}
+
+} // namespace GloomspiteGitz
+

@@ -190,6 +190,10 @@ enum Keyword
     COLOSSAL_SQUIG,
     SHOOTAS,
     STABBAS,
+    ROCKGUT,
+    TROGGOTH,
+    DANKHOLD,
+    TROGGBOSS,
 
     // Daughters of Khaine
     MELUSAI,

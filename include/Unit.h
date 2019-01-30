@@ -36,6 +36,10 @@ public:
     void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
     PlayerId owningPlayer() const { return m_owningPlayer; }
 
+    int numSpells() const { return m_numSpells; }
+    int numUnbinds() const { return m_numUnbinds; }
+    int numPrayers() const { return m_numPrayers; }
+
     void setPoints(int points) { m_points = points; }
     void addModel(const Model& model);
 
@@ -138,6 +142,9 @@ protected:
 
     virtual int rollBattleshock() const;
 
+    virtual int castingModifier() const { return 0; }
+    virtual int unbindingModifier() const { return 0; }
+
     virtual int extraAttacks(const Weapon* weapon) const { return 0; }
 
     virtual Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return hits; }
@@ -185,6 +192,10 @@ protected:
     bool m_ignoreRend = false;
 
     PlayerId m_owningPlayer = PlayerId::None;
+
+    int m_numSpells = 0;
+    int m_numUnbinds = 0;
+    int m_numPrayers = 0;
 
     int m_ranks = 1;
     std::vector<Model> m_models;

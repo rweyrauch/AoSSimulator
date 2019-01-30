@@ -56,6 +56,9 @@ add_library(
         gloomspitegitz/ColossalSquig.cpp
         gloomspitegitz/Stabbas.cpp
         gloomspitegitz/Shootas.cpp
+        gloomspitegitz/DankholdTroggboss.cpp
+        gloomspitegitz/DankholdTroggoths.cpp
+        gloomspitegitz/RockgutTroggoths.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

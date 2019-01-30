@@ -32,6 +32,8 @@ public:
 private:
     const PlayerId m_id;
     Roster* m_roster = nullptr;
+
+    int m_commandPoints = 0;
 };
 
 

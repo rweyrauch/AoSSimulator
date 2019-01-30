@@ -53,7 +53,7 @@ Board *Board::Instance()
     return s_pInstance;
 }
 
-void Board::render(const std::string filename) const
+void Board::render(const std::string& filename) const
 {
     // use cairomm to create a raster image of the current board state
     int imageW = m_width * 10; // tenth's of inches
@@ -154,4 +154,37 @@ void Board::render(const std::string filename) const
     cr->restore();
 
     surface->write_to_png(filename);
+}
+
+std::vector<Unit *> Board::getUnitsWithin(const Unit* unit, PlayerId which, float distance)
+{
+    std::vector<Unit*> units;
+    if (which == PlayerId::None)
+    {
+        for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
+        {
+            if (*ip == unit) continue;
+            float dist = unit->distanceTo(*ip);
+            if (dist <= distance)
+                units.push_back(*ip);
+        }
+        for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
+        {
+            if (*ip == unit) continue;
+            float dist = unit->distanceTo(*ip);
+            if (dist <= distance)
+                units.push_back(*ip);
+        }
+    }
+    else
+    {
+        for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip)
+        {
+            if (*ip == unit) continue;
+            float dist = unit->distanceTo(*ip);
+            if (dist <= distance)
+                units.push_back(*ip);
+        }
+    }
+    return units;
 }

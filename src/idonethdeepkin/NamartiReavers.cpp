@@ -63,7 +63,7 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
     if (numModels == MAX_UNIT_SIZE)
         m_points = POINTS_MAX_UNIT_SIZE;
 
-    return false;
+    return true;
 }
 
 void NamartiReavers::visitWeapons(std::function<void(const Weapon *)> &visitor)

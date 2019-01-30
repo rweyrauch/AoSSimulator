@@ -14,6 +14,7 @@
 #include <TerrainFeature.h>
 
 class Roster;
+class Unit;
 
 struct Objective
 {
@@ -48,7 +49,9 @@ public:
 
     const Roster* getPlayerRoster(PlayerId which) const { return m_rosters[(int)which]; }
 
-    void render(const std::string filename) const;
+    std::vector<Unit*> getUnitsWithin(const Unit* unit, PlayerId fromPlayer, float distance);
+
+    void render(const std::string& filename) const;
 
 protected:
     Board() = default;
