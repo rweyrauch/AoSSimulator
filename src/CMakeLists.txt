@@ -40,6 +40,9 @@ add_library(
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         khorne/Bloodletters.cpp
+        khorne/Skullreapers.cpp
+        khorne/Wrathmongers.cpp
+        khorne/Khorgoraths.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

@@ -40,6 +40,9 @@
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
 #include "khorne/Bloodletters.h"
+#include "khorne/Skullreapers.h"
+#include "khorne/Wrathmongers.h"
+#include "khorne/Khorgoraths.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -113,6 +116,9 @@ void Initialize()
     Khorne::Bloodreavers::Init();
     Khorne::BloodWarriors::Init();
     Khorne::Bloodletters::Init();
+    Khorne::Wrathmongers::Init();
+    Khorne::Skullreapers::Init();
+    Khorne::Khorgoraths::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();

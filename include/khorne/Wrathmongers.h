@@ -6,32 +6,30 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BLOODSISTERS_H
-#define BLOODSISTERS_H
+#ifndef WRATHMONGERS_H
+#define WRATHMONGERS_H
 
-#include <dok/DaughterOfKhaine.h>
+#include <Unit.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
+namespace Khorne
 {
 
-class BloodSisters : public DaughterOfKhaine
+class Wrathmongers : public Unit
 {
 public:
-
     static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
+    static const int WOUNDS = 3;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int POINTS_PER_BLOCK = 180;
+    static const int POINTS_MAX_UNIT_SIZE = 720;
 
     static Unit* Create(const ParameterList& parameters);
-
     static void Init();
 
-    BloodSisters();
-    ~BloodSisters() override = default;
+    Wrathmongers();
+    ~Wrathmongers() override = default;
 
     bool configure(int numModels);
 
@@ -39,14 +37,12 @@ public:
 
 protected:
 
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) override;
+    int toHitModifier(const Weapon* weapon, const Unit* target) const override;
 
 private:
 
-    static Weapon s_heartshardGlaive,
-        s_heartshardGlaiveGorgai,
-        s_crystalTouch,
-        s_crystalTouchGorgai;
+    static Weapon s_wrathflails,
+        s_wrathflailsMaster;
 
     static bool s_registered;
 };
@@ -55,9 +51,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Turned to Crystal                Yes
+// Wraith-flails                    Yes
+// Crimson Haze                     No
+// Bloodfury                        No
 //
 
-} // namespace DaughtersOfKhaine
+} // namespace Khorne
 
-#endif //BLOODSISTERS_H
+#endif //WRATHMONGERS_H

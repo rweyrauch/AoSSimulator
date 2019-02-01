@@ -69,7 +69,7 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     return true;
 }
 
-int Bloodletters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Bloodletters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     // Decapitating Blow
     if (hits.rolls.numUnmodified6s() > 0)

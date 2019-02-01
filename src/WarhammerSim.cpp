@@ -116,3 +116,12 @@ std::string ParameterValueToString(const Parameter &param)
         ss << param.m_boolValue ? "true" : "false";
     return ss.str();
 }
+
+PlayerId GetEnemyId(PlayerId friendlyId)
+{
+    if (friendlyId == PlayerId::Red)
+        return PlayerId::Blue;
+    else if (friendlyId == PlayerId::Blue)
+        return PlayerId::Red;
+    return PlayerId::None;
+}

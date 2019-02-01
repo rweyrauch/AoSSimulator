@@ -20,9 +20,11 @@ class Unit
 {
 public:
     Unit() = default;
-
     virtual ~Unit() = default;
 
+    //
+    // Immutable unit attributes.
+    //
     const std::string& name() const { return m_name; }
     int wounds() const { return m_wounds; }
     virtual int move() const { return m_move; }
@@ -148,7 +150,7 @@ protected:
     virtual int extraAttacks(const Weapon* weapon) const { return 0; }
 
     virtual Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return hits; }
-    virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return 0; }
+    virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) { return 0; }
 
     virtual int runModifier() const { return 0; }
     virtual Rerolls runRerolls() const { return NoRerolls; }

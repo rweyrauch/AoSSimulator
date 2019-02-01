@@ -99,10 +99,7 @@ void NamartiReavers::Init()
 void NamartiReavers::shooting(PlayerId player)
 {
     auto board = Board::Instance();
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
+    auto otherRoster = board->getPlayerRoster(GetEnemyId(m_owningPlayer));
 
     // Fluid Firing Style
     auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;

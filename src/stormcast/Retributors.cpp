@@ -76,7 +76,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
     return true;
 }
 
-int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     // Blast to Ashes
     if (weapon->name() == s_lightningHammer.name())

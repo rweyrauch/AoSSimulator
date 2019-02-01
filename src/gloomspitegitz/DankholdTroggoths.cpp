@@ -123,12 +123,8 @@ void DankholdTroggoths::onStartCombat(PlayerId player)
         }
     }
 
-    // Squiggly-beast Followerers
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-
-    auto units = Board::Instance()->getUnitsWithin(this, otherPlayer, 3.0f);
+    // Squiggly-beast Followers
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
     for (auto ip : units)
     {
         int roll = dice.rollD6();

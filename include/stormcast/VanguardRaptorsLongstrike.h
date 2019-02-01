@@ -41,7 +41,7 @@ public:
 
 protected:
 
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) override;
     void onStartShooting(PlayerId player) override;
 
 private:

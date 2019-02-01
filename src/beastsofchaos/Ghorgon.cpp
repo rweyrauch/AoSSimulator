@@ -122,7 +122,7 @@ int BeastsOfChaos::Ghorgon::getDamageTableIndex() const
     return 0;
 }
 
-int Ghorgon::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Ghorgon::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     // Ravenous Bloodgreed
     Dice dice;

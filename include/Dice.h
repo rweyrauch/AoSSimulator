@@ -65,6 +65,10 @@ public:
         {
             return distribution[6];
         }
+        int numUnmodified1s() const
+        {
+            return distribution[1];
+        }
     };
 
     void rollD6(int number, RollResult& result);

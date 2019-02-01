@@ -106,7 +106,7 @@ void VanguardRaptorsLongstrike::Init()
     }
 }
 
-int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     // Headshot
     if (weapon->name() == s_longstikeCrossbow.name())

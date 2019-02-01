@@ -188,3 +188,26 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit* unit, PlayerId which, floa
     }
     return units;
 }
+
+Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer)
+{
+    if (unit == nullptr) return nullptr;
+    Unit* nearestUnit = nullptr;
+
+    if (fromPlayer == PlayerId::None)
+    {
+        Unit* nearestRedUnit = m_rosters[0]->nearestUnit(unit);
+        Unit* nearestBlueUnit = m_rosters[1]->nearestUnit(unit);
+        auto dtoRed = unit->distanceTo(nearestRedUnit);
+        auto dtoBlue = unit->distanceTo(nearestBlueUnit);
+        if (dtoRed < dtoBlue)
+            nearestUnit = nearestRedUnit;
+        else
+            nearestUnit = nearestBlueUnit;
+    }
+    else
+    {
+        nearestUnit = m_rosters[(int) fromPlayer]->nearestUnit(unit);
+    }
+    return nearestUnit;
+}

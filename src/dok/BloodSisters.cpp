@@ -84,7 +84,7 @@ void BloodSisters::Init()
     }
 }
 
-int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     // Turned to Crystal
     if (weapon->name() == s_crystalTouch.name())

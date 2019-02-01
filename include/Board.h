@@ -49,6 +49,7 @@ public:
 
     const Roster* getPlayerRoster(PlayerId which) const { return m_rosters[(int)which]; }
 
+    Unit* getNearestUnit(const Unit* unit, PlayerId fromPlayer);
     std::vector<Unit*> getUnitsWithin(const Unit* unit, PlayerId fromPlayer, float distance);
 
     void render(const std::string& filename) const;

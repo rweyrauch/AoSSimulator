@@ -171,6 +171,9 @@ enum Keyword
     BLOODREAVERS,
     BLOOD_WARRIORS,
     BLOODLETTERS,
+    SKULLREAPERS,
+    WRATHMONGERS,
+    KHORGORATHS,
 
     // Sylvaneth
     ALARIELLE_THE_EVERQUEEN,
@@ -294,6 +297,7 @@ bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool
 
 std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);
+PlayerId GetEnemyId(PlayerId friendlyId);
 
 void Initialize();
 

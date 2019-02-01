@@ -137,7 +137,7 @@ Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
 }
 
 
-int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     // Lightning Hammer
     if (weapon->name() == s_lightningHammer.name())

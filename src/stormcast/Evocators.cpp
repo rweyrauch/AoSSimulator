@@ -100,7 +100,7 @@ Rerolls Evocators::toSaveRerolls(const Weapon* weapon) const
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
-int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
 {
     int mortalWounds = Unit::generateMortalWounds(weapon, unit, hits);
 
