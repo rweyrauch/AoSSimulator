@@ -253,6 +253,20 @@ enum Keyword
     PUTRID_BLIGHTKINGS,
     LORD_OF_PLAGUES,
 
+    // Death
+    BLACK_KNIGHTS,
+    DEATHRATTLE,
+    SKELETON,
+    GRAVE_GUARD,
+    SKELETON_WARRIORS,
+    BLOOD_KNIGHTS,
+    VAMPIRE,
+    VARGHEISTS,
+    ZOMBIE,
+    DEADWALKERS,
+    DIRE_WOLVES,
+    CORPSE_CARTS,
+
 };
 
 enum Duration

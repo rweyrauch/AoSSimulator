@@ -81,6 +81,14 @@
 #include "nurgle/Plaguebearers.h"
 #include "nurgle/PutridBlightkings.h"
 
+#include "death/BlackKnights.h"
+#include "death/BloodKnights.h"
+#include "death/DireWolves.h"
+#include "death/GraveGuard.h"
+#include "death/SkeletonWarriors.h"
+#include "death/Vargheists.h"
+#include "death/Zombies.h"
+
 void Initialize()
 {
     StormcastEternals::Liberators::Init();
@@ -156,4 +164,12 @@ void Initialize()
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();
     Nurgle::PutridBlightkings::Init();
+
+    Death::BlackKnights::Init();
+    Death::BloodKnights::Init();
+    Death::DireWolves::Init();
+    Death::GraveGuard::Init();
+    Death::SkeletonWarriors::Init();
+    Death::Vargheists::Init();
+    Death::Zombies::Init();
 }

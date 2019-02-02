@@ -71,8 +71,7 @@ public:
 
     int applyBattleshock();
 
-    Wounds computeDamage(const WoundingHits& woundingHits, int mortalWounds,
-        const Weapon *weapon, Wounds& woundsReturned);
+    int rollSaves(const WoundingHits& woundingHits, const Weapon *weapon, Dice::RollResult& rollResult);
 
     int applyDamage(const Wounds& totalWounds);
     int remainingModels() const;
@@ -135,6 +134,8 @@ protected:
      * To-wound rerolls when this unit use the given weapon to attack the target.
      */
     virtual Rerolls toWoundRerolls(const Weapon* weapon, const Unit* target) const { return NoRerolls; }
+
+    virtual int damageModifier(const Weapon* weapon, const Unit* target, const Dice::RollResult& woundRolls) const { return 0; }
 
     virtual int toSaveModifier(const Weapon* weapon) const { return 0; }
     virtual Rerolls toSaveRerolls(const Weapon* weapon) const { return NoRerolls; }

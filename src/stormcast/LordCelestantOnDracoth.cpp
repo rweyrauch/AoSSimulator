@@ -149,6 +149,7 @@ int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Uni
 
 void LordCelestantOnDracoth::onCharged()
 {
+    // TODO: replace this with damageModifier()
     if (m_pStormstrikeGlaive)
     {
         m_pStormstrikeGlaive->setDamage(s_stormstrikeGlaive.damage()+2);

@@ -93,6 +93,14 @@ add_library(
         nurgle/Plaguebearers.cpp
         nurgle/LordOfPlagues.cpp
         nurgle/PutridBlightkings.cpp
+
+        death/BlackKnights.cpp
+        death/BloodKnights.cpp
+        death/DireWolves.cpp
+        death/GraveGuard.cpp
+        death/SkeletonWarriors.cpp
+        death/Vargheists.cpp
+        death/Zombies.cpp
 )
 
 target_include_directories(

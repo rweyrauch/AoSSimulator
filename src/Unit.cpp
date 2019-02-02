@@ -64,17 +64,20 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
-            // TODO: allow weapon damage characteristic to be set a function of the to hit rolls
+            Dice::RollResult saveRolls;
+            auto numFailed = unit->rollSaves(numWoundingHits, w, saveRolls);
 
-            // some units being targeted generate wounds to the attacking units on successful saves
-            Wounds damageReturned = {0, 0};
-            auto damage = unit->computeDamage(numWoundingHits, numMortalWounds, w, damageReturned);
+            auto weaponDamage = numFailed * (w->damage() + damageModifier(w, unit, numWoundingHits.rolls));
 
+            // apply wound/mortal wound save
+            Wounds damage = unit->applyWoundSave({weaponDamage, numMortalWounds});
             totalDamage.normal += damage.normal;
             totalDamage.mortal += damage.mortal;
 
-            totalDamageReturned.normal += damageReturned.normal;
-            totalDamageReturned.mortal += damageReturned.mortal;
+            // add returned damage (damage inflicted by this unit on the attacking unit)
+            Wounds damageReflected = unit->computeReturnedDamage(w, saveRolls);
+            totalDamageReturned.normal += damageReflected.normal;
+            totalDamageReturned.mortal += damageReflected.mortal;
         }
     }
 
@@ -134,11 +137,18 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
             auto totalWounds = w->rollToWound(hits.numHits, toWoundMod, toWoundRerolls(w, unit));
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
-            // some units being targeted generate wounds to the attacking units on successful saves
-            Wounds damageReflected = {0, 0};
-            auto damage = unit->computeDamage(totalWounds, numMortalWounds, w, damageReflected);
+            Dice::RollResult saveRolls;
+            auto numFailed = unit->rollSaves(totalWounds, w, saveRolls);
+
+            auto weaponDamage = numFailed * (w->damage() + damageModifier(w, unit, totalWounds.rolls));
+
+            // apply wound/mortal wound save
+            Wounds damage = unit->applyWoundSave({weaponDamage, numMortalWounds});
             totalDamage.normal += damage.normal;
             totalDamage.mortal += damage.mortal;
+
+            // add returned damage (damage inflicted by this unit on the attacking unit)
+            Wounds damageReflected = unit->computeReturnedDamage(w, saveRolls);
 
             totalDamageReflected.normal += damageReflected.normal;
             totalDamageReflected.mortal += damageReflected.mortal;
@@ -183,56 +193,6 @@ int Unit::applyBattleshock()
         onFlee(numFled);
 
     return numFled;
-}
-
-Wounds Unit::computeDamage(const WoundingHits& woundingHits, int mortalWounds, const Weapon *weapon,
-    Wounds& woundsReturned)
-{
-    Dice dice;
-    Dice::RollResult rollResult;
-
-    auto effectiveRend = m_ignoreRend ? 0 : weapon->rend();
-    auto toSave = m_save - effectiveRend;
-
-    int numMadeSaves = 0;
-    if (toSaveModifier(weapon) == RerollOnes)
-    {
-        dice.rollD6(woundingHits.numWoundingHit, 1, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-    }
-    else if (toSaveModifier(weapon) == RerollOnesAndTwos)
-    {
-        dice.rollD6(woundingHits.numWoundingHit, 2, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-    }
-    else if (toSaveModifier(weapon) == RerollFailed)
-    {
-        dice.rollD6(woundingHits.numWoundingHit, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-        int numFails = woundingHits.numWoundingHit - numMadeSaves;
-        if (numFails > 0)
-        {
-            dice.rollD6(numFails, rollResult);
-            auto numRerolledSaves = rollResult.rollsGE(toSave);
-            numMadeSaves += numRerolledSaves;
-        }
-    }
-    else
-    {
-        dice.rollD6(woundingHits.numWoundingHit, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-    }
-
-    auto numFails = woundingHits.numWoundingHit - numMadeSaves;
-    auto totalDamage = numFails * weapon->damage();
-
-    // apply wound/mortal wound save
-    Wounds totalWounds = applyWoundSave({totalDamage, mortalWounds});
-
-    // add returned damage (damage inflicted by this unit on the attacking unit)
-    woundsReturned = computeReturnedDamage(weapon, rollResult);
-
-    return totalWounds;
 }
 
 Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
@@ -660,6 +620,47 @@ int Unit::slay(int numModels)
         if (numSlain > numModels) break;
     }
     return numSlain;
+}
+
+int Unit::rollSaves(const WoundingHits &woundingHits, const Weapon *weapon, Dice::RollResult& rollResult)
+{
+    Dice dice;
+
+    auto effectiveRend = m_ignoreRend ? 0 : weapon->rend();
+    auto toSave = m_save - effectiveRend;
+
+    int numMadeSaves = 0;
+    if (toSaveModifier(weapon) == RerollOnes)
+    {
+        dice.rollD6(woundingHits.numWoundingHit, 1, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+    }
+    else if (toSaveModifier(weapon) == RerollOnesAndTwos)
+    {
+        dice.rollD6(woundingHits.numWoundingHit, 2, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+    }
+    else if (toSaveModifier(weapon) == RerollFailed)
+    {
+        dice.rollD6(woundingHits.numWoundingHit, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+        int numFails = woundingHits.numWoundingHit - numMadeSaves;
+        if (numFails > 0)
+        {
+            dice.rollD6(numFails, rollResult);
+            auto numRerolledSaves = rollResult.rollsGE(toSave);
+            numMadeSaves += numRerolledSaves;
+        }
+    }
+    else
+    {
+        dice.rollD6(woundingHits.numWoundingHit, rollResult);
+        numMadeSaves = rollResult.rollsGE(toSave);
+    }
+
+    auto numFails = woundingHits.numWoundingHit - numMadeSaves;
+
+    return numFails;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
