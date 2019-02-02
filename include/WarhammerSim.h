@@ -280,6 +280,13 @@ struct Wounds
 {
     int normal;
     int mortal;
+
+    Wounds& operator += (const Wounds& w)
+    {
+        normal += w.normal;
+        mortal += w.mortal;
+        return *this;
+    }
 };
 
 

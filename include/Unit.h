@@ -12,9 +12,10 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <functional>
 #include <Weapon.h>
 #include <Model.h>
-#include <functional>
+#include <UnitStatistics.h>
 
 class Unit
 {
@@ -46,7 +47,9 @@ public:
     void addModel(const Model& model);
 
     void restore();
+
     void beginTurn(int battleRound);
+    void endTurn(int battleRound);
 
     // Phase functions (these are the 'think' functions that decide what this unit
     // is to do in each of the phases.
@@ -100,6 +103,8 @@ public:
     float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
     virtual void visitWeapons(std::function<void(const Weapon*)>& visitor) = 0;
+
+    const UnitStatistics& getStatistics() const { return m_statistics; }
 
 protected:
 
@@ -217,6 +222,9 @@ protected:
     Unit* m_meleeTarget = nullptr;
 
     bool m_verbose = false;
+
+    TurnRecord m_currentRecord;
+    UnitStatistics m_statistics;
 
     enum BuffableAttribute
     {

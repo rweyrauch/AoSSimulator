@@ -163,7 +163,10 @@ int main(int argc, char* argv[])
         auto victor = battle.getVictor();
 
         if (verbose)
+        {
             std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
+            battle.logStatistics();
+        }
 
         if (victor == PlayerId::Blue)
             blueVictories++;

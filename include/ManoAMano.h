@@ -33,6 +33,7 @@ public:
     int currentRound() const { return m_round; }
     Phase currentPhase() const { return m_currentPhase; }
 
+    void logStatistics() const;
     PlayerId getVictor() const;
 
 protected:

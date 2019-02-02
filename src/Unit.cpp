@@ -62,6 +62,9 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 
             auto numWoundingHits = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
 
+            m_currentRecord.m_attacksMade += hits.numHits;
+            m_currentRecord.m_attacksHitting += numWoundingHits.numWoundingHit;
+
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
             Dice::RollResult saveRolls;
@@ -89,6 +92,11 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
     {
         //std::cout << "Return damage killed " << numSlainInReturn << " models in the attacking unit." << std::endl;
     }
+
+    m_currentRecord.m_woundsInflicted += totalDamage;
+    m_currentRecord.m_woundsTaken += totalDamageReturned;
+    m_currentRecord.m_enemyModelsSlain += numSlain;
+    m_currentRecord.m_modelsSlain += numSlainInReturn;
 
     return totalDamage;
 }
@@ -137,6 +145,9 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
             auto totalWounds = w->rollToWound(hits.numHits, toWoundMod, toWoundRerolls(w, unit));
             int numMortalWounds = generateMortalWounds(w, unit, hits);
 
+            m_currentRecord.m_attacksMade += hits.numHits;
+            m_currentRecord.m_attacksHitting += totalWounds.numWoundingHit;
+
             Dice::RollResult saveRolls;
             auto numFailed = unit->rollSaves(totalWounds, w, saveRolls);
 
@@ -163,6 +174,11 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         std::cout << "Number of attacking models slain by reflected damage: " << numSlainByReturnedDamage
                   << "  Total reflected damage: " << totalDamageReflected.normal << "  Mortal: " << totalDamageReflected.mortal << std::endl;
     }
+
+    m_currentRecord.m_woundsInflicted += totalDamage;
+    m_currentRecord.m_woundsTaken += totalDamageReflected;
+    m_currentRecord.m_enemyModelsSlain += numSlain;
+    m_currentRecord.m_modelsSlain += numSlainByReturnedDamage;
 
     return totalDamage;
 }
@@ -192,6 +208,8 @@ int Unit::applyBattleshock()
     if (numFled > 0)
         onFlee(numFled);
 
+    m_currentRecord.m_numFled += numFled;
+
     return numFled;
 }
 
@@ -214,7 +232,16 @@ void Unit::beginTurn(int battleRound)
     m_moved = false;
     m_modelsSlain = 0;
 
+    m_currentRecord.clear();
+
+    m_currentRecord.m_round = m_battleRound;
+
     onBeginTurn(battleRound);
+}
+
+void Unit::endTurn(int battleRound)
+{
+    m_statistics.record(m_currentRecord);
 }
 
 void Unit::addModel(const Model &model)
@@ -250,6 +277,10 @@ int Unit::applyDamage(const Wounds& totalWounds)
 
     onWounded();
     m_modelsSlain += numSlain;
+
+    m_currentRecord.m_modelsSlain += numSlain;
+    m_currentRecord.m_woundsTaken += totalWounds;
+
     return numSlain;
 }
 
@@ -299,6 +330,9 @@ void Unit::restore()
         m.woundsRemaining() = m_wounds;
         m.restore();
     }
+
+    m_currentRecord.clear();
+    m_statistics.reset();
 
     onRestore();
 }
@@ -415,16 +449,23 @@ void Unit::movement(PlayerId player)
                     runDist = rollRunDistance();
                 totalMoveDistance = move() + runDist;
                 m_ran = true;
+
+                m_currentRecord.m_moved = move();
+                m_currentRecord.m_ran = runDist;
             }
             else if (distance > weapon->range())
             {
                 // move toward unit
                 totalMoveDistance = move();
+
+                m_currentRecord.m_moved = move();
             }
             else
             {
                 // already in range - stand still
                 totalMoveDistance = 0.0f;
+
+                m_currentRecord.m_moved = 0.0f;
             }
         }
         else
@@ -438,16 +479,23 @@ void Unit::movement(PlayerId player)
                     runDist = rollRunDistance();
                 totalMoveDistance = move() + runDist;
                 m_ran = true;
+
+                m_currentRecord.m_moved = move();
+                m_currentRecord.m_ran = runDist;
             }
             else if (distance > PILE_IN_DISTANCE) // pile-in
             {
                 // move toward unit
                 totalMoveDistance = std::min((float)move(), distance - PILE_IN_DISTANCE);
+
+                m_currentRecord.m_moved = totalMoveDistance;
             }
             else
             {
                 // already in range - stand still
                 totalMoveDistance = 0.0f;
+
+                m_currentRecord.m_moved = 0.0f;
             }
         }
         Math::Ray ray(position(), closestTarget->position());
@@ -577,11 +625,19 @@ void Unit::charge(PlayerId player)
                     setPosition(newPos, ray.get_direction());
                 }
             }
+
+            m_currentRecord.m_charged = chargeDist;
+        }
+        else
+        {
+            // too far to charge
+            m_currentRecord.m_charged = 0.0f;
         }
     }
     else
     {
         // no target units - stand here confused!!!
+        m_currentRecord.m_charged = 0.0f;
     }
 
     if (m_charged)
@@ -659,6 +715,9 @@ int Unit::rollSaves(const WoundingHits &woundingHits, const Weapon *weapon, Dice
     }
 
     auto numFails = woundingHits.numWoundingHit - numMadeSaves;
+
+    m_currentRecord.m_savesMade += numMadeSaves;
+    m_currentRecord.m_savesFailed += numFails;
 
     return numFails;
 }

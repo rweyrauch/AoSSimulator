@@ -17,6 +17,7 @@ add_library(
         UnitFactory.cpp
         UnitInit.cpp
         MathUtils.cpp
+        UnitStatistics.cpp
 
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp

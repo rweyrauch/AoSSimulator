@@ -159,6 +159,10 @@ void ManoAMano::next()
             {
                 // Next unit's turn
                 m_topOfRound = false;
+
+                m_units[(int)m_attackingUnit]->endTurn(m_round);
+                m_units[(int)m_defendingUnit]->endTurn(m_round);
+
                 std::swap(m_attackingUnit, m_defendingUnit);
 
                 m_units[(int)m_attackingUnit]->beginTurn(m_round);
@@ -178,6 +182,9 @@ void ManoAMano::next()
                               << m_units[1]->remainingModels() << " remaining models with "
                               << m_units[1]->remainingWounds() << " wounds remaining." << std::endl;
                 }
+
+                m_units[(int)m_attackingUnit]->endTurn(m_round);
+                m_units[(int)m_defendingUnit]->endTurn(m_round);
 
                 // End of round.
                 m_currentPhase = Phase::Initiative;
@@ -410,4 +417,25 @@ PlayerId ManoAMano::getVictor() const
         return PlayerId::Blue;
 
     return PlayerId::None;
+}
+
+void ManoAMano::logStatistics() const
+{
+    std::function<void(const TurnRecord&)> turnVistor = [](const TurnRecord& turn) {
+            std::cout << "\tEnemy Slain: " << turn.m_enemyModelsSlain << std::endl;
+    };
+
+    auto redStats = m_units[0]->getStatistics();
+    std::cout << "Red Statistics:" << std::endl;
+    std::cout << "\tTotal Movement: " << redStats.totalMovementDistance() << "  Rounds Moved: " << redStats.numberOfRoundsMoved() << std::endl;
+    std::cout << "\tTotal Run Distance: " << redStats.totalRunDistance() << "  Rounds Ran: " << redStats.numberOfRoundsRan() << std::endl;
+    std::cout << "\tTotal Charge Distance: " << redStats.totalChargeDistance() << "  Rounds Charged: " << redStats.numberOfRoundsCharged() << std::endl;
+    redStats.visitTurn(turnVistor);
+
+    auto blueStats = m_units[1]->getStatistics();
+    std::cout << "Blue Statistics:" << std::endl;
+    std::cout << "\tTotal Movement: " << blueStats.totalMovementDistance() << "  Rounds Moved: " << blueStats.numberOfRoundsMoved() << std::endl;
+    std::cout << "\tTotal Run Distance: " << blueStats.totalRunDistance() << "  Rounds Ran: " << blueStats.numberOfRoundsRan() << std::endl;
+    std::cout << "\tTotal Charge Distance: " << blueStats.totalChargeDistance() << "  Rounds Charged: " << blueStats.numberOfRoundsCharged() << std::endl;
+    blueStats.visitTurn(turnVistor);
 }
