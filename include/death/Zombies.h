@@ -32,19 +32,34 @@ public:
     Zombies();
     ~Zombies() override = default;
 
-    bool configure(int numModels);
+    bool configure(int numModels, bool standardBearer, bool noiseMaker);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    int toHitModifier(const Weapon* weapon, const Unit* target) const override;
+    int toWoundModifier(const Weapon* weapon, const Unit* target) const override;
+
 private:
+
+    bool m_standardBearer;
+    bool m_noiseMaker;
 
     static Weapon s_zombieBite;
 
     static bool s_registered;
 
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Dragged Down and Torn Apart      Yes
+// The Newly Dead                   No
+// Vigour Mortis                    Yes
+//
 
 } //namespace Death
 

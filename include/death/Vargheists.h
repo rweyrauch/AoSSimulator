@@ -40,14 +40,19 @@ protected:
 
 private:
 
-    static Weapon s_ancientBlade,
-        s_ancientBladeChampion,
-        s_ancientSpear,
-        s_ancientSpearChampion;
+    static Weapon s_fangsAndTalons,
+        s_fangsAndTalonsVargoyle;
 
     static bool s_registered;
 
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Blood-maddened Frenzy            No
+//
 
 } //namespace Death
 

@@ -33,7 +33,8 @@ public:
     };
 
     static Unit* Create(const ParameterList& parameters);
-
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
     SkeletonWarriors();
@@ -44,6 +45,10 @@ public:
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
+
+    int toHitModifier(const Weapon* weapon, const Unit* target) const override;
+    int toSaveModifier(const Weapon* weapon) const override;
+    int extraAttacks(const Weapon* weapon) const override;
 
 private:
 

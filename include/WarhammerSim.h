@@ -50,6 +50,7 @@ enum Rerolls
     RerollFailed,
 };
 
+const int NoSave = 7;
 
 enum AttackModifier
 {
