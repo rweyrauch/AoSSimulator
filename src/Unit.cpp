@@ -224,7 +224,7 @@ Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save,
 {
 }
 
-void Unit::beginTurn(int battleRound)
+void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
 {
     m_battleRound = battleRound;
     m_ran = false;
@@ -234,6 +234,7 @@ void Unit::beginTurn(int battleRound)
 
     m_currentRecord.clear();
 
+    m_currentRecord.m_playerWithTurn = playerWithTurn;
     m_currentRecord.m_round = m_battleRound;
 
     onBeginTurn(battleRound);
@@ -241,6 +242,10 @@ void Unit::beginTurn(int battleRound)
 
 void Unit::endTurn(int battleRound)
 {
+    if (m_currentRecord.m_round == 0)
+    {
+        std::cout << "End round 0!!!!" << std::endl;
+    }
     m_statistics.record(m_currentRecord);
 }
 

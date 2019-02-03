@@ -44,8 +44,8 @@ void Player::doBattleshockPhase()
         m_roster->doBattleshockPhase();
 }
 
-void Player::beginTurn(int battleRound)
+void Player::beginTurn(int battleRound, PlayerId playerWithTurn)
 {
     if (m_roster)
-        m_roster->beginTurn(battleRound);
+        m_roster->beginTurn(battleRound, playerWithTurn);
 }

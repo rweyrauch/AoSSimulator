@@ -56,11 +56,11 @@ void Roster::doBattleshockPhase()
     }
 }
 
-void Roster::beginTurn(int battleRound)
+void Roster::beginTurn(int battleRound, PlayerId playerWithTurn)
 {
     for (auto u : m_units)
     {
-        u->beginTurn(battleRound);
+        u->beginTurn(battleRound, playerWithTurn);
     }
 }
 
@@ -88,4 +88,12 @@ int Roster::totalPoints() const
         points += u->points();
     }
     return points;
+}
+
+void Roster::endTurn(int battleRound)
+{
+    for (auto u : m_units)
+    {
+        u->endTurn(battleRound);
+    }
 }

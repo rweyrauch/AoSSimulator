@@ -48,7 +48,7 @@ public:
 
     void restore();
 
-    void beginTurn(int battleRound);
+    void beginTurn(int battleRound, PlayerId playerWithTurn);
     void endTurn(int battleRound);
 
     // Phase functions (these are the 'think' functions that decide what this unit

@@ -89,6 +89,9 @@ void ManoAMano::start()
     }
     m_currentPhase = Phase::Hero;
     m_round = 1;
+
+    m_rosters[(int)m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
+    m_rosters[(int)m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 }
 
 void ManoAMano::simulate()
@@ -160,13 +163,13 @@ void ManoAMano::next()
                 // Next unit's turn
                 m_topOfRound = false;
 
-                m_units[(int)m_attackingUnit]->endTurn(m_round);
-                m_units[(int)m_defendingUnit]->endTurn(m_round);
+                m_rosters[(int)m_attackingUnit]->endTurn(m_round);
+                m_rosters[(int)m_defendingUnit]->endTurn(m_round);
 
                 std::swap(m_attackingUnit, m_defendingUnit);
 
-                m_units[(int)m_attackingUnit]->beginTurn(m_round);
-                m_units[(int)m_defendingUnit]->beginTurn(m_round);
+                m_rosters[(int)m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
+                m_rosters[(int)m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 
                 m_currentPhase = Phase::Hero;
             }
@@ -183,16 +186,16 @@ void ManoAMano::next()
                               << m_units[1]->remainingWounds() << " wounds remaining." << std::endl;
                 }
 
-                m_units[(int)m_attackingUnit]->endTurn(m_round);
-                m_units[(int)m_defendingUnit]->endTurn(m_round);
+                m_rosters[(int)m_attackingUnit]->endTurn(m_round);
+                m_rosters[(int)m_defendingUnit]->endTurn(m_round);
 
                 // End of round.
                 m_currentPhase = Phase::Initiative;
                 m_topOfRound = true;
                 m_round++;
 
-                m_units[(int)m_attackingUnit]->beginTurn(m_round);
-                m_units[(int)m_defendingUnit]->beginTurn(m_round);
+                m_rosters[(int)m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
+                m_rosters[(int)m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 
                 // End of battle.
                 if (m_round > m_numRounds)
@@ -243,8 +246,8 @@ void ManoAMano::runInitiativePhase()
         m_defendingUnit = PlayerId::Red;
     }
 
-    const auto unitIdx = (int)m_attackingUnit;
-    m_units[unitIdx]->beginTurn(m_round);
+    m_units[(int)m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
+    m_units[(int)m_defendingUnit]->beginTurn(m_round, m_defendingUnit);
 
     if (m_verbose)
     {
@@ -419,23 +422,38 @@ PlayerId ManoAMano::getVictor() const
     return PlayerId::None;
 }
 
+static void logUnitStats(const UnitStatistics& stats)
+{
+    std::cout << "\tTotal Movement: " << stats.totalMovementDistance() << "  Rounds Moved: " << stats.numberOfRoundsMoved() << std::endl;
+    std::cout << "\tTotal Run Distance: " << stats.totalRunDistance() << "  Rounds Ran: " << stats.numberOfRoundsRan() << std::endl;
+    std::cout << "\tTotal Charge Distance: " << stats.totalChargeDistance() << "  Rounds Charged: " << stats.numberOfRoundsCharged() << std::endl;
+    std::cout << "\tTotal Enemy Models Slain: " << stats.totalEnemyModelsSlain() << "  Wounds Inflicted: " << stats.totalWoundsInflicted().normal
+              << ", " << stats.totalWoundsInflicted().mortal << std::endl;
+    std::cout << "\tTotal Models Slain: " << stats.totalModelsSlain() << "  Wounds Taken: " << stats.totalWoundsTaken().normal
+              << ", " << stats.totalWoundsTaken().mortal << std::endl;
+    std::cout << "\tTotal Models Fled: " << stats.totalModelsFled() << std::endl;
+}
+
 void ManoAMano::logStatistics() const
 {
     std::function<void(const TurnRecord&)> turnVistor = [](const TurnRecord& turn) {
-            std::cout << "\tEnemy Slain: " << turn.m_enemyModelsSlain << std::endl;
+            std::cout << "\tTurn " << turn.m_round << "  Player: " << PlayerIdToString(turn.m_playerWithTurn) << std::endl;
+            std::cout << "\t\tMoved: " << turn.m_moved << "  Ran: " << turn.m_ran << " Charged: " << turn.m_charged << std::endl;
+            std::cout << "\t\tAttacks Made: " << turn.m_attacksMade << "  Attacks Hit: " << turn.m_attacksHitting << std::endl;
+            std::cout << "\t\tEnemy Slain: " << turn.m_enemyModelsSlain << "  Wounds Inflicted: " << turn.m_woundsInflicted.normal
+                      << ", " << turn.m_woundsInflicted.mortal << std::endl;
+            std::cout << "\t\tSaves Made: " << turn.m_savesMade << " Failed: " << turn.m_savesFailed << std::endl;
+            std::cout << "\t\tModel Slain: " << turn.m_modelsSlain << "  Wounds Taken: " << turn.m_woundsTaken.normal
+                      << ", " << turn.m_woundsTaken.mortal << std::endl;
     };
 
     auto redStats = m_units[0]->getStatistics();
     std::cout << "Red Statistics:" << std::endl;
-    std::cout << "\tTotal Movement: " << redStats.totalMovementDistance() << "  Rounds Moved: " << redStats.numberOfRoundsMoved() << std::endl;
-    std::cout << "\tTotal Run Distance: " << redStats.totalRunDistance() << "  Rounds Ran: " << redStats.numberOfRoundsRan() << std::endl;
-    std::cout << "\tTotal Charge Distance: " << redStats.totalChargeDistance() << "  Rounds Charged: " << redStats.numberOfRoundsCharged() << std::endl;
+    logUnitStats(redStats);
     redStats.visitTurn(turnVistor);
 
     auto blueStats = m_units[1]->getStatistics();
     std::cout << "Blue Statistics:" << std::endl;
-    std::cout << "\tTotal Movement: " << blueStats.totalMovementDistance() << "  Rounds Moved: " << blueStats.numberOfRoundsMoved() << std::endl;
-    std::cout << "\tTotal Run Distance: " << blueStats.totalRunDistance() << "  Rounds Ran: " << blueStats.numberOfRoundsRan() << std::endl;
-    std::cout << "\tTotal Charge Distance: " << blueStats.totalChargeDistance() << "  Rounds Charged: " << blueStats.numberOfRoundsCharged() << std::endl;
+    logUnitStats(blueStats);
     blueStats.visitTurn(turnVistor);
 }

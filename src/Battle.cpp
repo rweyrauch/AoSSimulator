@@ -57,7 +57,7 @@ void Battle::next()
                 }
 
                 const auto playerIdx = (int)m_currentPlayer;
-                m_players[playerIdx]->beginTurn(m_round);
+                m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
                 m_currentPhase = Phase::Hero;
             }
@@ -144,7 +144,7 @@ void Battle::runInitiativePhase()
     }
 
     const auto playerIdx = (int)m_currentPlayer;
-    m_players[playerIdx]->beginTurn(m_round);
+    m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
     std::cout << "Player " << PlayerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
         p1 << " P2: " << p2 << std::endl;

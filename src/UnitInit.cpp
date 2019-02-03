@@ -43,6 +43,9 @@
 #include "khorne/Skullreapers.h"
 #include "khorne/Wrathmongers.h"
 #include "khorne/Khorgoraths.h"
+#include "khorne/BloodthirsterOfUnfetteredFury.h"
+#include "khorne/BloodthirsterOfInsensateRage.h"
+#include "khorne/WrathOfKhorneBloodthirster.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -127,6 +130,9 @@ void Initialize()
     Khorne::Wrathmongers::Init();
     Khorne::Skullreapers::Init();
     Khorne::Khorgoraths::Init();
+    Khorne::BloodthirsterOfUnfetteredFury::Init();
+    Khorne::BloodthirsterOfInsensateRage::Init();
+    Khorne::WrathOfKhorneBloodthirster::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();

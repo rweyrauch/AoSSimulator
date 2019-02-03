@@ -24,7 +24,8 @@ public:
         m_units.push_back(unit);
     }
 
-    void beginTurn(int battleRound);
+    void beginTurn(int battleRound, PlayerId playerWithTurn);
+    void endTurn(int battleRound);
     void doHeroPhase();
     void doMovementPhase();
     void doShootingPhase();
