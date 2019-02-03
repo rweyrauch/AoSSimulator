@@ -58,7 +58,7 @@ protected:
     int extraAttacks(const Weapon *weapon) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
     Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) override;
+    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
 
 private:
 

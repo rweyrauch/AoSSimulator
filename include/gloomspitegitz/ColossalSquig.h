@@ -44,7 +44,7 @@ protected:
 
     void onWounded() override;
     void onSlain() override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) override;
+    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
 
     int getDamageTableIndex() const;
 

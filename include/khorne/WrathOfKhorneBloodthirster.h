@@ -6,31 +6,30 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GHORGON_H
-#define GHORGON_H
+#ifndef WRATHBLOODTHIRSTER_H
+#define WRATHBLOODTHIRSTER_H
 
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
+namespace Khorne
 {
 
-class Ghorgon : public Unit
+class WrathOfKhorneBloodthirster : public Unit
 {
 public:
-
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 200;
+    static const int POINTS_PER_UNIT = 320;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    Ghorgon();
-    ~Ghorgon() override
+    WrathOfKhorneBloodthirster();
+    ~WrathOfKhorneBloodthirster() override
     {
-        delete m_pButcheringBlades;
-        delete m_pHugeSlaveringMaw;
+        delete m_pMightyAxeOfKhorne;
+        delete m_pBloodflail;
     }
 
     bool configure();
@@ -40,18 +39,17 @@ public:
 
 protected:
 
-    void onWounded() override;
     int getDamageTableIndex() const;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
-    void onStartCombat(PlayerId player) override;
+    void onWounded() override;
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
 
 private:
 
-    Weapon* m_pButcheringBlades = nullptr;
-    Weapon* m_pHugeSlaveringMaw = nullptr;
+    Weapon* m_pMightyAxeOfKhorne = nullptr;
+    Weapon* m_pBloodflail = nullptr;
 
-    static Weapon s_butcheringBlades,
-        s_hugeSlaveringMaw;
+    static Weapon s_bloodflail,
+        s_mightyAxeOfKhorne;
 
     static bool s_registered;
 };
@@ -60,10 +58,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ravenous Bloodgreed              Yes
-// Swallow Whole                    Yes
+// Hellfire Breath                  No
+// Relentless Hunter                Yes
+// Rune-crown of Khorne             No
+// Lord of the Blood Hunt           No
 //
 
-} // namespace BeastsOfChaos
+} // namespace Khorne
 
-#endif //GHORGON_H
+#endif //WRATHBLOODTHIRSTER_H

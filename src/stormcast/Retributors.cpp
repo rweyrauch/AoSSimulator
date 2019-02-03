@@ -76,7 +76,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
     return true;
 }
 
-int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
+int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Blast to Ashes
     if (weapon->name() == s_lightningHammer.name())
@@ -109,7 +109,7 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
 */
         return mortalWounds;
     }
-    return StormcastEternal::generateMortalWounds(weapon, unit, hits);
+    return StormcastEternal::generateMortalWounds(weapon, unit, hits, wounds);
 }
 
 Unit *Retributors::Create(const ParameterList &parameters)

@@ -65,7 +65,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
             m_currentRecord.m_attacksMade += hits.numHits;
             m_currentRecord.m_attacksHitting += numWoundingHits.numWoundingHit;
 
-            int numMortalWounds = generateMortalWounds(w, unit, hits);
+            int numMortalWounds = generateMortalWounds(w, unit, hits, numWoundingHits);
 
             Dice::RollResult saveRolls;
             auto numFailed = unit->rollSaves(numWoundingHits, w, saveRolls);
@@ -143,7 +143,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
 
             auto toWoundMod = toWoundModifier(w, unit) + targetWoundModifier(w, this);
             auto totalWounds = w->rollToWound(hits.numHits, toWoundMod, toWoundRerolls(w, unit));
-            int numMortalWounds = generateMortalWounds(w, unit, hits);
+            int numMortalWounds = generateMortalWounds(w, unit, hits, totalWounds);
 
             m_currentRecord.m_attacksMade += hits.numHits;
             m_currentRecord.m_attacksHitting += totalWounds.numWoundingHit;

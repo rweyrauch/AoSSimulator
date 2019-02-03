@@ -106,7 +106,7 @@ void VanguardRaptorsLongstrike::Init()
     }
 }
 
-int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
+int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Headshot
     if (weapon->name() == s_longstikeCrossbow.name())
@@ -114,7 +114,7 @@ int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const 
         int mortalWounds = hits.rolls.numUnmodified6s() * 2;
         return mortalWounds;
     }
-    return StormcastEternal::generateMortalWounds(weapon, unit, hits);
+    return StormcastEternal::generateMortalWounds(weapon, unit, hits, wounds);
 }
 
 void VanguardRaptorsLongstrike::visitWeapons(std::function<void(const Weapon *)> &visitor)

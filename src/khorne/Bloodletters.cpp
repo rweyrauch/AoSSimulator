@@ -69,14 +69,14 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     return true;
 }
 
-int Bloodletters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
+int Bloodletters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Decapitating Blow
     if (hits.rolls.numUnmodified6s() > 0)
     {
         return 1;
     }
-    return Unit::generateMortalWounds(weapon, unit, hits);
+    return Unit::generateMortalWounds(weapon, unit, hits, wounds);
 }
 
 Unit *Bloodletters::Create(const ParameterList &parameters)

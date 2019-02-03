@@ -137,14 +137,14 @@ Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
 }
 
 
-int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits)
+int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Lightning Hammer
     if (weapon->name() == s_lightningHammer.name())
     {
         return hits.rolls.numUnmodified6s() * 2;
     }
-    return StormcastEternal::generateMortalWounds(weapon, unit, hits);
+    return StormcastEternal::generateMortalWounds(weapon, unit, hits, wounds);
 }
 
 void LordCelestantOnDracoth::onCharged()

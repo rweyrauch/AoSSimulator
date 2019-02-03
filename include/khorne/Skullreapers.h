@@ -44,7 +44,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) override;
+    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
     void onStartCombat(PlayerId player) override;
     void onEndCombat(PlayerId player) override;
     void onSlain() override;

@@ -39,7 +39,7 @@ public:
 protected:
 
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) override;
+    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
 
 private:
 

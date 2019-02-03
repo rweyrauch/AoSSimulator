@@ -156,7 +156,7 @@ protected:
     virtual int extraAttacks(const Weapon* weapon) const { return 0; }
 
     virtual Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const { return hits; }
-    virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits) { return 0; }
+    virtual int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) { return 0; }
 
     virtual int runModifier() const { return 0; }
     virtual Rerolls runRerolls() const { return NoRerolls; }
