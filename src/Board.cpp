@@ -211,3 +211,15 @@ Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer)
     }
     return nearestUnit;
 }
+
+Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance)
+{
+    auto units = getUnitsWithin(unit, fromPlayer, distance);
+
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(keyword)) return ip;
+    }
+
+    return nullptr;
+}

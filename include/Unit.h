@@ -79,6 +79,7 @@ public:
     int applyDamage(const Wounds& totalWounds);
     int remainingModels() const;
     int remainingWounds() const;
+    int heal(int numWounds);
 
     bool addKeyword(Keyword word);
     bool hasKeyword(Keyword word) const;

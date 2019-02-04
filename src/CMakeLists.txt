@@ -109,6 +109,9 @@ add_library(
         death/SkeletonWarriors.cpp
         death/Vargheists.cpp
         death/Zombies.cpp
+
+        fec/CryptHorrors.cpp
+        fec/CryptGhouls.cpp
 )
 
 target_include_directories(

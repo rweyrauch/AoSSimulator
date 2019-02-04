@@ -51,6 +51,7 @@ public:
 
     Unit* getNearestUnit(const Unit* unit, PlayerId fromPlayer);
     std::vector<Unit*> getUnitsWithin(const Unit* unit, PlayerId fromPlayer, float distance);
+    Unit* getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
 
     void render(const std::string& filename) const;
 

@@ -727,6 +727,33 @@ int Unit::rollSaves(const WoundingHits &woundingHits, const Weapon *weapon, Dice
     return numFails;
 }
 
+int Unit::heal(int numWounds)
+{
+    if (numWounds <= 0)
+        return 0;
+
+    int numHealedWounds = 0;
+    for (auto &model : m_models)
+    {
+        if (model.slain() || model.fled()) continue;
+
+        auto toHeal = wounds() - model.woundsRemaining();
+        if (toHeal >= numWounds)
+        {
+            model.woundsRemaining() += numWounds;
+            numHealedWounds += numWounds;
+            break;
+        }
+        else
+        {
+            model.woundsRemaining() += toHeal;
+            numWounds -= toHeal;
+            numHealedWounds += toHeal;
+        }
+    }
+    return numHealedWounds;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

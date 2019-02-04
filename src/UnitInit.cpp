@@ -96,6 +96,9 @@
 #include "death/Vargheists.h"
 #include "death/Zombies.h"
 
+#include "fec/CryptHorrors.h"
+#include "fec/CryptGhouls.h"
+
 void Initialize()
 {
     StormcastEternals::Liberators::Init();
@@ -186,4 +189,7 @@ void Initialize()
     Death::SkeletonWarriors::Init();
     Death::Vargheists::Init();
     Death::Zombies::Init();
+
+    FleshEaterCourt::CryptGhouls::Init();
+    FleshEaterCourt::CryptHorrors::Init();
 }

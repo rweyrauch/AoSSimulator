@@ -277,6 +277,21 @@ enum Keyword
     DIRE_WOLVES,
     CORPSE_CARTS,
 
+    // Flesh-eater Court
+    MORDANT,
+    COURTIER,
+    CRYPT_GHAST_COURTIER,
+    CRYPT_GHOULS,
+    TERRORGHEIST,
+    ABHORRANT_GHOUL_KING,
+    ZOMBIE_DRAGON,
+    CRYPT_FLAYERS,
+    CRYPT_HAUNTER_COURTIER,
+    CRYPT_HORRORS,
+    CRYPT_INFERNAL_COURTIER,
+    VARGHULF_COURTIER,
+    PRINCE_VHORDRAI,
+
 };
 
 enum Duration
@@ -304,6 +319,7 @@ enum class ParamType
     Boolean,
     Integer,
 };
+
 struct Parameter
 {
     ParamType m_paramType;
@@ -324,7 +340,6 @@ std::string ParameterValueToString(const Parameter& param);
 ParameterList::const_iterator FindParam(const std::string& name, const ParameterList& parameters);
 int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue);
 bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue);
-
 
 std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);
