@@ -156,6 +156,7 @@ enum Keyword
     STARDRAKE,
     CASTIGATORS,
     VANGUARD_RAPTORS,
+    VANDUS_HAMMERHAND,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

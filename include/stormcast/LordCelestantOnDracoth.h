@@ -59,6 +59,7 @@ protected:
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
     Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
+    int damageModifier(const Weapon* weapon, const Unit* target, const Dice::RollResult& woundRolls) const override;
 
 private:
 
@@ -78,7 +79,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Lightning Hammer                 No
-// Intolerable Damage               No
+// Intolerable Damage               Yes
 // Sigmarite Thundershield          Yes
 // Stormstrike Glaive               Yes
 // Storm Breath                     No

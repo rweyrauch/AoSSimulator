@@ -37,6 +37,7 @@ add_library(
         stormcast/VanguardRaptorsHurricane.cpp
         stormcast/VanguardRaptorsLongstrike.cpp
         stormcast/Castigators.cpp
+        stormcast/VandusHammerhand.cpp
 
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp

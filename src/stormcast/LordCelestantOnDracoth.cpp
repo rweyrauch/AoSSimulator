@@ -188,4 +188,20 @@ void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon *)> &v
     visitor(&s_clawsAndFangs);
 }
 
+int LordCelestantOnDracoth::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+{
+    // Intolerable Damage
+    if (weapon->name() == s_clawsAndFangs.name())
+    {
+        Dice dice;
+        int modifier = 0;
+        for (auto i = 0; i < woundRolls.numUnmodified6s(); i++)
+        {
+            modifier += dice.rollD3() - 1; // D3 instead of 1
+        }
+        return modifier;
+    }
+    return StormcastEternal::damageModifier(weapon, target, woundRolls);
+}
+
 } // namespace StormcastEternals

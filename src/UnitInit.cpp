@@ -24,6 +24,7 @@
 #include "stormcast/VanguardRaptorsHurricane.h"
 #include "stormcast/VanguardRaptorsLongstrike.h"
 #include "stormcast/Castigators.h"
+#include "stormcast/VandusHammerhand.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -114,6 +115,7 @@ void Initialize()
     StormcastEternals::Castigators::Init();
     StormcastEternals::VanguardRaptorsHurricane::Init();
     StormcastEternals::VanguardRaptorsLongstrike::Init();
+    StormcastEternals::VandusHammerhand::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();
