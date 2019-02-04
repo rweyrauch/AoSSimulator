@@ -47,6 +47,9 @@ add_library(
         khorne/BloodthirsterOfInsensateRage.cpp
         khorne/BloodthirsterOfUnfetteredFury.cpp
         khorne/WrathOfKhorneBloodthirster.cpp
+        khorne/Skarbrand.cpp
+        khorne/Karanak.cpp
+        khorne/FleshHounds.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

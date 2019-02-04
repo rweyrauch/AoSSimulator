@@ -106,6 +106,7 @@ void Bloodletters::Init()
 
 int Bloodletters::extraAttacks(const Weapon *weapon) const
 {
+    // Murderous Tide
     int attacks = Unit::extraAttacks(weapon);
     if (remainingModels() >= 20)
         attacks += 1;
