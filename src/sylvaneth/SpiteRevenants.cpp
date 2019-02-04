@@ -25,11 +25,10 @@ static FactoryMethod factoryMethod = {
 
 bool SpiteRevenants::s_registered = false;
 
-Weapon SpiteRevenants::s_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 4, 4, 0, 1);
-Weapon SpiteRevenants::s_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs (Stalker)", 1, 4, 4, 4, 0, 1);
-
 SpiteRevenants::SpiteRevenants() :
-    Unit("Spite Revenants", 5, WOUNDS, 6, 5, false)
+    Unit("Spite Revenants", 5, WOUNDS, 6, 5, false),
+    m_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 4, 4, 0, 1),
+    m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs (Stalker)", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, SPITE_REVENANTS };
 }
@@ -40,13 +39,13 @@ bool SpiteRevenants::configure(int numModels)
         return false;
 
     Model shadestalker(BASESIZE, WOUNDS);
-    shadestalker.addMeleeWeapon(&s_cruelTalonsAndFangsShadestalker);
+    shadestalker.addMeleeWeapon(&m_cruelTalonsAndFangsShadestalker);
     addModel(shadestalker);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_cruelTalonsAndFangs);
+        model.addMeleeWeapon(&m_cruelTalonsAndFangs);
         addModel(model);
     }
 
@@ -81,8 +80,8 @@ void SpiteRevenants::Init()
 
 void SpiteRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_cruelTalonsAndFangs);
-    visitor(&s_cruelTalonsAndFangsShadestalker);
+    visitor(&m_cruelTalonsAndFangs);
+    visitor(&m_cruelTalonsAndFangsShadestalker);
 }
 
 } // namespace Sylvaneth

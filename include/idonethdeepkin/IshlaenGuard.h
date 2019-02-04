@@ -47,10 +47,10 @@ protected:
 
 private:
 
-    static Weapon s_helsabre,
-        s_helsabrePrince,
-        s_fangmoraFangedMaw,
-        s_fangmoraLashingTail;
+    Weapon m_helsabre,
+        m_helsabrePrince,
+        m_fangmoraFangedMaw,
+        m_fangmoraLashingTail;
 
     static bool s_registered;
 };

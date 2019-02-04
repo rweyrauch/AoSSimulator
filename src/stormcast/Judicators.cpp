@@ -27,21 +27,20 @@ static FactoryMethod factoryMethod = {
 
 bool Judicators::s_registered = false;
 
-Weapon Judicators::s_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1);
-Weapon Judicators::s_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow (Prime)", 24, 1, 2, 3, -1, 1);
-Weapon Judicators::s_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1);
-Weapon Judicators::s_shockboltBow(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 3, 3, -1, 1);
-Weapon Judicators::s_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow (Prime)", 24, 1, 2, 3, -1, 1);
-Weapon Judicators::s_thunderboldCrossbow(Weapon::Type::Missile, "Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0);
-Weapon Judicators::s_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1);
-
 Judicators::Judicators() :
-    StormcastEternal("Judicators", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Judicators", 5, WOUNDS, 7, 4, false),
+    m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
+    m_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow (Prime)", 24, 1, 2, 3, -1, 1),
+    m_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1),
+    m_shockboltBow(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 3, 3, -1, 1),
+    m_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow (Prime)", 24, 1, 2, 3, -1, 1),
+    m_thunderboldCrossbow(Weapon::Type::Missile, "Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0),
+    m_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS };
 
     // Chained Lightning
-    s_shockboltBow.setHitsPerAttack(RAND_D6);
+    m_shockboltBow.setHitsPerAttack(RAND_D6);
 }
 
 bool Judicators::configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows)
@@ -65,27 +64,27 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     Model primeModel(BASESIZE, WOUNDS);
     if (m_weaponOption == SkyboltBow)
     {
-        primeModel.addMissileWeapon(&s_skyboltPrime);
+        primeModel.addMissileWeapon(&m_skyboltPrime);
     }
     else if (m_weaponOption == BoltstormCrossbow)
     {
-        primeModel.addMissileWeapon(&s_shockboltPrime);
+        primeModel.addMissileWeapon(&m_shockboltPrime);
     }
-    primeModel.addMeleeWeapon(&s_stormGladius);
+    primeModel.addMeleeWeapon(&m_stormGladius);
     addModel(primeModel);
 
     for (auto i = 0; i < numShockboltBows; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&s_shockboltBow);
-        model.addMeleeWeapon(&s_stormGladius);
+        model.addMissileWeapon(&m_shockboltBow);
+        model.addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
     for (auto i = 0; i < numThunderboltCrossbows; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&s_thunderboldCrossbow);
-        model.addMeleeWeapon(&s_stormGladius);
+        model.addMissileWeapon(&m_thunderboldCrossbow);
+        model.addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
     int currentModelCount = (int)m_models.size();
@@ -93,10 +92,10 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == SkyboltBow)
-            model.addMissileWeapon(&s_skyboltBow);
+            model.addMissileWeapon(&m_skyboltBow);
         else if (m_weaponOption == BoltstormCrossbow)
-            model.addMissileWeapon(&s_boltstormCrossbow);
-        model.addMeleeWeapon(&s_stormGladius);
+            model.addMissileWeapon(&m_boltstormCrossbow);
+        model.addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
 
@@ -175,13 +174,13 @@ int Judicators::EnumStringToInt(const std::string& enumString)
 
 void Judicators::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_stormGladius);
-    visitor(&s_shockboltBow);
-    visitor(&s_shockboltPrime);
-    visitor(&s_skyboltBow);
-    visitor(&s_skyboltPrime);
-    visitor(&s_thunderboldCrossbow);
-    visitor(&s_boltstormCrossbow);
+    visitor(&m_stormGladius);
+    visitor(&m_shockboltBow);
+    visitor(&m_shockboltPrime);
+    visitor(&m_skyboltBow);
+    visitor(&m_skyboltPrime);
+    visitor(&m_thunderboldCrossbow);
+    visitor(&m_boltstormCrossbow);
 }
 
 } // namespace StormcastEternals

@@ -27,12 +27,7 @@ public:
     static void Init();
 
     SpiritOfDurthu();
-    ~SpiritOfDurthu() override
-    {
-        delete m_pVerdantBlast;
-        delete m_pGuardianSword;
-        delete m_pMassiveImpalingTalons;
-    }
+    ~SpiritOfDurthu() override = default;
 
     bool configure();
 
@@ -47,13 +42,9 @@ protected:
 
 private:
 
-    Weapon* m_pVerdantBlast = nullptr;
-    Weapon* m_pGuardianSword = nullptr;
-    Weapon* m_pMassiveImpalingTalons = nullptr;
-
-    static Weapon s_verdantBlast,
-        s_guardianSword,
-        s_massiveImpalingTalons;
+    Weapon m_verdantBlast,
+        m_guardianSword,
+        m_massiveImpalingTalons;
 
     static bool s_registered;
 };

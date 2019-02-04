@@ -45,8 +45,8 @@ protected:
 
 private:
 
-    static Weapon s_fangFilledGob,
-        s_squigProdder;
+    Weapon m_fangFilledGob,
+        m_squigProdder;
 
     static bool s_registered;
 };

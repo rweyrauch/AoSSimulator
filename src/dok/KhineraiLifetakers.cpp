@@ -22,13 +22,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon KhineraiLifetakers::s_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1);
-Weapon KhineraiLifetakers::s_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle (Harridynn)", 1, 2, 2, 4, 0, 1);
-
 bool KhineraiLifetakers::s_registered = false;
 
 KhineraiLifetakers::KhineraiLifetakers() :
-    DaughterOfKhaine("Khinerai Lifetakers", 14, WOUNDS, 7, 6, true)
+    DaughterOfKhaine("Khinerai Lifetakers", 14, WOUNDS, 7, 6, true),
+    m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
+    m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle (Harridynn)", 1, 2, 2, 4, 0, 1)
 {
     m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS };
 }
@@ -40,17 +39,14 @@ bool KhineraiLifetakers::configure(int numModels)
         return false;
     }
 
-    m_pBarbedSickle = new Weapon(s_barbedSickle);
-    m_pBarbedSickleHarridynn = new Weapon(s_barbedSickleHarridynn);
-
     Model harridynn(BASESIZE, WOUNDS);
-    harridynn.addMeleeWeapon(m_pBarbedSickleHarridynn);
+    harridynn.addMeleeWeapon(&m_barbedSickleHarridynn);
     addModel(harridynn);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(m_pBarbedSickle);
+        model.addMeleeWeapon(&m_barbedSickle);
         addModel(model);
     }
 
@@ -88,8 +84,8 @@ void KhineraiLifetakers::onBeginTurn(int battleRound)
     Unit::onBeginTurn(battleRound);
 
     // reset weapon damage (if previously charged)
-    m_pBarbedSickle->setDamage(s_barbedSickle.damage());
-    m_pBarbedSickleHarridynn->setDamage(s_barbedSickleHarridynn.damage());
+    m_barbedSickle.setDamage(m_barbedSickle.damage());
+    m_barbedSickleHarridynn.setDamage(m_barbedSickleHarridynn.damage());
 }
 
 void KhineraiLifetakers::onCharged()
@@ -97,8 +93,8 @@ void KhineraiLifetakers::onCharged()
     Unit::onCharged();
 
     // Death on the Wind
-    m_pBarbedSickle->setDamage(s_barbedSickle.damage()+1);
-    m_pBarbedSickleHarridynn->setDamage(s_barbedSickleHarridynn.damage()+1);
+    m_barbedSickle.setDamage(m_barbedSickle.damage()+1);
+    m_barbedSickleHarridynn.setDamage(m_barbedSickleHarridynn.damage()+1);
 }
 
 Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon,
@@ -116,8 +112,8 @@ Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon,
 
 void KhineraiLifetakers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_barbedSickle);
-    visitor(&s_barbedSickleHarridynn);
+    visitor(&m_barbedSickle);
+    visitor(&m_barbedSickleHarridynn);
 }
 
 } // namespace DaughtersOfKhaine

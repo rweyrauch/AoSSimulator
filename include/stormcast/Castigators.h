@@ -30,11 +30,7 @@ public:
     static void Init();
 
     Castigators();
-    ~Castigators() override
-    {
-        delete m_pThunderheadGreatbow;
-        delete m_pThunderheadGreatbowPrime;
-    }
+    ~Castigators() override = default;
 
     bool configure(int numModels);
 
@@ -50,12 +46,9 @@ private:
 
     bool m_aethericChannellingPower = false;
 
-    Weapon* m_pThunderheadGreatbow = nullptr;
-    Weapon* m_pThunderheadGreatbowPrime = nullptr;
-
-    static Weapon s_thunderheadGreatbow,
-        s_thunderheadGreatbowPrime,
-        s_heavyStock;
+    Weapon m_thunderheadGreatbow,
+        m_thunderheadGreatbowPrime,
+        m_heavyStock;
 
     static bool s_registered;
 };

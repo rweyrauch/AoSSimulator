@@ -22,13 +22,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon DreadscytheHarridans::s_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1);
-Weapon DreadscytheHarridans::s_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs (Crone)", 1, 4, 4, 3, -1, 1);
-
 bool DreadscytheHarridans::s_registered = false;
 
 DreadscytheHarridans::DreadscytheHarridans() :
-    Unit("Dreadscythe Harridans", 8, WOUNDS, 10, 4, true)
+    Unit("Dreadscythe Harridans", 8, WOUNDS, 10, 4, true),
+    m_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1),
+    m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs (Crone)", 1, 4, 4, 3, -1, 1)
 {
     m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS };
 }
@@ -39,13 +38,13 @@ bool DreadscytheHarridans::configure(int numModels)
         return false;
 
     Model crone(BASESIZE, WOUNDS);
-    crone.addMeleeWeapon(&s_scythedLimbsCrone);
+    crone.addMeleeWeapon(&m_scythedLimbsCrone);
     addModel(crone);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_scythedLimbs);
+        model.addMeleeWeapon(&m_scythedLimbs);
         addModel(model);
     }
 
@@ -92,8 +91,8 @@ int DreadscytheHarridans::toSaveModifier(const Weapon *weapon) const
 
 void DreadscytheHarridans::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_scythedLimbs);
-    visitor(&s_scythedLimbsCrone);
+    visitor(&m_scythedLimbs);
+    visitor(&m_scythedLimbsCrone);
 }
 
 } // namespace Nighthaunt

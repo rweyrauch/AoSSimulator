@@ -22,11 +22,10 @@ static FactoryMethod factoryMethod = {
 
 bool VandusHammerhand::s_registered = false;
 
-Weapon VandusHammerhand::s_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3);
-Weapon VandusHammerhand::s_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1);
-
 VandusHammerhand::VandusHammerhand() :
-    StormcastEternal("Vandus Hammerhand", 10, WOUNDS, 9, 3, false)
+    StormcastEternal("Vandus Hammerhand", 10, WOUNDS, 9, 3, false),
+    m_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3),
+    m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT, VANDUS_HAMMERHAND };
 }
@@ -34,8 +33,8 @@ VandusHammerhand::VandusHammerhand() :
 bool VandusHammerhand::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_heldensen);
-    model.addMeleeWeapon(&s_clawsAndFangs);
+    model.addMeleeWeapon(&m_heldensen);
+    model.addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -69,7 +68,7 @@ int VandusHammerhand::extraAttacks(const Weapon *weapon) const
     int attacks = Unit::extraAttacks(weapon);
 
     // Heldensen
-    if (m_charged && weapon->name() == s_heldensen.name())
+    if (m_charged && weapon->name() == m_heldensen.name())
     {
         Dice dice;
         attacks += dice.rollD3();
@@ -79,14 +78,14 @@ int VandusHammerhand::extraAttacks(const Weapon *weapon) const
 
 void VandusHammerhand::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_heldensen);
-    visitor(&s_clawsAndFangs);
+    visitor(&m_heldensen);
+    visitor(&m_clawsAndFangs);
 }
 
 int VandusHammerhand::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
 {
     // Intolerable Damage
-    if (weapon->name() == s_clawsAndFangs.name())
+    if (weapon->name() == m_clawsAndFangs.name())
     {
         Dice dice;
         int modifier = 0;

@@ -41,8 +41,8 @@ protected:
 
 private:
 
-    static Weapon s_wrathflails,
-        s_wrathflailsMaster;
+    Weapon m_wrathflails,
+        m_wrathflailsMaster;
 
     static bool s_registered;
 };

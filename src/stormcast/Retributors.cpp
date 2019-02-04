@@ -24,12 +24,11 @@ static FactoryMethod factoryMethod = {
 
 bool Retributors::s_registered = false;
 
-Weapon Retributors::s_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2);
-Weapon Retributors::s_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer (Prime)", 1, 3, 3, 3, -1, 2);
-Weapon Retributors::s_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0);
-
 Retributors::Retributors() :
-    StormcastEternal("Retributors", 4, WOUNDS, 7, 4, false)
+    StormcastEternal("Retributors", 4, WOUNDS, 7, 4, false),
+    m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2),
+    m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer (Prime)", 1, 3, 3, 3, -1, 2),
+    m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS };
 }
@@ -51,13 +50,13 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
 
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMeleeWeapon(&s_lightningHammerPrime);
+    primeModel.addMeleeWeapon(&m_lightningHammerPrime);
     addModel(primeModel);
 
     for (auto i = 0; i < numStarsoulMaces; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_starsoulMace);
+        model.addMeleeWeapon(&m_starsoulMace);
         addModel(model);
     }
 
@@ -65,7 +64,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_lightningHammer);
+        model.addMeleeWeapon(&m_lightningHammer);
         addModel(model);
     }
 
@@ -79,7 +78,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
 int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Blast to Ashes
-    if (weapon->name() == s_lightningHammer.name())
+    if (weapon->name() == m_lightningHammer.name())
     {
         int mortalWounds = hits.rolls.numUnmodified6s() * 2;
         /*
@@ -90,7 +89,7 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
     }
 
     // Starsoul Mace
-    if (weapon->name() == s_starsoulMace.name())
+    if (weapon->name() == m_starsoulMace.name())
     {
         int mortalWounds = 0;
         Dice dice;
@@ -137,9 +136,9 @@ void Retributors::Init()
 
 void Retributors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_lightningHammer);
-    visitor(&s_lightningHammerPrime);
-    visitor(&s_starsoulMace);
+    visitor(&m_lightningHammer);
+    visitor(&m_lightningHammerPrime);
+    visitor(&m_starsoulMace);
 }
 
 } // namespace StormcastEternals

@@ -43,9 +43,9 @@ protected:
     bool m_pairedGoreaxe = false;
     bool m_iconBearer = false;
 
-    static Weapon s_goreaxe,
-                  s_goreaxeChampion,
-                  s_goreglaive;
+    Weapon m_goreaxe,
+                  m_goreaxeChampion,
+                  m_goreglaive;
 
     static bool s_registered;
 };

@@ -28,11 +28,10 @@ static FactoryMethod factoryMethod = {
 
 bool Bloodletters::s_registered = false;
 
-Weapon Bloodletters::s_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1);
-Weapon Bloodletters::s_hellbladeReaper(Weapon::Type::Melee, "Hellblade (Reaper)", 1, 2, 4, 3, -1, 1);
-
 Bloodletters::Bloodletters() :
-    Unit("Bloodletters", 5, WOUNDS, 10, 5, false)
+    Unit("Bloodletters", 5, WOUNDS, 10, 5, false),
+    m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
+    m_hellbladeReaper(Weapon::Type::Melee, "Hellblade (Reaper)", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
 }
@@ -51,14 +50,14 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
 
     // Add the Hellreaper
     Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(&s_hellbladeReaper);
+    reaperModel.addMeleeWeapon(&m_hellbladeReaper);
     addModel(reaperModel);
 
     int currentModelCount = (int)m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_hellblade);
+        model.addMeleeWeapon(&m_hellblade);
         addModel(model);
     }
 
@@ -115,8 +114,8 @@ int Bloodletters::extraAttacks(const Weapon *weapon) const
 
 void Bloodletters::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_hellblade);
-    visitor(&s_hellbladeReaper);
+    visitor(&m_hellblade);
+    visitor(&m_hellbladeReaper);
 }
 
 } // namespace Khorne

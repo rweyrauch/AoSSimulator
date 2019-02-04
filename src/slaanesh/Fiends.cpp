@@ -23,13 +23,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Fiends::s_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1);
-Weapon Fiends::s_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1);
-
 bool Fiends::s_registered = false;
 
 Fiends::Fiends() :
-    Unit("Fiends", 12, WOUNDS, 10, 5, false)
+    Unit("Fiends", 12, WOUNDS, 10, 5, false),
+    m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
+    m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1)
 {
     m_keywords = { CHAOS, DAEMON, SLAANESH, FIENDS };
 }
@@ -45,8 +44,8 @@ bool Fiends::configure(int numModels)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_deadlyPincers);
-        model.addMeleeWeapon(&s_barbedStinger);
+        model.addMeleeWeapon(&m_deadlyPincers);
+        model.addMeleeWeapon(&m_barbedStinger);
         addModel(model);
     }
 
@@ -59,8 +58,8 @@ bool Fiends::configure(int numModels)
 
 void Fiends::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_deadlyPincers);
-    visitor(&s_barbedStinger);
+    visitor(&m_deadlyPincers);
+    visitor(&m_barbedStinger);
 }
 
 Unit *Fiends::Create(const ParameterList &parameters)

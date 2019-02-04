@@ -42,8 +42,8 @@ protected:
 
 private:
 
-    static Weapon s_scythedLimbs,
-        s_scythedLimbsCrone;
+    Weapon m_scythedLimbs,
+        m_scythedLimbsCrone;
 
     static bool s_registered;
 };

@@ -22,10 +22,9 @@ static FactoryMethod factoryMethod = {
 
 bool KnightIncantor::s_registered = false;
 
-Weapon KnightIncantor::s_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3);
-
 KnightIncantor::KnightIncantor() :
-    StormcastEternal("Knight-Incantor", 5, WOUNDS, 9, 3, false)
+    StormcastEternal("Knight-Incantor", 5, WOUNDS, 9, 3, false),
+    m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR };
 }
@@ -33,7 +32,7 @@ KnightIncantor::KnightIncantor() :
 bool KnightIncantor::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_staff);
+    model.addMeleeWeapon(&m_staff);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -63,7 +62,7 @@ void KnightIncantor::Init()
 
 void KnightIncantor::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_staff);
+    visitor(&m_staff);
 }
 
 } // namespace StormcastEternals

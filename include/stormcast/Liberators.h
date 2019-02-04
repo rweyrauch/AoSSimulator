@@ -56,12 +56,12 @@ private:
     WeaponOption m_weaponOption = Warhammer;
     bool m_pairedWeapons = false;
 
-    static Weapon s_warhammer,
-                  s_warhammerPrime,
-                  s_warblade,
-                  s_warbladePrime,
-                  s_grandhammer,
-                  s_grandblade;
+    Weapon m_warhammer,
+                  m_warhammerPrime,
+                  m_warblade,
+                  m_warbladePrime,
+                  m_grandhammer,
+                  m_grandblade;
 
     static bool s_registered;
 

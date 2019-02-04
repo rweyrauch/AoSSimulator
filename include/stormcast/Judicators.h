@@ -53,13 +53,13 @@ private:
 
     WeaponOption m_weaponOption = SkyboltBow;
 
-    static Weapon s_skyboltBow,
-                  s_skyboltPrime,
-                  s_boltstormCrossbow,
-                  s_shockboltBow,
-                  s_shockboltPrime,
-                  s_thunderboldCrossbow,
-                  s_stormGladius;
+    Weapon m_skyboltBow,
+                  m_skyboltPrime,
+                  m_boltstormCrossbow,
+                  m_shockboltBow,
+                  m_shockboltPrime,
+                  m_thunderboldCrossbow,
+                  m_stormGladius;
 
     static bool s_registered;
 };

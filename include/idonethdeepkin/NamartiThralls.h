@@ -42,7 +42,7 @@ protected:
 
 private:
 
-    static Weapon s_lanmariBlade;
+    Weapon m_lanmariBlade;
 
     static bool s_registered;
 };

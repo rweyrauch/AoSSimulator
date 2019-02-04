@@ -26,11 +26,7 @@ public:
     static void Init();
 
     LoonbossOnManglerSquigs();
-    ~LoonbossOnManglerSquigs() override
-    {
-        delete m_pHugeFangFilledGob;
-        delete m_pBallsAndChains;
-    }
+    ~LoonbossOnManglerSquigs() override = default;
 
     int move() const override;
 
@@ -48,13 +44,10 @@ private:
 
     int getDamageTableIndex() const;
 
-    Weapon* m_pHugeFangFilledGob = nullptr;
-    Weapon* m_pBallsAndChains = nullptr;
-
-    static Weapon s_hugeFangFilledGob,
-        s_moonCutta,
-        s_ballsAndChains,
-        s_grotsBashinStikk;
+    Weapon m_hugeFangFilledGob,
+        m_moonCutta,
+        m_ballsAndChains,
+        m_grotsBashinStikk;
 
     static bool s_registered;
 };

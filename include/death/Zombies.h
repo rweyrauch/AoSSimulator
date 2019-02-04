@@ -46,7 +46,7 @@ private:
     bool m_standardBearer;
     bool m_noiseMaker;
 
-    static Weapon s_zombieBite;
+    Weapon m_zombieBite;
 
     static bool s_registered;
 

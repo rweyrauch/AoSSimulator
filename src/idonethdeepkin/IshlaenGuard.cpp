@@ -26,13 +26,13 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon AkhelianIshlaenGuard::s_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1);
-Weapon AkhelianIshlaenGuard::s_helsabrePrince(Weapon::Type::Melee, "Helsabre (Prince)", 1, 4, 3, 3, 0, 1);
-Weapon AkhelianIshlaenGuard::s_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3);
-Weapon AkhelianIshlaenGuard::s_fangmoraLashingTail(Weapon::Type::Melee, "Fangmora's Lashing Tail", 2, RAND_D3, 3, 3, 0, 1);
 
 AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
-    Unit("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true)
+    Unit("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true),
+    m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
+    m_helsabrePrince(Weapon::Type::Melee, "Helsabre (Prince)", 1, 4, 3, 3, 0, 1),
+    m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
+    m_fangmoraLashingTail(Weapon::Type::Melee, "Fangmora's Lashing Tail", 2, RAND_D3, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, AKHELIAN_GUARD, ISHLAEN_GUARD};
 }
@@ -46,17 +46,17 @@ bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool m
     m_musicians = musicians;
 
     Model prince(BASESIZE, WOUNDS);
-    prince.addMeleeWeapon(&s_helsabrePrince);
-    prince.addMeleeWeapon(&s_fangmoraFangedMaw);
-    prince.addMeleeWeapon(&s_fangmoraLashingTail);
+    prince.addMeleeWeapon(&m_helsabrePrince);
+    prince.addMeleeWeapon(&m_fangmoraFangedMaw);
+    prince.addMeleeWeapon(&m_fangmoraLashingTail);
     addModel(prince);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_helsabre);
-        model.addMeleeWeapon(&s_fangmoraFangedMaw);
-        model.addMeleeWeapon(&s_fangmoraLashingTail);
+        model.addMeleeWeapon(&m_helsabre);
+        model.addMeleeWeapon(&m_fangmoraFangedMaw);
+        model.addMeleeWeapon(&m_fangmoraLashingTail);
         addModel(model);
     }
 
@@ -69,10 +69,10 @@ bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool m
 
 void AkhelianIshlaenGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_helsabre);
-    visitor(&s_helsabrePrince);
-    visitor(&s_fangmoraFangedMaw);
-    visitor(&s_fangmoraLashingTail);
+    visitor(&m_helsabre);
+    visitor(&m_helsabrePrince);
+    visitor(&m_fangmoraFangedMaw);
+    visitor(&m_fangmoraLashingTail);
 }
 
 Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters)

@@ -20,13 +20,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Karanak::s_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1);
-Weapon Karanak::s_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3);
-
 bool Karanak::s_registered = false;
 
 Karanak::Karanak() :
-    Unit("Karanak", 8, WOUNDS, 10, 4, false)
+    Unit("Karanak", 8, WOUNDS, 10, 4, false),
+    m_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1),
+    m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
 }
@@ -35,8 +34,8 @@ bool Karanak::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&s_goreSlickClaws);
-    model.addMeleeWeapon(&s_savageMaws);
+    model.addMeleeWeapon(&m_goreSlickClaws);
+    model.addMeleeWeapon(&m_savageMaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -46,8 +45,8 @@ bool Karanak::configure()
 
 void Karanak::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_goreSlickClaws);
-    visitor(&s_savageMaws);
+    visitor(&m_goreSlickClaws);
+    visitor(&m_savageMaws);
 }
 
 Unit *Karanak::Create(const ParameterList &parameters)

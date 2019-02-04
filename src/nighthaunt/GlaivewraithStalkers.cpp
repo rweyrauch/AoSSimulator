@@ -23,12 +23,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon GlaivewraithStalkers::s_huntersGlaive(Weapon::Type::Melee, "Hunter's Glaive", 2, 2, 4, 3, 0, 1);
-
 bool GlaivewraithStalkers::s_registered = false;
 
 GlaivewraithStalkers::GlaivewraithStalkers() :
-    Unit("Glaivewraith Stalkers", 6, WOUNDS, 10, 4, true)
+    Unit("Glaivewraith Stalkers", 6, WOUNDS, 10, 4, true),
+    m_huntersGlaive(Weapon::Type::Melee, "Hunter's Glaive", 2, 2, 4, 3, 0, 1)
 {
     m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GLAIVEWRAITH_STALKERS };
 }
@@ -44,7 +43,7 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_huntersGlaive);
+        model.addMeleeWeapon(&m_huntersGlaive);
         addModel(model);
     }
 
@@ -101,7 +100,7 @@ int GlaivewraithStalkers::toSaveModifier(const Weapon *weapon) const
 
 void GlaivewraithStalkers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_huntersGlaive);
+    visitor(&m_huntersGlaive);
 }
 
 } // namespace Nighthaunt

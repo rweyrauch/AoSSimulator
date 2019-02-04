@@ -31,11 +31,7 @@ public:
     static void Init();
 
     KhineraiLifetakers();
-    ~KhineraiLifetakers() override
-    {
-        delete m_pBarbedSickle;
-        delete m_pBarbedSickleHarridynn;
-    }
+    ~KhineraiLifetakers() override = default;
 
     bool configure(int numModels);
 
@@ -47,15 +43,10 @@ protected:
     void onCharged() override;
     Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
 
-protected:
-
-    Weapon* m_pBarbedSickle = nullptr;
-    Weapon* m_pBarbedSickleHarridynn = nullptr;
-
 private:
 
-    static Weapon s_barbedSickle,
-        s_barbedSickleHarridynn;
+    Weapon m_barbedSickle,
+        m_barbedSickleHarridynn;
 
     static bool s_registered;
 };

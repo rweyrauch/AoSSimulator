@@ -25,13 +25,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon WitchAelves::s_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1);
-Weapon WitchAelves::s_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife (Hag)", 1, 2, 2, 4, 0, 1);
-
 bool WitchAelves::s_registered = false;
 
 WitchAelves::WitchAelves() :
-    DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false)
+    DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false),
+    m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
+    m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife (Hag)", 1, 2, 2, 4, 0, 1)
 {
     m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES };
 }
@@ -51,13 +50,13 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
         m_runAndCharge = true;
 
     Model hag(BASESIZE, WOUNDS);
-    hag.addMeleeWeapon(&s_sacrificialKnifeHag);
+    hag.addMeleeWeapon(&m_sacrificialKnifeHag);
     addModel(hag);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model witch(BASESIZE, WOUNDS);
-        witch.addMeleeWeapon(&s_sacrificialKnife);
+        witch.addMeleeWeapon(&m_sacrificialKnife);
         addModel(witch);
     }
 
@@ -136,8 +135,8 @@ Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon,
 
 void WitchAelves::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_sacrificialKnife);
-    visitor(&s_sacrificialKnifeHag);
+    visitor(&m_sacrificialKnife);
+    visitor(&m_sacrificialKnifeHag);
 }
 
 } // namespace DaughtersOfKhaine

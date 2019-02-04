@@ -55,10 +55,10 @@ private:
     bool m_hornblowers = false;
     WeaponOptions m_weapons = WightBlade;
 
-    static Weapon s_wightBlade,
-        s_wightBladeSeneschal,
-        s_greatWightBlade,
-        s_greatWightBladeSeneschal;
+    Weapon m_wightBlade,
+        m_wightBladeSeneschal,
+        m_greatWightBlade,
+        m_greatWightBladeSeneschal;
 
     static bool s_registered;
 

@@ -43,8 +43,8 @@ protected:
 
 private:
 
-    static Weapon s_fangsAndClaws,
-        s_fangsAndClawsDoom;
+    Weapon m_fangsAndClaws,
+        m_fangsAndClawsDoom;
 
     static bool s_registered;
 

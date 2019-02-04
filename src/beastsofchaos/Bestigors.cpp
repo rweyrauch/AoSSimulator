@@ -25,11 +25,10 @@ static FactoryMethod factoryMethod = {
 
 bool Bestigors::s_registered = false;
 
-Weapon Bestigors::s_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1);
-Weapon Bestigors::s_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe (Gouge-horn)", 1, 3, 4, 3, -1, 1);
-
 Bestigors::Bestigors() :
-    Unit("Bestigors", 6, WOUNDS, 6, 4, false)
+    Unit("Bestigors", 6, WOUNDS, 6, 4, false),
+    m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
+    m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe (Gouge-horn)", 1, 3, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
 }
@@ -47,13 +46,13 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
     m_runAndCharge = m_brayhorn;
 
     Model gougehorn(BASESIZE, WOUNDS);
-    gougehorn.addMeleeWeapon(&s_despoilerAxeGougeHorn);
+    gougehorn.addMeleeWeapon(&m_despoilerAxeGougeHorn);
     addModel(gougehorn);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_despoilerAxe);
+        model.addMeleeWeapon(&m_despoilerAxe);
         addModel(model);
     }
 
@@ -66,8 +65,8 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
 
 void Bestigors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_despoilerAxe);
-    visitor(&s_despoilerAxeGougeHorn);
+    visitor(&m_despoilerAxe);
+    visitor(&m_despoilerAxeGougeHorn);
 }
 
 Unit *Bestigors::Create(const ParameterList &parameters)

@@ -56,8 +56,8 @@ Board *Board::Instance()
 void Board::render(const std::string& filename) const
 {
     // use cairomm to create a raster image of the current board state
-    int imageW = m_width * 10; // tenth's of inches
-    int imageH = m_depth * 10;
+    int imageW = (int)(m_width * 10.0f); // tenth's of inches
+    int imageH = (int)(m_depth * 10.0f);
 
     Cairo::RefPtr<Cairo::ImageSurface> surface =
         Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32, imageW, imageH);

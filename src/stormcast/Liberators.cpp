@@ -28,15 +28,14 @@ static FactoryMethod factoryMethod = {
 
 bool Liberators::s_registered = false;
 
-Weapon Liberators::s_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
-Weapon Liberators::s_warhammerPrime(Weapon::Type::Melee, "Warhammer (Prime)", 1, 3, 4, 3, 0, 1);
-Weapon Liberators::s_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1);
-Weapon Liberators::s_warbladePrime(Weapon::Type::Melee, "Warblade (Prime)", 1, 3, 3, 4, 0, 1);
-Weapon Liberators::s_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2);
-Weapon Liberators::s_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2);
-
 Liberators::Liberators() :
-        StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false),
+    m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
+    m_warhammerPrime(Weapon::Type::Melee, "Warhammer (Prime)", 1, 3, 4, 3, 0, 1),
+    m_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1),
+    m_warbladePrime(Weapon::Type::Melee, "Warblade (Prime)", 1, 3, 3, 4, 0, 1),
+    m_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2),
+    m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
 }
@@ -64,23 +63,23 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
     Model primeModel(BASESIZE, WOUNDS);
     if (m_weaponOption == Warhammer)
     {
-        primeModel.addMeleeWeapon(&s_warhammerPrime);
+        primeModel.addMeleeWeapon(&m_warhammerPrime);
     } else if (m_weaponOption == Warblade)
     {
-        primeModel.addMeleeWeapon(&s_warbladePrime);
+        primeModel.addMeleeWeapon(&m_warbladePrime);
     }
     addModel(primeModel);
 
     for (auto i = 0; i < numGrandblades; i++)
     {
         Model grandbladeModel(BASESIZE, WOUNDS);
-        grandbladeModel.addMeleeWeapon(&s_grandblade);
+        grandbladeModel.addMeleeWeapon(&m_grandblade);
         addModel(grandbladeModel);
     }
     for (auto i = 0; i < numGrandhammers; i++)
     {
         Model grandhammerModel(BASESIZE, WOUNDS);
-        grandhammerModel.addMeleeWeapon(&s_grandhammer);
+        grandhammerModel.addMeleeWeapon(&m_grandhammer);
         addModel(grandhammerModel);
     }
     int currentModelCount = (int) m_models.size();
@@ -88,9 +87,9 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == Warhammer)
-            model.addMeleeWeapon(&s_warhammer);
+            model.addMeleeWeapon(&m_warhammer);
         else if (m_weaponOption == Warblade)
-            model.addMeleeWeapon(&s_warblade);
+            model.addMeleeWeapon(&m_warblade);
         addModel(model);
     }
 
@@ -125,7 +124,7 @@ Hits Liberators::applyHitModifiers(const Weapon *weapon, const Unit *unit, const
 {
     Hits modifiedHits = hits;
     if ((hits.rolls.numUnmodified6s() > 0) && m_pairedWeapons &&
-        (weapon->name() == s_warblade.name() || weapon->name() == s_warhammer.name()))
+        (weapon->name() == m_warblade.name() || weapon->name() == m_warhammer.name()))
     {
         // each 6 inflicts an additional hit
         modifiedHits.numHits += hits.rolls.numUnmodified6s();
@@ -185,12 +184,12 @@ int Liberators::EnumStringToInt(const std::string &enumString)
 
 void Liberators::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_grandblade);
-    visitor(&s_grandhammer);
-    visitor(&s_warhammer);
-    visitor(&s_warhammerPrime);
-    visitor(&s_warblade);
-    visitor(&s_warbladePrime);
+    visitor(&m_grandblade);
+    visitor(&m_grandhammer);
+    visitor(&m_warhammer);
+    visitor(&m_warhammerPrime);
+    visitor(&m_warblade);
+    visitor(&m_warbladePrime);
 }
 
 } // namespace StormcastEternals

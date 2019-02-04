@@ -50,11 +50,11 @@ private:
     int m_numFlagbearers = 0;
     int m_numIconbearers = 0;
 
-    static Weapon s_slitta,
-        s_slittaBoss,
-        s_moonclanBow,
-        s_moonclanBowBoss,
-        s_barbedNet;
+    Weapon m_slitta,
+        m_slittaBoss,
+        m_moonclanBow,
+        m_moonclanBowBoss,
+        m_barbedNet;
 
     static bool s_registered;
 };

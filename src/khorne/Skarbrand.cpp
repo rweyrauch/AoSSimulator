@@ -37,13 +37,12 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         { Skarbrand::Incandescent, 8, 1 }
     };
 
-Weapon Skarbrand::s_slaughter(Weapon::Type::Melee, "Slaughter", 2, 4, 4, 3, -2, 3);
-Weapon Skarbrand::s_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0);
-
 bool Skarbrand::s_registered = false;
 
 Skarbrand::Skarbrand() :
-    Unit("Skarbrand", 8, WOUNDS, 10, 4, true)
+    Unit("Skarbrand", 8, WOUNDS, 10, 4, true),
+    m_slaughter(Weapon::Type::Melee, "Slaughter", 2, 4, 4, 3, -2, 3),
+    m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
 }
@@ -52,10 +51,8 @@ bool Skarbrand::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pSlaughter = new Weapon(s_slaughter);
-
-    model.addMeleeWeapon(m_pSlaughter);
-    model.addMeleeWeapon(&s_carnage);
+    model.addMeleeWeapon(&m_slaughter);
+    model.addMeleeWeapon(&m_carnage);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -65,8 +62,8 @@ bool Skarbrand::configure()
 
 void Skarbrand::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_slaughter);
-    visitor(&s_carnage);
+    visitor(&m_slaughter);
+    visitor(&m_carnage);
 }
 
 Unit *Skarbrand::Create(const ParameterList &parameters)
@@ -93,7 +90,7 @@ void Skarbrand::Init()
 void Skarbrand::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pSlaughter->setAttacks(g_damageTable[damageIndex].m_slaughterAttacks);
+    m_slaughter.setAttacks(g_damageTable[damageIndex].m_slaughterAttacks);
 
     Unit::onWounded();
 }

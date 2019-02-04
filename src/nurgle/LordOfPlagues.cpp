@@ -19,12 +19,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon LordOfPlagues::s_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3);
-
 bool LordOfPlagues::s_registered = false;
 
 LordOfPlagues::LordOfPlagues() :
-    Unit("Lord of Plagues", 4, WOUNDS, 9, 4, false)
+    Unit("Lord of Plagues", 4, WOUNDS, 9, 4, false),
+    m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = { CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES };
 }
@@ -32,7 +31,7 @@ LordOfPlagues::LordOfPlagues() :
 bool LordOfPlagues::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_plagueriddenGreatBlade);
+    model.addMeleeWeapon(&m_plagueriddenGreatBlade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -42,7 +41,7 @@ bool LordOfPlagues::configure()
 
 void LordOfPlagues::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_plagueriddenGreatBlade);
+    visitor(&m_plagueriddenGreatBlade);
 }
 
 Unit *LordOfPlagues::Create(const ParameterList &parameters)

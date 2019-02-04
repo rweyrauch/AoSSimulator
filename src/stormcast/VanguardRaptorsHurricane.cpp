@@ -24,12 +24,11 @@ static FactoryMethod factoryMethod = {
 
 bool VanguardRaptorsHurricane::s_registered = false;
 
-Weapon VanguardRaptorsHurricane::s_hurricaneCrossbow(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 4, 4, 0, 1);
-Weapon VanguardRaptorsHurricane::s_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow (Prime)", 18, 6, 3, 4, 0, 1);
-Weapon VanguardRaptorsHurricane::s_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1);
-
 VanguardRaptorsHurricane::VanguardRaptorsHurricane() :
-    StormcastEternal("Vanguard Raptors with Hurricane Crossbows", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Vanguard Raptors with Hurricane Crossbows", 5, WOUNDS, 7, 4, false),
+    m_hurricaneCrossbow(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 4, 4, 0, 1),
+    m_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow (Prime)", 18, 6, 3, 4, 0, 1),
+    m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS };
 }
@@ -45,15 +44,15 @@ bool VanguardRaptorsHurricane::configure(int numModels)
 
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMissileWeapon(&s_hurricaneCrossbowPrime);
-    primeModel.addMeleeWeapon(&s_heavyStock);
+    primeModel.addMissileWeapon(&m_hurricaneCrossbowPrime);
+    primeModel.addMeleeWeapon(&m_heavyStock);
     addModel(primeModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&s_hurricaneCrossbow);
-        model.addMeleeWeapon(&s_heavyStock);
+        model.addMissileWeapon(&m_hurricaneCrossbow);
+        model.addMeleeWeapon(&m_heavyStock);
         addModel(model);
     }
 
@@ -89,7 +88,7 @@ void VanguardRaptorsHurricane::Init()
 int VanguardRaptorsHurricane::extraAttacks(const Weapon *weapon) const
 {
     // Rapid Fire
-    if (!m_moved && weapon->name() == s_hurricaneCrossbow.name())
+    if (!m_moved && weapon->name() == m_hurricaneCrossbow.name())
     {
         return 3;
     }
@@ -98,9 +97,9 @@ int VanguardRaptorsHurricane::extraAttacks(const Weapon *weapon) const
 
 void VanguardRaptorsHurricane::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_hurricaneCrossbow);
-    visitor(&s_hurricaneCrossbowPrime);
-    visitor(&s_heavyStock);
+    visitor(&m_hurricaneCrossbow);
+    visitor(&m_hurricaneCrossbowPrime);
+    visitor(&m_heavyStock);
 }
 
 } // namespace StormcastEternals

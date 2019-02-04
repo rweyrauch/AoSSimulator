@@ -24,12 +24,11 @@ static FactoryMethod factoryMethod = {
 
 bool BoingrotBounderz::s_registered = false;
 
-Weapon BoingrotBounderz::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
-Weapon BoingrotBounderz::s_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1);
-Weapon BoingrotBounderz::s_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance (Boss)", 2, 2, 3, 4, -1, 1);
-
 BoingrotBounderz::BoingrotBounderz() :
-    Unit("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true)
+    Unit("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true),
+    m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
+    m_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1),
+    m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance (Boss)", 2, 2, 3, 4, -1, 1)
 {
     m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, BOINGROT_BOUNDERZ };
 }
@@ -45,16 +44,16 @@ bool BoingrotBounderz::configure(int numModels)
 
     // Add the boss
     Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&s_pokinLanceBoss);
-    boss.addMeleeWeapon(&s_fangFilledGob);
+    boss.addMeleeWeapon(&m_pokinLanceBoss);
+    boss.addMeleeWeapon(&m_fangFilledGob);
     addModel(boss);
 
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_pokinLance);
-        model.addMeleeWeapon(&s_fangFilledGob);
+        model.addMeleeWeapon(&m_pokinLance);
+        model.addMeleeWeapon(&m_fangFilledGob);
         addModel(model);
     }
 
@@ -112,7 +111,7 @@ int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) co
 {
     // Lances of the Bounderz
     int modifier = Unit::toWoundModifier(weapon, unit);
-    if (m_charged && weapon->name() == s_pokinLance.name())
+    if (m_charged && weapon->name() == m_pokinLance.name())
         modifier += 1;
 
     return modifier;
@@ -120,9 +119,9 @@ int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) co
 
 void BoingrotBounderz::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_pokinLance);
-    visitor(&s_pokinLanceBoss);
-    visitor(&s_fangFilledGob);
+    visitor(&m_pokinLance);
+    visitor(&m_pokinLanceBoss);
+    visitor(&m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

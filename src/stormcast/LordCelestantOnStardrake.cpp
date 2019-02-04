@@ -43,12 +43,11 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 
 bool LordCelestantOnStardrake::s_registered = false;
 
-Weapon LordCelestantOnStardrake::s_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3);
-Weapon LordCelestantOnStardrake::s_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2);
-Weapon LordCelestantOnStardrake::s_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3);
-
 LordCelestantOnStardrake::LordCelestantOnStardrake() :
-    StormcastEternal("Lord-Celestant on Stardrake", 12, WOUNDS, 9, 3, true)
+    StormcastEternal("Lord-Celestant on Stardrake", 12, WOUNDS, 9, 3, true),
+    m_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3),
+    m_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2),
+    m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT };
 }
@@ -57,14 +56,12 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 {
     m_weapons = weapons;
 
-    m_pGreatClaws = new Weapon(s_greatClaws);
-
     Model model(BASESIZE, WOUNDS);
     if (weapons == CelestineHammer)
-        model.addMeleeWeapon(&s_celestineHammer);
+        model.addMeleeWeapon(&m_celestineHammer);
     else if (weapons == StormboundBlade)
-        model.addMeleeWeapon(&s_stormboundBlade);
-    model.addMeleeWeapon(m_pGreatClaws);
+        model.addMeleeWeapon(&m_stormboundBlade);
+    model.addMeleeWeapon(&m_greatClaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -115,7 +112,7 @@ std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter)
 void LordCelestantOnStardrake::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pGreatClaws->setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
+    m_greatClaws.setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
 }
 
 int LordCelestantOnStardrake::getDamageTableIndex() const
@@ -148,7 +145,7 @@ Hits LordCelestantOnStardrake::applyHitModifiers(const Weapon *weapon, const Uni
                                                  const Hits &hits) const
 {
     // Stormbound Blade
-    if (weapon->name() == s_stormboundBlade.name())
+    if (weapon->name() == m_stormboundBlade.name())
     {
         int num6s = hits.rolls.numUnmodified6s();
         Hits modHits = hits;
@@ -292,9 +289,9 @@ int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
 
 void LordCelestantOnStardrake::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_celestineHammer);
-    visitor(&s_stormboundBlade);
-    visitor(&s_greatClaws);
+    visitor(&m_celestineHammer);
+    visitor(&m_stormboundBlade);
+    visitor(&m_greatClaws);
 }
 
 } // namespace StormcastEternals

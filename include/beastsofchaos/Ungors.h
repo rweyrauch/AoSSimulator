@@ -52,10 +52,10 @@ private:
     bool m_brayhorn = false;
     bool m_bannerBearer = false;
 
-    static Weapon s_ungorBlade,
-        s_ungorBladeHalfhorn,
-        s_gnarledShortspear,
-        s_gnarledShortspearHalfhorn;
+    Weapon m_ungorBlade,
+        m_ungorBladeHalfhorn,
+        m_gnarledShortspear,
+        m_gnarledShortspearHalfhorn;
 
     static bool s_registered;
 };

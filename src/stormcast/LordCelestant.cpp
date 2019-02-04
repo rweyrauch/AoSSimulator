@@ -22,11 +22,10 @@ static FactoryMethod factoryMethod = {
 
 bool LordCelestant::s_registered = false;
 
-Weapon LordCelestant::s_runeblade(Weapon::Type::Melee, "Sigmarite Runeblade", 1, 4, 3, 3, -1, 1);
-Weapon LordCelestant::s_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
-
 LordCelestant::LordCelestant() :
-    StormcastEternal("Lord-Celestant", 5, WOUNDS, 9, 3, false)
+    StormcastEternal("Lord-Celestant", 5, WOUNDS, 9, 3, false),
+    m_runeblade(Weapon::Type::Melee, "Sigmarite Runeblade", 1, 4, 3, 3, -1, 1),
+    m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT };
 }
@@ -34,8 +33,8 @@ LordCelestant::LordCelestant() :
 bool LordCelestant::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_runeblade);
-    model.addMeleeWeapon(&s_warhammer);
+    model.addMeleeWeapon(&m_runeblade);
+    model.addMeleeWeapon(&m_warhammer);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -89,8 +88,8 @@ void LordCelestant::onStartShooting(PlayerId player)
 
 void LordCelestant::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_runeblade);
-    visitor(&s_warhammer);
+    visitor(&m_runeblade);
+    visitor(&m_warhammer);
 }
 
 } // namespace StormcastEternals

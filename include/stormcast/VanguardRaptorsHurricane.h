@@ -42,9 +42,9 @@ protected:
 
 private:
 
-    static Weapon s_hurricaneCrossbow,
-        s_hurricaneCrossbowPrime,
-        s_heavyStock;
+    Weapon m_hurricaneCrossbow,
+        m_hurricaneCrossbowPrime,
+        m_heavyStock;
 
     static bool s_registered;
 };

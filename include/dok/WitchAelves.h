@@ -52,8 +52,8 @@ protected:
 
 private:
 
-    static Weapon s_sacrificialKnife,
-        s_sacrificialKnifeHag;
+    Weapon m_sacrificialKnife,
+        m_sacrificialKnifeHag;
 
     static bool s_registered;
 };

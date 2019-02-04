@@ -26,16 +26,15 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Shootas::s_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1);
-Weapon Shootas::s_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1);
-Weapon Shootas::s_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1);
-Weapon Shootas::s_moonclanBowBoss(Weapon::Type::Missile, "Moonclan Bow (Boss)", 16, 1, 4, 5, 0, 1);
-Weapon Shootas::s_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1);
-
 bool Shootas::s_registered = false;
 
 Shootas::Shootas() :
-    Unit("Shootas", 5, WOUNDS, 4, 6, false)
+    Unit("Shootas", 5, WOUNDS, 4, 6, false),
+    m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
+    m_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1),
+    m_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),
+    m_moonclanBowBoss(Weapon::Type::Missile, "Moonclan Bow (Boss)", 16, 1, 4, 5, 0, 1),
+    m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
     m_keywords = { DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SHOOTAS };
 }
@@ -95,15 +94,15 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
 
     // Add the boss
     Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&s_slittaBoss);
-    boss.addMissileWeapon(&s_moonclanBowBoss);
+    boss.addMeleeWeapon(&m_slittaBoss);
+    boss.addMissileWeapon(&m_moonclanBowBoss);
     addModel(boss);
 
     // add the nets
     for (auto i = 1; i < numBarbedNets; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_barbedNet);
+        model.addMeleeWeapon(&m_barbedNet);
         addModel(model);
     }
 
@@ -111,8 +110,8 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     for (auto i = numBarbedNets; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_slitta);
-        model.addMissileWeapon(&s_moonclanBow);
+        model.addMeleeWeapon(&m_slitta);
+        model.addMissileWeapon(&m_moonclanBow);
         addModel(model);
     }
 
@@ -162,11 +161,11 @@ int Shootas::toSaveModifier(const Weapon* weapon) const
 
 void Shootas::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_slitta);
-    visitor(&s_slittaBoss);
-    visitor(&s_moonclanBow);
-    visitor(&s_moonclanBowBoss);
-    visitor(&s_barbedNet);
+    visitor(&m_slitta);
+    visitor(&m_slittaBoss);
+    visitor(&m_moonclanBow);
+    visitor(&m_moonclanBowBoss);
+    visitor(&m_barbedNet);
 }
 
 } // namespace GloomspiteGitz

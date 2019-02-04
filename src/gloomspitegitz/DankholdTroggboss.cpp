@@ -21,12 +21,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon DankholdTroggboss::s_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6);
-
 bool DankholdTroggboss::s_registered = false;
 
 DankholdTroggboss::DankholdTroggboss() :
-    Unit("Dankhold Troggboss", 6, WOUNDS, 7, 4, false)
+    Unit("Dankhold Troggboss", 6, WOUNDS, 7, 4, false),
+    m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
 }
@@ -35,7 +34,7 @@ bool DankholdTroggboss::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&s_boulderClub);
+    model.addMeleeWeapon(&m_boulderClub);
 
     addModel(model);
 
@@ -46,7 +45,7 @@ bool DankholdTroggboss::configure()
 
 void DankholdTroggboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_boulderClub);
+    visitor(&m_boulderClub);
 }
 
 Unit *DankholdTroggboss::Create(const ParameterList &parameters)

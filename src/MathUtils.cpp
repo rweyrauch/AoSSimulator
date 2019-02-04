@@ -485,7 +485,7 @@ bool Intersect(const Ray& ray, const Sphere& sphere, RayHit& h0, RayHit& h1)
 
 bool Intersect(const Ray& ray, const Box3& box, float& t0, float& t1)
 {
-    for (size_t i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         const float invRayDir = 1.0f / ray.m_dir.at(i);
         float tNear = (box.m_maxMin[i+3] - ray.m_origin.at(i)) * invRayDir;

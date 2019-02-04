@@ -51,12 +51,12 @@ private:
     WeaponOption m_weaponOption = StormSabre;
     bool m_astralCompass = false;
 
-    static Weapon s_boltstormPistol,
-                  s_boltstormPistolPrime,
-                  s_shockHandaxe,
-                  s_shockHandaxePrime,
-                  s_stormSabre,
-                  s_stormSabrePrime;
+    Weapon m_boltstormPistol,
+                  m_boltstormPistolPrime,
+                  m_shockHandaxe,
+                  m_shockHandaxePrime,
+                  m_stormSabre,
+                  m_stormSabrePrime;
 
     static bool s_registered;
 };

@@ -40,12 +40,11 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     { RAND_D6, 6, 2 }
 };
 
-Weapon ColossalSquig::s_puffSpores(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3);
-Weapon ColossalSquig::s_enormousJaws(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3);
-Weapon ColossalSquig::s_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1);
-
 ColossalSquig::ColossalSquig() :
-    Unit("Colossal Squig", RAND_4D6, WOUNDS, 10, 5, false)
+    Unit("Colossal Squig", RAND_4D6, WOUNDS, 10, 5, false),
+    m_puffSpores(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
+    m_enormousJaws(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3),
+    m_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1)
 {
     m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, COLOSSAL_SQUIG };
 }
@@ -69,12 +68,9 @@ bool ColossalSquig::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pEnormousJaws = new Weapon(s_enormousJaws);
-    m_pTramplingFeet = new Weapon(s_tramplingFeet);
-
-    model.addMeleeWeapon(m_pEnormousJaws);
-    model.addMeleeWeapon(m_pTramplingFeet);
-    model.addMeleeWeapon(&s_puffSpores);
+    model.addMeleeWeapon(&m_enormousJaws);
+    model.addMeleeWeapon(&m_tramplingFeet);
+    model.addMeleeWeapon(&m_puffSpores);
 
     addModel(model);
 
@@ -86,8 +82,8 @@ bool ColossalSquig::configure()
 void ColossalSquig::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pEnormousJaws->setToHit(g_damageTable[damageIndex].m_jawsToHit);
-    m_pTramplingFeet->setAttacks(g_damageTable[damageIndex].m_tramplingAttacks);
+    m_enormousJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
+    m_tramplingFeet.setAttacks(g_damageTable[damageIndex].m_tramplingAttacks);
 }
 
 void ColossalSquig::onSlain()
@@ -101,7 +97,7 @@ void ColossalSquig::onSlain()
 int ColossalSquig::generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds)
 {
     // Swallowed Whole
-    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == s_enormousJaws.name()))
+    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == m_enormousJaws.name()))
     {
         Dice dice;
 
@@ -152,9 +148,9 @@ void ColossalSquig::Init()
 
 void ColossalSquig::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_enormousJaws);
-    visitor(&s_tramplingFeet);
-    visitor(&s_puffSpores);
+    visitor(&m_enormousJaws);
+    visitor(&m_tramplingFeet);
+    visitor(&m_puffSpores);
 }
 
 } // namespace GloomspiteGitz

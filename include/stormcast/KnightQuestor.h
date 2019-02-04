@@ -40,7 +40,7 @@ protected:
 
 private:
 
-    static Weapon s_warblade;
+    Weapon m_warblade;
 
     static bool s_registered;
 };

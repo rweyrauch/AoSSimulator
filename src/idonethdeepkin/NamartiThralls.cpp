@@ -23,12 +23,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon NamartiThralls::s_lanmariBlade(Weapon::Type::Melee, "Lanmari Blade", 1, 2, 3, 3, -1, 1);
 
 bool NamartiThralls::s_registered = false;
 
 NamartiThralls::NamartiThralls() :
-    Unit("Namarti Thralls", 6, WOUNDS, 6, 5, false)
+    Unit("Namarti Thralls", 6, WOUNDS, 6, 5, false),
+    m_lanmariBlade(Weapon::Type::Melee, "Lanmari Blade", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = { ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS };
     m_battleFieldRole = Role::Battleline;
@@ -47,7 +47,7 @@ bool NamartiThralls::configure(int numModels, int numIconBearers)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_lanmariBlade);
+        model.addMeleeWeapon(&m_lanmariBlade);
         addModel(model);
     }
 
@@ -83,7 +83,7 @@ void NamartiThralls::Init()
 
 void NamartiThralls::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_lanmariBlade);
+    visitor(&m_lanmariBlade);
 }
 
 } // namespace IdonethDeepkin

@@ -23,13 +23,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Plaguebearers::s_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1);
-Weapon Plaguebearers::s_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword (Plagueridden)", 1, 2, 4, 3, 0, 1);
-
 bool Plaguebearers::s_registered = false;
 
 Plaguebearers::Plaguebearers() :
-    Unit("Plaguebearers", 4, WOUNDS, 10, 5, false)
+    Unit("Plaguebearers", 4, WOUNDS, 10, 5, false),
+    m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
+    m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword (Plagueridden)", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = { CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS };
 }
@@ -46,13 +45,13 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
 
     // Add the Plagueridden
     Model leader(BASESIZE, WOUNDS);
-    leader.addMeleeWeapon(&s_plagueswordPlagueRidden);
+    leader.addMeleeWeapon(&m_plagueswordPlagueRidden);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_plaguesword);
+        model.addMeleeWeapon(&m_plaguesword);
         addModel(model);
     }
 
@@ -65,8 +64,8 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
 
 void Plaguebearers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_plaguesword);
-    visitor(&s_plagueswordPlagueRidden);
+    visitor(&m_plaguesword);
+    visitor(&m_plagueswordPlagueRidden);
 }
 
 Unit *Plaguebearers::Create(const ParameterList &parameters)

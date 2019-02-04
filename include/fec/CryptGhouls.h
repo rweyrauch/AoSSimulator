@@ -43,8 +43,8 @@ protected:
 
 private:
 
-    static Weapon s_teethAndClaws,
-        s_teethAndClawsGhast;
+    Weapon m_teethAndClaws,
+        m_teethAndClawsGhast;
 
     static bool s_registered;
 };

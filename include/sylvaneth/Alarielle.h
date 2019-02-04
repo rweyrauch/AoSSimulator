@@ -27,11 +27,7 @@ public:
     static void Init();
 
     Alarielle();
-    ~Alarielle() override
-    {
-        delete m_pSpearOfKurnoth;
-        delete m_pBeetleGreatAntlers;
-    }
+    ~Alarielle() override = default;
 
     bool configure();
     int move() const override;
@@ -47,12 +43,9 @@ protected:
 
 private:
 
-    Weapon* m_pSpearOfKurnoth = nullptr;
-    Weapon* m_pBeetleGreatAntlers = nullptr;
-
-    static Weapon s_spearOfKurnoth,
-        s_talonOfDwindling,
-        s_beetleGreatAntlers;
+    Weapon m_spearOfKurnoth,
+        m_talonOfDwindling,
+        m_beetleGreatAntlers;
 
     static bool s_registered;
 };

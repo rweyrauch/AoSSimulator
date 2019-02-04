@@ -22,13 +22,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon ChainraspHorde::s_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1);
-Weapon ChainraspHorde::s_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon (Warden)", 1, 3, 4, 4, 0, 1);
-
 bool ChainraspHorde::s_registered = false;
 
 ChainraspHorde::ChainraspHorde() :
-    Unit("Chainrasp Horde", 6, WOUNDS, 10, 5, true) // todo: bravery 6 when no Dreadwarden
+    Unit("Chainrasp Horde", 6, WOUNDS, 10, 5, true), // todo: bravery 6 when no Dreadwarden
+    m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
+    m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon (Warden)", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE };
 }
@@ -39,13 +38,13 @@ bool ChainraspHorde::configure(int numModels)
         return false;
 
     Model warden(BASESIZE, WOUNDS);
-    warden.addMeleeWeapon(&s_malignantWeaponWarden);
+    warden.addMeleeWeapon(&m_malignantWeaponWarden);
     addModel(warden);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_malignantWeapon);
+        model.addMeleeWeapon(&m_malignantWeapon);
         addModel(model);
     }
 
@@ -101,8 +100,8 @@ int ChainraspHorde::toSaveModifier(const Weapon *weapon) const
 
 void ChainraspHorde::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_malignantWeapon);
-    visitor(&s_malignantWeaponWarden);
+    visitor(&m_malignantWeapon);
+    visitor(&m_malignantWeaponWarden);
 }
 
 } // namespace Nighthaunt

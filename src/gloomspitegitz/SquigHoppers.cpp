@@ -24,12 +24,11 @@ static FactoryMethod factoryMethod = {
 
 bool SquiqHoppers::s_registered = false;
 
-Weapon SquiqHoppers::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
-Weapon SquiqHoppers::s_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1);
-Weapon SquiqHoppers::s_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1);
-
 SquiqHoppers::SquiqHoppers() :
-    Unit("Squig Hoppers", RAND_3D6, WOUNDS, 4, 6, true)
+    Unit("Squig Hoppers", RAND_3D6, WOUNDS, 4, 6, true),
+    m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
+    m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
+    m_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1)
 {
     m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HOPPERS };
 }
@@ -45,16 +44,16 @@ bool SquiqHoppers::configure(int numModels)
 
     // Add the boss
     Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&s_slittaBoss);
-    boss.addMeleeWeapon(&s_fangFilledGob);
+    boss.addMeleeWeapon(&m_slittaBoss);
+    boss.addMeleeWeapon(&m_fangFilledGob);
     addModel(boss);
 
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_slitta);
-        model.addMeleeWeapon(&s_fangFilledGob);
+        model.addMeleeWeapon(&m_slitta);
+        model.addMeleeWeapon(&m_fangFilledGob);
         addModel(model);
     }
 
@@ -89,9 +88,9 @@ void SquiqHoppers::Init()
 
 void SquiqHoppers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_slitta);
-    visitor(&s_slittaBoss);
-    visitor(&s_fangFilledGob);
+    visitor(&m_slitta);
+    visitor(&m_slittaBoss);
+    visitor(&m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

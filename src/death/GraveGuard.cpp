@@ -22,15 +22,14 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon GraveGuard::s_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 4, -1, 1);
-Weapon GraveGuard::s_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade (Seneschal)", 1, 3, 3, 4, -1, 1);
-Weapon GraveGuard::s_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 3, -1, 1);
-Weapon GraveGuard::s_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade (Seneschal)", 1, 3, 3, 3, -1, 1);
-
 bool GraveGuard::s_registered = false;
 
 GraveGuard::GraveGuard() :
-    Unit("Grave Guard", 4, WOUNDS, 10, 5, false)
+    Unit("Grave Guard", 4, WOUNDS, 10, 5, false),
+    m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 4, -1, 1),
+    m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade (Seneschal)", 1, 3, 3, 4, -1, 1),
+    m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 3, -1, 1),
+    m_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade (Seneschal)", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
 }
@@ -50,18 +49,18 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
 
     Model seneschal(BASESIZE, WOUNDS);
     if (weapons == WightBlade)
-        seneschal.addMeleeWeapon(&s_wightBladeSeneschal);
+        seneschal.addMeleeWeapon(&m_wightBladeSeneschal);
     else if (weapons == GreatWightBlade)
-        seneschal.addMeleeWeapon(&s_greatWightBladeSeneschal);
+        seneschal.addMeleeWeapon(&m_greatWightBladeSeneschal);
     addModel(seneschal);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == WightBlade)
-            model.addMeleeWeapon(&s_wightBlade);
+            model.addMeleeWeapon(&m_wightBlade);
         else if (weapons == GreatWightBlade)
-            model.addMeleeWeapon(&s_greatWightBlade);
+            model.addMeleeWeapon(&m_greatWightBlade);
         addModel(model);
     }
 
@@ -74,10 +73,10 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
 
 void GraveGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_wightBlade);
-    visitor(&s_wightBladeSeneschal);
-    visitor(&s_greatWightBlade);
-    visitor(&s_greatWightBladeSeneschal);
+    visitor(&m_wightBlade);
+    visitor(&m_wightBladeSeneschal);
+    visitor(&m_greatWightBlade);
+    visitor(&m_greatWightBladeSeneschal);
 }
 
 Unit *GraveGuard::Create(const ParameterList &parameters)

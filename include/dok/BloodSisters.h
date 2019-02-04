@@ -43,10 +43,10 @@ protected:
 
 private:
 
-    static Weapon s_heartshardGlaive,
-        s_heartshardGlaiveGorgai,
-        s_crystalTouch,
-        s_crystalTouchGorgai;
+    Weapon m_heartshardGlaive,
+        m_heartshardGlaiveGorgai,
+        m_crystalTouch,
+        m_crystalTouchGorgai;
 
     static bool s_registered;
 };

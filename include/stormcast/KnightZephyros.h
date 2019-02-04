@@ -39,8 +39,8 @@ protected:
 
 private:
 
-    static Weapon s_boltstormPistol,
-        s_tempestAxes;
+    Weapon m_boltstormPistol,
+        m_tempestAxes;
 
     static bool s_registered;
 };

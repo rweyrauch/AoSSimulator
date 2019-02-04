@@ -37,13 +37,12 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         { 6, RAND_D3, 4 }
     };
 
-Weapon WrathOfKhorneBloodthirster::s_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6);
-Weapon WrathOfKhorneBloodthirster::s_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3);
-
 bool WrathOfKhorneBloodthirster::s_registered = false;
 
 WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
-    Unit("Wrath Of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true)
+    Unit("Wrath Of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
+    m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
+    m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
 }
@@ -52,11 +51,8 @@ bool WrathOfKhorneBloodthirster::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pMightyAxeOfKhorne = new Weapon(s_mightyAxeOfKhorne);
-    m_pBloodflail = new Weapon(s_bloodflail);
-
-    model.addMissileWeapon(m_pBloodflail);
-    model.addMeleeWeapon(m_pMightyAxeOfKhorne);
+    model.addMissileWeapon(&m_bloodflail);
+    model.addMeleeWeapon(&m_mightyAxeOfKhorne);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -66,8 +62,8 @@ bool WrathOfKhorneBloodthirster::configure()
 
 void WrathOfKhorneBloodthirster::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_bloodflail);
-    visitor(&s_mightyAxeOfKhorne);
+    visitor(&m_bloodflail);
+    visitor(&m_mightyAxeOfKhorne);
 }
 
 Unit *WrathOfKhorneBloodthirster::Create(const ParameterList &parameters)
@@ -94,8 +90,8 @@ void WrathOfKhorneBloodthirster::Init()
 void WrathOfKhorneBloodthirster::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pMightyAxeOfKhorne->setToWound(g_damageTable[damageIndex].m_axeToWound);
-    m_pBloodflail->setDamage(g_damageTable[damageIndex].m_flailDamage);
+    m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
+    m_bloodflail.setDamage(g_damageTable[damageIndex].m_flailDamage);
 
     Unit::onWounded();
 }

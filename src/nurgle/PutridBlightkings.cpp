@@ -23,12 +23,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon PutridBlightkings::s_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1);
-
 bool PutridBlightkings::s_registered = false;
 
 PutridBlightkings::PutridBlightkings() :
-    Unit("Putrid Blightkings", 4, WOUNDS, 8, 4, false)
+    Unit("Putrid Blightkings", 4, WOUNDS, 8, 4, false),
+    m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = { CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS };
 }
@@ -45,13 +44,13 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
 
     // Add the Blightlord
     Model leader(BASESIZE, WOUNDS+1);
-    leader.addMeleeWeapon(&s_blightedWeapon);
+    leader.addMeleeWeapon(&m_blightedWeapon);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_blightedWeapon);
+        model.addMeleeWeapon(&m_blightedWeapon);
         addModel(model);
     }
 
@@ -64,7 +63,7 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
 
 void PutridBlightkings::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_blightedWeapon);
+    visitor(&m_blightedWeapon);
 }
 
 Unit *PutridBlightkings::Create(const ParameterList &parameters)

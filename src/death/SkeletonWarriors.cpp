@@ -24,15 +24,14 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon SkeletonWarriors::s_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1);
-Weapon SkeletonWarriors::s_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade (Champion)", 1, 2, 4, 4, 0, 1);
-Weapon SkeletonWarriors::s_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1);
-Weapon SkeletonWarriors::s_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear (Champion)", 2, 2, 5, 4, 0, 1);
-
 bool SkeletonWarriors::s_registered = false;
 
 SkeletonWarriors::SkeletonWarriors() :
-    Unit("Skeleton Warriors", 4, WOUNDS, 10, 6, false)
+    Unit("Skeleton Warriors", 4, WOUNDS, 10, 6, false),
+    m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
+    m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade (Champion)", 1, 2, 4, 4, 0, 1),
+    m_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1),
+    m_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear (Champion)", 2, 2, 5, 4, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, SKELETON_WARRIORS};
 }
@@ -52,18 +51,18 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
 
     Model champion(BASESIZE, WOUNDS);
     if (weapons == AncientBlade)
-        champion.addMeleeWeapon(&s_ancientBladeChampion);
+        champion.addMeleeWeapon(&m_ancientBladeChampion);
     else if (weapons == AncientSpear)
-        champion.addMeleeWeapon(&s_ancientSpearChampion);
+        champion.addMeleeWeapon(&m_ancientSpearChampion);
     addModel(champion);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == AncientBlade)
-            model.addMeleeWeapon(&s_ancientBlade);
+            model.addMeleeWeapon(&m_ancientBlade);
         else if (weapons == AncientSpear)
-            model.addMeleeWeapon(&s_ancientSpear);
+            model.addMeleeWeapon(&m_ancientSpear);
         addModel(model);
     }
 
@@ -76,10 +75,10 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
 
 void SkeletonWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_ancientBlade);
-    visitor(&s_ancientBladeChampion);
-    visitor(&s_ancientSpear);
-    visitor(&s_ancientSpearChampion);
+    visitor(&m_ancientBlade);
+    visitor(&m_ancientBladeChampion);
+    visitor(&m_ancientSpear);
+    visitor(&m_ancientSpearChampion);
 }
 
 Unit *SkeletonWarriors::Create(const ParameterList &parameters)

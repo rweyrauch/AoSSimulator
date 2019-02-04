@@ -24,11 +24,10 @@ static FactoryMethod factoryMethod = {
 
 bool LordOrdinator::s_registered = false;
 
-Weapon LordOrdinator::s_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1);
-Weapon LordOrdinator::s_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2);
-
 LordOrdinator::LordOrdinator() :
-    StormcastEternal("Lord-Ordinator", 5, WOUNDS, 9, 4, false)
+    StormcastEternal("Lord-Ordinator", 5, WOUNDS, 9, 4, false),
+    m_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1),
+    m_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR };
 }
@@ -40,11 +39,11 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
     Model model(BASESIZE, WOUNDS);
     if (m_weaponOption == AstralHammers)
     {
-        model.addMeleeWeapon(&s_astralHammers);
+        model.addMeleeWeapon(&m_astralHammers);
     }
     else
     {
-        model.addMeleeWeapon(&s_astralGrandhammer);
+        model.addMeleeWeapon(&m_astralGrandhammer);
     }
     addModel(model);
 
@@ -100,8 +99,8 @@ int LordOrdinator::EnumStringToInt(const std::string &enumString)
 
 void LordOrdinator::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_astralHammers);
-    visitor(&s_astralGrandhammer);
+    visitor(&m_astralHammers);
+    visitor(&m_astralGrandhammer);
 }
 
 } // namespace StormcastEternals

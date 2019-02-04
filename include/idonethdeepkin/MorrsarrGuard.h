@@ -30,11 +30,7 @@ public:
     static void Init();
 
     AkhelianMorrsarrGuard();
-    ~AkhelianMorrsarrGuard() override
-    {
-        delete m_pVoltspear;
-        delete m_pVoltspearPrince;
-    }
+    ~AkhelianMorrsarrGuard() override = default;
 
     bool configure(int numModels, bool standardBearers, bool musicians);
 
@@ -56,13 +52,10 @@ protected:
 
 private:
 
-    Weapon* m_pVoltspear = nullptr;
-    Weapon* m_pVoltspearPrince = nullptr;
-
-    static Weapon s_voltspear,
-        s_voltspearPrince,
-        s_fangmoraFangedMaw,
-        s_fangmoraLashingTail;
+    Weapon m_voltspear,
+        m_voltspearPrince,
+        m_fangmoraFangedMaw,
+        m_fangmoraLashingTail;
 
     static bool s_registered;
 };

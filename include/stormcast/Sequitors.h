@@ -59,16 +59,16 @@ protected:
 private:
 
     WeaponOption m_weaponOption = StormsmiteMaul;
-    bool m_redemptionCache = false;
+    bool m_haveRedemptionCache = false;
     bool m_aethericChannellingWeapons = false;
 
-    static Weapon s_stormsmiteMaul,
-        s_stormsmiteMaulPrime,
-        s_tempestBlade,
-        s_tempestBladePrime,
-        s_stormsmiteGreatmace,
-        s_stormsmiteGreatmacePrime,
-        s_redemptionCache;
+    Weapon m_stormsmiteMaul,
+        m_stormsmiteMaulPrime,
+        m_tempestBlade,
+        m_tempestBladePrime,
+        m_stormsmiteGreatmace,
+        m_stormsmiteGreatmacePrime,
+        m_redemptionCache;
 
     static bool s_registered;
 };

@@ -48,9 +48,9 @@ private:
     bool m_standardBearers = false;
     bool m_hornblowers = false;
 
-    static Weapon s_barrowLance,
-        s_barrowLanceKnight,
-        s_hoovesAndTeeth;
+    Weapon m_barrowLance,
+        m_barrowLanceKnight,
+        m_hoovesAndTeeth;
 
     static bool s_registered;
 

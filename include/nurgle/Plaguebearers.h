@@ -49,8 +49,8 @@ protected:
 
 private:
 
-    static Weapon s_plaguesword,
-        s_plagueswordPlagueRidden;
+    Weapon m_plaguesword,
+        m_plagueswordPlagueRidden;
 
     static bool s_registered;
 };

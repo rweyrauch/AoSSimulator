@@ -27,13 +27,12 @@ static FactoryMethod factoryMethod = {
 
 bool Ungors::s_registered = false;
 
-Weapon Ungors::s_ungorBlade(Weapon::Type::Melee, "Ungor Blade", 1, 1, 4, 4, 0, 1);
-Weapon Ungors::s_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade (Halfhorn)", 1, 2, 4, 4, 0, 1);
-Weapon Ungors::s_gnarledShortspear(Weapon::Type::Melee, "Gnarled Shortspear", 2, 1, 5, 4, 0, 1);
-Weapon Ungors::s_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear (Halfhorn)", 2, 2, 5, 4, 0, 1);
-
 Ungors::Ungors() :
-    Unit("Ungors", 6, WOUNDS, 4, 6, false)
+    Unit("Ungors", 6, WOUNDS, 4, 6, false),
+    m_ungorBlade(Weapon::Type::Melee, "Ungor Blade", 1, 1, 4, 4, 0, 1),
+    m_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade (Halfhorn)", 1, 2, 4, 4, 0, 1),
+    m_gnarledShortspear(Weapon::Type::Melee, "Gnarled Shortspear", 2, 1, 5, 4, 0, 1),
+    m_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear (Halfhorn)", 2, 2, 5, 4, 0, 1)
 {
     m_keywords = { CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
 }
@@ -53,18 +52,18 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
 
     Model halfhorn(BASESIZE, WOUNDS);
     if (weapons == UngorBlade)
-        halfhorn.addMeleeWeapon(&s_ungorBladeHalfhorn);
+        halfhorn.addMeleeWeapon(&m_ungorBladeHalfhorn);
     else if (weapons == GnarledShortspear)
-        halfhorn.addMeleeWeapon(&s_gnarledShortspearHalfhorn);
+        halfhorn.addMeleeWeapon(&m_gnarledShortspearHalfhorn);
     addModel(halfhorn);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == UngorBlade)
-            model.addMeleeWeapon(&s_ungorBlade);
+            model.addMeleeWeapon(&m_ungorBlade);
         else if (weapons == GnarledShortspear)
-            model.addMeleeWeapon(&s_gnarledShortspear);
+            model.addMeleeWeapon(&m_gnarledShortspear);
         addModel(model);
     }
 
@@ -77,10 +76,10 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
 
 void Ungors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_ungorBlade);
-    visitor(&s_ungorBladeHalfhorn);
-    visitor(&s_gnarledShortspear);
-    visitor(&s_gnarledShortspearHalfhorn);
+    visitor(&m_ungorBlade);
+    visitor(&m_ungorBladeHalfhorn);
+    visitor(&m_gnarledShortspear);
+    visitor(&m_gnarledShortspearHalfhorn);
 }
 
 Unit *Ungors::Create(const ParameterList &parameters)

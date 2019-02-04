@@ -30,11 +30,7 @@ public:
     static void Init();
 
     NamartiReavers();
-    ~NamartiReavers() override
-    {
-        delete m_pWhisperbowAimedFire;
-        delete m_pWhisperbowStormFire;
-    }
+    ~NamartiReavers() override = default;
 
     bool configure(int numModels, int numIconBearers);
 
@@ -51,14 +47,11 @@ protected:
 
     int m_numIconBearers = 0;
 
-    Weapon* m_pWhisperbowAimedFire = nullptr;
-    Weapon* m_pWhisperbowStormFire = nullptr;
-
 private:
 
-    static Weapon s_keeningBlade,
-        s_whisperbowAimedFire,
-        s_whisperbowStormFire;
+    Weapon m_keeningBlade,
+        m_whisperbowAimedFire,
+        m_whisperbowStormFire;
 
     static bool s_registered;
 };

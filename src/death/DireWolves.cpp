@@ -21,13 +21,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon DireWolves::s_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1);
-Weapon DireWolves::s_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws (Doom Wolf)", 1, 3, 4, 4, 0, 1);
-
 bool DireWolves::s_registered = false;
 
 DireWolves::DireWolves() :
-    Unit("Dire Wolves", 10, WOUNDS, 10, 5, false)
+    Unit("Dire Wolves", 10, WOUNDS, 10, 5, false),
+    m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
+    m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws (Doom Wolf)", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
 }
@@ -41,13 +40,13 @@ bool DireWolves::configure(int numModels)
     }
 
     Model doomWolf(BASESIZE, WOUNDS);
-    doomWolf.addMeleeWeapon(&s_fangsAndClawsDoom);
+    doomWolf.addMeleeWeapon(&m_fangsAndClawsDoom);
     addModel(doomWolf);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_fangsAndClaws);
+        model.addMeleeWeapon(&m_fangsAndClaws);
         addModel(model);
     }
 
@@ -60,8 +59,8 @@ bool DireWolves::configure(int numModels)
 
 void DireWolves::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_fangsAndClaws);
-    visitor(&s_fangsAndClawsDoom);
+    visitor(&m_fangsAndClaws);
+    visitor(&m_fangsAndClawsDoom);
 }
 
 Unit *DireWolves::Create(const ParameterList &parameters)

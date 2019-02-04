@@ -25,16 +25,15 @@ static FactoryMethod factoryMethod = {
 
 bool CelestarBallista::s_registered = false;
 
-Weapon CelestarBallista::s_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1);
-Weapon CelestarBallista::s_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1);
-Weapon CelestarBallista::s_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1);
-
 CelestarBallista::CelestarBallista() :
-    StormcastEternal("Celestar Ballista", 3, WOUNDS, 7, 4, false)
+    StormcastEternal("Celestar Ballista", 3, WOUNDS, 7, 4, false),
+    m_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1),
+    m_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1),
+    m_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1)
 {
     // Burst of Celestial Energy
-    s_stormboltsSingle.setHitsPerAttack(RAND_D6);
-    s_stormboltsRapid.setHitsPerAttack(RAND_D6);
+    m_stormboltsSingle.setHitsPerAttack(RAND_D6);
+    m_stormboltsRapid.setHitsPerAttack(RAND_D6);
 
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE, CELESTAR_BALLISTA};
 }
@@ -42,15 +41,13 @@ CelestarBallista::CelestarBallista() :
 bool CelestarBallista::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_sigmariteBlades);
+    model.addMeleeWeapon(&m_sigmariteBlades);
 
-    m_stormboltsRapid = new Weapon(s_stormboltsRapid);
-    m_stormboltsRapid->activate(true);
-    m_stormboltsSingle = new Weapon(s_stormboltsSingle);
-    m_stormboltsSingle->activate(false);
+    m_stormboltsRapid.activate(true);
+    m_stormboltsSingle.activate(false);
 
-    model.addMissileWeapon(m_stormboltsSingle);
-    model.addMissileWeapon(m_stormboltsRapid);
+    model.addMissileWeapon(&m_stormboltsSingle);
+    model.addMissileWeapon(&m_stormboltsRapid);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -91,15 +88,15 @@ void CelestarBallista::shooting(PlayerId player)
     if (nearestUnit)
     {
         float rangeTo = distanceTo(nearestUnit);
-        if (rangeTo < m_stormboltsRapid->range())
+        if (rangeTo < m_stormboltsRapid.range())
         {
-            m_stormboltsRapid->activate(true);
-            m_stormboltsSingle->activate(false);
+            m_stormboltsRapid.activate(true);
+            m_stormboltsSingle.activate(false);
         }
         else
         {
-            m_stormboltsRapid->activate(false);
-            m_stormboltsSingle->activate(true);
+            m_stormboltsRapid.activate(false);
+            m_stormboltsSingle.activate(true);
         }
     }
     StormcastEternal::shooting(player);
@@ -107,9 +104,9 @@ void CelestarBallista::shooting(PlayerId player)
 
 void CelestarBallista::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_stormboltsSingle);
-    visitor(&s_stormboltsRapid);
-    visitor(&s_sigmariteBlades);
+    visitor(&m_stormboltsSingle);
+    visitor(&m_stormboltsRapid);
+    visitor(&m_sigmariteBlades);
 }
 
 } // namespace StormcastEternals

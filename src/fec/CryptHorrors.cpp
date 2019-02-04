@@ -23,13 +23,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon CryptHorrors::s_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2);
-Weapon CryptHorrors::s_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons (Crypt Haunter)", 1, 4, 4, 3, 0, 2);
-
 bool CryptHorrors::s_registered = false;
 
 CryptHorrors::CryptHorrors() :
-    Unit("Crypt Horrors", 7, WOUNDS, 10, 5, false)
+    Unit("Crypt Horrors", 7, WOUNDS, 10, 5, false),
+    m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
+    m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons (Crypt Haunter)", 1, 4, 4, 3, 0, 2)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, CRYPT_HORRORS};
 }
@@ -42,13 +41,13 @@ bool CryptHorrors::configure(int numModels)
     }
 
     Model haunter(BASESIZE, WOUNDS);
-    haunter.addMeleeWeapon(&s_clubsAndTalonsHaunter);
+    haunter.addMeleeWeapon(&m_clubsAndTalonsHaunter);
     addModel(haunter);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_clubsAndTalons);
+        model.addMeleeWeapon(&m_clubsAndTalons);
         addModel(model);
     }
 
@@ -61,8 +60,8 @@ bool CryptHorrors::configure(int numModels)
 
 void CryptHorrors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_clubsAndTalons);
-    visitor(&s_clubsAndTalonsHaunter);
+    visitor(&m_clubsAndTalons);
+    visitor(&m_clubsAndTalonsHaunter);
 }
 
 Unit *CryptHorrors::Create(const ParameterList &parameters)

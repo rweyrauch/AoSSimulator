@@ -13,8 +13,7 @@ std::random_device Dice::s_rd;
 std::mt19937 Dice::s_gen(s_rd());
 std::uniform_int_distribution<int> Dice::s_d6(1, 6);
 
-Dice::Dice()
-{}
+Dice::Dice() = default;
 
 int Dice::rollD6()
 {
@@ -43,7 +42,7 @@ int Dice::rollD3()
 
 std::vector<int> Dice::rollD6(int number)
 {
-    std::vector<int> result(number);
+    std::vector<int> result((size_t)number);
     for (auto i = 0; i < number; i++)
     {
         result[i] = s_d6(s_gen);
@@ -56,7 +55,7 @@ std::vector<int> Dice::rollD6(int number, int rerolling)
     assert(rerolling >= 1);
     assert(rerolling <= 6);
 
-    std::vector<int> result(number);
+    std::vector<int> result((size_t)number);
     for (auto i = 0; i < number; i++)
     {
         result[i] = s_d6(s_gen);

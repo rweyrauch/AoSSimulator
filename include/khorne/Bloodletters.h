@@ -46,8 +46,8 @@ private:
     bool m_standarBearer = false;
     bool m_hornblower = false;
 
-    static Weapon s_hellblade,
-        s_hellbladeReaper;
+    Weapon m_hellblade,
+        m_hellbladeReaper;
 
     static bool s_registered;
 };

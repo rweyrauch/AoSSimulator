@@ -26,10 +26,7 @@ public:
     static void Init();
 
     Skarbrand();
-    ~Skarbrand() override
-    {
-        delete m_pSlaughter;
-    }
+    ~Skarbrand() override = default;
 
     bool configure();
 
@@ -53,10 +50,8 @@ private:
 
     Rage m_rageLevel = Angry;
 
-    Weapon* m_pSlaughter = nullptr;
-
-    static Weapon s_slaughter,
-        s_carnage;
+    Weapon m_slaughter,
+        m_carnage;
 
     static bool s_registered;
 };

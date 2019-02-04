@@ -27,16 +27,15 @@ static FactoryMethod factoryMethod = {
 
 bool KurnothHunters::s_registered = false;
 
-Weapon KurnothHunters::s_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3);
-Weapon KurnothHunters::s_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow (Huntmaster)", 30, 2, 3, 3, -1, RAND_D3);
-Weapon KurnothHunters::s_greatsword(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 3, 3, -1, 2);
-Weapon KurnothHunters::s_greatswordHuntmaster(Weapon::Type::Melee, "Kurnoth Greatsword (Huntmaster)", 1, 4, 2, 3, -1, 2);
-Weapon KurnothHunters::s_scythe(Weapon::Type::Melee, "Kurnoth Scythe", 2, 3, 3, 3, -2, RAND_D3);
-Weapon KurnothHunters::s_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe (Huntmaster)", 2, 3, 2, 3, -2, RAND_D3);
-Weapon KurnothHunters::s_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1);
-
 KurnothHunters::KurnothHunters() :
-    Unit("Kurnoth Hunters", 5, WOUNDS, 7, 4, false)
+    Unit("Kurnoth Hunters", 5, WOUNDS, 7, 4, false),
+    m_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3),
+    m_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow (Huntmaster)", 30, 2, 3, 3, -1, RAND_D3),
+    m_greatsword(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 3, 3, -1, 2),
+    m_greatswordHuntmaster(Weapon::Type::Melee, "Kurnoth Greatsword (Huntmaster)", 1, 4, 2, 3, -1, 2),
+    m_scythe(Weapon::Type::Melee, "Kurnoth Scythe", 2, 3, 3, 3, -2, RAND_D3),
+    m_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe (Huntmaster)", 2, 3, 2, 3, -2, RAND_D3),
+    m_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = { ORDER, SYLVANETH, KURNOTH_HUNTERS };
 }
@@ -55,16 +54,16 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
     Model huntmaster(BASESIZE, WOUNDS);
     if (m_weaponOption == Greatbows)
     {
-        huntmaster.addMissileWeapon(&s_greatbowHuntmaster);
-        huntmaster.addMeleeWeapon(&s_viciousClaws);
+        huntmaster.addMissileWeapon(&m_greatbowHuntmaster);
+        huntmaster.addMeleeWeapon(&m_viciousClaws);
     }
     else if (m_weaponOption == Greatswords)
     {
-        huntmaster.addMeleeWeapon(&s_greatswordHuntmaster);
+        huntmaster.addMeleeWeapon(&m_greatswordHuntmaster);
     }
     else if (m_weaponOption == Scythes)
     {
-        huntmaster.addMeleeWeapon(&s_scytheHuntmaster);
+        huntmaster.addMeleeWeapon(&m_scytheHuntmaster);
     }
     addModel(huntmaster);
 
@@ -73,16 +72,16 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == Greatbows)
         {
-            model.addMissileWeapon(&s_greatbow);
-            model.addMeleeWeapon(&s_viciousClaws);
+            model.addMissileWeapon(&m_greatbow);
+            model.addMeleeWeapon(&m_viciousClaws);
         }
         else if (m_weaponOption == Greatswords)
         {
-            model.addMeleeWeapon(&s_greatsword);
+            model.addMeleeWeapon(&m_greatsword);
         }
         else if (m_weaponOption == Scythes)
         {
-            model.addMeleeWeapon(&s_scythe);
+            model.addMeleeWeapon(&m_scythe);
         }
         addModel(model);
     }
@@ -144,13 +143,13 @@ int KurnothHunters::EnumStringToInt(const std::string &enumString)
 
 void KurnothHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_greatbow);
-    visitor(&s_greatbowHuntmaster);
-    visitor(&s_greatsword);
-    visitor(&s_greatswordHuntmaster);
-    visitor(&s_scythe);
-    visitor(&s_scytheHuntmaster);
-    visitor(&s_viciousClaws);
+    visitor(&m_greatbow);
+    visitor(&m_greatbowHuntmaster);
+    visitor(&m_greatsword);
+    visitor(&m_greatswordHuntmaster);
+    visitor(&m_scythe);
+    visitor(&m_scytheHuntmaster);
+    visitor(&m_viciousClaws);
 }
 
 } // namespace Sylvaneth

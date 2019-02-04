@@ -25,14 +25,13 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Seekers::s_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1);
-Weapon Seekers::s_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws (Heartseeker)", 1, 3, 4, 4, -1, 1);
-Weapon Seekers::s_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 4, 4, 0, 1);
-
 bool Seekers::s_registered = false;
 
 Seekers::Seekers() :
-    Unit("Seekers", 14, WOUNDS, 10, 5, false)
+    Unit("Seekers", 14, WOUNDS, 10, 5, false),
+    m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
+    m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws (Heartseeker)", 1, 3, 4, 4, -1, 1),
+    m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = { CHAOS, DAEMON, DAEMONETTES, SLAANESH, SEEKERS };
 
@@ -53,13 +52,13 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
 
     // Add the Heartseeker
     Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(&s_piercingClawsHeartseeker);
+    reaperModel.addMeleeWeapon(&m_piercingClawsHeartseeker);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_piercingClaws);
+        model.addMeleeWeapon(&m_piercingClaws);
         addModel(model);
     }
 
@@ -72,9 +71,9 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
 
 void Seekers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_piercingClaws);
-    visitor(&s_piercingClawsHeartseeker);
-    visitor(&s_poisonedTongue);
+    visitor(&m_piercingClaws);
+    visitor(&m_piercingClawsHeartseeker);
+    visitor(&m_poisonedTongue);
 }
 
 Unit *Seekers::Create(const ParameterList &parameters)
@@ -120,7 +119,7 @@ Hits Seekers::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hi
 {
     Hits modifiedHits = hits;
 
-    if (weapon->name() == s_piercingClaws.name())
+    if (weapon->name() == m_piercingClaws.name())
     {
         // Sadistic Killers
         if (remainingModels() >= 20)

@@ -28,12 +28,11 @@ static FactoryMethod factoryMethod = {
 
 bool TreeRevenants::s_registered = false;
 
-Weapon TreeRevenants::s_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1);
-Weapon TreeRevenants::s_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade (Scion)", 1, 4, 4, 3, -1, 1);
-Weapon TreeRevenants::s_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2);
-
 TreeRevenants::TreeRevenants() :
-    Unit("Tree Revenants", 5, WOUNDS, 6, 5, false)
+    Unit("Tree Revenants", 5, WOUNDS, 6, 5, false),
+    m_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1),
+    m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade (Scion)", 1, 4, 4, 3, -1, 1),
+    m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, SYLVANETH, TREE_REVENANTS };
 }
@@ -48,15 +47,15 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
 
     Model scion(BASESIZE, WOUNDS);
     if (scionGlaive)
-        scion.addMeleeWeapon(&s_protectorGlaive);
+        scion.addMeleeWeapon(&m_protectorGlaive);
     else
-        scion.addMeleeWeapon(&s_enchantedBladeScion);
+        scion.addMeleeWeapon(&m_enchantedBladeScion);
     addModel(scion);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_enchantedBlade);
+        model.addMeleeWeapon(&m_enchantedBlade);
         addModel(model);
     }
 
@@ -94,9 +93,9 @@ void TreeRevenants::Init()
 
 void TreeRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_enchantedBlade);
-    visitor(&s_enchantedBladeScion);
-    visitor(&s_protectorGlaive);
+    visitor(&m_enchantedBlade);
+    visitor(&m_enchantedBladeScion);
+    visitor(&m_protectorGlaive);
 }
 
 } // namespace Sylvaneth

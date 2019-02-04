@@ -45,7 +45,7 @@ protected:
 
 private:
 
-    static Weapon s_huntersGlaive;
+    Weapon m_huntersGlaive;
 
     static bool s_registered;
 };

@@ -26,11 +26,8 @@ public:
     static void Init();
 
     BloodthirsterOfUnfetteredFury();
-    ~BloodthirsterOfUnfetteredFury() override
-    {
-        delete m_pLashOfKhorne;
-        delete m_pMightyAxeOfKhorne;
-    }
+    ~BloodthirsterOfUnfetteredFury() override = default;
+
     int move() const override;
 
     void hero(PlayerId player) override;
@@ -46,11 +43,8 @@ protected:
 
 private:
 
-    Weapon* m_pLashOfKhorne = nullptr;
-    Weapon* m_pMightyAxeOfKhorne = nullptr;
-
-    static Weapon s_lashOfKhorne,
-        s_mightyAxeOfKhorne;
+    Weapon m_lashOfKhorne,
+        m_mightyAxeOfKhorne;
 
     static bool s_registered;
 };

@@ -55,10 +55,10 @@ private:
     bool m_standardBearers = false;
     bool m_hornblowers = false;
 
-    static Weapon s_ancientBlade,
-        s_ancientBladeChampion,
-        s_ancientSpear,
-        s_ancientSpearChampion;
+    Weapon m_ancientBlade,
+        m_ancientBladeChampion,
+        m_ancientSpear,
+        m_ancientSpearChampion;
 
     static bool s_registered;
 

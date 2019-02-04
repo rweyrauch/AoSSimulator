@@ -22,14 +22,13 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon BlackKnights::s_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1);
-Weapon BlackKnights::s_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance (Hell Knight", 1, 3, 3, 4, 0, 1);
-Weapon BlackKnights::s_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1);
-
 bool BlackKnights::s_registered = false;
 
 BlackKnights::BlackKnights() :
-    Unit("Black Knights", 12, WOUNDS, 10, 5, false)
+    Unit("Black Knights", 12, WOUNDS, 10, 5, false),
+    m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
+    m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance (Hell Knight", 1, 3, 3, 4, 0, 1),
+    m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
 }
@@ -46,15 +45,15 @@ bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowe
     m_hornblowers = hornblowers;
 
     Model hellKnight(BASESIZE, WOUNDS);
-    hellKnight.addMeleeWeapon(&s_barrowLanceKnight);
-    hellKnight.addMeleeWeapon(&s_hoovesAndTeeth);
+    hellKnight.addMeleeWeapon(&m_barrowLanceKnight);
+    hellKnight.addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(hellKnight);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_barrowLance);
-        model.addMeleeWeapon(&s_hoovesAndTeeth);
+        model.addMeleeWeapon(&m_barrowLance);
+        model.addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
     }
 
@@ -67,9 +66,9 @@ bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowe
 
 void BlackKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_barrowLance);
-    visitor(&s_barrowLanceKnight);
-    visitor(&s_hoovesAndTeeth);
+    visitor(&m_barrowLance);
+    visitor(&m_barrowLanceKnight);
+    visitor(&m_hoovesAndTeeth);
 }
 
 Unit *BlackKnights::Create(const ParameterList &parameters)
@@ -101,7 +100,7 @@ int BlackKnights::toWoundModifier(const Weapon *weapon, const Unit *target) cons
     int modifier = Unit::toWoundModifier(weapon, target);
 
     // Deathly Charge
-    if (m_charged && weapon->name() == s_barrowLance.name())
+    if (m_charged && weapon->name() == m_barrowLance.name())
     {
         modifier += 1;
     }
@@ -113,7 +112,7 @@ int BlackKnights::damageModifier(const Weapon *weapon, const Unit *target, const
     int modifier = Unit::damageModifier(weapon, target, woundRolls);
 
     // Deathly Charge
-    if (m_charged && weapon->name() == s_barrowLance.name())
+    if (m_charged && weapon->name() == m_barrowLance.name())
     {
         modifier += 1;
     }

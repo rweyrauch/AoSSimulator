@@ -26,11 +26,7 @@ public:
     static void Init();
 
     ColossalSquig();
-    ~ColossalSquig() override
-    {
-        delete m_pEnormousJaws;
-        delete m_pTramplingFeet;
-    }
+    ~ColossalSquig() override = default;
 
     int move() const override;
 
@@ -50,12 +46,9 @@ protected:
 
 private:
 
-    Weapon* m_pEnormousJaws = nullptr;
-    Weapon* m_pTramplingFeet = nullptr;
-
-    static Weapon s_puffSpores,
-        s_enormousJaws,
-        s_tramplingFeet;
+    Weapon m_puffSpores,
+        m_enormousJaws,
+        m_tramplingFeet;
 
     static bool s_registered;
 };

@@ -43,10 +43,10 @@ protected:
 
 private:
 
-    static Weapon s_tempestBladeAndStave,
-        s_tempestBladeAndStavePrime,
-        s_grandStave,
-        s_grandStavePrime;
+    Weapon m_tempestBladeAndStave,
+        m_tempestBladeAndStavePrime,
+        m_grandStave,
+        m_grandStavePrime;
 
     static bool s_registered;
 };

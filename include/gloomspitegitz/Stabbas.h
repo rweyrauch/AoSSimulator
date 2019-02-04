@@ -57,11 +57,11 @@ private:
     int m_numFlagbearers = 0;
     int m_numIconbearers = 0;
 
-    static Weapon s_stabba,
-        s_stabbaBoss,
-        s_pokinSpear,
-        s_pokinSpearBoss,
-        s_barbedNet;
+    Weapon m_stabba,
+        m_stabbaBoss,
+        m_pokinSpear,
+        m_pokinSpearBoss,
+        m_barbedNet;
 
     static bool s_registered;
 };

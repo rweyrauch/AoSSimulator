@@ -22,10 +22,9 @@ static FactoryMethod factoryMethod = {
 
 bool KnightQuestor::s_registered = false;
 
-Weapon KnightQuestor::s_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1);
-
 KnightQuestor::KnightQuestor() :
-    StormcastEternal("Knight-Questor", 5, WOUNDS, 8, 3, false)
+    StormcastEternal("Knight-Questor", 5, WOUNDS, 8, 3, false),
+    m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, KNIGHT_QUESTOR };
 }
@@ -33,7 +32,7 @@ KnightQuestor::KnightQuestor() :
 bool KnightQuestor::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_warblade);
+    model.addMeleeWeapon(&m_warblade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -79,7 +78,7 @@ Rerolls KnightQuestor::toSaveRerolls(const Weapon *weapon) const
 
 void KnightQuestor::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_warblade);
+    visitor(&m_warblade);
 }
 
 

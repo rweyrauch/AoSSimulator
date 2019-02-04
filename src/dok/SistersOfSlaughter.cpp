@@ -25,15 +25,14 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon SistersOfSlaughter::s_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1);
-Weapon SistersOfSlaughter::s_sacrificialKnifeHandmaiden(Weapon::Type::Melee, "Sacrificial Knife (Handmaiden)", 1, 2, 2, 4, 0, 1);
-Weapon SistersOfSlaughter::s_barbedWhip(Weapon::Type::Melee, "Barbed Whip", 2, 2, 3, 4, 0, 1);
-Weapon SistersOfSlaughter::s_barbedWhipHandmaiden(Weapon::Type::Melee, "Barbed Whip (Handmaiden)", 2, 2, 2, 4, 0, 1);
-
 bool SistersOfSlaughter::s_registered = false;
 
 SistersOfSlaughter::SistersOfSlaughter() :
-    DaughterOfKhaine("Sisters of Slaughter", 6, WOUNDS, 7, 6, false)
+    DaughterOfKhaine("Sisters of Slaughter", 6, WOUNDS, 7, 6, false),
+    m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
+    m_sacrificialKnifeHandmaiden(Weapon::Type::Melee, "Sacrificial Knife (Handmaiden)", 1, 2, 2, 4, 0, 1),
+    m_barbedWhip(Weapon::Type::Melee, "Barbed Whip", 2, 2, 3, 4, 0, 1),
+    m_barbedWhipHandmaiden(Weapon::Type::Melee, "Barbed Whip (Handmaiden)", 2, 2, 2, 4, 0, 1)
 {
     m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, SISTERS_OF_SLAUGHTER };
 }
@@ -45,7 +44,7 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
         return false;
     }
 
-    m_sacrificialKnife = sacrificialKnife;
+    m_hasSacrificialKnife = sacrificialKnife;
     m_hornblowers = hornblowers;
     m_standardBearers = standardBearers;
 
@@ -53,17 +52,17 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
         m_runAndCharge = true;
 
     Model handmaiden(BASESIZE, WOUNDS);
-    if (m_sacrificialKnife)
-        handmaiden.addMeleeWeapon(&s_sacrificialKnifeHandmaiden);
-    handmaiden.addMeleeWeapon(&s_barbedWhipHandmaiden);
+    if (m_hasSacrificialKnife)
+        handmaiden.addMeleeWeapon(&m_sacrificialKnifeHandmaiden);
+    handmaiden.addMeleeWeapon(&m_barbedWhipHandmaiden);
     addModel(handmaiden);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        if (m_sacrificialKnife)
-            model.addMeleeWeapon(&s_sacrificialKnife);
-        model.addMeleeWeapon(&s_barbedWhip);
+        if (m_hasSacrificialKnife)
+            model.addMeleeWeapon(&m_sacrificialKnife);
+        model.addMeleeWeapon(&m_barbedWhip);
         addModel(model);
     }
 
@@ -115,7 +114,7 @@ int SistersOfSlaughter::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
     // Bladed Bucklers
-    if (!m_sacrificialKnife)
+    if (!m_hasSacrificialKnife)
         modifier += 1;
     return modifier;
 }
@@ -135,10 +134,10 @@ Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon,
 
 void SistersOfSlaughter::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_sacrificialKnife);
-    visitor(&s_sacrificialKnifeHandmaiden);
-    visitor(&s_barbedWhip);
-    visitor(&s_barbedWhipHandmaiden);
+    visitor(&m_sacrificialKnife);
+    visitor(&m_sacrificialKnifeHandmaiden);
+    visitor(&m_barbedWhip);
+    visitor(&m_barbedWhipHandmaiden);
 }
 
 } // namespace DaughtersOfKhaine

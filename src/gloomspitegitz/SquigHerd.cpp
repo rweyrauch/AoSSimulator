@@ -26,11 +26,10 @@ static FactoryMethod factoryMethod = {
 
 bool SquiqHerd::s_registered = false;
 
-Weapon SquiqHerd::s_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1);
-Weapon SquiqHerd::s_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1);
-
 SquiqHerd::SquiqHerd() :
-    Unit("Squig Herd", 5, WOUNDS, 3, 6, false)
+    Unit("Squig Herd", 5, WOUNDS, 3, 6, false),
+    m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
+    m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD };
 }
@@ -50,7 +49,7 @@ bool SquiqHerd::configure(int numModels)
     for (auto i = 0; i < numHerders; i++)
     {
         Model herder(BASESIZE, WOUNDS);
-        herder.addMeleeWeapon(&s_squigProdder);
+        herder.addMeleeWeapon(&m_squigProdder);
         addModel(herder);
     }
 
@@ -58,7 +57,7 @@ bool SquiqHerd::configure(int numModels)
     for (auto i = numHerders; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_fangFilledGob);
+        model.addMeleeWeapon(&m_fangFilledGob);
         addModel(model);
     }
 
@@ -143,8 +142,8 @@ void SquiqHerd::onFlee(int numFled)
 
 void SquiqHerd::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_squigProdder);
-    visitor(&s_fangFilledGob);
+    visitor(&m_squigProdder);
+    visitor(&m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

@@ -22,12 +22,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon BladegheistRevenants::s_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1);
-
 bool BladegheistRevenants::s_registered = false;
 
 BladegheistRevenants::BladegheistRevenants() :
-    Unit("Bladegheist Revenants", 8, WOUNDS, 10, 4, true)
+    Unit("Bladegheist Revenants", 8, WOUNDS, 10, 4, true),
+    m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS };
 }
@@ -42,7 +41,7 @@ bool BladegheistRevenants::configure(int numModels)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_tombGreatblade);
+        model.addMeleeWeapon(&m_tombGreatblade);
         addModel(model);
     }
 
@@ -107,7 +106,7 @@ int BladegheistRevenants::extraAttacks(const Weapon *weapon) const
 
 void BladegheistRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_tombGreatblade);
+    visitor(&m_tombGreatblade);
 }
 
 } // namespace Nighthaunt

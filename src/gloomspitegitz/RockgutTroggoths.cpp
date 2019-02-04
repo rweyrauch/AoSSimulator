@@ -24,12 +24,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon RockgutTroggoths::s_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3);
-
 bool RockgutTroggoths::s_registered = false;
 
 RockgutTroggoths::RockgutTroggoths() :
-    Unit("Rockgut Troggoths", 6, WOUNDS, 5, 5, false)
+    Unit("Rockgut Troggoths", 6, WOUNDS, 5, 5, false),
+    m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3)
 {
     m_keywords = { DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT };
 }
@@ -44,7 +43,7 @@ bool RockgutTroggoths::configure(int numModels)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_massiveStoneMaul);
+        model.addMeleeWeapon(&m_massiveStoneMaul);
         addModel(model);
     }
 
@@ -57,7 +56,7 @@ bool RockgutTroggoths::configure(int numModels)
 
 void RockgutTroggoths::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_massiveStoneMaul);
+    visitor(&m_massiveStoneMaul);
 }
 
 Unit *RockgutTroggoths::Create(const ParameterList &parameters)

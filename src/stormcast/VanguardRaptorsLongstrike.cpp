@@ -24,12 +24,11 @@ static FactoryMethod factoryMethod = {
 
 bool VanguardRaptorsLongstrike::s_registered = false;
 
-Weapon VanguardRaptorsLongstrike::s_longstikeCrossbow(Weapon::Type::Missile, "Longstrike Crossbow", 24, 1, 2, 3, -2, 2);
-Weapon VanguardRaptorsLongstrike::s_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 3, 0, 1);
-Weapon VanguardRaptorsLongstrike::s_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1);
-
 VanguardRaptorsLongstrike::VanguardRaptorsLongstrike() :
-    StormcastEternal("Vanguard Raptors with Longstrike Crossbows", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Vanguard Raptors with Longstrike Crossbows", 5, WOUNDS, 7, 4, false),
+    m_longstikeCrossbow(Weapon::Type::Missile, "Longstrike Crossbow", 24, 1, 2, 3, -2, 2),
+    m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 3, 0, 1),
+    m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS };
 }
@@ -43,20 +42,18 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
         return false;
     }
 
-    m_pLongstikeCrossbow = new Weapon(s_longstikeCrossbow);
-
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMissileWeapon(m_pLongstikeCrossbow);
-    primeModel.addMeleeWeapon(&s_heavyStock);
-    primeModel.addMeleeWeapon(&s_beakAndClaws);
+    primeModel.addMissileWeapon(&m_longstikeCrossbow);
+    primeModel.addMeleeWeapon(&m_heavyStock);
+    primeModel.addMeleeWeapon(&m_beakAndClaws);
     addModel(primeModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(m_pLongstikeCrossbow);
-        model.addMeleeWeapon(&s_heavyStock);
+        model.addMissileWeapon(&m_longstikeCrossbow);
+        model.addMeleeWeapon(&m_heavyStock);
         addModel(model);
     }
 
@@ -74,11 +71,11 @@ void VanguardRaptorsLongstrike::onStartShooting(PlayerId player)
         // Longshot
         if (!m_moved)
         {
-            m_pLongstikeCrossbow->setRange(s_longstikeCrossbow.range() + 6);
+            m_longstikeCrossbow.setRange(m_longstikeCrossbow.range() + 6);
         }
         else
         {
-            m_pLongstikeCrossbow->setRange(s_longstikeCrossbow.range());
+            m_longstikeCrossbow.setRange(m_longstikeCrossbow.range());
         }
     }
     StormcastEternal::onStartShooting(player);
@@ -109,7 +106,7 @@ void VanguardRaptorsLongstrike::Init()
 int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Headshot
-    if (weapon->name() == s_longstikeCrossbow.name())
+    if (weapon->name() == m_longstikeCrossbow.name())
     {
         int mortalWounds = hits.rolls.numUnmodified6s() * 2;
         return mortalWounds;
@@ -119,9 +116,9 @@ int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const 
 
 void VanguardRaptorsLongstrike::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_longstikeCrossbow);
-    visitor(&s_heavyStock);
-    visitor(&s_beakAndClaws);
+    visitor(&m_longstikeCrossbow);
+    visitor(&m_heavyStock);
+    visitor(&m_beakAndClaws);
 }
 
 } // namespace StormcastEternals

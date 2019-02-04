@@ -57,11 +57,11 @@ private:
     int m_initialTargetModels = 0;
     int m_numEnemyModelsSlain = 0;
 
-    static Weapon s_goreslickBlades,
-        s_daemonblades,
-        s_spinecleaver,
-        s_soultearer,
-        s_viciousMutation;
+    Weapon m_goreslickBlades,
+        m_daemonblades,
+        m_spinecleaver,
+        m_soultearer,
+        m_viciousMutation;
 
     static bool s_registered;
 };

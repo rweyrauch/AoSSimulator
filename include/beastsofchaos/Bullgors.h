@@ -57,11 +57,11 @@ private:
     bool m_bannerBearer = false;
     bool m_pairedAxes = false;
 
-    static Weapon s_bullgorHorns,
-        s_bullgorAxe,
-        s_bullgorAxeBloodkine,
-        s_bullgorGreatAxe,
-        s_bullgorGreatAxeBloodkine;
+    Weapon m_bullgorHorns;
+    Weapon m_bullgorAxe;
+    Weapon m_bullgorAxeBloodkine;
+    Weapon m_bullgorGreatAxe;
+    Weapon m_bullgorGreatAxeBloodkine;
 
     static bool s_registered;
 };

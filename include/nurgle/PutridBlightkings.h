@@ -50,7 +50,7 @@ protected:
 
 private:
 
-    static Weapon s_blightedWeapon;
+    Weapon m_blightedWeapon;
 
     static bool s_registered;
 };

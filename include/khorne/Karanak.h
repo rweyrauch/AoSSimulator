@@ -46,8 +46,8 @@ private:
 
     Unit* m_pQuarry = nullptr;
 
-    static Weapon s_goreSlickClaws,
-        s_savageMaws;
+    Weapon m_goreSlickClaws,
+        m_savageMaws;
 
     static bool s_registered;
 };

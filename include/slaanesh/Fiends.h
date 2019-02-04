@@ -42,8 +42,8 @@ protected:
 
 private:
 
-    static Weapon s_deadlyPincers,
-        s_barbedStinger;
+    Weapon m_deadlyPincers,
+        m_barbedStinger;
 
     static bool s_registered;
 };

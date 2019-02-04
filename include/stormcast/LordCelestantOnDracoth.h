@@ -37,10 +37,7 @@ public:
     static void Init();
 
     LordCelestantOnDracoth();
-    ~LordCelestantOnDracoth() override
-    {
-        delete m_pStormstrikeGlaive;
-    }
+    ~LordCelestantOnDracoth() override = default;
 
     bool configure(WeaponOption weapons, bool sigmariteThundershield);
 
@@ -63,13 +60,11 @@ protected:
 
 private:
 
-    Weapon* m_pStormstrikeGlaive = nullptr;
-
-    static Weapon s_stormstrikeGlaive,
-        s_lightningHammer,
-        s_thunderaxe,
-        s_tempestosHammer,
-        s_clawsAndFangs;
+    Weapon m_stormstrikeGlaive,
+        m_lightningHammer,
+        m_thunderaxe,
+        m_tempestosHammer,
+        m_clawsAndFangs;
 
     static bool s_registered;
 };

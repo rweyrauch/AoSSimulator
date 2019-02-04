@@ -39,7 +39,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
 
         for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
         {
-            Weapon* w = *wip;
+            const Weapon* w = *wip;
 
             if (!w->isActive())
             {
@@ -120,7 +120,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
 
         for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
         {
-            Weapon* w = *wip;
+            const Weapon* w = *wip;
 
             if (!w->isActive())
             {
@@ -618,7 +618,7 @@ void Unit::charge(PlayerId player)
             }
             else if (chargeRerolls() != NoRerolls)
             {
-                float chargeDist = rollChargeDistance();
+                chargeDist = rollChargeDistance();
                 if (chargeDist >= distance)
                 {
                     m_charged = true;

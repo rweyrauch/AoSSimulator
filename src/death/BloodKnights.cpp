@@ -22,14 +22,13 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon BloodKnights::s_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1);
-Weapon BloodKnights::s_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade (Kastellan)", 1, 4, 3, 3, -1, 1);
-Weapon BloodKnights::s_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1);
-
 bool BloodKnights::s_registered = false;
 
 BloodKnights::BloodKnights() :
-    Unit("Blood Knights", 10, WOUNDS, 10, 4, false)
+    Unit("Blood Knights", 10, WOUNDS, 10, 4, false),
+    m_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1),
+    m_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade (Kastellan)", 1, 4, 3, 3, -1, 1),
+    m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
 }
@@ -46,15 +45,15 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
     m_hornblowers = hornblowers;
 
     Model kastellan(BASESIZE, WOUNDS);
-    kastellan.addMeleeWeapon(&s_templarLanceOrBladeKastellan);
-    kastellan.addMeleeWeapon(&s_hoovesAndTeeth);
+    kastellan.addMeleeWeapon(&m_templarLanceOrBladeKastellan);
+    kastellan.addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(kastellan);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_templarLanceOrBlade);
-        model.addMeleeWeapon(&s_hoovesAndTeeth);
+        model.addMeleeWeapon(&m_templarLanceOrBlade);
+        model.addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
     }
 
@@ -67,9 +66,9 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
 
 void BloodKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_templarLanceOrBlade);
-    visitor(&s_templarLanceOrBladeKastellan);
-    visitor(&s_hoovesAndTeeth);
+    visitor(&m_templarLanceOrBlade);
+    visitor(&m_templarLanceOrBladeKastellan);
+    visitor(&m_hoovesAndTeeth);
 }
 
 Unit *BloodKnights::Create(const ParameterList &parameters)
@@ -101,7 +100,7 @@ int BloodKnights::damageModifier(const Weapon *weapon, const Unit *target, const
     int modifier = Unit::damageModifier(weapon, target, woundRolls);
 
     // Martial Fury
-    if (m_charged && weapon->name() == s_templarLanceOrBlade.name())
+    if (m_charged && weapon->name() == m_templarLanceOrBlade.name())
     {
         Dice dice;
         modifier += dice.rollD3();

@@ -27,11 +27,7 @@ public:
     static void Init();
 
     Ghorgon();
-    ~Ghorgon() override
-    {
-        delete m_pButcheringBlades;
-        delete m_pHugeSlaveringMaw;
-    }
+    ~Ghorgon() override = default;
 
     bool configure();
     int move() const override;
@@ -47,11 +43,8 @@ protected:
 
 private:
 
-    Weapon* m_pButcheringBlades = nullptr;
-    Weapon* m_pHugeSlaveringMaw = nullptr;
-
-    static Weapon s_butcheringBlades,
-        s_hugeSlaveringMaw;
+    Weapon m_butcheringBlades,
+        m_hugeSlaveringMaw;
 
     static bool s_registered;
 };

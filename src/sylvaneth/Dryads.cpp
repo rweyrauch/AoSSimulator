@@ -25,11 +25,10 @@ static FactoryMethod factoryMethod = {
 
 bool Dryads::s_registered = false;
 
-Weapon Dryads::s_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1);
-Weapon Dryads::s_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons (Nymph)", 2, 3, 4, 4, 0, 1);
-
 Dryads::Dryads() :
-    Unit("Dryads", 7, WOUNDS, 6, 5, false)
+    Unit("Dryads", 7, WOUNDS, 6, 5, false),
+    m_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1),
+    m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons (Nymph)", 2, 3, 4, 4, 0, 1)
 {
     m_keywords = { ORDER, SYLVANETH, DRYADS };
 }
@@ -42,13 +41,13 @@ bool Dryads::configure(int numModels)
     }
 
     Model nymph(BASESIZE, WOUNDS);
-    nymph.addMeleeWeapon(&s_wrackingTalonsNymph);
+    nymph.addMeleeWeapon(&m_wrackingTalonsNymph);
     addModel(nymph);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_wrackingTalons);
+        model.addMeleeWeapon(&m_wrackingTalons);
         addModel(model);
     }
 
@@ -83,8 +82,8 @@ void Dryads::Init()
 
 void Dryads::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_wrackingTalons);
-    visitor(&s_wrackingTalonsNymph);
+    visitor(&m_wrackingTalons);
+    visitor(&m_wrackingTalonsNymph);
 }
 
 } // namespace Sylvaneth

@@ -44,7 +44,7 @@ protected:
 
 private:
 
-    static Weapon s_tombGreatblade;
+    Weapon m_tombGreatblade;
 
     static bool s_registered;
 };

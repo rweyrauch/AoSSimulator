@@ -42,9 +42,9 @@ protected:
 
 private:
 
-    static Weapon s_lightningHammer,
-                  s_lightningHammerPrime,
-                  s_starsoulMace;
+    Weapon m_lightningHammer,
+                  m_lightningHammerPrime,
+                  m_starsoulMace;
 
     static bool s_registered;
 };

@@ -26,11 +26,7 @@ public:
     static void Init();
 
     ManglerSquigs();
-    ~ManglerSquigs() override
-    {
-        delete m_pHugeFangFilledGob;
-        delete m_pBallsAndChains;
-    }
+    ~ManglerSquigs() override = default;
 
     int move() const override;
 
@@ -48,12 +44,9 @@ protected:
 
 private:
 
-    Weapon* m_pHugeFangFilledGob = nullptr;
-    Weapon* m_pBallsAndChains = nullptr;
-
-    static Weapon s_hugeFangFilledGob,
-        s_ballsAndChains,
-        s_grotsBashinStikk;
+    Weapon m_hugeFangFilledGob,
+        m_ballsAndChains,
+        m_grotsBashinStikk;
 
     static bool s_registered;
 };

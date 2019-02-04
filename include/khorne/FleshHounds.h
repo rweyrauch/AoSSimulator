@@ -43,8 +43,8 @@ protected:
 private:
 
 
-    static Weapon s_burningRoar,
-        s_blooddarkClaws;
+    Weapon m_burningRoar,
+        m_blooddarkClaws;
 
     static bool s_registered;
 };

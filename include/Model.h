@@ -27,16 +27,16 @@ public:
     float y() const { return m_position.y(); }
     float z() const { return m_position.z(); }
 
-    void addMeleeWeapon(Weapon* weapon);
-    void addMissileWeapon(Weapon* weapon);
+    void addMeleeWeapon(const Weapon* weapon);
+    void addMissileWeapon(const Weapon* weapon);
 
     int numMeleeWeapons() const { return (int)m_melee.size(); }
-    std::vector<Weapon*>::const_iterator meleeWeaponBegin() const { return m_melee.begin(); }
-    std::vector<Weapon*>::const_iterator meleeWeaponEnd() const { return m_melee.end(); }
+    std::vector<const Weapon*>::const_iterator meleeWeaponBegin() const { return m_melee.begin(); }
+    std::vector<const Weapon*>::const_iterator meleeWeaponEnd() const { return m_melee.end(); }
 
     int numMissileWeapons() const { return (int)m_missile.size(); }
-    std::vector<Weapon*>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
-    std::vector<Weapon*>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
+    std::vector<const Weapon*>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
+    std::vector<const Weapon*>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 
     const int& woundsRemaining() const { return m_woundsRemaining; }
     int& woundsRemaining() { return m_woundsRemaining; }
@@ -57,10 +57,10 @@ private:
     bool m_slain = false;
     bool m_fled = false;
 
-    std::vector<Weapon*> m_melee;
-    std::vector<Weapon*> m_missile;
+    std::vector<const Weapon*> m_melee;
+    std::vector<const Weapon*> m_missile;
 
-    Weapon* m_preferredWeapon = nullptr;
+    const Weapon* m_preferredWeapon = nullptr;
 };
 
 

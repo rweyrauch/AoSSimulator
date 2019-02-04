@@ -26,10 +26,7 @@ public:
     static void Init();
 
     BloodthirsterOfInsensateRage();
-    ~BloodthirsterOfInsensateRage() override
-    {
-        delete m_pGreatAxeOfKhorne;
-    }
+    ~BloodthirsterOfInsensateRage() override = default;
 
     bool configure();
     int move() const override;
@@ -45,9 +42,7 @@ protected:
 
 private:
 
-    Weapon* m_pGreatAxeOfKhorne = nullptr;
-
-    static Weapon s_greatAxeOfKhorne;
+    Weapon m_greatAxeOfKhorne;
 
     static bool s_registered;
 };

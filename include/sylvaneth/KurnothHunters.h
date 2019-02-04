@@ -51,13 +51,13 @@ protected:
 
 private:
 
-    static Weapon s_greatbow,
-        s_greatbowHuntmaster,
-        s_greatsword,
-        s_greatswordHuntmaster,
-        s_scythe,
-        s_scytheHuntmaster,
-        s_viciousClaws;
+    Weapon m_greatbow,
+        m_greatbowHuntmaster,
+        m_greatsword,
+        m_greatswordHuntmaster,
+        m_scythe,
+        m_scytheHuntmaster,
+        m_viciousClaws;
 
     static bool s_registered;
 };

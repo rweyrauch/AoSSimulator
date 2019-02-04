@@ -45,16 +45,16 @@ protected:
 
 protected:
 
-    bool m_sacrificialKnife = true;
+    bool m_hasSacrificialKnife = true;
     bool m_hornblowers = false;
     bool m_standardBearers = false;
 
 private:
 
-    static Weapon s_sacrificialKnife,
-        s_sacrificialKnifeHandmaiden,
-        s_barbedWhip,
-        s_barbedWhipHandmaiden;
+    Weapon m_sacrificialKnife,
+        m_sacrificialKnifeHandmaiden,
+        m_barbedWhip,
+        m_barbedWhipHandmaiden;
 
     static bool s_registered;
 };

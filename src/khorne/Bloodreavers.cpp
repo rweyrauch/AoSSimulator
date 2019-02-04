@@ -29,13 +29,12 @@ static FactoryMethod factoryMethod = {
 
 bool Bloodreavers::s_registered = false;
 
-Weapon Bloodreavers::s_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
-Weapon Bloodreavers::s_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades (Chief)", 1, 2, 4, 4, 0, 1);
-Weapon Bloodreavers::s_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1);
-Weapon Bloodreavers::s_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe (Chief)", 1, 2, 4, 4, -1, 1);
-
 Bloodreavers::Bloodreavers() :
-    Unit("Bloodreavers", 6, WOUNDS, 5, 6, false)
+    Unit("Bloodreavers", 6, WOUNDS, 5, 6, false),
+    m_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1),
+    m_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades (Chief)", 1, 2, 4, 4, 0, 1),
+    m_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1),
+    m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe (Chief)", 1, 2, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
 }
@@ -56,11 +55,11 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     Model chieftainModel(BASESIZE, WOUNDS);
     if (m_weaponOption == ReaverBlades)
     {
-        chieftainModel.addMeleeWeapon(&s_reaverBladesChieftain);
+        chieftainModel.addMeleeWeapon(&m_reaverBladesChieftain);
     }
     else if (m_weaponOption == MeatripperAxe)
     {
-        chieftainModel.addMeleeWeapon(&s_meatripperAxeChieftain);
+        chieftainModel.addMeleeWeapon(&m_meatripperAxeChieftain);
     }
     addModel(chieftainModel);
 
@@ -69,9 +68,9 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == ReaverBlades)
-            model.addMeleeWeapon(&s_reaverBlades);
+            model.addMeleeWeapon(&m_reaverBlades);
         else if (m_weaponOption == MeatripperAxe)
-            model.addMeleeWeapon(&s_meatripperAxe);
+            model.addMeleeWeapon(&m_meatripperAxe);
         addModel(model);
     }
 
@@ -146,10 +145,10 @@ int Bloodreavers::EnumStringToInt(const std::string &enumString)
 
 void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_reaverBlades);
-    visitor(&s_reaverBladesChieftain);
-    visitor(&s_meatripperAxe);
-    visitor(&s_meatripperAxeChieftain);
+    visitor(&m_reaverBlades);
+    visitor(&m_reaverBladesChieftain);
+    visitor(&m_meatripperAxe);
+    visitor(&m_meatripperAxeChieftain);
 }
 
 } // namespace Khorne

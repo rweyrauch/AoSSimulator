@@ -37,9 +37,9 @@ public:
 
 protected:
 
-    static Weapon s_fangFilledGob,
-        s_slitta,
-        s_slittaBoss;
+    Weapon m_fangFilledGob,
+        m_slitta,
+        m_slittaBoss;
 
     static bool s_registered;
 };

@@ -37,12 +37,11 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         { 6, 2, 1 }
     };
 
-Weapon BloodthirsterOfInsensateRage::s_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 4, 4, 2, -2, RAND_D6);
-
 bool BloodthirsterOfInsensateRage::s_registered = false;
 
 BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage() :
-    Unit("Bloodthirster Of Insensate Rage", 14, WOUNDS, 10, 4, true)
+    Unit("Bloodthirster Of Insensate Rage", 14, WOUNDS, 10, 4, true),
+    m_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 4, 4, 2, -2, RAND_D6)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_INSENSATE_RAGE};
 }
@@ -51,9 +50,7 @@ bool BloodthirsterOfInsensateRage::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pGreatAxeOfKhorne = new Weapon(s_greatAxeOfKhorne);
-
-    model.addMeleeWeapon(m_pGreatAxeOfKhorne);
+    model.addMeleeWeapon(&m_greatAxeOfKhorne);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -63,7 +60,7 @@ bool BloodthirsterOfInsensateRage::configure()
 
 void BloodthirsterOfInsensateRage::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_greatAxeOfKhorne);
+    visitor(&m_greatAxeOfKhorne);
 }
 
 Unit *BloodthirsterOfInsensateRage::Create(const ParameterList &parameters)
@@ -116,7 +113,7 @@ Rerolls BloodthirsterOfInsensateRage::toHitRerolls(const Weapon *weapon, const U
 void BloodthirsterOfInsensateRage::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pGreatAxeOfKhorne->setAttacks(g_damageTable[damageIndex].m_axeAttacks);
+    m_greatAxeOfKhorne.setAttacks(g_damageTable[damageIndex].m_axeAttacks);
 
     Unit::onWounded();
 }
@@ -124,7 +121,7 @@ void BloodthirsterOfInsensateRage::onWounded()
 int BloodthirsterOfInsensateRage::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Outrageous Carnage
-    if (weapon->name() == s_greatAxeOfKhorne.name())
+    if (weapon->name() == m_greatAxeOfKhorne.name())
     {
         const int damageIndex = getDamageTableIndex();
 

@@ -51,9 +51,9 @@ protected:
 
 private:
 
-    static Weapon s_piercingClaws,
-        s_piercingClawsHeartseeker,
-        s_poisonedTongue;
+    Weapon m_piercingClaws,
+        m_piercingClawsHeartseeker,
+        m_poisonedTongue;
 
     static bool s_registered;
 };

@@ -26,11 +26,7 @@ public:
     static void Init();
 
     WrathOfKhorneBloodthirster();
-    ~WrathOfKhorneBloodthirster() override
-    {
-        delete m_pMightyAxeOfKhorne;
-        delete m_pBloodflail;
-    }
+    ~WrathOfKhorneBloodthirster() override = default;
 
     bool configure();
     int move() const override;
@@ -45,11 +41,8 @@ protected:
 
 private:
 
-    Weapon* m_pMightyAxeOfKhorne = nullptr;
-    Weapon* m_pBloodflail = nullptr;
-
-    static Weapon s_bloodflail,
-        s_mightyAxeOfKhorne;
+    Weapon m_bloodflail,
+        m_mightyAxeOfKhorne;
 
     static bool s_registered;
 };

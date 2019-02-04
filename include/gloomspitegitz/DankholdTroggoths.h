@@ -42,7 +42,7 @@ protected:
 
 private:
 
-    static Weapon s_boulderClub;
+    Weapon m_boulderClub;
 
     static bool s_registered;
 };

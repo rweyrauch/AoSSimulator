@@ -22,15 +22,15 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon BloodSisters::s_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1);
-Weapon BloodSisters::s_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive (Gorgai)", 2, 3, 2, 3, -1, 1);
-Weapon BloodSisters::s_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1);
-Weapon BloodSisters::s_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1);
 
 bool BloodSisters::s_registered = false;
 
 BloodSisters::BloodSisters() :
-    DaughterOfKhaine("Blood Sisters", 8, WOUNDS, 8, 5, false)
+    DaughterOfKhaine("Blood Sisters", 8, WOUNDS, 8, 5, false),
+    m_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1),
+    m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive (Gorgai)", 2, 3, 2, 3, -1, 1),
+    m_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1),
+    m_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1)
 {
     m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS };
 }
@@ -43,15 +43,15 @@ bool BloodSisters::configure(int numModels)
     }
 
     Model gorgai(BASESIZE, WOUNDS);
-    gorgai.addMeleeWeapon(&s_heartshardGlaiveGorgai);
-    gorgai.addMeleeWeapon(&s_crystalTouchGorgai);
+    gorgai.addMeleeWeapon(&m_heartshardGlaiveGorgai);
+    gorgai.addMeleeWeapon(&m_crystalTouchGorgai);
     addModel(gorgai);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_heartshardGlaive);
-        model.addMeleeWeapon(&s_crystalTouch);
+        model.addMeleeWeapon(&m_heartshardGlaive);
+        model.addMeleeWeapon(&m_crystalTouch);
         addModel(model);
     }
 
@@ -87,7 +87,7 @@ void BloodSisters::Init()
 int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Turned to Crystal
-    if (weapon->name() == s_crystalTouch.name())
+    if (weapon->name() == m_crystalTouch.name())
     {
         return hits.numHits;
     }
@@ -97,8 +97,8 @@ int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, c
 
 void BloodSisters::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_heartshardGlaive);
-    visitor(&s_heartshardGlaiveGorgai);
+    visitor(&m_heartshardGlaive);
+    visitor(&m_heartshardGlaiveGorgai);
 }
 
 } // namespace DaughtersOfKhaine

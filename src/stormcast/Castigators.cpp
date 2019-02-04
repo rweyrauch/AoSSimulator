@@ -23,12 +23,11 @@ static FactoryMethod factoryMethod = {
 
 bool Castigators::s_registered = false;
 
-Weapon Castigators::s_thunderheadGreatbow(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 3, 3, -1, 1);
-Weapon Castigators::s_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow (Prime)", 18, 1, 2, 3, -1, 1);
-Weapon Castigators::s_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1);
-
 Castigators::Castigators() :
-    StormcastEternal("Castigators", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Castigators", 5, WOUNDS, 7, 4, false),
+    m_thunderheadGreatbow(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 3, 3, -1, 1),
+    m_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow (Prime)", 18, 1, 2, 3, -1, 1),
+    m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, JUSTICAR, CASTIGATORS };
 }
@@ -42,20 +41,17 @@ bool Castigators::configure(int numModels)
         return false;
     }
 
-    m_pThunderheadGreatbowPrime = new Weapon(s_thunderheadGreatbowPrime);
-    m_pThunderheadGreatbow = new Weapon(s_thunderheadGreatbow);
-
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMissileWeapon(m_pThunderheadGreatbowPrime);
-    primeModel.addMeleeWeapon(&s_heavyStock);
+    primeModel.addMissileWeapon(&m_thunderheadGreatbowPrime);
+    primeModel.addMeleeWeapon(&m_heavyStock);
     addModel(primeModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(m_pThunderheadGreatbow);
-        model.addMeleeWeapon(&s_heavyStock);
+        model.addMissileWeapon(&m_thunderheadGreatbow);
+        model.addMeleeWeapon(&m_heavyStock);
         addModel(model);
     }
 
@@ -91,7 +87,7 @@ void Castigators::Init()
 Hits Castigators::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
 {
     // Burst of Celestial Energy
-    if (weapon->name() == s_thunderheadGreatbow.name())
+    if (weapon->name() == m_thunderheadGreatbow.name())
     {
         Hits modHits = hits;
         if (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT))
@@ -126,13 +122,13 @@ void Castigators::onStartShooting(PlayerId player)
 
     if (m_aethericChannellingPower)
     {
-        m_pThunderheadGreatbow->setRend(-2);
-        m_pThunderheadGreatbowPrime->setRend(-2);
+        m_thunderheadGreatbow.setRend(-2);
+        m_thunderheadGreatbowPrime.setRend(-2);
     }
     else
     {
-        m_pThunderheadGreatbow->setRend(s_thunderheadGreatbow.rend());
-        m_pThunderheadGreatbowPrime->setRend(s_thunderheadGreatbowPrime.rend());
+        m_thunderheadGreatbow.setRend(m_thunderheadGreatbow.rend());
+        m_thunderheadGreatbowPrime.setRend(m_thunderheadGreatbowPrime.rend());
     }
 
     Unit::onStartShooting(player);
@@ -140,7 +136,7 @@ void Castigators::onStartShooting(PlayerId player)
 
 Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
-    if (weapon->name() == s_thunderheadGreatbow.name())
+    if (weapon->name() == m_thunderheadGreatbow.name())
     {
         if (!m_aethericChannellingPower)
             return RerollOnes;
@@ -150,9 +146,9 @@ Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 
 void Castigators::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_thunderheadGreatbow);
-    visitor(&s_thunderheadGreatbowPrime);
-    visitor(&s_heavyStock);
+    visitor(&m_thunderheadGreatbow);
+    visitor(&m_thunderheadGreatbowPrime);
+    visitor(&m_heavyStock);
 }
 
 } // namespace StormcastEternals

@@ -40,8 +40,8 @@ protected:
 
 private:
 
-    static Weapon s_fangsAndTalons,
-        s_fangsAndTalonsVargoyle;
+    Weapon m_fangsAndTalons,
+        m_fangsAndTalonsVargoyle;
 
     static bool s_registered;
 

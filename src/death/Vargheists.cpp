@@ -20,13 +20,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Vargheists::s_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2);
-Weapon Vargheists::s_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons (Vargoyle)", 1, 4, 3, 3, -1, 2);
-
 bool Vargheists::s_registered = false;
 
 Vargheists::Vargheists() :
-    Unit("Vargheists", 12, WOUNDS, 10, 5, true)
+    Unit("Vargheists", 12, WOUNDS, 10, 5, true),
+    m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
+    m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons (Vargoyle)", 1, 4, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
 }
@@ -40,13 +39,13 @@ bool Vargheists::configure(int numModels)
     }
 
     Model vargoyle(BASESIZE, WOUNDS);
-    vargoyle.addMeleeWeapon(&s_fangsAndTalonsVargoyle);
+    vargoyle.addMeleeWeapon(&m_fangsAndTalonsVargoyle);
     addModel(vargoyle);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_fangsAndTalons);
+        model.addMeleeWeapon(&m_fangsAndTalons);
         addModel(model);
     }
 
@@ -59,8 +58,8 @@ bool Vargheists::configure(int numModels)
 
 void Vargheists::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_fangsAndTalons);
-    visitor(&s_fangsAndTalonsVargoyle);
+    visitor(&m_fangsAndTalons);
+    visitor(&m_fangsAndTalonsVargoyle);
 }
 
 Unit *Vargheists::Create(const ParameterList &parameters)

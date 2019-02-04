@@ -25,11 +25,10 @@ static FactoryMethod factoryMethod = {
 
 bool FleshHounds::s_registered = false;
 
-Weapon FleshHounds::s_burningRoar(Weapon::Type::Missile, "Burning Roar", 8, 1, 2, 4, 0, 1);
-Weapon FleshHounds::s_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1);
-
 FleshHounds::FleshHounds() :
-    Unit("FleshHounds", 8, WOUNDS, 10, 5, false)
+    Unit("FleshHounds", 8, WOUNDS, 10, 5, false),
+    m_burningRoar(Weapon::Type::Missile, "Burning Roar", 8, 1, 2, 4, 0, 1),
+    m_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, KHORNE, FLESH_HOUNDS};
 }
@@ -46,8 +45,8 @@ bool FleshHounds::configure(int numModels)
     for (auto i = 0; i < numGoreHounds; i++)
     {
         Model goreHound(BASESIZE, WOUNDS);
-        goreHound.addMissileWeapon(&s_burningRoar);
-        goreHound.addMeleeWeapon(&s_blooddarkClaws);
+        goreHound.addMissileWeapon(&m_burningRoar);
+        goreHound.addMeleeWeapon(&m_blooddarkClaws);
         addModel(goreHound);
     }
 
@@ -55,7 +54,7 @@ bool FleshHounds::configure(int numModels)
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_blooddarkClaws);
+        model.addMeleeWeapon(&m_blooddarkClaws);
         addModel(model);
     }
 
@@ -90,8 +89,8 @@ void FleshHounds::Init()
 
 void FleshHounds::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_burningRoar);
-    visitor(&s_blooddarkClaws);
+    visitor(&m_burningRoar);
+    visitor(&m_blooddarkClaws);
 }
 
 } // namespace Khorne

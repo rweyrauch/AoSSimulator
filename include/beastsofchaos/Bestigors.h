@@ -48,8 +48,8 @@ private:
     bool m_brayhorn = false;
     bool m_bannerBearer = false;
 
-    static Weapon s_despoilerAxe,
-        s_despoilerAxeGougeHorn;
+    Weapon m_despoilerAxe;
+    Weapon m_despoilerAxeGougeHorn;
 
     static bool s_registered;
 };

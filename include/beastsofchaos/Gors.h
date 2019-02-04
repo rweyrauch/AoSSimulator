@@ -45,8 +45,8 @@ private:
     bool m_brayhorn = false;
     bool m_bannerBearer = false;
 
-    static Weapon s_gorBlade,
-        s_gorBladeFoeRender;
+    Weapon m_gorBlade,
+        m_gorBladeFoeRender;
 
     static bool s_registered;
 };

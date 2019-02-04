@@ -28,12 +28,11 @@ static FactoryMethod factoryMethod = {
 
 bool BloodWarriors::s_registered = false;
 
-Weapon BloodWarriors::s_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1);
-Weapon BloodWarriors::s_goreaxeChampion(Weapon::Type::Melee, "Goreaxe (Champion)", 1, 3, 3, 4, 0, 1);
-Weapon BloodWarriors::s_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2);
-
 BloodWarriors::BloodWarriors() :
-    Unit("Blood Warriors", 5, WOUNDS, 6, 4, false)
+    Unit("Blood Warriors", 5, WOUNDS, 6, 4, false),
+    m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1),
+    m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe (Champion)", 1, 3, 3, 4, 0, 1),
+    m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};
 }
@@ -57,13 +56,13 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
 
     // Add the Champion
     Model championModel(BASESIZE, WOUNDS);
-    championModel.addMeleeWeapon(&s_goreaxeChampion);
+    championModel.addMeleeWeapon(&m_goreaxeChampion);
     addModel(championModel);
 
     for (auto i = 0; i < numGoreglaives; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_goreglaive);
+        model.addMeleeWeapon(&m_goreglaive);
         addModel(model);
     }
 
@@ -71,7 +70,7 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_goreaxe);
+        model.addMeleeWeapon(&m_goreaxe);
         addModel(model);
     }
 
@@ -85,7 +84,7 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
 Rerolls BloodWarriors::toHitRerolls(const Weapon* weapon, const Unit* unit) const
 {
     // Goreaxes
-    if (m_pairedGoreaxe && (weapon->name() == s_goreaxe.name()))
+    if (m_pairedGoreaxe && (weapon->name() == m_goreaxe.name()))
         return RerollOnes;
 
     return Unit::toHitRerolls(weapon, unit);
@@ -129,9 +128,9 @@ void BloodWarriors::Init()
 
 void BloodWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_goreaxe);
-    visitor(&s_goreaxeChampion);
-    visitor(&s_goreglaive);
+    visitor(&m_goreaxe);
+    visitor(&m_goreaxeChampion);
+    visitor(&m_goreglaive);
 }
 
 } // namespace Khorne

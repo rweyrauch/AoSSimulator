@@ -23,13 +23,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Wrathmongers::s_wrathflails(Weapon::Type::Melee, "Wrath-flails", 2, 4, 4, 3, -1, 1);
-Weapon Wrathmongers::s_wrathflailsMaster(Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1);
-
 bool Wrathmongers::s_registered = false;
 
 Wrathmongers::Wrathmongers() :
-    Unit("Wrathmongers", 5, WOUNDS, 7, 5, false)
+    Unit("Wrathmongers", 5, WOUNDS, 7, 5, false),
+    m_wrathflails(Weapon::Type::Melee, "Wrath-flails", 2, 4, 4, 3, -1, 1),
+    m_wrathflailsMaster(Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, WRATHMONGERS};
 }
@@ -42,13 +41,13 @@ bool Wrathmongers::configure(int numModels)
     }
 
     Model master(BASESIZE, WOUNDS);
-    master.addMeleeWeapon(&s_wrathflailsMaster);
+    master.addMeleeWeapon(&m_wrathflailsMaster);
     addModel(master);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_wrathflails);
+        model.addMeleeWeapon(&m_wrathflails);
         addModel(model);
     }
 
@@ -63,8 +62,8 @@ bool Wrathmongers::configure(int numModels)
 
 void Wrathmongers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_wrathflails);
-    visitor(&s_wrathflailsMaster);
+    visitor(&m_wrathflails);
+    visitor(&m_wrathflailsMaster);
 }
 
 Unit *Wrathmongers::Create(const ParameterList &parameters)

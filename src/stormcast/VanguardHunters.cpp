@@ -26,16 +26,14 @@ static FactoryMethod factoryMethod = {
 
 bool VanguardHunters::s_registered = false;
 
-Weapon VanguardHunters::s_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1);
-Weapon VanguardHunters::s_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol (Prime)", 9, 3, 3, 4, 0, 1);
-Weapon VanguardHunters::s_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1);
-Weapon VanguardHunters::s_shockHandaxePrime(Weapon::Type::Melee, "Shock Handaxe (Prime)", 1, 3, 4, 3, 0, 1);
-Weapon VanguardHunters::s_stormSabre(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1);
-Weapon VanguardHunters::s_stormSabrePrime(Weapon::Type::Melee, "Storm Sabre (Prime)", 1, 3, 3, 4, 0, 1);
-
-
 VanguardHunters::VanguardHunters() :
-    StormcastEternal("Vanguard-Hunters", 6, WOUNDS, 7, 4, false)
+    StormcastEternal("Vanguard-Hunters", 6, WOUNDS, 7, 4, false),
+    m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
+    m_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol (Prime)", 9, 3, 3, 4, 0, 1),
+    m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
+    m_shockHandaxePrime(Weapon::Type::Melee, "Shock Handaxe (Prime)", 1, 3, 4, 3, 0, 1),
+    m_stormSabre(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1),
+    m_stormSabrePrime(Weapon::Type::Melee, "Storm Sabre (Prime)", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, ANGELOS, VANGUARD_HUNTERS };
 
@@ -59,23 +57,23 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
     Model primeModel(BASESIZE, WOUNDS);
     if (m_weaponOption == StormSabre)
     {
-        primeModel.addMeleeWeapon(&s_stormSabrePrime);
+        primeModel.addMeleeWeapon(&m_stormSabrePrime);
     }
     else if (m_weaponOption == ShockHandaxe)
     {
-        primeModel.addMeleeWeapon(&s_shockHandaxePrime);
+        primeModel.addMeleeWeapon(&m_shockHandaxePrime);
     }
-    primeModel.addMissileWeapon(&s_boltstormPistolPrime);
+    primeModel.addMissileWeapon(&m_boltstormPistolPrime);
     addModel(primeModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == StormSabre)
-            model.addMeleeWeapon(&s_stormSabre);
+            model.addMeleeWeapon(&m_stormSabre);
         else if (m_weaponOption == ShockHandaxe)
-            model.addMeleeWeapon(&s_shockHandaxe);
-        model.addMissileWeapon(&s_shockHandaxePrime);
+            model.addMeleeWeapon(&m_shockHandaxe);
+        model.addMissileWeapon(&m_shockHandaxePrime);
         addModel(model);
     }
 
@@ -91,7 +89,7 @@ Unit *VanguardHunters::Create(const ParameterList &parameters)
     auto hunters = new VanguardHunters();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
     WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, StormSabre);
-    int astralCompass = GetBoolParam("astralCompass", parameters, false);
+    bool astralCompass = GetBoolParam("astralCompass", parameters, false);
 
     bool ok = hunters->configure(numModels, weapons, astralCompass);
     if (!ok)
@@ -133,12 +131,12 @@ int VanguardHunters::EnumStringToInt(const std::string &enumString)
 
 void VanguardHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_boltstormPistol);
-    visitor(&s_boltstormPistolPrime);
-    visitor(&s_shockHandaxe);
-    visitor(&s_shockHandaxePrime);
-    visitor(&s_stormSabre);
-    visitor(&s_stormSabrePrime);
+    visitor(&m_boltstormPistol);
+    visitor(&m_boltstormPistolPrime);
+    visitor(&m_shockHandaxe);
+    visitor(&m_shockHandaxePrime);
+    visitor(&m_stormSabre);
+    visitor(&m_stormSabrePrime);
 }
 
 } // namespace StormcastEternals

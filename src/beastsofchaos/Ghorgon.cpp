@@ -41,11 +41,10 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         { 3, 1, 4 }
     };
 
-Weapon Ghorgon::s_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3);
-Weapon Ghorgon::s_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6);
-
 BeastsOfChaos::Ghorgon::Ghorgon() :
-    Unit("Ghorgon", 8, WOUNDS, 7, 5, false)
+    Unit("Ghorgon", 8, WOUNDS, 7, 5, false),
+    m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
+    m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6)
 {
     m_keywords = { CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON };
 }
@@ -54,21 +53,11 @@ bool BeastsOfChaos::Ghorgon::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pButcheringBlades = new Weapon(s_butcheringBlades);
-    m_pHugeSlaveringMaw = new Weapon(s_hugeSlaveringMaw);
-
-    model.addMeleeWeapon(m_pButcheringBlades);
-    model.addMeleeWeapon(m_pHugeSlaveringMaw);
+    model.addMeleeWeapon(&m_butcheringBlades);
+    model.addMeleeWeapon(&m_hugeSlaveringMaw);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
-
-    if (m_verbose)
-    {
-        std::cout << name() << " Weapon Strengths:" << std::endl;
-        std::cout << "\t" << s_butcheringBlades.name() << ": " << s_butcheringBlades.strength() << std::endl;
-        std::cout << "\t" << s_hugeSlaveringMaw.name() << ": " << s_hugeSlaveringMaw.strength() << std::endl;
-    }
 
     return true;
 }
@@ -103,8 +92,8 @@ void BeastsOfChaos::Ghorgon::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
 
-    m_pButcheringBlades->setAttacks(g_damageTable[damageIndex].m_bladesAttacks);
-    m_pHugeSlaveringMaw->setDamage(g_damageTable[damageIndex].m_greatMawToWound);
+    m_butcheringBlades.setAttacks(g_damageTable[damageIndex].m_bladesAttacks);
+    m_hugeSlaveringMaw.setDamage(g_damageTable[damageIndex].m_greatMawToWound);
 
     Unit::onWounded();
 }
@@ -154,8 +143,8 @@ void Ghorgon::onStartCombat(PlayerId player)
 
 void Ghorgon::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_butcheringBlades);
-    visitor(&s_hugeSlaveringMaw);
+    visitor(&m_butcheringBlades);
+    visitor(&m_hugeSlaveringMaw);
 }
 
 } // namespace BeastsOfChaos

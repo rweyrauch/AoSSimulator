@@ -28,18 +28,15 @@ static FactoryMethod factoryMethod = {
 
 bool Sequitors::s_registered = false;
 
-Weapon Sequitors::s_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1);
-Weapon Sequitors::s_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1);
-Weapon Sequitors::s_stormsmiteGreatmace(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 2, 3, 3, -1, 2);
-
-Weapon Sequitors::s_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul (Prime)", 1, 3, 3, 3, 0, 1);
-Weapon Sequitors::s_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade (Prime)", 1, 4, 3, 4, 0, 1);
-Weapon Sequitors::s_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace (Prime)", 1, 3, 3, 3, -1, 2);
-
-Weapon Sequitors::s_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1);
-
 Sequitors::Sequitors() :
-    StormcastEternal("Sequitors", 5, WOUNDS, 7, 4, false)
+    StormcastEternal("Sequitors", 5, WOUNDS, 7, 4, false),
+    m_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1),
+    m_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1),
+    m_stormsmiteGreatmace(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 2, 3, 3, -1, 2),
+    m_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul (Prime)", 1, 3, 3, 3, 0, 1),
+    m_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade (Prime)", 1, 4, 3, 4, 0, 1),
+    m_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace (Prime)", 1, 3, 3, 3, -1, 2),
+    m_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, REDEEMER, SEQUITORS };
 }
@@ -65,32 +62,32 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     }
 
     m_weaponOption = weapons;
-    m_redemptionCache = redemptionCache;
+    m_haveRedemptionCache = redemptionCache;
 
     // Add the Prime
     Model primeModel(BASESIZE, WOUNDS);
     if (primeGreatmace)
     {
-        primeModel.addMeleeWeapon(&s_stormsmiteGreatmacePrime);
+        primeModel.addMeleeWeapon(&m_stormsmiteGreatmacePrime);
     }
     else if (m_weaponOption == StormsmiteMaul)
     {
-        primeModel.addMeleeWeapon(&s_stormsmiteMaulPrime);
+        primeModel.addMeleeWeapon(&m_stormsmiteMaulPrime);
     }
     else if (m_weaponOption == TempestBlade)
     {
-        primeModel.addMeleeWeapon(&s_tempestBladePrime);
+        primeModel.addMeleeWeapon(&m_tempestBladePrime);
     }
-    if (m_redemptionCache)
+    if (m_haveRedemptionCache)
     {
-        primeModel.addMissileWeapon(&s_redemptionCache);
+        primeModel.addMissileWeapon(&m_redemptionCache);
     }
     addModel(primeModel);
 
     for (auto i = 0; i < numGreatmaces; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_stormsmiteGreatmace);
+        model.addMeleeWeapon(&m_stormsmiteGreatmace);
         addModel(model);
     }
 
@@ -99,9 +96,9 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == StormsmiteMaul)
-            model.addMeleeWeapon(&s_stormsmiteMaul);
+            model.addMeleeWeapon(&m_stormsmiteMaul);
         else if (m_weaponOption == TempestBlade)
-            model.addMeleeWeapon(&s_tempestBlade);
+            model.addMeleeWeapon(&m_tempestBlade);
         addModel(model);
     }
 
@@ -122,7 +119,7 @@ Rerolls Sequitors::toSaveRerolls(const Weapon* weapon) const
         // check if remaining models have a shield
         for (auto ip = m.meleeWeaponBegin(); ip != m.meleeWeaponEnd(); ++ip)
         {
-            if ((*ip)->name() == s_stormsmiteMaul.name() || (*ip)->name() == s_tempestBlade.name())
+            if ((*ip)->name() == m_stormsmiteMaul.name() || (*ip)->name() == m_tempestBlade.name())
             {
                 if (m_aethericChannellingWeapons || isMissile)
                     return RerollOnes; // weapons empowered
@@ -145,7 +142,7 @@ Rerolls Sequitors::toHitRerolls(const Weapon* weapon, const Unit *unit) const
 Hits Sequitors::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
 {
     Hits modifiedHits = hits;
-    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == s_stormsmiteGreatmace.name()) &&
+    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == m_stormsmiteGreatmace.name()) &&
         (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT)))
     {
         // Greatmace Blast
@@ -211,12 +208,12 @@ int Sequitors::EnumStringToInt(const std::string &enumString)
 
 void Sequitors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_stormsmiteMaul);
-    visitor(&s_stormsmiteMaulPrime);
-    visitor(&s_tempestBlade);
-    visitor(&s_tempestBladePrime);
-    visitor(&s_stormsmiteGreatmace);
-    visitor(&s_stormsmiteGreatmacePrime);
+    visitor(&m_stormsmiteMaul);
+    visitor(&m_stormsmiteMaulPrime);
+    visitor(&m_tempestBlade);
+    visitor(&m_tempestBladePrime);
+    visitor(&m_stormsmiteGreatmace);
+    visitor(&m_stormsmiteGreatmacePrime);
 }
 
 } // namespace StormcastEternals

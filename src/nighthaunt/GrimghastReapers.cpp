@@ -22,13 +22,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon GrimghastReapers::s_slasherScythe(Weapon::Type::Melee, "Slasher Scythe", 2, 2, 4, 3, -1, 1);
-Weapon GrimghastReapers::s_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2);
-
 bool GrimghastReapers::s_registered = false;
 
 GrimghastReapers::GrimghastReapers() :
-    Unit("Grimghast Reapers", 8, WOUNDS, 10, 4, true)
+    Unit("Grimghast Reapers", 8, WOUNDS, 10, 4, true),
+    m_slasherScythe(Weapon::Type::Melee, "Slasher Scythe", 2, 2, 4, 3, -1, 1),
+    m_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2)
 {
     m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GRIMGHAST_REAPERS };
 }
@@ -40,13 +39,13 @@ bool GrimghastReapers::configure(int numModels)
 
     Model extoller(BASESIZE, WOUNDS);
     // TODO: implement 'For Whom the Bell Tolls' (mortal wounds)
-    extoller.addMeleeWeapon(&s_deathKnell);
+    extoller.addMeleeWeapon(&m_deathKnell);
     addModel(extoller);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_slasherScythe);
+        model.addMeleeWeapon(&m_slasherScythe);
         addModel(model);
     }
 
@@ -102,8 +101,8 @@ int GrimghastReapers::toSaveModifier(const Weapon *weapon) const
 
 void GrimghastReapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_slasherScythe);
-    visitor(&s_deathKnell);
+    visitor(&m_slasherScythe);
+    visitor(&m_deathKnell);
 }
 
 } // namespace Nighthaunt

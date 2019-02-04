@@ -27,11 +27,10 @@ static FactoryMethod factoryMethod = {
 
 bool Daemonettes::s_registered = false;
 
-Weapon Daemonettes::s_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1);
-Weapon Daemonettes::s_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws (Alluress)", 1, 3, 4, 4, -1, 1);
-
 Daemonettes::Daemonettes() :
-    Unit("Daemonettes", 6, WOUNDS, 10, 5, false)
+    Unit("Daemonettes", 6, WOUNDS, 10, 5, false),
+    m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
+    m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws (Alluress)", 1, 3, 4, 4, -1, 1)
 {
     m_keywords = { CHAOS, DAEMON, SLAANESH, DAEMONETTES };
 
@@ -52,13 +51,13 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool standardBearer,
 
     // Add the Alluress
     Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(&s_piercingClawsAlluress);
+    reaperModel.addMeleeWeapon(&m_piercingClawsAlluress);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_piercingClaws);
+        model.addMeleeWeapon(&m_piercingClaws);
         addModel(model);
     }
 
@@ -71,8 +70,8 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool standardBearer,
 
 void Daemonettes::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_piercingClaws);
-    visitor(&s_piercingClawsAlluress);
+    visitor(&m_piercingClaws);
+    visitor(&m_piercingClawsAlluress);
 }
 
 Unit *Daemonettes::Create(const ParameterList &parameters)

@@ -30,10 +30,7 @@ public:
     static void Init();
 
     VanguardRaptorsLongstrike();
-    ~VanguardRaptorsLongstrike() override
-    {
-        delete m_pLongstikeCrossbow;
-    }
+    ~VanguardRaptorsLongstrike() override = default;
 
     bool configure(int numModels);
 
@@ -46,11 +43,9 @@ protected:
 
 private:
 
-    Weapon* m_pLongstikeCrossbow = nullptr;
-
-    static Weapon s_longstikeCrossbow,
-                  s_heavyStock,
-                  s_beakAndClaws;
+    Weapon m_longstikeCrossbow,
+                  m_heavyStock,
+                  m_beakAndClaws;
 
     static bool s_registered;
 };

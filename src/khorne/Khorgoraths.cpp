@@ -23,14 +23,13 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Khorgoraths::s_boneTentacles(Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1);
-Weapon Khorgoraths::s_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2);
-
 bool Khorgoraths::s_registered = false;
 
 
 Khorgoraths::Khorgoraths() :
-    Unit("Khorgoraths", 6, WOUNDS, 6, 4, false)
+    Unit("Khorgoraths", 6, WOUNDS, 6, 4, false),
+    m_boneTentacles(Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1),
+    m_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2)
 {
     m_keywords = {CHAOS, KHORNE, MONSTER, BLOODBOUND, KHORGORATHS};
 }
@@ -45,8 +44,8 @@ bool Khorgoraths::configure(int numModels)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&s_boneTentacles);
-        model.addMeleeWeapon(&s_clawAndFangs);
+        model.addMissileWeapon(&m_boneTentacles);
+        model.addMeleeWeapon(&m_clawAndFangs);
         addModel(model);
     }
 
@@ -61,8 +60,8 @@ bool Khorgoraths::configure(int numModels)
 
 void Khorgoraths::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_boneTentacles);
-    visitor(&s_clawAndFangs);
+    visitor(&m_boneTentacles);
+    visitor(&m_clawAndFangs);
 }
 
 Unit *Khorgoraths::Create(const ParameterList &parameters)

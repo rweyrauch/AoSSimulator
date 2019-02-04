@@ -40,8 +40,8 @@ protected:
 
 private:
 
-    static Weapon s_heldensen,
-        s_clawsAndFangs;
+    Weapon m_heldensen,
+        m_clawsAndFangs;
 
     static bool s_registered;
 };

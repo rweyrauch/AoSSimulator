@@ -25,14 +25,13 @@ static FactoryMethod factoryMethod = {
 
 bool LordCelestantOnDracoth::s_registered = false;
 
-Weapon LordCelestantOnDracoth::s_stormstrikeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 4, 3, 4, -1, 1);
-Weapon LordCelestantOnDracoth::s_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2);
-Weapon LordCelestantOnDracoth::s_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 3, 3, -1, 2);
-Weapon LordCelestantOnDracoth::s_tempestosHammer(Weapon::Type::Melee, "Tempestos Hammer", 2, 3, 3, 2, -1, RAND_D3);
-Weapon LordCelestantOnDracoth::s_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1);
-
 LordCelestantOnDracoth::LordCelestantOnDracoth() :
-    StormcastEternal("Lord-Celestant on Dracoth", 10, WOUNDS, 9, 3, false)
+    StormcastEternal("Lord-Celestant on Dracoth", 10, WOUNDS, 9, 3, false),
+    m_stormstrikeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 4, 3, 4, -1, 1),
+    m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
+    m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 3, 3, -1, 2),
+    m_tempestosHammer(Weapon::Type::Melee, "Tempestos Hammer", 2, 3, 3, 2, -1, RAND_D3),
+    m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT };
 }
@@ -45,17 +44,16 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
     Model model(BASESIZE, WOUNDS);
     if (m_weapon == StormstrikeGlaive)
     {
-        m_pStormstrikeGlaive = new Weapon(s_stormstrikeGlaive);
-        model.addMeleeWeapon(m_pStormstrikeGlaive);
+        model.addMeleeWeapon(&m_stormstrikeGlaive);
     }
     else if (m_weapon == LightningHammer)
-        model.addMeleeWeapon(&s_lightningHammer);
+        model.addMeleeWeapon(&m_lightningHammer);
     else if (m_weapon == Thunderaxe)
-        model.addMeleeWeapon(&s_thunderaxe);
+        model.addMeleeWeapon(&m_thunderaxe);
     else if (m_weapon == TempestosHammer)
-        model.addMeleeWeapon(&s_tempestosHammer);
+        model.addMeleeWeapon(&m_tempestosHammer);
 
-    model.addMeleeWeapon(&s_clawsAndFangs);
+    model.addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -107,7 +105,7 @@ int LordCelestantOnDracoth::extraAttacks(const Weapon *weapon) const
     int attacks = Unit::extraAttacks(weapon);
 
     // Tempestos Hammer
-    if (m_charged && weapon->name() == s_tempestosHammer.name())
+    if (m_charged && weapon->name() == m_tempestosHammer.name())
     {
         Dice dice;
         attacks += dice.rollD3();
@@ -140,7 +138,7 @@ Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
 int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Lightning Hammer
-    if (weapon->name() == s_lightningHammer.name())
+    if (weapon->name() == m_lightningHammer.name())
     {
         return hits.rolls.numUnmodified6s() * 2;
     }
@@ -150,18 +148,18 @@ int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Uni
 void LordCelestantOnDracoth::onCharged()
 {
     // TODO: replace this with damageModifier()
-    if (m_pStormstrikeGlaive)
+    if (m_weapon == StormstrikeGlaive)
     {
-        m_pStormstrikeGlaive->setDamage(s_stormstrikeGlaive.damage()+2);
+        m_stormstrikeGlaive.setDamage(m_stormstrikeGlaive.damage() + 2);
     }
     StormcastEternal::onCharged();
 }
 
 void LordCelestantOnDracoth::onBeginTurn(int battleRound)
 {
-    if (m_pStormstrikeGlaive)
+    if (m_weapon == StormstrikeGlaive)
     {
-        m_pStormstrikeGlaive->setDamage(s_stormstrikeGlaive.damage());
+        m_stormstrikeGlaive.setDamage(m_stormstrikeGlaive.damage());
     }
     StormcastEternal::onBeginTurn(battleRound);
 }
@@ -181,17 +179,17 @@ int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
 
 void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_stormstrikeGlaive);
-    visitor(&s_lightningHammer);
-    visitor(&s_thunderaxe);
-    visitor(&s_tempestosHammer);
-    visitor(&s_clawsAndFangs);
+    visitor(&m_stormstrikeGlaive);
+    visitor(&m_lightningHammer);
+    visitor(&m_thunderaxe);
+    visitor(&m_tempestosHammer);
+    visitor(&m_clawsAndFangs);
 }
 
 int LordCelestantOnDracoth::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
 {
     // Intolerable Damage
-    if (weapon->name() == s_clawsAndFangs.name())
+    if (weapon->name() == m_clawsAndFangs.name())
     {
         Dice dice;
         int modifier = 0;

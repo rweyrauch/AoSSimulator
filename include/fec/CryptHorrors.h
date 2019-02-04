@@ -45,8 +45,8 @@ protected:
 
 private:
 
-    static Weapon s_clubsAndTalons,
-        s_clubsAndTalonsHaunter;
+    Weapon m_clubsAndTalons,
+        m_clubsAndTalonsHaunter;
 
     static bool s_registered;
 };

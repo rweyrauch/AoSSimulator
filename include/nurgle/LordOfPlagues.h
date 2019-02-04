@@ -43,7 +43,7 @@ protected:
 
 private:
 
-    static Weapon s_plagueriddenGreatBlade;
+    Weapon m_plagueriddenGreatBlade;
 
     static bool s_registered;
 };

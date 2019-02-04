@@ -43,8 +43,8 @@ protected:
 
 private:
 
-    static Weapon s_malignantWeapon,
-        s_malignantWeaponWarden;
+    Weapon m_malignantWeapon,
+        m_malignantWeaponWarden;
 
     static bool s_registered;
 };

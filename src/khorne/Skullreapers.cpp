@@ -29,16 +29,15 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Skullreapers::s_goreslickBlades(Weapon::Type::Melee, "Gore-slick Blades", 1, 3, 3, 3, 0, 1);
-Weapon Skullreapers::s_daemonblades(Weapon::Type::Melee, "Daemonblades", 1, 3, 4, 3, 0, 1);
-Weapon Skullreapers::s_spinecleaver(Weapon::Type::Melee, "Spinecleaver", 1, 2, 3, 3, -1, 2);
-Weapon Skullreapers::s_soultearer(Weapon::Type::Melee, "Soultearer", 1, 2, 4, 3, -1, 2);
-Weapon Skullreapers::s_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3);
-
 bool Skullreapers::s_registered = false;
 
 Skullreapers::Skullreapers() :
-    Unit("Skullreapers", 5, WOUNDS, 7, 4, false)
+    Unit("Skullreapers", 5, WOUNDS, 7, 4, false),
+    m_goreslickBlades(Weapon::Type::Melee, "Gore-slick Blades", 1, 3, 3, 3, 0, 1),
+    m_daemonblades(Weapon::Type::Melee, "Daemonblades", 1, 3, 4, 3, 0, 1),
+    m_spinecleaver(Weapon::Type::Melee, "Spinecleaver", 1, 2, 3, 3, -1, 2),
+    m_soultearer(Weapon::Type::Melee, "Soultearer", 1, 2, 4, 3, -1, 2),
+    m_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SKULLREAPERS};
 }
@@ -63,27 +62,27 @@ bool Skullreapers::configure(int numModels, Skullreapers::WeaponOptions weapons,
     }
 
     Model skullseeker(BASESIZE, WOUNDS);
-    skullseeker.addMeleeWeapon(&s_viciousMutation);
+    skullseeker.addMeleeWeapon(&m_viciousMutation);
     if (weapons == GoreSlickBlades)
     {
-        skullseeker.addMeleeWeapon(&s_goreslickBlades);
+        skullseeker.addMeleeWeapon(&m_goreslickBlades);
     }
     else
     {
-        skullseeker.addMeleeWeapon(&s_daemonblades);
+        skullseeker.addMeleeWeapon(&m_daemonblades);
     }
     addModel(skullseeker);
 
     for (auto i = 0; i < numSplinecleavers; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_spinecleaver);
+        model.addMeleeWeapon(&m_spinecleaver);
         addModel(model);
     }
     for (auto i = 0; i < numSoultearers; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_soultearer);
+        model.addMeleeWeapon(&m_soultearer);
         addModel(model);
     }
 
@@ -93,11 +92,11 @@ bool Skullreapers::configure(int numModels, Skullreapers::WeaponOptions weapons,
         Model model(BASESIZE, WOUNDS);
         if (weapons == GoreSlickBlades)
         {
-            model.addMeleeWeapon(&s_goreslickBlades);
+            model.addMeleeWeapon(&m_goreslickBlades);
         }
         else
         {
-            model.addMeleeWeapon(&s_daemonblades);
+            model.addMeleeWeapon(&m_daemonblades);
         }
         addModel(model);
     }
@@ -113,11 +112,11 @@ bool Skullreapers::configure(int numModels, Skullreapers::WeaponOptions weapons,
 
 void Skullreapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_goreslickBlades);
-    visitor(&s_daemonblades);
-    visitor(&s_spinecleaver);
-    visitor(&s_soultearer);
-    visitor(&s_viciousMutation);
+    visitor(&m_goreslickBlades);
+    visitor(&m_daemonblades);
+    visitor(&m_spinecleaver);
+    visitor(&m_soultearer);
+    visitor(&m_viciousMutation);
 }
 
 Unit *Skullreapers::Create(const ParameterList &parameters)
@@ -154,7 +153,7 @@ Rerolls Skullreapers::toHitRerolls(const Weapon *weapon, const Unit *target) con
         return RerollFailed;
     }
     // Frenzied Attacks
-    if (weapon->name() == s_daemonblades.name() || weapon->name() == s_goreslickBlades.name())
+    if (weapon->name() == m_daemonblades.name() || weapon->name() == m_goreslickBlades.name())
     {
         return RerollOnes;
     }
@@ -164,7 +163,7 @@ Rerolls Skullreapers::toHitRerolls(const Weapon *weapon, const Unit *target) con
 int Skullreapers::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
 {
     // Daemonforged Weapons
-    if (weapon->name() == s_daemonblades.name() || weapon->name() == s_soultearer.name())
+    if (weapon->name() == m_daemonblades.name() || weapon->name() == m_soultearer.name())
     {
         int mortalWounds = hits.rolls.numUnmodified6s();
 

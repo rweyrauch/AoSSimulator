@@ -47,8 +47,8 @@ private:
 
     WeaponOption m_weaponOption = AstralHammers;
 
-    static Weapon s_astralHammers,
-        s_astralGrandhammer;
+Weapon m_astralHammers,
+        m_astralGrandhammer;
 
     static bool s_registered;
 };

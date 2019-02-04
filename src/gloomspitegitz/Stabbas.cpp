@@ -28,16 +28,15 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Stabbas::s_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1);
-Weapon Stabbas::s_stabbaBoss(Weapon::Type::Melee, "Stabba (Boss)", 1, 1, 3, 4, 0, 1);
-Weapon Stabbas::s_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1);
-Weapon Stabbas::s_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear (Boss)", 2, 1, 4, 4, 0, 1);
-Weapon Stabbas::s_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1);
-
 bool Stabbas::s_registered = false;
 
 Stabbas::Stabbas() :
-    Unit("Stabbas", 5, WOUNDS, 4, 6, false)
+    Unit("Stabbas", 5, WOUNDS, 4, 6, false),
+    m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
+    m_stabbaBoss(Weapon::Type::Melee, "Stabba (Boss)", 1, 1, 3, 4, 0, 1),
+    m_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1),
+    m_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear (Boss)", 2, 1, 4, 4, 0, 1),
+    m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
     m_keywords = { DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS };
 }
@@ -72,16 +71,16 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     // Add the boss
     Model boss(BASESIZE, WOUNDS);
     if (bossWeapon == Stabba)
-        boss.addMeleeWeapon(&s_stabbaBoss);
+        boss.addMeleeWeapon(&m_stabbaBoss);
     else if (bossWeapon == PokinSpear)
-        boss.addMeleeWeapon(&s_pokinSpearBoss);
+        boss.addMeleeWeapon(&m_pokinSpearBoss);
     addModel(boss);
 
     // add the nets
     for (auto i = 1; i < numBarbedNets; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_barbedNet);
+        model.addMeleeWeapon(&m_barbedNet);
         addModel(model);
     }
 
@@ -90,9 +89,9 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == Stabba)
-            model.addMeleeWeapon(&s_stabba);
+            model.addMeleeWeapon(&m_stabba);
         else if (weapons == PokinSpear)
-            model.addMeleeWeapon(&s_pokinSpear);
+            model.addMeleeWeapon(&m_pokinSpear);
         addModel(model);
     }
 
@@ -186,11 +185,11 @@ int Stabbas::EnumStringToInt(const std::string &enumString)
 
 void Stabbas::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_stabba);
-    visitor(&s_stabbaBoss);
-    visitor(&s_pokinSpear);
-    visitor(&s_pokinSpearBoss);
-    visitor(&s_barbedNet);
+    visitor(&m_stabba);
+    visitor(&m_stabbaBoss);
+    visitor(&m_pokinSpear);
+    visitor(&m_pokinSpearBoss);
+    visitor(&m_barbedNet);
 }
 
 } // namespace GloomspiteGitz

@@ -43,8 +43,8 @@ protected:
 
 private:
 
-    static Weapon s_slasherScythe,
-        s_deathKnell;
+    Weapon m_slasherScythe,
+        m_deathKnell;
 
     static bool s_registered;
 };

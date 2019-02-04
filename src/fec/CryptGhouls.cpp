@@ -22,13 +22,12 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon CryptGhouls::s_teethAndClaws(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 4, 0, 1);
-Weapon CryptGhouls::s_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws (Crypt Ghast)", 1, 2, 4, 3, 0, 1);
-
 bool CryptGhouls::s_registered = false;
 
 CryptGhouls::CryptGhouls() :
-    Unit("Crypt Ghouls", 6, WOUNDS, 10, 6, false)
+    Unit("Crypt Ghouls", 6, WOUNDS, 10, 6, false),
+    m_teethAndClaws(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 4, 0, 1),
+    m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws (Crypt Ghast)", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, CRYPT_GHOULS};
 }
@@ -41,13 +40,13 @@ bool CryptGhouls::configure(int numModels)
     }
 
     Model ghast(BASESIZE, WOUNDS);
-    ghast.addMeleeWeapon(&s_teethAndClawsGhast);
+    ghast.addMeleeWeapon(&m_teethAndClawsGhast);
     addModel(ghast);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_teethAndClaws);
+        model.addMeleeWeapon(&m_teethAndClaws);
         addModel(model);
     }
 
@@ -60,8 +59,8 @@ bool CryptGhouls::configure(int numModels)
 
 void CryptGhouls::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_teethAndClaws);
-    visitor(&s_teethAndClawsGhast);
+    visitor(&m_teethAndClaws);
+    visitor(&m_teethAndClawsGhast);
 }
 
 Unit *CryptGhouls::Create(const ParameterList &parameters)

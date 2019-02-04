@@ -41,8 +41,8 @@ protected:
 
 private:
 
-    static Weapon s_wrackingTalons,
-        s_wrackingTalonsNymph;
+    Weapon m_wrackingTalons,
+        m_wrackingTalonsNymph;
 
     static bool s_registered;
 };

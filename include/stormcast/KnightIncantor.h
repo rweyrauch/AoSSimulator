@@ -37,7 +37,7 @@ protected:
 
 private:
 
-    static Weapon s_staff;
+    Weapon m_staff;
 
     static bool s_registered;
 };

@@ -43,7 +43,7 @@ protected:
 
 private:
 
-    static Weapon s_massiveStoneMaul;
+    Weapon m_massiveStoneMaul;
 
     static bool s_registered;
 };

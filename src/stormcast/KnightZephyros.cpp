@@ -22,11 +22,10 @@ static FactoryMethod factoryMethod = {
 
 bool KnightZephyros::s_registered = false;
 
-Weapon KnightZephyros::s_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 3, 0, 1);
-Weapon KnightZephyros::s_tempestAxes(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1);
-
 KnightZephyros::KnightZephyros() :
-    StormcastEternal("Knight-Zephyros", 6, WOUNDS, 9, 3, false)
+    StormcastEternal("Knight-Zephyros", 6, WOUNDS, 9, 3, false),
+    m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 3, 0, 1),
+    m_tempestAxes(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, KNIGHT_ZEPHYROS };
     // Tireless hunder
@@ -36,8 +35,8 @@ KnightZephyros::KnightZephyros() :
 bool KnightZephyros::configure()
 {
     Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&s_boltstormPistol);
-    model.addMeleeWeapon(&s_tempestAxes);
+    model.addMeleeWeapon(&m_boltstormPistol);
+    model.addMeleeWeapon(&m_tempestAxes);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -76,8 +75,8 @@ int KnightZephyros::extraAttacks(const Weapon *weapon) const
 
 void KnightZephyros::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_boltstormPistol);
-    visitor(&s_tempestAxes);
+    visitor(&m_boltstormPistol);
+    visitor(&m_tempestAxes);
 }
 
 } // namespace StormcastEternals

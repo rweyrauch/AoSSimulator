@@ -42,9 +42,9 @@ protected:
 
 private:
 
-    static Weapon s_fangFilledGob,
-        s_pokinLance,
-        s_pokinLanceBoss;
+    Weapon m_fangFilledGob,
+        m_pokinLance,
+        m_pokinLanceBoss;
 
     static bool s_registered;
 };

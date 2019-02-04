@@ -26,13 +26,12 @@ static FactoryMethod factoryMethod = {
 
 bool Evocators::s_registered = false;
 
-Weapon Evocators::s_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1);
-Weapon Evocators::s_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave (Prime)", 1, 5, 3, 3, -1, 1);
-Weapon Evocators::s_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2);
-Weapon Evocators::s_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2);
-
 Evocators::Evocators() :
-    StormcastEternal("Evocators", 5, WOUNDS, 8, 4, false)
+    StormcastEternal("Evocators", 5, WOUNDS, 8, 4, false),
+    m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
+    m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave (Prime)", 1, 5, 3, 3, -1, 1),
+    m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
+    m_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2)
 {
     m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS };
 }
@@ -62,17 +61,17 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     Model primeModel(BASESIZE, WOUNDS);
     if (primeGrandstave)
     {
-        primeModel.addMeleeWeapon(&s_grandStavePrime);
+        primeModel.addMeleeWeapon(&m_grandStavePrime);
         numGrandstaves--;
     }
     else
-        primeModel.addMeleeWeapon(&s_tempestBladeAndStavePrime);
+        primeModel.addMeleeWeapon(&m_tempestBladeAndStavePrime);
     addModel(primeModel);
 
     for (auto i = 0; i < numGrandstaves; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_grandStave);
+        model.addMeleeWeapon(&m_grandStave);
         addModel(model);
     }
 
@@ -80,7 +79,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_tempestBladeAndStave);
+        model.addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(model);
     }
 
@@ -142,10 +141,10 @@ void Evocators::Init()
 
 void Evocators::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_tempestBladeAndStave);
-    visitor(&s_tempestBladeAndStavePrime);
-    visitor(&s_grandStave);
-    visitor(&s_grandStavePrime);
+    visitor(&m_tempestBladeAndStave);
+    visitor(&m_tempestBladeAndStavePrime);
+    visitor(&m_grandStave);
+    visitor(&m_grandStavePrime);
 }
 
 } // namespace StormcastEternals

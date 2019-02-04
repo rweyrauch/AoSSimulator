@@ -21,12 +21,11 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon Zombies::s_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1);
-
 bool Zombies::s_registered = false;
 
 Zombies::Zombies() :
-    Unit("Zombies", 4, WOUNDS, 10, NoSave, false)
+    Unit("Zombies", 4, WOUNDS, 10, NoSave, false),
+    m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
 }
@@ -47,7 +46,7 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_zombieBite);
+        model.addMeleeWeapon(&m_zombieBite);
         addModel(model);
     }
 
@@ -60,7 +59,7 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
 
 void Zombies::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_zombieBite);
+    visitor(&m_zombieBite);
 }
 
 Unit *Zombies::Create(const ParameterList &parameters)

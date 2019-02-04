@@ -27,14 +27,13 @@ static FactoryMethod factoryMethod = {
 
 bool Bullgors::s_registered = false;
 
-Weapon Bullgors::s_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1);
-Weapon Bullgors::s_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2);
-Weapon Bullgors::s_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe (Bloodkine)", 1, 4, 4, 3, -1, 2);
-Weapon Bullgors::s_bullgorGreatAxe(Weapon::Type::Melee, "Bullgor Great Axe", 1, 2, 4, 3, -2, 3);
-Weapon Bullgors::s_bullgorGreatAxeBloodkine(Weapon::Type::Melee, "Bullgor Great Axe (Bloodkine)", 1, 3, 4, 3, -2, 3);
-
 Bullgors::Bullgors() :
-    Unit("Bullgors", 7, WOUNDS, 6, 5, false)
+    Unit("Bullgors", 7, WOUNDS, 6, 5, false),
+    m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
+    m_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2),
+    m_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe (Bloodkine)", 1, 4, 4, 3, -1, 2),
+    m_bullgorGreatAxe(Weapon::Type::Melee, "Bullgor Great Axe", 1, 2, 4, 3, -2, 3),
+    m_bullgorGreatAxeBloodkine(Weapon::Type::Melee, "Bullgor Great Axe (Bloodkine)", 1, 3, 4, 3, -2, 3)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
 }
@@ -51,21 +50,21 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
     m_bannerBearer = bannerBearer;
     m_pairedAxes = (options == PairedBullgorAxes);
     Model bloodkine(BASESIZE, WOUNDS);
-    bloodkine.addMeleeWeapon(&s_bullgorHorns);
+    bloodkine.addMeleeWeapon(&m_bullgorHorns);
     if (options == BullgorAxe || options == PairedBullgorAxes)
-        bloodkine.addMeleeWeapon(&s_bullgorAxeBloodkine);
+        bloodkine.addMeleeWeapon(&m_bullgorAxeBloodkine);
     else if (options == BullgorGreatAxe)
-        bloodkine.addMeleeWeapon(&s_bullgorGreatAxeBloodkine);
+        bloodkine.addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
     addModel(bloodkine);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_bullgorHorns);
+        model.addMeleeWeapon(&m_bullgorHorns);
         if (options == BullgorAxe || options == PairedBullgorAxes)
-            model.addMeleeWeapon(&s_bullgorAxe);
+            model.addMeleeWeapon(&m_bullgorAxe);
         else if (options == BullgorGreatAxe)
-            model.addMeleeWeapon(&s_bullgorGreatAxe);
+            model.addMeleeWeapon(&m_bullgorGreatAxe);
         addModel(model);
     }
 
@@ -78,11 +77,11 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
 
 void Bullgors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_bullgorHorns);
-    visitor(&s_bullgorAxe);
-    visitor(&s_bullgorAxeBloodkine);
-    visitor(&s_bullgorGreatAxe);
-    visitor(&s_bullgorGreatAxeBloodkine);
+    visitor(&m_bullgorHorns);
+    visitor(&m_bullgorAxe);
+    visitor(&m_bullgorAxeBloodkine);
+    visitor(&m_bullgorGreatAxe);
+    visitor(&m_bullgorGreatAxeBloodkine);
 }
 
 Unit *Bullgors::Create(const ParameterList &parameters)

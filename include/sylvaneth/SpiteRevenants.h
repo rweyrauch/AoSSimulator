@@ -41,8 +41,8 @@ protected:
 
 private:
 
-    static Weapon s_cruelTalonsAndFangs,
-        s_cruelTalonsAndFangsShadestalker;
+    Weapon m_cruelTalonsAndFangs,
+        m_cruelTalonsAndFangsShadestalker;
 
     static bool s_registered;
 };

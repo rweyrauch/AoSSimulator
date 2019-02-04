@@ -41,12 +41,11 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     { 2, RAND_D3, 4 }
 };
 
-Weapon SpiritOfDurthu::s_verdantBlast(Weapon::Type::Missile, "Verdant Blast", 15, 6, 4, 3, -1, RAND_D3);
-Weapon SpiritOfDurthu::s_guardianSword(Weapon::Type::Melee, "Guardian Sword", 3, 3, 3, 3, -2, 6);
-Weapon SpiritOfDurthu::s_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1);
-
 SpiritOfDurthu::SpiritOfDurthu() :
-    Unit("Spirit of Durthu", 5, WOUNDS, 9, 3, false)
+    Unit("Spirit of Durthu", 5, WOUNDS, 9, 3, false),
+    m_verdantBlast(Weapon::Type::Missile, "Verdant Blast", 15, 6, 4, 3, -1, RAND_D3),
+    m_guardianSword(Weapon::Type::Melee, "Guardian Sword", 3, 3, 3, 3, -2, 6),
+    m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
     m_keywords = { ORDER, SYLVANETH, MONSTER, HERO, SPIRIT_OF_DURTHU };
 }
@@ -55,13 +54,9 @@ bool SpiritOfDurthu::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pVerdantBlast = new Weapon(s_verdantBlast);
-    m_pGuardianSword = new Weapon(s_guardianSword);
-    m_pMassiveImpalingTalons = new Weapon(s_massiveImpalingTalons);
-
-    model.addMissileWeapon(m_pVerdantBlast);
-    model.addMeleeWeapon(m_pGuardianSword);
-    model.addMeleeWeapon(m_pMassiveImpalingTalons);
+    model.addMissileWeapon(&m_verdantBlast);
+    model.addMeleeWeapon(&m_guardianSword);
+    model.addMeleeWeapon(&m_massiveImpalingTalons);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -76,9 +71,9 @@ void SpiritOfDurthu::hero(PlayerId id)
 void SpiritOfDurthu::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pVerdantBlast->setAttacks(g_damageTable[damageIndex].m_verdantBlastAttacks);
-    m_pGuardianSword->setDamage(g_damageTable[damageIndex].m_guardianSwordDamage);
-    m_pMassiveImpalingTalons->setToWound(g_damageTable[damageIndex].m_talonsToWound);
+    m_verdantBlast.setAttacks(g_damageTable[damageIndex].m_verdantBlastAttacks);
+    m_guardianSword.setDamage(g_damageTable[damageIndex].m_guardianSwordDamage);
+    m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonsToWound);
 }
 
 int SpiritOfDurthu::getDamageTableIndex() const
@@ -117,9 +112,9 @@ void SpiritOfDurthu::Init()
 
 void SpiritOfDurthu::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_verdantBlast);
-    visitor(&s_guardianSword);
-    visitor(&s_massiveImpalingTalons);
+    visitor(&m_verdantBlast);
+    visitor(&m_guardianSword);
+    visitor(&m_massiveImpalingTalons);
 }
 
 } // namespace Sylvaneth

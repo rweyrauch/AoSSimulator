@@ -43,9 +43,9 @@ protected:
 
 private:
 
-    static Weapon s_enchantedBlade,
-        s_enchantedBladeScion,
-        s_protectorGlaive;
+    Weapon m_enchantedBlade,
+        m_enchantedBladeScion,
+        m_protectorGlaive;
 
     static bool s_registered;
 };

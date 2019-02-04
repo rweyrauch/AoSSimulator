@@ -39,8 +39,8 @@ protected:
 
 private:
 
-    static Weapon s_boneTentacles,
-        s_clawAndFangs;
+    Weapon m_boneTentacles,
+        m_clawAndFangs;
 
     static bool s_registered;
 };

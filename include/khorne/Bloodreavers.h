@@ -52,10 +52,10 @@ protected:
     bool m_iconBearer = false;
     bool m_hornblower = false;
 
-    static Weapon s_reaverBlades,
-                  s_reaverBladesChieftain,
-                  s_meatripperAxe,
-                  s_meatripperAxeChieftain;
+    Weapon m_reaverBlades,
+                  m_reaverBladesChieftain,
+                  m_meatripperAxe,
+                  m_meatripperAxeChieftain;
 
     static bool s_registered;
 };

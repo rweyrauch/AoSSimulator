@@ -50,8 +50,8 @@ protected:
 
 private:
 
-    static Weapon s_piercingClaws,
-        s_piercingClawsAlluress;
+    Weapon m_piercingClaws,
+        m_piercingClawsAlluress;
 
     static bool s_registered;
 };

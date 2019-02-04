@@ -25,14 +25,13 @@ static FactoryMethod factoryMethod = {
     }
 };
 
-Weapon NamartiReavers::s_keeningBlade(Weapon::Type::Melee, "Keening Blade", 1, 2, 3, 4, 0, 1);
-Weapon NamartiReavers::s_whisperbowAimedFire(Weapon::Type::Missile, "Whisperbow: Aimed Fire", 18, 1, 4, 4, 0, 1);
-Weapon NamartiReavers::s_whisperbowStormFire(Weapon::Type::Missile, "Whisperbow: Storm Fire", 9, 3, 4, 4, 0, 1);
-
 bool NamartiReavers::s_registered = false;
 
 NamartiReavers::NamartiReavers() :
-    Unit("Namarti Reavers", 8, WOUNDS, 6, 5, false)
+    Unit("Namarti Reavers", 8, WOUNDS, 6, 5, false),
+    m_keeningBlade(Weapon::Type::Melee, "Keening Blade", 1, 2, 3, 4, 0, 1),
+    m_whisperbowAimedFire(Weapon::Type::Missile, "Whisperbow: Aimed Fire", 18, 1, 4, 4, 0, 1),
+    m_whisperbowStormFire(Weapon::Type::Missile, "Whisperbow: Storm Fire", 9, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, REAVERS};
 }
@@ -47,15 +46,12 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
 
     m_numIconBearers = numIconBearers;
 
-    m_pWhisperbowAimedFire = new Weapon(s_whisperbowAimedFire);
-    m_pWhisperbowStormFire = new Weapon(s_whisperbowStormFire);
-
     for (auto i = 0; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(m_pWhisperbowStormFire);
-        model.addMissileWeapon(m_pWhisperbowAimedFire);
-        model.addMeleeWeapon(&s_keeningBlade);
+        model.addMissileWeapon(&m_whisperbowStormFire);
+        model.addMissileWeapon(&m_whisperbowAimedFire);
+        model.addMeleeWeapon(&m_keeningBlade);
         addModel(model);
     }
 
@@ -68,9 +64,9 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
 
 void NamartiReavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_whisperbowStormFire);
-    visitor(&s_whisperbowAimedFire);
-    visitor(&s_keeningBlade);
+    visitor(&m_whisperbowStormFire);
+    visitor(&m_whisperbowAimedFire);
+    visitor(&m_keeningBlade);
 }
 
 Unit *NamartiReavers::Create(const ParameterList &parameters)
@@ -106,15 +102,15 @@ void NamartiReavers::shooting(PlayerId player)
     if (nearestUnit)
     {
         float rangeTo = distanceTo(nearestUnit);
-        if (rangeTo < m_pWhisperbowStormFire->range())
+        if (rangeTo < m_whisperbowStormFire.range())
         {
-            m_pWhisperbowStormFire->activate(true);
-            m_pWhisperbowAimedFire->activate(false);
+            m_whisperbowStormFire.activate(true);
+            m_whisperbowAimedFire.activate(false);
         }
         else
         {
-            m_pWhisperbowStormFire->activate(false);
-            m_pWhisperbowAimedFire->activate(true);
+            m_whisperbowStormFire.activate(false);
+            m_whisperbowAimedFire.activate(true);
         }
     }
 

@@ -46,8 +46,8 @@ protected:
 
 private:
 
-    static Weapon s_runeblade,
-        s_warhammer;
+    Weapon m_runeblade,
+        m_warhammer;
 
     static bool s_registered;
 };

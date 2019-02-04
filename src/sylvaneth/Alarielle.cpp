@@ -41,12 +41,12 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     { 6, 10, 1 }
 };
 
-Weapon Alarielle::s_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6);
-Weapon Alarielle::s_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1);
-Weapon Alarielle::s_beetleGreatAntlers(Weapon::Type::Melee, "Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5);
 
 Alarielle::Alarielle() :
-    Unit("Alarielle", 16, WOUNDS, 10, 3, true)
+    Unit("Alarielle", 16, WOUNDS, 10, 3, true),
+    m_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6),
+    m_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1),
+    m_beetleGreatAntlers(Weapon::Type::Melee, "Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5)
 {
     m_keywords = { ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN };
 }
@@ -55,12 +55,9 @@ bool Alarielle::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pSpearOfKurnoth = new Weapon(s_spearOfKurnoth);
-    m_pBeetleGreatAntlers = new Weapon(s_beetleGreatAntlers);
-
-    model.addMissileWeapon(m_pSpearOfKurnoth);
-    model.addMeleeWeapon(&s_talonOfDwindling);
-    model.addMeleeWeapon(m_pBeetleGreatAntlers);
+    model.addMissileWeapon(&m_spearOfKurnoth);
+    model.addMeleeWeapon(&m_talonOfDwindling);
+    model.addMeleeWeapon(&m_beetleGreatAntlers);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -76,7 +73,7 @@ int Alarielle::move() const
 int Alarielle::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
     // Sweeping Blows
-    if (weapon->name() == s_beetleGreatAntlers.name() && unit->remainingModels() >= 5)
+    if (weapon->name() == m_beetleGreatAntlers.name() && unit->remainingModels() >= 5)
     {
         return 1;
     }
@@ -104,8 +101,8 @@ void Alarielle::hero(PlayerId player)
 void Alarielle::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pSpearOfKurnoth->setRange(g_damageTable[damageIndex].m_spearKurnothRange);
-    m_pBeetleGreatAntlers->setDamage(g_damageTable[damageIndex].m_greatAntlerDamage);
+    m_spearOfKurnoth.setRange(g_damageTable[damageIndex].m_spearKurnothRange);
+    m_beetleGreatAntlers.setDamage(g_damageTable[damageIndex].m_greatAntlerDamage);
 }
 
 int Alarielle::getDamageTableIndex() const
@@ -144,9 +141,9 @@ void Alarielle::Init()
 
 void Alarielle::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_spearOfKurnoth);
-    visitor(&s_talonOfDwindling);
-    visitor(&s_beetleGreatAntlers);
+    visitor(&m_spearOfKurnoth);
+    visitor(&m_talonOfDwindling);
+    visitor(&m_beetleGreatAntlers);
 }
 
 } // namespace Sylvaneth

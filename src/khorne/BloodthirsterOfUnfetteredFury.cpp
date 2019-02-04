@@ -38,13 +38,12 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         { 6, 1, 4 }
     };
 
-Weapon BloodthirsterOfUnfetteredFury::s_lashOfKhorne(Weapon::Type::Missile, "Lash of Khorne", 8, 4, 4, 3, -1, RAND_D3);
-Weapon BloodthirsterOfUnfetteredFury::s_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3);
-
 bool BloodthirsterOfUnfetteredFury::s_registered = false;
 
 BloodthirsterOfUnfetteredFury::BloodthirsterOfUnfetteredFury() :
-    Unit("Bloodthirster Of Unfettered Fury", 10, WOUNDS, 10, 4, true)
+    Unit("Bloodthirster Of Unfettered Fury", 10, WOUNDS, 10, 4, true),
+    m_lashOfKhorne(Weapon::Type::Missile, "Lash of Khorne", 8, 4, 4, 3, -1, RAND_D3),
+    m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_UNFETTERED_FURY};
 }
@@ -53,11 +52,8 @@ bool BloodthirsterOfUnfetteredFury::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    m_pLashOfKhorne = new Weapon(s_lashOfKhorne);
-    m_pMightyAxeOfKhorne = new Weapon(s_mightyAxeOfKhorne);
-
-    model.addMissileWeapon(m_pLashOfKhorne);
-    model.addMeleeWeapon(m_pMightyAxeOfKhorne);
+    model.addMissileWeapon(&m_lashOfKhorne);
+    model.addMeleeWeapon(&m_mightyAxeOfKhorne);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -67,8 +63,8 @@ bool BloodthirsterOfUnfetteredFury::configure()
 
 void BloodthirsterOfUnfetteredFury::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_lashOfKhorne);
-    visitor(&s_mightyAxeOfKhorne);
+    visitor(&m_lashOfKhorne);
+    visitor(&m_mightyAxeOfKhorne);
 }
 
 Unit *BloodthirsterOfUnfetteredFury::Create(const ParameterList &parameters)
@@ -113,8 +109,8 @@ int BloodthirsterOfUnfetteredFury::move() const
 void BloodthirsterOfUnfetteredFury::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_pLashOfKhorne->setAttacks(g_damageTable[damageIndex].m_lashAttacks);
-    m_pMightyAxeOfKhorne->setToWound(g_damageTable[damageIndex].m_axeToWound);
+    m_lashOfKhorne.setAttacks(g_damageTable[damageIndex].m_lashAttacks);
+    m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
 
     Unit::onWounded();
 }

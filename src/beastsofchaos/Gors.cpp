@@ -26,11 +26,11 @@ static FactoryMethod factoryMethod = {
 
 bool Gors::s_registered = false;
 
-Weapon Gors::s_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1);
-Weapon Gors::s_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade (Foe-render)", 1, 2, 4, 3, 0, 1);
 
 Gors::Gors() :
-    Unit("Gors", 6, WOUNDS, 5, 5, false)
+    Unit("Gors", 6, WOUNDS, 5, 5, false),
+    m_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1),
+    m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade (Foe-render)", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS };
 }
@@ -47,13 +47,13 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
     m_pairedBlades = pairedBlades;
 
     Model foe(BASESIZE, WOUNDS);
-    foe.addMeleeWeapon(&s_gorBladeFoeRender);
+    foe.addMeleeWeapon(&m_gorBladeFoeRender);
     addModel(foe);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&s_gorBlade);
+        model.addMeleeWeapon(&m_gorBlade);
         addModel(model);
     }
 
@@ -66,8 +66,8 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
 
 void Gors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&s_gorBlade);
-    visitor(&s_gorBladeFoeRender);
+    visitor(&m_gorBlade);
+    visitor(&m_gorBladeFoeRender);
 }
 
 Unit *Gors::Create(const ParameterList &parameters)
