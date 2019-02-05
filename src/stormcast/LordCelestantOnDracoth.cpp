@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnDracoth::ValueToString,
     LordCelestantOnDracoth::EnumStringToInt,
     {
-        {ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
-         LordCelestantOnDracoth::StormstrikeGlaive, 1},
+        {
+            ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
+            LordCelestantOnDracoth::StormstrikeGlaive, 1
+        },
         {ParamType::Boolean, "sigmariteThundershield", {.m_boolValue = false}, false, false},
     }
 };
@@ -33,7 +35,7 @@ LordCelestantOnDracoth::LordCelestantOnDracoth() :
     m_tempestosHammer(Weapon::Type::Melee, "Tempestos Hammer", 2, 3, 3, 2, -1, RAND_D3),
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
 }
 
 bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield)
@@ -47,11 +49,17 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
         model.addMeleeWeapon(&m_stormstrikeGlaive);
     }
     else if (m_weapon == LightningHammer)
+    {
         model.addMeleeWeapon(&m_lightningHammer);
+    }
     else if (m_weapon == Thunderaxe)
+    {
         model.addMeleeWeapon(&m_thunderaxe);
+    }
     else if (m_weapon == TempestosHammer)
+    {
         model.addMeleeWeapon(&m_tempestosHammer);
+    }
 
     model.addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);
@@ -64,7 +72,7 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
 Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnDracoth();
-    auto weapons = (WeaponOption)GetIntParam("weapons", parameters, LightningHammer);
+    auto weapons = (WeaponOption) GetIntParam("weapons", parameters, LightningHammer);
     bool sigmariteThundershield = GetBoolParam("sigmariteThundershield", parameters, false);
 
     bool ok = unit->configure(weapons, sigmariteThundershield);
@@ -89,13 +97,21 @@ std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == TempestosHammer)
+        {
             return "TempestosHammer";
+        }
         else if (parameter.m_intValue == Thunderaxe)
+        {
             return "Thunderaxe";
+        }
         else if (parameter.m_intValue == LightningHammer)
+        {
             return "LightningHammer";
+        }
         else if (parameter.m_intValue == StormstrikeGlaive)
+        {
             return "StormstrikeGlaive";
+        }
     }
     return ParameterValueToString(parameter);
 }
@@ -117,12 +133,14 @@ Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon) const
 {
     // Sigmarite Thundershield
     if (m_sigmariteThundershield)
+    {
         return RerollOnes;
+    }
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
 Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
-                                                       const Dice::RollResult &saveRolls) const
+                                                     const Dice::RollResult &saveRolls) const
 {
     // Sigmarite Thundershield
     if (m_sigmariteThundershield)
@@ -135,7 +153,7 @@ Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
 }
 
 
-int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Lightning Hammer
     if (weapon->name() == m_lightningHammer.name())
@@ -167,13 +185,21 @@ void LordCelestantOnDracoth::onBeginTurn(int battleRound)
 int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "TempestosHammer")
+    {
         return TempestosHammer;
+    }
     else if (enumString == "Thunderaxe")
+    {
         return Thunderaxe;
+    }
     else if (enumString == "LightningHammer")
+    {
         return LightningHammer;
+    }
     else if (enumString == "StormstrikeGlaive")
+    {
         return StormstrikeGlaive;
+    }
     return 0;
 }
 

@@ -19,8 +19,10 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnStardrake::ValueToString,
     LordCelestantOnStardrake::EnumStringToInt,
     {
-        {ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
-         LordCelestantOnStardrake::StormboundBlade, 1},
+        {
+            ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
+            LordCelestantOnStardrake::StormboundBlade, 1
+        },
     }
 };
 
@@ -32,13 +34,13 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 4;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 4, 8, 12, LordCelestantOnStardrake::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, LordCelestantOnStardrake::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        { 12, 3, 3 },
-        { 11, 3, 2 },
-        { 10, 4, 2 },
-        { 8, 4, 1 }
+        {12, 3, 3},
+        {11, 3, 2},
+        {10, 4, 2},
+        {8,  4, 1}
     };
 
 bool LordCelestantOnStardrake::s_registered = false;
@@ -49,7 +51,7 @@ LordCelestantOnStardrake::LordCelestantOnStardrake() :
     m_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2),
     m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT};
 }
 
 bool LordCelestantOnStardrake::configure(WeaponOption weapons)
@@ -58,9 +60,13 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 
     Model model(BASESIZE, WOUNDS);
     if (weapons == CelestineHammer)
+    {
         model.addMeleeWeapon(&m_celestineHammer);
+    }
     else if (weapons == StormboundBlade)
+    {
         model.addMeleeWeapon(&m_stormboundBlade);
+    }
     model.addMeleeWeapon(&m_greatClaws);
     addModel(model);
 
@@ -77,7 +83,7 @@ int LordCelestantOnStardrake::move() const
 Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnStardrake();
-    auto weapons = (WeaponOption)GetIntParam("weapons", parameters, CelestineHammer);
+    auto weapons = (WeaponOption) GetIntParam("weapons", parameters, CelestineHammer);
 
     bool ok = unit->configure(weapons);
     if (!ok)
@@ -101,9 +107,13 @@ std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == CelestineHammer)
+        {
             return "CelestineHammer";
+        }
         else if (parameter.m_intValue == StormboundBlade)
+        {
             return "StormboundBlade";
+        }
     }
     return ParameterValueToString(parameter);
 }
@@ -162,7 +172,7 @@ Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon *weapon) const
 }
 
 Wounds LordCelestantOnStardrake::computeReturnedDamage(const Weapon *weapon,
-                                          const Dice::RollResult &saveRolls) const
+                                                       const Dice::RollResult &saveRolls) const
 {
     // Sigmarite Thundershield
     // 1 mortal wound for each save of a 6
@@ -202,7 +212,9 @@ void LordCelestantOnStardrake::onEndCombat(PlayerId player)
 
         PlayerId otherPlayer = PlayerId::Red;
         if (player == PlayerId::Red)
+        {
             otherPlayer = PlayerId::Blue;
+        }
         auto otherRoster = board->getPlayerRoster(otherPlayer);
 
         Dice dice;
@@ -249,7 +261,9 @@ void LordCelestantOnStardrake::onStartShooting(PlayerId player)
 
         PlayerId otherPlayer = PlayerId::Red;
         if (player == PlayerId::Red)
+        {
             otherPlayer = PlayerId::Blue;
+        }
         auto otherRoster = board->getPlayerRoster(otherPlayer);
         auto numUnits = dice.rollD6();
 
@@ -264,7 +278,8 @@ void LordCelestantOnStardrake::onStartShooting(PlayerId player)
             }
             unitsAffected++;
 
-            if (unitsAffected > numUnits) break;
+            if (unitsAffected > numUnits)
+            { break; }
         }
     }
     else // Roiling Thunder
@@ -281,9 +296,13 @@ void LordCelestantOnStardrake::onStartShooting(PlayerId player)
 int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "CelestineHammer")
+    {
         return CelestineHammer;
+    }
     else if (enumString == "StormboundBlade")
+    {
         return StormboundBlade;
+    }
     return 0;
 }
 

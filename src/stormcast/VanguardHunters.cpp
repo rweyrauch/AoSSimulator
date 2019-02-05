@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     VanguardHunters::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
-         VanguardHunters::StormSabre, 1},
+        {
+            ParamType::Integer, "weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
+            VanguardHunters::StormSabre, 1
+        },
         {ParamType::Boolean, "astralCompass", {.m_boolValue = false}, false, false},
     }
 };
@@ -35,7 +37,7 @@ VanguardHunters::VanguardHunters() :
     m_stormSabre(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1),
     m_stormSabrePrime(Weapon::Type::Melee, "Storm Sabre (Prime)", 1, 3, 3, 4, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, ANGELOS, VANGUARD_HUNTERS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, ANGELOS, VANGUARD_HUNTERS};
 
     // Tireless Hunters
     m_runAndShoot = true;
@@ -70,16 +72,22 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == StormSabre)
+        {
             model.addMeleeWeapon(&m_stormSabre);
+        }
         else if (m_weaponOption == ShockHandaxe)
+        {
             model.addMeleeWeapon(&m_shockHandaxe);
+        }
         model.addMissileWeapon(&m_shockHandaxePrime);
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -88,7 +96,7 @@ Unit *VanguardHunters::Create(const ParameterList &parameters)
 {
     auto hunters = new VanguardHunters();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, StormSabre);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, StormSabre);
     bool astralCompass = GetBoolParam("astralCompass", parameters, false);
 
     bool ok = hunters->configure(numModels, weapons, astralCompass);
@@ -113,9 +121,13 @@ std::string VanguardHunters::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == StormSabre)
+        {
             return "StormSabre";
+        }
         else if (parameter.m_intValue == ShockHandaxe)
+        {
             return "ShockHandaxe";
+        }
     }
     return ParameterValueToString(parameter);
 }
@@ -123,9 +135,13 @@ std::string VanguardHunters::ValueToString(const Parameter &parameter)
 int VanguardHunters::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "StormSabre")
+    {
         return StormSabre;
+    }
     else if (enumString == "ShockHandaxe")
+    {
         return ShockHandaxe;
+    }
     return 0;
 }
 

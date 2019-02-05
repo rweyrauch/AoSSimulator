@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Seekers::MIN_UNIT_SIZE}, Seekers::MIN_UNIT_SIZE,
-         Seekers::MAX_UNIT_SIZE, Seekers::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Seekers::MIN_UNIT_SIZE}, Seekers::MIN_UNIT_SIZE,
+            Seekers::MAX_UNIT_SIZE, Seekers::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblower", {.m_boolValue = true}, false, false},
@@ -33,7 +35,7 @@ Seekers::Seekers() :
     m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws (Heartseeker)", 1, 3, 4, 4, -1, 1),
     m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 4, 4, 0, 1)
 {
-    m_keywords = { CHAOS, DAEMON, DAEMONETTES, SLAANESH, SEEKERS };
+    m_keywords = {CHAOS, DAEMON, DAEMONETTES, SLAANESH, SEEKERS};
 
     // Quicksilver Speed
     m_runAndCharge = true;
@@ -64,7 +66,9 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -111,7 +115,8 @@ int Seekers::runModifier() const
 
 Rerolls Seekers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
-    if (m_standardBearer) return RerollOnes;
+    if (m_standardBearer)
+    { return RerollOnes; }
     return Unit::toHitRerolls(weapon, unit);
 }
 

@@ -33,7 +33,7 @@ Evocators::Evocators() :
     m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
     m_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS};
 }
 
 bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave)
@@ -65,7 +65,9 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         numGrandstaves--;
     }
     else
+    {
         primeModel.addMeleeWeapon(&m_tempestBladeAndStavePrime);
+    }
     addModel(primeModel);
 
     for (auto i = 0; i < numGrandstaves; i++)
@@ -75,7 +77,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         addModel(model);
     }
 
-    auto currentModelCount = (int)m_models.size();
+    auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
@@ -85,21 +87,25 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-Rerolls Evocators::toSaveRerolls(const Weapon* weapon) const
+Rerolls Evocators::toSaveRerolls(const Weapon *weapon) const
 {
     // Celestial Lightning Arc
     if (weapon->isMissile())
+    {
         return RerollOnes;
+    }
 
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
-int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     int mortalWounds = Unit::generateMortalWounds(weapon, unit, hits, wounds);
 
@@ -107,10 +113,14 @@ int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, cons
     Dice dice;
     int roll = dice.rollD6();
     if (roll >= 4)
+    {
         mortalWounds++;
+    }
     roll = dice.rollD6();
     if (roll >= 4)
+    {
         mortalWounds++;
+    }
 
     return mortalWounds;
 }

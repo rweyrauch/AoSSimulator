@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
-         VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
+            VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -30,7 +32,7 @@ VanguardRaptorsLongstrike::VanguardRaptorsLongstrike() :
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 3, 0, 1),
     m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS};
 }
 
 bool VanguardRaptorsLongstrike::configure(int numModels)
@@ -59,7 +61,9 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -103,7 +107,7 @@ void VanguardRaptorsLongstrike::Init()
     }
 }
 
-int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int VanguardRaptorsLongstrike::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Headshot
     if (weapon->name() == m_longstikeCrossbow.name())

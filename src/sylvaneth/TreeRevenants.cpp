@@ -11,15 +11,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace Sylvaneth {
+namespace Sylvaneth
+{
 
 static FactoryMethod factoryMethod = {
     TreeRevenants::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
-         TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
+            TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "scionGlaive", {.m_boolValue = false}, false, false},
         {ParamType::Boolean, "gladeBanners", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "waypipes", {.m_boolValue = true}, false, false},
@@ -34,22 +37,28 @@ TreeRevenants::TreeRevenants() :
     m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade (Scion)", 1, 4, 4, 3, -1, 1),
     m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2)
 {
-    m_keywords = {ORDER, SYLVANETH, TREE_REVENANTS };
+    m_keywords = {ORDER, SYLVANETH, TREE_REVENANTS};
 }
 
 bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     m_gladeBanners = gladeBanners;
     m_waypipes = waypipes;
 
     Model scion(BASESIZE, WOUNDS);
     if (scionGlaive)
+    {
         scion.addMeleeWeapon(&m_protectorGlaive);
+    }
     else
+    {
         scion.addMeleeWeapon(&m_enchantedBladeScion);
+    }
     addModel(scion);
 
     for (auto i = 1; i < numModels; i++)
@@ -61,7 +70,9 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

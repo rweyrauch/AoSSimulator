@@ -11,20 +11,24 @@
 namespace StormcastEternals
 {
 
-int StormcastEternal::toHitModifier(const Weapon* weapon, const Unit* unit) const
+int StormcastEternal::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
     int modifier = Unit::toHitModifier(weapon, unit);
 
     if (hasKeyword(ASTRAL_TEMPLARS) && unit->hasKeyword(MONSTER))
+    {
         modifier += 1;
+    }
 
     return modifier;
 }
 
-Rerolls StormcastEternal::toHitRerolls(const Weapon* weapon, const Unit* unit) const
+Rerolls StormcastEternal::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     if (hasKeyword(CELESTIAL_VINDICATORS) && m_charged)
+    {
         return RerollOnes;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
@@ -34,7 +38,9 @@ int StormcastEternal::battlshockModifier() const
     int modifier = Unit::battlshockModifier();
 
     if (hasKeyword(HAMMERS_OF_SIGMAR))
+    {
         modifier += 1;
+    }
 
     return modifier;
 }
@@ -42,7 +48,9 @@ int StormcastEternal::battlshockModifier() const
 Rerolls StormcastEternal::battleshockRerolls() const
 {
     if (hasKeyword(ANVILS_OF_THE_HELDENHAMMER))
+    {
         return RerollFailed;
+    }
 
     return Unit::battleshockRerolls();
 }

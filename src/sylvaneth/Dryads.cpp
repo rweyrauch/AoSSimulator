@@ -11,15 +11,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace Sylvaneth {
+namespace Sylvaneth
+{
 
 static FactoryMethod factoryMethod = {
     Dryads::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
-         Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
+            Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -30,7 +33,7 @@ Dryads::Dryads() :
     m_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1),
     m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons (Nymph)", 2, 3, 4, 4, 0, 1)
 {
-    m_keywords = { ORDER, SYLVANETH, DRYADS };
+    m_keywords = {ORDER, SYLVANETH, DRYADS};
 }
 
 bool Dryads::configure(int numModels)
@@ -53,7 +56,9 @@ bool Dryads::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

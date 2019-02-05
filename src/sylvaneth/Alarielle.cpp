@@ -31,15 +31,15 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 4, 7, 10, 13, Alarielle::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, Alarielle::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-{
-    { 16, 30, 5 },
-    { 14, 25, 4 },
-    { 10, 20, 3 },
-    { 8, 15, 2 },
-    { 6, 10, 1 }
-};
+    {
+        {16, 30, 5},
+        {14, 25, 4},
+        {10, 20, 3},
+        {8,  15, 2},
+        {6,  10, 1}
+    };
 
 
 Alarielle::Alarielle() :
@@ -48,7 +48,7 @@ Alarielle::Alarielle() :
     m_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1),
     m_beetleGreatAntlers(Weapon::Type::Melee, "Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5)
 {
-    m_keywords = { ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN };
+    m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
 }
 
 bool Alarielle::configure()
@@ -70,7 +70,7 @@ int Alarielle::move() const
     return g_damageTable[getDamageTableIndex()].m_move;
 }
 
-int Alarielle::toHitModifier(const Weapon* weapon, const Unit* unit) const
+int Alarielle::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
     // Sweeping Blows
     if (weapon->name() == m_beetleGreatAntlers.name() && unit->remainingModels() >= 5)
@@ -89,11 +89,13 @@ void Alarielle::hero(PlayerId player)
         int woundsHealed = dice.rollD3();
         // Soul Amphorae (healing part).  TODO: only do this if not summoning
         woundsHealed += dice.rollD3();
-        for (auto& m : m_models)
+        for (auto &m : m_models)
         {
             m.woundsRemaining() += woundsHealed;
             if (m.woundsRemaining() > WOUNDS)
+            {
                 m.woundsRemaining() = WOUNDS;
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ Castigators::Castigators() :
     m_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow (Prime)", 18, 1, 2, 3, -1, 1),
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, JUSTICAR, CASTIGATORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, JUSTICAR, CASTIGATORS};
 }
 
 bool Castigators::configure(int numModels)
@@ -57,7 +57,9 @@ bool Castigators::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -112,11 +114,17 @@ void Castigators::onStartShooting(PlayerId player)
         if (m_shootingTarget)
         {
             if (m_shootingTarget->ignoreRend())
+            {
                 m_aethericChannellingPower = false;
+            }
             else if (m_shootingTarget->save() < 4)
+            {
                 m_aethericChannellingPower = true;
-            else // accuracy
+            }
+            else
+            { // accuracy
                 m_aethericChannellingPower = false;
+            }
         }
     }
 
@@ -139,7 +147,9 @@ Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     if (weapon->name() == m_thunderheadGreatbow.name())
     {
         if (!m_aethericChannellingPower)
+        {
             return RerollOnes;
+        }
     }
     return StormcastEternal::toHitRerolls(weapon, unit);
 }

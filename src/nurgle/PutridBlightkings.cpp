@@ -16,8 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = PutridBlightkings::MIN_UNIT_SIZE}, PutridBlightkings::MIN_UNIT_SIZE,
-         PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = PutridBlightkings::MIN_UNIT_SIZE}, PutridBlightkings::MIN_UNIT_SIZE,
+            PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "sonorousTocsin", {.m_boolValue = true}, false, false},
     }
@@ -29,7 +31,7 @@ PutridBlightkings::PutridBlightkings() :
     Unit("Putrid Blightkings", 4, WOUNDS, 8, 4, false),
     m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1)
 {
-    m_keywords = { CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS };
+    m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS};
 }
 
 bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousTocsin)
@@ -43,7 +45,7 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
     m_sonorousTocsin = sonorousTocsin;
 
     // Add the Blightlord
-    Model leader(BASESIZE, WOUNDS+1);
+    Model leader(BASESIZE, WOUNDS + 1);
     leader.addMeleeWeapon(&m_blightedWeapon);
     addModel(leader);
 
@@ -56,7 +58,9 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -113,7 +117,9 @@ int PutridBlightkings::runModifier() const
 {
     int modifier = Unit::runModifier();
     if (m_sonorousTocsin)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
@@ -121,7 +127,9 @@ int PutridBlightkings::chargeModifier() const
 {
     int modifier = Unit::chargeModifier();
     if (m_sonorousTocsin)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 

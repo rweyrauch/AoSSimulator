@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     Judicators::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
-         Judicators::BoltstormCrossbow, 1},
+        {
+            ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
+            Judicators::BoltstormCrossbow, 1
+        },
         {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5},
         {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5}
     }
@@ -37,7 +39,7 @@ Judicators::Judicators() :
     m_thunderboldCrossbow(Weapon::Type::Missile, "Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0),
     m_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS};
 
     // Chained Lightning
     m_shockboltBow.setHitsPerAttack(RAND_D6);
@@ -87,26 +89,32 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
         model.addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
-    int currentModelCount = (int)m_models.size();
+    int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == SkyboltBow)
+        {
             model.addMissileWeapon(&m_skyboltBow);
+        }
         else if (m_weaponOption == BoltstormCrossbow)
+        {
             model.addMissileWeapon(&m_boltstormCrossbow);
+        }
         model.addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-Rerolls Judicators::toHitRerolls(const Weapon* weapon, const Unit* unit) const
+Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     // External Judgement
     if (unit->hasKeyword(CHAOS) && weapon->isMissile())
@@ -116,7 +124,7 @@ Rerolls Judicators::toHitRerolls(const Weapon* weapon, const Unit* unit) const
     return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
-int Judicators::extraAttacks(const Weapon* weapon) const
+int Judicators::extraAttacks(const Weapon *weapon) const
 {
     // Rapid Fire
     if (!m_ran && weapon->isMissile())
@@ -130,7 +138,7 @@ Unit *Judicators::Create(const ParameterList &parameters)
 {
     auto juds = new Judicators();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, SkyboltBow);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, SkyboltBow);
     int numShockboltBows = GetIntParam("numShockboltBows", parameters, 0);
     int numThunderboltCrossbows = GetIntParam("numThunderboltCrossbows", parameters, 0);
 
@@ -156,19 +164,27 @@ std::string Judicators::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == SkyboltBow)
+        {
             return "SkyboltBow";
+        }
         else if (parameter.m_intValue == BoltstormCrossbow)
+        {
             return "BoltstormCrossbow";
+        }
     }
     return ParameterValueToString(parameter);
 }
 
-int Judicators::EnumStringToInt(const std::string& enumString)
+int Judicators::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "SkyboltBow")
+    {
         return SkyboltBow;
+    }
     else if (enumString == "BoltstormCrossbow")
+    {
         return BoltstormCrossbow;
+    }
     return 0;
 }
 

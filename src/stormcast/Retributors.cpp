@@ -30,7 +30,7 @@ Retributors::Retributors() :
     m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer (Prime)", 1, 3, 3, 3, -1, 2),
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS};
 }
 
 bool Retributors::configure(int numModels, int numStarsoulMaces)
@@ -60,7 +60,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
         addModel(model);
     }
 
-    int currentModelCount = (int)m_models.size();
+    int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
@@ -70,12 +70,14 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Blast to Ashes
     if (weapon->name() == m_lightningHammer.name())

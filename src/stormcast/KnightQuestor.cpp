@@ -26,7 +26,7 @@ KnightQuestor::KnightQuestor() :
     StormcastEternal("Knight-Questor", 5, WOUNDS, 8, 3, false),
     m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, KNIGHT_QUESTOR };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, KNIGHT_QUESTOR};
 }
 
 bool KnightQuestor::configure()

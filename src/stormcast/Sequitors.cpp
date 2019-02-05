@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     Sequitors::EnumStringToInt,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
-         Sequitors::TempestBlade, 1},
+        {
+            ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
+            Sequitors::TempestBlade, 1
+        },
         {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
         {ParamType::Boolean, "primeGreatmace", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "redemptionCache", {.m_boolValue = false}, false, false}
@@ -38,7 +40,7 @@ Sequitors::Sequitors() :
     m_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace (Prime)", 1, 3, 3, 3, -1, 2),
     m_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, REDEEMER, SEQUITORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, REDEEMER, SEQUITORS};
 }
 
 bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache)
@@ -49,7 +51,7 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
         // Invalid model count.
         return false;
     }
-    const int maxGrandmaces = (numModels / 5)*2;
+    const int maxGrandmaces = (numModels / 5) * 2;
     if (numGreatmaces > maxGrandmaces)
     {
         // Invalid weapon configuration.
@@ -91,25 +93,31 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
         addModel(model);
     }
 
-    int currentModelCount = (int)m_models.size();
+    int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == StormsmiteMaul)
+        {
             model.addMeleeWeapon(&m_stormsmiteMaul);
+        }
         else if (m_weaponOption == TempestBlade)
+        {
             model.addMeleeWeapon(&m_tempestBlade);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-Rerolls Sequitors::toSaveRerolls(const Weapon* weapon) const
+Rerolls Sequitors::toSaveRerolls(const Weapon *weapon) const
 {
     const bool isMissile = weapon->isMissile();
 
@@ -122,9 +130,13 @@ Rerolls Sequitors::toSaveRerolls(const Weapon* weapon) const
             if ((*ip)->name() == m_stormsmiteMaul.name() || (*ip)->name() == m_tempestBlade.name())
             {
                 if (m_aethericChannellingWeapons || isMissile)
+                {
                     return RerollOnes; // weapons empowered
+                }
                 else
-                    return RerollFailed; // shields empowered
+                {
+                    return RerollFailed;
+                } // shields empowered
             }
         }
     }
@@ -132,10 +144,12 @@ Rerolls Sequitors::toSaveRerolls(const Weapon* weapon) const
     return NoRerolls;
 }
 
-Rerolls Sequitors::toHitRerolls(const Weapon* weapon, const Unit *unit) const
+Rerolls Sequitors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     if (m_aethericChannellingWeapons)
+    {
         return RerollFailed;
+    }
     return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
@@ -163,7 +177,7 @@ Unit *Sequitors::Create(const ParameterList &parameters)
 {
     auto unit = new Sequitors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, StormsmiteMaul);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, StormsmiteMaul);
     int numGreatmaces = GetIntParam("numGreatmaces", parameters, 0);
     bool primeGreatmace = GetBoolParam("primeGreatmace", parameters, false);
     bool redemptionCache = GetBoolParam("redemptionCache", parameters, false);
@@ -190,9 +204,13 @@ std::string Sequitors::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == StormsmiteMaul)
+        {
             return "StormsmiteMaul";
+        }
         else if (parameter.m_intValue == TempestBlade)
+        {
             return "TempestBlade";
+        }
     }
     return ParameterValueToString(parameter);
 }
@@ -200,9 +218,13 @@ std::string Sequitors::ValueToString(const Parameter &parameter)
 int Sequitors::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "StormsmiteMaul")
+    {
         return StormsmiteMaul;
+    }
     else if (enumString == "TempestBlade")
+    {
         return TempestBlade;
+    }
     return 0;
 }
 

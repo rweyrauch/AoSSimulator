@@ -16,8 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Plaguebearers::MIN_UNIT_SIZE}, Plaguebearers::MIN_UNIT_SIZE,
-         Plaguebearers::MAX_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Plaguebearers::MIN_UNIT_SIZE}, Plaguebearers::MIN_UNIT_SIZE,
+            Plaguebearers::MAX_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "piper", {.m_boolValue = true}, false, false},
     }
@@ -30,7 +32,7 @@ Plaguebearers::Plaguebearers() :
     m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
     m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword (Plagueridden)", 1, 2, 4, 3, 0, 1)
 {
-    m_keywords = { CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS };
+    m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
 }
 
 bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
@@ -57,7 +59,9 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -115,9 +119,13 @@ int Plaguebearers::targetHitModifier(const Weapon *weapon, const Unit *attacker)
     // Cloud of Flies
     int modifier = Unit::targetHitModifier(weapon, attacker);
     if (remainingModels() >= 20)
+    {
         modifier -= 2;
+    }
     else
+    {
         modifier -= 1;
+    }
     return modifier;
 }
 

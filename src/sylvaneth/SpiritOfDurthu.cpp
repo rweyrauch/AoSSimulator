@@ -31,15 +31,15 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 2, 4, 7, 9, SpiritOfDurthu::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SpiritOfDurthu::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-{
-    { 6, 6, 2 },
-    { 5, RAND_D6, 2 },
-    { 4, RAND_D6, 3 },
-    { 3, RAND_D6, 3 },
-    { 2, RAND_D3, 4 }
-};
+    {
+        {6, 6,       2},
+        {5, RAND_D6, 2},
+        {4, RAND_D6, 3},
+        {3, RAND_D6, 3},
+        {2, RAND_D3, 4}
+    };
 
 SpiritOfDurthu::SpiritOfDurthu() :
     Unit("Spirit of Durthu", 5, WOUNDS, 9, 3, false),
@@ -47,7 +47,7 @@ SpiritOfDurthu::SpiritOfDurthu() :
     m_guardianSword(Weapon::Type::Melee, "Guardian Sword", 3, 3, 3, 3, -2, 6),
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
-    m_keywords = { ORDER, SYLVANETH, MONSTER, HERO, SPIRIT_OF_DURTHU };
+    m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, SPIRIT_OF_DURTHU};
 }
 
 bool SpiritOfDurthu::configure()

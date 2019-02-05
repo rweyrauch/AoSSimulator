@@ -18,10 +18,14 @@ static FactoryMethod factoryMethod = {
     KurnothHunters::ValueToString,
     KurnothHunters::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
-         KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
-         KurnothHunters::Greatbows, 1}
+        {
+            ParamType::Integer, "numModels", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
+            KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Integer, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
+            KurnothHunters::Greatbows, 1
+        }
     }
 };
 
@@ -37,7 +41,7 @@ KurnothHunters::KurnothHunters() :
     m_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe (Huntmaster)", 2, 3, 2, 3, -2, RAND_D3),
     m_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1)
 {
-    m_keywords = { ORDER, SYLVANETH, KURNOTH_HUNTERS };
+    m_keywords = {ORDER, SYLVANETH, KURNOTH_HUNTERS};
 }
 
 bool KurnothHunters::configure(int numModels, WeaponOption weapons)
@@ -88,7 +92,9 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -97,7 +103,7 @@ Unit *KurnothHunters::Create(const ParameterList &parameters)
 {
     auto unit = new KurnothHunters();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, KurnothHunters::Greatswords);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, KurnothHunters::Greatswords);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -121,11 +127,17 @@ std::string KurnothHunters::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == Greatswords)
+        {
             return "Greatswords";
+        }
         else if (parameter.m_intValue == Scythes)
+        {
             return "Scythes";
+        }
         else if (parameter.m_intValue == Greatbows)
+        {
             return "Greatbows";
+        }
     }
     return ParameterValueToString(parameter);
 }
@@ -133,11 +145,17 @@ std::string KurnothHunters::ValueToString(const Parameter &parameter)
 int KurnothHunters::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Greatswords")
+    {
         return Greatswords;
+    }
     else if (enumString == "Scythes")
+    {
         return Scythes;
+    }
     else if (enumString == "Greatbows")
+    {
         return Greatbows;
+    }
     return 0;
 }
 

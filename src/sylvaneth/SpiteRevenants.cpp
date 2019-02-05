@@ -11,15 +11,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace Sylvaneth {
+namespace Sylvaneth
+{
 
 static FactoryMethod factoryMethod = {
     SpiteRevenants::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = SpiteRevenants::MIN_UNIT_SIZE}, SpiteRevenants::MIN_UNIT_SIZE,
-         SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = SpiteRevenants::MIN_UNIT_SIZE}, SpiteRevenants::MIN_UNIT_SIZE,
+            SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -30,13 +33,15 @@ SpiteRevenants::SpiteRevenants() :
     m_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 4, 4, 0, 1),
     m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs (Stalker)", 1, 4, 4, 4, 0, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, SPITE_REVENANTS };
+    m_keywords = {ORDER, SYLVANETH, SPITE_REVENANTS};
 }
 
 bool SpiteRevenants::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     Model shadestalker(BASESIZE, WOUNDS);
     shadestalker.addMeleeWeapon(&m_cruelTalonsAndFangsShadestalker);
@@ -51,7 +56,9 @@ bool SpiteRevenants::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

@@ -27,7 +27,7 @@ LordCelestant::LordCelestant() :
     m_runeblade(Weapon::Type::Melee, "Sigmarite Runeblade", 1, 4, 3, 3, -1, 1),
     m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
 }
 
 bool LordCelestant::configure()

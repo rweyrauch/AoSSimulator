@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     LordOrdinator::ValueToString,
     LordOrdinator::EnumStringToInt,
     {
-        {ParamType::Integer, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
-         LordOrdinator::AstralGrandhammer, 1},
+        {
+            ParamType::Integer, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
+            LordOrdinator::AstralGrandhammer, 1
+        },
     }
 };
 
@@ -29,7 +31,7 @@ LordOrdinator::LordOrdinator() :
     m_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1),
     m_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR};
 }
 
 bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
@@ -55,7 +57,7 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 Unit *LordOrdinator::Create(const ParameterList &parameters)
 {
     auto unit = new LordOrdinator();
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, false);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, false);
 
     bool ok = unit->configure(weapons);
     if (!ok)
@@ -79,9 +81,13 @@ std::string LordOrdinator::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == AstralHammers)
+        {
             return "AstralHammers";
+        }
         else if (parameter.m_intValue == AstralGrandhammer)
+        {
             return "AstralGrandhammer";
+        }
     }
 
     return ParameterValueToString(parameter);
@@ -90,9 +96,13 @@ std::string LordOrdinator::ValueToString(const Parameter &parameter)
 int LordOrdinator::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "AstralHammers")
+    {
         return AstralHammers;
+    }
     else if (enumString == "AstralGrandhammer")
+    {
         return AstralGrandhammer;
+    }
 
     return 0;
 }

@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels",{.m_intValue = Fiends::MIN_UNIT_SIZE}, Fiends::MIN_UNIT_SIZE,
-         Fiends::MAX_UNIT_SIZE, Fiends::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Fiends::MIN_UNIT_SIZE}, Fiends::MIN_UNIT_SIZE,
+            Fiends::MAX_UNIT_SIZE, Fiends::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -30,7 +32,7 @@ Fiends::Fiends() :
     m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
     m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1)
 {
-    m_keywords = { CHAOS, DAEMON, SLAANESH, FIENDS };
+    m_keywords = {CHAOS, DAEMON, SLAANESH, FIENDS};
 }
 
 bool Fiends::configure(int numModels)
@@ -51,7 +53,9 @@ bool Fiends::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

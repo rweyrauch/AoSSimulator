@@ -26,7 +26,7 @@ KnightIncantor::KnightIncantor() :
     StormcastEternal("Knight-Incantor", 5, WOUNDS, 9, 3, false),
     m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR};
 }
 
 bool KnightIncantor::configure()

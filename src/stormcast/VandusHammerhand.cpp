@@ -27,7 +27,7 @@ VandusHammerhand::VandusHammerhand() :
     m_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3),
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT, VANDUS_HAMMERHAND };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT, VANDUS_HAMMERHAND};
 }
 
 bool VandusHammerhand::configure()

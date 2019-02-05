@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Daemonettes::MIN_UNIT_SIZE}, Daemonettes::MIN_UNIT_SIZE,
-         Daemonettes::MAX_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Daemonettes::MIN_UNIT_SIZE}, Daemonettes::MIN_UNIT_SIZE,
+            Daemonettes::MAX_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblower", {.m_boolValue = true}, false, false},
@@ -32,7 +34,7 @@ Daemonettes::Daemonettes() :
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
     m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws (Alluress)", 1, 3, 4, 4, -1, 1)
 {
-    m_keywords = { CHAOS, DAEMON, SLAANESH, DAEMONETTES };
+    m_keywords = {CHAOS, DAEMON, SLAANESH, DAEMONETTES};
 
     // Lithe and Swift
     m_runAndCharge = true;
@@ -63,7 +65,9 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool standardBearer,
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -101,7 +105,8 @@ void Daemonettes::Init()
 
 Rerolls Daemonettes::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
-    if (m_standardBearer) return RerollOnes;
+    if (m_standardBearer)
+    { return RerollOnes; }
     return Unit::toHitRerolls(weapon, unit);
 }
 

@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsHurricane::MIN_UNIT_SIZE,
-         VanguardRaptorsHurricane::MAX_UNIT_SIZE, VanguardRaptorsHurricane::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsHurricane::MIN_UNIT_SIZE,
+            VanguardRaptorsHurricane::MAX_UNIT_SIZE, VanguardRaptorsHurricane::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -30,7 +32,7 @@ VanguardRaptorsHurricane::VanguardRaptorsHurricane() :
     m_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow (Prime)", 18, 6, 3, 4, 0, 1),
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1)
 {
-    m_keywords = { ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS };
+    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS};
 }
 
 bool VanguardRaptorsHurricane::configure(int numModels)
@@ -58,7 +60,9 @@ bool VanguardRaptorsHurricane::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
