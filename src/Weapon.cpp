@@ -11,7 +11,7 @@
 #include <WarhammerSim.h>
 #include <Dice.h>
 
-Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int toHit, int toWound, int rend, int damage) noexcept :
+Weapon::Weapon(Type type, const std::string &name, int range, int attacks, int toHit, int toWound, int rend, int damage) noexcept :
     m_type(type),
     m_name(name),
     m_range(range),
@@ -24,7 +24,8 @@ Weapon::Weapon(Type type, const std::string& name, int range, int attacks, int t
     m_isActive(true)
 {
 }
-Weapon::Weapon(const Weapon& w) :
+
+Weapon::Weapon(const Weapon &w) :
     m_type(w.m_type),
     m_name(w.m_name),
     m_range(w.m_range),
@@ -161,9 +162,9 @@ float Weapon::strength() const
         float effAttacks = AverageRandomValue(m_attacks);
         float effHitsPerAttack = AverageRandomValue(m_hitsPerAttack);
         int toSave4 = std::max(1, std::min(6, 4 + m_rend));
-        float rawStrength = ((6 - m_toHit)/6.0f) * ((6 - m_toWound)/6.0f) * (toSave4/6.0f) * effDamage * effAttacks * effHitsPerAttack;
+        float rawStrength = ((6 - m_toHit) / 6.0f) * ((6 - m_toWound) / 6.0f) * (toSave4 / 6.0f) * effDamage * effAttacks * effHitsPerAttack;
         rawStrength *= 100.0f;
-        rawStrength *= logf(m_range/6.0f + 3.0f);
+        rawStrength *= logf(m_range / 6.0f + 3.0f);
         m_strength = rawStrength;
     }
 

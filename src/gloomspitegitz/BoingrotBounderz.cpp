@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
-         BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE}
+        {
+            ParamType::Integer, "numModels", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
+            BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE
+        }
     }
 };
 
@@ -30,7 +32,7 @@ BoingrotBounderz::BoingrotBounderz() :
     m_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1),
     m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance (Boss)", 2, 2, 3, 4, -1, 1)
 {
-    m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, BOINGROT_BOUNDERZ };
+    m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, BOINGROT_BOUNDERZ};
 }
 
 bool BoingrotBounderz::configure(int numModels)
@@ -59,7 +61,9 @@ bool BoingrotBounderz::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -112,7 +116,9 @@ int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) co
     // Lances of the Bounderz
     int modifier = Unit::toWoundModifier(weapon, unit);
     if (m_charged && weapon->name() == m_pokinLance.name())
+    {
         modifier += 1;
+    }
 
     return modifier;
 }

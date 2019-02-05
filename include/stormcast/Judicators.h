@@ -32,34 +32,39 @@ public:
         BoltstormCrossbow,
     };
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
+    static Unit *Create(const ParameterList &parameters);
+
+    static std::string ValueToString(const Parameter &parameter);
+
+    static int EnumStringToInt(const std::string &enumString);
+
     static void Init();
 
     Judicators();
+
     ~Judicators() override = default;
 
     bool configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int extraAttacks(const Weapon* weapon) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+    int extraAttacks(const Weapon *weapon) const override;
 
 private:
 
     WeaponOption m_weaponOption = SkyboltBow;
 
     Weapon m_skyboltBow,
-                  m_skyboltPrime,
-                  m_boltstormCrossbow,
-                  m_shockboltBow,
-                  m_shockboltPrime,
-                  m_thunderboldCrossbow,
-                  m_stormGladius;
+        m_skyboltPrime,
+        m_boltstormCrossbow,
+        m_shockboltBow,
+        m_shockboltPrime,
+        m_thunderboldCrossbow,
+        m_stormGladius;
 
     static bool s_registered;
 };

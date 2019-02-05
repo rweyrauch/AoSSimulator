@@ -10,19 +10,22 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace GloomspiteGitz {
+namespace GloomspiteGitz
+{
 
 static FactoryMethod factoryMethod = {
     Shootas::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Shootas::MIN_UNIT_SIZE},
-         Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE/Shootas::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Shootas::MIN_UNIT_SIZE},
+            Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
+        },
+        {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
     }
 };
 
@@ -36,7 +39,7 @@ Shootas::Shootas() :
     m_moonclanBowBoss(Weapon::Type::Missile, "Moonclan Bow (Boss)", 16, 1, 4, 5, 0, 1),
     m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
-    m_keywords = { DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SHOOTAS };
+    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SHOOTAS};
 }
 
 
@@ -117,50 +120,59 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-int Shootas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
+int Shootas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 {
     // Backstabbing Mob
     int modifier = Unit::toWoundModifier(weapon, unit);
     if (!weapon->isMissile())
     {
-        if (remainingModels() >= 30) modifier += 2;
-        else if (remainingModels() >= 15) modifier += 1;
+        if (remainingModels() >= 30)
+        { modifier += 2; }
+        else if (remainingModels() >= 15)
+        { modifier += 1; }
     }
     return modifier;
 }
 
-int Shootas::toHitModifier(const Weapon* weapon, const Unit* unit) const
+int Shootas::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
     int modifier = Unit::toHitModifier(weapon, unit);
     // Moonclan Bows
-    if (remainingModels() >= 15 && weapon->isMissile()) modifier += 1;
+    if (remainingModels() >= 15 && weapon->isMissile())
+    { modifier += 1; }
     return modifier;
 }
 
 int Shootas::runModifier() const
 {
     int modifier = Unit::runModifier();
-    if (m_numGongbashers > 0) modifier += 2;
+    if (m_numGongbashers > 0)
+    { modifier += 2; }
     return modifier;
 }
 
 int Shootas::battlshockModifier() const
 {
     int modifier = Unit::battlshockModifier();
-    if (m_numFlagbearers > 0) modifier += 1;
+    if (m_numFlagbearers > 0)
+    { modifier += 1; }
     return modifier;
 }
 
-int Shootas::toSaveModifier(const Weapon* weapon) const
+int Shootas::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
     if (m_numIconbearers > 0 && weapon->isMissile())
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
@@ -184,7 +196,7 @@ int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
         {
             for (auto wip = ip.meleeWeaponBegin(); wip != ip.meleeWeaponEnd(); ++wip)
             {
-                const Weapon* w = *wip;
+                const Weapon *w = *wip;
 
                 if (w->name() == m_barbedNet.name())
                 {
@@ -193,7 +205,8 @@ int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
                 }
             }
         }
-        if (hasNets) modifier -= 1;
+        if (hasNets)
+        { modifier -= 1; }
     }
     return modifier;
 }

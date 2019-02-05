@@ -16,7 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = BlackKnights::MIN_UNIT_SIZE}, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE, BlackKnights::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = BlackKnights::MIN_UNIT_SIZE}, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE,
+            BlackKnights::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
     }
@@ -59,7 +62,9 @@ bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowe
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -107,7 +112,7 @@ int BlackKnights::toWoundModifier(const Weapon *weapon, const Unit *target) cons
     return modifier;
 }
 
-int BlackKnights::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult& woundRolls) const
+int BlackKnights::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
 {
     int modifier = Unit::damageModifier(weapon, target, woundRolls);
 
@@ -125,7 +130,9 @@ int BlackKnights::toSaveModifier(const Weapon *weapon) const
 
     // Crypt Shields
     if (weapon->rend() == 0)
+    {
         modifier += 1;
+    }
 
     return modifier;
 }

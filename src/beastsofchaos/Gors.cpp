@@ -16,8 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Gors::MIN_UNIT_SIZE}, Gors::MIN_UNIT_SIZE,
-         Gors::MAX_UNIT_SIZE, Gors::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Gors::MIN_UNIT_SIZE}, Gors::MIN_UNIT_SIZE,
+            Gors::MAX_UNIT_SIZE, Gors::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "pairedBlades", {.m_boolValue = false}, false, false},
         {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
@@ -32,7 +34,7 @@ Gors::Gors() :
     m_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1),
     m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade (Foe-render)", 1, 2, 4, 3, 0, 1)
 {
-    m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS };
+    m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS};
 }
 
 bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer)
@@ -59,7 +61,9 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -98,7 +102,8 @@ void Gors::Init()
 Rerolls Gors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Rend and Tear
-    if (m_pairedBlades) return RerollOnes;
+    if (m_pairedBlades)
+    { return RerollOnes; }
     return Unit::toHitRerolls(weapon, target);
 }
 
@@ -106,7 +111,8 @@ int Gors::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
     // Beastsheilds
-    if (!m_pairedBlades) modifier += 1;
+    if (!m_pairedBlades)
+    { modifier += 1; }
     return modifier;
 }
 
@@ -115,7 +121,9 @@ int Gors::extraAttacks(const Weapon *weapon) const
     int attacks = Unit::extraAttacks(weapon);
     // Anarchy and Mayhem
     if (remainingModels() >= 20)
+    {
         attacks += 1;
+    }
     return attacks;
 }
 

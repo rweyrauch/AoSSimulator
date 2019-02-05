@@ -27,14 +27,14 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 3, 6, 9, 12, Skarbrand::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Skarbrand::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        { Skarbrand::Angry, 4, 5 },
-        { Skarbrand::Furious, 5, 4},
-        { Skarbrand::Seething, 6, 3 },
-        { Skarbrand::Enraged, 7, 2 },
-        { Skarbrand::Incandescent, 8, 1 }
+        {Skarbrand::Angry,        4, 5},
+        {Skarbrand::Furious,      5, 4},
+        {Skarbrand::Seething,     6, 3},
+        {Skarbrand::Enraged,      7, 2},
+        {Skarbrand::Incandescent, 8, 1}
     };
 
 bool Skarbrand::s_registered = false;

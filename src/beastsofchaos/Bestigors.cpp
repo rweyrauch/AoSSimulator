@@ -16,8 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Bestigors::MIN_UNIT_SIZE}, Bestigors::MIN_UNIT_SIZE,
-         Bestigors::MAX_UNIT_SIZE, Bestigors::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Bestigors::MIN_UNIT_SIZE}, Bestigors::MIN_UNIT_SIZE,
+            Bestigors::MAX_UNIT_SIZE, Bestigors::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
     }
@@ -58,7 +60,9 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -98,7 +102,9 @@ int Bestigors::toHitModifier(const Weapon *weapon, const Unit *unit) const
     // Despoilers
     int modifier = Unit::toHitModifier(weapon, unit);
     if (unit->remainingModels() >= 10)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
@@ -106,7 +112,9 @@ Rerolls Bestigors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     // Despoilers
     if (unit->hasKeyword(ORDER))
+    {
         return RerollOnes;
+    }
     return Unit::toHitRerolls(weapon, unit);
 }
 
@@ -115,7 +123,9 @@ int Bestigors::extraAttacks(const Weapon *weapon) const
     // Beastial Charge
     int attacks = Unit::extraAttacks(weapon);
     if (m_charged)
+    {
         attacks += 1;
+    }
     return attacks;
 }
 
@@ -123,7 +133,9 @@ int Bestigors::runModifier() const
 {
     int modifier = Unit::runModifier();
     if (m_bannerBearer)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 

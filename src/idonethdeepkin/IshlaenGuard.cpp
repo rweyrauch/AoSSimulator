@@ -19,8 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = AkhelianIshlaenGuard::MIN_UNIT_SIZE}, AkhelianIshlaenGuard::MIN_UNIT_SIZE,
-         AkhelianIshlaenGuard::MAX_UNIT_SIZE, AkhelianIshlaenGuard::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = AkhelianIshlaenGuard::MIN_UNIT_SIZE}, AkhelianIshlaenGuard::MIN_UNIT_SIZE,
+            AkhelianIshlaenGuard::MAX_UNIT_SIZE, AkhelianIshlaenGuard::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "musicians", {.m_boolValue = true}, false, false},
     }
@@ -40,7 +42,9 @@ AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
 bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool musicians)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     m_standardBearers = standardBearers;
     m_musicians = musicians;
@@ -62,7 +66,9 @@ bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool m
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -101,13 +107,15 @@ void AkhelianIshlaenGuard::Init()
 
 Rerolls AkhelianIshlaenGuard::battleshockRerolls() const
 {
-    if (m_standardBearers) return RerollFailed;
+    if (m_standardBearers)
+    { return RerollFailed; }
     return Unit::battleshockRerolls();
 }
 
 Rerolls AkhelianIshlaenGuard::chargeRerolls() const
 {
-    if (m_musicians) return RerollFailed;
+    if (m_musicians)
+    { return RerollFailed; }
     return Unit::chargeRerolls();
 }
 
@@ -117,11 +125,15 @@ int AkhelianIshlaenGuard::toSaveModifier(const Weapon *weapon) const
 
     // Biovoltaic Barrier
     if (m_charged)
+    {
         modifier += 1;
+    }
 
     // Biovoltaic Barrier - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
+    {
         modifier = -weapon->rend();
+    }
 
     return modifier;
 }

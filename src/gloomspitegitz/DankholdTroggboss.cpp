@@ -80,11 +80,13 @@ void DankholdTroggboss::hero(PlayerId player)
         if (dice.rollD6() >= 4)
         {
             int woundsHealed = dice.rollD3();
-            for (auto& m : m_models)
+            for (auto &m : m_models)
             {
                 m.woundsRemaining() += woundsHealed;
                 if (m.woundsRemaining() > WOUNDS)
+                {
                     m.woundsRemaining() = WOUNDS;
+                }
             }
         }
     }

@@ -19,8 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = SquiqHerd::MIN_UNIT_SIZE}, SquiqHerd::MIN_UNIT_SIZE,
-         SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE}
+        {
+            ParamType::Integer, "numModels", {.m_intValue = SquiqHerd::MIN_UNIT_SIZE}, SquiqHerd::MIN_UNIT_SIZE,
+            SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE
+        }
     }
 };
 
@@ -31,7 +33,7 @@ SquiqHerd::SquiqHerd() :
     m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
     m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1)
 {
-    m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD };
+    m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD};
 }
 
 bool SquiqHerd::configure(int numModels)
@@ -43,7 +45,7 @@ bool SquiqHerd::configure(int numModels)
         return false;
     }
 
-    const int numHerders = (numModels+5) / 6;
+    const int numHerders = (numModels + 5) / 6;
 
     // Add the herder
     for (auto i = 0; i < numHerders; i++)
@@ -63,7 +65,9 @@ bool SquiqHerd::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -94,7 +98,9 @@ Rerolls SquiqHerd::runRerolls() const
 {
     // Go Dat Way!
     if (hasHerder())
+    {
         return RerollFailed;
+    }
 
     return Unit::runRerolls();
 }
@@ -103,7 +109,9 @@ Rerolls SquiqHerd::chargeRerolls() const
 {
     // Go Dat Way!
     if (hasHerder())
+    {
         return RerollFailed;
+    }
 
     return Unit::chargeRerolls();
 }

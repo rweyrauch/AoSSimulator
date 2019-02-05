@@ -52,7 +52,9 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -103,9 +105,13 @@ int Zombies::toHitModifier(const Weapon *weapon, const Unit *target) const
 
     // Dragged Down and Torn Apart
     if (remainingModels() >= 40)
+    {
         modifier += 2;
+    }
     else if (remainingModels() >= 20)
+    {
         modifier += 1;
+    }
 
     return modifier;
 }
@@ -116,9 +122,13 @@ int Zombies::toWoundModifier(const Weapon *weapon, const Unit *target) const
 
     // Dragged Down and Torn Apart
     if (remainingModels() >= 40)
+    {
         modifier += 2;
+    }
     else if (remainingModels() >= 20)
+    {
         modifier += 1;
+    }
 
     return modifier;
 }

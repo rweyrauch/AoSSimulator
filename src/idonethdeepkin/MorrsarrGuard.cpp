@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = AkhelianMorrsarrGuard::MIN_UNIT_SIZE}, AkhelianMorrsarrGuard::MIN_UNIT_SIZE,
-         AkhelianMorrsarrGuard::MAX_UNIT_SIZE, AkhelianMorrsarrGuard::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = AkhelianMorrsarrGuard::MIN_UNIT_SIZE}, AkhelianMorrsarrGuard::MIN_UNIT_SIZE,
+            AkhelianMorrsarrGuard::MAX_UNIT_SIZE, AkhelianMorrsarrGuard::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "musicians", {.m_boolValue = true}, false, false},
     }
@@ -40,7 +42,9 @@ AkhelianMorrsarrGuard::AkhelianMorrsarrGuard() :
 bool AkhelianMorrsarrGuard::configure(int numModels, bool standardBearers, bool musicians)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     m_standardBearers = standardBearers;
     m_musicians = musicians;
@@ -62,7 +66,9 @@ bool AkhelianMorrsarrGuard::configure(int numModels, bool standardBearers, bool 
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -101,13 +107,15 @@ void AkhelianMorrsarrGuard::Init()
 
 Rerolls AkhelianMorrsarrGuard::battleshockRerolls() const
 {
-    if (m_standardBearers) return RerollFailed;
+    if (m_standardBearers)
+    { return RerollFailed; }
     return Unit::battleshockRerolls();
 }
 
 Rerolls AkhelianMorrsarrGuard::chargeRerolls() const
 {
-    if (m_musicians) return RerollFailed;
+    if (m_musicians)
+    { return RerollFailed; }
     return Unit::chargeRerolls();
 }
 
@@ -137,7 +145,8 @@ void AkhelianMorrsarrGuard::onStartCombat(PlayerId player)
 {
     Unit::onStartCombat(player);
 
-    if (player != owningPlayer()) return;
+    if (player != owningPlayer())
+    { return; }
 
     // Biovoltaic Blast
     if (m_meleeTarget && !m_usedBiovoltaicBlast)
@@ -148,7 +157,9 @@ void AkhelianMorrsarrGuard::onStartCombat(PlayerId player)
         int totalMortalWounds = 0;
         int num6s = roll.numUnmodified6s();
         for (int i = 0; i < roll.numUnmodified6s(); i++)
+        {
             totalMortalWounds += dice.rollD3();
+        }
         int num3plus = roll.rollsGE(3);
         totalMortalWounds += (num3plus - num6s);
 

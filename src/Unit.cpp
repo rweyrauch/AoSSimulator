@@ -120,7 +120,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
 
         for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
         {
-            const Weapon* w = *wip;
+            const Weapon *w = *wip;
 
             if (!w->isActive())
             {

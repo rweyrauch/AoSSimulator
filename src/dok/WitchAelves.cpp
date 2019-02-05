@@ -10,15 +10,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace DaughtersOfKhaine {
+namespace DaughtersOfKhaine
+{
 
 static FactoryMethod factoryMethod = {
     WitchAelves::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
-         WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
+            WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "pairedKnives", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
@@ -32,7 +35,7 @@ WitchAelves::WitchAelves() :
     m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
     m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife (Hag)", 1, 2, 2, 4, 0, 1)
 {
-    m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES };
+    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
 }
 
 bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers)
@@ -47,7 +50,9 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
     m_standardBearers = standardBearers;
 
     if (m_hornblowers)
+    {
         m_runAndCharge = true;
+    }
 
     Model hag(BASESIZE, WOUNDS);
     hag.addMeleeWeapon(&m_sacrificialKnifeHag);
@@ -62,7 +67,9 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -95,7 +102,8 @@ void WitchAelves::Init()
 int WitchAelves::extraAttacks(const Weapon *weapon) const
 {
     int attacks = Unit::extraAttacks(weapon);
-    if (m_pairedKnives) attacks += 1;
+    if (m_pairedKnives)
+    { attacks += 1; }
     return attacks;
 }
 
@@ -116,12 +124,14 @@ int WitchAelves::toSaveModifier(const Weapon *weapon) const
     int modifier = Unit::toSaveModifier(weapon);
     // Bladed Bucklers
     if (!m_pairedKnives)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
 Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon,
-                                                 const Dice::RollResult &saveRolls) const
+                                          const Dice::RollResult &saveRolls) const
 {
     // Bladed Bucklers
     if (!weapon->isMissile())

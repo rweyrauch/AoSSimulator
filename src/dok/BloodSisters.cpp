@@ -10,15 +10,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace DaughtersOfKhaine {
+namespace DaughtersOfKhaine
+{
 
 static FactoryMethod factoryMethod = {
     BloodSisters::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = BloodSisters::MIN_UNIT_SIZE}, BloodSisters::MIN_UNIT_SIZE,
-         BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = BloodSisters::MIN_UNIT_SIZE}, BloodSisters::MIN_UNIT_SIZE,
+            BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -32,7 +35,7 @@ BloodSisters::BloodSisters() :
     m_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1),
     m_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1)
 {
-    m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS };
+    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
 }
 
 bool BloodSisters::configure(int numModels)
@@ -57,7 +60,9 @@ bool BloodSisters::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -84,7 +89,7 @@ void BloodSisters::Init()
     }
 }
 
-int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Turned to Crystal
     if (weapon->name() == m_crystalTouch.name())

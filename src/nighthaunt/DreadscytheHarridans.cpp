@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
-         DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
+            DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -29,13 +31,15 @@ DreadscytheHarridans::DreadscytheHarridans() :
     m_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1),
     m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs (Crone)", 1, 4, 4, 3, -1, 1)
 {
-    m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS };
+    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS};
 }
 
 bool DreadscytheHarridans::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     Model crone(BASESIZE, WOUNDS);
     crone.addMeleeWeapon(&m_scythedLimbsCrone);
@@ -50,7 +54,9 @@ bool DreadscytheHarridans::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -84,7 +90,9 @@ int DreadscytheHarridans::toSaveModifier(const Weapon *weapon) const
 
     // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
+    {
         modifier = -weapon->rend();
+    }
 
     return modifier;
 }
@@ -112,7 +120,9 @@ int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *at
 
     // Harrowing Shriek
     if ((distanceTo(attacker) <= 3.0f) && (attacker->bravery() < 6))
+    {
         modifier -= 1;
+    }
 
     return modifier;
 }

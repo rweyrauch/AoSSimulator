@@ -11,41 +11,55 @@
 void Player::doHeroPhase()
 {
     if (m_roster)
+    {
         m_roster->doHeroPhase();
+    }
 }
 
 void Player::doMovementPhase()
 {
     if (m_roster)
+    {
         m_roster->doMovementPhase();
+    }
 }
 
 void Player::doShootingPhase()
 {
     if (m_roster)
+    {
         m_roster->doShootingPhase();
+    }
 }
 
 void Player::doChargePhase()
 {
     if (m_roster)
+    {
         m_roster->doChargePhase();
+    }
 }
 
 void Player::doCombatPhase()
 {
     if (m_roster)
+    {
         m_roster->doCombatPhase();
+    }
 }
 
 void Player::doBattleshockPhase()
 {
     if (m_roster)
+    {
         m_roster->doBattleshockPhase();
+    }
 }
 
 void Player::beginTurn(int battleRound, PlayerId playerWithTurn)
 {
     if (m_roster)
+    {
         m_roster->beginTurn(battleRound, playerWithTurn);
+    }
 }

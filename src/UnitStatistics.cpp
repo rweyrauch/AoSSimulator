@@ -20,7 +20,8 @@ float UnitStatistics::totalMovementDistance() const
 float UnitStatistics::averageMovementDistance() const
 {
     int numRounds = numberOfRoundsMoved();
-    if (numRounds <= 0) return 0.0f;
+    if (numRounds <= 0)
+    { return 0.0f; }
     return totalMovementDistance() / numRounds;
 }
 
@@ -37,7 +38,8 @@ float UnitStatistics::totalRunDistance() const
 float UnitStatistics::averageRunDistance() const
 {
     int numRounds = numberOfRoundsRan();
-    if (numRounds <= 0) return 0.0f;
+    if (numRounds <= 0)
+    { return 0.0f; }
     return totalRunDistance() / m_numRounds;
 }
 
@@ -54,7 +56,8 @@ float UnitStatistics::totalChargeDistance() const
 float UnitStatistics::averageChargeDistance() const
 {
     int numRounds = numberOfRoundsCharged();
-    if (numRounds <= 0) return 0.0f;
+    if (numRounds <= 0)
+    { return 0.0f; }
     return totalChargeDistance() / m_numRounds;
 }
 
@@ -105,7 +108,8 @@ int UnitStatistics::numberOfRoundsMoved() const
     int numRounds = 0;
     for (auto ip : m_actions)
     {
-        if (ip.m_moved > 0.0f) numRounds++;
+        if (ip.m_moved > 0.0f)
+        { numRounds++; }
     }
     return numRounds;
 }
@@ -115,7 +119,8 @@ int UnitStatistics::numberOfRoundsRan() const
     int numRounds = 0;
     for (auto ip : m_actions)
     {
-        if (ip.m_ran > 0.0f) numRounds++;
+        if (ip.m_ran > 0.0f)
+        { numRounds++; }
     }
     return numRounds;
 }
@@ -125,7 +130,8 @@ int UnitStatistics::numberOfRoundsCharged() const
     int numRounds = 0;
     for (auto ip : m_actions)
     {
-        if (ip.m_charged > 0.0f) numRounds++;
+        if (ip.m_charged > 0.0f)
+        { numRounds++; }
     }
     return numRounds;
 }

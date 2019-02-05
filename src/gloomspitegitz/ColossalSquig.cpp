@@ -30,15 +30,15 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 3, 7, 10, 13, ColossalSquig::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 7, 10, 13, ColossalSquig::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-{
-    { RAND_4D6, 2, 10 },
-    { RAND_3D6, 3, 8 },
-    { RAND_2D6, 4, 6 },
-    { RAND_2D6, 5, 4 },
-    { RAND_D6, 6, 2 }
-};
+    {
+        {RAND_4D6, 2, 10},
+        {RAND_3D6, 3, 8},
+        {RAND_2D6, 4, 6},
+        {RAND_2D6, 5, 4},
+        {RAND_D6,  6, 2}
+    };
 
 ColossalSquig::ColossalSquig() :
     Unit("Colossal Squig", RAND_4D6, WOUNDS, 10, 5, false),
@@ -46,7 +46,7 @@ ColossalSquig::ColossalSquig() :
     m_enormousJaws(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3),
     m_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1)
 {
-    m_keywords = { DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, COLOSSAL_SQUIG };
+    m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, COLOSSAL_SQUIG};
 }
 
 int ColossalSquig::move() const
@@ -94,7 +94,7 @@ void ColossalSquig::onSlain()
     // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
 }
 
-int ColossalSquig::generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds)
+int ColossalSquig::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Swallowed Whole
     if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == m_enormousJaws.name()))
@@ -158,7 +158,9 @@ int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker)
     int modifier = Unit::targetHitModifier(weapon, attacker);
     // Puff Spores
     if (!weapon->isMissile())
+    {
         modifier -= 1;
+    }
     return modifier;
 }
 

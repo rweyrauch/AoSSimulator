@@ -10,15 +10,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace DaughtersOfKhaine {
+namespace DaughtersOfKhaine
+{
 
 static FactoryMethod factoryMethod = {
     KhineraiLifetakers::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = KhineraiLifetakers::MIN_UNIT_SIZE}, KhineraiLifetakers::MIN_UNIT_SIZE,
-         KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = KhineraiLifetakers::MIN_UNIT_SIZE}, KhineraiLifetakers::MIN_UNIT_SIZE,
+            KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -29,7 +32,7 @@ KhineraiLifetakers::KhineraiLifetakers() :
     m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
     m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle (Harridynn)", 1, 2, 2, 4, 0, 1)
 {
-    m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS };
+    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
 }
 
 bool KhineraiLifetakers::configure(int numModels)
@@ -52,7 +55,9 @@ bool KhineraiLifetakers::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -93,8 +98,8 @@ void KhineraiLifetakers::onCharged()
     Unit::onCharged();
 
     // Death on the Wind
-    m_barbedSickle.setDamage(m_barbedSickle.damage()+1);
-    m_barbedSickleHarridynn.setDamage(m_barbedSickleHarridynn.damage()+1);
+    m_barbedSickle.setDamage(m_barbedSickle.damage() + 1);
+    m_barbedSickleHarridynn.setDamage(m_barbedSickleHarridynn.damage() + 1);
 }
 
 Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon,

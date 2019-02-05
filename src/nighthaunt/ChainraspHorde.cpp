@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
-         ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
+            ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -29,13 +31,15 @@ ChainraspHorde::ChainraspHorde() :
     m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
     m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon (Warden)", 1, 3, 4, 4, 0, 1)
 {
-    m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE };
+    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
 }
 
 bool ChainraspHorde::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     Model warden(BASESIZE, WOUNDS);
     warden.addMeleeWeapon(&m_malignantWeaponWarden);
@@ -50,7 +54,9 @@ bool ChainraspHorde::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -81,7 +87,9 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
 {
     // Chilling Horde
     if (remainingModels() >= 10)
+    {
         return RerollOnes;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
@@ -93,7 +101,9 @@ int ChainraspHorde::toSaveModifier(const Weapon *weapon) const
 
     // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
+    {
         modifier = -weapon->rend();
+    }
 
     return modifier;
 }

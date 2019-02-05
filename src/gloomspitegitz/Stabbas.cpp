@@ -10,21 +10,24 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace GloomspiteGitz {
+namespace GloomspiteGitz
+{
 
 static FactoryMethod factoryMethod = {
     Stabbas::Create,
     Stabbas::ValueToString,
     Stabbas::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
-         Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
+            Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
+        },
         {ParamType::Integer, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
         {ParamType::Integer, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE/Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numBarbedNets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE},
     }
 };
 
@@ -38,11 +41,11 @@ Stabbas::Stabbas() :
     m_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear (Boss)", 2, 1, 4, 4, 0, 1),
     m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
-    m_keywords = { DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS };
+    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS};
 }
 
 bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
-               int numGongbashers, int numFlagbearers, int numIconbearers)
+                        int numGongbashers, int numFlagbearers, int numIconbearers)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
@@ -71,9 +74,13 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     // Add the boss
     Model boss(BASESIZE, WOUNDS);
     if (bossWeapon == Stabba)
+    {
         boss.addMeleeWeapon(&m_stabbaBoss);
+    }
     else if (bossWeapon == PokinSpear)
+    {
         boss.addMeleeWeapon(&m_pokinSpearBoss);
+    }
     addModel(boss);
 
     // add the nets
@@ -89,15 +96,21 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == Stabba)
+        {
             model.addMeleeWeapon(&m_stabba);
+        }
         else if (weapons == PokinSpear)
+        {
             model.addMeleeWeapon(&m_pokinSpear);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -106,8 +119,8 @@ Unit *Stabbas::Create(const ParameterList &parameters)
 {
     auto unit = new Stabbas();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, Stabba);
-    WeaponOption bossWeapon = (WeaponOption)GetIntParam("bossWeapon", parameters, Stabba);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, Stabba);
+    WeaponOption bossWeapon = (WeaponOption) GetIntParam("bossWeapon", parameters, Stabba);
     int numBarbedNets = GetIntParam("numBarbedNets", parameters, 0);
     int numGongbashers = GetIntParam("numGongbashers", parameters, 0);
     int numFlagbearers = GetIntParam("numFlagbearers", parameters, 0);
@@ -130,14 +143,16 @@ void Stabbas::Init()
     }
 }
 
-int Stabbas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
+int Stabbas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 {
     int modifier = Unit::toWoundModifier(weapon, unit);
     // Backstabbing Mob
     if (!weapon->isMissile())
     {
-        if (remainingModels() >= 30) modifier += 2;
-        else if (remainingModels() >= 15) modifier += 1;
+        if (remainingModels() >= 30)
+        { modifier += 2; }
+        else if (remainingModels() >= 15)
+        { modifier += 1; }
     }
     return modifier;
 }
@@ -145,25 +160,31 @@ int Stabbas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
 int Stabbas::runModifier() const
 {
     int modifier = Unit::runModifier();
-    if (m_numGongbashers > 0) modifier += 2;
+    if (m_numGongbashers > 0)
+    { modifier += 2; }
     return modifier;
 }
 
-int Stabbas::toSaveModifier(const Weapon* weapon) const
+int Stabbas::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
     if (m_numIconbearers > 0 && weapon->isMissile())
+    {
         modifier += 1;
+    }
     // Moonshields
     if (remainingModels() >= 10)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
 int Stabbas::battlshockModifier() const
 {
     int modifier = Unit::battlshockModifier();
-    if (m_numFlagbearers > 0) modifier += 1;
+    if (m_numFlagbearers > 0)
+    { modifier += 1; }
     return modifier;
 }
 
@@ -172,9 +193,13 @@ std::string Stabbas::ValueToString(const Parameter &parameter)
     if (parameter.m_name == "weapons" || parameter.m_name == "bossWeapon")
     {
         if (parameter.m_intValue == Stabba)
+        {
             return "Stabba";
+        }
         else if (parameter.m_intValue == PokinSpear)
+        {
             return "PokinSpear";
+        }
     }
     return ParameterValueToString(parameter);
 }
@@ -182,9 +207,13 @@ std::string Stabbas::ValueToString(const Parameter &parameter)
 int Stabbas::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Stabba")
+    {
         return Stabba;
+    }
     else if (enumString == "PokinSpear")
+    {
         return PokinSpear;
+    }
     return 0;
 }
 
@@ -208,7 +237,7 @@ int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
         {
             for (auto wip = ip.meleeWeaponBegin(); wip != ip.meleeWeaponEnd(); ++wip)
             {
-                const Weapon* w = *wip;
+                const Weapon *w = *wip;
 
                 if (w->name() == m_barbedNet.name())
                 {
@@ -217,7 +246,8 @@ int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
                 }
             }
         }
-        if (hasNets) modifier -= 1;
+        if (hasNets)
+        { modifier -= 1; }
     }
     return modifier;
 }

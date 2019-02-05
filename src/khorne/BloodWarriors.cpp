@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
-         BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
+            BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "pairedGoreax", {.m_boolValue = false}, false, false},
         {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false}
@@ -66,7 +68,7 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
         addModel(model);
     }
 
-    int currentModelCount = (int)m_models.size();
+    int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
@@ -76,16 +78,20 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-Rerolls BloodWarriors::toHitRerolls(const Weapon* weapon, const Unit* unit) const
+Rerolls BloodWarriors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     // Goreaxes
     if (m_pairedGoreaxe && (weapon->name() == m_goreaxe.name()))
+    {
         return RerollOnes;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
@@ -96,7 +102,9 @@ int BloodWarriors::battlshockModifier() const
 
     // Icon Bearer
     if (m_iconBearer)
+    {
         modifier++;
+    }
 
     return modifier;
 }

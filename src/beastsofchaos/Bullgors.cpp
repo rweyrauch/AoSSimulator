@@ -16,10 +16,14 @@ static FactoryMethod factoryMethod = {
     Bullgors::ValueToString,
     Bullgors::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Bullgors::MIN_UNIT_SIZE}, Bullgors::MIN_UNIT_SIZE,
-         Bullgors::MAX_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
-         Bullgors::BullgorGreatAxe, 1},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Bullgors::MIN_UNIT_SIZE}, Bullgors::MIN_UNIT_SIZE,
+            Bullgors::MAX_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Integer, "weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
+            Bullgors::BullgorGreatAxe, 1
+        },
         {ParamType::Boolean, "drummer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
     }
@@ -39,7 +43,7 @@ Bullgors::Bullgors() :
 }
 
 bool Bullgors::configure(int numModels, WeaponOptions options,
-                                   bool drummer, bool bannerBearer)
+                         bool drummer, bool bannerBearer)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -52,9 +56,13 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
     Model bloodkine(BASESIZE, WOUNDS);
     bloodkine.addMeleeWeapon(&m_bullgorHorns);
     if (options == BullgorAxe || options == PairedBullgorAxes)
+    {
         bloodkine.addMeleeWeapon(&m_bullgorAxeBloodkine);
+    }
     else if (options == BullgorGreatAxe)
+    {
         bloodkine.addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
+    }
     addModel(bloodkine);
 
     for (auto i = 1; i < numModels; i++)
@@ -62,15 +70,21 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&m_bullgorHorns);
         if (options == BullgorAxe || options == PairedBullgorAxes)
+        {
             model.addMeleeWeapon(&m_bullgorAxe);
+        }
         else if (options == BullgorGreatAxe)
+        {
             model.addMeleeWeapon(&m_bullgorGreatAxe);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -88,7 +102,7 @@ Unit *Bullgors::Create(const ParameterList &parameters)
 {
     auto unit = new Bullgors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions)GetIntParam("weapons", parameters, BullgorAxe);
+    auto weapon = (WeaponOptions) GetIntParam("weapons", parameters, BullgorAxe);
     bool drummer = GetBoolParam("drummer", parameters, false);
     bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
 
@@ -113,18 +127,24 @@ std::string Bullgors::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "weapons")
     {
-        if (parameter.m_intValue == BullgorAxe) return "BullgorAxe";
-        else if (parameter.m_intValue == PairedBullgorAxes) return "PairedBullgorAxes";
-        else if (parameter.m_intValue == BullgorGreatAxe) return "BullgorGreatAxe";
+        if (parameter.m_intValue == BullgorAxe)
+        { return "BullgorAxe"; }
+        else if (parameter.m_intValue == PairedBullgorAxes)
+        { return "PairedBullgorAxes"; }
+        else if (parameter.m_intValue == BullgorGreatAxe)
+        { return "BullgorGreatAxe"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int Bullgors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "BullgorAxe") return BullgorAxe;
-    else if (enumString == "PairedBullgorAxes") return PairedBullgorAxes;
-    else if (enumString == "BullgorGreatAxe") return BullgorGreatAxe;
+    if (enumString == "BullgorAxe")
+    { return BullgorAxe; }
+    else if (enumString == "PairedBullgorAxes")
+    { return PairedBullgorAxes; }
+    else if (enumString == "BullgorGreatAxe")
+    { return BullgorGreatAxe; }
     return 0;
 }
 
@@ -132,14 +152,18 @@ int Bullgors::chargeModifier() const
 {
     int modifier = Unit::chargeModifier();
     if (m_drummer)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
 Rerolls Bullgors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     if (m_pairedAxes)
+    {
         return RerollOnes;
+    }
     return Unit::toHitRerolls(weapon, unit);
 }
 
@@ -147,7 +171,9 @@ int Bullgors::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
     if (!m_pairedAxes)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 

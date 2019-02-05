@@ -16,7 +16,10 @@ static FactoryMethod factoryMethod = {
     GraveGuard::ValueToString,
     GraveGuard::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = GraveGuard::MIN_UNIT_SIZE}, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE, GraveGuard::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = GraveGuard::MIN_UNIT_SIZE}, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
+            GraveGuard::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
     }
@@ -49,24 +52,34 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
 
     Model seneschal(BASESIZE, WOUNDS);
     if (weapons == WightBlade)
+    {
         seneschal.addMeleeWeapon(&m_wightBladeSeneschal);
+    }
     else if (weapons == GreatWightBlade)
+    {
         seneschal.addMeleeWeapon(&m_greatWightBladeSeneschal);
+    }
     addModel(seneschal);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == WightBlade)
+        {
             model.addMeleeWeapon(&m_wightBlade);
+        }
         else if (weapons == GreatWightBlade)
+        {
             model.addMeleeWeapon(&m_greatWightBlade);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -83,7 +96,7 @@ Unit *GraveGuard::Create(const ParameterList &parameters)
 {
     auto unit = new GraveGuard();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions)GetIntParam("weapons", parameters, WightBlade);
+    WeaponOptions weapons = (WeaponOptions) GetIntParam("weapons", parameters, WightBlade);
     bool standardBearers = GetBoolParam("standardBearers", parameters, false);
     bool hornblowers = GetBoolParam("hornblowers", parameters, false);
 
@@ -108,16 +121,20 @@ std::string GraveGuard::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "weapons")
     {
-        if (parameter.m_intValue == WightBlade) return "WightBlade";
-        else if (parameter.m_intValue == GreatWightBlade) return "GreatWightBlade";
+        if (parameter.m_intValue == WightBlade)
+        { return "WightBlade"; }
+        else if (parameter.m_intValue == GreatWightBlade)
+        { return "GreatWightBlade"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int GraveGuard::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "WightBlade") return WightBlade;
-    else if (enumString == "GreatWightBlade") return GreatWightBlade;
+    if (enumString == "WightBlade")
+    { return WightBlade; }
+    else if (enumString == "GreatWightBlade")
+    { return GreatWightBlade; }
     return 0;
 }
 
@@ -127,7 +144,9 @@ int GraveGuard::toSaveModifier(const Weapon *weapon) const
 
     // Crypt Shields
     if (weapon->rend() == 0)
+    {
         modifier += 1;
+    }
 
     return modifier;
 }

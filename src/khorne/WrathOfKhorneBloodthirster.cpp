@@ -27,14 +27,14 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 3, 6, 9, 12, WrathOfKhorneBloodthirster::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WrathOfKhorneBloodthirster::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        { 10, 6, 2 },
-        { 9, 3, 3 },
-        { 8, 3, 3 },
-        { 7, RAND_D3, 4 },
-        { 6, RAND_D3, 4 }
+        {10, 6,       2},
+        {9,  3,       3},
+        {8,  3,       3},
+        {7,  RAND_D3, 4},
+        {6,  RAND_D3, 4}
     };
 
 bool WrathOfKhorneBloodthirster::s_registered = false;

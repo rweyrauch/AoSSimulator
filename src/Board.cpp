@@ -15,16 +15,17 @@
 #include <Roster.h>
 #include <sstream>
 
-Board* Board::s_pInstance = nullptr;
+Board *Board::s_pInstance = nullptr;
 
-void Board::addObjective(Objective* objective)
+void Board::addObjective(Objective *objective)
 {
     m_objectives.push_back(objective);
 }
 
 void Board::moveObjective(int id, float x, float y)
 {
-    auto matchId = [id](const Objective* obj)->bool { return (obj->m_id == id); };
+    auto matchId = [id](const Objective *obj) -> bool
+    { return (obj->m_id == id); };
     auto obj = std::find_if(m_objectives.begin(), m_objectives.end(), matchId);
     if (obj != m_objectives.end())
     {
@@ -33,15 +34,15 @@ void Board::moveObjective(int id, float x, float y)
     }
 }
 
-void Board::addFeature(TerrainFeature* feature)
+void Board::addFeature(TerrainFeature *feature)
 {
     m_features.push_back(feature);
 }
 
 void Board::addRosters(const Roster *pRedRoster, const Roster *pBlueRoster)
 {
-    m_rosters[(int)PlayerId::Red] = pRedRoster;
-    m_rosters[(int)PlayerId::Blue] = pBlueRoster;
+    m_rosters[(int) PlayerId::Red] = pRedRoster;
+    m_rosters[(int) PlayerId::Blue] = pBlueRoster;
 }
 
 Board *Board::Instance()
@@ -53,11 +54,11 @@ Board *Board::Instance()
     return s_pInstance;
 }
 
-void Board::render(const std::string& filename) const
+void Board::render(const std::string &filename) const
 {
     // use cairomm to create a raster image of the current board state
-    int imageW = (int)(m_width * 10.0f); // tenth's of inches
-    int imageH = (int)(m_depth * 10.0f);
+    int imageW = (int) (m_width * 10.0f); // tenth's of inches
+    int imageH = (int) (m_depth * 10.0f);
 
     Cairo::RefPtr<Cairo::ImageSurface> surface =
         Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32, imageW, imageH);
@@ -68,7 +69,7 @@ void Board::render(const std::string& filename) const
         Cairo::ToyFontFace::create("Bitstream Charter", Cairo::FONT_SLANT_ITALIC, Cairo::FONT_WEIGHT_BOLD);
 
     cr->save(); // save the state of the context
-    cr->set_source_rgb(25/255.0, 119/255.0, 48/255.0);
+    cr->set_source_rgb(25 / 255.0, 119 / 255.0, 48 / 255.0);
     cr->paint(); // fill image with the color
     cr->restore(); // color is back to black now
 
@@ -83,16 +84,16 @@ void Board::render(const std::string& filename) const
     cr->save();
     cr->set_line_width(1.0);
 
-    const Roster* red = m_rosters[0];
+    const Roster *red = m_rosters[0];
     for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
     {
-        const Unit* unit = *ip;
+        const Unit *unit = *ip;
         auto baseSize = unit->basesizeInches();
-        auto radiusInches = baseSize*0.5f;
+        auto radiusInches = baseSize * 0.5f;
 
         // label with the number of remaining models
         cr->save();
-        cr->move_to((unit->position().x()+radiusInches) * 10, (unit->position().y()-radiusInches) * 10);
+        cr->move_to((unit->position().x() + radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
         cr->set_font_size(12.0);
@@ -120,16 +121,16 @@ void Board::render(const std::string& filename) const
     cr->save();
     cr->set_line_width(1.0);
 
-    const Roster* blue = m_rosters[1];
+    const Roster *blue = m_rosters[1];
     for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
     {
-        const Unit* unit = *ip;
+        const Unit *unit = *ip;
         auto baseSize = unit->basesizeInches();
-        auto radiusInches = baseSize*0.5f;
+        auto radiusInches = baseSize * 0.5f;
 
         // label with the number of remaining models
         cr->save();
-        cr->move_to((unit->position().x()+radiusInches) * 10, (unit->position().y()-radiusInches) * 10);
+        cr->move_to((unit->position().x() + radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
         cr->set_font_size(12.0);
@@ -156,34 +157,43 @@ void Board::render(const std::string& filename) const
     surface->write_to_png(filename);
 }
 
-std::vector<Unit *> Board::getUnitsWithin(const Unit* unit, PlayerId which, float distance)
+std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, float distance)
 {
-    std::vector<Unit*> units;
+    std::vector<Unit *> units;
     if (which == PlayerId::None)
     {
         for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
         {
-            if (*ip == unit) continue;
+            if (*ip == unit)
+            { continue; }
             float dist = unit->distanceTo(*ip);
             if (dist <= distance)
+            {
                 units.push_back(*ip);
+            }
         }
         for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
         {
-            if (*ip == unit) continue;
+            if (*ip == unit)
+            { continue; }
             float dist = unit->distanceTo(*ip);
             if (dist <= distance)
+            {
                 units.push_back(*ip);
+            }
         }
     }
     else
     {
         for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip)
         {
-            if (*ip == unit) continue;
+            if (*ip == unit)
+            { continue; }
             float dist = unit->distanceTo(*ip);
             if (dist <= distance)
+            {
                 units.push_back(*ip);
+            }
         }
     }
     return units;
@@ -191,19 +201,24 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit* unit, PlayerId which, floa
 
 Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer)
 {
-    if (unit == nullptr) return nullptr;
-    Unit* nearestUnit = nullptr;
+    if (unit == nullptr)
+    { return nullptr; }
+    Unit *nearestUnit = nullptr;
 
     if (fromPlayer == PlayerId::None)
     {
-        Unit* nearestRedUnit = m_rosters[0]->nearestUnit(unit);
-        Unit* nearestBlueUnit = m_rosters[1]->nearestUnit(unit);
+        Unit *nearestRedUnit = m_rosters[0]->nearestUnit(unit);
+        Unit *nearestBlueUnit = m_rosters[1]->nearestUnit(unit);
         auto dtoRed = unit->distanceTo(nearestRedUnit);
         auto dtoBlue = unit->distanceTo(nearestBlueUnit);
         if (dtoRed < dtoBlue)
+        {
             nearestUnit = nearestRedUnit;
+        }
         else
+        {
             nearestUnit = nearestBlueUnit;
+        }
     }
     else
     {
@@ -218,7 +233,8 @@ Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword k
 
     for (auto ip : units)
     {
-        if (ip->hasKeyword(keyword)) return ip;
+        if (ip->hasKeyword(keyword))
+        { return ip; }
     }
 
     return nullptr;

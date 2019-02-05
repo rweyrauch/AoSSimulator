@@ -31,14 +31,14 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 3, 6, 9, 12, Ghorgon::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Ghorgon::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        { 8, 5, 2 },
-        { 6, 4, 3 },
-        { 5, 3, 3 },
-        { 4, 2, 4 },
-        { 3, 1, 4 }
+        {8, 5, 2},
+        {6, 4, 3},
+        {5, 3, 3},
+        {4, 2, 4},
+        {3, 1, 4}
     };
 
 BeastsOfChaos::Ghorgon::Ghorgon() :
@@ -46,7 +46,7 @@ BeastsOfChaos::Ghorgon::Ghorgon() :
     m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
     m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6)
 {
-    m_keywords = { CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON };
+    m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
 }
 
 bool BeastsOfChaos::Ghorgon::configure()
@@ -111,7 +111,7 @@ int BeastsOfChaos::Ghorgon::getDamageTableIndex() const
     return 0;
 }
 
-int Ghorgon::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int Ghorgon::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Ravenous Bloodgreed
     Dice dice;
@@ -121,13 +121,14 @@ int Ghorgon::generateMortalWounds(const Weapon *weapon, const Unit *unit, const 
         mortalWounds += dice.rollD3();
     }
     return mortalWounds;
- }
+}
 
 void Ghorgon::onStartCombat(PlayerId player)
 {
     Unit::onStartCombat(player);
 
-    if (player != owningPlayer()) return;
+    if (player != owningPlayer())
+    { return; }
 
     // Swallowed Whole
     if (m_meleeTarget)

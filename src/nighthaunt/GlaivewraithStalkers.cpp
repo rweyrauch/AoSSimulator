@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = GlaivewraithStalkers::MIN_UNIT_SIZE}, GlaivewraithStalkers::MIN_UNIT_SIZE,
-         GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = GlaivewraithStalkers::MIN_UNIT_SIZE}, GlaivewraithStalkers::MIN_UNIT_SIZE,
+            GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "drummer", {.m_boolValue = true}, false, false}
     }
 };
@@ -29,13 +31,15 @@ GlaivewraithStalkers::GlaivewraithStalkers() :
     Unit("Glaivewraith Stalkers", 6, WOUNDS, 10, 4, true),
     m_huntersGlaive(Weapon::Type::Melee, "Hunter's Glaive", 2, 2, 4, 3, 0, 1)
 {
-    m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GLAIVEWRAITH_STALKERS };
+    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GLAIVEWRAITH_STALKERS};
 }
 
 bool GlaivewraithStalkers::configure(int numModels, bool drummer)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     m_drummer = drummer;
     m_runAndCharge = m_drummer;
@@ -49,7 +53,9 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -81,7 +87,9 @@ Rerolls GlaivewraithStalkers::toHitRerolls(const Weapon *weapon, const Unit *uni
 {
     // The Point of Death
     if (m_charged || unit->charged())
+    {
         return RerollFailed;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
@@ -93,7 +101,9 @@ int GlaivewraithStalkers::toSaveModifier(const Weapon *weapon) const
 
     // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
+    {
         modifier = -weapon->rend();
+    }
 
     return modifier;
 }

@@ -26,22 +26,25 @@ public:
     static const int POINTS_PER_BLOCK = 60;
     static const int POINTS_MAX_UNIT_SIZE = 320;
 
-    static Unit* Create(const ParameterList& parameters);
+    static Unit *Create(const ParameterList &parameters);
+
     static void Init();
 
     GlaivewraithStalkers();
+
     ~GlaivewraithStalkers() override = default;
 
     bool configure(int numModels, bool drummer);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 
     bool m_drummer = true;
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int toSaveModifier(const Weapon* weapon) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+    int toSaveModifier(const Weapon *weapon) const override;
 
 private:
 

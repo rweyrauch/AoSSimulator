@@ -56,7 +56,7 @@ void Battle::next()
                     m_currentPlayer = PlayerId::Red;
                 }
 
-                const auto playerIdx = (int)m_currentPlayer;
+                const auto playerIdx = (int) m_currentPlayer;
                 m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
                 m_currentPhase = Phase::Hero;
@@ -117,7 +117,7 @@ void Battle::simulate()
     }
 }
 
-void Battle::addPlayers(Player* player1, Player* player2)
+void Battle::addPlayers(Player *player1, Player *player2)
 {
     m_players[0] = player1;
     m_players[1] = player2;
@@ -143,46 +143,46 @@ void Battle::runInitiativePhase()
         m_currentPlayer = PlayerId::Blue;
     }
 
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
     std::cout << "Player " << PlayerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
-        p1 << " P2: " << p2 << std::endl;
+              p1 << " P2: " << p2 << std::endl;
 }
 
 void Battle::runHeroPhase()
 {
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doHeroPhase();
 }
 
 void Battle::runMovementPhase()
 {
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doMovementPhase();
 }
 
 void Battle::runShootingPhase()
 {
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doShootingPhase();
 }
 
 void Battle::runChargePhase()
 {
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doChargePhase();
 }
 
 void Battle::runCombatPhase()
 {
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doCombatPhase();
 }
 
 void Battle::runBattleshockPhase()
 {
-    const auto playerIdx = (int)m_currentPlayer;
+    const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doBattleshockPhase();
 }
 

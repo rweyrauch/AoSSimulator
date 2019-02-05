@@ -26,20 +26,24 @@ public:
     static const int POINTS_PER_BLOCK = 80;
     static const int POINTS_MAX_UNIT_SIZE = 480;
 
-    static Unit* Create(const ParameterList& parameters);
+    static Unit *Create(const ParameterList &parameters);
+
     static void Init();
 
     Castigators();
+
     ~Castigators() override = default;
 
     bool configure(int numModels);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+    Hits applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const override;
+
     void onStartShooting(PlayerId player) override;
 
 private:

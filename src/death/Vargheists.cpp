@@ -16,7 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Vargheists::MIN_UNIT_SIZE}, Vargheists::MIN_UNIT_SIZE, Vargheists::MAX_UNIT_SIZE, Vargheists::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Vargheists::MIN_UNIT_SIZE}, Vargheists::MIN_UNIT_SIZE, Vargheists::MAX_UNIT_SIZE,
+            Vargheists::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -51,7 +54,9 @@ bool Vargheists::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

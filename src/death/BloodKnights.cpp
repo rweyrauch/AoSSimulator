@@ -16,7 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = BloodKnights::MIN_UNIT_SIZE}, BloodKnights::MIN_UNIT_SIZE, BloodKnights::MAX_UNIT_SIZE, BloodKnights::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = BloodKnights::MIN_UNIT_SIZE}, BloodKnights::MIN_UNIT_SIZE, BloodKnights::MAX_UNIT_SIZE,
+            BloodKnights::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
     }
@@ -59,7 +62,9 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -95,7 +100,7 @@ void BloodKnights::Init()
     }
 }
 
-int BloodKnights::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult& woundRolls) const
+int BloodKnights::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
 {
     int modifier = Unit::damageModifier(weapon, target, woundRolls);
 
@@ -114,7 +119,9 @@ int BloodKnights::toSaveModifier(const Weapon *weapon) const
 
     // Bloodshields
     if (weapon->rend() == 0)
+    {
         modifier += 1;
+    }
 
     return modifier;
 }

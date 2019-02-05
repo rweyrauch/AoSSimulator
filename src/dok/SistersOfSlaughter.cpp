@@ -10,15 +10,18 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace DaughtersOfKhaine {
+namespace DaughtersOfKhaine
+{
 
 static FactoryMethod factoryMethod = {
     SistersOfSlaughter::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = SistersOfSlaughter::MIN_UNIT_SIZE}, SistersOfSlaughter::MIN_UNIT_SIZE,
-         SistersOfSlaughter::MAX_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = SistersOfSlaughter::MIN_UNIT_SIZE}, SistersOfSlaughter::MIN_UNIT_SIZE,
+            SistersOfSlaughter::MAX_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "sacrificialKnife", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
@@ -34,7 +37,7 @@ SistersOfSlaughter::SistersOfSlaughter() :
     m_barbedWhip(Weapon::Type::Melee, "Barbed Whip", 2, 2, 3, 4, 0, 1),
     m_barbedWhipHandmaiden(Weapon::Type::Melee, "Barbed Whip (Handmaiden)", 2, 2, 2, 4, 0, 1)
 {
-    m_keywords = { ORDER, AELF, DAUGHTERS_OF_KHAINE, SISTERS_OF_SLAUGHTER };
+    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, SISTERS_OF_SLAUGHTER};
 }
 
 bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers)
@@ -49,11 +52,15 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
     m_standardBearers = standardBearers;
 
     if (m_hornblowers)
+    {
         m_runAndCharge = true;
+    }
 
     Model handmaiden(BASESIZE, WOUNDS);
     if (m_hasSacrificialKnife)
+    {
         handmaiden.addMeleeWeapon(&m_sacrificialKnifeHandmaiden);
+    }
     handmaiden.addMeleeWeapon(&m_barbedWhipHandmaiden);
     addModel(handmaiden);
 
@@ -61,14 +68,18 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
     {
         Model model(BASESIZE, WOUNDS);
         if (m_hasSacrificialKnife)
+        {
             model.addMeleeWeapon(&m_sacrificialKnife);
+        }
         model.addMeleeWeapon(&m_barbedWhip);
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -115,7 +126,9 @@ int SistersOfSlaughter::toSaveModifier(const Weapon *weapon) const
     int modifier = Unit::toSaveModifier(weapon);
     // Bladed Bucklers
     if (!m_hasSacrificialKnife)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 

@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = DankholdTroggoths::MIN_UNIT_SIZE}, DankholdTroggoths::MIN_UNIT_SIZE,
-         DankholdTroggoths::MAX_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = DankholdTroggoths::MIN_UNIT_SIZE}, DankholdTroggoths::MIN_UNIT_SIZE,
+            DankholdTroggoths::MAX_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -26,7 +28,7 @@ bool DankholdTroggoths::s_registered = false;
 
 DankholdTroggoths::DankholdTroggoths() :
     Unit("Dankhold Troggoths", 6, WOUNDS, 6, 4, false),
-   m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6)
+    m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
 }
@@ -47,7 +49,9 @@ bool DankholdTroggoths::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -90,7 +94,7 @@ void DankholdTroggoths::hero(PlayerId player)
         if (dice.rollD6() >= 4)
         {
             int woundsHealed = dice.rollD3();
-            for (auto& m : m_models)
+            for (auto &m : m_models)
             {
                 if (!m.slain() || !m.fled())
                 {
@@ -99,7 +103,8 @@ void DankholdTroggoths::hero(PlayerId player)
                         int numToHeal = std::min(woundsHealed, WOUNDS - m.woundsRemaining());
                         m.woundsRemaining() += numToHeal;
                         woundsHealed -= numToHeal;
-                        if (woundsHealed <= 0) break;
+                        if (woundsHealed <= 0)
+                        { break; }
                     }
                 }
             }

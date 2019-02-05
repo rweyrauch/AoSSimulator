@@ -18,7 +18,10 @@ static FactoryMethod factoryMethod = {
     SkeletonWarriors::ValueToString,
     SkeletonWarriors::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = SkeletonWarriors::MIN_UNIT_SIZE}, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE, SkeletonWarriors::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = SkeletonWarriors::MIN_UNIT_SIZE}, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
+            SkeletonWarriors::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
     }
@@ -51,24 +54,34 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
 
     Model champion(BASESIZE, WOUNDS);
     if (weapons == AncientBlade)
+    {
         champion.addMeleeWeapon(&m_ancientBladeChampion);
+    }
     else if (weapons == AncientSpear)
+    {
         champion.addMeleeWeapon(&m_ancientSpearChampion);
+    }
     addModel(champion);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == AncientBlade)
+        {
             model.addMeleeWeapon(&m_ancientBlade);
+        }
         else if (weapons == AncientSpear)
+        {
             model.addMeleeWeapon(&m_ancientSpear);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -85,7 +98,7 @@ Unit *SkeletonWarriors::Create(const ParameterList &parameters)
 {
     auto unit = new SkeletonWarriors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions)GetIntParam("weapons", parameters, AncientBlade);
+    WeaponOptions weapons = (WeaponOptions) GetIntParam("weapons", parameters, AncientBlade);
     bool standardBearers = GetBoolParam("standardBearers", parameters, false);
     bool hornblowers = GetBoolParam("hornblowers", parameters, false);
 
@@ -110,16 +123,20 @@ std::string SkeletonWarriors::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "weapons")
     {
-        if (parameter.m_intValue == AncientBlade) return "AncientBlade";
-        else if (parameter.m_intValue == AncientSpear) return "AncientSpear";
+        if (parameter.m_intValue == AncientBlade)
+        { return "AncientBlade"; }
+        else if (parameter.m_intValue == AncientSpear)
+        { return "AncientSpear"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int SkeletonWarriors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "AncientBlade") return AncientBlade;
-    else if (enumString == "AncientSpear") return AncientSpear;
+    if (enumString == "AncientBlade")
+    { return AncientBlade; }
+    else if (enumString == "AncientSpear")
+    { return AncientSpear; }
     return 0;
 }
 
@@ -129,7 +146,9 @@ int SkeletonWarriors::toSaveModifier(const Weapon *weapon) const
 
     // Crypt Shields
     if (weapon->rend() == 0)
+    {
         modifier += 1;
+    }
 
     return modifier;
 }
@@ -139,9 +158,13 @@ int SkeletonWarriors::extraAttacks(const Weapon *weapon) const
     int attacks = Unit::extraAttacks(weapon);
     // Skeleton Legion
     if (remainingModels() >= 30)
+    {
         attacks += 2;
+    }
     else if (remainingModels() >= 20)
+    {
         attacks += 1;
+    }
     return attacks;
 }
 

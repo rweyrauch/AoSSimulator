@@ -11,28 +11,38 @@
 
 void Model::addMeleeWeapon(const Weapon *weapon)
 {
-    if (weapon == nullptr) return;
+    if (weapon == nullptr)
+    { return; }
 
     m_melee.push_back(weapon);
 
     auto preStr = 0.0f;
     if (m_preferredWeapon)
+    {
         preStr = m_preferredWeapon->strength();
+    }
     if (weapon->strength() > preStr)
+    {
         m_preferredWeapon = weapon;
+    }
 }
 
 void Model::addMissileWeapon(const Weapon *weapon)
 {
-    if (weapon == nullptr) return;
+    if (weapon == nullptr)
+    { return; }
 
     m_missile.push_back(weapon);
 
     auto preStr = 0.0f;
     if (m_preferredWeapon)
+    {
         preStr = m_preferredWeapon->strength();
+    }
     if (weapon->strength() > preStr)
+    {
         m_preferredWeapon = weapon;
+    }
 }
 
 void Model::restore()

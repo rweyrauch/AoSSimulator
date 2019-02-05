@@ -10,16 +10,19 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace IdonethDeepkin {
+namespace IdonethDeepkin
+{
 
 static FactoryMethod factoryMethod = {
     NamartiThralls::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = NamartiThralls::MIN_UNIT_SIZE}, NamartiThralls::MIN_UNIT_SIZE,
-         NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE/10}
+        {
+            ParamType::Integer, "numModels", {.m_intValue = NamartiThralls::MIN_UNIT_SIZE}, NamartiThralls::MIN_UNIT_SIZE,
+            NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE
+        },
+        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE / 10}
     }
 };
 
@@ -30,17 +33,21 @@ NamartiThralls::NamartiThralls() :
     Unit("Namarti Thralls", 6, WOUNDS, 6, 5, false),
     m_lanmariBlade(Weapon::Type::Melee, "Lanmari Blade", 1, 2, 3, 3, -1, 1)
 {
-    m_keywords = { ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS };
+    m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS};
     m_battleFieldRole = Role::Battleline;
 }
 
 bool NamartiThralls::configure(int numModels, int numIconBearers)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     if (numIconBearers > MAX_UNIT_SIZE / 10)
+    {
         return false;
+    }
 
     m_numIconBearers = numIconBearers;
 
@@ -53,7 +60,9 @@ bool NamartiThralls::configure(int numModels, int numIconBearers)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

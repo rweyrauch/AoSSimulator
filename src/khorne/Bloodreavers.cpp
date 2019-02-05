@@ -19,10 +19,14 @@ static FactoryMethod factoryMethod = {
     Bloodreavers::ValueToString,
     Bloodreavers::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
-         Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
-         Bloodreavers::MeatripperAxe, 1},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
+            Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Integer, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
+            Bloodreavers::MeatripperAxe, 1
+        },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
     }
@@ -64,29 +68,37 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     }
     addModel(chieftainModel);
 
-    int currentModelCount = (int)m_models.size();
+    int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (m_weaponOption == ReaverBlades)
+        {
             model.addMeleeWeapon(&m_reaverBlades);
+        }
         else if (m_weaponOption == MeatripperAxe)
+        {
             model.addMeleeWeapon(&m_meatripperAxe);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-Rerolls Bloodreavers::toHitRerolls(const Weapon* weapon, const Unit* unit) const
+Rerolls Bloodreavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     // Reaver Blades
     if (m_weaponOption == ReaverBlades)
+    {
         return RerollOnes;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
@@ -97,7 +109,9 @@ int Bloodreavers::battlshockModifier() const
 
     // Icon Bearer
     if (m_iconBearer)
+    {
         modifier++;
+    }
 
     return modifier;
 }
@@ -106,7 +120,7 @@ Unit *Bloodreavers::Create(const ParameterList &parameters)
 {
     auto unit = new Bloodreavers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption)GetIntParam("weapons", parameters, ReaverBlades);
+    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, ReaverBlades);
     bool iconBearer = GetBoolParam("iconBearer", parameters, false);
     bool hornblowers = GetBoolParam("hornblowers", parameters, false);
 
@@ -131,16 +145,20 @@ std::string Bloodreavers::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "weapons")
     {
-        if (parameter.m_intValue == ReaverBlades) return "ReaverBlades";
-        else if (parameter.m_intValue == MeatripperAxe) return "MeatripperAxe";
+        if (parameter.m_intValue == ReaverBlades)
+        { return "ReaverBlades"; }
+        else if (parameter.m_intValue == MeatripperAxe)
+        { return "MeatripperAxe"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int Bloodreavers::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "ReaverBlades") return ReaverBlades;
-    else if (enumString == "MeatripperAxe") return MeatripperAxe;
+    if (enumString == "ReaverBlades")
+    { return ReaverBlades; }
+    else if (enumString == "MeatripperAxe")
+    { return MeatripperAxe; }
     return 0;
 }
 
@@ -174,7 +192,9 @@ int Bloodreavers::runModifier() const
 {
     int modifier = Unit::runModifier();
     if (m_hornblower)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 
@@ -182,7 +202,9 @@ int Bloodreavers::chargeModifier() const
 {
     int modifier = Unit::chargeModifier();
     if (m_hornblower)
+    {
         modifier += 1;
+    }
     return modifier;
 }
 

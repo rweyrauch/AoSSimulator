@@ -11,14 +11,15 @@
 #include <sstream>
 
 
-std::vector<Parameter>::const_iterator FindParam(const std::string& name, const ParameterList &parameters)
+std::vector<Parameter>::const_iterator FindParam(const std::string &name, const ParameterList &parameters)
 {
-    auto matchName = [name](const Parameter& param)->bool { return (param.m_name == name); };
+    auto matchName = [name](const Parameter &param) -> bool
+    { return (param.m_name == name); };
     auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
     return pip;
 }
 
-int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue)
+int GetIntParam(const std::string &name, const ParameterList &parameters, int defaultValue)
 {
     int value = defaultValue;
     auto pip = FindParam(name, parameters);
@@ -32,7 +33,7 @@ int GetIntParam(const std::string& name, const ParameterList& parameters, int de
     return value;
 }
 
-bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue)
+bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool defaultValue)
 {
     bool value = defaultValue;
     auto pip = FindParam(name, parameters);
@@ -111,17 +112,25 @@ std::string ParameterValueToString(const Parameter &param)
 {
     std::stringstream ss;
     if (param.m_paramType == ParamType::Integer)
+    {
         ss << param.m_intValue;
+    }
     else if (param.m_paramType == ParamType::Boolean)
+    {
         ss << param.m_boolValue ? "true" : "false";
+    }
     return ss.str();
 }
 
 PlayerId GetEnemyId(PlayerId friendlyId)
 {
     if (friendlyId == PlayerId::Red)
+    {
         return PlayerId::Blue;
+    }
     else if (friendlyId == PlayerId::Blue)
+    {
         return PlayerId::Red;
+    }
     return PlayerId::None;
 }

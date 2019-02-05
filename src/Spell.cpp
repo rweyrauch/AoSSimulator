@@ -9,20 +9,25 @@
 #include <Spell.h>
 #include <Unit.h>
 
-DamageSpell::DamageSpell(Unit* caster, const std::string& name, int castingValue, int range, int damage) :
+DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage) :
     Spell(caster, name, castingValue),
     m_range(range),
-    m_damage(damage) {}
+    m_damage(damage)
+{}
 
-int DamageSpell::cast(const Unit* target)
+int DamageSpell::cast(const Unit *target)
 {
     if (target == nullptr)
+    {
         return 0;
+    }
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
     if (distance > m_range)
+    {
         return 0;
+    }
 
     Dice dice;
 
@@ -49,6 +54,8 @@ ArcaneBolt::ArcaneBolt(Unit *caster) :
 int ArcaneBolt::getDamage(int castingRoll) const
 {
     if (castingRoll >= 10)
+    {
         return RAND_D3;
+    }
     return m_damage;
 }

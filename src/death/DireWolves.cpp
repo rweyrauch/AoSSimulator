@@ -17,7 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = DireWolves::MIN_UNIT_SIZE}, DireWolves::MIN_UNIT_SIZE, DireWolves::MAX_UNIT_SIZE, DireWolves::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = DireWolves::MIN_UNIT_SIZE}, DireWolves::MIN_UNIT_SIZE, DireWolves::MAX_UNIT_SIZE,
+            DireWolves::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -52,7 +55,9 @@ bool DireWolves::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -90,7 +95,8 @@ int DireWolves::toWoundModifier(const Weapon *weapon, const Unit *target) const
     int modifier = Unit::toWoundModifier(weapon, target);
 
     // Slavering Charge
-    if (m_charged) modifier += 1;
+    if (m_charged)
+    { modifier += 1; }
 
     return modifier;
 }

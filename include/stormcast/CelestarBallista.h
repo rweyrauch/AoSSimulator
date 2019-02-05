@@ -24,17 +24,19 @@ public:
     static const int WOUNDS = 7;
     static const int POINTS_PER_UNIT = 100;
 
-    static Unit* Create(const ParameterList& parameters);
+    static Unit *Create(const ParameterList &parameters);
+
     static void Init();
 
     CelestarBallista();
+
     ~CelestarBallista() override = default;
 
     void shooting(PlayerId player) override;
 
     bool configure();
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 

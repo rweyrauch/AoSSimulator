@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = GrimghastReapers::MIN_UNIT_SIZE}, GrimghastReapers::MIN_UNIT_SIZE,
-         GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = GrimghastReapers::MIN_UNIT_SIZE}, GrimghastReapers::MIN_UNIT_SIZE,
+            GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -29,13 +31,15 @@ GrimghastReapers::GrimghastReapers() :
     m_slasherScythe(Weapon::Type::Melee, "Slasher Scythe", 2, 2, 4, 3, -1, 1),
     m_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2)
 {
-    m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GRIMGHAST_REAPERS };
+    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GRIMGHAST_REAPERS};
 }
 
 bool GrimghastReapers::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     Model extoller(BASESIZE, WOUNDS);
     // TODO: implement 'For Whom the Bell Tolls' (mortal wounds)
@@ -51,7 +55,9 @@ bool GrimghastReapers::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -82,7 +88,9 @@ Rerolls GrimghastReapers::toHitRerolls(const Weapon *weapon, const Unit *unit) c
 {
     // Reaped Like Corn
     if (weapon->name() == "Slasher Scythe" && unit->remainingModels() >= 5)
+    {
         return RerollFailed;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
@@ -94,7 +102,9 @@ int GrimghastReapers::toSaveModifier(const Weapon *weapon) const
 
     // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
+    {
         modifier = -weapon->rend();
+    }
 
     return modifier;
 }

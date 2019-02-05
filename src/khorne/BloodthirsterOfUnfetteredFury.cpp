@@ -28,14 +28,14 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 3, 6, 9, 12, BloodthirsterOfUnfetteredFury::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, BloodthirsterOfUnfetteredFury::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        { 10, 4, 2 },
-        { 9, 3, 3 },
-        { 8, 3, 3 },
-        { 7, 2, 4 },
-        { 6, 1, 4 }
+        {10, 4, 2},
+        {9,  3, 3},
+        {8,  3, 3},
+        {7,  2, 4},
+        {6,  1, 4}
     };
 
 bool BloodthirsterOfUnfetteredFury::s_registered = false;

@@ -17,8 +17,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = CryptGhouls::MIN_UNIT_SIZE}, CryptGhouls::MIN_UNIT_SIZE,
-         CryptGhouls::MAX_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = CryptGhouls::MIN_UNIT_SIZE}, CryptGhouls::MIN_UNIT_SIZE,
+            CryptGhouls::MAX_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -52,7 +54,9 @@ bool CryptGhouls::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -91,7 +95,9 @@ int CryptGhouls::extraAttacks(const Weapon *weapon) const
 
     // Battalion Strength
     if (remainingModels() >= 20)
+    {
         attacks += 1;
+    }
 
     return attacks;
 }

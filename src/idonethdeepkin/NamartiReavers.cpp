@@ -19,9 +19,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = NamartiReavers::MIN_UNIT_SIZE}, NamartiReavers::MIN_UNIT_SIZE,
-         NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE/10}
+        {
+            ParamType::Integer, "numModels", {.m_intValue = NamartiReavers::MIN_UNIT_SIZE}, NamartiReavers::MIN_UNIT_SIZE,
+            NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE
+        },
+        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE / 10}
     }
 };
 
@@ -39,10 +41,14 @@ NamartiReavers::NamartiReavers() :
 bool NamartiReavers::configure(int numModels, int numIconBearers)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     if (numIconBearers > MAX_UNIT_SIZE / 10)
+    {
         return false;
+    }
 
     m_numIconBearers = numIconBearers;
 
@@ -57,7 +63,9 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

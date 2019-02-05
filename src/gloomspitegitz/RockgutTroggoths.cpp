@@ -19,8 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = RockgutTroggoths::MIN_UNIT_SIZE}, RockgutTroggoths::MIN_UNIT_SIZE,
-         RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = RockgutTroggoths::MIN_UNIT_SIZE}, RockgutTroggoths::MIN_UNIT_SIZE,
+            RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -30,7 +32,7 @@ RockgutTroggoths::RockgutTroggoths() :
     Unit("Rockgut Troggoths", 6, WOUNDS, 5, 5, false),
     m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3)
 {
-    m_keywords = { DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT };
+    m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
 }
 
 bool RockgutTroggoths::configure(int numModels)
@@ -49,7 +51,9 @@ bool RockgutTroggoths::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -92,7 +96,7 @@ void RockgutTroggoths::hero(PlayerId player)
         if (dice.rollD6() >= 4)
         {
             int woundsHealed = dice.rollD3();
-            for (auto& m : m_models)
+            for (auto &m : m_models)
             {
                 if (!m.slain() || !m.fled())
                 {
@@ -101,7 +105,8 @@ void RockgutTroggoths::hero(PlayerId player)
                         int numToHeal = std::min(woundsHealed, WOUNDS - m.woundsRemaining());
                         m.woundsRemaining() += numToHeal;
                         woundsHealed -= numToHeal;
-                        if (woundsHealed <= 0) break;
+                        if (woundsHealed <= 0)
+                        { break; }
                     }
                 }
             }
@@ -132,7 +137,9 @@ void RockgutTroggoths::onStartShooting(PlayerId player)
     auto board = Board::Instance();
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
+    {
         otherPlayer = PlayerId::Blue;
+    }
     auto otherRoster = board->getPlayerRoster(otherPlayer);
 
     auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;

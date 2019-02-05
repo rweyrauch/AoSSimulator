@@ -26,20 +26,23 @@ public:
     static const int POINTS_PER_BLOCK = 200;
     static const int POINTS_MAX_UNIT_SIZE = 800;
 
-    static Unit* Create(const ParameterList& parameters);
+    static Unit *Create(const ParameterList &parameters);
+
     static void Init();
 
     Evocators();
+
     ~Evocators() override = default;
 
     bool configure(int numModels, int numGrandstaves, bool primeGrandstave);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    int generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds) override;
 
 private:
 

@@ -16,10 +16,14 @@ static FactoryMethod factoryMethod = {
     Ungors::ValueToString,
     Ungors::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Ungors::MIN_UNIT_SIZE}, Ungors::MIN_UNIT_SIZE,
-         Ungors::MAX_UNIT_SIZE, Ungors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
-         Ungors::GnarledShortspear, 1},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Ungors::MIN_UNIT_SIZE}, Ungors::MIN_UNIT_SIZE,
+            Ungors::MAX_UNIT_SIZE, Ungors::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Integer, "weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
+            Ungors::GnarledShortspear, 1
+        },
         {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
     }
@@ -34,11 +38,11 @@ Ungors::Ungors() :
     m_gnarledShortspear(Weapon::Type::Melee, "Gnarled Shortspear", 2, 1, 5, 4, 0, 1),
     m_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear (Halfhorn)", 2, 2, 5, 4, 0, 1)
 {
-    m_keywords = { CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
+    m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
 }
 
 bool Ungors::configure(int numModels, WeaponOptions weapons,
-                                      bool brayhorn, bool bannerBearer)
+                       bool brayhorn, bool bannerBearer)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -52,24 +56,34 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
 
     Model halfhorn(BASESIZE, WOUNDS);
     if (weapons == UngorBlade)
+    {
         halfhorn.addMeleeWeapon(&m_ungorBladeHalfhorn);
+    }
     else if (weapons == GnarledShortspear)
+    {
         halfhorn.addMeleeWeapon(&m_gnarledShortspearHalfhorn);
+    }
     addModel(halfhorn);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         if (weapons == UngorBlade)
+        {
             model.addMeleeWeapon(&m_ungorBlade);
+        }
         else if (weapons == GnarledShortspear)
+        {
             model.addMeleeWeapon(&m_gnarledShortspear);
+        }
         addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -86,7 +100,7 @@ Unit *Ungors::Create(const ParameterList &parameters)
 {
     auto unit = new Ungors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions)GetIntParam("weapons", parameters, UngorBlade);
+    auto weapon = (WeaponOptions) GetIntParam("weapons", parameters, UngorBlade);
     bool brayhorn = GetBoolParam("brayhorn", parameters, false);
     bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
 
@@ -111,16 +125,20 @@ std::string Ungors::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "weapons")
     {
-        if (parameter.m_intValue == UngorBlade) return "UngorBlade";
-        else if (parameter.m_intValue == GnarledShortspear) return "GnarledShortspear";
+        if (parameter.m_intValue == UngorBlade)
+        { return "UngorBlade"; }
+        else if (parameter.m_intValue == GnarledShortspear)
+        { return "GnarledShortspear"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int Ungors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "UngorBlade") return UngorBlade;
-    else if (enumString == "GnarledShortspear") return GnarledShortspear;
+    if (enumString == "UngorBlade")
+    { return UngorBlade; }
+    else if (enumString == "GnarledShortspear")
+    { return GnarledShortspear; }
     return 0;
 }
 
@@ -128,9 +146,13 @@ Rerolls Ungors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Braying Hatred
     if (remainingModels() >= 30)
+    {
         return RerollOnesAndTwos;
+    }
     else if (remainingModels() >= 20)
+    {
         return RerollOnes;
+    }
     return Unit::toHitRerolls(weapon, target);
 }
 
@@ -139,7 +161,9 @@ int Ungors::toSaveModifier(const Weapon *weapon) const
     int modifier = Unit::toSaveModifier(weapon);
     // Half-shields
     if (!weapon->isMissile())
+    {
         modifier += 1;
+    }
     return modifier;
 }
 

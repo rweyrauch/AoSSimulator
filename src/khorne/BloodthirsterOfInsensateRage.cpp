@@ -27,14 +27,14 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = { 3, 6, 9, 12, BloodthirsterOfInsensateRage::WOUNDS };
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, BloodthirsterOfInsensateRage::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        { 10, 4, 3 },
-        { 9, 4, RAND_D3 },
-        { 8, 3, RAND_D3 },
-        { 7, 3, 1 },
-        { 6, 2, 1 }
+        {10, 4, 3},
+        {9,  4, RAND_D3},
+        {8,  3, RAND_D3},
+        {7,  3, 1},
+        {6,  2, 1}
     };
 
 bool BloodthirsterOfInsensateRage::s_registered = false;
@@ -106,7 +106,9 @@ Rerolls BloodthirsterOfInsensateRage::toHitRerolls(const Weapon *weapon, const U
 {
     // Rage Unbound
     if (m_charged)
+    {
         return RerollOnes;
+    }
     return Unit::toHitRerolls(weapon, target);
 }
 

@@ -19,8 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
-         Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
+            Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE
+        },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
@@ -54,7 +56,7 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     reaperModel.addMeleeWeapon(&m_hellbladeReaper);
     addModel(reaperModel);
 
-    int currentModelCount = (int)m_models.size();
+    int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
@@ -64,12 +66,14 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
 
-int Bloodletters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits& wounds)
+int Bloodletters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
 {
     // Decapitating Blow
     if (hits.rolls.numUnmodified6s() > 0)
@@ -109,7 +113,9 @@ int Bloodletters::extraAttacks(const Weapon *weapon) const
     // Murderous Tide
     int attacks = Unit::extraAttacks(weapon);
     if (remainingModels() >= 20)
+    {
         attacks += 1;
+    }
     return attacks;
 }
 
@@ -126,7 +132,9 @@ Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) con
     for (auto ip : units)
     {
         if (ip->hasKeyword(DAEMON) && ip->hasKeyword(KHORNE) && ip->hasKeyword(HERO))
+        {
             return RerollOnes;
+        }
     }
     return Unit::toHitRerolls(weapon, target);
 }

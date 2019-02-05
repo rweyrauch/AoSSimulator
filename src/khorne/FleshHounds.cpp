@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = FleshHounds::MIN_UNIT_SIZE}, FleshHounds::MIN_UNIT_SIZE,
-         FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = FleshHounds::MIN_UNIT_SIZE}, FleshHounds::MIN_UNIT_SIZE,
+            FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -50,7 +52,7 @@ bool FleshHounds::configure(int numModels)
         addModel(goreHound);
     }
 
-    auto currentModelCount = (int)m_models.size();
+    auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
@@ -60,7 +62,9 @@ bool FleshHounds::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

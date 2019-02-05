@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = BladegheistRevenants::MIN_UNIT_SIZE}, BladegheistRevenants::MIN_UNIT_SIZE,
-         BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "numModels", {.m_intValue = BladegheistRevenants::MIN_UNIT_SIZE}, BladegheistRevenants::MIN_UNIT_SIZE,
+            BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE
+        },
     }
 };
 
@@ -29,13 +31,15 @@ BladegheistRevenants::BladegheistRevenants() :
     Unit("Bladegheist Revenants", 8, WOUNDS, 10, 4, true),
     m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1)
 {
-    m_keywords = { DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS };
+    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
 }
 
 bool BladegheistRevenants::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
         return false;
+    }
 
     m_retreatAncCharge = true;
 
@@ -48,7 +52,9 @@ bool BladegheistRevenants::configure(int numModels)
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
+    {
         m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }
@@ -82,7 +88,9 @@ Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *uni
     for (auto ip : units)
     {
         if (ip->hasKeyword(SPIRIT_TORMENTS) || ip->hasKeyword(CHAINGHASTS))
+        {
             return RerollFailed;
+        }
     }
 
     return Unit::toHitRerolls(weapon, unit);
@@ -95,7 +103,9 @@ int BladegheistRevenants::toSaveModifier(const Weapon *weapon) const
 
     // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
+    {
         modifier = -weapon->rend();
+    }
 
     return modifier;
 }
@@ -105,7 +115,9 @@ int BladegheistRevenants::extraAttacks(const Weapon *weapon) const
     // Whirling Death
     int attacks = Unit::extraAttacks(weapon);
     if (m_charged)
+    {
         attacks += 1;
+    }
     return attacks;
 }
 
