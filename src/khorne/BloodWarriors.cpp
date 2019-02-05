@@ -133,4 +133,15 @@ void BloodWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_goreglaive);
 }
 
+Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, const Dice::RollResult &saveRolls) const
+{
+    auto wounds = Unit::computeReturnedDamage(weapon, saveRolls);
+    // Gorefists
+    if (!m_pairedGoreaxe)
+    {
+        wounds.mortal += saveRolls.numUnmodified6s();
+    }
+    return wounds;
+}
+
 } // namespace Khorne

@@ -56,6 +56,14 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Swift Tide                       Yes
+// Fluid Firing Style               Yes
+//
+
 } // namespace IdonethDeepkin
 
 #endif // NAMARTIREAVERSS_H

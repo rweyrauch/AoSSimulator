@@ -8,6 +8,7 @@
 #include <nighthaunt/BladegheistRevenants.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Nighthaunt
 {
@@ -36,7 +37,7 @@ bool BladegheistRevenants::configure(int numModels)
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
         return false;
 
-    m_runAndCharge = true;
+    m_retreatAncCharge = true;
 
     for (auto i = 0; i < numModels; i++)
     {
@@ -77,18 +78,22 @@ void BladegheistRevenants::Init()
 Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     // Fearful Frenzy
-    if (false) // wholly w/in 12" of friendly 'SPIRIT_TORMENTS' or 'CHAINGHASTS'
-        return RerollFailed;
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(SPIRIT_TORMENTS) || ip->hasKeyword(CHAINGHASTS))
+            return RerollFailed;
+    }
 
     return Unit::toHitRerolls(weapon, unit);
 }
 
 int BladegheistRevenants::toSaveModifier(const Weapon *weapon) const
 {
-    // Etherial - no save modifiers allowed.
+    // Ethereal - no save modifiers allowed.
     int modifier = 0;
 
-    // Etherial - ignore rend by cancelling it out.
+    // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
         modifier = -weapon->rend();
 

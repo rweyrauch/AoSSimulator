@@ -49,6 +49,15 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Ethereal                         Yes
+// Reaped Like Core                 Yes
+// For Whom the Bell Tolls          No
+//
+
 } // namespace Nighthaunt
 
 #endif // GRIMGHASTREAPERS_H

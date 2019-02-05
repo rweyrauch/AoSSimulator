@@ -50,6 +50,7 @@ protected:
     int runModifier() const override;
     int toSaveModifier(const Weapon* weapon) const override;
     int battlshockModifier() const override;
+    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
 
 private:
 
@@ -65,6 +66,15 @@ private:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Backstabbing Mob                 Yes
+// Moonshields                      Yes
+// Netters                          Yes
+//
 
 } // namespace GloomspiteGitz
 

@@ -95,4 +95,28 @@ void Gors::Init()
     }
 }
 
+Rerolls Gors::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Rend and Tear
+    if (m_pairedBlades) return RerollOnes;
+    return Unit::toHitRerolls(weapon, target);
+}
+
+int Gors::toSaveModifier(const Weapon *weapon) const
+{
+    int modifier = Unit::toSaveModifier(weapon);
+    // Beastsheilds
+    if (!m_pairedBlades) modifier += 1;
+    return modifier;
+}
+
+int Gors::extraAttacks(const Weapon *weapon) const
+{
+    int attacks = Unit::extraAttacks(weapon);
+    // Anarchy and Mayhem
+    if (remainingModels() >= 20)
+        attacks += 1;
+    return attacks;
+}
+
 } // namespace BeastsOfChaos

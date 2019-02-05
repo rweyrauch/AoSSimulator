@@ -133,6 +133,7 @@ enum Keyword
     AELF,
     MALIGNANT,
     SUMMONABLE,
+    TOTEM,
 
     // Stormcast
     SACROSANCT,
@@ -239,6 +240,8 @@ enum Keyword
     BLADEGHEIST_REVENANTS,
     GLAIVEWRAITH_STALKERS,
     DREADSCYTHE_HARRIDANS,
+    SPIRIT_TORMENTS,
+    CHAINGHASTS,
 
     // Beasts of Chaos
     BULLGOR,

@@ -124,4 +124,23 @@ int Ungors::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
+Rerolls Ungors::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Braying Hatred
+    if (remainingModels() >= 30)
+        return RerollOnesAndTwos;
+    else if (remainingModels() >= 20)
+        return RerollOnes;
+    return Unit::toHitRerolls(weapon, target);
+}
+
+int Ungors::toSaveModifier(const Weapon *weapon) const
+{
+    int modifier = Unit::toSaveModifier(weapon);
+    // Half-shields
+    if (!weapon->isMissile())
+        modifier += 1;
+    return modifier;
+}
+
 } // namespace BeastsOfChaos

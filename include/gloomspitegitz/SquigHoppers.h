@@ -44,6 +44,13 @@ protected:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Boing! Boing! Boing!             No
+//
+
 } // namespace GloomspiteGitz
 
 #endif //SQUIGHOPPERS_H

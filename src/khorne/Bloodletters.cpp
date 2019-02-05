@@ -10,6 +10,7 @@
 #include <khorne/Bloodletters.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Khorne
 {
@@ -116,6 +117,18 @@ void Bloodletters::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_hellblade);
     visitor(&m_hellbladeReaper);
+}
+
+Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Locus of Fury
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(KHORNE) && ip->hasKeyword(HERO))
+            return RerollOnes;
+    }
+    return Unit::toHitRerolls(weapon, target);
 }
 
 } // namespace Khorne

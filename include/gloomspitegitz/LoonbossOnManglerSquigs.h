@@ -52,6 +52,16 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Ker-splat!                       Yes
+// Redcap Mushrooms                 No
+// Watch Out!                       Yes
+// Bit Da Moon!                     No
+//
+
 } // namespace GloomspiteGitz
 
 #endif //LOONBOSSMANGLERSQUIGS_H

@@ -39,6 +39,7 @@ protected:
 
     int extraAttacks(const Weapon* weapon) const override;
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
 
 private:
 
@@ -51,6 +52,18 @@ private:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Hornblower                       No
+// Icon Bearer                      No
+// Standard Bearer                  No
+// Decapitating Blow                Yes
+// Locus of Fury                    Yes
+// Murderous Tide                   Yes
+//
 
 } // namespace Khorne
 

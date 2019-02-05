@@ -25,15 +25,17 @@ public:
     static const int POINTS_PER_BLOCK = 90;
     static const int POINTS_MAX_UNIT_SIZE = 540;
 
-    static Unit* Create(const ParameterList& parameters);
+    static Unit *Create(const ParameterList &parameters);
+
     static void Init();
 
     Khorgoraths();
+
     ~Khorgoraths() override = default;
 
     bool configure(int numModels);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 

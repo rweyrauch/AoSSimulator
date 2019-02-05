@@ -49,6 +49,13 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Ethereal                         Yes
+// Chilling Horde                   Yes
+
 } // namespace Nighthaunt
 
 #endif // CHAINRASPHORDE_H

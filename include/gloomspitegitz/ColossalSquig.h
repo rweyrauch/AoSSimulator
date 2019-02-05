@@ -41,6 +41,7 @@ protected:
     void onWounded() override;
     void onSlain() override;
     int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
+    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
 
     int getDamageTableIndex() const;
 
@@ -52,6 +53,16 @@ private:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Crazed Charge                    No
+// Fungoid Squig Explosion          Yes
+// Puff Spores                      Yes
+// Swallowed Whole                  Yes
+//
 
 } // namespace GloomspiteGitz
 

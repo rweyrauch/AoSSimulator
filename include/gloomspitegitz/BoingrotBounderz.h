@@ -49,6 +49,14 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Boing! Smash!                    Yes
+// Lances of the Bounderz           Yes
+//
+
 } // namespace GloomspiteGitz
 
 #endif //BOINGROTBOUNDERZ_H

@@ -47,6 +47,11 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     int battlshockModifier() const override;
+    int extraAttacks(const Weapon* weapon) const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
+
+private:
 
     WeaponOption m_weaponOption = ReaverBlades;
     bool m_iconBearer = false;
@@ -59,6 +64,16 @@ protected:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Hornblower                       Yes
+// Icon Bearer                      Yes
+// Frenzied Devotion                Yes
+// Reaver Blades                    Yes
+//
 
 } // namespace Khorne
 

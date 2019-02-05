@@ -17,7 +17,10 @@ class Model
 {
 public:
     Model() : m_baseSize(0) {}
-    Model(int baseSize, int wounds) : m_baseSize(baseSize), m_woundsRemaining(wounds) {}
+    Model(int baseSize, int wounds) :
+        m_baseSize(baseSize),
+        m_initialWounds(wounds),
+        m_woundsRemaining(wounds) {}
 
     int basesize() const { return m_baseSize; }
 
@@ -38,6 +41,7 @@ public:
     std::vector<const Weapon*>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
     std::vector<const Weapon*>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 
+    int initialWounds() const { return m_initialWounds; }
     const int& woundsRemaining() const { return m_woundsRemaining; }
     int& woundsRemaining() { return m_woundsRemaining; }
 
@@ -53,6 +57,7 @@ public:
 private:
     int m_baseSize = 0;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
+    int m_initialWounds = 0;
     int m_woundsRemaining = 0;
     bool m_slain = false;
     bool m_fled = false;

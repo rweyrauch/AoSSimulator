@@ -133,8 +133,12 @@ void Stabbas::Init()
 int Stabbas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
 {
     int modifier = Unit::toWoundModifier(weapon, unit);
-    if (remainingModels() >= 30) modifier += 2;
-    else if (remainingModels() >= 15) modifier += 1;
+    // Backstabbing Mob
+    if (!weapon->isMissile())
+    {
+        if (remainingModels() >= 30) modifier += 2;
+        else if (remainingModels() >= 15) modifier += 1;
+    }
     return modifier;
 }
 
@@ -150,6 +154,7 @@ int Stabbas::toSaveModifier(const Weapon* weapon) const
     int modifier = Unit::toSaveModifier(weapon);
     if (m_numIconbearers > 0 && weapon->isMissile())
         modifier += 1;
+    // Moonshields
     if (remainingModels() >= 10)
         modifier += 1;
     return modifier;
@@ -190,6 +195,31 @@ void Stabbas::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_pokinSpear);
     visitor(&m_pokinSpearBoss);
     visitor(&m_barbedNet);
+}
+
+int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetHitModifier(weapon, attacker);
+    // Netters
+    if (distanceTo(attacker) <= 2.0f)
+    {
+        bool hasNets = false;
+        for (auto ip : m_models)
+        {
+            for (auto wip = ip.meleeWeaponBegin(); wip != ip.meleeWeaponEnd(); ++wip)
+            {
+                const Weapon* w = *wip;
+
+                if (w->name() == m_barbedNet.name())
+                {
+                    hasNets = true;
+                    break;
+                }
+            }
+        }
+        if (hasNets) modifier -= 1;
+    }
+    return modifier;
 }
 
 } // namespace GloomspiteGitz

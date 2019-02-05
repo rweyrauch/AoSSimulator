@@ -153,4 +153,13 @@ void ColossalSquig::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_puffSpores);
 }
 
+int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetHitModifier(weapon, attacker);
+    // Puff Spores
+    if (!weapon->isMissile())
+        modifier -= 1;
+    return modifier;
+}
+
 } // namespace GloomspiteGitz

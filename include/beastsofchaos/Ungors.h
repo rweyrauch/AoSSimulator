@@ -46,6 +46,8 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
+    int toSaveModifier(const Weapon* weapon) const override;
 
 private:
 
@@ -64,8 +66,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Braying Hatred                       No
-// Half-shields                   No
+// Braying Hatred                   Yes
+// Half-shields                     Yes
 //
 
 } // namespace BeastsOfChaos

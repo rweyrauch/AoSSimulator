@@ -50,7 +50,7 @@ bool FleshHounds::configure(int numModels)
         addModel(goreHound);
     }
 
-    int currentModelCount = (int)m_models.size();
+    auto currentModelCount = (int)m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);

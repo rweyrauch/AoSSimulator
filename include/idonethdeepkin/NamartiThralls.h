@@ -47,6 +47,13 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Sweeping Blows                   No
+//
+
 } // namespace IdonethDeepkin
 
 #endif // NAMARTITHRALLS_H

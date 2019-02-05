@@ -79,10 +79,10 @@ void DreadscytheHarridans::Init()
 
 int DreadscytheHarridans::toSaveModifier(const Weapon *weapon) const
 {
-    // Etherial - no save modifiers allowed.
+    // Ethereal - no save modifiers allowed.
     int modifier = 0;
 
-    // Etherial - ignore rend by cancelling it out.
+    // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
         modifier = -weapon->rend();
 
@@ -93,6 +93,28 @@ void DreadscytheHarridans::visitWeapons(std::function<void(const Weapon *)> &vis
 {
     visitor(&m_scythedLimbs);
     visitor(&m_scythedLimbsCrone);
+}
+
+int DreadscytheHarridans::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+{
+    int modifier = Unit::damageModifier(weapon, target, woundRolls);
+    // Murderous Bloodlust
+    if (weapon->name() == m_scythedLimbs.name())
+    {
+        modifier += woundRolls.numUnmodified6s();
+    }
+    return modifier;
+}
+
+int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetHitModifier(weapon, attacker);
+
+    // Harrowing Shriek
+    if ((distanceTo(attacker) <= 3.0f) && (attacker->bravery() < 6))
+        modifier -= 1;
+
+    return modifier;
 }
 
 } // namespace Nighthaunt

@@ -37,8 +37,8 @@ public:
 protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-
     void onWounded() override;
+    void onSlain() override;
 
     int getDamageTableIndex() const;
 
@@ -50,6 +50,14 @@ private:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Ker-splat!                       Yes
+// Watch Out!                       Yes
+//
 
 } // namespace GloomspiteGitz
 

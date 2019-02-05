@@ -51,6 +51,14 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Go Dat Way!                      Yes
+// Squigs Go Wild                   Yes
+//
+
 } // namespace GloomspiteGitz
 
 #endif //SQUIGHERD_H

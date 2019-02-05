@@ -50,6 +50,14 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Ethereal                         Yes
+// The Point of Death               Yes
+//
+
 } // namespace Nighthaunt
 
 #endif // GLAIVEWRAITHSTALKERS_H

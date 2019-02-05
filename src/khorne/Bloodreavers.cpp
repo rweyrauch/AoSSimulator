@@ -10,6 +10,7 @@
 #include <khorne/Bloodreavers.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Khorne
 {
@@ -149,6 +150,40 @@ void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_reaverBladesChieftain);
     visitor(&m_meatripperAxe);
     visitor(&m_meatripperAxeChieftain);
+}
+
+int Bloodreavers::extraAttacks(const Weapon *weapon) const
+{
+    int attacks = Unit::extraAttacks(weapon);
+
+    // Frenzied Devotion
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(CHAOS) && ip->hasKeyword(TOTEM))
+        {
+            attacks += 1;
+            break;
+        }
+    }
+
+    return attacks;
+}
+
+int Bloodreavers::runModifier() const
+{
+    int modifier = Unit::runModifier();
+    if (m_hornblower)
+        modifier += 1;
+    return modifier;
+}
+
+int Bloodreavers::chargeModifier() const
+{
+    int modifier = Unit::chargeModifier();
+    if (m_hornblower)
+        modifier += 1;
+    return modifier;
 }
 
 } // namespace Khorne

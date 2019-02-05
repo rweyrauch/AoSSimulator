@@ -9,6 +9,7 @@
 #include <gloomspitegitz/ManglerSquigs.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace GloomspiteGitz
 {
@@ -129,6 +130,26 @@ void ManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_hugeFangFilledGob);
     visitor(&m_ballsAndChains);
     visitor(&m_grotsBashinStikk);
+}
+
+void ManglerSquigs::onSlain()
+{
+    Dice dice;
+
+    // Watch Out!
+    // get all units within 6" (friend and foe)
+    auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0f);
+    for (auto ip : units)
+    {
+        int roll = dice.rollD6();
+        if (roll >= 4)
+        {
+            int mortalWounds = dice.rollD3();
+            ip->applyDamage({0, mortalWounds});
+        }
+    }
+
+    Unit::onSlain();
 }
 
 } // namespace GloomspiteGitz

@@ -9,6 +9,7 @@
 #include <gloomspitegitz/LoonbossOnManglerSquigs.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace GloomspiteGitz
 {
@@ -129,20 +130,18 @@ void LoonbossOnManglerSquigs::Init()
 
 void LoonbossOnManglerSquigs::onSlain()
 {
+    Dice dice;
+
     // Watch Out!
-    // TODO: get all units within 6" (friend and foe)
-    if (m_meleeTarget)
+    // get all units within 6" (friend and foe)
+    auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0f);
+    for (auto ip : units)
     {
-        float dist = distanceTo(m_meleeTarget);
-        if (dist <= 6.0f)
+        int roll = dice.rollD6();
+        if (roll >= 4)
         {
-            Dice dice;
-            int roll = dice.rollD6();
-            if (roll >= 4)
-            {
-                int mortalWounds = dice.rollD3();
-                m_meleeTarget->applyDamage({0, mortalWounds});
-            }
+            int mortalWounds = dice.rollD3();
+            ip->applyDamage({0, mortalWounds});
         }
     }
     Unit::onSlain();

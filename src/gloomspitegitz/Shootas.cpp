@@ -124,15 +124,20 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
 
 int Shootas::toWoundModifier(const Weapon* weapon, const Unit* unit) const
 {
+    // Backstabbing Mob
     int modifier = Unit::toWoundModifier(weapon, unit);
-    if (remainingModels() >= 30) modifier += 2;
-    else if (remainingModels() >= 15) modifier += 1;
+    if (!weapon->isMissile())
+    {
+        if (remainingModels() >= 30) modifier += 2;
+        else if (remainingModels() >= 15) modifier += 1;
+    }
     return modifier;
 }
 
 int Shootas::toHitModifier(const Weapon* weapon, const Unit* unit) const
 {
     int modifier = Unit::toHitModifier(weapon, unit);
+    // Moonclan Bows
     if (remainingModels() >= 15 && weapon->isMissile()) modifier += 1;
     return modifier;
 }
@@ -166,6 +171,31 @@ void Shootas::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_moonclanBow);
     visitor(&m_moonclanBowBoss);
     visitor(&m_barbedNet);
+}
+
+int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetHitModifier(weapon, attacker);
+    // Netters
+    if (distanceTo(attacker) <= 2.0f)
+    {
+        bool hasNets = false;
+        for (auto ip : m_models)
+        {
+            for (auto wip = ip.meleeWeaponBegin(); wip != ip.meleeWeaponEnd(); ++wip)
+            {
+                const Weapon* w = *wip;
+
+                if (w->name() == m_barbedNet.name())
+                {
+                    hasNets = true;
+                    break;
+                }
+            }
+        }
+        if (hasNets) modifier -= 1;
+    }
+    return modifier;
 }
 
 } // namespace GloomspiteGitz

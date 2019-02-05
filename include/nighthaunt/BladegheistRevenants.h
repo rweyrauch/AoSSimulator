@@ -49,6 +49,15 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Ethereal                         Yes
+// Fearful Frenzy                   Yes
+// Whirling Death                   Yes
+
+
 } // namespace Nighthaunt
 
 #endif // BLADEGHEISTREVENANTS_H

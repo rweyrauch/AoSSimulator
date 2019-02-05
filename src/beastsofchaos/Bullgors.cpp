@@ -151,4 +151,10 @@ int Bullgors::toSaveModifier(const Weapon *weapon) const
     return modifier;
 }
 
+int Bullgors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+{
+    // Bloodgreed
+    return wounds.rolls.numUnmodified6s();
+}
+
 } // namespace BeastsOfChaos

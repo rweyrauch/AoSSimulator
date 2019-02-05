@@ -122,16 +122,10 @@ void SquiqHerd::onFlee(int numFled)
     Dice::RollResult rolls;
     dice.rollD6(numFled, rolls);
     int numMortalWounds = rolls.rollsGE(4);
-
     if (numMortalWounds)
     {
         auto board = Board::Instance();
-
-        PlayerId otherPlayer = PlayerId::Red;
-        if (m_owningPlayer == PlayerId::Red)
-            otherPlayer = PlayerId::Blue;
-        auto otherRoster = board->getPlayerRoster(otherPlayer);
-        auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+        auto closestTarget = board->getNearestUnit(this, PlayerId::None);
         if (closestTarget && distanceTo(closestTarget) <= 6.0f)
         {
             closestTarget->applyDamage({0, numMortalWounds});

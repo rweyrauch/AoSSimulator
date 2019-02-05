@@ -88,10 +88,10 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
 
 int ChainraspHorde::toSaveModifier(const Weapon *weapon) const
 {
-    // Etherial - no save modifiers allowed.
+    // Ethereal - no save modifiers allowed.
     int modifier = 0;
 
-    // Etherial - ignore rend by cancelling it out.
+    // Ethereal - ignore rend by cancelling it out.
     if (weapon->rend() < 0)
         modifier = -weapon->rend();
 

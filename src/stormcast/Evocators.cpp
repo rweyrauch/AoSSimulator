@@ -75,7 +75,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         addModel(model);
     }
 
-    int currentModelCount = (int)m_models.size();
+    auto currentModelCount = (int)m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);

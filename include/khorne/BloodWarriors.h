@@ -39,6 +39,9 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     int battlshockModifier() const override;
+    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
+
+private:
 
     bool m_pairedGoreaxe = false;
     bool m_iconBearer = false;
@@ -49,6 +52,15 @@ protected:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Icon Bearer                      Yes
+// No Respite                       No
+// Goreaxes                         Yes
+// Gorefists                        Yes
 
 } // namespace Khorne
 

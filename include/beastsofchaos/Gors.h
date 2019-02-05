@@ -38,6 +38,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
+    int toSaveModifier(const Weapon* weapon) const override;
+    int extraAttacks(const Weapon* weapon) const override;
 
 private:
 
@@ -55,9 +58,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rend and Tear                    No
-// Beastshields                     No
-// Anarchy and Mayhem               No
+// Rend and Tear                    Yes
+// Beastshields                     Yes
+// Anarchy and Mayhem               Yes
 //
 
 } // namespace BeastsOfChaos
