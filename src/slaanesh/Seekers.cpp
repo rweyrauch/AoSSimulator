@@ -9,6 +9,7 @@
 #include <slaanesh/Seekers.h>
 #include <Weapon.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Slaanesh
 {
@@ -107,16 +108,28 @@ void Seekers::Init()
 
 int Seekers::runModifier() const
 {
+    int modifier = Unit::runModifier();
     // Quicksilver Speed
     Dice dice;
-    return dice.rollD6();
+    modifier += dice.rollD6();
+
+    // Locus of Swiftness
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(SLAANESH) && ip->hasKeyword(HERO))
+        {
+            modifier += 1;
+            break;
+        }
+    }
+    return modifier;
 }
 
 
 Rerolls Seekers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
-    if (m_standardBearer)
-    { return RerollOnes; }
+    if (m_standardBearer) { return RerollOnes; }
     return Unit::toHitRerolls(weapon, unit);
 }
 
@@ -139,6 +152,23 @@ Hits Seekers::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hi
 
     // Modifiers accumulate
     return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+}
+
+int Seekers::chargeModifier() const
+{
+    int modifier = Unit::chargeModifier();
+
+    // Locus of Swiftness
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(SLAANESH) && ip->hasKeyword(HERO))
+        {
+            modifier += 1;
+            break;
+        }
+    }
+    return modifier;
 }
 
 } // namespace Slaanesh

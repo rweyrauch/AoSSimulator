@@ -55,6 +55,8 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
                 continue;
             }
 
+            // TODO: change the attack loop to roll each attack, wound and save independently rather than
+            // as a batch.
             auto hits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w));
 
             // apply hit modifiers on returned hits

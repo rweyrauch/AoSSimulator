@@ -38,6 +38,9 @@ public:
 
 protected:
 
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    int toSaveModifier(const Weapon *weapon) const override;
 
 private:
 
@@ -46,6 +49,15 @@ private:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Blessing of the Forest           Yes
+// Enrapturing Song                 No
+// Impenetrable Thicket             Yes
+//
 
 } // namespace Sylvaneth
 

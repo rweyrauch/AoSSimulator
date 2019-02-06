@@ -10,6 +10,7 @@
 #include <sylvaneth/Dryads.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Sylvaneth
 {
@@ -89,6 +90,30 @@ void Dryads::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_wrackingTalons);
     visitor(&m_wrackingTalonsNymph);
+}
+
+int Dryads::toSaveModifier(const Weapon *weapon) const
+{
+    int modifier = Unit::toSaveModifier(weapon);
+
+    // Impenetrable Thicket
+    if (remainingModels() >= 12) modifier += 1;
+
+    return modifier;
+}
+
+int Dryads::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetHitModifier(weapon, attacker);
+
+    // Blessing of the Forest
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, SYLVANETH_WYLDWOOD, 3.0f);
+    if (unit != nullptr)
+    {
+        modifier -= 1;
+    }
+
+    return modifier;
 }
 
 } // namespace Sylvaneth

@@ -40,6 +40,7 @@ public:
 protected:
 
     int runModifier() const override;
+    int chargeModifier() const override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
 
@@ -63,7 +64,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Sadistic Killers                 Yes
-// Locus of Swiftness               No
+// Locus of Swiftness               Yes
 // Quicksilver Speed                Yes
 
 } // Slannesh

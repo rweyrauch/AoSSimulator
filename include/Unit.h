@@ -57,9 +57,17 @@ public:
 
     void setPoints(int points) { m_points = points; }
 
+    /*!
+     * Add a model to this unit.
+     * @param model
+     */
     void addModel(const Model &model);
 
+    /*!
+     * Restore a unit to its initial condition, as it was at the start of the battle.
+     */
     void restore();
+
 
     void beginTurn(int battleRound, PlayerId playerWithTurn);
 
@@ -79,6 +87,9 @@ public:
 
     virtual void battleshock(PlayerId player);
 
+    //
+    // Positioning
+    //
     bool formation(int ranks);
 
     bool setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation);
@@ -145,37 +156,60 @@ protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
-    /*
+    Wounds computeWeaponDamage(int numFailed, const Weapon* weapon, const Unit* target, const Dice::RollResult &woundRolls);
+
+protected:
+
+    /*!
      * To-hit modifier (buffs) when this unit uses the given weapon to attack the target.
+     * @param weapon Attacking with weapon
+     * @param target Unit being attacked
+     * @return To-hit roll modifier.
      */
     virtual int toHitModifier(const Weapon *weapon, const Unit *target) const { return m_toHitBuff; }
 
-    /*
+    /*!
      * Target to-hit modifier (debuff) when the attacker unit targets this unit using the given weapon.
+     * @param weapon Weapon used in the attack.
+     * @param target Unit attacking this unit.
+     * @return To-hit roll modifier.
      */
     virtual int targetHitModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
 
-    /*
+    /*!
      * To-hit rerolls when this unit uses the given weapon to attack the target.
+     * @param weapon Attacking with weapon
+     * @param target Unit being attacked
+     * @return To-hit re-roll.
      */
     virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const { return NoRerolls; }
 
-    /*
+    /*!
      * To-wound modifier (buffs) when this unit uses the given weapon to attack the target.
+     * @param weapon Attacking with weapon
+     * @param target Unit being attacked
+     * @return To-wound roll modifier.
      */
     virtual int toWoundModifier(const Weapon *weapon, const Unit *target) const { return 0; }
 
-    /*
+    /*!
      * Target to-wound modifier (debuff) when the attacker targets this unit using the given weapon.
+     * @param weapon Weapon used in the attack.
+     * @param target Unit attacking this unit.
+     * @return To-wound roll modifier.
      */
     virtual int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
 
-    /*
-     * To-wound rerolls when this unit use the given weapon to attack the target.
+    /*!
+     * To-wound re-rolls when this unit use the given weapon to attack the target.
+     * @param weapon Attacking with weapon
+     * @param target Unit being attacked
+     * @return To-wound re-roll.
      */
     virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const { return NoRerolls; }
 
     virtual int damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const { return 0; }
+    virtual int weaponDamage(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const { return weapon->damage(); }
 
     virtual int toSaveModifier(const Weapon *weapon) const { return 0; }
 

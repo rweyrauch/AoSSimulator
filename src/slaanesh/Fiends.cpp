@@ -9,6 +9,7 @@
 #include <slaanesh/Fiends.h>
 #include <Weapon.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Slaanesh
 {
@@ -86,6 +87,44 @@ void Fiends::Init()
     {
         s_registered = UnitFactory::Register("Fiends", factoryMethod);
     }
+}
+
+Rerolls Fiends::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Locus of Grace
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(SLAANESH) && ip->hasKeyword(HERO))
+        {
+            return RerollOnes;
+        }
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
+int Fiends::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetHitModifier(weapon, attacker);
+
+    // Soporific Musk
+    if (!weapon->isMissile())
+    {
+        modifier -= 1;
+    }
+    return modifier;
+}
+
+int Fiends::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = Unit::targetWoundModifier(weapon, attacker);
+
+    // Soporific Musk
+    if (!weapon->isMissile() && remainingModels() >= 4)
+    {
+        modifier -= 1;
+    }
+    return modifier;
 }
 
 } // namespace Slaanesh

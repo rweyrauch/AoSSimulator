@@ -39,6 +39,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
 
 private:
 
@@ -55,8 +58,8 @@ private:
 // Crushing Grip                    No
 // Deadly Venom                     No
 // Disruptive Song                  No
-// Locus of Grace                   No
-// Soporific Musk                   No
+// Locus of Grace                   Yes
+// Soporific Musk                   Yes
 
 } // Slannesh
 

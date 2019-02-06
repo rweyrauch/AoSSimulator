@@ -134,6 +134,7 @@ enum Keyword
     MALIGNANT,
     SUMMONABLE,
     TOTEM,
+    SCENERY,
 
     // Stormcast
     SACROSANCT,
@@ -193,6 +194,7 @@ enum Keyword
     DRYADS,
     TREE_REVENANTS,
     SPITE_REVENANTS,
+    SYLVANETH_WYLDWOOD,
 
     // Gloomspite Gitz
     SQUIG,
