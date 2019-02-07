@@ -112,6 +112,8 @@ add_library(
 
         fec/CryptHorrors.cpp
         fec/CryptGhouls.cpp
+        fec/CryptFlayers.cpp
+        fec/CryptInfernalCourtier.cpp
 )
 
 target_include_directories(

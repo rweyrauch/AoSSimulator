@@ -98,6 +98,8 @@
 
 #include "fec/CryptHorrors.h"
 #include "fec/CryptGhouls.h"
+#include "fec/CryptFlayers.h"
+#include "fec/CryptInfernalCourtier.h"
 
 void Initialize()
 {
@@ -192,4 +194,6 @@ void Initialize()
 
     FleshEaterCourt::CryptGhouls::Init();
     FleshEaterCourt::CryptHorrors::Init();
+    FleshEaterCourt::CryptFlayers::Init();
+    FleshEaterCourt::CryptInfernalCourtier::Init();
 }

@@ -155,4 +155,41 @@ void LoonbossOnManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &
     visitor(&m_grotsBashinStikk);
 }
 
+void LoonbossOnManglerSquigs::hero(PlayerId player)
+{
+    Unit::hero(player);
+
+    if (player == m_owningPlayer)
+    {
+        // Redcap Mushrooms
+        m_toHitRerolls = NoRerolls;
+        m_toWoundRerolls = NoRerolls;
+
+        if (!m_eatenRedcapMushroom)
+        {
+            if (m_meleeTarget)
+            {
+                std::cout << "Eating the Redcap Mushroom!" << std::endl;
+                m_eatenRedcapMushroom = true;
+                m_toHitRerolls = RerollFailed;
+                m_toWoundRerolls = RerollFailed;
+            }
+        }
+    }
+}
+
+Rerolls LoonbossOnManglerSquigs::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if (weapon->name() == m_moonCutta.name())
+        return m_toHitRerolls;
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Rerolls LoonbossOnManglerSquigs::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if (weapon->name() == m_moonCutta.name())
+        return m_toWoundRerolls;
+    return Unit::toWoundRerolls(weapon, target);
+}
+
 } // namespace GloomspiteGitz

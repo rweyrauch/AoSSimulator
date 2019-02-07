@@ -30,8 +30,6 @@ public:
 
     int move() const override;
 
-    void charge(PlayerId player) override;
-
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
@@ -40,6 +38,7 @@ protected:
 
     void onWounded() override;
     void onSlain() override;
+    void onCharged() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
 
@@ -58,7 +57,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Crazed Charge                    No
+// Crazed Charge                    Yes
 // Fungoid Squig Explosion          Yes
 // Puff Spores                      Yes
 // Swallowed Whole                  Yes

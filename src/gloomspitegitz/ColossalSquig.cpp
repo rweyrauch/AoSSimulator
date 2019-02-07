@@ -9,6 +9,7 @@
 #include <gloomspitegitz/ColossalSquig.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace GloomspiteGitz
 {
@@ -52,16 +53,6 @@ ColossalSquig::ColossalSquig() :
 int ColossalSquig::move() const
 {
     return g_damageTable[getDamageTableIndex()].m_move;
-}
-
-void ColossalSquig::charge(PlayerId player)
-{
-    // TODO: should charge
-    bool charging = false;
-    if (charging)
-    {
-        // Crazed Charge - 6+ mortal wounds for all units within 1" of this model at the end of the charge.
-    }
 }
 
 bool ColossalSquig::configure()
@@ -157,6 +148,20 @@ int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker)
         modifier -= 1;
     }
     return modifier;
+}
+
+void ColossalSquig::onCharged()
+{
+    Dice dice;
+    // Crazed Charge
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1);
+    for (auto ip : units)
+    {
+        if (dice.rollD6() == 6)
+        {
+            ip->applyDamage({0, 1});
+        }
+    }
 }
 
 } // namespace GloomspiteGitz

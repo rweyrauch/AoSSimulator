@@ -28,6 +28,7 @@ public:
     LoonbossOnManglerSquigs();
     ~LoonbossOnManglerSquigs() override = default;
 
+    void hero(PlayerId player) override;
     int move() const override;
 
     bool configure();
@@ -37,12 +38,18 @@ public:
 protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
     void onWounded() override;
     void onSlain() override;
 
 private:
 
     int getDamageTableIndex() const;
+
+    bool m_eatenRedcapMushroom = false;
+    Rerolls m_toHitRerolls = NoRerolls;
+    Rerolls m_toWoundRerolls = NoRerolls;
 
     Weapon m_hugeFangFilledGob,
         m_moonCutta,
@@ -57,7 +64,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ker-splat!                       Yes
-// Redcap Mushrooms                 No
+// Redcap Mushrooms                 Yes
 // Watch Out!                       Yes
 // Bit Da Moon!                     No
 //
