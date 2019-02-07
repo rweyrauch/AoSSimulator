@@ -64,23 +64,17 @@ void LordOfPlagues::Init()
     }
 }
 
-Hits LordOfPlagues::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int LordOfPlagues::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
-    Hits modifiedHits = hits;
-
     // Plague-ridden Great Weapons
-    if (hits.rolls.rollsGE(6) > 0)
+    if (unmodifiedHitRoll == 6)
     {
         Dice dice;
-        // each 6 inflicts D6 additional hits
-        for (int i = 0; i < hits.rolls.rollsGE(6); i++)
-        {
-            modifiedHits.numHits += dice.rollD6() - 1; // compensate for initial hit
-        }
+        // each 6 inflicts D6 hits
+        return dice.rollD6();
     }
 
-    // modifiers accumulate
-    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } // namespace Nurgle

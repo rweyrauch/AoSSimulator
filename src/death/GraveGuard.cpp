@@ -151,16 +151,14 @@ int GraveGuard::toSaveModifier(const Weapon *weapon) const
     return modifier;
 }
 
-int GraveGuard::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+Wounds GraveGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    int modifier = Unit::damageModifier(weapon, target, woundRolls);
-
-    if (m_charged)
+    if (m_charged && (woundRoll >= 6))
     {
         // Cursed Weapons 2x damage on 6+
-        modifier += weapon->damage() * woundRolls.numUnmodified6s();
+        return {weapon->damage() + weapon->damage(), 0};
     }
-    return modifier;
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Death

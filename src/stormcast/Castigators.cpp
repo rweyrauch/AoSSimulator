@@ -86,24 +86,21 @@ void Castigators::Init()
     }
 }
 
-Hits Castigators::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Castigators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
     // Burst of Celestial Energy
-    if (weapon->name() == m_thunderheadGreatbow.name())
+    if (unmodifiedHitRoll == 6)
     {
-        Hits modHits = hits;
-        if (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT))
+        if (weapon->name() == m_thunderheadGreatbow.name())
         {
-            Dice dice;
-            int num6s = hits.rolls.numUnmodified6s();
-            for (int i = 0; i < num6s; i++)
+            if (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT))
             {
-                modHits.numHits += (dice.rollD3() - 1); // -1 to replace initial hit
+                Dice dice;
+                return dice.rollD3();
             }
         }
-        return modHits;
     }
-    return Unit::applyHitModifiers(weapon, unit, hits);
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 void Castigators::onStartShooting(PlayerId player)

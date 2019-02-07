@@ -100,17 +100,15 @@ void BloodKnights::Init()
     }
 }
 
-int BloodKnights::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+Wounds BloodKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    int modifier = Unit::damageModifier(weapon, target, woundRolls);
-
     // Martial Fury
     if (m_charged && weapon->name() == m_templarLanceOrBlade.name())
     {
         Dice dice;
-        modifier += dice.rollD3();
+        return {weapon->damage() + dice.rollD3(), 0};
     }
-    return modifier;
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int BloodKnights::toSaveModifier(const Weapon *weapon) const

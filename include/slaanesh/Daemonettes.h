@@ -40,7 +40,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
 protected:
 

@@ -110,22 +110,22 @@ Rerolls Daemonettes::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return Unit::toHitRerolls(weapon, unit);
 }
 
-Hits Daemonettes::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Daemonettes::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
-    Hits modifiedHits = hits;
-
-    // Sadistic Killers
-    if (remainingModels() >= 20)
+    if (weapon->name() == m_piercingClaws.name())
     {
-        modifiedHits.numHits += hits.rolls.rollsGE(5);
-    }
-    else
-    {
-        modifiedHits.numHits += hits.rolls.numUnmodified6s();
+        // Sadistic Killers
+        if (remainingModels() >= 20 && (unmodifiedHitRoll >= 5))
+        {
+            return 2;
+        }
+        else if (unmodifiedHitRoll == 6)
+        {
+            return 2;
+        }
     }
 
-    // Modifiers accumulate
-    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } // namespace Slaanesh

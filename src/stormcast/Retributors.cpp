@@ -77,17 +77,12 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
     return true;
 }
 
-int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+Wounds Retributors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Blast to Ashes
-    if (weapon->name() == m_lightningHammer.name())
+    if ((hitRoll == 6) && (weapon->name() == m_lightningHammer.name()))
     {
-        int mortalWounds = hits.rolls.numUnmodified6s() * 2;
-        /*
-        if (mortalWounds)
-            std::cout << "Blast to Ashes did " << mortalWounds << " mortal wounds." << std::endl;
-        */
-        return mortalWounds;
+        return {0, 2};
     }
 
     // Starsoul Mace
@@ -108,9 +103,9 @@ int Retributors::generateMortalWounds(const Weapon *weapon, const Unit *unit, co
         if (mortalWounds)
             std::cout << "Starsoul Mace did " << mortalWounds << " mortal wounds." << std::endl;
 */
-        return mortalWounds;
+        return {0, mortalWounds};
     }
-    return StormcastEternal::generateMortalWounds(weapon, unit, hits, wounds);
+    return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 Unit *Retributors::Create(const ParameterList &parameters)

@@ -41,7 +41,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    int damageModifier(const Weapon* weapon, const Unit* target, const Dice::RollResult& woundRolls) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 

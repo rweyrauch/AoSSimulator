@@ -160,23 +160,26 @@ Rerolls Skullreapers::toHitRerolls(const Weapon *weapon, const Unit *target) con
     return Unit::toHitRerolls(weapon, target);
 }
 
-int Skullreapers::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+Wounds Skullreapers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Daemonforged Weapons
     if (weapon->name() == m_daemonblades.name() || weapon->name() == m_soultearer.name())
     {
-        int mortalWounds = hits.rolls.numUnmodified6s();
-
-        int selfWounds = hits.rolls.numUnmodified1s();
-        if (selfWounds)
+        Wounds wounds = {weapon->damage(), 0};
+        if (hitRoll == 1)
         {
-            applyDamage({0, selfWounds});
+            // TODO: apply the damage on this unit
+            //applyDamage({0, 1});
+        }
+        else if (hitRoll == 6)
+        {
+            wounds += {0, 1};
         }
 
-        return mortalWounds;
+        return wounds;
     }
 
-    return Unit::generateMortalWounds(weapon, unit, hits, wounds);
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void Skullreapers::onSlain()

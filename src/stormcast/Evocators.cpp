@@ -105,9 +105,9 @@ Rerolls Evocators::toSaveRerolls(const Weapon *weapon) const
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
-int Evocators::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+int Evocators::generateMortalWounds(const Unit *unit)
 {
-    int mortalWounds = Unit::generateMortalWounds(weapon, unit, hits, wounds);
+    auto mortalWounds = StormcastEternal::generateMortalWounds(unit);
 
     // Celestial Lightning Arc
     Dice dice;

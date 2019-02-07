@@ -51,7 +51,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
-
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int extraAttacks(const Weapon *weapon) const override;
 
 private:
@@ -68,6 +68,16 @@ private:
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Chained Lightning                Yes
+// Eternal Judgement                Yes
+// Rapid Fire                       Yes
+// Thunderbolt Crossbow             No
+//
 
 } // namespace StormcastEternals
 

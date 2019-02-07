@@ -102,17 +102,16 @@ void KhineraiLifetakers::onCharged()
     m_barbedSickleHarridynn.setDamage(m_barbedSickleHarridynn.damage() + 1);
 }
 
-Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon,
-                                                 const Dice::RollResult &saveRolls) const
+Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
+    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
     // Heartpiercer Shield
     if (!weapon->isMissile())
     {
         // 1 mortal wound for each save of a 6
-        Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
-        return returnedDamage;
+        wounds += {0, 1};
     }
-    return Unit::computeReturnedDamage(weapon, saveRolls);
+    return wounds;
 }
 
 void KhineraiLifetakers::visitWeapons(std::function<void(const Weapon *)> &visitor)

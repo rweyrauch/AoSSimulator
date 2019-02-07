@@ -141,13 +141,13 @@ void BloodWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_goreglaive);
 }
 
-Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, const Dice::RollResult &saveRolls) const
+Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    auto wounds = Unit::computeReturnedDamage(weapon, saveRolls);
+    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
     // Gorefists
     if (!m_pairedGoreaxe)
     {
-        wounds.mortal += saveRolls.numUnmodified6s();
+        wounds += {0, 1};
     }
     return wounds;
 }

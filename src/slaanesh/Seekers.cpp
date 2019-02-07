@@ -133,25 +133,22 @@ Rerolls Seekers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return Unit::toHitRerolls(weapon, unit);
 }
 
-Hits Seekers::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Seekers::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
-    Hits modifiedHits = hits;
-
     if (weapon->name() == m_piercingClaws.name())
     {
         // Sadistic Killers
-        if (remainingModels() >= 20)
+        if (remainingModels() >= 20 && (unmodifiedHitRoll >= 5))
         {
-            modifiedHits.numHits += hits.rolls.rollsGE(5);
+            return 2;
         }
-        else
+        else if (unmodifiedHitRoll == 6)
         {
-            modifiedHits.numHits += hits.rolls.numUnmodified6s();
+            return 2;
         }
     }
 
-    // Modifiers accumulate
-    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 int Seekers::chargeModifier() const

@@ -103,15 +103,14 @@ void DreadscytheHarridans::visitWeapons(std::function<void(const Weapon *)> &vis
     visitor(&m_scythedLimbsCrone);
 }
 
-int DreadscytheHarridans::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+Wounds DreadscytheHarridans::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    int modifier = Unit::damageModifier(weapon, target, woundRolls);
     // Murderous Bloodlust
-    if (weapon->name() == m_scythedLimbs.name())
+    if ((woundRoll == 6) && (weapon->name() == m_scythedLimbs.name()))
     {
-        modifier += woundRolls.numUnmodified6s();
+        return {2, 0};
     }
-    return modifier;
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

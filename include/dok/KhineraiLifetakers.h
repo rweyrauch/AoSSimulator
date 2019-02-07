@@ -41,7 +41,7 @@ protected:
 
     void onBeginTurn(int battleRound) override;
     void onCharged() override;
-    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
+    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
 
 private:
 

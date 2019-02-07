@@ -132,17 +132,16 @@ int SistersOfSlaughter::toSaveModifier(const Weapon *weapon) const
     return modifier;
 }
 
-Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon,
-                                                 const Dice::RollResult &saveRolls) const
+Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
+    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
     // Bladed Bucklers
     if (!weapon->isMissile())
     {
         // 1 mortal wound for each save of a 6
-        Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
-        return returnedDamage;
+        wounds += {0, 1};
     }
-    return Unit::computeReturnedDamage(weapon, saveRolls);
+    return wounds;
 }
 
 void SistersOfSlaughter::visitWeapons(std::function<void(const Weapon *)> &visitor)

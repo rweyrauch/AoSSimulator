@@ -151,18 +151,15 @@ int LordCelestantOnStardrake::extraAttacks(const Weapon *weapon) const
     return attacks;
 }
 
-Hits LordCelestantOnStardrake::applyHitModifiers(const Weapon *weapon, const Unit *unit,
-                                                 const Hits &hits) const
+int LordCelestantOnStardrake::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
     // Stormbound Blade
-    if (weapon->name() == m_stormboundBlade.name())
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_stormboundBlade.name()))
     {
-        int num6s = hits.rolls.numUnmodified6s();
-        Hits modHits = hits;
-        modHits.numHits += 2 * num6s; // add 2 additional hits for each 6 for a total of 3 hits per unmodified 6.
-        return modHits;
+        // 3 hits on an unmodified 6
+        return 3;
     }
-    return StormcastEternal::applyHitModifiers(weapon, unit, hits);
+    return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon *weapon) const
@@ -171,13 +168,16 @@ Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon *weapon) const
     return RerollOnes;
 }
 
-Wounds LordCelestantOnStardrake::computeReturnedDamage(const Weapon *weapon,
-                                                       const Dice::RollResult &saveRolls) const
+Wounds LordCelestantOnStardrake::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
+    auto wounds = StormcastEternal::computeReturnedDamage(weapon, saveRoll);
     // Sigmarite Thundershield
     // 1 mortal wound for each save of a 6
-    Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
-    return returnedDamage;
+    if (saveRoll == 6)
+    {
+        wounds += {0, 1};
+    }
+    return wounds;
 }
 
 void LordCelestantOnStardrake::onStartCombat(PlayerId player)

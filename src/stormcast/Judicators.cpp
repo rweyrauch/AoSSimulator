@@ -127,7 +127,7 @@ Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 int Judicators::extraAttacks(const Weapon *weapon) const
 {
     // Rapid Fire
-    if (!m_ran && weapon->isMissile())
+    if (!m_ran && (weapon->name() == m_boltstormCrossbow.name()))
     {
         return 1;
     }
@@ -197,6 +197,17 @@ void Judicators::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_skyboltPrime);
     visitor(&m_thunderboldCrossbow);
     visitor(&m_boltstormCrossbow);
+}
+
+int Judicators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Chained Lightning
+    if (weapon->name() == m_shockboltBow.name())
+    {
+        Dice dice;
+        return dice.rollD6();
+    }
+    return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } // namespace StormcastEternals

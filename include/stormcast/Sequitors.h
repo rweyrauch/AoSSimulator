@@ -54,7 +54,7 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
 private:
 

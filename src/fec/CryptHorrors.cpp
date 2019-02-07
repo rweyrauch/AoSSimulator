@@ -116,10 +116,14 @@ void CryptHorrors::hero(PlayerId player)
     }
 }
 
-int CryptHorrors::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+Wounds CryptHorrors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Warrior Elite - one additional damage for each wound roll of 6.
-    return woundRolls.numUnmodified6s();
+    if (woundRoll == 6)
+    {
+        return {weapon->damage()+1, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace FleshEaterCourt

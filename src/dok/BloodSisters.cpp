@@ -89,15 +89,15 @@ void BloodSisters::Init()
     }
 }
 
-int BloodSisters::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+Wounds BloodSisters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Turned to Crystal
     if (weapon->name() == m_crystalTouch.name())
     {
-        return hits.numHits;
+        return {0, 1};
     }
 
-    return Unit::generateMortalWounds(weapon, unit, hits, wounds);
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void BloodSisters::visitWeapons(std::function<void(const Weapon *)> &visitor)

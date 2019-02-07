@@ -54,9 +54,8 @@ protected:
     void onCharged() override;
     int extraAttacks(const Weapon *weapon) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
-    int damageModifier(const Weapon* weapon, const Unit* target, const Dice::RollResult& woundRolls) const override;
+    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 

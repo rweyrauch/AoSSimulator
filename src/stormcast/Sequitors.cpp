@@ -153,24 +153,20 @@ Rerolls Sequitors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
-Hits Sequitors::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Sequitors::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
-    Hits modifiedHits = hits;
-    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == m_stormsmiteGreatmace.name()) &&
-        (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT)))
+    // Greatmace Blast
+    if (unmodifiedHitRoll == 6)
     {
-        // Greatmace Blast
-        Dice dice;
-        // each 6 inflicts d3 hits instead of 1
-        modifiedHits.numHits -= hits.rolls.numUnmodified6s();
-        for (auto i = 0; i < hits.rolls.numUnmodified6s(); i++)
+        if ((weapon->name() == m_stormsmiteGreatmace.name()) &&
+            (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT)))
         {
-            modifiedHits.numHits += dice.rollD3();
+            Dice dice;
+            // each 6 inflicts d3 hits instead of 1
+            return dice.rollD3();
         }
     }
-
-    // modifiers accumulate
-    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+    return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 Unit *Sequitors::Create(const ParameterList &parameters)

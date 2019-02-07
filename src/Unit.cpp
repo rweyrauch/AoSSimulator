@@ -15,7 +15,7 @@
 const float PILE_IN_DISTANCE = 3.0f;
 const float MAX_CHARGE_DISTANCE = 12.0f;
 
-Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
+Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 {
     if (m_ran && !m_runAndShoot)
     {
@@ -26,91 +26,6 @@ Wounds Unit::shoot(int numAttackingModels, Unit* unit, int& numSlain)
     {
         numAttackingModels = (int)m_models.size();
     }
-
-    //std::cout << "Distance between " << name() << " and target " << unit->name() << " is " << distanceTo(unit) << std::endl;
-
-    Wounds totalDamage = {0, 0};
-    Wounds totalDamageReturned = {0, 0};
-
-    for (auto i = 0; i < numAttackingModels; i++)
-    {
-        const Model& model = m_models.at(i);
-        if (model.fled() || model.slain()) continue;
-
-        for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
-        {
-            const Weapon* w = *wip;
-
-            if (!w->isActive())
-            {
-                // not active
-                continue;
-            }
-
-            // check range to target unit
-            float distanceToTarget = distanceBetween(&model, unit);
-            if (distanceToTarget > w->range())
-            {
-                // out of range
-                continue;
-            }
-
-            // TODO: change the attack loop to roll each attack, wound and save independently rather than
-            // as a batch.
-            auto hits = w->rollToHit(toHitModifier(w, unit), toHitRerolls(w, unit), extraAttacks(w));
-
-            // apply hit modifiers on returned hits
-            hits = applyHitModifiers(w, unit, hits);
-
-            auto numWoundingHits = w->rollToWound(hits.numHits, toWoundModifier(w, unit), toWoundRerolls(w, unit));
-
-            m_currentRecord.m_attacksMade += hits.numHits;
-            m_currentRecord.m_attacksHitting += numWoundingHits.numWoundingHit;
-
-            int numMortalWounds = generateMortalWounds(w, unit, hits, numWoundingHits);
-
-            Dice::RollResult saveRolls;
-            auto numFailed = unit->rollSaves(numWoundingHits, w, saveRolls);
-
-            auto weaponDamage = numFailed * (w->damage() + damageModifier(w, unit, numWoundingHits.rolls));
-
-            // apply wound/mortal wound save
-            Wounds damage = unit->applyWoundSave({weaponDamage, numMortalWounds});
-            totalDamage.normal += damage.normal;
-            totalDamage.mortal += damage.mortal;
-
-            // add returned damage (damage inflicted by this unit on the attacking unit)
-            Wounds damageReflected = unit->computeReturnedDamage(w, saveRolls);
-            totalDamageReturned.normal += damageReflected.normal;
-            totalDamageReturned.mortal += damageReflected.mortal;
-        }
-    }
-
-    numSlain = unit->applyDamage(totalDamage);
-
-    // apply returned damage to this unit
-    int numSlainInReturn = applyDamage(totalDamageReturned);
-    if (numSlainInReturn)
-    {
-        //std::cout << "Return damage killed " << numSlainInReturn << " models in the attacking unit." << std::endl;
-    }
-
-    m_currentRecord.m_woundsInflicted += totalDamage;
-    m_currentRecord.m_woundsTaken += totalDamageReturned;
-    m_currentRecord.m_enemyModelsSlain += numSlain;
-    m_currentRecord.m_modelsSlain += numSlainInReturn;
-
-    return totalDamage;
-}
-
-Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
-{
-    if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
-    {
-        numAttackingModels = (int)m_models.size();
-    }
-
-    //std::cout << "Distance between " << name() << " and target " << unit->name() << " is " << distanceTo(unit) << std::endl;
 
     Wounds totalDamage = {0, 0};
     Wounds totalDamageReflected = {0, 0};
@@ -124,51 +39,71 @@ Wounds Unit::fight(int numAttackingModels, Unit *unit, int& numSlain)
         {
             const Weapon *w = *wip;
 
-            if (!w->isActive())
-            {
-                // not active
-                continue;
-            }
-
-            // check range to target unit
-            float distanceToTarget = distanceBetween(&model, unit);
-            if (distanceToTarget > w->range())
-            {
-                // out of range
-                continue;
-            }
-
-            auto toHitMod = toHitModifier(w, unit) + targetHitModifier(w, this);
-            auto hits = w->rollToHit(toHitMod, toHitRerolls(w, unit), extraAttacks(w));
-            // apply hit modifiers on returned hits
-            hits = applyHitModifiers(w, unit, hits);
-
-            auto toWoundMod = toWoundModifier(w, unit) + targetWoundModifier(w, this);
-            auto totalWounds = w->rollToWound(hits.numHits, toWoundMod, toWoundRerolls(w, unit));
-            int numMortalWounds = generateMortalWounds(w, unit, hits, totalWounds);
-
-            m_currentRecord.m_attacksMade += hits.numHits;
-            m_currentRecord.m_attacksHitting += totalWounds.numWoundingHit;
-
-            Dice::RollResult saveRolls;
-            auto numFailed = unit->rollSaves(totalWounds, w, saveRolls);
-
-            auto weaponDamage = numFailed * (w->damage() + damageModifier(w, unit, totalWounds.rolls));
+            Wounds weaponDamage, reflectedDamage;
+            attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
 
             // apply wound/mortal wound save
-            Wounds damage = unit->applyWoundSave({weaponDamage, numMortalWounds});
-            totalDamage.normal += damage.normal;
-            totalDamage.mortal += damage.mortal;
+            Wounds damage = targetUnit->applyWoundSave(weaponDamage);
 
-            // add returned damage (damage inflicted by this unit on the attacking unit)
-            Wounds damageReflected = unit->computeReturnedDamage(w, saveRolls);
-
-            totalDamageReflected.normal += damageReflected.normal;
-            totalDamageReflected.mortal += damageReflected.mortal;
+            totalDamage += damage;
+            totalDamageReflected += reflectedDamage;
         }
     }
 
-    numSlain = unit->applyDamage(totalDamage);
+    numSlain = targetUnit->applyDamage(totalDamage);
+
+    // apply returned damage to this unit
+    int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
+    if (numSlainByReturnedDamage)
+    {
+        std::cout << "Number of attacking models slain by reflected damage: " << numSlainByReturnedDamage
+                  << "  Total reflected damage: " << totalDamageReflected.normal << "  Mortal: " << totalDamageReflected.mortal << std::endl;
+    }
+
+    m_currentRecord.m_woundsInflicted += totalDamage;
+    m_currentRecord.m_woundsTaken += totalDamageReflected;
+    m_currentRecord.m_enemyModelsSlain += numSlain;
+    m_currentRecord.m_modelsSlain += numSlainByReturnedDamage;
+
+    return totalDamage;
+}
+
+
+Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
+{
+    if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
+    {
+        numAttackingModels = (int)m_models.size();
+    }
+
+    Wounds totalDamage = {0, 0};
+    Wounds totalDamageReflected = {0, 0};
+
+    for (auto i = 0; i < numAttackingModels; i++)
+    {
+        const Model& model = m_models.at(i);
+        if (model.fled() || model.slain()) continue;
+
+        for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
+        {
+            const Weapon *w = *wip;
+
+            Wounds weaponDamage, reflectedDamage;
+            attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
+
+            // apply wound/mortal wound save
+            Wounds damage = targetUnit->applyWoundSave(weaponDamage);
+
+            totalDamage += damage;
+            totalDamageReflected += reflectedDamage;
+        }
+    }
+
+    // Some units do mortal wounds for just existing!  See Evocators for example.
+    int mortalWounds = generateMortalWounds(targetUnit);
+    totalDamage.mortal += mortalWounds;
+
+    numSlain = targetUnit->applyDamage(totalDamage);
 
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
     if (numSlainByReturnedDamage)
@@ -685,50 +620,6 @@ int Unit::slay(int numModels)
     return numSlain;
 }
 
-int Unit::rollSaves(const WoundingHits &woundingHits, const Weapon *weapon, Dice::RollResult& rollResult)
-{
-    Dice dice;
-
-    auto effectiveRend = m_ignoreRend ? 0 : weapon->rend();
-    auto toSave = m_save - effectiveRend;
-
-    int numMadeSaves = 0;
-    if (toSaveModifier(weapon) == RerollOnes)
-    {
-        dice.rollD6(woundingHits.numWoundingHit, 1, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-    }
-    else if (toSaveModifier(weapon) == RerollOnesAndTwos)
-    {
-        dice.rollD6(woundingHits.numWoundingHit, 2, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-    }
-    else if (toSaveModifier(weapon) == RerollFailed)
-    {
-        dice.rollD6(woundingHits.numWoundingHit, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-        int numFails = woundingHits.numWoundingHit - numMadeSaves;
-        if (numFails > 0)
-        {
-            dice.rollD6(numFails, rollResult);
-            auto numRerolledSaves = rollResult.rollsGE(toSave);
-            numMadeSaves += numRerolledSaves;
-        }
-    }
-    else
-    {
-        dice.rollD6(woundingHits.numWoundingHit, rollResult);
-        numMadeSaves = rollResult.rollsGE(toSave);
-    }
-
-    auto numFails = woundingHits.numWoundingHit - numMadeSaves;
-
-    m_currentRecord.m_savesMade += numMadeSaves;
-    m_currentRecord.m_savesFailed += numFails;
-
-    return numFails;
-}
-
 int Unit::heal(int numWounds)
 {
     if (numWounds <= 0)
@@ -754,6 +645,146 @@ int Unit::heal(int numWounds)
         }
     }
     return numHealedWounds;
+}
+
+bool Unit::makeSave(int woundRoll, const Weapon* weapon, int& saveRoll)
+{
+    Dice dice;
+
+    auto effectiveRend = m_ignoreRend ? 0 : weapon->rend();
+    auto toSave = m_save - effectiveRend;
+
+    saveRoll = dice.rollD6();
+    if (saveRoll < toSave)
+    {
+        auto reroll = toSaveRerolls(weapon);
+        if (reroll == RerollFailed)
+        {
+            saveRoll = dice.rollD6();
+        }
+        else if (reroll == RerollOnes && woundRoll == 1)
+        {
+            saveRoll = dice.rollD6();
+        }
+        else if (reroll == RerollOnesAndTwos && (woundRoll == 1 || woundRoll == 2))
+        {
+            saveRoll = dice.rollD6();
+        }
+    }
+
+    const bool saveMade = (saveRoll >= toSave);
+
+    if (saveMade)
+        m_currentRecord.m_savesMade++;
+    else
+        m_currentRecord.m_savesFailed++;
+
+    return saveMade;
+}
+
+void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fromModel,
+    Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered)
+{
+    totalWoundsInflicted = {0, 0};
+    totalWoundsSuffered = {0, 0};
+
+    if (!weapon->isActive())
+    {
+        // not active
+        return;
+    }
+
+    // check range to target unit
+    float distanceToTarget = distanceBetween(&fromModel, target);
+    if (distanceToTarget > weapon->range())
+    {
+        // out of range
+        return;
+    }
+
+    Dice dice;
+    const auto rerolls = toHitRerolls(weapon, target);
+    const auto woundRerolls = toWoundRerolls(weapon, target);
+    const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this);
+    const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this);
+
+    const int totalAttacks = weapon->numAttacks(extraAttacks(weapon));
+    for (auto a = 0; a < totalAttacks; a++)
+    {
+        m_currentRecord.m_attacksMade++;
+
+        // roll to hit
+        auto hitRoll = dice.rollD6();
+        auto modifiedHitRoll = hitRoll + totalHitModifiers;
+        if (modifiedHitRoll < weapon->toHit())
+        {
+            hitRoll = rerolling(hitRoll, rerolls, dice);
+            modifiedHitRoll = hitRoll + totalHitModifiers;
+        }
+
+        if (modifiedHitRoll >= weapon->toHit())
+        {
+            // apply hit modifiers (a single hit may result in multiple hits)
+            int numHits = generateHits(hitRoll, weapon, target);
+            for (auto h = 0; h < numHits; h++)
+            {
+                // roll to wound
+                auto woundRoll = dice.rollD6();
+                auto modifiedWoundRoll = woundRoll + totalWoundModifiers;
+                if (modifiedWoundRoll < weapon->toWound())
+                {
+                    woundRoll = rerolling(woundRoll, woundRerolls, dice);
+                    modifiedWoundRoll = woundRoll + totalWoundModifiers;
+                }
+
+                if (modifiedWoundRoll >= weapon->toWound())
+                {
+                    m_currentRecord.m_attacksHitting++;
+
+                    // roll save
+                    int saveRoll = 0;
+                    if (!target->makeSave(woundRoll, weapon, saveRoll))
+                    {
+                        // compute damage
+                        totalWoundsInflicted += weaponDamage(weapon, target, hitRoll, woundRoll);
+                    }
+                    else
+                    {
+                        // made save
+                    }
+
+                    totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
+
+                }
+                else
+                {
+                    // failed to wound
+                }
+            }
+        }
+        else
+        {
+            // missed
+        }
+    }
+}
+
+int Unit::rerolling(int initialRoll, Rerolls reroll, Dice& dice) const
+{
+    int roll = initialRoll;
+    if (reroll == RerollFailed)
+    {
+        roll = dice.rollD6();
+    }
+    else if ((reroll == RerollOnes) && (initialRoll == 1))
+    {
+        roll = dice.rollD6();
+    }
+    else if ((reroll == RerollOnesAndTwos) && ((initialRoll == 1) || (initialRoll == 2)))
+    {
+        roll = dice.rollD6();
+    }
+    return roll;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

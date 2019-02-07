@@ -134,18 +134,17 @@ Rerolls Liberators::toSaveRerolls(const Weapon *weapon) const
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
-Hits Liberators::applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const
+int Liberators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
-    Hits modifiedHits = hits;
-    if ((hits.rolls.numUnmodified6s() > 0) && m_pairedWeapons &&
-        (weapon->name() == m_warblade.name() || weapon->name() == m_warhammer.name()))
+    if (unmodifiedHitRoll == 6)
     {
-        // each 6 inflicts an additional hit
-        modifiedHits.numHits += hits.rolls.numUnmodified6s();
+        if (m_pairedWeapons && (weapon->name() == m_warblade.name() || weapon->name() == m_warhammer.name()))
+        {
+            // each 6 inflicts an additional hit
+            return 2;
+        }
     }
-
-    // modifiers accumulate
-    return Unit::applyHitModifiers(weapon, unit, modifiedHits);
+    return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 Unit *Liberators::Create(const ParameterList &parameters)

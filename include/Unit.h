@@ -110,7 +110,7 @@ public:
 
     int applyBattleshock();
 
-    int rollSaves(const WoundingHits &woundingHits, const Weapon *weapon, Dice::RollResult &rollResult);
+    bool makeSave(int woundRoll, const Weapon* weapon, int& saveRoll);
 
     int applyDamage(const Wounds &totalWounds);
 
@@ -156,7 +156,10 @@ protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
-    Wounds computeWeaponDamage(int numFailed, const Weapon* weapon, const Unit* target, const Dice::RollResult &woundRolls);
+    void attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fromModel,
+        Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered);
+
+    int rerolling(int initialRoll, Rerolls reroll, Dice& dice) const;
 
 protected:
 
@@ -208,8 +211,22 @@ protected:
      */
     virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const { return NoRerolls; }
 
-    virtual int damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const { return 0; }
-    virtual int weaponDamage(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const { return weapon->damage(); }
+    /*!
+     * Compute the weapon damage on the given target with the hit and wound rolls.
+     * @param weapon Attacking with weapon
+     * @param target Unit being attacked.
+     * @param hitRoll Roll to-hit
+     * @param woundRoll Roll to-wound
+     * @return Weapon damage
+     */
+    virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return {weapon->damage(), 0}; }
+
+    /*!
+     * Some units do mortal wounds for simply existing.
+     * @param unit Unit being attacked.
+     * @return Number of mortal wounds.
+     */
+    virtual int generateMortalWounds(const Unit *unit) { return 0; }
 
     virtual int toSaveModifier(const Weapon *weapon) const { return 0; }
 
@@ -227,9 +244,7 @@ protected:
 
     virtual int extraAttacks(const Weapon *weapon) const { return 0; }
 
-    virtual Hits applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const { return hits; }
-
-    virtual int generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds) { return 0; }
+    virtual int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const { return  1; }
 
     virtual int runModifier() const { return 0; }
 
@@ -263,7 +278,7 @@ protected:
 
     int rollChargeDistance() const;
 
-    virtual Wounds computeReturnedDamage(const Weapon *weapon, const Dice::RollResult &saveRolls) const { return {0, 0}; }
+    virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
 
     virtual Wounds applyWoundSave(const Wounds &wounds) { return wounds; }
 

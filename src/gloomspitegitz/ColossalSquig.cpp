@@ -94,21 +94,16 @@ void ColossalSquig::onSlain()
     // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
 }
 
-int ColossalSquig::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+Wounds ColossalSquig::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Swallowed Whole
-    if ((hits.rolls.numUnmodified6s() > 0) && (weapon->name() == m_enormousJaws.name()))
+    if ((hitRoll == 6) && (weapon->name() == m_enormousJaws.name()))
     {
         Dice dice;
-
-        int mortalWounds = 0;
-        for (auto i = 0; i < hits.rolls.numUnmodified6s(); i++)
-        {
-            mortalWounds += dice.rollD3();
-        }
-        return mortalWounds;
+        Wounds wounds = {0, dice.rollD3()};
+        return wounds;
     }
-    return 0;
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int ColossalSquig::getDamageTableIndex() const

@@ -39,7 +39,7 @@ public:
 
 protected:
 
-    Hits applyHitModifiers(const Weapon *weapon, const Unit *unit, const Hits &hits) const override;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int runModifier() const override;
     int chargeModifier() const override;
 

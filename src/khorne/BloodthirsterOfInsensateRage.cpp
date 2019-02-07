@@ -120,24 +120,20 @@ void BloodthirsterOfInsensateRage::onWounded()
     Unit::onWounded();
 }
 
-int BloodthirsterOfInsensateRage::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Outrageous Carnage
-    if (weapon->name() == m_greatAxeOfKhorne.name())
+    if ((woundRoll >= 6) && weapon->name() == m_greatAxeOfKhorne.name())
     {
         const int damageIndex = getDamageTableIndex();
 
         Dice dice;
-        int mortalWounds = 0;
-        int numWound6s = wounds.rolls.rollsGE(6);
-        for (auto i = 0; i < numWound6s; i++)
-        {
-            mortalWounds = dice.rollSpecial(g_damageTable[damageIndex].m_outrageousCarnage);
-        }
+        Wounds wounds = {0, dice.rollSpecial(g_damageTable[damageIndex].m_outrageousCarnage) };
+
         // TODO: these mortal wounds are applied to all enemy units within 8".
-        return mortalWounds;
+        return wounds;
     }
-    return Unit::generateMortalWounds(weapon, unit, hits, wounds);
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Khorne

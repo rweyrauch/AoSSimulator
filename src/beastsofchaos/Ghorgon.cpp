@@ -111,16 +111,16 @@ int BeastsOfChaos::Ghorgon::getDamageTableIndex() const
     return 0;
 }
 
-int Ghorgon::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
+Wounds Ghorgon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Ravenous Bloodgreed
-    Dice dice;
-    int mortalWounds = 0;
-    for (auto i = 0; i < hits.rolls.numUnmodified6s(); i++)
+    if (hitRoll == 6)
     {
-        mortalWounds += dice.rollD3();
+        Dice dice;
+        return { weapon->damage(), dice.rollD3() };
     }
-    return mortalWounds;
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void Ghorgon::onStartCombat(PlayerId player)

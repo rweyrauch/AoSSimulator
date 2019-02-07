@@ -39,7 +39,7 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     int battlshockModifier() const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
+    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
 
 private:
 

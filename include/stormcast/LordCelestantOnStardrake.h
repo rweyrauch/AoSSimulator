@@ -48,9 +48,9 @@ protected:
     int getDamageTableIndex() const;
 
     int extraAttacks(const Weapon *weapon) const override;
-    Hits applyHitModifiers(const Weapon* weapon, const Unit* unit, const Hits& hits) const override;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, const Dice::RollResult& saveRolls) const override;
+    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
     void onStartShooting(PlayerId player) override;
     void onStartCombat(PlayerId player) override;
     void onEndCombat(PlayerId player) override;

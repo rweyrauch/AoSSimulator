@@ -44,6 +44,8 @@ public:
 
     void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }
 
+    int numAttacks(int extraAttacks) const;
+
     Hits rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const;
     WoundingHits rollToWound(int numHits, int modifier, Rerolls rerolls) const;
 
@@ -70,7 +72,6 @@ public:
 
 protected:
 
-    int numAttacks(int extraAttacks) const;
     int numTotalHits() const;
 
 private:

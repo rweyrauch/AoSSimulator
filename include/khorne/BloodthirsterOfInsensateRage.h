@@ -38,7 +38,7 @@ protected:
     int getDamageTableIndex() const;
     void onWounded() override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    int generateMortalWounds(const Weapon* weapon, const Unit* unit, const Hits& hits, const WoundingHits& wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 

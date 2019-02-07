@@ -139,28 +139,19 @@ Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon) const
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
-Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon,
-                                                     const Dice::RollResult &saveRolls) const
+Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
+    auto wounds = StormcastEternal::computeReturnedDamage(weapon, saveRoll);
     // Sigmarite Thundershield
     if (m_sigmariteThundershield)
     {
         // 1 mortal wound for each save of a 6
-        Wounds returnedDamage = {0, saveRolls.numUnmodified6s()};
-        return returnedDamage;
+        if (saveRoll == 6)
+        {
+            wounds += {0, 1};
+        }
     }
-    return StormcastEternal::computeReturnedDamage(weapon, saveRolls);
-}
-
-
-int LordCelestantOnDracoth::generateMortalWounds(const Weapon *weapon, const Unit *unit, const Hits &hits, const WoundingHits &wounds)
-{
-    // Lightning Hammer
-    if (weapon->name() == m_lightningHammer.name())
-    {
-        return hits.rolls.numUnmodified6s() * 2;
-    }
-    return StormcastEternal::generateMortalWounds(weapon, unit, hits, wounds);
+    return wounds;
 }
 
 void LordCelestantOnDracoth::onCharged()
@@ -212,20 +203,23 @@ void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon *)> &v
     visitor(&m_clawsAndFangs);
 }
 
-int LordCelestantOnDracoth::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+Wounds LordCelestantOnDracoth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Intolerable Damage
-    if (weapon->name() == m_clawsAndFangs.name())
+    if ((woundRoll == 6) && (weapon->name() == m_clawsAndFangs.name()))
     {
         Dice dice;
-        int modifier = 0;
-        for (auto i = 0; i < woundRolls.numUnmodified6s(); i++)
-        {
-            modifier += dice.rollD3() - 1; // D3 instead of 1
-        }
-        return modifier;
+        // D6 instead of 1
+        return { dice.rollD6(), 0 };
     }
-    return StormcastEternal::damageModifier(weapon, target, woundRolls);
+
+    // Lightning Hammer
+    if ((hitRoll == 6) && (weapon->name() == m_lightningHammer.name()))
+    {
+        return {weapon->damage(), 2};
+    }
+
+    return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace StormcastEternals

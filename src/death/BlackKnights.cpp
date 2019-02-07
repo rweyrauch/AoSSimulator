@@ -112,16 +112,14 @@ int BlackKnights::toWoundModifier(const Weapon *weapon, const Unit *target) cons
     return modifier;
 }
 
-int BlackKnights::damageModifier(const Weapon *weapon, const Unit *target, const Dice::RollResult &woundRolls) const
+Wounds BlackKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    int modifier = Unit::damageModifier(weapon, target, woundRolls);
-
     // Deathly Charge
     if (m_charged && weapon->name() == m_barrowLance.name())
     {
-        modifier += 1;
+        return {weapon->damage() + 1, 0};
     }
-    return modifier;
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int BlackKnights::toSaveModifier(const Weapon *weapon) const
