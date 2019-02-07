@@ -61,7 +61,7 @@ bool ColossalSquig::configure()
 
     model.addMeleeWeapon(&m_enormousJaws);
     model.addMeleeWeapon(&m_tramplingFeet);
-    model.addMeleeWeapon(&m_puffSpores);
+    model.addMissileWeapon(&m_puffSpores);
 
     addModel(model);
 

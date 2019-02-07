@@ -70,6 +70,11 @@ add_library(
         gloomspitegitz/DankholdTroggboss.cpp
         gloomspitegitz/DankholdTroggoths.cpp
         gloomspitegitz/RockgutTroggoths.cpp
+        gloomspitegitz/Skragrott.cpp
+        gloomspitegitz/Loonboss.cpp
+        gloomspitegitz/LoonbossOnGiantCaveSquig.cpp
+        gloomspitegitz/LoonbossWithGiantCaveSquig.cpp
+        gloomspitegitz/AleguzzlerGargant.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

@@ -135,6 +135,7 @@ enum Keyword
     SUMMONABLE,
     TOTEM,
     SCENERY,
+    GARGANT,
 
     // Stormcast
     SACROSANCT,
@@ -210,6 +211,8 @@ enum Keyword
     TROGGOTH,
     DANKHOLD,
     TROGGBOSS,
+    SKRAGROTT,
+    ALEGUZZLER,
 
     // Daughters of Khaine
     MELUSAI,

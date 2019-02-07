@@ -7,6 +7,7 @@
  */
 
 #include "WarhammerSim.h"
+
 #include "stormcast/Liberators.h"
 #include "stormcast/CelestarBallista.h"
 #include "stormcast/Evocators.h"
@@ -37,6 +38,11 @@
 #include "gloomspitegitz/RockgutTroggoths.h"
 #include "gloomspitegitz/DankholdTroggoths.h"
 #include "gloomspitegitz/DankholdTroggboss.h"
+#include "gloomspitegitz/Skragrott.h"
+#include "gloomspitegitz/Loonboss.h"
+#include "gloomspitegitz/LoonbossOnGiantCaveSquig.h"
+#include "gloomspitegitz/LoonbossWithGiantCaveSquig.h"
+#include "gloomspitegitz/AleguzzlerGargant.h"
 
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
@@ -133,6 +139,11 @@ void Initialize()
     GloomspiteGitz::RockgutTroggoths::Init();
     GloomspiteGitz::DankholdTroggboss::Init();
     GloomspiteGitz::DankholdTroggoths::Init();
+    GloomspiteGitz::Skragrott::Init();
+    GloomspiteGitz::Loonboss::Init();
+    GloomspiteGitz::LoonbossOnGiantCaveSquig::Init();
+    GloomspiteGitz::LoonbossWithGiantCaveSquig::Init();
+    GloomspiteGitz::AleguzzlerGargant::Init();
 
     Khorne::Bloodreavers::Init();
     Khorne::BloodWarriors::Init();
