@@ -368,6 +368,9 @@ void Unit::movement(PlayerId player)
 
     m_moved = false;
 
+    // Unit cannot move
+    if (!m_canMove) return;
+
     auto weapon = m_models.front().preferredWeapon();
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
@@ -716,6 +719,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
         // roll to hit
         auto hitRoll = dice.rollD6();
         auto modifiedHitRoll = hitRoll + totalHitModifiers;
+        // TODO: clarify re-rolling - after or before modifiers?
         if (modifiedHitRoll < weapon->toHit())
         {
             hitRoll = rerolling(hitRoll, rerolls, dice);

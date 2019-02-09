@@ -22,7 +22,15 @@ public:
     static const int WOUNDS = 6;
     static const int POINTS_PER_UNIT = 110;
 
+    enum WeaponOptions
+    {
+        Mooncutta,
+        MoonclanStabba,
+    };
+
     static Unit* Create(const ParameterList& parameters);
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
     LoonbossOnGiantCaveSquig();
@@ -30,7 +38,7 @@ public:
 
     void hero(PlayerId player) override;
 
-    bool configure();
+    bool configure(WeaponOptions weapon);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -57,7 +65,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Redcap Mushrooms                 No
+// Redcap Mushrooms                 Yes
 // Let's Get Bouncing               No
 //
 

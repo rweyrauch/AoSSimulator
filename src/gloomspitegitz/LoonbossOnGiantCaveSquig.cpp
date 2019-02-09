@@ -10,13 +10,14 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include <iostream>
 
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
     LoonbossOnGiantCaveSquig::Create,
-    nullptr,
-    nullptr,
+    LoonbossOnGiantCaveSquig::ValueToString,
+    LoonbossOnGiantCaveSquig::EnumStringToInt,
     {
     }
 };
@@ -32,14 +33,19 @@ LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
 }
 
-bool LoonbossOnGiantCaveSquig::configure()
+bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon)
 {
     Model model(BASESIZE, WOUNDS);
 
     model.addMeleeWeapon(&m_massiveFangFilledGob);
-    model.addMeleeWeapon(&m_moonCutta);
-    model.addMeleeWeapon(&m_moonclanStabba);
-
+    if (weapon == Mooncutta)
+    {
+        model.addMeleeWeapon(&m_moonCutta);
+    }
+    else if (weapon == MoonclanStabba)
+    {
+        model.addMeleeWeapon(&m_moonclanStabba);
+    }
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -57,14 +63,41 @@ void LoonbossOnGiantCaveSquig::visitWeapons(std::function<void(const Weapon *)> 
 Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters)
 {
     auto unit = new LoonbossOnGiantCaveSquig();
+    WeaponOptions weapon = (WeaponOptions) GetIntParam("weapons", parameters, Mooncutta);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(weapon);
     if (!ok)
     {
         delete unit;
         unit = nullptr;
     }
     return unit;
+}
+
+std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter& parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == Mooncutta)
+        { return "Mooncutta"; }
+        else if (parameter.m_intValue == MoonclanStabba)
+        { return "MoonclanStabba"; }
+    }
+    return ParameterValueToString(parameter);
+
+}
+
+int LoonbossOnGiantCaveSquig::EnumStringToInt(const std::string& enumString)
+{
+    if (enumString == "Mooncutta")
+    {
+        return Mooncutta;
+    }
+    else if (enumString == "MoonclanStabba")
+    {
+        return MoonclanStabba;
+    }
+    return 0;
 }
 
 void LoonbossOnGiantCaveSquig::Init()
@@ -78,6 +111,24 @@ void LoonbossOnGiantCaveSquig::Init()
 void LoonbossOnGiantCaveSquig::hero(PlayerId player)
 {
     Unit::hero(player);
+
+    if (player == m_owningPlayer)
+    {
+        // Redcap Mushrooms
+        m_toHitRerolls = NoRerolls;
+        m_toWoundRerolls = NoRerolls;
+
+        if (!m_eatenRedcapMushroom)
+        {
+            if (m_meleeTarget)
+            {
+                std::cout << "Eating the Redcap Mushroom!" << std::endl;
+                m_eatenRedcapMushroom = true;
+                m_toHitRerolls = RerollFailed;
+                m_toWoundRerolls = RerollFailed;
+            }
+        }
+    }
 }
 
 int LoonbossOnGiantCaveSquig::toHitModifier(const Weapon *weapon, const Unit *unit) const
@@ -87,11 +138,15 @@ int LoonbossOnGiantCaveSquig::toHitModifier(const Weapon *weapon, const Unit *un
 
 Rerolls LoonbossOnGiantCaveSquig::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
+    if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
+        return m_toHitRerolls;
     return Unit::toHitRerolls(weapon, target);
 }
 
 Rerolls LoonbossOnGiantCaveSquig::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
+    if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
+        return m_toWoundRerolls;
     return Unit::toWoundRerolls(weapon, target);
 }
 

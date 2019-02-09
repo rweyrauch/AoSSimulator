@@ -107,8 +107,21 @@
 #include "fec/CryptFlayers.h"
 #include "fec/CryptInfernalCourtier.h"
 
-void Initialize()
+#include "wanderers/GladeGuard.h"
+#include "wanderers/EternalGuard.h"
+#include "wanderers/WildwoodRangers.h"
+
+static Verbosity g_verbosity = Normal;
+
+Verbosity GetVerbosity()
 {
+    return g_verbosity;
+}
+
+void Initialize(Verbosity verbosity)
+{
+    g_verbosity = verbosity;
+
     StormcastEternals::Liberators::Init();
     StormcastEternals::CelestarBallista::Init();
     StormcastEternals::Evocators::Init();
@@ -207,4 +220,8 @@ void Initialize()
     FleshEaterCourt::CryptHorrors::Init();
     FleshEaterCourt::CryptFlayers::Init();
     FleshEaterCourt::CryptInfernalCourtier::Init();
+
+    Wanderers::GladeGuard::Init();
+    Wanderers::EternalGuard::Init();
+    Wanderers::WildwoodRangers::Init();
 }

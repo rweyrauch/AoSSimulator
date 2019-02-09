@@ -9,6 +9,7 @@
 #ifndef LORDORDINATOR_H
 #define LORDORDINATOR_H
 
+#include <vector>
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
@@ -43,15 +44,31 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartCombat(PlayerId player) override;
+    void onEndCombat(PlayerId player) override;
+
 private:
 
     WeaponOption m_weaponOption = AstralHammers;
 
-Weapon m_astralHammers,
+    Weapon m_astralHammers,
         m_astralGrandhammer;
+
+    mutable std::vector<const Unit*> m_meteoricSlam;  // Modified in weaponDamage method
 
     static bool s_registered;
 };
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Arcane Engineer                  No
+// Comet Strike                     Yes
+// Meteoric Slam                    Yes
+// Solemn Duty                      No
+//
 
 } // namespace StormcastEternals
 

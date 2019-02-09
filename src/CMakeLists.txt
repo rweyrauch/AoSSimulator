@@ -119,6 +119,10 @@ add_library(
         fec/CryptGhouls.cpp
         fec/CryptFlayers.cpp
         fec/CryptInfernalCourtier.cpp
+
+        wanderers/EternalGuard.cpp
+        wanderers/GladeGuard.cpp
+        wanderers/WildwoodRangers.cpp
 )
 
 target_include_directories(

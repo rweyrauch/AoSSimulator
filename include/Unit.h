@@ -316,13 +316,12 @@ protected:
     bool m_ran = false;
     bool m_charged = false;
     bool m_moved = false;
+    bool m_canMove = true;
     int m_toHitBuff = 0;
     int m_toHitBuffMissile = 0;
 
     Unit *m_shootingTarget = nullptr;
     Unit *m_meleeTarget = nullptr;
-
-    bool m_verbose = false;
 
     TurnRecord m_currentRecord;
     UnitStatistics m_statistics;

@@ -37,6 +37,7 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -49,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Thundercharged Strike            No
+// Thundercharged Strike            Yes
 // Heroic Challenge                 Yes
 // Sigmarite Shield                 Yes
 //

@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
 private:
 
     Weapon m_moonslicer;
@@ -45,7 +47,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Dead Tricksy                     No
+// Dead Tricksy                     Yes
 // I'm Da Boss, Now Stab 'Em Good   No
 //
 

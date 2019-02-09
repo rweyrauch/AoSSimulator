@@ -113,4 +113,43 @@ void LordOrdinator::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_astralGrandhammer);
 }
 
+Wounds LordOrdinator::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Comet Strike
+    if (hitRoll == 6 && weapon->name() == m_astralGrandhammer.name())
+    {
+        return {0, 2};
+    }
+    if (hitRoll == 6 && weapon->name() == m_astralHammers.name())
+    {
+        // remember this
+        m_meteoricSlam.push_back(target);
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void LordOrdinator::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    m_meteoricSlam.clear();
+}
+
+void LordOrdinator::onEndCombat(PlayerId player)
+{
+    Unit::onEndCombat(player);
+
+    // Meteoric Slam
+    if (m_meteoricSlam.size() > 1)
+    {
+        // TODO: assuming all targets are the same unit and that
+        // the only unit the LO hit was the target unit
+        if (m_meteoricSlam.front() == m_meleeTarget)
+        {
+            Dice dice;
+            m_meleeTarget->applyDamage({0, dice.rollD3()});
+        }
+    }
+}
+
 } // namespace StormcastEternals

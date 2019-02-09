@@ -52,16 +52,6 @@ enum Rerolls
 
 const int NoSave = 7;
 
-enum AttackModifier
-{
-    ExtraAttackOnCharge,
-};
-
-enum DamageModifier
-{
-    PlusOneDamage,
-};
-
 enum class Role
 {
     Battleline,
@@ -117,7 +107,7 @@ enum Keyword
     SERAPHON,
     SHADOWBLADES,
     SWIFTHAWK_AGENTS,
-    WANDERERS,
+    WANDERER,
 
     // Common
     MORTAL,
@@ -300,12 +290,26 @@ enum Keyword
     VARGHULF_COURTIER,
     PRINCE_VHORDRAI,
 
+    // Wanderers,
+    ETERNAL_GUARD,
+    GLADE_GUARD,
+    SISTERS_OF_THE_THORN,
+    SISTERS_OF_THE_WATCH,
+    WILDWOOD_RANGERS,
 };
 
 enum Duration
 {
     CurrentPhase,       // Spell, prayer, ability lasts unit the end of the current phase.
     StartOfNextHero,    // .. lasts unit the start of player's next hero phase.
+};
+
+enum Verbosity
+{
+    None,
+    Normal,
+    Narrative,
+    Debug
 };
 
 struct Wounds
@@ -353,7 +357,9 @@ std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);
 PlayerId GetEnemyId(PlayerId friendlyId);
 
-void Initialize();
+void Initialize(Verbosity verbosity = Normal);
+
+Verbosity GetVerbosity();
 
 float AverageRandomValue(int value);
 

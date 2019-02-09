@@ -67,6 +67,15 @@ private:
 
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Lay Low the Tyrants              Yes
+// Paired Weapons                   Yes
+// Sigmarite Shields                Yes
+//
+
 } // namespace StormcastEternals
 
 #endif //LIBERATORS_H

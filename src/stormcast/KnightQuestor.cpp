@@ -81,5 +81,15 @@ void KnightQuestor::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_warblade);
 }
 
+Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Thundercharged Strike
+    if (woundRoll == 6 && weapon->name() == m_warblade.name())
+    {
+        return {2, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 
 } // namespace StormcastEternals
