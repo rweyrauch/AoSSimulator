@@ -111,6 +111,14 @@
 #include "wanderers/EternalGuard.h"
 #include "wanderers/WildwoodRangers.h"
 
+#include "dispossessed/Hammerers.h"
+#include "dispossessed/Ironbreakers.h"
+#include "dispossessed/Irondrakes.h"
+#include "dispossessed/Quarrellers.h"
+#include "dispossessed/Longbeards.h"
+#include "dispossessed/Warriors.h"
+#include "dispossessed/Thunderers.h"
+
 static Verbosity g_verbosity = Normal;
 
 Verbosity GetVerbosity()
@@ -224,4 +232,12 @@ void Initialize(Verbosity verbosity)
     Wanderers::GladeGuard::Init();
     Wanderers::EternalGuard::Init();
     Wanderers::WildwoodRangers::Init();
+
+    Dispossessed::Hammerers::Init();
+    Dispossessed::Ironbreakers::Init();
+    Dispossessed::Irondrakes::Init();
+    Dispossessed::Longbeards::Init();
+    Dispossessed::Quarrellers::Init();
+    Dispossessed::Thunderers::Init();
+    Dispossessed::Warriors::Init();
 }

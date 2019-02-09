@@ -123,6 +123,14 @@ add_library(
         wanderers/EternalGuard.cpp
         wanderers/GladeGuard.cpp
         wanderers/WildwoodRangers.cpp
+
+        dispossessed/Hammerers.cpp
+        dispossessed/Thunderers.cpp
+        dispossessed/Warriors.cpp
+        dispossessed/Longbeards.cpp
+        dispossessed/Quarrellers.cpp
+        dispossessed/Ironbreakers.cpp
+        dispossessed/Irondrakes.cpp
 )
 
 target_include_directories(

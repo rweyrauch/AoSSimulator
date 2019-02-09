@@ -126,6 +126,7 @@ enum Keyword
     TOTEM,
     SCENERY,
     GARGANT,
+    DUARDIN,
 
     // Stormcast
     SACROSANCT,
@@ -296,6 +297,15 @@ enum Keyword
     SISTERS_OF_THE_THORN,
     SISTERS_OF_THE_WATCH,
     WILDWOOD_RANGERS,
+
+    // Dispossessed
+    WARRIORS,
+    HAMMERERS,
+    QUARRELLERS,
+    LONGBEARDS,
+    THUNDERERS,
+    IRONBREAKERS,
+    IRONDRAKES,
 };
 
 enum Duration
