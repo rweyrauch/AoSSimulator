@@ -8,6 +8,7 @@
 
 #include <dispossessed/Hammerers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Dispossessed
 {
@@ -94,6 +95,18 @@ void Hammerers::Init()
     {
         s_registered = UnitFactory::Register("Hammerers", factoryMethod);
     }
+}
+
+bool Hammerers::battleshockRequired() const
+{
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
+    for (auto ip : units)
+    {
+        // Kingsguard
+        if (ip->hasKeyword(DISPOSSESSED) && ip->hasKeyword(HERO))
+            return false;
+    }
+    return true;
 }
 
 } // namespace Dispossessed

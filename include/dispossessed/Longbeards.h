@@ -45,6 +45,8 @@ public:
 
 protected:
 
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
 private:
 
     bool m_gromrilShields = false;
@@ -63,7 +65,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Gromril Shields                  No
+// Gromril Shields                  Yes
 // Old Grumblers                    No
 //
 

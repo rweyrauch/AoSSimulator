@@ -232,6 +232,8 @@ protected:
 
     virtual Rerolls toSaveRerolls(const Weapon *weapon) const { return NoRerolls; }
 
+    virtual bool battleshockRequired() const { return true; }
+
     virtual int battlshockModifier() const;
 
     virtual Rerolls battleshockRerolls() const { return NoRerolls; }

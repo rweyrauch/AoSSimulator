@@ -8,6 +8,7 @@
 
 #include <dispossessed/Quarrellers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Dispossessed
 {
@@ -21,7 +22,7 @@ static FactoryMethod factoryMethod = {
             Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Integer, "standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
         {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false, false}
     }
 };
@@ -37,14 +38,14 @@ Quarrellers::Quarrellers() :
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, QUARRELLERS};
 }
 
-bool Quarrellers::configure(int numModels, bool duardinBucklers, bool standardBearer, bool drummer)
+bool Quarrellers::configure(int numModels, bool duardinBucklers, StandardOptions standard, bool drummer)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    m_standardBearer = standardBearer;
+    m_standard = standard;
     m_drummer = drummer;
     m_duardinBucklers = duardinBucklers;
 
@@ -82,10 +83,10 @@ Unit *Quarrellers::Create(const ParameterList &parameters)
     auto unit = new Quarrellers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
     bool duardinBucklers = GetBoolParam("duardinBucklers", parameters, false);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
+    auto standard = (StandardOptions)GetIntParam("standard", parameters, None);
     bool drummer = GetBoolParam("drummer", parameters, false);
 
-    bool ok = unit->configure(numModels, duardinBucklers, standardBearer, drummer);
+    bool ok = unit->configure(numModels, duardinBucklers, standard, drummer);
     if (!ok)
     {
         delete unit;
@@ -100,6 +101,31 @@ void Quarrellers::Init()
     {
         s_registered = UnitFactory::Register("Quarrellers", factoryMethod);
     }
+}
+
+int Quarrellers::extraAttacks(const Weapon *weapon) const
+{
+    if (weapon->name() == m_duardinCrossbow.name() && remainingModels() >= 20)
+    {
+        // Volley Fire
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        if (unit && distanceTo(unit) > 3.0f)
+        {
+            return 1;
+        }
+    }
+    return Unit::extraAttacks(weapon);
+}
+
+Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const
+{
+    // Duardin Bucklers
+    if (!m_ran && !m_charged)
+    {
+        if (!weapon->isMissile())
+            return RerollFailed;
+    }
+    return Unit::toSaveRerolls(weapon);
 }
 
 } // namespace Dispossessed

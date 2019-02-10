@@ -32,6 +32,13 @@ public:
         DoubleHandedDuardinAxe
     };
 
+    enum StandardOptions
+    {
+        None,
+        RunicIcon,
+        ClanBanner
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
@@ -39,17 +46,23 @@ public:
     Warriors();
     ~Warriors() override = default;
 
-    bool configure(int numModels, WeaponOptions weapons, bool duardinShields, bool standardBearer, bool hornblowers);
+    bool configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard, bool hornblowers);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+    void onStartCombat(PlayerId player) override;
+
 private:
 
     bool m_duardinShields = false;
-    bool m_standardBearer = false;
+    StandardOptions m_standard = None;
     bool m_hornblowers = false;
+
+    bool m_opponentsCombat = false;
 
     Weapon m_duardinAxeOrHammer,
         m_duardinAxeOrHammerVeteran,
@@ -63,8 +76,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Resolute in Defence              No
-// Duardin Shields                  No
+// Resolute in Defence              Yes
+// Duardin Shields                  Yes
 // Runic Icon                       No
 // Clan Banner                      No
 //

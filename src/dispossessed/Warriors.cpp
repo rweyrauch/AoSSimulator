@@ -42,14 +42,14 @@ Warriors::Warriors() :
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, WARRIORS};
 }
 
-bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShields, bool standardBearer, bool hornblowers)
+bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard, bool hornblowers)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    m_standardBearer = standardBearer;
+    m_standard = standard;
     m_hornblowers = hornblowers;
     m_duardinShields = duardinShields;
 
@@ -101,10 +101,10 @@ Unit *Warriors::Create(const ParameterList &parameters)
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOptions)GetIntParam("weapons", parameters, DuardinAxeOrHammer);
     bool duardinShields = GetBoolParam("duardinShields", parameters, false);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
+    auto standard = (StandardOptions)GetIntParam("standard", parameters, None);
     bool hornblower = GetBoolParam("hornblower", parameters, false);
 
-    bool ok = unit->configure(numModels, weapons, duardinShields, standardBearer, hornblower);
+    bool ok = unit->configure(numModels, weapons, duardinShields, standard, hornblower);
     if (!ok)
     {
         delete unit;
@@ -119,6 +119,37 @@ void Warriors::Init()
     {
         s_registered = UnitFactory::Register("Warriors", factoryMethod);
     }
+}
+
+Rerolls Warriors::toSaveRerolls(const Weapon *weapon) const
+{
+    // Duardin Shields
+    if (!m_ran && !m_charged)
+    {
+        if (!weapon->isMissile())
+            return RerollFailed;
+    }
+    return Unit::toSaveRerolls(weapon);
+}
+
+Rerolls Warriors::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Resolute in Defence
+    if (m_opponentsCombat)
+    {
+        if (remainingModels() >= 20)
+            return RerollFailed;
+        else
+            return RerollOnes;
+    }
+    return Unit::toWoundRerolls(weapon, target);
+}
+
+void Warriors::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    m_opponentsCombat = (player != m_owningPlayer);
 }
 
 } // namespace Dispossessed

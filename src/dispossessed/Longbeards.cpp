@@ -121,4 +121,15 @@ void Longbeards::Init()
     }
 }
 
+Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const
+{
+    // Gromril Shields
+    if (!m_ran && !m_charged)
+    {
+        if (!weapon->isMissile())
+            return RerollFailed;
+    }
+    return Unit::toSaveRerolls(weapon);
+}
+
 } // namespace Dispossessed

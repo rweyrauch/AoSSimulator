@@ -8,6 +8,7 @@
 
 #include <dispossessed/Ironbreakers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Dispossessed
 {
@@ -119,6 +120,51 @@ void Ironbreakers::Init()
     if (!s_registered)
     {
         s_registered = UnitFactory::Register("Ironbreakers", factoryMethod);
+    }
+}
+
+Rerolls Ironbreakers::toSaveRerolls(const Weapon *weapon) const
+{
+    // Gromril Shields
+    if (!m_ran && !m_charged)
+    {
+        if (!weapon->isMissile())
+            return RerollFailed;
+    }
+    return Unit::toSaveRerolls(weapon);
+}
+
+int Ironbreakers::toSaveModifier(const Weapon *weapon) const
+{
+    int modifier = Unit::toSaveModifier(weapon);
+
+    // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.
+    if (weapon->rend() == -1)
+    {
+        modifier = -weapon->rend();
+    }
+
+    return modifier;
+}
+
+void Ironbreakers::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    // Cinderblast Bomb
+    if (m_hasCinderblastBomb)
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6);
+        if (!units.empty())
+        {
+            Dice dice;
+            int roll = dice.rollD6();
+            if (roll >= 2)
+            {
+                units.front()->applyDamage({0, dice.rollD3()});
+            }
+            m_hasCinderblastBomb = false;
+        }
     }
 }
 

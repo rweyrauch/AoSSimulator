@@ -47,6 +47,11 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
+    void onStartShooting(PlayerId player) override;
+    int extraAttacks(const Weapon *weapon) const override;
+
 private:
 
     bool m_iconBearer = false;
@@ -67,11 +72,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brace of Drakefire Pistols       No
-// Grudgehammer Torpedo             No
-// Cinderblast Bomb                 No
-// Forge-proven Gromril Armour      No
-// Blaze Away                       No
+// Brace of Drakefire Pistols       Yes
+// Grudgehammer Torpedo             Yes
+// Cinderblast Bomb                 Yes
+// Forge-proven Gromril Armour      Yes
+// Blaze Away                       Yes
 //
 
 } // namespace Dispossessed

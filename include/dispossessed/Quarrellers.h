@@ -26,6 +26,13 @@ public:
     static const int POINTS_PER_BLOCK = 120;
     static const int POINTS_MAX_UNIT_SIZE = 360;
 
+    enum StandardOptions
+    {
+        None,
+        RunicIcon,
+        ClanBanner
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
@@ -33,16 +40,19 @@ public:
     Quarrellers();
     ~Quarrellers() override = default;
 
-    bool configure(int numModels, bool duardinBucklers, bool standardBearer, bool drummer);
+    bool configure(int numModels, bool duardinBucklers, StandardOptions standard, bool drummer);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    int extraAttacks(const Weapon *weapon) const override;
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
 private:
 
     bool m_duardinBucklers = false;
-    bool m_standardBearer = false;
+    StandardOptions m_standard = None;
     bool m_drummer = false;
 
     Weapon m_duardinCrossbow,
@@ -56,10 +66,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Volley Fire                      No
+// Volley Fire                      Yes
 // Ruinic Icon                      No
 // Clan Banner                      No
-// Duardin Bucklers                 No
+// Duardin Bucklers                 Yes
+// Drummers                         No
 //
 
 } // namespace Dispossessed

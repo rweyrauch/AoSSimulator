@@ -122,6 +122,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
 
 int Unit::applyBattleshock()
 {
+    if (!battleshockRequired()) return 0;
     if (m_modelsSlain <= 0) return 0;
 
     Dice dice;

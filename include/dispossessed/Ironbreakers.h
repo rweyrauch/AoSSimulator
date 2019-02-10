@@ -46,6 +46,10 @@ public:
 
 protected:
 
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
+    void onStartShooting(PlayerId player) override;
+
 private:
 
     bool m_iconBearer = false;
@@ -65,10 +69,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brace of Drakefire Pistols       No
-// Cinderblast Bomb                 No
-// Gromril Shields                  No
-// Forge-proven Gromril Armour      No
+// Brace of Drakefire Pistols       Yes
+// Cinderblast Bomb                 Yes
+// Gromril Shields                  Yes
+// Forge-proven Gromril Armour      Yes
 //
 
 } // namespace Dispossessed

@@ -39,6 +39,8 @@ public:
 
 protected:
 
+    bool battleshockRequired() const override;
+
 private:
 
     bool m_standardBearer = false;
@@ -54,7 +56,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Kingsguard                       No
+// Kingsguard                       Yes
+// Musician                         No
+// Standard Bearer                  No
 //
 
 } // namespace Dispossessed

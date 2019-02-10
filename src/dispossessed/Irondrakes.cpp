@@ -8,6 +8,7 @@
 
 #include <dispossessed/Irondrakes.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Dispossessed
 {
@@ -130,6 +131,65 @@ void Irondrakes::Init()
     {
         s_registered = UnitFactory::Register("Irondrakes", factoryMethod);
     }
+}
+
+int Irondrakes::toSaveModifier(const Weapon *weapon) const
+{
+    int modifier = Unit::toSaveModifier(weapon);
+
+    // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.
+    if (weapon->rend() == -1)
+    {
+        modifier = -weapon->rend();
+    }
+
+    return modifier;
+}
+
+void Irondrakes::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    // Cinderblast Bomb
+    if (m_hasCinderblastBomb)
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6);
+        if (!units.empty())
+        {
+            Dice dice;
+            int roll = dice.rollD6();
+            if (roll >= 2)
+            {
+                units.front()->applyDamage({0, dice.rollD3()});
+            }
+            m_hasCinderblastBomb = false;
+        }
+    }
+}
+
+Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Grudgehammer Torpedo
+    if (weapon->name() == m_grudgehammerTorpedo.name() && target->hasKeyword(MONSTER))
+    {
+        Dice dice;
+        return {dice.rollD6(), 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Irondrakes::extraAttacks(const Weapon *weapon) const
+{
+    if (weapon->name() == m_drakegun.name() && !m_moved)
+    {
+        // Blaze Away
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        if (unit && distanceTo(unit) > 3.0f)
+        {
+            return 1;
+        }
+    }
+    return Unit::extraAttacks(weapon);
 }
 
 } // namespace Dispossessed
