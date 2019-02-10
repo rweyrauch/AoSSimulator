@@ -31,7 +31,7 @@ CryptGhouls::CryptGhouls() :
     m_teethAndClaws(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 4, 0, 1),
     m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws (Crypt Ghast)", 1, 2, 4, 3, 0, 1)
 {
-    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, CRYPT_GHOULS};
+    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, SERFS, CRYPT_GHOULS};
 }
 
 bool CryptGhouls::configure(int numModels)
@@ -93,7 +93,7 @@ int CryptGhouls::extraAttacks(const Weapon *weapon) const
 {
     int attacks = Unit::extraAttacks(weapon);
 
-    // Battalion Strength
+    // Boundless Ferocity
     if (remainingModels() >= 20)
     {
         attacks += 1;
@@ -105,7 +105,7 @@ int CryptGhouls::extraAttacks(const Weapon *weapon) const
 Rerolls CryptGhouls::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Royal Approval
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT_GHOUL_KING, 15.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT, 18.0f);
     if (unit != nullptr)
     {
         return RerollOnes;

@@ -29,11 +29,11 @@ bool CryptFlayers::s_registered = false;
 
 CryptFlayers::CryptFlayers() :
     Unit("Crypt Flayers", 12, WOUNDS, 10, 5, true),
-    m_fearsomeBattleCry(Weapon::Type::Missile, "Fearsome Battle Cry", 10, 1, 0, 0, 0, 0),
-    m_talonsAndClaws(Weapon::Type::Melee, "Piercing Talons and Claws", 1, 4, 4, 3, -1, 1),
-    m_talonsAndClawsInfernal(Weapon::Type::Melee, "Piercing Talons and Claws (Crypt Infernal)", 1, 5, 4, 3, -1, 1)
+    m_deathScream(Weapon::Type::Missile, "Death Scream", 10, 1, 0, 0, 0, 0),
+    m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 1, 4, 4, 3, -1, 1),
+    m_piercingTalonsInfernal(Weapon::Type::Melee, "Piercing Talons (Crypt Infernal)", 1, 5, 4, 3, -1, 1)
 {
-    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, CRYPT_FLAYERS};
+    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, KNIGHTS, CRYPT_FLAYERS};
 }
 
 bool CryptFlayers::configure(int numModels)
@@ -44,15 +44,15 @@ bool CryptFlayers::configure(int numModels)
     }
 
     Model infernal(BASESIZE, WOUNDS);
-    infernal.addMissileWeapon(&m_fearsomeBattleCry);
-    infernal.addMeleeWeapon(&m_talonsAndClawsInfernal);
+    infernal.addMissileWeapon(&m_deathScream);
+    infernal.addMeleeWeapon(&m_piercingTalonsInfernal);
     addModel(infernal);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_fearsomeBattleCry);
-        model.addMeleeWeapon(&m_talonsAndClaws);
+        model.addMissileWeapon(&m_deathScream);
+        model.addMeleeWeapon(&m_piercingTalons);
         addModel(model);
     }
 
@@ -67,9 +67,9 @@ bool CryptFlayers::configure(int numModels)
 
 void CryptFlayers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&m_fearsomeBattleCry);
-    visitor(&m_talonsAndClaws);
-    visitor(&m_talonsAndClawsInfernal);
+    visitor(&m_deathScream);
+    visitor(&m_piercingTalons);
+    visitor(&m_piercingTalonsInfernal);
 }
 
 Unit *CryptFlayers::Create(const ParameterList &parameters)
@@ -97,17 +97,19 @@ void CryptFlayers::Init()
 Wounds CryptFlayers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Skewering Strike
-    if ((hitRoll == 6) && weapon->name() == m_talonsAndClaws.name())
+    if ((hitRoll == 6) && weapon->name() == m_piercingTalons.name())
     {
         // One mortal wound.
         return {0, 1};
     }
 
-    // Fearsome Battle Cry
-    if (weapon->name() == m_fearsomeBattleCry.name())
+    // Death Scream
+    if (weapon->name() == m_deathScream.name())
     {
         Dice dice;
-        int roll = dice.rollD6() + 1;
+        int roll = dice.roll2D6();
+        if (distanceTo(target) > 3.0f)
+            roll -= 2;
         if (roll > target->bravery())
         {
             return {0, roll - target->bravery()};

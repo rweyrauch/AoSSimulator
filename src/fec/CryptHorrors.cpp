@@ -32,7 +32,7 @@ CryptHorrors::CryptHorrors() :
     m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
     m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons (Crypt Haunter)", 1, 4, 4, 3, 0, 2)
 {
-    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, CRYPT_HORRORS};
+    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, KNIGHTS, CRYPT_HORRORS};
 }
 
 bool CryptHorrors::configure(int numModels)
@@ -93,7 +93,7 @@ void CryptHorrors::Init()
 Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Chosen of the King
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT_GHOUL_KING, 15.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT, 18.0f);
     if (unit != nullptr)
     {
         return RerollFailed;

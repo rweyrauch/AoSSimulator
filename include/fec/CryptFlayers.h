@@ -42,9 +42,9 @@ protected:
 
 private:
 
-    Weapon m_fearsomeBattleCry,
-        m_talonsAndClaws,
-        m_talonsAndClawsInfernal;
+    Weapon m_deathScream,
+        m_piercingTalons,
+        m_piercingTalonsInfernal;
 
     static bool s_registered;
 };
@@ -54,7 +54,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Skewering Strike                 Yes
-// Fearsome Battle Cry              Yes
+// Death Scream                     Yes
 //
 
 } // namespace FleshEaterCourt

@@ -232,6 +232,10 @@ protected:
 
     virtual Rerolls toSaveRerolls(const Weapon *weapon) const { return NoRerolls; }
 
+    /*!
+     * Does this unit need to take battleshock.
+     * @return True if battleshock tests must be made for this unit.
+     */
     virtual bool battleshockRequired() const { return true; }
 
     virtual int battlshockModifier() const;

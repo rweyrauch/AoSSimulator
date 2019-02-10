@@ -127,6 +127,8 @@ enum Keyword
     SCENERY,
     GARGANT,
     DUARDIN,
+    KNIGHTS,
+    SERFS,
 
     // Stormcast
     SACROSANCT,
@@ -279,6 +281,7 @@ enum Keyword
     // Flesh-eater Court
     MORDANT,
     COURTIER,
+    ABHORRANT,
     CRYPT_GHAST_COURTIER,
     CRYPT_GHOULS,
     TERRORGHEIST,

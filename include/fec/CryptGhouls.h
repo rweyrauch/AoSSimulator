@@ -53,7 +53,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Battalion Strength               Yes
+// Boundless Ferocity               Yes
 // Royal Approval                   Yes
 //
 
