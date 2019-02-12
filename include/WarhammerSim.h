@@ -31,7 +31,8 @@ enum RandomNumber
     RAND_D6 = -2,
     RAND_2D6 = -3,
     RAND_3D6 = -4,
-    RAND_4D6 = -5
+    RAND_4D6 = -5,
+    RAND_2D3 = -6,
 };
 
 enum class PlayerId
@@ -108,6 +109,7 @@ enum Keyword
     SHADOWBLADES,
     SWIFTHAWK_AGENTS,
     WANDERER,
+    SKAVEN,
 
     // Common
     MORTAL,
@@ -309,6 +311,20 @@ enum Keyword
     THUNDERERS,
     IRONBREAKERS,
     IRONDRAKES,
+
+    // Skaven
+    SKAVENTIDE,
+    CLANS_VERMINUS,
+    CLANS_ESHIN,
+    CLANS_MOULDER,
+    CLANS_SKRYRE,
+    CLANS_PESTILENS,
+    STORMVERMIN,
+    NIGHT_RUNNERS,
+    GUTTER_RUNNERS,
+    CLANRATS,
+    STORMFIENDS,
+    PLAGUE_MONKS,
 };
 
 enum Duration

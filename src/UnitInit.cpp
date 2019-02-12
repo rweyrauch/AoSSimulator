@@ -119,6 +119,13 @@
 #include "dispossessed/Warriors.h"
 #include "dispossessed/Thunderers.h"
 
+#include "skaven/Clanrats.h"
+#include "skaven/GutterRunners.h"
+#include "skaven/PlagueMonks.h"
+#include "skaven/NightRunners.h"
+#include "skaven/Stormfiends.h"
+#include "skaven/Stormvermin.h"
+
 static Verbosity g_verbosity = Normal;
 
 Verbosity GetVerbosity()
@@ -240,4 +247,11 @@ void Initialize(Verbosity verbosity)
     Dispossessed::Quarrellers::Init();
     Dispossessed::Thunderers::Init();
     Dispossessed::Warriors::Init();
+
+    Skaven::Clanrats::Init();
+    Skaven::GutterRunners::Init();
+    Skaven::NightRunners::Init();
+    Skaven::PlagueMonks::Init();
+    Skaven::Stormfiends::Init();
+    Skaven::Stormvermin::Init();
 }

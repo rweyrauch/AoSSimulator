@@ -13,8 +13,8 @@ namespace Dispossessed
 {
 static FactoryMethod factoryMethod = {
     Longbeards::Create,
-    nullptr,
-    nullptr,
+    Longbeards::ValueToString,
+    Longbeards::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Longbeards::MIN_UNIT_SIZE}, Longbeards::MIN_UNIT_SIZE,
@@ -130,6 +130,36 @@ Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const
             return RerollFailed;
     }
     return Unit::toSaveRerolls(weapon);
+}
+
+std::string Longbeards::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == AncestralAxesOrHammers)
+        {
+            return "AncestralAxesOrHammers";
+        }
+        else if (parameter.m_intValue == AncestralGreatAxe)
+        {
+            return "AncestralGreatAxe";
+        }
+    }
+
+    return ParameterValueToString(parameter);
+}
+
+int Longbeards::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "AncestralAxesOrHammers")
+    {
+        return AncestralAxesOrHammers;
+    }
+    else if (enumString == "AncestralGreatAxe")
+    {
+        return AncestralGreatAxe;
+    }
+    return 0;
 }
 
 } // namespace Dispossessed

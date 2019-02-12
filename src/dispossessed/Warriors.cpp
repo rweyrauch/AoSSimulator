@@ -13,8 +13,8 @@ namespace Dispossessed
 {
 static FactoryMethod factoryMethod = {
     Warriors::Create,
-    nullptr,
-    nullptr,
+    Warriors::ValueToString,
+    Warriors::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Warriors::MIN_UNIT_SIZE}, Warriors::MIN_UNIT_SIZE,
@@ -150,6 +150,63 @@ void Warriors::onStartCombat(PlayerId player)
     Unit::onStartCombat(player);
 
     m_opponentsCombat = (player != m_owningPlayer);
+}
+
+std::string Warriors::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == DuardinAxeOrHammer)
+        {
+            return "DuardinAxeOrHammer";
+        }
+        else if (parameter.m_intValue == DoubleHandedDuardinAxe)
+        {
+            return "DoubleHandedDuardinAxe";
+        }
+    }
+    else if (parameter.m_name == "standard")
+    {
+        if (parameter.m_intValue == None)
+        {
+            return "None";
+        }
+        else if (parameter.m_intValue == RunicIcon)
+        {
+            return "RunicIcon";
+        }
+        else if (parameter.m_intValue == ClanBanner)
+        {
+            return "ClanBanner";
+        }
+    }
+
+    return ParameterValueToString(parameter);
+}
+
+int Warriors::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "DuardinAxeOrHammer")
+    {
+        return DuardinAxeOrHammer;
+    }
+    else if (enumString == "DoubleHandedDuardinAxe")
+    {
+        return DoubleHandedDuardinAxe;
+    }
+    else if (enumString == "None")
+    {
+        return None;
+    }
+    else if (enumString == "RunicIcon")
+    {
+        return RunicIcon;
+    }
+    else if (enumString == "ClanBanner")
+    {
+        return ClanBanner;
+    }
+    return 0;
 }
 
 } // namespace Dispossessed

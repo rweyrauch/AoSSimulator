@@ -14,8 +14,8 @@ namespace Dispossessed
 {
 static FactoryMethod factoryMethod = {
     Irondrakes::Create,
-    nullptr,
-    nullptr,
+    Irondrakes::ValueToString,
+    Irondrakes::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Irondrakes::MIN_UNIT_SIZE}, Irondrakes::MIN_UNIT_SIZE,
@@ -190,6 +190,59 @@ int Irondrakes::extraAttacks(const Weapon *weapon) const
         }
     }
     return Unit::extraAttacks(weapon);
+}
+
+/*
+    Drakegun,
+        GrudgehammerTorpedo,
+        DrakefirePistolAndCinderblastBomb,
+        PairedDrakefirePistols
+
+ */
+std::string Irondrakes::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "ironWardenWeapons")
+    {
+        if (parameter.m_intValue == Drakegun)
+        {
+            return "Drakegun";
+        }
+        else if (parameter.m_intValue == GrudgehammerTorpedo)
+        {
+            return "GrudgehammerTorpedo";
+        }
+        else if (parameter.m_intValue == DrakefirePistolAndCinderblastBomb)
+        {
+            return "DrakefirePistolAndCinderblastBomb";
+        }
+        else if (parameter.m_intValue == PairedDrakefirePistols)
+        {
+            return "PairedDrakefirePistols";
+        }
+    }
+
+    return ParameterValueToString(parameter);
+}
+
+int Irondrakes::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Drakegun")
+    {
+        return Drakegun;
+    }
+    else if (enumString == "GrudgehammerTorpedo")
+    {
+        return GrudgehammerTorpedo;
+    }
+    else if (enumString == "DrakefirePistolAndCinderblastBomb")
+    {
+        return DrakefirePistolAndCinderblastBomb;
+    }
+    else if (enumString == "PairedDrakefirePistols")
+    {
+        return PairedDrakefirePistols;
+    }
+    return 0;
 }
 
 } // namespace Dispossessed

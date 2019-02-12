@@ -131,6 +131,13 @@ add_library(
         dispossessed/Quarrellers.cpp
         dispossessed/Ironbreakers.cpp
         dispossessed/Irondrakes.cpp
+
+        skaven/Clanrats.cpp
+        skaven/GutterRunners.cpp
+        skaven/NightRunners.cpp
+        skaven/PlagueMonks.cpp
+        skaven/Stormfiends.cpp
+        skaven/Stormvermin.cpp
 )
 
 target_include_directories(

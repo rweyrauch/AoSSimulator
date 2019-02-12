@@ -15,8 +15,8 @@ namespace Dispossessed
 
 static FactoryMethod factoryMethod = {
     Ironbreakers::Create,
-    nullptr,
-    nullptr,
+    Ironbreakers::ValueToString,
+    Ironbreakers::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Ironbreakers::MIN_UNIT_SIZE}, Ironbreakers::MIN_UNIT_SIZE,
@@ -166,6 +166,44 @@ void Ironbreakers::onStartShooting(PlayerId player)
             m_hasCinderblastBomb = false;
         }
     }
+}
+
+std::string Ironbreakers::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "ironbeardWeapons")
+    {
+        if (parameter.m_intValue == IronbreakerAxeOrHammer)
+        {
+            return "IronbreakerAxeOrHammer";
+        }
+        else if (parameter.m_intValue == DrakefirePistolAndCinderblastBomb)
+        {
+            return "DrakefirePistolAndCinderblastBomb";
+        }
+        else if (parameter.m_intValue == PairedDrakefirePistols)
+        {
+            return "PairedDrakefirePistols";
+        }
+    }
+
+    return ParameterValueToString(parameter);
+}
+
+int Ironbreakers::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "IronbreakerAxeOrHammer")
+    {
+        return IronbreakerAxeOrHammer;
+    }
+    else if (enumString == "DrakefirePistolAndCinderblastBomb")
+    {
+        return DrakefirePistolAndCinderblastBomb;
+    }
+    else if (enumString == "PairedDrakefirePistols")
+    {
+        return PairedDrakefirePistols;
+    }
+    return 0;
 }
 
 } // namespace Dispossessed

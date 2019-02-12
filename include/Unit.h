@@ -164,6 +164,23 @@ protected:
 protected:
 
     /*!
+     * Some weapons generate extra attacks.
+     * Examples include additional attacks when charging or when a minimum number of models are attacking.
+     * @param weapon Attacking weapon
+     * @return Number of additional attacks (not including the normal attack).
+     */
+    virtual int extraAttacks(const Weapon *weapon) const { return 0; }
+
+    /*!
+     *
+     * @param unmodifiedHitRoll
+     * @param weapon
+     * @param unit
+     * @return
+     */
+    virtual int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const { return  1; }
+
+    /*!
      * To-hit modifier (buffs) when this unit uses the given weapon to attack the target.
      * @param weapon Attacking with weapon
      * @param target Unit being attacked
@@ -248,9 +265,6 @@ protected:
 
     virtual int unbindingModifier() const { return 0; }
 
-    virtual int extraAttacks(const Weapon *weapon) const { return 0; }
-
-    virtual int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const { return  1; }
 
     virtual int runModifier() const { return 0; }
 
@@ -303,7 +317,7 @@ protected:
     bool m_fly = false;
     bool m_runAndShoot = false;
     bool m_runAndCharge = false;
-    bool m_retreatAncCharge = false;
+    bool m_retreatAndCharge = false;
     bool m_ignoreRend = false;
 
     PlayerId m_owningPlayer = PlayerId::None;

@@ -104,6 +104,10 @@ int Dice::rollSpecial(int number)
     {
         return rollD3();
     }
+    else if (number == RAND_2D3)
+    {
+        return rollD3() + rollD3();
+    }
     else if (number == RAND_D6)
     {
         return rollD6();

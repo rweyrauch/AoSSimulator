@@ -41,7 +41,7 @@ bool BladegheistRevenants::configure(int numModels)
         return false;
     }
 
-    m_retreatAncCharge = true;
+    m_retreatAndCharge = true;
 
     for (auto i = 0; i < numModels; i++)
     {

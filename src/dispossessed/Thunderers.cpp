@@ -13,8 +13,8 @@ namespace Dispossessed
 {
 static FactoryMethod factoryMethod = {
     Thunderers::Create,
-    nullptr,
-    nullptr,
+    Thunderers::ValueToString,
+    Thunderers::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Thunderers::MIN_UNIT_SIZE}, Thunderers::MIN_UNIT_SIZE,
@@ -117,6 +117,36 @@ void Thunderers::Init()
     {
         s_registered = UnitFactory::Register("Thunderers", factoryMethod);
     }
+}
+
+std::string Thunderers::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "veteranWeapon")
+    {
+        if (parameter.m_intValue == DuardinHandgun)
+        {
+            return "DuardinHandgun";
+        }
+        else if (parameter.m_intValue == BraceOfDuardinPistols)
+        {
+            return "BraceOfDuardinPistols";
+        }
+    }
+
+    return ParameterValueToString(parameter);
+}
+
+int Thunderers::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "DuardinHandgun")
+    {
+        return DuardinHandgun;
+    }
+    else if (enumString == "BraceOfDuardinPistols")
+    {
+        return BraceOfDuardinPistols;
+    }
+    return 0;
 }
 
 } // namespace Dispossessed

@@ -14,8 +14,8 @@ namespace Dispossessed
 {
 static FactoryMethod factoryMethod = {
     Quarrellers::Create,
-    nullptr,
-    nullptr,
+    Quarrellers::ValueToString,
+    Quarrellers::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Quarrellers::MIN_UNIT_SIZE}, Quarrellers::MIN_UNIT_SIZE,
@@ -126,6 +126,44 @@ Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const
             return RerollFailed;
     }
     return Unit::toSaveRerolls(weapon);
+}
+
+std::string Quarrellers::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "standard")
+    {
+        if (parameter.m_intValue == None)
+        {
+            return "None";
+        }
+        else if (parameter.m_intValue == RunicIcon)
+        {
+            return "RunicIcon";
+        }
+        else if (parameter.m_intValue == ClanBanner)
+        {
+            return "ClanBanner";
+        }
+    }
+
+    return ParameterValueToString(parameter);
+}
+
+int Quarrellers::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "None")
+    {
+        return None;
+    }
+    else if (enumString == "RunicIcon")
+    {
+        return RunicIcon;
+    }
+    else if (enumString == "ClanBanner")
+    {
+        return ClanBanner;
+    }
+    return 0;
 }
 
 } // namespace Dispossessed
