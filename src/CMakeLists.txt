@@ -75,6 +75,7 @@ add_library(
         gloomspitegitz/LoonbossOnGiantCaveSquig.cpp
         gloomspitegitz/LoonbossWithGiantCaveSquig.cpp
         gloomspitegitz/AleguzzlerGargant.cpp
+        gloomspitegitz/SquigGobba.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
@@ -138,6 +139,7 @@ add_library(
         skaven/PlagueMonks.cpp
         skaven/Stormfiends.cpp
         skaven/Stormvermin.cpp
+        skaven/HellPitAbomination.cpp
 )
 
 target_include_directories(

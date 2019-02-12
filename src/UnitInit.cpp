@@ -43,6 +43,7 @@
 #include "gloomspitegitz/LoonbossOnGiantCaveSquig.h"
 #include "gloomspitegitz/LoonbossWithGiantCaveSquig.h"
 #include "gloomspitegitz/AleguzzlerGargant.h"
+#include "gloomspitegitz/SquigGobba.h"
 
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
@@ -125,6 +126,7 @@
 #include "skaven/NightRunners.h"
 #include "skaven/Stormfiends.h"
 #include "skaven/Stormvermin.h"
+#include "skaven/HellPitAbomination.h"
 
 static Verbosity g_verbosity = Normal;
 
@@ -172,6 +174,7 @@ void Initialize(Verbosity verbosity)
     GloomspiteGitz::LoonbossOnGiantCaveSquig::Init();
     GloomspiteGitz::LoonbossWithGiantCaveSquig::Init();
     GloomspiteGitz::AleguzzlerGargant::Init();
+    GloomspiteGitz::SquigGobba::Init();
 
     Khorne::Bloodreavers::Init();
     Khorne::BloodWarriors::Init();
@@ -254,4 +257,5 @@ void Initialize(Verbosity verbosity)
     Skaven::PlagueMonks::Init();
     Skaven::Stormfiends::Init();
     Skaven::Stormvermin::Init();
+    Skaven::HellPitAbomination::Init();
 }

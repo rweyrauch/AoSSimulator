@@ -82,19 +82,22 @@ int Alarielle::toHitModifier(const Weapon *weapon, const Unit *unit) const
 
 void Alarielle::hero(PlayerId player)
 {
-    if (remainingWounds() < WOUNDS && remainingWounds() > 0)
+    if (player == m_owningPlayer)
     {
-        Dice dice;
-        // Lifebloom - heal herself D3
-        int woundsHealed = dice.rollD3();
-        // Soul Amphorae (healing part).  TODO: only do this if not summoning
-        woundsHealed += dice.rollD3();
-        for (auto &m : m_models)
+        if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            m.woundsRemaining() += woundsHealed;
-            if (m.woundsRemaining() > WOUNDS)
+            Dice dice;
+            // Lifebloom - heal herself D3
+            int woundsHealed = dice.rollD3();
+            // Soul Amphorae (healing part).  TODO: only do this if not summoning
+            woundsHealed += dice.rollD3();
+            for (auto &m : m_models)
             {
-                m.woundsRemaining() = WOUNDS;
+                m.woundsRemaining() += woundsHealed;
+                if (m.woundsRemaining() > WOUNDS)
+                {
+                    m.woundsRemaining() = WOUNDS;
+                }
             }
         }
     }

@@ -208,6 +208,7 @@ enum Keyword
     TROGGBOSS,
     SKRAGROTT,
     ALEGUZZLER,
+    SQUIG_GOBBA,
 
     // Daughters of Khaine
     MELUSAI,
@@ -325,6 +326,8 @@ enum Keyword
     CLANRATS,
     STORMFIENDS,
     PLAGUE_MONKS,
+    HELL_PIT_ABOMINATION,
+    FIGHTING_BEAST,
 };
 
 enum Duration

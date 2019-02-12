@@ -52,6 +52,11 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 
     numSlain = targetUnit->applyDamage(totalDamage);
 
+    if (targetUnit->remainingModels() == 0)
+    {
+        targetUnit->onSlain();
+    }
+
     // apply returned damage to this unit
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
     if (numSlainByReturnedDamage)
@@ -110,6 +115,11 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
     {
         std::cout << "Number of attacking models slain by reflected damage: " << numSlainByReturnedDamage
                   << "  Total reflected damage: " << totalDamageReflected.normal << "  Mortal: " << totalDamageReflected.mortal << std::endl;
+    }
+
+    if (remainingModels() == 0)
+    {
+        onSlain();
     }
 
     m_currentRecord.m_woundsInflicted += totalDamage;
@@ -223,6 +233,11 @@ int Unit::applyDamage(const Wounds& totalWounds)
 
     m_currentRecord.m_modelsSlain += numSlain;
     m_currentRecord.m_woundsTaken += totalWounds;
+
+    if (remainingModels() == 0)
+    {
+        onSlain();
+    }
 
     return numSlain;
 }

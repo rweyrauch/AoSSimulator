@@ -89,24 +89,27 @@ void RockgutTroggoths::hero(PlayerId player)
 {
     Unit::hero(player);
 
-    if (remainingWounds() < WOUNDS && remainingWounds() > 0)
+    if (player == m_owningPlayer)
     {
-        Dice dice;
-        // Regeneration - heal D3
-        if (dice.rollD6() >= 4)
+        if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            int woundsHealed = dice.rollD3();
-            for (auto &m : m_models)
+            Dice dice;
+            // Regeneration - heal D3
+            if (dice.rollD6() >= 4)
             {
-                if (!m.slain() || !m.fled())
+                int woundsHealed = dice.rollD3();
+                for (auto &m : m_models)
                 {
-                    if (m.woundsRemaining() < WOUNDS)
+                    if (!m.slain() || !m.fled())
                     {
-                        int numToHeal = std::min(woundsHealed, WOUNDS - m.woundsRemaining());
-                        m.woundsRemaining() += numToHeal;
-                        woundsHealed -= numToHeal;
-                        if (woundsHealed <= 0)
-                        { break; }
+                        if (m.woundsRemaining() < WOUNDS)
+                        {
+                            int numToHeal = std::min(woundsHealed, WOUNDS - m.woundsRemaining());
+                            m.woundsRemaining() += numToHeal;
+                            woundsHealed -= numToHeal;
+                            if (woundsHealed <= 0)
+                            { break; }
+                        }
                     }
                 }
             }
