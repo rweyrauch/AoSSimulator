@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
             Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = (int) Skullreapers::WeaponOptions::GoreSlickBlades},
+            ParamType::Enum, "weapons", {.m_intValue = (int) Skullreapers::WeaponOptions::GoreSlickBlades},
             (int) Skullreapers::WeaponOptions::GoreSlickBlades, (int) Skullreapers::WeaponOptions::Daemonblades, 1
         },
         {ParamType::Integer, "numSpinecleavers", {.m_intValue = 1}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
@@ -125,7 +125,7 @@ Unit *Skullreapers::Create(const ParameterList &parameters)
 {
     auto unit = new Skullreapers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (Skullreapers::WeaponOptions) GetIntParam("weapons", parameters, Skullreapers::GoreSlickBlades);
+    auto weapons = (Skullreapers::WeaponOptions) GetEnumParam("weapons", parameters, Skullreapers::GoreSlickBlades);
     int numSplinecleavers = GetIntParam("numSpinecleavers", parameters, 1);
     int numSoultearers = GetIntParam("numSoultearers", parameters, 0);
     bool iconBearer = GetBoolParam("iconBearer", parameters, true);

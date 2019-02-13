@@ -362,6 +362,7 @@ enum class ParamType
 {
     Boolean,
     Integer,
+    Enum,
 };
 
 struct Parameter
@@ -383,6 +384,7 @@ typedef std::vector<Parameter> ParameterList;
 std::string ParameterValueToString(const Parameter& param);
 ParameterList::const_iterator FindParam(const std::string& name, const ParameterList& parameters);
 int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue);
+int GetEnumParam(const std::string& name, const ParameterList& parameters, int defaultValue);
 bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue);
 
 std::string PhaseToString(Phase phase);

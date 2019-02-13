@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
             Ungors::MAX_UNIT_SIZE, Ungors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
+            ParamType::Enum, "weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
             Ungors::GnarledShortspear, 1
         },
         {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
@@ -102,7 +102,7 @@ Unit *Ungors::Create(const ParameterList &parameters)
 {
     auto unit = new Ungors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions) GetIntParam("weapons", parameters, UngorBlade);
+    auto weapon = (WeaponOptions) GetEnumParam("weapons", parameters, UngorBlade);
     bool brayhorn = GetBoolParam("brayhorn", parameters, false);
     bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
 

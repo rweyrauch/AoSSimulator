@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
             PlagueMonks::MAX_UNIT_SIZE, PlagueMonks::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = PlagueMonks::PairedFoetidBlades}, PlagueMonks::PairedFoetidBlades,
+            ParamType::Enum, "weapons", {.m_intValue = PlagueMonks::PairedFoetidBlades}, PlagueMonks::PairedFoetidBlades,
             PlagueMonks::FoetidBladeAndWoeStave, 1
         },
         {ParamType::Integer, "contagionBanners", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
@@ -106,7 +106,7 @@ Unit *PlagueMonks::Create(const ParameterList &parameters)
 {
     auto unit = new PlagueMonks();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions)GetIntParam("weapons", parameters, PairedFoetidBlades);
+    WeaponOptions weapons = (WeaponOptions)GetEnumParam("weapons", parameters, PairedFoetidBlades);
     int contagionBanners = GetIntParam("contagaionBanners", parameters, 0);
     int iconsOfPestilence = GetIntParam("iconsOfPestilence", parameters, 0);
     int doomGongs = GetIntParam("doomGongs", parameters, 0);

@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
             Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Integer, "standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
+        {ParamType::Enum, "standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
         {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
@@ -85,7 +85,7 @@ Unit *Quarrellers::Create(const ParameterList &parameters)
     auto unit = new Quarrellers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
     bool duardinBucklers = GetBoolParam("duardinBucklers", parameters, false);
-    auto standard = (StandardOptions)GetIntParam("standard", parameters, None);
+    auto standard = (StandardOptions)GetEnumParam("standard", parameters, None);
     bool drummer = GetBoolParam("drummer", parameters, false);
 
     bool ok = unit->configure(numModels, duardinBucklers, standard, drummer);

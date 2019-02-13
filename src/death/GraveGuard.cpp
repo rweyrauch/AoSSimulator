@@ -98,7 +98,7 @@ Unit *GraveGuard::Create(const ParameterList &parameters)
 {
     auto unit = new GraveGuard();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions) GetIntParam("weapons", parameters, WightBlade);
+    WeaponOptions weapons = (WeaponOptions) GetEnumParam("weapons", parameters, WightBlade);
     bool standardBearers = GetBoolParam("standardBearers", parameters, false);
     bool hornblowers = GetBoolParam("hornblowers", parameters, false);
 

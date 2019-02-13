@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
             Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "ironbeardWeapons", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
+            ParamType::Enum, "ironbeardWeapons", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
             Irondrakes::PairedDrakefirePistols, 1
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, false},
@@ -114,7 +114,7 @@ Unit *Irondrakes::Create(const ParameterList &parameters)
 {
     auto unit = new Irondrakes();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapon = (WeaponOptions)GetIntParam("ironWardenWeapons", parameters, (int)Drakegun);
+    WeaponOptions weapon = (WeaponOptions)GetEnumParam("ironWardenWeapons", parameters, (int)Drakegun);
     bool iconBearer = GetBoolParam("iconBearer", parameters, false);
     bool hornblower = GetBoolParam("hornblower", parameters, false);
 
@@ -194,13 +194,6 @@ int Irondrakes::extraAttacks(const Weapon *weapon) const
     return Unit::extraAttacks(weapon);
 }
 
-/*
-    Drakegun,
-        GrudgehammerTorpedo,
-        DrakefirePistolAndCinderblastBomb,
-        PairedDrakefirePistols
-
- */
 std::string Irondrakes::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "ironWardenWeapons")

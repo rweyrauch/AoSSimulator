@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
             Ironbreakers::MAX_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "ironbeardWeapons", {.m_intValue = Ironbreakers::IronbreakerAxeOrHammer}, Ironbreakers::IronbreakerAxeOrHammer,
+            ParamType::Enum, "ironbeardWeapons", {.m_intValue = Ironbreakers::IronbreakerAxeOrHammer}, Ironbreakers::IronbreakerAxeOrHammer,
             Ironbreakers::PairedDrakefirePistols, 1
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, false},
@@ -104,7 +104,7 @@ Unit *Ironbreakers::Create(const ParameterList &parameters)
 {
     auto unit = new Ironbreakers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapon = (WeaponOptions)GetIntParam("ironbeardWeapons", parameters, (int)IronbreakerAxeOrHammer);
+    WeaponOptions weapon = (WeaponOptions)GetEnumParam("ironbeardWeapons", parameters, (int)IronbreakerAxeOrHammer);
     bool iconBearer = GetBoolParam("iconBearer", parameters, false);
     bool drummer = GetBoolParam("drummer", parameters, false);
 

@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     LordOrdinator::EnumStringToInt,
     {
         {
-            ParamType::Integer, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
+            ParamType::Enum, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
             LordOrdinator::AstralGrandhammer, 1
         },
     },
@@ -59,7 +59,7 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 Unit *LordOrdinator::Create(const ParameterList &parameters)
 {
     auto unit = new LordOrdinator();
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, false);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, false);
 
     bool ok = unit->configure(weapons);
     if (!ok)

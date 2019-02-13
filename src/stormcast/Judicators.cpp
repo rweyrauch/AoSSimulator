@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
         {
-            ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
+            ParamType::Enum, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
             Judicators::BoltstormCrossbow, 1
         },
         {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
@@ -140,7 +140,7 @@ Unit *Judicators::Create(const ParameterList &parameters)
 {
     auto juds = new Judicators();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, SkyboltBow);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, SkyboltBow);
     int numShockboltBows = GetIntParam("numShockboltBows", parameters, 0);
     int numThunderboltCrossbows = GetIntParam("numThunderboltCrossbows", parameters, 0);
 

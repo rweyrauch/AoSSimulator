@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE},
         {
-            ParamType::Integer, "weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
+            ParamType::Enum, "weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
             Liberators::Warblade, 1
         },
         {ParamType::Boolean, "pairedWeapons", {.m_boolValue = false}, false, false},
@@ -153,7 +153,7 @@ Unit *Liberators::Create(const ParameterList &parameters)
 {
     auto libs = new Liberators();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, Warblade);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, Warblade);
     bool pairedWeapons = GetBoolParam("pairedWeapons", parameters, false);
     int numGrandhammers = GetIntParam("numGrandhammers", parameters, 0);
     int numGrandblades = GetIntParam("numGrandblades", parameters, 0);

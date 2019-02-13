@@ -33,6 +33,20 @@ int GetIntParam(const std::string &name, const ParameterList &parameters, int de
     return value;
 }
 
+int GetEnumParam(const std::string &name, const ParameterList &parameters, int defaultValue)
+{
+    int value = defaultValue;
+    auto pip = FindParam(name, parameters);
+    if (pip != parameters.end())
+    {
+        if (pip->m_paramType == ParamType::Enum)
+        {
+            value = pip->m_intValue;
+        }
+    }
+    return value;
+}
+
 bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool defaultValue)
 {
     bool value = defaultValue;
@@ -111,7 +125,7 @@ float AverageRandomValue(int value)
 std::string ParameterValueToString(const Parameter &param)
 {
     std::stringstream ss;
-    if (param.m_paramType == ParamType::Integer)
+    if (param.m_paramType == ParamType::Integer || param.m_paramType == ParamType::Enum)
     {
         ss << param.m_intValue;
     }

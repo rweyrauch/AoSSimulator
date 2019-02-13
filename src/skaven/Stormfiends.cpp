@@ -22,15 +22,15 @@ static FactoryMethod factoryMethod = {
             Stormfiends::MAX_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapon1", {.m_intValue = Stormfiends::WarpfireProjectors}, Stormfiends::WarpfireProjectors,
+            ParamType::Enum, "weapon1", {.m_intValue = Stormfiends::WarpfireProjectors}, Stormfiends::WarpfireProjectors,
             Stormfiends::Windlaunchers, 1
         },
         {
-            ParamType::Integer, "weapon2", {.m_intValue = Stormfiends::Grinderfists}, Stormfiends::Grinderfists,
+            ParamType::Enum, "weapon2", {.m_intValue = Stormfiends::Grinderfists}, Stormfiends::Grinderfists,
             Stormfiends::RatlingCannons, 1
         },
         {
-            ParamType::Integer, "weapon3", {.m_intValue = Stormfiends::DoomflayerGauntlets}, Stormfiends::DoomflayerGauntlets,
+            ParamType::Enum, "weapon3", {.m_intValue = Stormfiends::DoomflayerGauntlets}, Stormfiends::DoomflayerGauntlets,
             Stormfiends::ShockGauntlets, 1
         },
     },
@@ -131,9 +131,9 @@ Unit *Stormfiends::Create(const ParameterList &parameters)
 {
     auto unit = new Stormfiends();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption_1 weapon1 = (WeaponOption_1)GetIntParam("weapon1", parameters, WarpfireProjectors);
-    WeaponOption_2 weapon2 = (WeaponOption_2)GetIntParam("weapon2", parameters, Grinderfists);
-    WeaponOption_3 weapon3 = (WeaponOption_3)GetIntParam("weapon3", parameters, DoomflayerGauntlets);
+    WeaponOption_1 weapon1 = (WeaponOption_1)GetEnumParam("weapon1", parameters, WarpfireProjectors);
+    WeaponOption_2 weapon2 = (WeaponOption_2)GetEnumParam("weapon2", parameters, Grinderfists);
+    WeaponOption_3 weapon3 = (WeaponOption_3)GetEnumParam("weapon3", parameters, DoomflayerGauntlets);
 
     bool ok = unit->configure(numModels, weapon1, weapon2, weapon3);
     if (!ok)

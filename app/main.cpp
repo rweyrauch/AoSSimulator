@@ -281,7 +281,7 @@ void displayUnits(Verbosity verbose, const std::string& faction)
             std::cout << "\t  Parameters:" << std::endl;
             for (auto pip : ruip->second.m_parameters)
             {
-                if (pip.m_paramType == ParamType::Integer)
+                if (pip.m_paramType == ParamType::Integer || pip.m_paramType == ParamType::Enum)
                 {
                     if (ruip->second.m_paramToString == nullptr)
                     {
@@ -380,6 +380,16 @@ Unit* parseUnitDescription(const std::string& desc)
                 auto paramType = ParamType::Integer;
                 if (value == "true" || value == "false")
                     paramType = ParamType::Boolean;
+                try
+                {
+                    int temp = std::stoi(value);
+                    paramType = ParamType::Integer;
+                }
+                catch (std::invalid_argument)
+                {
+                    paramType = ParamType::Enum;
+                }
+
                 auto matchParam = [paramName](Parameter& p)->bool { return (p.m_name == paramName); };
                 auto pv = std::find_if(defaultParams.begin(), defaultParams.end(), matchParam);
                 if (pv != defaultParams.end())
@@ -406,6 +416,10 @@ Unit* parseUnitDescription(const std::string& desc)
                         {
                             pv->m_intValue = factory->m_enumStringToInt(value);
                         }
+                    }
+                    else if (paramType == ParamType::Enum)
+                    {
+                        pv->m_intValue = factory->m_enumStringToInt(value);
                     }
                 }
             }

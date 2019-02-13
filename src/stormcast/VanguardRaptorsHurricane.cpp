@@ -72,7 +72,7 @@ bool VanguardRaptorsHurricane::configure(int numModels)
 Unit *VanguardRaptorsHurricane::Create(const ParameterList &parameters)
 {
     auto unit = new VanguardRaptorsHurricane();
-    int numModels = GetIntParam("VanguardRaptorsHurricane", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

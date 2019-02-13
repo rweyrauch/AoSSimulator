@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
             Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
+            ParamType::Enum, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
             Bloodreavers::MeatripperAxe, 1
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
@@ -122,7 +122,7 @@ Unit *Bloodreavers::Create(const ParameterList &parameters)
 {
     auto unit = new Bloodreavers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, ReaverBlades);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, ReaverBlades);
     bool iconBearer = GetBoolParam("iconBearer", parameters, false);
     bool hornblowers = GetBoolParam("hornblowers", parameters, false);
 

@@ -22,8 +22,8 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
             Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Integer, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Enum, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Enum, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
         {ParamType::Integer, "numBarbedNets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
         {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
         {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
@@ -121,8 +121,8 @@ Unit *Stabbas::Create(const ParameterList &parameters)
 {
     auto unit = new Stabbas();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, Stabba);
-    WeaponOption bossWeapon = (WeaponOption) GetIntParam("bossWeapon", parameters, Stabba);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, Stabba);
+    WeaponOption bossWeapon = (WeaponOption) GetEnumParam("bossWeapon", parameters, Stabba);
     int numBarbedNets = GetIntParam("numBarbedNets", parameters, 0);
     int numGongbashers = GetIntParam("numGongbashers", parameters, 0);
     int numFlagbearers = GetIntParam("numFlagbearers", parameters, 0);

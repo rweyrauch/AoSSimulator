@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
         {
-            ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
+            ParamType::Enum, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
             Sequitors::TempestBlade, 1
         },
         {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
@@ -175,7 +175,7 @@ Unit *Sequitors::Create(const ParameterList &parameters)
 {
     auto unit = new Sequitors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, StormsmiteMaul);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, StormsmiteMaul);
     int numGreatmaces = GetIntParam("numGreatmaces", parameters, 0);
     bool primeGreatmace = GetBoolParam("primeGreatmace", parameters, false);
     bool redemptionCache = GetBoolParam("redemptionCache", parameters, false);

@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
             Thunderers::MAX_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "veteranWeapon", {.m_intValue = Thunderers::DuardinHandgun}, Thunderers::DuardinHandgun,
+            ParamType::Enum, "veteranWeapon", {.m_intValue = Thunderers::DuardinHandgun}, Thunderers::DuardinHandgun,
             Thunderers::BraceOfDuardinPistols, 1
         },
         {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
@@ -99,7 +99,7 @@ Unit *Thunderers::Create(const ParameterList &parameters)
 {
     auto unit = new Thunderers();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions)GetIntParam("veteranWeapon", parameters, DuardinHandgun);
+    auto weapon = (WeaponOptions)GetEnumParam("veteranWeapon", parameters, DuardinHandgun);
     bool duardinBucklers = GetBoolParam("duardinBucklers", parameters, false);
     bool standardBearer = GetBoolParam("standardBearer", parameters, false);
     bool drummer = GetBoolParam("drummer", parameters, false);

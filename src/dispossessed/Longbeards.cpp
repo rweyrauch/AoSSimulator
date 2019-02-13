@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
             Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = Longbeards::AncestralAxesOrHammers}, Longbeards::AncestralAxesOrHammers,
+            ParamType::Enum, "weapons", {.m_intValue = Longbeards::AncestralAxesOrHammers}, Longbeards::AncestralAxesOrHammers,
             Longbeards::AncestralGreatAxe, 1
         },
         {ParamType::Boolean, "gromrilShields", {.m_boolValue = false}, false, false, false},
@@ -101,7 +101,7 @@ Unit *Longbeards::Create(const ParameterList &parameters)
 {
     auto unit = new Longbeards();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetIntParam("weapons", parameters, AncestralAxesOrHammers);
+    auto weapons = (WeaponOptions)GetEnumParam("weapons", parameters, AncestralAxesOrHammers);
     bool gromrilShields = GetBoolParam("gromrilShields", parameters, false);
     bool standardBearer = GetBoolParam("standardBearer", parameters, false);
     bool musician = GetBoolParam("musician", parameters, false);

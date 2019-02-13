@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnStardrake::EnumStringToInt,
     {
         {
-            ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
+            ParamType::Enum, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
             LordCelestantOnStardrake::StormboundBlade, 1
         },
     },
@@ -85,7 +85,7 @@ int LordCelestantOnStardrake::move() const
 Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnStardrake();
-    auto weapons = (WeaponOption) GetIntParam("weapons", parameters, CelestineHammer);
+    auto weapons = (WeaponOption) GetEnumParam("weapons", parameters, CelestineHammer);
 
     bool ok = unit->configure(weapons);
     if (!ok)

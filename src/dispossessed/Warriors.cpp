@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
             Warriors::MAX_UNIT_SIZE, Warriors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = Warriors::DuardinAxeOrHammer}, Warriors::DuardinAxeOrHammer,
+            ParamType::Enum, "weapons", {.m_intValue = Warriors::DuardinAxeOrHammer}, Warriors::DuardinAxeOrHammer,
             Warriors::DoubleHandedDuardinAxe, 1
         },
         {ParamType::Boolean, "duardinShields", {.m_boolValue = false}, false, false, false},
@@ -101,9 +101,9 @@ Unit *Warriors::Create(const ParameterList &parameters)
 {
     auto unit = new Warriors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetIntParam("weapons", parameters, DuardinAxeOrHammer);
+    auto weapons = (WeaponOptions)GetEnumParam("weapons", parameters, DuardinAxeOrHammer);
     bool duardinShields = GetBoolParam("duardinShields", parameters, false);
-    auto standard = (StandardOptions)GetIntParam("standard", parameters, None);
+    auto standard = (StandardOptions)GetEnumParam("standard", parameters, None);
     bool hornblower = GetBoolParam("hornblower", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, duardinShields, standard, hornblower);

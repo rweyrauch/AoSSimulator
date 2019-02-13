@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
             Bullgors::MAX_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
+            ParamType::Enum, "weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
             Bullgors::BullgorGreatAxe, 1
         },
         {ParamType::Boolean, "drummer", {.m_boolValue = true}, false, false},
@@ -104,7 +104,7 @@ Unit *Bullgors::Create(const ParameterList &parameters)
 {
     auto unit = new Bullgors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions) GetIntParam("weapons", parameters, BullgorAxe);
+    auto weapon = (WeaponOptions) GetEnumParam("weapons", parameters, BullgorAxe);
     bool drummer = GetBoolParam("drummer", parameters, false);
     bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
 

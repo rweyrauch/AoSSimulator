@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
         {
-            ParamType::Integer, "weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
+            ParamType::Enum, "weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
             VanguardHunters::StormSabre, 1
         },
         {ParamType::Boolean, "astralCompass", {.m_boolValue = false}, false, false},
@@ -98,7 +98,7 @@ Unit *VanguardHunters::Create(const ParameterList &parameters)
 {
     auto hunters = new VanguardHunters();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, StormSabre);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, StormSabre);
     bool astralCompass = GetBoolParam("astralCompass", parameters, false);
 
     bool ok = hunters->configure(numModels, weapons, astralCompass);

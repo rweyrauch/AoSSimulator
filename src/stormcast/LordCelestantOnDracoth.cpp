@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnDracoth::EnumStringToInt,
     {
         {
-            ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
+            ParamType::Enum, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
             LordCelestantOnDracoth::StormstrikeGlaive, 1
         },
         {ParamType::Boolean, "sigmariteThundershield", {.m_boolValue = false}, false, false},
@@ -74,7 +74,7 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
 Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnDracoth();
-    auto weapons = (WeaponOption) GetIntParam("weapons", parameters, LightningHammer);
+    auto weapons = (WeaponOption) GetEnumParam("weapons", parameters, LightningHammer);
     bool sigmariteThundershield = GetBoolParam("sigmariteThundershield", parameters, false);
 
     bool ok = unit->configure(weapons, sigmariteThundershield);

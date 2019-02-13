@@ -65,7 +65,7 @@ void LoonbossOnGiantCaveSquig::visitWeapons(std::function<void(const Weapon *)> 
 Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters)
 {
     auto unit = new LoonbossOnGiantCaveSquig();
-    WeaponOptions weapon = (WeaponOptions) GetIntParam("weapons", parameters, Mooncutta);
+    WeaponOptions weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
 
     bool ok = unit->configure(weapon);
     if (!ok)
@@ -86,7 +86,6 @@ std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter& parameter)
         { return "MoonclanStabba"; }
     }
     return ParameterValueToString(parameter);
-
 }
 
 int LoonbossOnGiantCaveSquig::EnumStringToInt(const std::string& enumString)

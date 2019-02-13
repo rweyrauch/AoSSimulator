@@ -100,7 +100,7 @@ Unit *SkeletonWarriors::Create(const ParameterList &parameters)
 {
     auto unit = new SkeletonWarriors();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions) GetIntParam("weapons", parameters, AncientBlade);
+    WeaponOptions weapons = (WeaponOptions) GetEnumParam("weapons", parameters, AncientBlade);
     bool standardBearers = GetBoolParam("standardBearers", parameters, false);
     bool hornblowers = GetBoolParam("hornblowers", parameters, false);
 

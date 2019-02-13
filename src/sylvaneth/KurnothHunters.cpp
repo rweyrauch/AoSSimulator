@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
             KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
+            ParamType::Enum, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
             KurnothHunters::Greatbows, 1
         }
     },
@@ -105,7 +105,7 @@ Unit *KurnothHunters::Create(const ParameterList &parameters)
 {
     auto unit = new KurnothHunters();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetIntParam("weapons", parameters, KurnothHunters::Greatswords);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, KurnothHunters::Greatswords);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)

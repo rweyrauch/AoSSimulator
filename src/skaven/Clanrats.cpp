@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
             Clanrats::MAX_UNIT_SIZE, Clanrats::MIN_UNIT_SIZE
         },
         {
-            ParamType::Integer, "weapons", {.m_intValue = Clanrats::RustySpear}, Clanrats::RustySpear,
+            ParamType::Enum, "weapons", {.m_intValue = Clanrats::RustySpear}, Clanrats::RustySpear,
             Clanrats::RustyBlade, 1
         },
         {ParamType::Boolean, "clanshields", {.m_boolValue = false}, false, false, false},
@@ -110,7 +110,7 @@ Unit *Clanrats::Create(const ParameterList &parameters)
 {
     auto unit = new Clanrats();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapon = (WeaponOptions)GetIntParam("weapons", parameters, (int)RustySpear);
+    WeaponOptions weapon = (WeaponOptions)GetEnumParam("weapons", parameters, (int)RustySpear);
     bool clanshields = GetBoolParam("clanshields", parameters, false);
     int standardBearers = GetIntParam("standardBearers", parameters, 0);
     int bellRingers = GetIntParam("bellRingers", parameters, 0);
