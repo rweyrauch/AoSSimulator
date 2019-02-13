@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = NightRunners::MIN_UNIT_SIZE}, NightRunners::MIN_UNIT_SIZE,
             NightRunners::MAX_UNIT_SIZE, NightRunners::MIN_UNIT_SIZE
         },
-    }
+    },
+    CHAOS,
+    SKAVEN
 };
 
 bool NightRunners::s_registered = false;

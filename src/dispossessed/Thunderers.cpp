@@ -27,7 +27,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "drummers", {.m_boolValue = false}, false, false, false}
-    }
+    },
+    ORDER,
+    DISPOSSESSED
 };
 
 bool Thunderers::s_registered = false;

@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool VandusHammerhand::s_registered = false;

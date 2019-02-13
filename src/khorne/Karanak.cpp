@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool Karanak::s_registered = false;

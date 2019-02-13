@@ -18,7 +18,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    ORDER,
+    SYLVANETH
 };
 
 bool Alarielle::s_registered = false;

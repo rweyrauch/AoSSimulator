@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = Vargheists::MIN_UNIT_SIZE}, Vargheists::MIN_UNIT_SIZE, Vargheists::MAX_UNIT_SIZE,
             Vargheists::MIN_UNIT_SIZE
         },
-    }
+    },
+    DEATH,
+    SOULBLIGHT
 };
 
 bool Vargheists::s_registered = false;

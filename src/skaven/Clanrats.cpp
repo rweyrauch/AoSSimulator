@@ -27,7 +27,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "clanshields", {.m_boolValue = false}, false, false, false},
         {ParamType::Integer, "standardBearers", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1},
         {ParamType::Integer, "bellRinders", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
-    }
+    },
+    CHAOS,
+    SKAVEN
 };
 
 bool Clanrats::s_registered = false;

@@ -23,7 +23,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblower", {.m_boolValue = false}, false, false, false},
-    }
+    },
+    ORDER,
+    WANDERER
 };
 
 bool EternalGuard::s_registered = false;

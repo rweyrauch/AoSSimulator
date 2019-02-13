@@ -19,7 +19,9 @@ static FactoryMethod factoryMethod = {
     LoonbossOnGiantCaveSquig::ValueToString,
     LoonbossOnGiantCaveSquig::EnumStringToInt,
     {
-    }
+    },
+    DESTRUCTION,
+    GLOOMSPITE_GITZ
 };
 
 bool LoonbossOnGiantCaveSquig::s_registered = false;

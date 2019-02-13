@@ -144,11 +144,11 @@ add_library(
 
 target_include_directories(
         whSim PUBLIC
-        ${GTK2_INCLUDE_DIRS}
+        ${GTK3_INCLUDE_DIRS}
         ../include
 )
 
 target_link_libraries(
         whSim
-        ${GTK2_LIBRARIES}
+        ${GTK3_LIBRARIES}
 )

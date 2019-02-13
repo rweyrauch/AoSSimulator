@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool LordCelestant::s_registered = false;

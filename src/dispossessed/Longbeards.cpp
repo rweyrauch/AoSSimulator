@@ -27,7 +27,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "gromrilShields", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "musician", {.m_boolValue = false}, false, false, false}
-    }
+    },
+    ORDER,
+    DISPOSSESSED
 };
 
 bool Longbeards::s_registered = false;

@@ -22,10 +22,12 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
             Sequitors::TempestBlade, 1
         },
-        {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2},
+        {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
         {ParamType::Boolean, "primeGreatmace", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "redemptionCache", {.m_boolValue = false}, false, false}
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool Sequitors::s_registered = false;

@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
             Khorgoraths::MIN_UNIT_SIZE,
             Khorgoraths::MAX_UNIT_SIZE, Khorgoraths::MIN_UNIT_SIZE
         },
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool Khorgoraths::s_registered = false;

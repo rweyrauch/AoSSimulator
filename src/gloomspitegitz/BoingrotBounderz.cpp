@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
             BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE
         }
-    }
+    },
+    DESTRUCTION,
+    GLOOMSPITE_GITZ
 };
 
 bool BoingrotBounderz::s_registered = false;

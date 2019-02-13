@@ -27,7 +27,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "duardinShields", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false}
-    }
+    },
+    ORDER,
+    DISPOSSESSED
 };
 
 bool Warriors::s_registered = false;

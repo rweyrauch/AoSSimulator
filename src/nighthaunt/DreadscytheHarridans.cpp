@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
             DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE
         },
-    }
+    },
+    DEATH,
+    NIGHTHAUNT
 };
 
 bool DreadscytheHarridans::s_registered = false;

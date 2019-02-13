@@ -18,7 +18,7 @@
 
 TEST(ManoAMano, LiberatorsVsBloodreavers)
 {
-    ManoAMano battle(5, true);
+    ManoAMano battle(5);
 
     auto board = Board::Instance();
 
@@ -64,7 +64,7 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
     int blueVictories = 0;
     int ties = 0;
 
-    ManoAMano battle(5, false);
+    ManoAMano battle(5);
 
     auto board = Board::Instance();
 
@@ -118,7 +118,7 @@ TEST(ManoAMano, StatsSequitersVsReavers)
     int blueVictories = 0;
     int ties = 0;
 
-    ManoAMano battle(5, false);
+    ManoAMano battle(5);
 
     auto seqs = new StormcastEternals::Sequitors();
     auto reavers = new Khorne::Bloodreavers();
@@ -169,7 +169,7 @@ TEST(ManoAMano, StatsLiberatorsVsStabbas)
     int blueVictories = 0;
     int ties = 0;
 
-    ManoAMano battle(5, false);
+    ManoAMano battle(5);
 
     auto libs = new StormcastEternals::Liberators();
     auto grots = new GloomspiteGitz::Stabbas();
@@ -220,7 +220,7 @@ TEST(ManoAMano, StatsSequitorVsStabbas)
     int blueVictories = 0;
     int ties = 0;
 
-    ManoAMano battle(5, false);
+    ManoAMano battle(5);
 
     auto seqs = new StormcastEternals::Sequitors();
     auto grots = new GloomspiteGitz::Stabbas();

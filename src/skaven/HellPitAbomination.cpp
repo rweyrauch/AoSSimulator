@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    CHAOS,
+    SKAVEN
 };
 
 struct TableEntry

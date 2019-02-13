@@ -23,8 +23,10 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = NamartiReavers::MIN_UNIT_SIZE}, NamartiReavers::MIN_UNIT_SIZE,
             NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE / 10}
-    }
+        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
+    },
+    ORDER,
+    IDONETH_DEEPKIN
 };
 
 bool NamartiReavers::s_registered = false;

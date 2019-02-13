@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
             GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "drummer", {.m_boolValue = true}, false, false}
-    }
+    },
+    DEATH,
+    NIGHTHAUNT
 };
 
 bool GlaivewraithStalkers::s_registered = false;

@@ -26,6 +26,8 @@ public:
     ParamValueToString m_paramToString;
     EnumStringToInt m_enumStringToInt;
     std::vector<Parameter> m_parameters;
+    Keyword m_grandAlliance;
+    Keyword m_faction;
 };
 
 class UnitFactory

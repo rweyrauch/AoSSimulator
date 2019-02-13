@@ -23,9 +23,11 @@ static FactoryMethod factoryMethod = {
             BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "pairedGoreax", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10},
+        {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false}
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool BloodWarriors::s_registered = false;

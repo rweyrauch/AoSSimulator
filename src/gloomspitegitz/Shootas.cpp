@@ -22,11 +22,13 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = Shootas::MIN_UNIT_SIZE},
             Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE},
-    }
+        {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+    },
+    DESTRUCTION,
+    GLOOMSPITE_GITZ
 };
 
 bool Shootas::s_registered = false;

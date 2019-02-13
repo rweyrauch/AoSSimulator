@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = WildwoodRangers::MIN_UNIT_SIZE}, WildwoodRangers::MIN_UNIT_SIZE,
             WildwoodRangers::MAX_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE
         },
-    }
+    },
+    ORDER,
+    WANDERER
 };
 
 bool WildwoodRangers::s_registered = false;

@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool CelestarBallista::s_registered = false;

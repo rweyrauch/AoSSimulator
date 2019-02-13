@@ -24,7 +24,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "pennantBearer", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblower", {.m_boolValue = false}, false, false, false},
-    }
+    },
+    ORDER,
+    WANDERER
 };
 
 bool GladeGuard::s_registered = false;

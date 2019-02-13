@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
-    }
+    },
+    DEATH,
+    DEATHRATTLE
 };
 
 bool GraveGuard::s_registered = false;

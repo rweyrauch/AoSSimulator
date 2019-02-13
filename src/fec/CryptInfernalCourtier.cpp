@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
     {
         {
         },
-    }
+    },
+    DEATH,
+    FLESH_EATERS_COURT
 };
 
 bool CryptInfernalCourtier::s_registered = false;

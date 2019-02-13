@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "sonorousTocsin", {.m_boolValue = true}, false, false},
-    }
+    },
+    CHAOS,
+    NURGLE
 };
 
 bool PutridBlightkings::s_registered = false;

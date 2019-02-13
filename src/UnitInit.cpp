@@ -128,7 +128,7 @@
 #include "skaven/Stormvermin.h"
 #include "skaven/HellPitAbomination.h"
 
-static Verbosity g_verbosity = Normal;
+static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
 {

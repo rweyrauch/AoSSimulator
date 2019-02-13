@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
             LordOrdinator::AstralGrandhammer, 1
         },
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool LordOrdinator::s_registered = false;

@@ -24,9 +24,11 @@ static FactoryMethod factoryMethod = {
             Liberators::Warblade, 1
         },
         {ParamType::Boolean, "pairedWeapons", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGrandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5},
-        {ParamType::Integer, "numGrandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5}
-    }
+        {ParamType::Integer, "numGrandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "numGrandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1}
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool Liberators::s_registered = false;

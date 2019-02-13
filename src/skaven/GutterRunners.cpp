@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = GutterRunners::MIN_UNIT_SIZE}, GutterRunners::MIN_UNIT_SIZE,
             GutterRunners::MAX_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE
         },
-    }
+    },
+    CHAOS,
+    SKAVEN
 };
 
 bool GutterRunners::s_registered = false;

@@ -26,7 +26,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
             KurnothHunters::Greatbows, 1
         }
-    }
+    },
+    ORDER,
+    SYLVANETH
 };
 
 bool KurnothHunters::s_registered = false;

@@ -23,7 +23,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = SpiteRevenants::MIN_UNIT_SIZE}, SpiteRevenants::MIN_UNIT_SIZE,
             SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE
         },
-    }
+    },
+    ORDER,
+    SYLVANETH
 };
 
 bool SpiteRevenants::s_registered = false;

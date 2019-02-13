@@ -110,6 +110,8 @@ enum Keyword
     SWIFTHAWK_AGENTS,
     WANDERER,
     SKAVEN,
+    DEATHRATTLE,
+    DEADWALKERS,
 
     // Common
     MORTAL,
@@ -269,7 +271,6 @@ enum Keyword
 
     // Death
     BLACK_KNIGHTS,
-    DEATHRATTLE,
     SKELETON,
     GRAVE_GUARD,
     SKELETON_WARRIORS,
@@ -277,7 +278,6 @@ enum Keyword
     VAMPIRE,
     VARGHEISTS,
     ZOMBIE,
-    DEADWALKERS,
     DIRE_WOLVES,
     CORPSE_CARTS,
 
@@ -336,9 +336,9 @@ enum Duration
     StartOfNextHero,    // .. lasts unit the start of player's next hero phase.
 };
 
-enum Verbosity
+enum class Verbosity
 {
-    None,
+    Silence,
     Normal,
     Narrative,
     Debug
@@ -375,7 +375,7 @@ struct Parameter
     };
     int m_minValue = 0;
     int m_maxValue = 0;
-    int m_increment = 0;
+    int m_increment = 1;
 };
 
 typedef std::vector<Parameter> ParameterList;
@@ -389,7 +389,7 @@ std::string PhaseToString(Phase phase);
 std::string PlayerIdToString(PlayerId id);
 PlayerId GetEnemyId(PlayerId friendlyId);
 
-void Initialize(Verbosity verbosity = Normal);
+void Initialize(Verbosity verbosity = Verbosity::Normal);
 
 Verbosity GetVerbosity();
 

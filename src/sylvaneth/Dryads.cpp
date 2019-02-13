@@ -24,7 +24,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
             Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE
         },
-    }
+    },
+    ORDER,
+    SYLVANETH
 };
 
 bool Dryads::s_registered = false;

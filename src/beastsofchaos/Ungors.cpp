@@ -26,7 +26,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
-    }
+    },
+    CHAOS,
+    BEASTS_OF_CHAOS
 };
 
 bool Ungors::s_registered = false;

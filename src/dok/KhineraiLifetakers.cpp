@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = KhineraiLifetakers::MIN_UNIT_SIZE}, KhineraiLifetakers::MIN_UNIT_SIZE,
             KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE
         },
-    }
+    },
+    ORDER,
+    DAUGHTERS_OF_KHAINE
 };
 
 bool KhineraiLifetakers::s_registered = false;

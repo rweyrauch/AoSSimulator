@@ -25,7 +25,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblower", {.m_boolValue = true}, false, false},
-    }
+    },
+    CHAOS,
+    SLAANESH
 };
 
 bool Seekers::s_registered = false;

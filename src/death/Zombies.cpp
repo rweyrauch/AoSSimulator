@@ -18,7 +18,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = Zombies::MIN_UNIT_SIZE}, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
-    }
+    },
+    DEATH,
+    DEADWALKERS
 };
 
 bool Zombies::s_registered = false;

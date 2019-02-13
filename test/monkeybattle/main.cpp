@@ -22,14 +22,14 @@ Unit* GenerateRandomUnit();
 int main(int argc, char* argv[])
 {
     int numRounds = 5;
-    bool verbose = false;
+    int verboseLevel = 0; // Verbosity::Silence == 0
     int numIterations = 10;
 
     cxxopts::Options options(argv[0], "Age of Sigmar: Mano a Mano simulation.");
     options.add_options()
         ("h, help", "Print help")
         ("r, rounds", "Number of battle rounds", cxxopts::value<int>(numRounds))
-        ("v, verbose", "Enable verbose logging")
+        ("v, verbose", "Enable verbose logging", cxxopts::value<int>(verboseLevel))
         ("i, iterations", "Number of battle iterations", cxxopts::value<int>(numIterations))
         ;
     auto result = options.parse(argc, argv);
@@ -39,18 +39,24 @@ int main(int argc, char* argv[])
         std::cout << options.help() << std::endl;
         return EXIT_SUCCESS;
     }
-    if (result.count("verbose"))
-    {
-        verbose = true;
-    }
 
-    Initialize();
+    Verbosity verbosity = Verbosity::Normal;
+    if (verboseLevel == 0)
+        verbosity = Verbosity::Silence;
+    else if (verboseLevel == 1)
+        verbosity = Verbosity::Normal;
+    else if (verboseLevel == 2)
+        verbosity = Verbosity::Debug;
+    else if (verboseLevel == 3)
+        verbosity = Verbosity::Narrative;
+
+    Initialize(verbosity);
 
     InitializeUnitMap();
 
     for (int i = 0; i < numIterations; i++)
     {
-        ManoAMano battle(numRounds, verbose);
+        ManoAMano battle(numRounds);
 
         Unit *pRed = GenerateRandomUnit();
         Unit *pBlue = GenerateRandomUnit();

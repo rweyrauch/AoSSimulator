@@ -18,7 +18,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    DESTRUCTION,
+    GLOOMSPITE_GITZ
 };
 
 bool ColossalSquig::s_registered = false;

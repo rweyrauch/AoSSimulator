@@ -24,7 +24,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
         {ParamType::Integer, "standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
         {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false, false}
-    }
+    },
+    ORDER,
+    DISPOSSESSED
 };
 
 bool Quarrellers::s_registered = false;

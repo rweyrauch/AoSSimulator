@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
             LordCelestantOnDracoth::StormstrikeGlaive, 1
         },
         {ParamType::Boolean, "sigmariteThundershield", {.m_boolValue = false}, false, false},
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool LordCelestantOnDracoth::s_registered = false;

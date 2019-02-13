@@ -33,7 +33,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "weapon3", {.m_intValue = Stormfiends::DoomflayerGauntlets}, Stormfiends::DoomflayerGauntlets,
             Stormfiends::ShockGauntlets, 1
         },
-    }
+    },
+    CHAOS,
+    SKAVEN
 };
 
 bool Stormfiends::s_registered = false;

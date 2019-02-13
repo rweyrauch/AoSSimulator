@@ -18,7 +18,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    CHAOS,
+    BEASTS_OF_CHAOS
 };
 
 bool Ghorgon::s_registered = false;

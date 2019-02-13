@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = SquiqHoppers::MIN_UNIT_SIZE}, SquiqHoppers::MIN_UNIT_SIZE,
             SquiqHoppers::MAX_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE
         }
-    }
+    },
+    DESTRUCTION,
+    GLOOMSPITE_GITZ
 };
 
 bool SquiqHoppers::s_registered = false;

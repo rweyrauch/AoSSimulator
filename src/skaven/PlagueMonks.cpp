@@ -30,7 +30,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "iconsOfPestilence", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
         {ParamType::Integer, "doomGongs", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
         {ParamType::Integer, "baleChimes", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
-    }
+    },
+    CHAOS,
+    SKAVEN
 };
 
 bool PlagueMonks::s_registered = false;

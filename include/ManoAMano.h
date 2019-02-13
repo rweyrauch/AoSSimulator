@@ -20,7 +20,7 @@ public:
     static const int BoardWidth = 30;
     static const int BoardDepth = 24;
 
-    ManoAMano(int numRounds, bool verbose);
+    ManoAMano(int numRounds);
     ~ManoAMano();
 
     void combatants(Unit* red, Unit* blue);
@@ -48,7 +48,6 @@ protected:
 
 private:
 
-    bool m_verbose = false;
     int m_numRounds = 5;
     Roster* m_rosters[2] = {nullptr, nullptr};
     Unit* m_units[2];

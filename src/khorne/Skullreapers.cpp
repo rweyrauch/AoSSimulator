@@ -26,7 +26,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "numSpinecleavers", {.m_intValue = 1}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
         {ParamType::Integer, "numSoultearers", {.m_intValue = 0}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
         {ParamType::Boolean, "iconBearer", {.m_boolValue=true}, false, false, false},
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool Skullreapers::s_registered = false;

@@ -45,7 +45,7 @@ target_link_libraries(
         WarhammerSimTest
         gtest_main
         whSim
-        ${GTK2_LIBRARIES}
+        ${GTK3_LIBRARIES}
 )
 
 target_include_directories(

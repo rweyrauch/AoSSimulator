@@ -23,7 +23,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "pairedBlades", {.m_boolValue = false}, false, false},
         {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
-    }
+    },
+    CHAOS,
+    BEASTS_OF_CHAOS
 };
 
 bool Gors::s_registered = false;

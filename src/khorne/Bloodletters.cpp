@@ -26,7 +26,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool Bloodletters::s_registered = false;

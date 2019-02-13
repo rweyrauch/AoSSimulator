@@ -22,9 +22,11 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
             Judicators::BoltstormCrossbow, 1
         },
-        {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5},
-        {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5}
-    }
+        {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5, 1}
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool Judicators::s_registered = false;

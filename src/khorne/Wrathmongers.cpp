@@ -20,7 +20,9 @@ static FactoryMethod factoryMethod = {
             Wrathmongers::MIN_UNIT_SIZE,
             Wrathmongers::MAX_UNIT_SIZE, Wrathmongers::MIN_UNIT_SIZE
         },
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool Wrathmongers::s_registered = false;

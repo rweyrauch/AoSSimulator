@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = DireWolves::MIN_UNIT_SIZE}, DireWolves::MIN_UNIT_SIZE, DireWolves::MAX_UNIT_SIZE,
             DireWolves::MIN_UNIT_SIZE
         },
-    }
+    },
+    DEATH,
+    DEADWALKERS
 };
 
 bool DireWolves::s_registered = false;

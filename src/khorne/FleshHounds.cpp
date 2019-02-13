@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = FleshHounds::MIN_UNIT_SIZE}, FleshHounds::MIN_UNIT_SIZE,
             FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
         },
-    }
+    },
+    CHAOS,
+    KHORNE
 };
 
 bool FleshHounds::s_registered = false;

@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = DankholdTroggoths::MIN_UNIT_SIZE}, DankholdTroggoths::MIN_UNIT_SIZE,
             DankholdTroggoths::MAX_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE
         },
-    }
+    },
+    DESTRUCTION,
+    GLOOMSPITE_GITZ
 };
 
 bool DankholdTroggoths::s_registered = false;

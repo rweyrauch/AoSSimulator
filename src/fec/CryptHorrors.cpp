@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = CryptHorrors::MIN_UNIT_SIZE}, CryptHorrors::MIN_UNIT_SIZE,
             CryptHorrors::MAX_UNIT_SIZE, CryptHorrors::MIN_UNIT_SIZE
         },
-    }
+    },
+    DEATH,
+    FLESH_EATERS_COURT
 };
 
 bool CryptHorrors::s_registered = false;

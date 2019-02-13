@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
             ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
         },
-    }
+    },
+    DEATH,
+    NIGHTHAUNT
 };
 
 bool ChainraspHorde::s_registered = false;

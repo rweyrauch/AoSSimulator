@@ -28,7 +28,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, false},
         {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false, false}
-    }
+    },
+    ORDER,
+    DISPOSSESSED
 };
 
 bool Ironbreakers::s_registered = false;

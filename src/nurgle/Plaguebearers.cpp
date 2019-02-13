@@ -22,7 +22,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "piper", {.m_boolValue = true}, false, false},
-    }
+    },
+    CHAOS,
+    NURGLE
 };
 
 bool Plaguebearers::s_registered = false;

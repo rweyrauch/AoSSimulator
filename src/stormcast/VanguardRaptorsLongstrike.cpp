@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
             VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE
         },
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool VanguardRaptorsLongstrike::s_registered = false;

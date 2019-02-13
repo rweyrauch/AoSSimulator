@@ -18,7 +18,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 3}, Castigators::MIN_UNIT_SIZE, Castigators::MAX_UNIT_SIZE, Castigators::MIN_UNIT_SIZE},
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool Castigators::s_registered = false;

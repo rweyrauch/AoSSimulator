@@ -15,14 +15,14 @@
 #include <UnitFactory.h>
 #include "cxxopts.hpp"
 
-void displayUnits(bool verbose, const std::string& faction);
-void displayWeapons(bool verbose, const std::string& unit);
+void displayUnits(Verbosity verbose, const std::string& faction);
+void displayWeapons(const std::string& unit);
 Unit* parseUnitDescription(const std::string& desc);
 
 int main(int argc, char* argv[])
 {
     int numRounds = 5;
-    bool verbose = false;
+    int verboseLevel = 0; // Verbosity::Silence == 0
     bool listUnits = false;
     std::string listFaction("all");
     std::string listWeapons("none");
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
         ("l, list", "List supported units")
         ("f, faction", "List units the given faction", cxxopts::value<std::string>(), "all")
         ("r, rounds", "Number of battle rounds", cxxopts::value<int>(numRounds))
-        ("v, verbose", "Enable verbose logging")
+        ("v, verbose", "Verbosity level", cxxopts::value<int>(verboseLevel))
         ("1, red", "Player 1 (Red) Unit", cxxopts::value<std::string>(), "")
         ("2, blue", "Player 2 (Blue) Unit", cxxopts::value<std::string>(), "")
         ("s, save", "Save battlemaps")
@@ -51,10 +51,6 @@ int main(int argc, char* argv[])
     {
         std::cout << options.help() << std::endl;
         return EXIT_SUCCESS;
-    }
-    if (result.count("verbose"))
-    {
-        verbose = true;
     }
     if (result.count("list"))
     {
@@ -73,21 +69,31 @@ int main(int argc, char* argv[])
         listWeapons = result["weapons"].as<std::string>();
     }
 
-    Initialize();
+    Verbosity verbosity = Verbosity::Normal;
+    if (verboseLevel == 0)
+        verbosity = Verbosity::Silence;
+    else if (verboseLevel == 1)
+        verbosity = Verbosity::Normal;
+    else if (verboseLevel == 2)
+        verbosity = Verbosity::Debug;
+    else if (verboseLevel == 3)
+        verbosity = Verbosity::Narrative;
+
+    Initialize(verbosity);
 
     if (listUnits)
     {
-        displayUnits(verbose, listFaction);
+        displayUnits(verbosity, listFaction);
         return EXIT_SUCCESS;
     }
 
     if (listWeapons != "none")
     {
-        displayWeapons(verbose, listWeapons);
+        displayWeapons(listWeapons);
         return EXIT_SUCCESS;
     }
 
-    ManoAMano battle(numRounds, verbose);
+    ManoAMano battle(numRounds);
 
     auto board = Board::Instance();
 
@@ -162,7 +168,7 @@ int main(int argc, char* argv[])
 
         auto victor = battle.getVictor();
 
-        if (verbose)
+        if (verbosity == Verbosity::Normal)
         {
             std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
             battle.logStatistics();
@@ -232,10 +238,13 @@ static std::map<std::string, int> g_factionNameLookup = {
     { "Seraphon", SERAPHON },
     { "Shadowblades", SHADOWBLADES },
     { "Swifthawk Agents", SWIFTHAWK_AGENTS },
-    { "Wanderers", WANDERERS },
+    { "Wanderers", WANDERER },
+    { "Skaven", SKAVEN },
+    { "Deathrattle", DEATHRATTLE },
+    { "Deadwalkers", DEADWALKERS},
 };
 
-void displayUnits(bool verbose, const std::string& faction)
+void displayUnits(Verbosity verbose, const std::string& faction)
 {
     bool listAll = (faction == "all");
 
@@ -248,27 +257,20 @@ void displayUnits(bool verbose, const std::string& faction)
             if (ki != g_factionNameLookup.end())
             {
                 // filter based on keyword
-                auto unit = UnitFactory::Create(ruip->first, ruip->second.m_parameters);
-                if (unit)
-                {
-                    auto keyword = (Keyword) ki->second;
-                    const bool haveKeyword = unit->hasKeyword(keyword);
-                    delete unit;
-                    if (!haveKeyword)
-                    {
-                        continue;
-                    }
-                }
-                else
-                {
+                if (ki->second != ruip->second.m_faction)
                     continue;
-                }
+            }
+            else
+            {
+                // not found
+                std::cout << "Faction " << faction << " not found." << std::endl;
+                break;
             }
         }
 
         std::cout << "\t" << ruip->first << std::endl;
 
-        if (verbose)
+        if (verbose == Verbosity::Normal)
         {
             if (ruip->second.m_parameters.empty())
             {
@@ -435,7 +437,7 @@ std::string damageToString(int damage)
     return std::string(std::to_string(damage));
 }
 
-void displayWeapons(bool verbose, const std::string& unitName)
+void displayWeapons(const std::string& unitName)
 {
     std::function<void(const Weapon*)> weaponVistor = [](const Weapon* weapon) {
         if (weapon)

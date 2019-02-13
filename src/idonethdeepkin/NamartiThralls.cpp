@@ -22,8 +22,10 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = NamartiThralls::MIN_UNIT_SIZE}, NamartiThralls::MIN_UNIT_SIZE,
             NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE / 10}
-    }
+        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1}
+    },
+    ORDER,
+    IDONETH_DEEPKIN
 };
 
 

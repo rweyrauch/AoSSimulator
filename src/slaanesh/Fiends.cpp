@@ -23,7 +23,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = Fiends::MIN_UNIT_SIZE}, Fiends::MIN_UNIT_SIZE,
             Fiends::MAX_UNIT_SIZE, Fiends::MIN_UNIT_SIZE
         },
-    }
+    },
+    CHAOS,
+    SLAANESH
 };
 
 bool Fiends::s_registered = false;

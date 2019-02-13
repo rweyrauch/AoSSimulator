@@ -18,8 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {ParamType::Integer, "numModels", {.m_intValue = 5}, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE, Retributors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 2}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2}
-    }
+        {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 2}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2, 1}
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool Retributors::s_registered = false;

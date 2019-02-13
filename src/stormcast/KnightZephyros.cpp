@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool KnightZephyros::s_registered = false;

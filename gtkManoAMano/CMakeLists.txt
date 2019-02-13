@@ -1,0 +1,18 @@
+
+
+add_executable(
+        gtkManoAMano
+        main.cpp
+)
+
+target_include_directories(
+        gtkManoAMano PUBLIC
+        ${GTK3_INCLUDE_DIRS}
+        ../include
+)
+
+target_link_libraries(
+        gtkManoAMano
+        whSim
+        ${GTK3_LIBRARIES}
+)

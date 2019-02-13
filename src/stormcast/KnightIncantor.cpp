@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool KnightIncantor::s_registered = false;

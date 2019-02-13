@@ -21,7 +21,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "numModels", {.m_intValue = GrimghastReapers::MIN_UNIT_SIZE}, GrimghastReapers::MIN_UNIT_SIZE,
             GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE
         },
-    }
+    },
+    DEATH,
+    NIGHTHAUNT
 };
 
 bool GrimghastReapers::s_registered = false;

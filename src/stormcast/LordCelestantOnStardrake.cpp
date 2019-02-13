@@ -23,7 +23,9 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
             LordCelestantOnStardrake::StormboundBlade, 1
         },
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 struct TableEntry

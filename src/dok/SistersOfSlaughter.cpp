@@ -25,7 +25,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "sacrificialKnife", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
-    }
+    },
+    ORDER,
+    DAUGHTERS_OF_KHAINE
 };
 
 bool SistersOfSlaughter::s_registered = false;

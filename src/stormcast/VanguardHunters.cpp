@@ -23,7 +23,9 @@ static FactoryMethod factoryMethod = {
             VanguardHunters::StormSabre, 1
         },
         {ParamType::Boolean, "astralCompass", {.m_boolValue = false}, false, false},
-    }
+    },
+    ORDER,
+    STORMCAST_ETERNAL
 };
 
 bool VanguardHunters::s_registered = false;

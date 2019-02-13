@@ -26,7 +26,9 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "scionGlaive", {.m_boolValue = false}, false, false},
         {ParamType::Boolean, "gladeBanners", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "waypipes", {.m_boolValue = true}, false, false},
-    }
+    },
+    ORDER,
+    SYLVANETH
 };
 
 bool TreeRevenants::s_registered = false;

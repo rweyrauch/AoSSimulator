@@ -25,7 +25,9 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
         {ParamType::Boolean, "musicians", {.m_boolValue = true}, false, false},
-    }
+    },
+    ORDER,
+    IDONETH_DEEPKIN
 };
 
 
