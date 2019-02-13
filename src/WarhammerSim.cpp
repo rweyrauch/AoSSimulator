@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
+#include <map>
 #include <algorithm>
 #include <WarhammerSim.h>
 #include <sstream>
@@ -147,4 +147,82 @@ PlayerId GetEnemyId(PlayerId friendlyId)
         return PlayerId::Red;
     }
     return PlayerId::None;
+}
+
+
+static std::map<std::string, Keyword> g_allianceNameLookup = {
+    { "Order", ORDER },
+    { "Chaos", CHAOS },
+    { "Death", DEATH },
+    { "Destruction", DESTRUCTION }
+};
+
+static std::map<std::string, Keyword> g_factionNameLookup = {
+    { "Stormcast Eternal", STORMCAST_ETERNAL, },
+    { "Khorne", KHORNE },
+    { "Sylvaneth", SYLVANETH },
+    { "Gloomspite Gitz", GLOOMSPITE_GITZ },
+    { "Moonclan", MOONCLAN },
+    { "Nighthaunt", NIGHTHAUNT },
+    { "Daughters of Khaine", DAUGHTERS_OF_KHAINE },
+    { "Idoneth Deepkin", IDONETH_DEEPKIN },
+    { "Beasts of Chaos", BEASTS_OF_CHAOS },
+    { "Slaanesh", SLAANESH },
+    { "Tzeentch", TZEENTCH },
+    { "Nurgle", NURGLE },
+    { "Slaves to Darkness", SLAVES_TO_DARKNESS },
+    { "Flesh Eaters Court", FLESH_EATERS_COURT },
+    { "Grand Host of Nagash", GRAND_HOST_OF_NAGASH },
+    { "Legion of Blood", LEGION_OF_BLOOD },
+    { "Legion of Night", LEGION_OF_NIGHT },
+    { "Legion of Sacrament", LEGION_OF_SACRAMENT },
+    { "Soulblight", SOULBLIGHT },
+    { "Beastclaw Raiders", BEASTCLAW_RAIDERS },
+    { "Bonesplitterz", BONESPLITTERZ },
+    { "Greenskinz", GREENSKINZ },
+    { "Ironjawz", IRONJAWZ },
+    { "Darkling Covens", DARKLING_COVENS },
+    { "Devoted of Sigmar", DEVOTED_OF_SIGMAR },
+    { "Dispossessed", DISPOSSESSED },
+    { "Eldritch Council", ELDRITCH_COUNCIL },
+    { "Free Peoples", FREE_PEOPLES },
+    { "Fyreslayers", FYRESLAYERS },
+    { "Kharadron Overlords", KHARADRON_OVERLORDS },
+    { "Order Draconis", ORDER_DRACONIS },
+    { "Order Serpentis", ORDER_SERPENTIS },
+    { "Phoenix Temple", PHOENIX_TEMPLE },
+    { "Scourge Privateers", SCOURGE_PRIVATEERS },
+    { "Seraphon", SERAPHON },
+    { "Shadowblades", SHADOWBLADES },
+    { "Swifthawk Agents", SWIFTHAWK_AGENTS },
+    { "Wanderers", WANDERER },
+    { "Skaven", SKAVEN },
+    { "Deathrattle", DEATHRATTLE },
+    { "Deadwalkers", DEADWALKERS},
+};
+
+Keyword grandAllianceStringToKeyword(const std::string &allianceName)
+{
+    auto ki = g_allianceNameLookup.find(allianceName);
+    if (ki != g_factionNameLookup.end())
+        return ki->second;
+    return UNKNOWN;
+}
+
+Keyword factionStringToKeyword(const std::string &factionName)
+{
+    auto ki = g_factionNameLookup.find(factionName);
+    if (ki != g_factionNameLookup.end())
+        return ki->second;
+    return UNKNOWN;
+}
+
+std::string factionKeywordToString(Keyword faction)
+{
+    for (const auto& ip : g_factionNameLookup)
+    {
+        if (ip.second == faction)
+            return ip.first;
+    }
+    return "Not Found";
 }

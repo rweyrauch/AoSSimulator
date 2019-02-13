@@ -64,6 +64,8 @@ enum class Role
 
 enum Keyword
 {
+    UNKNOWN = -1,
+
     // Grand alliances
     ORDER = 0,
     CHAOS,
@@ -329,6 +331,10 @@ enum Keyword
     HELL_PIT_ABOMINATION,
     FIGHTING_BEAST,
 };
+
+Keyword grandAllianceStringToKeyword(const std::string& allianceName);
+Keyword factionStringToKeyword(const std::string& factionName);
+std::string factionKeywordToString(Keyword faction);
 
 enum Duration
 {

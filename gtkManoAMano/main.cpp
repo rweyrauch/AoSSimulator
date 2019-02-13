@@ -7,68 +7,6 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-static std::map<std::string, int> g_allianceNameLookup = {
-    { "Order", ORDER },
-    { "Chaos", CHAOS },
-    { "Death", DEATH },
-    { "Destruction", DESTRUCTION }
-};
-
-static std::map<std::string, int> g_factionNameLookup = {
-    { "Stormcast Eternal", STORMCAST_ETERNAL, },
-    { "Khorne", KHORNE },
-    { "Sylvaneth", SYLVANETH },
-    { "Gloomspite Gitz", GLOOMSPITE_GITZ },
-    { "Moonclan", MOONCLAN },
-    { "Nighthaunt", NIGHTHAUNT },
-    { "Daughters of Khaine", DAUGHTERS_OF_KHAINE },
-    { "Idoneth Deepkin", IDONETH_DEEPKIN },
-    { "Beasts of Chaos", BEASTS_OF_CHAOS },
-    { "Slaanesh", SLAANESH },
-    { "Tzeentch", TZEENTCH },
-    { "Nurgle", NURGLE },
-    { "Slaves to Darkness", SLAVES_TO_DARKNESS },
-    { "Flesh Eaters Court", FLESH_EATERS_COURT },
-    { "Grand Host of Nagash", GRAND_HOST_OF_NAGASH },
-    { "Legion of Blood", LEGION_OF_BLOOD },
-    { "Legion of Night", LEGION_OF_NIGHT },
-    { "Legion of Sacrament", LEGION_OF_SACRAMENT },
-    { "Soulblight", SOULBLIGHT },
-    { "Beastclaw Raiders", BEASTCLAW_RAIDERS },
-    { "Bonesplitterz", BONESPLITTERZ },
-    { "Greenskinz", GREENSKINZ },
-    { "Ironjawz", IRONJAWZ },
-    { "Darkling Covens", DARKLING_COVENS },
-    { "Devoted of Sigmar", DEVOTED_OF_SIGMAR },
-    { "Dispossessed", DISPOSSESSED },
-    { "Eldritch Council", ELDRITCH_COUNCIL },
-    { "Free Peoples", FREE_PEOPLES },
-    { "Fyreslayers", FYRESLAYERS },
-    { "Kharadron Overlords", KHARADRON_OVERLORDS },
-    { "Order Draconis", ORDER_DRACONIS },
-    { "Order Serpentis", ORDER_SERPENTIS },
-    { "Phoenix Temple", PHOENIX_TEMPLE },
-    { "Scourge Privateers", SCOURGE_PRIVATEERS },
-    { "Seraphon", SERAPHON },
-    { "Shadowblades", SHADOWBLADES },
-    { "Swifthawk Agents", SWIFTHAWK_AGENTS },
-    { "Wanderers", WANDERER },
-    { "Skaven", SKAVEN },
-    { "Deathrattle", DEATHRATTLE },
-    { "Deadwalkers", DEADWALKERS},
-};
-
-static std::string reverseLookup(int keyword)
-{
-    for (auto ip : g_factionNameLookup)
-    {
-        if (ip.second == keyword)
-            return ip.first;
-    }
-    std::cerr << "Keyword not found in Faction Name Table " << keyword << std::endl;
-    return "Not Found";
-}
-
 static Gtk::Window* pWindow = nullptr;
 static Gtk::ComboBoxText *pRedAlliance = nullptr;
 static Gtk::ComboBoxText *pBlueAlliance = nullptr;
@@ -77,9 +15,7 @@ static Gtk::ComboBoxText *pBlueFaction = nullptr;
 static Gtk::ComboBoxText *pRedUnits = nullptr;
 static Gtk::ComboBoxText *pBlueUnits = nullptr;
 static Gtk::Box *pRedUnitConfig = nullptr;
-static Gtk::Grid *pRedUnitGrid = nullptr;
 static Gtk::Box *pBlueUnitConfig = nullptr;
-static Gtk::Grid* pBlueUnitGrid = nullptr;
 
 static int g_numRounds = 5;
 static int g_verboseLevel = 0; // Verbosity::Silence == 0
@@ -94,7 +30,7 @@ static Unit* g_pBlue = nullptr;
 
 static void runSimulation();
 
-void createConfigUI(const std::string& unitName, Gtk::Box *pContainer, Gtk::Grid* pGrid);
+void createConfigUI(const std::string& unitName, Gtk::Box *pContainer);
 
 static void on_quit_clicked()
 {
@@ -114,13 +50,10 @@ static void populateUnits(const std::string& factionName, Gtk::ComboBoxText *pCo
 
     for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
     {
-        auto ki = g_factionNameLookup.find(factionName);
-        if (ki != g_factionNameLookup.end())
-        {
-            // filter based on keyword
-            if (ki->second == ruip->second.m_faction)
+        auto ki = factionStringToKeyword(factionName);
+        // filter based on keyword
+        if (ki == ruip->second.m_faction)
                 unitNames.push_back(ruip->first);
-        }
     }
     if (!unitNames.empty())
     {
@@ -137,7 +70,7 @@ static void populateUnits(const std::string& factionName, Gtk::ComboBoxText *pCo
 static void populateFactions(int allianceId, Gtk::ComboBoxText *pCombo)
 {
     pCombo->remove_all();
-    std::list<int> factionKeywords;
+    std::list<Keyword> factionKeywords;
     for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
     {
         if (allianceId == ruip->second.m_grandAlliance)
@@ -149,7 +82,7 @@ static void populateFactions(int allianceId, Gtk::ComboBoxText *pCombo)
     factionKeywords.unique();
     for (auto ip : factionKeywords)
     {
-        pCombo->append(reverseLookup(ip));
+        pCombo->append(factionKeywordToString(ip));
     }
     pCombo->set_active(0);
 }
@@ -159,7 +92,7 @@ static void on_red_alliance_selected()
     if (pRedAlliance)
     {
         auto alliance = pRedAlliance->get_active_text();
-        g_redAlliance = g_allianceNameLookup[alliance];
+        g_redAlliance = grandAllianceStringToKeyword(alliance);
 
         std::cout << "Red selected Grand Alliance " << alliance << " with ID: " << g_redAlliance << std::endl;
 
@@ -172,7 +105,7 @@ static void on_blue_alliance_selected()
     if (pBlueAlliance)
     {
         auto alliance = pBlueAlliance->get_active_text();
-        g_blueAlliance = g_allianceNameLookup[alliance];
+        g_blueAlliance = grandAllianceStringToKeyword(alliance);
 
         std::cout << "Blue selected Grand Alliance " << alliance << " with ID: " << g_blueAlliance << std::endl;
 
@@ -203,7 +136,7 @@ static void on_red_unit_select()
     if (pRedUnits && pRedUnitConfig)
     {
         auto unitName = pRedUnits->get_active_text();
-        createConfigUI(unitName, pRedUnitConfig, pRedUnitGrid);
+        createConfigUI(unitName, pRedUnitConfig);
     }
 }
 
@@ -212,7 +145,7 @@ static void on_blue_unit_select()
     if (pBlueUnits && pBlueUnitConfig)
     {
         auto unitName = pBlueUnits->get_active_text();
-        createConfigUI(unitName, pBlueUnitConfig, pBlueUnitGrid);
+        createConfigUI(unitName, pBlueUnitConfig);
     }
 }
 
@@ -358,23 +291,28 @@ int main(int argc, char *argv[])
     builder->get_widget("redUnitConfig", pRedUnitConfig);
     builder->get_widget("blueUnitConfig", pBlueUnitConfig);
 
-    createConfigUI(pRedUnits->get_active_text(), pRedUnitConfig, pRedUnitGrid);
-    createConfigUI(pBlueUnits->get_active_text(), pBlueUnitConfig, pBlueUnitGrid);
+    createConfigUI(pRedUnits->get_active_text(), pRedUnitConfig);
+    createConfigUI(pBlueUnits->get_active_text(), pBlueUnitConfig);
 
     return app->run(*pWindow);
 }
 
-void createConfigUI(const std::string& unitName, Gtk::Box *pContainer, Gtk::Grid* pGrid)
+void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
 {
     auto factory = UnitFactory::LookupUnit(unitName);
     if (factory)
     {
-        if (pGrid)
+        auto previousWidgets = pContainer->get_children();
+        if (!previousWidgets.empty())
         {
-            pContainer->remove(*pGrid);
+            for (auto ip : previousWidgets)
+            {
+                pContainer->remove(*ip);
+                delete ip;
+            }
         }
 
-        pGrid = Gtk::manage(new Gtk::Grid());
+        auto pGrid = new Gtk::Grid();
         pGrid->set_row_spacing(4);
         pGrid->set_column_spacing(4);
 
@@ -391,25 +329,29 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer, Gtk::Grid
                 pGrid->attach(*pLabel, left, top, 1, 1);
                 pLabel->show();
 
-                //if (factory->m_paramToString == nullptr)
+                Gtk::Entry *pEntry = Gtk::manage(new Gtk::Entry());
+                pEntry->set_text(std::to_string(ip.m_intValue));
+                pGrid->attach(*pEntry, right, top, 1, 1);
+                pEntry->show();
+                top++;
+            }
+            else if (ip.m_paramType == ParamType::Enum)
+            {
+                Gtk::Label* pLabel = Gtk::manage(new Gtk::Label());
+                pLabel->set_text(ip.m_name);
+                pGrid->attach(*pLabel, left, top, 1, 1);
+                pLabel->show();
+
+                Gtk::ComboBoxText *pCombo = Gtk::manage(new Gtk::ComboBoxText());
+                for (auto i = ip.m_minValue; i <= ip.m_maxValue; i += ip.m_increment)
                 {
-                    Gtk::Entry *pEntry = Gtk::manage(new Gtk::Entry());
-                    pEntry->set_text(std::to_string(ip.m_intValue));
-                    pGrid->attach(*pEntry, right, top, 1, 1);
-                    pEntry->show();
+                    Parameter param = ip;
+                    param.m_intValue = i;
+                    pCombo->append(factory->m_paramToString(param));
                 }
-                /*
-                else
-                {
-                    Gtk::ComboBoxText *pCombo = Gtk::manage(new Gtk::ComboBoxText());
-                    for (auto i = ip.m_minValue; i <= ip.m_maxValue; i += ip.m_increment)
-                    {
-                        Parameter param = ip;
-                        param.m_intValue = i;
-                        pCombo->append(factory->m_paramToString(param));
-                    }
-                }
-                */
+                pCombo->set_active_text(factory->m_paramToString(ip));
+                pGrid->attach(*pCombo, right, top, 1, 1);
+                pCombo->show();
                 top++;
             }
             else if (ip.m_paramType == ParamType::Boolean)
