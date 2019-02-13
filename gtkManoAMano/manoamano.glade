@@ -4,8 +4,7 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="manoamanoWindow">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Age of Sigmar Mano-a-Mano</property>
-    <child>
+    <child type="titlebar">
       <placeholder/>
     </child>
     <child>
@@ -53,8 +52,8 @@
                 <property name="receives_default">True</property>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
+                <property name="expand">True</property>
+                <property name="fill">False</property>
                 <property name="position">2</property>
               </packing>
             </child>

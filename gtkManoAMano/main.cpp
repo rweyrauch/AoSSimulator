@@ -31,6 +31,7 @@ static Unit* g_pBlue = nullptr;
 static void runSimulation();
 
 void createConfigUI(const std::string& unitName, Gtk::Box *pContainer);
+Unit* createUnit(const std::string& unitName, Gtk::Box* pUnitUI);
 
 static void on_quit_clicked()
 {
@@ -40,6 +41,8 @@ static void on_quit_clicked()
 
 static void on_start_clicked()
 {
+    g_pRed = createUnit(pRedUnits->get_active_text(), pRedUnitConfig);
+    g_pBlue = createUnit(pBlueUnits->get_active_text(), pBlueUnitConfig);
     runSimulation();
 }
 
@@ -370,4 +373,65 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
         pContainer->pack_start(*pGrid);
         pGrid->show();
     }
+}
+
+Unit* createUnit(const std::string& unitName, Gtk::Box* pUnitUI)
+{
+    auto factory = UnitFactory::LookupUnit(unitName);
+
+    auto parameters = factory->m_parameters;
+
+    // TODO: extract parameters from UI
+    if (pUnitUI)
+    {
+        auto children = pUnitUI->get_children();
+        for (auto ip : children)
+        {
+            Gtk::Widget* pWidget = ip;
+            Gtk::Grid* pGrid = dynamic_cast<Gtk::Grid*>(pWidget);
+            if (pGrid)
+            {
+                auto paramWidgets = pGrid->get_children();
+                std::cout << "Found the grid." << "  Num param widgets: " << paramWidgets.size() << std::endl;
+                auto numRows = paramWidgets.size() / 2; // We _know_ that there are only 2 columns.
+                for (auto r = 0; r < numRows; r++)
+                {
+                    auto label = dynamic_cast<Gtk::Label*>(pGrid->get_child_at(0, r));
+                    auto value = pGrid->get_child_at(1, r);
+                    std::cout << "Row: " << r << "  Label: " << label->get_text() << std::endl;
+                    ParameterList::iterator pp = FindParam(label->get_text(), parameters);
+                    if (pp != parameters.end())
+                    {
+                        std::cout << "Found matching parameter for " << pp->m_name << " of type " << (int)pp->m_paramType << std::endl;
+                        if (pp->m_paramType == ParamType::Integer)
+                        {
+                            auto pEntry = dynamic_cast<Gtk::Entry*>(value);
+                            if (pEntry)
+                            {
+                                pp->m_intValue = (int)std::strtol(pEntry->get_text().c_str(), nullptr, 10);
+                            }
+                        }
+                        else if (pp->m_paramType == ParamType::Boolean)
+                        {
+                            auto pCheck = dynamic_cast<Gtk::CheckButton*>(value);
+                            if (pCheck)
+                            {
+                                pp->m_boolValue = pCheck->get_active();
+                            }
+                        }
+                        else if (pp->m_paramType == ParamType::Enum)
+                        {
+                            auto pCombo = dynamic_cast<Gtk::ComboBoxText*>(value);
+                            if (pCombo)
+                            {
+                                pp->m_intValue = factory->m_enumStringToInt(pCombo->get_active_text());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return UnitFactory::Create(unitName, parameters);
 }

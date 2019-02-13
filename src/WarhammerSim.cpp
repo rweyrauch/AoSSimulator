@@ -19,6 +19,14 @@ std::vector<Parameter>::const_iterator FindParam(const std::string &name, const 
     return pip;
 }
 
+std::vector<Parameter>::iterator FindParam(const std::string &name, ParameterList &parameters)
+{
+    auto matchName = [name](const Parameter &param) -> bool
+    { return (param.m_name == name); };
+    auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
+    return pip;
+}
+
 int GetIntParam(const std::string &name, const ParameterList &parameters, int defaultValue)
 {
     int value = defaultValue;
