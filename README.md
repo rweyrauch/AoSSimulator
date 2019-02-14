@@ -49,15 +49,17 @@ line only interface currently.
     Usage: 
       ./AoSManoAMano [OPTION...]
 
-      -h, --help            Print help
-      -l, --list            List supported units
-      -r, --rounds arg      Number of battle rounds
-      -v, --verbose         Enable verbose logging
-      -1, --red arg         Player 1 (Red) Unit
-      -2, --blue arg        Player 2 (Blue) Unit
-      -s, --save            Save battlemaps
-          --mapname arg     Battlemap basename
-      -i, --iterations arg  Number of battle iterations
+    -h, --help            Print help
+    -l, --list            List supported units
+    -f, --faction all     List units the given faction
+    -r, --rounds arg      Number of battle rounds
+    -v, --verbose arg     Verbosity level
+    -1, --red arg         Player 1 (Red) Unit
+    -2, --blue arg        Player 2 (Blue) Unit
+    -s, --save            Save battlemaps
+        --mapname arg     Battlemap basename
+    -i, --iterations arg  Number of battle iterations
+    -w, --weapons none    List weapons for the given unit
 
 Player units are specified using the following format:
 
@@ -69,55 +71,108 @@ units include the following:
 	Akhelian Ishlaen Guard
 	Akhelian Morrsarr Guard
 	Alarielle
+	Aleguzzler Gargant
 	Bestigors
+	Black Knights
 	Bladegheist Revenants
+	Blood Knights
 	Blood Sisters
 	Blood Warriors
 	Bloodletters
 	Bloodreavers
+	Bloodthirster Of Insensate Rage
+	Bloodthirster Of Unfettered Fury
 	Boingrot Bounderz
 	Bullgors
 	Castigators
 	Celestar Ballista
 	Chainrasp Horde
+	Clanrats
 	Colossal Squig
+	Crypt Flayers
+	Crypt Ghouls
+	Crypt Horrors
+	Crypt Infernal Courtier
+	Daemonettes
+	Dankhold Troggboss
+	Dankhold Troggoths
+	Dire Wolves
 	Dreadscythe Harridans
 	Dryads
+	Eternal Guard
 	Evocators
+	Fiends
+	FleshHounds
 	Ghorgon
+	Glade Guard
 	Glaivewraith Stalkers
 	Gors
+	Grave Guard
 	Grimghast Reapers
+	Gutter Runners
+	Hammerers
+	Hell Pit Abomination
+	Ironbreakers
+	Irondrakes
 	Judicators
+	Karanak
 	Khinerai Lifetakers
+	Khorgoraths
 	Knight-Incantor
 	Knight-Questor
 	Knight-Zephyros
 	Kurnoth Hunters
 	Liberators
+	Longbeards
+	Loonboss
+	Loonboss on Giant Cave Squig
 	Loonboss on Mangler Squigs
+	Loonboss with Giant Cave Squig
 	Lord-Celestant
 	Lord-Celestant-on-Dracoth
 	Lord-Celestant-on-Stardrake
 	Lord-Ordinator
+	LordOfPlagues
 	Mangler Squigs
 	Namarti Reavers
 	Namarti Thralls
+	Night Runners
+	Plague Monks
+	Plaguebearers
+	Putrid Blightkings
+	Quarrellers
 	Retributors
+	Rockgut Troggoths
+	Seekers
 	Sequitors
 	Shootas
 	Sisters of Slaughter
+	Skarbrand
+	Skeleton Warriors
+	Skragrott
+	Skullreapers
 	Spirit of Durthu
 	Spite-Revenants
+	Squig Gobba
 	Squiq Herd
 	Squiq Hoppers
 	Stabbas
+	Stormfiends
+	Stormvermin
+	Thunderers
 	Tree-Revenants
 	Ungors
+	Vandus Hammerhand
 	Vanguard-Hunters
 	VanguardRaptorsHurricane
 	VanguardRaptorsLongstrike
+	Vargheists
+	Warriors
+	Wildwood Rangers
 	Witch Aelves
+	Wrath Of Khorne Bloodthirster
+	Wrathmongers
+	Zombies
     
     
 The following specifies the parameters needed to create a unit of 10 Liberators with 2 Grandhammers.
@@ -131,6 +186,12 @@ To simulate a battle between a unit of 10 Liberators and 20 Bloodreavers use the
 The simulation supports a primitive graphic output depicting the location and number of remaining models for each
 player as a PNG image.  An image is created after unit deployment, each battle round and at the end of the battle.  Use the --save and
 --mapname arguments to enable the map generation.    
+        
+## gtkManoAMano
+
+gtkManoAMano is a simple GUI wrapper for the AoSManoAMano simulation.  The UI allows the user to configure
+two units to battle.   The UI allows control over the unit size, weapon selections and other special options.  Currently the 
+result are only logged to the console.   
         
 ## Future Plans
 
