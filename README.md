@@ -193,6 +193,8 @@ gtkManoAMano is a simple GUI wrapper for the AoSManoAMano simulation.  The UI al
 two units to battle.   The UI allows control over the unit size, weapon selections and other special options.  Currently the 
 result are only logged to the console.   
         
+![alt text](images/gtkmanoscreen.png)
+
 ## Future Plans
 
 1. Windows, Android and iOS ports.
