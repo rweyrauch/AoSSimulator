@@ -59,10 +59,9 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 
     // apply returned damage to this unit
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
-    if (numSlainByReturnedDamage)
+    if (remainingModels() == 0)
     {
-        std::cout << "Number of attacking models slain by reflected damage: " << numSlainByReturnedDamage
-                  << "  Total reflected damage: " << totalDamageReflected.normal << "  Mortal: " << totalDamageReflected.mortal << std::endl;
+        onSlain();
     }
 
     m_currentRecord.m_woundsInflicted += totalDamage;
@@ -111,12 +110,6 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
     numSlain = targetUnit->applyDamage(totalDamage);
 
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
-    if (numSlainByReturnedDamage)
-    {
-        std::cout << "Number of attacking models slain by reflected damage: " << numSlainByReturnedDamage
-                  << "  Total reflected damage: " << totalDamageReflected.normal << "  Mortal: " << totalDamageReflected.mortal << std::endl;
-    }
-
     if (remainingModels() == 0)
     {
         onSlain();
@@ -139,9 +132,6 @@ int Unit::applyBattleshock()
     auto roll = rollBattleshock();
     int numFled = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
     numFled = std::max(0, std::min(remainingModels(), numFled));
-
-    //std::cout << "Battleshock: Models Slain: " << m_modelsSlain << "  Roll: "
-    //    << roll << "  Bravery: " << m_bravery << " modifier: " << battlshockModifier() << std::endl;
 
     // mark fleeing models
     int numFleeing = numFled;
@@ -190,10 +180,6 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
 
 void Unit::endTurn(int battleRound)
 {
-    if (m_currentRecord.m_round == 0)
-    {
-        std::cout << "End round 0!!!!" << std::endl;
-    }
     m_statistics.record(m_currentRecord);
 }
 

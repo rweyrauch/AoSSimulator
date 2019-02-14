@@ -8,6 +8,10 @@
 #include <iostream>
 
 static Gtk::Window* pWindow = nullptr;
+
+static Gtk::SpinButton* pNumRounds = nullptr;
+static Gtk::Entry* pNumIterations = nullptr;
+
 static Gtk::ComboBoxText *pRedAlliance = nullptr;
 static Gtk::ComboBoxText *pBlueAlliance = nullptr;
 static Gtk::ComboBoxText *pRedFaction = nullptr;
@@ -41,6 +45,8 @@ static void on_quit_clicked()
 
 static void on_start_clicked()
 {
+    g_numRounds = pNumRounds->get_value_as_int();
+    g_numIterations = (int)std::strtol(pNumIterations->get_text().c_str(), nullptr, 10);
     g_pRed = createUnit(pRedUnits->get_active_text(), pRedUnitConfig);
     g_pBlue = createUnit(pBlueUnits->get_active_text(), pBlueUnitConfig);
     runSimulation();
@@ -256,6 +262,16 @@ int main(int argc, char *argv[])
     builder->get_widget("startButton", pStartButton);
     pStartButton->signal_clicked().connect(sigc::ptr_fun(on_start_clicked));
 
+    builder->get_widget("numberOfRounds", pNumRounds);
+    pNumRounds->set_numeric();
+    pNumRounds->set_digits(0);
+    pNumRounds->set_range(1.0, 10.0);
+    pNumRounds->set_increments(1.0, 1.0);
+    pNumRounds->set_value(5);
+
+    builder->get_widget("numberOfIterations", pNumIterations);
+    pNumIterations->set_text("10");
+
     builder->get_widget("redGrandAlliance", pRedAlliance);
     builder->get_widget("blueGrandAlliance", pBlueAlliance);
 
@@ -332,10 +348,14 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
                 pGrid->attach(*pLabel, left, top, 1, 1);
                 pLabel->show();
 
-                Gtk::Entry *pEntry = Gtk::manage(new Gtk::Entry());
-                pEntry->set_text(std::to_string(ip.m_intValue));
-                pGrid->attach(*pEntry, right, top, 1, 1);
-                pEntry->show();
+                Gtk::SpinButton *pSpin = Gtk::manage(new Gtk::SpinButton());
+                pSpin->set_numeric();
+                pSpin->set_digits(0);
+                pSpin->set_range(ip.m_minValue, ip.m_maxValue);
+                pSpin->set_increments(ip.m_increment, ip.m_increment);
+                pSpin->set_value(ip.m_intValue);
+                pGrid->attach(*pSpin, right, top, 1, 1);
+                pSpin->show();
                 top++;
             }
             else if (ip.m_paramType == ParamType::Enum)
@@ -381,34 +401,34 @@ Unit* createUnit(const std::string& unitName, Gtk::Box* pUnitUI)
 
     auto parameters = factory->m_parameters;
 
-    // TODO: extract parameters from UI
+    // extract parameters from UI
     if (pUnitUI)
     {
         auto children = pUnitUI->get_children();
         for (auto ip : children)
         {
             Gtk::Widget* pWidget = ip;
-            Gtk::Grid* pGrid = dynamic_cast<Gtk::Grid*>(pWidget);
+            auto pGrid = dynamic_cast<Gtk::Grid*>(pWidget);
             if (pGrid)
             {
                 auto paramWidgets = pGrid->get_children();
-                std::cout << "Found the grid." << "  Num param widgets: " << paramWidgets.size() << std::endl;
+                //std::cout << "Found the grid." << "  Num param widgets: " << paramWidgets.size() << std::endl;
                 auto numRows = paramWidgets.size() / 2; // We _know_ that there are only 2 columns.
                 for (auto r = 0; r < numRows; r++)
                 {
                     auto label = dynamic_cast<Gtk::Label*>(pGrid->get_child_at(0, r));
                     auto value = pGrid->get_child_at(1, r);
-                    std::cout << "Row: " << r << "  Label: " << label->get_text() << std::endl;
+                    //std::cout << "Row: " << r << "  Label: " << label->get_text() << std::endl;
                     ParameterList::iterator pp = FindParam(label->get_text(), parameters);
                     if (pp != parameters.end())
                     {
-                        std::cout << "Found matching parameter for " << pp->m_name << " of type " << (int)pp->m_paramType << std::endl;
+                        //std::cout << "Found matching parameter for " << pp->m_name << " of type " << (int)pp->m_paramType << std::endl;
                         if (pp->m_paramType == ParamType::Integer)
                         {
-                            auto pEntry = dynamic_cast<Gtk::Entry*>(value);
-                            if (pEntry)
+                            auto pSpin = dynamic_cast<Gtk::SpinButton*>(value);
+                            if (pSpin)
                             {
-                                pp->m_intValue = (int)std::strtol(pEntry->get_text().c_str(), nullptr, 10);
+                                pp->m_intValue = pSpin->get_value_as_int();
                             }
                         }
                         else if (pp->m_paramType == ParamType::Boolean)
