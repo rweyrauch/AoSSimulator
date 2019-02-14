@@ -128,6 +128,11 @@
 #include "skaven/Stormvermin.h"
 #include "skaven/HellPitAbomination.h"
 
+#include "tzeentch/KairicAcolytes.h"
+#include "tzeentch/PinkHorrors.h"
+#include "tzeentch/TzaangorEnlightened.h"
+#include "tzeentch/Tzaangors.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -258,4 +263,9 @@ void Initialize(Verbosity verbosity)
     Skaven::Stormfiends::Init();
     Skaven::Stormvermin::Init();
     Skaven::HellPitAbomination::Init();
+
+    Tzeentch::KairicAcolytes::Init();
+    Tzeentch::PinkHorrors::Init();
+    Tzeentch::TzaangorEnlightened::Init();
+    Tzeentch::Tzaangors::Init();
 }

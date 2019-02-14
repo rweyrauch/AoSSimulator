@@ -330,6 +330,14 @@ enum Keyword
     PLAGUE_MONKS,
     HELL_PIT_ABOMINATION,
     FIGHTING_BEAST,
+
+    // Tzeentch
+    ARCANITE,
+    KAIRIC_ACOLYTES,
+    PINK_HORRORS,
+    TZAANGORS,
+    TZAANGOR_ENLIGHTENED,
+
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);
