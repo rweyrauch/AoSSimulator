@@ -31,6 +31,7 @@
 #include "stormcast/Desolators.h"
 #include "stormcast/Fulminators.h"
 #include "stormcast/Tempestors.h"
+#include "stormcast/EvocatorsOnDracolines.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -172,6 +173,7 @@ void Initialize(Verbosity verbosity)
     StormcastEternals::Desolators::Init();
     StormcastEternals::Fulminators::Init();
     StormcastEternals::Tempestors::Init();
+    StormcastEternals::EvocatorsOnCelestialDracolines::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();

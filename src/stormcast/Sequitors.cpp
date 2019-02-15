@@ -148,6 +148,7 @@ Rerolls Sequitors::toSaveRerolls(const Weapon *weapon) const
 
 Rerolls Sequitors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
+    // Aetheric Channeling
     if (m_aethericChannellingWeapons)
     {
         return RerollFailed;

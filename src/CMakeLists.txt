@@ -27,6 +27,7 @@ add_library(
         stormcast/Retributors.cpp
         stormcast/Sequitors.cpp
         stormcast/Evocators.cpp
+        stormcast/EvocatorsOnDracolines.cpp
         stormcast/LordCelestant.cpp
         stormcast/LordCelestantOnDracoth.cpp
         stormcast/LordCelestantOnStardrake.cpp

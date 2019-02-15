@@ -7,38 +7,40 @@
  */
 #include <algorithm>
 #include <UnitFactory.h>
-#include <stormcast/Evocators.h>
+#include <stormcast/EvocatorsOnDracolines.h>
 #include <iostream>
 
 namespace StormcastEternals
 {
 
 static FactoryMethod factoryMethod = {
-    Evocators::Create,
+    EvocatorsOnCelestialDracolines::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
+        {ParamType::Integer, "numModels", {.m_intValue = EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE}, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
+         EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE},
         {ParamType::Boolean, "primeGrandstave", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGrandstaves", {.m_intValue = 2}, 0, Evocators::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "numGrandstaves", {.m_intValue = 2}, 0, EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE/EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE*2, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
 };
 
-bool Evocators::s_registered = false;
+bool EvocatorsOnCelestialDracolines::s_registered = false;
 
-Evocators::Evocators() :
-    StormcastEternal("Evocators", 5, WOUNDS, 8, 4, false),
+EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines() :
+    StormcastEternal("Evocators on Celestial Dracolines", 12, WOUNDS, 8, 4, false),
     m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
     m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave (Prime)", 1, 5, 3, 3, -1, 1),
     m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
-    m_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2)
+    m_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2),
+    m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws",1, 3, 3, 3, -1, 1)
 {
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+    m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
 }
 
-bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave)
+bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves, bool primeGrandstave)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
@@ -47,7 +49,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         return false;
     }
 
-    const int maxGrandstaves = numModels;
+    const int maxGrandstaves = numModels / MIN_UNIT_SIZE * 2;
     if (numGrandstaves > maxGrandstaves)
     {
         // Invalid weapon configuration.
@@ -65,12 +67,14 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     {
         primeModel.addMeleeWeapon(&m_tempestBladeAndStavePrime);
     }
+    primeModel.addMeleeWeapon(&m_monstrousClaws);
     addModel(primeModel);
 
     for (auto i = 0; i < numGrandstaves; i++)
     {
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&m_grandStave);
+        model.addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
     }
 
@@ -79,6 +83,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     {
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&m_tempestBladeAndStave);
+        model.addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
     }
 
@@ -91,7 +96,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     return true;
 }
 
-Rerolls Evocators::toSaveRerolls(const Weapon *weapon) const
+Rerolls EvocatorsOnCelestialDracolines::toSaveRerolls(const Weapon *weapon) const
 {
     // Celestial Lightning Arc
     if (weapon->isMissile())
@@ -102,7 +107,7 @@ Rerolls Evocators::toSaveRerolls(const Weapon *weapon) const
     return StormcastEternal::toSaveRerolls(weapon);
 }
 
-int Evocators::generateMortalWounds(const Unit *unit)
+int EvocatorsOnCelestialDracolines::generateMortalWounds(const Unit *unit)
 {
     auto mortalWounds = StormcastEternal::generateMortalWounds(unit);
 
@@ -122,9 +127,9 @@ int Evocators::generateMortalWounds(const Unit *unit)
     return mortalWounds;
 }
 
-Unit *Evocators::Create(const ParameterList &parameters)
+Unit *EvocatorsOnCelestialDracolines::Create(const ParameterList &parameters)
 {
-    auto *evos = new Evocators();
+    auto *evos = new EvocatorsOnCelestialDracolines();
     int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
     bool primeGrandstave = GetBoolParam("primeGrandstave", parameters, false);
     int numGrandstaves = GetIntParam("numGrandstaves", parameters, 0);
@@ -138,20 +143,28 @@ Unit *Evocators::Create(const ParameterList &parameters)
     return evos;
 }
 
-void Evocators::Init()
+void EvocatorsOnCelestialDracolines::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Evocators", factoryMethod);
+        s_registered = UnitFactory::Register("Evocators on Celestial Dracolines", factoryMethod);
     }
 }
 
-void Evocators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void EvocatorsOnCelestialDracolines::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_tempestBladeAndStave);
     visitor(&m_tempestBladeAndStavePrime);
     visitor(&m_grandStave);
     visitor(&m_grandStavePrime);
+    visitor(&m_monstrousClaws);
+}
+
+Rerolls EvocatorsOnCelestialDracolines::chargeRerolls() const
+{
+    if (m_charged)
+        return RerollFailed;
+    return StormcastEternal::chargeRerolls();
 }
 
 } // namespace StormcastEternals

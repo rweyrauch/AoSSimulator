@@ -167,6 +167,9 @@ enum Keyword
     DRACOTHIAN_GUARD,
     LORD_CASTELLANT,
     LORD_VERITANT,
+    CORPUSCANT,
+    EVOCATORS,
+    DRACOLINE,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
@@ -358,9 +361,9 @@ enum Duration
     StartOfNextHero,    // .. lasts unit the start of player's next hero phase.
 };
 
-enum class Verbosity
+enum class Verbosity : int
 {
-    Silence,
+    Silence = 0,
     Normal,
     Narrative,
     Debug
@@ -417,6 +420,8 @@ PlayerId GetEnemyId(PlayerId friendlyId);
 void Initialize(Verbosity verbosity = Verbosity::Normal);
 
 Verbosity GetVerbosity();
+
+void SimLog(Verbosity verbosity, const char* format, ...);
 
 float AverageRandomValue(int value);
 

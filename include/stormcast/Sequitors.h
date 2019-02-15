@@ -73,6 +73,15 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Greatmace Blast                  Yes
+// Redemption Cache                 No
+// Aetheric Channeling              Yes
+// Soulshields                      Yes
+//
 } // namespace StormcastEternals
 
 #endif //SEQUITORS_H

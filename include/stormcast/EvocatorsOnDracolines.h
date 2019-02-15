@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef EVOCATORS_H
-#define EVOCATORS_H
+#ifndef EVOCATORSONDRACOLINES_H
+#define EVOCATORSONDRACOLINES_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -15,24 +15,24 @@
 namespace StormcastEternals
 {
 
-class Evocators : public StormcastEternal
+class EvocatorsOnCelestialDracolines : public StormcastEternal
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 200;
-    static const int POINTS_MAX_UNIT_SIZE = 800;
+    static const int BASESIZE = 90; // x52 oval
+    static const int WOUNDS = 5;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 300;
+    static const int POINTS_MAX_UNIT_SIZE = 1200;
 
     static Unit *Create(const ParameterList &parameters);
 
     static void Init();
 
-    Evocators();
+    EvocatorsOnCelestialDracolines();
 
-    ~Evocators() override = default;
+    ~EvocatorsOnCelestialDracolines() override = default;
 
     bool configure(int numModels, int numGrandstaves, bool primeGrandstave);
 
@@ -44,12 +44,15 @@ protected:
 
     int generateMortalWounds(const Unit *unit) override;
 
+    Rerolls chargeRerolls() const override;
+
 private:
 
     Weapon m_tempestBladeAndStave,
         m_tempestBladeAndStavePrime,
         m_grandStave,
-        m_grandStavePrime;
+        m_grandStavePrime,
+        m_monstrousClaws;
 
     static bool s_registered;
 };
@@ -59,9 +62,11 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Lightning Arc          Yes
+// Supernatural Roar                No
+// Thunderous Pounce                Yes
 // Empower                          No
 //
 
 } // namespace StormcastEternals
 
-#endif //EVOCATORS_H
+#endif //EVOCATORSONDRACOLINES_H
