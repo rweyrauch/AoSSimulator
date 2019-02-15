@@ -148,14 +148,24 @@ Unit* GenerateRandomUnit()
     auto unit = UnitFactory::Create(name, parameters);
     if (unit == nullptr)
     {
-        std::cerr << "Failed to create unit " << name << "." << std::endl;
-        std::cerr << "\tParameters: " << std::endl;
         for (auto& pp : parameters)
         {
-            if (pp.m_paramType == ParamType::Integer || pp.m_paramType == ParamType::Enum)
-                std::cerr << "\t\t" << pp.m_name << ": " << pp.m_intValue << std::endl;
-            else if (pp.m_paramType == ParamType::Boolean)
-                std::cerr << "\t\t" << pp.m_name << ": " << pp.m_boolValue << std::endl;
+            if (pp.m_paramType == ParamType::Integer && pp.m_name != "numModels")
+                pp.m_intValue = 0;
+        }
+
+        unit = UnitFactory::Create(name, parameters);
+        if (unit == nullptr)
+        {
+            std::cerr << "Failed to create unit " << name << "." << std::endl;
+            std::cerr << "\tParameters: " << std::endl;
+            for (auto &pp : parameters)
+            {
+                if (pp.m_paramType == ParamType::Integer || pp.m_paramType == ParamType::Enum)
+                    std::cerr << "\t\t" << pp.m_name << ": " << pp.m_intValue << std::endl;
+                else if (pp.m_paramType == ParamType::Boolean)
+                    std::cerr << "\t\t" << pp.m_name << ": " << pp.m_boolValue << std::endl;
+            }
         }
     }
     return unit;
