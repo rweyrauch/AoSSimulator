@@ -58,12 +58,14 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
     // Add the Heartseeker
     Model reaperModel(BASESIZE, WOUNDS);
     reaperModel.addMeleeWeapon(&m_piercingClawsHeartseeker);
+    reaperModel.addMeleeWeapon(&m_poisonedTongue);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&m_piercingClaws);
+        model.addMeleeWeapon(&m_poisonedTongue);
         addModel(model);
     }
 
@@ -168,6 +170,32 @@ int Seekers::chargeModifier() const
         }
     }
     return modifier;
+}
+
+void Seekers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    Unit::computeBattleshockEffect(roll, numFled, numAdded);
+    if (m_iconBearer)
+    {
+        // Icon Bearer
+        if (roll == 1)
+        {
+            Dice dice;
+            numAdded = dice.rollD3();
+        }
+    }
+}
+
+void Seekers::restoreModels(int numModels)
+{
+    // Icon Bearer
+    Model model(BASESIZE, WOUNDS);
+    model.addMeleeWeapon(&m_piercingClaws);
+    model.addMeleeWeapon(&m_poisonedTongue);
+    for (auto i = 0; i < numModels; i++)
+    {
+        addModel(model);
+    }
 }
 
 } // namespace Slaanesh

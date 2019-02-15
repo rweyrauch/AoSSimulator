@@ -130,8 +130,8 @@ int Unit::applyBattleshock()
 
     Dice dice;
     auto roll = rollBattleshock();
-    int numFled = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
-    numFled = std::max(0, std::min(remainingModels(), numFled));
+    int numFled, numRestored;
+    computeBattleshockEffect(roll, numFled, numRestored);
 
     // mark fleeing models
     int numFleeing = numFled;
@@ -147,6 +147,12 @@ int Unit::applyBattleshock()
         onFlee(numFled);
 
     m_currentRecord.m_numFled += numFled;
+
+    // restore models
+    if (numRestored > 0)
+    {
+        restoreModels(numRestored);
+    }
 
     return numFled;
 }
@@ -791,6 +797,13 @@ int Unit::rerolling(int initialRoll, Rerolls reroll, Dice& dice) const
         roll = dice.rollD6();
     }
     return roll;
+}
+
+void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) const
+{
+    numFled = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
+    numFled = std::max(0, std::min(remainingModels(), numFled));
+    numRestored = 0;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

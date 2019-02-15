@@ -50,8 +50,16 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    int castingModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
+
+    WeaponOptions m_weapons = CursedBlade;
+    int m_numCursedGlaives = 0;
+    int m_numScrollsOfDarkArts = 0;
+    int m_numVulcharcs = 0;
 
     Weapon m_sorcerousBolt,
         m_sorcerousBoldAdept,
@@ -65,10 +73,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcanite Shields                 No
-// Gestalt Sorcery                  No
-// Paired Cursed Blades             No
-// Scroll of Dark Arts              No
+// Arcanite Shields                 Yes
+// Gestalt Sorcery                  Yes
+// Paired Cursed Blades             Yes
+// Scroll of Dark Arts              Yes
 // Vulcharc                         No
 //
 

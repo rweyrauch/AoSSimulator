@@ -40,6 +40,8 @@ protected:
     int extraAttacks(const Weapon* weapon) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
+    void restoreModels(int numModels) override;
 
 private:
 
@@ -58,7 +60,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Hornblower                       No
-// Icon Bearer                      No
+// Icon Bearer                      Yes
 // Standard Bearer                  No
 // Decapitating Blow                Yes
 // Locus of Fury                    Yes

@@ -7,7 +7,7 @@
  */
 
 #ifndef TREEREVENANTS_H
-#define TREEEREVENANTS_H
+#define TREEREVENANTS_H
 
 #include <Unit.h>
 #include <Weapon.h>

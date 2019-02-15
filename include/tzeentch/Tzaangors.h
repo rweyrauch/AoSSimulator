@@ -49,8 +49,18 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+    int extraAttacks(const Weapon *weapon) const override;
 
 private:
+
+    WeaponOptions m_weapons = PairedSavageBlades;
+    int m_numGreatblades = 0;
+    int m_numMutants = 0;
+    bool m_iconBearer = false;
+    bool m_brayhorns = false;
 
     Weapon m_savageBlade,
         m_savageBladeTwistbray,
@@ -67,11 +77,11 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearers                     No
-// Brayhorns                        No
-// Arcanite Shield                  No
-// Anarchy and Mayhem               No
-// Paired Savage Blades             No
-// Savagery Unleashed               No
+// Brayhorns                        Yes
+// Arcanite Shield                  Yes
+// Anarchy and Mayhem               Yes
+// Paired Savage Blades             Yes
+// Savagery Unleashed               Yes
 //
 
 } // Tzeentch

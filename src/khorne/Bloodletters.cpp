@@ -141,4 +141,29 @@ Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) con
     return Unit::toHitRerolls(weapon, target);
 }
 
+void Bloodletters::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    Unit::computeBattleshockEffect(roll, numFled, numAdded);
+    if (m_iconBearer)
+    {
+        // Icon Bearer
+        if (roll == 1)
+        {
+            Dice dice;
+            numAdded = dice.rollD6();
+        }
+    }
+}
+
+void Bloodletters::restoreModels(int numModels)
+{
+    // Icon Bearer
+    Model model(BASESIZE, WOUNDS);
+    model.addMeleeWeapon(&m_hellblade);
+    for (auto i = 0; i < numModels; i++)
+    {
+        addModel(model);
+    }
+}
+
 } // namespace Khorne

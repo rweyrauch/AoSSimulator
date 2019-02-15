@@ -26,6 +26,11 @@
 #include "stormcast/VanguardRaptorsLongstrike.h"
 #include "stormcast/Castigators.h"
 #include "stormcast/VandusHammerhand.h"
+#include "stormcast/GryphHounds.h"
+#include "stormcast/Concussors.h"
+#include "stormcast/Desolators.h"
+#include "stormcast/Fulminators.h"
+#include "stormcast/Tempestors.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -162,6 +167,11 @@ void Initialize(Verbosity verbosity)
     StormcastEternals::VanguardRaptorsHurricane::Init();
     StormcastEternals::VanguardRaptorsLongstrike::Init();
     StormcastEternals::VandusHammerhand::Init();
+    StormcastEternals::GryphHounds::Init();
+    StormcastEternals::Concussors::Init();
+    StormcastEternals::Desolators::Init();
+    StormcastEternals::Fulminators::Init();
+    StormcastEternals::Tempestors::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();

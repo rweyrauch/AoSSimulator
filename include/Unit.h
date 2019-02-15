@@ -261,10 +261,13 @@ protected:
 
     virtual int rollBattleshock() const;
 
+    virtual void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const;
+
     virtual int castingModifier() const { return 0; }
 
     virtual int unbindingModifier() const { return 0; }
 
+    virtual void restoreModels(int numModels) { }
 
     virtual int runModifier() const { return 0; }
 

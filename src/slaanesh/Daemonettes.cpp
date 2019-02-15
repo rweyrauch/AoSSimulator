@@ -130,4 +130,29 @@ int Daemonettes::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
+void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    Unit::computeBattleshockEffect(roll, numFled, numAdded);
+    if (m_iconBearer)
+    {
+        // Icon Bearer
+        if (roll == 1)
+        {
+            Dice dice;
+            numAdded = dice.rollD6();
+        }
+    }
+}
+
+void Daemonettes::restoreModels(int numModels)
+{
+    // Icon Bearer
+    Model model(BASESIZE, WOUNDS);
+    model.addMeleeWeapon(&m_piercingClaws);
+    for (auto i = 0; i < numModels; i++)
+    {
+        addModel(model);
+    }
+}
+
 } // namespace Slaanesh

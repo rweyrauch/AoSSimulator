@@ -43,6 +43,8 @@ protected:
     int chargeModifier() const override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
+    void restoreModels(int numModels) override;
 
 protected:
 
@@ -63,6 +65,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Icon Bearers                     Yes
+// Standard Bearers                 Yes
+// Hornblowers                      No
 // Sadistic Killers                 Yes
 // Locus of Swiftness               Yes
 // Quicksilver Speed                Yes

@@ -39,9 +39,15 @@ public:
 
 protected:
 
-
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
+    void restoreModels(int numModels) override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int castingModifier() const override;
 
 private:
+
+    bool m_iconBearer = false;
+    bool m_hornblower = false;
 
     Weapon m_magicalFlames,
         m_graspingHands,
@@ -54,10 +60,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon Bearer                      No
+// Icon Bearer                      Yes
 // Hornblower                       No
-// Flickering Flames                No
-// Locus of Conjuration             No
+// Flickering Flames                Yes
+// Locus of Conjuration             Yes
 //
 
 } // Tzeentch
