@@ -118,6 +118,8 @@ public:
 
     int remainingWounds() const;
 
+    int remainingPoints() const;
+
     int heal(int numWounds);
 
     bool addKeyword(Keyword word);

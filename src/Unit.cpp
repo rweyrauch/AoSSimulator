@@ -806,6 +806,13 @@ void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) co
     numRestored = 0;
 }
 
+int Unit::remainingPoints() const
+{
+    auto pointsPerModel = (float)m_points / m_models.size();
+    auto points = (int)roundf(pointsPerModel * remainingModels());
+    return points;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

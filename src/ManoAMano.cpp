@@ -47,13 +47,15 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     float redY = board->depth() / 2.0f;
 
     // left center
-    red->setPosition(Math::Point3(redX, redY, 0.0f), Math::Vector3(1.0f, 0.0f, 0.0f));
+    m_initialPos[0] = Math::Point3(redX, redY, 0.0f);
+    red->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
 
     float blueX = board->width() - (board->width() / 20.0f);
     float blueY = board->depth() / 2.0f;
 
     // right center
-    blue->setPosition(Math::Point3(blueX, blueY, 0.0f), Math::Vector3(-1.0f, 0.0f, 0.0f));
+    m_initialPos[1] = Math::Point3(blueX, blueY, 0.0f);
+    blue->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
 
     board->addRosters(m_rosters[0], m_rosters[1]);
 }
@@ -61,6 +63,9 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
 void ManoAMano::start()
 {
     Dice dice;
+
+    m_units[0]->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
+    m_units[1]->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
 
     int redRoll = 0;
     int blueRoll = 0;
@@ -413,23 +418,28 @@ ManoAMano::~ManoAMano()
 
 PlayerId ManoAMano::getVictor() const
 {
+    // Blue 'tabled' Red
     if (m_units[0]->remainingModels() == 0 && m_units[1]->remainingModels() > 0)
     {
         return PlayerId::Blue;
     }
+    // Red 'tabled' Blue
     if (m_units[0]->remainingModels() > 0 && m_units[1]->remainingModels() == 0)
     {
         return PlayerId::Red;
     }
-    if (m_units[0]->remainingWounds() > m_units[1]->remainingWounds())
+    // Red suffered fewer losses
+    if (m_units[0]->remainingPoints() > m_units[1]->remainingPoints())
     {
         return PlayerId::Red;
     }
-    if (m_units[0]->remainingWounds() < m_units[1]->remainingWounds())
+    // Blue suffered few losses
+    if (m_units[0]->remainingPoints() < m_units[1]->remainingPoints())
     {
         return PlayerId::Blue;
     }
 
+    // Tie
     return PlayerId::None;
 }
 
@@ -462,10 +472,12 @@ void ManoAMano::logStatistics() const
     auto redStats = m_units[0]->getStatistics();
     std::cout << "Red Statistics:" << std::endl;
     logUnitStats(redStats);
-    redStats.visitTurn(turnVistor);
+    if (GetVerbosity() == Verbosity::Narrative)
+        redStats.visitTurn(turnVistor);
 
     auto blueStats = m_units[1]->getStatistics();
     std::cout << "Blue Statistics:" << std::endl;
     logUnitStats(blueStats);
-    blueStats.visitTurn(turnVistor);
+    if (GetVerbosity() == Verbosity::Narrative)
+        blueStats.visitTurn(turnVistor);
 }
