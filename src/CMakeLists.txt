@@ -146,11 +146,15 @@ add_library(
         skaven/Stormfiends.cpp
         skaven/Stormvermin.cpp
         skaven/HellPitAbomination.cpp
+        skaven/RatlingGun.cpp
+        skaven/WarpfireThrower.cpp
+        skaven/WarpLightningCannon.cpp
 
         tzeentch/KairicAcolytes.cpp
         tzeentch/PinkHorrors.cpp
         tzeentch/TzaangorEnlightened.cpp
         tzeentch/Tzaangors.cpp
+        tzeentch/FlamersOfTzeentch.cpp
 )
 
 target_include_directories(

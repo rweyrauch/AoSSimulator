@@ -125,6 +125,7 @@ enum Keyword
     PRIEST,
     CELESTIAL,
     WAR_MACHINE,
+    WEAPON_TEAM,
     GROT,
     AELF,
     MALIGNANT,
@@ -135,6 +136,8 @@ enum Keyword
     DUARDIN,
     KNIGHTS,
     SERFS,
+    WARLOCK,
+    ENGINEER,
 
     // Stormcast
     SACROSANCT,
@@ -348,7 +351,10 @@ enum Keyword
     PINK_HORRORS,
     TZAANGORS,
     TZAANGOR_ENLIGHTENED,
-
+    FLAMERS,
+    RATLING_GUN,
+    WARPFIRE_THROWER,
+    WARP_LIGHTNING_CANNON,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);
