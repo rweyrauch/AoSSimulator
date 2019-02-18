@@ -64,6 +64,16 @@ private:
 
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Standard Bearer                  No
+// Hornblower                       No
+// Cursed Weapons                   Yes
+// Crypt Shields                    Yes
+//
+
 } //namespace Death
 
 #endif //GRAVEGUARD_H

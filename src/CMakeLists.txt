@@ -64,6 +64,9 @@ add_library(
         sylvaneth/Dryads.cpp
         sylvaneth/TreeRevenants.cpp
         sylvaneth/SpiteRevenants.cpp
+        sylvaneth/DrychaHamadreth.cpp
+        sylvaneth/Treelord.cpp
+        sylvaneth/TreelordAncient.cpp
 
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp

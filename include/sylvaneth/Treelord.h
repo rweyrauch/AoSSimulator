@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPITEREVENANTS_H
-#define SPITEREVENANTS_H
+#ifndef TREELORD_H
+#define TREELORD_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,34 +15,36 @@
 namespace Sylvaneth
 {
 
-class SpiteRevenants : public Unit
+class Treelord : public Unit
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int BASESIZE = 105; // x70 oval
+    static const int WOUNDS = 10;
+    static const int POINTS_PER_UNIT = 240;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    SpiteRevenants();
-    ~SpiteRevenants() override = default;
+    Treelord();
+    ~Treelord() override = default;
 
-    bool configure(int numModels);
+    bool configure();
+
+    void hero(PlayerId id) override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    void onWounded() override;
+    int getDamageTableIndex() const;
 
 private:
 
-    Weapon m_cruelTalonsAndFangs,
-        m_cruelTalonsAndFangsShadestalker;
+    Weapon m_strangleroots,
+        m_sweepingBlows,
+        m_massiveImpalingTalons;
 
     static bool s_registered;
 };
@@ -51,10 +53,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Whispers in the Dark             No
-// Unbridled Malice                 No
+// Groundshaking Stomp              No
+// Impale                           No
+// Spirit Path                      No
 //
 
 } // namespace Sylvaneth
 
-#endif //SPITEREVENANTS_H
+#endif //TREELORD_H

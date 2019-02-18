@@ -50,6 +50,19 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Talon of the Dwindling           No
+// Lifebloom                        Yes
+// Sweeping Blows                   Yes
+// Living Battering Ram             No
+// Soul Amphorae                    Partial
+// Metamorphosis                    No
+// Ghyran's Wrath                   No
+//
+
 } // namespace Sylvaneth
 
 #endif //ALARIELLE_H

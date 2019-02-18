@@ -49,6 +49,15 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Bastions of Death                No
+// Chained Lightning                Yes
+// Versatile Weapon                 Yes
+//
+
 } // namespace StormcastEternals
 
 #endif //CELESTARBALLISTA_H

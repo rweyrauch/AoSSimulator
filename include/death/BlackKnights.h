@@ -56,6 +56,17 @@ private:
 
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Standard Bearer                  No
+// Hornblower                       No
+// Deathly Charge                   Yes
+// Crypt Shields                    Yes
+//
+
+
 } //namespace Death
 
 #endif //BLACKKNIGHTS_H

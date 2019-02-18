@@ -50,6 +50,15 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Glade Banner                     No
+// Waypipes                         No
+// Martial Memories                 No
+//
+
 } // namespace Sylvaneth
 
 #endif //TREEREVENANTS_H

@@ -62,6 +62,15 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Tanglethorn Thicket              No
+// Envoys of the Everqueen          No
+// Trample Underfoot                No
+//
+
 } // namespace Sylvaneth
 
 #endif //KURNOTHHUNTERS_H

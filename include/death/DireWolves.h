@@ -50,6 +50,14 @@ private:
 
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Slavering Charge                 Yes
+// Vigour Necris                    Yes
+//
+
 } //namespace Death
 
 #endif //DIREWOLVES_H

@@ -70,6 +70,9 @@
 #include "sylvaneth/Dryads.h"
 #include "sylvaneth/TreeRevenants.h"
 #include "sylvaneth/SpiteRevenants.h"
+#include "sylvaneth/DrychaHamadreth.h"
+#include "sylvaneth/Treelord.h"
+#include "sylvaneth/TreelordAncient.h"
 
 #include "dok/WitchAelves.h"
 #include "dok/BloodSisters.h"
@@ -216,6 +219,9 @@ void Initialize(Verbosity verbosity)
     Sylvaneth::Dryads::Init();
     Sylvaneth::TreeRevenants::Init();
     Sylvaneth::SpiteRevenants::Init();
+    Sylvaneth::DrychaHamadreth::Init();
+    Sylvaneth::Treelord::Init();
+    Sylvaneth::TreelordAncient::Init();
 
     DaughtersOfKhaine::WitchAelves::Init();
     DaughtersOfKhaine::SistersOfSlaughter::Init();

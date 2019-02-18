@@ -49,6 +49,14 @@ private:
     static bool s_registered;
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Blast to Ashes                   Yes
+// Starsoul Mace                    Yes
+//
+
 } // namespace StormcastEternals
 
 #endif //RETRIBUTORS_H

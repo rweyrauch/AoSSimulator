@@ -3,6 +3,7 @@
 add_executable(
         gtkManoAMano
         main.cpp
+        ResultsDisplay.cpp
 )
 
 target_include_directories(

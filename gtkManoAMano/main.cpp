@@ -1,3 +1,11 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
 #include <gtkmm.h>
 #include <map>
 #include <string>
@@ -5,9 +13,11 @@
 #include <Dice.h>
 #include <ManoAMano.h>
 #include <UnitFactory.h>
+#include "ResultsDisplay.h"
 #include <iostream>
 
 static Gtk::Window* pWindow = nullptr;
+static ResultsDisplay* pDialog = nullptr;
 
 static Gtk::SpinButton* pNumRounds = nullptr;
 static Gtk::Entry* pNumIterations = nullptr;
@@ -212,7 +222,7 @@ static void runSimulation()
 
         auto victor = g_battle->getVictor();
 
-        if (g_verboseLevel > 0)
+        //if (g_verboseLevel > 0)
         {
             std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
             g_battle->logStatistics();
@@ -233,10 +243,17 @@ static void runSimulation()
         }
     }
 
+    const float redPercent = (float)redVictories * 100.0f/g_numIterations;
+    const float bluePercent = (float)blueVictories * 100.0f/g_numIterations;
+    const float tiesPercent = (float)ties * 100.0f/g_numIterations;
+
     std::cout << "Victor Breakdown (%):" << std::endl
-              << "\tRed: " << (float)redVictories * 100.0f/g_numIterations << std::endl
-              << "\tBlue: " << (float)blueVictories * 100.0f/g_numIterations << std::endl
-              << "\tTies: " << (float)ties * 100.0f/g_numIterations << std::endl;
+              << "\tRed: " << redPercent << std::endl
+              << "\tBlue: " << bluePercent << std::endl
+              << "\tTies: " << tiesPercent << std::endl;
+
+    pDialog->setResults(g_pRed->points(), g_pBlue->points(), g_numRounds, g_numIterations,
+        redPercent, bluePercent, tiesPercent);
 }
 
 int main(int argc, char *argv[])
@@ -312,6 +329,9 @@ int main(int argc, char *argv[])
 
     createConfigUI(pRedUnits->get_active_text(), pRedUnitConfig);
     createConfigUI(pBlueUnits->get_active_text(), pBlueUnitConfig);
+
+    pDialog = new ResultsDisplay();
+    pDialog->build(builder);
 
     return app->run(*pWindow);
 }

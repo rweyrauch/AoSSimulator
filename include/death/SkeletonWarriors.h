@@ -64,6 +64,16 @@ private:
 
 };
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Standard Bearer                  No
+// Hornblower                       No
+// Skeleton Legion                  Yes
+// Crypt Shields                    Yes
+//
+
 } //namespace Death
 
 #endif //SKELETONWARRIORS_H

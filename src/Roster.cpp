@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
+#include <cfloat>
 #include <Roster.h>
 
 void Roster::doHeroPhase()
@@ -67,7 +67,7 @@ void Roster::beginTurn(int battleRound, PlayerId playerWithTurn)
 Unit *Roster::nearestUnit(const Unit *unit) const
 {
     Unit *nearestUnit = m_units.front();
-    float minDistance = MAXFLOAT;
+    float minDistance = FLT_MAX;
     for (auto u : m_units)
     {
         float dist = unit->distanceTo(u);
