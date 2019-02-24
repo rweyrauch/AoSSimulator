@@ -103,6 +103,8 @@
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
 #include "nurgle/PutridBlightkings.h"
+#include "nurgle/BeastsOfNurgle.h"
+#include "nurgle/TheGlottkin.h"
 
 #include "death/BlackKnights.h"
 #include "death/BloodKnights.h"
@@ -252,6 +254,8 @@ void Initialize(Verbosity verbosity)
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();
     Nurgle::PutridBlightkings::Init();
+    Nurgle::BeastsOfNurgle::Init();
+    Nurgle::TheGlottkin::Init();
 
     Death::BlackKnights::Init();
     Death::BloodKnights::Init();

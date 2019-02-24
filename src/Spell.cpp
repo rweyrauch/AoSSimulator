@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <Spell.h>
 #include <Unit.h>
+#include <Board.h>
 
 DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage) :
     Spell(caster, name, castingValue),
@@ -35,9 +36,7 @@ int DamageSpell::cast(const Unit *target)
     const int castingRoll = dice.rollD6();
     if (castingRoll >= m_castingValue)
     {
-        // TODO: Implement unbinding roll
-        bool unbound = false;
-        //bool unbound = otherplayer->unbind(m_caster, castingRoll);
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound)
         {
             mortalWounds = dice.rollSpecial(getDamage(castingRoll));

@@ -290,6 +290,8 @@ enum Keyword
     ROTBRINGER,
     PUTRID_BLIGHTKINGS,
     LORD_OF_PLAGUES,
+    BEASTS_OF_NURGLE,
+    THE_GLOTTKIN,
 
     // Death
     BLACK_KNIGHTS,

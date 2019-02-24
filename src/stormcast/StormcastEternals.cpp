@@ -15,6 +15,7 @@ int StormcastEternal::toHitModifier(const Weapon *weapon, const Unit *unit) cons
 {
     int modifier = Unit::toHitModifier(weapon, unit);
 
+    // Beast Stalkers
     if (hasKeyword(ASTRAL_TEMPLARS) && unit->hasKeyword(MONSTER))
     {
         modifier += 1;
@@ -25,6 +26,7 @@ int StormcastEternal::toHitModifier(const Weapon *weapon, const Unit *unit) cons
 
 Rerolls StormcastEternal::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
+    // Driven by Vengeance
     if (hasKeyword(CELESTIAL_VINDICATORS) && m_charged)
     {
         return RerollOnes;
@@ -37,6 +39,7 @@ int StormcastEternal::battlshockModifier() const
 {
     int modifier = Unit::battlshockModifier();
 
+    // First to be Forged
     if (hasKeyword(HAMMERS_OF_SIGMAR))
     {
         modifier += 1;
@@ -47,6 +50,7 @@ int StormcastEternal::battlshockModifier() const
 
 Rerolls StormcastEternal::battleshockRerolls() const
 {
+    // No True Death
     if (hasKeyword(ANVILS_OF_THE_HELDENHAMMER))
     {
         return RerollFailed;

@@ -49,11 +49,11 @@ public:
 
     PlayerId owningPlayer() const { return m_owningPlayer; }
 
-    int numSpells() const { return m_numSpells; }
+    int numSpells() const { return m_totalSpells; }
 
-    int numUnbinds() const { return m_numUnbinds; }
+    int numUnbinds() const { return m_totalUnbinds; }
 
-    int numPrayers() const { return m_numPrayers; }
+    int numPrayers() const { return m_totalPrayers; }
 
     void setPoints(int points) { m_points = points; }
 
@@ -147,6 +147,8 @@ public:
     std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }
 
     int slay(int numModels);
+
+    bool unbind(const Unit* caster, int castRoll);
 
     float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
@@ -327,9 +329,9 @@ protected:
 
     PlayerId m_owningPlayer = PlayerId::None;
 
-    int m_numSpells = 0;
-    int m_numUnbinds = 0;
-    int m_numPrayers = 0;
+    int m_totalSpells = 0;
+    int m_totalUnbinds = 0;
+    int m_totalPrayers = 0;
 
     int m_ranks = 1;
     std::vector<Model> m_models;
@@ -344,6 +346,10 @@ protected:
     bool m_canMove = true;
     int m_toHitBuff = 0;
     int m_toHitBuffMissile = 0;
+
+    int m_spellsCast = 0;
+    int m_spellsUnbound = 0;
+    int m_prayersAttempted = 0;
 
     Unit *m_shootingTarget = nullptr;
     Unit *m_meleeTarget = nullptr;

@@ -42,7 +42,7 @@ void Board::addFeature(TerrainFeature *feature)
     m_features.push_back(feature);
 }
 
-void Board::addRosters(const Roster *pRedRoster, const Roster *pBlueRoster)
+void Board::addRosters(Roster *pRedRoster, Roster *pBlueRoster)
 {
     m_rosters[(int) PlayerId::Red] = pRedRoster;
     m_rosters[(int) PlayerId::Blue] = pBlueRoster;
@@ -87,7 +87,7 @@ void Board::render(const std::string &filename) const
     cr->save();
     cr->set_line_width(1.0);
 
-    const Roster *red = m_rosters[0];
+    Roster *red = m_rosters[0];
     for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
     {
         const Unit *unit = *ip;
@@ -124,7 +124,7 @@ void Board::render(const std::string &filename) const
     cr->save();
     cr->set_line_width(1.0);
 
-    const Roster *blue = m_rosters[1];
+    Roster *blue = m_rosters[1];
     for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
     {
         const Unit *unit = *ip;
@@ -260,4 +260,18 @@ Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword k
     }
 
     return nullptr;
+}
+
+bool Board::unbindAttempt(const Unit* caster, int castingRoll)
+{
+    int targetId = (int)GetEnemyId(caster->owningPlayer());
+    for (auto ip = m_rosters[targetId]->unitBegin(); ip != m_rosters[targetId]->unitEnd(); ++ip)
+    {
+        if ((*ip)->unbind(caster, castingRoll))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

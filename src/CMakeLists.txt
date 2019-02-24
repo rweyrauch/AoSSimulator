@@ -116,6 +116,8 @@ add_library(
         nurgle/Plaguebearers.cpp
         nurgle/LordOfPlagues.cpp
         nurgle/PutridBlightkings.cpp
+        nurgle/BeastsOfNurgle.cpp
+        nurgle/TheGlottkin.cpp
 
         death/BlackKnights.cpp
         death/BloodKnights.cpp

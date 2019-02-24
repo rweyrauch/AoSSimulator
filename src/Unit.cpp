@@ -813,6 +813,11 @@ int Unit::remainingPoints() const
     return points;
 }
 
+bool Unit::unbind(const Unit* caster, int castRoll)
+{
+    return false;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

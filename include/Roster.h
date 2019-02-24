@@ -35,8 +35,8 @@ public:
 
     Unit* nearestUnit(const Unit* unit) const;
 
-    std::vector<Unit*>::const_iterator unitBegin() const { return m_units.begin(); }
-    std::vector<Unit*>::const_iterator unitEnd() const { return m_units.end(); }
+    std::vector<Unit*>::iterator unitBegin() { return m_units.begin(); }
+    std::vector<Unit*>::iterator unitEnd() { return m_units.end(); }
 
     int totalPoints() const;
 

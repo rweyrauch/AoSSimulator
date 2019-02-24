@@ -36,7 +36,7 @@ public:
     void addFeature(TerrainFeature* feature);
     void addObjective(Objective* objective);
     void moveObjective(int which, float x, float y);
-    void addRosters(const Roster* pRedRoster, const Roster* pBlueRoster);
+    void addRosters(Roster* pRedRoster, Roster* pBlueRoster);
 
     float width() const { return m_width; }
     float depth() const { return m_depth; }
@@ -47,11 +47,13 @@ public:
     int getNumObjectives() const { return (int)m_objectives.size(); }
     const Objective* getObjective(int which) const { return m_objectives.at((size_t)which); }
 
-    const Roster* getPlayerRoster(PlayerId which) const { return m_rosters[(int)which]; }
+    Roster* getPlayerRoster(PlayerId which) { return m_rosters[(int)which]; }
 
     Unit* getNearestUnit(const Unit* unit, PlayerId fromPlayer);
     std::vector<Unit*> getUnitsWithin(const Unit* unit, PlayerId fromPlayer, float distance);
     Unit* getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
+
+    bool unbindAttempt(const Unit* caster, int castingRoll);
 
     void render(const std::string& filename) const;
 
@@ -62,7 +64,7 @@ private:
     float m_width = 0.0f, m_depth = 0.0f;
     std::vector<TerrainFeature*> m_features;
     std::vector<Objective*> m_objectives;
-    const Roster* m_rosters[2] = {nullptr, nullptr};
+    Roster* m_rosters[2] = {nullptr, nullptr};
 
     static Board* s_pInstance;
 };
