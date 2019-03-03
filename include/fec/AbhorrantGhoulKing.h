@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CRYPTINFERNALCOURTIER_H
-#define CRYPTINFERNALCOURTIER_H
+#ifndef ABHORRANTGHOULKING_H
+#define ABHORRANTGHOULKING_H
 
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
@@ -15,10 +15,10 @@
 namespace FleshEaterCourt
 {
 
-class CryptInfernalCourtier : public FleshEaterCourts
+class AbhorrantGhoulKing : public FleshEaterCourts
 {
 public:
-    static const int BASESIZE = 50;
+    static const int BASESIZE = 32;
     static const int WOUNDS = 6;
     static const int POINTS_PER_UNIT = 140;
 
@@ -26,21 +26,20 @@ public:
 
     static void Init();
 
-    CryptInfernalCourtier();
-    ~CryptInfernalCourtier() override = default;
+    AbhorrantGhoulKing();
+    ~AbhorrantGhoulKing() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
-protected:
+    void hero(PlayerId player) override;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+protected:
 
 private:
 
-    Weapon m_foetidBreath,
-        m_skeweringTalons;
+    Weapon m_goryTalonsAngFangs;
 
     static bool s_registered;
 };
@@ -49,10 +48,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Skewering Strike                 Yes
-// Muster Royal Guard               No
+// Royal Blood                      Yes
+// Black Hunger                     No
+// Summon Men-at-arms               No
 //
 
 } // namespace FleshEaterCourt
 
-#endif //CRYPTINFERNALCOURTIER_H
+#endif //ABHORRANTGHOULKING_H

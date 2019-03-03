@@ -180,7 +180,7 @@ static std::map<std::string, Keyword> g_factionNameLookup = {
     { "Tzeentch", TZEENTCH },
     { "Nurgle", NURGLE },
     { "Slaves to Darkness", SLAVES_TO_DARKNESS },
-    { "Flesh Eaters Court", FLESH_EATERS_COURT },
+    { "Flesh Eater Courts", FLESH_EATER_COURTS },
     { "Grand Host of Nagash", GRAND_HOST_OF_NAGASH },
     { "Legion of Blood", LEGION_OF_BLOOD },
     { "Legion of Night", LEGION_OF_NIGHT },

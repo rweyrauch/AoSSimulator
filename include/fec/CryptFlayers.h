@@ -9,13 +9,13 @@
 #ifndef CRYPTFLAYERS_H
 #define CRYPTFLAYERS_H
 
-#include <Unit.h>
+#include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
 namespace FleshEaterCourt
 {
 
-class CryptFlayers : public Unit
+class CryptFlayers : public FleshEaterCourts
 {
 public:
     static const int BASESIZE = 50;

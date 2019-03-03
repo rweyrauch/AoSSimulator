@@ -127,10 +127,15 @@ add_library(
         death/Vargheists.cpp
         death/Zombies.cpp
 
+        fec/FleshEaterCourts.cpp
         fec/CryptHorrors.cpp
         fec/CryptGhouls.cpp
         fec/CryptFlayers.cpp
         fec/CryptInfernalCourtier.cpp
+        fec/AbhorrantArchregent.cpp
+        fec/AbhorrantGhoulKing.cpp
+        fec/GhoulKingOnTerrorgheist.cpp
+        fec/GhoulKingOnZombieDragon.cpp
 
         wanderers/EternalGuard.cpp
         wanderers/GladeGuard.cpp

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CRYPTINFERNALCOURTIER_H
-#define CRYPTINFERNALCOURTIER_H
+#ifndef ABHORRANTARCHREGENT_H
+#define ABHORRANTARCHREGENT_H
 
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
@@ -15,32 +15,31 @@
 namespace FleshEaterCourt
 {
 
-class CryptInfernalCourtier : public FleshEaterCourts
+class AbhorrantArchregent : public FleshEaterCourts
 {
 public:
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 200;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    CryptInfernalCourtier();
-    ~CryptInfernalCourtier() override = default;
+    AbhorrantArchregent();
+    ~AbhorrantArchregent() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
-protected:
+    void hero(PlayerId player) override;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+protected:
 
 private:
 
-    Weapon m_foetidBreath,
-        m_skeweringTalons;
+    Weapon m_goryTalonsAngFangs;
 
     static bool s_registered;
 };
@@ -49,10 +48,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Skewering Strike                 Yes
-// Muster Royal Guard               No
+// Imperial Blood                   Yes
+// Ferocious Hunger                 No
+// Summon Imperial Guard            No
 //
 
 } // namespace FleshEaterCourt
 
-#endif //CRYPTINFERNALCOURTIER_H
+#endif //ABHORRANTARCHREGENT_H

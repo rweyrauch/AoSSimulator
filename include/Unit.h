@@ -156,6 +156,8 @@ public:
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
 
+    bool isGeneral() const { return m_isGeneral; }
+
 protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
@@ -273,6 +275,8 @@ protected:
 
     virtual void restoreModels(int numModels) { }
 
+    virtual int moveModifier() const { return 0; }
+
     virtual int runModifier() const { return 0; }
 
     virtual Rerolls runRerolls() const { return NoRerolls; }
@@ -326,6 +330,7 @@ protected:
     bool m_runAndCharge = false;
     bool m_retreatAndCharge = false;
     bool m_ignoreRend = false;
+    bool m_isGeneral = false;
 
     PlayerId m_owningPlayer = PlayerId::None;
 

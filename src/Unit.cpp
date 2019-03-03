@@ -393,25 +393,27 @@ void Unit::movement(PlayerId player)
         float totalMoveDistance = 0.0f;
         if (weapon->isMissile())
         {
+            const float movement = move() + moveModifier();
+
             // get into range (run or not?)
-            if (distance > weapon->range() + move())
+            if (distance > weapon->range() + movement)
             {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != NoRerolls))
                     runDist = rollRunDistance();
-                totalMoveDistance = move() + runDist;
+                totalMoveDistance = movement + runDist;
                 m_ran = true;
 
-                m_currentRecord.m_moved = move();
+                m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
             }
             else if (distance > weapon->range())
             {
                 // move toward unit
-                totalMoveDistance = move();
+                totalMoveDistance = movement;
 
-                m_currentRecord.m_moved = move();
+                m_currentRecord.m_moved = movement;
             }
             else
             {
@@ -423,23 +425,25 @@ void Unit::movement(PlayerId player)
         }
         else
         {
+            const float movement = move() + moveModifier();
+
             // get into range (run or not?)
-            if (distance > weapon->range() + move() + PILE_IN_DISTANCE) // todo: pile-in should be unit-specific
+            if (distance > weapon->range() + movement + PILE_IN_DISTANCE) // todo: pile-in should be unit-specific
             {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != NoRerolls))
                     runDist = rollRunDistance();
-                totalMoveDistance = move() + runDist;
+                totalMoveDistance = movement + runDist;
                 m_ran = true;
 
-                m_currentRecord.m_moved = move();
+                m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
             }
             else if (distance > PILE_IN_DISTANCE) // pile-in
             {
                 // move toward unit
-                totalMoveDistance = std::min((float)move(), distance - PILE_IN_DISTANCE);
+                totalMoveDistance = std::min(movement, distance - PILE_IN_DISTANCE);
 
                 m_currentRecord.m_moved = totalMoveDistance;
             }

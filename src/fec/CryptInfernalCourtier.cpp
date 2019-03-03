@@ -22,17 +22,17 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    FLESH_EATERS_COURT
+    FLESH_EATER_COURTS
 };
 
 bool CryptInfernalCourtier::s_registered = false;
 
 CryptInfernalCourtier::CryptInfernalCourtier() :
-    Unit("Crypt Infernal Courtier", 12, WOUNDS, 10, 4, true),
+    FleshEaterCourts("Crypt Infernal Courtier", 12, WOUNDS, 10, 4, true),
     m_foetidBreath(Weapon::Type::Missile, "Foetid Breath", 9, 1, 4, 3, -1, RAND_D3),
     m_skeweringTalons(Weapon::Type::Melee, "Skewering Talons", 1, 5, 4, 3, -1, 2)
 {
-    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, HERO, COURTIER, CRYPT_INFERNAL_COURTIER};
+    m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_INFERNAL_COURTIER};
 }
 
 bool CryptInfernalCourtier::configure()

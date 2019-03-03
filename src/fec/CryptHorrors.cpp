@@ -24,17 +24,17 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    FLESH_EATERS_COURT
+    FLESH_EATER_COURTS
 };
 
 bool CryptHorrors::s_registered = false;
 
 CryptHorrors::CryptHorrors() :
-    Unit("Crypt Horrors", 7, WOUNDS, 10, 5, false),
+    FleshEaterCourts("Crypt Horrors", 7, WOUNDS, 10, 5, false),
     m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
     m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons (Crypt Haunter)", 1, 4, 4, 3, 0, 2)
 {
-    m_keywords = {DEATH, MORDANT, FLESH_EATERS_COURT, KNIGHTS, CRYPT_HORRORS};
+    m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_HORRORS};
 }
 
 bool CryptHorrors::configure(int numModels)

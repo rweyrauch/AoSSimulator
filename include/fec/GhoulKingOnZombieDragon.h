@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CRYPTINFERNALCOURTIER_H
-#define CRYPTINFERNALCOURTIER_H
+#ifndef GHOULKINGZOMBIEDRAGON_H
+#define GHOULKINGZOMBIEDRAGON_H
 
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
@@ -15,32 +15,40 @@
 namespace FleshEaterCourt
 {
 
-class CryptInfernalCourtier : public FleshEaterCourts
+class AbhorrantGhoulKingOnZombieDragon : public FleshEaterCourts
 {
 public:
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int BASESIZE = 130;
+    static const int WOUNDS = 14;
+    static const int POINTS_PER_UNIT = 440;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    CryptInfernalCourtier();
-    ~CryptInfernalCourtier() override = default;
+    AbhorrantGhoulKingOnZombieDragon();
+    ~AbhorrantGhoulKingOnZombieDragon() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
+    int move() const override;
+    void hero(PlayerId player) override;
+
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+    void onWounded() override;
+    int getDamageTableIndex() const;
+
 private:
 
-    Weapon m_foetidBreath,
-        m_skeweringTalons;
+    Weapon m_pestilentialBreath,
+        m_goryTalonsAndFangs,
+        m_snappingMaw,
+        m_swordlikeClaws;
 
     static bool s_registered;
 };
@@ -49,10 +57,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Skewering Strike                 Yes
-// Muster Royal Guard               No
+// Pestilential Breath              No
+// Royal Blood                      Yes
+// Malefic Hunger                   No
+// Summon Courtier                  No
 //
 
 } // namespace FleshEaterCourt
 
-#endif //CRYPTINFERNALCOURTIER_H
+#endif //GHOULKINGZOMBIEDRAGON_H
