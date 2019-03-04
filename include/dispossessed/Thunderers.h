@@ -9,13 +9,13 @@
 #ifndef THUNDERERS_H
 #define THUNDERERS_H
 
-#include <Unit.h>
+#include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
 namespace Dispossessed
 {
 
-class Thunderers : public Unit
+class Thunderers : public Dispossessed
 {
 public:
 

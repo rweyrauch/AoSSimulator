@@ -9,13 +9,13 @@
 #ifndef GRIMGHASTREAPERS_H
 #define GRIMGHASTREAPERS_H
 
-#include <Unit.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
 namespace Nighthaunt
 {
 
-class GrimghastReapers : public Unit
+class GrimghastReapers : public Nighthaunt
 {
 public:
 

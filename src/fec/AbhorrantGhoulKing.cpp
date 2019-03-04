@@ -24,7 +24,7 @@ bool AbhorrantGhoulKing::s_registered = false;
 
 AbhorrantGhoulKing::AbhorrantGhoulKing() :
     FleshEaterCourts("Abhorrant Ghoul King", 6, WOUNDS, 10, 4, false),
-    m_goryTalonsAngFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 6, 3, 3, -1, 1)
+    m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
         ABHORRANT_GHOUL_KING};
@@ -34,7 +34,7 @@ bool AbhorrantGhoulKing::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_goryTalonsAngFangs);
+    model.addMeleeWeapon(&m_goryTalonsAndFangs);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -44,7 +44,7 @@ bool AbhorrantGhoulKing::configure()
 
 void AbhorrantGhoulKing::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&m_goryTalonsAngFangs);
+    visitor(&m_goryTalonsAndFangs);
 }
 
 Unit *AbhorrantGhoulKing::Create(const ParameterList &parameters)

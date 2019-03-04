@@ -9,13 +9,13 @@
 #ifndef IRONDRAKES_H
 #define IRONDRAKES_H
 
-#include <Unit.h>
+#include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
 namespace Dispossessed
 {
 
-class Irondrakes : public Unit
+class Irondrakes : public Dispossessed
 {
 public:
 

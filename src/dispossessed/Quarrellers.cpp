@@ -32,7 +32,7 @@ static FactoryMethod factoryMethod = {
 bool Quarrellers::s_registered = false;
 
 Quarrellers::Quarrellers() :
-    Unit("Quarrellers", 4, WOUNDS, 6, 5, false),
+    Dispossessed("Quarrellers", 4, WOUNDS, 6, 5, false),
     m_duardinCrossbow(Weapon::Type::Missile, "Duardin Crossbow", 20, 1, 4, 4, 0, 1),
     m_duardinCrossbowVeteran(Weapon::Type::Missile, "Duardin Crossbow (Veteran)", 20, 1, 3, 4, 0, 1),
     m_rangersAxe(Weapon::Type::Melee, "Ranger's Axe", 1, 1, 4, 4, 0, 1)
@@ -116,7 +116,7 @@ int Quarrellers::extraAttacks(const Weapon *weapon) const
             return 1;
         }
     }
-    return Unit::extraAttacks(weapon);
+    return Dispossessed::extraAttacks(weapon);
 }
 
 Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const
@@ -127,7 +127,7 @@ Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const
         if (!weapon->isMissile())
             return RerollFailed;
     }
-    return Unit::toSaveRerolls(weapon);
+    return Dispossessed::toSaveRerolls(weapon);
 }
 
 std::string Quarrellers::ValueToString(const Parameter &parameter)

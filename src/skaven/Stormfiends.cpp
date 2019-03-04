@@ -41,7 +41,7 @@ static FactoryMethod factoryMethod = {
 bool Stormfiends::s_registered = false;
 
 Stormfiends::Stormfiends() :
-    Unit("Stormfiends", 6, WOUNDS, 6, 4, false),
+    Skaventide("Stormfiends", 6, WOUNDS, 6, 4, false),
     m_ratlingCannons(Weapon::Type::Missile, "Ratling Cannons", 12, RAND_3D6, 4, 3, -1, 1),
     m_windlaunchers(Weapon::Type::Missile, "Windlaunchers", 24, 3, 4, 4, -3, RAND_D3),
     m_warpfireProjectors(Weapon::Type::Missile, "Warpfire Projectors", 8, 0, 0, 0, 0, 0),

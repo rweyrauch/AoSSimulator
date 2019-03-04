@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
 bool WarpfireThrower::s_registered = false;
 
 WarpfireThrower::WarpfireThrower() :
-    Unit("Warpfire Thrower", 6, WOUNDS, 4, 6, false),
+    Skaventide("Warpfire Thrower", 6, WOUNDS, 4, 6, false),
     m_warpfireThrower(Weapon::Type::Missile, "Warpfire Thrower", 8, 0, 0, 0, 0, 0),
     m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1)
 {
@@ -74,7 +74,7 @@ void WarpfireThrower::Init()
 
 int WarpfireThrower::generateMortalWounds(const Unit *unit)
 {
-    auto mortalWounds = Unit::generateMortalWounds(unit);
+    auto mortalWounds = Skaventide::generateMortalWounds(unit);
 
     if (m_shootingTarget)
     {

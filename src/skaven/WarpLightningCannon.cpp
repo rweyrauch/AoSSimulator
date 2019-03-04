@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool WarpLightningCannon::s_registered = false;
 
 WarpLightningCannon::WarpLightningCannon() :
-    Unit("Warp Lightning Cannon", 3, WOUNDS, 4, 4, false),
+    Skaventide("Warp Lightning Cannon", 3, WOUNDS, 4, 4, false),
     m_warpLightningBlast(Weapon::Type::Missile, "Warp Lightning Blast", 24, 0, 0, 0, 0, 0),
     m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1)
 {
@@ -75,7 +75,7 @@ void WarpLightningCannon::Init()
 
 int WarpLightningCannon::generateMortalWounds(const Unit *unit)
 {
-    auto mortalWounds = Unit::generateMortalWounds(unit);
+    auto mortalWounds = Skaventide::generateMortalWounds(unit);
 
     if (m_shootingTarget)
     {

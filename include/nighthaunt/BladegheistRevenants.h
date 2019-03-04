@@ -9,13 +9,13 @@
 #ifndef BLADEGHEISTREVENANTS_H
 #define BLADEGHEISTREVENANTS_H
 
-#include <Unit.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
 namespace Nighthaunt
 {
 
-class BladegheistRevenants : public Unit
+class BladegheistRevenants : public Nighthaunt
 {
 public:
 

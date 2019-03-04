@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool ChainraspHorde::s_registered = false;
 
 ChainraspHorde::ChainraspHorde() :
-    Unit("Chainrasp Horde", 6, WOUNDS, 10, 5, true), // todo: bravery 6 when no Dreadwarden
+    Nighthaunt("Chainrasp Horde", 6, WOUNDS, 10, 5, true), // todo: bravery 6 when no Dreadwarden
     m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
     m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon (Warden)", 1, 3, 4, 4, 0, 1)
 {
@@ -93,7 +93,7 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
         return RerollOnes;
     }
 
-    return Unit::toHitRerolls(weapon, unit);
+    return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
 int ChainraspHorde::toSaveModifier(const Weapon *weapon) const

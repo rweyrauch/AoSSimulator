@@ -1,0 +1,35 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+#include <nighthaunt/Nighthaunt.h>
+#include <Board.h>
+
+namespace Nighthaunt
+{
+
+Wounds Nighthaunt::applyWoundSave(const Wounds &wounds)
+{
+    // Deathless Spirits
+    auto hero = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 12.0f);
+    if (hero && hero->hasKeyword(NIGHTHAUNT))
+    {
+        Dice dice;
+        Dice::RollResult woundSaves, mortalSaves;
+        dice.rollD6(wounds.normal, woundSaves);
+        dice.rollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(5);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(5);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
+    }
+    return Unit::applyWoundSave(wounds);
+}
+} // namespace Nighthaunt

@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool Clanrats::s_registered = false;
 
 Clanrats::Clanrats() :
-    Unit("Clanrats", 6, WOUNDS, 4, 6, false),
+    Skaventide("Clanrats", 6, WOUNDS, 4, 6, false),
     m_rustySpear(Weapon::Type::Melee, "Rusty Spear", 2, 1, 5, 4, 0, 1),
     m_rustySpearLeader(Weapon::Type::Melee, "Rusty Spear (Leader)", 2, 2, 5, 4, 0, 1),
     m_rustyBlade(Weapon::Type::Melee, "Rusty Blade", 1, 1, 4, 4, 0, 1),
@@ -164,7 +164,7 @@ int Clanrats::EnumStringToInt(const std::string &enumString)
 
 int Clanrats::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = Skaventide::toSaveModifier(weapon);
     // Clanshields
     if (m_clanshields && remainingModels() >= 10)
         modifier += 1;
@@ -173,7 +173,7 @@ int Clanrats::toSaveModifier(const Weapon *weapon) const
 
 int Clanrats::runModifier() const
 {
-    int modifier = Unit::runModifier();
+    int modifier = Skaventide::runModifier();
     // Bell-ringers
     if (m_numBellRingers > 0)
         modifier += 2;

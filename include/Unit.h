@@ -33,7 +33,7 @@ public:
 
     virtual int move() const { return m_move; }
 
-    int bravery() const { return m_bravery; }
+    virtual int bravery() const { return m_bravery; }
 
     int save() const { return m_save; }
 
@@ -113,6 +113,8 @@ public:
     bool makeSave(int woundRoll, const Weapon* weapon, int& saveRoll);
 
     int applyDamage(const Wounds &totalWounds);
+
+    int initialModels() const { return (int)m_models.size(); }
 
     int remainingModels() const;
 

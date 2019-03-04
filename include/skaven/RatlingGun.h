@@ -9,13 +9,13 @@
 #ifndef RATLINGGUN_H
 #define RATLINGGUN_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class RatlingGun : public Unit
+class RatlingGun : public Skaventide
 {
 public:
     static const int BASESIZE = 60; // x35 oval

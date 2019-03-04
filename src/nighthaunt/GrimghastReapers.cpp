@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool GrimghastReapers::s_registered = false;
 
 GrimghastReapers::GrimghastReapers() :
-    Unit("Grimghast Reapers", 8, WOUNDS, 10, 4, true),
+    Nighthaunt("Grimghast Reapers", 8, WOUNDS, 10, 4, true),
     m_slasherScythe(Weapon::Type::Melee, "Slasher Scythe", 2, 2, 4, 3, -1, 1),
     m_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2)
 {

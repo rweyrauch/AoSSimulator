@@ -9,13 +9,13 @@
 #ifndef LONGBEARDS_H
 #define LONGBEARDS_H
 
-#include <Unit.h>
+#include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
 namespace Dispossessed
 {
 
-class Longbeards : public Unit
+class Longbeards : public Dispossessed
 {
 public:
 

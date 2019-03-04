@@ -148,6 +148,11 @@
 #include "tzeentch/Tzaangors.h"
 #include "tzeentch/FlamersOfTzeentch.h"
 
+#include "ironjawz/OrrukArdboys.h"
+#include "ironjawz/OrrukBrutes.h"
+#include "ironjawz/GoreGruntas.h"
+#include "ironjawz/OrrukMegaboss.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -298,4 +303,9 @@ void Initialize(Verbosity verbosity)
     Tzeentch::TzaangorEnlightened::Init();
     Tzeentch::Tzaangors::Init();
     Tzeentch::FlamersOfTzeentch::Init();
+
+    Ironjawz::OrrukArdboys::Init();
+    Ironjawz::OrrukBrutes::Init();
+    Ironjawz::OrrukGoreGruntas::Init();
+    Ironjawz::OrrukMegaboss::Init();
 }

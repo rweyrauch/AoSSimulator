@@ -9,13 +9,13 @@
 #ifndef WARPLIGHTNINGCANNON_H
 #define WARPLIGHTNINGCANNON_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class WarpLightningCannon : public Unit
+class WarpLightningCannon : public Skaventide
 {
 public:
     static const int BASESIZE = 120; // x92 oval

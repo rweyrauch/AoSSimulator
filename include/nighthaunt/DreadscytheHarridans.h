@@ -9,13 +9,13 @@
 #ifndef DREADSCYTHEHARRIDANS_H
 #define DREADSCYTHEHARRIDANS_H
 
-#include <Unit.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
 namespace Nighthaunt
 {
 
-class DreadscytheHarridans : public Unit
+class DreadscytheHarridans : public Nighthaunt
 {
 public:
 

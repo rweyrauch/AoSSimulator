@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool Irondrakes::s_registered = false;
 
 Irondrakes::Irondrakes() :
-    Unit("Irondrakes", 4, WOUNDS, 7, 4, false),
+    Dispossessed("Irondrakes", 4, WOUNDS, 7, 4, false),
     m_drakegun(Weapon::Type::Missile, "Drakegun", 16, 1, 3, 3, -1, 1),
     m_drakegunWarden(Weapon::Type::Missile, "Drakegun (Ironwarden)", 16, 1, 2, 3, -1, 1),
     m_grudgehammerTorpedo(Weapon::Type::Missile, "Grudgehammer Torpedo", 20, 1, 3, 3, -2, RAND_D3),
@@ -137,7 +137,7 @@ void Irondrakes::Init()
 
 int Irondrakes::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = Dispossessed::toSaveModifier(weapon);
 
     // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.
     if (weapon->rend() == -1)
@@ -150,7 +150,7 @@ int Irondrakes::toSaveModifier(const Weapon *weapon) const
 
 void Irondrakes::onStartShooting(PlayerId player)
 {
-    Unit::onStartShooting(player);
+    Dispossessed::onStartShooting(player);
 
     // Cinderblast Bomb
     if (m_hasCinderblastBomb)
@@ -177,7 +177,7 @@ Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         Dice dice;
         return {dice.rollD6(), 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Dispossessed::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int Irondrakes::extraAttacks(const Weapon *weapon) const
@@ -191,7 +191,7 @@ int Irondrakes::extraAttacks(const Weapon *weapon) const
             return 1;
         }
     }
-    return Unit::extraAttacks(weapon);
+    return Dispossessed::extraAttacks(weapon);
 }
 
 std::string Irondrakes::ValueToString(const Parameter &parameter)

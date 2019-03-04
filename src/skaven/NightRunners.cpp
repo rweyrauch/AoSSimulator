@@ -28,7 +28,7 @@ static FactoryMethod factoryMethod = {
 bool NightRunners::s_registered = false;
 
 NightRunners::NightRunners() :
-    Unit("Night Runners", 7, WOUNDS, 4, 6, false),
+    Skaventide("Night Runners", 7, WOUNDS, 4, 6, false),
     m_throwingWeapons(Weapon::Type::Missile, "Eshin Throwing Weapons", 12, 1, 4, 5, 0, 1),
     m_stabbingBlade(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1),
     m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade (Leader)", 1, 1, 4, 4, 0, 1)
@@ -104,7 +104,7 @@ int NightRunners::generateHits(int unmodifiedHitRoll, const Weapon *weapon, cons
     {
         return weapon->attacks()+1;
     }
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+    return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } // namespace Skaven

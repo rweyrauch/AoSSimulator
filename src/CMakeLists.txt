@@ -97,6 +97,7 @@ add_library(
         idonethdeepkin/IshlaenGuard.cpp
         idonethdeepkin/MorrsarrGuard.cpp
 
+        nighthaunt/Nighthaunt.cpp
         nighthaunt/GrimghastReapers.cpp
         nighthaunt/ChainraspHorde.cpp
         nighthaunt/BladegheistRevenants.cpp
@@ -141,6 +142,7 @@ add_library(
         wanderers/GladeGuard.cpp
         wanderers/WildwoodRangers.cpp
 
+        dispossessed/Dispossessed.cpp
         dispossessed/Hammerers.cpp
         dispossessed/Thunderers.cpp
         dispossessed/Warriors.cpp
@@ -149,6 +151,7 @@ add_library(
         dispossessed/Ironbreakers.cpp
         dispossessed/Irondrakes.cpp
 
+        skaven/Skaventide.cpp
         skaven/Clanrats.cpp
         skaven/GutterRunners.cpp
         skaven/NightRunners.cpp
@@ -165,6 +168,12 @@ add_library(
         tzeentch/TzaangorEnlightened.cpp
         tzeentch/Tzaangors.cpp
         tzeentch/FlamersOfTzeentch.cpp
+
+        ironjawz/Ironjawz.cpp
+        ironjawz/OrrukArdboys.cpp
+        ironjawz/OrrukBrutes.cpp
+        ironjawz/GoreGruntas.cpp
+        ironjawz/OrrukMegaboss.cpp
 )
 
 target_include_directories(

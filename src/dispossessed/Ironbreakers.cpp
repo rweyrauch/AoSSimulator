@@ -36,7 +36,7 @@ static FactoryMethod factoryMethod = {
 bool Ironbreakers::s_registered = false;
 
 Ironbreakers::Ironbreakers() :
-    Unit("Ironbreakers", 4, WOUNDS, 7, 4, false),
+    Dispossessed("Ironbreakers", 4, WOUNDS, 7, 4, false),
     m_drakefirePistol(Weapon::Type::Missile, "Drakefire Pistol", 8, 1, 4, 3, -1, 1),
     m_drakefirePistolMelee(Weapon::Type::Melee, "Drakefire Pistol", 1, 1, 4, 4, 0, 1),
     m_axeOrHammer(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 2, 3, 4, 0, 1),
@@ -133,12 +133,12 @@ Rerolls Ironbreakers::toSaveRerolls(const Weapon *weapon) const
         if (!weapon->isMissile())
             return RerollFailed;
     }
-    return Unit::toSaveRerolls(weapon);
+    return Dispossessed::toSaveRerolls(weapon);
 }
 
 int Ironbreakers::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = Dispossessed::toSaveModifier(weapon);
 
     // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.
     if (weapon->rend() == -1)
@@ -151,7 +151,7 @@ int Ironbreakers::toSaveModifier(const Weapon *weapon) const
 
 void Ironbreakers::onStartShooting(PlayerId player)
 {
-    Unit::onStartShooting(player);
+    Dispossessed::onStartShooting(player);
 
     // Cinderblast Bomb
     if (m_hasCinderblastBomb)

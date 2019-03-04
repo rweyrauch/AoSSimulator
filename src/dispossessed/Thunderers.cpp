@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool Thunderers::s_registered = false;
 
 Thunderers::Thunderers() :
-    Unit("Thunderers", 4, WOUNDS, 6, 5, false),
+    Dispossessed("Thunderers", 4, WOUNDS, 6, 5, false),
     m_duardinHandgun(Weapon::Type::Missile, "Duardin Handgun", 16, 1, 4, 3, -1, 1),
     m_duardinHandgunVeteran(Weapon::Type::Missile, "Duardin Handgun (Veteran)", 16, 1, 3, 3, -1, 1),
     m_braceOfDuardinPistols(Weapon::Type::Missile, "Brace of Duardin Pistols", 8, 2, 4, 3, -1, 1),

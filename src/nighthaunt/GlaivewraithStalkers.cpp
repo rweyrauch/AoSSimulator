@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool GlaivewraithStalkers::s_registered = false;
 
 GlaivewraithStalkers::GlaivewraithStalkers() :
-    Unit("Glaivewraith Stalkers", 6, WOUNDS, 10, 4, true),
+    Nighthaunt("Glaivewraith Stalkers", 6, WOUNDS, 10, 4, true),
     m_huntersGlaive(Weapon::Type::Melee, "Hunter's Glaive", 2, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GLAIVEWRAITH_STALKERS};
@@ -93,7 +93,7 @@ Rerolls GlaivewraithStalkers::toHitRerolls(const Weapon *weapon, const Unit *uni
         return RerollFailed;
     }
 
-    return Unit::toHitRerolls(weapon, unit);
+    return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
 int GlaivewraithStalkers::toSaveModifier(const Weapon *weapon) const

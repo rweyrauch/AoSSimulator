@@ -9,13 +9,13 @@
 #ifndef CHAINRASPHORDE_H
 #define CHAINRASPHORDE_H
 
-#include <Unit.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
 namespace Nighthaunt
 {
 
-class ChainraspHorde : public Unit
+class ChainraspHorde : public Nighthaunt
 {
 public:
 

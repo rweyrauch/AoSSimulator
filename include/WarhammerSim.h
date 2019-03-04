@@ -138,6 +138,7 @@ enum Keyword
     SERFS,
     WARLOCK,
     ENGINEER,
+    ORRUK,
 
     // Stormcast
     SACROSANCT,
@@ -359,6 +360,9 @@ enum Keyword
     PLAGUE_MONKS,
     HELL_PIT_ABOMINATION,
     FIGHTING_BEAST,
+    RATLING_GUN,
+    WARPFIRE_THROWER,
+    WARP_LIGHTNING_CANNON,
 
     // Tzeentch
     ARCANITE,
@@ -367,9 +371,16 @@ enum Keyword
     TZAANGORS,
     TZAANGOR_ENLIGHTENED,
     FLAMERS,
-    RATLING_GUN,
-    WARPFIRE_THROWER,
-    WARP_LIGHTNING_CANNON,
+
+    // Ironjawz
+    ARDBOYS,
+    BRUTES,
+    MAW_CRUSHA,
+    MEGABOSS,
+    GORDRAKK,
+    GORE_GRUNTAS,
+    WARCHANTERS,
+
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

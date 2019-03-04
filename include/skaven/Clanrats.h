@@ -9,13 +9,13 @@
 #ifndef CLANRATS_H
 #define CLANRATS_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class Clanrats : public Unit
+class Clanrats : public Skaventide
 {
 public:
     static const int BASESIZE = 25;

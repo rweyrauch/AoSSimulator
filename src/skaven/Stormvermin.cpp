@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool Stormvermin::s_registered = false;
 
 Stormvermin::Stormvermin() :
-    Unit("Stormvermin", 6, WOUNDS, 5, 5, false),
+    Skaventide("Stormvermin", 6, WOUNDS, 5, 5, false),
     m_rustyHalberd(Weapon::Type::Melee, "Rusty Halberd", 2, 2, 4, 3, -1, 1),
     m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd (Leader)", 2, 3, 4, 3, -1, 1)
 {
@@ -111,7 +111,7 @@ void Stormvermin::Init()
 
 int Stormvermin::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = Skaventide::toSaveModifier(weapon);
     // Clanshields
     if (m_clanshields && remainingModels() >= 10)
         modifier += 1;
@@ -120,7 +120,7 @@ int Stormvermin::toSaveModifier(const Weapon *weapon) const
 
 int Stormvermin::runModifier() const
 {
-    int modifier = Unit::runModifier();
+    int modifier = Skaventide::runModifier();
     // Drummer
     if (m_numDrummers > 0)
         modifier += 2;

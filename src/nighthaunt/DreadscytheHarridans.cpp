@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool DreadscytheHarridans::s_registered = false;
 
 DreadscytheHarridans::DreadscytheHarridans() :
-    Unit("Dreadscythe Harridans", 8, WOUNDS, 10, 4, true),
+    Nighthaunt("Dreadscythe Harridans", 8, WOUNDS, 10, 4, true),
     m_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1),
     m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs (Crone)", 1, 4, 4, 3, -1, 1)
 {
@@ -112,12 +112,12 @@ Wounds DreadscytheHarridans::weaponDamage(const Weapon *weapon, const Unit *targ
     {
         return {2, 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
-    int modifier = Unit::targetHitModifier(weapon, attacker);
+    int modifier = Nighthaunt::targetHitModifier(weapon, attacker);
 
     // Harrowing Shriek
     if ((distanceTo(attacker) <= 3.0f) && (attacker->bravery() < 6))

@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool GutterRunners::s_registered = false;
 
 GutterRunners::GutterRunners() :
-    Unit("Gutter Runners", 7, WOUNDS, 5, 5, false),
+    Skaventide("Gutter Runners", 7, WOUNDS, 5, 5, false),
     m_throwingStars(Weapon::Type::Missile, "Eshin Throwing Stars", 12, 2, 4, 5, 0, 1),
     m_punchDaggerAndBlade(Weapon::Type::Melee, "Punch Daggar and Blade", 1, 2, 3, 4, -1, 1)
 {
@@ -98,7 +98,7 @@ int GutterRunners::generateHits(int unmodifiedHitRoll, const Weapon *weapon, con
     {
         return weapon->attacks()+1;
     }
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+    return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } // namespace Skaven

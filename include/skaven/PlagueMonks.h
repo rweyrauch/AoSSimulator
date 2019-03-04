@@ -9,13 +9,13 @@
 #ifndef PLAGUEMONKS_H
 #define PLAGUEMONKS_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class PlagueMonks : public Unit
+class PlagueMonks : public Skaventide
 {
 public:
     static const int BASESIZE = 25;

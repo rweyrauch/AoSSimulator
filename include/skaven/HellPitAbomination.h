@@ -9,13 +9,13 @@
 #ifndef HELLPITABOMINATION_H
 #define HELLPITABOMINATION_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class HellPitAbomination : public Unit
+class HellPitAbomination : public Skaventide
 {
 public:
     static const int BASESIZE = 120; // x92 oval

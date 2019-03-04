@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
 bool RatlingGun::s_registered = false;
 
 RatlingGun::RatlingGun() :
-    Unit("Ratling Gun", 6, WOUNDS, 4, 6, false),
+    Skaventide("Ratling Gun", 6, WOUNDS, 4, 6, false),
     m_ratlingGun(Weapon::Type::Missile, "Ratling Gun", 12, RAND_2D6, 4, 4, -1, 1),
     m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1)
 {

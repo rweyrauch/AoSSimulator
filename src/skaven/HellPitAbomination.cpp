@@ -43,7 +43,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool HellPitAbomination::s_registered = false;
 
 HellPitAbomination::HellPitAbomination() :
-    Unit("Hell Pit Abomination", RAND_2D6, WOUNDS, 6, 5, false),
+    Skaventide("Hell Pit Abomination", RAND_2D6, WOUNDS, 6, 5, false),
     m_gnashingTeath(Weapon::Type::Melee, "Gnashing Teeth", 1, 6, 3, 3, -3, 2),
     m_flailingFists(Weapon::Type::Melee, "Flailing Fists", 2, 6, 3, 3, -1, 3),
     m_avalancheOfFlesh(Weapon::Type::Melee, "Avalanche of Flesh", 1, 0, 0, 0, 0, 0)
@@ -135,14 +135,14 @@ int HellPitAbomination::generateMortalWounds(const Unit *unit)
         }
     }
 
-    mortalWounds += Unit::generateMortalWounds(unit);
+    mortalWounds += Skaventide::generateMortalWounds(unit);
 
     return mortalWounds;
 }
 
 void HellPitAbomination::hero(PlayerId player)
 {
-    Unit::hero(player);
+    Skaventide::hero(player);
 
     if (player == m_owningPlayer)
     {
@@ -165,7 +165,7 @@ void HellPitAbomination::hero(PlayerId player)
 
 void HellPitAbomination::onSlain()
 {
-    Unit::onSlain();
+    Skaventide::onSlain();
 
     // Too Horrible to Die
     if (!m_beenSlain)

@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool Longbeards::s_registered = false;
 
 Longbeards::Longbeards() :
-    Unit("Longbeards", 4, WOUNDS, 7, 4, false),
+    Dispossessed("Longbeards", 4, WOUNDS, 7, 4, false),
     m_ancestralAxeHammer(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 1, 3, 4, 0, 1),
     m_ancestralAxeHammerOldGuard(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer (Old Guard)", 1, 2, 3, 4, 0, 1),
     m_ancestralGreatAxe(Weapon::Type::Melee, "Ancestral Great Axe", 1, 1, 4, 3, -1, 1),
@@ -131,7 +131,7 @@ Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const
         if (!weapon->isMissile())
             return RerollFailed;
     }
-    return Unit::toSaveRerolls(weapon);
+    return Dispossessed::toSaveRerolls(weapon);
 }
 
 std::string Longbeards::ValueToString(const Parameter &parameter)

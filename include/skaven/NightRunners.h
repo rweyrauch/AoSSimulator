@@ -9,13 +9,13 @@
 #ifndef NIGHTRUNNERS_H
 #define NIGHTRUNNERS_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class NightRunners : public Unit
+class NightRunners : public Skaventide
 {
 public:
     static const int BASESIZE = 25;

@@ -9,13 +9,13 @@
 #ifndef GUTTERRUNNERS_H
 #define GUTTERRUNNERS_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class GutterRunners : public Unit
+class GutterRunners : public Skaventide
 {
 public:
     static const int BASESIZE = 25;

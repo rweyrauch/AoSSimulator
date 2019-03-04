@@ -9,13 +9,13 @@
 #ifndef STORMFIENDS_H
 #define STORMFIENDS_H
 
-#include <Unit.h>
+#include <skaven/Skaventide.h>
 #include <Weapon.h>
 
 namespace Skaven
 {
 
-class Stormfiends : public Unit
+class Stormfiends : public Skaventide
 {
 public:
     static const int BASESIZE = 40;

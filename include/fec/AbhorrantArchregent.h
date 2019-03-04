@@ -39,7 +39,7 @@ protected:
 
 private:
 
-    Weapon m_goryTalonsAngFangs;
+    Weapon m_goryTalonsAndFangs;
 
     static bool s_registered;
 };

@@ -9,13 +9,13 @@
 #ifndef GLAIVEWRAITHSTALKERS_H
 #define GLAIVEWRAITHSTALKERS_H
 
-#include <Unit.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
 namespace Nighthaunt
 {
 
-class GlaivewraithStalkers : public Unit
+class GlaivewraithStalkers : public Nighthaunt
 {
 public:
 

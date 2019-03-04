@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool BladegheistRevenants::s_registered = false;
 
 BladegheistRevenants::BladegheistRevenants() :
-    Unit("Bladegheist Revenants", 8, WOUNDS, 10, 4, true),
+    Nighthaunt("Bladegheist Revenants", 8, WOUNDS, 10, 4, true),
     m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
@@ -95,7 +95,7 @@ Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *uni
         }
     }
 
-    return Unit::toHitRerolls(weapon, unit);
+    return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
 int BladegheistRevenants::toSaveModifier(const Weapon *weapon) const
@@ -115,7 +115,7 @@ int BladegheistRevenants::toSaveModifier(const Weapon *weapon) const
 int BladegheistRevenants::extraAttacks(const Weapon *weapon) const
 {
     // Whirling Death
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Nighthaunt::extraAttacks(weapon);
     if (m_charged)
     {
         attacks += 1;

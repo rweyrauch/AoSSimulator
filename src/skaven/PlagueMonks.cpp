@@ -38,7 +38,7 @@ static FactoryMethod factoryMethod = {
 bool PlagueMonks::s_registered = false;
 
 PlagueMonks::PlagueMonks() :
-    Unit("Plague Monks", 6, WOUNDS, 5, 6, false),
+    Skaventide("Plague Monks", 6, WOUNDS, 5, 6, false),
     m_foetidBlade(Weapon::Type::Melee, "Foetid Blade", 1, 2, 4, 4, 0, 1),
     m_woeStave(Weapon::Type::Melee, "Woe-stave", 2, 1, 4, 5, 0, 1)
 {
@@ -136,13 +136,13 @@ Wounds PlagueMonks::weaponDamage(const Weapon *weapon, const Unit *target, int h
     {
         return {weapon->damage()+1, 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int PlagueMonks::runModifier() const
 {
     // Doom Gongs
-    int modifier = Unit::runModifier();
+    int modifier = Skaventide::runModifier();
     if (m_numDoomGongs > 0)
         modifier += 1;
     return modifier;
@@ -151,7 +151,7 @@ int PlagueMonks::runModifier() const
 int PlagueMonks::chargeModifier() const
 {
     // Doom Gongs
-    int modifier = Unit::chargeModifier();
+    int modifier = Skaventide::chargeModifier();
     if (m_numDoomGongs > 0)
         modifier += 1;
     return modifier;
@@ -164,12 +164,12 @@ Rerolls PlagueMonks::toHitRerolls(const Weapon *weapon, const Unit *target) cons
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return Skaventide::toHitRerolls(weapon, target);
 }
 
 int PlagueMonks::extraAttacks(const Weapon *weapon) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Skaventide::extraAttacks(weapon);
     // Frenzied Assault
     if (m_charged && !weapon->isMissile())
     {
@@ -180,7 +180,7 @@ int PlagueMonks::extraAttacks(const Weapon *weapon) const
 
 void PlagueMonks::hero(PlayerId player)
 {
-    Unit::hero(player);
+    Skaventide::hero(player);
 
     if (m_owningPlayer == player)
     {
