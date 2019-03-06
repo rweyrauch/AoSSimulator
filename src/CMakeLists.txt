@@ -103,6 +103,9 @@ add_library(
         nighthaunt/BladegheistRevenants.cpp
         nighthaunt/GlaivewraithStalkers.cpp
         nighthaunt/DreadscytheHarridans.cpp
+        nighthaunt/Hexwraiths.cpp
+        nighthaunt/SpiritHosts.cpp
+        nighthaunt/Chainghasts.cpp
 
         beastsofchaos/Ghorgon.cpp
         beastsofchaos/Gors.cpp

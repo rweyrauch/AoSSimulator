@@ -51,7 +51,7 @@ protected:
 class ArcaneBolt : public DamageSpell
 {
 public:
-    ArcaneBolt(Unit* caster);
+    explicit ArcaneBolt(Unit* caster);
 
 protected:
     int getDamage(int castingRoll) const override;

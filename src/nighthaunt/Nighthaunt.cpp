@@ -32,4 +32,20 @@ Wounds Nighthaunt::applyWoundSave(const Wounds &wounds)
     }
     return Unit::applyWoundSave(wounds);
 }
+
+
+int Nighthaunt::toSaveModifier(const Weapon *weapon) const
+{
+    // Ethereal - no save modifiers allowed.
+    int modifier = 0;
+
+    // Ethereal - ignore rend by cancelling it out.
+    if (weapon->rend() < 0)
+    {
+        modifier = -weapon->rend();
+    }
+
+    return modifier;
+}
+
 } // namespace Nighthaunt

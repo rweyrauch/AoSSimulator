@@ -175,6 +175,8 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
     m_charged = false;
     m_moved = false;
     m_modelsSlain = 0;
+    m_spellsCast = 0;
+    m_prayersAttempted = 0;
 
     m_currentRecord.clear();
 

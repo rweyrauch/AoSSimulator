@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <nighthaunt/Chainghasts.h>
 #include "WarhammerSim.h"
 
 #include "stormcast/Liberators.h"
@@ -89,6 +90,9 @@
 #include "nighthaunt/BladegheistRevenants.h"
 #include "nighthaunt/GlaivewraithStalkers.h"
 #include "nighthaunt/DreadscytheHarridans.h"
+#include "nighthaunt/SpiritHosts.h"
+#include "nighthaunt/Hexwraiths.h"
+#include "nighthaunt/Chainghasts.h"
 
 #include "beastsofchaos/Gors.h"
 #include "beastsofchaos/Ghorgon.h"
@@ -245,6 +249,9 @@ void Initialize(Verbosity verbosity)
     Nighthaunt::BladegheistRevenants::Init();
     Nighthaunt::GlaivewraithStalkers::Init();
     Nighthaunt::DreadscytheHarridans::Init();
+    Nighthaunt::Hexwraiths::Init();
+    Nighthaunt::SpiritHosts::Init();
+    Nighthaunt::Chainghasts::Init();
 
     BeastsOfChaos::Gors::Init();
     BeastsOfChaos::Ghorgon::Init();

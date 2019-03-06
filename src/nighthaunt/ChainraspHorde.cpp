@@ -96,20 +96,6 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
     return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
-int ChainraspHorde::toSaveModifier(const Weapon *weapon) const
-{
-    // Ethereal - no save modifiers allowed.
-    int modifier = 0;
-
-    // Ethereal - ignore rend by cancelling it out.
-    if (weapon->rend() < 0)
-    {
-        modifier = -weapon->rend();
-    }
-
-    return modifier;
-}
-
 void ChainraspHorde::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_malignantWeapon);

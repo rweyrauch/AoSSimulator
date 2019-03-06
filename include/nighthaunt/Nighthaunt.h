@@ -26,6 +26,7 @@ protected:
         Unit(name, move, wounds, bravery, save, fly) {}
 
     Wounds applyWoundSave(const Wounds &wounds) override;
+    int toSaveModifier(const Weapon* weapon) const override;
 };
 
 //

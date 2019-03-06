@@ -44,8 +44,6 @@ protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-    int toSaveModifier(const Weapon *weapon) const override;
-
 private:
 
     Weapon m_huntersGlaive;

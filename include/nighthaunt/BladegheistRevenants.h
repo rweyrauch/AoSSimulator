@@ -39,7 +39,6 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int toSaveModifier(const Weapon* weapon) const override;
     int extraAttacks(const Weapon* weapon) const override;
 
 private:

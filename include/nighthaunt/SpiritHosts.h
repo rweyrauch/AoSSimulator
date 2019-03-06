@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DREADSCYTHEHARRIDANS_H
-#define DREADSCYTHEHARRIDANS_H
+#ifndef SPIRITHOSTS_H
+#define SPIRITHOSTS_H
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -15,22 +15,22 @@
 namespace Nighthaunt
 {
 
-class DreadscytheHarridans : public Nighthaunt
+class SpiritHosts : public Nighthaunt
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int BASESIZE = 50;
+    static const int WOUNDS = 3;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 120;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    DreadscytheHarridans();
-    ~DreadscytheHarridans() override = default;
+    SpiritHosts();
+    ~SpiritHosts() override = default;
 
     bool configure(int numModels);
 
@@ -39,12 +39,10 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
 
 private:
 
-    Weapon m_scythedLimbs,
-        m_scythedLimbsCrone;
+    Weapon m_spectralClawsAndDaggars;
 
     static bool s_registered;
 };
@@ -54,10 +52,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Harrowing Shriek                 Yes
-// Murderous Bloodlust              Yes
-//
+// Frightful Touch                  Yes
+
 
 } // namespace Nighthaunt
 
-#endif // DREADSCYTHEHARRIDANS_H
+#endif // SPIRITHOSTS_H

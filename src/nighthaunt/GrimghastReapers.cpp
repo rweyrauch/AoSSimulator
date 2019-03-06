@@ -97,20 +97,6 @@ Rerolls GrimghastReapers::toHitRerolls(const Weapon *weapon, const Unit *unit) c
     return Unit::toHitRerolls(weapon, unit);
 }
 
-int GrimghastReapers::toSaveModifier(const Weapon *weapon) const
-{
-    // Ethereal - no save modifiers allowed.
-    int modifier = 0;
-
-    // Ethereal - ignore rend by cancelling it out.
-    if (weapon->rend() < 0)
-    {
-        modifier = -weapon->rend();
-    }
-
-    return modifier;
-}
-
 void GrimghastReapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_slasherScythe);
