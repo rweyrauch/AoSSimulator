@@ -8,6 +8,8 @@
 #include <fec/GhoulKingOnTerrorgheist.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
+#include <spells/ArcaneBolt.h>
 
 namespace FleshEaterCourt
 {
@@ -62,6 +64,9 @@ bool AbhorrantGhoulKingOnTerrorgheist::configure()
     model.addMeleeWeapon(&m_fangedMaw);
     addModel(model);
 
+    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
     m_points = POINTS_PER_UNIT;
 
     return true;
@@ -106,10 +111,8 @@ Wounds AbhorrantGhoulKingOnTerrorgheist::weaponDamage(const Weapon *weapon, cons
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void AbhorrantGhoulKingOnTerrorgheist::hero(PlayerId player)
+void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     // Royal Blood
     if (player == m_owningPlayer)
     {

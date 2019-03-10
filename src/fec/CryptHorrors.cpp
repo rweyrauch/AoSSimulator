@@ -103,10 +103,8 @@ Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) con
     return Unit::toHitRerolls(weapon, target);
 }
 
-void CryptHorrors::hero(PlayerId player)
+void CryptHorrors::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     if (player == m_owningPlayer)
     {
         // Noble Blood

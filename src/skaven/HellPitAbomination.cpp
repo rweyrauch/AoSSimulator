@@ -140,10 +140,8 @@ int HellPitAbomination::generateMortalWounds(const Unit *unit)
     return mortalWounds;
 }
 
-void HellPitAbomination::hero(PlayerId player)
+void HellPitAbomination::onStartHero(PlayerId player)
 {
-    Skaventide::hero(player);
-
     if (player == m_owningPlayer)
     {
         // Regenerating Monstrosity

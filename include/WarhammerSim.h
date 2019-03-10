@@ -400,10 +400,11 @@ Keyword grandAllianceStringToKeyword(const std::string& allianceName);
 Keyword factionStringToKeyword(const std::string& factionName);
 std::string factionKeywordToString(Keyword faction);
 
-enum Duration
+struct Duration
 {
-    CurrentPhase,       // Spell, prayer, ability lasts unit the end of the current phase.
-    StartOfNextHero,    // .. lasts unit the start of player's next hero phase.
+    Phase phase;
+    int round;
+    PlayerId player;
 };
 
 enum class Verbosity : int

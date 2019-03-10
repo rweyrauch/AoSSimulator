@@ -17,6 +17,10 @@
 #include <Model.h>
 #include <UnitStatistics.h>
 
+#include <Spell.h>
+#include <Prayer.h>
+#include <CommandAbility.h>
+
 class Unit
 {
 public:
@@ -57,6 +61,10 @@ public:
 
     void setPoints(int points) { m_points = points; }
 
+    bool addKeyword(Keyword word);
+
+    bool hasKeyword(Keyword word) const;
+
     /*!
      * Add a model to this unit.
      * @param model
@@ -75,17 +83,17 @@ public:
 
     // Phase functions (these are the 'think' functions that decide what this unit
     // is to do in each of the phases.
-    virtual void hero(PlayerId player) {}
+    void hero(PlayerId player);
 
-    virtual void movement(PlayerId player);
+    void movement(PlayerId player);
 
-    virtual void shooting(PlayerId player);
+    void shooting(PlayerId player);
 
-    virtual void charge(PlayerId player);
+    void charge(PlayerId player);
 
-    virtual void combat(PlayerId player);
+    void combat(PlayerId player);
 
-    virtual void battleshock(PlayerId player);
+    void battleshock(PlayerId player);
 
     //
     // Positioning
@@ -100,6 +108,9 @@ public:
 
     float distanceBetween(const Model *model, const Unit *unit) const;
 
+    //
+    // Combat
+    //
     Wounds shoot(int numAttackingModels, Unit *targetUnit, int &numSlain);
 
     Wounds shoot(int &numSlain);
@@ -123,10 +134,6 @@ public:
     int remainingPoints() const;
 
     int heal(int numWounds);
-
-    bool addKeyword(Keyword word);
-
-    bool hasKeyword(Keyword word) const;
 
     void buffToHit(int modifier) { m_toHitBuff = modifier; }
 
@@ -180,7 +187,7 @@ protected:
     virtual int extraAttacks(const Weapon *weapon) const { return 0; }
 
     /*!
-     *
+     * Some weapons/units generate extra hits based on the hit
      * @param unmodifiedHitRoll
      * @param weapon
      * @param unit
@@ -299,6 +306,8 @@ protected:
 
     virtual void onCharged() {}
 
+    virtual void onStartHero(PlayerId player) {}
+
     virtual void onStartShooting(PlayerId player) {}
 
     virtual void onStartCombat(PlayerId player) {}
@@ -314,6 +323,10 @@ protected:
     virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
 
     virtual Wounds applyWoundSave(const Wounds &wounds) { return wounds; }
+
+    virtual void useCommandAbility() {}
+    virtual void castSpell() {}
+    virtual void makePrayer() {}
 
 protected:
     std::string m_name = "";
@@ -357,6 +370,10 @@ protected:
     int m_spellsCast = 0;
     int m_spellsUnbound = 0;
     int m_prayersAttempted = 0;
+
+    std::vector<std::unique_ptr<Spell>> m_knownSpells;
+    std::vector<std::unique_ptr<Prayer>> m_knownPrayers;
+    std::vector<std::unique_ptr<CommandAbility>> m_commandAbilities;
 
     Unit *m_shootingTarget = nullptr;
     Unit *m_meleeTarget = nullptr;

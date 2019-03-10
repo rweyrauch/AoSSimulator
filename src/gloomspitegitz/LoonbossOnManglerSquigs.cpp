@@ -157,10 +157,8 @@ void LoonbossOnManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &
     visitor(&m_grotsBashinStikk);
 }
 
-void LoonbossOnManglerSquigs::hero(PlayerId player)
+void LoonbossOnManglerSquigs::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     if (player == m_owningPlayer)
     {
         // Redcap Mushrooms

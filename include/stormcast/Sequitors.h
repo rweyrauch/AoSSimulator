@@ -42,12 +42,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache);
 
-    // Buff shields when not our combat phase.
-    void hero(PlayerId id) override { m_aethericChannellingWeapons = false; StormcastEternal::hero(id);}
-
-    // Buff weapons during our combat phase
-    void combat(PlayerId id) override { m_aethericChannellingWeapons = true; StormcastEternal::combat(id); }
-
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
@@ -55,6 +49,12 @@ protected:
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    // Buff shields when not our combat phase.
+    void onStartHero(PlayerId id) override { m_aethericChannellingWeapons = false; }
+
+    // Buff weapons during our combat phase
+    void onStartCombat(PlayerId id) override { m_aethericChannellingWeapons = true; }
 
 private:
 

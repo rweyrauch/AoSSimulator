@@ -28,7 +28,6 @@ public:
     LoonbossOnManglerSquigs();
     ~LoonbossOnManglerSquigs() override = default;
 
-    void hero(PlayerId player) override;
     int move() const override;
 
     bool configure();
@@ -42,6 +41,8 @@ protected:
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
     void onWounded() override;
     void onSlain() override;
+
+    void onStartHero(PlayerId player) override;
 
 private:
 

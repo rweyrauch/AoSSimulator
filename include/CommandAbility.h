@@ -6,28 +6,28 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef PRAYER_H
-#define PRAYER_H
+#ifndef COMMANDABILITY_H
+#define COMMANDABILITY_H
 
 #include <string>
 #include "WarhammerSim.h"
 
 class Unit;
 
-class Prayer
+class CommandAbility
 {
 public:
-    Prayer(int castingValue) :
-            m_castingValue(castingValue) {}
+    CommandAbility(Unit* source, const std::string& name) :
+        m_source(source),
+        m_name(name) {}
 
-    virtual int pray(const Unit* target) = 0;
-    virtual int pray(float x, float y) = 0;
+    virtual int apply(const Unit* target) = 0;
 
 protected:
 
+    Unit* m_source;
     std::string m_name;
-    int m_castingValue = 0;
     Duration m_duration;
 };
 
-#endif// PRAYER_H
+#endif// COMMANDABILITY_H

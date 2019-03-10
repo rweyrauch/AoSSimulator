@@ -34,12 +34,11 @@ public:
 
     bool configure(int numModels);
 
-    void hero(PlayerId player) override;
-
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    void onStartHero(PlayerId player) override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

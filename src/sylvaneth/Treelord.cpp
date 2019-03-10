@@ -66,7 +66,7 @@ bool Treelord::configure()
     return true;
 }
 
-void Treelord::hero(PlayerId id)
+void Treelord::onStartHero(PlayerId id)
 {
 }
 

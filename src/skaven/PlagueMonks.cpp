@@ -178,10 +178,8 @@ int PlagueMonks::extraAttacks(const Weapon *weapon) const
     return attacks;
 }
 
-void PlagueMonks::hero(PlayerId player)
+void PlagueMonks::onStartHero(PlayerId player)
 {
-    Skaventide::hero(player);
-
     if (m_owningPlayer == player)
     {
         // Book of Woes

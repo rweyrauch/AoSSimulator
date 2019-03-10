@@ -87,10 +87,8 @@ void RockgutTroggoths::Init()
     }
 }
 
-void RockgutTroggoths::hero(PlayerId player)
+void RockgutTroggoths::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     if (player == m_owningPlayer)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)

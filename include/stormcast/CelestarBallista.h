@@ -32,13 +32,13 @@ public:
 
     ~CelestarBallista() override = default;
 
-    void shooting(PlayerId player) override;
-
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
+
+    void onStartShooting(PlayerId player) override;
 
 private:
 

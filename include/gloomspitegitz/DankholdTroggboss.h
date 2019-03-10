@@ -29,13 +29,13 @@ public:
     ~DankholdTroggboss() override = default;
 
     bool configure();
-    void hero(PlayerId player) override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
     void onStartCombat(PlayerId player) override;
+    void onStartHero(PlayerId player) override;
 
 private:
 

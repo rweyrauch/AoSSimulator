@@ -17,44 +17,41 @@ class Unit;
 class Spell
 {
 public:
-    Spell(Unit* caster, const std::string& name, int castingValue) :
+    Spell(Unit* caster, const std::string& name, int castingValue, float range) :
         m_caster(caster),
         m_name(name),
-        m_castingValue(castingValue) {}
+        m_castingValue(castingValue),
+        m_range(range) {}
 
-    virtual int cast(const Unit* target) = 0;
-    virtual int cast(float x, float y) = 0;
+
+    int castingValue() const { return m_castingValue; }
+    float range() const { return m_range; }
+    const std::string& name() const { return m_name; }
+
+    virtual bool cast(Unit* target) = 0;
+    virtual bool cast(float x, float y) = 0;
 
 protected:
 
     Unit* m_caster;
     std::string m_name;
     int m_castingValue = 0;
-    Duration m_duration = CurrentPhase;
+    float m_range = 0.0f;
+    Duration m_duration;
 };
 
 class DamageSpell : public Spell
 {
 public:
-    DamageSpell(Unit* caster, const std::string& name, int castingValue, int range, int damage);
+    DamageSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage);
 
-    int cast(const Unit* target) override;
-    int cast(float x, float y) override { return 0; }
+    bool cast(Unit* target) override;
+    bool cast(float x, float y) override { return false; }
 
 protected:
 
     virtual int getDamage(int castingRoll) const { return m_damage; }
-    int m_range = 0;
     int m_damage = 0;
-};
-
-class ArcaneBolt : public DamageSpell
-{
-public:
-    explicit ArcaneBolt(Unit* caster);
-
-protected:
-    int getDamage(int castingRoll) const override;
 };
 
 #endif// SPELL_H

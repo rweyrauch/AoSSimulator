@@ -78,7 +78,7 @@ void CelestarBallista::Init()
     }
 }
 
-void CelestarBallista::shooting(PlayerId player)
+void CelestarBallista::onStartShooting(PlayerId player)
 {
     auto board = Board::Instance();
     PlayerId otherPlayer = PlayerId::Red;
@@ -103,7 +103,6 @@ void CelestarBallista::shooting(PlayerId player)
             m_stormboltsSingle.activate(true);
         }
     }
-    StormcastEternal::shooting(player);
 }
 
 void CelestarBallista::visitWeapons(std::function<void(const Weapon *)> &visitor)

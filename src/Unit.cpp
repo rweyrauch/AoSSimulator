@@ -372,6 +372,27 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     return std::max(0.0f, sqrtf(dx*dx + dy*dy) - (basesizeInches() / 2 + tbs));
 }
 
+void Unit::hero(PlayerId player)
+{
+    onStartHero(player);
+
+    if (player == m_owningPlayer)
+    {
+        // Use command ability.
+        useCommandAbility();
+
+        // Cast spell
+        castSpell();
+
+        // Make prayer
+        makePrayer();
+    }
+    else
+    {
+        // Opposing player's hero phase
+    }
+}
+
 void Unit::movement(PlayerId player)
 {
     auto board = Board::Instance();

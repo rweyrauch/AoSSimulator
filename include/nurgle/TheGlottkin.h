@@ -31,7 +31,6 @@ public:
     ~TheGlottkin() override = default;
 
     int move() const override;
-    void hero(PlayerId player) override;
 
     bool configure();
 
@@ -39,6 +38,7 @@ public:
 
 protected:
 
+    void onStartHero(PlayerId player) override;
     void onWounded() override;
     void onCharged() override;
     int getDamageTableIndex() const;

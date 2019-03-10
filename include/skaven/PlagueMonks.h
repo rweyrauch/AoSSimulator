@@ -46,10 +46,9 @@ public:
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
-    void hero(PlayerId player) override;
-
 protected:
 
+    void onStartHero(PlayerId player) override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int runModifier() const override;
     int chargeModifier() const override;

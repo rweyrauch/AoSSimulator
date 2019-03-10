@@ -102,7 +102,7 @@ void NamartiReavers::Init()
     }
 }
 
-void NamartiReavers::shooting(PlayerId player)
+void NamartiReavers::onStartShooting(PlayerId player)
 {
     auto board = Board::Instance();
     auto otherRoster = board->getPlayerRoster(GetEnemyId(m_owningPlayer));
@@ -123,8 +123,6 @@ void NamartiReavers::shooting(PlayerId player)
             m_whisperbowAimedFire.activate(true);
         }
     }
-
-    Unit::shooting(player);
 }
 
 } // namespace IdonethDeepkin

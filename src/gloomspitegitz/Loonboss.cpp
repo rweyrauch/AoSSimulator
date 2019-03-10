@@ -29,7 +29,7 @@ Loonboss::Loonboss() :
     Unit("Loonboss", 5, WOUNDS, 5, 5, false),
     m_moonslicer(Weapon::Type::Melee, "Moon-slicer", 1, 3, 3, 3, -1, RAND_D3)
 {
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS};
+    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
 }
 
 bool Loonboss::configure()

@@ -18,6 +18,12 @@ add_library(
         UnitInit.cpp
         MathUtils.cpp
         UnitStatistics.cpp
+        CommandAbility.cpp
+        Prayer.cpp
+
+        spells/MysticShield.cpp
+        spells/ArcaneBolt.cpp
+        spells/SpiritStorm.cpp
 
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp

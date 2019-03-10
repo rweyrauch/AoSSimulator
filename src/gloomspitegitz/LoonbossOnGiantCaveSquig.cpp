@@ -109,10 +109,8 @@ void LoonbossOnGiantCaveSquig::Init()
     }
 }
 
-void LoonbossOnGiantCaveSquig::hero(PlayerId player)
+void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     if (player == m_owningPlayer)
     {
         // Redcap Mushrooms

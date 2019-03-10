@@ -131,10 +131,8 @@ Rerolls EternalGuard::toSaveRerolls(const Weapon *weapon) const
     return Unit::toSaveRerolls(weapon);
 }
 
-void EternalGuard::hero(PlayerId player)
+void EternalGuard::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     m_fortressModifier = 0;
     m_canMove = true;
 

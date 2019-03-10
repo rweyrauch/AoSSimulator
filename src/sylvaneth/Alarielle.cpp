@@ -10,6 +10,8 @@
 #include <sylvaneth/Alarielle.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <spells/MysticShield.h>
+#include <spells/ArcaneBolt.h>
 
 namespace Sylvaneth
 {
@@ -62,6 +64,9 @@ bool Alarielle::configure()
     model.addMeleeWeapon(&m_beetleGreatAntlers);
     addModel(model);
 
+    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
     m_points = POINTS_PER_UNIT;
 
     return true;
@@ -82,7 +87,7 @@ int Alarielle::toHitModifier(const Weapon *weapon, const Unit *unit) const
     return Unit::toHitModifier(weapon, unit);
 }
 
-void Alarielle::hero(PlayerId player)
+void Alarielle::onStartHero(PlayerId player)
 {
     if (player == m_owningPlayer)
     {

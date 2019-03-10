@@ -117,10 +117,8 @@ void BloodthirsterOfUnfetteredFury::onWounded()
     Unit::onWounded();
 }
 
-void BloodthirsterOfUnfetteredFury::hero(PlayerId player)
+void BloodthirsterOfUnfetteredFury::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     // The Land Rebels
     Dice dice;
     auto enemyUnits = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 8.0f);

@@ -33,10 +33,10 @@ public:
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
-    void hero(PlayerId player) override;
-
 protected:
 
+    void onStartHero(PlayerId player) override;
+    
 private:
 
     Weapon m_goryTalonsAndFangs;

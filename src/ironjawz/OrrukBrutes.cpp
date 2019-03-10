@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
             OrrukBrutes::JaggedGorehacka, 1
         },
         {
-            ParamType::Enum, "bossWeapons", {.m_intValue = OrrukBrutes::BossChoppa}, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
+            ParamType::Enum, "bossWeapon", {.m_intValue = OrrukBrutes::BossChoppa}, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
         }
     },
     DESTRUCTION,
@@ -138,7 +138,7 @@ void OrrukBrutes::Init()
 
 std::string OrrukBrutes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapon")
+    if (parameter.m_name == "weapons")
     {
         if (parameter.m_intValue == TwoBruteChoppas)
         {

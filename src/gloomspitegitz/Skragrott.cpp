@@ -10,6 +10,8 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include <spells/MysticShield.h>
+#include <spells/ArcaneBolt.h>
 
 namespace GloomspiteGitz
 {
@@ -39,6 +41,9 @@ bool Skragrott::configure()
 
     model.addMissileWeapon(&m_daMoonOnnaStikkMissile);
     model.addMeleeWeapon(&m_daMoonOnnaStikk);
+
+    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     addModel(model);
 

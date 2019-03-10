@@ -34,10 +34,10 @@ public:
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
     int move() const override;
-    void hero(PlayerId player) override;
 
 protected:
 
+    void onStartHero(PlayerId player) override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     void onWounded() override;

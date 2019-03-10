@@ -36,9 +36,9 @@ public:
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
-    void shooting(PlayerId player) override;
-
 protected:
+
+    void onStartShooting(PlayerId player) override;
 
     // Swift Tide
     Rerolls runRerolls() const override { return RerollFailed; }

@@ -7,6 +7,8 @@
  */
 #include <fec/GhoulKingOnZombieDragon.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
+#include <spells/ArcaneBolt.h>
 
 namespace FleshEaterCourt
 {
@@ -61,6 +63,9 @@ bool AbhorrantGhoulKingOnZombieDragon::configure()
     model.addMeleeWeapon(&m_swordlikeClaws);
     addModel(model);
 
+    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
     m_points = POINTS_PER_UNIT;
 
     return true;
@@ -100,10 +105,8 @@ Wounds AbhorrantGhoulKingOnZombieDragon::weaponDamage(const Weapon *weapon, cons
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void AbhorrantGhoulKingOnZombieDragon::hero(PlayerId player)
+void AbhorrantGhoulKingOnZombieDragon::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     // Royal Blood
     if (player == m_owningPlayer)
     {

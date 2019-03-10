@@ -10,24 +10,23 @@
 #include <Unit.h>
 #include <Board.h>
 
-DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage) :
-    Spell(caster, name, castingValue),
-    m_range(range),
+DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage) :
+    Spell(caster, name, castingValue, range),
     m_damage(damage)
 {}
 
-int DamageSpell::cast(const Unit *target)
+bool DamageSpell::cast(Unit *target)
 {
     if (target == nullptr)
     {
-        return 0;
+        return false;
     }
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
     if (distance > m_range)
     {
-        return 0;
+        return false;
     }
 
     Dice dice;
@@ -40,21 +39,9 @@ int DamageSpell::cast(const Unit *target)
         if (!unbound)
         {
             mortalWounds = dice.rollSpecial(getDamage(castingRoll));
+            target->applyDamage({0, mortalWounds});
         }
     }
 
-    return mortalWounds;
-}
-
-ArcaneBolt::ArcaneBolt(Unit *caster) :
-    DamageSpell(caster, "Arcane Bolt", 5, 18, 1)
-{}
-
-int ArcaneBolt::getDamage(int castingRoll) const
-{
-    if (castingRoll >= 10)
-    {
-        return RAND_D3;
-    }
-    return m_damage;
+    return true;
 }

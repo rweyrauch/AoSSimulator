@@ -36,14 +36,13 @@ public:
     LoonbossOnGiantCaveSquig();
     ~LoonbossOnGiantCaveSquig() override = default;
 
-    void hero(PlayerId player) override;
-
     bool configure(WeaponOptions weapon);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    void onStartHero(PlayerId player) override;
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;

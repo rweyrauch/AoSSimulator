@@ -85,10 +85,8 @@ void DankholdTroggoths::Init()
     }
 }
 
-void DankholdTroggoths::hero(PlayerId player)
+void DankholdTroggoths::onStartHero(PlayerId player)
 {
-    Unit::hero(player);
-
     if (player == m_owningPlayer)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
@@ -115,8 +113,6 @@ void DankholdTroggoths::hero(PlayerId player)
             }
         }
     }
-
-    Unit::hero(player);
 }
 
 void DankholdTroggoths::onStartCombat(PlayerId player)

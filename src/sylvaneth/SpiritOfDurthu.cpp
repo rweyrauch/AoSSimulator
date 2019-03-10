@@ -66,7 +66,7 @@ bool SpiritOfDurthu::configure()
     return true;
 }
 
-void SpiritOfDurthu::hero(PlayerId id)
+void SpiritOfDurthu::onStartHero(PlayerId id)
 {
 }
 

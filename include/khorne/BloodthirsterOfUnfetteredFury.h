@@ -30,8 +30,6 @@ public:
 
     int move() const override;
 
-    void hero(PlayerId player) override;
-
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
@@ -40,6 +38,7 @@ protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    void onStartHero(PlayerId player) override;
 
 private:
 

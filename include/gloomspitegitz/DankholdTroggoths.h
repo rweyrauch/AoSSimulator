@@ -32,13 +32,13 @@ public:
     ~DankholdTroggoths() override = default;
 
     bool configure(int numModels);
-    void hero(PlayerId player) override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
     void onStartCombat(PlayerId player) override;
+    void onStartHero(PlayerId player) override;
 
 private:
 

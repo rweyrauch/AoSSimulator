@@ -32,12 +32,12 @@ public:
     ~RockgutTroggoths() override = default;
 
     bool configure(int numModels);
-    void hero(PlayerId player) override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    void onStartHero(PlayerId player) override;
     void onStartShooting(PlayerId player) override;
     Wounds applyWoundSave(const Wounds& wounds) override;
 

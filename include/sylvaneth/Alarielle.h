@@ -31,12 +31,12 @@ public:
 
     bool configure();
     int move() const override;
-    void hero(PlayerId player) override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    void onStartHero(PlayerId player) override;
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     void onWounded() override;
     int getDamageTableIndex() const;
