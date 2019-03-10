@@ -12,8 +12,8 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Skullreapers::Create,
-    nullptr,
-    nullptr,
+    Skullreapers::ValueToString,
+    Skullreapers::EnumStringToInt,
     {
         {
             ParamType::Integer, "numModels", {.m_intValue = Skullreapers::MIN_UNIT_SIZE}, Skullreapers::MIN_UNIT_SIZE,
@@ -221,6 +221,23 @@ void Skullreapers::onEndCombat(PlayerId player)
     {
         m_numEnemyModelsSlain += std::max(0, m_initialTargetModels - m_meleeTarget->remainingModels());
     }
+}
+
+std::string Skullreapers::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "weapons")
+    {
+        if (parameter.m_intValue == GoreSlickBlades) { return "GoreSlickBlades"; }
+        else if (parameter.m_intValue == Daemonblades) { return "Daemonblades"; }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int Skullreapers::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "GoreSlickBlades") { return GoreSlickBlades; }
+    else if (enumString == "Daemonblades") { return Daemonblades; }
+    return 0;
 }
 
 } //namespace Khorne

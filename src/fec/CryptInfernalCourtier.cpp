@@ -18,8 +18,6 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {
-        },
     },
     DEATH,
     FLESH_EATER_COURTS

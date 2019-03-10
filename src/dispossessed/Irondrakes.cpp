@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
             Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "ironbeardWeapons", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
+            ParamType::Enum, "ironWardenWeapons", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
             Irondrakes::PairedDrakefirePistols, 1
         },
         {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, false},

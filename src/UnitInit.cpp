@@ -122,6 +122,10 @@
 #include "fec/CryptGhouls.h"
 #include "fec/CryptFlayers.h"
 #include "fec/CryptInfernalCourtier.h"
+#include "fec/AbhorrantArchregent.h"
+#include "fec/AbhorrantGhoulKing.h"
+#include "fec/GhoulKingOnTerrorgheist.h"
+#include "fec/GhoulKingOnZombieDragon.h"
 
 #include "wanderers/GladeGuard.h"
 #include "wanderers/EternalGuard.h"
@@ -281,6 +285,10 @@ void Initialize(Verbosity verbosity)
     FleshEaterCourt::CryptHorrors::Init();
     FleshEaterCourt::CryptFlayers::Init();
     FleshEaterCourt::CryptInfernalCourtier::Init();
+    FleshEaterCourt::AbhorrantArchregent::Init();
+    FleshEaterCourt::AbhorrantGhoulKing::Init();
+    FleshEaterCourt::AbhorrantGhoulKingOnTerrorgheist::Init();
+    FleshEaterCourt::AbhorrantGhoulKingOnZombieDragon::Init();
 
     Wanderers::GladeGuard::Init();
     Wanderers::EternalGuard::Init();
