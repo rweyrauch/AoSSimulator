@@ -16,16 +16,16 @@ static FactoryMethod factoryMethod = {
     Skullreapers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Skullreapers::MIN_UNIT_SIZE}, Skullreapers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Skullreapers::MIN_UNIT_SIZE}, Skullreapers::MIN_UNIT_SIZE,
             Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = (int) Skullreapers::WeaponOptions::GoreSlickBlades},
+            ParamType::Enum, "Weapons", {.m_intValue = (int) Skullreapers::WeaponOptions::GoreSlickBlades},
             (int) Skullreapers::WeaponOptions::GoreSlickBlades, (int) Skullreapers::WeaponOptions::Daemonblades, 1
         },
-        {ParamType::Integer, "numSpinecleavers", {.m_intValue = 1}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "numSoultearers", {.m_intValue = 0}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Boolean, "iconBearer", {.m_boolValue=true}, false, false, false},
+        {ParamType::Integer, "Spinecleavers", {.m_intValue = 1}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "Soultearers", {.m_intValue = 0}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue=true}, false, false, false},
     },
     CHAOS,
     KHORNE
@@ -124,11 +124,11 @@ void Skullreapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Skullreapers::Create(const ParameterList &parameters)
 {
     auto unit = new Skullreapers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (Skullreapers::WeaponOptions) GetEnumParam("weapons", parameters, Skullreapers::GoreSlickBlades);
-    int numSplinecleavers = GetIntParam("numSpinecleavers", parameters, 1);
-    int numSoultearers = GetIntParam("numSoultearers", parameters, 0);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, true);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (Skullreapers::WeaponOptions) GetEnumParam("Weapons", parameters, Skullreapers::GoreSlickBlades);
+    int numSplinecleavers = GetIntParam("Spinecleavers", parameters, 1);
+    int numSoultearers = GetIntParam("Soultearers", parameters, 0);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, true);
 
     bool ok = unit->configure(numModels, weapons, numSplinecleavers, numSoultearers, iconBearer);
     if (!ok)
@@ -225,9 +225,9 @@ void Skullreapers::onEndCombat(PlayerId player)
 
 std::string Skullreapers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
-        if (parameter.m_intValue == GoreSlickBlades) { return "GoreSlickBlades"; }
+        if (parameter.m_intValue == GoreSlickBlades) { return "Gore-slick Blades"; }
         else if (parameter.m_intValue == Daemonblades) { return "Daemonblades"; }
     }
     return ParameterValueToString(parameter);
@@ -235,7 +235,7 @@ std::string Skullreapers::ValueToString(const Parameter &parameter)
 
 int Skullreapers::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "GoreSlickBlades") { return GoreSlickBlades; }
+    if (enumString == "Gore-slick Blades") { return GoreSlickBlades; }
     else if (enumString == "Daemonblades") { return Daemonblades; }
     return 0;
 }

@@ -20,11 +20,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = AkhelianIshlaenGuard::MIN_UNIT_SIZE}, AkhelianIshlaenGuard::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = AkhelianIshlaenGuard::MIN_UNIT_SIZE}, AkhelianIshlaenGuard::MIN_UNIT_SIZE,
             AkhelianIshlaenGuard::MAX_UNIT_SIZE, AkhelianIshlaenGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "musicians", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Musicians", {.m_boolValue = true}, false, false},
     },
     ORDER,
     IDONETH_DEEPKIN
@@ -86,9 +86,9 @@ void AkhelianIshlaenGuard::visitWeapons(std::function<void(const Weapon *)> &vis
 Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters)
 {
     auto unit = new AkhelianIshlaenGuard();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, true);
-    bool musicians = GetBoolParam("musicians", parameters, true);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
+    bool musicians = GetBoolParam("Musicians", parameters, true);
 
     bool ok = unit->configure(numModels, standardBearers, musicians);
     if (!ok)

@@ -19,12 +19,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
             BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "pairedGoreax", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGoreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Paired Goreaxe", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "Goreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     KHORNE
@@ -114,10 +114,10 @@ int BloodWarriors::battlshockModifier() const
 Unit *BloodWarriors::Create(const ParameterList &parameters)
 {
     auto unit = new BloodWarriors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool pairedGoreax = GetBoolParam("pairedGoreax", parameters, false);
-    int numGoreglaives = GetIntParam("numGoreglaives", parameters, 0);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool pairedGoreax = GetBoolParam("Paired Goreaxe", parameters, false);
+    int numGoreglaives = GetIntParam("Goreglaives", parameters, 0);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
 
     bool ok = unit->configure(numModels, pairedGoreax, numGoreglaives, iconBearer);
     if (!ok)

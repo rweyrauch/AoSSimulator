@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = RockgutTroggoths::MIN_UNIT_SIZE}, RockgutTroggoths::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = RockgutTroggoths::MIN_UNIT_SIZE}, RockgutTroggoths::MIN_UNIT_SIZE,
             RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE
         },
     },
@@ -68,7 +68,7 @@ void RockgutTroggoths::visitWeapons(std::function<void(const Weapon *)> &visitor
 Unit *RockgutTroggoths::Create(const ParameterList &parameters)
 {
     auto unit = new RockgutTroggoths();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

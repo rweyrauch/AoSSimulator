@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
             ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
         },
     },
@@ -66,7 +66,7 @@ bool ChainraspHorde::configure(int numModels)
 Unit *ChainraspHorde::Create(const ParameterList &parameters)
 {
     auto unit = new ChainraspHorde();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

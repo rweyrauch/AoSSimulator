@@ -19,10 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = NamartiThralls::MIN_UNIT_SIZE}, NamartiThralls::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = NamartiThralls::MIN_UNIT_SIZE}, NamartiThralls::MIN_UNIT_SIZE,
             NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1}
+        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1}
     },
     ORDER,
     IDONETH_DEEPKIN
@@ -72,8 +72,8 @@ bool NamartiThralls::configure(int numModels, int numIconBearers)
 Unit *NamartiThralls::Create(const ParameterList &parameters)
 {
     auto unit = new NamartiThralls();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    int numIconBearers = GetIntParam("numIconBearers", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
 
     bool ok = unit->configure(numModels, numIconBearers);
     if (!ok)

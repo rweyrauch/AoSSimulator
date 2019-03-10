@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = DankholdTroggoths::MIN_UNIT_SIZE}, DankholdTroggoths::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = DankholdTroggoths::MIN_UNIT_SIZE}, DankholdTroggoths::MIN_UNIT_SIZE,
             DankholdTroggoths::MAX_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE
         },
     },
@@ -66,7 +66,7 @@ void DankholdTroggoths::visitWeapons(std::function<void(const Weapon *)> &visito
 Unit *DankholdTroggoths::Create(const ParameterList &parameters)
 {
     auto unit = new DankholdTroggoths();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
             Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE
         },
     },
@@ -69,7 +69,7 @@ bool Dryads::configure(int numModels)
 Unit *Dryads::Create(const ParameterList &parameters)
 {
     auto unit = new Dryads();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

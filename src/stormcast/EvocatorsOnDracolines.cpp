@@ -18,10 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE}, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
+        {ParamType::Integer, "Models", {.m_intValue = EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE}, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
          EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "primeGrandstave", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGrandstaves", {.m_intValue = 2}, 0, EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE/EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE*2, 1},
+        {ParamType::Boolean, "Prime Grandstave", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "Grandstaves", {.m_intValue = 2}, 0, EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE/EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE*2, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -130,9 +130,9 @@ int EvocatorsOnCelestialDracolines::generateMortalWounds(const Unit *unit)
 Unit *EvocatorsOnCelestialDracolines::Create(const ParameterList &parameters)
 {
     auto *evos = new EvocatorsOnCelestialDracolines();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool primeGrandstave = GetBoolParam("primeGrandstave", parameters, false);
-    int numGrandstaves = GetIntParam("numGrandstaves", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
+    int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
 
     bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave);
     if (!ok)

@@ -17,11 +17,14 @@ static FactoryMethod factoryMethod = {
     GraveGuard::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = GraveGuard::MIN_UNIT_SIZE}, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = GraveGuard::MIN_UNIT_SIZE}, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
             GraveGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
+        {
+            ParamType::Enum, "Weapons", {.m_intValue = GraveGuard::WightBlade}, GraveGuard::WightBlade, GraveGuard::GreatWightBlade, 1
+        },
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
     },
     DEATH,
     DEATHRATTLE
@@ -97,10 +100,10 @@ void GraveGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *GraveGuard::Create(const ParameterList &parameters)
 {
     auto unit = new GraveGuard();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions) GetEnumParam("weapons", parameters, WightBlade);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, false);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, WightBlade);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
     if (!ok)
@@ -121,22 +124,20 @@ void GraveGuard::Init()
 
 std::string GraveGuard::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == WightBlade)
-        { return "WightBlade"; }
+        { return "Wight Blade"; }
         else if (parameter.m_intValue == GreatWightBlade)
-        { return "GreatWightBlade"; }
+        { return "Great Wight Blade"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int GraveGuard::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "WightBlade")
-    { return WightBlade; }
-    else if (enumString == "GreatWightBlade")
-    { return GreatWightBlade; }
+    if (enumString == "Wight Blade") { return WightBlade; }
+    else if (enumString == "Great Wight Blade") { return GreatWightBlade; }
     return 0;
 }
 

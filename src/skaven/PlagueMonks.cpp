@@ -19,17 +19,17 @@ static FactoryMethod factoryMethod = {
     PlagueMonks::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = PlagueMonks::MIN_UNIT_SIZE}, PlagueMonks::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = PlagueMonks::MIN_UNIT_SIZE}, PlagueMonks::MIN_UNIT_SIZE,
             PlagueMonks::MAX_UNIT_SIZE, PlagueMonks::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = PlagueMonks::PairedFoetidBlades}, PlagueMonks::PairedFoetidBlades,
+            ParamType::Enum, "Weapons", {.m_intValue = PlagueMonks::PairedFoetidBlades}, PlagueMonks::PairedFoetidBlades,
             PlagueMonks::FoetidBladeAndWoeStave, 1
         },
-        {ParamType::Integer, "contagionBanners", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "iconsOfPestilence", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "doomGongs", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "baleChimes", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
+        {ParamType::Integer, "Contagion Banners", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Icons Of Pestilence", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Doom Gongs", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Bale Chimes", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
     SKAVEN
@@ -105,12 +105,12 @@ void PlagueMonks::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *PlagueMonks::Create(const ParameterList &parameters)
 {
     auto unit = new PlagueMonks();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions)GetEnumParam("weapons", parameters, PairedFoetidBlades);
-    int contagionBanners = GetIntParam("contagaionBanners", parameters, 0);
-    int iconsOfPestilence = GetIntParam("iconsOfPestilence", parameters, 0);
-    int doomGongs = GetIntParam("doomGongs", parameters, 0);
-    int baleChimes = GetIntParam("baleChimes", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOptions weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, PairedFoetidBlades);
+    int contagionBanners = GetIntParam("Contagion Banners", parameters, 0);
+    int iconsOfPestilence = GetIntParam("Icons Of Pestilence", parameters, 0);
+    int doomGongs = GetIntParam("Doom Gongs", parameters, 0);
+    int baleChimes = GetIntParam("Bale Chimes", parameters, 0);
 
     bool ok = unit->configure(numModels, weapons, contagionBanners, iconsOfPestilence, doomGongs, baleChimes);
     if (!ok)
@@ -202,15 +202,15 @@ void PlagueMonks::onStartHero(PlayerId player)
 
 std::string PlagueMonks::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == PairedFoetidBlades)
         {
-            return "PairedFoetidBlades";
+            return "Paired Foetid Blades";
         }
         else if (parameter.m_intValue == FoetidBladeAndWoeStave)
         {
-            return "FoetidBladeAndWoeStave";
+            return "Foetid Blade And Woe Stave";
         }
     }
 
@@ -219,11 +219,11 @@ std::string PlagueMonks::ValueToString(const Parameter &parameter)
 
 int PlagueMonks::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "PairedFoetidBlades")
+    if (enumString == "Paired Foetid Blades")
     {
         return PairedFoetidBlades;
     }
-    else if (enumString == "FoetidBladeAndWoeStave")
+    else if (enumString == "Foetid Blade And Woe Stave")
     {
         return FoetidBladeAndWoeStave;
     }

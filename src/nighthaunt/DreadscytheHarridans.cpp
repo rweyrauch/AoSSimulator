@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
             DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE
         },
     },
@@ -66,7 +66,7 @@ bool DreadscytheHarridans::configure(int numModels)
 Unit *DreadscytheHarridans::Create(const ParameterList &parameters)
 {
     auto unit = new DreadscytheHarridans();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

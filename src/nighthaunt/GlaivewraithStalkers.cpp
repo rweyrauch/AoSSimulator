@@ -18,10 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = GlaivewraithStalkers::MIN_UNIT_SIZE}, GlaivewraithStalkers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = GlaivewraithStalkers::MIN_UNIT_SIZE}, GlaivewraithStalkers::MIN_UNIT_SIZE,
             GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "drummer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Drummer", {.m_boolValue = true}, false, false}
     },
     DEATH,
     NIGHTHAUNT
@@ -65,8 +65,8 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
 Unit *GlaivewraithStalkers::Create(const ParameterList &parameters)
 {
     auto unit = new GlaivewraithStalkers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool drummer = GetBoolParam("drummer", parameters, true);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool drummer = GetBoolParam("Drummer", parameters, true);
 
     bool ok = unit->configure(numModels, drummer);
     if (!ok)

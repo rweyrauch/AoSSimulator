@@ -20,12 +20,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
             Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     KHORNE
@@ -88,10 +88,10 @@ Wounds Bloodletters::weaponDamage(const Weapon *weapon, const Unit *target, int 
 Unit *Bloodletters::Create(const ParameterList &parameters)
 {
     auto unit = new Bloodletters();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
     bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
     if (!ok)

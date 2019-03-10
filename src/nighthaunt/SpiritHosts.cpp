@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = SpiritHosts::MIN_UNIT_SIZE}, SpiritHosts::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = SpiritHosts::MIN_UNIT_SIZE}, SpiritHosts::MIN_UNIT_SIZE,
             SpiritHosts::MAX_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE
         },
     },
@@ -65,7 +65,7 @@ void SpiritHosts::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *SpiritHosts::Create(const ParameterList &parameters)
 {
     auto unit = new SpiritHosts();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

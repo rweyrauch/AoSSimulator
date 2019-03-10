@@ -17,15 +17,15 @@ static FactoryMethod factoryMethod = {
     Ungors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Ungors::MIN_UNIT_SIZE}, Ungors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Ungors::MIN_UNIT_SIZE}, Ungors::MIN_UNIT_SIZE,
             Ungors::MAX_UNIT_SIZE, Ungors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
+            ParamType::Enum, "Weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
             Ungors::GnarledShortspear, 1
         },
-        {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Brayhorn", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -101,10 +101,10 @@ void Ungors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Ungors::Create(const ParameterList &parameters)
 {
     auto unit = new Ungors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions) GetEnumParam("weapons", parameters, UngorBlade);
-    bool brayhorn = GetBoolParam("brayhorn", parameters, false);
-    bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, UngorBlade);
+    bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
+    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
     bool ok = unit->configure(numModels, weapon, brayhorn, bannerBearer);
     if (!ok)
@@ -125,22 +125,18 @@ void Ungors::Init()
 
 std::string Ungors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
-        if (parameter.m_intValue == UngorBlade)
-        { return "UngorBlade"; }
-        else if (parameter.m_intValue == GnarledShortspear)
-        { return "GnarledShortspear"; }
+        if (parameter.m_intValue == UngorBlade) { return "Ungor Blade"; }
+        else if (parameter.m_intValue == GnarledShortspear) { return "Gnarled Shortspear"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int Ungors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "UngorBlade")
-    { return UngorBlade; }
-    else if (enumString == "GnarledShortspear")
-    { return GnarledShortspear; }
+    if (enumString == "Ungor Blade") { return UngorBlade; }
+    else if (enumString == "Gnarled Shortspear") { return GnarledShortspear; }
     return 0;
 }
 

@@ -19,11 +19,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Hammerers::MIN_UNIT_SIZE}, Hammerers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Hammerers::MIN_UNIT_SIZE}, Hammerers::MIN_UNIT_SIZE,
             Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "musician", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Musician", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -78,9 +78,9 @@ void Hammerers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Hammerers::Create(const ParameterList &parameters)
 {
     auto unit = new Hammerers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool musician = GetBoolParam("musician", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool musician = GetBoolParam("Musician", parameters, false);
 
     bool ok = unit->configure(numModels, standardBearer, musician);
     if (!ok)

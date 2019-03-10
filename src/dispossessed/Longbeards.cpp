@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Longbeards::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Longbeards::MIN_UNIT_SIZE}, Longbeards::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Longbeards::MIN_UNIT_SIZE}, Longbeards::MIN_UNIT_SIZE,
             Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Longbeards::AncestralAxesOrHammers}, Longbeards::AncestralAxesOrHammers,
+            ParamType::Enum, "Weapons", {.m_intValue = Longbeards::AncestralAxesOrHammers}, Longbeards::AncestralAxesOrHammers,
             Longbeards::AncestralGreatAxe, 1
         },
-        {ParamType::Boolean, "gromrilShields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "musician", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Gromril Shields", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Musician", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -100,11 +100,11 @@ void Longbeards::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Longbeards::Create(const ParameterList &parameters)
 {
     auto unit = new Longbeards();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetEnumParam("weapons", parameters, AncestralAxesOrHammers);
-    bool gromrilShields = GetBoolParam("gromrilShields", parameters, false);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool musician = GetBoolParam("musician", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, AncestralAxesOrHammers);
+    bool gromrilShields = GetBoolParam("Gromril Shields", parameters, false);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool musician = GetBoolParam("Musician", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, gromrilShields, standardBearer, musician);
     if (!ok)
@@ -136,15 +136,15 @@ Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const
 
 std::string Longbeards::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == AncestralAxesOrHammers)
         {
-            return "AncestralAxesOrHammers";
+            return "Ancestral Axes Or Hammers";
         }
         else if (parameter.m_intValue == AncestralGreatAxe)
         {
-            return "AncestralGreatAxe";
+            return "Ancestral Great Axe";
         }
     }
 
@@ -153,11 +153,11 @@ std::string Longbeards::ValueToString(const Parameter &parameter)
 
 int Longbeards::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "AncestralAxesOrHammers")
+    if (enumString == "Ancestral Axes Or Hammers")
     {
         return AncestralAxesOrHammers;
     }
-    else if (enumString == "AncestralGreatAxe")
+    else if (enumString == "Ancestral Great Axe")
     {
         return AncestralGreatAxe;
     }

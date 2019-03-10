@@ -17,8 +17,8 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE, Retributors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numStarsoulMaces", {.m_intValue = 2}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2, 1}
+        {ParamType::Integer, "Models", {.m_intValue = 5}, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE, Retributors::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Starsoul Maces", {.m_intValue = 2}, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2, 1}
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -113,8 +113,8 @@ Wounds Retributors::weaponDamage(const Weapon *weapon, const Unit *target, int h
 Unit *Retributors::Create(const ParameterList &parameters)
 {
     auto unit = new Retributors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    int numStarsoulMaces = GetIntParam("numStarsoulMaces", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
 
     bool ok = unit->configure(numModels, numStarsoulMaces);
     if (!ok)

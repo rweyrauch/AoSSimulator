@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Tempestors::MIN_UNIT_SIZE}, Tempestors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Tempestors::MIN_UNIT_SIZE}, Tempestors::MIN_UNIT_SIZE,
             Tempestors::MAX_UNIT_SIZE, Tempestors::MIN_UNIT_SIZE
         },
     },
@@ -75,7 +75,7 @@ void Tempestors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Tempestors::Create(const ParameterList &parameters)
 {
     auto unit = new Tempestors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

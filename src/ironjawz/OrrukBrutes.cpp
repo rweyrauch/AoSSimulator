@@ -16,13 +16,13 @@ static FactoryMethod factoryMethod = {
     OrrukBrutes::ValueToString,
     OrrukBrutes::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = OrrukBrutes::MIN_UNIT_SIZE}, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = OrrukBrutes::MIN_UNIT_SIZE}, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "weapons", {.m_intValue = OrrukBrutes::TwoBruteChoppas}, OrrukBrutes::TwoBruteChoppas,
+            ParamType::Enum, "Weapons", {.m_intValue = OrrukBrutes::TwoBruteChoppas}, OrrukBrutes::TwoBruteChoppas,
             OrrukBrutes::JaggedGorehacka, 1
         },
         {
-            ParamType::Enum, "bossWeapon", {.m_intValue = OrrukBrutes::BossChoppa}, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
+            ParamType::Enum, "Boss Weapon", {.m_intValue = OrrukBrutes::BossChoppa}, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
         }
     },
     DESTRUCTION,
@@ -114,10 +114,10 @@ void OrrukBrutes::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *OrrukBrutes::Create(const ParameterList &parameters)
 {
     auto unit = new OrrukBrutes();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, TwoBruteChoppas);
-    int numGoreChoppas = GetIntParam("numGoreChoppas", parameters, 0);
-    BossWeaponOption bossWeapon = (BossWeaponOption) GetEnumParam("bossWeapon", parameters, BossChoppa);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, TwoBruteChoppas);
+    int numGoreChoppas = GetIntParam("Gore Choppas", parameters, 0);
+    BossWeaponOption bossWeapon = (BossWeaponOption) GetEnumParam("Boss Weapon", parameters, BossChoppa);
 
     bool ok = unit->configure(numModels, weapons, numGoreChoppas, bossWeapon);
     if (!ok)
@@ -138,27 +138,27 @@ void OrrukBrutes::Init()
 
 std::string OrrukBrutes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == TwoBruteChoppas)
         {
-            return "TwoBruteChoppas";
+            return "Two Brute Choppas";
         }
         else if (parameter.m_intValue == JaggedGorehacka)
         {
-            return "JaggedGorehacka";
+            return "Jagged Gore-hacka";
         }
     }
 
-    if (parameter.m_name == "bossWeapon")
+    if (parameter.m_name == "Boss Weapon")
     {
         if (parameter.m_intValue == BossChoppa)
         {
-            return "BossChoppa";
+            return "Boss Choppa";
         }
         else if (parameter.m_intValue == BossKlaw)
         {
-            return "BossKlaw";
+            return "Boss Klaw";
         }
     }
 
@@ -167,19 +167,19 @@ std::string OrrukBrutes::ValueToString(const Parameter &parameter)
 
 int OrrukBrutes::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "TwoBruteChoppas")
+    if (enumString == "Two Brute Choppas")
     {
         return TwoBruteChoppas;
     }
-    else if (enumString == "JaggedGorehacka")
+    else if (enumString == "Jagged Gore-hacka")
     {
         return JaggedGorehacka;
     }
-    else if (enumString == "BossChoppa")
+    else if (enumString == "Boss Choppa")
     {
         return BossChoppa;
     }
-    else if (enumString == "BossKlaw")
+    else if (enumString == "Boss Klaw")
     {
         return BossKlaw;
     }

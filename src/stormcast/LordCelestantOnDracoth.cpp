@@ -18,10 +18,10 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnDracoth::EnumStringToInt,
     {
         {
-            ParamType::Enum, "weapons", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
+            ParamType::Enum, "Weapon", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
             LordCelestantOnDracoth::StormstrikeGlaive, 1
         },
-        {ParamType::Boolean, "sigmariteThundershield", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Sigmarite Thundershield", {.m_boolValue = false}, false, false},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -74,8 +74,8 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
 Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnDracoth();
-    auto weapons = (WeaponOption) GetEnumParam("weapons", parameters, LightningHammer);
-    bool sigmariteThundershield = GetBoolParam("sigmariteThundershield", parameters, false);
+    auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, LightningHammer);
+    bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
 
     bool ok = unit->configure(weapons, sigmariteThundershield);
     if (!ok)
@@ -96,11 +96,11 @@ void LordCelestantOnDracoth::Init()
 
 std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapon")
     {
         if (parameter.m_intValue == TempestosHammer)
         {
-            return "TempestosHammer";
+            return "Tempestos Hammer";
         }
         else if (parameter.m_intValue == Thunderaxe)
         {
@@ -108,11 +108,11 @@ std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == LightningHammer)
         {
-            return "LightningHammer";
+            return "Lightning Hammer";
         }
         else if (parameter.m_intValue == StormstrikeGlaive)
         {
-            return "StormstrikeGlaive";
+            return "Stormstrike Glaive";
         }
     }
     return ParameterValueToString(parameter);
@@ -177,7 +177,7 @@ void LordCelestantOnDracoth::onBeginTurn(int battleRound)
 
 int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "TempestosHammer")
+    if (enumString == "Tempestos Hammer")
     {
         return TempestosHammer;
     }
@@ -185,11 +185,11 @@ int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
     {
         return Thunderaxe;
     }
-    else if (enumString == "LightningHammer")
+    else if (enumString == "Lightning Hammer")
     {
         return LightningHammer;
     }
-    else if (enumString == "StormstrikeGlaive")
+    else if (enumString == "Stormstrike Glaive")
     {
         return StormstrikeGlaive;
     }

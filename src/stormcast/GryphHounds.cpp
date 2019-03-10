@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = GryphHounds::MIN_UNIT_SIZE}, GryphHounds::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = GryphHounds::MIN_UNIT_SIZE}, GryphHounds::MIN_UNIT_SIZE,
             GryphHounds::MAX_UNIT_SIZE, GryphHounds::MIN_UNIT_SIZE
         },
     },
@@ -72,7 +72,7 @@ void GryphHounds::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *GryphHounds::Create(const ParameterList &parameters)
 {
     auto unit = new GryphHounds();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

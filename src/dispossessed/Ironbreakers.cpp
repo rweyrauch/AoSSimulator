@@ -19,15 +19,15 @@ static FactoryMethod factoryMethod = {
     Ironbreakers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Ironbreakers::MIN_UNIT_SIZE}, Ironbreakers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Ironbreakers::MIN_UNIT_SIZE}, Ironbreakers::MIN_UNIT_SIZE,
             Ironbreakers::MAX_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "ironbeardWeapons", {.m_intValue = Ironbreakers::IronbreakerAxeOrHammer}, Ironbreakers::IronbreakerAxeOrHammer,
+            ParamType::Enum, "Ironbeard Weapon", {.m_intValue = Ironbreakers::IronbreakerAxeOrHammer}, Ironbreakers::IronbreakerAxeOrHammer,
             Ironbreakers::PairedDrakefirePistols, 1
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Drummer", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -103,10 +103,10 @@ void Ironbreakers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Ironbreakers::Create(const ParameterList &parameters)
 {
     auto unit = new Ironbreakers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapon = (WeaponOptions)GetEnumParam("ironbeardWeapons", parameters, (int)IronbreakerAxeOrHammer);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool drummer = GetBoolParam("drummer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOptions weapon = (WeaponOptions)GetEnumParam("Ironbeard Weapon", parameters, (int)IronbreakerAxeOrHammer);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool drummer = GetBoolParam("Drummer", parameters, false);
 
     bool ok = unit->configure(numModels, weapon, iconBearer, drummer);
     if (!ok)
@@ -172,19 +172,19 @@ void Ironbreakers::onStartShooting(PlayerId player)
 
 std::string Ironbreakers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "ironbeardWeapons")
+    if (parameter.m_name == "Ironbeard Weapon")
     {
         if (parameter.m_intValue == IronbreakerAxeOrHammer)
         {
-            return "IronbreakerAxeOrHammer";
+            return "Ironbreaker Axe Or Hammer";
         }
         else if (parameter.m_intValue == DrakefirePistolAndCinderblastBomb)
         {
-            return "DrakefirePistolAndCinderblastBomb";
+            return "Drakefire Pistol And Cinderblast Bomb";
         }
         else if (parameter.m_intValue == PairedDrakefirePistols)
         {
-            return "PairedDrakefirePistols";
+            return "Paired Drakefire Pistols";
         }
     }
 
@@ -193,15 +193,15 @@ std::string Ironbreakers::ValueToString(const Parameter &parameter)
 
 int Ironbreakers::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "IronbreakerAxeOrHammer")
+    if (enumString == "Ironbreaker Axe Or Hammer")
     {
         return IronbreakerAxeOrHammer;
     }
-    else if (enumString == "DrakefirePistolAndCinderblastBomb")
+    else if (enumString == "Drakefire Pistol And Cinderblast Bomb")
     {
         return DrakefirePistolAndCinderblastBomb;
     }
-    else if (enumString == "PairedDrakefirePistols")
+    else if (enumString == "Paired Drakefire Pistols")
     {
         return PairedDrakefirePistols;
     }

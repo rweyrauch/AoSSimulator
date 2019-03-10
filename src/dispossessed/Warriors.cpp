@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Warriors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Warriors::MIN_UNIT_SIZE}, Warriors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Warriors::MIN_UNIT_SIZE}, Warriors::MIN_UNIT_SIZE,
             Warriors::MAX_UNIT_SIZE, Warriors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Warriors::DuardinAxeOrHammer}, Warriors::DuardinAxeOrHammer,
+            ParamType::Enum, "Weapons", {.m_intValue = Warriors::DuardinAxeOrHammer}, Warriors::DuardinAxeOrHammer,
             Warriors::DoubleHandedDuardinAxe, 1
         },
-        {ParamType::Boolean, "duardinShields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Duardin Shields", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -100,11 +100,11 @@ void Warriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Warriors::Create(const ParameterList &parameters)
 {
     auto unit = new Warriors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetEnumParam("weapons", parameters, DuardinAxeOrHammer);
-    bool duardinShields = GetBoolParam("duardinShields", parameters, false);
-    auto standard = (StandardOptions)GetEnumParam("standard", parameters, None);
-    bool hornblower = GetBoolParam("hornblower", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, DuardinAxeOrHammer);
+    bool duardinShields = GetBoolParam("Duardin Shields", parameters, false);
+    auto standard = (StandardOptions)GetEnumParam("Standard", parameters, None);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, duardinShields, standard, hornblower);
     if (!ok)
@@ -156,18 +156,18 @@ void Warriors::onStartCombat(PlayerId player)
 
 std::string Warriors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == DuardinAxeOrHammer)
         {
-            return "DuardinAxeOrHammer";
+            return "Duardin Axe Or Hammer";
         }
         else if (parameter.m_intValue == DoubleHandedDuardinAxe)
         {
-            return "DoubleHandedDuardinAxe";
+            return "Double Handed Duardin Axe";
         }
     }
-    else if (parameter.m_name == "standard")
+    else if (parameter.m_name == "Standard")
     {
         if (parameter.m_intValue == None)
         {
@@ -175,11 +175,11 @@ std::string Warriors::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == RunicIcon)
         {
-            return "RunicIcon";
+            return "Runic Icon";
         }
         else if (parameter.m_intValue == ClanBanner)
         {
-            return "ClanBanner";
+            return "Clan Banner";
         }
     }
 
@@ -188,11 +188,11 @@ std::string Warriors::ValueToString(const Parameter &parameter)
 
 int Warriors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "DuardinAxeOrHammer")
+    if (enumString == "Duardin Axe Or Hammer")
     {
         return DuardinAxeOrHammer;
     }
-    else if (enumString == "DoubleHandedDuardinAxe")
+    else if (enumString == "Double Handed Duardin Axe")
     {
         return DoubleHandedDuardinAxe;
     }
@@ -200,11 +200,11 @@ int Warriors::EnumStringToInt(const std::string &enumString)
     {
         return None;
     }
-    else if (enumString == "RunicIcon")
+    else if (enumString == "Runic Icon")
     {
         return RunicIcon;
     }
-    else if (enumString == "ClanBanner")
+    else if (enumString == "Clan Banner")
     {
         return ClanBanner;
     }

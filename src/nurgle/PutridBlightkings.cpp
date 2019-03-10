@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = PutridBlightkings::MIN_UNIT_SIZE}, PutridBlightkings::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = PutridBlightkings::MIN_UNIT_SIZE}, PutridBlightkings::MIN_UNIT_SIZE,
             PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "sonorousTocsin", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Sonorous Tocsin", {.m_boolValue = true}, false, false},
     },
     CHAOS,
     NURGLE
@@ -75,9 +75,9 @@ void PutridBlightkings::visitWeapons(std::function<void(const Weapon *)> &visito
 Unit *PutridBlightkings::Create(const ParameterList &parameters)
 {
     auto unit = new PutridBlightkings();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool sonorousTocsin = GetBoolParam("sonorousTocsin", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool sonorousTocsin = GetBoolParam("Sonorous Tocsin", parameters, false);
 
     bool ok = unit->configure(numModels, iconBearer, sonorousTocsin);
     if (!ok)

@@ -19,13 +19,13 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Shootas::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", {.m_intValue = Shootas::MIN_UNIT_SIZE},
             Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Barbed Nets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Gong Bashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Flag Bearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
     },
     DESTRUCTION,
     GLOOMSPITE_GITZ
@@ -48,11 +48,11 @@ Shootas::Shootas() :
 Unit *Shootas::Create(const ParameterList &parameters)
 {
     auto unit = new Shootas();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    int numBarbedNets = GetIntParam("numBarbedNets", parameters, 0);
-    int numGongbashers = GetIntParam("numGongbashers", parameters, 0);
-    int numFlagbearers = GetIntParam("numFlagbearers", parameters, 0);
-    int numIconbearers = GetIntParam("numIconbearers", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
+    int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
+    int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
+    int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
 
     bool ok = unit->configure(numModels, numBarbedNets, numGongbashers, numFlagbearers, numIconbearers);
     if (!ok)

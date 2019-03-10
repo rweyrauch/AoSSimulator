@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Concussors::MIN_UNIT_SIZE}, Concussors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Concussors::MIN_UNIT_SIZE}, Concussors::MIN_UNIT_SIZE,
             Concussors::MAX_UNIT_SIZE, Concussors::MIN_UNIT_SIZE
         },
     },
@@ -71,7 +71,7 @@ void Concussors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Concussors::Create(const ParameterList &parameters)
 {
     auto unit = new Concussors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -19,11 +19,14 @@ static FactoryMethod factoryMethod = {
     SkeletonWarriors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = SkeletonWarriors::MIN_UNIT_SIZE}, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = SkeletonWarriors::MIN_UNIT_SIZE}, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
             SkeletonWarriors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
+        {
+            ParamType::Enum, "Weapons", {.m_intValue = SkeletonWarriors::AncientBlade}, SkeletonWarriors::AncientBlade, SkeletonWarriors::AncientSpear, 1
+        },
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
     },
     DEATH,
     DEATHRATTLE
@@ -99,10 +102,10 @@ void SkeletonWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor
 Unit *SkeletonWarriors::Create(const ParameterList &parameters)
 {
     auto unit = new SkeletonWarriors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions) GetEnumParam("weapons", parameters, AncientBlade);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, false);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, AncientBlade);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
     if (!ok)
@@ -123,22 +126,18 @@ void SkeletonWarriors::Init()
 
 std::string SkeletonWarriors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
-        if (parameter.m_intValue == AncientBlade)
-        { return "AncientBlade"; }
-        else if (parameter.m_intValue == AncientSpear)
-        { return "AncientSpear"; }
+        if (parameter.m_intValue == AncientBlade) { return "Ancient Blade"; }
+        else if (parameter.m_intValue == AncientSpear) { return "Ancient Spear"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int SkeletonWarriors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "AncientBlade")
-    { return AncientBlade; }
-    else if (enumString == "AncientSpear")
-    { return AncientSpear; }
+    if (enumString == "Ancient Blade") { return AncientBlade; }
+    else if (enumString == "Ancient Spear") { return AncientSpear; }
     return 0;
 }
 

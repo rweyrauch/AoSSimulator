@@ -18,17 +18,17 @@ static FactoryMethod factoryMethod = {
     Tzaangors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Tzaangors::MIN_UNIT_SIZE}, Tzaangors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Tzaangors::MIN_UNIT_SIZE}, Tzaangors::MIN_UNIT_SIZE,
             Tzaangors::MAX_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Tzaangors::PairedSavageBlades}, Tzaangors::PairedSavageBlades,
+            ParamType::Enum, "Weapons", {.m_intValue = Tzaangors::PairedSavageBlades}, Tzaangors::PairedSavageBlades,
             Tzaangors::SavageBladeAndShield, 1
         },
-        {ParamType::Integer, "numGreatblades", {.m_intValue = 0}, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE*2, 1},
-        {ParamType::Integer, "numMutants", {.m_intValue = 0}, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE, 1},
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, 1},
-        {ParamType::Boolean, "brayhorns", {.m_boolValue = false}, false, false, 1},
+        {ParamType::Integer, "Greatblades", {.m_intValue = 0}, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE*2, 1},
+        {ParamType::Integer, "Mutants", {.m_intValue = 0}, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE, 1},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = false}, false, false, 1},
+        {ParamType::Boolean, "Brayhorns", {.m_boolValue = false}, false, false, 1},
     },
     CHAOS,
     TZEENTCH
@@ -122,12 +122,12 @@ void Tzaangors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Tzaangors::Create(const ParameterList &parameters)
 {
     auto unit = new Tzaangors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetEnumParam("weapons", parameters, SavageBladeAndShield);
-    int numGreatblades = GetIntParam("numGreatblades", parameters, 0);
-    int numMutants = GetIntParam("numMutants", parameters, 0);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool brayhorns = GetBoolParam("brayhorns", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, SavageBladeAndShield);
+    int numGreatblades = GetIntParam("Greatblades", parameters, 0);
+    int numMutants = GetIntParam("Mutants", parameters, 0);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool brayhorns = GetBoolParam("Brayhorns", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
     if (!ok)
@@ -148,15 +148,15 @@ void Tzaangors::Init()
 
 std::string Tzaangors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == SavageBladeAndShield)
         {
-            return "SavageBladeAndShield";
+            return "Savage Blade And Shield";
         }
         else if (parameter.m_intValue == PairedSavageBlades)
         {
-            return "PairedSavageBlades";
+            return "Paired Savage Blades";
         }
     }
 
@@ -165,11 +165,11 @@ std::string Tzaangors::ValueToString(const Parameter &parameter)
 
 int Tzaangors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "SavageBladeAndShield")
+    if (enumString == "Savage Blade And Shield")
     {
         return SavageBladeAndShield;
     }
-    else if (enumString == "PairedSavageBlades")
+    else if (enumString == "Paired Savage Blades")
     {
         return PairedSavageBlades;
     }

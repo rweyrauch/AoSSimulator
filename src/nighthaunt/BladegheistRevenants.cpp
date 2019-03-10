@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = BladegheistRevenants::MIN_UNIT_SIZE}, BladegheistRevenants::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = BladegheistRevenants::MIN_UNIT_SIZE}, BladegheistRevenants::MIN_UNIT_SIZE,
             BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE
         },
     },
@@ -64,7 +64,7 @@ bool BladegheistRevenants::configure(int numModels)
 Unit *BladegheistRevenants::Create(const ParameterList &parameters)
 {
     auto unit = new BladegheistRevenants();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

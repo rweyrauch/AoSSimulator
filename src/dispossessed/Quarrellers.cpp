@@ -18,12 +18,12 @@ static FactoryMethod factoryMethod = {
     Quarrellers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Quarrellers::MIN_UNIT_SIZE}, Quarrellers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Quarrellers::MIN_UNIT_SIZE}, Quarrellers::MIN_UNIT_SIZE,
             Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Enum, "standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
-        {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Duardin Bucklers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Enum, "Standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
+        {ParamType::Boolean, "Drummer", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -83,10 +83,10 @@ void Quarrellers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Quarrellers::Create(const ParameterList &parameters)
 {
     auto unit = new Quarrellers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool duardinBucklers = GetBoolParam("duardinBucklers", parameters, false);
-    auto standard = (StandardOptions)GetEnumParam("standard", parameters, None);
-    bool drummer = GetBoolParam("drummer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool duardinBucklers = GetBoolParam("Duardin Bucklers", parameters, false);
+    auto standard = (StandardOptions)GetEnumParam("Standard", parameters, None);
+    bool drummer = GetBoolParam("Drummer", parameters, false);
 
     bool ok = unit->configure(numModels, duardinBucklers, standard, drummer);
     if (!ok)
@@ -132,7 +132,7 @@ Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const
 
 std::string Quarrellers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "standard")
+    if (parameter.m_name == "Standard")
     {
         if (parameter.m_intValue == None)
         {
@@ -140,11 +140,11 @@ std::string Quarrellers::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == RunicIcon)
         {
-            return "RunicIcon";
+            return "Runic Icon";
         }
         else if (parameter.m_intValue == ClanBanner)
         {
-            return "ClanBanner";
+            return "Clan Banner";
         }
     }
 
@@ -157,11 +157,11 @@ int Quarrellers::EnumStringToInt(const std::string &enumString)
     {
         return None;
     }
-    else if (enumString == "RunicIcon")
+    else if (enumString == "Runic Icon")
     {
         return RunicIcon;
     }
-    else if (enumString == "ClanBanner")
+    else if (enumString == "Clan Banner")
     {
         return ClanBanner;
     }

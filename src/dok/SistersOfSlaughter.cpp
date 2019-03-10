@@ -19,12 +19,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = SistersOfSlaughter::MIN_UNIT_SIZE}, SistersOfSlaughter::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = SistersOfSlaughter::MIN_UNIT_SIZE}, SistersOfSlaughter::MIN_UNIT_SIZE,
             SistersOfSlaughter::MAX_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "sacrificialKnife", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Sacrificial Knife", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = true}, false, false},
     },
     ORDER,
     DAUGHTERS_OF_KHAINE
@@ -89,10 +89,10 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
 Unit *SistersOfSlaughter::Create(const ParameterList &parameters)
 {
     auto unit = new SistersOfSlaughter();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool sacrificialKnife = GetBoolParam("sacrificialKnife", parameters, true);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool sacrificialKnife = GetBoolParam("Sacrificial Knife", parameters, true);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
 
     bool ok = unit->configure(numModels, sacrificialKnife, hornblowers, standardBearers);
     if (!ok)

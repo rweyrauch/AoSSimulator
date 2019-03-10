@@ -20,10 +20,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = NamartiReavers::MIN_UNIT_SIZE}, NamartiReavers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = NamartiReavers::MIN_UNIT_SIZE}, NamartiReavers::MIN_UNIT_SIZE,
             NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "numIconBearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
+        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
     },
     ORDER,
     IDONETH_DEEPKIN
@@ -82,8 +82,8 @@ void NamartiReavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *NamartiReavers::Create(const ParameterList &parameters)
 {
     auto unit = new NamartiReavers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    int numIconBearers = GetIntParam("numIconBearers", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
 
     bool ok = unit->configure(numModels, numIconBearers);
     if (!ok)

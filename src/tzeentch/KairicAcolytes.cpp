@@ -18,16 +18,16 @@ static FactoryMethod factoryMethod = {
     KairicAcolytes::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = KairicAcolytes::MIN_UNIT_SIZE}, KairicAcolytes::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = KairicAcolytes::MIN_UNIT_SIZE}, KairicAcolytes::MIN_UNIT_SIZE,
             KairicAcolytes::MAX_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = KairicAcolytes::CursedBlade}, KairicAcolytes::CursedBlade,
+            ParamType::Enum, "Weapons", {.m_intValue = KairicAcolytes::CursedBlade}, KairicAcolytes::CursedBlade,
             KairicAcolytes::CursedBladeAndShield, 1
         },
-        {ParamType::Integer, "numCursedGlaives", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
-        {ParamType::Integer, "numScrollsOfDarkArts", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numVulcharcs", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Cursed Glaives", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
+        {ParamType::Integer, "Scrolls Of Dark Arts", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Vulcharcs", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
     },
     CHAOS,
     TZEENTCH
@@ -139,11 +139,11 @@ void KairicAcolytes::Init()
 Unit *KairicAcolytes::Create(const ParameterList &parameters)
 {
     auto unit = new KairicAcolytes();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetEnumParam("weapons", parameters, CursedBlade);
-    int numCursedGlaives = GetIntParam("numCursedGlaives", parameters, 0);
-    int numScrollsOfDarkArts = GetIntParam("numScrollsOfDarkArts", parameters, 0);
-    int numVulcharcs = GetIntParam("numVulcharcs", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, CursedBlade);
+    int numCursedGlaives = GetIntParam("Cursed Glaives", parameters, 0);
+    int numScrollsOfDarkArts = GetIntParam("Scrolls Of Dark Arts", parameters, 0);
+    int numVulcharcs = GetIntParam("Vulcharcs", parameters, 0);
 
     bool ok = unit->configure(numModels, weapons, numCursedGlaives, numScrollsOfDarkArts, numVulcharcs);
     if (!ok)
@@ -156,19 +156,19 @@ Unit *KairicAcolytes::Create(const ParameterList &parameters)
 
 std::string KairicAcolytes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == CursedBlade)
         {
-            return "CursedBlade";
+            return "Cursed Blade";
         }
         else if (parameter.m_intValue == PairedCursedBlades)
         {
-            return "PairedCursedBlades";
+            return "Paired Cursed Blades";
         }
         else if (parameter.m_intValue == CursedBladeAndShield)
         {
-            return "CursedBladeAndShield";
+            return "Cursed Blade And Shield";
         }
     }
 
@@ -177,15 +177,15 @@ std::string KairicAcolytes::ValueToString(const Parameter &parameter)
 
 int KairicAcolytes::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "CursedBlade")
+    if (enumString == "Cursed Blade")
     {
         return CursedBlade;
     }
-    else if (enumString == "PairedCursedBlades")
+    else if (enumString == "Paired Cursed Blades")
     {
         return PairedCursedBlades;
     }
-    else if (enumString == "CursedBladeAndShield")
+    else if (enumString == "Cursed Blade And Shield")
     {
         return CursedBladeAndShield;
     }

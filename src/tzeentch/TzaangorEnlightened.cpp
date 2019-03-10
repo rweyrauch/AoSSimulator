@@ -17,9 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = TzaangorEnlightened::MIN_UNIT_SIZE}, TzaangorEnlightened::MIN_UNIT_SIZE,
+        {ParamType::Integer, "Models", {.m_intValue = TzaangorEnlightened::MIN_UNIT_SIZE}, TzaangorEnlightened::MIN_UNIT_SIZE,
          TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "disksOfTzeentch", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Disks Of Tzeentch", {.m_boolValue = false}, false, false},
     },
     CHAOS,
     TZEENTCH
@@ -102,8 +102,8 @@ void TzaangorEnlightened::visitWeapons(std::function<void(const Weapon *)> &visi
 Unit *TzaangorEnlightened::Create(const ParameterList &parameters)
 {
     auto *unit = new TzaangorEnlightened();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool disksOfTzeentch = GetBoolParam("disksOfTzeentch", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool disksOfTzeentch = GetBoolParam("Disks Of Tzeentch", parameters, false);
 
     bool ok = unit->configure(numModels, disksOfTzeentch);
     if (!ok)

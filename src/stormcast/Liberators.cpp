@@ -18,14 +18,14 @@ static FactoryMethod factoryMethod = {
     Liberators::ValueToString,
     Liberators::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
+            ParamType::Enum, "Weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
             Liberators::Warblade, 1
         },
-        {ParamType::Boolean, "pairedWeapons", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGrandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "numGrandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1}
+        {ParamType::Boolean, "Paired Weapons", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "Grandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "Grandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1}
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -152,11 +152,11 @@ int Liberators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const 
 Unit *Liberators::Create(const ParameterList &parameters)
 {
     auto libs = new Liberators();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, Warblade);
-    bool pairedWeapons = GetBoolParam("pairedWeapons", parameters, false);
-    int numGrandhammers = GetIntParam("numGrandhammers", parameters, 0);
-    int numGrandblades = GetIntParam("numGrandblades", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Warblade);
+    bool pairedWeapons = GetBoolParam("Paired Weapons", parameters, false);
+    int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
+    int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
     bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
     if (!ok)
@@ -177,7 +177,7 @@ void Liberators::Init()
 
 std::string Liberators::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == Warhammer)
         {

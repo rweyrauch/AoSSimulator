@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = CryptHorrors::MIN_UNIT_SIZE}, CryptHorrors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = CryptHorrors::MIN_UNIT_SIZE}, CryptHorrors::MIN_UNIT_SIZE,
             CryptHorrors::MAX_UNIT_SIZE, CryptHorrors::MIN_UNIT_SIZE
         },
     },
@@ -73,7 +73,7 @@ void CryptHorrors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *CryptHorrors::Create(const ParameterList &parameters)
 {
     auto unit = new CryptHorrors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

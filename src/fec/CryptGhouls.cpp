@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = CryptGhouls::MIN_UNIT_SIZE}, CryptGhouls::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = CryptGhouls::MIN_UNIT_SIZE}, CryptGhouls::MIN_UNIT_SIZE,
             CryptGhouls::MAX_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE
         },
     },
@@ -72,7 +72,7 @@ void CryptGhouls::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *CryptGhouls::Create(const ParameterList &parameters)
 {
     auto unit = new CryptGhouls();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

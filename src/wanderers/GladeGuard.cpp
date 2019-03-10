@@ -19,11 +19,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = GladeGuard::MIN_UNIT_SIZE}, GladeGuard::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = GladeGuard::MIN_UNIT_SIZE}, GladeGuard::MIN_UNIT_SIZE,
             GladeGuard::MAX_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "pennantBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblower", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Pennant Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false},
     },
     ORDER,
     WANDERER
@@ -82,9 +82,9 @@ void GladeGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *GladeGuard::Create(const ParameterList &parameters)
 {
     auto unit = new GladeGuard();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool pennantBearer = GetBoolParam("pennantBearer", parameters, false);
-    bool hornblower = GetBoolParam("hornblower", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool pennantBearer = GetBoolParam("Pennant Bearer", parameters, false);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
     bool ok = unit->configure(numModels, pennantBearer, hornblower);
     if (!ok)

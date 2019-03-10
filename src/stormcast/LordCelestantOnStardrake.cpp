@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnStardrake::EnumStringToInt,
     {
         {
-            ParamType::Enum, "weapons", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
+            ParamType::Enum, "Weapon", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
             LordCelestantOnStardrake::StormboundBlade, 1
         },
     },
@@ -85,7 +85,7 @@ int LordCelestantOnStardrake::move() const
 Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnStardrake();
-    auto weapons = (WeaponOption) GetEnumParam("weapons", parameters, CelestineHammer);
+    auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, CelestineHammer);
 
     bool ok = unit->configure(weapons);
     if (!ok)
@@ -106,15 +106,15 @@ void LordCelestantOnStardrake::Init()
 
 std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapon")
     {
         if (parameter.m_intValue == CelestineHammer)
         {
-            return "CelestineHammer";
+            return "Celestine Hammer";
         }
         else if (parameter.m_intValue == StormboundBlade)
         {
-            return "StormboundBlade";
+            return "Stormbound Blade";
         }
     }
     return ParameterValueToString(parameter);
@@ -297,11 +297,11 @@ void LordCelestantOnStardrake::onStartShooting(PlayerId player)
 
 int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "CelestineHammer")
+    if (enumString == "Celestine Hammer")
     {
         return CelestineHammer;
     }
-    else if (enumString == "StormboundBlade")
+    else if (enumString == "Stormbound Blade")
     {
         return StormboundBlade;
     }

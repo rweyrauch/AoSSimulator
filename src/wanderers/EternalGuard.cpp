@@ -18,11 +18,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = EternalGuard::MIN_UNIT_SIZE}, EternalGuard::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = EternalGuard::MIN_UNIT_SIZE}, EternalGuard::MIN_UNIT_SIZE,
             EternalGuard::MAX_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblower", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Glade Shields", {.m_boolValue = false}, false, false, false},
     },
     ORDER,
     WANDERER
@@ -78,10 +79,10 @@ void EternalGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *EternalGuard::Create(const ParameterList &parameters)
 {
     auto unit = new EternalGuard();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool hornblower = GetBoolParam("hornblower", parameters, false);
-    bool shields = GetBoolParam("gladeShields", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
+    bool shields = GetBoolParam("Glade Shields", parameters, false);
 
     bool ok = unit->configure(numModels, standardBearer, hornblower, shields);
     if (!ok)

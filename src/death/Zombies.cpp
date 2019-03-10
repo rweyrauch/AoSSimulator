@@ -17,7 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = Zombies::MIN_UNIT_SIZE}, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = Zombies::MIN_UNIT_SIZE}, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Noisemaker", {.m_boolValue = false}, false, false, false}
     },
     DEATH,
     DEADWALKERS
@@ -69,9 +71,9 @@ void Zombies::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Zombies::Create(const ParameterList &parameters)
 {
     auto unit = new Zombies();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, false);
-    bool noisemaker = GetBoolParam("noisemaker", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
+    bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
 
     bool ok = unit->configure(numModels, standardBearers, noisemaker);
     if (!ok)

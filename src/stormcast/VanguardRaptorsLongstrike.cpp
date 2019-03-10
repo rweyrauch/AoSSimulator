@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = 3}, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = 3}, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
             VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE
         },
     },
@@ -90,7 +90,7 @@ void VanguardRaptorsLongstrike::onStartShooting(PlayerId player)
 Unit *VanguardRaptorsLongstrike::Create(const ParameterList &parameters)
 {
     auto unit = new VanguardRaptorsLongstrike();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -19,15 +19,15 @@ static FactoryMethod factoryMethod = {
     Stabbas::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
             Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
         },
-        {ParamType::Enum, "weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Enum, "bossWeapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Integer, "numBarbedNets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numGongbashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numFlagbearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "numIconbearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Enum, "Weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Enum, "Boss Weapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Integer, "Barbed Nets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Gong Bashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Flag Bearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
     },
     DESTRUCTION,
     GLOOMSPITE_GITZ
@@ -120,13 +120,13 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
 Unit *Stabbas::Create(const ParameterList &parameters)
 {
     auto unit = new Stabbas();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, Stabba);
-    WeaponOption bossWeapon = (WeaponOption) GetEnumParam("bossWeapon", parameters, Stabba);
-    int numBarbedNets = GetIntParam("numBarbedNets", parameters, 0);
-    int numGongbashers = GetIntParam("numGongbashers", parameters, 0);
-    int numFlagbearers = GetIntParam("numFlagbearers", parameters, 0);
-    int numIconbearers = GetIntParam("numIconbearers", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stabba);
+    WeaponOption bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, Stabba);
+    int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
+    int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
+    int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
+    int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
 
     bool ok = unit->configure(numModels, weapons, bossWeapon, numBarbedNets, numGongbashers, numFlagbearers, numIconbearers);
     if (!ok)
@@ -192,7 +192,7 @@ int Stabbas::battlshockModifier() const
 
 std::string Stabbas::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons" || parameter.m_name == "bossWeapon")
+    if (parameter.m_name == "Weapons" || parameter.m_name == "Boss Weapon")
     {
         if (parameter.m_intValue == Stabba)
         {
@@ -200,7 +200,7 @@ std::string Stabbas::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == PokinSpear)
         {
-            return "PokinSpear";
+            return "Pokin' Spear";
         }
     }
     return ParameterValueToString(parameter);
@@ -212,7 +212,7 @@ int Stabbas::EnumStringToInt(const std::string &enumString)
     {
         return Stabba;
     }
-    else if (enumString == "PokinSpear")
+    else if (enumString == "Pokin' Spear")
     {
         return PokinSpear;
     }

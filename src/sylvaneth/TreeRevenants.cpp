@@ -20,12 +20,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
             TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "scionGlaive", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "gladeBanners", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "waypipes", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Scion Glaive", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Glade Banners", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Waypipes", {.m_boolValue = true}, false, false},
     },
     ORDER,
     SYLVANETH
@@ -82,10 +82,10 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
 Unit *TreeRevenants::Create(const ParameterList &parameters)
 {
     auto unit = new TreeRevenants();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool scionGlaive = GetBoolParam("scionGlaive", parameters, false);
-    bool gladeBanners = GetBoolParam("gladeBanners", parameters, false);
-    bool waypipes = GetBoolParam("waypipes", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool scionGlaive = GetBoolParam("Scion Glaive", parameters, false);
+    bool gladeBanners = GetBoolParam("Glade Banners", parameters, false);
+    bool waypipes = GetBoolParam("Waypipes", parameters, false);
 
     bool ok = unit->configure(numModels, scionGlaive, gladeBanners, waypipes);
     if (!ok)

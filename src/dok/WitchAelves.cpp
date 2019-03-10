@@ -19,12 +19,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
             WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "pairedKnives", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Paired Knives", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = true}, false, false},
     },
     ORDER,
     DAUGHTERS_OF_KHAINE
@@ -79,10 +79,10 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
 Unit *WitchAelves::Create(const ParameterList &parameters)
 {
     auto unit = new WitchAelves();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool pairedKnives = GetBoolParam("pairedKnives", parameters, true);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool pairedKnives = GetBoolParam("Paired Knives", parameters, true);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
 
     bool ok = unit->configure(numModels, pairedKnives, hornblowers, standardBearers);
     if (!ok)

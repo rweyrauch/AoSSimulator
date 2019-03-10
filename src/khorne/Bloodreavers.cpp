@@ -20,15 +20,15 @@ static FactoryMethod factoryMethod = {
     Bloodreavers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
             Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
+            ParamType::Enum, "Weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
             Bloodreavers::MeatripperAxe, 1
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     KHORNE
@@ -121,10 +121,10 @@ int Bloodreavers::battlshockModifier() const
 Unit *Bloodreavers::Create(const ParameterList &parameters)
 {
     auto unit = new Bloodreavers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, ReaverBlades);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, ReaverBlades);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, iconBearer, hornblowers);
     if (!ok)
@@ -145,21 +145,21 @@ void Bloodreavers::Init()
 
 std::string Bloodreavers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == ReaverBlades)
-        { return "ReaverBlades"; }
+        { return "Reaver Blades"; }
         else if (parameter.m_intValue == MeatripperAxe)
-        { return "MeatripperAxe"; }
+        { return "Meatripper Axe"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int Bloodreavers::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "ReaverBlades")
+    if (enumString == "Reaver Blades")
     { return ReaverBlades; }
-    else if (enumString == "MeatripperAxe")
+    else if (enumString == "Meatripper Axe")
     { return MeatripperAxe; }
     return 0;
 }

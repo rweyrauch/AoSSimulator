@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Clanrats::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Clanrats::MIN_UNIT_SIZE}, Clanrats::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Clanrats::MIN_UNIT_SIZE}, Clanrats::MIN_UNIT_SIZE,
             Clanrats::MAX_UNIT_SIZE, Clanrats::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Clanrats::RustySpear}, Clanrats::RustySpear,
+            ParamType::Enum, "Weapons", {.m_intValue = Clanrats::RustySpear}, Clanrats::RustySpear,
             Clanrats::RustyBlade, 1
         },
-        {ParamType::Boolean, "clanshields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Integer, "standardBearers", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "bellRinders", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
+        {ParamType::Boolean, "Clanshields", {.m_boolValue = false}, false, false, false},
+        {ParamType::Integer, "Standard Bearers", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Bell Ringers", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
     SKAVEN
@@ -109,11 +109,11 @@ void Clanrats::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Clanrats::Create(const ParameterList &parameters)
 {
     auto unit = new Clanrats();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapon = (WeaponOptions)GetEnumParam("weapons", parameters, (int)RustySpear);
-    bool clanshields = GetBoolParam("clanshields", parameters, false);
-    int standardBearers = GetIntParam("standardBearers", parameters, 0);
-    int bellRingers = GetIntParam("bellRingers", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOptions weapon = (WeaponOptions)GetEnumParam("Weapons", parameters, (int)RustySpear);
+    bool clanshields = GetBoolParam("Clanshields", parameters, false);
+    int standardBearers = GetIntParam("Standard Bearers", parameters, 0);
+    int bellRingers = GetIntParam("Bell Ringers", parameters, 0);
 
     bool ok = unit->configure(numModels, weapon, clanshields, standardBearers, bellRingers);
     if (!ok)
@@ -134,15 +134,15 @@ void Clanrats::Init()
 
 std::string Clanrats::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == RustySpear)
         {
-            return "RustySpear";
+            return "Rusty Spear";
         }
         else if (parameter.m_intValue == RustyBlade)
         {
-            return "RustyBlade";
+            return "Rusty Blade";
         }
     }
 
@@ -151,11 +151,11 @@ std::string Clanrats::ValueToString(const Parameter &parameter)
 
 int Clanrats::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "RustySpear")
+    if (enumString == "Rusty Spear")
     {
         return RustySpear;
     }
-    else if (enumString == "RustyBlade")
+    else if (enumString == "Rusty Blade")
     {
         return RustyBlade;
     }

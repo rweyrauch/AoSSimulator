@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Thunderers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Thunderers::MIN_UNIT_SIZE}, Thunderers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Thunderers::MIN_UNIT_SIZE}, Thunderers::MIN_UNIT_SIZE,
             Thunderers::MAX_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "veteranWeapon", {.m_intValue = Thunderers::DuardinHandgun}, Thunderers::DuardinHandgun,
+            ParamType::Enum, "Veteran Weapon", {.m_intValue = Thunderers::DuardinHandgun}, Thunderers::DuardinHandgun,
             Thunderers::BraceOfDuardinPistols, 1
         },
-        {ParamType::Boolean, "duardinBucklers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "drummers", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Duardin Bucklers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Drummers", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -98,11 +98,11 @@ void Thunderers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Thunderers::Create(const ParameterList &parameters)
 {
     auto unit = new Thunderers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions)GetEnumParam("veteranWeapon", parameters, DuardinHandgun);
-    bool duardinBucklers = GetBoolParam("duardinBucklers", parameters, false);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool drummer = GetBoolParam("drummer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapon = (WeaponOptions)GetEnumParam("Veteran Weapon", parameters, DuardinHandgun);
+    bool duardinBucklers = GetBoolParam("Duardin Bucklers", parameters, false);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool drummer = GetBoolParam("Drummer", parameters, false);
 
     bool ok = unit->configure(numModels, weapon, duardinBucklers, standardBearer, drummer);
     if (!ok)
@@ -123,15 +123,15 @@ void Thunderers::Init()
 
 std::string Thunderers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "veteranWeapon")
+    if (parameter.m_name == "Veteran Weapon")
     {
         if (parameter.m_intValue == DuardinHandgun)
         {
-            return "DuardinHandgun";
+            return "Duardin Handgun";
         }
         else if (parameter.m_intValue == BraceOfDuardinPistols)
         {
-            return "BraceOfDuardinPistols";
+            return "Brace Of Duardin Pistols";
         }
     }
 
@@ -140,11 +140,11 @@ std::string Thunderers::ValueToString(const Parameter &parameter)
 
 int Thunderers::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "DuardinHandgun")
+    if (enumString == "Duardin Handgun")
     {
         return DuardinHandgun;
     }
-    else if (enumString == "BraceOfDuardinPistols")
+    else if (enumString == "Brace Of Duardin Pistols")
     {
         return BraceOfDuardinPistols;
     }

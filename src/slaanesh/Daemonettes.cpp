@@ -18,12 +18,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Daemonettes::MIN_UNIT_SIZE}, Daemonettes::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Daemonettes::MIN_UNIT_SIZE}, Daemonettes::MIN_UNIT_SIZE,
             Daemonettes::MAX_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "standardBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblower", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Hornblower", {.m_boolValue = true}, false, false},
     },
     CHAOS,
     SLAANESH
@@ -83,10 +83,10 @@ void Daemonettes::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Daemonettes::Create(const ParameterList &parameters)
 {
     auto unit = new Daemonettes();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
     bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
     if (!ok)

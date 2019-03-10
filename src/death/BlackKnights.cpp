@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = BlackKnights::MIN_UNIT_SIZE}, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = BlackKnights::MIN_UNIT_SIZE}, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE,
             BlackKnights::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "standardBearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblowers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
     },
     DEATH,
     DEATHRATTLE
@@ -81,9 +81,9 @@ void BlackKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *BlackKnights::Create(const ParameterList &parameters)
 {
     auto unit = new BlackKnights();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool standardBearers = GetBoolParam("standardBearers", parameters, false);
-    bool hornblowers = GetBoolParam("hornblowers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
+    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
     bool ok = unit->configure(numModels, standardBearers, hornblowers);
     if (!ok)

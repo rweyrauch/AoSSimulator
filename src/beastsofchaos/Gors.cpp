@@ -17,12 +17,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Gors::MIN_UNIT_SIZE}, Gors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Gors::MIN_UNIT_SIZE}, Gors::MIN_UNIT_SIZE,
             Gors::MAX_UNIT_SIZE, Gors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "pairedBlades", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Paired Blades", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Brayhorn", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -79,10 +79,10 @@ void Gors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Gors::Create(const ParameterList &parameters)
 {
     auto unit = new Gors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool pairedBlades = GetBoolParam("pairedBlades", parameters, false);
-    bool brayhorn = GetBoolParam("brayhorn", parameters, false);
-    bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool pairedBlades = GetBoolParam("Paired Blades", parameters, false);
+    bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
+    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
     bool ok = unit->configure(numModels, pairedBlades, brayhorn, bannerBearer);
     if (!ok)

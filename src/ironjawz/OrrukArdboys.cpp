@@ -16,17 +16,17 @@ static FactoryMethod factoryMethod = {
     OrrukArdboys::ValueToString,
     OrrukArdboys::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = OrrukArdboys::MIN_UNIT_SIZE}, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
-        {ParamType::Integer, "numChoppasAndShield", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {ParamType::Integer, "numPairedChoppas", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {ParamType::Integer, "numBigChoppas", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Models", {.m_intValue = OrrukArdboys::MIN_UNIT_SIZE}, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Choppas And Shields", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Paired Choppas", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Big Choppas", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
         {
-            ParamType::Enum, "bossWeapon", {.m_intValue = OrrukArdboys::ChoppaAndSmasha}, OrrukArdboys::ChoppaOrSmashaWithShield,
+            ParamType::Enum, "Boss Weapon", {.m_intValue = OrrukArdboys::ChoppaAndSmasha}, OrrukArdboys::ChoppaOrSmashaWithShield,
             OrrukArdboys::BigChoppa, 1
         },
-        {ParamType::Boolean, "drummer", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Drummer", {.m_boolValue = false}, false, false},
         {
-            ParamType::Enum, "standard", {.m_intValue = OrrukArdboys::None}, OrrukArdboys::None, OrrukArdboys::IconOfGork, 1
+            ParamType::Enum, "Standard", {.m_intValue = OrrukArdboys::None}, OrrukArdboys::None, OrrukArdboys::IconOfGork, 1
         }
     },
     DESTRUCTION,
@@ -123,13 +123,13 @@ void OrrukArdboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *OrrukArdboys::Create(const ParameterList &parameters)
 {
     auto unit = new OrrukArdboys();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    int numChoppasAndShield = GetIntParam("numChoppasAndShield", parameters, 0);
-    int numPairedChoppas = GetIntParam("numPairedChoppas", parameters, 0);
-    int numBigChoppas = GetIntParam("numBigChoppas", parameters, 0);
-    WeaponOption bossWeapon = (WeaponOption) GetEnumParam("bossWeapon", parameters, ChoppaAndSmasha);
-    bool drummer = GetBoolParam("drummer", parameters, false);
-    StandardOption standard = (StandardOption) GetEnumParam("standard", parameters, None);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numChoppasAndShield = GetIntParam("Choppas And Shields", parameters, 0);
+    int numPairedChoppas = GetIntParam("Paired Choppas", parameters, 0);
+    int numBigChoppas = GetIntParam("Big Choppas", parameters, 0);
+    WeaponOption bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, ChoppaAndSmasha);
+    bool drummer = GetBoolParam("Drummer", parameters, false);
+    StandardOption standard = (StandardOption) GetEnumParam("Standard", parameters, None);
 
     bool ok = unit->configure(numModels, numChoppasAndShield, numPairedChoppas, numBigChoppas, bossWeapon, drummer, standard);
     if (!ok)
@@ -200,22 +200,22 @@ Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds)
 
 std::string OrrukArdboys::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "bossWeapon")
+    if (parameter.m_name == "Boss Weapon")
     {
         if (parameter.m_intValue == ChoppaOrSmashaWithShield)
         {
-            return "ChoppaOrSmashaWithShield";
+            return "Choppa Or Smasha With Shield";
         }
         else if (parameter.m_intValue == ChoppaAndSmasha)
         {
-            return "ChoppaAndSmasha";
+            return "Choppa And Smasha";
         }
         else if (parameter.m_intValue == BigChoppa)
         {
-            return "BigChoppa";
+            return "Big Choppa";
         }
     }
-    else if (parameter.m_name == "standard")
+    else if (parameter.m_name == "Standard")
     {
         if (parameter.m_intValue == None)
         {
@@ -223,11 +223,11 @@ std::string OrrukArdboys::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == OrrukBanner)
         {
-            return "OrrukBanner";
+            return "Orruk Banner";
         }
         else if (parameter.m_intValue == IconOfGork)
         {
-            return "IconOfGork";
+            return "Icon Of Gork";
         }
     }
 
@@ -236,15 +236,15 @@ std::string OrrukArdboys::ValueToString(const Parameter &parameter)
 
 int OrrukArdboys::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "ChoppaOrSmashaWithShield")
+    if (enumString == "Choppa Or Smasha With Shield")
     {
         return ChoppaOrSmashaWithShield;
     }
-    else if (enumString == "ChoppaAndSmasha")
+    else if (enumString == "Choppa And Smasha")
     {
         return ChoppaAndSmasha;
     }
-    else if (enumString == "BigChoppa")
+    else if (enumString == "Big Choppa")
     {
         return BigChoppa;
     }
@@ -252,11 +252,11 @@ int OrrukArdboys::EnumStringToInt(const std::string &enumString)
     {
         return None;
     }
-    else if (enumString == "OrrukBanner")
+    else if (enumString == "Orruk Banner")
     {
         return OrrukBanner;
     }
-    else if (enumString == "IconOfGork")
+    else if (enumString == "Icon Of Gork")
     {
         return IconOfGork;
     }

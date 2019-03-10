@@ -17,15 +17,15 @@ static FactoryMethod factoryMethod = {
     Bullgors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Bullgors::MIN_UNIT_SIZE}, Bullgors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Bullgors::MIN_UNIT_SIZE}, Bullgors::MIN_UNIT_SIZE,
             Bullgors::MAX_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
+            ParamType::Enum, "Weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
             Bullgors::BullgorGreatAxe, 1
         },
-        {ParamType::Boolean, "drummer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Drummer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -103,10 +103,10 @@ void Bullgors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Bullgors::Create(const ParameterList &parameters)
 {
     auto unit = new Bullgors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions) GetEnumParam("weapons", parameters, BullgorAxe);
-    bool drummer = GetBoolParam("drummer", parameters, false);
-    bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, BullgorAxe);
+    bool drummer = GetBoolParam("Drummer", parameters, false);
+    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
     bool ok = unit->configure(numModels, weapon, drummer, bannerBearer);
     if (!ok)
@@ -127,26 +127,20 @@ void Bullgors::Init()
 
 std::string Bullgors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
-        if (parameter.m_intValue == BullgorAxe)
-        { return "BullgorAxe"; }
-        else if (parameter.m_intValue == PairedBullgorAxes)
-        { return "PairedBullgorAxes"; }
-        else if (parameter.m_intValue == BullgorGreatAxe)
-        { return "BullgorGreatAxe"; }
+        if (parameter.m_intValue == BullgorAxe) { return "Bullgor Axe"; }
+        else if (parameter.m_intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
+        else if (parameter.m_intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
     }
     return ParameterValueToString(parameter);
 }
 
 int Bullgors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "BullgorAxe")
-    { return BullgorAxe; }
-    else if (enumString == "PairedBullgorAxes")
-    { return PairedBullgorAxes; }
-    else if (enumString == "BullgorGreatAxe")
-    { return BullgorGreatAxe; }
+    if (enumString == "Bullgor Axe") { return BullgorAxe; }
+    else if (enumString == "Paired Bullgor Axes") { return PairedBullgorAxes; }
+    else if (enumString == "Bullgor Great Axe") { return BullgorGreatAxe; }
     return 0;
 }
 

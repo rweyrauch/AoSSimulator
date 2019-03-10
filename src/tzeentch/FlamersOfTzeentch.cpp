@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = FlamersOfTzeentch::MIN_UNIT_SIZE}, FlamersOfTzeentch::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = FlamersOfTzeentch::MIN_UNIT_SIZE}, FlamersOfTzeentch::MIN_UNIT_SIZE,
             FlamersOfTzeentch::MAX_UNIT_SIZE, FlamersOfTzeentch::MIN_UNIT_SIZE
         },
     },
@@ -76,7 +76,7 @@ void FlamersOfTzeentch::visitWeapons(std::function<void(const Weapon *)> &visito
 Unit *FlamersOfTzeentch::Create(const ParameterList &parameters)
 {
     auto unit = new FlamersOfTzeentch();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

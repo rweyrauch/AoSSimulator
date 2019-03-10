@@ -17,14 +17,14 @@ static FactoryMethod factoryMethod = {
     Sequitors::ValueToString,
     Sequitors::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
+            ParamType::Enum, "Weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
             Sequitors::TempestBlade, 1
         },
-        {ParamType::Integer, "numGreatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
-        {ParamType::Boolean, "primeGreatmace", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "redemptionCache", {.m_boolValue = false}, false, false}
+        {ParamType::Integer, "Greatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
+        {ParamType::Boolean, "Prime Greatmace", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Redemption Cache", {.m_boolValue = false}, false, false}
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -175,11 +175,11 @@ int Sequitors::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const U
 Unit *Sequitors::Create(const ParameterList &parameters)
 {
     auto unit = new Sequitors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, StormsmiteMaul);
-    int numGreatmaces = GetIntParam("numGreatmaces", parameters, 0);
-    bool primeGreatmace = GetBoolParam("primeGreatmace", parameters, false);
-    bool redemptionCache = GetBoolParam("redemptionCache", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormsmiteMaul);
+    int numGreatmaces = GetIntParam("Greatmaces", parameters, 0);
+    bool primeGreatmace = GetBoolParam("Prime Greatmace", parameters, false);
+    bool redemptionCache = GetBoolParam("Redemption Cache", parameters, false);
 
     bool ok = unit->configure(numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
     if (!ok)
@@ -200,15 +200,15 @@ void Sequitors::Init()
 
 std::string Sequitors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == StormsmiteMaul)
         {
-            return "StormsmiteMaul";
+            return "Stormsmite Maul";
         }
         else if (parameter.m_intValue == TempestBlade)
         {
-            return "TempestBlade";
+            return "Tempest Blade";
         }
     }
     return ParameterValueToString(parameter);
@@ -216,11 +216,11 @@ std::string Sequitors::ValueToString(const Parameter &parameter)
 
 int Sequitors::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "StormsmiteMaul")
+    if (enumString == "Stormsmite Maul")
     {
         return StormsmiteMaul;
     }
-    else if (enumString == "TempestBlade")
+    else if (enumString == "Tempest Blade")
     {
         return TempestBlade;
     }

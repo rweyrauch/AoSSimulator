@@ -18,15 +18,15 @@ static FactoryMethod factoryMethod = {
     Irondrakes::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Irondrakes::MIN_UNIT_SIZE}, Irondrakes::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Irondrakes::MIN_UNIT_SIZE}, Irondrakes::MIN_UNIT_SIZE,
             Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "ironWardenWeapons", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
+            ParamType::Enum, "Ironwarden Weapon", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
             Irondrakes::PairedDrakefirePistols, 1
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "hornblower", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false}
     },
     ORDER,
     DISPOSSESSED
@@ -113,10 +113,10 @@ void Irondrakes::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Irondrakes::Create(const ParameterList &parameters)
 {
     auto unit = new Irondrakes();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapon = (WeaponOptions)GetEnumParam("ironWardenWeapons", parameters, (int)Drakegun);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool hornblower = GetBoolParam("hornblower", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOptions weapon = (WeaponOptions)GetEnumParam("Ironwarden Weapon", parameters, (int)Drakegun);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
     bool ok = unit->configure(numModels, weapon, iconBearer, hornblower);
     if (!ok)
@@ -196,7 +196,7 @@ int Irondrakes::extraAttacks(const Weapon *weapon) const
 
 std::string Irondrakes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "ironWardenWeapons")
+    if (parameter.m_name == "Ironwarden Weapon")
     {
         if (parameter.m_intValue == Drakegun)
         {
@@ -204,15 +204,15 @@ std::string Irondrakes::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == GrudgehammerTorpedo)
         {
-            return "GrudgehammerTorpedo";
+            return "Grudgehammer Torpedo";
         }
         else if (parameter.m_intValue == DrakefirePistolAndCinderblastBomb)
         {
-            return "DrakefirePistolAndCinderblastBomb";
+            return "Drakefire Pistol And Cinderblast Bomb";
         }
         else if (parameter.m_intValue == PairedDrakefirePistols)
         {
-            return "PairedDrakefirePistols";
+            return "Paired Drakefire Pistols";
         }
     }
 
@@ -225,15 +225,15 @@ int Irondrakes::EnumStringToInt(const std::string &enumString)
     {
         return Drakegun;
     }
-    else if (enumString == "GrudgehammerTorpedo")
+    else if (enumString == "Grudgehammer Torpedo")
     {
         return GrudgehammerTorpedo;
     }
-    else if (enumString == "DrakefirePistolAndCinderblastBomb")
+    else if (enumString == "Drakefire Pistol And CinderblastBomb")
     {
         return DrakefirePistolAndCinderblastBomb;
     }
-    else if (enumString == "PairedDrakefirePistols")
+    else if (enumString == "Paired Drakefire Pistols")
     {
         return PairedDrakefirePistols;
     }

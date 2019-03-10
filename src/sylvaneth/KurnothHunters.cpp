@@ -19,11 +19,11 @@ static FactoryMethod factoryMethod = {
     KurnothHunters::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
             KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
+            ParamType::Enum, "Weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
             KurnothHunters::Greatbows, 1
         }
     },
@@ -104,8 +104,8 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
 Unit *KurnothHunters::Create(const ParameterList &parameters)
 {
     auto unit = new KurnothHunters();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, KurnothHunters::Greatswords);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, KurnothHunters::Greatswords);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -126,7 +126,7 @@ void KurnothHunters::Init()
 
 std::string KurnothHunters::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == Greatswords)
         {

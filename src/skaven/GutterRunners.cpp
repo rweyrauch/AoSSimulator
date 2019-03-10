@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = GutterRunners::MIN_UNIT_SIZE}, GutterRunners::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = GutterRunners::MIN_UNIT_SIZE}, GutterRunners::MIN_UNIT_SIZE,
             GutterRunners::MAX_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE
         },
     },
@@ -72,7 +72,7 @@ void GutterRunners::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *GutterRunners::Create(const ParameterList &parameters)
 {
     auto unit = new GutterRunners();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

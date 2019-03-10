@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
             BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE
         }
     },
@@ -73,7 +73,7 @@ bool BoingrotBounderz::configure(int numModels)
 Unit *BoingrotBounderz::Create(const ParameterList &parameters)
 {
     auto unit = new BoingrotBounderz();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

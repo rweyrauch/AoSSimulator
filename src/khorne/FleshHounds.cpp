@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = FleshHounds::MIN_UNIT_SIZE}, FleshHounds::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = FleshHounds::MIN_UNIT_SIZE}, FleshHounds::MIN_UNIT_SIZE,
             FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
         },
     },
@@ -74,7 +74,7 @@ bool FleshHounds::configure(int numModels)
 Unit *FleshHounds::Create(const ParameterList &parameters)
 {
     auto unit = new FleshHounds();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

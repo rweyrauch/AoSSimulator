@@ -17,12 +17,12 @@ static FactoryMethod factoryMethod = {
     VanguardHunters::ValueToString,
     VanguardHunters::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = 5}, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
+            ParamType::Enum, "Weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
             VanguardHunters::StormSabre, 1
         },
-        {ParamType::Boolean, "astralCompass", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Astral Compass", {.m_boolValue = false}, false, false},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -97,9 +97,9 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
 Unit *VanguardHunters::Create(const ParameterList &parameters)
 {
     auto hunters = new VanguardHunters();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, StormSabre);
-    bool astralCompass = GetBoolParam("astralCompass", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormSabre);
+    bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
 
     bool ok = hunters->configure(numModels, weapons, astralCompass);
     if (!ok)
@@ -120,15 +120,15 @@ void VanguardHunters::Init()
 
 std::string VanguardHunters::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == StormSabre)
         {
-            return "StormSabre";
+            return "Storm Sabre";
         }
         else if (parameter.m_intValue == ShockHandaxe)
         {
-            return "ShockHandaxe";
+            return "Shock Handaxe";
         }
     }
     return ParameterValueToString(parameter);
@@ -136,11 +136,11 @@ std::string VanguardHunters::ValueToString(const Parameter &parameter)
 
 int VanguardHunters::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "StormSabre")
+    if (enumString == "Storm Sabre")
     {
         return StormSabre;
     }
-    else if (enumString == "ShockHandaxe")
+    else if (enumString == "Shock Handaxe")
     {
         return ShockHandaxe;
     }

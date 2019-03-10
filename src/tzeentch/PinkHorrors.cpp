@@ -18,11 +18,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = PinkHorrors::MIN_UNIT_SIZE}, PinkHorrors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = PinkHorrors::MIN_UNIT_SIZE}, PinkHorrors::MIN_UNIT_SIZE,
             PinkHorrors::MAX_UNIT_SIZE, PinkHorrors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "hornblower", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Hornblower", {.m_boolValue = true}, false, false},
     },
     CHAOS,
     TZEENTCH
@@ -81,9 +81,9 @@ void PinkHorrors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *PinkHorrors::Create(const ParameterList &parameters)
 {
     auto unit = new PinkHorrors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool hornblower = GetBoolParam("hornblower", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
     bool ok = unit->configure(numModels, iconBearer, hornblower);
     if (!ok)

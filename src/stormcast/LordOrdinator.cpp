@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     LordOrdinator::EnumStringToInt,
     {
         {
-            ParamType::Enum, "weapons", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
+            ParamType::Enum, "Weapon", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
             LordOrdinator::AstralGrandhammer, 1
         },
     },
@@ -59,7 +59,7 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 Unit *LordOrdinator::Create(const ParameterList &parameters)
 {
     auto unit = new LordOrdinator();
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, false);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
 
     bool ok = unit->configure(weapons);
     if (!ok)
@@ -80,15 +80,15 @@ void LordOrdinator::Init()
 
 std::string LordOrdinator::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapon")
     {
         if (parameter.m_intValue == AstralHammers)
         {
-            return "AstralHammers";
+            return "Astral Hammers";
         }
         else if (parameter.m_intValue == AstralGrandhammer)
         {
-            return "AstralGrandhammer";
+            return "Astral Grandhammer";
         }
     }
 
@@ -97,11 +97,11 @@ std::string LordOrdinator::ValueToString(const Parameter &parameter)
 
 int LordOrdinator::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "AstralHammers")
+    if (enumString == "Astral Hammers")
     {
         return AstralHammers;
     }
-    else if (enumString == "AstralGrandhammer")
+    else if (enumString == "Astral Grandhammer")
     {
         return AstralGrandhammer;
     }

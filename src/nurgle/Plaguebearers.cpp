@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Plaguebearers::MIN_UNIT_SIZE}, Plaguebearers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Plaguebearers::MIN_UNIT_SIZE}, Plaguebearers::MIN_UNIT_SIZE,
             Plaguebearers::MAX_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "iconBearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "piper", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Piper", {.m_boolValue = true}, false, false},
     },
     CHAOS,
     NURGLE
@@ -77,9 +77,9 @@ void Plaguebearers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Plaguebearers::Create(const ParameterList &parameters)
 {
     auto unit = new Plaguebearers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("iconBearer", parameters, false);
-    bool pipers = GetBoolParam("pipers", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool pipers = GetBoolParam("Pipers", parameters, false);
 
     bool ok = unit->configure(numModels, iconBearer, pipers);
     if (!ok)

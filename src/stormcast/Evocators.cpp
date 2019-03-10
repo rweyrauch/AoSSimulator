@@ -18,9 +18,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "primeGrandstave", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "numGrandstaves", {.m_intValue = 2}, 0, Evocators::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Models", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
+        {ParamType::Boolean, "Prime Grandstave", {.m_boolValue = false}, false, false},
+        {ParamType::Integer, "Grandstaves", {.m_intValue = 2}, 0, Evocators::MAX_UNIT_SIZE, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -125,9 +125,9 @@ int Evocators::generateMortalWounds(const Unit *unit)
 Unit *Evocators::Create(const ParameterList &parameters)
 {
     auto *evos = new Evocators();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool primeGrandstave = GetBoolParam("primeGrandstave", parameters, false);
-    int numGrandstaves = GetIntParam("numGrandstaves", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
+    int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
 
     bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave);
     if (!ok)

@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = SquiqHerd::MIN_UNIT_SIZE}, SquiqHerd::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = SquiqHerd::MIN_UNIT_SIZE}, SquiqHerd::MIN_UNIT_SIZE,
             SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE
         }
     },
@@ -77,7 +77,7 @@ bool SquiqHerd::configure(int numModels)
 Unit *SquiqHerd::Create(const ParameterList &parameters)
 {
     auto unit = new SquiqHerd();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)

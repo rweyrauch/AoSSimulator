@@ -18,19 +18,19 @@ static FactoryMethod factoryMethod = {
     Stormfiends::EnumStringToInt,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Stormfiends::MIN_UNIT_SIZE}, Stormfiends::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Stormfiends::MIN_UNIT_SIZE}, Stormfiends::MIN_UNIT_SIZE,
             Stormfiends::MAX_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "weapon1", {.m_intValue = Stormfiends::WarpfireProjectors}, Stormfiends::WarpfireProjectors,
+            ParamType::Enum, "Weapon A", {.m_intValue = Stormfiends::WarpfireProjectors}, Stormfiends::WarpfireProjectors,
             Stormfiends::Windlaunchers, 1
         },
         {
-            ParamType::Enum, "weapon2", {.m_intValue = Stormfiends::Grinderfists}, Stormfiends::Grinderfists,
+            ParamType::Enum, "Weapon B", {.m_intValue = Stormfiends::Grinderfists}, Stormfiends::Grinderfists,
             Stormfiends::RatlingCannons, 1
         },
         {
-            ParamType::Enum, "weapon3", {.m_intValue = Stormfiends::DoomflayerGauntlets}, Stormfiends::DoomflayerGauntlets,
+            ParamType::Enum, "Weapon C", {.m_intValue = Stormfiends::DoomflayerGauntlets}, Stormfiends::DoomflayerGauntlets,
             Stormfiends::ShockGauntlets, 1
         },
     },
@@ -130,10 +130,10 @@ void Stormfiends::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Stormfiends::Create(const ParameterList &parameters)
 {
     auto unit = new Stormfiends();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption_1 weapon1 = (WeaponOption_1)GetEnumParam("weapon1", parameters, WarpfireProjectors);
-    WeaponOption_2 weapon2 = (WeaponOption_2)GetEnumParam("weapon2", parameters, Grinderfists);
-    WeaponOption_3 weapon3 = (WeaponOption_3)GetEnumParam("weapon3", parameters, DoomflayerGauntlets);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption_1 weapon1 = (WeaponOption_1)GetEnumParam("Weapon A", parameters, WarpfireProjectors);
+    WeaponOption_2 weapon2 = (WeaponOption_2)GetEnumParam("Weapon B", parameters, Grinderfists);
+    WeaponOption_3 weapon3 = (WeaponOption_3)GetEnumParam("Weapon C", parameters, DoomflayerGauntlets);
 
     bool ok = unit->configure(numModels, weapon1, weapon2, weapon3);
     if (!ok)
@@ -154,18 +154,18 @@ void Stormfiends::Init()
 
 std::string Stormfiends::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapon1")
+    if (parameter.m_name == "Weapon A")
     {
         if (parameter.m_intValue == WarpfireProjectors)
         {
-            return "WarpfireProjectors";
+            return "Warpfire Projectors";
         }
         else if (parameter.m_intValue == Windlaunchers)
         {
             return "Windlaunchers";
         }
     }
-    else if (parameter.m_name == "weapon2")
+    else if (parameter.m_name == "Weapon B")
     {
         if (parameter.m_intValue == Grinderfists)
         {
@@ -173,18 +173,18 @@ std::string Stormfiends::ValueToString(const Parameter &parameter)
         }
         else if (parameter.m_intValue == RatlingCannons)
         {
-            return "RatlingCannons";
+            return "Ratling Cannons";
         }
     }
-    else if (parameter.m_name == "weapon3")
+    else if (parameter.m_name == "Weapon C")
     {
         if (parameter.m_intValue == DoomflayerGauntlets)
         {
-            return "DoomflayerGauntlets";
+            return "Doomflayer Gauntlets";
         }
         else if (parameter.m_intValue == ShockGauntlets)
         {
-            return "ShockGauntlets";
+            return "Shock Gauntlets";
         }
     }
 
@@ -193,7 +193,7 @@ std::string Stormfiends::ValueToString(const Parameter &parameter)
 
 int Stormfiends::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "WarpfireProjectors")
+    if (enumString == "Warpfire Projectors")
     {
         return WarpfireProjectors;
     }
@@ -205,15 +205,15 @@ int Stormfiends::EnumStringToInt(const std::string &enumString)
     {
         return Grinderfists;
     }
-    else if (enumString == "RatlingCannons")
+    else if (enumString == "Ratling Cannons")
     {
         return RatlingCannons;
     }
-    else if (enumString == "DoomflayerGauntlets")
+    else if (enumString == "Doomflayer Gauntlets")
     {
         return DoomflayerGauntlets;
     }
-    else if (enumString == "ShockGauntlets")
+    else if (enumString == "Shock Gauntlets")
     {
         return ShockGauntlets;
     }

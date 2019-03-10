@@ -17,9 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = WildwoodRangers::MIN_UNIT_SIZE}, WildwoodRangers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = WildwoodRangers::MIN_UNIT_SIZE}, WildwoodRangers::MIN_UNIT_SIZE,
             WildwoodRangers::MAX_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE
         },
+        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false},
     },
     ORDER,
     WANDERER
@@ -74,9 +76,9 @@ void WildwoodRangers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *WildwoodRangers::Create(const ParameterList &parameters)
 {
     auto unit = new WildwoodRangers();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool standardBearer = GetBoolParam("standardBearer", parameters, false);
-    bool hornblower = GetBoolParam("hornblower", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
     bool ok = unit->configure(numModels, standardBearer, hornblower);
     if (!ok)

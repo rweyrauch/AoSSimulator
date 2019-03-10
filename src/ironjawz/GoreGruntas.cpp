@@ -16,9 +16,9 @@ static FactoryMethod factoryMethod = {
     OrrukGoreGruntas::ValueToString,
     OrrukGoreGruntas::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = OrrukGoreGruntas::MIN_UNIT_SIZE}, OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MAX_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = OrrukGoreGruntas::MIN_UNIT_SIZE}, OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MAX_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "weapons", {.m_intValue = OrrukGoreGruntas::PigIronChoppa}, OrrukGoreGruntas::PigIronChoppa,
+            ParamType::Enum, "Weapons", {.m_intValue = OrrukGoreGruntas::PigIronChoppa}, OrrukGoreGruntas::PigIronChoppa,
             OrrukGoreGruntas::JaggedGorehacka, 1
         },
     },
@@ -97,8 +97,8 @@ void OrrukGoreGruntas::visitWeapons(std::function<void(const Weapon *)> &visitor
 Unit *OrrukGoreGruntas::Create(const ParameterList &parameters)
 {
     auto unit = new OrrukGoreGruntas();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, PigIronChoppa);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PigIronChoppa);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -115,11 +115,11 @@ std::string OrrukGoreGruntas::ValueToString(const Parameter &parameter)
     {
         if (parameter.m_intValue == PigIronChoppa)
         {
-            return "PigIronChoppa";
+            return "Pig-iron Choppa";
         }
         else if (parameter.m_intValue == JaggedGorehacka)
         {
-            return "JaggedGorehacka";
+            return "Jagged Gore-hacka";
         }
     }
     return ParameterValueToString(parameter);
@@ -127,11 +127,11 @@ std::string OrrukGoreGruntas::ValueToString(const Parameter &parameter)
 
 int OrrukGoreGruntas::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "PigIronChoppa")
+    if (enumString == "Pig-iron Choppa")
     {
         return PigIronChoppa;
     }
-    else if (enumString == "JaggedGorehacka")
+    else if (enumString == "Jagged Gore-hacka")
     {
         return JaggedGorehacka;
     }

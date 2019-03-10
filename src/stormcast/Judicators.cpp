@@ -17,13 +17,13 @@ static FactoryMethod factoryMethod = {
     Judicators::ValueToString,
     Judicators::EnumStringToInt,
     {
-        {ParamType::Integer, "numModels", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
+            ParamType::Enum, "Weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
             Judicators::BoltstormCrossbow, 1
         },
-        {ParamType::Integer, "numShockboltBows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "numThunderboltCrossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5, 1}
+        {ParamType::Integer, "Shockbolt Bows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "Thunderbolt Crossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5, 1}
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -139,10 +139,10 @@ int Judicators::extraAttacks(const Weapon *weapon) const
 Unit *Judicators::Create(const ParameterList &parameters)
 {
     auto juds = new Judicators();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("weapons", parameters, SkyboltBow);
-    int numShockboltBows = GetIntParam("numShockboltBows", parameters, 0);
-    int numThunderboltCrossbows = GetIntParam("numThunderboltCrossbows", parameters, 0);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, SkyboltBow);
+    int numShockboltBows = GetIntParam("Shockbolt Bows", parameters, 0);
+    int numThunderboltCrossbows = GetIntParam("Thunderbolt Crossbows", parameters, 0);
 
     bool ok = juds->configure(numModels, weapons, numShockboltBows, numThunderboltCrossbows);
     if (!ok)
@@ -163,15 +163,15 @@ void Judicators::Init()
 
 std::string Judicators::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (parameter.m_name == "Weapons")
     {
         if (parameter.m_intValue == SkyboltBow)
         {
-            return "SkyboltBow";
+            return "Skybolt Bow";
         }
         else if (parameter.m_intValue == BoltstormCrossbow)
         {
-            return "BoltstormCrossbow";
+            return "Boltstorm Crossbow";
         }
     }
     return ParameterValueToString(parameter);
@@ -179,11 +179,11 @@ std::string Judicators::ValueToString(const Parameter &parameter)
 
 int Judicators::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "SkyboltBow")
+    if (enumString == "Skybolt Bow")
     {
         return SkyboltBow;
     }
-    else if (enumString == "BoltstormCrossbow")
+    else if (enumString == "Boltstorm Crossbow")
     {
         return BoltstormCrossbow;
     }

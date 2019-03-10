@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = Bestigors::MIN_UNIT_SIZE}, Bestigors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = Bestigors::MIN_UNIT_SIZE}, Bestigors::MIN_UNIT_SIZE,
             Bestigors::MAX_UNIT_SIZE, Bestigors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "brayhorn", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "bannerBearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Brayhorn", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -78,9 +78,9 @@ void Bestigors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Bestigors::Create(const ParameterList &parameters)
 {
     auto unit = new Bestigors();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
-    bool brayhorn = GetBoolParam("brayhorn", parameters, false);
-    bool bannerBearer = GetBoolParam("bannerBearer", parameters, false);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
+    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
     bool ok = unit->configure(numModels, brayhorn, bannerBearer);
     if (!ok)

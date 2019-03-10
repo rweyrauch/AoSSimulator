@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "numModels", {.m_intValue = NightRunners::MIN_UNIT_SIZE}, NightRunners::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", {.m_intValue = NightRunners::MIN_UNIT_SIZE}, NightRunners::MIN_UNIT_SIZE,
             NightRunners::MAX_UNIT_SIZE, NightRunners::MIN_UNIT_SIZE
         },
     },
@@ -78,7 +78,7 @@ void NightRunners::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *NightRunners::Create(const ParameterList &parameters)
 {
     auto unit = new NightRunners();
-    int numModels = GetIntParam("numModels", parameters, MIN_UNIT_SIZE);
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)
