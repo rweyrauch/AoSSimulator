@@ -18,7 +18,10 @@ static FactoryMethod factoryMethod = {
     Liberators::ValueToString,
     Liberators::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = 5}, Liberators::MIN_UNIT_SIZE, Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE},
+        {
+            ParamType::Integer, "Models", {.m_intValue = Liberators::MIN_UNIT_SIZE}, Liberators::MIN_UNIT_SIZE,
+            Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE
+        },
         {
             ParamType::Enum, "Weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
             Liberators::Warblade, 1

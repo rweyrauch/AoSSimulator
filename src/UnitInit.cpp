@@ -161,6 +161,11 @@
 #include "ironjawz/GoreGruntas.h"
 #include "ironjawz/OrrukMegaboss.h"
 
+#include "eldritchcouncil/Swordmasters.h"
+#include "eldritchcouncil/Loremaster.h"
+#include "eldritchcouncil/Archmage.h"
+#include "eldritchcouncil/ArchmageOnDragon.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -323,4 +328,9 @@ void Initialize(Verbosity verbosity)
     Ironjawz::OrrukBrutes::Init();
     Ironjawz::OrrukGoreGruntas::Init();
     Ironjawz::OrrukMegaboss::Init();
+
+    EldritchCouncil::Swordmasters::Init();
+    EldritchCouncil::Loremaster::Init();
+    EldritchCouncil::Archmage::Init();
+    EldritchCouncil::ArchmageOnDragon::Init();
 }

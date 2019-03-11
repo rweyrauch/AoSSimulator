@@ -20,8 +20,8 @@ static FactoryMethod factoryMethod = {
             Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = (int) Skullreapers::WeaponOptions::GoreSlickBlades},
-            (int) Skullreapers::WeaponOptions::GoreSlickBlades, (int) Skullreapers::WeaponOptions::Daemonblades, 1
+            ParamType::Enum, "Weapons", {.m_intValue = Skullreapers::WeaponOptions::GoreSlickBlades},
+            Skullreapers::WeaponOptions::GoreSlickBlades, Skullreapers::WeaponOptions::Daemonblades, 1
         },
         {ParamType::Integer, "Spinecleavers", {.m_intValue = 1}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},
         {ParamType::Integer, "Soultearers", {.m_intValue = 0}, 0, Skullreapers::MAX_UNIT_SIZE / 5, 1},

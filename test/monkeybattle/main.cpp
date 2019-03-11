@@ -150,7 +150,7 @@ Unit* GenerateRandomUnit()
     {
         for (auto& pp : parameters)
         {
-            if (pp.m_paramType == ParamType::Integer && pp.m_name != "numModels")
+            if (pp.m_paramType == ParamType::Integer && pp.m_name != "Models")
                 pp.m_intValue = 0;
         }
 

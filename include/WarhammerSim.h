@@ -139,6 +139,7 @@ enum Keyword
     WARLOCK,
     ENGINEER,
     ORRUK,
+    DRAGON,
 
     // Stormcast
     SACROSANCT,
@@ -393,6 +394,13 @@ enum Keyword
     GORDRAKK,
     GORE_GRUNTAS,
     WARCHANTERS,
+
+    // Eldritch Council
+    SWORDMASTERS,
+    ARCHMAGE,
+    ARCHMAGE_ON_DRAGON,
+    DRAKESEER,
+    LOREMASTER,
 
 };
 

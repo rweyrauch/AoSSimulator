@@ -183,6 +183,11 @@ add_library(
         ironjawz/OrrukBrutes.cpp
         ironjawz/GoreGruntas.cpp
         ironjawz/OrrukMegaboss.cpp
+
+        eldritchcouncil/Swordmasters.cpp
+        eldritchcouncil/Loremaster.cpp
+        eldritchcouncil/Archmage.cpp
+        eldritchcouncil/ArchmageOnDragon.cpp
 )
 
 target_include_directories(
