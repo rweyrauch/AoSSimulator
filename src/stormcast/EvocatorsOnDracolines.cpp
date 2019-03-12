@@ -38,6 +38,9 @@ EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines() :
     m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws",1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves, bool primeGrandstave)

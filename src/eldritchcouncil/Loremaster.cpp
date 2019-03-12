@@ -8,6 +8,8 @@
 
 #include <eldritchcouncil/Loremaster.h>
 #include <UnitFactory.h>
+#include <spells/ArcaneBolt.h>
+#include <spells/MysticShield.h>
 
 namespace EldritchCouncil
 {
@@ -41,6 +43,9 @@ bool Loremaster::configure()
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
+
+    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     return true;
 }

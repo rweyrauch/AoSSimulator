@@ -43,6 +43,9 @@ KairicAcolytes::KairicAcolytes() :
     m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, KAIRIC_ACOLYTES};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts, int numVulcharcs)

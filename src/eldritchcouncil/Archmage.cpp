@@ -8,6 +8,8 @@
 
 #include <eldritchcouncil/Archmage.h>
 #include <UnitFactory.h>
+#include <spells/ArcaneBolt.h>
+#include <spells/MysticShield.h>
 
 namespace EldritchCouncil
 {
@@ -47,6 +49,9 @@ bool Archmage::configure(bool steed)
         m_move = 14;
     }
     addModel(model);
+
+    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

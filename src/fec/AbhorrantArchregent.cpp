@@ -30,6 +30,9 @@ AbhorrantArchregent::AbhorrantArchregent() :
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
         ABHORRANT_ARCHREGENT};
+
+    m_totalUnbinds = 2;
+    m_totalSpells = 2;
 }
 
 bool AbhorrantArchregent::configure()

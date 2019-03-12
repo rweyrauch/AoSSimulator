@@ -51,6 +51,9 @@ AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, MONSTER, HERO,
         WIZARD, ABHORRANT_GHOUL_KING};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool AbhorrantGhoulKingOnZombieDragon::configure()

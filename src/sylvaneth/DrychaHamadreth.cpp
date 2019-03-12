@@ -53,6 +53,9 @@ DrychaHamadreth::DrychaHamadreth() :
     m_thornedSlendervines(Weapon::Type::Melee, "Thorned Slendervines", 2, RAND_2D6, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool DrychaHamadreth::configure()

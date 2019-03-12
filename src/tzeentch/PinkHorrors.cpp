@@ -37,6 +37,9 @@ PinkHorrors::PinkHorrors() :
     m_graspingHandsHorror(Weapon::Type::Melee, "Grasping Hands (Iridescent Horror)", 1, 2, 5, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, TZEENTCH, WIZARD, PINK_HORRORS};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)

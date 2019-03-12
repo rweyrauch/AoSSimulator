@@ -52,6 +52,9 @@ TheGlottkin::TheGlottkin() :
     m_poisonScythe(Weapon::Type::Melee, "Otto's Poison-slick Scythe", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, WIZARD, THE_GLOTTKIN};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 2;
 }
 
 bool TheGlottkin::configure()

@@ -28,16 +28,20 @@ public:
     float range() const { return m_range; }
     const std::string& name() const { return m_name; }
 
+    bool targetFriendly() const { return m_targetFriendly; }
+
     virtual bool cast(Unit* target) = 0;
     virtual bool cast(float x, float y) = 0;
 
 protected:
 
-    Unit* m_caster;
+    Unit* m_caster = nullptr;
     std::string m_name;
     int m_castingValue = 0;
     float m_range = 0.0f;
     Duration m_duration;
+
+    bool m_targetFriendly = false;
 };
 
 class DamageSpell : public Spell

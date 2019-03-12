@@ -52,6 +52,9 @@ TreelordAncient::TreelordAncient() :
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, TREELORD_ANCIENT};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool TreelordAncient::configure()

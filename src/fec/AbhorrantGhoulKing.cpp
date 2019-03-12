@@ -30,6 +30,9 @@ AbhorrantGhoulKing::AbhorrantGhoulKing() :
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
         ABHORRANT_GHOUL_KING};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool AbhorrantGhoulKing::configure()

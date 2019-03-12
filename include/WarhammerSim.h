@@ -62,6 +62,18 @@ enum class Role
     LeaderBehemoth,
 };
 
+enum BuffableAttribute
+{
+    MoveDistance = 0,
+    ChargeDistance,
+    ToHit,
+    ToWound,
+    ToSave,
+    Bravery,
+
+    NUM_BUFFABLE_ATTRIBUTES
+};
+
 enum Keyword
 {
     UNKNOWN = -1,

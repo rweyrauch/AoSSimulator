@@ -35,8 +35,6 @@ public:
 
 protected:
 
-    void castSpell() override;
-
 private:
 
     Weapon m_staff;

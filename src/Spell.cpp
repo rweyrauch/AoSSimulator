@@ -13,7 +13,9 @@
 DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage) :
     Spell(caster, name, castingValue, range),
     m_damage(damage)
-{}
+{
+    m_targetFriendly = false;
+}
 
 bool DamageSpell::cast(Unit *target)
 {
@@ -32,7 +34,7 @@ bool DamageSpell::cast(Unit *target)
     Dice dice;
 
     int mortalWounds = 0;
-    const int castingRoll = dice.rollD6();
+    const int castingRoll = dice.roll2D6();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -40,6 +42,8 @@ bool DamageSpell::cast(Unit *target)
         {
             mortalWounds = dice.rollSpecial(getDamage(castingRoll));
             target->applyDamage({0, mortalWounds});
+            SimLog(Verbosity::Narrative, "%s spell %s inflicts %d mortal wounds into %s.\n", m_caster->name().c_str(), name().c_str(),
+                mortalWounds, target->name().c_str());
         }
     }
 

@@ -845,6 +845,56 @@ bool Unit::unbind(const Unit* caster, int castRoll)
     return false;
 }
 
+void Unit::castSpell()
+{
+    if (m_spellsCast < m_totalSpells)
+    {
+        for (auto& sip : m_knownSpells)
+        {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
+            if (sip->targetFriendly())
+            {
+                units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, sip->range());
+                units.push_back(this);
+            }
+
+            // TODO: determine 'best' spell to cast on the 'best' target.
+
+            // cast the first spell on the first unit
+            for (auto ip : units)
+            {
+                bool successful = sip->cast(ip);
+                if (successful)
+                {
+                    SimLog(Verbosity::Narrative, "%s successfully cast %s\n", m_name.c_str(), sip->name().c_str());
+                }
+                m_spellsCast++;
+                return;
+            }
+        }
+    }
+}
+
+void Unit::useCommandAbility()
+{
+
+}
+
+void Unit::makePrayer()
+{
+
+}
+
+bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration)
+{
+    return false;
+}
+
+bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration)
+{
+    return false;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

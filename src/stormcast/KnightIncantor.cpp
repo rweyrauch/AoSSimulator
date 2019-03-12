@@ -77,26 +77,5 @@ void KnightIncantor::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_staff);
 }
 
-void KnightIncantor::castSpell()
-{
-    if (m_spellsCast < m_totalSpells)
-    {
-        for (auto& sip : m_knownSpells)
-        {
-            // cast the first spell on the first unit
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
-            for (auto ip : units)
-            {
-                bool successful = sip->cast(ip);
-                if (successful)
-                {
-                    SimLog(Verbosity::Narrative, "%s successfully cast %s", m_name.c_str(), sip->name().c_str());
-                }
-                m_spellsCast++;
-                break;
-            }
-        }
-    }
-}
 
 } // namespace StormcastEternals

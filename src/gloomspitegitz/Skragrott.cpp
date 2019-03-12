@@ -33,6 +33,9 @@ Skragrott::Skragrott() :
     m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
+
+    m_totalUnbinds = 2;
+    m_totalSpells = 2;
 }
 
 bool Skragrott::configure()

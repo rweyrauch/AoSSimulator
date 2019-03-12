@@ -53,6 +53,9 @@ Alarielle::Alarielle() :
     m_beetleGreatAntlers(Weapon::Type::Melee, "Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
+
+    m_totalUnbinds = 3;
+    m_totalSpells = 3;
 }
 
 bool Alarielle::configure()

@@ -36,6 +36,9 @@ Evocators::Evocators() :
     m_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave)

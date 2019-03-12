@@ -167,6 +167,9 @@ public:
 
     bool isGeneral() const { return m_isGeneral; }
 
+    bool buffModifier(BuffableAttribute which, int modifier, Duration duration);
+    bool buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration);
+
 protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
@@ -175,6 +178,10 @@ protected:
         Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered);
 
     int rerolling(int initialRoll, Rerolls reroll, Dice& dice) const;
+
+    void useCommandAbility();
+    void castSpell();
+    void makePrayer();
 
 protected:
 
@@ -324,10 +331,6 @@ protected:
 
     virtual Wounds applyWoundSave(const Wounds &wounds) { return wounds; }
 
-    virtual void useCommandAbility() {}
-    virtual void castSpell() {}
-    virtual void makePrayer() {}
-
 protected:
     std::string m_name = "";
     int m_move = 0;
@@ -381,17 +384,6 @@ protected:
     TurnRecord m_currentRecord;
     UnitStatistics m_statistics;
 
-    enum BuffableAttribute
-    {
-        MoveDistance = 0,
-        ChargeDistance,
-        ToHit,
-        ToWound,
-        ToSave,
-        Bravery,
-
-        NUM_BUFFABLE_ATTRIBUTES
-    };
     // TODO: How best manage buff/debuffs?  Data or code?
     // How to manage buff/debuff lifecycle?
     int m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
