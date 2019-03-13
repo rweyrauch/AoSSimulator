@@ -30,8 +30,8 @@ public:
 
     bool targetFriendly() const { return m_targetFriendly; }
 
-    virtual bool cast(Unit* target) = 0;
-    virtual bool cast(float x, float y) = 0;
+    virtual bool cast(Unit* target, int round) = 0;
+    virtual bool cast(float x, float y, int round) = 0;
 
 protected:
 
@@ -39,7 +39,6 @@ protected:
     std::string m_name;
     int m_castingValue = 0;
     float m_range = 0.0f;
-    Duration m_duration;
 
     bool m_targetFriendly = false;
 };
@@ -49,8 +48,8 @@ class DamageSpell : public Spell
 public:
     DamageSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage);
 
-    bool cast(Unit* target) override;
-    bool cast(float x, float y) override { return false; }
+    bool cast(Unit* target, int round) override;
+    bool cast(float x, float y, int round) override { return false; }
 
 protected:
 

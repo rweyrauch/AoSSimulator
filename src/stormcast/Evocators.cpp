@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <stormcast/Evocators.h>
 #include <iostream>
+#include <spells/Empower.h>
 
 namespace StormcastEternals
 {
@@ -84,6 +85,8 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
         model.addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(model);
     }
+
+    m_knownSpells.push_back(std::make_unique<Empower>(this));
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)

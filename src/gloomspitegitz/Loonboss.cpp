@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool Loonboss::s_registered = false;
 
 Loonboss::Loonboss() :
-    Unit("Loonboss", 5, WOUNDS, 5, 5, false),
+    GloomspiteGitzBase("Loonboss", 5, WOUNDS, 5, 5, false),
     m_moonslicer(Weapon::Type::Melee, "Moon-slicer", 1, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};

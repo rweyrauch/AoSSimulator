@@ -9,13 +9,13 @@
 #ifndef SKRAGROTT_H
 #define SKRAGROTT_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class Skragrott : public Unit
+class Skragrott : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 60; // x35 oval

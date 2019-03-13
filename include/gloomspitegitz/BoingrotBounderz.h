@@ -9,13 +9,13 @@
 #ifndef BOINGROTBOUNDERZ_H
 #define BOINGROTBOUNDERZ_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class BoingrotBounderz : public Unit
+class BoingrotBounderz : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 32;

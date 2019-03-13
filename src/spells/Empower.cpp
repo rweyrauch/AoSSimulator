@@ -5,17 +5,17 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <spells/MysticShield.h>
+#include <spells/Empower.h>
 #include <Unit.h>
 #include <Board.h>
 
-MysticShield::MysticShield(Unit *caster) :
-    Spell(caster, "Mystic Shield", 6, 18.0f)
+Empower::Empower(Unit *caster) :
+    Spell(caster, "Empower", 6, 12.0f)
 {
     m_targetFriendly = true;
 }
 
-bool MysticShield::cast(Unit *target, int round)
+bool Empower::cast(Unit *target, int round)
 {
     if (target == nullptr)
     {
@@ -38,7 +38,7 @@ bool MysticShield::cast(Unit *target, int round)
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound)
         {
-            target->buffReroll(ToSave, RerollOnes, {Phase::Hero, round+1, m_caster->owningPlayer()});
+            target->buffReroll(ToWound, RerollOnes, {Phase::Hero, round+1, m_caster->owningPlayer()});
             successful = true;
         }
         else
@@ -49,7 +49,7 @@ bool MysticShield::cast(Unit *target, int round)
     else
     {
         SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(), name().c_str(),
-            castingRoll, m_castingValue);
+               castingRoll, m_castingValue);
     }
 
     return successful;

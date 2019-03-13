@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool BoingrotBounderz::s_registered = false;
 
 BoingrotBounderz::BoingrotBounderz() :
-    Unit("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true),
+    GloomspiteGitzBase("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true),
     m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
     m_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1),
     m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance (Boss)", 2, 2, 3, 4, -1, 1)

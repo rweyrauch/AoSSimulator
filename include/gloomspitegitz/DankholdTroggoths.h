@@ -9,13 +9,13 @@
 #ifndef DANKHOLDTROGGOTHS_H
 #define DANKHOLDTROGGOTHS_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class DankholdTroggoths : public Unit
+class DankholdTroggoths : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 60;

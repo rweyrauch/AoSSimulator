@@ -17,7 +17,7 @@ DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue
     m_targetFriendly = false;
 }
 
-bool DamageSpell::cast(Unit *target)
+bool DamageSpell::cast(Unit *target, int /*round*/)
 {
     if (target == nullptr)
     {

@@ -36,7 +36,7 @@ static FactoryMethod factoryMethod = {
 bool Stabbas::s_registered = false;
 
 Stabbas::Stabbas() :
-    Unit("Stabbas", 5, WOUNDS, 4, 6, false),
+    GloomspiteGitzBase("Stabbas", 5, WOUNDS, 4, 6, false),
     m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
     m_stabbaBoss(Weapon::Type::Melee, "Stabba (Boss)", 1, 1, 3, 4, 0, 1),
     m_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1),

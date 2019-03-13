@@ -9,13 +9,13 @@
 #ifndef SHOOTAS_H
 #define SHOOTAS_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class Shootas : public Unit
+class Shootas : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 25;

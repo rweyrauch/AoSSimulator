@@ -9,13 +9,13 @@
 #ifndef ROCKGUTTROGGOTHS_H
 #define ROCKGUTTROGGOTHS_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class RockgutTroggoths : public Unit
+class RockgutTroggoths : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 50;

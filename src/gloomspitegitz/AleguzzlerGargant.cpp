@@ -44,7 +44,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool AleguzzlerGargant::s_registered = false;
 
 AleguzzlerGargant::AleguzzlerGargant() :
-    Unit("Aleguzzler Gargant", 8, WOUNDS, 6, 5, false),
+    GloomspiteGitzBase("Aleguzzler Gargant", 8, WOUNDS, 6, 5, false),
     m_eadbutt(Weapon::Type::Melee, "'eadbutt", 1, 1, 4, 3, -3, RAND_D6),
     m_massiveClub(Weapon::Type::Melee, "Massive Club", 3, RAND_3D6, 3, 3, -1, 1),
     m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 3, 1, 3, 3, -2, RAND_D3)

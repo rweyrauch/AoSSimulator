@@ -24,6 +24,8 @@ add_library(
         spells/MysticShield.cpp
         spells/ArcaneBolt.cpp
         spells/SpiritStorm.cpp
+        spells/Empower.cpp
+        spells/NikkitNikkit.cpp
 
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
@@ -91,6 +93,8 @@ add_library(
         gloomspitegitz/LoonbossWithGiantCaveSquig.cpp
         gloomspitegitz/AleguzzlerGargant.cpp
         gloomspitegitz/SquigGobba.cpp
+        gloomspitegitz/GloomspiteGitzBase.cpp
+        gloomspitegitz/BadMoon.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

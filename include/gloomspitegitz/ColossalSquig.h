@@ -9,13 +9,13 @@
 #ifndef COLOSSALSQUIG_H
 #define COLOSSALSQUIG_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class ColossalSquig : public Unit
+class ColossalSquig : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 120; // oval

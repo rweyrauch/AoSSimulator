@@ -6,15 +6,15 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MYSTICSHIELD_H
-#define MYSTICSHIELD_H
+#ifndef EMPOWER_H
+#define EMPOWER_H
 
 #include <Spell.h>
 
-class MysticShield : public Spell
+class Empower : public Spell
 {
 public:
-    explicit MysticShield(Unit *caster);
+    explicit Empower(Unit *caster);
 
     bool cast(Unit* target, int round) override;
     bool cast(float x, float y, int round) override { return false; }
@@ -22,4 +22,4 @@ public:
 protected:
 
 };
-#endif// MYSTICSHIELD_H
+#endif// EMPOWER_H

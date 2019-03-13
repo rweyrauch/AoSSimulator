@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <stormcast/EvocatorsOnDracolines.h>
 #include <iostream>
+#include <spells/Empower.h>
 
 namespace StormcastEternals
 {
@@ -89,6 +90,8 @@ bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves
         model.addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
     }
+
+    m_knownSpells.push_back(std::make_unique<Empower>(this));
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)

@@ -76,6 +76,9 @@ public:
      */
     void restore();
 
+    void beginRound(int battleRound);
+
+    void endRound(int battleRound);
 
     void beginTurn(int battleRound, PlayerId playerWithTurn);
 
@@ -302,6 +305,9 @@ protected:
     virtual Rerolls chargeRerolls() const { return NoRerolls; }
 
     virtual void onRestore() {}
+
+    virtual void onBeginRound(int battleRound) {}
+    virtual void onEndRound(int battleRound) {}
 
     virtual void onBeginTurn(int battleRound) {}
 

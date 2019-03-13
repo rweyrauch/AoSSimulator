@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool SquiqHerd::s_registered = false;
 
 SquiqHerd::SquiqHerd() :
-    Unit("Squig Herd", 5, WOUNDS, 3, 6, false),
+    GloomspiteGitzBase("Squig Herd", 5, WOUNDS, 3, 6, false),
     m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
     m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1)
 {

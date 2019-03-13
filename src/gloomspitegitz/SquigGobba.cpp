@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
 bool SquigGobba::s_registered = false;
 
 SquigGobba::SquigGobba() :
-    Unit("Squig Gobba", 4, WOUNDS, 4, 5, false),
+    GloomspiteGitzBase("Squig Gobba", 4, WOUNDS, 4, 5, false),
     m_spitSquigs(Weapon::Type::Missile, "Spit-squigs", 30, 6, 4, 3, 0, RAND_D3),
     m_bashinSticks(Weapon::Type::Melee, "Bashin' Sticks", 1, 3, 5, 5, 0, 1),
     m_cavernousMaw(Weapon::Type::Melee, "Cavernous Maw", 2, 3, 3, 3, -2, RAND_D3)

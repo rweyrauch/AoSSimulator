@@ -12,6 +12,7 @@
 #include <Board.h>
 #include <spells/MysticShield.h>
 #include <spells/ArcaneBolt.h>
+#include <spells/NikkitNikkit.h>
 
 namespace GloomspiteGitz
 {
@@ -28,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool Skragrott::s_registered = false;
 
 Skragrott::Skragrott() :
-    Unit("Skragrott", 4, WOUNDS, 6, 5, false),
+    GloomspiteGitzBase("Skragrott", 4, WOUNDS, 6, 5, false),
     m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
     m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3)
 {
@@ -47,6 +48,7 @@ bool Skragrott::configure()
 
     m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    m_knownSpells.push_back(std::make_unique<NikkitNikkit>(this));
 
     addModel(model);
 

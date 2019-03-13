@@ -168,9 +168,19 @@ Unit::Unit(const std::string& name, int move, int wounds, int bravery, int save,
 {
 }
 
-void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
+void Unit::beginRound(int battleRound)
 {
     m_battleRound = battleRound;
+    onBeginRound(battleRound);
+}
+
+void Unit::endRound(int battleRound)
+{
+    onEndRound(battleRound);
+}
+
+void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
+{
     m_ran = false;
     m_charged = false;
     m_moved = false;
@@ -181,7 +191,7 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
     m_currentRecord.clear();
 
     m_currentRecord.m_playerWithTurn = playerWithTurn;
-    m_currentRecord.m_round = m_battleRound;
+    m_currentRecord.m_round = battleRound;
 
     onBeginTurn(battleRound);
 }
@@ -863,7 +873,7 @@ void Unit::castSpell()
             // cast the first spell on the first unit
             for (auto ip : units)
             {
-                bool successful = sip->cast(ip);
+                bool successful = sip->cast(ip, m_battleRound);
                 if (successful)
                 {
                     SimLog(Verbosity::Narrative, "%s successfully cast %s\n", m_name.c_str(), sip->name().c_str());

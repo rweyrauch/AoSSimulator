@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
 bool LoonbossOnGiantCaveSquig::s_registered = false;
 
 LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
-    Unit("Loonboss on Giant Cave Squig", RAND_2D6, WOUNDS, 6, 4, true),
+    GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, WOUNDS, 6, 4, true),
     m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
     m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
     m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1)

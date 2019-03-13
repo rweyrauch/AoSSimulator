@@ -97,3 +97,19 @@ void Roster::endTurn(int battleRound)
         u->endTurn(battleRound);
     }
 }
+
+void Roster::beginRound(int battleRound)
+{
+    for (auto u : m_units)
+    {
+        u->beginRound(battleRound);
+    }
+}
+
+void Roster::endRound(int battleRound)
+{
+    for (auto u : m_units)
+    {
+        u->endRound(battleRound);
+    }
+}

@@ -9,13 +9,13 @@
 #ifndef MANGLERSQUIGS_H
 #define MANGLERSQUIGS_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class ManglerSquigs : public Unit
+class ManglerSquigs : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 80;

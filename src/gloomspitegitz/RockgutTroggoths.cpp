@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool RockgutTroggoths::s_registered = false;
 
 RockgutTroggoths::RockgutTroggoths() :
-    Unit("Rockgut Troggoths", 6, WOUNDS, 5, 5, false),
+    GloomspiteGitzBase("Rockgut Troggoths", 6, WOUNDS, 5, 5, false),
     m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
@@ -95,9 +95,13 @@ void RockgutTroggoths::onStartHero(PlayerId player)
         {
             Dice dice;
             // Regeneration - heal D3
-            if (dice.rollD6() >= 4)
+            // Troggoth Renewal
+            if (dice.rollD6() >= 4 || (inLightOfTheBadMoon() && (dice.rollD6() >= 4)))
             {
                 int woundsHealed = dice.rollD3();
+                if (inLightOfTheBadMoon())
+                    woundsHealed *= 2;
+
                 for (auto &m : m_models)
                 {
                     if (!m.slain() || !m.fled())

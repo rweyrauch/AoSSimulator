@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool Shootas::s_registered = false;
 
 Shootas::Shootas() :
-    Unit("Shootas", 5, WOUNDS, 4, 6, false),
+    GloomspiteGitzBase("Shootas", 5, WOUNDS, 4, 6, false),
     m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
     m_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1),
     m_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),

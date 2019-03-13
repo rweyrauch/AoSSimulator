@@ -12,6 +12,7 @@
 #include <vector>
 #include <WarhammerSim.h>
 #include <TerrainFeature.h>
+#include "MathUtils.h"
 
 class Roster;
 class Unit;
@@ -53,12 +54,26 @@ public:
     std::vector<Unit*> getUnitsWithin(const Unit* unit, PlayerId fromPlayer, float distance);
     Unit* getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
 
+    enum Quadrant
+    {
+        Northwest = 0, //
+        Northeast,
+        Southeast,
+        Southwest,
+    };
+
+    std::vector<Unit*> getUnitWithin(Quadrant quadrant, PlayerId fromPlayer);
+    std::vector<Unit*> getAllUnits(PlayerId fromPlayer);
+    bool isUnitWithin(Quadrant quadrant, const Unit* unit) const;
+
     bool unbindAttempt(const Unit* caster, int castingRoll);
 
     void render(const std::string& filename) const;
 
 protected:
     Board() = default;
+
+    bool inQuadrant(Quadrant quadrant, const Math::Plane& northSouth, const Math::Plane& eastWest, const Math::Point3& point3) const;
 
 private:
     float m_width = 0.0f, m_depth = 0.0f;

@@ -275,3 +275,117 @@ bool Board::unbindAttempt(const Unit* caster, int castingRoll)
 
     return false;
 }
+
+std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId fromPlayer)
+{
+    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth/2.0f);
+    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width/2.0f);
+
+    std::vector<Unit *> units;
+    if (fromPlayer == PlayerId::None)
+    {
+        if (m_rosters[0] != nullptr)
+        {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
+            {
+                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
+                {
+                    units.push_back(*ip);
+                }
+            }
+        }
+        if (m_rosters[1] != nullptr)
+        {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
+            {
+                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
+                {
+                    units.push_back(*ip);
+                }
+            }
+        }
+    }
+    else
+    {
+        if (m_rosters[(int) fromPlayer] != nullptr)
+        {
+            for (auto ip = m_rosters[(int) fromPlayer]->unitBegin(); ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip)
+            {
+                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
+                {
+                    units.push_back(*ip);
+                }
+            }
+        }
+    }
+    return units;
+}
+
+std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer)
+{
+    std::vector<Unit *> units;
+    if (fromPlayer == PlayerId::None)
+    {
+        if (m_rosters[0] != nullptr)
+        {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
+            {
+                units.push_back(*ip);
+            }
+        }
+        if (m_rosters[1] != nullptr)
+        {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
+            {
+                units.push_back(*ip);
+            }
+        }
+    }
+    else
+    {
+        if (m_rosters[(int) fromPlayer] != nullptr)
+        {
+            for (auto ip = m_rosters[(int) fromPlayer]->unitBegin(); ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip)
+            {
+                units.push_back(*ip);
+            }
+        }
+    }
+    return units;
+}
+
+bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest, const Math::Point3 &position) const
+{
+    switch (quadrant)
+    {
+        case Northwest:
+            if (northSouth.contains(position) && !eastWest.contains(position))
+                return true;
+            break;
+        case Northeast:
+            if (northSouth.contains(position) && eastWest.contains(position))
+                return true;
+            break;
+        case Southeast:
+            if (!northSouth.contains(position) && eastWest.contains(position))
+                return true;
+            break;
+        case Southwest:
+            if (!northSouth.contains(position) && !eastWest.contains(position))
+                return true;
+            break;
+    }
+    return false;
+}
+
+bool Board::isUnitWithin(Quadrant quadrant, const Unit* unit) const
+{
+    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth/2.0f);
+    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width/2.0f);
+
+    if (unit)
+    {
+        return inQuadrant(quadrant, northSouth, eastWest, unit->position());
+    }
+    return false;
+}

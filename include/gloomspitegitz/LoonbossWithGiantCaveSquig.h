@@ -9,13 +9,13 @@
 #ifndef LOONBOSSWITHCAVESQUIG_H
 #define LOONBOSSWITHCAVESQUIG_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class LoonbossWithGiantCaveSquig : public Unit
+class LoonbossWithGiantCaveSquig : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 50;

@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool DankholdTroggboss::s_registered = false;
 
 DankholdTroggboss::DankholdTroggboss() :
-    Unit("Dankhold Troggboss", 6, WOUNDS, 7, 4, false),
+    GloomspiteGitzBase("Dankhold Troggboss", 6, WOUNDS, 7, 4, false),
     m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
@@ -79,9 +79,12 @@ void DankholdTroggboss::onStartHero(PlayerId player)
         {
             Dice dice;
             // Regeneration - heal D3
-            if (dice.rollD6() >= 4)
+            // Troggoth Renewal
+            if (dice.rollD6() >= 4 || (inLightOfTheBadMoon() && (dice.rollD6() >= 4)))
             {
                 int woundsHealed = dice.rollD3();
+                if (inLightOfTheBadMoon())
+                    woundsHealed *= 2;
                 for (auto &m : m_models)
                 {
                     m.woundsRemaining() += woundsHealed;

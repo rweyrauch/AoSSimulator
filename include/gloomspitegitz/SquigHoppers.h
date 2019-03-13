@@ -9,13 +9,13 @@
 #ifndef SQUIGHOPPERS_H
 #define SQUIGHOPPERS_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class SquiqHoppers : public Unit
+class SquiqHoppers : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 32;

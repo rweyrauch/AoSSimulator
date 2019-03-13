@@ -98,6 +98,9 @@ void ManoAMano::start()
     m_currentPhase = Phase::Hero;
     m_round = 1;
 
+    m_rosters[(int) m_attackingUnit]->beginRound(m_round);
+    m_rosters[(int) m_defendingUnit]->beginRound(m_round);
+
     m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
     m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 }
@@ -197,18 +200,26 @@ void ManoAMano::next()
                 m_rosters[(int) m_attackingUnit]->endTurn(m_round);
                 m_rosters[(int) m_defendingUnit]->endTurn(m_round);
 
+                m_rosters[(int) m_attackingUnit]->endRound(m_round);
+                m_rosters[(int) m_defendingUnit]->endRound(m_round);
+
                 // End of round.
                 m_currentPhase = Phase::Initiative;
                 m_topOfRound = true;
                 m_round++;
 
-                m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-                m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
-
                 // End of battle.
                 if (m_round > m_numRounds)
                 {
                     m_isDone = true;
+                }
+                else
+                {
+                    m_rosters[(int) m_attackingUnit]->beginRound(m_round);
+                    m_rosters[(int) m_defendingUnit]->beginRound(m_round);
+
+                    m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
+                    m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
                 }
             }
             // Check for a victory
@@ -255,7 +266,7 @@ void ManoAMano::runInitiativePhase()
     }
 
     m_units[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-    m_units[(int) m_defendingUnit]->beginTurn(m_round, m_defendingUnit);
+    m_units[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 
     if (GetVerbosity() == Verbosity::Narrative)
     {

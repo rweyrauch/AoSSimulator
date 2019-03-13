@@ -9,13 +9,13 @@
 #ifndef SQUIGGOBBA_H
 #define SQUIGGOBBA_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class SquigGobba : public Unit
+class SquigGobba : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 120; // x92 oval

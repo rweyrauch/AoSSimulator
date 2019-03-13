@@ -9,13 +9,13 @@
 #ifndef ALEGUZZLER_H
 #define ALEGUZZLER_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class AleguzzlerGargant : public Unit
+class AleguzzlerGargant : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 90; // x52 oval

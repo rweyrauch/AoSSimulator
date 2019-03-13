@@ -9,13 +9,13 @@
 #ifndef STABBAS_H
 #define STABBAS_H
 
-#include <Unit.h>
+#include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
 namespace GloomspiteGitz
 {
 
-class Stabbas : public Unit
+class Stabbas : public GloomspiteGitzBase
 {
 public:
     static const int BASESIZE = 25;
