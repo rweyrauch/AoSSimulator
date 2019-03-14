@@ -132,21 +132,21 @@ void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player)
 
 int LoonbossOnGiantCaveSquig::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
-    return Unit::toHitModifier(weapon, unit);
+    return GloomspiteGitzBase::toHitModifier(weapon, unit);
 }
 
 Rerolls LoonbossOnGiantCaveSquig::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
         return m_toHitRerolls;
-    return Unit::toHitRerolls(weapon, target);
+    return GloomspiteGitzBase::toHitRerolls(weapon, target);
 }
 
 Rerolls LoonbossOnGiantCaveSquig::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
     if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
         return m_toWoundRerolls;
-    return Unit::toWoundRerolls(weapon, target);
+    return GloomspiteGitzBase::toWoundRerolls(weapon, target);
 }
 
 } // namespace GloomspiteGitz

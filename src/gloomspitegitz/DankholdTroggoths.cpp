@@ -141,7 +141,7 @@ void DankholdTroggoths::onStartCombat(PlayerId player)
             ip->applyDamage({0, 1});
         }
     }
-    Unit::onStartCombat(player);
+    GloomspiteGitzBase::onStartCombat(player);
 }
 
 } // namespace GloomspiteGitz

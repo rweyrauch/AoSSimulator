@@ -122,7 +122,7 @@ void DankholdTroggboss::onStartCombat(PlayerId player)
         }
     }
 
-    Unit::onStartCombat(player);
+    GloomspiteGitzBase::onStartCombat(player);
 }
 
 } // namespace GloomspiteGitz

@@ -78,7 +78,8 @@ void GloomspiteGitzBase::onStartHero(PlayerId player)
                 int mortal = dice.rollD3();
                 target->applyDamage({0, mortal});
 
-                SimLog(Verbosity::Narrative, "Gloomspite Gitz Bad Moon inflicts %s mortal wounds on %s", mortal, target->name().c_str());
+                SimLog(Verbosity::Narrative, "Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",
+                    mortal, target->name().c_str(), m_battleRound);
             }
         }
     }
@@ -92,7 +93,7 @@ int GloomspiteGitzBase::castingModifier() const
     if (hasKeyword(WIZARD) && inLightOfTheBadMoon())
     {
         modifier += 1;
-        SimLog(Verbosity::Narrative, "Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.", name().c_str());
+        SimLog(Verbosity::Narrative, "Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.\n", name().c_str());
     }
 
     return modifier;
@@ -103,7 +104,6 @@ Rerolls GloomspiteGitzBase::toHitRerolls(const Weapon *weapon, const Unit *targe
     // Moonclan Fungus Brew
     if (hasKeyword(MOONCLAN) && hasKeyword(GROT) && inLightOfTheBadMoon())
     {
-        SimLog(Verbosity::Narrative, "Gloomspite Gitz grotz, %s, are under the light of the Bad Moon.", name().c_str());
         return RerollOnes;
     }
     return Unit::toHitRerolls(weapon, target);

@@ -165,7 +165,7 @@ void RockgutTroggoths::onStartShooting(PlayerId player)
         }
     }
 
-    Unit::onStartShooting(player);
+    GloomspiteGitzBase::onStartShooting(player);
 }
 
 } //namespace GloomspiteGitz

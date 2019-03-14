@@ -74,7 +74,7 @@ bool ManglerSquigs::configure()
 
 int ManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
-    int modifier = Unit::toHitModifier(weapon, unit);
+    int modifier = GloomspiteGitzBase::toHitModifier(weapon, unit);
 
     // Ker-splat!
     if (m_charged)
@@ -151,7 +151,7 @@ void ManglerSquigs::onSlain()
         }
     }
 
-    Unit::onSlain();
+    GloomspiteGitzBase::onSlain();
 }
 
 } // namespace GloomspiteGitz

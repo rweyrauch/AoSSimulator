@@ -96,7 +96,7 @@ Wounds ColossalSquig::weaponDamage(const Weapon *weapon, const Unit *target, int
         Wounds wounds = {0, dice.rollD3()};
         return wounds;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return GloomspiteGitzBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int ColossalSquig::getDamageTableIndex() const
@@ -143,7 +143,7 @@ void ColossalSquig::visitWeapons(std::function<void(const Weapon *)> &visitor)
 
 int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
-    int modifier = Unit::targetHitModifier(weapon, attacker);
+    int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
     // Puff Spores
     if (!weapon->isMissile())
     {

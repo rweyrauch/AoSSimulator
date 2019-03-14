@@ -147,7 +147,7 @@ void Stabbas::Init()
 
 int Stabbas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 {
-    int modifier = Unit::toWoundModifier(weapon, unit);
+    int modifier = GloomspiteGitzBase::toWoundModifier(weapon, unit);
     // Backstabbing Mob
     if (!weapon->isMissile())
     {
@@ -161,7 +161,7 @@ int Stabbas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 
 int Stabbas::runModifier() const
 {
-    int modifier = Unit::runModifier();
+    int modifier = GloomspiteGitzBase::runModifier();
     if (m_numGongbashers > 0)
     { modifier += 2; }
     return modifier;
@@ -169,7 +169,7 @@ int Stabbas::runModifier() const
 
 int Stabbas::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
     if (m_numIconbearers > 0 && weapon->isMissile())
     {
         modifier += 1;
@@ -184,7 +184,7 @@ int Stabbas::toSaveModifier(const Weapon *weapon) const
 
 int Stabbas::battlshockModifier() const
 {
-    int modifier = Unit::battlshockModifier();
+    int modifier = GloomspiteGitzBase::battlshockModifier();
     if (m_numFlagbearers > 0)
     { modifier += 1; }
     return modifier;
@@ -230,7 +230,7 @@ void Stabbas::visitWeapons(std::function<void(const Weapon *)> &visitor)
 
 int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
-    int modifier = Unit::targetHitModifier(weapon, attacker);
+    int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
     // Netters
     if (distanceTo(attacker) <= 2.0f)
     {

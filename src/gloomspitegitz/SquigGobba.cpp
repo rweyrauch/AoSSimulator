@@ -76,7 +76,7 @@ void SquigGobba::Init()
 
 int SquigGobba::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toHitModifier(weapon, target);
+    int modifier = GloomspiteGitzBase::toHitModifier(weapon, target);
 
     // Arcing Spit
     if (weapon->name() == m_spitSquigs.name() && target->remainingModels() >= 10)

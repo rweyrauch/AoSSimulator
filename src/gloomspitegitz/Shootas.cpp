@@ -132,7 +132,7 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
 int Shootas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 {
     // Backstabbing Mob
-    int modifier = Unit::toWoundModifier(weapon, unit);
+    int modifier = GloomspiteGitzBase::toWoundModifier(weapon, unit);
     if (!weapon->isMissile())
     {
         if (remainingModels() >= 30)
@@ -145,7 +145,7 @@ int Shootas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 
 int Shootas::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
-    int modifier = Unit::toHitModifier(weapon, unit);
+    int modifier = GloomspiteGitzBase::toHitModifier(weapon, unit);
     // Moonclan Bows
     if (remainingModels() >= 15 && weapon->isMissile())
     { modifier += 1; }
@@ -154,7 +154,7 @@ int Shootas::toHitModifier(const Weapon *weapon, const Unit *unit) const
 
 int Shootas::runModifier() const
 {
-    int modifier = Unit::runModifier();
+    int modifier = GloomspiteGitzBase::runModifier();
     if (m_numGongbashers > 0)
     { modifier += 2; }
     return modifier;
@@ -162,7 +162,7 @@ int Shootas::runModifier() const
 
 int Shootas::battlshockModifier() const
 {
-    int modifier = Unit::battlshockModifier();
+    int modifier = GloomspiteGitzBase::battlshockModifier();
     if (m_numFlagbearers > 0)
     { modifier += 1; }
     return modifier;
@@ -170,7 +170,7 @@ int Shootas::battlshockModifier() const
 
 int Shootas::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
     if (m_numIconbearers > 0 && weapon->isMissile())
     {
         modifier += 1;
@@ -189,7 +189,7 @@ void Shootas::visitWeapons(std::function<void(const Weapon *)> &visitor)
 
 int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
-    int modifier = Unit::targetHitModifier(weapon, attacker);
+    int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
     // Netters
     if (distanceTo(attacker) <= 2.0f)
     {

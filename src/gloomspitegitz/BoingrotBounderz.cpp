@@ -110,7 +110,7 @@ void BoingrotBounderz::onCharged()
             m_meleeTarget->applyDamage({0, numMortalWounds});
         }
     }
-    Unit::onCharged();
+    GloomspiteGitzBase::onCharged();
 }
 
 int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) const

@@ -7,6 +7,7 @@
  */
 #include <gloomspitegitz/BadMoon.h>
 #include <Dice.h>
+#include <WarhammerSim.h>
 
 namespace GloomspiteGitz
 {
@@ -46,22 +47,28 @@ bool BadMoon::move(int round)
     // Bad Moon does not move in the first round
     if (round != 1)
     {
-        Dice dice;
-        int roll = dice.rollD6();
-        if (roll == 6)
+        if (m_location != Location::Set)
         {
-            // advance two positions
-            advanceOne();
-            advanceOne();
-        }
-        else if (roll == 1)
-        {
-            // moon does not move
-        }
-        else
-        {
-            // advance one position
-            advanceOne();
+            Dice dice;
+            int roll = dice.rollD6();
+            if (roll == 6)
+            {
+                // advance two positions
+                advanceOne();
+                advanceOne();
+            }
+            else if (roll == 1)
+            {
+                // moon does not move
+            }
+            else
+            {
+                // advance one position
+                advanceOne();
+            }
+
+            SimLog(Verbosity::Narrative, "Bad Moon moves in round %d with a roll of %d.  Location: %d\n",
+                round, roll, m_location);
         }
     }
     m_round = round;

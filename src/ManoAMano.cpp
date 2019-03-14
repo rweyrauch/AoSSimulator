@@ -11,6 +11,7 @@
 #include <Dice.h>
 #include <Roster.h>
 #include <Board.h>
+#include <gloomspitegitz/BadMoon.h>
 
 ManoAMano::ManoAMano(int numRounds) :
     m_numRounds(numRounds)
@@ -58,6 +59,16 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     blue->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
 
     board->addRosters(m_rosters[0], m_rosters[1]);
+
+    // Setup a Bad Moon if a player has a Gloomspite Gitz unit.
+    if (red->hasKeyword(GLOOMSPITE_GITZ))
+    {
+        GloomspiteGitz::BadMoon::Instance()->setup(GloomspiteGitz::BadMoon::Location::Northwest);
+    }
+    else if (blue->hasKeyword(GLOOMSPITE_GITZ))
+    {
+        GloomspiteGitz::BadMoon::Instance()->setup(GloomspiteGitz::BadMoon::Location::Northeast);
+    }
 }
 
 void ManoAMano::start()

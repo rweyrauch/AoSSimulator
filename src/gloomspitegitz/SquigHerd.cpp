@@ -104,7 +104,7 @@ Rerolls SquiqHerd::runRerolls() const
         return RerollFailed;
     }
 
-    return Unit::runRerolls();
+    return GloomspiteGitzBase::runRerolls();
 }
 
 Rerolls SquiqHerd::chargeRerolls() const
@@ -115,7 +115,7 @@ Rerolls SquiqHerd::chargeRerolls() const
         return RerollFailed;
     }
 
-    return Unit::chargeRerolls();
+    return GloomspiteGitzBase::chargeRerolls();
 }
 
 bool SquiqHerd::hasHerder() const
@@ -141,7 +141,7 @@ void SquiqHerd::onFlee(int numFled)
             closestTarget->applyDamage({0, numMortalWounds});
         }
     }
-    Unit::onFlee(numFled);
+    GloomspiteGitzBase::onFlee(numFled);
 }
 
 void SquiqHerd::visitWeapons(std::function<void(const Weapon *)> &visitor)

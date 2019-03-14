@@ -79,7 +79,7 @@ void LoonbossWithGiantCaveSquig::Init()
 
 int LoonbossWithGiantCaveSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
-    int modifier = Unit::targetHitModifier(weapon, attacker);
+    int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
     // Dead Tricksy
     modifier -= 1;
     return modifier;

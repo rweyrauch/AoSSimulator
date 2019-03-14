@@ -18,13 +18,13 @@ public:
 
     enum class Location
     {
+        Rising,     // Rising not yet on the board.
         Northwest,
         Northeast,
         Southwest,
         Southeast,
-        All,
-        Rising,
-        Set
+        All,        // In center of board, affecting all quadrants
+        Set         // Moon has set and no longer affects the board.
     };
 
     bool setup(Location initialLocation);

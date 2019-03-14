@@ -71,7 +71,7 @@ bool LoonbossOnManglerSquigs::configure()
 
 int LoonbossOnManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
-    int modifier = Unit::toHitModifier(weapon, unit);
+    int modifier = GloomspiteGitzBase::toHitModifier(weapon, unit);
 
     // Ker-splat!
     if (m_charged)
@@ -146,7 +146,7 @@ void LoonbossOnManglerSquigs::onSlain()
             ip->applyDamage({0, mortalWounds});
         }
     }
-    Unit::onSlain();
+    GloomspiteGitzBase::onSlain();
 }
 
 void LoonbossOnManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &visitor)
@@ -182,14 +182,14 @@ Rerolls LoonbossOnManglerSquigs::toHitRerolls(const Weapon *weapon, const Unit *
 {
     if (weapon->name() == m_moonCutta.name())
         return m_toHitRerolls;
-    return Unit::toHitRerolls(weapon, target);
+    return GloomspiteGitzBase::toHitRerolls(weapon, target);
 }
 
 Rerolls LoonbossOnManglerSquigs::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
     if (weapon->name() == m_moonCutta.name())
         return m_toWoundRerolls;
-    return Unit::toWoundRerolls(weapon, target);
+    return GloomspiteGitzBase::toWoundRerolls(weapon, target);
 }
 
 } // namespace GloomspiteGitz
