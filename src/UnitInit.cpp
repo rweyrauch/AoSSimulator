@@ -51,6 +51,7 @@
 #include "gloomspitegitz/LoonbossWithGiantCaveSquig.h"
 #include "gloomspitegitz/AleguzzlerGargant.h"
 #include "gloomspitegitz/SquigGobba.h"
+#include "gloomspitegitz/SpiderRiders.h"
 
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
@@ -219,6 +220,7 @@ void Initialize(Verbosity verbosity)
     GloomspiteGitz::LoonbossWithGiantCaveSquig::Init();
     GloomspiteGitz::AleguzzlerGargant::Init();
     GloomspiteGitz::SquigGobba::Init();
+    GloomspiteGitz::SpiderRiders::Init();
 
     Khorne::Bloodreavers::Init();
     Khorne::BloodWarriors::Init();

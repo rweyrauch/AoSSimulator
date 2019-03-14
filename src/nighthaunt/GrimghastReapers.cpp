@@ -94,7 +94,7 @@ Rerolls GrimghastReapers::toHitRerolls(const Weapon *weapon, const Unit *unit) c
         return RerollFailed;
     }
 
-    return Unit::toHitRerolls(weapon, unit);
+    return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
 void GrimghastReapers::visitWeapons(std::function<void(const Weapon *)> &visitor)

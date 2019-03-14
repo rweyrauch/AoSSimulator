@@ -143,7 +143,7 @@ Rerolls Sequitors::toSaveRerolls(const Weapon *weapon) const
         }
     }
 
-    return NoRerolls;
+    return StormcastEternal::toSaveRerolls(weapon);
 }
 
 Rerolls Sequitors::toHitRerolls(const Weapon *weapon, const Unit *unit) const

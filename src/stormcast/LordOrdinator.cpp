@@ -127,19 +127,19 @@ Wounds LordOrdinator::weaponDamage(const Weapon *weapon, const Unit *target, int
         // remember this
         m_meteoricSlam.push_back(target);
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void LordOrdinator::onStartCombat(PlayerId player)
 {
-    Unit::onStartCombat(player);
+    StormcastEternal::onStartCombat(player);
 
     m_meteoricSlam.clear();
 }
 
 void LordOrdinator::onEndCombat(PlayerId player)
 {
-    Unit::onEndCombat(player);
+    StormcastEternal::onEndCombat(player);
 
     // Meteoric Slam
     if (m_meteoricSlam.size() > 1)

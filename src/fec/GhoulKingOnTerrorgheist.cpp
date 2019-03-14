@@ -111,7 +111,7 @@ Wounds AbhorrantGhoulKingOnTerrorgheist::weaponDamage(const Weapon *weapon, cons
     {
         return {0, 6};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player)
@@ -161,7 +161,7 @@ int AbhorrantGhoulKingOnTerrorgheist::move() const
 
 void AbhorrantGhoulKingOnTerrorgheist::onSlain()
 {
-    Unit::onSlain();
+    FleshEaterCourts::onSlain();
 
     Dice dice;
     // Infested

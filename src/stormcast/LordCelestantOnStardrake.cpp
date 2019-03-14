@@ -142,7 +142,7 @@ int LordCelestantOnStardrake::getDamageTableIndex() const
 
 int LordCelestantOnStardrake::extraAttacks(const Weapon *weapon) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(weapon);
 
     // Inescapable Vengeance
     if (m_charged)
@@ -241,7 +241,7 @@ void LordCelestantOnStardrake::onEndCombat(PlayerId player)
 
 void LordCelestantOnStardrake::onStartShooting(PlayerId player)
 {
-    Unit::onStartShooting(player);
+    StormcastEternal::onStartShooting(player);
 
     // Lord of the Heavens
     // Decide: 'Roiling Thunder' or 'Rain of Stars'?

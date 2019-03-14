@@ -105,7 +105,7 @@ void AbhorrantGhoulKingOnZombieDragon::Init()
 
 Wounds AbhorrantGhoulKingOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void AbhorrantGhoulKingOnZombieDragon::onStartHero(PlayerId player)

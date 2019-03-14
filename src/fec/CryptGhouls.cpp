@@ -93,7 +93,7 @@ void CryptGhouls::Init()
 
 int CryptGhouls::extraAttacks(const Weapon *weapon) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = FleshEaterCourts::extraAttacks(weapon);
 
     // Boundless Ferocity
     if (remainingModels() >= 20)
@@ -112,7 +112,7 @@ Rerolls CryptGhouls::toHitRerolls(const Weapon *weapon, const Unit *target) cons
     {
         return RerollOnes;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return FleshEaterCourts::toHitRerolls(weapon, target);
 }
 
 } // namespace FleshEaterCourt

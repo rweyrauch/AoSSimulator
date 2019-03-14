@@ -90,7 +90,7 @@ void Chainghasts::Init()
 
 int Chainghasts::extraAttacks(const Weapon *weapon) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Nighthaunt::extraAttacks(weapon);
     // Sweeping Blows
     if (weapon->name() == m_ghastflails.name())
     {

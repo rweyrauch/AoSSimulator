@@ -114,7 +114,7 @@ Rerolls Tempestors::toSaveRerolls(const Weapon *weapon) const
 
 int Tempestors::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
-    int modifier = Unit::targetHitModifier(weapon, attacker);
+    int modifier = StormcastEternal::targetHitModifier(weapon, attacker);
 
     // Disruptive Fire
     if (weapon->isMissile())

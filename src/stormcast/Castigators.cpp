@@ -102,7 +102,7 @@ int Castigators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
             }
         }
     }
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+    return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 void Castigators::onStartShooting(PlayerId player)
@@ -138,7 +138,7 @@ void Castigators::onStartShooting(PlayerId player)
         m_thunderheadGreatbowPrime.setRend(m_thunderheadGreatbowPrime.rend());
     }
 
-    Unit::onStartShooting(player);
+    StormcastEternal::onStartShooting(player);
 }
 
 Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const

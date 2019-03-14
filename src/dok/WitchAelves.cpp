@@ -103,7 +103,7 @@ void WitchAelves::Init()
 
 int WitchAelves::extraAttacks(const Weapon *weapon) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = DaughterOfKhaine::extraAttacks(weapon);
     if (m_pairedKnives)
     { attacks += 1; }
     return attacks;
@@ -118,12 +118,12 @@ int WitchAelves::rollBattleshock() const
         int r2 = dice.rollD6();
         return std::min(r1, r2);
     }
-    return Unit::rollBattleshock();
+    return DaughterOfKhaine::rollBattleshock();
 }
 
 int WitchAelves::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = DaughterOfKhaine::toSaveModifier(weapon);
     // Bladed Bucklers
     if (!m_pairedKnives)
     {
@@ -134,7 +134,7 @@ int WitchAelves::toSaveModifier(const Weapon *weapon) const
 
 Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
+    auto wounds = DaughterOfKhaine::computeReturnedDamage(weapon, saveRoll);
     // Bladed Bucklers
     if (!weapon->isMissile())
     {

@@ -88,7 +88,7 @@ void KhineraiLifetakers::Init()
 
 void KhineraiLifetakers::onBeginTurn(int battleRound)
 {
-    Unit::onBeginTurn(battleRound);
+    DaughterOfKhaine::onBeginTurn(battleRound);
 
     // reset weapon damage (if previously charged)
     m_barbedSickle.setDamage(m_barbedSickle.damage());
@@ -97,7 +97,7 @@ void KhineraiLifetakers::onBeginTurn(int battleRound)
 
 void KhineraiLifetakers::onCharged()
 {
-    Unit::onCharged();
+    DaughterOfKhaine::onCharged();
 
     // Death on the Wind
     m_barbedSickle.setDamage(m_barbedSickle.damage() + 1);
@@ -106,7 +106,7 @@ void KhineraiLifetakers::onCharged()
 
 Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
+    auto wounds = DaughterOfKhaine::computeReturnedDamage(weapon, saveRoll);
     // Heartpiercer Shield
     if (!weapon->isMissile())
     {

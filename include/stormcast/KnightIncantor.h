@@ -48,7 +48,7 @@ private:
 // -------------------------------------------
 // Voidstorm Scroll                 No
 // Spirit Flask                     No
-// Spirit Storm                     No
+// Spirit Storm                     Yes
 //
 
 } // namespace StormcastEternals

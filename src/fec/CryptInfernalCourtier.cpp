@@ -79,7 +79,7 @@ Wounds CryptInfernalCourtier::weaponDamage(const Weapon *weapon, const Unit *tar
         // Two mortal wounds.
         return {0, 2};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace FleshEaterCourt

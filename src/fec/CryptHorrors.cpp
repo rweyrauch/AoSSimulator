@@ -100,7 +100,7 @@ Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) con
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return FleshEaterCourts::toHitRerolls(weapon, target);
 }
 
 void CryptHorrors::onStartHero(PlayerId player)
@@ -123,7 +123,7 @@ Wounds CryptHorrors::weaponDamage(const Weapon *weapon, const Unit *target, int 
     {
         return {weapon->damage()+1, 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace FleshEaterCourt

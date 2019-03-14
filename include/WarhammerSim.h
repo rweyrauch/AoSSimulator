@@ -247,6 +247,8 @@ enum Keyword
     SKRAGROTT,
     ALEGUZZLER,
     SQUIG_GOBBA,
+    SPIDERFANG,
+    SPIDER_RIDERS,
 
     // Daughters of Khaine
     MELUSAI,

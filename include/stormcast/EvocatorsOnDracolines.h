@@ -64,7 +64,7 @@ private:
 // Celestial Lightning Arc          Yes
 // Supernatural Roar                No
 // Thunderous Pounce                Yes
-// Empower                          No
+// Empower                          Yes
 //
 
 } // namespace StormcastEternals

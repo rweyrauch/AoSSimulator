@@ -120,12 +120,12 @@ int SistersOfSlaughter::rollBattleshock() const
         int r2 = dice.rollD6();
         return std::min(r1, r2);
     }
-    return Unit::rollBattleshock();
+    return DaughterOfKhaine::rollBattleshock();
 }
 
 int SistersOfSlaughter::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = DaughterOfKhaine::toSaveModifier(weapon);
     // Bladed Bucklers
     if (!m_hasSacrificialKnife)
     {
@@ -136,7 +136,7 @@ int SistersOfSlaughter::toSaveModifier(const Weapon *weapon) const
 
 Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
+    auto wounds = DaughterOfKhaine::computeReturnedDamage(weapon, saveRoll);
     // Bladed Bucklers
     if (!weapon->isMissile())
     {

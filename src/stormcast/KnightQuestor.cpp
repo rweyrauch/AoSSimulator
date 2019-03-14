@@ -90,7 +90,7 @@ Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int
     {
         return {2, 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 

@@ -149,7 +149,7 @@ Rerolls Warriors::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 
 void Warriors::onStartCombat(PlayerId player)
 {
-    Unit::onStartCombat(player);
+    Dispossessed::onStartCombat(player);
 
     m_opponentsCombat = (player != m_owningPlayer);
 }

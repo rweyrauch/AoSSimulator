@@ -59,7 +59,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Lightning Arc          Yes
-// Empower                          No
+// Empower                          Yes
 //
 
 } // namespace StormcastEternals

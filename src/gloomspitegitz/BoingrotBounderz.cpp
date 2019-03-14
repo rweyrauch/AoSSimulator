@@ -116,7 +116,7 @@ void BoingrotBounderz::onCharged()
 int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) const
 {
     // Lances of the Bounderz
-    int modifier = Unit::toWoundModifier(weapon, unit);
+    int modifier = GloomspiteGitzBase::toWoundModifier(weapon, unit);
     if (m_charged && weapon->name() == m_pokinLance.name())
     {
         modifier += 1;

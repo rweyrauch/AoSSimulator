@@ -117,7 +117,7 @@ Wounds CryptFlayers::weaponDamage(const Weapon *weapon, const Unit *target, int 
             return {0, roll - target->bravery()};
         }
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 

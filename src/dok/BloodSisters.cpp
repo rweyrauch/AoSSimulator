@@ -99,7 +99,7 @@ Wounds BloodSisters::weaponDamage(const Weapon *weapon, const Unit *target, int 
         return {0, 1};
     }
 
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void BloodSisters::visitWeapons(std::function<void(const Weapon *)> &visitor)
