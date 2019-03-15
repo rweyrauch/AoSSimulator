@@ -20,7 +20,7 @@ public:
     static const int BoardWidth = 30;
     static const int BoardDepth = 24;
 
-    ManoAMano(int numRounds);
+    explicit ManoAMano(int numRounds);
     ~ManoAMano();
 
     void combatants(Unit* red, Unit* blue);
@@ -46,12 +46,20 @@ protected:
     void runCombatPhase();
     void runBattleshockPhase();
 
+    Unit* redUnit();
+    Unit* blueUnit();
+    const Unit* redUnit() const;
+    const Unit* blueUnit() const;
+    Unit* attackingUnit();
+    Unit* defendingUnit();
+
 private:
 
     int m_numRounds = 5;
     Roster* m_rosters[2] = {nullptr, nullptr};
-    Unit* m_units[2];
     Math::Point3 m_initialPos[2];
+
+    int m_cpAvailable[2] = {0, 0};
 
     int m_round = 0;
     bool m_topOfRound = true;

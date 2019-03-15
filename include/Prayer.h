@@ -17,7 +17,7 @@ class Unit;
 class Prayer
 {
 public:
-    Prayer(int castingValue) :
+    explicit Prayer(int castingValue) :
             m_castingValue(castingValue) {}
 
     virtual int pray(const Unit* target) = 0;
@@ -27,7 +27,7 @@ protected:
 
     std::string m_name;
     int m_castingValue = 0;
-    Duration m_duration;
+    Duration m_duration{};
 };
 
 #endif// PRAYER_H

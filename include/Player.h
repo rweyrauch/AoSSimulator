@@ -14,7 +14,7 @@
 class Player
 {
 public:
-    Player(PlayerId id) : m_id(id) {}
+    explicit Player(PlayerId id) : m_id(id) {}
 
     void setRoster(Roster* roster)
     {

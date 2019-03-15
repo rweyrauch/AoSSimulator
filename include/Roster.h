@@ -15,7 +15,7 @@
 class Roster
 {
 public:
-    Roster(PlayerId id) : m_id(id) {}
+    explicit Roster(PlayerId id) : m_id(id) {}
 
     void addUnit(Unit* unit)
     {
@@ -28,7 +28,7 @@ public:
     void endRound(int battleRound);
     void beginTurn(int battleRound, PlayerId playerWithTurn);
     void endTurn(int battleRound);
-    void doHeroPhase();
+    int doHeroPhase(int cpAvailable);
     void doMovementPhase();
     void doShootingPhase();
     void doChargePhase();

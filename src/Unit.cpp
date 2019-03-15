@@ -382,14 +382,14 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     return std::max(0.0f, sqrtf(dx*dx + dy*dy) - (basesizeInches() / 2 + tbs));
 }
 
-void Unit::hero(PlayerId player)
+int Unit::hero(PlayerId player, int cpAvailable)
 {
     onStartHero(player);
 
     if (player == m_owningPlayer)
     {
         // Use command ability.
-        useCommandAbility();
+        cpAvailable = useCommandAbility(cpAvailable);
 
         // Cast spell
         castSpell();
@@ -401,6 +401,8 @@ void Unit::hero(PlayerId player)
     {
         // Opposing player's hero phase
     }
+
+    return cpAvailable;
 }
 
 void Unit::movement(PlayerId player)
@@ -859,6 +861,7 @@ void Unit::castSpell()
 {
     if (m_spellsCast < m_totalSpells)
     {
+        // TODO: Allow unit to cast multiple spells.  A given spell can only be cast once per player per hero phase.
         for (auto& sip : m_knownSpells)
         {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
@@ -885,9 +888,9 @@ void Unit::castSpell()
     }
 }
 
-void Unit::useCommandAbility()
+int Unit::useCommandAbility(int cpAvailable)
 {
-
+    return cpAvailable;
 }
 
 void Unit::makePrayer()

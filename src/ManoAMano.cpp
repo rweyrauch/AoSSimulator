@@ -27,9 +27,6 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     delete m_rosters[0];
     delete m_rosters[1];
 
-    m_units[0] = red;
-    m_units[1] = blue;
-
     m_rosters[0] = new Roster(PlayerId::Red);
     m_rosters[0]->addUnit(red);
 
@@ -75,8 +72,8 @@ void ManoAMano::start()
 {
     Dice dice;
 
-    m_units[0]->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
-    m_units[1]->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
+    redUnit()->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
+    blueUnit()->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
 
     int redRoll = 0;
     int blueRoll = 0;
@@ -111,6 +108,8 @@ void ManoAMano::start()
 
     m_rosters[(int) m_attackingUnit]->beginRound(m_round);
     m_rosters[(int) m_defendingUnit]->beginRound(m_round);
+
+    m_cpAvailable[(int) m_attackingUnit]++;
 
     m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
     m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
@@ -158,6 +157,7 @@ void ManoAMano::simulate()
 
 void ManoAMano::next()
 {
+    
     // advance fight state machine
     switch (m_currentPhase)
     {
@@ -190,6 +190,8 @@ void ManoAMano::next()
 
                 std::swap(m_attackingUnit, m_defendingUnit);
 
+                m_cpAvailable[(int) m_attackingUnit]++;
+
                 m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
                 m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 
@@ -201,11 +203,11 @@ void ManoAMano::next()
                 {
                     std::cout << "A the end of round " << m_round << "..." << std::endl;
                     std::cout << "   Team " << PlayerIdToString(PlayerId::Red) << " has "
-                              << m_units[0]->remainingModels() << " remaining models with "
-                              << m_units[0]->remainingWounds() << " wounds remaining." << std::endl;
+                              << redUnit()->remainingModels() << " remaining models with "
+                              << redUnit()->remainingWounds() << " wounds remaining." << std::endl;
                     std::cout << "   Team " << PlayerIdToString(PlayerId::Blue) << " has "
-                              << m_units[1]->remainingModels() << " remaining models with "
-                              << m_units[1]->remainingWounds() << " wounds remaining." << std::endl;
+                              << blueUnit()->remainingModels() << " remaining models with "
+                              << blueUnit()->remainingWounds() << " wounds remaining." << std::endl;
                 }
 
                 m_rosters[(int) m_attackingUnit]->endTurn(m_round);
@@ -229,12 +231,14 @@ void ManoAMano::next()
                     m_rosters[(int) m_attackingUnit]->beginRound(m_round);
                     m_rosters[(int) m_defendingUnit]->beginRound(m_round);
 
+                    m_cpAvailable[(int) m_attackingUnit]++;
+
                     m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
                     m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
                 }
             }
             // Check for a victory
-            if (m_units[0]->remainingModels() == 0 || m_units[1]->remainingModels() == 0)
+            if (redUnit()->remainingModels() == 0 || blueUnit()->remainingModels() == 0)
             {
                 m_isDone = true;
             }
@@ -276,8 +280,8 @@ void ManoAMano::runInitiativePhase()
         m_defendingUnit = PlayerId::Red;
     }
 
-    m_units[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-    m_units[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
+    m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
+    m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
 
     if (GetVerbosity() == Verbosity::Narrative)
     {
@@ -293,7 +297,7 @@ void ManoAMano::runHeroPhase()
         std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " hero phase." << std::endl;
     }
 
-    m_units[(int) m_attackingUnit]->hero(m_attackingUnit);
+    m_rosters[(int) m_attackingUnit]->doHeroPhase(m_cpAvailable[(int) m_attackingUnit]);
 }
 
 void ManoAMano::runMovementPhase()
@@ -303,13 +307,14 @@ void ManoAMano::runMovementPhase()
         std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " movement phase." << std::endl;
     }
 
-    m_units[(int) m_attackingUnit]->movement(m_attackingUnit);
+    m_rosters[(int) m_attackingUnit]->doMovementPhase();
 
     if (GetVerbosity() == Verbosity::Narrative)
     {
-        if (m_units[(int) m_attackingUnit]->ran())
+
+        if (attackingUnit()->ran())
         {
-            std::cout << PlayerIdToString(m_attackingUnit) << ":" << m_units[(int) m_attackingUnit]->name()
+            std::cout << PlayerIdToString(m_attackingUnit) << ":" << attackingUnit()->name()
                       << " ran." << std::endl;
         }
     }
@@ -323,20 +328,20 @@ void ManoAMano::runShootingPhase()
     }
 
     // Think...
-    m_units[(int) m_attackingUnit]->shooting(m_attackingUnit);
+    m_rosters[(int) m_attackingUnit]->doShootingPhase();
 
     // Act...
     int numSlain = 0;
-    auto totalDamage = m_units[(int) m_attackingUnit]->shoot(numSlain);
+    auto totalDamage = attackingUnit()->shoot(numSlain);
     if (totalDamage.normal > 0 || totalDamage.mortal > 0)
     {
         if (GetVerbosity() == Verbosity::Narrative)
         {
             std::cout << PlayerIdToString(m_attackingUnit) << ":"
-                      << m_units[(int) m_attackingUnit]->name()
+                      << attackingUnit()->name()
                       << " did " << (totalDamage.normal + totalDamage.mortal) << " shooting damage to "
                       << PlayerIdToString(m_defendingUnit)
-                      << ":" << m_units[(int) m_defendingUnit]->name() << " slaying " << numSlain
+                      << ":" << defendingUnit()->name() << " slaying " << numSlain
                       << " models. " << std::endl;
         }
     }
@@ -349,14 +354,14 @@ void ManoAMano::runChargePhase()
         std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " charge phase." << std::endl;
     }
 
-    m_units[(int) m_attackingUnit]->charge(m_attackingUnit);
+    m_rosters[(int) m_attackingUnit]->doChargePhase();
 
     if (GetVerbosity() == Verbosity::Narrative)
     {
-        if (m_units[(int) m_attackingUnit]->charged())
+        if (attackingUnit()->charged())
         {
-            std::cout << PlayerIdToString(m_attackingUnit) << ":" << m_units[(int) m_attackingUnit]->name()
-                      << " charged " << PlayerIdToString(m_defendingUnit) << ":" << m_units[(int) m_defendingUnit]->name() << std::endl;
+            std::cout << PlayerIdToString(m_attackingUnit) << ":" << attackingUnit()->name()
+                      << " charged " << PlayerIdToString(m_defendingUnit) << ":" << defendingUnit()->name() << std::endl;
         }
     }
 }
@@ -369,30 +374,30 @@ void ManoAMano::runCombatPhase()
     }
 
     // Think.
-    m_units[(int) m_attackingUnit]->combat(m_attackingUnit);
+    m_rosters[(int) m_attackingUnit]->doCombatPhase();
 
-    assert(m_units[(int) m_attackingUnit]->meleeTarget() == m_units[(int) m_defendingUnit]);
+    assert(attackingUnit()->meleeTarget() == defendingUnit());
 
     int numSlain = 0;
-    auto totalDamage = m_units[(int) m_attackingUnit]->fight(m_attackingUnit, numSlain);
+    auto totalDamage = attackingUnit()->fight(m_attackingUnit, numSlain);
 
     if (GetVerbosity() == Verbosity::Narrative)
     {
         std::cout << PlayerIdToString(m_attackingUnit) << ":"
-                  << m_units[(int) m_attackingUnit]->name()
+                  << attackingUnit()->name()
                   << " did " << (totalDamage.normal + totalDamage.mortal) << " damage to " << PlayerIdToString(m_defendingUnit)
-                  << ":" << m_units[(int) m_defendingUnit]->name() << " slaying " << numSlain
+                  << ":" << defendingUnit()->name() << " slaying " << numSlain
                   << " models in the combat phase." << std::endl;
     }
     numSlain = 0;
-    totalDamage = m_units[(int) m_defendingUnit]->fight(-1, m_units[(int) m_attackingUnit], numSlain);
+    totalDamage = defendingUnit()->fight(-1, attackingUnit(), numSlain);
 
     if (GetVerbosity() == Verbosity::Narrative)
     {
         std::cout << PlayerIdToString(m_defendingUnit) << ":"
-                  << m_units[(int) m_defendingUnit]->name()
+                  << defendingUnit()->name()
                   << " did " << (totalDamage.normal + totalDamage.mortal) << " damage to " << PlayerIdToString(m_attackingUnit)
-                  << ":" << m_units[(int) m_attackingUnit]->name() << " slaying " << numSlain
+                  << ":" << attackingUnit()->name() << " slaying " << numSlain
                   << " model in the counter attack." << std::endl;
     }
 }
@@ -404,27 +409,27 @@ void ManoAMano::runBattleshockPhase()
         std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " battleshock phase." << std::endl;
     }
 
-    m_units[(int) m_attackingUnit]->battleshock(m_attackingUnit);
-    m_units[(int) m_defendingUnit]->battleshock(m_defendingUnit);
+    m_rosters[(int) m_attackingUnit]->doBattleshockPhase();
+    m_rosters[(int) m_defendingUnit]->doBattleshockPhase();
 
-    int numFleeing = m_units[(int) m_attackingUnit]->applyBattleshock();
+    int numFleeing = attackingUnit()->applyBattleshock();
     if (numFleeing > 0)
     {
         if (GetVerbosity() == Verbosity::Narrative)
         {
             std::cout << "A total of " << numFleeing << " "
-                      << m_units[(int) m_attackingUnit]->name() << " from "
+                      << attackingUnit()->name() << " from "
                       << PlayerIdToString(m_attackingUnit) << " fled from battleshock."
                       << std::endl;
         }
     }
-    numFleeing = m_units[(int) m_defendingUnit]->applyBattleshock();
+    numFleeing = defendingUnit()->applyBattleshock();
     if (numFleeing > 0)
     {
         if (GetVerbosity() == Verbosity::Narrative)
         {
             std::cout << "A total of " << numFleeing << " "
-                      << m_units[(int) m_defendingUnit]->name() << " from "
+                      << defendingUnit()->name() << " from "
                       << PlayerIdToString(m_defendingUnit) << " fled from battleshock."
                       << std::endl;
         }
@@ -441,22 +446,22 @@ ManoAMano::~ManoAMano()
 PlayerId ManoAMano::getVictor() const
 {
     // Blue 'tabled' Red
-    if (m_units[0]->remainingModels() == 0 && m_units[1]->remainingModels() > 0)
+    if (redUnit()->remainingModels() == 0 && blueUnit()->remainingModels() > 0)
     {
         return PlayerId::Blue;
     }
     // Red 'tabled' Blue
-    if (m_units[0]->remainingModels() > 0 && m_units[1]->remainingModels() == 0)
+    if (redUnit()->remainingModels() > 0 && blueUnit()->remainingModels() == 0)
     {
         return PlayerId::Red;
     }
     // Red suffered fewer losses
-    if (m_units[0]->remainingPoints() > m_units[1]->remainingPoints())
+    if (redUnit()->remainingPoints() > blueUnit()->remainingPoints())
     {
         return PlayerId::Red;
     }
     // Blue suffered few losses
-    if (m_units[0]->remainingPoints() < m_units[1]->remainingPoints())
+    if (redUnit()->remainingPoints() < blueUnit()->remainingPoints())
     {
         return PlayerId::Blue;
     }
@@ -491,15 +496,65 @@ void ManoAMano::logStatistics() const
                   << ", " << turn.m_woundsTaken.mortal << std::endl;
     };
 
-    auto redStats = m_units[0]->getStatistics();
+    auto redStats = redUnit()->getStatistics();
     std::cout << "Red Statistics:" << std::endl;
     logUnitStats(redStats);
     if (GetVerbosity() == Verbosity::Narrative)
         redStats.visitTurn(turnVistor);
 
-    auto blueStats = m_units[1]->getStatistics();
+    auto blueStats = blueUnit()->getStatistics();
     std::cout << "Blue Statistics:" << std::endl;
     logUnitStats(blueStats);
     if (GetVerbosity() == Verbosity::Narrative)
         blueStats.visitTurn(turnVistor);
+}
+
+Unit *ManoAMano::redUnit()
+{
+    auto red = m_rosters[0]->unitBegin();
+    return *red;
+}
+
+Unit *ManoAMano::blueUnit()
+{
+    auto blue = m_rosters[1]->unitBegin();
+    return *blue;
+}
+
+Unit *ManoAMano::attackingUnit()
+{
+    if (m_attackingUnit == PlayerId::Red)
+    {
+        return redUnit();
+    }
+    else if (m_attackingUnit == PlayerId::Blue)
+    {
+        return blueUnit();
+    }
+    return nullptr;
+}
+
+Unit *ManoAMano::defendingUnit()
+{
+    if (m_defendingUnit == PlayerId::Red)
+    {
+        return redUnit();
+    }
+    else if (m_defendingUnit == PlayerId::Blue)
+    {
+        return blueUnit();
+    }
+    return nullptr;
+}
+
+const Unit *ManoAMano::redUnit() const
+{
+    const auto red = m_rosters[0]->unitBegin();
+    return *red;
+}
+
+const Unit *ManoAMano::blueUnit() const
+{
+    const auto blue = m_rosters[1]->unitBegin();
+    return *blue;
 }

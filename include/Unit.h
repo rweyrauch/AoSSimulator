@@ -86,7 +86,8 @@ public:
 
     // Phase functions (these are the 'think' functions that decide what this unit
     // is to do in each of the phases.
-    void hero(PlayerId player);
+
+    int hero(PlayerId player, int cpAvailable);
 
     void movement(PlayerId player);
 
@@ -182,7 +183,7 @@ protected:
 
     int rerolling(int initialRoll, Rerolls reroll, Dice& dice) const;
 
-    void useCommandAbility();
+    int useCommandAbility(int cpAvailable);
     void castSpell();
     void makePrayer();
 

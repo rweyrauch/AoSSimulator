@@ -96,6 +96,7 @@ add_library(
         gloomspitegitz/GloomspiteGitzBase.cpp
         gloomspitegitz/BadMoon.cpp
         gloomspitegitz/SpiderRiders.cpp
+        gloomspitegitz/FellwaterTroggoths.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

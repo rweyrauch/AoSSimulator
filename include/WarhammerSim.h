@@ -249,6 +249,7 @@ enum Keyword
     SQUIG_GOBBA,
     SPIDERFANG,
     SPIDER_RIDERS,
+    FELLWATER,
 
     // Daughters of Khaine
     MELUSAI,
