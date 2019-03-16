@@ -351,6 +351,9 @@ enum Keyword
     VARGHULF_COURTIER,
     PRINCE_VHORDRAI,
     ABHORRANT_ARCHREGENT,
+    MENAGERIE,
+    ROYAL_TERRORGHEIST,
+    ROYAL_ZOMBIE_DRAGON,
 
     // Flesh-eater Court Grand Courts
     MORGAUNT,

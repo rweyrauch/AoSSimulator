@@ -148,10 +148,15 @@ add_library(
         fec/CryptGhouls.cpp
         fec/CryptFlayers.cpp
         fec/CryptInfernalCourtier.cpp
+        fec/CryptGhastCourtier.cpp
+        fec/CryptHaunterCourtier.cpp
         fec/AbhorrantArchregent.cpp
         fec/AbhorrantGhoulKing.cpp
         fec/GhoulKingOnTerrorgheist.cpp
         fec/GhoulKingOnZombieDragon.cpp
+        fec/RoyalTerrorgheist.cpp
+        fec/RoyalZombieDragon.cpp
+        fec/VarghulfCourtier.cpp
 
         wanderers/EternalGuard.cpp
         wanderers/GladeGuard.cpp
