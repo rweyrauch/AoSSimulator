@@ -66,6 +66,8 @@
 #include "khorne/Skarbrand.h"
 #include "khorne/Karanak.h"
 #include "khorne/FleshHounds.h"
+#include "khorne/Skulltaker.h"
+#include "khorne/Bloodmaster.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -76,6 +78,8 @@
 #include "sylvaneth/DrychaHamadreth.h"
 #include "sylvaneth/Treelord.h"
 #include "sylvaneth/TreelordAncient.h"
+#include "sylvaneth/Branchwraith.h"
+#include "sylvaneth/Branchwych.h"
 
 #include "dok/WitchAelves.h"
 #include "dok/BloodSisters.h"
@@ -128,6 +132,11 @@
 #include "fec/AbhorrantGhoulKing.h"
 #include "fec/GhoulKingOnTerrorgheist.h"
 #include "fec/GhoulKingOnZombieDragon.h"
+#include "fec/VarghulfCourtier.h"
+#include "fec/CryptGhastCourtier.h"
+#include "fec/CryptHaunterCourtier.h"
+#include "fec/RoyalZombieDragon.h"
+#include "fec/RoyalTerrorgheist.h"
 
 #include "wanderers/GladeGuard.h"
 #include "wanderers/EternalGuard.h"
@@ -236,6 +245,8 @@ void Initialize(Verbosity verbosity)
     Khorne::Skarbrand::Init();
     Khorne::Karanak::Init();
     Khorne::FleshHounds::Init();
+    Khorne::Skulltaker::Init();
+    Khorne::Bloodmaster::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();
@@ -246,6 +257,8 @@ void Initialize(Verbosity verbosity)
     Sylvaneth::DrychaHamadreth::Init();
     Sylvaneth::Treelord::Init();
     Sylvaneth::TreelordAncient::Init();
+    Sylvaneth::Branchwraith::Init();
+    Sylvaneth::Branchwych::Init();
 
     DaughtersOfKhaine::WitchAelves::Init();
     DaughtersOfKhaine::SistersOfSlaughter::Init();
@@ -298,6 +311,11 @@ void Initialize(Verbosity verbosity)
     FleshEaterCourt::AbhorrantGhoulKing::Init();
     FleshEaterCourt::AbhorrantGhoulKingOnTerrorgheist::Init();
     FleshEaterCourt::AbhorrantGhoulKingOnZombieDragon::Init();
+    FleshEaterCourt::VarghulfCourtier::Init();
+    FleshEaterCourt::RoyalTerrorgheist::Init();
+    FleshEaterCourt::RoyalZombieDragon::Init();
+    FleshEaterCourt::CryptGhastCourtier::Init();
+    FleshEaterCourt::CryptHaunterCourtier::Init();
 
     Wanderers::GladeGuard::Init();
     Wanderers::EternalGuard::Init();

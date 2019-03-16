@@ -65,6 +65,8 @@ add_library(
         khorne/Skarbrand.cpp
         khorne/Karanak.cpp
         khorne/FleshHounds.cpp
+        khorne/Skulltaker.cpp
+        khorne/Bloodmaster.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
@@ -75,6 +77,8 @@ add_library(
         sylvaneth/DrychaHamadreth.cpp
         sylvaneth/Treelord.cpp
         sylvaneth/TreelordAncient.cpp
+        sylvaneth/Branchwraith.cpp
+        sylvaneth/Branchwych.cpp
 
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp
