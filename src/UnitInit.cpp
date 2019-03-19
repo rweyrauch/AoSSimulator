@@ -123,6 +123,11 @@
 #include "death/SkeletonWarriors.h"
 #include "death/Vargheists.h"
 #include "death/Zombies.h"
+#include "death/WightKingTombBlade.h"
+#include "death/WightKingBlackAxe.h"
+#include "death/Necromancer.h"
+#include "death/MorghastArchai.h"
+#include "death/MorghastHarbingers.h"
 
 #include "fec/CryptHorrors.h"
 #include "fec/CryptGhouls.h"
@@ -302,6 +307,11 @@ void Initialize(Verbosity verbosity)
     Death::SkeletonWarriors::Init();
     Death::Vargheists::Init();
     Death::Zombies::Init();
+    Death::WightKingWithBlackAxe::Init();
+    Death::WightKingWithBalefulTombBlade::Init();
+    Death::Necromancer::Init();
+    Death::MorghastArchai::Init();
+    Death::MorghastHarbingers::Init();
 
     FleshEaterCourt::CryptGhouls::Init();
     FleshEaterCourt::CryptHorrors::Init();

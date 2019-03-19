@@ -146,6 +146,11 @@ add_library(
         death/SkeletonWarriors.cpp
         death/Vargheists.cpp
         death/Zombies.cpp
+        death/WightKingBlackAxe.cpp
+        death/WightKingTombBlade.cpp
+        death/Necromancer.cpp
+        death/MorghastArchai.cpp
+        death/MorghastHarbingers.cpp
 
         fec/FleshEaterCourts.cpp
         fec/CryptHorrors.cpp

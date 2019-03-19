@@ -126,6 +126,8 @@ enum Keyword
     SKAVEN,
     DEATHRATTLE,
     DEADWALKERS,
+    DEATHMAGES,
+    DEATHLORDS,
 
     // Common
     MORTAL,
@@ -338,6 +340,12 @@ enum Keyword
     ZOMBIE,
     DIRE_WOLVES,
     CORPSE_CARTS,
+    WIGHT_KING,
+    NECROMANCER,
+    REANIMANT,
+    MORGHAST,
+    MORGHAST_ARCHAI,
+    MORGHAST_HARBINGERS,
 
     // Flesh-eater Court
     MORDANT,
