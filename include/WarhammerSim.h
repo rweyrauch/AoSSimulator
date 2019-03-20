@@ -265,6 +265,7 @@ enum Keyword
     SISTERS_OF_SLAUGHTER,
     KHINERAI_LIFETAKERS,
     HAG_QUEEN,
+    KHINERAI_HEARTRENDERS,
 
     // Daughters of Khaine Temples
     HAGG_NAR,

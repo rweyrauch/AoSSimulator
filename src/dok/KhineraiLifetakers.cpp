@@ -34,7 +34,7 @@ KhineraiLifetakers::KhineraiLifetakers() :
     m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
     m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle (Harridynn)", 1, 2, 2, 4, 0, 1)
 {
-    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
+    m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
 }
 
 bool KhineraiLifetakers::configure(int numModels)

@@ -107,6 +107,7 @@ add_library(
         dok/BloodSisters.cpp
         dok/KhineraiLifetakers.cpp
         dok/SistersOfSlaughter.cpp
+        dok/KhineraiHeartrenders.cpp
 
         idonethdeepkin/NamartiThralls.cpp
         idonethdeepkin/NamartiReavers.cpp
