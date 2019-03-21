@@ -119,6 +119,9 @@ add_library(
         idonethdeepkin/NamartiReavers.cpp
         idonethdeepkin/IshlaenGuard.cpp
         idonethdeepkin/MorrsarrGuard.cpp
+        idonethdeepkin/AkhelianLeviadon.cpp
+        idonethdeepkin/AkhelianKing.cpp
+        idonethdeepkin/Volturnos.cpp
 
         nighthaunt/Nighthaunt.cpp
         nighthaunt/GrimghastReapers.cpp

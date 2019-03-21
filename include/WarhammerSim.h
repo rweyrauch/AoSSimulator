@@ -287,6 +287,9 @@ enum Keyword
     AKHELIAN_GUARD,
     MORRSARR_GUARD,
     ISHLAEN_GUARD,
+    LEVIADON,
+    AKHELIAN_KING,
+    VOLTURNOS,
 
     // Nighthaunt
     GRIMGHAST_REAPERS,

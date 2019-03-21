@@ -97,6 +97,8 @@
 #include "idonethdeepkin/NamartiReavers.h"
 #include "idonethdeepkin/IshlaenGuard.h"
 #include "idonethdeepkin/MorrsarrGuard.h"
+#include "idonethdeepkin/AkhelianLeviadon.h"
+#include "idonethdeepkin/AkhelianKing.h"
 
 #include "nighthaunt/ChainraspHorde.h"
 #include "nighthaunt/GrimghastReapers.h"
@@ -296,6 +298,8 @@ void Initialize(Verbosity verbosity)
     IdonethDeepkin::NamartiReavers::Init();
     IdonethDeepkin::AkhelianMorrsarrGuard::Init();
     IdonethDeepkin::AkhelianIshlaenGuard::Init();
+    IdonethDeepkin::AkhelianLeviadon::Init();
+    IdonethDeepkin::AkhelianKing::Init();
 
     Nighthaunt::ChainraspHorde::Init();
     Nighthaunt::GrimghastReapers::Init();
