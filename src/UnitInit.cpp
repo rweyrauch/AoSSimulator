@@ -85,6 +85,13 @@
 #include "dok/BloodSisters.h"
 #include "dok/KhineraiLifetakers.h"
 #include "dok/SistersOfSlaughter.h"
+#include "dok/KhineraiHeartrenders.h"
+#include "dok/DoomfireWarlocks.h"
+#include "dok/BloodStalkers.h"
+#include "dok/HagQueen.h"
+#include "dok/SlaughterQueen.h"
+#include "dok/AvatarOfKhaine.h"
+#include "dok/BloodwrackMedusa.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
@@ -265,10 +272,17 @@ void Initialize(Verbosity verbosity)
     Sylvaneth::Branchwraith::Init();
     Sylvaneth::Branchwych::Init();
 
-    DaughtersOfKhaine::WitchAelves::Init();
-    DaughtersOfKhaine::SistersOfSlaughter::Init();
+    DaughtersOfKhaine::AvatarOfKhaine::Init();
     DaughtersOfKhaine::BloodSisters::Init();
+    DaughtersOfKhaine::BloodStalkers::Init();
+    DaughtersOfKhaine::BloodwrackMedusa::Init();
+    DaughtersOfKhaine::DoomfireWarlocks::Init();
+    DaughtersOfKhaine::HagQueen::Init();
+    DaughtersOfKhaine::KhineraiHeartrenders::Init();
     DaughtersOfKhaine::KhineraiLifetakers::Init();
+    DaughtersOfKhaine::SistersOfSlaughter::Init();
+    DaughtersOfKhaine::SlaughterQueen::Init();
+    DaughtersOfKhaine::WitchAelves::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
     IdonethDeepkin::NamartiReavers::Init();

@@ -108,6 +108,12 @@ add_library(
         dok/KhineraiLifetakers.cpp
         dok/SistersOfSlaughter.cpp
         dok/KhineraiHeartrenders.cpp
+        dok/DoomfireWarlocks.cpp
+        dok/BloodStalkers.cpp
+        dok/HagQueen.cpp
+        dok/SlaughterQueen.cpp
+        dok/AvatarOfKhaine.cpp
+        dok/BloodwrackMedusa.cpp
 
         idonethdeepkin/NamartiThralls.cpp
         idonethdeepkin/NamartiReavers.cpp

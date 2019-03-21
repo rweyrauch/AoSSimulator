@@ -37,7 +37,7 @@ BloodSisters::BloodSisters() :
     m_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1),
     m_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1)
 {
-    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
+    m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
 }
 
 bool BloodSisters::configure(int numModels)
