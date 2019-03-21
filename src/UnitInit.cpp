@@ -189,6 +189,14 @@
 #include "eldritchcouncil/Archmage.h"
 #include "eldritchcouncil/ArchmageOnDragon.h"
 
+#include "greenskinz/RogueIdol.h"
+#include "greenskinz/Orruks.h"
+#include "greenskinz/OrrukBoarboys.h"
+#include "greenskinz/OrrukBoarChariots.h"
+#include "greenskinz/OrrukGreatShaman.h"
+#include "greenskinz/OrrukWarboss.h"
+#include "greenskinz/OrrukWarbossWyvern.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -379,4 +387,12 @@ void Initialize(Verbosity verbosity)
     EldritchCouncil::Loremaster::Init();
     EldritchCouncil::Archmage::Init();
     EldritchCouncil::ArchmageOnDragon::Init();
+
+    Greenskinz::Orruks::Init();
+    Greenskinz::OrrukBoarboys::Init();
+    Greenskinz::OrrukBoarChariots::Init();
+    Greenskinz::OrrukGreatShaman::Init();
+    Greenskinz::OrrukWarboss::Init();
+    Greenskinz::OrrukWarbossOnWyvern::Init();
+    Greenskinz::RogueIdol::Init();
 }

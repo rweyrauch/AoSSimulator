@@ -215,6 +215,14 @@ add_library(
         eldritchcouncil/Loremaster.cpp
         eldritchcouncil/Archmage.cpp
         eldritchcouncil/ArchmageOnDragon.cpp
+
+        greenskinz/Orruks.cpp
+        greenskinz/OrrukBoarboys.cpp
+        greenskinz/OrrukBoarChariots.cpp
+        greenskinz/OrrukGreatShaman.cpp
+        greenskinz/OrrukWarboss.cpp
+        greenskinz/OrrukWarbossWyvern.cpp
+        greenskinz/RogueIdol.cpp
 )
 
 target_include_directories(

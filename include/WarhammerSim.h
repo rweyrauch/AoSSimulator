@@ -438,6 +438,14 @@ enum Keyword
     DRAKESEER,
     LOREMASTER,
 
+    // Greenskinz
+    ROGUE_IDOL,
+    WYVERN,
+    ORRUK_WARBOSS,
+    ORRUK_GREAT_SHAMAN,
+    ORRUKS,
+    ORRUK_BOARBOYS,
+    ORRUK_BOAR_CHARIOTS,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

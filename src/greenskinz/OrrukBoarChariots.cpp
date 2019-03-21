@@ -1,0 +1,115 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#include <greenskinz/OrrukBoarChariots.h>
+#include <UnitFactory.h>
+
+namespace Greenskinz
+{
+static FactoryMethod factoryMethod = {
+    OrrukBoarChariots::Create,
+    nullptr,
+    nullptr,
+    {
+        {
+            ParamType::Integer, "Models", {.m_intValue = OrrukBoarChariots::MIN_UNIT_SIZE}, OrrukBoarChariots::MIN_UNIT_SIZE,
+            OrrukBoarChariots::MAX_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE
+        },
+    },
+    DESTRUCTION,
+    GREENSKINZ
+};
+
+bool OrrukBoarChariots::s_registered = false;
+
+OrrukBoarChariots::OrrukBoarChariots() :
+    Unit("Orruk Boar Chariots", 9, WOUNDS, 6, 4, false),
+    m_pigstikkaSpears(Weapon::Type::Melee, "Crew's Pigstikka Spears", 2, 2, 4, 4, 0, 1),
+    m_warBoarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 4, 4, 4, 0, 1)
+{
+    m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOAR_CHARIOTS};
+}
+
+bool OrrukBoarChariots::configure(int numModels)
+{
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&m_pigstikkaSpears);
+        model.addMeleeWeapon(&m_warBoarsTusks);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
+}
+
+void OrrukBoarChariots::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&m_pigstikkaSpears);
+    visitor(&m_warBoarsTusks);
+}
+
+Unit *OrrukBoarChariots::Create(const ParameterList &parameters)
+{
+    auto unit = new OrrukBoarChariots();
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void OrrukBoarChariots::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Orruk Boar Chariots", factoryMethod);
+    }
+}
+
+int OrrukBoarChariots::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    // Tusker Charge
+    if (m_charged && weapon->name() == m_warBoarsTusks.name())
+    {
+        return RerollFailed;
+    }
+    return Unit::toWoundModifier(weapon, target);
+}
+
+void OrrukBoarChariots::onCharged()
+{
+    // Scythed Wheels
+    Dice dice;
+    int roll = dice.rollD6();
+    if (roll >= 4)
+    {
+        if (m_meleeTarget)
+        {
+            m_meleeTarget->applyDamage({0, dice.rollD3()});
+        }
+    }
+    Unit::onCharged();
+}
+
+} // namespace Greenskinz
