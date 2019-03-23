@@ -7,6 +7,7 @@
  */
 #include <idonethdeepkin/Volturnos.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace IdonethDeepkin
 {
@@ -71,6 +72,23 @@ void Volturnos::Init()
     {
         s_registered = UnitFactory::Register("Volturnos", factoryMethod);
     }
+}
+
+void Volturnos::onCharged()
+{
+    // Deepmare Horn
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    if (!units.empty())
+    {
+        Dice dice;
+        int roll = dice.rollD6();
+        if (roll >= 2)
+        {
+            units.front()->applyDamage({0, dice.rollD3()});
+        }
+    }
+
+    Unit::onCharged();
 }
 
 } //namespace IdonethDeepkin

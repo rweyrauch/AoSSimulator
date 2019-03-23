@@ -24,7 +24,7 @@ bool AkhelianLeviadon::s_registered = false;
 
 AkhelianLeviadon::AkhelianLeviadon() :
     Unit("Akhelian Leviadon", 12, WOUNDS, 7, 3, true),
-    m_harpoonLauncher(Weapon::Type::Missile, "Razorshell Harpoon Launcher", 24, 3, 3, 3, 0, 1),
+    m_harpoonLauncher(Weapon::Type::Missile, "Harpoon Launchers", 24, 6, 3, 3, 0, 1),
     m_crushingJaws(Weapon::Type::Melee, "Leviadon's Crushing Jaws", 1, 1, 2, 2, -2, RAND_D6),
     m_scythedFins(Weapon::Type::Melee, "Leviadon's Massive Scythed Fins", 2, 4, 3, 3, -1, 3),
     m_twinProngedSpear(Weapon::Type::Melee, "Twin-pronged Spear", 1, 2, 3, 3, 0, 2),

@@ -122,6 +122,7 @@ add_library(
         idonethdeepkin/AkhelianLeviadon.cpp
         idonethdeepkin/AkhelianKing.cpp
         idonethdeepkin/Volturnos.cpp
+        idonethdeepkin/AkhelianAllopexes.cpp
 
         nighthaunt/Nighthaunt.cpp
         nighthaunt/GrimghastReapers.cpp

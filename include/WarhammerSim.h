@@ -290,6 +290,7 @@ enum Keyword
     LEVIADON,
     AKHELIAN_KING,
     VOLTURNOS,
+    ALLOPEX,
 
     // Nighthaunt
     GRIMGHAST_REAPERS,

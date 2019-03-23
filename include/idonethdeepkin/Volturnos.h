@@ -35,6 +35,8 @@ public:
 
 protected:
 
+    void onCharged() override;
+
 private:
 
     Weapon m_theAstraSolus,
@@ -48,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deepmare Horn                    No
+// Deepmare Horn                    Yes
 // The Astra Solus                  No
 // The Crest of the High King       No
 // Cealith, the High King's Shield  No

@@ -7,6 +7,7 @@
  */
 #include <idonethdeepkin/AkhelianKing.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace IdonethDeepkin
 {
@@ -114,6 +115,33 @@ int AkhelianKing::EnumStringToInt(const std::string &enumString)
         return Greatsword;
     }
     return 0;
+}
+
+Wounds AkhelianKing::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Wave Rider
+    if (m_charged && (weapon->name() == m_bladedPolearm.name()))
+    {
+        return {3, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void AkhelianKing::onCharged()
+{
+    // Deepmare Horn
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    if (!units.empty())
+    {
+        Dice dice;
+        int roll = dice.rollD6();
+        if (roll >= 2)
+        {
+            units.front()->applyDamage({0, dice.rollD3()});
+        }
+    }
+
+    Unit::onCharged();
 }
 
 } //namespace IdonethDeepkin

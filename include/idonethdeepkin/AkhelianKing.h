@@ -43,6 +43,9 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onCharged() override;
+
 private:
 
     Weapon m_bladedPolearm,
@@ -58,10 +61,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deepmare Horn                    No
+// Deepmare Horn                    Yes
 // Akhelian Paragon                 No
 // Storm of Blows                   No
-// Wave Rider                       No
+// Wave Rider                       Yes
 // Lord of Tides                    No
 //
 
