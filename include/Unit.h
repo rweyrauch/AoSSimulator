@@ -186,6 +186,7 @@ protected:
     int useCommandAbility(int cpAvailable);
     void castSpell();
     void makePrayer();
+    void doPileIn();
 
 protected:
 

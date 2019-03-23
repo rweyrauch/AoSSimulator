@@ -54,6 +54,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Collars of Khorne                No
+// Unflagging Hunters               Yes
+//
 
 } // namespace Khorne
 

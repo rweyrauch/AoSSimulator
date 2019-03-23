@@ -51,7 +51,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Wraith-flails                    Yes
+// Furious Assault                  Yes
 // Crimson Haze                     No
 // Bloodfury                        No
 //

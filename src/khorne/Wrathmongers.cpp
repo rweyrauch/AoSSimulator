@@ -94,7 +94,7 @@ int Wrathmongers::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
     int modifier = Unit::toHitModifier(weapon, target);
 
-    // Wrath-flails
+    // Furious Assault
     if (m_charged)
     {
         modifier += 1;

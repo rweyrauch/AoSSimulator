@@ -32,23 +32,17 @@ public:
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
-    enum Rage
-    {
-        Angry = 0,
-        Furious,
-        Seething,
-        Enraged,
-        Incandescent
-    };
-
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    Rerolls chargeRerolls() const override;
+    int generateMortalWounds(const Unit *unit) override;
+    void onStartShooting(PlayerId player) override;
 
 private:
 
-    Rage m_rageLevel = Angry;
+    bool m_attackedInPreviousRound = false;
 
     Weapon m_slaughter,
         m_carnage;
@@ -61,8 +55,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Skarbrand's Rage                 No
-// Roar of Total Rage               No
-// Total Carnage                    No
+// Roar of Total Rage               Yes
+// Total Carnage                    Yes
+// Inescapable Wrath                Yes
 //
 
 } // namespace Khorne

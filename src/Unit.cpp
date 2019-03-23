@@ -105,7 +105,11 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
 
     // Some units do mortal wounds for just existing!  See Evocators for example.
     int mortalWounds = generateMortalWounds(targetUnit);
-    totalDamage.mortal += mortalWounds;
+    if (mortalWounds)
+    {
+        Wounds damage = targetUnit->applyWoundSave({0, mortalWounds});
+        totalDamage.mortal += damage.mortal;
+    }
 
     numSlain = targetUnit->applyDamage(totalDamage);
 
@@ -560,6 +564,7 @@ void Unit::combat(PlayerId player)
     m_meleeTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
     // TODO: pile-in
+    doPileIn();
 
     onStartCombat(player);
 }
@@ -904,6 +909,17 @@ bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration
 bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration)
 {
     return false;
+}
+
+void Unit::doPileIn()
+{
+    // Pile in up to 3" towards nearest enemy model.
+    for (auto& m : m_models)
+    {
+        // Find closest model in melee target unit.
+
+        // Move toward that model if possible
+    }
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
