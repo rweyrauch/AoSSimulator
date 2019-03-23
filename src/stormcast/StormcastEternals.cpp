@@ -35,9 +35,9 @@ Rerolls StormcastEternal::toHitRerolls(const Weapon *weapon, const Unit *unit) c
     return Unit::toHitRerolls(weapon, unit);
 }
 
-int StormcastEternal::battlshockModifier() const
+int StormcastEternal::braveryModifier() const
 {
-    int modifier = Unit::battlshockModifier();
+    int modifier = Unit::braveryModifier();
 
     // First to be Forged
     if (hasKeyword(HAMMERS_OF_SIGMAR))

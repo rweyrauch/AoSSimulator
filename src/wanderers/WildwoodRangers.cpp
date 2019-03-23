@@ -117,9 +117,9 @@ Rerolls WildwoodRangers::runRerolls() const
     return Unit::runRerolls();
 }
 
-int WildwoodRangers::battlshockModifier() const
+int WildwoodRangers::braveryModifier() const
 {
-    int modifier =  Unit::battlshockModifier();
+    int modifier = Unit::braveryModifier();
     if (m_standardBearer)
     {
         modifier += 1;

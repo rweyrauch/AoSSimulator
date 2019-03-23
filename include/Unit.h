@@ -281,7 +281,7 @@ protected:
      */
     virtual bool battleshockRequired() const { return true; }
 
-    virtual int battlshockModifier() const;
+    virtual int braveryModifier() const;
 
     virtual Rerolls battleshockRerolls() const { return NoRerolls; }
 

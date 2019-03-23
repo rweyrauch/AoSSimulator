@@ -98,9 +98,9 @@ Rerolls BloodWarriors::toHitRerolls(const Weapon *weapon, const Unit *unit) cons
     return Unit::toHitRerolls(weapon, unit);
 }
 
-int BloodWarriors::battlshockModifier() const
+int BloodWarriors::braveryModifier() const
 {
-    int modifier = Unit::battlshockModifier();
+    int modifier = Unit::braveryModifier();
 
     // Icon Bearer
     if (m_iconBearer)

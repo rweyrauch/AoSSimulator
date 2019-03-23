@@ -127,9 +127,9 @@ Rerolls GladeGuard::runRerolls() const
     return Unit::runRerolls();
 }
 
-int GladeGuard::battlshockModifier() const
+int GladeGuard::braveryModifier() const
 {
-    int modifier =  Unit::battlshockModifier();
+    int modifier = Unit::braveryModifier();
     if (m_pennantBearer)
     {
         modifier += 1;

@@ -521,6 +521,7 @@ PlayerId GetEnemyId(PlayerId friendlyId);
 
 void Initialize(Verbosity verbosity = Verbosity::Normal);
 
+void SetVerbosity(Verbosity verbosity);
 Verbosity GetVerbosity();
 
 void SimLog(Verbosity verbosity, const char* format, ...);

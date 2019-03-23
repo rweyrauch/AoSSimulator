@@ -27,7 +27,7 @@ protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int battlshockModifier() const override;
+    int braveryModifier() const override;
     Rerolls battleshockRerolls() const override;
 
 };

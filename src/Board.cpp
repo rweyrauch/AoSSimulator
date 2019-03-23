@@ -94,17 +94,6 @@ void Board::render(const std::string &filename) const
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5f;
 
-        // label with the number of remaining models
-        cr->save();
-        cr->move_to((unit->position().x() + radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
-        cr->set_source_rgb(1, 1, 1);
-        cr->set_font_face(font);
-        cr->set_font_size(12.0);
-        std::stringstream text;
-        text << unit->remainingModels();
-        cr->show_text(text.str());
-        cr->restore();
-
         cr->set_source_rgb(1.0, 0.0, 0.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
         {
@@ -131,17 +120,6 @@ void Board::render(const std::string &filename) const
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5f;
 
-        // label with the number of remaining models
-        cr->save();
-        cr->move_to((unit->position().x() + radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
-        cr->set_source_rgb(1, 1, 1);
-        cr->set_font_face(font);
-        cr->set_font_size(12.0);
-        std::stringstream text;
-        text << unit->remainingModels();
-        cr->show_text(text.str());
-        cr->restore();
-
         cr->set_source_rgb(0.0, 0.0, 1.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
         {
@@ -156,6 +134,42 @@ void Board::render(const std::string &filename) const
         cr->fill();
     }
     cr->restore();
+
+    for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
+    {
+        const Unit *unit = *ip;
+        auto baseSize = unit->basesizeInches();
+        auto radiusInches = baseSize * 0.5f;
+
+        // label with the number of remaining models
+        cr->save();
+        cr->move_to((unit->position().x() - 2.0f * radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
+        cr->set_source_rgb(1, 1, 1);
+        cr->set_font_face(font);
+        cr->set_font_size(12.0);
+        std::stringstream text;
+        text << unit->remainingModels();
+        cr->show_text(text.str());
+        cr->restore();
+    }
+
+    for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
+    {
+        const Unit *unit = *ip;
+        auto baseSize = unit->basesizeInches();
+        auto radiusInches = baseSize * 0.5f;
+
+        // label with the number of remaining models
+        cr->save();
+        cr->move_to((unit->position().x() + radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
+        cr->set_source_rgb(1, 1, 1);
+        cr->set_font_face(font);
+        cr->set_font_size(12.0);
+        std::stringstream text;
+        text << unit->remainingModels();
+        cr->show_text(text.str());
+        cr->restore();
+    }
 
     surface->write_to_png(filename);
 }

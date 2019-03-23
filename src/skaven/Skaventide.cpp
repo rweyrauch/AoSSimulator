@@ -34,9 +34,9 @@ int Skaventide::toWoundModifier(const Weapon *weapon, const Unit *target) const
     return modifier;
 }
 
-int Skaventide::battlshockModifier() const
+int Skaventide::braveryModifier() const
 {
-    int modifier = Unit::battlshockModifier();
+    int modifier = Unit::braveryModifier();
 
     // Strength in Numbers
     modifier += remainingModels() / 10;

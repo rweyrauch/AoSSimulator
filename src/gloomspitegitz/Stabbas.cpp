@@ -78,10 +78,12 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     if (bossWeapon == Stabba)
     {
         boss.addMeleeWeapon(&m_stabbaBoss);
+        m_ranks = 2;
     }
     else if (bossWeapon == PokinSpear)
     {
         boss.addMeleeWeapon(&m_pokinSpearBoss);
+        m_ranks = 3;
     }
     addModel(boss);
 
@@ -183,9 +185,9 @@ int Stabbas::toSaveModifier(const Weapon *weapon) const
     return modifier;
 }
 
-int Stabbas::battlshockModifier() const
+int Stabbas::braveryModifier() const
 {
-    int modifier = GloomspiteGitzBase::battlshockModifier();
+    int modifier = GloomspiteGitzBase::braveryModifier();
     if (m_numFlagbearers > 0)
     { modifier += 1; }
     return modifier;

@@ -110,9 +110,9 @@ void SpiderRiders::Init()
     }
 }
 
-int SpiderRiders::battlshockModifier() const
+int SpiderRiders::braveryModifier() const
 {
-    int modifier = GloomspiteGitzBase::battlshockModifier();
+    int modifier = GloomspiteGitzBase::braveryModifier();
     if (m_totemBearers)
         modifier += 2;
     return modifier;

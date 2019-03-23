@@ -38,7 +38,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int battlshockModifier() const override;
+    int braveryModifier() const override;
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
 
 private:

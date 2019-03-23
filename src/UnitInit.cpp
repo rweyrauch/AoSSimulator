@@ -7,6 +7,8 @@
  */
 
 #include <nighthaunt/Chainghasts.h>
+#include <WarhammerSim.h>
+
 #include "WarhammerSim.h"
 
 #include "stormcast/Liberators.h"
@@ -205,6 +207,11 @@ static Verbosity g_verbosity = Verbosity::Normal;
 Verbosity GetVerbosity()
 {
     return g_verbosity;
+}
+
+void SetVerbosity(Verbosity verbosity)
+{
+    g_verbosity = verbosity;
 }
 
 void Initialize(Verbosity verbosity)

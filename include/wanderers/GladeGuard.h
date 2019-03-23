@@ -40,7 +40,7 @@ protected:
 
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
     Rerolls runRerolls() const override;
-    int battlshockModifier() const override;
+    int braveryModifier() const override;
 
     void onStartShooting(PlayerId player) override;
 

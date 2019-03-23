@@ -63,8 +63,8 @@ private:
 
     int m_round = 0;
     bool m_topOfRound = true;
-    PlayerId m_attackingUnit = PlayerId::Red;
-    PlayerId m_defendingUnit = PlayerId::Blue;
+    PlayerId m_attackingPlayer = PlayerId::Red;
+    PlayerId m_defendingPlayer = PlayerId::Blue;
     Phase m_currentPhase = Phase::Hero;
     bool m_isDone = false;
 

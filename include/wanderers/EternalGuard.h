@@ -40,7 +40,7 @@ protected:
 
     void onStartHero(PlayerId player) override;
     Rerolls runRerolls() const override;
-    int battlshockModifier() const override;
+    int braveryModifier() const override;
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
     int toHitModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
     int toWoundModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }

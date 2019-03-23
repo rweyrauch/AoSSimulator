@@ -226,9 +226,9 @@ int Orruks::chargeModifier() const
     return modifier;
 }
 
-int Orruks::battlshockModifier() const
+int Orruks::braveryModifier() const
 {
-    auto modifier = Unit::battlshockModifier();
+    auto modifier = Unit::braveryModifier();
     if (m_standardBearer == OrrukBanner)
     {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);

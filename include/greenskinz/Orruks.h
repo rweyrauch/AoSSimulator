@@ -55,7 +55,7 @@ public:
 protected:
 
     int chargeModifier() const override;
-    int battlshockModifier() const override;
+    int braveryModifier() const override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     int extraAttacks(const Weapon *weapon) const override;
     Rerolls toSaveRerolls(const Weapon *weapon) const override;

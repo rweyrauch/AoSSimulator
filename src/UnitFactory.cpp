@@ -5,11 +5,29 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
+#include <sstream>
 #include <UnitFactory.h>
 
-#include "UnitFactory.h"
-
+static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, const std::vector<Parameter> &parameters)
+{
+    std::stringstream descriptor;
+    descriptor << "\"" << name;
+    for (auto ip : parameters)
+    {
+        descriptor << "," << ip.m_name << "=";
+        if (ip.m_paramType == ParamType::Enum)
+            descriptor << factory->m_paramToString(ip);
+        else if (ip.m_paramType == ParamType::Integer)
+            descriptor << ip.m_intValue;
+        else if (ip.m_paramType == ParamType::Boolean)
+            if (ip.m_boolValue)
+                descriptor << "true";
+            else
+                descriptor << "false";
+    }
+    descriptor << "\"";
+    SimLog(Verbosity::Debug, "%s\n", descriptor.str().c_str());
+}
 
 std::map<std::string, FactoryMethod> UnitFactory::s_registeredUnits = {};
 
@@ -28,8 +46,11 @@ Unit *UnitFactory::Create(const std::string &name, const std::vector<Parameter> 
         return nullptr;
     }
 
+    LogUnitDescriptor(&registeredPair->second, name, parameters);
+
     return registeredPair->second.m_create(parameters);
 }
+
 
 const FactoryMethod *UnitFactory::LookupUnit(const std::string &name)
 {

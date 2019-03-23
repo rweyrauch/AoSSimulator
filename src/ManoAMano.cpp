@@ -94,25 +94,25 @@ void ManoAMano::start()
 
     m_isDone = false;
     m_topOfRound = true;
-    m_attackingUnit = firstUnit;
-    if (m_attackingUnit == PlayerId::Red)
+    m_attackingPlayer = firstUnit;
+    if (m_attackingPlayer == PlayerId::Red)
     {
-        m_defendingUnit = PlayerId::Blue;
+        m_defendingPlayer = PlayerId::Blue;
     }
     else
     {
-        m_defendingUnit = PlayerId::Red;
+        m_defendingPlayer = PlayerId::Red;
     }
     m_currentPhase = Phase::Hero;
     m_round = 1;
 
-    m_rosters[(int) m_attackingUnit]->beginRound(m_round);
-    m_rosters[(int) m_defendingUnit]->beginRound(m_round);
+    m_rosters[(int) m_attackingPlayer]->beginRound(m_round);
+    m_rosters[(int) m_defendingPlayer]->beginRound(m_round);
 
-    m_cpAvailable[(int) m_attackingUnit]++;
+    m_cpAvailable[(int) m_attackingPlayer]++;
 
-    m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-    m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
+    m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
+    m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
 }
 
 void ManoAMano::simulate()
@@ -185,36 +185,31 @@ void ManoAMano::next()
                 // Next unit's turn
                 m_topOfRound = false;
 
-                m_rosters[(int) m_attackingUnit]->endTurn(m_round);
-                m_rosters[(int) m_defendingUnit]->endTurn(m_round);
+                m_rosters[(int) m_attackingPlayer]->endTurn(m_round);
+                m_rosters[(int) m_defendingPlayer]->endTurn(m_round);
 
-                std::swap(m_attackingUnit, m_defendingUnit);
+                std::swap(m_attackingPlayer, m_defendingPlayer);
 
-                m_cpAvailable[(int) m_attackingUnit]++;
+                m_cpAvailable[(int) m_attackingPlayer]++;
 
-                m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-                m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
+                m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
+                m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
 
                 m_currentPhase = Phase::Hero;
             }
             else
             {
-                if (GetVerbosity() == Verbosity::Narrative)
-                {
-                    std::cout << "A the end of round " << m_round << "..." << std::endl;
-                    std::cout << "   Team " << PlayerIdToString(PlayerId::Red) << " has "
-                              << redUnit()->remainingModels() << " remaining models with "
-                              << redUnit()->remainingWounds() << " wounds remaining." << std::endl;
-                    std::cout << "   Team " << PlayerIdToString(PlayerId::Blue) << " has "
-                              << blueUnit()->remainingModels() << " remaining models with "
-                              << blueUnit()->remainingWounds() << " wounds remaining." << std::endl;
-                }
+                SimLog(Verbosity::Narrative, "At the end of round %d...\n", m_round);
+                SimLog(Verbosity::Narrative, "\tTeam %s has %d remaining models with %d wounds remaining.\n",
+                    PlayerIdToString(PlayerId::Red).c_str(), redUnit()->remainingModels(), redUnit()->remainingWounds());
+                SimLog(Verbosity::Narrative, "\tTeam %s has %d remaining models with %d wounds remaining.\n",
+                       PlayerIdToString(PlayerId::Blue).c_str(), blueUnit()->remainingModels(), blueUnit()->remainingWounds());
 
-                m_rosters[(int) m_attackingUnit]->endTurn(m_round);
-                m_rosters[(int) m_defendingUnit]->endTurn(m_round);
+                m_rosters[(int) m_attackingPlayer]->endTurn(m_round);
+                m_rosters[(int) m_defendingPlayer]->endTurn(m_round);
 
-                m_rosters[(int) m_attackingUnit]->endRound(m_round);
-                m_rosters[(int) m_defendingUnit]->endRound(m_round);
+                m_rosters[(int) m_attackingPlayer]->endRound(m_round);
+                m_rosters[(int) m_defendingPlayer]->endRound(m_round);
 
                 // End of round.
                 m_currentPhase = Phase::Initiative;
@@ -228,13 +223,13 @@ void ManoAMano::next()
                 }
                 else
                 {
-                    m_rosters[(int) m_attackingUnit]->beginRound(m_round);
-                    m_rosters[(int) m_defendingUnit]->beginRound(m_round);
+                    m_rosters[(int) m_attackingPlayer]->beginRound(m_round);
+                    m_rosters[(int) m_defendingPlayer]->beginRound(m_round);
 
-                    m_cpAvailable[(int) m_attackingUnit]++;
+                    m_cpAvailable[(int) m_attackingPlayer]++;
 
-                    m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-                    m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
+                    m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
+                    m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
                 }
             }
             // Check for a victory
@@ -260,181 +255,124 @@ void ManoAMano::runInitiativePhase()
     if (p1 == p2)
     {
         // Ties go to the player that went first in the previous round.
-        m_attackingUnit = (m_attackingUnit == PlayerId::Red) ? PlayerId::Blue : PlayerId::Red;
+        m_attackingPlayer = (m_attackingPlayer == PlayerId::Red) ? PlayerId::Blue : PlayerId::Red;
     }
     else if (p1 > p2)
     {
-        m_attackingUnit = PlayerId::Red;
+        m_attackingPlayer = PlayerId::Red;
     }
     else
     {
-        m_attackingUnit = PlayerId::Blue;
+        m_attackingPlayer = PlayerId::Blue;
     }
 
-    if (m_attackingUnit == PlayerId::Red)
+    if (m_attackingPlayer == PlayerId::Red)
     {
-        m_defendingUnit = PlayerId::Blue;
+        m_defendingPlayer = PlayerId::Blue;
     }
     else // attacker is blue
     {
-        m_defendingUnit = PlayerId::Red;
+        m_defendingPlayer = PlayerId::Red;
     }
 
-    m_rosters[(int) m_attackingUnit]->beginTurn(m_round, m_attackingUnit);
-    m_rosters[(int) m_defendingUnit]->beginTurn(m_round, m_attackingUnit);
+    m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
+    m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
 
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << "Unit " << PlayerIdToString(m_attackingUnit) << " wins initiative.  Red: "
-                  << p1 << " Blue: " << p2 << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "Player %s wins initiative. Dice rolls: Red: %d  Blue: %d.\n",
+        PlayerIdToString(m_attackingPlayer).c_str(), p1, p2);
 }
 
 void ManoAMano::runHeroPhase()
 {
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " hero phase." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "Starting player %s hero phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
-    m_rosters[(int) m_attackingUnit]->doHeroPhase(m_cpAvailable[(int) m_attackingUnit]);
+    m_rosters[(int) m_attackingPlayer]->doHeroPhase(m_cpAvailable[(int) m_attackingPlayer]);
 }
 
 void ManoAMano::runMovementPhase()
 {
-    if (GetVerbosity() == Verbosity::Narrative)
+    SimLog(Verbosity::Narrative, "Starting player %s movement phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+
+    m_rosters[(int) m_attackingPlayer]->doMovementPhase();
+
+    if (attackingUnit()->ran())
     {
-        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " movement phase." << std::endl;
-    }
-
-    m_rosters[(int) m_attackingUnit]->doMovementPhase();
-
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-
-        if (attackingUnit()->ran())
-        {
-            std::cout << PlayerIdToString(m_attackingUnit) << ":" << attackingUnit()->name()
-                      << " ran." << std::endl;
-        }
+        SimLog(Verbosity::Narrative, "%s:%s ran.\n", PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str());
     }
 }
 
 void ManoAMano::runShootingPhase()
 {
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " shooting phase." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "Starting player %s shooting phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     // Think...
-    m_rosters[(int) m_attackingUnit]->doShootingPhase();
+    m_rosters[(int) m_attackingPlayer]->doShootingPhase();
 
     // Act...
     int numSlain = 0;
     auto totalDamage = attackingUnit()->shoot(numSlain);
-    if (totalDamage.normal > 0 || totalDamage.mortal > 0)
-    {
-        if (GetVerbosity() == Verbosity::Narrative)
-        {
-            std::cout << PlayerIdToString(m_attackingUnit) << ":"
-                      << attackingUnit()->name()
-                      << " did " << (totalDamage.normal + totalDamage.mortal) << " shooting damage to "
-                      << PlayerIdToString(m_defendingUnit)
-                      << ":" << defendingUnit()->name() << " slaying " << numSlain
-                      << " models. " << std::endl;
-        }
-    }
+
+    SimLog(Verbosity::Narrative, "%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
+        PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+        PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str(), numSlain);
 }
 
 void ManoAMano::runChargePhase()
 {
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " charge phase." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "Starting player %s charge phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
-    m_rosters[(int) m_attackingUnit]->doChargePhase();
+    m_rosters[(int) m_attackingPlayer]->doChargePhase();
 
-    if (GetVerbosity() == Verbosity::Narrative)
+    if (attackingUnit()->charged())
     {
-        if (attackingUnit()->charged())
-        {
-            std::cout << PlayerIdToString(m_attackingUnit) << ":" << attackingUnit()->name()
-                      << " charged " << PlayerIdToString(m_defendingUnit) << ":" << defendingUnit()->name() << std::endl;
-        }
+        SimLog(Verbosity::Narrative, "%s:%s charged %s:%s.\n", PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(),
+            PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str());
     }
 }
 
 void ManoAMano::runCombatPhase()
 {
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " combat phase." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "Starting player %s combat phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     // Think.
-    m_rosters[(int) m_attackingUnit]->doCombatPhase();
+    m_rosters[(int) m_attackingPlayer]->doCombatPhase();
 
     assert(attackingUnit()->meleeTarget() == defendingUnit());
 
     int numSlain = 0;
-    auto totalDamage = attackingUnit()->fight(m_attackingUnit, numSlain);
+    auto totalDamage = attackingUnit()->fight(m_attackingPlayer, numSlain);
 
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << PlayerIdToString(m_attackingUnit) << ":"
-                  << attackingUnit()->name()
-                  << " did " << (totalDamage.normal + totalDamage.mortal) << " damage to " << PlayerIdToString(m_defendingUnit)
-                  << ":" << defendingUnit()->name() << " slaying " << numSlain
-                  << " models in the combat phase." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n", PlayerIdToString(m_attackingPlayer).c_str(),
+           attackingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal), PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str(),
+           numSlain);
+
     numSlain = 0;
     totalDamage = defendingUnit()->fight(-1, attackingUnit(), numSlain);
 
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << PlayerIdToString(m_defendingUnit) << ":"
-                  << defendingUnit()->name()
-                  << " did " << (totalDamage.normal + totalDamage.mortal) << " damage to " << PlayerIdToString(m_attackingUnit)
-                  << ":" << attackingUnit()->name() << " slaying " << numSlain
-                  << " model in the counter attack." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the counter attack.\n", PlayerIdToString(m_defendingPlayer).c_str(),
+           defendingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal), PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(),
+           numSlain);
 }
 
 void ManoAMano::runBattleshockPhase()
 {
-    if (GetVerbosity() == Verbosity::Narrative)
-    {
-        std::cout << "Starting player " << PlayerIdToString(m_attackingUnit) << " battleshock phase." << std::endl;
-    }
+    SimLog(Verbosity::Narrative, "Starting player %s battleshock phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
-    m_rosters[(int) m_attackingUnit]->doBattleshockPhase();
-    m_rosters[(int) m_defendingUnit]->doBattleshockPhase();
+    m_rosters[(int) m_attackingPlayer]->doBattleshockPhase();
+    m_rosters[(int) m_defendingPlayer]->doBattleshockPhase();
 
     int numFleeing = attackingUnit()->applyBattleshock();
     if (numFleeing > 0)
     {
-        if (GetVerbosity() == Verbosity::Narrative)
-        {
-            std::cout << "A total of " << numFleeing << " "
-                      << attackingUnit()->name() << " from "
-                      << PlayerIdToString(m_attackingUnit) << " fled from battleshock."
-                      << std::endl;
-        }
+        SimLog(Verbosity::Narrative, "A total of %d %s from %s fled from battleshock.\n", numFleeing, attackingUnit()->name().c_str(),
+            PlayerIdToString(m_attackingPlayer).c_str());
     }
     numFleeing = defendingUnit()->applyBattleshock();
     if (numFleeing > 0)
     {
-        if (GetVerbosity() == Verbosity::Narrative)
-        {
-            std::cout << "A total of " << numFleeing << " "
-                      << defendingUnit()->name() << " from "
-                      << PlayerIdToString(m_defendingUnit) << " fled from battleshock."
-                      << std::endl;
-        }
+        SimLog(Verbosity::Narrative, "A total of %d %s from %s fled from battleshock.\n", numFleeing, defendingUnit()->name().c_str(),
+               PlayerIdToString(m_defendingPlayer).c_str());
     }
-
 }
 
 ManoAMano::~ManoAMano()
@@ -523,11 +461,11 @@ Unit *ManoAMano::blueUnit()
 
 Unit *ManoAMano::attackingUnit()
 {
-    if (m_attackingUnit == PlayerId::Red)
+    if (m_attackingPlayer == PlayerId::Red)
     {
         return redUnit();
     }
-    else if (m_attackingUnit == PlayerId::Blue)
+    else if (m_attackingPlayer == PlayerId::Blue)
     {
         return blueUnit();
     }
@@ -536,11 +474,11 @@ Unit *ManoAMano::attackingUnit()
 
 Unit *ManoAMano::defendingUnit()
 {
-    if (m_defendingUnit == PlayerId::Red)
+    if (m_defendingPlayer == PlayerId::Red)
     {
         return redUnit();
     }
-    else if (m_defendingUnit == PlayerId::Blue)
+    else if (m_defendingPlayer == PlayerId::Blue)
     {
         return blueUnit();
     }

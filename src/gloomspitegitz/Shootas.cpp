@@ -127,6 +127,8 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
         m_points = POINTS_MAX_UNIT_SIZE;
     }
 
+    m_ranks = 4;
+
     return true;
 }
 
@@ -161,9 +163,9 @@ int Shootas::runModifier() const
     return modifier;
 }
 
-int Shootas::battlshockModifier() const
+int Shootas::braveryModifier() const
 {
-    int modifier = GloomspiteGitzBase::battlshockModifier();
+    int modifier = GloomspiteGitzBase::braveryModifier();
     if (m_numFlagbearers > 0)
     { modifier += 1; }
     return modifier;

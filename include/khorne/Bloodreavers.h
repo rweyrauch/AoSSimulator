@@ -46,7 +46,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int battlshockModifier() const override;
+    int braveryModifier() const override;
     int extraAttacks(const Weapon* weapon) const override;
     int runModifier() const override;
     int chargeModifier() const override;

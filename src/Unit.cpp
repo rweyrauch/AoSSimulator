@@ -280,7 +280,7 @@ bool Unit::addKeyword(Keyword word)
     return true;
 }
 
-int Unit::battlshockModifier() const
+int Unit::braveryModifier() const
 {
     return remainingModels() / 10;
 }
@@ -308,7 +308,6 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
         m.setPosition(pos);
     }
 
-    /*
     int unitW = (int)m_models.size() / m_ranks;
     float unitWidth = m_models.size() * basesizeInches() / (float)m_ranks;
 
@@ -328,7 +327,6 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
     for (auto& m : m_models)
     {
         m.setPosition(Math::Point3(curPos.x(), curPos.y(), curPos.z()));
-        m.setPosition(pos);
 
         xi++;
         curPos += dx;
@@ -341,7 +339,7 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
             curPos += (float)yi * dy;
         }
     }
-    */
+
     return true;
 }
 
@@ -840,7 +838,7 @@ int Unit::rerolling(int initialRoll, Rerolls reroll, Dice& dice) const
 
 void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) const
 {
-    numFled = (m_modelsSlain + roll) - (m_bravery + battlshockModifier());
+    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier());
     numFled = std::max(0, std::min(remainingModels(), numFled));
     numRestored = 0;
 }

@@ -165,9 +165,9 @@ int OrrukBoarboys::chargeModifier() const
     return modifier;
 }
 
-int OrrukBoarboys::battlshockModifier() const
+int OrrukBoarboys::braveryModifier() const
 {
-    auto modifier = Unit::battlshockModifier();
+    auto modifier = Unit::braveryModifier();
     if (m_glyphBearer)
     {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);

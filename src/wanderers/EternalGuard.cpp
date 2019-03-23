@@ -110,9 +110,9 @@ Rerolls EternalGuard::runRerolls() const
     return Unit::runRerolls();
 }
 
-int EternalGuard::battlshockModifier() const
+int EternalGuard::braveryModifier() const
 {
-    int modifier =  Unit::battlshockModifier();
+    int modifier = Unit::braveryModifier();
     if (m_standardBearer)
     {
         modifier += 1;
