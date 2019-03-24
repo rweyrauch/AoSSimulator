@@ -139,6 +139,9 @@ add_library(
         beastsofchaos/Bestigors.cpp
         beastsofchaos/Bullgors.cpp
         beastsofchaos/Ungors.cpp
+        beastsofchaos/Cygor.cpp
+        beastsofchaos/Centigors.cpp
+        beastsofchaos/Doombull.cpp
 
         slaanesh/Fiends.cpp
         slaanesh/Daemonettes.cpp

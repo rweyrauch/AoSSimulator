@@ -324,6 +324,9 @@ enum Keyword
     GORS,
     BESTIGORS,
     UNGORS,
+    CYGOR,
+    CENTIGORS,
+    DOOMBULL,
 
     // Slaanesh
     DAEMONETTES,

@@ -117,6 +117,9 @@
 #include "beastsofchaos/Ungors.h"
 #include "beastsofchaos/Bestigors.h"
 #include "beastsofchaos/Bullgors.h"
+#include "beastsofchaos/Cygor.h"
+#include "beastsofchaos/Centigors.h"
+#include "beastsofchaos/Doombull.h"
 
 #include "slaanesh/Fiends.h"
 #include "slaanesh/Seekers.h"
@@ -324,6 +327,9 @@ void Initialize(Verbosity verbosity)
     BeastsOfChaos::Bestigors::Init();
     BeastsOfChaos::Bullgors::Init();
     BeastsOfChaos::Ungors::Init();
+    BeastsOfChaos::Cygor::Init();
+    BeastsOfChaos::Centigors::Init();
+    BeastsOfChaos::Doombull::Init();
 
     Slaanesh::Daemonettes::Init();
     Slaanesh::Fiends::Init();
