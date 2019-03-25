@@ -8,6 +8,7 @@
 
 #include <khorne/BloodthirsterOfInsensateRage.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Khorne
 {
@@ -32,20 +33,20 @@ const size_t NUM_TABLE_ENTRIES = 5;
 static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, BloodthirsterOfInsensateRage::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {10, 4, 3},
-        {9,  4, RAND_D3},
-        {8,  3, RAND_D3},
-        {7,  3, 1},
-        {6,  2, 1}
+        {10, 5, 4},
+        {9,  5, 3},
+        {8,  4, 2},
+        {7,  4, 1},
+        {6,  3, 1}
     };
 
 bool BloodthirsterOfInsensateRage::s_registered = false;
 
 BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage() :
     Unit("Bloodthirster Of Insensate Rage", 14, WOUNDS, 10, 4, true),
-    m_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 4, 4, 2, -2, RAND_D6)
+    m_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 5, 4, 2, -2, RAND_D6)
 {
-    m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_INSENSATE_RAGE};
+    m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_INSENSATE_RAGE};
 }
 
 bool BloodthirsterOfInsensateRage::configure()
@@ -125,14 +126,25 @@ void BloodthirsterOfInsensateRage::onWounded()
 Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Outrageous Carnage
-    if ((woundRoll >= 6) && weapon->name() == m_greatAxeOfKhorne.name())
+    if ((woundRoll == 6) && weapon->name() == m_greatAxeOfKhorne.name())
     {
         const int damageIndex = getDamageTableIndex();
 
         Dice dice;
         Wounds wounds = {0, dice.rollSpecial(g_damageTable[damageIndex].m_outrageousCarnage) };
 
-        // TODO: these mortal wounds are applied to all enemy units within 8".
+        // These mortal wounds are applied to all enemy units within 8".
+        // Skip the target unit as the weaponDamage function will handle it.
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 8.0f);
+        for (auto ip : units)
+        {
+            if (ip != target)
+            {
+                // TODO: need to allow unit a wound save
+                Wounds actualWounds = wounds; //ip->applyWoundSave(wounds);
+                ip->applyDamage(actualWounds);
+            }
+        }
         return wounds;
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);

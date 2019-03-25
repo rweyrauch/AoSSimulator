@@ -147,7 +147,7 @@ Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, int saveRoll) 
 {
     auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
     // Gorefists
-    if (!m_pairedGoreaxe)
+    if (!m_pairedGoreaxe && (saveRoll == 6))
     {
         wounds += {0, 1};
     }

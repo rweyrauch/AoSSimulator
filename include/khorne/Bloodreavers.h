@@ -58,9 +58,9 @@ private:
     bool m_hornblower = false;
 
     Weapon m_reaverBlades,
-                  m_reaverBladesChieftain,
-                  m_meatripperAxe,
-                  m_meatripperAxeChieftain;
+        m_reaverBladesChieftain,
+        m_meatripperAxe,
+        m_meatripperAxeChieftain;
 
     static bool s_registered;
 };

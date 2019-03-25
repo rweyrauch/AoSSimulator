@@ -132,6 +132,7 @@ enum Keyword
     // Common
     MORTAL,
     DAEMON,
+    GREATER_DAEMON,
     HUMAN,
     MONSTER,
     HERO,
@@ -220,6 +221,8 @@ enum Keyword
     HERALD_OF_KHORNE,
     SKULLTAKER,
     BLOODMASTER,
+    MIGHTY_SKULLCRUSHERS,
+    BLOODCRUSHERS,
 
     // Sylvaneth
     ALARIELLE_THE_EVERQUEEN,

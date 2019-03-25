@@ -22,8 +22,8 @@ public:
     static const int WOUNDS = 8;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 600;
 
     static Unit *Create(const ParameterList &parameters);
 
@@ -39,7 +39,12 @@ public:
 
 protected:
 
+    void onStartCombat(PlayerId player) override;
+    void onEndCombat(PlayerId player) override;
+
 private:
+
+    int m_modelsSlainAtStartOfCombat = 0;
 
     Weapon m_boneTentacles,
         m_clawAndFangs;
@@ -52,7 +57,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Horrific Predator                No
-// Taker of Heads                   No
+// Taker of Heads                   Yes
 //
 
 } // namespace Khorne

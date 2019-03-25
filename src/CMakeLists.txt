@@ -67,6 +67,8 @@ add_library(
         khorne/FleshHounds.cpp
         khorne/Skulltaker.cpp
         khorne/Bloodmaster.cpp
+        khorne/Bloodcrushers.cpp
+        khorne/MightySkullcrushers.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

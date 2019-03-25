@@ -87,5 +87,25 @@ void Khorgoraths::Init()
         s_registered = UnitFactory::Register("Khorgoraths", factoryMethod);
     }
 }
+
+void Khorgoraths::onStartCombat(PlayerId player)
+{
+    m_modelsSlainAtStartOfCombat = m_currentRecord.m_enemyModelsSlain;
+
+    Unit::onStartCombat(player);
+}
+
+void Khorgoraths::onEndCombat(PlayerId player)
+{
+    // Taker of Heads
+    if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat)
+    {
+        SimLog(Verbosity::Narrative, "%s slayed %d models this combat phase and heals 1 wound.\n",
+            name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
+        heal(1);
+    }
+    Unit::onEndCombat(player);
+}
+
 } //namespace Khorne
 

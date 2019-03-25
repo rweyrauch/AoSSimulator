@@ -177,10 +177,10 @@ int Bloodreavers::extraAttacks(const Weapon *weapon) const
     int attacks = Unit::extraAttacks(weapon);
 
     // Frenzied Devotion
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
     for (auto ip : units)
     {
-        if (ip->hasKeyword(CHAOS) && ip->hasKeyword(TOTEM))
+        if (ip->hasKeyword(KHORNE) && ip->hasKeyword(TOTEM))
         {
             attacks += 1;
             break;

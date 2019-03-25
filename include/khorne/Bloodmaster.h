@@ -20,7 +20,7 @@ class Bloodmaster : public Unit
 public:
     static const int BASESIZE = 40;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT =100;
+    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

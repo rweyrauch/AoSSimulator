@@ -20,7 +20,7 @@ class Karanak : public Unit
 public:
     static const int BASESIZE = 60; // x35 oval
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 160;
+    static const int POINTS_PER_UNIT = 140;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

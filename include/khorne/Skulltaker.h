@@ -20,7 +20,7 @@ class Skulltaker : public Unit
 public:
     static const int BASESIZE = 40;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 160;
+    static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

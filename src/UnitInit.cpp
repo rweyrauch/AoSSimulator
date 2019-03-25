@@ -70,6 +70,8 @@
 #include "khorne/FleshHounds.h"
 #include "khorne/Skulltaker.h"
 #include "khorne/Bloodmaster.h"
+#include "khorne/Bloodcrushers.h"
+#include "khorne/MightySkullcrushers.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -280,6 +282,8 @@ void Initialize(Verbosity verbosity)
     Khorne::FleshHounds::Init();
     Khorne::Skulltaker::Init();
     Khorne::Bloodmaster::Init();
+    Khorne::Bloodcrushers::Init();
+    Khorne::MightySkullcrushers::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();

@@ -47,8 +47,8 @@ private:
     bool m_iconBearer = false;
 
     Weapon m_goreaxe,
-                  m_goreaxeChampion,
-                  m_goreglaive;
+        m_goreaxeChampion,
+        m_goreglaive;
 
     static bool s_registered;
 };
