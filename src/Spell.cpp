@@ -9,10 +9,13 @@
 #include <Spell.h>
 #include <Unit.h>
 #include <Board.h>
+#include <MathUtils.h>
 
-DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage) :
+DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage, int castingValue2, int damage2) :
     Spell(caster, name, castingValue, range),
-    m_damage(damage)
+    m_damage(damage),
+    m_castingValue2(castingValue2),
+    m_damage2(damage2)
 {
     m_targetFriendly = false;
 }
@@ -31,6 +34,8 @@ bool DamageSpell::cast(Unit *target, int /*round*/)
         return false;
     }
 
+    // TODO: Check for visibility to target
+
     Dice dice;
 
     int mortalWounds = 0;
@@ -42,10 +47,155 @@ bool DamageSpell::cast(Unit *target, int /*round*/)
         {
             mortalWounds = dice.rollSpecial(getDamage(castingRoll));
             target->applyDamage({0, mortalWounds});
-            SimLog(Verbosity::Narrative, "%s spell %s inflicts %d mortal wounds into %s.\n", m_caster->name().c_str(), name().c_str(),
-                mortalWounds, target->name().c_str());
+            SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+                m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
         }
     }
 
     return true;
+}
+
+int DamageSpell::getDamage(int castingRoll) const
+{
+    if ((m_castingValue2 > 0) && (castingRoll >= m_castingValue2))
+    {
+        return m_damage2;
+    }
+    return m_damage;
+}
+
+DamageSpell* CreateArcaneBolt(Unit* caster)
+{
+    return new DamageSpell(caster, "Arcane Bolt", 5, 18.0f, 1, 10, RAND_D3);
+}
+
+AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, float range, float radius, int damage, int affectedRoll) :
+    Spell(caster, name, castingValue, range),
+    m_damage(damage),
+    m_radius(radius),
+    m_affectedRoll(affectedRoll)
+{
+    m_targetFriendly = false;
+}
+
+bool AreaOfEffectSpell::cast(float x, float y, int round)
+{
+    const Math::Point3 targetPoint(x, y, 0.0f);
+
+    // Distance to point
+    const float distance = m_caster->position().distance(targetPoint);
+    if (distance > m_range)
+    {
+        return false;
+    }
+
+    // TODO: Check for visibility to target
+
+    Dice dice;
+
+    int mortalWounds = 0;
+    const int castingRoll = dice.roll2D6();
+    if (castingRoll >= m_castingValue)
+    {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound)
+        {
+            auto units = Board::Instance()->getUnitsWithin(targetPoint, GetEnemyId(m_caster->owningPlayer()), m_radius);
+            for (auto target : units)
+            {
+                bool unitAffected = true;
+                if (m_affectedRoll != 0)
+                {
+                    int roll = dice.rollD6();
+                    unitAffected = (roll >= m_affectedRoll);
+                }
+
+                if (unitAffected)
+                {
+                    mortalWounds = dice.rollSpecial(getDamage(castingRoll));
+                    target->applyDamage({0, mortalWounds});
+                    SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+                           m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+int AreaOfEffectSpell::getDamage(int /*castingRoll*/) const
+{
+    return m_damage;
+}
+
+LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage, int affectedRoll) :
+    Spell(caster, name, castingValue, range),
+    m_damage(damage),
+    m_affectedRoll(affectedRoll)
+{
+    m_targetFriendly = false;
+}
+
+bool LineOfEffectSpell::cast(float x, float y, int round)
+{
+    return false;
+}
+
+int LineOfEffectSpell::getDamage(int castingRoll) const
+{
+    return m_damage;
+}
+
+HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, float range, int healing, int castingValue2, int healing2) :
+    Spell(caster, name, castingValue, range),
+    m_healing(healing),
+    m_castingValue2(castingValue2),
+    m_healing2(healing2)
+{
+    m_targetFriendly = true;
+}
+
+bool HealSpell::cast(Unit *target, int round)
+{
+    if (target == nullptr)
+    {
+        return false;
+    }
+
+    // Distance to target
+    const float distance = m_caster->distanceTo(target);
+    if (distance > m_range)
+    {
+        return false;
+    }
+
+    // TODO: Check for visibility to target
+
+    Dice dice;
+
+    int wounds = 0;
+    const int castingRoll = dice.roll2D6();
+    if (castingRoll >= m_castingValue)
+    {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound)
+        {
+            wounds = dice.rollSpecial(getHealing(castingRoll));
+            target->heal(wounds);
+            SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
+                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, wounds, target->name().c_str());
+        }
+    }
+
+    return true;
+}
+
+int HealSpell::getHealing(int castingRoll) const
+{
+    if ((m_castingValue2 > 0) && (castingRoll >= m_castingValue2))
+    {
+        return m_healing2;
+    }
+    return m_healing;
 }

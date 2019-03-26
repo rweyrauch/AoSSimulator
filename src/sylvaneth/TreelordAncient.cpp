@@ -11,7 +11,6 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
-#include <spells/ArcaneBolt.h>
 
 namespace Sylvaneth
 {
@@ -66,7 +65,7 @@ bool TreelordAncient::configure()
     model.addMeleeWeapon(&m_massiveImpalingTalons);
     addModel(model);
 
-    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;

@@ -9,8 +9,7 @@
 #include <stormcast/KnightIncantor.h>
 #include <iostream>
 #include <spells/MysticShield.h>
-#include <spells/ArcaneBolt.h>
-#include <spells/SpiritStorm.h>
+#include <spells/StormcastSpells.h>
 #include <Board.h>
 #include "UnitFactory.h"
 
@@ -43,9 +42,9 @@ bool KnightIncantor::configure()
     model.addMeleeWeapon(&m_staff);
     addModel(model);
 
-    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    m_knownSpells.push_back(std::make_unique<SpiritStorm>(this));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateSpiritStorm(this)));
 
     m_points = POINTS_PER_UNIT;
 

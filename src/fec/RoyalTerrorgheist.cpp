@@ -9,7 +9,6 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <spells/MysticShield.h>
-#include <spells/ArcaneBolt.h>
 
 namespace FleshEaterCourt
 {

@@ -22,10 +22,11 @@ add_library(
         Prayer.cpp
 
         spells/MysticShield.cpp
-        spells/ArcaneBolt.cpp
-        spells/SpiritStorm.cpp
+        spells/StormcastSpells.cpp
         spells/Empower.cpp
         spells/NikkitNikkit.cpp
+        spells/LoreOfTheStorm.cpp
+        spells/GloomspiteSpells.cpp
 
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
@@ -69,6 +70,7 @@ add_library(
         khorne/Bloodmaster.cpp
         khorne/Bloodcrushers.cpp
         khorne/MightySkullcrushers.cpp
+        khorne/Skullmaster.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

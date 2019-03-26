@@ -403,3 +403,48 @@ bool Board::isUnitWithin(Quadrant quadrant, const Unit* unit) const
     }
     return false;
 }
+
+std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId which, float distance)
+{
+    std::vector<Unit *> units;
+    if (which == PlayerId::None)
+    {
+        if (m_rosters[0] != nullptr)
+        {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
+            {
+                float dist = point.distance((*ip)->position());
+                if (dist <= distance)
+                {
+                    units.push_back(*ip);
+                }
+            }
+        }
+        if (m_rosters[1] != nullptr)
+        {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
+            {
+                float dist = point.distance((*ip)->position());
+                if (dist <= distance)
+                {
+                    units.push_back(*ip);
+                }
+            }
+        }
+    }
+    else
+    {
+        if (m_rosters[(int) which] != nullptr)
+        {
+            for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip)
+            {
+                float dist = point.distance((*ip)->position());
+                if (dist <= distance)
+                {
+                    units.push_back(*ip);
+                }
+            }
+        }
+    }
+    return units;
+}

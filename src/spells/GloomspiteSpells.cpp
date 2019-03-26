@@ -5,9 +5,11 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <spells/SpiritStorm.h>
+#include <spells/GloomspiteSpells.h>
 
-int SpiritStorm::getDamage(int castingRoll) const
+#include "spells/GloomspiteSpells.h"
+
+DamageSpell *CreateVindictiveGlare(Unit *caster)
 {
-    return DamageSpell::getDamage(castingRoll);
+    return new DamageSpell(caster, "Vindictive Glare", 5, 12, RAND_D3);
 }

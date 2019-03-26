@@ -11,7 +11,6 @@
 #include <iostream>
 #include <Board.h>
 #include <spells/MysticShield.h>
-#include <spells/ArcaneBolt.h>
 #include <spells/NikkitNikkit.h>
 
 namespace GloomspiteGitz
@@ -46,7 +45,7 @@ bool Skragrott::configure()
     model.addMissileWeapon(&m_daMoonOnnaStikkMissile);
     model.addMeleeWeapon(&m_daMoonOnnaStikk);
 
-    m_knownSpells.push_back(std::make_unique<ArcaneBolt>(this));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     m_knownSpells.push_back(std::make_unique<NikkitNikkit>(this));
 

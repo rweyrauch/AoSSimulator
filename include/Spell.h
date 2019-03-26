@@ -46,15 +46,71 @@ protected:
 class DamageSpell : public Spell
 {
 public:
-    DamageSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage);
+    DamageSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage, int castingValue2 = -1, int damage2 = -1);
 
     bool cast(Unit* target, int round) override;
     bool cast(float x, float y, int round) override { return false; }
 
 protected:
 
-    virtual int getDamage(int castingRoll) const { return m_damage; }
+    virtual int getDamage(int castingRoll) const;
+
     int m_damage = 0;
+    int m_castingValue2 = -1;
+    int m_damage2 = -1;
+};
+
+DamageSpell* CreateArcaneBolt(Unit* caster);
+
+class AreaOfEffectSpell : public Spell
+{
+public:
+    AreaOfEffectSpell(Unit* caster, const std::string& name, int castingValue, float range, float radius, int damage, int affectedRoll);
+
+    bool cast(Unit* target, int round) override { return false; }
+    bool cast(float x, float y, int round) override;
+
+protected:
+
+    virtual int getDamage(int castingRoll) const;
+
+    int m_damage = 0;
+    float m_radius = 0.0f;
+    int m_affectedRoll = 0;
+};
+
+class LineOfEffectSpell : public Spell
+{
+public:
+    LineOfEffectSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage, int affectedRoll);
+
+    bool cast(Unit* target, int round) override { return false; }
+    bool cast(float x, float y, int round) override;
+
+protected:
+
+    virtual int getDamage(int castingRoll) const;
+
+    int m_damage = 0;
+    int m_affectedRoll = 0;
+
+};
+
+class HealSpell : public Spell
+{
+public:
+    HealSpell(Unit* caster, const std::string& name, int castingValue, float range, int healing, int castingValue2 = -1, int healing2 = -1);
+
+    bool cast(Unit* target, int round) override;
+    bool cast(float x, float y, int round) override { return false; }
+
+protected:
+
+    virtual int getHealing(int castingRoll) const;
+
+    int m_healing = 0;
+    int m_castingValue2 = -1;
+    int m_healing2 = -1;
 };
 
 #endif// SPELL_H

@@ -6,18 +6,11 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ARCANEBOLT_H
-#define ARCANEBOLT_H
+#ifndef GLOOMSPITESPELLS_H
+#define GLOOMSPITESPELLS_H
 
 #include <Spell.h>
 
-class ArcaneBolt : public DamageSpell
-{
-public:
-    explicit ArcaneBolt(Unit* caster);
+DamageSpell* CreateVindictiveGlare(Unit* caster);
 
-protected:
-    int getDamage(int castingRoll) const override;
-};
-
-#endif// ARCANEBOLT_H
+#endif //GLOOMSPITESPELLS_H
