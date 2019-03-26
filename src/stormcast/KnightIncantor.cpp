@@ -17,9 +17,11 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     KnightIncantor::Create,
-    nullptr,
-    nullptr,
+    KnightIncantor::ValueToString,
+    KnightIncantor::EnumStringToInt,
     {
+        {ParamType::Enum, "Lore of the Storm", {.m_intValue = (int)LoreOfTheStorm::None}, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
+        {ParamType::Enum, "Lore of Invigoration", {.m_intValue = (int)LoreOfInvigoration::None}, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -36,8 +38,13 @@ KnightIncantor::KnightIncantor() :
     m_totalUnbinds = 1;
 }
 
-bool KnightIncantor::configure()
+bool KnightIncantor::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)
 {
+    if ((storm != LoreOfTheStorm::None) && (invigoration != LoreOfInvigoration::None))
+    {
+        return false;
+    }
+
     Model model(BASESIZE, WOUNDS);
     model.addMeleeWeapon(&m_staff);
     addModel(model);
@@ -45,6 +52,10 @@ bool KnightIncantor::configure()
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateSpiritStorm(this)));
+    if (storm != LoreOfTheStorm::None)
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheStorm(storm, this)));
+    if (invigoration != LoreOfInvigoration::None)
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
 
     m_points = POINTS_PER_UNIT;
 
@@ -54,7 +65,10 @@ bool KnightIncantor::configure()
 Unit *KnightIncantor::Create(const ParameterList &parameters)
 {
     auto unit = new KnightIncantor();
-    bool ok = unit->configure();
+    auto storm = (LoreOfTheStorm)GetEnumParam("Lore of the Storm", parameters, (int)LoreOfTheStorm::None);
+    auto invigoration = (LoreOfInvigoration)GetEnumParam("Lore of Invigoration", parameters, (int)LoreOfInvigoration::None);
+
+    bool ok = unit->configure(storm, invigoration);
     if (!ok)
     {
         delete unit;
@@ -74,6 +88,34 @@ void KnightIncantor::Init()
 void KnightIncantor::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_staff);
+}
+
+std::string KnightIncantor::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Lore of the Storm")
+    {
+        return LoreOfTheStormToString((LoreOfTheStorm)parameter.m_intValue);
+    }
+    else if (parameter.m_name == "Lore of Invigoration")
+    {
+        return LoreOfInvigorationToString((LoreOfInvigoration)parameter.m_intValue);
+    }
+    return ParameterValueToString(parameter);
+}
+
+int KnightIncantor::EnumStringToInt(const std::string &enumString)
+{
+    LoreOfTheStorm storm;
+    LoreOfInvigoration invigoration;
+    if (StringToLoreOfTheStorm(enumString, storm))
+    {
+        return (int)storm;
+    }
+    else if (StringToLoreOfInvigoration(enumString, invigoration))
+    {
+        return (int) invigoration;
+    }
+    return 0;
 }
 
 
