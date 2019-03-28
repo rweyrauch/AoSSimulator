@@ -89,6 +89,7 @@ std::string PhaseToString(Phase phase)
         case Phase::Battleshock:
             return "Battleshock";
     }
+    return "";
 }
 
 std::string PlayerIdToString(PlayerId id)
@@ -102,6 +103,7 @@ std::string PlayerIdToString(PlayerId id)
         case PlayerId::Blue:
             return "Blue";
     }
+    return "";
 }
 
 float AverageRandomValue(int value)
@@ -140,7 +142,10 @@ std::string ParameterValueToString(const Parameter &param)
     }
     else if (param.m_paramType == ParamType::Boolean)
     {
-        ss << param.m_boolValue ? "true" : "false";
+        if (param.m_boolValue)
+            ss << "true";
+        else
+            ss << "false";
     }
     return ss.str();
 }

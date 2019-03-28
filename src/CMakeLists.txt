@@ -246,3 +246,10 @@ target_link_libraries(
         whSim
         ${GTK3_LIBRARIES}
 )
+
+target_compile_options(
+        whSim PRIVATE
+        -Wextra
+        -Wall
+        -Wno-unused-parameter
+)

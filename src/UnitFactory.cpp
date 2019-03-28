@@ -20,10 +20,12 @@ static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, c
         else if (ip.m_paramType == ParamType::Integer)
             descriptor << ip.m_intValue;
         else if (ip.m_paramType == ParamType::Boolean)
+        {
             if (ip.m_boolValue)
                 descriptor << "true";
             else
                 descriptor << "false";
+        }
     }
     descriptor << "\"";
     SimLog(Verbosity::Debug, "%s\n", descriptor.str().c_str());

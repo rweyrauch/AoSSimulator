@@ -45,8 +45,8 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 
 LoonbossOnManglerSquigs::LoonbossOnManglerSquigs() :
     GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, WOUNDS, 10, 4, true),
-    m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
     m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
+    m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
     m_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3),
     m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1)
 {
@@ -99,7 +99,7 @@ void LoonbossOnManglerSquigs::onWounded()
 int LoonbossOnManglerSquigs::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0; i < NUM_TABLE_ENTRIES; i++)
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
     {
         if (woundsInflicted < g_woundThresholds[i])
         {

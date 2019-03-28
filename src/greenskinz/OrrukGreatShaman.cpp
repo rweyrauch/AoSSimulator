@@ -88,7 +88,7 @@ int OrrukGreatShaman::castingModifier() const
     {
         if (ip->hasKeyword(ORRUK))
         {
-            totalOrruks == ip->remainingModels();
+            totalOrruks = ip->remainingModels();
         }
     }
     if (totalOrruks >= 20)

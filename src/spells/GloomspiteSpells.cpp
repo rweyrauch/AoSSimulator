@@ -28,6 +28,7 @@ std::string ToString(LoreOfTheMoonclans which)
         case LoreOfTheMoonclans::CallDaMoon:
             return "Call da Moon";
     }
+    return "";
 }
 
 bool FromString(const std::string &enumString, LoreOfTheMoonclans &outLore)
@@ -70,6 +71,7 @@ std::string ToString(LoreOfTheSpiderFangs which)
         case LoreOfTheSpiderFangs::GiftOfDaSpiderGod:
             return "Gift of da Spider God";
     }
+    return "";
 }
 
 bool FromString(const std::string &enumString, LoreOfTheSpiderFangs &outLore)

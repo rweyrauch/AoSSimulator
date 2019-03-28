@@ -99,7 +99,7 @@ void OrrukWarbossOnWyvern::Init()
 int OrrukWarbossOnWyvern::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0; i < NUM_TABLE_ENTRIES; i++)
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
     {
         if (woundsInflicted < g_woundThresholds[i])
         {

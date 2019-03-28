@@ -27,6 +27,7 @@ std::string ToString(LoreOfTheStorm which)
         case LoreOfTheStorm::Stormcaller:
             return "Stormcaller";
     }
+    return "";
 }
 
 bool FromString(const std::string &enumString, LoreOfTheStorm &outLore)
@@ -65,6 +66,7 @@ std::string ToString(LoreOfInvigoration which)
         case LoreOfInvigoration::SpeedOfLightning:
             return "SpeedOfLightning";
     }
+    return "";
 }
 
 bool FromString(const std::string &enumString, LoreOfInvigoration &outLore)
@@ -160,6 +162,8 @@ Spell *CreateLoreOfInvigoration(LoreOfInvigoration which, Unit *caster)
             return CreateTerrifyingAspect(caster);
         case LoreOfInvigoration::SpeedOfLightning:
             return CreateSpeedOfLightning(caster);
+        case LoreOfInvigoration::None:
+            return nullptr;
     }
     return nullptr;
 }

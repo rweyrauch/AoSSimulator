@@ -22,7 +22,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
         return {0, 0};
     }
 
-    if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
+    if ((numAttackingModels == -1) || (numAttackingModels > (int)m_models.size()))
     {
         numAttackingModels = (int)m_models.size();
     }
@@ -75,7 +75,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 
 Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
 {
-    if ((numAttackingModels == -1) || (numAttackingModels > m_models.size()))
+    if ((numAttackingModels == -1) || (numAttackingModels > (int)m_models.size()))
     {
         numAttackingModels = (int)m_models.size();
     }
@@ -349,7 +349,7 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
 
 bool Unit::formation(int ranks)
 {
-    if (ranks < 1 || ranks > m_models.size())
+    if (ranks < 1 || ranks > (int)m_models.size())
         return false;
 
     m_ranks = ranks;
