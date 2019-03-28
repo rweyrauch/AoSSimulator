@@ -16,8 +16,8 @@ class Empower : public Spell
 public:
     explicit Empower(Unit *caster);
 
-    bool cast(Unit* target, int round) override;
-    bool cast(float x, float y, int round) override { return false; }
+    Result cast(Unit* target, int round) override;
+    Result cast(float x, float y, int round) override { return Failed; }
 
 protected:
 

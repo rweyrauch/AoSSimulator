@@ -111,142 +111,141 @@ class  Point3
 {
 public:
 
-    Point3() {}
+    Point3() = default;
+    Point3(const Point3& p) = default;
 
-    Point3(const Point3& v) :
-        m_x(v.m_x),
-        m_y(v.m_y),
-        m_z(v.m_z) {}
+    Point3(float x_, float y_, float z_) :
+        x(x_),
+        y(y_),
+        z(z_) {}
 
-    Point3(float x, float y, float z) :
-        m_x(x),
-        m_y(y),
-        m_z(z) {}
+    Point3& operator = (const Point3& v) = default;
 
-    inline Point3& operator = (const Point3& v)
+    Point3& operator += (const Point3& v)
     {
-        m_x = v.m_x;
-        m_y = v.m_y;
-        m_z = v.m_z;
+        x += v.x;
+        y += v.y;
+        z += v.z;
         return *this;
     }
 
-    inline Point3& operator += (const Point3& v)
+    Point3& operator -= (const Point3& v)
     {
-        m_x += v.m_x;
-        m_y += v.m_y;
-        m_z += v.m_z;
+        x -= v.x;
+        y -= v.y;
+        z -= v.z;
         return *this;
     }
 
-    inline Point3& operator -= (const Point3& v)
+    Point3& operator *= (float scale)
     {
-        m_x -= v.m_x;
-        m_y -= v.m_y;
-        m_z -= v.m_z;
+        x *= scale;
+        y *= scale;
+        z *= scale;
         return *this;
     }
 
-    inline Point3& operator *= (float scale)
+    Point3 operator + (const Point3& v) const
     {
-        m_x *= scale;
-        m_y *= scale;
-        m_z *= scale;
-        return *this;
+        return Point3(x + v.x, y + v.y, z + v.z);
     }
 
-    inline Point3 operator + (const Point3& v) const
+    Point3 operator - (const Point3& v) const
     {
-        return Point3(m_x + v.m_x, m_y + v.m_y, m_z + v.m_z);
+        return Point3(x - v.x, y - v.y, z - v.z);
     }
 
-    inline Point3 operator - (const Point3& v) const
+    Point3 operator * (float scale) const
     {
-        return Point3(m_x - v.m_x, m_y - v.m_y, m_z - v.m_z);
-    }
-
-    inline Point3 operator * (float scale) const
-    {
-        return Point3(m_x * scale, m_y * scale, m_z * scale);
+        return Point3(x * scale, y * scale, z * scale);
     }
 
     friend Point3 operator * (float scale, const Point3& v)
     {
-        return Point3(v.x() * scale, v.y() * scale, v.z() * scale);
+        return Point3(v.x * scale, v.y * scale, v.z * scale);
     }
 
-    inline bool operator == (const Point3& v) const
+    bool operator == (const Point3& v) const
     {
-        return ((m_x == v.m_x) && (m_y == v.m_y) && (m_z == v.m_z));
+        return ((x == v.x) && (y == v.y) && (z == v.z));
     }
 
-    inline bool operator != (const Point3& v) const
+    bool operator != (const Point3& v) const
     {
         return !(*this == v);
     }
 
-    inline bool equal(const Point3& v, float e = EPSILON) const
+    bool equal(const Point3& v, float e = EPSILON) const
     {
-        return (Equal(m_x, v.m_x, e) &&
-                Equal(m_y, v.m_y, e) &&
-                Equal(m_z, v.m_z, e));
+        return (Equal(x, v.x, e) &&
+                Equal(y, v.y, e) &&
+                Equal(z, v.z, e));
     }
 
-    inline float distanceSquare(const Point3& v) const
+    float distanceSquare(const Point3& v) const
     {
-        return (Sqr(m_x - v.m_x) + Sqr(m_y - v.m_y) + Sqr(m_z - v.m_z));
+        return (Sqr(x - v.x) + Sqr(y - v.y) + Sqr(z - v.z));
     }
 
-    inline float distance(const Point3& v) const
+    float distance(const Point3& v) const
     {
         return sqrtf(distanceSquare(v));
     }
 
-    inline void set(const Point3& v)
+    void set(const Point3& v)
     {
-        m_x = v.m_x;
-        m_y = v.m_y;
-        m_z = v.m_z;
+        this->x = v.x;
+        this->y = v.y;
+        this->z = v.z;
     }
 
-    inline void set(float x, float y, float z)
+    void set(float x, float y, float z)
     {
-        m_x = x;
-        m_y = y;
-        m_z = z;
+        this->x = x;
+        this->y = y;
+        this->z = z;
     }
 
-    inline operator float* ()
+    const float& at(size_t i) const
     {
-        return (float*)&m_x;
-    }
-
-    inline operator const float* () const
-    {
-        return (const float*)&m_x;
-    }
-
-    inline const float& at(size_t i) const
-    {
-        if (i == 0) return m_x;
-        else if (i == 1) return m_y;
-        else if (i == 2) return m_z;
+        if (i == 0) return x;
+        else if (i == 1) return y;
+        else if (i == 2) return z;
         else assert(0);
     }
 
-    inline float& x() { return m_x; }
-    inline const float& x() const { return m_x; }
-    inline float& y() { return m_y; }
-    inline const float& y() const { return m_y; }
-    inline float& z() { return m_z; }
-    inline const float& z() const { return m_z; }
+    float& at(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            default:
+                throw std::out_of_range("Invalid index.");
+        };
+    }
+    const float& at(int index) const
+    {
+        switch (index)
+        {
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            default:
+                throw std::out_of_range("Invalid index.");
+        };
+    }
 
-    inline float& at(int index) { switch (index) { case 0: return m_x; case 1: return m_y; case 2: return m_z; }; throw std::out_of_range("Invalid index.");}
-    inline const float& at(int index) const { switch (index) { case 0: return m_x; case 1: return m_y; case 2: return m_z; }; throw std::out_of_range("Invalid index.");}
+public:
 
-protected:
-
-    float m_x, m_y, m_z;
+    float x = 0.0f, y = 0.0f, z = 0.0f;
 
 };
 
@@ -260,185 +259,163 @@ class  Vector3
 {
 public:
 
-    Vector3() {}
-    
-    Vector3(const Vector3& v) :
-        m_x(v.m_x),
-        m_y(v.m_y),
-        m_z(v.m_z) {}
+    Vector3() = default;
+    Vector3(const Vector3& v) = default;
 
-    Vector3(const float* v) :
-        m_x(*(v+0)),
-        m_y(*(v+1)),
-        m_z(*(v+2)) {}
-
-    Vector3(float x, float y, float z) :
-        m_x(x),
-        m_y(y),
-        m_z(z) {}
+    Vector3(float x_, float y_, float z_) :
+        x(x_),
+        y(y_),
+        z(z_) {}
 
     Vector3(const Point3& origin, const Point3& end) :
-        m_x(end.x() - origin.x()),
-        m_y(end.y() - origin.y()),
-        m_z(end.z() - origin.z())
+        x(end.x - origin.x),
+        y(end.y - origin.y),
+        z(end.z - origin.z)
     {}
 
-    inline Vector3& operator = (const Vector3& v)
+    Vector3& operator = (const Vector3& v) = default;
+
+    Vector3& operator += (const Vector3& v)
     {
-        m_x = v.m_x;
-        m_y = v.m_y;
-        m_z = v.m_z;
+        x += v.x;
+        y += v.y;
+        z += v.z;
         return *this;
     }
 
-    inline Vector3& operator += (const Vector3& v)
+    Vector3& operator -= (const Vector3& v)
     {
-        m_x += v.m_x;
-        m_y += v.m_y;
-        m_z += v.m_z;
+        x -= v.x;
+        y -= v.y;
+        z -= v.z;
         return *this;
     }
 
-    inline Vector3& operator -= (const Vector3& v)
+    Vector3& operator *= (float scale)
     {
-        m_x -= v.m_x;
-        m_y -= v.m_y;
-        m_z -= v.m_z;
+        x *= scale;
+        y *= scale;
+        z *= scale;
         return *this;
     }
 
-    inline Vector3& operator *= (float scale)
-    {
-        m_x *= scale;
-        m_y *= scale;
-        m_z *= scale;
-        return *this;
-    }
-
-    inline Vector3& operator /= (float scale)
+    Vector3& operator /= (float scale)
     {
         const float invScale = 1.0f / scale;
-        m_x *= invScale;
-        m_y *= invScale;
-        m_z *= invScale;
+        x *= invScale;
+        y *= invScale;
+        z *= invScale;
         return *this;
     }
 
-    inline Vector3 operator - () const
+    Vector3 operator - () const
     {
-        return Vector3(-m_x, -m_y, -m_z);
+        return Vector3(-x, -y, -z);
     }
 
-    inline Vector3 operator + () const
+    Vector3 operator + () const
     {
-        return Vector3(+m_x, +m_y, +m_z);
+        return Vector3(+x, +y, +z);
     }
 
-    inline Vector3 operator + (const Vector3& v) const
+    Vector3 operator + (const Vector3& v) const
     {
-        return Vector3(m_x + v.m_x, m_y + v.m_y, m_z + v.m_z);
+        return Vector3(x + v.x, y + v.y, z + v.z);
     }
 
-    inline Vector3 operator - (const Vector3& v) const
+    Vector3 operator - (const Vector3& v) const
     {
-        return Vector3(m_x - v.m_x, m_y - v.m_y, m_z - v.m_z);
+        return Vector3(x - v.x, y - v.y, z - v.z);
     }
 
-    inline Vector3 operator * (float scale) const
+    Vector3 operator * (float scale) const
     {
-        return Vector3(m_x * scale, m_y * scale, m_z * scale);
+        return Vector3(x * scale, y * scale, z * scale);
     }
 
-    inline Vector3 operator / (float scale) const
+    Vector3 operator / (float scale) const
     {
         const float invScale = 1.0f / scale;
-        return Vector3(m_x * invScale, m_y * invScale, m_z * invScale);
+        return Vector3(x * invScale, y * invScale, z * invScale);
     }
 
     friend Vector3 operator * (float scale, const Vector3& v)
     {
-        return Vector3(v.x() * scale, v.y() * scale, v.z() * scale);
+        return Vector3(v.x * scale, v.y * scale, v.z * scale);
     }
 
-    inline bool operator == (const Vector3& v) const
+    bool operator == (const Vector3& v) const
     {
-        return ((m_x == v.m_x) && (m_y == v.m_y) && (m_z == v.m_z));
+        return ((x == v.x) && (y == v.y) && (z == v.z));
     }
 
-    inline bool operator != (const Vector3& v) const
+    bool operator != (const Vector3& v) const
     {
         return !(*this == v);
     }
 
-    inline bool equal(const Vector3& v, float e = EPSILON) const
+    bool equal(const Vector3& v, float e = EPSILON) const
     {
-        return (Equal(m_x, v.m_x, e) &&
-                 Equal(m_y, v.m_y, e) &&
-                 Equal(m_z, v.m_z, e));
+        return (Equal(x, v.x, e) &&
+                 Equal(y, v.y, e) &&
+                 Equal(z, v.z, e));
     }
 
     float normalize();
 
-    inline float length() const
+    float length() const
     {
-        return sqrtf(m_x * m_x + m_y * m_y + m_z * m_z);
+        return sqrtf(x * x + y * y + z * z);
     }
 
-    inline float lengthSquare() const
+    float lengthSquare() const
     {
-        return (m_x * m_x + m_y * m_y + m_z * m_z);
+        return (x * x + y * y + z * z);
     }
 
-    inline float dot(const Vector3& v) const
+    float dot(const Vector3& v) const
     {
-        return (m_x * v.m_x + m_y * v.m_y + m_z * v.m_z);
+        return (x * v.x + y * v.y + z * v.z);
     }
-    inline float dot(const Point3& p) const
+    float dot(const Point3& p) const
     {
-        return (m_x * p.x() + m_y * p.y() + m_z * p.z());
-    }
-
-    inline float distanceSquare(const Vector3& v) const
-    {
-        return (Sqr(m_x - v.m_x) + Sqr(m_y - v.m_y) + Sqr(m_z - v.m_z));
+        return (x * p.x + y * p.y + z * p.z);
     }
 
-    inline float distance(const Vector3& v) const
+    float distanceSquare(const Vector3& v) const
+    {
+        return (Sqr(x - v.x) + Sqr(y - v.y) + Sqr(z - v.z));
+    }
+
+    float distance(const Vector3& v) const
     {
         return sqrtf(distanceSquare(v));
     }
 
-    inline void set(const Vector3& v)
+    void set(const Vector3& v)
     {
-        m_x = v.m_x;
-        m_y = v.m_y;
-        m_z = v.m_z;
+        this->x = v.x;
+        this->y = v.y;
+        this->z = v.z;
     }
 
-    inline void set(float x, float y, float z)
+    void set(float x, float y, float z)
     {
-        m_x = x;
-        m_y = y;
-        m_z = z;
+        this->x = x;
+        this->y = y;
+        this->z = z;
     }
 
-    inline const float& at(size_t i) const
+    const float& at(size_t i) const
     {
-        if (i == 0) return m_x;
-        else if (i == 1) return m_y;
-        else if (i == 2) return m_z;
+        if (i == 0) return x;
+        else if (i == 1) return y;
+        else if (i == 2) return z;
         else assert(0);
     }
 
-    inline float& x() { return m_x; }
-    inline const float& x() const { return m_x; }
-    inline float& y() { return m_y; }
-    inline const float& y() const { return m_y; }
-    inline float& z() { return m_z; }
-    inline const float& z() const { return m_z; }
-
-    inline float& at(int index) { switch (index) { case 0: return m_x; case 1: return m_y; case 2: return m_z; }; throw std::out_of_range("Invalid index.");}
-    inline const float& at(int index) const { switch (index) { case 0: return m_x; case 1: return m_y; case 2: return m_z; }; throw std::out_of_range("Invalid index.");}
+    float& at(int index) { switch (index) { case 0: return x; case 1: return y; case 2: return z; }; throw std::out_of_range("Invalid index.");}
+    const float& at(int index) const { switch (index) { case 0: return x; case 1: return y; case 2: return z; }; throw std::out_of_range("Invalid index.");}
 
     static float Dot(const Vector3& v1, const Vector3& v2);
     static float Dot(const Vector3& v1, const Point3& p2);
@@ -455,9 +432,11 @@ public:
     // Eta is relative index of refraction.
     static Vector3 Refract(const Vector3& inc, const Vector3& normal, float eta);
 
-protected:
+    static Vector3 Subtract(const Point3& p0, const Point3& p1);
 
-    float m_x, m_y, m_z;
+public:
+
+    float x = 0.0f, y = 0.0f, z = 0.0f;
 
 };
 
@@ -478,24 +457,21 @@ class Sphere
 {
 public:
 
-    Sphere() :
-        m_center(0.0f, 0.0f, 0.0f),
-        m_radius(1.0f)
-    {}
+    Sphere() = default;
 
-    Sphere(const Point3& center, const float radius = 1.0f) :
+    Sphere(const Point3& center, float radius) :
         m_center(center),
         m_radius(radius)
     {}
 
     bool makeAroundPnts(const Point3 *points, unsigned int num);
 
-    inline void setCenter(const Point3& center)
+    void setCenter(const Point3& center)
     {
         m_center = center;
     }
 
-    inline const Point3& getCenter() const
+    const Point3& getCenter() const
     {
         return m_center;
     }
@@ -505,17 +481,17 @@ public:
         m_radius = radius;
     }
 
-    inline float getRadius() const
+    float getRadius() const
     {
         return m_radius;
     }
 
-    inline float getRadiusSqr() const
+    float getRadiusSqr() const
     {
         return (m_radius * m_radius);
     }
 
-    inline float getInvRadius() const
+    float getInvRadius() const
     {
         return (1.0f / m_radius);
     }
@@ -524,8 +500,8 @@ public:
 
 protected:
 
-    Point3 m_center;
-    float m_radius;
+    Point3 m_center = {0.0f, 0.0f, 0.0f};
+    float m_radius = 1.0f;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -538,12 +514,9 @@ class Plane
 {
 public:
 
-    Plane() :
-        m_normal(0.0f, 0.0f, 1.0f),
-        m_offset(0.0f)
-    {}
+    Plane() = default;
 
-    Plane(const Vector3& normal, float offset = 0.0f) :
+    Plane(const Vector3& normal, float offset) :
         m_normal(normal),
         m_offset(offset)
     {}
@@ -557,8 +530,8 @@ public:
 
 public:
 
-  Vector3 m_normal;
-  float m_offset;
+  Vector3 m_normal = {0.0f, 0.0f, 1.0f};
+  float m_offset = 0.0f;
 
 };
 
@@ -589,24 +562,16 @@ public:
         NUM_FACES   = 6
     };
 
-    Box3()
-    {
-        m_maxMin[ BI_MAX_X ] = 0.0f;
-        m_maxMin[ BI_MAX_Y ] = 0.0f;
-        m_maxMin[ BI_MAX_Z ] = 0.0f;
-        m_maxMin[ BI_MIN_X ] = 0.0f;
-        m_maxMin[ BI_MIN_Y ] = 0.0f;
-        m_maxMin[ BI_MIN_Z ] = 0.0f;
-    }
+    Box3() = default;
 
     Box3(const Point3& max, const Point3& min)
     {
-        m_maxMin[ BI_MAX_X ] = max.x();
-        m_maxMin[ BI_MAX_Y ] = max.y();
-        m_maxMin[ BI_MAX_Z ] = max.z();
-        m_maxMin[ BI_MIN_X ] = min.x();
-        m_maxMin[ BI_MIN_Y ] = min.y();
-        m_maxMin[ BI_MIN_Z ] = min.z();
+        m_maxMin[ BI_MAX_X ] = max.x;
+        m_maxMin[ BI_MAX_Y ] = max.y;
+        m_maxMin[ BI_MAX_Z ] = max.z;
+        m_maxMin[ BI_MIN_X ] = min.x;
+        m_maxMin[ BI_MIN_Y ] = min.y;
+        m_maxMin[ BI_MIN_Z ] = min.z;
     }
 
     Box3(float maxX, float maxY, float maxZ, float minX, float minY, float minZ)
@@ -637,9 +602,9 @@ public:
 
     void getCenter(Point3& center) const
     {
-        center.x() = (m_maxMin[BI_MAX_X] + m_maxMin[BI_MIN_X]) * 0.5f;
-        center.y() = (m_maxMin[BI_MAX_Y] + m_maxMin[BI_MIN_Y]) * 0.5f;
-        center.z() = (m_maxMin[BI_MAX_Z] + m_maxMin[BI_MIN_Z]) * 0.5f;
+        center.x = (m_maxMin[BI_MAX_X] + m_maxMin[BI_MIN_X]) * 0.5f;
+        center.y = (m_maxMin[BI_MAX_Y] + m_maxMin[BI_MIN_Y]) * 0.5f;
+        center.z = (m_maxMin[BI_MAX_Z] + m_maxMin[BI_MIN_Z]) * 0.5f;
     }
 
     void getDims(Vector3& dims) const;
@@ -662,7 +627,7 @@ public:
 
 public:
 
-    float m_maxMin[ BI_NUM_NDX ];
+    float m_maxMin[ BI_NUM_NDX ] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
 private:
 
@@ -681,38 +646,29 @@ class OrientedBox
 {
 public:
 
-    OrientedBox() :
-        m_center(0.0f, 0.0f, 0.0f),
-        m_pad(0),
-        m_bu(1.0f, 0.0f, 0.0f),
-        m_hu(0.0f),
-        m_bv(0.0f, 1.0f, 0.0f),
-        m_hv(0.0f),
-        m_bw(0.0f, 0.0f, 1.0f),
-        m_hw(0.0f)
-    {}
+    OrientedBox() = default;
 
-    OrientedBox(const Box3& box);
+    explicit OrientedBox(const Box3& box);
 
     EContainment contains(const Point3& point) const;
 
 public:
 
-    Point3 m_center;
-    int   m_pad;
+    Point3 m_center = {0.0f, 0.0f, 0.0f};
+    int   m_pad = 0;
 
     // Basis vectors (directions of box sides).
     // Note, could combine basis vector and center into a basis matrix.
-    Vector3 m_bu;
+    Vector3 m_bu = {1.0f, 0.0f, 0.0f};
 
     // Half length
-    float m_hu;
+    float m_hu = 0.0f;
 
-    Vector3 m_bv;
-    float m_hv;
+    Vector3 m_bv = {0.0f, 1.0f, 0.0f};
+    float m_hv = 0.0f;
 
-    Vector3 m_bw;
-    float m_hw;
+    Vector3 m_bw = {0.0f, 0.0f, 1.0f};
+    float m_hw = 0.0f;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -725,10 +681,7 @@ class Ray
 {
 public:
 
-    Ray() :
-        m_origin(0.0f, 0.0f, 0.0f),
-        m_dir(0.0f, 0.0f, 1.0f)
-    {}
+    Ray() = default;
 
     Ray(const Point3& origin, const Vector3& dir) :
         m_origin(origin),
@@ -745,26 +698,26 @@ public:
     Point3 point_at(const float t) const
     {
         Point3 point(m_origin);
-        point.x() += m_dir.x() * t;
-        point.y() += m_dir.y() * t;
-        point.z() += m_dir.z() * t;
+        point.x += m_dir.x * t;
+        point.y += m_dir.y * t;
+        point.z += m_dir.z * t;
         return point;
     }
 
-    inline const Point3& get_origin() const
+    const Point3& get_origin() const
     {
         return m_origin;
     }
 
-    inline const Vector3& get_direction() const
+    const Vector3& get_direction() const
     {
         return m_dir;
     }
 
 public:
 
-    Point3 m_origin;
-    Vector3 m_dir;
+    Point3 m_origin = {0.0f, 0.0f, 0.0f};
+    Vector3 m_dir = {0.0f, 0.0f, 1.0f};
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -783,8 +736,7 @@ struct RayHit
 
 struct Triangle
 {
-    Triangle()
-    {}
+    Triangle() = default;
 
     Triangle(const Point3& v0, const Point3& v1, const Point3& v2) :
         m_v0(v0),
@@ -801,7 +753,7 @@ struct Triangle
 
 struct TriangleFast
 {
-    TriangleFast(const Triangle& tri);
+    explicit TriangleFast(const Triangle& tri);
 
     Point3   m_v0;
     int     pad0;

@@ -6,6 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <MathUtils.h>
+
 #include "MathUtils.h"
 
 namespace Math
@@ -24,7 +26,7 @@ float Vector3::Dot(const Vector3& v1, const Vector3& v2)
 
 float Vector3::Dot(const Vector3& v1, const Point3& p2)
 {
-    const Vector3 v2(p2.x(), p2.y(), p2.z());
+    const Vector3 v2(p2.x, p2.y, p2.z);
     return v1.dot(v2);
 }
 
@@ -43,9 +45,9 @@ float Vector3::normalize()
     }
 
     const float d = 1.0f / sqrtf(dsqr);
-    m_x *= d;
-    m_y *= d;
-    m_z *= d;
+    x *= d;
+    y *= d;
+    z *= d;
 
     return d;
 }
@@ -82,9 +84,14 @@ Vector3 Vector3::Refract(const Vector3& inc, const Vector3& normal, float eta)
 
 Vector3 Vector3::Cross(const Vector3& v1, const Vector3& v2)
 {
-    return Vector3(v1.y() * v2.z() - v1.z() * v2.y(),
-                   v1.z() * v2.x() - v1.x() * v2.z(),
-                   v1.x() * v2.y() - v1.y() * v2.x());
+    return Vector3(v1.y * v2.z - v1.z * v2.y,
+                   v1.z * v2.x - v1.x * v2.z,
+                   v1.x * v2.y - v1.y * v2.x);
+}
+
+Vector3 Vector3::Subtract(const Point3 &p0, const Point3 &p1)
+{
+    return Vector3(p0.x - p1.x, p0.y - p1.y, p0.z - p1.z);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -116,17 +123,17 @@ bool Sphere::makeAroundPnts(const Point3 *points, unsigned int num)
     for (i = 0; i < num; i++)
     {
         cur = points[i];
-        if (cur.x() < xmin.x())
+        if (cur.x < xmin.x)
             xmin = cur; // New x minimum point
-        if (cur.x() > xmax.x())
+        if (cur.x > xmax.x)
             xmax = cur;
-        if (cur.y() < ymin.y())
+        if (cur.y < ymin.y)
             ymin = cur; // New y minimum point
-        if (cur.y() > ymax.y())
+        if (cur.y > ymax.y)
             ymax = cur;
-        if (cur.z() < zmin.z())
+        if (cur.z < zmin.z)
             zmin = cur; // New z minimum point
-        if (cur.z() > zmax.z())
+        if (cur.z > zmax.z)
             zmax = cur;
     }
 
@@ -179,9 +186,9 @@ bool Sphere::makeAroundPnts(const Point3 *points, unsigned int num)
             rad_sq = m_radius * m_radius; // for next r**2 compare
             old_to_new = old_to_p - m_radius;
             // calc center of new sphere
-            m_center.x() = (m_radius * m_center.x() + old_to_new * cur.x()) / old_to_p;
-            m_center.y() = (m_radius * m_center.y() + old_to_new * cur.y()) / old_to_p;
-            m_center.z() = (m_radius * m_center.z() + old_to_new * cur.z()) / old_to_p;
+            m_center.x = (m_radius * m_center.x + old_to_new * cur.x) / old_to_p;
+            m_center.y = (m_radius * m_center.y + old_to_new * cur.y) / old_to_p;
+            m_center.z = (m_radius * m_center.z + old_to_new * cur.z) / old_to_p;
         }
     }
 
@@ -211,15 +218,15 @@ Plane::Plane(const Point3& p0, const Point3& p1, const Point3& p2)
     m_normal = Vector3::Cross(edge0, edge1);
     m_normal.normalize();
 
-    m_offset = m_normal.dot(Vector3(p0.x(), p0.y(), p0.z()));
+    m_offset = m_normal.dot(Vector3(p0.x, p0.y, p0.z));
 }
 
 Point3 Plane::nearestPointOnPlane(const Point3& point) const
 {
-    Vector3 pv(point.x(), point.y(), point.z());
+    Vector3 pv(point.x, point.y, point.z);
     float scaler = (m_offset + m_normal.dot(pv)) / m_normal.dot(m_normal);
     Vector3 near_pnt = pv - scaler * m_normal;
-    return Point3(near_pnt.x(), near_pnt.y(), near_pnt.z());
+    return Point3(near_pnt.x, near_pnt.y, near_pnt.z);
 }
 
 float Plane::distance(const Point3& point) const
@@ -230,7 +237,7 @@ float Plane::distance(const Point3& point) const
 
 EContainment Plane::contains(const Point3& point) const
 {
-    Vector3 pv(point.x(), point.y(), point.z());
+    Vector3 pv(point.x, point.y, point.z);
     const float result = Vector3::Dot(m_normal, pv) - m_offset;
     if (result > 0.0f)
     {
@@ -265,55 +272,55 @@ bool Box3::split(float plane, unsigned int axis, Box3& boxL, Box3& boxR) const
 
 void Box3::extendAround(const Point3& point)
 {
-    if (point.x() < m_maxMin[BI_MIN_X])
+    if (point.x < m_maxMin[BI_MIN_X])
     {
-        m_maxMin[BI_MIN_X] = point.x();
+        m_maxMin[BI_MIN_X] = point.x;
     }
-    if (point.x() > m_maxMin[BI_MAX_X])
+    if (point.x > m_maxMin[BI_MAX_X])
     {
-        m_maxMin[BI_MAX_X] = point.x();
+        m_maxMin[BI_MAX_X] = point.x;
     }
-    if (point.y() < m_maxMin[BI_MIN_Y])
+    if (point.y < m_maxMin[BI_MIN_Y])
     {
-        m_maxMin[BI_MIN_Y] = point.y();
+        m_maxMin[BI_MIN_Y] = point.y;
     }
-    if (point.y() > m_maxMin[BI_MAX_Y])
+    if (point.y > m_maxMin[BI_MAX_Y])
     {
-        m_maxMin[BI_MAX_Y] = point.y();
+        m_maxMin[BI_MAX_Y] = point.y;
     }
-    if (point.z() < m_maxMin[BI_MIN_Z])
+    if (point.z < m_maxMin[BI_MIN_Z])
     {
-        m_maxMin[BI_MIN_Z] = point.z();
+        m_maxMin[BI_MIN_Z] = point.z;
     }
-    if (point.z() > m_maxMin[BI_MAX_Z])
+    if (point.z > m_maxMin[BI_MAX_Z])
     {
-        m_maxMin[BI_MAX_Z] = point.z();
+        m_maxMin[BI_MAX_Z] = point.z;
     }
 }
 
 EContainment Box3::contains(const Point3& point) const
 {
-    if (point.x() < m_maxMin[BI_MIN_X])
+    if (point.x < m_maxMin[BI_MIN_X])
     {
         return CONT_NONE;
     }
-    if (point.x() > m_maxMin[BI_MAX_X])
+    if (point.x > m_maxMin[BI_MAX_X])
     {
         return CONT_NONE;
     }
-    if (point.y() < m_maxMin[BI_MIN_Y])
+    if (point.y < m_maxMin[BI_MIN_Y])
     {
         return CONT_NONE;
     }
-    if (point.y() > m_maxMin[BI_MAX_Y])
+    if (point.y > m_maxMin[BI_MAX_Y])
     {
         return CONT_NONE;
     }
-    if (point.z() < m_maxMin[BI_MIN_Z])
+    if (point.z < m_maxMin[BI_MIN_Z])
     {
         return CONT_NONE;
     }
-    if (point.z() > m_maxMin[BI_MAX_Z])
+    if (point.z > m_maxMin[BI_MAX_Z])
     {
         return CONT_NONE;
     }
@@ -383,9 +390,9 @@ int Box3::s_faces[NUM_FACES][4] =
 void Box3::getCorner(unsigned int which, Point3& corner) const
 {
     assert(which < NUM_CORNERS);
-    corner.x() = m_maxMin[s_cornerIndex[which][0]];
-    corner.y() = m_maxMin[s_cornerIndex[which][1]];
-    corner.z() = m_maxMin[s_cornerIndex[which][2]];
+    corner.x = m_maxMin[s_cornerIndex[which][0]];
+    corner.y = m_maxMin[s_cornerIndex[which][1]];
+    corner.z = m_maxMin[s_cornerIndex[which][2]];
 }
 
 void Box3::getEdge(unsigned int which, int& c0, int& c1) const
@@ -414,9 +421,9 @@ float Box3::getSurfaceArea() const
 {
     Vector3 dims;
     getDims(dims);
-    return 2.0f * (dims.x()*dims.y() +
-                   dims.x()*dims.z() +
-                   dims.y()*dims.z());
+    return 2.0f * (dims.x*dims.y +
+                   dims.x*dims.z +
+                   dims.y*dims.z);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -462,7 +469,7 @@ bool Intersect(const Ray& ray, const Sphere& sphere, RayHit& h0, RayHit& h1)
     const float distDotDist = dist.dot(dist);
     const float disc = dirDotDist * dirDotDist - (distDotDist - sphere.getRadiusSqr());
 
-    bool hit = (disc >= 0.0f) ? true : false;
+    bool hit = (disc >= 0.0f);
 
     if (hit)
     {
@@ -531,8 +538,8 @@ bool Intersect(const Ray& ray, const Triangle& tri, RayHit& h0)
     //
 
     // Find vectors for two edges sharing v0.
-    Vector3 edge1(tri.m_v1 - tri.m_v0);
-    Vector3 edge2(tri.m_v2 - tri.m_v0);
+    Vector3 edge1 = Vector3::Subtract(tri.m_v1, tri.m_v0);
+    Vector3 edge2 = Vector3::Subtract(tri.m_v2, tri.m_v0);
 
     // Begin calculating determinant - also used to calculate U parameter.
     Vector3 pvec = Vector3::Cross(ray.get_direction(), edge2);
@@ -544,7 +551,7 @@ bool Intersect(const Ray& ray, const Triangle& tri, RayHit& h0)
         return false;
 
     // Calculate distance from v0 to ray origin.
-    Vector3 tvec(ray.get_origin() - tri.m_v0);
+    Vector3 tvec = Vector3::Subtract(ray.get_origin(), tri.m_v0);
 
     // calculate U parameter and test bounds.
     float u = tvec.dot(pvec);
@@ -577,8 +584,8 @@ bool Intersect(const Ray& ray, const Triangle& tri, RayHit& h0)
 
 float Triangle::getArea() const
 {
-    Vector3 u(m_v1 - m_v0);
-    Vector3 v(m_v2 - m_v0);
+    Vector3 u = Vector3::Subtract(m_v1, m_v0);
+    Vector3 v = Vector3::Subtract(m_v2, m_v0);
     Vector3 uv = Vector3::Cross(u, v);
     return 0.5f * uv.length();
 }
@@ -588,23 +595,23 @@ TriangleFast::TriangleFast(const Triangle& tri)
     m_v0 = tri.m_v0;
 
     // Find vectors for two edges sharing v0.
-    Vector3 c(tri.m_v1 - tri.m_v0);
-    Vector3 b(tri.m_v2 - tri.m_v0);
+    Vector3 c = Vector3::Subtract(tri.m_v1, tri.m_v0);
+    Vector3 b = Vector3::Subtract(tri.m_v2, tri.m_v0);
 
     // Compute normal
     Vector3 N = Vector3::Cross(b, c);
 
     // Identify primary plane
-    if (Abs(N.x()) > Abs(N.y()))
+    if (Abs(N.x) > Abs(N.y))
     {
-        if (Abs(N.x()) > Abs(N.z()))
+        if (Abs(N.x) > Abs(N.z))
             m_k = COORD_X;
         else
             m_k = COORD_Z;
     }
     else
     {
-        if (Abs(N.y()) > Abs(N.z()))
+        if (Abs(N.y) > Abs(N.z))
             m_k = COORD_Y;
         else
             m_k = COORD_Z;
@@ -727,17 +734,17 @@ bool planeBoxOverlap(const Vector3& normal, const Vector3& vert, const Vector3& 
 /*======================== X-tests ========================*/
 
 #define AXISTEST_X01(a, b, fa, fb)             \
-    p0 = (a)*v0.y() - (b)*v0.z();            \
-    p2 = (a)*v2.y() - (b)*v2.z();            \
+    p0 = (a)*v0.y - (b)*v0.z;            \
+    p2 = (a)*v2.y - (b)*v2.z;            \
     if(p0<p2) {min=p0; max=p2;} else {min=p2; max=p0;} \
-    rad = (fa) * boxhalfsize.y() + (fb) * boxhalfsize.z();   \
+    rad = (fa) * boxhalfsize.y + (fb) * boxhalfsize.z;   \
     if(min>rad || max<-rad) return false;
 
 #define AXISTEST_X2(a, b, fa, fb)              \
-    p0 = (a)*v0.y() - (b)*v0.z();                    \
-    p1 = (a)*v1.y() - (b)*v1.z();                    \
+    p0 = (a)*v0.y - (b)*v0.z;                    \
+    p1 = (a)*v1.y - (b)*v1.z;                    \
     if(p0<p1) {min=p0; max=p1;} else {min=p1; max=p0;} \
-    rad = (fa) * boxhalfsize.y() + (fb) * boxhalfsize.z();   \
+    rad = (fa) * boxhalfsize.y + (fb) * boxhalfsize.z;   \
     if(min>rad || max<-rad) return false;
 
 
@@ -745,34 +752,34 @@ bool planeBoxOverlap(const Vector3& normal, const Vector3& vert, const Vector3& 
 /*======================== Y-tests ========================*/
 
 #define AXISTEST_Y02(a, b, fa, fb)             \
-    p0 = -(a)*v0.x() + (b)*v0.z();                   \
-    p2 = -(a)*v2.x() + (b)*v2.z();                       \
+    p0 = -(a)*v0.x + (b)*v0.z;                   \
+    p2 = -(a)*v2.x + (b)*v2.z;                       \
     if(p0<p2) {min=p0; max=p2;} else {min=p2; max=p0;} \
-    rad = (fa) * boxhalfsize.x() + (fb) * boxhalfsize.z();   \
+    rad = (fa) * boxhalfsize.x + (fb) * boxhalfsize.z;   \
     if(min>rad || max<-rad) return false;
 
 #define AXISTEST_Y1(a, b, fa, fb)              \
-    p0 = -(a)*v0.x() + (b)*v0.z();                   \
-    p1 = -(a)*v1.x() + (b)*v1.z();                       \
+    p0 = -(a)*v0.x + (b)*v0.z;                   \
+    p1 = -(a)*v1.x + (b)*v1.z;                       \
     if(p0<p1) {min=p0; max=p1;} else {min=p1; max=p0;} \
-    rad = (fa) * boxhalfsize.x() + (fb) * boxhalfsize.z();   \
+    rad = (fa) * boxhalfsize.x + (fb) * boxhalfsize.z;   \
     if(min>rad || max<-rad) return false;
 
 
 /*======================== Z-tests ========================*/
 
 #define AXISTEST_Z12(a, b, fa, fb)             \
-    p1 = (a)*v1.x() - (b)*v1.y();                    \
-    p2 = (a)*v2.x() - (b)*v2.y();                    \
+    p1 = (a)*v1.x - (b)*v1.y;                    \
+    p2 = (a)*v2.x - (b)*v2.y;                    \
     if(p2<p1) {min=p2; max=p1;} else {min=p1; max=p2;} \
-    rad = (fa) * boxhalfsize.x() + (fb) * boxhalfsize.y();   \
+    rad = (fa) * boxhalfsize.x + (fb) * boxhalfsize.y;   \
     if(min>rad || max<-rad) return false;
 
 #define AXISTEST_Z0(a, b, fa, fb)              \
-    p0 = (a)*v0.x() - (b)*v0.y();                \
-    p1 = (a)*v1.x() - (b)*v1.y();                    \
+    p0 = (a)*v0.x - (b)*v0.y;                \
+    p1 = (a)*v1.x - (b)*v1.y;                    \
     if(p0<p1) {min=p0; max=p1;} else {min=p1; max=p0;} \
-    rad = (fa) * boxhalfsize.x() + (fb) * boxhalfsize.y();   \
+    rad = (fa) * boxhalfsize.x + (fb) * boxhalfsize.y;   \
     if(min>rad || max<-rad) return false;
 
 
@@ -803,29 +810,29 @@ bool triBoxOverlap(const Point3& boxcenter, const Vector3& boxhalfsize, Point3 t
 
    /* Bullet 3:  */
    /*  test the 9 tests first (this was faster) */
-   fex = fabsf(e0.x());
-   fey = fabsf(e0.y());
-   fez = fabsf(e0.z());
+   fex = fabsf(e0.x);
+   fey = fabsf(e0.y);
+   fez = fabsf(e0.z);
 
-   AXISTEST_X01(e0.z(), e0.y(), fez, fey);
-   AXISTEST_Y02(e0.z(), e0.x(), fez, fex);
-   AXISTEST_Z12(e0.y(), e0.x(), fey, fex);
+   AXISTEST_X01(e0.z, e0.y, fez, fey);
+   AXISTEST_Y02(e0.z, e0.x, fez, fex);
+   AXISTEST_Z12(e0.y, e0.x, fey, fex);
 
-   fex = fabsf(e1.x());
-   fey = fabsf(e1.y());
-   fez = fabsf(e1.z());
+   fex = fabsf(e1.x);
+   fey = fabsf(e1.y);
+   fez = fabsf(e1.z);
 
-   AXISTEST_X01(e1.z(), e1.y(), fez, fey);
-   AXISTEST_Y02(e1.z(), e1.x(), fez, fex);
-   AXISTEST_Z0(e1.y(), e1.x(), fey, fex);
+   AXISTEST_X01(e1.z, e1.y, fez, fey);
+   AXISTEST_Y02(e1.z, e1.x, fez, fex);
+   AXISTEST_Z0(e1.y, e1.x, fey, fex);
 
-   fex = fabsf(e2.x());
-   fey = fabsf(e2.y());
-   fez = fabsf(e2.z());
+   fex = fabsf(e2.x);
+   fey = fabsf(e2.y);
+   fez = fabsf(e2.z);
 
-   AXISTEST_X2(e2.z(), e2.y(), fez, fey);
-   AXISTEST_Y1(e2.z(), e2.x(), fez, fex);
-   AXISTEST_Z12(e2.y(), e2.x(), fey, fex);
+   AXISTEST_X2(e2.z, e2.y, fez, fey);
+   AXISTEST_Y1(e2.z, e2.x, fez, fex);
+   AXISTEST_Z12(e2.y, e2.x, fey, fex);
 
    /* Bullet 1: */
    /*  first test overlap in the {x,y,z}-directions */
@@ -834,16 +841,16 @@ bool triBoxOverlap(const Point3& boxcenter, const Vector3& boxhalfsize, Point3 t
    /*  the triangle against the AABB */
 
    /* test in X-direction */
-   FINDMINMAX(v0.x(),v1.x(),v2.x(),min,max);
-   if(min>boxhalfsize.x() || max<-boxhalfsize.x()) return false;
+   FINDMINMAX(v0.x,v1.x,v2.x,min,max);
+   if(min>boxhalfsize.x || max<-boxhalfsize.x) return false;
 
    /* test in Y-direction */
-   FINDMINMAX(v0.y(),v1.y(),v2.y(),min,max);
-   if(min>boxhalfsize.y() || max<-boxhalfsize.y()) return false;
+   FINDMINMAX(v0.y,v1.y,v2.y,min,max);
+   if(min>boxhalfsize.y || max<-boxhalfsize.y) return false;
 
    /* test in Z-direction */
-   FINDMINMAX(v0.z(),v1.z(),v2.z(),min,max);
-   if(min>boxhalfsize.z() || max<-boxhalfsize.z()) return false;
+   FINDMINMAX(v0.z,v1.z,v2.z,min,max);
+   if(min>boxhalfsize.z || max<-boxhalfsize.z) return false;
 
    /* Bullet 2: */
    /*  test if the box intersects the plane of the triangle */

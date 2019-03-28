@@ -26,9 +26,9 @@ public:
 
     void setPosition(const Math::Point3& pos) { m_position = pos; }
     const Math::Point3& position() const { return m_position; }
-    float x() const { return m_position.x(); }
-    float y() const { return m_position.y(); }
-    float z() const { return m_position.z(); }
+    float x() const { return m_position.x; }
+    float y() const { return m_position.y; }
+    float z() const { return m_position.z; }
 
     void addMeleeWeapon(const Weapon* weapon);
     void addMissileWeapon(const Weapon* weapon);

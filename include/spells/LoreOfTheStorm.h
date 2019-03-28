@@ -22,8 +22,8 @@ enum class LoreOfTheStorm : int
     Stormcaller,
 };
 
-std::string LoreOfTheStormToString(LoreOfTheStorm which);
-bool StringToLoreOfTheStorm(const std::string& enumString, LoreOfTheStorm& outLore);
+std::string ToString(LoreOfTheStorm which);
+bool FromString(const std::string &enumString, LoreOfTheStorm &outLore);
 
 enum class LoreOfInvigoration : int
 {
@@ -33,8 +33,8 @@ enum class LoreOfInvigoration : int
     SpeedOfLightning,
 };
 
-std::string LoreOfInvigorationToString(LoreOfInvigoration which);
-bool StringToLoreOfInvigoration(const std::string& enumString, LoreOfInvigoration& outLore);
+std::string ToString(LoreOfInvigoration which);
+bool FromString(const std::string &enumString, LoreOfInvigoration &outLore);
 
 DamageSpell* CreateLightningBlast(Unit* caster);
 AreaOfEffectSpell* CreateStarfall(Unit* caster);

@@ -94,11 +94,11 @@ std::string KnightIncantor::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "Lore of the Storm")
     {
-        return LoreOfTheStormToString((LoreOfTheStorm)parameter.m_intValue);
+        return ToString((LoreOfTheStorm) parameter.m_intValue);
     }
     else if (parameter.m_name == "Lore of Invigoration")
     {
-        return LoreOfInvigorationToString((LoreOfInvigoration)parameter.m_intValue);
+        return ToString((LoreOfInvigoration) parameter.m_intValue);
     }
     return ParameterValueToString(parameter);
 }
@@ -107,11 +107,11 @@ int KnightIncantor::EnumStringToInt(const std::string &enumString)
 {
     LoreOfTheStorm storm;
     LoreOfInvigoration invigoration;
-    if (StringToLoreOfTheStorm(enumString, storm))
+    if (FromString(enumString, storm))
     {
         return (int)storm;
     }
-    else if (StringToLoreOfInvigoration(enumString, invigoration))
+    else if (FromString(enumString, invigoration))
     {
         return (int) invigoration;
     }

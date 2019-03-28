@@ -11,6 +11,37 @@
 
 #include <Spell.h>
 
+enum class LoreOfTheMoonclans
+{
+    None,
+    VindictiveGlare,
+    ItchyNuisance,
+    TheGreatGreenSpite,
+    TheHandOfGork,
+    SquigLure,
+    CallDaMoon
+};
+
+std::string ToString(LoreOfTheMoonclans which);
+bool FromString(const std::string& enumString, LoreOfTheMoonclans& outLore);
+
+enum class LoreOfTheSpiderFangs
+{
+    None,
+    DeadlyWebbing,
+    VenomousSpiderlings,
+    ScuttlingTerrors,
+    SneakyDistraction,
+    CurseOfDaSpiderGod,
+    GiftOfDaSpiderGod
+};
+
+std::string ToString(LoreOfTheSpiderFangs which);
+bool FromString(const std::string& enumString, LoreOfTheSpiderFangs& outLore);
+
+Spell* CreateLoreOfTheSpiderFangs(LoreOfTheSpiderFangs which, Unit* caster);
+Spell* CreateLoreOfTheMoonclans(LoreOfTheMoonclans which, Unit* caster);
+
 DamageSpell* CreateVindictiveGlare(Unit* caster);
 
 #endif //GLOOMSPITESPELLS_H

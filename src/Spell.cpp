@@ -20,23 +20,26 @@ DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue
     m_targetFriendly = false;
 }
 
-bool DamageSpell::cast(Unit *target, int /*round*/)
+Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
 {
     if (target == nullptr)
     {
-        return false;
+        return Failed;
     }
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
+    SimLog(Verbosity::Narrative, "Distance to target: %f\n", distance);
     if (distance > m_range)
     {
-        return false;
+        return Failed;
     }
 
     // TODO: Check for visibility to target
 
     Dice dice;
+
+    Spell::Result result = Failed;
 
     int mortalWounds = 0;
     const int castingRoll = dice.roll2D6();
@@ -49,10 +52,15 @@ bool DamageSpell::cast(Unit *target, int /*round*/)
             target->applyDamage({0, mortalWounds});
             SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                 m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
+            result = Success;
+        }
+        else
+        {
+            result = Unbound;
         }
     }
 
-    return true;
+    return result;
 }
 
 int DamageSpell::getDamage(int castingRoll) const
@@ -78,7 +86,7 @@ AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int 
     m_targetFriendly = false;
 }
 
-bool AreaOfEffectSpell::cast(float x, float y, int round)
+Spell::Result AreaOfEffectSpell::cast(float x, float y, int round)
 {
     const Math::Point3 targetPoint(x, y, 0.0f);
 
@@ -86,12 +94,14 @@ bool AreaOfEffectSpell::cast(float x, float y, int round)
     const float distance = m_caster->position().distance(targetPoint);
     if (distance > m_range)
     {
-        return false;
+        return Failed;
     }
 
     // TODO: Check for visibility to target
 
     Dice dice;
+
+    Spell::Result result = Failed;
 
     int mortalWounds = 0;
     const int castingRoll = dice.roll2D6();
@@ -118,10 +128,15 @@ bool AreaOfEffectSpell::cast(float x, float y, int round)
                            m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
                 }
             }
+            result = Success;
+        }
+        else
+        {
+            result = Unbound;
         }
     }
 
-    return true;
+    return result;
 }
 
 int AreaOfEffectSpell::getDamage(int /*castingRoll*/) const
@@ -137,9 +152,9 @@ LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int 
     m_targetFriendly = false;
 }
 
-bool LineOfEffectSpell::cast(float x, float y, int round)
+Spell::Result LineOfEffectSpell::cast(float x, float y, int round)
 {
-    return false;
+    return Failed;
 }
 
 int LineOfEffectSpell::getDamage(int castingRoll) const
@@ -156,23 +171,25 @@ HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, fl
     m_targetFriendly = true;
 }
 
-bool HealSpell::cast(Unit *target, int round)
+Spell::Result HealSpell::cast(Unit *target, int round)
 {
     if (target == nullptr)
     {
-        return false;
+        return Failed;
     }
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
     if (distance > m_range)
     {
-        return false;
+        return Failed;
     }
 
     // TODO: Check for visibility to target
 
     Dice dice;
+
+    Spell::Result result = Failed;
 
     int wounds = 0;
     const int castingRoll = dice.roll2D6();
@@ -185,10 +202,15 @@ bool HealSpell::cast(Unit *target, int round)
             target->heal(wounds);
             SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
                    m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, wounds, target->name().c_str());
+            result = Success;
+        }
+        else
+        {
+            result = Unbound;
         }
     }
 
-    return true;
+    return result;
 }
 
 int HealSpell::getHealing(int castingRoll) const

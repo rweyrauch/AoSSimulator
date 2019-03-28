@@ -98,13 +98,13 @@ void Board::render(const std::string &filename) const
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
         {
             auto pos = mip->position();
-            cr->arc(pos.x() * 10.0, pos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
+            cr->arc(pos.x * 10.0, pos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
         }
 
         auto upos = unit->position();
         cr->set_source_rgb(0.5, 0.0, 0.0);
-        cr->arc(upos.x() * 10.0, upos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
+        cr->arc(upos.x * 10.0, upos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
         cr->fill();
     }
     cr->restore();
@@ -124,13 +124,13 @@ void Board::render(const std::string &filename) const
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
         {
             auto pos = mip->position();
-            cr->arc(pos.x() * 10.0, pos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
+            cr->arc(pos.x * 10.0, pos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
         }
 
         auto upos = unit->position();
         cr->set_source_rgb(0.0, 0.0, 0.5);
-        cr->arc(upos.x() * 10.0, upos.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
+        cr->arc(upos.x * 10.0, upos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
         cr->fill();
     }
     cr->restore();
@@ -143,7 +143,7 @@ void Board::render(const std::string &filename) const
 
         // label with the number of remaining models
         cr->save();
-        cr->move_to((unit->position().x() - 2.0f * radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
+        cr->move_to((unit->position().x - 2.0f * radiusInches) * 10, (unit->position().y - radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
         cr->set_font_size(12.0);
@@ -161,7 +161,7 @@ void Board::render(const std::string &filename) const
 
         // label with the number of remaining models
         cr->save();
-        cr->move_to((unit->position().x() + radiusInches) * 10, (unit->position().y() - radiusInches) * 10);
+        cr->move_to((unit->position().x + radiusInches) * 10, (unit->position().y - radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
         cr->set_font_size(12.0);
@@ -279,11 +279,14 @@ Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword k
 bool Board::unbindAttempt(const Unit* caster, int castingRoll)
 {
     int targetId = (int)GetEnemyId(caster->owningPlayer());
-    for (auto ip = m_rosters[targetId]->unitBegin(); ip != m_rosters[targetId]->unitEnd(); ++ip)
+    if (m_rosters[targetId])
     {
-        if ((*ip)->unbind(caster, castingRoll))
+        for (auto ip = m_rosters[targetId]->unitBegin(); ip != m_rosters[targetId]->unitEnd(); ++ip)
         {
-            return true;
+            if ((*ip)->unbind(caster, castingRoll))
+            {
+                return true;
+            }
         }
     }
 

@@ -325,12 +325,12 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
     Math::Vector3 dx = -left * basesizeInches();
     Math::Vector3 dy = -orientation * basesizeInches();
 
-    Math::Vector3 pos0 = Math::Vector3(pos.x(), pos.y(), pos.z()) + left * unitWidth / 2.0f;
+    Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0f;
     Math::Vector3 curPos = pos0;
 
     for (auto& m : m_models)
     {
-        m.setPosition(Math::Point3(curPos.x(), curPos.y(), curPos.z()));
+        m.setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
 
         xi++;
         curPos += dx;
@@ -361,7 +361,10 @@ float Unit::distanceTo(const Unit* unit) const
     if (unit == nullptr || unit->remainingModels() == 0 || remainingModels() == 0)
         return 0.0f;
 
-    float dist = position().distance(unit->position());
+    const auto pos = position();
+    const auto unitPos = unit->position();
+
+    float dist = pos.distance(unitPos);
     return std::max(0.0f, dist - (basesizeInches() + unit->basesizeInches())/2.0f);
 }
 

@@ -15,22 +15,22 @@ MysticShield::MysticShield(Unit *caster) :
     m_targetFriendly = true;
 }
 
-bool MysticShield::cast(Unit *target, int round)
+Spell::Result MysticShield::cast(Unit *target, int round)
 {
     if (target == nullptr)
     {
-        return false;
+        return Failed;
     }
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
     if (distance > m_range)
     {
-        return false;
+        return Failed;
     }
 
     Dice dice;
-    bool successful = false;
+    Spell::Result result = Failed;
 
     const int castingRoll = dice.roll2D6();
     if (castingRoll >= m_castingValue)
@@ -39,11 +39,12 @@ bool MysticShield::cast(Unit *target, int round)
         if (!unbound)
         {
             target->buffReroll(ToSave, RerollOnes, {Phase::Hero, round+1, m_caster->owningPlayer()});
-            successful = true;
+            result = Success;
         }
         else
         {
             SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
+            result = Unbound;
         }
     }
     else
@@ -52,5 +53,5 @@ bool MysticShield::cast(Unit *target, int round)
             castingRoll, m_castingValue);
     }
 
-    return successful;
+    return result;
 }

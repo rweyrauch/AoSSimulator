@@ -8,7 +8,7 @@
 #include <cfloat>
 #include <spells/LoreOfTheStorm.h>
 
-std::string LoreOfTheStormToString(LoreOfTheStorm which)
+std::string ToString(LoreOfTheStorm which)
 {
     switch (which)
     {
@@ -29,7 +29,7 @@ std::string LoreOfTheStormToString(LoreOfTheStorm which)
     }
 }
 
-bool StringToLoreOfTheStorm(const std::string &enumString, LoreOfTheStorm& outLore)
+bool FromString(const std::string &enumString, LoreOfTheStorm &outLore)
 {
     bool valid = true;
 
@@ -52,7 +52,7 @@ bool StringToLoreOfTheStorm(const std::string &enumString, LoreOfTheStorm& outLo
     return valid;
 }
 
-std::string LoreOfInvigorationToString(LoreOfInvigoration which)
+std::string ToString(LoreOfInvigoration which)
 {
     switch (which)
     {
@@ -67,7 +67,7 @@ std::string LoreOfInvigorationToString(LoreOfInvigoration which)
     }
 }
 
-bool StringToLoreOfInvigoration(const std::string &enumString, LoreOfInvigoration& outLore)
+bool FromString(const std::string &enumString, LoreOfInvigoration &outLore)
 {
     bool valid = true;
 

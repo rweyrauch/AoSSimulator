@@ -17,12 +17,20 @@ class Unit;
 class Spell
 {
 public:
+
+    enum Result
+    {
+        Failed,
+        Unbound,
+        Success,
+    };
+
     Spell(Unit* caster, const std::string& name, int castingValue, float range) :
         m_caster(caster),
         m_name(name),
         m_castingValue(castingValue),
         m_range(range) {}
-
+    virtual ~Spell() = default;
 
     int castingValue() const { return m_castingValue; }
     float range() const { return m_range; }
@@ -30,8 +38,8 @@ public:
 
     bool targetFriendly() const { return m_targetFriendly; }
 
-    virtual bool cast(Unit* target, int round) = 0;
-    virtual bool cast(float x, float y, int round) = 0;
+    virtual Result cast(Unit* target, int round) = 0;
+    virtual Result cast(float x, float y, int round) = 0;
 
 protected:
 
@@ -48,8 +56,8 @@ class DamageSpell : public Spell
 public:
     DamageSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage, int castingValue2 = -1, int damage2 = -1);
 
-    bool cast(Unit* target, int round) override;
-    bool cast(float x, float y, int round) override { return false; }
+    Result cast(Unit* target, int round) override;
+    Result cast(float x, float y, int round) override { return Failed; }
 
 protected:
 
@@ -67,8 +75,8 @@ class AreaOfEffectSpell : public Spell
 public:
     AreaOfEffectSpell(Unit* caster, const std::string& name, int castingValue, float range, float radius, int damage, int affectedRoll);
 
-    bool cast(Unit* target, int round) override { return false; }
-    bool cast(float x, float y, int round) override;
+    Result cast(Unit* target, int round) override { return Failed; }
+    Result cast(float x, float y, int round) override;
 
 protected:
 
@@ -84,8 +92,8 @@ class LineOfEffectSpell : public Spell
 public:
     LineOfEffectSpell(Unit* caster, const std::string& name, int castingValue, float range, int damage, int affectedRoll);
 
-    bool cast(Unit* target, int round) override { return false; }
-    bool cast(float x, float y, int round) override;
+    Result cast(Unit* target, int round) override { return Failed; }
+    Result cast(float x, float y, int round) override;
 
 protected:
 
@@ -101,8 +109,8 @@ class HealSpell : public Spell
 public:
     HealSpell(Unit* caster, const std::string& name, int castingValue, float range, int healing, int castingValue2 = -1, int healing2 = -1);
 
-    bool cast(Unit* target, int round) override;
-    bool cast(float x, float y, int round) override { return false; }
+    Result cast(Unit* target, int round) override;
+    Result cast(float x, float y, int round) override { return Failed; }
 
 protected:
 
