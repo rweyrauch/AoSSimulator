@@ -297,6 +297,19 @@ void Unit::restore()
         m.restore();
     }
 
+    m_battleRound = 0;
+    m_modelsSlain = 0;
+    m_ran = false;
+    m_charged = false;
+    m_moved = false;
+    m_canMove = true;
+    m_toHitBuff = 0;
+    m_toHitBuffMissile = 0;
+
+    m_spellsCast = 0;
+    m_spellsUnbound = 0;
+    m_prayersAttempted = 0;
+
     m_currentRecord.clear();
     m_statistics.reset();
 
@@ -860,7 +873,25 @@ int Unit::remainingPoints() const
 
 bool Unit::unbind(const Unit* caster, int castRoll)
 {
-    return false;
+    bool unbound = false;
+    if (m_spellsUnbound < m_totalUnbinds)
+    {
+        Dice dice;
+        int unbindRoll = dice.roll2D6() + unbindingModifier();
+        if (unbindRoll > castRoll)
+        {
+            SimLog(Verbosity::Narrative, "%s unbound a spell cast by %s (%d) with a unbind roll of %d.\n",
+                name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
+            unbound = true;
+        }
+        else
+        {
+            SimLog(Verbosity::Narrative, "%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.\n",
+                   name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
+        }
+        m_spellsUnbound++;
+    }
+    return unbound;
 }
 
 void Unit::castSpell()

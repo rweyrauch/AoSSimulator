@@ -14,6 +14,8 @@
 #include <spells/LoreOfTheStorm.h>
 #include <spells/GloomspiteSpells.h>
 #include <spells/StormcastSpells.h>
+#include <Roster.h>
+#include <Board.h>
 
 
 TEST(Spells, ArcaneBolt)
@@ -30,8 +32,6 @@ TEST(Spells, ArcaneBolt)
 
     for (auto i = 0; i < 10; i++)
     {
-        SimLog(Verbosity::Narrative, "Target Pos: %f, %f\n", target->position().x, target->position().y);
-
         auto ok = spell->cast(target.get(), 1);
 
         if (ok == Spell::Success)
@@ -43,10 +43,6 @@ TEST(Spells, ArcaneBolt)
 
     // Move target out of range
     target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
-    auto dist = caster->distanceTo(target.get());
-    SimLog(Verbosity::Narrative, "Caster Pos: %f, %f  Target Pos: %f, %f  Dist: %f\n",
-           caster->position().x, caster->position().y,
-           target->position().x, target->position().y, dist);
     auto ok = spell->cast(target.get(), 1);
     ASSERT_EQ(ok, Spell::Failed);
 }
@@ -65,7 +61,6 @@ TEST(Spells, PrimeElectrids)
 
     for (auto i = 0; i < 10; i++)
     {
-        SimLog(Verbosity::Narrative, "Target Pos: %f, %f\n", target->position().x, target->position().y);
         auto ok = spell->cast(target.get(), 1);
 
         if (ok == Spell::Success)
@@ -78,10 +73,49 @@ TEST(Spells, PrimeElectrids)
 
     // Move target out of range
     target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
-    auto dist = caster->distanceTo(target.get());
-    SimLog(Verbosity::Narrative, "Caster Pos: %f, %f  Target Pos: %f, %f  Dist: %f\n",
-        caster->position().x, caster->position().y,
-        target->position().x, target->position().y, dist);
     auto ok = spell->cast(target.get(), 1);
     ASSERT_EQ(ok, Spell::Failed);
+}
+
+TEST(Spells, Unbind)
+{
+    auto caster = std::make_unique<StormcastEternals::KnightIncantor>();
+    caster->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
+    caster->setPosition(Math::Point3(0,0,0), Math::Vector3(1,0,0));
+
+    auto red = new Roster(PlayerId::Red);
+    red->addUnit(caster.get());
+
+    auto target = std::make_unique<StormcastEternals::KnightIncantor>();
+    target->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
+    target->setPosition(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
+
+    auto blue = new Roster(PlayerId::Blue);
+    blue->addUnit(target.get());
+
+    Board::Instance()->addRosters(red, blue);
+
+    auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster.get()));
+
+    for (auto i = 0; i < 10; i++)
+    {
+       auto ok = spell->cast(target.get(), 1);
+
+        if (ok == Spell::Success)
+        {
+            ASSERT_LT(target->remainingWounds(), target->initialModels() * target->wounds());
+        }
+        else if (ok == Spell::Unbound)
+        {
+            SimLog(Verbosity::Narrative, "Spell was unbound.\n");
+        }
+        target->restore();
+    }
+
+    // Move target out of range
+    target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
+    auto ok = spell->cast(target.get(), 1);
+    ASSERT_EQ(ok, Spell::Failed);
+
+    delete blue; delete red;
 }

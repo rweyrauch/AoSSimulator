@@ -29,7 +29,6 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
-    SimLog(Verbosity::Narrative, "Distance to target: %f\n", distance);
     if (distance > m_range)
     {
         return Failed;
