@@ -4,8 +4,7 @@
 #include <cstdlib>
 #include <climits>
 
-#include <boost/random/random_device.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
+#include <random>
 
 #include "pathfinders.h"
 
@@ -236,8 +235,8 @@ void InitializeLandmarks(int k, const unsigned char* pMap, const int nMapWidth, 
   while (Landmarks.size() < k) {
 
     if (Landmarks.empty()) {
-      boost::random::random_device rng;
-      boost::random::uniform_int_distribution<> uniform(0, traversable.size() - 1);
+      std::random_device rng;
+      std::uniform_int_distribution<int> uniform(0, traversable.size() - 1);
       Landmarks.push_back(traversable[uniform(rng)]);
       continue;
     }
@@ -361,8 +360,8 @@ void InitializeLandmarksDiag(int k, const unsigned char* pMap, const int nMapWid
   while (Landmarks.size() < k) {
 
     if (Landmarks.empty()) {
-      boost::random::random_device rng;
-      boost::random::uniform_int_distribution<> uniform(0, traversable.size() - 1);
+      std::random_device rng;
+      std::uniform_int_distribution<int> uniform(0, traversable.size() - 1);
       Landmarks.push_back(traversable[uniform(rng)]);
       continue;
     }
