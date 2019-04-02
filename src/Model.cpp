@@ -16,7 +16,7 @@ void Model::addMeleeWeapon(const Weapon *weapon)
 
     m_melee.push_back(weapon);
 
-    auto preStr = 0.0f;
+    auto preStr = -1.0f;
     if (m_preferredWeapon)
     {
         preStr = m_preferredWeapon->strength();
@@ -30,11 +30,13 @@ void Model::addMeleeWeapon(const Weapon *weapon)
 void Model::addMissileWeapon(const Weapon *weapon)
 {
     if (weapon == nullptr)
-    { return; }
+    {
+        return;
+    }
 
     m_missile.push_back(weapon);
 
-    auto preStr = 0.0f;
+    auto preStr = -1.0f;
     if (m_preferredWeapon)
     {
         preStr = m_preferredWeapon->strength();
@@ -50,4 +52,12 @@ void Model::restore()
     m_woundsRemaining = m_initialWounds;
     m_slain = false;
     m_fled = false;
+}
+
+float Model::distanceBetween(const Model& m0, const Model& m1)
+{
+    float distance = m0.position().distance(m1.position());
+    distance -= m0.basesizeInches() / 2.0f;
+    distance -= m1.basesizeInches() / 2.0f;
+    return std::max(0.0f, distance);
 }

@@ -91,14 +91,14 @@ void VanguardRaptorsHurricane::Init()
     }
 }
 
-int VanguardRaptorsHurricane::extraAttacks(const Weapon *weapon) const
+int VanguardRaptorsHurricane::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Rapid Fire
     if (!m_moved && weapon->name() == m_hurricaneCrossbow.name())
     {
         return 3;
     }
-    return StormcastEternal::extraAttacks(weapon);
+    return StormcastEternal::extraAttacks(nullptr, weapon, target);
 }
 
 void VanguardRaptorsHurricane::visitWeapons(std::function<void(const Weapon *)> &visitor)

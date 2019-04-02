@@ -120,10 +120,10 @@ Rerolls Bestigors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return Unit::toHitRerolls(weapon, unit);
 }
 
-int Bestigors::extraAttacks(const Weapon *weapon) const
+int Bestigors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Beastial Charge
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Unit::extraAttacks(nullptr, weapon, target);
     if (m_charged)
     {
         attacks += 1;

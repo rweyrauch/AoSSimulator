@@ -65,9 +65,9 @@ void VandusHammerhand::Init()
     }
 }
 
-int VandusHammerhand::extraAttacks(const Weapon *weapon) const
+int VandusHammerhand::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = StormcastEternal::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
 
     // Heldensen
     if (m_charged && weapon->name() == m_heldensen.name())

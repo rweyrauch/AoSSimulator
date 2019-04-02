@@ -250,9 +250,9 @@ Rerolls Orruks::toHitRerolls(const Weapon *weapon, const Unit *target) const
     return Unit::toHitRerolls(weapon, target);
 }
 
-int Orruks::extraAttacks(const Weapon *weapon) const
+int Orruks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    auto attacks = Unit::extraAttacks(weapon);
+    auto attacks = Unit::extraAttacks(nullptr, weapon, target);
     // Mob Rule
     if ((remainingModels() >= 20) && !weapon->isMissile())
     {

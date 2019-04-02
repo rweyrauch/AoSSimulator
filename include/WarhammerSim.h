@@ -168,6 +168,8 @@ enum Keyword
     SEQUITORS,
     PALADIN,
     RETRIBUTORS,
+    PROTECTORS,
+    DECIMATORS,
     LORD_CELESTANT,
     KNIGHT_INCANTOR,
     KNIGHT_QUESTOR,
@@ -190,6 +192,7 @@ enum Keyword
     CORPUSCANT,
     EVOCATORS,
     DRACOLINE,
+    PROSECUTORS,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

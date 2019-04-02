@@ -126,14 +126,14 @@ Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
-int Judicators::extraAttacks(const Weapon *weapon) const
+int Judicators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Rapid Fire
     if (!m_ran && (weapon->name() == m_boltstormCrossbow.name()))
     {
         return 1;
     }
-    return StormcastEternal::extraAttacks(weapon);
+    return StormcastEternal::extraAttacks(nullptr, weapon, target);
 }
 
 Unit *Judicators::Create(const ParameterList &parameters)

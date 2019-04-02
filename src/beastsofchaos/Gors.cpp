@@ -118,9 +118,9 @@ int Gors::toSaveModifier(const Weapon *weapon) const
     return modifier;
 }
 
-int Gors::extraAttacks(const Weapon *weapon) const
+int Gors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Unit::extraAttacks(nullptr, weapon, target);
     // Anarchy and Mayhem
     if (remainingModels() >= 20)
     {

@@ -118,9 +118,9 @@ std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
     return ParameterValueToString(parameter);
 }
 
-int LordCelestantOnDracoth::extraAttacks(const Weapon *weapon) const
+int LordCelestantOnDracoth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = StormcastEternal::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
 
     // Tempestos Hammer
     if (m_charged && weapon->name() == m_tempestosHammer.name())

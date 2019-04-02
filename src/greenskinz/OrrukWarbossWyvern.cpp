@@ -133,9 +133,9 @@ Rerolls OrrukWarbossOnWyvern::toSaveRerolls(const Weapon *weapon) const
     return Unit::toSaveRerolls(weapon);
 }
 
-int OrrukWarbossOnWyvern::extraAttacks(const Weapon *weapon) const
+int OrrukWarbossOnWyvern::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Unit::extraAttacks(nullptr, weapon, target);
     // Choppa Boss
     if (m_pairedChoppas)
     {

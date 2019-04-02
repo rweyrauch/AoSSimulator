@@ -53,7 +53,7 @@ protected:
     int runModifier() const override;
     int chargeModifier() const override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    int extraAttacks(const Weapon *weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 

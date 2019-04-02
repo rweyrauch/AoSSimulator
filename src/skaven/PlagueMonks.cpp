@@ -167,9 +167,9 @@ Rerolls PlagueMonks::toHitRerolls(const Weapon *weapon, const Unit *target) cons
     return Skaventide::toHitRerolls(weapon, target);
 }
 
-int PlagueMonks::extraAttacks(const Weapon *weapon) const
+int PlagueMonks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Skaventide::extraAttacks(weapon);
+    int attacks = Skaventide::extraAttacks(nullptr, weapon, target);
     // Frenzied Assault
     if (m_charged && !weapon->isMissile())
     {

@@ -39,7 +39,7 @@ public:
 
 protected:
 
-    int extraAttacks(const Weapon* weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     int rollBattleshock() const override;
     int toSaveModifier(const Weapon* weapon) const override;
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;

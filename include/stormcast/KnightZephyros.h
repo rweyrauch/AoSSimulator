@@ -35,7 +35,7 @@ public:
 
 protected:
 
-    int extraAttacks(const Weapon* weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 

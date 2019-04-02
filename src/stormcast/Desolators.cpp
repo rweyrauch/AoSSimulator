@@ -108,9 +108,9 @@ Rerolls Desolators::toSaveRerolls(const Weapon *weapon) const
     return RerollOnes;
 }
 
-int Desolators::extraAttacks(const Weapon *weapon) const
+int Desolators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = StormcastEternal::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
     if (weapon->name() == m_thunderAxe.name())
     {
         if (remainingModels() >= 6)

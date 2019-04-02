@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef VANDUSHAMMERHAND_H
-#define VANDUSHAMMERHAND_H
+#ifndef DECIMATORS_H
+#define DECIMATORS_H
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -15,33 +15,37 @@
 namespace StormcastEternals
 {
 
-class VandusHammerhand : public StormcastEternal
+class Decimators : public StormcastEternal
 {
 public:
 
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 280;
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 3;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 20;
+    static const int POINTS_PER_BLOCK = 200;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    VandusHammerhand();
-    ~VandusHammerhand() override = default;
+    Decimators();
+    ~Decimators() override = default;
 
-    bool configure();
+    bool configure(int numModels, int numStarsoulMaces);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 
-    Weapon m_heldensen,
-        m_clawsAndFangs;
+    Weapon m_thunderaxe,
+        m_thunderaxePrime,
+        m_starsoulMace;
 
     static bool s_registered;
 };
@@ -50,13 +54,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Heldensen                        Yes
-// Intolerable Damage               Yes
-// Storm Breath                     No
-// Lord of the Hammerhands          No
-// Vengeful Determination           No
+// Cleaving Blow                    Yes
+// Grim Harvesters                  No
+// Starsoul Mace                    Yes
 //
 
 } // namespace StormcastEternals
 
-#endif //VANDUSHAMMERHAND_H
+#endif //DECIMATORS_H

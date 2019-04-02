@@ -42,7 +42,7 @@ protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int extraAttacks(const Weapon *weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 

@@ -52,7 +52,7 @@ protected:
 
     void onBeginTurn(int battleRound) override;
     void onCharged() override;
-    int extraAttacks(const Weapon *weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
     Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

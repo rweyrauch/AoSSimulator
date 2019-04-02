@@ -112,6 +112,8 @@ public:
 
     float distanceBetween(const Model *model, const Unit *unit) const;
 
+    int numModelsWithin(const Model *model, float range) const;
+
     //
     // Combat
     //
@@ -196,7 +198,7 @@ protected:
      * @param weapon Attacking weapon
      * @return Number of additional attacks (not including the normal attack).
      */
-    virtual int extraAttacks(const Weapon *weapon) const { return 0; }
+    virtual int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const { return 0; }
 
     /*!
      * Some weapons/units generate extra hits based on the hit

@@ -16,13 +16,14 @@
 class Model
 {
 public:
-    Model() : m_baseSize(0) {}
+    Model() : m_baseSize_mm(0) {}
     Model(int baseSize, int wounds) :
-        m_baseSize(baseSize),
+        m_baseSize_mm(baseSize),
         m_initialWounds(wounds),
         m_woundsRemaining(wounds) {}
 
-    int basesize() const { return m_baseSize; }
+    int basesize() const { return m_baseSize_mm; }
+    float basesizeInches() const { return m_baseSize_mm / 25.4f; }
 
     void setPosition(const Math::Point3& pos) { m_position = pos; }
     const Math::Point3& position() const { return m_position; }
@@ -54,8 +55,10 @@ public:
 
     const Weapon* preferredWeapon() const { return m_preferredWeapon; }
 
+    static float distanceBetween(const Model& m0, const Model& m1);
+
 private:
-    int m_baseSize = 0;
+    int m_baseSize_mm = 0;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
     int m_initialWounds = 0;
     int m_woundsRemaining = 0;

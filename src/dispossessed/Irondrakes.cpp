@@ -180,7 +180,7 @@ Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hi
     return Dispossessed::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-int Irondrakes::extraAttacks(const Weapon *weapon) const
+int Irondrakes::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     if (weapon->name() == m_drakegun.name() && !m_moved)
     {
@@ -191,7 +191,7 @@ int Irondrakes::extraAttacks(const Weapon *weapon) const
             return 1;
         }
     }
-    return Dispossessed::extraAttacks(weapon);
+    return Dispossessed::extraAttacks(nullptr, weapon, target);
 }
 
 std::string Irondrakes::ValueToString(const Parameter &parameter)

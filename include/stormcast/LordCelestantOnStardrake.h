@@ -47,7 +47,7 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
-    int extraAttacks(const Weapon *weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;

@@ -54,7 +54,7 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int toSaveModifier(const Weapon *weapon) const override;
     void onStartShooting(PlayerId player) override;
-    int extraAttacks(const Weapon *weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 

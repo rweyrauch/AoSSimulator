@@ -35,9 +35,9 @@ public:
 
 protected:
 
-    int extraAttacks(const Weapon *weapon) const override
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override
     {
-        int attacks = Unit::extraAttacks(weapon);
+        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
         // Inescapable Vengeance
         if (m_charged) attacks += 1;
         return attacks;

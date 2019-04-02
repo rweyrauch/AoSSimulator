@@ -66,10 +66,10 @@ void KnightZephyros::Init()
     }
 }
 
-int KnightZephyros::extraAttacks(const Weapon *weapon) const
+int KnightZephyros::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Lightning-fast Strikes
-    int attacks = StormcastEternal::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
     if (charged())
     {
         attacks += 1;

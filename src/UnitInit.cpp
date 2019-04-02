@@ -8,6 +8,7 @@
 
 #include <nighthaunt/Chainghasts.h>
 #include <WarhammerSim.h>
+#include <stormcast/Decimators.h>
 
 #include "WarhammerSim.h"
 
@@ -35,6 +36,9 @@
 #include "stormcast/Fulminators.h"
 #include "stormcast/Tempestors.h"
 #include "stormcast/EvocatorsOnDracolines.h"
+#include "stormcast/Prosecutors.h"
+#include "stormcast/Protectors.h"
+#include "stormcast/Decimators.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -248,6 +252,9 @@ void Initialize(Verbosity verbosity)
     StormcastEternals::Fulminators::Init();
     StormcastEternals::Tempestors::Init();
     StormcastEternals::EvocatorsOnCelestialDracolines::Init();
+    StormcastEternals::Prosecutors::Init();
+    StormcastEternals::Protectors::Init();
+    StormcastEternals::Decimators::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();

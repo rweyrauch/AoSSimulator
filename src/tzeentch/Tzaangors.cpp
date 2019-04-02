@@ -218,9 +218,9 @@ int Tzaangors::toWoundModifier(const Weapon *weapon, const Unit *target) const
     return modifier;
 }
 
-int Tzaangors::extraAttacks(const Weapon *weapon) const
+int Tzaangors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Unit::extraAttacks(nullptr, weapon, target);
 
     // Savagery Unleashed
     if (weapon->name() == m_savageBlade.name() || weapon->name() == m_savageGreatblade.name())

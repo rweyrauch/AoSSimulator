@@ -105,7 +105,7 @@ void Quarrellers::Init()
     }
 }
 
-int Quarrellers::extraAttacks(const Weapon *weapon) const
+int Quarrellers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     if (weapon->name() == m_duardinCrossbow.name() && remainingModels() >= 20)
     {
@@ -116,7 +116,7 @@ int Quarrellers::extraAttacks(const Weapon *weapon) const
             return 1;
         }
     }
-    return Dispossessed::extraAttacks(weapon);
+    return Dispossessed::extraAttacks(nullptr, weapon, target);
 }
 
 Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const

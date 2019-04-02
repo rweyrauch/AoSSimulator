@@ -69,6 +69,8 @@ public:
 
     bool unbindAttempt(const Unit* caster, int castingRoll);
 
+    bool isVisible(const Unit* from, const Unit* target);
+
     void render(const std::string& filename) const;
 
 protected:

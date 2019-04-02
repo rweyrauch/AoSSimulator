@@ -34,7 +34,11 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
         return Failed;
     }
 
-    // TODO: Check for visibility to target
+    // Check for visibility to target
+    if (!Board::Instance()->isVisible(m_caster, target))
+    {
+        return Failed;
+    }
 
     Dice dice;
 
@@ -95,8 +99,6 @@ Spell::Result AreaOfEffectSpell::cast(float x, float y, int round)
     {
         return Failed;
     }
-
-    // TODO: Check for visibility to target
 
     Dice dice;
 
@@ -184,7 +186,11 @@ Spell::Result HealSpell::cast(Unit *target, int round)
         return Failed;
     }
 
-    // TODO: Check for visibility to target
+    // Check for visibility to target
+    if (!Board::Instance()->isVisible(m_caster, target))
+    {
+        return Failed;
+    }
 
     Dice dice;
 

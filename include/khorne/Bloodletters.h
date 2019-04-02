@@ -37,7 +37,7 @@ public:
 
 protected:
 
-    int extraAttacks(const Weapon* weapon) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;

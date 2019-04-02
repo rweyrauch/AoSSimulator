@@ -91,9 +91,9 @@ void GryphHounds::Init()
     }
 }
 
-int GryphHounds::extraAttacks(const Weapon *weapon) const
+int GryphHounds::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = StormcastEternal::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
 
     // Loyal Companion
     auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 6);

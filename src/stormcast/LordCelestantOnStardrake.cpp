@@ -140,9 +140,9 @@ int LordCelestantOnStardrake::getDamageTableIndex() const
     return 0;
 }
 
-int LordCelestantOnStardrake::extraAttacks(const Weapon *weapon) const
+int LordCelestantOnStardrake::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = StormcastEternal::extraAttacks(weapon);
+    int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
 
     // Inescapable Vengeance
     if (m_charged)

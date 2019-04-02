@@ -91,9 +91,9 @@ void CryptGhouls::Init()
     }
 }
 
-int CryptGhouls::extraAttacks(const Weapon *weapon) const
+int CryptGhouls::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = FleshEaterCourts::extraAttacks(weapon);
+    int attacks = FleshEaterCourts::extraAttacks(nullptr, weapon, target);
 
     // Boundless Ferocity
     if (remainingModels() >= 20)

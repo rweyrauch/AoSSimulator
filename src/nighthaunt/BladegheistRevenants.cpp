@@ -98,10 +98,10 @@ Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *uni
     return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
-int BladegheistRevenants::extraAttacks(const Weapon *weapon) const
+int BladegheistRevenants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Whirling Death
-    int attacks = Nighthaunt::extraAttacks(weapon);
+    int attacks = Nighthaunt::extraAttacks(nullptr, weapon, target);
     if (m_charged)
     {
         attacks += 1;

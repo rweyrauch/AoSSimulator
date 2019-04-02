@@ -172,9 +172,9 @@ void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_meatripperAxeChieftain);
 }
 
-int Bloodreavers::extraAttacks(const Weapon *weapon) const
+int Bloodreavers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Unit::extraAttacks(nullptr, weapon, target);
 
     // Frenzied Devotion
     auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);

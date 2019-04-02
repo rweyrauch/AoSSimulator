@@ -29,6 +29,12 @@ Spell::Result Empower::cast(Unit *target, int round)
         return Failed;
     }
 
+    // Check for visibility to target
+    if (!Board::Instance()->isVisible(m_caster, target))
+    {
+        return Failed;
+    }
+
     Dice dice;
     Spell::Result result = Failed;
 

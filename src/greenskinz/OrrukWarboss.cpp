@@ -143,9 +143,9 @@ int OrrukWarboss::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
-int OrrukWarboss::extraAttacks(const Weapon *weapon) const
+int OrrukWarboss::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(weapon);
+    int attacks = Unit::extraAttacks(nullptr, weapon, target);
     // Choppa Boss
     if ((m_weapon == PairedBossChoppas) && (weapon->name() == m_bossChoppa.name()))
     {

@@ -777,7 +777,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
     const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this);
     const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this);
 
-    const int totalAttacks = weapon->numAttacks(extraAttacks(weapon));
+    const int totalAttacks = weapon->numAttacks(extraAttacks(&fromModel, weapon, target));
     for (auto a = 0; a < totalAttacks; a++)
     {
         m_currentRecord.m_attacksMade++;
@@ -955,6 +955,22 @@ void Unit::doPileIn()
         // Move toward that model if possible
     }
 }
+
+int Unit::numModelsWithin(const Model *model, float range) const
+{
+    int count = 0;
+    // Count the number of remaining models from this unit within 'range' of the given model.
+    for (auto& m : m_models)
+    {
+        if (!m.slain() && !m.fled())
+        {
+            float distanceToModel = Model::distanceBetween(m, *model);
+            if (distanceToModel <= range) count++;
+        }
+    }
+    return count;
+}
+
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :

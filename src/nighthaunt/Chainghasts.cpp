@@ -88,9 +88,9 @@ void Chainghasts::Init()
     }
 }
 
-int Chainghasts::extraAttacks(const Weapon *weapon) const
+int Chainghasts::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Nighthaunt::extraAttacks(weapon);
+    int attacks = Nighthaunt::extraAttacks(nullptr, weapon, target);
     // Sweeping Blows
     if (weapon->name() == m_ghastflails.name())
     {

@@ -13,6 +13,7 @@
 #include <cairomm/surface.h>
 #include <Board.h>
 #include <Roster.h>
+#include "jps.hh"
 #include <sstream>
 
 Board *Board::s_pInstance = nullptr;
@@ -450,4 +451,16 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
         }
     }
     return units;
+}
+
+bool Board::isVisible(const Unit *from, const Unit *target)
+{
+    if ((from == nullptr) || (target == nullptr))
+    {
+        return false;
+    }
+
+    // TODO: check line of sight between from->target
+
+    return true;
 }

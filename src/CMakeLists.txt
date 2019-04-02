@@ -20,6 +20,8 @@ add_library(
         UnitStatistics.cpp
         CommandAbility.cpp
         Prayer.cpp
+        jps.hh
+        pathfinders.cpp
 
         spells/MysticShield.cpp
         spells/StormcastSpells.cpp
@@ -53,6 +55,9 @@ add_library(
         stormcast/Desolators.cpp
         stormcast/Fulminators.cpp
         stormcast/Tempestors.cpp
+        stormcast/Protectors.cpp
+        stormcast/Prosecutors.cpp
+        stormcast/Decimators.cpp
 
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
