@@ -32,6 +32,8 @@ protected:
 
 };
 
+void Init();
+
 } // namespace StormcastEternals
 
 #endif //STORMCASTETERNALS_H

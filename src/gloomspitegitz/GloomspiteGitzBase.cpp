@@ -6,9 +6,28 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <Board.h>
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <gloomspitegitz/BadMoon.h>
-#include <Board.h>
+#include "gloomspitegitz/BoingrotBounderz.h"
+#include "gloomspitegitz/ColossalSquig.h"
+#include "gloomspitegitz/LoonbossOnManglerSquigs.h"
+#include "gloomspitegitz/ManglerSquigs.h"
+#include "gloomspitegitz/SquigHerd.h"
+#include "gloomspitegitz/SquigHoppers.h"
+#include "gloomspitegitz/Stabbas.h"
+#include "gloomspitegitz/Shootas.h"
+#include "gloomspitegitz/RockgutTroggoths.h"
+#include "gloomspitegitz/DankholdTroggoths.h"
+#include "gloomspitegitz/DankholdTroggboss.h"
+#include "gloomspitegitz/Skragrott.h"
+#include "gloomspitegitz/Loonboss.h"
+#include "gloomspitegitz/LoonbossOnGiantCaveSquig.h"
+#include "gloomspitegitz/LoonbossWithGiantCaveSquig.h"
+#include "gloomspitegitz/AleguzzlerGargant.h"
+#include "gloomspitegitz/SquigGobba.h"
+#include "gloomspitegitz/SpiderRiders.h"
+#include "gloomspitegitz/FellwaterTroggoths.h"
 
 namespace GloomspiteGitz
 {
@@ -129,6 +148,29 @@ bool GloomspiteGitzBase::inLightOfTheBadMoon() const
             break;
     }
     return false;
+}
+
+void Init()
+{
+    BoingrotBounderz::Init();
+    ColossalSquig::Init();
+    LoonbossOnManglerSquigs::Init();
+    ManglerSquigs::Init();
+    SquiqHerd::Init();
+    SquiqHoppers::Init();
+    Stabbas::Init();
+    Shootas::Init();
+    RockgutTroggoths::Init();
+    DankholdTroggboss::Init();
+    DankholdTroggoths::Init();
+    Skragrott::Init();
+    Loonboss::Init();
+    LoonbossOnGiantCaveSquig::Init();
+    LoonbossWithGiantCaveSquig::Init();
+    AleguzzlerGargant::Init();
+    SquigGobba::Init();
+    SpiderRiders::Init();
+    FellwaterTroggoths::Init();
 }
 
 } //namespace GloomspiteGitz

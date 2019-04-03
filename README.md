@@ -20,7 +20,8 @@ particular enemy unit.
 Age of Sigmar is complex and rich game with a myriad of rules.  Not of all those rules have been
 captured by the simulation.  The goal of this application is to conduct simple 1 vs 1 battles.
 To support this goal the simulation supports initial unit deployment on a small(ish) battle
-field.  Units support basic hero phase abilities, movement towards the enemy,
+field.  Units support basic hero phase abilities, movement towards the enemy, simple spell casting and
+ranged and melee combat.
 
 ## What Does Not Work?
 The short answer is quite a lot.  The simulation is very much a work in progress.  The big items
@@ -68,111 +69,218 @@ Player units are specified using the following format:
 Use the --list and --verbose options to see a list of supported unit and their parameters.  Supported
 units include the following:
 
-	Akhelian Ishlaen Guard
-	Akhelian Morrsarr Guard
-	Alarielle
-	Aleguzzler Gargant
-	Bestigors
-	Black Knights
-	Bladegheist Revenants
-	Blood Knights
-	Blood Sisters
-	Blood Warriors
-	Bloodletters
-	Bloodreavers
-	Bloodthirster Of Insensate Rage
-	Bloodthirster Of Unfettered Fury
-	Boingrot Bounderz
-	Bullgors
-	Castigators
-	Celestar Ballista
-	Chainrasp Horde
-	Clanrats
-	Colossal Squig
-	Crypt Flayers
-	Crypt Ghouls
-	Crypt Horrors
-	Crypt Infernal Courtier
-	Daemonettes
-	Dankhold Troggboss
-	Dankhold Troggoths
-	Dire Wolves
-	Dreadscythe Harridans
-	Dryads
-	Eternal Guard
-	Evocators
-	Fiends
-	FleshHounds
-	Ghorgon
-	Glade Guard
-	Glaivewraith Stalkers
-	Gors
-	Grave Guard
-	Grimghast Reapers
-	Gutter Runners
-	Hammerers
-	Hell Pit Abomination
-	Ironbreakers
-	Irondrakes
-	Judicators
-	Karanak
-	Khinerai Lifetakers
-	Khorgoraths
-	Knight-Incantor
-	Knight-Questor
-	Knight-Zephyros
-	Kurnoth Hunters
-	Liberators
-	Longbeards
-	Loonboss
-	Loonboss on Giant Cave Squig
-	Loonboss on Mangler Squigs
-	Loonboss with Giant Cave Squig
-	Lord-Celestant
-	Lord-Celestant-on-Dracoth
-	Lord-Celestant-on-Stardrake
-	Lord-Ordinator
-	LordOfPlagues
-	Mangler Squigs
-	Namarti Reavers
-	Namarti Thralls
-	Night Runners
-	Plague Monks
-	Plaguebearers
-	Putrid Blightkings
-	Quarrellers
-	Retributors
-	Rockgut Troggoths
-	Seekers
-	Sequitors
-	Shootas
-	Sisters of Slaughter
-	Skarbrand
-	Skeleton Warriors
-	Skragrott
-	Skullreapers
-	Spirit of Durthu
-	Spite-Revenants
-	Squig Gobba
-	Squiq Herd
-	Squiq Hoppers
-	Stabbas
-	Stormfiends
-	Stormvermin
-	Thunderers
-	Tree-Revenants
-	Ungors
-	Vandus Hammerhand
-	Vanguard-Hunters
-	VanguardRaptorsHurricane
-	VanguardRaptorsLongstrike
-	Vargheists
-	Warriors
-	Wildwood Rangers
-	Witch Aelves
-	Wrath Of Khorne Bloodthirster
-	Wrathmongers
-	Zombies
+    Beasts of Chaos:
+        Bestigors
+        Bullgors
+        Centigors
+        Cygor
+        Doombull
+        Ghorgon
+        Gors
+        Ungors
+
+    Deathrattle:
+        Black Knights
+        Grave Guard
+        Skeleton Warriors
+        Wight King with Baleful Tomb Blade
+        Wight King with Black Axe
+
+    Dispossessed:
+        Hammerers
+        Ironbreakers
+        Irondrakes
+        Longbeards
+        Quarrellers
+        Thunderers
+        Warriors
+
+    Daughters of Khaine:
+        Avatar of Khaine
+        Blood Sisters
+        Blood Stalkers
+        Bloodwrack Medusa
+        Doomfire Warlocks
+        Hag Queen
+        Khinerai Lifetakers
+        Sisters of Slaughter
+        Slaughter Queen
+        Witch Aelves
+
+    Eldritch Council:
+        Archmage
+        Archmage On Dragon
+        Loremaster
+        Swordmasters
+
+    Flesh Eater Courts:
+        Abhorrant Archregent
+        Abhorrant Ghoul King
+        Abhorrant Ghoul King on Terrorgheist
+        Abhorrant Ghoul King on Zombie Dragon
+        Crypt Flayers
+        Crypt Ghast Courtier
+        Crypt Ghouls
+        Crypt Haunter Courtier
+        Crypt Horrors
+        Crypt Infernal Courtier
+        Royal Terrorgheist
+        Royal Zombie Dragon
+        Varghulf Courtier
+
+    Gloomspite Gitz:
+        Aleguzzler Gargant
+        Boingrot Bounderz
+        Colossal Squig
+        Dankhold Troggboss
+        Dankhold Troggoths
+        Fellwater Troggoths
+        Loonboss
+        Loonboss on Giant Cave Squig
+        Loonboss on Mangler Squigs
+        Loonboss with Giant Cave Squig
+        Mangler Squigs
+        Rockgut Troggoths
+        Shootas
+        Skragrott
+        Spider Riders
+        Squig Gobba
+        Squiq Herd
+        Squiq Hoppers
+        Stabbas
+
+    Greenskinz:
+        Orruk Boar Chariots
+        Orruk Boarboys
+        Orruk Great Shaman
+        Orruk Warboss
+        Orruk Warboss on Wyvern
+        Orruks
+        Rogue Idol
+
+    Idoneth Deepkin:
+	    Akhelian Alloplexes
+	    Akhelian Ishlaen Guard
+	    Akhelian King
+	    Akhelian Leviadon
+	    Akhelian Morrsarr Guard
+	    Namarti Reavers
+	    Namarti Thralls
+
+    Ironjawz:
+	    Orruk Ardboys
+	    Orruk Brutes
+	    Orruk Gore-gruntas
+	    Orruk Megaboss
+
+    Khorne:
+        Blood Warriors
+        Bloodcrushers
+        Bloodletters
+        Bloodmaster
+        Bloodreavers
+        Bloodthirster Of Insensate Rage
+        Bloodthirster Of Unfettered Fury
+        FleshHounds
+        Karanak
+        Khorgoraths
+        Mighty Skullcrushers
+        Skarbrand
+        Skullmaster
+        Skullreapers
+        Skulltaker
+        Wrath Of Khorne Bloodthirster
+        Wrathmongers
+
+    Nighthaunt:
+        Bladegheist Revenants
+        Chainghasts
+        Chainrasp Horde
+        Dreadscythe Harridans
+        Glaivewraith Stalkers
+        Grimghast Reapers
+        Hexwraiths
+        Spirit Hosts
+
+    Nurgle:
+        Beasts of Nurgle
+        LordOfPlagues
+        Plaguebearers
+        Putrid Blightkings
+        The Glottkin
+
+    Skaven:
+        Clanrats
+        Gutter Runners
+        Hell Pit Abomination
+        Night Runners
+        Plague Monks
+        Ratling Gun
+        Stormfiends
+        Stormvermin
+        Warp Lightning Cannon
+        Warpfire Thrower
+
+    Slaanesh:
+	    Daemonettes
+	    Fiends
+	    Seekers
+
+    Stormcast Eternals:
+        Castigators
+        Celestar Ballista
+        Concussors
+        Decimators
+        Desolators
+        Evocators
+        Evocators on Celestial Dracolines
+        Fulminators
+        Gavriel Sureheart
+        Gryph-hounds
+        Judicators
+        Knight-Incantor
+        Knight-Questor
+        Knight-Zephyros
+        Liberators
+        Lord-Celestant
+        Lord-Celestant-on-Dracoth
+        Lord-Celestant-on-Stardrake
+        Lord-Ordinator
+        Neave Blacktalon
+        Prosecutors
+        Protectors
+        Retributors
+        Sequitors
+        Tempestors
+        Vandus Hammerhand
+        Vanguard-Hunters
+        VanguardRaptorsHurricane
+        VanguardRaptorsLongstrike
+
+    Sylvaneth:
+        Alarielle
+        Branchwraith
+        Branchwych
+        Dryads
+        Drycha Hamadreth
+        Kurnoth Hunters
+        Spirit of Durthu
+        Spite-Revenants
+        Tree-Revenants
+        Treelord
+        Treelord Ancient
+
+    Tzeentch:
+        Flamers Of Tzeentch
+        Kairic Acolytes
+        Pink Horrors
+        Tzaangor Enlightened
+        Tzaangors
+
+    Wanderers:
+	    Eternal Guard
+	    Glade Guard
+	    Wildwood Rangers
     
     
 The following specifies the parameters needed to create a unit of 10 Liberators with 2 Grandhammers.
@@ -198,8 +306,8 @@ result are only logged to the console.
 ## Future Plans
 
 1. Windows, Android and iOS ports.
-2. Proper GUI wrapper.
-3. More units and more abilities.
+2. Improve look and feel Gtk GUI wrapper.
+3. Additional units and more abilities.
 4. Improve simulation to include spells, prayers and other buffs/de-buffs.
 5. Implement per-model positioning and pile in movement.
 6. More statistics and data collection.

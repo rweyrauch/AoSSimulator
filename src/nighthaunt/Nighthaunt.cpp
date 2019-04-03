@@ -8,6 +8,15 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Board.h>
 
+#include "nighthaunt/ChainraspHorde.h"
+#include "nighthaunt/GrimghastReapers.h"
+#include "nighthaunt/BladegheistRevenants.h"
+#include "nighthaunt/GlaivewraithStalkers.h"
+#include "nighthaunt/DreadscytheHarridans.h"
+#include "nighthaunt/SpiritHosts.h"
+#include "nighthaunt/Hexwraiths.h"
+#include "nighthaunt/Chainghasts.h"
+
 namespace Nighthaunt
 {
 
@@ -46,6 +55,18 @@ int Nighthaunt::toSaveModifier(const Weapon *weapon) const
     }
 
     return modifier;
+}
+
+void Init()
+{
+    ChainraspHorde::Init();
+    GrimghastReapers::Init();
+    BladegheistRevenants::Init();
+    GlaivewraithStalkers::Init();
+    DreadscytheHarridans::Init();
+    Hexwraiths::Init();
+    SpiritHosts::Init();
+    Chainghasts::Init();
 }
 
 } // namespace Nighthaunt

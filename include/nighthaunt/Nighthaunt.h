@@ -41,6 +41,8 @@ protected:
 // Spectral Summons                 No
 //
 
+void Init();
+
 } // namespace Nighthaunt
 
 #endif // NIGHTHAUNT_H

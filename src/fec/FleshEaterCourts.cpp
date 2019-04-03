@@ -9,6 +9,20 @@
 #include <fec/FleshEaterCourts.h>
 #include <Board.h>
 
+#include "fec/CryptHorrors.h"
+#include "fec/CryptGhouls.h"
+#include "fec/CryptFlayers.h"
+#include "fec/CryptInfernalCourtier.h"
+#include "fec/AbhorrantArchregent.h"
+#include "fec/AbhorrantGhoulKing.h"
+#include "fec/GhoulKingOnTerrorgheist.h"
+#include "fec/GhoulKingOnZombieDragon.h"
+#include "fec/VarghulfCourtier.h"
+#include "fec/CryptGhastCourtier.h"
+#include "fec/CryptHaunterCourtier.h"
+#include "fec/RoyalZombieDragon.h"
+#include "fec/RoyalTerrorgheist.h"
+
 namespace FleshEaterCourt
 {
 
@@ -151,6 +165,23 @@ Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds)
     }
 
     return Unit::applyWoundSave(wounds);
+}
+
+void Init()
+{
+    CryptGhouls::Init();
+    CryptHorrors::Init();
+    CryptFlayers::Init();
+    CryptInfernalCourtier::Init();
+    AbhorrantArchregent::Init();
+    AbhorrantGhoulKing::Init();
+    AbhorrantGhoulKingOnTerrorgheist::Init();
+    AbhorrantGhoulKingOnZombieDragon::Init();
+    VarghulfCourtier::Init();
+    RoyalTerrorgheist::Init();
+    RoyalZombieDragon::Init();
+    CryptGhastCourtier::Init();
+    CryptHaunterCourtier::Init();
 }
 
 } // namespace FleshEaterCourt

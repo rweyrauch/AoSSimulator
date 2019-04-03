@@ -55,6 +55,8 @@ protected:
     Delusion m_delusion = None;
 };
 
+void Init();
+
 } // namespace FleshEaterCourt
 
 #endif // FLESHEATERCOURTS_H

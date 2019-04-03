@@ -265,7 +265,7 @@ TEST(Unit, RegisteredUnits)
             else if (pip.m_paramType == ParamType::Boolean)
             {
                 std::cout << "\tParam: " << pip.m_name << " Type: Boolean  Value: "
-                          << (pip.m_boolValue ? "true" : "false") << std::endl;
+                          << (pip.m_intValue ? "true" : "false") << std::endl;
             }
         }
     }

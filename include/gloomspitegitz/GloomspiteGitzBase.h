@@ -53,6 +53,8 @@ protected:
 // Troggoth Renawal                 No
 //
 
+void Init();
+
 } // namespace GloomspiteGitz
 
 #endif //GLOOMSPITEBASE_H

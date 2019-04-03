@@ -9,6 +9,17 @@
 #include <skaven/Skaventide.h>
 #include <UnitFactory.h>
 
+#include "skaven/Clanrats.h"
+#include "skaven/GutterRunners.h"
+#include "skaven/PlagueMonks.h"
+#include "skaven/NightRunners.h"
+#include "skaven/Stormfiends.h"
+#include "skaven/Stormvermin.h"
+#include "skaven/HellPitAbomination.h"
+#include "skaven/RatlingGun.h"
+#include "skaven/WarpfireThrower.h"
+#include "skaven/WarpLightningCannon.h"
+
 namespace Skaven
 {
 
@@ -42,6 +53,20 @@ int Skaventide::braveryModifier() const
     modifier += remainingModels() / 10;
 
     return modifier;
+}
+
+void Init()
+{
+    Clanrats::Init();
+    GutterRunners::Init();
+    NightRunners::Init();
+    PlagueMonks::Init();
+    Stormfiends::Init();
+    Stormvermin::Init();
+    HellPitAbomination::Init();
+    RatlingGun::Init();
+    WarpfireThrower::Init();
+    WarpLightningCannon::Init();
 }
 
 } // namespace Skaven

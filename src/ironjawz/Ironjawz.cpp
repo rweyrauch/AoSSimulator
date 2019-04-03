@@ -8,8 +8,21 @@
 
 #include <ironjawz/Ironjawz.h>
 
+#include "ironjawz/OrrukArdboys.h"
+#include "ironjawz/OrrukBrutes.h"
+#include "ironjawz/GoreGruntas.h"
+#include "ironjawz/OrrukMegaboss.h"
+
 namespace Ironjawz
 {
+
+void Init()
+{
+    OrrukArdboys::Init();
+    OrrukBrutes::Init();
+    OrrukGoreGruntas::Init();
+    OrrukMegaboss::Init();
+}
 
 } // namespace Ironjawz
 

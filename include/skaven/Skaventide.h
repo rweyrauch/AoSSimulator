@@ -46,6 +46,8 @@ protected:
 // Echoes of the Great Plagues      No
 //
 
+void Init();
+
 } // namespace Skaven
 
 #endif //SKAVENTIDE_H

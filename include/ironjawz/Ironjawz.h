@@ -33,6 +33,8 @@ protected:
 // -------------------------------------------
 //
 
+void Init();
+
 } // namespace Ironjawz
 
 #endif // IRONJAWZ_H

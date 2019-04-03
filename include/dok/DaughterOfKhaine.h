@@ -37,6 +37,8 @@ protected:
     // TODO: implement the Unquenchable Fervour battleshock immunity.
 };
 
+void Init();
+
 } // namespace DaughtersOfKhaine
 
 #endif //DAUGHTERSOFKHAINE_H

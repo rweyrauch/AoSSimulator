@@ -7,7 +7,17 @@
  */
 #include <dok/DaughterOfKhaine.h>
 
-#include "dok/DaughterOfKhaine.h"
+#include "dok/WitchAelves.h"
+#include "dok/BloodSisters.h"
+#include "dok/KhineraiLifetakers.h"
+#include "dok/SistersOfSlaughter.h"
+#include "dok/KhineraiHeartrenders.h"
+#include "dok/DoomfireWarlocks.h"
+#include "dok/BloodStalkers.h"
+#include "dok/HagQueen.h"
+#include "dok/SlaughterQueen.h"
+#include "dok/AvatarOfKhaine.h"
+#include "dok/BloodwrackMedusa.h"
 
 namespace DaughtersOfKhaine
 {
@@ -81,6 +91,21 @@ Rerolls DaughterOfKhaine::chargeRerolls() const
         return RerollOnes;
     }
     return Unit::chargeRerolls();
+}
+
+void Init()
+{
+    AvatarOfKhaine::Init();
+    BloodSisters::Init();
+    BloodStalkers::Init();
+    BloodwrackMedusa::Init();
+    DoomfireWarlocks::Init();
+    HagQueen::Init();
+    KhineraiHeartrenders::Init();
+    KhineraiLifetakers::Init();
+    SistersOfSlaughter::Init();
+    SlaughterQueen::Init();
+    WitchAelves::Init();
 }
 
 } // namespace DaughtersOfKhaine

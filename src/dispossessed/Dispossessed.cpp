@@ -8,6 +8,14 @@
 
 #include <dispossessed/Dispossessed.h>
 
+#include "dispossessed/Hammerers.h"
+#include "dispossessed/Ironbreakers.h"
+#include "dispossessed/Irondrakes.h"
+#include "dispossessed/Quarrellers.h"
+#include "dispossessed/Longbeards.h"
+#include "dispossessed/Warriors.h"
+#include "dispossessed/Thunderers.h"
+
 namespace Dispossessed
 {
 
@@ -64,6 +72,17 @@ Rerolls Dispossessed::toHitRerolls(const Weapon *weapon, const Unit *target) con
             break;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+void Init()
+{
+    Hammerers::Init();
+    Ironbreakers::Init();
+    Irondrakes::Init();
+    Longbeards::Init();
+    Quarrellers::Init();
+    Thunderers::Init();
+    Warriors::Init();
 }
 
 } //namespace Dispossessed

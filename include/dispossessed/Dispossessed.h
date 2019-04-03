@@ -58,6 +58,8 @@ private:
 //      Sneaky Ambushers            No
 //
 
+void Init();
+
 } // namespace Nighthaunt
 
 #endif // DISPOSSESSED_H

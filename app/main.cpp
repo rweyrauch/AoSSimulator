@@ -283,7 +283,7 @@ void displayUnits(Verbosity verbose, const std::string& faction)
                 else if (pip.m_paramType == ParamType::Boolean)
                 {
                     std::cout << "\t\tName: " << pip.m_name << " Type: Boolean  Value: "
-                              << (pip.m_boolValue ? "true" : "false") << std::endl;
+                              << (pip.m_intValue ? "true" : "false") << std::endl;
                 }
             }
         }
@@ -358,9 +358,9 @@ Unit* parseUnitDescription(const std::string& desc)
                     if (paramType == ParamType::Boolean)
                     {
                         if (value == "true")
-                            pv->m_boolValue = true;
+                            pv->m_intValue = SIM_TRUE;
                         else
-                            pv->m_boolValue = false;
+                            pv->m_intValue = SIM_FALSE;
                     }
                     else if (paramType == ParamType::Integer)
                     {

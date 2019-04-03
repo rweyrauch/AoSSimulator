@@ -7,6 +7,35 @@
  */
 #include <algorithm>
 #include <stormcast/StormcastEternals.h>
+#include "stormcast/Liberators.h"
+#include "stormcast/CelestarBallista.h"
+#include "stormcast/Evocators.h"
+#include "stormcast/Judicators.h"
+#include "stormcast/Sequitors.h"
+#include "stormcast/LordOrdinator.h"
+#include "stormcast/Retributors.h"
+#include "stormcast/LordCelestant.h"
+#include "stormcast/LordCelestantOnDracoth.h"
+#include "stormcast/LordCelestantOnStardrake.h"
+#include "stormcast/KnightIncantor.h"
+#include "stormcast/KnightQuestor.h"
+#include "stormcast/KnightZephyros.h"
+#include "stormcast/VanguardHunters.h"
+#include "stormcast/VanguardRaptorsHurricane.h"
+#include "stormcast/VanguardRaptorsLongstrike.h"
+#include "stormcast/Castigators.h"
+#include "stormcast/VandusHammerhand.h"
+#include "stormcast/GryphHounds.h"
+#include "stormcast/Concussors.h"
+#include "stormcast/Desolators.h"
+#include "stormcast/Fulminators.h"
+#include "stormcast/Tempestors.h"
+#include "stormcast/EvocatorsOnDracolines.h"
+#include "stormcast/Prosecutors.h"
+#include "stormcast/Protectors.h"
+#include "stormcast/Decimators.h"
+#include "stormcast/NeaveBlacktalon.h"
+#include "stormcast/GavrielSureheart.h"
 
 namespace StormcastEternals
 {
@@ -57,6 +86,39 @@ Rerolls StormcastEternal::battleshockRerolls() const
     }
 
     return Unit::battleshockRerolls();
+}
+
+void Init()
+{
+    Liberators::Init();
+    CelestarBallista::Init();
+    Evocators::Init();
+    Judicators::Init();
+    Sequitors::Init();
+    LordOrdinator::Init();
+    Retributors::Init();
+    LordCelestant::Init();
+    LordCelestantOnDracoth::Init();
+    LordCelestantOnStardrake::Init();
+    KnightIncantor::Init();
+    KnightQuestor::Init();
+    KnightZephyros::Init();
+    VanguardHunters::Init();
+    Castigators::Init();
+    VanguardRaptorsHurricane::Init();
+    VanguardRaptorsLongstrike::Init();
+    VandusHammerhand::Init();
+    GryphHounds::Init();
+    Concussors::Init();
+    Desolators::Init();
+    Fulminators::Init();
+    Tempestors::Init();
+    EvocatorsOnCelestialDracolines::Init();
+    Prosecutors::Init();
+    Protectors::Init();
+    Decimators::Init();
+    NeaveBlacktalon::Init();
+    GavrielSureheart::Init();
 }
 
 } // namespace StormcastEternals
