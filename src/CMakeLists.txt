@@ -58,6 +58,8 @@ add_library(
         stormcast/Protectors.cpp
         stormcast/Prosecutors.cpp
         stormcast/Decimators.cpp
+        stormcast/NeaveBlacktalon.cpp
+        stormcast/GavrielSureheart.cpp
 
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp

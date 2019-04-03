@@ -193,6 +193,8 @@ enum Keyword
     EVOCATORS,
     DRACOLINE,
     PROSECUTORS,
+    NEAVE_BLACKTALON,
+    GAVRIEL_SUREHEART,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

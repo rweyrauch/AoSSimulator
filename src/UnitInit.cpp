@@ -39,6 +39,8 @@
 #include "stormcast/Prosecutors.h"
 #include "stormcast/Protectors.h"
 #include "stormcast/Decimators.h"
+#include "stormcast/NeaveBlacktalon.h"
+#include "stormcast/GavrielSureheart.h"
 
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
@@ -255,6 +257,8 @@ void Initialize(Verbosity verbosity)
     StormcastEternals::Prosecutors::Init();
     StormcastEternals::Protectors::Init();
     StormcastEternals::Decimators::Init();
+    StormcastEternals::NeaveBlacktalon::Init();
+    StormcastEternals::GavrielSureheart::Init();
 
     GloomspiteGitz::BoingrotBounderz::Init();
     GloomspiteGitz::ColossalSquig::Init();
