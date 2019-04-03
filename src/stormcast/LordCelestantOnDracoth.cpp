@@ -18,10 +18,9 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnDracoth::EnumStringToInt,
     {
         {
-            ParamType::Enum, "Weapon", {.m_intValue = LordCelestantOnDracoth::TempestosHammer}, LordCelestantOnDracoth::TempestosHammer,
-            LordCelestantOnDracoth::StormstrikeGlaive, 1
+            ParamType::Enum, "Weapon", LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::StormstrikeGlaive, 1
         },
-        {ParamType::Boolean, "Sigmarite Thundershield", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Sigmarite Thundershield", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     STORMCAST_ETERNAL

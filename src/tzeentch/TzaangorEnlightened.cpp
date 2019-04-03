@@ -17,9 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "Models", {.m_intValue = TzaangorEnlightened::MIN_UNIT_SIZE}, TzaangorEnlightened::MIN_UNIT_SIZE,
+        {ParamType::Integer, "Models", TzaangorEnlightened::MIN_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE,
          TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Disks Of Tzeentch", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Disks Of Tzeentch", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
     TZEENTCH

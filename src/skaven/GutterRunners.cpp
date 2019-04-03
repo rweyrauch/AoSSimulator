@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = GutterRunners::MIN_UNIT_SIZE}, GutterRunners::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", GutterRunners::MIN_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE,
             GutterRunners::MAX_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE
         },
     },

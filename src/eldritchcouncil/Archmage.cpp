@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Boolean, "Steed", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     ELDRITCH_COUNCIL

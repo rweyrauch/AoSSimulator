@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = GryphHounds::MIN_UNIT_SIZE}, GryphHounds::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", GryphHounds::MIN_UNIT_SIZE, GryphHounds::MIN_UNIT_SIZE,
             GryphHounds::MAX_UNIT_SIZE, GryphHounds::MIN_UNIT_SIZE
         },
     },

@@ -16,9 +16,9 @@ static FactoryMethod factoryMethod = {
     OrrukGoreGruntas::ValueToString,
     OrrukGoreGruntas::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = OrrukGoreGruntas::MIN_UNIT_SIZE}, OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MAX_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MAX_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "Weapons", {.m_intValue = OrrukGoreGruntas::PigIronChoppa}, OrrukGoreGruntas::PigIronChoppa,
+            ParamType::Enum, "Weapons", OrrukGoreGruntas::PigIronChoppa, OrrukGoreGruntas::PigIronChoppa,
             OrrukGoreGruntas::JaggedGorehacka, 1
         },
     },

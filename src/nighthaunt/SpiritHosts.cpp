@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = SpiritHosts::MIN_UNIT_SIZE}, SpiritHosts::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", SpiritHosts::MIN_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE,
             SpiritHosts::MAX_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE
         },
     },

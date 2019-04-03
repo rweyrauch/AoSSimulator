@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BladegheistRevenants::MIN_UNIT_SIZE}, BladegheistRevenants::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", BladegheistRevenants::MIN_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE,
             BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE
         },
     },

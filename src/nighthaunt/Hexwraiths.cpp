@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Hexwraiths::MIN_UNIT_SIZE}, Hexwraiths::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Hexwraiths::MIN_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE,
             Hexwraiths::MAX_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE
         },
     },

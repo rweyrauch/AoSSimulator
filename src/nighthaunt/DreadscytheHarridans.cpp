@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = DreadscytheHarridans::MIN_UNIT_SIZE}, DreadscytheHarridans::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", DreadscytheHarridans::MIN_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE,
             DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE
         },
     },

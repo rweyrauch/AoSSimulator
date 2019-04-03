@@ -16,13 +16,13 @@ static FactoryMethod factoryMethod = {
     OrrukBrutes::ValueToString,
     OrrukBrutes::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = OrrukBrutes::MIN_UNIT_SIZE}, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "Weapons", {.m_intValue = OrrukBrutes::TwoBruteChoppas}, OrrukBrutes::TwoBruteChoppas,
+            ParamType::Enum, "Weapons", OrrukBrutes::TwoBruteChoppas, OrrukBrutes::TwoBruteChoppas,
             OrrukBrutes::JaggedGorehacka, 1
         },
         {
-            ParamType::Enum, "Boss Weapon", {.m_intValue = OrrukBrutes::BossChoppa}, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
+            ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
         }
     },
     DESTRUCTION,

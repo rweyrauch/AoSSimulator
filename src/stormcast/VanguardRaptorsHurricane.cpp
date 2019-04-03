@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = 3}, VanguardRaptorsHurricane::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", VanguardRaptorsHurricane::MIN_UNIT_SIZE, VanguardRaptorsHurricane::MIN_UNIT_SIZE,
             VanguardRaptorsHurricane::MAX_UNIT_SIZE, VanguardRaptorsHurricane::MIN_UNIT_SIZE
         },
     },

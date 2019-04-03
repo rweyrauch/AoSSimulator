@@ -502,15 +502,17 @@ enum class ParamType
     Enum,
 };
 
+enum
+{
+    SIM_FALSE = 0,
+    SIM_TRUE = 1,
+};
+
 struct Parameter
 {
     ParamType m_paramType;
     std::string m_name;
-    union
-    {
-        bool m_boolValue;
-        int m_intValue;
-    };
+    int m_intValue = 0;
     int m_minValue = 0;
     int m_maxValue = 0;
     int m_increment = 1;

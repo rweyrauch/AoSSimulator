@@ -16,17 +16,17 @@ static FactoryMethod factoryMethod = {
     OrrukArdboys::ValueToString,
     OrrukArdboys::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = OrrukArdboys::MIN_UNIT_SIZE}, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Choppas And Shields", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {ParamType::Integer, "Paired Choppas", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {ParamType::Integer, "Big Choppas", {.m_intValue = 0}, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Models", OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Choppas And Shields", 0, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Paired Choppas", 0, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Big Choppas", 0, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
         {
-            ParamType::Enum, "Boss Weapon", {.m_intValue = OrrukArdboys::ChoppaAndSmasha}, OrrukArdboys::ChoppaOrSmashaWithShield,
+            ParamType::Enum, "Boss Weapon", OrrukArdboys::ChoppaAndSmasha, OrrukArdboys::ChoppaOrSmashaWithShield,
             OrrukArdboys::BigChoppa, 1
         },
-        {ParamType::Boolean, "Drummer", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {
-            ParamType::Enum, "Standard", {.m_intValue = OrrukArdboys::None}, OrrukArdboys::None, OrrukArdboys::IconOfGork, 1
+            ParamType::Enum, "Standard", OrrukArdboys::None, OrrukArdboys::None, OrrukArdboys::IconOfGork, 1
         }
     },
     DESTRUCTION,

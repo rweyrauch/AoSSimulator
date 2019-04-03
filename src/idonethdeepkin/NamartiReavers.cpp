@@ -20,10 +20,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = NamartiReavers::MIN_UNIT_SIZE}, NamartiReavers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", NamartiReavers::MIN_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE,
             NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
+        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
     },
     ORDER,
     IDONETH_DEEPKIN

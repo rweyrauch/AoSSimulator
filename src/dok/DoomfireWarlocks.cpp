@@ -19,10 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = DoomfireWarlocks::MIN_UNIT_SIZE}, DoomfireWarlocks::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", DoomfireWarlocks::MIN_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE,
             DoomfireWarlocks::MAX_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Crossbows", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Crossbows", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     DAUGHTERS_OF_KHAINE

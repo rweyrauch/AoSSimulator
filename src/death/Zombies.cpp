@@ -17,9 +17,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "Models", {.m_intValue = Zombies::MIN_UNIT_SIZE}, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Noisemaker", {.m_boolValue = false}, false, false, false}
+        {ParamType::Integer, "Models", Zombies::MIN_UNIT_SIZE, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
+        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Noisemaker", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     DEATH,
     DEADWALKERS

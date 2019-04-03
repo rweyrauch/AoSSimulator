@@ -17,12 +17,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Gors::MIN_UNIT_SIZE}, Gors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Gors::MIN_UNIT_SIZE, Gors::MIN_UNIT_SIZE,
             Gors::MAX_UNIT_SIZE, Gors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Paired Blades", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "Brayhorn", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Paired Blades", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     BEASTS_OF_CHAOS

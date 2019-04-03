@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = CryptGhouls::MIN_UNIT_SIZE}, CryptGhouls::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", CryptGhouls::MIN_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE,
             CryptGhouls::MAX_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE
         },
     },

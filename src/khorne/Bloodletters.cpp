@@ -20,12 +20,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Bloodletters::MIN_UNIT_SIZE}, Bloodletters::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Bloodletters::MIN_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE,
             Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     KHORNE

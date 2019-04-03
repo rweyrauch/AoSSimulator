@@ -17,15 +17,15 @@ static FactoryMethod factoryMethod = {
     MightySkullcrushers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = MightySkullcrushers::MIN_UNIT_SIZE}, MightySkullcrushers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", MightySkullcrushers::MIN_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE,
             MightySkullcrushers::MAX_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = MightySkullcrushers::EnsorcelledAxe}, MightySkullcrushers::EnsorcelledAxe,
+            ParamType::Enum, "Weapons", MightySkullcrushers::EnsorcelledAxe, MightySkullcrushers::EnsorcelledAxe,
             MightySkullcrushers::Bloodglaive, 1
         },
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     KHORNE

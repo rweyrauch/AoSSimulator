@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = PutridBlightkings::MIN_UNIT_SIZE}, PutridBlightkings::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", PutridBlightkings::MIN_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE,
             PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Sonorous Tocsin", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Sonorous Tocsin", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
     NURGLE

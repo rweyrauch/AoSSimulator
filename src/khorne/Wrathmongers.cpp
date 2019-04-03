@@ -16,7 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Wrathmongers::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", Wrathmongers::MIN_UNIT_SIZE,
             Wrathmongers::MIN_UNIT_SIZE,
             Wrathmongers::MAX_UNIT_SIZE, Wrathmongers::MIN_UNIT_SIZE
         },

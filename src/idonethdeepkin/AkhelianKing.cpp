@@ -16,7 +16,7 @@ static FactoryMethod factoryMethod = {
     AkhelianKing::ValueToString,
     AkhelianKing::EnumStringToInt,
     {
-        {ParamType::Enum, "Weapon", {.m_intValue = AkhelianKing::BladedPolearm}, AkhelianKing::BladedPolearm, AkhelianKing::Greatsword, 1},
+        {ParamType::Enum, "Weapon", AkhelianKing::BladedPolearm, AkhelianKing::BladedPolearm, AkhelianKing::Greatsword, 1},
     },
     ORDER,
     IDONETH_DEEPKIN

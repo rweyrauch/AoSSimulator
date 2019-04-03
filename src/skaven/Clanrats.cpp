@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Clanrats::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Clanrats::MIN_UNIT_SIZE}, Clanrats::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Clanrats::MIN_UNIT_SIZE, Clanrats::MIN_UNIT_SIZE,
             Clanrats::MAX_UNIT_SIZE, Clanrats::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Clanrats::RustySpear}, Clanrats::RustySpear,
+            ParamType::Enum, "Weapons", Clanrats::RustySpear, Clanrats::RustySpear,
             Clanrats::RustyBlade, 1
         },
-        {ParamType::Boolean, "Clanshields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Integer, "Standard Bearers", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Bell Ringers", {.m_intValue = 0}, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
+        {ParamType::Boolean, "Clanshields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Integer, "Standard Bearers", 0, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Bell Ringers", 0, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
     SKAVEN

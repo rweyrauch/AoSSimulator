@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Warriors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Warriors::MIN_UNIT_SIZE}, Warriors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Warriors::MIN_UNIT_SIZE, Warriors::MIN_UNIT_SIZE,
             Warriors::MAX_UNIT_SIZE, Warriors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Warriors::DuardinAxeOrHammer}, Warriors::DuardinAxeOrHammer,
+            ParamType::Enum, "Weapons", Warriors::DuardinAxeOrHammer, Warriors::DuardinAxeOrHammer,
             Warriors::DoubleHandedDuardinAxe, 1
         },
-        {ParamType::Boolean, "Duardin Shields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Duardin Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

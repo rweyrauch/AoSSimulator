@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = FleshHounds::MIN_UNIT_SIZE}, FleshHounds::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", FleshHounds::MIN_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE,
             FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
         },
     },

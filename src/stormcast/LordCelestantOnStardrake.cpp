@@ -20,8 +20,7 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnStardrake::EnumStringToInt,
     {
         {
-            ParamType::Enum, "Weapon", {.m_intValue = LordCelestantOnStardrake::CelestineHammer}, LordCelestantOnStardrake::CelestineHammer,
-            LordCelestantOnStardrake::StormboundBlade, 1
+            ParamType::Enum, "Weapon", LordCelestantOnStardrake::CelestineHammer, LordCelestantOnStardrake::CelestineHammer, LordCelestantOnStardrake::StormboundBlade, 1
         },
     },
     ORDER,

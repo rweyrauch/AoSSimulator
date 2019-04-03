@@ -21,7 +21,7 @@ static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, c
             descriptor << ip.m_intValue;
         else if (ip.m_paramType == ParamType::Boolean)
         {
-            if (ip.m_boolValue)
+            if (ip.m_intValue != 0)
                 descriptor << "true";
             else
                 descriptor << "false";

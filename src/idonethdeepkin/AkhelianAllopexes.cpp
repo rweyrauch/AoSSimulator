@@ -20,10 +20,10 @@ static FactoryMethod factoryMethod = {
     AkhelianAllopexes::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = AkhelianAllopexes::MIN_UNIT_SIZE}, AkhelianAllopexes::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", AkhelianAllopexes::MIN_UNIT_SIZE, AkhelianAllopexes::MIN_UNIT_SIZE,
             AkhelianAllopexes::MAX_UNIT_SIZE, AkhelianAllopexes::MIN_UNIT_SIZE
         },
-        {ParamType::Enum, "Weapons", {.m_intValue = AkhelianAllopexes::HarpoonLauncher}, AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::NetLauncher, 1},
+        {ParamType::Enum, "Weapons", AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::NetLauncher, 1},
     },
     ORDER,
     IDONETH_DEEPKIN

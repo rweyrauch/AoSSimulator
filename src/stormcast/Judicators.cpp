@@ -17,13 +17,13 @@ static FactoryMethod factoryMethod = {
     Judicators::ValueToString,
     Judicators::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = 5}, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", Judicators::MIN_UNIT_SIZE, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Judicators::SkyboltBow}, Judicators::SkyboltBow,
+            ParamType::Enum, "Weapons", Judicators::SkyboltBow, Judicators::SkyboltBow,
             Judicators::BoltstormCrossbow, 1
         },
-        {ParamType::Integer, "Shockbolt Bows", {.m_intValue = 1}, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "Thunderbolt Crossbows", {.m_intValue = 0}, 0, Judicators::MAX_UNIT_SIZE / 5, 1}
+        {ParamType::Integer, "Shockbolt Bows", 1, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "Thunderbolt Crossbows", 0, 0, Judicators::MAX_UNIT_SIZE / 5, 1}
     },
     ORDER,
     STORMCAST_ETERNAL

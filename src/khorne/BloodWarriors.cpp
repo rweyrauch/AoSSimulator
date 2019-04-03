@@ -19,12 +19,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BloodWarriors::MIN_UNIT_SIZE}, BloodWarriors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE,
             BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Paired Goreaxe", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "Goreglaives", {.m_intValue = 0}, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Paired Goreaxe", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Integer, "Goreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     KHORNE

@@ -415,7 +415,7 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
                 pGrid->attach(*pLabel, left, top, 1, 1);
                 pLabel->show();
                 Gtk::CheckButton* pCheck = Gtk::manage(new Gtk::CheckButton());
-                pCheck->set_active(ip.m_boolValue);
+                pCheck->set_active((ip.m_intValue == 0) ? false : true);
                 pGrid->attach(*pCheck, right, top, 1, 1);
                 pCheck->show();
                 top++;
@@ -467,7 +467,7 @@ Unit* createUnit(const std::string& unitName, Gtk::Box* pUnitUI)
                             auto pCheck = dynamic_cast<Gtk::CheckButton*>(value);
                             if (pCheck)
                             {
-                                pp->m_boolValue = pCheck->get_active();
+                                pp->m_intValue = pCheck->get_active() ? 1 : 0;
                             }
                         }
                         else if (pp->m_paramType == ParamType::Enum)

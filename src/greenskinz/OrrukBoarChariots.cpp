@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = OrrukBoarChariots::MIN_UNIT_SIZE}, OrrukBoarChariots::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", OrrukBoarChariots::MIN_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE,
             OrrukBoarChariots::MAX_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE
         },
     },

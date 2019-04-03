@@ -19,11 +19,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Hammerers::MIN_UNIT_SIZE}, Hammerers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
             Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Musician", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

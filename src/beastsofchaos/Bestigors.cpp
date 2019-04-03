@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Bestigors::MIN_UNIT_SIZE}, Bestigors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Bestigors::MIN_UNIT_SIZE, Bestigors::MIN_UNIT_SIZE,
             Bestigors::MAX_UNIT_SIZE, Bestigors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Brayhorn", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     BEASTS_OF_CHAOS

@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Tempestors::MIN_UNIT_SIZE}, Tempestors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Tempestors::MIN_UNIT_SIZE, Tempestors::MIN_UNIT_SIZE,
             Tempestors::MAX_UNIT_SIZE, Tempestors::MIN_UNIT_SIZE
         },
     },

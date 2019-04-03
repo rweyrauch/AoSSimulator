@@ -18,12 +18,12 @@ static FactoryMethod factoryMethod = {
     OrrukBoarboys::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = OrrukBoarboys::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", OrrukBoarboys::MIN_UNIT_SIZE,
             OrrukBoarboys::MIN_UNIT_SIZE, OrrukBoarboys::MAX_UNIT_SIZE, OrrukBoarboys::MIN_UNIT_SIZE
         },
-        {ParamType::Enum, "Weapons", {.m_intValue = OrrukBoarboys::Choppa}, OrrukBoarboys::Choppa, OrrukBoarboys::PigstikkaSpear, 1},
-        {ParamType::Boolean, "Glyph Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Waaagh! Horns", {.m_boolValue = false}, false, false, false},
+        {ParamType::Enum, "Weapons", OrrukBoarboys::Choppa, OrrukBoarboys::Choppa, OrrukBoarboys::PigstikkaSpear, 1},
+        {ParamType::Boolean, "Glyph Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Waaagh! Horns", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DESTRUCTION,
     GREENSKINZ

@@ -17,8 +17,8 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "Models", {.m_intValue = 5}, Protectors::MIN_UNIT_SIZE, Protectors::MAX_UNIT_SIZE, Protectors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Starsoul Maces", {.m_intValue = 2}, 0, (Protectors::MAX_UNIT_SIZE / 5) * 2, 1}
+        {ParamType::Integer, "Models", Protectors::MIN_UNIT_SIZE, Protectors::MIN_UNIT_SIZE, Protectors::MAX_UNIT_SIZE, Protectors::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Starsoul Maces", 2, 0, (Protectors::MAX_UNIT_SIZE / 5) * 2, 1}
     },
     ORDER,
     STORMCAST_ETERNAL

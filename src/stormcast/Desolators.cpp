@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Desolators::MIN_UNIT_SIZE}, Desolators::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Desolators::MIN_UNIT_SIZE, Desolators::MIN_UNIT_SIZE,
             Desolators::MAX_UNIT_SIZE, Desolators::MIN_UNIT_SIZE
         },
     },

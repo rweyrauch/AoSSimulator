@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = NightRunners::MIN_UNIT_SIZE}, NightRunners::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", NightRunners::MIN_UNIT_SIZE, NightRunners::MIN_UNIT_SIZE,
             NightRunners::MAX_UNIT_SIZE, NightRunners::MIN_UNIT_SIZE
         },
     },

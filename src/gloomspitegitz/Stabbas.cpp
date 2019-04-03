@@ -19,15 +19,15 @@ static FactoryMethod factoryMethod = {
     Stabbas::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Stabbas::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", Stabbas::MIN_UNIT_SIZE,
             Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
         },
-        {ParamType::Enum, "Weapons", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Enum, "Boss Weapon", {.m_intValue = Stabbas::Stabba}, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Integer, "Barbed Nets", {.m_intValue = 3}, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Gong Bashers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Flag Bearers", {.m_intValue = 1}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Enum, "Weapons", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Enum, "Boss Weapon", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+        {ParamType::Integer, "Barbed Nets", 3, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Gong Bashers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Flag Bearers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Icon Bearers", 0, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
     },
     DESTRUCTION,
     GLOOMSPITE_GITZ

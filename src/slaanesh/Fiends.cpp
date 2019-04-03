@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Fiends::MIN_UNIT_SIZE}, Fiends::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Fiends::MIN_UNIT_SIZE, Fiends::MIN_UNIT_SIZE,
             Fiends::MAX_UNIT_SIZE, Fiends::MIN_UNIT_SIZE
         },
     },

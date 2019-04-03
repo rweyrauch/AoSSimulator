@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Concussors::MIN_UNIT_SIZE}, Concussors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Concussors::MIN_UNIT_SIZE, Concussors::MIN_UNIT_SIZE,
             Concussors::MAX_UNIT_SIZE, Concussors::MIN_UNIT_SIZE
         },
     },

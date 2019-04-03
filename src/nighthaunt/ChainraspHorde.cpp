@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = ChainraspHorde::MIN_UNIT_SIZE}, ChainraspHorde::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", ChainraspHorde::MIN_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE,
             ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
         },
     },

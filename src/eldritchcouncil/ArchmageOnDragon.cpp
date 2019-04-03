@@ -35,8 +35,8 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Boolean, "Arcane Tome", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Talisman of Arcane Power", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Arcane Tome", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Talisman of Arcane Power", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     ELDRITCH_COUNCIL

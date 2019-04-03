@@ -16,7 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Boolean, "Two Boss Choppas", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Two Boss Choppas", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DESTRUCTION,
     GREENSKINZ

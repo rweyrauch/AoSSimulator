@@ -19,10 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "Models", {.m_intValue = EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE}, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
+        {ParamType::Integer, "Models", EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
          EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Prime Grandstave", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "Grandstaves", {.m_intValue = 2}, 0, EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE/EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE*2, 1},
+        {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Integer, "Grandstaves", 2, 0, EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE/EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE*2, 1},
     },
     ORDER,
     STORMCAST_ETERNAL

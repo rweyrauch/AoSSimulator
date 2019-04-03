@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = FellwaterTroggoths::MIN_UNIT_SIZE}, FellwaterTroggoths::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", FellwaterTroggoths::MIN_UNIT_SIZE, FellwaterTroggoths::MIN_UNIT_SIZE,
             FellwaterTroggoths::MAX_UNIT_SIZE, FellwaterTroggoths::MIN_UNIT_SIZE
         },
     },

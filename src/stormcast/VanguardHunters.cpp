@@ -17,12 +17,11 @@ static FactoryMethod factoryMethod = {
     VanguardHunters::ValueToString,
     VanguardHunters::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = 5}, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "Weapons", {.m_intValue = VanguardHunters::StormSabre}, VanguardHunters::ShockHandaxe,
-            VanguardHunters::StormSabre, 1
+            ParamType::Enum, "Weapons", VanguardHunters::StormSabre, VanguardHunters::ShockHandaxe, VanguardHunters::StormSabre, 1
         },
-        {ParamType::Boolean, "Astral Compass", {.m_boolValue = false}, false, false},
+        {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     STORMCAST_ETERNAL

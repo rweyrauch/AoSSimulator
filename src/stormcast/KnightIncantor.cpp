@@ -20,8 +20,8 @@ static FactoryMethod factoryMethod = {
     KnightIncantor::ValueToString,
     KnightIncantor::EnumStringToInt,
     {
-        {ParamType::Enum, "Lore of the Storm", {.m_intValue = (int)LoreOfTheStorm::None}, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
-        {ParamType::Enum, "Lore of Invigoration", {.m_intValue = (int)LoreOfInvigoration::None}, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+        {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
+        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
     },
     ORDER,
     STORMCAST_ETERNAL

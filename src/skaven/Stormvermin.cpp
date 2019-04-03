@@ -17,12 +17,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Stormvermin::MIN_UNIT_SIZE}, Stormvermin::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Stormvermin::MIN_UNIT_SIZE, Stormvermin::MIN_UNIT_SIZE,
             Stormvermin::MAX_UNIT_SIZE, Stormvermin::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Clanshields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Integer, "Standard Bearers", {.m_intValue = 0}, 0, Stormvermin::MAX_UNIT_SIZE / Stormvermin::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Drummers", {.m_intValue = 0}, 0, Stormvermin::MAX_UNIT_SIZE / Stormvermin::MIN_UNIT_SIZE, 1}
+        {ParamType::Boolean, "Clanshields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Integer, "Standard Bearers", 0, 0, Stormvermin::MAX_UNIT_SIZE / Stormvermin::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Drummers", 0, 0, Stormvermin::MAX_UNIT_SIZE / Stormvermin::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
     SKAVEN

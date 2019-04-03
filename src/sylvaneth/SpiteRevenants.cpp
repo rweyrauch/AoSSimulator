@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = SpiteRevenants::MIN_UNIT_SIZE}, SpiteRevenants::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", SpiteRevenants::MIN_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE,
             SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE
         },
     },

@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Dryads::MIN_UNIT_SIZE}, Dryads::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Dryads::MIN_UNIT_SIZE, Dryads::MIN_UNIT_SIZE,
             Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE
         },
     },

@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = WildwoodRangers::MIN_UNIT_SIZE}, WildwoodRangers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", WildwoodRangers::MIN_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE,
             WildwoodRangers::MAX_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     WANDERER

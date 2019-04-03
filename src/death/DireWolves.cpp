@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = DireWolves::MIN_UNIT_SIZE}, DireWolves::MIN_UNIT_SIZE, DireWolves::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", DireWolves::MIN_UNIT_SIZE, DireWolves::MIN_UNIT_SIZE, DireWolves::MAX_UNIT_SIZE,
             DireWolves::MIN_UNIT_SIZE
         },
     },

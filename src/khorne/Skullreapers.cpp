@@ -16,10 +16,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Skullreapers::MIN_UNIT_SIZE}, Skullreapers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Skullreapers::MIN_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE,
             Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue=true}, false, false, false},
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     CHAOS,
     KHORNE

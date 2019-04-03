@@ -19,14 +19,14 @@ static FactoryMethod factoryMethod = {
     SkeletonWarriors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = SkeletonWarriors::MIN_UNIT_SIZE}, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
             SkeletonWarriors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = SkeletonWarriors::AncientBlade}, SkeletonWarriors::AncientBlade, SkeletonWarriors::AncientSpear, 1
+            ParamType::Enum, "Weapons", SkeletonWarriors::AncientBlade, SkeletonWarriors::AncientBlade, SkeletonWarriors::AncientSpear, 1
         },
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
     DEATHRATTLE

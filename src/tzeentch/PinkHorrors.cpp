@@ -18,11 +18,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = PinkHorrors::MIN_UNIT_SIZE}, PinkHorrors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", PinkHorrors::MIN_UNIT_SIZE, PinkHorrors::MIN_UNIT_SIZE,
             PinkHorrors::MAX_UNIT_SIZE, PinkHorrors::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Hornblower", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
     TZEENTCH

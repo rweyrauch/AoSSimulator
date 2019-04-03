@@ -19,12 +19,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = SistersOfSlaughter::MIN_UNIT_SIZE}, SistersOfSlaughter::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", SistersOfSlaughter::MIN_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE,
             SistersOfSlaughter::MAX_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Sacrificial Knife", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Sacrificial Knife", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     DAUGHTERS_OF_KHAINE

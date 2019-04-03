@@ -20,15 +20,15 @@ static FactoryMethod factoryMethod = {
     Bloodreavers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Bloodreavers::MIN_UNIT_SIZE}, Bloodreavers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE,
             Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Bloodreavers::ReaverBlades}, Bloodreavers::ReaverBlades,
+            ParamType::Enum, "Weapons", Bloodreavers::ReaverBlades, Bloodreavers::ReaverBlades,
             Bloodreavers::MeatripperAxe, 1
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     KHORNE

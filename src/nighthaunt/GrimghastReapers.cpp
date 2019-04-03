@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = GrimghastReapers::MIN_UNIT_SIZE}, GrimghastReapers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", GrimghastReapers::MIN_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE,
             GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE
         },
     },

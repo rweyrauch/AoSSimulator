@@ -19,11 +19,11 @@ static FactoryMethod factoryMethod = {
     KurnothHunters::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = KurnothHunters::MIN_UNIT_SIZE}, KurnothHunters::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE,
             KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = KurnothHunters::Greatswords}, KurnothHunters::Greatswords,
+            ParamType::Enum, "Weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords,
             KurnothHunters::Greatbows, 1
         }
     },

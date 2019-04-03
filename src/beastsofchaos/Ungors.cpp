@@ -17,15 +17,15 @@ static FactoryMethod factoryMethod = {
     Ungors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Ungors::MIN_UNIT_SIZE}, Ungors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Ungors::MIN_UNIT_SIZE, Ungors::MIN_UNIT_SIZE,
             Ungors::MAX_UNIT_SIZE, Ungors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Ungors::UngorBlade}, Ungors::UngorBlade,
+            ParamType::Enum, "Weapons", Ungors::UngorBlade, Ungors::UngorBlade,
             Ungors::GnarledShortspear, 1
         },
-        {ParamType::Boolean, "Brayhorn", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     BEASTS_OF_CHAOS

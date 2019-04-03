@@ -19,12 +19,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = WitchAelves::MIN_UNIT_SIZE}, WitchAelves::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", WitchAelves::MIN_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE,
             WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Paired Knives", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Paired Knives", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     DAUGHTERS_OF_KHAINE

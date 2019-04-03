@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Thunderers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Thunderers::MIN_UNIT_SIZE}, Thunderers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Thunderers::MIN_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE,
             Thunderers::MAX_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Veteran Weapon", {.m_intValue = Thunderers::DuardinHandgun}, Thunderers::DuardinHandgun,
+            ParamType::Enum, "Veteran Weapon", Thunderers::DuardinHandgun, Thunderers::DuardinHandgun,
             Thunderers::BraceOfDuardinPistols, 1
         },
-        {ParamType::Boolean, "Duardin Bucklers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Drummers", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

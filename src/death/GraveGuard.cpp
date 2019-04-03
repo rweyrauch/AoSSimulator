@@ -17,14 +17,14 @@ static FactoryMethod factoryMethod = {
     GraveGuard::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = GraveGuard::MIN_UNIT_SIZE}, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", GraveGuard::MIN_UNIT_SIZE, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
             GraveGuard::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = GraveGuard::WightBlade}, GraveGuard::WightBlade, GraveGuard::GreatWightBlade, 1
+            ParamType::Enum, "Weapons", GraveGuard::WightBlade, GraveGuard::WightBlade, GraveGuard::GreatWightBlade, 1
         },
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
     DEATHRATTLE

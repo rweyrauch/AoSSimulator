@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = SquiqHerd::MIN_UNIT_SIZE}, SquiqHerd::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", SquiqHerd::MIN_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE,
             SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE
         }
     },

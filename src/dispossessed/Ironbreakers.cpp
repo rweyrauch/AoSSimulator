@@ -19,15 +19,15 @@ static FactoryMethod factoryMethod = {
     Ironbreakers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Ironbreakers::MIN_UNIT_SIZE}, Ironbreakers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Ironbreakers::MIN_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE,
             Ironbreakers::MAX_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Ironbeard Weapon", {.m_intValue = Ironbreakers::IronbreakerAxeOrHammer}, Ironbreakers::IronbreakerAxeOrHammer,
+            ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer, Ironbreakers::IronbreakerAxeOrHammer,
             Ironbreakers::PairedDrakefirePistols, 1
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Drummer", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

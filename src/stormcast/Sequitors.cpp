@@ -17,14 +17,14 @@ static FactoryMethod factoryMethod = {
     Sequitors::ValueToString,
     Sequitors::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = 5}, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", Sequitors::MIN_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Sequitors::StormsmiteMaul}, Sequitors::StormsmiteMaul,
+            ParamType::Enum, "Weapons", Sequitors::StormsmiteMaul, Sequitors::StormsmiteMaul,
             Sequitors::TempestBlade, 1
         },
-        {ParamType::Integer, "Greatmaces", {.m_intValue = 2}, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
-        {ParamType::Boolean, "Prime Greatmace", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Redemption Cache", {.m_boolValue = false}, false, false}
+        {ParamType::Integer, "Greatmaces", 2, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
+        {ParamType::Boolean, "Prime Greatmace", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Redemption Cache", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0}
     },
     ORDER,
     STORMCAST_ETERNAL

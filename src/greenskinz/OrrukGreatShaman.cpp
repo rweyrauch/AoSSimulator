@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Boolean, "War Boar", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DESTRUCTION,
     GREENSKINZ

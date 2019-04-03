@@ -17,10 +17,7 @@ static FactoryMethod factoryMethod = {
     LordOrdinator::ValueToString,
     LordOrdinator::EnumStringToInt,
     {
-        {
-            ParamType::Enum, "Weapon", {.m_intValue = LordOrdinator::AstralHammers}, LordOrdinator::AstralHammers,
-            LordOrdinator::AstralGrandhammer, 1
-        },
+        {ParamType::Enum, "Weapon", LordOrdinator::AstralHammers, LordOrdinator::AstralHammers, LordOrdinator::AstralGrandhammer, 1},
     },
     ORDER,
     STORMCAST_ETERNAL

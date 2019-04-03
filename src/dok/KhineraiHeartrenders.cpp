@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = KhineraiHeartrenders::MIN_UNIT_SIZE}, KhineraiHeartrenders::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", KhineraiHeartrenders::MIN_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE,
             KhineraiHeartrenders::MAX_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE
         },
     },

@@ -127,7 +127,7 @@ Unit* GenerateRandomUnit()
         if (ip.m_paramType == ParamType::Boolean)
         {
             int value = allInts(gen) % 2;
-            ip.m_boolValue = (value == 0) ? false : true;
+            ip.m_intValue = value;
         }
         else if (ip.m_paramType == ParamType::Integer || ip.m_paramType == ParamType::Enum)
         {
@@ -161,10 +161,7 @@ Unit* GenerateRandomUnit()
             std::cerr << "\tParameters: " << std::endl;
             for (auto &pp : parameters)
             {
-                if (pp.m_paramType == ParamType::Integer || pp.m_paramType == ParamType::Enum)
-                    std::cerr << "\t\t" << pp.m_name << ": " << pp.m_intValue << std::endl;
-                else if (pp.m_paramType == ParamType::Boolean)
-                    std::cerr << "\t\t" << pp.m_name << ": " << pp.m_boolValue << std::endl;
+                std::cerr << "\t\t" << pp.m_name << ": " << pp.m_intValue << std::endl;
             }
         }
     }

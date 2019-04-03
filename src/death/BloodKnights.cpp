@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BloodKnights::MIN_UNIT_SIZE}, BloodKnights::MIN_UNIT_SIZE, BloodKnights::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", BloodKnights::MIN_UNIT_SIZE, BloodKnights::MIN_UNIT_SIZE, BloodKnights::MAX_UNIT_SIZE,
             BloodKnights::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
     SOULBLIGHT

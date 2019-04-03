@@ -18,15 +18,15 @@ static FactoryMethod factoryMethod = {
     Irondrakes::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Irondrakes::MIN_UNIT_SIZE}, Irondrakes::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
             Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Ironwarden Weapon", {.m_intValue = Irondrakes::Drakegun}, Irondrakes::Drakegun,
+            ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
             Irondrakes::PairedDrakefirePistols, 1
         },
-        {ParamType::Boolean, "Icon Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

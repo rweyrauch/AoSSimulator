@@ -19,10 +19,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BloodStalkers::MIN_UNIT_SIZE}, BloodStalkers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", BloodStalkers::MIN_UNIT_SIZE, BloodStalkers::MIN_UNIT_SIZE,
             BloodStalkers::MAX_UNIT_SIZE, BloodStalkers::MIN_UNIT_SIZE
         },
-        {ParamType ::Boolean, "Blood Wyrm", {.m_boolValue = false}, false, false, false},
+        {ParamType ::Boolean, "Blood Wyrm", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     DAUGHTERS_OF_KHAINE

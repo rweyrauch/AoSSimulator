@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = CryptFlayers::MIN_UNIT_SIZE}, CryptFlayers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", CryptFlayers::MIN_UNIT_SIZE, CryptFlayers::MIN_UNIT_SIZE,
             CryptFlayers::MAX_UNIT_SIZE, CryptFlayers::MIN_UNIT_SIZE
         },
     },

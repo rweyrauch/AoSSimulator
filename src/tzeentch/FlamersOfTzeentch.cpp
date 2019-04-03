@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = FlamersOfTzeentch::MIN_UNIT_SIZE}, FlamersOfTzeentch::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", FlamersOfTzeentch::MIN_UNIT_SIZE, FlamersOfTzeentch::MIN_UNIT_SIZE,
             FlamersOfTzeentch::MAX_UNIT_SIZE, FlamersOfTzeentch::MIN_UNIT_SIZE
         },
     },

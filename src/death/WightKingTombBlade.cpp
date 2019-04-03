@@ -16,7 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Boolean, "Steed", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Steed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     DEATH,
     DEATHRATTLE

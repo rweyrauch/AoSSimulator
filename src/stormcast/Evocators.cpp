@@ -19,9 +19,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "Models", {.m_intValue = 5}, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Prime Grandstave", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "Grandstaves", {.m_intValue = 2}, 0, Evocators::MAX_UNIT_SIZE, 1},
+        {ParamType::Integer, "Models", Evocators::MIN_UNIT_SIZE, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
+        {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Integer, "Grandstaves", 2, 0, Evocators::MAX_UNIT_SIZE, 1},
     },
     ORDER,
     STORMCAST_ETERNAL

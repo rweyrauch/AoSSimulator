@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = SpiderRiders::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", SpiderRiders::MIN_UNIT_SIZE,
             SpiderRiders::MIN_UNIT_SIZE, SpiderRiders::MAX_UNIT_SIZE, SpiderRiders::MIN_UNIT_SIZE
         },
-        { ParamType::Boolean, "Drummers", {.m_boolValue = false}, false, false, false},
-        { ParamType::Boolean, "Totem Bearers", {.m_boolValue = false}, false, false, false}
+        { ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        { ParamType::Boolean, "Totem Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     DESTRUCTION,
     GLOOMSPITE_GITZ

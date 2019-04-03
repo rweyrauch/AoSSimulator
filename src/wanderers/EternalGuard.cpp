@@ -18,12 +18,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = EternalGuard::MIN_UNIT_SIZE}, EternalGuard::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", EternalGuard::MIN_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE,
             EternalGuard::MAX_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Glade Shields", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Glade Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     WANDERER

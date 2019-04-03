@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = DankholdTroggoths::MIN_UNIT_SIZE}, DankholdTroggoths::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", DankholdTroggoths::MIN_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE,
             DankholdTroggoths::MAX_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE
         },
     },

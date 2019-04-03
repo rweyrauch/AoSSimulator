@@ -18,10 +18,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = GlaivewraithStalkers::MIN_UNIT_SIZE}, GlaivewraithStalkers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", GlaivewraithStalkers::MIN_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE,
             GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Drummer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     DEATH,
     NIGHTHAUNT

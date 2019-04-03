@@ -18,11 +18,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = AkhelianMorrsarrGuard::MIN_UNIT_SIZE}, AkhelianMorrsarrGuard::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", AkhelianMorrsarrGuard::MIN_UNIT_SIZE, AkhelianMorrsarrGuard::MIN_UNIT_SIZE,
             AkhelianMorrsarrGuard::MAX_UNIT_SIZE, AkhelianMorrsarrGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Musicians", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     IDONETH_DEEPKIN

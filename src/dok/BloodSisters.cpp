@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BloodSisters::MIN_UNIT_SIZE}, BloodSisters::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", BloodSisters::MIN_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE,
             BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE
         },
     },

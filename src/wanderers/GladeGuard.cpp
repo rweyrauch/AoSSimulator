@@ -19,11 +19,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = GladeGuard::MIN_UNIT_SIZE}, GladeGuard::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", GladeGuard::MIN_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE,
             GladeGuard::MAX_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Pennant Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblower", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Pennant Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
     WANDERER

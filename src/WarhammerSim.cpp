@@ -64,7 +64,7 @@ bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool
     {
         if (pip->m_paramType == ParamType::Boolean)
         {
-            value = pip->m_boolValue;
+            value = (pip->m_intValue == 0) ? false : true;
         }
     }
     return value;
@@ -142,7 +142,7 @@ std::string ParameterValueToString(const Parameter &param)
     }
     else if (param.m_paramType == ParamType::Boolean)
     {
-        if (param.m_boolValue)
+        if (param.m_intValue != 0)
             ss << "true";
         else
             ss << "false";

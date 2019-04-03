@@ -17,16 +17,16 @@ static FactoryMethod factoryMethod = {
     Longbeards::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Longbeards::MIN_UNIT_SIZE}, Longbeards::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
             Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Longbeards::AncestralAxesOrHammers}, Longbeards::AncestralAxesOrHammers,
+            ParamType::Enum, "Weapons", Longbeards::AncestralAxesOrHammers, Longbeards::AncestralAxesOrHammers,
             Longbeards::AncestralGreatAxe, 1
         },
-        {ParamType::Boolean, "Gromril Shields", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Standard Bearer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Musician", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

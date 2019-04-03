@@ -19,13 +19,13 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Shootas::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", Shootas::MIN_UNIT_SIZE,
             Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "Barbed Nets", {.m_intValue = 0}, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Gong Bashers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Flag Bearers", {.m_intValue = 1}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Icon Bearers", {.m_intValue = 0}, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Barbed Nets", 0, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Gong Bashers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Flag Bearers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Icon Bearers", 0, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
     },
     DESTRUCTION,
     GLOOMSPITE_GITZ

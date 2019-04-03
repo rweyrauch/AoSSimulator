@@ -18,12 +18,12 @@ static FactoryMethod factoryMethod = {
     Orruks::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Orruks::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", Orruks::MIN_UNIT_SIZE,
             Orruks::MIN_UNIT_SIZE, Orruks::MAX_UNIT_SIZE, Orruks::MIN_UNIT_SIZE
         },
-        {ParamType::Enum, "Weapons", {.m_intValue = Orruks::ChoppaAndShield}, Orruks::ChoppaAndShield, Orruks::OrrukBowAndCutta, 1},
-        {ParamType::Boolean, "Waaagh! Drummer", {.m_boolValue = false}, false, false, false},
-        {ParamType::Enum, "Standard Bearer", {.m_intValue = Orruks::OrrukBanner}, Orruks::None, Orruks::SkullIcon, 1},
+        {ParamType::Enum, "Weapons", Orruks::ChoppaAndShield, Orruks::ChoppaAndShield, Orruks::OrrukBowAndCutta, 1},
+        {ParamType::Boolean, "Waaagh! Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "Standard Bearer", Orruks::OrrukBanner, Orruks::None, Orruks::SkullIcon, 1},
     },
     DESTRUCTION,
     GREENSKINZ

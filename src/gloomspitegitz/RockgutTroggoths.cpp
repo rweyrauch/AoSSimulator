@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = RockgutTroggoths::MIN_UNIT_SIZE}, RockgutTroggoths::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", RockgutTroggoths::MIN_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE,
             RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE
         },
     },

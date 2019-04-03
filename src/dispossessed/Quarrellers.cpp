@@ -18,12 +18,12 @@ static FactoryMethod factoryMethod = {
     Quarrellers::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Quarrellers::MIN_UNIT_SIZE}, Quarrellers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Quarrellers::MIN_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE,
             Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Duardin Bucklers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Enum, "Standard", {.m_intValue = Quarrellers::None}, Quarrellers::None, Quarrellers::ClanBanner, 1},
-        {ParamType::Boolean, "Drummer", {.m_boolValue = false}, false, false, false}
+        {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "Standard", Quarrellers::None, Quarrellers::None, Quarrellers::ClanBanner, 1},
+        {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     ORDER,
     DISPOSSESSED

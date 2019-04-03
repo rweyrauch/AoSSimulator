@@ -16,7 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Khorgoraths::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", Khorgoraths::MIN_UNIT_SIZE,
             Khorgoraths::MIN_UNIT_SIZE,
             Khorgoraths::MAX_UNIT_SIZE, Khorgoraths::MIN_UNIT_SIZE
         },

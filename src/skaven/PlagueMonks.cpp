@@ -19,17 +19,17 @@ static FactoryMethod factoryMethod = {
     PlagueMonks::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = PlagueMonks::MIN_UNIT_SIZE}, PlagueMonks::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", PlagueMonks::MIN_UNIT_SIZE, PlagueMonks::MIN_UNIT_SIZE,
             PlagueMonks::MAX_UNIT_SIZE, PlagueMonks::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = PlagueMonks::PairedFoetidBlades}, PlagueMonks::PairedFoetidBlades,
+            ParamType::Enum, "Weapons", PlagueMonks::PairedFoetidBlades, PlagueMonks::PairedFoetidBlades,
             PlagueMonks::FoetidBladeAndWoeStave, 1
         },
-        {ParamType::Integer, "Contagion Banners", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Icons Of Pestilence", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Doom Gongs", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Bale Chimes", {.m_intValue = 0}, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
+        {ParamType::Integer, "Contagion Banners", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Icons Of Pestilence", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Doom Gongs", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Bale Chimes", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
     SKAVEN

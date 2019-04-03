@@ -19,16 +19,16 @@ static FactoryMethod factoryMethod = {
     Liberators::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Liberators::MIN_UNIT_SIZE}, Liberators::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Liberators::MIN_UNIT_SIZE, Liberators::MIN_UNIT_SIZE,
             Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Liberators::Warhammer}, Liberators::Warhammer,
+            ParamType::Enum, "Weapons", Liberators::Warhammer, Liberators::Warhammer,
             Liberators::Warblade, 1
         },
-        {ParamType::Boolean, "Paired Weapons", {.m_boolValue = false}, false, false},
-        {ParamType::Integer, "Grandhammers", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "Grandblades", {.m_intValue = 0}, 0, Liberators::MAX_UNIT_SIZE / 5, 1}
+        {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Integer, "Grandhammers", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Integer, "Grandblades", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1}
     },
     ORDER,
     STORMCAST_ETERNAL

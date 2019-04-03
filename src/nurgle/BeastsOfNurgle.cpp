@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BeastsOfNurgle::MIN_UNIT_SIZE}, BeastsOfNurgle::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", BeastsOfNurgle::MIN_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE,
             BeastsOfNurgle::MAX_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE
         },
     },

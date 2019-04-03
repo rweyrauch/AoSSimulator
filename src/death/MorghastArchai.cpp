@@ -16,11 +16,11 @@ static FactoryMethod factoryMethod = {
     MorghastArchai::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = MorghastArchai::MIN_UNIT_SIZE}, MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MAX_UNIT_SIZE,
             MorghastArchai::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = MorghastArchai::SpiritHalberd}, MorghastArchai::SpiritHalberd, MorghastArchai::SpiritSwords, 1
+            ParamType::Enum, "Weapons", MorghastArchai::SpiritHalberd, MorghastArchai::SpiritHalberd, MorghastArchai::SpiritSwords, 1
         },
     },
     DEATH,

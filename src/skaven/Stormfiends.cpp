@@ -18,19 +18,19 @@ static FactoryMethod factoryMethod = {
     Stormfiends::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Stormfiends::MIN_UNIT_SIZE}, Stormfiends::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Stormfiends::MIN_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE,
             Stormfiends::MAX_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapon A", {.m_intValue = Stormfiends::WarpfireProjectors}, Stormfiends::WarpfireProjectors,
+            ParamType::Enum, "Weapon A", Stormfiends::WarpfireProjectors, Stormfiends::WarpfireProjectors,
             Stormfiends::Windlaunchers, 1
         },
         {
-            ParamType::Enum, "Weapon B", {.m_intValue = Stormfiends::Grinderfists}, Stormfiends::Grinderfists,
+            ParamType::Enum, "Weapon B", Stormfiends::Grinderfists, Stormfiends::Grinderfists,
             Stormfiends::RatlingCannons, 1
         },
         {
-            ParamType::Enum, "Weapon C", {.m_intValue = Stormfiends::DoomflayerGauntlets}, Stormfiends::DoomflayerGauntlets,
+            ParamType::Enum, "Weapon C", Stormfiends::DoomflayerGauntlets, Stormfiends::DoomflayerGauntlets,
             Stormfiends::ShockGauntlets, 1
         },
     },

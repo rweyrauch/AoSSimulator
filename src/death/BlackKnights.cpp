@@ -17,11 +17,11 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BlackKnights::MIN_UNIT_SIZE}, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE,
+            ParamType::Integer, "Models", BlackKnights::MIN_UNIT_SIZE, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE,
             BlackKnights::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Standard Bearers", {.m_boolValue = false}, false, false, false},
-        {ParamType::Boolean, "Hornblowers", {.m_boolValue = false}, false, false, false},
+        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
     DEATHRATTLE

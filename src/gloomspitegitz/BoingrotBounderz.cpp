@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = BoingrotBounderz::MIN_UNIT_SIZE},
+            ParamType::Integer, "Models", BoingrotBounderz::MIN_UNIT_SIZE,
             BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE
         }
     },

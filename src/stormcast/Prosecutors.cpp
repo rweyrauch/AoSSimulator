@@ -17,13 +17,13 @@ static FactoryMethod factoryMethod = {
     Prosecutors::ValueToString,
     Prosecutors::EnumStringToInt,
     {
-        {ParamType::Integer, "Models", {.m_intValue = Prosecutors::MIN_UNIT_SIZE}, Prosecutors::MIN_UNIT_SIZE, Prosecutors::MAX_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Weapons", {.m_intValue = Prosecutors::StormcallJavelinAndShield}, Prosecutors::StormcallJavelinAndShield, Prosecutors::CelestialHammerAndShield, 1},
-        {ParamType::Enum, "Prime Grand Weapon", {.m_intValue = Prosecutors::None}, Prosecutors::None, Prosecutors::Grandhammer, 1},
-        {ParamType::Integer, "Stormsurge Tridents", {.m_intValue = 0}, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandaxes", {.m_intValue = 0}, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandblades", {.m_intValue = 0}, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandhammers", {.m_intValue = 0}, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 }
+        {ParamType::Integer, "Models", Prosecutors::MIN_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE, Prosecutors::MAX_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE},
+        {ParamType::Enum, "Weapons", Prosecutors::StormcallJavelinAndShield, Prosecutors::StormcallJavelinAndShield, Prosecutors::CelestialHammerAndShield, 1},
+        {ParamType::Enum, "Prime Grand Weapon", Prosecutors::None, Prosecutors::None, Prosecutors::Grandhammer, 1},
+        {ParamType::Integer, "Stormsurge Tridents", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
+        {ParamType::Integer, "Grandaxes", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
+        {ParamType::Integer, "Grandblades", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
+        {ParamType::Integer, "Grandhammers", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 }
     },
     ORDER,
     STORMCAST_ETERNAL

@@ -18,16 +18,16 @@ static FactoryMethod factoryMethod = {
     KairicAcolytes::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = KairicAcolytes::MIN_UNIT_SIZE}, KairicAcolytes::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", KairicAcolytes::MIN_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE,
             KairicAcolytes::MAX_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = KairicAcolytes::CursedBlade}, KairicAcolytes::CursedBlade,
+            ParamType::Enum, "Weapons", KairicAcolytes::CursedBlade, KairicAcolytes::CursedBlade,
             KairicAcolytes::CursedBladeAndShield, 1
         },
-        {ParamType::Integer, "Cursed Glaives", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
-        {ParamType::Integer, "Scrolls Of Dark Arts", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Vulcharcs", {.m_intValue = 0}, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Cursed Glaives", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
+        {ParamType::Integer, "Scrolls Of Dark Arts", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+        {ParamType::Integer, "Vulcharcs", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
     },
     CHAOS,
     TZEENTCH

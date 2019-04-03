@@ -17,15 +17,15 @@ static FactoryMethod factoryMethod = {
     Bullgors::EnumStringToInt,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = Bullgors::MIN_UNIT_SIZE}, Bullgors::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", Bullgors::MIN_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE,
             Bullgors::MAX_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", {.m_intValue = Bullgors::BullgorAxe}, Bullgors::BullgorAxe,
+            ParamType::Enum, "Weapons", Bullgors::BullgorAxe, Bullgors::BullgorAxe,
             Bullgors::BullgorGreatAxe, 1
         },
-        {ParamType::Boolean, "Drummer", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Banner Bearer", {.m_boolValue = true}, false, false}
+        {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     CHAOS,
     BEASTS_OF_CHAOS

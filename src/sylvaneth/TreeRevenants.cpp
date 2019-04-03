@@ -20,12 +20,12 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = TreeRevenants::MIN_UNIT_SIZE}, TreeRevenants::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", TreeRevenants::MIN_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE,
             TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE
         },
-        {ParamType::Boolean, "Scion Glaive", {.m_boolValue = false}, false, false},
-        {ParamType::Boolean, "Glade Banners", {.m_boolValue = true}, false, false},
-        {ParamType::Boolean, "Waypipes", {.m_boolValue = true}, false, false},
+        {ParamType::Boolean, "Scion Glaive", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Glade Banners", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Waypipes", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     SYLVANETH

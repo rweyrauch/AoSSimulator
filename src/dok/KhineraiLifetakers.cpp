@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     {
         {
-            ParamType::Integer, "Models", {.m_intValue = KhineraiLifetakers::MIN_UNIT_SIZE}, KhineraiLifetakers::MIN_UNIT_SIZE,
+            ParamType::Integer, "Models", KhineraiLifetakers::MIN_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE,
             KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE
         },
     },
