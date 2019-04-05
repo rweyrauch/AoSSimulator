@@ -77,6 +77,8 @@
 #include "nurgle/PutridBlightkings.h"
 #include "nurgle/BeastsOfNurgle.h"
 #include "nurgle/TheGlottkin.h"
+#include "nurgle/PlagueDrones.h"
+#include "nurgle/PusgoyleBlightlords.h"
 
 #include "death/BlackKnights.h"
 #include "death/BloodKnights.h"
@@ -195,6 +197,8 @@ void Initialize(Verbosity verbosity)
     Nurgle::PutridBlightkings::Init();
     Nurgle::BeastsOfNurgle::Init();
     Nurgle::TheGlottkin::Init();
+    Nurgle::PlagueDrones::Init();
+    Nurgle::PusgoyleBlightlords::Init();
 
     Death::BlackKnights::Init();
     Death::BloodKnights::Init();

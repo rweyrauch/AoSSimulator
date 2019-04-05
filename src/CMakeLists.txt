@@ -163,6 +163,8 @@ add_library(
         nurgle/PutridBlightkings.cpp
         nurgle/BeastsOfNurgle.cpp
         nurgle/TheGlottkin.cpp
+        nurgle/PlagueDrones.cpp
+        nurgle/PusgoyleBlightlords.cpp
 
         death/BlackKnights.cpp
         death/BloodKnights.cpp
