@@ -32,7 +32,7 @@ static FactoryMethod factoryMethod = {
 bool EternalGuard::s_registered = false;
 
 EternalGuard::EternalGuard() :
-    Unit("Eternal Guard", 6, WOUNDS, 7, 5, false),
+    Wanderer("Eternal Guard", 6, WOUNDS, 7, 5, false),
     m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 1, 4, 4, 0, 1),
     m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave (Warden)", 2, 2, 4, 4, 0, 1)
 {
@@ -107,12 +107,12 @@ Rerolls EternalGuard::runRerolls() const
     {
         return RerollFailed;
     }
-    return Unit::runRerolls();
+    return Wanderer::runRerolls();
 }
 
 int EternalGuard::braveryModifier() const
 {
-    int modifier = Unit::braveryModifier();
+    int modifier = Wanderer::braveryModifier();
     if (m_standardBearer)
     {
         modifier += 1;
@@ -129,7 +129,7 @@ Rerolls EternalGuard::toSaveRerolls(const Weapon *weapon) const
         // if (Board::Instance()->unitInCover(this)) { return RerollOnesAndTwos; }
         return RerollOnes;
     }
-    return Unit::toSaveRerolls(weapon);
+    return Wanderer::toSaveRerolls(weapon);
 }
 
 void EternalGuard::onStartHero(PlayerId player)

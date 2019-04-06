@@ -9,13 +9,13 @@
 #ifndef WILDWOODRANGERS_H
 #define WILDWOODRANGERS_H
 
-#include <Unit.h>
+#include <wanderers/Wanderer.h>
 #include <Weapon.h>
 
 namespace Wanderers
 {
 
-class WildwoodRangers : public Unit
+class WildwoodRangers : public Wanderer
 {
 public:
 

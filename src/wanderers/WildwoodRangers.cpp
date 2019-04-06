@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool WildwoodRangers::s_registered = false;
 
 WildwoodRangers::WildwoodRangers() :
-    Unit("Wildwood Rangers", 6, WOUNDS, 7, 5, false),
+    Wanderer("Wildwood Rangers", 6, WOUNDS, 7, 5, false),
     m_rangersDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 2, 3, 3, -1, 1),
     m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich (Warden)", 2, 3, 3, 3, -1, 1)
 {
@@ -105,7 +105,7 @@ Wounds WildwoodRangers::weaponDamage(const Weapon *weapon, const Unit *target, i
         Dice dice;
         return {dice.rollD3(), 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Wanderer::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 Rerolls WildwoodRangers::runRerolls() const
@@ -114,12 +114,12 @@ Rerolls WildwoodRangers::runRerolls() const
     {
         return RerollFailed;
     }
-    return Unit::runRerolls();
+    return Wanderer::runRerolls();
 }
 
 int WildwoodRangers::braveryModifier() const
 {
-    int modifier = Unit::braveryModifier();
+    int modifier = Wanderer::braveryModifier();
     if (m_standardBearer)
     {
         modifier += 1;

@@ -9,13 +9,13 @@
 #ifndef ETERNALGUARD_H
 #define ETERNALGUARD_H
 
-#include <Unit.h>
+#include <wanderers/Wanderer.h>
 #include <Weapon.h>
 
 namespace Wanderers
 {
 
-class EternalGuard : public Unit
+class EternalGuard : public Wanderer
 {
 public:
 

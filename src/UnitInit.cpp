@@ -21,6 +21,7 @@
 #include "dispossessed/Dispossessed.h"
 #include "ironjawz/Ironjawz.h"
 #include "khorne/KhorneBase.h"
+#include "wanderers/Wanderer.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -76,10 +77,6 @@
 #include "death/MorghastArchai.h"
 #include "death/MorghastHarbingers.h"
 
-#include "wanderers/GladeGuard.h"
-#include "wanderers/EternalGuard.h"
-#include "wanderers/WildwoodRangers.h"
-
 #include "tzeentch/KairicAcolytes.h"
 #include "tzeentch/PinkHorrors.h"
 #include "tzeentch/TzaangorEnlightened.h"
@@ -124,6 +121,7 @@ void Initialize(Verbosity verbosity)
     Dispossessed::Init();
     Ironjawz::Init();
     Khorne::Init();
+    Wanderers::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();
@@ -178,10 +176,6 @@ void Initialize(Verbosity verbosity)
     Death::Necromancer::Init();
     Death::MorghastArchai::Init();
     Death::MorghastHarbingers::Init();
-
-    Wanderers::GladeGuard::Init();
-    Wanderers::EternalGuard::Init();
-    Wanderers::WildwoodRangers::Init();
 
     Tzeentch::KairicAcolytes::Init();
     Tzeentch::PinkHorrors::Init();

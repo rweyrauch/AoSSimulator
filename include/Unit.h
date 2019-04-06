@@ -357,6 +357,7 @@ protected:
     bool m_runAndShoot = false;
     bool m_runAndCharge = false;
     bool m_retreatAndCharge = false;
+    bool m_retreatAndShoot = false;
     bool m_ignoreRend = false;
     bool m_isGeneral = false;
 

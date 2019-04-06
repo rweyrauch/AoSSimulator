@@ -195,6 +195,7 @@ add_library(
         fec/RoyalZombieDragon.cpp
         fec/VarghulfCourtier.cpp
 
+        wanderers/Wanderer.cpp
         wanderers/EternalGuard.cpp
         wanderers/GladeGuard.cpp
         wanderers/WildwoodRangers.cpp

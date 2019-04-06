@@ -32,7 +32,7 @@ static FactoryMethod factoryMethod = {
 bool GladeGuard::s_registered = false;
 
 GladeGuard::GladeGuard() :
-    Unit("Glade Guard", 6, WOUNDS, 6, 6, false),
+    Wanderer("Glade Guard", 6, WOUNDS, 6, 6, false),
     m_longbow(Weapon::Type::Missile, "Longbow", 20, 1, 4, 4, 0, 1),
     m_longbowLord(Weapon::Type::Missile, "Longbow (Lord)", 20, 2, 4, 4, 0, 1),
     m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1)
@@ -105,7 +105,7 @@ void GladeGuard::Init()
 
 int GladeGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toHitModifier(weapon, target);
+    int modifier = Wanderer::toHitModifier(weapon, target);
     // Peerless Archery
     if (weapon->isMissile() && remainingModels() >= 20)
     {
@@ -124,12 +124,12 @@ Rerolls GladeGuard::runRerolls() const
     {
         return RerollFailed;
     }
-    return Unit::runRerolls();
+    return Wanderer::runRerolls();
 }
 
 int GladeGuard::braveryModifier() const
 {
-    int modifier = Unit::braveryModifier();
+    int modifier = Wanderer::braveryModifier();
     if (m_pennantBearer)
     {
         modifier += 1;
@@ -141,7 +141,7 @@ int GladeGuard::braveryModifier() const
 
 void GladeGuard::onStartShooting(PlayerId player)
 {
-    Unit::onStartShooting(player);
+    Wanderer::onStartShooting(player);
 
     m_longbow.setRend(0);
     m_longbowLord.setRend(0);

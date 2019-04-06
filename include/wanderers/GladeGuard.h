@@ -9,13 +9,13 @@
 #ifndef GLADEGUARD_H
 #define GLADEGUARD_H
 
-#include <Unit.h>
+#include <wanderers/Wanderer.h>
 #include <Weapon.h>
 
 namespace Wanderers
 {
 
-class GladeGuard : public Unit
+class GladeGuard : public Wanderer
 {
 public:
 
