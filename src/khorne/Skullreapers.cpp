@@ -28,7 +28,7 @@ static FactoryMethod factoryMethod = {
 bool Skullreapers::s_registered = false;
 
 Skullreapers::Skullreapers() :
-    Unit("Skullreapers", 5, WOUNDS, 7, 4, false),
+    KhorneBase("Skullreapers", 5, WOUNDS, 7, 4, false),
     m_blades(Weapon::Type::Melee, "Gore-slick Blades, Daemonblade, Spinecleavers and Soultearers", 1, 4, 3, 3, 0, 1),
     m_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3)
 {
@@ -106,7 +106,7 @@ Rerolls Skullreapers::toHitRerolls(const Weapon *weapon, const Unit *target) con
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 Wounds Skullreapers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -117,7 +117,7 @@ Wounds Skullreapers::weaponDamage(const Weapon *weapon, const Unit *target, int 
         Wounds wounds = {weapon->damage(), 1};
         return wounds;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Khorne

@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Skullmaster::s_registered = false;
 
 Skullmaster::Skullmaster() :
-    Unit("Skullmaster", 8, WOUNDS, 10, 4, false),
+    KhorneBase("Skullmaster", 8, WOUNDS, 10, 4, false),
     m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1),
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
@@ -79,7 +79,7 @@ Wounds Skullmaster::weaponDamage(const Weapon *weapon, const Unit *target, int h
     {
         return {weapon->damage(), 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void Skullmaster::onCharged()
@@ -108,7 +108,7 @@ void Skullmaster::onCharged()
 
         m_meleeTarget->applyDamage(wounds);
     }
-    Unit::onCharged();
+    KhorneBase::onCharged();
 }
 
 Rerolls Skullmaster::toHitRerolls(const Weapon *weapon, const Unit *target) const
@@ -118,7 +118,7 @@ Rerolls Skullmaster::toHitRerolls(const Weapon *weapon, const Unit *target) cons
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 } // namespace Khorne

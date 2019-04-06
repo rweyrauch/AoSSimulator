@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool FleshHounds::s_registered = false;
 
 FleshHounds::FleshHounds() :
-    Unit("FleshHounds", 8, WOUNDS, 10, 5, false),
+    KhorneBase("FleshHounds", 8, WOUNDS, 10, 5, false),
     m_burningRoar(Weapon::Type::Missile, "Burning Roar", 8, 1, 2, 4, 0, 1),
     m_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1)
 {

@@ -9,13 +9,13 @@
 #ifndef WRATHMONGERS_H
 #define WRATHMONGERS_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class Wrathmongers : public Unit
+class Wrathmongers : public KhorneBase
 {
 public:
     static const int BASESIZE = 40;

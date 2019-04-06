@@ -33,7 +33,7 @@ static FactoryMethod factoryMethod = {
 bool BloodWarriors::s_registered = false;
 
 BloodWarriors::BloodWarriors() :
-    Unit("Blood Warriors", 5, WOUNDS, 6, 4, false),
+    KhorneBase("Blood Warriors", 5, WOUNDS, 6, 4, false),
     m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1),
     m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe (Champion)", 1, 3, 3, 4, 0, 1),
     m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2)
@@ -95,12 +95,12 @@ Rerolls BloodWarriors::toHitRerolls(const Weapon *weapon, const Unit *unit) cons
         return RerollOnes;
     }
 
-    return Unit::toHitRerolls(weapon, unit);
+    return KhorneBase::toHitRerolls(weapon, unit);
 }
 
 int BloodWarriors::braveryModifier() const
 {
-    int modifier = Unit::braveryModifier();
+    int modifier = KhorneBase::braveryModifier();
 
     // Icon Bearer
     if (m_iconBearer)
@@ -145,7 +145,7 @@ void BloodWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
 
 Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
+    auto wounds = KhorneBase::computeReturnedDamage(weapon, saveRoll);
     // Gorefists
     if (!m_pairedGoreaxe && (saveRoll == 6))
     {

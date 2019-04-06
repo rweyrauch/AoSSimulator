@@ -9,13 +9,13 @@
 #ifndef KARANAK_H
 #define KARANAK_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class Karanak : public Unit
+class Karanak : public KhorneBase
 {
 public:
     static const int BASESIZE = 60; // x35 oval

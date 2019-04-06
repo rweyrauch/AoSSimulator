@@ -61,6 +61,7 @@ add_library(
         stormcast/NeaveBlacktalon.cpp
         stormcast/GavrielSureheart.cpp
 
+        khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp
         khorne/BloodWarriors.cpp
         khorne/Bloodletters.cpp

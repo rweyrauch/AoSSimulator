@@ -29,7 +29,7 @@ bool Khorgoraths::s_registered = false;
 
 
 Khorgoraths::Khorgoraths() :
-    Unit("Khorgoraths", 6, WOUNDS, 6, 4, false),
+    KhorneBase("Khorgoraths", 6, WOUNDS, 6, 4, false),
     m_boneTentacles(Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1),
     m_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2)
 {
@@ -92,7 +92,7 @@ void Khorgoraths::onStartCombat(PlayerId player)
 {
     m_modelsSlainAtStartOfCombat = m_currentRecord.m_enemyModelsSlain;
 
-    Unit::onStartCombat(player);
+    KhorneBase::onStartCombat(player);
 }
 
 void Khorgoraths::onEndCombat(PlayerId player)
@@ -104,7 +104,7 @@ void Khorgoraths::onEndCombat(PlayerId player)
             name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
         heal(1);
     }
-    Unit::onEndCombat(player);
+    KhorneBase::onEndCombat(player);
 }
 
 } //namespace Khorne

@@ -42,7 +42,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool Skarbrand::s_registered = false;
 
 Skarbrand::Skarbrand() :
-    Unit("Skarbrand", 8, WOUNDS, 10, 4, true),
+    KhorneBase("Skarbrand", 8, WOUNDS, 10, 4, true),
     m_slaughter(Weapon::Type::Melee, "Slaughter", 2, 5, 4, 3, -2, 3),
     m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0)
 {
@@ -95,7 +95,7 @@ void Skarbrand::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_slaughter.setAttacks(g_damageTable[damageIndex].m_slaughterAttacks);
 
-    Unit::onWounded();
+    KhorneBase::onWounded();
 }
 
 int Skarbrand::getDamageTableIndex() const
@@ -143,7 +143,7 @@ int Skarbrand::generateMortalWounds(const Unit *unit)
         }
     }
 
-    return Unit::generateMortalWounds(unit);
+    return KhorneBase::generateMortalWounds(unit);
 }
 
 void Skarbrand::onStartShooting(PlayerId player)
@@ -167,7 +167,7 @@ void Skarbrand::onStartShooting(PlayerId player)
             m_attackedInPreviousRound = true;
         }
     }
-    Unit::onStartShooting(player);
+    KhorneBase::onStartShooting(player);
 }
 
 } // namespace Khorne

@@ -20,24 +20,7 @@
 #include "skaven/Skaventide.h"
 #include "dispossessed/Dispossessed.h"
 #include "ironjawz/Ironjawz.h"
-
-#include "khorne/Bloodreavers.h"
-#include "khorne/BloodWarriors.h"
-#include "khorne/Bloodletters.h"
-#include "khorne/Skullreapers.h"
-#include "khorne/Wrathmongers.h"
-#include "khorne/Khorgoraths.h"
-#include "khorne/BloodthirsterOfUnfetteredFury.h"
-#include "khorne/BloodthirsterOfInsensateRage.h"
-#include "khorne/WrathOfKhorneBloodthirster.h"
-#include "khorne/Skarbrand.h"
-#include "khorne/Karanak.h"
-#include "khorne/FleshHounds.h"
-#include "khorne/Skulltaker.h"
-#include "khorne/Bloodmaster.h"
-#include "khorne/Bloodcrushers.h"
-#include "khorne/MightySkullcrushers.h"
-#include "khorne/Skullmaster.h"
+#include "khorne/KhorneBase.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -140,24 +123,7 @@ void Initialize(Verbosity verbosity)
     Skaven::Init();
     Dispossessed::Init();
     Ironjawz::Init();
-
-    Khorne::Bloodreavers::Init();
-    Khorne::BloodWarriors::Init();
-    Khorne::Bloodletters::Init();
-    Khorne::Wrathmongers::Init();
-    Khorne::Skullreapers::Init();
-    Khorne::Khorgoraths::Init();
-    Khorne::BloodthirsterOfUnfetteredFury::Init();
-    Khorne::BloodthirsterOfInsensateRage::Init();
-    Khorne::WrathOfKhorneBloodthirster::Init();
-    Khorne::Skarbrand::Init();
-    Khorne::Karanak::Init();
-    Khorne::FleshHounds::Init();
-    Khorne::Skulltaker::Init();
-    Khorne::Bloodmaster::Init();
-    Khorne::Bloodcrushers::Init();
-    Khorne::MightySkullcrushers::Init();
-    Khorne::Skullmaster::Init();
+    Khorne::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();

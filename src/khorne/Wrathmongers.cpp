@@ -28,7 +28,7 @@ static FactoryMethod factoryMethod = {
 bool Wrathmongers::s_registered = false;
 
 Wrathmongers::Wrathmongers() :
-    Unit("Wrathmongers", 5, WOUNDS, 7, 5, false),
+    KhorneBase("Wrathmongers", 5, WOUNDS, 7, 5, false),
     m_wrathflails(Weapon::Type::Melee, "Wrath-flails", 2, 4, 4, 3, -1, 1),
     m_wrathflailsMaster(Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1)
 {
@@ -92,7 +92,7 @@ void Wrathmongers::Init()
 
 int Wrathmongers::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toHitModifier(weapon, target);
+    int modifier = KhorneBase::toHitModifier(weapon, target);
 
     // Furious Assault
     if (m_charged)

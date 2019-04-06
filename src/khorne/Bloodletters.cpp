@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool Bloodletters::s_registered = false;
 
 Bloodletters::Bloodletters() :
-    Unit("Bloodletters", 5, WOUNDS, 10, 5, false),
+    KhorneBase("Bloodletters", 5, WOUNDS, 10, 5, false),
     m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
     m_hellbladeReaper(Weapon::Type::Melee, "Hellblade (Reaper)", 1, 2, 4, 3, -1, 1)
 {
@@ -82,7 +82,7 @@ Wounds Bloodletters::weaponDamage(const Weapon *weapon, const Unit *target, int 
     {
         return {weapon->damage(), 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 Unit *Bloodletters::Create(const ParameterList &parameters)
@@ -113,7 +113,7 @@ void Bloodletters::Init()
 int Bloodletters::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Murderous Tide
-    int attacks = Unit::extraAttacks(nullptr, weapon, target);
+    int attacks = KhorneBase::extraAttacks(nullptr, weapon, target);
     if (remainingModels() >= 20)
     {
         attacks += 1;
@@ -138,12 +138,12 @@ Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) con
             return RerollOnes;
         }
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 void Bloodletters::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
 {
-    Unit::computeBattleshockEffect(roll, numFled, numAdded);
+    KhorneBase::computeBattleshockEffect(roll, numFled, numAdded);
     if (m_iconBearer)
     {
         // Icon Bearer

@@ -230,6 +230,12 @@ enum Keyword
     BLOODCRUSHERS,
     SKULLMASTER,
 
+    // Khorne Slaughter Hosts
+    REAPERS_OF_VENGEANCE,
+    BLOODLORDS,
+    GORETIDE,
+    SKULLFIEND_TRIBE,
+
     // Sylvaneth
     ALARIELLE_THE_EVERQUEEN,
     SPIRIT_OF_DURTHU,

@@ -37,7 +37,7 @@ static FactoryMethod factoryMethod = {
 bool Bloodreavers::s_registered = false;
 
 Bloodreavers::Bloodreavers() :
-    Unit("Bloodreavers", 6, WOUNDS, 5, 6, false),
+    KhorneBase("Bloodreavers", 6, WOUNDS, 5, 6, false),
     m_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1),
     m_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades (Chief)", 1, 2, 4, 4, 0, 1),
     m_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1),
@@ -102,12 +102,12 @@ Rerolls Bloodreavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
         return RerollOnes;
     }
 
-    return Unit::toHitRerolls(weapon, unit);
+    return KhorneBase::toHitRerolls(weapon, unit);
 }
 
 int Bloodreavers::braveryModifier() const
 {
-    int modifier = Unit::braveryModifier();
+    int modifier = KhorneBase::braveryModifier();
 
     // Icon Bearer
     if (m_iconBearer)
@@ -174,7 +174,7 @@ void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 
 int Bloodreavers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(nullptr, weapon, target);
+    int attacks = KhorneBase::extraAttacks(nullptr, weapon, target);
 
     // Frenzied Devotion
     auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
@@ -192,7 +192,7 @@ int Bloodreavers::extraAttacks(const Model *attackingModel, const Weapon *weapon
 
 int Bloodreavers::runModifier() const
 {
-    int modifier = Unit::runModifier();
+    int modifier = KhorneBase::runModifier();
     if (m_hornblower)
     {
         modifier += 1;
@@ -202,7 +202,7 @@ int Bloodreavers::runModifier() const
 
 int Bloodreavers::chargeModifier() const
 {
-    int modifier = Unit::chargeModifier();
+    int modifier = KhorneBase::chargeModifier();
     if (m_hornblower)
     {
         modifier += 1;

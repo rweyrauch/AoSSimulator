@@ -43,7 +43,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool BloodthirsterOfInsensateRage::s_registered = false;
 
 BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage() :
-    Unit("Bloodthirster Of Insensate Rage", 14, WOUNDS, 10, 4, true),
+    KhorneBase("Bloodthirster Of Insensate Rage", 14, WOUNDS, 10, 4, true),
     m_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 5, 4, 2, -2, RAND_D6)
 {
     m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_INSENSATE_RAGE};
@@ -112,7 +112,7 @@ Rerolls BloodthirsterOfInsensateRage::toHitRerolls(const Weapon *weapon, const U
     {
         return RerollOnes;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 void BloodthirsterOfInsensateRage::onWounded()
@@ -120,7 +120,7 @@ void BloodthirsterOfInsensateRage::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_greatAxeOfKhorne.setAttacks(g_damageTable[damageIndex].m_axeAttacks);
 
-    Unit::onWounded();
+    KhorneBase::onWounded();
 }
 
 Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -147,7 +147,7 @@ Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Un
         }
         return wounds;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Khorne

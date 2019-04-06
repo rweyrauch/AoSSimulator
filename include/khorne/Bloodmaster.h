@@ -9,13 +9,13 @@
 #ifndef BLOODMASTER_H
 #define BLOODMASTER_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class Bloodmaster : public Unit
+class Bloodmaster : public KhorneBase
 {
 public:
     static const int BASESIZE = 40;

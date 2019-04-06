@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Bloodmaster::s_registered = false;
 
 Bloodmaster::Bloodmaster() :
-    Unit("Bloodmaster", 5, WOUNDS, 10, 4, false),
+    KhorneBase("Bloodmaster", 5, WOUNDS, 10, 4, false),
     m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, BLOODMASTER};
@@ -76,7 +76,7 @@ Wounds Bloodmaster::weaponDamage(const Weapon *weapon, const Unit *target, int h
     {
         return {weapon->damage(), 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 

@@ -9,13 +9,13 @@
 #ifndef SKULLCRUSHERS_H
 #define SKULLCRUSHERS_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class MightySkullcrushers : public Unit
+class MightySkullcrushers : public KhorneBase
 {
 public:
     static const int BASESIZE = 90; // x52 oval

@@ -9,13 +9,13 @@
 #ifndef KHORGORATHS_H
 #define KHORGORATHS_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class Khorgoraths : public Unit
+class Khorgoraths : public KhorneBase
 {
 public:
     static const int BASESIZE = 90; // x52 oval

@@ -42,7 +42,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool WrathOfKhorneBloodthirster::s_registered = false;
 
 WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
-    Unit("Wrath Of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
+    KhorneBase("Wrath Of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
     m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
     m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
@@ -95,7 +95,7 @@ void WrathOfKhorneBloodthirster::onWounded()
     m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
     m_bloodflail.setDamage(g_damageTable[damageIndex].m_flailDamage);
 
-    Unit::onWounded();
+    KhorneBase::onWounded();
 }
 
 int WrathOfKhorneBloodthirster::getDamageTableIndex() const
@@ -118,7 +118,7 @@ Rerolls WrathOfKhorneBloodthirster::toHitRerolls(const Weapon *weapon, const Uni
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 int WrathOfKhorneBloodthirster::move() const

@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool Bloodcrushers::s_registered = false;
 
 Bloodcrushers::Bloodcrushers() :
-    Unit("Bloodcrushers", 8, WOUNDS, 10, 4, false),
+    KhorneBase("Bloodcrushers", 8, WOUNDS, 10, 4, false),
     m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
     m_hellbladeHunter(Weapon::Type::Melee, "Hellblade (Bloodhunter)", 1, 2, 4, 3, -1, 1),
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
@@ -129,7 +129,7 @@ void Bloodcrushers::onCharged()
 
         m_meleeTarget->applyDamage(wounds);
     }
-    Unit::onCharged();
+    KhorneBase::onCharged();
 }
 
 Wounds Bloodcrushers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -139,7 +139,7 @@ Wounds Bloodcrushers::weaponDamage(const Weapon *weapon, const Unit *target, int
     {
         return {weapon->damage(), 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Khorne

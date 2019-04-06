@@ -43,7 +43,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool BloodthirsterOfUnfetteredFury::s_registered = false;
 
 BloodthirsterOfUnfetteredFury::BloodthirsterOfUnfetteredFury() :
-    Unit("Bloodthirster Of Unfettered Fury", 10, WOUNDS, 10, 4, true),
+    KhorneBase("Bloodthirster Of Unfettered Fury", 10, WOUNDS, 10, 4, true),
     m_lashOfKhorne(Weapon::Type::Missile, "Lash of Khorne", 8, 4, 4, 3, -1, RAND_D3),
     m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
@@ -114,7 +114,7 @@ void BloodthirsterOfUnfetteredFury::onWounded()
     m_lashOfKhorne.setAttacks(g_damageTable[damageIndex].m_lashAttacks);
     m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
 
-    Unit::onWounded();
+    KhorneBase::onWounded();
 }
 
 void BloodthirsterOfUnfetteredFury::onStartHero(PlayerId player)

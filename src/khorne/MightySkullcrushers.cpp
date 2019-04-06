@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool MightySkullcrushers::s_registered = false;
 
 MightySkullcrushers::MightySkullcrushers() :
-    Unit("Mighty Skullcrushers", 8, WOUNDS, 6, 3, false),
+    KhorneBase("Mighty Skullcrushers", 8, WOUNDS, 6, 3, false),
     m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 3, 3, 3, 0, 1),
     m_bloodglaive(Weapon::Type::Melee, "Bloodglaive", 1, 3, 4, 3, -1, 1),
     m_ensorcelledAxeHunter(Weapon::Type::Melee, "Ensorcelled Axe (Hunter)", 1, 4, 3, 3, 0, 1),
@@ -129,7 +129,7 @@ void MightySkullcrushers::Init()
 
 int MightySkullcrushers::chargeModifier() const
 {
-    int modifier = Unit::chargeModifier();
+    int modifier = KhorneBase::chargeModifier();
     if (m_hornblower)
         modifier += 1;
     return modifier;
@@ -137,7 +137,7 @@ int MightySkullcrushers::chargeModifier() const
 
 int MightySkullcrushers::runModifier() const
 {
-    int modifier = Unit::runModifier();
+    int modifier = KhorneBase::runModifier();
     if (m_hornblower)
         modifier += 1;
     return modifier;
@@ -145,7 +145,7 @@ int MightySkullcrushers::runModifier() const
 
 int MightySkullcrushers::braveryModifier() const
 {
-    int modifier = Unit::braveryModifier();
+    int modifier = KhorneBase::braveryModifier();
     if (m_standarBearer)
         modifier += 2;
     return modifier;
@@ -194,7 +194,7 @@ void MightySkullcrushers::onCharged()
 
         m_meleeTarget->applyDamage(wounds);
     }
-    Unit::onCharged();
+    KhorneBase::onCharged();
 }
 
 } // namespace Khorne

@@ -9,13 +9,13 @@
 #ifndef SKARBRAND_H
 #define SKARBRAND_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class Skarbrand : public Unit
+class Skarbrand : public KhorneBase
 {
 public:
     static const int BASESIZE = 100;

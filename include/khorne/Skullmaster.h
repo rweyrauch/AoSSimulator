@@ -9,13 +9,13 @@
 #ifndef SKULLMASTER_H
 #define SKULLMASTER_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class Skullmaster : public Unit
+class Skullmaster : public KhorneBase
 {
 public:
     static const int BASESIZE = 75; // x50 oval

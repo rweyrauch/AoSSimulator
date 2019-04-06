@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Karanak::s_registered = false;
 
 Karanak::Karanak() :
-    Unit("Karanak", 8, WOUNDS, 10, 4, false),
+    KhorneBase("Karanak", 8, WOUNDS, 10, 4, false),
     m_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1),
     m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3)
 {
@@ -79,7 +79,7 @@ Rerolls Karanak::toHitRerolls(const Weapon *weapon, const Unit *target) const
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 Rerolls Karanak::toWoundRerolls(const Weapon *weapon, const Unit *target) const
@@ -89,7 +89,7 @@ Rerolls Karanak::toWoundRerolls(const Weapon *weapon, const Unit *target) const
     {
         return RerollFailed;
     }
-    return Unit::toWoundRerolls(weapon, target);
+    return KhorneBase::toWoundRerolls(weapon, target);
 }
 
 void Karanak::onBeginTurn(int battleRound)
@@ -101,7 +101,7 @@ void Karanak::onBeginTurn(int battleRound)
         m_pQuarry = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
     }
 
-    Unit::onBeginTurn(battleRound);
+    KhorneBase::onBeginTurn(battleRound);
 }
 
 } // namespace Khorne

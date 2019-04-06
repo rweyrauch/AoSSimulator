@@ -9,13 +9,13 @@
 #ifndef BLOODTHIRSTERRAGE_H
 #define BLOODTHIRSTERRAGE_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class BloodthirsterOfInsensateRage : public Unit
+class BloodthirsterOfInsensateRage : public KhorneBase
 {
 public:
     static const int BASESIZE = 120; // x92 oval

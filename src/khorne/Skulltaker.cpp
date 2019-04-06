@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Skulltaker::s_registered = false;
 
 Skulltaker::Skulltaker() :
-    Unit("Skulltaker", 5, WOUNDS, 10, 4, false),
+    KhorneBase("Skulltaker", 5, WOUNDS, 10, 4, false),
     m_slayerSword(Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
@@ -76,7 +76,7 @@ Wounds Skulltaker::weaponDamage(const Weapon *weapon, const Unit *target, int hi
     {
         return {weapon->damage(), 3};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 Rerolls Skulltaker::toSaveRerolls(const Weapon *weapon) const
@@ -92,7 +92,7 @@ Rerolls Skulltaker::toHitRerolls(const Weapon *weapon, const Unit *target) const
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return KhorneBase::toHitRerolls(weapon, target);
 }
 
 Rerolls Skulltaker::toWoundRerolls(const Weapon *weapon, const Unit *target) const
@@ -102,7 +102,7 @@ Rerolls Skulltaker::toWoundRerolls(const Weapon *weapon, const Unit *target) con
     {
         return RerollFailed;
     }
-    return Unit::toWoundRerolls(weapon, target);
+    return KhorneBase::toWoundRerolls(weapon, target);
 }
 
 

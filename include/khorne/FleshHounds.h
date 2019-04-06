@@ -9,13 +9,13 @@
 #ifndef FLESHHOUNDS_H
 #define FLESHHOUNDS_H
 
-#include <Unit.h>
+#include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
 namespace Khorne
 {
 
-class FleshHounds : public Unit
+class FleshHounds : public KhorneBase
 {
 public:
     static const int BASESIZE = 60; // x35 oval
