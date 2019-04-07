@@ -118,11 +118,7 @@ void AbhorrantGhoulKingOnZombieDragon::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.woundsRemaining() += woundsHealed;
-                if (m.woundsRemaining() > WOUNDS)
-                {
-                    m.woundsRemaining() = WOUNDS;
-                }
+                m.applyHealing(woundsHealed);
             }
         }
     }

@@ -42,6 +42,7 @@ protected:
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onCharged() override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 

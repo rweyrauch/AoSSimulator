@@ -106,10 +106,9 @@ void DankholdTroggoths::onStartHero(PlayerId player)
                         if (m.woundsRemaining() < WOUNDS)
                         {
                             int numToHeal = std::min(woundsHealed, WOUNDS - m.woundsRemaining());
-                            m.woundsRemaining() += numToHeal;
+                            m.applyHealing(numToHeal);
                             woundsHealed -= numToHeal;
-                            if (woundsHealed <= 0)
-                            { break; }
+                            if (woundsHealed <= 0) { break; }
                         }
                     }
                 }

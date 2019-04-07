@@ -168,4 +168,9 @@ void VorgarothAndSkalok::onCharged()
     KhorneBase::onCharged();
 }
 
+Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds)
+{
+    return Unit::applyWoundSave(wounds);
+}
+
 } // namespace Khorne

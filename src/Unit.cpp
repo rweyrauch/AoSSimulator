@@ -35,7 +35,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
         const Model& model = m_models.at(i);
         if (model.fled() || model.slain()) continue;
 
-        for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
+        for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
         {
             const Weapon *w = *wip;
 
@@ -83,6 +83,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
     Wounds totalDamage = {0, 0};
     Wounds totalDamageReflected = {0, 0};
 
+    SimLog(Verbosity::Narrative, "%s attacking %s with %d models.\n", name().c_str(), targetUnit->name().c_str(), numAttackingModels);
+
     for (auto i = 0; i < numAttackingModels; i++)
     {
         const Model& model = m_models.at(i);
@@ -94,6 +96,9 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
 
             Wounds weaponDamage, reflectedDamage;
             attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
+
+            SimLog(Verbosity::Narrative, "\tModel[%d] attack with %s does damage {%d,%d}.\n",
+                i, w->name().c_str(), weaponDamage.normal, weaponDamage.mortal);
 
             // apply wound/mortal wound save
             Wounds damage = targetUnit->applyWoundSave(weaponDamage);
@@ -221,19 +226,17 @@ int Unit::applyDamage(const Wounds& totalWounds)
         if (model.slain() || model.fled()) continue;
 
         auto wounds = model.woundsRemaining();
+        auto remainingWounds = model.applyWound(totalDamage);
         if (totalDamage >= wounds)
         {
-            model.woundsRemaining() = 0;
-            model.slay();
-
             totalDamage -= wounds;
-            numSlain++;
         }
         else
         {
-            model.woundsRemaining() -= totalDamage;
             totalDamage = 0;
         }
+        if (remainingWounds == 0)
+            numSlain++;
     }
 
     onWounded();
@@ -293,7 +296,6 @@ void Unit::restore()
 {
     for (auto& m : m_models)
     {
-        m.woundsRemaining() = m_wounds;
         m.restore();
     }
 
@@ -674,14 +676,15 @@ int Unit::rollRunDistance() const
 
 int Unit::slay(int numModels)
 {
+    if (numModels <= 0)
+        return 0;
+
     int numSlain = 0;
     for (auto &model : m_models)
     {
         if (model.slain() || model.fled()) continue;
 
-        model.woundsRemaining() = 0;
         model.slay();
-
         numSlain++;
 
         if (numSlain > numModels) break;
@@ -700,15 +703,14 @@ int Unit::heal(int numWounds)
         if (model.slain() || model.fled()) continue;
 
         auto toHeal = wounds() - model.woundsRemaining();
+        model.applyHealing(toHeal);
         if (toHeal >= numWounds)
         {
-            model.woundsRemaining() += numWounds;
             numHealedWounds += numWounds;
             break;
         }
         else
         {
-            model.woundsRemaining() += toHeal;
             numWounds -= toHeal;
             numHealedWounds += toHeal;
         }
@@ -816,25 +818,33 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
                     if (!target->makeSave(woundRoll, weapon, saveRoll))
                     {
                         // compute damage
-                        totalWoundsInflicted += weaponDamage(weapon, target, hitRoll, woundRoll);
+                        auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
+
+                        SimLog(Verbosity::Narrative, "Weapon, %s, inflicted wounds (%d, %d) on %s\n",
+                            weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
+
+                        totalWoundsInflicted += dam;
                     }
                     else
                     {
                         // made save
+                        SimLog(Verbosity::Narrative, "%s made a save again weapon %s rolling a %d.\n",
+                            target->name().c_str(), weapon->name().c_str(), saveRoll);
                     }
 
                     totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
-
                 }
                 else
                 {
                     // failed to wound
+                    SimLog(Verbosity::Narrative, "Weapon, %s, failed to wound rolling a %d.\n", weapon->name().c_str(), modifiedWoundRoll);
                 }
             }
         }
         else
         {
             // missed
+            SimLog(Verbosity::Narrative, "Weapon, %s, missed with a roll of %d.\n", weapon->name().c_str(), modifiedHitRoll);
         }
     }
 }

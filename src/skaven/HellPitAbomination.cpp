@@ -151,11 +151,7 @@ void HellPitAbomination::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.woundsRemaining() += woundsHealed;
-                if (m.woundsRemaining() > WOUNDS)
-                {
-                    m.woundsRemaining() = WOUNDS;
-                }
+                m.applyHealing(woundsHealed);
             }
         }
     }
@@ -176,7 +172,7 @@ void HellPitAbomination::onSlain()
             // It's Alive!
             roll = dice.rollD6();
             m_models.front().restore();
-            m_models.front().woundsRemaining() = roll;
+            m_models.front().applyWound(WOUNDS - roll);
         }
         else if (roll >= 3)
         {

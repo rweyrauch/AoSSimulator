@@ -61,3 +61,30 @@ float Model::distanceBetween(const Model& m0, const Model& m1)
     distance -= m1.basesizeInches() / 2.0f;
     return std::max(0.0f, distance);
 }
+
+void Model::slay()
+{
+    m_woundsRemaining = 0;
+    m_slain = true;
+}
+
+int Model::applyWound(int wounds)
+{
+    m_woundsRemaining -= wounds;
+    if (m_woundsRemaining <= 0)
+    {
+        m_woundsRemaining = 0;
+        m_slain = true;
+    }
+    return m_woundsRemaining;
+}
+
+int Model::applyHealing(int wounds)
+{
+    m_woundsRemaining += wounds;
+    if (m_woundsRemaining > m_initialWounds)
+    {
+        m_woundsRemaining = m_initialWounds;
+    }
+    return m_woundsRemaining;
+}

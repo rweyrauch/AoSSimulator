@@ -43,10 +43,11 @@ public:
     std::vector<const Weapon*>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 
     int initialWounds() const { return m_initialWounds; }
-    const int& woundsRemaining() const { return m_woundsRemaining; }
-    int& woundsRemaining() { return m_woundsRemaining; }
+    int woundsRemaining() const { return m_woundsRemaining; }
+    int applyWound(int wounds);
+    int applyHealing(int wounds);
 
-    void slay() { m_slain = true; }
+    void slay();
     bool slain() const { return m_slain; }
     void flee() { m_fled = true; }
     bool fled() const { return m_fled; }
