@@ -96,6 +96,8 @@
 #include "greenskinz/OrrukWarboss.h"
 #include "greenskinz/OrrukWarbossWyvern.h"
 
+#include "seraphon/DreadSaurian.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -195,4 +197,6 @@ void Initialize(Verbosity verbosity)
     Greenskinz::OrrukWarboss::Init();
     Greenskinz::OrrukWarbossOnWyvern::Init();
     Greenskinz::RogueIdol::Init();
+
+    Seraphon::DreadSaurian::Init();
 }

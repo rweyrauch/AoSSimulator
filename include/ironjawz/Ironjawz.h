@@ -25,13 +25,19 @@ protected:
     Ironjawz(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {}
 
+protected:
+
+    // Eager for Battle
+    int chargeModifier() const override { return 1; }
 };
 
 //
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-//
+// Mighty Destroyers                No
+// Smashing and Bashing             No
+// Eager for Battle                 Yes
 
 void Init();
 

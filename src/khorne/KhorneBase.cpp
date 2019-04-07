@@ -25,6 +25,7 @@
 #include "khorne/Bloodcrushers.h"
 #include "khorne/MightySkullcrushers.h"
 #include "khorne/Skullmaster.h"
+#include "khorne/VorgarothAndSkalok.h"
 
 namespace Khorne
 {
@@ -119,6 +120,7 @@ void Init()
     Khorne::Bloodcrushers::Init();
     Khorne::MightySkullcrushers::Init();
     Khorne::Skullmaster::Init();
+    Khorne::VorgarothAndSkalok::Init();
 }
 
 } //namespace Khorne

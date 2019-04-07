@@ -229,6 +229,7 @@ enum Keyword
     MIGHTY_SKULLCRUSHERS,
     BLOODCRUSHERS,
     SKULLMASTER,
+    VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE,
 
     // Khorne Slaughter Hosts
     REAPERS_OF_VENGEANCE,
@@ -470,6 +471,10 @@ enum Keyword
     ORRUKS,
     ORRUK_BOARBOYS,
     ORRUK_BOAR_CHARIOTS,
+
+    // Seraphon
+    DREAD_SAURIAN,
+
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

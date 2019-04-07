@@ -79,6 +79,7 @@ add_library(
         khorne/Bloodcrushers.cpp
         khorne/MightySkullcrushers.cpp
         khorne/Skullmaster.cpp
+        khorne/VorgarothAndSkalok.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
@@ -245,6 +246,8 @@ add_library(
         greenskinz/OrrukWarboss.cpp
         greenskinz/OrrukWarbossWyvern.cpp
         greenskinz/RogueIdol.cpp
+
+        seraphon/DreadSaurian.cpp
 )
 
 target_include_directories(
