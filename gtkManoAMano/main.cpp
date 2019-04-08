@@ -62,8 +62,8 @@ static void on_start_clicked()
     if (pVerbose->get_active())
     {
         g_verboseLevel = Verbosity::Narrative;
-        SetVerbosity(g_verboseLevel);
     }
+    SetVerbosity(g_verboseLevel);
     g_saveMaps = pSaveMaps->get_active();
     g_pRed = createUnit(pRedUnits->get_active_text(), pRedUnitConfig);
     g_pBlue = createUnit(pBlueUnits->get_active_text(), pBlueUnitConfig);
