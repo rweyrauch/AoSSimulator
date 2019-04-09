@@ -117,16 +117,10 @@ void ManoAMano::start()
 
 void ManoAMano::simulate()
 {
-    /*
-    if (m_verbose)
-    {
-        std::cout << "Fight State:" << std::endl;
-        std::cout << "\tRound: " << m_round << " of " << m_numRounds << ".  Top of round: "
-                  << m_topOfRound << std::endl;
-        std::cout << "\tPhase: " << PhaseToString(m_currentPhase) << std::endl;
-        std::cout << "\tCurrent Unit: " << PlayerIdToString(m_attackingUnit) << std::endl;
-    }
-    */
+    SimLog(Verbosity::Narrative, "Fight State:\n");
+    SimLog(Verbosity::Narrative, "\tRound: %d of %d.  Top of round: %d", m_round, m_numRounds, m_topOfRound);
+    SimLog(Verbosity::Narrative, "\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
+    SimLog(Verbosity::Narrative, "\tCurrent Unit: %s\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     // run the simulation for the current state
     switch (m_currentPhase)

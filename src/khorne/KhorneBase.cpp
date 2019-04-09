@@ -26,6 +26,9 @@
 #include "khorne/MightySkullcrushers.h"
 #include "khorne/Skullmaster.h"
 #include "khorne/VorgarothAndSkalok.h"
+#include "khorne/MightyLordOfKhorne.h"
+#include "khorne/Slaughterpriest.h"
+#include "khorne/KorghosKhul.h"
 
 namespace Khorne
 {
@@ -121,6 +124,9 @@ void Init()
     Khorne::MightySkullcrushers::Init();
     Khorne::Skullmaster::Init();
     Khorne::VorgarothAndSkalok::Init();
+    Khorne::MightyLordOfKhorne::Init();
+    Khorne::Slaughterpriest::Init();
+    Khorne::KorghosKhul::Init();
 }
 
 } //namespace Khorne

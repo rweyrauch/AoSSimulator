@@ -80,6 +80,9 @@ add_library(
         khorne/MightySkullcrushers.cpp
         khorne/Skullmaster.cpp
         khorne/VorgarothAndSkalok.cpp
+        khorne/MightyLordOfKhorne.cpp
+        khorne/Slaughterpriest.cpp
+        khorne/KorghosKhul.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
