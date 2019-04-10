@@ -51,6 +51,7 @@
 #include "beastsofchaos/Cygor.h"
 #include "beastsofchaos/Centigors.h"
 #include "beastsofchaos/Doombull.h"
+#include "beastsofchaos/Chimera.h"
 
 #include "slaanesh/Fiends.h"
 #include "slaanesh/Seekers.h"
@@ -97,6 +98,10 @@
 #include "greenskinz/OrrukWarbossWyvern.h"
 
 #include "seraphon/DreadSaurian.h"
+#include "seraphon/SaurusGuard.h"
+#include "seraphon/SaurusKnights.h"
+#include "seraphon/SaurusWarriors.h"
+#include "seraphon/Skinks.h"
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
@@ -153,6 +158,7 @@ void Initialize(Verbosity verbosity)
     BeastsOfChaos::Cygor::Init();
     BeastsOfChaos::Centigors::Init();
     BeastsOfChaos::Doombull::Init();
+    BeastsOfChaos::Chimera::Init();
 
     Slaanesh::Daemonettes::Init();
     Slaanesh::Fiends::Init();
@@ -199,4 +205,8 @@ void Initialize(Verbosity verbosity)
     Greenskinz::RogueIdol::Init();
 
     Seraphon::DreadSaurian::Init();
+    Seraphon::SaurusGuard::Init();
+    Seraphon::SaurusKnights::Init();
+    Seraphon::SaurusWarriors::Init();
+    Seraphon::Skinks::Init();
 }

@@ -155,6 +155,7 @@ enum Keyword
     ENGINEER,
     ORRUK,
     DRAGON,
+    MONSTERS_OF_CHAOS,
 
     // Stormcast
     SACROSANCT,
@@ -346,6 +347,7 @@ enum Keyword
     CYGOR,
     CENTIGORS,
     DOOMBULL,
+    CHIMERA,
 
     // Slaanesh
     DAEMONETTES,
@@ -477,7 +479,11 @@ enum Keyword
 
     // Seraphon
     DREAD_SAURIAN,
-
+    SAURUS,
+    SAURUS_KNIGHTS,
+    SAURUS_WARRIORS,
+    SAURUS_GUARD,
+    SKINKS,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

@@ -158,6 +158,7 @@ add_library(
         beastsofchaos/Cygor.cpp
         beastsofchaos/Centigors.cpp
         beastsofchaos/Doombull.cpp
+        beastsofchaos/Chimera.cpp
 
         slaanesh/Fiends.cpp
         slaanesh/Daemonettes.cpp
@@ -251,6 +252,10 @@ add_library(
         greenskinz/RogueIdol.cpp
 
         seraphon/DreadSaurian.cpp
+        seraphon/SaurusGuard.cpp
+        seraphon/SaurusKnights.cpp
+        seraphon/SaurusWarriors.cpp
+        seraphon/Skinks.cpp
 )
 
 target_include_directories(
