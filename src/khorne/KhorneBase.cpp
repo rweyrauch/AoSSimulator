@@ -101,32 +101,49 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
             }
         }
     }
+
+    // Locus of Fury
+    if (hasKeyword(DAEMON))
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
+        for (auto ip : units)
+        {
+            if (ip->hasKeyword(GREATER_DAEMON))
+            {
+                return RerollOnes;
+            }
+            else if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0f)
+            {
+                return RerollOnes;
+            }
+        }
+    }
     return Unit::toHitRerolls(weapon, unit);
 }
 
 void Init()
 {
-    Khorne::Bloodreavers::Init();
-    Khorne::BloodWarriors::Init();
-    Khorne::Bloodletters::Init();
-    Khorne::Wrathmongers::Init();
-    Khorne::Skullreapers::Init();
-    Khorne::Khorgoraths::Init();
-    Khorne::BloodthirsterOfUnfetteredFury::Init();
-    Khorne::BloodthirsterOfInsensateRage::Init();
-    Khorne::WrathOfKhorneBloodthirster::Init();
-    Khorne::Skarbrand::Init();
-    Khorne::Karanak::Init();
-    Khorne::FleshHounds::Init();
-    Khorne::Skulltaker::Init();
-    Khorne::Bloodmaster::Init();
     Khorne::Bloodcrushers::Init();
-    Khorne::MightySkullcrushers::Init();
-    Khorne::Skullmaster::Init();
-    Khorne::VorgarothAndSkalok::Init();
-    Khorne::MightyLordOfKhorne::Init();
-    Khorne::Slaughterpriest::Init();
+    Khorne::Bloodletters::Init();
+    Khorne::Bloodmaster::Init();
+    Khorne::Bloodreavers::Init();
+    Khorne::BloodthirsterOfInsensateRage::Init();
+    Khorne::BloodthirsterOfUnfetteredFury::Init();
+    Khorne::BloodWarriors::Init();
+    Khorne::FleshHounds::Init();
+    Khorne::Karanak::Init();
+    Khorne::Khorgoraths::Init();
     Khorne::KorghosKhul::Init();
+    Khorne::MightyLordOfKhorne::Init();
+    Khorne::MightySkullcrushers::Init();
+    Khorne::Skarbrand::Init();
+    Khorne::Skullmaster::Init();
+    Khorne::Skullreapers::Init();
+    Khorne::Skulltaker::Init();
+    Khorne::Slaughterpriest::Init();
+    Khorne::VorgarothAndSkalok::Init();
+    Khorne::Wrathmongers::Init();
+    Khorne::WrathOfKhorneBloodthirster::Init();
 }
 
 } //namespace Khorne

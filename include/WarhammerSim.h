@@ -443,6 +443,8 @@ enum Keyword
     RATLING_GUN,
     WARPFIRE_THROWER,
     WARP_LIGHTNING_CANNON,
+    DOOMWHEEL,
+    DOOM_FLAYER,
 
     // Tzeentch
     ARCANITE,

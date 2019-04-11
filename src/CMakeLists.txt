@@ -225,6 +225,8 @@ add_library(
         skaven/RatlingGun.cpp
         skaven/WarpfireThrower.cpp
         skaven/WarpLightningCannon.cpp
+        skaven/Doomwheel.cpp
+        skaven/Doomflayer.cpp
 
         tzeentch/KairicAcolytes.cpp
         tzeentch/PinkHorrors.cpp

@@ -19,6 +19,8 @@
 #include "skaven/RatlingGun.h"
 #include "skaven/WarpfireThrower.h"
 #include "skaven/WarpLightningCannon.h"
+#include "skaven/Doomwheel.h"
+#include "skaven/Doomflayer.h"
 
 namespace Skaven
 {
@@ -67,6 +69,8 @@ void Init()
     RatlingGun::Init();
     WarpfireThrower::Init();
     WarpLightningCannon::Init();
+    Doomwheel::Init();
+    Doomflayer::Init();
 }
 
 } // namespace Skaven
