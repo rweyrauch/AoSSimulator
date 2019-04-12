@@ -56,6 +56,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Standard Bearer                  No
+// Noise Maker                      No
 // Dragged Down and Torn Apart      Yes
 // The Newly Dead                   No
 // Vigour Mortis                    Yes

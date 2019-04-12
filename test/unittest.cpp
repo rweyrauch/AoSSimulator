@@ -159,9 +159,9 @@ TEST(Unit, BallistaVsAlarielle)
     ballista2.addKeyword(ASTRAL_TEMPLARS);
 
     // apply Lord-Ordinator buffs
-    ballista0.buffToHitMissile(1);
-    ballista1.buffToHitMissile(1);
-    ballista2.buffToHitMissile(1);
+    //ballista0.buffToHitMissile(1);
+    //ballista1.buffToHitMissile(1);
+    //ballista2.buffToHitMissile(1);
 
     Sylvaneth::Alarielle alarielle;
     ok = alarielle.configure();

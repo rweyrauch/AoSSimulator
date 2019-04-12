@@ -289,7 +289,12 @@ bool Unit::addKeyword(Keyword word)
 
 int Unit::braveryModifier() const
 {
-    return remainingModels() / 10;
+    int modifier = remainingModels() / 10;
+    for (auto bi : m_attributeModifiers[Bravery])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
 }
 
 void Unit::restore()
@@ -305,8 +310,6 @@ void Unit::restore()
     m_charged = false;
     m_moved = false;
     m_canMove = true;
-    m_toHitBuff = 0;
-    m_toHitBuffMissile = 0;
 
     m_spellsCast = 0;
     m_spellsUnbound = 0;
@@ -314,6 +317,15 @@ void Unit::restore()
 
     m_currentRecord.clear();
     m_statistics.reset();
+
+    for (auto list : m_attributeModifiers)
+    {
+        list.clear();
+    }
+    for (auto list : m_rollModifiers)
+    {
+        list.clear();
+    }
 
     onRestore();
 }
@@ -404,6 +416,8 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
 
 int Unit::hero(PlayerId player, int cpAvailable)
 {
+    timeoutBuffs(Phase::Hero, player);
+
     onStartHero(player);
 
     if (player == m_owningPlayer)
@@ -427,6 +441,8 @@ int Unit::hero(PlayerId player, int cpAvailable)
 
 void Unit::movement(PlayerId player)
 {
+    timeoutBuffs(Phase::Movement, player);
+
     auto board = Board::Instance();
 
     m_moved = false;
@@ -558,6 +574,8 @@ Wounds Unit::fight(PlayerId player, int &numSlain)
 
 void Unit::shooting(PlayerId player)
 {
+    timeoutBuffs(Phase::Shooting, player);
+
     auto board = Board::Instance();
 
     PlayerId otherPlayer = PlayerId::Red;
@@ -572,6 +590,8 @@ void Unit::shooting(PlayerId player)
 
 void Unit::combat(PlayerId player)
 {
+    timeoutBuffs(Phase::Combat, player);
+
     auto board = Board::Instance();
 
     PlayerId otherPlayer = PlayerId::Red;
@@ -589,6 +609,8 @@ void Unit::combat(PlayerId player)
 
 void Unit::charge(PlayerId player)
 {
+    timeoutBuffs(Phase::Charge, player);
+
     auto board = Board::Instance();
 
     auto weapon = m_models.front().preferredWeapon();
@@ -659,7 +681,7 @@ void Unit::charge(PlayerId player)
 
 void Unit::battleshock(PlayerId player)
 {
-
+    timeoutBuffs(Phase::Battleshock, player);
 }
 
 int Unit::rollChargeDistance() const
@@ -947,12 +969,22 @@ void Unit::makePrayer()
 
 bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration)
 {
-    return false;
+    ModifierBuff buff;
+    buff.modifier = modifier;
+    buff.duration = duration;
+    m_attributeModifiers[which].push_back(buff);
+
+    return true;
 }
 
 bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration)
 {
-    return false;
+    RerollBuff buff;
+    buff.rerolls = reroll;
+    buff.duration = duration;
+    m_rollModifiers[which].push_back(buff);
+
+    return true;
 }
 
 void Unit::doPileIn()
@@ -981,6 +1013,153 @@ int Unit::numModelsWithin(const Model *model, float range) const
     return count;
 }
 
+
+void Unit::timeoutBuffs(Phase phase, PlayerId player)
+{
+    Duration currentPhase;
+    currentPhase.phase = phase;
+    currentPhase.player = player;
+    currentPhase.round = m_battleRound;
+
+    // Remove all buffs that expire in the player's given phase
+    for (auto& list : m_attributeModifiers)
+    {
+        for (auto bi = list.begin(); bi != list.end();)
+        {
+            if (expired(bi->duration, currentPhase))
+            {
+                bi = list.erase(bi);
+            }
+            else
+            {
+                ++bi;
+            }
+        }
+    }
+}
+
+int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[ToHit])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[ToWound])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+Rerolls Unit::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if (m_rollModifiers[ToHit].empty())
+        return NoRerolls;
+    return m_rollModifiers[ToHit].front().rerolls;
+}
+
+Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if (m_rollModifiers[ToWound].empty())
+        return NoRerolls;
+    return m_rollModifiers[ToWound].front().rerolls;
+}
+
+int Unit::toSaveModifier(const Weapon *weapon) const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[ToSave])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+Rerolls Unit::toSaveRerolls(const Weapon *weapon) const
+{
+    if (m_rollModifiers[ToSave].empty())
+        return NoRerolls;
+    return m_rollModifiers[ToSave].front().rerolls;
+}
+
+Rerolls Unit::battleshockRerolls() const
+{
+    if (m_rollModifiers[Bravery].empty())
+        return NoRerolls;
+    return m_rollModifiers[Bravery].front().rerolls;
+}
+
+int Unit::castingModifier() const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[CastingRoll])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+    return 0;
+}
+
+int Unit::unbindingModifier() const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[UnbindingRoll])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+int Unit::moveModifier() const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[MoveDistance])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+int Unit::runModifier() const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[RunDistance])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+int Unit::chargeModifier() const
+{
+    int modifier = 0;
+    for (auto bi : m_attributeModifiers[ChargeDistance])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+Rerolls Unit::runRerolls() const
+{
+    if (m_rollModifiers[RunDistance].empty())
+        return NoRerolls;
+    return m_rollModifiers[RunDistance].front().rerolls;
+}
+
+Rerolls Unit::chargeRerolls() const
+{
+    if (m_rollModifiers[ChargeDistance].empty())
+        return NoRerolls;
+    return m_rollModifiers[ChargeDistance].front().rerolls;
+}
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :

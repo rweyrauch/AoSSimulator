@@ -65,11 +65,14 @@ enum class Role
 enum BuffableAttribute
 {
     MoveDistance = 0,
+    RunDistance,
     ChargeDistance,
     ToHit,
     ToWound,
     ToSave,
     Bravery,
+    CastingRoll,
+    UnbindingRoll,
 
     NUM_BUFFABLE_ATTRIBUTES
 };
@@ -234,6 +237,7 @@ enum Keyword
     MIGHTY_LORD_OF_KHORNE,
     SLAUGHTERPRIEST,
     KORGHOS_KHUL,
+    EXALTED_DEATHBRINGER,
 
     // Khorne Slaughter Hosts
     REAPERS_OF_VENGEANCE,
@@ -497,6 +501,20 @@ struct Duration
     Phase phase;
     int round;
     PlayerId player;
+};
+
+bool expired(const Duration& duration, const Duration& current);
+
+struct ModifierBuff
+{
+    int modifier;
+    Duration duration;
+};
+
+struct RerollBuff
+{
+    Rerolls rerolls;
+    Duration duration;
 };
 
 enum class Verbosity : int

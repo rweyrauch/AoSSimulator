@@ -59,6 +59,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Standard Bearer                  No
+// Hornblower                       No
 // The Hunger                       No
 // Martial Fury                     Yes
 // Bloodshields                     Yes

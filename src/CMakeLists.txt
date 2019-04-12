@@ -83,6 +83,7 @@ add_library(
         khorne/MightyLordOfKhorne.cpp
         khorne/Slaughterpriest.cpp
         khorne/KorghosKhul.cpp
+        khorne/ExaltedDeathbringer.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

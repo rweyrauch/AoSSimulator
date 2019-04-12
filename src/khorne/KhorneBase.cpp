@@ -29,6 +29,7 @@
 #include "khorne/MightyLordOfKhorne.h"
 #include "khorne/Slaughterpriest.h"
 #include "khorne/KorghosKhul.h"
+#include "khorne/ExaltedDeathbringer.h"
 
 namespace Khorne
 {
@@ -144,6 +145,7 @@ void Init()
     Khorne::VorgarothAndSkalok::Init();
     Khorne::Wrathmongers::Init();
     Khorne::WrathOfKhorneBloodthirster::Init();
+    Khorne::ExaltedDeathbringer::Init();
 }
 
 } //namespace Khorne

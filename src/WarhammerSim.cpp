@@ -253,3 +253,8 @@ void SimLog(Verbosity verbosity, const char* format, ...)
     vfprintf(stdout, format, args);
     va_end(args);
 }
+
+bool expired(const Duration& duration, const Duration& current)
+{
+    return ((duration.player == current.player) && (duration.round < current.round) && (duration.phase == current.phase));
+}

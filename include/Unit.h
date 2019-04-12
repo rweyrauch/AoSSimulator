@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <vector>
+#include <list>
 #include <string>
 #include <functional>
 #include <Weapon.h>
@@ -141,10 +142,6 @@ public:
 
     int heal(int numWounds);
 
-    void buffToHit(int modifier) { m_toHitBuff = modifier; }
-
-    void buffToHitMissile(int modifier) { m_toHitBuffMissile = modifier; }
-
     void setShootingTarget(Unit *unit) { m_shootingTarget = unit; }
 
     void setMeleeTarget(Unit *unit) { m_meleeTarget = unit; }
@@ -190,6 +187,8 @@ protected:
     void makePrayer();
     void doPileIn();
 
+    void timeoutBuffs(Phase phase, PlayerId player);
+
 protected:
 
     /*!
@@ -215,7 +214,7 @@ protected:
      * @param target Unit being attacked
      * @return To-hit roll modifier.
      */
-    virtual int toHitModifier(const Weapon *weapon, const Unit *target) const { return m_toHitBuff; }
+    virtual int toHitModifier(const Weapon *weapon, const Unit *target) const;
 
     /*!
      * Target to-hit modifier (debuff) when the attacker unit targets this unit using the given weapon.
@@ -231,7 +230,7 @@ protected:
      * @param target Unit being attacked
      * @return To-hit re-roll.
      */
-    virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const { return NoRerolls; }
+    virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const;
 
     /*!
      * To-wound modifier (buffs) when this unit uses the given weapon to attack the target.
@@ -239,7 +238,7 @@ protected:
      * @param target Unit being attacked
      * @return To-wound roll modifier.
      */
-    virtual int toWoundModifier(const Weapon *weapon, const Unit *target) const { return 0; }
+    virtual int toWoundModifier(const Weapon *weapon, const Unit *target) const;
 
     /*!
      * Target to-wound modifier (debuff) when the attacker targets this unit using the given weapon.
@@ -255,7 +254,7 @@ protected:
      * @param target Unit being attacked
      * @return To-wound re-roll.
      */
-    virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const { return NoRerolls; }
+    virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const;
 
     /*!
      * Compute the weapon damage on the given target with the hit and wound rolls.
@@ -274,9 +273,9 @@ protected:
      */
     virtual int generateMortalWounds(const Unit *unit) { return 0; }
 
-    virtual int toSaveModifier(const Weapon *weapon) const { return 0; }
+    virtual int toSaveModifier(const Weapon *weapon) const;
 
-    virtual Rerolls toSaveRerolls(const Weapon *weapon) const { return NoRerolls; }
+    virtual Rerolls toSaveRerolls(const Weapon *weapon) const;
 
     /*!
      * Does this unit need to take battleshock.
@@ -286,27 +285,27 @@ protected:
 
     virtual int braveryModifier() const;
 
-    virtual Rerolls battleshockRerolls() const { return NoRerolls; }
+    virtual Rerolls battleshockRerolls() const;
 
     virtual int rollBattleshock() const;
 
     virtual void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const;
 
-    virtual int castingModifier() const { return 0; }
+    virtual int castingModifier() const;
 
-    virtual int unbindingModifier() const { return 0; }
+    virtual int unbindingModifier() const;
 
     virtual void restoreModels(int numModels) { }
 
-    virtual int moveModifier() const { return 0; }
+    virtual int moveModifier() const;
 
-    virtual int runModifier() const { return 0; }
+    virtual int runModifier() const;
 
-    virtual Rerolls runRerolls() const { return NoRerolls; }
+    virtual Rerolls runRerolls() const;
 
-    virtual int chargeModifier() const { return 0; }
+    virtual int chargeModifier() const;
 
-    virtual Rerolls chargeRerolls() const { return NoRerolls; }
+    virtual Rerolls chargeRerolls() const;
 
     virtual void onRestore() {}
 
@@ -378,8 +377,6 @@ protected:
     bool m_charged = false;
     bool m_moved = false;
     bool m_canMove = true;
-    int m_toHitBuff = 0;
-    int m_toHitBuffMissile = 0;
 
     int m_spellsCast = 0;
     int m_spellsUnbound = 0;
@@ -397,8 +394,8 @@ protected:
 
     // TODO: How best manage buff/debuffs?  Data or code?
     // How to manage buff/debuff lifecycle?
-    int m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
-    Rerolls m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
+    std::list<ModifierBuff> m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
+    std::list<RerollBuff> m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
 };
 
 class CustomUnit : public Unit
