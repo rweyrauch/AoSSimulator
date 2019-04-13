@@ -199,6 +199,10 @@ enum Keyword
     PROSECUTORS,
     NEAVE_BLACKTALON,
     GAVRIEL_SUREHEART,
+    LORD_EXORCIST,
+    LORD_RELICTOR,
+    LORD_ARCANUM,
+    GRYPH_CHARGER,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

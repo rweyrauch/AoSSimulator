@@ -60,6 +60,10 @@ add_library(
         stormcast/Decimators.cpp
         stormcast/NeaveBlacktalon.cpp
         stormcast/GavrielSureheart.cpp
+        stormcast/LordExorcist.cpp
+        stormcast/LordRelictor.cpp
+        stormcast/LordArcanumOnDracoline.cpp
+        stormcast/LordArcanumOnGryphcharger.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp

@@ -36,6 +36,10 @@
 #include "stormcast/Decimators.h"
 #include "stormcast/NeaveBlacktalon.h"
 #include "stormcast/GavrielSureheart.h"
+#include "stormcast/LordExorcist.h"
+#include "stormcast/LordRelictor.h"
+#include "stormcast/LordArcanumOnDracoline.h"
+#include "stormcast/LordArcanumOnGryphcharger.h"
 
 namespace StormcastEternals
 {
@@ -119,6 +123,10 @@ void Init()
     Decimators::Init();
     NeaveBlacktalon::Init();
     GavrielSureheart::Init();
+    LordExorcist::Init();
+    LordRelictor::Init();
+    LordArcanumOnDracoline::Init();
+    LordArcanumOnGryphcharger::Init();
 }
 
 } // namespace StormcastEternals
