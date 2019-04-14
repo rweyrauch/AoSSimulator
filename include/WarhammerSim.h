@@ -203,6 +203,7 @@ enum Keyword
     LORD_RELICTOR,
     LORD_ARCANUM,
     GRYPH_CHARGER,
+    TAURALON,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

@@ -19,5 +19,6 @@ AreaOfEffectSpell* CreateLightningOrb(Unit* caster);
 LineOfEffectSpell* CreateStormLance(Unit* caster);
 HealSpell* CreateHealingLight(Unit* caster);
 Spell* CreatePurifyingBlast(Unit* caster);
+Spell* CreateThunderclap(Unit* caster);
 
 #endif //STORMCASTSPELLS_H

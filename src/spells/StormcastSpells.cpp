@@ -111,3 +111,8 @@ Spell *CreatePurifyingBlast(Unit *caster)
 {
     return new PurifyingBlast(caster);
 }
+
+Spell* CreateThunderclap(Unit* caster)
+{
+    return nullptr;
+}

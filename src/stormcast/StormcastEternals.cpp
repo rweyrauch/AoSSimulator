@@ -40,6 +40,8 @@
 #include "stormcast/LordRelictor.h"
 #include "stormcast/LordArcanumOnDracoline.h"
 #include "stormcast/LordArcanumOnGryphcharger.h"
+#include "stormcast/LordArcanumOnTauralon.h"
+#include "stormcast/LordArcanum.h"
 
 namespace StormcastEternals
 {
@@ -127,6 +129,8 @@ void Init()
     LordRelictor::Init();
     LordArcanumOnDracoline::Init();
     LordArcanumOnGryphcharger::Init();
+    LordArcanumOnTauralon::Init();
+    LordArcanum::Init();
 }
 
 } // namespace StormcastEternals
