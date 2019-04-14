@@ -66,6 +66,9 @@ add_library(
         stormcast/LordArcanumOnGryphcharger.cpp
         stormcast/LordArcanumOnTauralon.cpp
         stormcast/LordArcanum.cpp
+        stormcast/LordAquilor.cpp
+        stormcast/LordCastellant.cpp
+        stormcast/LordVeritant.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp

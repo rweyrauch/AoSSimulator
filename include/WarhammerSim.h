@@ -204,6 +204,7 @@ enum Keyword
     LORD_ARCANUM,
     GRYPH_CHARGER,
     TAURALON,
+    LORD_AQUILOR,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
