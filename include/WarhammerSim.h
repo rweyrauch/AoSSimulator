@@ -205,6 +205,10 @@ enum Keyword
     GRYPH_CHARGER,
     TAURALON,
     LORD_AQUILOR,
+    KNIGHT_AZYROS,
+    KNIGHT_HERALDOR,
+    KNIGHT_VENATOR,
+    KNIGHT_VEXILLOR,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

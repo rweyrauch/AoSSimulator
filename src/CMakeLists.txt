@@ -69,6 +69,10 @@ add_library(
         stormcast/LordAquilor.cpp
         stormcast/LordCastellant.cpp
         stormcast/LordVeritant.cpp
+        stormcast/KnightAzyros.cpp
+        stormcast/KnightHeraldor.cpp
+        stormcast/KnightVenator.cpp
+        stormcast/KnigthVexillor.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp

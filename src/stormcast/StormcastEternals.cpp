@@ -45,6 +45,10 @@
 #include "stormcast/LordAquilor.h"
 #include "stormcast/LordCastellant.h"
 #include "stormcast/LordVeritant.h"
+#include "stormcast/KnightAzyros.h"
+#include "stormcast/KnightHeraldor.h"
+#include "stormcast/KnightVenator.h"
+#include "stormcast/KnightVexillor.h"
 
 namespace StormcastEternals
 {
@@ -137,6 +141,10 @@ void Init()
     LordAquilor::Init();
     LordCastellant::Init();
     LordVeritant::Init();
+    KnightAzyros::Init();
+    KnightHeraldor::Init();
+    KnightVenator::Init();
+    KnightVexillor::Init();
 }
 
 } // namespace StormcastEternals

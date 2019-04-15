@@ -128,7 +128,7 @@ public:
 
     int applyBattleshock();
 
-    bool makeSave(int woundRoll, const Weapon* weapon, int& saveRoll);
+    bool makeSave(int woundRoll, const Weapon* weapon, int weaponRend, int& saveRoll);
 
     int applyDamage(const Wounds &totalWounds);
 
@@ -265,6 +265,8 @@ protected:
      * @return Weapon damage
      */
     virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return {weapon->damage(), 0}; }
+
+    virtual int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const { return weapon->rend(); }
 
     /*!
      * Some units do mortal wounds for simply existing.

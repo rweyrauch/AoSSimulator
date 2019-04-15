@@ -740,11 +740,11 @@ int Unit::heal(int numWounds)
     return numHealedWounds;
 }
 
-bool Unit::makeSave(int woundRoll, const Weapon* weapon, int& saveRoll)
+bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, int& saveRoll)
 {
     Dice dice;
 
-    auto effectiveRend = m_ignoreRend ? 0 : weapon->rend();
+    auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save - effectiveRend;
 
     saveRoll = dice.rollD6();
@@ -837,7 +837,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
 
                     // roll save
                     int saveRoll = 0;
-                    if (!target->makeSave(woundRoll, weapon, saveRoll))
+                    if (!target->makeSave(woundRoll, weapon, weaponRend(weapon, target, hitRoll, woundRoll), saveRoll))
                     {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
