@@ -49,6 +49,9 @@
 #include "stormcast/KnightHeraldor.h"
 #include "stormcast/KnightVenator.h"
 #include "stormcast/KnightVexillor.h"
+#include "stormcast/AventisFirestrike.h"
+#include "stormcast/AstreiaSolbright.h"
+#include "stormcast/VanguardPalladors.h"
 
 namespace StormcastEternals
 {
@@ -103,48 +106,57 @@ Rerolls StormcastEternal::battleshockRerolls() const
 
 void Init()
 {
-    Liberators::Init();
-    CelestarBallista::Init();
-    Evocators::Init();
-    Judicators::Init();
-    Sequitors::Init();
-    LordOrdinator::Init();
-    Retributors::Init();
-    LordCelestant::Init();
-    LordCelestantOnDracoth::Init();
-    LordCelestantOnStardrake::Init();
-    KnightIncantor::Init();
-    KnightQuestor::Init();
-    KnightZephyros::Init();
-    VanguardHunters::Init();
-    Castigators::Init();
-    VanguardRaptorsHurricane::Init();
-    VanguardRaptorsLongstrike::Init();
+    // CelestantPrime::Init()
+    AventisFirestrike::Init();
+    AstreiaSolbright::Init();
     VandusHammerhand::Init();
-    GryphHounds::Init();
-    Concussors::Init();
-    Desolators::Init();
-    Fulminators::Init();
-    Tempestors::Init();
-    EvocatorsOnCelestialDracolines::Init();
-    Prosecutors::Init();
-    Protectors::Init();
-    Decimators::Init();
     NeaveBlacktalon::Init();
     GavrielSureheart::Init();
-    LordExorcist::Init();
-    LordRelictor::Init();
+    // SteelheartsChampions::Init();
+    // TheFarstriders::Init();
+    // StormsiresCursebreakers::Init()
     LordArcanumOnDracoline::Init();
     LordArcanumOnGryphcharger::Init();
     LordArcanumOnTauralon::Init();
     LordArcanum::Init();
     LordAquilor::Init();
+    LordCelestant::Init();
+    LordCelestantOnDracoth::Init();
+    LordCelestantOnStardrake::Init();
     LordCastellant::Init();
+    LordOrdinator::Init();
+    LordExorcist::Init();
+    LordRelictor::Init();
     LordVeritant::Init();
     KnightAzyros::Init();
     KnightHeraldor::Init();
+    KnightQuestor::Init();
+    KnightIncantor::Init();
     KnightVenator::Init();
     KnightVexillor::Init();
+    KnightZephyros::Init();
+    GryphHounds::Init();
+    // DrakeswornTemplar::Init()
+    Concussors::Init();
+    Desolators::Init();
+    Fulminators::Init();
+    Tempestors::Init();
+    Prosecutors::Init();
+    Decimators::Init();
+    Protectors::Init();
+    Retributors::Init();
+    Liberators::Init();
+    Judicators::Init();
+    VanguardRaptorsHurricane::Init();
+    VanguardRaptorsLongstrike::Init();
+    VanguardHunters::Init();
+    VanguardPalladors::Init();
+    // Aetherwings::Init();
+    Castigators::Init();
+    CelestarBallista::Init();
+    Sequitors::Init();
+    Evocators::Init();
+    EvocatorsOnCelestialDracolines::Init();
 }
 
 } // namespace StormcastEternals

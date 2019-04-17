@@ -73,6 +73,9 @@ add_library(
         stormcast/KnightHeraldor.cpp
         stormcast/KnightVenator.cpp
         stormcast/KnigthVexillor.cpp
+        stormcast/AstreiaSolbright.cpp
+        stormcast/AventisFirestrike.cpp
+        stormcast/VanguardPalladors.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp
