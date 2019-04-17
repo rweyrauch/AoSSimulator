@@ -213,6 +213,7 @@ enum Keyword
     ASTREIA_SOLBRIGHT,
     CELESTANT_PRIME,
     VANGUARD_PALLADORS,
+    DRAKESWORN_TEMPLAR,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
@@ -504,6 +505,11 @@ enum Keyword
     SAURUS_WARRIORS,
     SAURUS_GUARD,
     SKINKS,
+
+    // Fyreslayers
+    VULKITE_BERZERKERS,
+    HEARTHGUARD_BERZERKERS,
+    AURIC_HEARTHGUARD,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

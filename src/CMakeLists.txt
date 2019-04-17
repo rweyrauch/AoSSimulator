@@ -76,6 +76,7 @@ add_library(
         stormcast/AstreiaSolbright.cpp
         stormcast/AventisFirestrike.cpp
         stormcast/VanguardPalladors.cpp
+        stormcast/DrakeswornTemplar.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp
@@ -275,6 +276,10 @@ add_library(
         seraphon/SaurusKnights.cpp
         seraphon/SaurusWarriors.cpp
         seraphon/Skinks.cpp
+
+        fyreslayers/AuricHearthguard.cpp
+        fyreslayers/HearthguardBerzerkers.cpp
+        fyreslayers/VulkiteBerzerkers.cpp
 )
 
 target_include_directories(

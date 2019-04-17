@@ -52,6 +52,7 @@
 #include "stormcast/AventisFirestrike.h"
 #include "stormcast/AstreiaSolbright.h"
 #include "stormcast/VanguardPalladors.h"
+#include "stormcast/DrakeswornTemplar.h"
 
 namespace StormcastEternals
 {
@@ -136,7 +137,7 @@ void Init()
     KnightVexillor::Init();
     KnightZephyros::Init();
     GryphHounds::Init();
-    // DrakeswornTemplar::Init()
+    DrakeswornTemplar::Init();
     Concussors::Init();
     Desolators::Init();
     Fulminators::Init();
