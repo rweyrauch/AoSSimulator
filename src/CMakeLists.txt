@@ -280,6 +280,9 @@ add_library(
         fyreslayers/AuricHearthguard.cpp
         fyreslayers/HearthguardBerzerkers.cpp
         fyreslayers/VulkiteBerzerkers.cpp
+        fyreslayers/Doomseeker.cpp
+        fyreslayers/Battlesmith.cpp
+        fyreslayers/GrimwrathBerzerker.cpp
 )
 
 target_include_directories(

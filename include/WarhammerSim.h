@@ -510,6 +510,9 @@ enum Keyword
     VULKITE_BERZERKERS,
     HEARTHGUARD_BERZERKERS,
     AURIC_HEARTHGUARD,
+    GRIMWRATH_BERZERKER,
+    DOOMSEEKER,
+    BATTLESMITH,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

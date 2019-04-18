@@ -103,6 +103,13 @@
 #include "seraphon/SaurusWarriors.h"
 #include "seraphon/Skinks.h"
 
+#include "fyreslayers/AuricHearthguard.h"
+#include "fyreslayers/Battlesmith.h"
+#include "fyreslayers/Doomseeker.h"
+#include "fyreslayers/HearthguardBerzerkers.h"
+#include "fyreslayers/GrimwrathBerzerker.h"
+#include "fyreslayers/VulkiteBerzerkers.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -209,4 +216,11 @@ void Initialize(Verbosity verbosity)
     Seraphon::SaurusKnights::Init();
     Seraphon::SaurusWarriors::Init();
     Seraphon::Skinks::Init();
+
+    Fyreslayers::AuricHearthguard::Init();
+    Fyreslayers::Battlesmith::Init();
+    Fyreslayers::GrimwrathBerzerker::Init();
+    Fyreslayers::HearthguardBerzerkers::Init();
+    Fyreslayers::Doomseeker::Init();
+    Fyreslayers::VulkiteBerzerkers::Init();
 }

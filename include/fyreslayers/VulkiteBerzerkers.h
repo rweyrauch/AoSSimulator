@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef HEARTHGUARDBERZERKERS_H
-#define HEARTHGUARDBERZERKERS_H
+#ifndef VULKITEBERZERKERS_H
+#define VULKITEBERZERKERS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -74,4 +74,4 @@ private:
 
 } // namespace Fyreslayers
 
-#endif //HEARTHGUARDBERZERKERS_H
+#endif //VULKITEBERZERKERS_H
