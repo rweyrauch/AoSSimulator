@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DOOMSEEKER_H
-#define DOOMSEEKER_H
+#ifndef AURICRUNESON_H
+#define AURICRUNESON_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace Fyreslayers
 {
 
-class Doomseeker : public Unit
+class AuricRuneson : public Unit
 {
 public:
     static const int BASESIZE = 32;
@@ -26,8 +26,8 @@ public:
 
     static void Init();
 
-    Doomseeker();
-    ~Doomseeker() override = default;
+    AuricRuneson();
+    ~AuricRuneson() override = default;
 
     bool configure();
 
@@ -35,13 +35,12 @@ public:
 
 protected:
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
 private:
 
     Weapon m_throwingAxe,
-        m_warIron,
-        m_doomseekerAxe;
+        m_javelin,
+        m_warAxe,
+        m_javelinMelee;
 
     static bool s_registered;
 };
@@ -50,10 +49,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oathbound                        No
-// Runic Power                      Yes
+// Vying for Glory                  No
+// Wyrmslayer Javelins              No
+// Dauntless Assault                No
 //
 
 } // namespace Fyreslayers
 
-#endif //DOOMSEEKER_H
+#endif //AURICRUNESON_H

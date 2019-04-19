@@ -283,6 +283,9 @@ add_library(
         fyreslayers/Doomseeker.cpp
         fyreslayers/Battlesmith.cpp
         fyreslayers/GrimwrathBerzerker.cpp
+        fyreslayers/AuricRunefather.cpp
+        fyreslayers/AuricRunemaster.cpp
+        fyreslayers/AuricRuneson.cpp
 )
 
 target_include_directories(

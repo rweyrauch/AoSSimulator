@@ -109,6 +109,9 @@
 #include "fyreslayers/HearthguardBerzerkers.h"
 #include "fyreslayers/GrimwrathBerzerker.h"
 #include "fyreslayers/VulkiteBerzerkers.h"
+#include "fyreslayers/AuricRunefather.h"
+#include "fyreslayers/AuricRunemaster.h"
+#include "fyreslayers/AuricRuneson.h"
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
@@ -223,4 +226,7 @@ void Initialize(Verbosity verbosity)
     Fyreslayers::HearthguardBerzerkers::Init();
     Fyreslayers::Doomseeker::Init();
     Fyreslayers::VulkiteBerzerkers::Init();
+    Fyreslayers::AuricRunefather::Init();
+    Fyreslayers::AuricRunemaster::Init();
+    Fyreslayers::AuricRuneson::Init();
 }

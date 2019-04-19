@@ -513,6 +513,9 @@ enum Keyword
     GRIMWRATH_BERZERKER,
     DOOMSEEKER,
     BATTLESMITH,
+    AURIC_RUNEMASTER,
+    AURIC_RUNEFATHER,
+    AURIC_RUNESON,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

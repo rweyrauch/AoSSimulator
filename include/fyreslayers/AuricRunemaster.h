@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DOOMSEEKER_H
-#define DOOMSEEKER_H
+#ifndef AURICRUNEMASTER_H
+#define AURICRUNEMASTER_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,19 +15,19 @@
 namespace Fyreslayers
 {
 
-class Doomseeker : public Unit
+class AuricRunemaster : public Unit
 {
 public:
     static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
+    static const int WOUNDS = 6;
     static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    Doomseeker();
-    ~Doomseeker() override = default;
+    AuricRunemaster();
+    ~AuricRunemaster() override = default;
 
     bool configure();
 
@@ -35,13 +35,11 @@ public:
 
 protected:
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
 private:
 
     Weapon m_throwingAxe,
-        m_warIron,
-        m_doomseekerAxe;
+        m_brazierStaff,
+        m_runicIron;
 
     static bool s_registered;
 };
@@ -50,10 +48,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oathbound                        No
-// Runic Power                      Yes
+// Holy Seeker                      No
+// Volcano's Call                   No
 //
 
 } // namespace Fyreslayers
 
-#endif //DOOMSEEKER_H
+#endif //AURICRUNEMASTER_H
