@@ -286,6 +286,10 @@ add_library(
         fyreslayers/AuricRunefather.cpp
         fyreslayers/AuricRunemaster.cpp
         fyreslayers/AuricRuneson.cpp
+        fyreslayers/AuricRunesmiter.cpp
+        fyreslayers/AuricRunefatherOnMagmadroth.cpp
+        fyreslayers/AuricRunesmiterOnMagmadroth.cpp
+        fyreslayers/AuricRunesonOnMagmadroth.cpp
 )
 
 target_include_directories(

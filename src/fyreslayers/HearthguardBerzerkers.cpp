@@ -13,8 +13,8 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     HearthguardBerzerkers::Create,
-    nullptr,
-    nullptr,
+    HearthguardBerzerkers::ValueToString,
+    HearthguardBerzerkers::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", HearthguardBerzerkers::MIN_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE,

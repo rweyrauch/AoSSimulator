@@ -112,6 +112,10 @@
 #include "fyreslayers/AuricRunefather.h"
 #include "fyreslayers/AuricRunemaster.h"
 #include "fyreslayers/AuricRuneson.h"
+#include "fyreslayers/AuricRunesmiterOnMagmadroth.h"
+#include "fyreslayers/AuricRunesonOnMagmadroth.h"
+#include "fyreslayers/AuricRunefatherOnMagmadroth.h"
+#include "fyreslayers/AuricRunesmiter.h"
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
@@ -229,4 +233,8 @@ void Initialize(Verbosity verbosity)
     Fyreslayers::AuricRunefather::Init();
     Fyreslayers::AuricRunemaster::Init();
     Fyreslayers::AuricRuneson::Init();
+    Fyreslayers::AuricRunesmiter::Init();
+    Fyreslayers::AuricRunesmiterOnMagmadroth::Init();
+    Fyreslayers::AuricRunefatherOnMagmadroth::Init();
+    Fyreslayers::AuricRunesonOnMagmadroth::Init();
 }

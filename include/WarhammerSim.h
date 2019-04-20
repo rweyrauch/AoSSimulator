@@ -507,6 +507,7 @@ enum Keyword
     SKINKS,
 
     // Fyreslayers
+    MAGMADROTH,
     VULKITE_BERZERKERS,
     HEARTHGUARD_BERZERKERS,
     AURIC_HEARTHGUARD,
@@ -516,6 +517,7 @@ enum Keyword
     AURIC_RUNEMASTER,
     AURIC_RUNEFATHER,
     AURIC_RUNESON,
+    AURIC_RUNESMITER,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);
