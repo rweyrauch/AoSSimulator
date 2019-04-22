@@ -7,9 +7,6 @@
  */
 
 #include <nighthaunt/Chainghasts.h>
-#include <WarhammerSim.h>
-#include <stormcast/Decimators.h>
-
 #include "WarhammerSim.h"
 
 #include "stormcast/StormcastEternals.h"
@@ -22,6 +19,7 @@
 #include "ironjawz/Ironjawz.h"
 #include "khorne/KhorneBase.h"
 #include "wanderers/Wanderer.h"
+#include "fyreslayers/Fyreslayer.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -103,19 +101,7 @@
 #include "seraphon/SaurusWarriors.h"
 #include "seraphon/Skinks.h"
 
-#include "fyreslayers/AuricHearthguard.h"
-#include "fyreslayers/Battlesmith.h"
-#include "fyreslayers/Doomseeker.h"
-#include "fyreslayers/HearthguardBerzerkers.h"
-#include "fyreslayers/GrimwrathBerzerker.h"
-#include "fyreslayers/VulkiteBerzerkers.h"
-#include "fyreslayers/AuricRunefather.h"
-#include "fyreslayers/AuricRunemaster.h"
-#include "fyreslayers/AuricRuneson.h"
-#include "fyreslayers/AuricRunesmiterOnMagmadroth.h"
-#include "fyreslayers/AuricRunesonOnMagmadroth.h"
-#include "fyreslayers/AuricRunefatherOnMagmadroth.h"
-#include "fyreslayers/AuricRunesmiter.h"
+#include "everchosen/Archaon.h"
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
@@ -143,6 +129,7 @@ void Initialize(Verbosity verbosity)
     Ironjawz::Init();
     Khorne::Init();
     Wanderers::Init();
+    Fyreslayers::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();
@@ -224,17 +211,5 @@ void Initialize(Verbosity verbosity)
     Seraphon::SaurusWarriors::Init();
     Seraphon::Skinks::Init();
 
-    Fyreslayers::AuricHearthguard::Init();
-    Fyreslayers::Battlesmith::Init();
-    Fyreslayers::GrimwrathBerzerker::Init();
-    Fyreslayers::HearthguardBerzerkers::Init();
-    Fyreslayers::Doomseeker::Init();
-    Fyreslayers::VulkiteBerzerkers::Init();
-    Fyreslayers::AuricRunefather::Init();
-    Fyreslayers::AuricRunemaster::Init();
-    Fyreslayers::AuricRuneson::Init();
-    Fyreslayers::AuricRunesmiter::Init();
-    Fyreslayers::AuricRunesmiterOnMagmadroth::Init();
-    Fyreslayers::AuricRunefatherOnMagmadroth::Init();
-    Fyreslayers::AuricRunesonOnMagmadroth::Init();
+    Everchosen::Archaon::Init();
 }

@@ -131,6 +131,7 @@ enum Keyword
     DEADWALKERS,
     DEATHMAGES,
     DEATHLORDS,
+    EVERCHOSEN,
 
     // Common
     MORTAL,
@@ -518,6 +519,15 @@ enum Keyword
     AURIC_RUNEFATHER,
     AURIC_RUNESON,
     AURIC_RUNESMITER,
+
+    // Fyreslayer Lodges
+    VOSTARG,
+    GREYFYRD,
+    LOFNIR,
+    HERMDAR,
+
+    // Everchosen
+    ARCHAON,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

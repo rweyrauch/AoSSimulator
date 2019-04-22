@@ -40,6 +40,12 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    void onStartShooting(PlayerId player) override;
+    void onEndCombat(PlayerId player) override;
+    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_throwingAxe,
@@ -57,11 +63,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Roaring Fyrestream               No
-// Lashing Tail                     No
-// Volcanic Blood                   No
-// Vying for Glory                  No
-// Wyrmslayer Javelins              No
+// Roaring Fyrestream               Yes
+// Lashing Tail                     Yes
+// Volcanic Blood                   Yes
+// Vying for Glory                  Yes
+// Wyrmslayer Javelins              Yes
 // Molten Battering Ram             No
 //
 

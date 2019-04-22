@@ -290,6 +290,9 @@ add_library(
         fyreslayers/AuricRunefatherOnMagmadroth.cpp
         fyreslayers/AuricRunesmiterOnMagmadroth.cpp
         fyreslayers/AuricRunesonOnMagmadroth.cpp
+        fyreslayers/Fyreslayer.cpp
+
+        everchosen/Archaon.cpp
 )
 
 target_include_directories(

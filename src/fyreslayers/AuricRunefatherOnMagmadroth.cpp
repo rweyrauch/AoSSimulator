@@ -122,4 +122,64 @@ int AuricRunefatherOnMagmadroth::getDamageTableIndex() const
     return 0;
 }
 
+void AuricRunefatherOnMagmadroth::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+    if (player == m_owningPlayer)
+    {
+        // Roaring Fyrestream
+        if (m_shootingTarget)
+        {
+            float dist = distanceTo(m_shootingTarget);
+            if (dist <= m_fyrestream.range())
+            {
+                Dice dice;
+                int rs = dice.rollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
+                if (rs <= m_shootingTarget->remainingModels())
+                {
+                    if (dist < 6.0f)
+                    {
+                        m_shootingTarget->applyDamage({0, dice.rollD6()});
+                    }
+                    else
+                    {
+                        m_shootingTarget->applyDamage({0, dice.rollD3()});
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+void AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player)
+{
+    Unit::onEndCombat(player);
+
+    // Lashing Tail
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    for (auto ip : units)
+    {
+        Dice dice;
+        if (dice.rollD6() < ip->remainingModels())
+        {
+            ip->applyDamage({0, dice.rollD3()});
+        }
+    }
+}
+
+Wounds AuricRunefatherOnMagmadroth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    if (!weapon->isMissile())
+    {
+        // Volcanic Blood
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            return {0, 1};
+        }
+    }
+    return Unit::computeReturnedDamage(weapon, saveRoll);
+}
+
 } // namespace Fyreslayers

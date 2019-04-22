@@ -21,7 +21,7 @@ public:
 
     static const int BASESIZE = 170; // x105 oval
     static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 560;
+    static const int POINTS_PER_UNIT = 460;
 
     enum WeaponOption
     {
@@ -77,7 +77,7 @@ private:
 // Cavernous Jaws                   Yes
 // Sweeping Tail                    Yes
 // Arc Hammer                       Yes
-// Lord of the Heavens              No
+// Lord of the Heavens              Yes
 // Skybolt Bow                      No
 // Stormlance                       Yes
 // Tempest Axe                      No
