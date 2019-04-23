@@ -30,6 +30,11 @@
 #include "khorne/Slaughterpriest.h"
 #include "khorne/KorghosKhul.h"
 #include "khorne/ExaltedDeathbringer.h"
+#include "khorne/Bloodsecrator.h"
+#include "khorne/Bloodstoker.h"
+#include "khorne/BloodThrone.h"
+#include "khorne/SkullCannons.h"
+#include "khorne/ValkiaTheBloody.h"
 
 namespace Khorne
 {
@@ -124,28 +129,33 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 
 void Init()
 {
-    Khorne::Bloodcrushers::Init();
-    Khorne::Bloodletters::Init();
-    Khorne::Bloodmaster::Init();
-    Khorne::Bloodreavers::Init();
-    Khorne::BloodthirsterOfInsensateRage::Init();
-    Khorne::BloodthirsterOfUnfetteredFury::Init();
-    Khorne::BloodWarriors::Init();
-    Khorne::FleshHounds::Init();
-    Khorne::Karanak::Init();
-    Khorne::Khorgoraths::Init();
-    Khorne::KorghosKhul::Init();
-    Khorne::MightyLordOfKhorne::Init();
-    Khorne::MightySkullcrushers::Init();
-    Khorne::Skarbrand::Init();
-    Khorne::Skullmaster::Init();
-    Khorne::Skullreapers::Init();
-    Khorne::Skulltaker::Init();
-    Khorne::Slaughterpriest::Init();
-    Khorne::VorgarothAndSkalok::Init();
-    Khorne::Wrathmongers::Init();
-    Khorne::WrathOfKhorneBloodthirster::Init();
-    Khorne::ExaltedDeathbringer::Init();
+    Bloodcrushers::Init();
+    Bloodletters::Init();
+    Bloodmaster::Init();
+    Bloodreavers::Init();
+    BloodthirsterOfInsensateRage::Init();
+    BloodthirsterOfUnfetteredFury::Init();
+    BloodWarriors::Init();
+    FleshHounds::Init();
+    Karanak::Init();
+    Khorgoraths::Init();
+    KorghosKhul::Init();
+    MightyLordOfKhorne::Init();
+    MightySkullcrushers::Init();
+    Skarbrand::Init();
+    Skullmaster::Init();
+    Skullreapers::Init();
+    Skulltaker::Init();
+    Slaughterpriest::Init();
+    VorgarothAndSkalok::Init();
+    Wrathmongers::Init();
+    WrathOfKhorneBloodthirster::Init();
+    ExaltedDeathbringer::Init();
+    Bloodsecrator::Init();
+    Bloodstoker::Init();
+    HeraldOfKhorneOnBloodThrone::Init();
+    SkullCannons::Init();
+    ValkiaTheBloody::Init();
 }
 
 } //namespace Khorne

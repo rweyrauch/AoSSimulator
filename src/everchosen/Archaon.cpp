@@ -127,4 +127,56 @@ int Archaon::getDamageTableIndex() const
     return 0;
 }
 
+Wounds Archaon::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    // The Armour of Morkar
+    if (saveRoll == 6)
+    {
+        return {0, 1};
+    }
+    return Unit::computeReturnedDamage(weapon, saveRoll);
+}
+
+Wounds Archaon::applyWoundSave(const Wounds &wounds)
+{
+    auto modifiedWounds = Unit::applyWoundSave(wounds);
+
+    // Chaos Runeshield
+    Dice dice;
+    Dice::RollResult rollResult;
+
+    dice.rollD6(wounds.normal, rollResult);
+    modifiedWounds.normal -= rollResult.rollsGE(5);
+    dice.rollD6(wounds.mortal, rollResult);
+    modifiedWounds.mortal -= rollResult.rollsGE(5);
+
+    return modifiedWounds;
+}
+
+Wounds Archaon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    // The Slayer of Kings
+    if ((hitRoll == 6) && (weapon->name() == m_slayerOfKings.name()))
+    {
+        m_slayerOfKingsSixesThisCombat++;
+
+        if (m_slayerOfKingsSixesThisCombat >= 2)
+        {
+            // TODO: Hack for now.  Expect next revision of Archaon warscroll to remove the auto-slay and instead
+            // do some large number of mortal wounds (just like Skarbrand).
+            // Target is slain.  (Fake it by generating a lot of mortal wounds).
+            wounds = {weapon->damage(), target->wounds()*10};
+        }
+    }
+    return wounds;
+}
+
+void Archaon::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    m_slayerOfKingsSixesThisCombat = 0;
+}
+
 } // namespace Everchosen

@@ -40,7 +40,14 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartCombat(PlayerId player) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
+
+    mutable int m_slayerOfKingsSixesThisCombat = 0;
 
     Weapon m_slayerOfKings,
         m_dorgharsClaws,
@@ -55,9 +62,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // The Eye of Sheerian              No
-// The Slayer of Kings              No
-// The Armour of Morkar             No
-// Chaos Runeshield                 No
+// The Slayer of Kings              Yes
+// The Armour of Morkar             Yes
+// Chaos Runeshield                 Yes
 // The Crown of Domination          No
 // Triple-headed Monstrosity        No
 //   Filth-spewer                   No
