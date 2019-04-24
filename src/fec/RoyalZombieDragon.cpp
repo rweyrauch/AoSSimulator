@@ -13,9 +13,11 @@ namespace FleshEaterCourt
 {
 static FactoryMethod factoryMethod = {
     RoyalZombieDragon::Create,
-    nullptr,
-    nullptr,
+    FleshEaterCourts::ValueToString,
+    FleshEaterCourts::EnumStringToInt,
     {
+        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
     },
     DEATH,
     FLESH_EATER_COURTS
@@ -80,6 +82,12 @@ void RoyalZombieDragon::visitWeapons(std::function<void(const Weapon *)> &visito
 Unit *RoyalZombieDragon::Create(const ParameterList &parameters)
 {
     auto unit = new RoyalZombieDragon();
+
+    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
+    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
+    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+    unit->setGrandCourt(court);
+    unit->setCourtsOfDelusion(delusion);
 
     bool ok = unit->configure();
     if (!ok)

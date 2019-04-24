@@ -19,9 +19,17 @@ class FleshEaterCourts : public Unit
 {
 public:
 
+    enum GrandCourt
+    {
+        NoCourt = 0,
+        Morgaunt,
+        Hollowmourne,
+        Blisterskin,
+        Gristlegore,
+    };
     enum Delusion
     {
-        None,
+        None = 0,
         CrusadingArmy,
         TheRoyalHunt,
         TheFeastDay,
@@ -30,8 +38,13 @@ public:
         DefendersOfTheRealm
     };
 
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
+
     FleshEaterCourts() = default;
     ~FleshEaterCourts() override = default;
+
+    void setGrandCourt(GrandCourt court);
 
     void setCourtsOfDelusion(Delusion delusion)
     {
@@ -52,6 +65,7 @@ protected:
 
 protected:
 
+    GrandCourt m_grandCourt = NoCourt;
     Delusion m_delusion = None;
 };
 

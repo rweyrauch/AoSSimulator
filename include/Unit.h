@@ -50,17 +50,16 @@ public:
 
     Role role() const { return m_battleFieldRole; }
 
-    void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
-
-    PlayerId owningPlayer() const { return m_owningPlayer; }
-
     int numSpells() const { return m_totalSpells; }
 
     int numUnbinds() const { return m_totalUnbinds; }
 
     int numPrayers() const { return m_totalPrayers; }
 
-    void setPoints(int points) { m_points = points; }
+
+    void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
+
+    PlayerId owningPlayer() const { return m_owningPlayer; }
 
     bool addKeyword(Keyword word);
 

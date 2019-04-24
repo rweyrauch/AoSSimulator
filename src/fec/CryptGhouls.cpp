@@ -14,13 +14,15 @@ namespace FleshEaterCourt
 {
 static FactoryMethod factoryMethod = {
     CryptGhouls::Create,
-    nullptr,
-    nullptr,
+    FleshEaterCourts::ValueToString,
+    FleshEaterCourts::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", CryptGhouls::MIN_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE,
             CryptGhouls::MAX_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
     },
     DEATH,
     FLESH_EATER_COURTS
@@ -73,6 +75,12 @@ Unit *CryptGhouls::Create(const ParameterList &parameters)
 {
     auto unit = new CryptGhouls();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
+    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
+    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+    unit->setGrandCourt(court);
+    unit->setCourtsOfDelusion(delusion);
 
     bool ok = unit->configure(numModels);
     if (!ok)

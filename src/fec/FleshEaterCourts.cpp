@@ -167,6 +167,69 @@ Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds)
     return Unit::applyWoundSave(wounds);
 }
 
+std::string FleshEaterCourts::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Grand Court")
+    {
+        if (parameter.m_intValue == Morgaunt) { return "Morgaunt"; }
+        else if (parameter.m_intValue == Hollowmourne) { return "Hollowmourne"; }
+        else if (parameter.m_intValue == Blisterskin) { return "Blisterskin"; }
+        else if (parameter.m_intValue == Gristlegore) { return "Gristlegore"; }
+        else if (parameter.m_intValue == NoCourt) { return "No Court"; }
+    }
+    else if (parameter.m_name == "Delusion")
+    {
+        if (parameter.m_intValue == CrusadingArmy) { return "Crusading Army"; }
+        else if (parameter.m_intValue == TheRoyalHunt) { return "The Royal Hunt"; }
+        else if (parameter.m_intValue == TheFeastDay) { return "The Feast Day"; }
+        else if (parameter.m_intValue == AMatterOfHonour) { return "A Matter of Honour"; }
+        else if (parameter.m_intValue == TheGrandTournament) { return "The Grand Tournament"; }
+        else if (parameter.m_intValue == DefendersOfTheRealm) { return "Defenders of the Realm"; }
+        else if (parameter.m_intValue == None) { return "None"; }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int FleshEaterCourts::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Morgaunt") { return Morgaunt; }
+    else if (enumString == "Hollowmourne") { return Hollowmourne; }
+    else if (enumString == "Blisterskin") { return Blisterskin; }
+    else if (enumString == "Gristlegore") { return Gristlegore; }
+    else if (enumString == "No Court") { return NoCourt; }
+    else if (enumString == "Crusading Army") { return CrusadingArmy; }
+    else if (enumString == "The Royal Hunt") { return TheRoyalHunt; }
+    else if (enumString == "The Feast Day") { return TheFeastDay; }
+    else if (enumString == "A Matter of Honour") { return AMatterOfHonour; }
+    else if (enumString == "The Grand Tournament") { return TheGrandTournament; }
+    else if (enumString == "Defenders of the Realm") { return DefendersOfTheRealm; }
+    else if (enumString == "None") { return None; }
+
+    return 0;
+}
+
+void FleshEaterCourts::setGrandCourt(FleshEaterCourts::GrandCourt court)
+{
+    m_grandCourt = court;
+    switch (m_grandCourt)
+    {
+        case Morgaunt:
+            addKeyword(MORGAUNT);
+            break;
+        case Hollowmourne:
+            addKeyword(HOLLOWMOURNE);
+            break;
+        case Blisterskin:
+            addKeyword(BLISTERSKIN);
+            break;
+        case Gristlegore:
+            addKeyword(GRISTLEGORE);
+            break;
+        default:
+            break;
+    }
+}
+
 void Init()
 {
     CryptGhouls::Init();

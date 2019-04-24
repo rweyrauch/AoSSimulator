@@ -14,9 +14,11 @@ namespace FleshEaterCourt
 {
 static FactoryMethod factoryMethod = {
     AbhorrantArchregent::Create,
-    nullptr,
-    nullptr,
+    FleshEaterCourts::ValueToString,
+    FleshEaterCourts::EnumStringToInt,
     {
+        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
     },
     DEATH,
     FLESH_EATER_COURTS
@@ -58,6 +60,12 @@ void AbhorrantArchregent::visitWeapons(std::function<void(const Weapon *)> &visi
 Unit *AbhorrantArchregent::Create(const ParameterList &parameters)
 {
     auto unit = new AbhorrantArchregent();
+
+    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
+    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
+    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+    unit->setGrandCourt(court);
+    unit->setCourtsOfDelusion(delusion);
 
     bool ok = unit->configure();
     if (!ok)
