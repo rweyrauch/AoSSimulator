@@ -14,9 +14,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Bloodmaster::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -51,6 +52,9 @@ void Bloodmaster::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Bloodmaster::Create(const ParameterList &parameters)
 {
     auto unit = new Bloodmaster();
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure();
     if (!ok)

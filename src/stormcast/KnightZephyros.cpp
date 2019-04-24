@@ -14,9 +14,10 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     KnightZephyros::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -49,6 +50,10 @@ bool KnightZephyros::configure()
 Unit *KnightZephyros::Create(const ParameterList &parameters)
 {
     auto unit = new KnightZephyros();
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure();
     if (!ok)
     {

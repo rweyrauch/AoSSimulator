@@ -9,13 +9,13 @@
 #ifndef AURICRUNESON_H
 #define AURICRUNESON_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class AuricRuneson : public Unit
+class AuricRuneson : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

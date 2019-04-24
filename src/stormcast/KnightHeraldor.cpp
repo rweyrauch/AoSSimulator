@@ -14,9 +14,10 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     KnightHeraldor::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -45,6 +46,10 @@ bool KnightHeraldor::configure()
 Unit *KnightHeraldor::Create(const ParameterList &parameters)
 {
     auto unit = new KnightHeraldor();
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure();
     if (!ok)
     {

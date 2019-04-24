@@ -9,13 +9,13 @@
 #ifndef DOOMSEEKER_H
 #define DOOMSEEKER_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class Doomseeker : public Unit
+class Doomseeker : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

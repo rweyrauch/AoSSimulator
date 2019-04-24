@@ -16,12 +16,13 @@ namespace StormcastEternals
 
 static FactoryMethod factoryMethod = {
     Evocators::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {ParamType::Integer, "Models", Evocators::MIN_UNIT_SIZE, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
         {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Integer, "Grandstaves", 2, 0, Evocators::MAX_UNIT_SIZE, 1},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -134,6 +135,9 @@ Unit *Evocators::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
     int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    evos->setStormhost(stormhost);
 
     bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave);
     if (!ok)

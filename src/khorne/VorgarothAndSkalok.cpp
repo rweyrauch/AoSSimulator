@@ -14,9 +14,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     VorgarothAndSkalok::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -82,6 +83,9 @@ void VorgarothAndSkalok::visitWeapons(std::function<void(const Weapon *)> &visit
 Unit *VorgarothAndSkalok::Create(const ParameterList &parameters)
 {
     auto unit = new VorgarothAndSkalok();
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure();
     if (!ok)

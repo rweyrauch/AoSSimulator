@@ -9,13 +9,13 @@
 #ifndef VULKITEBERZERKERS_H
 #define VULKITEBERZERKERS_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class VulkiteBerzerkers : public Unit
+class VulkiteBerzerkers : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

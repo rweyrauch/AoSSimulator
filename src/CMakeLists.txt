@@ -186,6 +186,7 @@ add_library(
         slaanesh/Fiends.cpp
         slaanesh/Daemonettes.cpp
         slaanesh/Seekers.cpp
+        slaanesh/KeeperOfSecrets.cpp
 
         nurgle/Plaguebearers.cpp
         nurgle/LordOfPlagues.cpp

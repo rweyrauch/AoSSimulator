@@ -127,6 +127,29 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return Unit::toHitRerolls(weapon, unit);
 }
 
+std::string KhorneBase::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Slaughter Host")
+    {
+        if (parameter.m_intValue == ReapersOfVengeance) { return "Reapers of Vengeance"; }
+        else if (parameter.m_intValue == Bloodlords) { return "Bloodlords"; }
+        else if (parameter.m_intValue == Goretide) { return "Goretide"; }
+        else if (parameter.m_intValue == SkullfiendTribe) { return "Skullfiend Tribe"; }
+        else if (parameter.m_intValue == None) { return "None"; }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int KhorneBase::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Reapers of Vengeance") { return ReapersOfVengeance; }
+    else if (enumString == "Bloodlords") { return Bloodlords; }
+    else if (enumString == "Goretide") { return Goretide; }
+    else if (enumString == "Skullfiend Tribe") { return SkullfiendTribe; }
+    else if (enumString == "None") { return None; }
+    return 0;
+}
+
 void Init()
 {
     Bloodcrushers::Init();

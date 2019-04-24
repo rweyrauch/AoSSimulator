@@ -13,9 +13,10 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     Battlesmith::Create,
-    nullptr,
-    nullptr,
+    Fyreslayer::ValueToString,
+    Fyreslayer::EnumStringToInt,
     {
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -24,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Battlesmith::s_registered = false;
 
 Battlesmith::Battlesmith() :
-    Unit("Battlesmith", 4, WOUNDS, 7, 4, false),
+    Fyreslayer("Battlesmith", 4, WOUNDS, 7, 4, false),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
     m_battleAxe(Weapon::Type::Melee, "Ancestral Battle-axe", 1, 3, 3, 3, -1, 2)
 {
@@ -53,6 +54,9 @@ void Battlesmith::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Battlesmith::Create(const ParameterList &parameters)
 {
     auto unit = new Battlesmith();
+
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
 
     bool ok = unit->configure();
     if (!ok)

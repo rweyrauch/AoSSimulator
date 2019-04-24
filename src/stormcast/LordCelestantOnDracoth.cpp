@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::StormstrikeGlaive, 1
         },
         {ParamType::Boolean, "Sigmarite Thundershield", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -76,6 +77,9 @@ Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, LightningHammer);
     bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(weapons, sigmariteThundershield);
     if (!ok)
     {
@@ -114,7 +118,7 @@ std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
             return "Stormstrike Glaive";
         }
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int LordCelestantOnDracoth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
@@ -192,7 +196,7 @@ int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
     {
         return StormstrikeGlaive;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon *)> &visitor)

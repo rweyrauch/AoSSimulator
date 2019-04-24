@@ -14,13 +14,14 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     VanguardRaptorsLongstrike::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", VanguardRaptorsLongstrike::MIN_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
             VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -91,6 +92,9 @@ Unit *VanguardRaptorsLongstrike::Create(const ParameterList &parameters)
 {
     auto unit = new VanguardRaptorsLongstrike();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(numModels);
     if (!ok)

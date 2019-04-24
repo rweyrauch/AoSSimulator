@@ -28,7 +28,8 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Integer, "Grandhammers", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "Grandblades", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1}
+        {ParamType::Integer, "Grandblades", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -161,6 +162,9 @@ Unit *Liberators::Create(const ParameterList &parameters)
     int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
     int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    libs->setStormhost(stormhost);
+
     bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
     if (!ok)
     {
@@ -192,7 +196,7 @@ std::string Liberators::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int Liberators::EnumStringToInt(const std::string &enumString)
@@ -205,7 +209,7 @@ int Liberators::EnumStringToInt(const std::string &enumString)
     {
         return Warblade;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void Liberators::visitWeapons(std::function<void(const Weapon *)> &visitor)

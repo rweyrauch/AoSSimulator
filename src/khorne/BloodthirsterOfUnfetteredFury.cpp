@@ -14,9 +14,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     BloodthirsterOfUnfetteredFury::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -72,6 +73,9 @@ void BloodthirsterOfUnfetteredFury::visitWeapons(std::function<void(const Weapon
 Unit *BloodthirsterOfUnfetteredFury::Create(const ParameterList &parameters)
 {
     auto unit = new BloodthirsterOfUnfetteredFury();
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure();
     if (!ok)

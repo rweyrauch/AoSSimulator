@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     LordOrdinator::EnumStringToInt,
     {
         {ParamType::Enum, "Weapon", LordOrdinator::AstralHammers, LordOrdinator::AstralHammers, LordOrdinator::AstralGrandhammer, 1},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -58,6 +59,9 @@ Unit *LordOrdinator::Create(const ParameterList &parameters)
     auto unit = new LordOrdinator();
     WeaponOption weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(weapons);
     if (!ok)
     {
@@ -89,7 +93,7 @@ std::string LordOrdinator::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int LordOrdinator::EnumStringToInt(const std::string &enumString)
@@ -103,7 +107,7 @@ int LordOrdinator::EnumStringToInt(const std::string &enumString)
         return AstralGrandhammer;
     }
 
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void LordOrdinator::visitWeapons(std::function<void(const Weapon *)> &visitor)

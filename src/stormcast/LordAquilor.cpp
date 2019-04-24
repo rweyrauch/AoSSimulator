@@ -15,10 +15,11 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     LordAquilor::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -56,6 +57,9 @@ Unit *LordAquilor::Create(const ParameterList &parameters)
 {
     auto unit = new LordAquilor();
     bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(astralCompass);
     if (!ok)

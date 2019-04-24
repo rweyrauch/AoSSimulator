@@ -9,13 +9,13 @@
 #ifndef HEARTHGUARDBERZERKERS_H
 #define HEARTHGUARDBERZERKERS_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class HearthguardBerzerkers : public Unit
+class HearthguardBerzerkers : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

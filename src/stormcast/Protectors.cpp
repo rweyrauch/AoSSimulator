@@ -14,11 +14,12 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Protectors::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {ParamType::Integer, "Models", Protectors::MIN_UNIT_SIZE, Protectors::MIN_UNIT_SIZE, Protectors::MAX_UNIT_SIZE, Protectors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Starsoul Maces", 2, 0, (Protectors::MAX_UNIT_SIZE / 5) * 2, 1}
+        {ParamType::Integer, "Starsoul Maces", 2, 0, (Protectors::MAX_UNIT_SIZE / 5) * 2, 1},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -111,6 +112,9 @@ Unit *Protectors::Create(const ParameterList &parameters)
     auto unit = new Protectors();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(numModels, numStarsoulMaces);
     if (!ok)

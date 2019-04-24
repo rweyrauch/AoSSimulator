@@ -14,13 +14,14 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Tempestors::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Tempestors::MIN_UNIT_SIZE, Tempestors::MIN_UNIT_SIZE,
             Tempestors::MAX_UNIT_SIZE, Tempestors::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -76,6 +77,9 @@ Unit *Tempestors::Create(const ParameterList &parameters)
 {
     auto unit = new Tempestors();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(numModels);
     if (!ok)

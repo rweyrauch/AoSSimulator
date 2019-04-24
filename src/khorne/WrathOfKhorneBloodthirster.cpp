@@ -13,9 +13,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     WrathOfKhorneBloodthirster::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -42,7 +43,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool WrathOfKhorneBloodthirster::s_registered = false;
 
 WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
-    KhorneBase("Wrath Of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
+    KhorneBase("Wrath of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
     m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
     m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
@@ -72,6 +73,9 @@ Unit *WrathOfKhorneBloodthirster::Create(const ParameterList &parameters)
 {
     auto unit = new WrathOfKhorneBloodthirster();
 
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -85,7 +89,7 @@ void WrathOfKhorneBloodthirster::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Wrath Of Khorne Bloodthirster", factoryMethod);
+        s_registered = UnitFactory::Register("Wrath of Khorne Bloodthirster", factoryMethod);
     }
 }
 

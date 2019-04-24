@@ -9,13 +9,13 @@
 #ifndef AURICRUNESMITERONMAGMADROTH_H
 #define AURICRUNESMITERONMAGMADROTH_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class AuricRunesmiterOnMagmadroth : public Unit
+class AuricRunesmiterOnMagmadroth : public Fyreslayer
 {
 public:
     static const int BASESIZE = 120; // x92 oval

@@ -28,7 +28,8 @@ static FactoryMethod factoryMethod = {
             Bloodreavers::MeatripperAxe, 1
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -126,6 +127,9 @@ Unit *Bloodreavers::Create(const ParameterList &parameters)
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
+
     bool ok = unit->configure(numModels, weapons, iconBearer, hornblowers);
     if (!ok)
     {
@@ -152,7 +156,7 @@ std::string Bloodreavers::ValueToString(const Parameter &parameter)
         else if (parameter.m_intValue == MeatripperAxe)
         { return "Meatripper Axe"; }
     }
-    return ParameterValueToString(parameter);
+    return KhorneBase::ValueToString(parameter);
 }
 
 int Bloodreavers::EnumStringToInt(const std::string &enumString)
@@ -161,7 +165,7 @@ int Bloodreavers::EnumStringToInt(const std::string &enumString)
     { return ReaverBlades; }
     else if (enumString == "Meatripper Axe")
     { return MeatripperAxe; }
-    return 0;
+    return KhorneBase::EnumStringToInt(enumString);
 }
 
 void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)

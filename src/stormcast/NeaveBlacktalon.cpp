@@ -14,9 +14,10 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     NeaveBlacktalon::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -49,6 +50,10 @@ bool NeaveBlacktalon::configure()
 Unit *NeaveBlacktalon::Create(const ParameterList &parameters)
 {
     auto unit = new NeaveBlacktalon();
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure();
     if (!ok)
     {

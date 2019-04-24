@@ -23,7 +23,8 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Stormsurge Tridents", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
         {ParamType::Integer, "Grandaxes", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
         {ParamType::Integer, "Grandblades", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandhammers", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 }
+        {ParamType::Integer, "Grandhammers", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -218,6 +219,9 @@ Unit *Prosecutors::Create(const ParameterList &parameters)
     int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
     int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(numModels, weapons, primeGrandWeapon, numTridents, numGrandaxes, numGrandblades, numGrandhammers);
     if (!ok)
     {
@@ -268,7 +272,7 @@ std::string Prosecutors::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int Prosecutors::EnumStringToInt(const std::string &enumString)
@@ -305,7 +309,7 @@ int Prosecutors::EnumStringToInt(const std::string &enumString)
     {
         return Grandhammer;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void Prosecutors::Init()

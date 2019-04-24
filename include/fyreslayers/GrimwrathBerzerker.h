@@ -9,13 +9,13 @@
 #ifndef GRIMWRATHBERZERKER_H
 #define GRIMWRATHBERZERKER_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class GrimwrathBerzerker : public Unit
+class GrimwrathBerzerker : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

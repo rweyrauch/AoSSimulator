@@ -23,7 +23,8 @@ static FactoryMethod factoryMethod = {
             Judicators::BoltstormCrossbow, 1
         },
         {ParamType::Integer, "Shockbolt Bows", 1, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "Thunderbolt Crossbows", 0, 0, Judicators::MAX_UNIT_SIZE / 5, 1}
+        {ParamType::Integer, "Thunderbolt Crossbows", 0, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -144,6 +145,9 @@ Unit *Judicators::Create(const ParameterList &parameters)
     int numShockboltBows = GetIntParam("Shockbolt Bows", parameters, 0);
     int numThunderboltCrossbows = GetIntParam("Thunderbolt Crossbows", parameters, 0);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    juds->setStormhost(stormhost);
+
     bool ok = juds->configure(numModels, weapons, numShockboltBows, numThunderboltCrossbows);
     if (!ok)
     {
@@ -174,7 +178,7 @@ std::string Judicators::ValueToString(const Parameter &parameter)
             return "Boltstorm Crossbow";
         }
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int Judicators::EnumStringToInt(const std::string &enumString)
@@ -187,7 +191,7 @@ int Judicators::EnumStringToInt(const std::string &enumString)
     {
         return BoltstormCrossbow;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void Judicators::visitWeapons(std::function<void(const Weapon *)> &visitor)

@@ -13,13 +13,14 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Fulminators::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Fulminators::MIN_UNIT_SIZE, Fulminators::MIN_UNIT_SIZE,
             Fulminators::MAX_UNIT_SIZE, Fulminators::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -72,6 +73,9 @@ Unit *Fulminators::Create(const ParameterList &parameters)
 {
     auto unit = new Fulminators();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(numModels);
     if (!ok)

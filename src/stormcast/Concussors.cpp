@@ -13,13 +13,14 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Concussors::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Concussors::MIN_UNIT_SIZE, Concussors::MIN_UNIT_SIZE,
             Concussors::MAX_UNIT_SIZE, Concussors::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -72,6 +73,9 @@ Unit *Concussors::Create(const ParameterList &parameters)
 {
     auto unit = new Concussors();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(numModels);
     if (!ok)

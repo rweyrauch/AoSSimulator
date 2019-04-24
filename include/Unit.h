@@ -334,9 +334,9 @@ protected:
 
     virtual void onFlee(int numFled) {}
 
-    int rollRunDistance() const;
+    virtual int rollRunDistance() const;
 
-    int rollChargeDistance() const;
+    virtual int rollChargeDistance() const;
 
     virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
 

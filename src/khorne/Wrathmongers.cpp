@@ -12,14 +12,15 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Wrathmongers::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Wrathmongers::MIN_UNIT_SIZE,
             Wrathmongers::MIN_UNIT_SIZE,
             Wrathmongers::MAX_UNIT_SIZE, Wrathmongers::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -72,6 +73,9 @@ Unit *Wrathmongers::Create(const ParameterList &parameters)
 {
     auto unit = new Wrathmongers();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure(numModels);
     if (!ok)

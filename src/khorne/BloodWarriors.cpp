@@ -15,8 +15,8 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     BloodWarriors::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE,
@@ -24,7 +24,8 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Paired Goreaxe", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Integer, "Goreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -118,6 +119,9 @@ Unit *BloodWarriors::Create(const ParameterList &parameters)
     bool pairedGoreax = GetBoolParam("Paired Goreaxe", parameters, false);
     int numGoreglaives = GetIntParam("Goreglaives", parameters, 0);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure(numModels, pairedGoreax, numGoreglaives, iconBearer);
     if (!ok)

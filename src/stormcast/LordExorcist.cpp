@@ -22,6 +22,7 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
         {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -68,6 +69,9 @@ Unit *LordExorcist::Create(const ParameterList &parameters)
     auto storm = (LoreOfTheStorm)GetEnumParam("Lore of the Storm", parameters, (int)LoreOfTheStorm::None);
     auto invigoration = (LoreOfInvigoration)GetEnumParam("Lore of Invigoration", parameters, (int)LoreOfInvigoration::None);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(storm, invigoration);
     if (!ok)
     {
@@ -100,7 +104,7 @@ std::string LordExorcist::ValueToString(const Parameter &parameter)
     {
         return ToString((LoreOfInvigoration) parameter.m_intValue);
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int LordExorcist::EnumStringToInt(const std::string &enumString)
@@ -115,7 +119,7 @@ int LordExorcist::EnumStringToInt(const std::string &enumString)
     {
         return (int) invigoration;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void LordExorcist::onStartShooting(PlayerId player)

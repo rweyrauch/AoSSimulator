@@ -17,9 +17,10 @@ namespace StormcastEternals
 
 static FactoryMethod factoryMethod = {
     CelestarBallista::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -60,6 +61,9 @@ bool CelestarBallista::configure()
 Unit *CelestarBallista::Create(const ParameterList &parameters)
 {
     auto ballista = new CelestarBallista();
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    ballista->setStormhost(stormhost);
 
     bool ok = ballista->configure();
     if (!ok)

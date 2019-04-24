@@ -15,13 +15,14 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     FleshHounds::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", FleshHounds::MIN_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE,
             FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -75,6 +76,9 @@ Unit *FleshHounds::Create(const ParameterList &parameters)
 {
     auto unit = new FleshHounds();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure(numModels);
     if (!ok)

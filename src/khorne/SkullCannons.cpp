@@ -14,13 +14,14 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     SkullCannons::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", SkullCannons::MIN_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE,
             SkullCannons::MAX_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -73,6 +74,9 @@ Unit *SkullCannons::Create(const ParameterList &parameters)
 {
     auto unit = new SkullCannons();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure(numModels);
     if (!ok)

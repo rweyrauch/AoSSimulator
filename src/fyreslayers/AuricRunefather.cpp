@@ -13,9 +13,10 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     AuricRunefather::Create,
-    nullptr,
-    nullptr,
+    Fyreslayer::ValueToString,
+    Fyreslayer::EnumStringToInt,
     {
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -24,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool AuricRunefather::s_registered = false;
 
 AuricRunefather::AuricRunefather() :
-    Unit("Auric Runefather", 4, WOUNDS, 8, 4, false),
+    Fyreslayer("Auric Runefather", 4, WOUNDS, 8, 4, false),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
     m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3)
 {
@@ -53,6 +54,9 @@ void AuricRunefather::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *AuricRunefather::Create(const ParameterList &parameters)
 {
     auto unit = new AuricRunefather();
+
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
 
     bool ok = unit->configure();
     if (!ok)

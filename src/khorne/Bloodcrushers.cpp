@@ -13,15 +13,16 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Bloodcrushers::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Bloodcrushers::MIN_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE,
             Bloodcrushers::MAX_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -85,6 +86,9 @@ Unit *Bloodcrushers::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure(numModels, iconBearer, hornblowers);
     if (!ok)

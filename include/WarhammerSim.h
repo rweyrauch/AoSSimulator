@@ -378,6 +378,7 @@ enum Keyword
     DAEMONETTES,
     SEEKERS,
     FIENDS,
+    KEEPER_OF_SECRETS,
 
     // Nurgle
     PLAGUEBEARER,

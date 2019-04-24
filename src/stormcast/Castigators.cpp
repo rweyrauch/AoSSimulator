@@ -14,10 +14,11 @@ namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     Castigators::Create,
-    nullptr,
-    nullptr,
+    StormcastEternal::ValueToString,
+    StormcastEternal::EnumStringToInt,
     {
         {ParamType::Integer, "Models", Castigators::MIN_UNIT_SIZE, Castigators::MIN_UNIT_SIZE, Castigators::MAX_UNIT_SIZE, Castigators::MIN_UNIT_SIZE},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -70,6 +71,9 @@ Unit *Castigators::Create(const ParameterList &parameters)
 {
     auto unit = new Castigators();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
 
     bool ok = unit->configure(numModels);
     if (!ok)

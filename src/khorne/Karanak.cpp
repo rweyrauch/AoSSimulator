@@ -14,9 +14,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Karanak::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -54,6 +55,9 @@ void Karanak::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Karanak::Create(const ParameterList &parameters)
 {
     auto unit = new Karanak();
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure();
     if (!ok)

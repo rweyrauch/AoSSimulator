@@ -22,6 +22,7 @@ static FactoryMethod factoryMethod = {
         {
             ParamType::Enum, "Weapon", LordCelestantOnStardrake::CelestineHammer, LordCelestantOnStardrake::CelestineHammer, LordCelestantOnStardrake::StormboundBlade, 1
         },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -86,6 +87,9 @@ Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters)
     auto unit = new LordCelestantOnStardrake();
     auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, CelestineHammer);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(weapons);
     if (!ok)
     {
@@ -116,7 +120,7 @@ std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter)
             return "Stormbound Blade";
         }
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 
@@ -304,7 +308,7 @@ int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
     {
         return StormboundBlade;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void LordCelestantOnStardrake::visitWeapons(std::function<void(const Weapon *)> &visitor)

@@ -13,9 +13,10 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     GrimwrathBerzerker::Create,
-    nullptr,
-    nullptr,
+    Fyreslayer::ValueToString,
+    Fyreslayer::EnumStringToInt,
     {
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -24,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool GrimwrathBerzerker::s_registered = false;
 
 GrimwrathBerzerker::GrimwrathBerzerker() :
-    Unit("Grimwrath Berzerker", 4, WOUNDS, 9, 4, false),
+    Fyreslayer("Grimwrath Berzerker", 4, WOUNDS, 9, 4, false),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
     m_greatAxe(Weapon::Type::Melee, "Fyrestorm Greataxe", 1, 4, 3, 3, -2, 2)
 {
@@ -53,6 +54,9 @@ void GrimwrathBerzerker::visitWeapons(std::function<void(const Weapon *)> &visit
 Unit *GrimwrathBerzerker::Create(const ParameterList &parameters)
 {
     auto unit = new GrimwrathBerzerker();
+
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
 
     bool ok = unit->configure();
     if (!ok)

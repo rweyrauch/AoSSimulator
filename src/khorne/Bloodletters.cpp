@@ -16,8 +16,8 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Bloodletters::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Bloodletters::MIN_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE,
@@ -25,7 +25,8 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -92,6 +93,9 @@ Unit *Bloodletters::Create(const ParameterList &parameters)
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
     if (!ok)

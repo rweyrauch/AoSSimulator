@@ -23,7 +23,8 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", VulkiteBerzerkers::HandaxeAndShield, VulkiteBerzerkers::HandaxeAndShield,
             VulkiteBerzerkers::PairedHandaxes, 1
         },
-        {ParamType::Boolean, "Horn of Grimnir", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Horn of Grimnir", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -32,7 +33,7 @@ static FactoryMethod factoryMethod = {
 bool VulkiteBerzerkers::s_registered = false;
 
 VulkiteBerzerkers::VulkiteBerzerkers() :
-    Unit("Vulkite Berzerkers", 4, WOUNDS, 7, 5, false),
+    Fyreslayer("Vulkite Berzerkers", 4, WOUNDS, 7, 5, false),
     m_handaxe(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 2, 3, 3, 0, 1),
     m_handaxeKarl(Weapon::Type::Melee, "Fyresteel Handaxe (Karl)", 1, 3, 3, 3, 0, 1),
     m_warpick(Weapon::Type::Melee, "Fyresteel War-pick", 1, 2, 3, 4, -1, 1),
@@ -105,6 +106,9 @@ Unit *VulkiteBerzerkers::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, HandaxeAndShield);
     auto horn = GetBoolParam("Horn of Grimnir", parameters, false);
 
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
+
     bool ok = unit->configure(numModels, weapons, horn);
     if (!ok)
     {
@@ -130,7 +134,7 @@ std::string VulkiteBerzerkers::ValueToString(const Parameter &parameter)
         else if (parameter.m_intValue == WarpickAndShield) { return "Fyresteel War-pick and Bladed Slingshield"; }
         else if (parameter.m_intValue == PairedHandaxes) { return "Paired Fyresteel Handaxes"; }
     }
-    return ParameterValueToString(parameter);
+    return Fyreslayer::ValueToString(parameter);
 }
 
 int VulkiteBerzerkers::EnumStringToInt(const std::string &enumString)
@@ -138,7 +142,7 @@ int VulkiteBerzerkers::EnumStringToInt(const std::string &enumString)
     if (enumString == "Fyresteel Handaxe and Bladed Slingshield") { return HandaxeAndShield; }
     else if (enumString == "Fyresteel War-pick and Bladed Slingshield") { return WarpickAndShield; }
     else if (enumString == "Paired Fyresteel Handaxes") { return PairedHandaxes; }
-    return 0;
+    return Fyreslayer::EnumStringToInt(enumString);
 }
 
 Rerolls VulkiteBerzerkers::toHitRerolls(const Weapon *weapon, const Unit *target) const
@@ -147,7 +151,7 @@ Rerolls VulkiteBerzerkers::toHitRerolls(const Weapon *weapon, const Unit *target
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return Fyreslayer::toHitRerolls(weapon, target);
 }
 
 } //namespace Fyreslayers

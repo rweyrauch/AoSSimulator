@@ -54,6 +54,7 @@
 #include "slaanesh/Fiends.h"
 #include "slaanesh/Seekers.h"
 #include "slaanesh/Daemonettes.h"
+#include "slaanesh/KeeperOfSecrets.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -164,6 +165,7 @@ void Initialize(Verbosity verbosity)
     Slaanesh::Daemonettes::Init();
     Slaanesh::Fiends::Init();
     Slaanesh::Seekers::Init();
+    Slaanesh::KeeperOfSecrets::Init();
 
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();

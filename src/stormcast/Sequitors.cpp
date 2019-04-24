@@ -24,7 +24,8 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Integer, "Greatmaces", 2, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
         {ParamType::Boolean, "Prime Greatmace", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Redemption Cache", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Redemption Cache", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -181,6 +182,9 @@ Unit *Sequitors::Create(const ParameterList &parameters)
     bool primeGreatmace = GetBoolParam("Prime Greatmace", parameters, false);
     bool redemptionCache = GetBoolParam("Redemption Cache", parameters, false);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
     if (!ok)
     {
@@ -211,7 +215,7 @@ std::string Sequitors::ValueToString(const Parameter &parameter)
             return "Tempest Blade";
         }
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int Sequitors::EnumStringToInt(const std::string &enumString)
@@ -224,7 +228,7 @@ int Sequitors::EnumStringToInt(const std::string &enumString)
     {
         return TempestBlade;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void Sequitors::visitWeapons(std::function<void(const Weapon *)> &visitor)

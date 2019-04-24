@@ -13,9 +13,10 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     AuricRunefatherOnMagmadroth::Create,
-    nullptr,
-    nullptr,
+    Fyreslayer::ValueToString,
+    Fyreslayer::EnumStringToInt,
     {
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -42,7 +43,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool AuricRunefatherOnMagmadroth::s_registered = false;
 
 AuricRunefatherOnMagmadroth::AuricRunefatherOnMagmadroth() :
-    Unit("Auric Runefather on Magmadroth", 12, WOUNDS, 8, 4, false),
+    Fyreslayer("Auric Runefather on Magmadroth", 12, WOUNDS, 8, 4, false),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
     m_fyrestream(Weapon::Type::Missile, "", 12, 1, 0, 0, 0, 0),
     m_clawsAndHorns(Weapon::Type::Melee, "Claws and Horns", 1, 6, 4, 3, -1, 2),
@@ -86,6 +87,9 @@ Unit *AuricRunefatherOnMagmadroth::Create(const ParameterList &parameters)
 {
     auto unit = new AuricRunefatherOnMagmadroth();
 
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -124,7 +128,7 @@ int AuricRunefatherOnMagmadroth::getDamageTableIndex() const
 
 void AuricRunefatherOnMagmadroth::onStartShooting(PlayerId player)
 {
-    Unit::onStartShooting(player);
+    Fyreslayer::onStartShooting(player);
     if (player == m_owningPlayer)
     {
         // Roaring Fyrestream
@@ -154,7 +158,7 @@ void AuricRunefatherOnMagmadroth::onStartShooting(PlayerId player)
 
 void AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player)
 {
-    Unit::onEndCombat(player);
+    Fyreslayer::onEndCombat(player);
 
     // Lashing Tail
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
@@ -179,7 +183,7 @@ Wounds AuricRunefatherOnMagmadroth::computeReturnedDamage(const Weapon *weapon, 
             return {0, 1};
         }
     }
-    return Unit::computeReturnedDamage(weapon, saveRoll);
+    return Fyreslayer::computeReturnedDamage(weapon, saveRoll);
 }
 
 } // namespace Fyreslayers

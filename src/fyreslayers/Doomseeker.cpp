@@ -13,9 +13,10 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     Doomseeker::Create,
-    nullptr,
-    nullptr,
+    Fyreslayer::ValueToString,
+    Fyreslayer::EnumStringToInt,
     {
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -24,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Doomseeker::s_registered = false;
 
 Doomseeker::Doomseeker() :
-    Unit("Doomseeker", 4, WOUNDS, 8, 4, false),
+    Fyreslayer("Doomseeker", 4, WOUNDS, 8, 4, false),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
     m_warIron(Weapon::Type::Melee, "Runic War-iron", 1, 3, 3, 4, 0, 1),
     m_doomseekerAxe(Weapon::Type::Melee, "Doomseeker Axe", 1, 3, 3, 3, -1, 1)
@@ -57,6 +58,9 @@ Unit *Doomseeker::Create(const ParameterList &parameters)
 {
     auto unit = new Doomseeker();
 
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -88,7 +92,7 @@ Wounds Doomseeker::weaponDamage(const Weapon *weapon, const Unit *target, int hi
             return {weapon->damage()+2, 0};
         }
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Fyreslayers

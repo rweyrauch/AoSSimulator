@@ -9,13 +9,13 @@
 #ifndef BATTLESMITH_H
 #define BATTLESMITH_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class Battlesmith : public Unit
+class Battlesmith : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

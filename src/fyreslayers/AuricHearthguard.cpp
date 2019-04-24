@@ -12,13 +12,14 @@ namespace Fyreslayers
 {
 static FactoryMethod factoryMethod = {
     AuricHearthguard::Create,
-    nullptr,
-    nullptr,
+    Fyreslayer::ValueToString,
+    Fyreslayer::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", AuricHearthguard::MIN_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE,
             AuricHearthguard::MAX_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -27,7 +28,7 @@ static FactoryMethod factoryMethod = {
 bool AuricHearthguard::s_registered = false;
 
 AuricHearthguard::AuricHearthguard() :
-    Unit("Auric Hearthguard", 4, WOUNDS, 7, 5, false),
+    Fyreslayer("Auric Hearthguard", 4, WOUNDS, 7, 5, false),
     m_magmapike(Weapon::Type::Missile, "Magmapike", 18, 2, 4, 3, -1, 1),
     m_magmapikeKarl(Weapon::Type::Missile, "Magmapike (Karl)", 18, 3, 4, 3, -1, 1),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
@@ -81,6 +82,9 @@ Unit *AuricHearthguard::Create(const ParameterList &parameters)
     auto unit = new AuricHearthguard();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
+
     bool ok = unit->configure(numModels);
     if (!ok)
     {
@@ -105,7 +109,7 @@ Wounds AuricHearthguard::weaponDamage(const Weapon *weapon, const Unit *target, 
     {
         return {weapon->damage()+1, 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Fyreslayers

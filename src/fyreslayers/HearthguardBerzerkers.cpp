@@ -20,7 +20,8 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", HearthguardBerzerkers::MIN_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE,
             HearthguardBerzerkers::MAX_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE
         },
-        {ParamType::Enum, "Weapons", HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::FlamestrikePoleaxe, 1}
+        {ParamType::Enum, "Weapons", HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::FlamestrikePoleaxe, 1},
+        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
     FYRESLAYERS
@@ -29,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool HearthguardBerzerkers::s_registered = false;
 
 HearthguardBerzerkers::HearthguardBerzerkers() :
-    Unit("Hearthguard Berzerkers", 4, WOUNDS, 8, 5, false),
+    Fyreslayer("Hearthguard Berzerkers", 4, WOUNDS, 8, 5, false),
     m_broadaxe(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 2, 3, 3, -1, 2),
     m_broadaxeKarl(Weapon::Type::Melee, "Berzerker Broadaxe (Karl)", 2, 3, 3, 3, -1, 2),
     m_poleaxe(Weapon::Type::Melee, "Flamestrike Poleaxe", 2, 2, 3, 3, 0, 1),
@@ -98,6 +99,9 @@ Unit *HearthguardBerzerkers::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, BerzerkerBroadaxe);
 
+    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+    unit->setLodge(lodge);
+
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
     {
@@ -122,14 +126,14 @@ std::string HearthguardBerzerkers::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == BerzerkerBroadaxe) { return "Berzerker Broadaxe"; }
         else if (parameter.m_intValue == FlamestrikePoleaxe) { return "Flamestrike Poleaxe"; }
     }
-    return ParameterValueToString(parameter);
+    return Fyreslayer::ValueToString(parameter);
 }
 
 int HearthguardBerzerkers::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Berzerker Broadaxe") { return BerzerkerBroadaxe; }
     else if (enumString == "Flamestrike Poleaxe") { return FlamestrikePoleaxe; }
-    return 0;
+    return Fyreslayer::EnumStringToInt(enumString);
 }
 
 Wounds HearthguardBerzerkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -139,7 +143,7 @@ Wounds HearthguardBerzerkers::weaponDamage(const Weapon *weapon, const Unit *tar
     {
         return {weapon->damage(), 2};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds)

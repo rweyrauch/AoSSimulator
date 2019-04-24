@@ -22,6 +22,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", VanguardHunters::StormSabre, VanguardHunters::ShockHandaxe, VanguardHunters::StormSabre, 1
         },
         {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -100,6 +101,9 @@ Unit *VanguardHunters::Create(const ParameterList &parameters)
     WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormSabre);
     bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    hunters->setStormhost(stormhost);
+
     bool ok = hunters->configure(numModels, weapons, astralCompass);
     if (!ok)
     {
@@ -130,7 +134,7 @@ std::string VanguardHunters::ValueToString(const Parameter &parameter)
             return "Shock Handaxe";
         }
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int VanguardHunters::EnumStringToInt(const std::string &enumString)
@@ -143,7 +147,7 @@ int VanguardHunters::EnumStringToInt(const std::string &enumString)
     {
         return ShockHandaxe;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void VanguardHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)

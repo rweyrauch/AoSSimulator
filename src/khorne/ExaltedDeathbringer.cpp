@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", ExaltedDeathbringer::RuinousAxeAndSkullgouger, ExaltedDeathbringer::RuinousAxeAndSkullgouger,
             ExaltedDeathbringer::ImpalingSpear, 1
         },
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -74,6 +75,9 @@ Unit *ExaltedDeathbringer::Create(const ParameterList &parameters)
     auto unit = new ExaltedDeathbringer();
     WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, RuinousAxeAndSkullgouger);
 
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
+
     bool ok = unit->configure(weapon);
     if (!ok)
     {
@@ -108,7 +112,7 @@ std::string ExaltedDeathbringer::ValueToString(const Parameter &parameter)
             return "Impaling Spear";
         }
     }
-    return ParameterValueToString(parameter);
+    return KhorneBase::ValueToString(parameter);
 }
 
 int ExaltedDeathbringer::EnumStringToInt(const std::string &enumString)
@@ -125,7 +129,7 @@ int ExaltedDeathbringer::EnumStringToInt(const std::string &enumString)
     {
         return ImpalingSpear;
     }
-    return 0;
+    return KhorneBase::EnumStringToInt(enumString);
 }
 
 

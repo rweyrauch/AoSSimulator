@@ -21,12 +21,15 @@ public:
 
     enum SlaughterHost
     {
-        None,
+        None = 0,
         ReapersOfVengeance,
         Bloodlords,
         Goretide,
         SkullfiendTribe
     };
+
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
 
     KhorneBase() = default;
     ~KhorneBase() override = default;

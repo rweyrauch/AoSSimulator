@@ -23,6 +23,7 @@ static FactoryMethod factoryMethod = {
         {
             ParamType::Enum, "Weapons", VanguardPalladors::StarstrikeJavelin, VanguardPalladors::ShockHandaxe, VanguardPalladors::StarstrikeJavelin, 1
         },
+        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -98,6 +99,9 @@ Unit *VanguardPalladors::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StarstrikeJavelin);
 
+    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+    unit->setStormhost(stormhost);
+
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
     {
@@ -137,7 +141,7 @@ std::string VanguardPalladors::ValueToString(const Parameter &parameter)
             return "Shock Handaxe";
         }
     }
-    return ParameterValueToString(parameter);
+    return StormcastEternal::ValueToString(parameter);
 }
 
 int VanguardPalladors::EnumStringToInt(const std::string &enumString)
@@ -150,7 +154,7 @@ int VanguardPalladors::EnumStringToInt(const std::string &enumString)
     {
         return ShockHandaxe;
     }
-    return 0;
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 void VanguardPalladors::onEndCombat(PlayerId player)

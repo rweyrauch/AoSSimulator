@@ -9,13 +9,13 @@
 #ifndef AURICRUNEFATHER_H
 #define AURICRUNEFATHER_H
 
-#include <Unit.h>
+#include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
 namespace Fyreslayers
 {
 
-class AuricRunefather : public Unit
+class AuricRunefather : public Fyreslayer
 {
 public:
     static const int BASESIZE = 32;

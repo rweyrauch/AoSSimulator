@@ -13,9 +13,10 @@ namespace Khorne
 {
 static FactoryMethod factoryMethod = {
     Skarbrand::Create,
-    nullptr,
-    nullptr,
+    KhorneBase::ValueToString,
+    KhorneBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -72,6 +73,9 @@ void Skarbrand::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Skarbrand::Create(const ParameterList &parameters)
 {
     auto unit = new Skarbrand();
+
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
 
     bool ok = unit->configure();
     if (!ok)

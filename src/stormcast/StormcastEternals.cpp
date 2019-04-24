@@ -105,6 +105,71 @@ Rerolls StormcastEternal::battleshockRerolls() const
     return Unit::battleshockRerolls();
 }
 
+void StormcastEternal::setStormhost(Stormhost host)
+{
+    m_stormHost = host;
+    switch (m_stormHost)
+    {
+        case HammersOfSigmar:
+            addKeyword(HAMMERS_OF_SIGMAR);
+            break;
+        case HallowedKnights:
+            addKeyword(HALLOWED_KNIGHTS);
+            break;
+        case CelestialVindicators:
+            addKeyword(CELESTIAL_VINDICATORS);
+            break;
+        case AnvilsOfTheHeldenhammer:
+            addKeyword(ANVILS_OF_THE_HELDENHAMMER);
+            break;
+        case KnightsExcelsior:
+            addKeyword(KNIGHTS_EXCELSIOR);
+            break;
+        case CelestialWarbringers:
+            addKeyword(CELESTIAL_WARBRINGERS);
+            break;
+        case TempestLords:
+            addKeyword(TEMPEST_LORDS);
+            break;
+        case AstralTemplars:
+            addKeyword(ASTRAL_TEMPLARS);
+            break;
+        default:
+            break;
+    }
+}
+
+std::string StormcastEternal::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Stormhost")
+    {
+        if (parameter.m_intValue == HammersOfSigmar) { return "Hammers of Sigmar"; }
+        else if (parameter.m_intValue == HallowedKnights) { return "Hallowed Knights"; }
+        else if (parameter.m_intValue == CelestialVindicators) { return "Celestial Vindicators"; }
+        else if (parameter.m_intValue == AnvilsOfTheHeldenhammer) { return "Anvils of the Heldenhammer"; }
+        else if (parameter.m_intValue == KnightsExcelsior) return "Knights Excelsior";
+        else if (parameter.m_intValue == CelestialWarbringers) return "Celestial Warbringers";
+        else if (parameter.m_intValue == TempestLords) return "Tempest Lords";
+        else if (parameter.m_intValue == AstralTemplars) return "Astral Templars";
+        else if (parameter.m_intValue == None) { return "None"; }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int StormcastEternal::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Hammers of Sigmar") { return HammersOfSigmar; }
+    else if (enumString == "Hallowed Knights") { return HallowedKnights; }
+    else if (enumString == "Celestial Vindicators") { return CelestialVindicators; }
+    else if (enumString == "Anvils of the Heldenhammer") { return AnvilsOfTheHeldenhammer; }
+    else if (enumString == "Knights Excelsior") { return KnightsExcelsior; }
+    else if (enumString == "Celestial Warbringers") { return CelestialWarbringers; }
+    else if (enumString == "Tempest Lords") { return TempestLords; }
+    else if (enumString == "Astral Templars") { return AstralTemplars; }
+    else if (enumString == "None") { return None; }
+    return 0;
+}
+
 void Init()
 {
     // CelestantPrime::Init()

@@ -25,7 +25,8 @@ static FactoryMethod factoryMethod = {
             MightySkullcrushers::Bloodglaive, 1
         },
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -110,6 +111,9 @@ Unit *MightySkullcrushers::Create(const ParameterList &parameters)
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
+
     bool ok = unit->configure(numModels, weapons, standardBearer, hornblowers);
     if (!ok)
     {
@@ -158,14 +162,14 @@ std::string MightySkullcrushers::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == EnsorcelledAxe) { return "Ensorcelled Axe"; }
         else if (parameter.m_intValue == Bloodglaive) { return "Bloodglaive"; }
     }
-    return ParameterValueToString(parameter);
+    return KhorneBase::ValueToString(parameter);
 }
 
 int MightySkullcrushers::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Ensorcelled Axe") { return EnsorcelledAxe; }
     else if (enumString == "Bloodglaive") { return Bloodglaive; }
-    return 0;
+    return KhorneBase::EnumStringToInt(enumString);
 }
 
 void MightySkullcrushers::onCharged()

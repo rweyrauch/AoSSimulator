@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", Slaughterpriest::BloodbathedAxe, Slaughterpriest::BloodbathedAxe,
             Slaughterpriest::HackbladeAndWrathHammer, 1
         },
+        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
     KHORNE
@@ -71,6 +72,9 @@ Unit *Slaughterpriest::Create(const ParameterList &parameters)
     auto unit = new Slaughterpriest();
     WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BloodbathedAxe);
 
+    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+    unit->setSlaughterHost(host);
+
     bool ok = unit->configure(weapon);
     if (!ok)
     {
@@ -95,14 +99,14 @@ std::string Slaughterpriest::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == BloodbathedAxe) { return "Bloodbathed Axe"; }
         else if (parameter.m_intValue == HackbladeAndWrathHammer) { return "Hackblade and Wrath-hammer"; }
     }
-    return ParameterValueToString(parameter);
+    return KhorneBase::ValueToString(parameter);
 }
 
 int Slaughterpriest::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Bloodbathed Axe") { return BloodbathedAxe; }
     else if (enumString == "Hackblade and Wrath-hammer") { return HackbladeAndWrathHammer; }
-    return 0;
+    return KhorneBase::EnumStringToInt(enumString);
 }
 
 } // namespace Khorne
