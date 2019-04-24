@@ -16,13 +16,14 @@ namespace StormcastEternals
 
 static FactoryMethod factoryMethod = {
     Evocators::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
+    Evocators::ValueToString,
+    Evocators::EnumStringToInt,
     {
         {ParamType::Integer, "Models", Evocators::MIN_UNIT_SIZE, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
         {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Integer, "Grandstaves", 2, 0, Evocators::MAX_UNIT_SIZE, 1},
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -43,7 +44,7 @@ Evocators::Evocators() :
     m_totalSpells = 1;
 }
 
-bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave)
+bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
@@ -88,6 +89,8 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     }
 
     m_knownSpells.push_back(std::make_unique<Empower>(this));
+    if (invigoration != LoreOfInvigoration::None)
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
@@ -135,11 +138,12 @@ Unit *Evocators::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
     int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
+    auto invigoration = (LoreOfInvigoration)GetEnumParam("Lore of Invigoration", parameters, (int)LoreOfInvigoration::None);
 
     auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
     evos->setStormhost(stormhost);
 
-    bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave);
+    bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave, invigoration);
     if (!ok)
     {
         delete evos;
@@ -162,6 +166,25 @@ void Evocators::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_tempestBladeAndStavePrime);
     visitor(&m_grandStave);
     visitor(&m_grandStavePrime);
+}
+
+std::string Evocators::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Lore of Invigoration")
+    {
+        return ToString((LoreOfInvigoration) parameter.m_intValue);
+    }
+    return StormcastEternal::ValueToString(parameter);
+}
+
+int Evocators::EnumStringToInt(const std::string &enumString)
+{
+    LoreOfInvigoration invigoration;
+    if (FromString(enumString, invigoration))
+    {
+        return (int) invigoration;
+    }
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 } // namespace StormcastEternals

@@ -10,6 +10,7 @@
 #define EVOCATORS_H
 
 #include <stormcast/StormcastEternals.h>
+#include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals
@@ -27,14 +28,15 @@ public:
     static const int POINTS_MAX_UNIT_SIZE = 800;
 
     static Unit *Create(const ParameterList &parameters);
-
     static void Init();
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
 
     Evocators();
 
     ~Evocators() override = default;
 
-    bool configure(int numModels, int numGrandstaves, bool primeGrandstave);
+    bool configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration);
 
     void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
