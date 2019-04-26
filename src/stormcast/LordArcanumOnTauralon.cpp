@@ -10,6 +10,7 @@
 #include <iostream>
 #include <spells/MysticShield.h>
 #include <spells/StormcastSpells.h>
+#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -120,6 +121,23 @@ void LordArcanumOnTauralon::visitWeapons(std::function<void(const Weapon *)> &vi
 {
     visitor(&m_aetherstave);
     visitor(&m_hornsAndHooves);
+}
+
+void LordArcanumOnTauralon::onCharged()
+{
+    StormcastEternal::onCharged();
+
+    // Meteoric Strike
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    for (auto ip : units)
+    {
+        int roll = dice.rollD6();
+        if (roll >= 2)
+        {
+            ip->applyDamage({0, 1});
+        }
+    }
 }
 
 } // namespace StormcastEternals

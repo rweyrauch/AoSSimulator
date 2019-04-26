@@ -57,7 +57,7 @@ private:
 // Spirit Flask                     No
 // Supernatural Roar                No
 // Thunderous Pounce                Yes
-// Lightning Pulse                  No
+// Lightning Pulse                  Yes
 // Prime Electrids                  Yes
 // Soul Energy of the First Host    No
 

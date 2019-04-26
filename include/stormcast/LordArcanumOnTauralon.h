@@ -38,6 +38,8 @@ public:
 
 protected:
 
+    void onCharged() override;
+
 private:
 
     Weapon m_aetherstave,
@@ -52,9 +54,9 @@ private:
 // -------------------------------------------
 // Comet Trail                      No
 // Cycle of the Storm               No
-// Meteoric Strike                  No
+// Meteoric Strike                  Yes
 // Spirit Flask                     No
-// Lightning Orb                    No
+// Lightning Orb                    Yes
 // Prime Electrids                  Yes
 // Swift of Wing                    No
 

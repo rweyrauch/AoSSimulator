@@ -51,7 +51,7 @@ private:
 // -------------------------------------------
 // Cycle of the Storm               No
 // Spirit Flask                     No
-// Thunderclap                      No
+// Thunderclap                      Yes
 // Aetheric Manipulation            No
 // Prime Electrids                  Yes
 

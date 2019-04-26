@@ -77,6 +77,8 @@ add_library(
         stormcast/AventisFirestrike.cpp
         stormcast/VanguardPalladors.cpp
         stormcast/DrakeswornTemplar.cpp
+        stormcast/PrayersOfTheStormhosts.cpp
+        stormcast/StormcastPrayers.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp

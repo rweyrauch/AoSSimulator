@@ -11,6 +11,7 @@
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
+#include "PrayersOfTheStormhosts.h"
 
 namespace StormcastEternals
 {
@@ -25,11 +26,13 @@ public:
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
 
     LordVeritant();
     ~LordVeritant() override = default;
 
-    bool configure();
+    bool configure(PrayersOfTheStormhost prayer);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 

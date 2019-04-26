@@ -9,6 +9,7 @@
 #include <stormcast/Sequitors.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace StormcastEternals
 {
@@ -239,6 +240,30 @@ void Sequitors::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_tempestBladePrime);
     visitor(&m_stormsmiteGreatmace);
     visitor(&m_stormsmiteGreatmacePrime);
+}
+
+void Sequitors::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    if ((player == m_owningPlayer) && m_haveRedemptionCache)
+    {
+        Dice dice;
+        // Redemption Cache
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6.0f);
+        for (auto ip : units)
+        {
+            if (ip->hasKeyword(CHAOS) || ip->hasKeyword(DEATH))
+            {
+                int roll = dice.rollD6();
+                if (roll >= 4)
+                {
+                    ip->applyDamage({0, 1});
+                    break;
+                }
+            }
+        }
+    }
 }
 
 } // namespace StormcastEternals

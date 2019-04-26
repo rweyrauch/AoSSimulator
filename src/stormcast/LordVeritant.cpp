@@ -8,15 +8,17 @@
 
 #include <stormcast/LordVeritant.h>
 #include <iostream>
+#include <stormcast/StormcastPrayers.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
 {
 static FactoryMethod factoryMethod = {
     LordVeritant::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
+    LordVeritant::ValueToString,
+    LordVeritant::EnumStringToInt,
     {
+        {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
@@ -30,13 +32,19 @@ LordVeritant::LordVeritant() :
     m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
+
+    m_totalPrayers = 2;
+    m_totalUnbinds = 1;
 }
 
-bool LordVeritant::configure()
+bool LordVeritant::configure(PrayersOfTheStormhost prayer)
 {
     Model model(BASESIZE, WOUNDS);
     model.addMeleeWeapon(&m_judgementBlade);
     addModel(model);
+
+    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateSanction(this)));
+    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
 
     m_points = POINTS_PER_UNIT;
 
@@ -46,11 +54,12 @@ bool LordVeritant::configure()
 Unit *LordVeritant::Create(const ParameterList &parameters)
 {
     auto unit = new LordVeritant();
+    auto prayer = (PrayersOfTheStormhost)GetEnumParam("Prayers of the Stormhost", parameters, (int)PrayersOfTheStormhost::None);
 
     auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
     unit->setStormhost(stormhost);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(prayer);
     if (!ok)
     {
         delete unit;
@@ -70,6 +79,25 @@ void LordVeritant::Init()
 void LordVeritant::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_judgementBlade);
+}
+
+std::string LordVeritant::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Prayers of the Stormhost")
+    {
+        return ToString((PrayersOfTheStormhost) parameter.m_intValue);
+    }
+    return StormcastEternal::ValueToString(parameter);
+}
+
+int LordVeritant::EnumStringToInt(const std::string &enumString)
+{
+    PrayersOfTheStormhost prayer;
+    if (FromString(enumString, prayer))
+    {
+        return (int)prayer;
+    }
+    return StormcastEternal::EnumStringToInt(enumString);
 }
 
 } // namespace StormcastEternals

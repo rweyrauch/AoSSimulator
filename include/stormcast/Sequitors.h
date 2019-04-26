@@ -56,6 +56,8 @@ protected:
     // Buff weapons during our combat phase
     void onStartCombat(PlayerId id) override { m_aethericChannellingWeapons = true; }
 
+    void onStartShooting(PlayerId player) override;
+
 private:
 
     WeaponOption m_weaponOption = StormsmiteMaul;
@@ -78,7 +80,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Greatmace Blast                  Yes
-// Redemption Cache                 No
+// Redemption Cache                 Yes
 // Aetheric Channeling              Yes
 // Soulshields                      Yes
 //
