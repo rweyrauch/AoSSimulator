@@ -121,4 +121,34 @@ protected:
     int m_healing2 = -1;
 };
 
+class BuffModifierSpell : public Spell
+{
+public:
+    BuffModifierSpell(Unit* caster, const std::string& name, int castingValue, float range, BuffableAttribute which, int modifier, bool targetFriendly);
+
+    Result cast(Unit* target, int round) override;
+    Result cast(float x, float y, int round) override { return Failed; }
+
+protected:
+
+    virtual int getModifier(int castingRoll) const;
+
+    BuffableAttribute m_attribute = ToHit;
+    int m_modifier = 0;
+};
+
+class BuffRerollSpell : public Spell
+{
+public:
+    BuffRerollSpell(Unit* caster, const std::string& name, int castingValue, float range, BuffableAttribute which, Rerolls reroll, bool targetFriendly);
+
+    Result cast(Unit* target, int round) override;
+    Result cast(float x, float y, int round) override { return Failed; }
+
+protected:
+
+    BuffableAttribute m_attribute = ToHit;
+    Rerolls m_reroll = NoRerolls;
+};
+
 #endif// SPELL_H

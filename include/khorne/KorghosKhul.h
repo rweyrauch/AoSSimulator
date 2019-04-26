@@ -49,8 +49,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Favoured of Khorne               Yes
-// Aqshy's Bane                     No
-// Collar of Khorne                 No
+// Aqshy's Bane                     Yes
+// Collar of Khorne                 Yes
 // Reality-splitting Axe            No
 // Lord of the Goretide             No
 //

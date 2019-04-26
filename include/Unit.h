@@ -350,6 +350,7 @@ protected:
     float m_basesize_mm = 0.0f;
     int m_points = 0;
     Role m_battleFieldRole = Role::Other;
+    int m_pileInMove = 3;
 
     std::vector<Keyword> m_keywords;
 

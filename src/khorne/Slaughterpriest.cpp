@@ -36,8 +36,10 @@ Slaughterpriest::Slaughterpriest() :
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, PRIEST, SLAUGHTERPRIEST};
 
-    // Collar of Khorne
+    // Scorn of Sorcery
     m_totalUnbinds = 1;
+
+    m_totalPrayers = 1; // TODO: add Blood Blessings
 }
 
 bool Slaughterpriest::configure(WeaponOption weapon)
@@ -54,6 +56,8 @@ bool Slaughterpriest::configure(WeaponOption weapon)
         model.addMeleeWeapon(&m_wrathHammer);
     }
     addModel(model);
+
+    m_knownPrayers.push_back(std::unique_ptr<Prayer>(new DamagePrayer(this, "Blood Boil", 4, 16.0f, RAND_D6, RAND_D3)));
 
     m_points = POINTS_PER_UNIT;
 

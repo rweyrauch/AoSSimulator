@@ -226,3 +226,120 @@ int HealSpell::getHealing(int castingRoll) const
     }
     return m_healing;
 }
+
+BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, float range,
+    BuffableAttribute which, int modifier, bool targetFriendly) :
+    Spell(caster, name, castingValue, range),
+    m_attribute(which),
+    m_modifier(modifier)
+{
+    m_targetFriendly = targetFriendly;
+}
+
+Spell::Result BuffModifierSpell::cast(Unit *target, int round)
+{
+    if (target == nullptr)
+    {
+        return Failed;
+    }
+
+    // Distance to target
+    const float distance = m_caster->distanceTo(target);
+    if (distance > m_range)
+    {
+        return Failed;
+    }
+
+    // Check for visibility to target
+    if (!Board::Instance()->isVisible(m_caster, target))
+    {
+        return Failed;
+    }
+
+    Dice dice;
+    Spell::Result result = Failed;
+
+    const int castingRoll = dice.roll2D6();
+    if (castingRoll >= m_castingValue)
+    {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound)
+        {
+            target->buffModifier(m_attribute, m_modifier, {Phase::Hero, round+1, m_caster->owningPlayer()});
+            result = Success;
+        }
+        else
+        {
+            SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
+            result = Unbound;
+        }
+    }
+    else
+    {
+        SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(), name().c_str(),
+               castingRoll, m_castingValue);
+    }
+
+    return result;
+}
+
+int BuffModifierSpell::getModifier(int /*castingRoll*/) const
+{
+    return m_modifier;
+}
+
+BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, float range,
+    BuffableAttribute which, Rerolls reroll, bool targetFriendly) :
+    Spell(caster, name, castingValue, range),
+    m_attribute(which),
+    m_reroll(reroll)
+{
+    m_targetFriendly = targetFriendly;
+}
+
+Spell::Result BuffRerollSpell::cast(Unit *target, int round)
+{
+    if (target == nullptr)
+    {
+        return Failed;
+    }
+
+    // Distance to target
+    const float distance = m_caster->distanceTo(target);
+    if (distance > m_range)
+    {
+        return Failed;
+    }
+
+    // Check for visibility to target
+    if (!Board::Instance()->isVisible(m_caster, target))
+    {
+        return Failed;
+    }
+
+    Dice dice;
+    Spell::Result result = Failed;
+
+    const int castingRoll = dice.roll2D6();
+    if (castingRoll >= m_castingValue)
+    {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound)
+        {
+            target->buffReroll(m_attribute, m_reroll, {Phase::Hero, round+1, m_caster->owningPlayer()});
+            result = Success;
+        }
+        else
+        {
+            SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
+            result = Unbound;
+        }
+    }
+    else
+    {
+        SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(), name().c_str(),
+               castingRoll, m_castingValue);
+    }
+
+    return result;
+}

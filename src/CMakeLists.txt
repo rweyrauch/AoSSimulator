@@ -108,6 +108,10 @@ add_library(
         khorne/BloodThrone.cpp
         khorne/SkullCannons.cpp
         khorne/ValkiaTheBloody.cpp
+        khorne/AspiringDeathbringer.cpp
+        khorne/Skullgrinder.cpp
+        khorne/ScylaAnfingrimm.cpp
+        khorne/LordOfKhorneOnJuggernaut.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDOFKHORNE_H
-#define LORDOFKHORNE_H
+#ifndef LORDOFKHORNEONJUGGERNAUT_H
+#define LORDOFKHORNEONJUGGERNAUT_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -15,18 +15,18 @@
 namespace Khorne
 {
 
-class MightyLordOfKhorne : public KhorneBase
+class LordOfKhorneOnJuggernaut : public KhorneBase
 {
 public:
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 6;
+    static const int BASESIZE = 90; // x52 oval
+    static const int WOUNDS = 8;
     static const int POINTS_PER_UNIT = 140;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    MightyLordOfKhorne();
-    ~MightyLordOfKhorne() override = default;
+    LordOfKhorneOnJuggernaut();
+    ~LordOfKhorneOnJuggernaut() override = default;
 
     bool configure();
 
@@ -34,10 +34,13 @@ public:
 
 protected:
 
+    void onCharged() override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
-    Weapon m_axeOfKhorne,
-        m_bloodDarkClaws;
+    Weapon m_wrathforgedAxe,
+        m_brazenHooves;
 
     static bool s_registered;
 };
@@ -46,11 +49,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Collar of Khorne                 Yes
-// Reality-splitting Axe            No
-// Gorelord                         No
+// Brass-clad Shield                No
+// Slaugtherous Charge              Yes
+// Daemonic Axe                     Yes
+// Blood Stampede                   No
 //
 
 } // namespace Khorne
 
-#endif //LORDOFKHORNE_H
+#endif //LORDOFKHORNEONJUGGERNAUT_H

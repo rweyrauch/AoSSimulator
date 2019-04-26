@@ -933,6 +933,8 @@ void Unit::castSpell()
         // TODO: Allow unit to cast multiple spells.  A given spell can only be cast once per player per hero phase.
         for (auto& sip : m_knownSpells)
         {
+            if (sip == nullptr) continue;
+
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
             if (sip->targetFriendly())
             {
@@ -964,7 +966,35 @@ int Unit::useCommandAbility(int cpAvailable)
 
 void Unit::makePrayer()
 {
+    if (m_prayersAttempted < m_totalPrayers)
+    {
+        // TODO: Allow unit to attempt multiple prayers.  A given prayer can only be attempted once per player per hero phase.
+        for (auto& sip : m_knownPrayers)
+        {
+            if (sip == nullptr) continue;
 
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
+            if (sip->targetFriendly())
+            {
+                units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, sip->range());
+                units.push_back(this);
+            }
+
+            // TODO: determine 'best' prayer to attempt on the 'best' target.
+
+            // attempt the first prayer on the first unit
+            for (auto ip : units)
+            {
+                bool successful = sip->pray(ip, m_battleRound);
+                if (successful)
+                {
+                    SimLog(Verbosity::Narrative, "%s successfully attempted %s\n", m_name.c_str(), sip->name().c_str());
+                }
+                m_prayersAttempted++;
+                return;
+            }
+        }
+    }
 }
 
 bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration)

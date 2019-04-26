@@ -33,6 +33,9 @@ KorghosKhul::KorghosKhul() :
 
     // Collar of Khorne
     m_totalUnbinds = 1;
+
+    // Aqshy's Bane
+    m_pileInMove = 8;
 }
 
 bool KorghosKhul::configure()

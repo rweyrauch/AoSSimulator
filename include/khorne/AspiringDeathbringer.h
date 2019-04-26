@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SLAUGHTERPRIEST_H
-#define SLAUGHTERPRIEST_H
+#ifndef ASPIRINGDEATHBRINGER_H
+#define ASPIRINGDEATHBRINGER_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -15,17 +15,18 @@
 namespace Khorne
 {
 
-class Slaughterpriest : public KhorneBase
+class AspiringDeathbringer : public KhorneBase
 {
 public:
     static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 100;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 80;
+    static const int POINTS_PER_UNIT_WITH_GOREAXE = 100;
 
     enum WeaponOption
     {
-        BloodbathedAxe,
-        HackbladeAndWrathHammer
+        BloodaxeAndWrathhammer,
+        GoreaxeAndSkullhammer,
     };
 
     static Unit* Create(const ParameterList& parameters);
@@ -33,8 +34,8 @@ public:
     static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
-    Slaughterpriest();
-    ~Slaughterpriest() override = default;
+    AspiringDeathbringer();
+    ~AspiringDeathbringer() override = default;
 
     bool configure(WeaponOption weapon);
 
@@ -44,9 +45,12 @@ protected:
 
 private:
 
-    Weapon m_bloodbathedAxe,
-        m_hackblade,
-        m_wrathHammer;
+    WeaponOption m_weaponOption = BloodaxeAndWrathhammer;
+
+    Weapon m_bloodAxe,
+        m_wrathHammer,
+        m_goreaxe,
+        m_skullhammer;
 
     static bool s_registered;
 };
@@ -55,11 +59,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Scorn of Sorcery                 Yes
-// Blood Boil                       Yes
-// Blood Bind                       No
+// Bane of Cowards                  No
+// Slaughter Incarnate              No
 //
 
 } // namespace Khorne
 
-#endif //SLAUGHTERPRIEST_H
+#endif //ASPIRINGDEATHBRINGER_H

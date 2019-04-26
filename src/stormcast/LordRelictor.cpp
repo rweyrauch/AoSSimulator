@@ -44,8 +44,8 @@ bool LordRelictor::configure(PrayersOfTheStormhost prayer)
 
     m_points = POINTS_PER_UNIT;
 
-    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateHealingStorm(this)));
     m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateLightningStorm(this)));
+    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateHealingStorm(this)));
     m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
 
     return true;

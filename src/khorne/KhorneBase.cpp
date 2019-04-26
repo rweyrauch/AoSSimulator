@@ -35,6 +35,10 @@
 #include "khorne/BloodThrone.h"
 #include "khorne/SkullCannons.h"
 #include "khorne/ValkiaTheBloody.h"
+#include "khorne/AspiringDeathbringer.h"
+#include "khorne/Skullgrinder.h"
+#include "khorne/ScylaAnfingrimm.h"
+#include "khorne/LordOfKhorneOnJuggernaut.h"
 
 namespace Khorne
 {
@@ -152,33 +156,37 @@ int KhorneBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
+    AspiringDeathbringer::Init();
     Bloodcrushers::Init();
     Bloodletters::Init();
     Bloodmaster::Init();
     Bloodreavers::Init();
+    Bloodsecrator::Init();
+    Bloodstoker::Init();
     BloodthirsterOfInsensateRage::Init();
     BloodthirsterOfUnfetteredFury::Init();
     BloodWarriors::Init();
+    ExaltedDeathbringer::Init();
     FleshHounds::Init();
+    HeraldOfKhorneOnBloodThrone::Init();
     Karanak::Init();
     Khorgoraths::Init();
     KorghosKhul::Init();
+    LordOfKhorneOnJuggernaut::Init();
     MightyLordOfKhorne::Init();
     MightySkullcrushers::Init();
+    ScylaAnfingrimm::Init();
     Skarbrand::Init();
+    SkullCannons::Init();
+    Skullgrinder::Init();
     Skullmaster::Init();
     Skullreapers::Init();
     Skulltaker::Init();
     Slaughterpriest::Init();
+    ValkiaTheBloody::Init();
     VorgarothAndSkalok::Init();
     Wrathmongers::Init();
     WrathOfKhorneBloodthirster::Init();
-    ExaltedDeathbringer::Init();
-    Bloodsecrator::Init();
-    Bloodstoker::Init();
-    HeraldOfKhorneOnBloodThrone::Init();
-    SkullCannons::Init();
-    ValkiaTheBloody::Init();
 }
 
 } //namespace Khorne

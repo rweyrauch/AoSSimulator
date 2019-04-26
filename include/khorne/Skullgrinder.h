@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SLAUGHTERPRIEST_H
-#define SLAUGHTERPRIEST_H
+#ifndef SKULLGRINDER_H
+#define SKULLGRINDER_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -15,28 +15,22 @@
 namespace Khorne
 {
 
-class Slaughterpriest : public KhorneBase
+class Skullgrinder : public KhorneBase
 {
 public:
     static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 100;
-
-    enum WeaponOption
-    {
-        BloodbathedAxe,
-        HackbladeAndWrathHammer
-    };
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter& parameter);
     static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
-    Slaughterpriest();
-    ~Slaughterpriest() override = default;
+    Skullgrinder();
+    ~Skullgrinder() override = default;
 
-    bool configure(WeaponOption weapon);
+    bool configure();
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -44,9 +38,7 @@ protected:
 
 private:
 
-    Weapon m_bloodbathedAxe,
-        m_hackblade,
-        m_wrathHammer;
+    Weapon m_brazenAnvil;
 
     static bool s_registered;
 };
@@ -55,11 +47,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Scorn of Sorcery                 Yes
-// Blood Boil                       Yes
-// Blood Bind                       No
+// Fire Anvil                       No
+// Favoured by Khorne               No
 //
 
 } // namespace Khorne
 
-#endif //SLAUGHTERPRIEST_H
+#endif //SKULLGRINDER_H
