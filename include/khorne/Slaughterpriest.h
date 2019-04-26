@@ -10,6 +10,7 @@
 #define SLAUGHTERPRIEST_H
 
 #include <khorne/KhorneBase.h>
+#include <khorne/BloodBlessingsOfKhorne.h>
 #include <Weapon.h>
 
 namespace Khorne
@@ -36,7 +37,7 @@ public:
     Slaughterpriest();
     ~Slaughterpriest() override = default;
 
-    bool configure(WeaponOption weapon);
+    bool configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 

@@ -92,7 +92,7 @@ protected:
 
     virtual int getModifier(int prayingRoll) const;
 
-    BuffableAttribute m_attribute = ToHit;
+    BuffableAttribute m_attribute = ToHitMelee;
     int m_modifier = 0;
 };
 
@@ -107,7 +107,7 @@ public:
 
 protected:
 
-    BuffableAttribute m_attribute = ToHit;
+    BuffableAttribute m_attribute = ToHitMelee;
     Rerolls m_reroll = NoRerolls;
 };
 

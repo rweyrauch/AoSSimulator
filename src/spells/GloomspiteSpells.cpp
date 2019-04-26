@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <spells/GloomspiteSpells.h>
-
-#include "spells/GloomspiteSpells.h"
+#include <Unit.h>
+#include <Board.h>
 
 std::string ToString(LoreOfTheMoonclans which)
 {
@@ -105,7 +105,90 @@ Spell *CreateLoreOfTheSpiderFangs(LoreOfTheSpiderFangs which, Unit *caster)
     return nullptr;
 }
 
+class TheGreatGreenSpite : public Spell
+{
+public:
+    TheGreatGreenSpite(Unit* caster);
+
+    Result cast(Unit* target, int round) override;
+    Result cast(float x, float y, int round) override { return Failed; }
+};
+
+TheGreatGreenSpite::TheGreatGreenSpite(Unit *caster) :
+    Spell(caster, "The Great Green Spite", 7, 18.0f) {}
+
+Spell::Result TheGreatGreenSpite::cast(Unit *target, int round)
+{
+    if (target == nullptr)
+    {
+        return Failed;
+    }
+
+    // Distance to target
+    const float distance = m_caster->distanceTo(target);
+    if (distance > m_range)
+    {
+        return Failed;
+    }
+
+    auto unit = Board::Instance()->getNearestUnit(m_caster, GetEnemyId(m_caster->owningPlayer()));
+
+    // Check for visibility to enemy unit
+    if ((unit == nullptr) || !Board::Instance()->isVisible(m_caster, unit))
+    {
+        return Failed;
+    }
+
+    Dice dice;
+
+    Spell::Result result = Failed;
+
+    int damage = 1;
+    if (target->remainingModels() >= 20)
+        damage = RAND_D6;
+    else if (target->remainingModels() >= 10)
+        damage = RAND_D3;
+
+    int mortalWounds = 0;
+    const int castingRoll = dice.roll2D6();
+    if (castingRoll >= m_castingValue)
+    {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound)
+        {
+            mortalWounds = dice.rollSpecial(damage);
+            target->applyDamage({0, mortalWounds});
+            SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
+            result = Success;
+        }
+        else
+        {
+            result = Unbound;
+        }
+    }
+
+    return result;
+}
+
 Spell *CreateLoreOfTheMoonclans(LoreOfTheMoonclans which, Unit *caster)
 {
+    switch (which)
+    {
+        case LoreOfTheMoonclans::VindictiveGlare:
+            return CreateVindictiveGlare(caster);
+        case LoreOfTheMoonclans::ItchyNuisance:
+            return nullptr;
+        case LoreOfTheMoonclans::TheGreatGreenSpite:
+            return new TheGreatGreenSpite(caster);
+        case LoreOfTheMoonclans::TheHandOfGork:
+            return nullptr;
+        case LoreOfTheMoonclans::SquigLure:
+            return nullptr;
+        case LoreOfTheMoonclans::CallDaMoon:
+            return nullptr;
+        case LoreOfTheMoonclans::None:
+            return nullptr;
+    }
     return nullptr;
 }

@@ -20,6 +20,10 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", Slaughterpriest::BloodbathedAxe, Slaughterpriest::BloodbathedAxe,
             Slaughterpriest::HackbladeAndWrathHammer, 1
         },
+        {
+            ParamType::Enum, "Blood Blessings of Khorne", (int)BloodBlessingsOfKhorne::BronzedFlesh,
+            (int)BloodBlessingsOfKhorne::None, (int)BloodBlessingsOfKhorne::SpellbaneHex, 1
+         },
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
@@ -39,10 +43,10 @@ Slaughterpriest::Slaughterpriest() :
     // Scorn of Sorcery
     m_totalUnbinds = 1;
 
-    m_totalPrayers = 1; // TODO: add Blood Blessings
+    m_totalPrayers = 2;
 }
 
-bool Slaughterpriest::configure(WeaponOption weapon)
+bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing)
 {
     Model model(BASESIZE, WOUNDS);
 
@@ -57,6 +61,7 @@ bool Slaughterpriest::configure(WeaponOption weapon)
     }
     addModel(model);
 
+    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateBloodBlessingsOfKhorne(blessing, this)));
     m_knownPrayers.push_back(std::unique_ptr<Prayer>(new DamagePrayer(this, "Blood Boil", 4, 16.0f, RAND_D6, RAND_D3)));
 
     m_points = POINTS_PER_UNIT;
@@ -75,11 +80,12 @@ Unit *Slaughterpriest::Create(const ParameterList &parameters)
 {
     auto unit = new Slaughterpriest();
     WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BloodbathedAxe);
+    auto blessing = (BloodBlessingsOfKhorne) GetEnumParam("Blood Blessings of Khorne", parameters, (int)BloodBlessingsOfKhorne::None);
 
     auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
     unit->setSlaughterHost(host);
 
-    bool ok = unit->configure(weapon);
+    bool ok = unit->configure(weapon, blessing);
     if (!ok)
     {
         delete unit;
@@ -103,11 +109,21 @@ std::string Slaughterpriest::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == BloodbathedAxe) { return "Bloodbathed Axe"; }
         else if (parameter.m_intValue == HackbladeAndWrathHammer) { return "Hackblade and Wrath-hammer"; }
     }
+    else if (parameter.m_name == "Blood Blessings of Khorne")
+    {
+        return ToString((BloodBlessingsOfKhorne)parameter.m_intValue);
+    }
     return KhorneBase::ValueToString(parameter);
 }
 
 int Slaughterpriest::EnumStringToInt(const std::string &enumString)
 {
+    BloodBlessingsOfKhorne blessing;
+    if (FromString(enumString, blessing))
+    {
+        return (int) blessing;
+    }
+
     if (enumString == "Bloodbathed Axe") { return BloodbathedAxe; }
     else if (enumString == "Hackblade and Wrath-hammer") { return HackbladeAndWrathHammer; }
     return KhorneBase::EnumStringToInt(enumString);

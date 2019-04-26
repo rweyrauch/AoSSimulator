@@ -124,7 +124,8 @@ protected:
 class BuffModifierSpell : public Spell
 {
 public:
-    BuffModifierSpell(Unit* caster, const std::string& name, int castingValue, float range, BuffableAttribute which, int modifier, bool targetFriendly);
+    BuffModifierSpell(Unit* caster, const std::string& name, int castingValue, float range,
+        BuffableAttribute which, int modifier, bool targetFriendly);
 
     Result cast(Unit* target, int round) override;
     Result cast(float x, float y, int round) override { return Failed; }
@@ -133,7 +134,7 @@ protected:
 
     virtual int getModifier(int castingRoll) const;
 
-    BuffableAttribute m_attribute = ToHit;
+    BuffableAttribute m_attribute = ToHitMelee;
     int m_modifier = 0;
 };
 
@@ -147,7 +148,7 @@ public:
 
 protected:
 
-    BuffableAttribute m_attribute = ToHit;
+    BuffableAttribute m_attribute = ToHitMelee;
     Rerolls m_reroll = NoRerolls;
 };
 

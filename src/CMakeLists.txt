@@ -112,6 +112,7 @@ add_library(
         khorne/Skullgrinder.cpp
         khorne/ScylaAnfingrimm.cpp
         khorne/LordOfKhorneOnJuggernaut.cpp
+        khorne/BloodBlessingsOfKhorne.cpp
 
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp

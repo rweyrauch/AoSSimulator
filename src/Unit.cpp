@@ -1071,7 +1071,12 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
 int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
     int modifier = 0;
-    for (auto bi : m_attributeModifiers[ToHit])
+
+    BuffableAttribute which = ToHitMelee;
+    if (weapon->isMissile())
+        which = ToHitMissile;
+
+    for (auto bi : m_attributeModifiers[which])
     {
         modifier += bi.modifier;
     }
@@ -1081,7 +1086,12 @@ int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const
 {
     int modifier = 0;
-    for (auto bi : m_attributeModifiers[ToWound])
+
+    BuffableAttribute which = ToWoundMelee;
+    if (weapon->isMissile())
+        which = ToWoundMissile;
+
+    for (auto bi : m_attributeModifiers[which])
     {
         modifier += bi.modifier;
     }
@@ -1090,16 +1100,24 @@ int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const
 
 Rerolls Unit::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    if (m_rollModifiers[ToHit].empty())
+    BuffableAttribute which = ToHitMelee;
+    if (weapon->isMissile())
+        which = ToHitMissile;
+
+    if (m_rollModifiers[which].empty())
         return NoRerolls;
-    return m_rollModifiers[ToHit].front().rerolls;
+    return m_rollModifiers[which].front().rerolls;
 }
 
 Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
-    if (m_rollModifiers[ToWound].empty())
+    BuffableAttribute which = ToWoundMelee;
+    if (weapon->isMissile())
+        which = ToWoundMissile;
+
+    if (m_rollModifiers[which].empty())
         return NoRerolls;
-    return m_rollModifiers[ToWound].front().rerolls;
+    return m_rollModifiers[which].front().rerolls;
 }
 
 int Unit::toSaveModifier(const Weapon *weapon) const
@@ -1134,7 +1152,6 @@ int Unit::castingModifier() const
         modifier += bi.modifier;
     }
     return modifier;
-    return 0;
 }
 
 int Unit::unbindingModifier() const

@@ -44,7 +44,8 @@ Spell::Result Empower::cast(Unit *target, int round)
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound)
         {
-            target->buffReroll(ToWound, RerollOnes, {Phase::Hero, round+1, m_caster->owningPlayer()});
+            target->buffReroll(ToWoundMelee, RerollOnes, {Phase::Hero, round+1, m_caster->owningPlayer()});
+            target->buffReroll(ToWoundMissile, RerollOnes, {Phase::Hero, round+1, m_caster->owningPlayer()});
             result = Success;
         }
         else

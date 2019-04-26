@@ -123,12 +123,12 @@ Spell *CreateTerrifyingAspect(Unit *caster)
 
 Spell *CreateCelestialBlades(Unit *caster)
 {
-    return nullptr;
+    return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0f, ToWoundMelee, 1, true);
 }
 
 Spell *CreateSpeedOfLightning(Unit *caster)
 {
-    return nullptr;
+    return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0f, ChargeDistance, RerollFailed, true);
 }
 
 Spell *CreateLoreOfTheStorm(LoreOfTheStorm which, Unit *caster)
