@@ -81,6 +81,7 @@ public:
 protected:
 
     virtual int getDamage(int castingRoll) const;
+    virtual void secondaryEffect(Unit* target, int round) const {}
 
     int m_damage = 0;
     float m_radius = 0.0f;

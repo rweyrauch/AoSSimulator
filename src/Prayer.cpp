@@ -43,7 +43,7 @@ bool DamagePrayer::pray(Unit *target, int round)
     const int prayingRoll = dice.roll2D6();
     if (prayingRoll >= m_prayingValue)
     {
-        mortalWounds = dice.rollSpecial(getDamage(prayingRoll));
+        mortalWounds = dice.rollSpecial(getDamage(target, prayingRoll));
         target->applyDamage({0, mortalWounds});
         SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, mortalWounds, target->name().c_str());
@@ -57,7 +57,7 @@ bool DamagePrayer::pray(Unit *target, int round)
     return result;
 }
 
-int DamagePrayer::getDamage(int prayingRoll) const
+int DamagePrayer::getDamage(Unit* target, int prayingRoll) const
 {
     return m_damage;
 }

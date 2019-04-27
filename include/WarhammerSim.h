@@ -75,8 +75,23 @@ enum BuffableAttribute
     Bravery,
     CastingRoll,
     UnbindingRoll,
+    TargetToHitMelee,
+    TargetToHitMissile,
+    TargetToWoundMelee,
+    TargetToWoundMissile,
 
     NUM_BUFFABLE_ATTRIBUTES
+};
+
+enum MovementRules
+{
+    Fly = 0,
+    RunAndShoot,
+    RunAndCharge,
+    RetreatAndShoot,
+    RetreatAndCharge,
+
+    NUM_MOVEMENT_RULES
 };
 
 enum Keyword
@@ -564,6 +579,12 @@ struct ModifierBuff
 struct RerollBuff
 {
     Rerolls rerolls;
+    Duration duration;
+};
+
+struct MovementRuleBuff
+{
+    bool allowed;
     Duration duration;
 };
 

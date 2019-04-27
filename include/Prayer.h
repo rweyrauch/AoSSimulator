@@ -56,7 +56,8 @@ public:
 
 protected:
 
-    virtual int getDamage(int prayingRoll) const;
+    virtual int getDamage(Unit* target, int prayingRoll) const;
+    virtual void secondaryEffect(Unit* target, int round) const {}
 
     int m_damage = 0;
 };

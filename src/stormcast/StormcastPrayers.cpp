@@ -7,13 +7,30 @@
  */
 
 #include <stormcast/StormcastPrayers.h>
+#include <Unit.h>
 
 namespace StormcastEternals
 {
+class Sanction : public DamagePrayer
+{
+public:
+    Sanction(Unit* priest) :
+        DamagePrayer(priest, "Sanction", 4, 7.0f, RAND_D3) {}
+
+protected:
+    int getDamage(Unit* target, int prayingRoll) const override;
+};
+
+int Sanction::getDamage(Unit* target, int prayingRoll) const
+{
+    if (target->hasKeyword(WIZARD))
+        return m_damage;
+    return 0;
+}
 
 Prayer *CreateSanction(Unit* priest)
 {
-    return nullptr;
+    return new Sanction(priest);
 }
 
 Prayer *CreateHealingStorm(Unit *priest)
@@ -21,10 +38,29 @@ Prayer *CreateHealingStorm(Unit *priest)
     return new HealPrayer(priest, "Healing Storm", 3, 12.0f, RAND_D3);
 }
 
+class LightningStorm : public DamagePrayer
+{
+public:
+    LightningStorm(Unit* priest) :
+        DamagePrayer(priest, "Lightning Storm", 3, 12.0f, RAND_D3) {}
+
+protected:
+
+    void secondaryEffect(Unit* target, int round) const override;
+};
+
+void LightningStorm::secondaryEffect(Unit *target, int round) const
+{
+    if (target)
+    {
+        target->buffModifier(ToHitMelee, -1, {Phase::Hero, round+1, m_priest->owningPlayer()});
+        target->buffModifier(ToHitMissile, -1, {Phase::Hero, round+1, m_priest->owningPlayer()});
+    }
+}
+
 Prayer *CreateLightningStorm(Unit *priest)
 {
-    // TODO: Add -1 to hit debuff
-    return new DamagePrayer(priest, "Lightning Storm", 3, 12.0f, RAND_D3);
+    return new LightningStorm(priest);
 }
 
 } // namespace StormcastEternals

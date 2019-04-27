@@ -125,6 +125,7 @@ Spell::Result AreaOfEffectSpell::cast(float x, float y, int round)
                 {
                     mortalWounds = dice.rollSpecial(getDamage(castingRoll));
                     target->applyDamage({0, mortalWounds});
+                    secondaryEffect(target, round);
                     SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                            m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
                 }

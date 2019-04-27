@@ -17,7 +17,7 @@ const float MAX_CHARGE_DISTANCE = 12.0f;
 
 Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 {
-    if (m_ran && !m_runAndShoot)
+    if (m_ran && !canRunAndShoot())
     {
         return {0, 0};
     }
@@ -326,6 +326,10 @@ void Unit::restore()
     {
         list.clear();
     }
+    for (auto list : m_movementRules)
+    {
+        list.clear();
+    }
 
     onRestore();
 }
@@ -622,7 +626,7 @@ void Unit::charge(PlayerId player)
     auto otherRoster = board->getPlayerRoster(otherPlayer);
     auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
-    if (m_ran && !m_runAndCharge)
+    if (m_ran && !canRunAndCharge())
     {
         // Can't run and charge.
         return;
@@ -1066,6 +1070,36 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
             }
         }
     }
+
+    for (auto& list : m_rollModifiers)
+    {
+        for (auto bi = list.begin(); bi != list.end();)
+        {
+            if (expired(bi->duration, currentPhase))
+            {
+                bi = list.erase(bi);
+            }
+            else
+            {
+                ++bi;
+            }
+        }
+    }
+
+    for (auto& list : m_movementRules)
+    {
+        for (auto bi = list.begin(); bi != list.end();)
+        {
+            if (expired(bi->duration, currentPhase))
+            {
+                bi = list.erase(bi);
+            }
+            else
+            {
+                ++bi;
+            }
+        }
+    }
 }
 
 int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
@@ -1207,6 +1241,77 @@ Rerolls Unit::chargeRerolls() const
         return NoRerolls;
     return m_rollModifiers[ChargeDistance].front().rerolls;
 }
+
+bool Unit::canFly() const
+{
+    if (m_movementRules[Fly].empty())
+        return m_fly;
+    else
+        return m_movementRules[Fly].front().allowed;
+}
+
+bool Unit::canRunAndShoot() const
+{
+    if (m_movementRules[RunAndShoot].empty())
+        return m_runAndShoot;
+    else
+        return m_movementRules[RunAndShoot].front().allowed;
+}
+
+bool Unit::canRunAndCharge() const
+{
+    if (m_movementRules[RunAndCharge].empty())
+        return m_runAndCharge;
+    else
+        return m_movementRules[RunAndCharge].front().allowed;
+}
+
+bool Unit::canRetreatAndShoot() const
+{
+    if (m_movementRules[RetreatAndShoot].empty())
+        return m_retreatAndShoot;
+    else
+        return m_movementRules[RetreatAndShoot].front().allowed;
+}
+
+bool Unit::canRetreatAndCharge() const
+{
+    if (m_movementRules[RetreatAndCharge].empty())
+        return m_retreatAndCharge;
+    else
+        return m_movementRules[RetreatAndCharge].front().allowed;
+}
+
+int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = 0;
+
+    BuffableAttribute which = TargetToHitMelee;
+    if (weapon->isMissile())
+        which = TargetToHitMissile;
+
+    for (auto bi : m_attributeModifiers[which])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
+int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = 0;
+
+    BuffableAttribute which = TargetToWoundMelee;
+    if (weapon->isMissile())
+        which = TargetToWoundMissile;
+
+    for (auto bi : m_attributeModifiers[which])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
+
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :

@@ -9,6 +9,7 @@
 #include <stormcast/LordVeritant.h>
 #include <iostream>
 #include <stormcast/StormcastPrayers.h>
+#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -34,6 +35,8 @@ LordVeritant::LordVeritant() :
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
 
     m_totalPrayers = 2;
+
+    // Lantern of Abjuration
     m_totalUnbinds = 1;
 }
 

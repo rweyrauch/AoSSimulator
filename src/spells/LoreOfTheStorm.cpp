@@ -7,6 +7,7 @@
  */
 #include <cfloat>
 #include <spells/LoreOfTheStorm.h>
+#include <Unit.h>
 
 std::string ToString(LoreOfTheStorm which)
 {
@@ -96,9 +97,29 @@ AreaOfEffectSpell *CreateStarfall(Unit *caster)
     return new AreaOfEffectSpell(caster, "Starfall", 5, 12.0f, 3.0f, 1, 4);
 }
 
+class Thundershock : public AreaOfEffectSpell
+{
+public:
+    Thundershock(Unit* caster) :
+        AreaOfEffectSpell(caster, "Thundershock", 6, 0.0f, 6.0f, 1, 4)
+    {}
+
+protected:
+    void secondaryEffect(Unit* target, int round) const override;
+};
+
+void Thundershock::secondaryEffect(Unit *target, int round) const
+{
+    if (target)
+    {
+        target->buffModifier(ToHitMelee, -1, {Phase::Hero, round+1, m_caster->owningPlayer()});
+        target->buffModifier(ToHitMissile, -1, {Phase::Hero, round+1, m_caster->owningPlayer()});
+    }
+}
+
 AreaOfEffectSpell *CreateThundershock(Unit *caster)
 {
-    return new AreaOfEffectSpell(caster, "Thundershock", 6, 0.0f, 6.0f, 1, 4);
+    return new Thundershock(caster);
 }
 
 AreaOfEffectSpell *CreateStormcaller(Unit *caster)

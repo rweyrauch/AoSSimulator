@@ -50,8 +50,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Faithful Gryph-hound             No
-// Lantern of Abjuration            No
-// Sanction                         No
+// Lantern of Abjuration            Yes
+// Sanction                         Yes
 // Bound in Service                 No
 //
 

@@ -153,6 +153,12 @@ public:
 
     bool ran() const { return m_ran; }
 
+    bool canFly() const;
+    bool canRunAndShoot() const;
+    bool canRunAndCharge() const;
+    bool canRetreatAndShoot() const;
+    bool canRetreatAndCharge() const;
+
     std::vector<Model>::const_iterator modelBegin() const { return m_models.begin(); }
 
     std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }
@@ -221,7 +227,7 @@ protected:
      * @param target Unit attacking this unit.
      * @return To-hit roll modifier.
      */
-    virtual int targetHitModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
+    virtual int targetHitModifier(const Weapon *weapon, const Unit *attacker) const;
 
     /*!
      * To-hit rerolls when this unit uses the given weapon to attack the target.
@@ -245,7 +251,7 @@ protected:
      * @param target Unit attacking this unit.
      * @return To-wound roll modifier.
      */
-    virtual int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
+    virtual int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const;
 
     /*!
      * To-wound re-rolls when this unit use the given weapon to attack the target.
@@ -359,6 +365,7 @@ protected:
     bool m_runAndCharge = false;
     bool m_retreatAndCharge = false;
     bool m_retreatAndShoot = false;
+
     bool m_ignoreRend = false;
     bool m_isGeneral = false;
 
@@ -394,10 +401,10 @@ protected:
     TurnRecord m_currentRecord;
     UnitStatistics m_statistics;
 
-    // TODO: How best manage buff/debuffs?  Data or code?
-    // How to manage buff/debuff lifecycle?
     std::list<ModifierBuff> m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
     std::list<RerollBuff> m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
+    std::list<MovementRuleBuff> m_movementRules[NUM_MOVEMENT_RULES];
+
 };
 
 class CustomUnit : public Unit
