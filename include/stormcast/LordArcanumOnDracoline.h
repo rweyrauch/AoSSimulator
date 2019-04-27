@@ -41,7 +41,12 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Rerolls chargeRerolls() const override;
 
+    void onStartCombat(PlayerId player) override;
+    void onRestore() override { m_shatteredFlasks = false; }
+
 private:
+
+    bool m_shatteredFlasks = false;
 
     Weapon m_aetherstave,
         m_monstrousClaws;
@@ -58,7 +63,8 @@ private:
 // Thunderous Pounce                Yes
 // Storm Lance                      Yes
 // Prime Electrids                  Yes
-// Pack Alpha
+// Pack Alpha                       No
+// Spirit Flask                     Yes
 
 } // namespace StormcastEternals
 

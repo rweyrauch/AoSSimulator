@@ -7,6 +7,7 @@
  */
 #include <algorithm>
 #include <stormcast/StormcastEternals.h>
+#include <Board.h>
 #include "stormcast/Liberators.h"
 #include "stormcast/CelestarBallista.h"
 #include "stormcast/Evocators.h"
@@ -223,6 +224,67 @@ void Init()
     Sequitors::Init();
     Evocators::Init();
     EvocatorsOnCelestialDracolines::Init();
+}
+
+bool DoSpiritFlasks(Unit* owner)
+{
+    auto units = Board::Instance()->getUnitsWithin(owner, GetEnemyId(owner->owningPlayer()), 3.0f);
+    int potentialWoundsPerFlask = 0;
+    for (auto ip : units)
+    {
+        if (ip->remainingModels() >= 10)
+            potentialWoundsPerFlask += 3;
+        else
+            potentialWoundsPerFlask++;
+    }
+
+    int numFlasks = 0;
+    if (potentialWoundsPerFlask > owner->remainingWounds() * 6)
+    {
+        numFlasks = 3;
+    }
+    else if (potentialWoundsPerFlask > owner->remainingWounds() * 4)
+    {
+        numFlasks = 2;
+    }
+    else if (potentialWoundsPerFlask > owner->remainingWounds() * 2)
+    {
+        numFlasks = 1;
+    }
+
+    // Going out with a bang!
+    if (owner->remainingWounds() == 1)
+    {
+        numFlasks = 3;
+    }
+
+    if (numFlasks)
+    {
+        Dice dice;
+        for (auto ip : units)
+        {
+            int damage = 1;
+            if (ip->remainingModels() >= 10) damage = RAND_D3;
+
+            int mortalsTarget = 0;
+            for (auto i = 0; i < numFlasks; i++)
+            {
+                mortalsTarget += dice.rollSpecial(damage);
+            }
+
+            auto numSlain = ip->applyDamage({0, mortalsTarget});
+
+            SimLog(Verbosity::Narrative, "%s shattered %d Spirit Flasks inflicting %d mortal wounds on %s slaying %d.\n",
+                   owner->name().c_str(), numFlasks, mortalsTarget, ip->name().c_str(), numSlain);
+        }
+
+        int mortalsSelf = numFlasks;
+        auto dead = owner->applyDamage({0, mortalsSelf});
+        SimLog(Verbosity::Narrative, "Spirit Flasks inflicted %s wounds on %s.  Slaying %d models.\n",
+               mortalsSelf, owner->name().c_str(), dead);
+    }
+
+    return (numFlasks != 0);
 }
 
 } // namespace StormcastEternals

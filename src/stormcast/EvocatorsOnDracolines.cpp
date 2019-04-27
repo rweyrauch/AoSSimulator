@@ -10,6 +10,7 @@
 #include <stormcast/EvocatorsOnDracolines.h>
 #include <iostream>
 #include <spells/Empower.h>
+#include <Board.h>
 
 namespace StormcastEternals
 {
@@ -198,6 +199,18 @@ int EvocatorsOnCelestialDracolines::EnumStringToInt(const std::string &enumStrin
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
+}
+
+void EvocatorsOnCelestialDracolines::onEndCombat(PlayerId player)
+{
+    StormcastEternal::onEndCombat(player);
+
+    // Supernatural Roar
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    for (auto ip : units)
+    {
+        ip->buffModifier(Bravery, -1, {Phase::Battleshock, m_battleRound+1, player});
+    }
 }
 
 } // namespace StormcastEternals

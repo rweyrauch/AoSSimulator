@@ -119,4 +119,13 @@ void LordArcanum::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_aetherstave);
 }
 
+void LordArcanum::onStartCombat(PlayerId player)
+{
+    // Spirit Flask
+    if (!m_shatteredFlasks)
+    {
+        m_shatteredFlasks = DoSpiritFlasks(this);
+    }
+}
+
 } // namespace StormcastEternals

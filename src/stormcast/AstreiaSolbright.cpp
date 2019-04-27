@@ -10,6 +10,7 @@
 #include <iostream>
 #include <spells/MysticShield.h>
 #include <spells/StormcastSpells.h>
+#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -137,6 +138,27 @@ Rerolls AstreiaSolbright::chargeRerolls() const
 {
     // Thunderous Pounce
     return RerollFailed;
+}
+
+void AstreiaSolbright::onEndCombat(PlayerId player)
+{
+    StormcastEternal::onEndCombat(player);
+
+    // Supernatural Roar
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    for (auto ip : units)
+    {
+        ip->buffModifier(Bravery, -1, {Phase::Combat, m_battleRound+1, player});
+    }
+}
+
+void AstreiaSolbright::onStartCombat(PlayerId player)
+{
+    // Spirit Flask
+    if (!m_shatteredFlasks)
+    {
+        m_shatteredFlasks = DoSpiritFlasks(this);
+    }
 }
 
 } // namespace StormcastEternals

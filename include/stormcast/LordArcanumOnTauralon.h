@@ -40,7 +40,12 @@ protected:
 
     void onCharged() override;
 
+    void onStartCombat(PlayerId player) override;
+    void onRestore() override { m_shatteredFlasks = false; }
+
 private:
+
+    bool m_shatteredFlasks = false;
 
     Weapon m_aetherstave,
         m_hornsAndHooves;
@@ -55,7 +60,7 @@ private:
 // Comet Trail                      No
 // Cycle of the Storm               No
 // Meteoric Strike                  Yes
-// Spirit Flask                     No
+// Spirit Flask                     Yes
 // Lightning Orb                    Yes
 // Prime Electrids                  Yes
 // Swift of Wing                    No

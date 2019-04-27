@@ -139,4 +139,13 @@ Rerolls LordArcanumOnDracoline::chargeRerolls() const
     return RerollFailed;
 }
 
+void LordArcanumOnDracoline::onStartCombat(PlayerId player)
+{
+    // Spirit Flask
+    if (!m_shatteredFlasks)
+    {
+        m_shatteredFlasks = DoSpiritFlasks(this);
+    }
+}
+
 } // namespace StormcastEternals

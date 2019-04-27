@@ -57,6 +57,8 @@ protected:
 
 void Init();
 
+bool DoSpiritFlasks(Unit* owner);
+
 } // namespace StormcastEternals
 
 #endif //STORMCASTETERNALS_H

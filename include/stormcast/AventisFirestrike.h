@@ -38,7 +38,12 @@ public:
 
 protected:
 
+    void onStartCombat(PlayerId player) override;
+    void onRestore() override { m_shatteredFlasks = false; }
+
 private:
+
+    bool m_shatteredFlasks = false;
 
     Weapon m_staffOfHammerhal,
         m_hornsAndHooves;

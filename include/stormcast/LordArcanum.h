@@ -38,7 +38,12 @@ public:
 
 protected:
 
+    void onStartCombat(PlayerId player) override;
+    void onRestore() override { m_shatteredFlasks = false; }
+
 private:
+
+    bool m_shatteredFlasks = false;
 
     Weapon m_aetherstave;
 
@@ -50,7 +55,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Cycle of the Storm               No
-// Spirit Flask                     No
+// Spirit Flask                     Yes
 // Thunderclap                      Yes
 // Aetheric Manipulation            No
 // Prime Electrids                  Yes

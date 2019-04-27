@@ -40,7 +40,12 @@ protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+    void onStartCombat(PlayerId player) override;
+    void onRestore() override { m_shatteredFlasks = false; }
+
 private:
+
+    bool m_shatteredFlasks = false;
 
     Weapon m_aetherstave,
         m_beakAndClaws;
@@ -54,7 +59,7 @@ private:
 // -------------------------------------------
 // Aethereal Strike                 Yes
 // Ride the Winds Aetheric          No
-// Spirit Flask                     No
+// Spirit Flask                     Yes
 // Healing Light                    Yes
 // Prime Electrids                  Yes
 // Soul Energy                      No

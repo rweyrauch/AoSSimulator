@@ -122,4 +122,13 @@ void AventisFirestrike::visitWeapons(std::function<void(const Weapon *)> &visito
     visitor(&m_hornsAndHooves);
 }
 
+void AventisFirestrike::onStartCombat(PlayerId player)
+{
+    // Spirit Flask
+    if (!m_shatteredFlasks)
+    {
+        m_shatteredFlasks = DoSpiritFlasks(this);
+    }
+}
+
 } // namespace StormcastEternals

@@ -140,4 +140,13 @@ void LordArcanumOnTauralon::onCharged()
     }
 }
 
+void LordArcanumOnTauralon::onStartCombat(PlayerId player)
+{
+    // Spirit Flask
+    if (!m_shatteredFlasks)
+    {
+        m_shatteredFlasks = DoSpiritFlasks(this);
+    }
+}
+
 } // namespace StormcastEternals

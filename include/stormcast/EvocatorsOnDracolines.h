@@ -48,6 +48,8 @@ protected:
 
     Rerolls chargeRerolls() const override;
 
+    void onEndCombat(PlayerId player) override;
+
 private:
 
     Weapon m_tempestBladeAndStave,
@@ -64,7 +66,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Lightning Arc          Yes
-// Supernatural Roar                No
+// Supernatural Roar                Yes
 // Thunderous Pounce                Yes
 // Empower                          Yes
 //

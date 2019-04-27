@@ -133,4 +133,13 @@ Wounds LordArcanumOnGryphcharger::weaponDamage(const Weapon *weapon, const Unit 
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
+void LordArcanumOnGryphcharger::onStartCombat(PlayerId player)
+{
+    // Spirit Flask
+    if (!m_shatteredFlasks)
+    {
+        m_shatteredFlasks = DoSpiritFlasks(this);
+    }
+}
+
 } // namespace StormcastEternals
