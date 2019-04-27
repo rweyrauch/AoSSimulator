@@ -9,6 +9,7 @@
 #include <stormcast/Decimators.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace StormcastEternals
 {
@@ -142,6 +143,18 @@ int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
         return target->numModelsWithin(attackingModel, weapon->range());
     }
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
+}
+
+void Decimators::onEndCombat(PlayerId player)
+{
+    StormcastEternal::onEndCombat(player);
+
+    // Grim Harvestors
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6.0f);
+    for (auto ip : units)
+    {
+        ip->buffModifier(Bravery, -2, {Phase::Battleshock, m_battleRound+1, player});
+    }
 }
 
 

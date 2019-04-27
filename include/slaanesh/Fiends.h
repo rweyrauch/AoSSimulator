@@ -19,12 +19,12 @@ class Fiends : public Unit
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 75; // x42 oval
     static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 9;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int POINTS_PER_BLOCK = 210;
+    static const int POINTS_MAX_UNIT_SIZE = 630;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -39,13 +39,14 @@ public:
 
 protected:
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
     int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
     Weapon m_deadlyPincers,
+        m_deadlyPincersBlissbringer,
         m_barbedStinger;
 
     static bool s_registered;
@@ -55,10 +56,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Crushing Grip                    No
-// Deadly Venom                     No
+// Crushing Grip                    Yes
+// Deadly Venom                     Yes
 // Disruptive Song                  No
-// Locus of Grace                   Yes
 // Soporific Musk                   Yes
 
 } // Slannesh

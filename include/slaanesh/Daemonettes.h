@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 270;
+    static const int POINTS_PER_BLOCK = 110;
+    static const int POINTS_MAX_UNIT_SIZE = 300;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -33,21 +33,20 @@ public:
     Daemonettes();
     ~Daemonettes() override = default;
 
-    bool configure(int numModels, bool iconBearer, bool standardBearer, bool hornblower);
+    bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    Rerolls chargeRerolls() const override;
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
     void restoreModels(int numModels) override;
 
 protected:
 
     bool m_iconBearer = false;
-    bool m_standardBearer = false;
+    bool m_bannerBearer = false;
     bool m_hornblower = false;
 
 private:
@@ -63,11 +62,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearers                     Yes
-// Standard Bearers                 Yes
+// Banner Bearers                   Yes
 // Hornblower                       No
-// Sadistic Killers                 Yes
 // Lithe and Swift                  Yes
-// Locus of Excruciation            No
 //
 
 } // Slannesh

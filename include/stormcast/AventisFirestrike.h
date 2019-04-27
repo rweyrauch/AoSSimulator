@@ -40,6 +40,8 @@ protected:
 
     void onStartCombat(PlayerId player) override;
     void onRestore() override { m_shatteredFlasks = false; }
+    void onCharged() override;
+    void onStartHero(PlayerId player) override;
 
 private:
 
@@ -57,11 +59,11 @@ private:
 // -------------------------------------------
 // Comet Trail                      No
 // Cycle of the Storm               No
-// Meteoric Strike                  No
-// Spirit Flask                     No
-// Thunderhead Crown                No
+// Meteoric Strike                  Yes
+// Spirit Flask                     Yes
+// Thunderhead Crown                Yes
 // Righteous Indignation            No
-// Pyroelectric Blast               No
+// Pyroelectric Blast               Yes
 // Prime Electrids                  Yes
 // Fiery Orator                     No
 

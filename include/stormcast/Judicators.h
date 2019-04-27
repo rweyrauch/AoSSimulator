@@ -53,6 +53,7 @@ protected:
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    void onStartShooting(PlayerId player) override;
 
 private:
 
@@ -76,7 +77,7 @@ private:
 // Chained Lightning                Yes
 // Eternal Judgement                Yes
 // Rapid Fire                       Yes
-// Thunderbolt Crossbow             No
+// Thunderbolt Crossbow             Yes
 //
 
 } // namespace StormcastEternals

@@ -88,3 +88,18 @@ int Model::applyHealing(int wounds)
     }
     return m_woundsRemaining;
 }
+
+bool Model::hasWeapon(const std::string &name) const
+{
+    for (auto ip : m_melee)
+    {
+        if (ip->name() == name)
+            return true;
+    }
+    for (auto ip : m_missile)
+    {
+        if (ip->name() == name)
+            return true;
+    }
+    return false;
+}

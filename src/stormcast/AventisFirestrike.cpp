@@ -10,6 +10,7 @@
 #include <iostream>
 #include <spells/MysticShield.h>
 #include <spells/StormcastSpells.h>
+#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -21,7 +22,6 @@ static FactoryMethod factoryMethod = {
     {
         {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
         {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -68,8 +68,7 @@ Unit *AventisFirestrike::Create(const ParameterList &parameters)
     auto storm = (LoreOfTheStorm)GetEnumParam("Lore of the Storm", parameters, (int)LoreOfTheStorm::None);
     auto invigoration = (LoreOfInvigoration)GetEnumParam("Lore of Invigoration", parameters, (int)LoreOfInvigoration::None);
 
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
+    unit->setStormhost(HammersOfSigmar);
 
     bool ok = unit->configure(storm, invigoration);
     if (!ok)
@@ -128,6 +127,33 @@ void AventisFirestrike::onStartCombat(PlayerId player)
     if (!m_shatteredFlasks)
     {
         m_shatteredFlasks = DoSpiritFlasks(this);
+    }
+}
+
+void AventisFirestrike::onCharged()
+{
+    StormcastEternal::onCharged();
+
+    // Meteoric Strike
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    for (auto ip : units)
+    {
+        if (dice.rollD6() >= 2)
+        {
+            ip->applyDamage({0, 1});
+        }
+    }
+}
+
+void AventisFirestrike::onStartHero(PlayerId player)
+{
+    StormcastEternal::onStartHero(player);
+
+    // Thunderhead Crown
+    if (player == m_owningPlayer)
+    {
+        heal(1);
     }
 }
 

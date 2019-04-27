@@ -36,6 +36,9 @@ LordArcanumOnTauralon::LordArcanumOnTauralon() :
     m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 3, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD, LORD_ARCANUM};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool LordArcanumOnTauralon::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)

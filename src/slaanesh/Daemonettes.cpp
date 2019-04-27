@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
             Daemonettes::MAX_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
@@ -36,13 +36,13 @@ Daemonettes::Daemonettes() :
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
     m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws (Alluress)", 1, 3, 4, 4, -1, 1)
 {
-    m_keywords = {CHAOS, DAEMON, SLAANESH, DAEMONETTES};
+    m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
 
     // Lithe and Swift
     m_runAndCharge = true;
 }
 
-bool Daemonettes::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblower)
+bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -50,7 +50,7 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool standardBearer,
     }
 
     m_iconBearer = iconBearer;
-    m_standardBearer = standardBearer;
+    m_bannerBearer = bannerBearer;
     m_hornblower = hornblower;
 
     // Add the Alluress
@@ -85,10 +85,10 @@ Unit *Daemonettes::Create(const ParameterList &parameters)
     auto unit = new Daemonettes();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
-    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
     bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-    bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
+    bool ok = unit->configure(numModels, iconBearer, bannerBearer, hornblowers);
     if (!ok)
     {
         delete unit;
@@ -103,31 +103,6 @@ void Daemonettes::Init()
     {
         s_registered = UnitFactory::Register("Daemonettes", factoryMethod);
     }
-}
-
-Rerolls Daemonettes::toHitRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    if (m_standardBearer)
-    { return RerollOnes; }
-    return Unit::toHitRerolls(weapon, unit);
-}
-
-int Daemonettes::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
-{
-    if (weapon->name() == m_piercingClaws.name())
-    {
-        // Sadistic Killers
-        if (remainingModels() >= 20 && (unmodifiedHitRoll >= 5))
-        {
-            return 2;
-        }
-        else if (unmodifiedHitRoll == 6)
-        {
-            return 2;
-        }
-    }
-
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
@@ -153,6 +128,15 @@ void Daemonettes::restoreModels(int numModels)
     {
         addModel(model);
     }
+}
+
+Rerolls Daemonettes::chargeRerolls() const
+{
+    if (m_bannerBearer)
+    {
+        return RerollFailed;
+    }
+    return Unit::chargeRerolls();
 }
 
 } // namespace Slaanesh

@@ -127,7 +127,7 @@ public:
 
     int applyBattleshock();
 
-    bool makeSave(int woundRoll, const Weapon* weapon, int weaponRend, int& saveRoll);
+    bool makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* target, int& saveRoll);
 
     int applyDamage(const Wounds &totalWounds);
 
@@ -281,6 +281,8 @@ protected:
     virtual int generateMortalWounds(const Unit *unit) { return 0; }
 
     virtual int toSaveModifier(const Weapon *weapon) const;
+
+    virtual int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const;
 
     virtual Rerolls toSaveRerolls(const Weapon *weapon) const;
 

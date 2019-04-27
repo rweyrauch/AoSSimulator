@@ -744,12 +744,13 @@ int Unit::heal(int numWounds)
     return numHealedWounds;
 }
 
-bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, int& saveRoll)
+bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* target, int& saveRoll)
 {
     Dice dice;
 
+    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target);
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
-    auto toSave = m_save - effectiveRend;
+    auto toSave = m_save + saveModifiers - effectiveRend;
 
     saveRoll = dice.rollD6();
     if (saveRoll < toSave)
@@ -841,7 +842,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
 
                     // roll save
                     int saveRoll = 0;
-                    if (!target->makeSave(woundRoll, weapon, weaponRend(weapon, target, hitRoll, woundRoll), saveRoll))
+                    if (!target->makeSave(woundRoll, weapon, weaponRend(weapon, target, hitRoll, woundRoll), target, saveRoll))
                     {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
@@ -1312,6 +1313,16 @@ int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const
     return modifier;
 }
 
+int Unit::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    int modifier = 0;
+
+    for (auto bi : m_attributeModifiers[TargetToSave])
+    {
+        modifier += bi.modifier;
+    }
+    return modifier;
+}
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :

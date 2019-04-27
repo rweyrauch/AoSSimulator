@@ -35,6 +35,9 @@ LordArcanumOnDracoline::LordArcanumOnDracoline() :
     m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool LordArcanumOnDracoline::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)

@@ -50,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Inescapable Vengeance            No
+// Inescapable Vengeance            Yes
 // Sigmarite Thundershield          Yes
 // Once More, For Sigmar, Charge!   No
 //

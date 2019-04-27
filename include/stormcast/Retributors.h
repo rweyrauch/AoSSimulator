@@ -39,12 +39,13 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartCombat(PlayerId player) override;
 
 private:
 
     Weapon m_lightningHammer,
-                  m_lightningHammerPrime,
-                  m_starsoulMace;
+        m_lightningHammerPrime,
+        m_starsoulMace;
 
     static bool s_registered;
 };

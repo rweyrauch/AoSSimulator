@@ -35,6 +35,7 @@ LordExorcist::LordExorcist() :
     m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
 }

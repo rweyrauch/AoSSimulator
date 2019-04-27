@@ -33,9 +33,10 @@ bool Fiends::s_registered = false;
 Fiends::Fiends() :
     Unit("Fiends", 12, WOUNDS, 10, 5, false),
     m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
+    m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers (Blissbringer)", 1, 5, 3, 3, -1, 1),
     m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1)
 {
-    m_keywords = {CHAOS, DAEMON, SLAANESH, FIENDS};
+    m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, FIENDS};
 }
 
 bool Fiends::configure(int numModels)
@@ -45,8 +46,12 @@ bool Fiends::configure(int numModels)
         return false;
     }
 
-    // TODO: Blissbringer can re-roll 1's for attacks with Pincers.
-    for (auto i = 0; i < numModels; i++)
+    Model blissbringer(BASESIZE, WOUNDS);
+    blissbringer.addMeleeWeapon(&m_deadlyPincersBlissbringer);
+    blissbringer.addMeleeWeapon(&m_barbedStinger);
+    addModel(blissbringer);
+
+    for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
         model.addMeleeWeapon(&m_deadlyPincers);
@@ -66,6 +71,7 @@ bool Fiends::configure(int numModels)
 void Fiends::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_deadlyPincers);
+    visitor(&m_deadlyPincersBlissbringer);
     visitor(&m_barbedStinger);
 }
 
@@ -91,20 +97,6 @@ void Fiends::Init()
     }
 }
 
-Rerolls Fiends::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Locus of Grace
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(SLAANESH) && ip->hasKeyword(HERO))
-        {
-            return RerollOnes;
-        }
-    }
-    return Unit::toHitRerolls(weapon, target);
-}
-
 int Fiends::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
 {
     int modifier = Unit::targetHitModifier(weapon, attacker);
@@ -127,6 +119,27 @@ int Fiends::targetWoundModifier(const Weapon *weapon, const Unit *attacker) cons
         modifier -= 1;
     }
     return modifier;
+}
+
+Wounds Fiends::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Crushing Grip
+    if ((woundRoll == 6) && (weapon->name() == m_deadlyPincers.name()))
+    {
+        return {RAND_D3, 0};
+    }
+    // Deadly Venom
+    if (weapon->name() == m_barbedStinger.name())
+    {
+        if (target->wounds() == 1)
+            return {1, 0};
+        else if (target->wounds() <= 3)
+            return {RAND_D3, 0};
+        else
+            return {RAND_D6, 0};
+    }
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Slaanesh

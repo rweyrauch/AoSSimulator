@@ -42,6 +42,8 @@ public:
     std::vector<const Weapon*>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
     std::vector<const Weapon*>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 
+    bool hasWeapon(const std::string& name) const;
+
     int initialWounds() const { return m_initialWounds; }
     int woundsRemaining() const { return m_woundsRemaining; }
     int applyWound(int wounds);

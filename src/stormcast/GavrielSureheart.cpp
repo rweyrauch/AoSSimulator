@@ -17,7 +17,6 @@ static FactoryMethod factoryMethod = {
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
     {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -47,8 +46,7 @@ Unit *GavrielSureheart::Create(const ParameterList &parameters)
 {
     auto unit = new GavrielSureheart();
 
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
+    unit->setStormhost(HammersOfSigmar);
 
     bool ok = unit->configure();
     if (!ok)
@@ -93,6 +91,7 @@ Wounds GavrielSureheart::computeReturnedDamage(const Weapon *weapon, int saveRol
 int GavrielSureheart::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
+    // Inescapable Vengeance
     if (m_charged)
     {
         attacks += 1;

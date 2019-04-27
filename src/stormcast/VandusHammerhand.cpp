@@ -17,7 +17,6 @@ static FactoryMethod factoryMethod = {
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
     {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -49,8 +48,7 @@ Unit *VandusHammerhand::Create(const ParameterList &parameters)
 {
     auto unit = new VandusHammerhand();
 
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
+    unit->setStormhost(HammersOfSigmar);
 
     bool ok = unit->configure();
     if (!ok)

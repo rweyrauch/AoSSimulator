@@ -6,14 +6,14 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <slaanesh/KeeperOfSecrets.h>
+#include <slaanesh/ShalaxiHelbane.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 
 namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
-    KeeperOfSecrets::Create,
+    ShalaxiHelbane::Create,
     nullptr,
     nullptr,
     {
@@ -25,43 +25,41 @@ static FactoryMethod factoryMethod = {
 struct TableEntry
 {
     int m_move;
-    int m_greatbladeAttacks;
+    int m_soulpiercerWound;
     int m_clawDamage;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, KeeperOfSecrets::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, ShalaxiHelbane::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {14, 4, 5},
-        {12, 3, 4},
+        {14, 2, 5},
+        {12, 2, 4},
         {10, 3, 3},
-        {8,  2, 3},
-        {6,  2, 2}
+        {8,  3, 3},
+        {6,  4, 2}
     };
 
-bool KeeperOfSecrets::s_registered = false;
+bool ShalaxiHelbane::s_registered = false;
 
-KeeperOfSecrets::KeeperOfSecrets() :
-    Unit("Keeper of Secrets", 14, WOUNDS, 10, 4, false),
+ShalaxiHelbane::ShalaxiHelbane() :
+    Unit("Shalaxi Helbane", 14, WOUNDS, 10, 4, false),
     m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
-    m_ritualKnife(Weapon::Type::Melee, "Ritual Knife or Sinistrous Hand", 1, 1, 2, 3, -1, 1),
-    m_greatblade(Weapon::Type::Melee, "Elegant Greatblade", 2, 4, 3, 3, -1, 2),
+    m_soulpiercer(Weapon::Type::Melee, "Soulpiercer", 3, 1, 2, 2, -3, RAND_D6),
     m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5)
 {
-    m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS};
+    m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS, SHALAXI_HELBANE};
 
     m_totalSpells = 2;
     m_totalUnbinds = 2;
 }
 
-bool KeeperOfSecrets::configure()
+bool ShalaxiHelbane::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
     model.addMissileWeapon(&m_livingWhip);
-    model.addMeleeWeapon(&m_ritualKnife);
-    model.addMeleeWeapon(&m_greatblade);
+    model.addMeleeWeapon(&m_soulpiercer);
     model.addMeleeWeapon(&m_impalingClaws);
     addModel(model);
 
@@ -73,17 +71,16 @@ bool KeeperOfSecrets::configure()
     return true;
 }
 
-void KeeperOfSecrets::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ShalaxiHelbane::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_livingWhip);
-    visitor(&m_ritualKnife);
-    visitor(&m_greatblade);
+    visitor(&m_soulpiercer);
     visitor(&m_impalingClaws);
 }
 
-Unit *KeeperOfSecrets::Create(const ParameterList &parameters)
+Unit *ShalaxiHelbane::Create(const ParameterList &parameters)
 {
-    auto unit = new KeeperOfSecrets();
+    auto unit = new ShalaxiHelbane();
 
     bool ok = unit->configure();
     if (!ok)
@@ -94,23 +91,23 @@ Unit *KeeperOfSecrets::Create(const ParameterList &parameters)
     return unit;
 }
 
-void KeeperOfSecrets::Init()
+void ShalaxiHelbane::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Keeper of Secrets", factoryMethod);
+        s_registered = UnitFactory::Register("Shalaxi Helbane", factoryMethod);
     }
 }
 
-void KeeperOfSecrets::onWounded()
+void ShalaxiHelbane::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_greatblade.setAttacks(g_damageTable[damageIndex].m_greatbladeAttacks);
+    m_soulpiercer.setToWound(g_damageTable[damageIndex].m_soulpiercerWound);
     m_impalingClaws.setDamage(g_damageTable[damageIndex].m_clawDamage);
     Unit::onWounded();
 }
 
-int KeeperOfSecrets::getDamageTableIndex() const
+int ShalaxiHelbane::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
     for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
@@ -123,7 +120,7 @@ int KeeperOfSecrets::getDamageTableIndex() const
     return 0;
 }
 
-int KeeperOfSecrets::move() const
+int ShalaxiHelbane::move() const
 {
     return g_damageTable[getDamageTableIndex()].m_move;
 }

@@ -17,7 +17,6 @@ static FactoryMethod factoryMethod = {
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
     {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
     STORMCAST_ETERNAL
@@ -31,7 +30,8 @@ NeaveBlacktalon::NeaveBlacktalon() :
     m_whirlwindAxes(Weapon::Type::Melee, "The Whirlwind Axes", 1, 7, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS, NEAVE_BLACKTALON};
-    // Tireless hunder
+
+    // Tireless hunter
     m_runAndShoot = true;
 }
 
@@ -51,8 +51,7 @@ Unit *NeaveBlacktalon::Create(const ParameterList &parameters)
 {
     auto unit = new NeaveBlacktalon();
 
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
+    unit->setStormhost(HammersOfSigmar);
 
     bool ok = unit->configure();
     if (!ok)

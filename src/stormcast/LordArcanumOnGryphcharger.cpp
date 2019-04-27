@@ -36,6 +36,9 @@ LordArcanumOnGryphcharger::LordArcanumOnGryphcharger() :
     m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool LordArcanumOnGryphcharger::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)

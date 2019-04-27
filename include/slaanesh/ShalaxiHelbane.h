@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef KEEPEROFSECRETS_H
-#define KEEPEROFSECRETS_H
+#ifndef SHALAXIHELBANE_H
+#define SHALAXIHELBANE_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,20 +15,20 @@
 namespace Slaanesh
 {
 
-class KeeperOfSecrets : public Unit
+class ShalaxiHelbane : public Unit
 {
 public:
 
     static const int BASESIZE = 100;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 360;
+    static const int POINTS_PER_UNIT = 340;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    KeeperOfSecrets();
-    ~KeeperOfSecrets() override = default;
+    ShalaxiHelbane();
+    ~ShalaxiHelbane() override = default;
 
     bool configure();
     int move() const override;
@@ -43,8 +43,7 @@ protected:
 private:
 
     Weapon m_livingWhip,
-        m_ritualKnife,
-        m_greatblade,
+        m_soulpiercer,
         m_impalingClaws;
 
     static bool s_registered;
@@ -54,16 +53,15 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ritual Knife                     No
-// Dark Temptations                 No
+// Cloak of Constriction            No
 // Delicate Precision               No
+// Irresistible Challenge           No
 // Living Whip                      No
 // Shining Aegis                    No
-// Sinistrous Hand                  No
-// Cacophonic Choir                 No
-// Excess of Violence               No
+// The Killing Stroke               No
+// Refine Senses                    No
 //
 
 } // Slannesh
 
-#endif //KEEPEROFSECRETS_H
+#endif //SHALAXIHELBANE_H

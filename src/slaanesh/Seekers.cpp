@@ -34,11 +34,11 @@ bool Seekers::s_registered = false;
 
 Seekers::Seekers() :
     Unit("Seekers", 14, WOUNDS, 10, 5, false),
-    m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
-    m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws (Heartseeker)", 1, 3, 4, 4, -1, 1),
-    m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 4, 4, 0, 1)
+    m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 3, 4, -1, 1),
+    m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws (Heartseeker)", 1, 3, 3, 4, -1, 1),
+    m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1)
 {
-    m_keywords = {CHAOS, DAEMON, DAEMONETTES, SLAANESH, SEEKERS};
+    m_keywords = {CHAOS, DAEMON, DAEMONETTES, SLAANESH, HEDONITE, SEEKERS};
 
     // Quicksilver Speed
     m_runAndCharge = true;
@@ -52,7 +52,7 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
     }
 
     m_iconBearer = iconBearer;
-    m_standardBearer = standardBearer;
+    m_bannerBearer = standardBearer;
     m_hornblower = hornblower;
 
     // Add the Heartseeker
@@ -110,68 +110,6 @@ void Seekers::Init()
     }
 }
 
-int Seekers::runModifier() const
-{
-    int modifier = Unit::runModifier();
-    // Quicksilver Speed
-    Dice dice;
-    modifier += dice.rollD6();
-
-    // Locus of Swiftness
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(SLAANESH) && ip->hasKeyword(HERO))
-        {
-            modifier += 1;
-            break;
-        }
-    }
-    return modifier;
-}
-
-
-Rerolls Seekers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    if (m_standardBearer) { return RerollOnes; }
-    return Unit::toHitRerolls(weapon, unit);
-}
-
-int Seekers::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
-{
-    if (weapon->name() == m_piercingClaws.name())
-    {
-        // Sadistic Killers
-        if (remainingModels() >= 20 && (unmodifiedHitRoll >= 5))
-        {
-            return 2;
-        }
-        else if (unmodifiedHitRoll == 6)
-        {
-            return 2;
-        }
-    }
-
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-}
-
-int Seekers::chargeModifier() const
-{
-    int modifier = Unit::chargeModifier();
-
-    // Locus of Swiftness
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(DAEMON) && ip->hasKeyword(SLAANESH) && ip->hasKeyword(HERO))
-        {
-            modifier += 1;
-            break;
-        }
-    }
-    return modifier;
-}
-
 void Seekers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
 {
     Unit::computeBattleshockEffect(roll, numFled, numAdded);
@@ -196,6 +134,22 @@ void Seekers::restoreModels(int numModels)
     {
         addModel(model);
     }
+}
+
+Rerolls Seekers::chargeRerolls() const
+{
+    if (m_bannerBearer)
+    {
+        return RerollFailed;
+    }
+    return Unit::chargeRerolls();
+}
+
+int Seekers::runModifier() const
+{
+    // Quicksilver Speed
+    Dice dice;
+    return dice.rollD6();
 }
 
 } // namespace Slaanesh

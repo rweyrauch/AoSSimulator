@@ -79,6 +79,7 @@ enum BuffableAttribute
     TargetToHitMissile,
     TargetToWoundMelee,
     TargetToWoundMissile,
+    TargetToSave,
 
     NUM_BUFFABLE_ATTRIBUTES
 };
@@ -400,6 +401,17 @@ enum Keyword
     SEEKERS,
     FIENDS,
     KEEPER_OF_SECRETS,
+    SHALAXI_HELBANE,
+    SEEKER_CHARIOTS,
+    HELLSTRIDERS,
+    HERALD_OF_SLAANESH,
+    INFERNAL_ENRAPTURESS,
+    THE_MASQUE,
+    VICELEADER,
+    HEDONITE,
+    SYLL_ESSKE,
+    THE_VENGEFUL_ALLEGIANCE,
+    THE_CONTORTED_EPITOME,
 
     // Nurgle
     PLAGUEBEARER,

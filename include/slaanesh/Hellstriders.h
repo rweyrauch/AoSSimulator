@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SEEKERS_H
-#define SEEKERS_H
+#ifndef HELLSTRIDERS_H
+#define HELLSTRIDERS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace Slaanesh
 {
 
-class Seekers : public Unit
+class Hellstriders : public Unit
 {
 public:
 
@@ -23,26 +23,31 @@ public:
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 400;
+
+    enum WeaponOption
+    {
+        ClawSpear,
+        Hellscourge
+    };
 
     static Unit* Create(const ParameterList& parameters);
-
     static void Init();
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
 
-    Seekers();
-    ~Seekers() override = default;
+    Hellstriders();
+    ~Hellstriders() override = default;
 
-    bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
+    bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    void restoreModels(int numModels) override;
     Rerolls chargeRerolls() const override;
-    int runModifier() const override;
+    int braveryModifier() const override;
 
 protected:
 
@@ -52,8 +57,10 @@ protected:
 
 private:
 
-    Weapon m_piercingClaws,
-        m_piercingClawsHeartseeker,
+    Weapon m_clawSpear,
+        m_clawSpearReaver,
+        m_hellscourge,
+        m_hellscourgeReaver,
         m_poisonedTongue;
 
     static bool s_registered;
@@ -63,12 +70,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon Bearers                     Yes
-// Banner Bearers                   Yes
-// Hornblowers                      No
-// Quicksilver Speed                Yes
+// Standard Banner                  Yes
+// Icon Banner                      Yes
+// Hornblower                       No
 // Soul Hunters                     No
-
+//
 } // Slannesh
 
-#endif //SEEKERS_H
+#endif //HELLSTRIDERS_H

@@ -31,7 +31,7 @@ Retributors::Retributors() :
     StormcastEternal("Retributors", 4, WOUNDS, 7, 4, false),
     m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2),
     m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer (Prime)", 1, 3, 3, 3, -1, 2),
-    m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
+    m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 0, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS};
 }
@@ -88,26 +88,6 @@ Wounds Retributors::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return {0, 2};
     }
 
-    // Starsoul Mace
-    if (weapon->name() == m_starsoulMace.name())
-    {
-        int mortalWounds = 0;
-        Dice dice;
-        int roll = dice.rollD6();
-        if (roll >= 6)
-        {
-            mortalWounds = dice.rollD3() + 1;
-        }
-        else if (roll >= 2)
-        {
-            mortalWounds = dice.rollD3();
-        }
-/*
-        if (mortalWounds)
-            std::cout << "Starsoul Mace did " << mortalWounds << " mortal wounds." << std::endl;
-*/
-        return {0, mortalWounds};
-    }
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
@@ -142,6 +122,35 @@ void Retributors::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_lightningHammer);
     visitor(&m_lightningHammerPrime);
     visitor(&m_starsoulMace);
+}
+
+void Retributors::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    if (m_meleeTarget)
+    {
+        for (auto ip : m_models)
+        {
+            // Starsoul Mace
+            if (ip.preferredWeapon()->name() == m_starsoulMace.name())
+            {
+                int mortalWounds = 0;
+                Dice dice;
+                int roll = dice.rollD6();
+                if (roll >= 6)
+                {
+                    mortalWounds = dice.rollD3() + 1;
+                }
+                else if (roll >= 2)
+                {
+                    mortalWounds = dice.rollD3();
+                }
+
+                m_meleeTarget->applyDamage({0, mortalWounds});
+            }
+        }
+    }
 }
 
 } // namespace StormcastEternals

@@ -216,4 +216,30 @@ int Judicators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const 
     return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
+void Judicators::onStartShooting(PlayerId player)
+{
+    StormcastEternal::onStartShooting(player);
+
+    if (m_shootingTarget)
+    {
+        for (auto ip : m_models)
+        {
+            // Thunderbolt Crossbow
+            if (ip.hasWeapon(m_thunderboldCrossbow.name()))
+            {
+                Dice dice;
+                int roll = dice.rollD6();
+                if (m_shootingTarget->hasKeyword(MONSTER))
+                    roll--;
+
+                if (roll <= m_shootingTarget->remainingModels())
+                {
+                    m_shootingTarget->applyDamage({0, dice.rollD3()});
+                }
+            }
+        }
+    }
+
+}
+
 } // namespace StormcastEternals
