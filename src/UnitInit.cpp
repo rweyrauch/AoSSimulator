@@ -57,6 +57,15 @@
 #include "slaanesh/KeeperOfSecrets.h"
 #include "slaanesh/Hellstriders.h"
 #include "slaanesh/ShalaxiHelbane.h"
+#include "slaanesh/BladebringerExaltedChariot.h"
+#include "slaanesh/BladebringerHellflayer.h"
+#include "slaanesh/BladebringerSeekerChariot.h"
+#include "slaanesh/ExaltedChariot.h"
+#include "slaanesh/Hellflayer.h"
+#include "slaanesh/SeekerChariots.h"
+#include "slaanesh/TheMasque.h"
+#include "slaanesh/Viceleader.h"
+#include "slaanesh/InfernalEnrapturess.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -170,7 +179,16 @@ void Initialize(Verbosity verbosity)
     Slaanesh::KeeperOfSecrets::Init();
     Slaanesh::Hellstriders::Init();
     Slaanesh::ShalaxiHelbane::Init();
-
+    Slaanesh::BladebringerOnExaltedChariot::Init();
+    Slaanesh::BladebringerOnHellflayer::Init();
+    Slaanesh::BladebringerOnSeekerChariot::Init();
+    Slaanesh::ExaltedChariot::Init();
+    Slaanesh::Hellflayer::Init();
+    Slaanesh::SeekerChariots::Init();
+    Slaanesh::TheMasque::Init();
+    Slaanesh::ViceleaderHeraldOfSlaanesh::Init();
+    Slaanesh::InfernalEnrapturess::Init();
+    
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();
     Nurgle::PutridBlightkings::Init();

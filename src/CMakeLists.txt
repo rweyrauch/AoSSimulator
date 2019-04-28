@@ -196,6 +196,15 @@ add_library(
         slaanesh/KeeperOfSecrets.cpp
         slaanesh/Hellstriders.cpp
         slaanesh/ShalaxiHelbane.cpp
+        slaanesh/SeekerChariots.cpp
+        slaanesh/BladebringerSeekerChariot.cpp
+        slaanesh/ExaltedChariot.cpp
+        slaanesh/BladebringerExaltedChariot.cpp
+        slaanesh/Hellflayer.cpp
+        slaanesh/BladebringerHellflayer.cpp
+        slaanesh/TheMasque.cpp
+        slaanesh/Viceleader.cpp
+        slaanesh/InfernalEnrapturess.cpp
 
         nurgle/Plaguebearers.cpp
         nurgle/LordOfPlagues.cpp
