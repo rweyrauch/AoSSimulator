@@ -13,8 +13,8 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     Hellstriders::Create,
-    nullptr,
-    nullptr,
+    Hellstriders::ValueToString,
+    Hellstriders::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Hellstriders::MIN_UNIT_SIZE, Hellstriders::MIN_UNIT_SIZE,

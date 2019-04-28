@@ -23,14 +23,23 @@ public:
     static const int WOUNDS = 14;
     static const int POINTS_PER_UNIT = 360;
 
-    static Unit* Create(const ParameterList& parameters);
+    enum WeaponOption
+    {
+        RitualKnife,
+        SinistrousHand,
+        LivingWhip,
+        ShiningAegis
+    };
 
+    static Unit* Create(const ParameterList& parameters);
     static void Init();
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
 
     KeeperOfSecrets();
     ~KeeperOfSecrets() override = default;
 
-    bool configure();
+    bool configure(WeaponOption weapon);
     int move() const override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
@@ -40,10 +49,17 @@ protected:
     int getDamageTableIndex() const;
     void onWounded() override;
 
+    void onStartCombat(PlayerId player) override;
+    void onEndCombat(PlayerId player) override;
+    Wounds applyWoundSave(const Wounds& wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
+    WeaponOption m_weapon = RitualKnife;
+
     Weapon m_livingWhip,
-        m_ritualKnife,
+        m_ritualKnifeOrHand,
         m_greatblade,
         m_impalingClaws;
 
@@ -54,12 +70,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ritual Knife                     No
-// Dark Temptations                 No
-// Delicate Precision               No
+// Ritual Knife                     Yes
+// Dark Temptations                 Partial
+// Delicate Precision               Yes
 // Living Whip                      No
-// Shining Aegis                    No
-// Sinistrous Hand                  No
+// Shining Aegis                    Yes
+// Sinistrous Hand                  Partial
 // Cacophonic Choir                 No
 // Excess of Violence               No
 //

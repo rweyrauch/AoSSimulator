@@ -23,14 +23,21 @@ public:
     static const int WOUNDS = 14;
     static const int POINTS_PER_UNIT = 340;
 
-    static Unit* Create(const ParameterList& parameters);
+    enum WeaponOption
+    {
+        LivingWhip,
+        ShiningAegis
+    };
 
+    static Unit* Create(const ParameterList& parameters);
     static void Init();
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
 
     ShalaxiHelbane();
     ~ShalaxiHelbane() override = default;
 
-    bool configure();
+    bool configure(WeaponOption weapon);
     int move() const override;
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
@@ -40,7 +47,12 @@ protected:
     int getDamageTableIndex() const;
     void onWounded() override;
 
+    Wounds applyWoundSave(const Wounds& wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
+
+    WeaponOption m_weapon = ShiningAegis;
 
     Weapon m_livingWhip,
         m_soulpiercer,
@@ -54,10 +66,10 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Cloak of Constriction            No
-// Delicate Precision               No
+// Delicate Precision               Yes
 // Irresistible Challenge           No
 // Living Whip                      No
-// Shining Aegis                    No
+// Shining Aegis                    Yes
 // The Killing Stroke               No
 // Refine Senses                    No
 //

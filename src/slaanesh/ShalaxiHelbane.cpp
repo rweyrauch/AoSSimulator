@@ -14,9 +14,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     ShalaxiHelbane::Create,
-    nullptr,
-    nullptr,
+    ShalaxiHelbane::ValueToString,
+    ShalaxiHelbane::EnumStringToInt,
     {
+        {ParamType::Enum, "Weapon", ShalaxiHelbane::LivingWhip, ShalaxiHelbane::LivingWhip, ShalaxiHelbane::ShiningAegis, 1},
     },
     CHAOS,
     SLAANESH
@@ -54,13 +55,19 @@ ShalaxiHelbane::ShalaxiHelbane() :
     m_totalUnbinds = 2;
 }
 
-bool ShalaxiHelbane::configure()
+bool ShalaxiHelbane::configure(WeaponOption weapon)
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_livingWhip);
+    m_weapon = weapon;
+
+    if (m_weapon == LivingWhip)
+    {
+        model.addMissileWeapon(&m_livingWhip);
+    }
     model.addMeleeWeapon(&m_soulpiercer);
     model.addMeleeWeapon(&m_impalingClaws);
+
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -81,8 +88,9 @@ void ShalaxiHelbane::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *ShalaxiHelbane::Create(const ParameterList &parameters)
 {
     auto unit = new ShalaxiHelbane();
+    auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, LivingWhip);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(weapon);
     if (!ok)
     {
         delete unit;
@@ -123,6 +131,69 @@ int ShalaxiHelbane::getDamageTableIndex() const
 int ShalaxiHelbane::move() const
 {
     return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds)
+{
+    Dice dice;
+
+    if (m_weapon == ShiningAegis)
+    {
+        // Shining Aegis
+        Dice::RollResult woundSaves, mortalSaves;
+        dice.rollD6(wounds.normal, woundSaves);
+        dice.rollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(6);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(6);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
+    }
+    return Unit::applyWoundSave(wounds);
+}
+
+Wounds ShalaxiHelbane::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    if (!weapon->isMissile())
+    {
+        int damage = weapon->damage();
+        // The Killing Stroke
+        if ((target == m_meleeTarget) && (weapon->name() == m_soulpiercer.name()))
+        {
+            damage = 6;
+        }
+
+        // Delicate Precision
+        if (woundRoll == 6)
+        {
+            return {0, damage};
+        }
+        else
+        {
+            return {damage, 0};
+        }
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+std::string ShalaxiHelbane::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Weapon")
+    {
+        if (parameter.m_intValue == LivingWhip) return "LivingWhip";
+        else if (parameter.m_intValue == ShiningAegis) return "Shining Aegis";
+    }
+    return ParameterValueToString(parameter);
+}
+
+int ShalaxiHelbane::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Living Whip") return LivingWhip;
+    else if (enumString == "Shining Aegis") return ShiningAegis;
+    return 0;
 }
 
 } // Slannesh
