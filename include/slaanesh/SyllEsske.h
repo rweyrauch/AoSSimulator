@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef VICELEADER_H
-#define VICELEADER_H
+#ifndef SYLLESSKE_H
+#define SYLLESSKE_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,20 +15,20 @@
 namespace Slaanesh
 {
 
-class ViceleaderHeraldOfSlaanesh : public Unit
+class SyllEsske : public Unit
 {
 public:
 
     static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
+    static const int WOUNDS = 9;
     static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    ViceleaderHeraldOfSlaanesh();
-    ~ViceleaderHeraldOfSlaanesh() override = default;
+    SyllEsske();
+    ~SyllEsske() override = default;
 
     bool configure();
 
@@ -36,11 +36,10 @@ public:
 
 protected:
 
-    Wounds applyWoundSave(const Wounds& wounds) override;
-
 private:
 
-    Weapon m_ravagingClaws;
+    Weapon m_axeOfDominion,
+        m_scourgingWhip;
 
     static bool s_registered;
 };
@@ -49,11 +48,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lightning Reflexes               Yes
+// Deadly Symbiosis                 No
 // Lithe and Swift                  Yes
-// Acquiescence                     No
+// Subvert                          No
+// Regal Authority                  No
 //
 
 } // Slannesh
 
-#endif //VICELEADER_H
+#endif //SYLLESSKE_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef VICELEADER_H
-#define VICELEADER_H
+#ifndef CONTORTEDEPITOME_H
+#define CONTORTEDEPITOME_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,20 +15,20 @@
 namespace Slaanesh
 {
 
-class ViceleaderHeraldOfSlaanesh : public Unit
+class TheContortedEpitome : public Unit
 {
 public:
 
     static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
+    static const int WOUNDS = 7;
     static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    ViceleaderHeraldOfSlaanesh();
-    ~ViceleaderHeraldOfSlaanesh() override = default;
+    TheContortedEpitome();
+    ~TheContortedEpitome() override = default;
 
     bool configure();
 
@@ -40,7 +40,8 @@ protected:
 
 private:
 
-    Weapon m_ravagingClaws;
+    Weapon m_ravagingClaws,
+        m_coiledTentacles;
 
     static bool s_registered;
 };
@@ -49,11 +50,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lightning Reflexes               Yes
-// Lithe and Swift                  Yes
-// Acquiescence                     No
+// Gift of Power                    No
+// Swallow Energy                   Yes
+// Horrible Fascination             No
+// Overwhelming Acquiescence        No
 //
 
 } // Slannesh
 
-#endif //VICELEADER_H
+#endif //CONTORTEDEPITOME_H

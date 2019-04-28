@@ -20,6 +20,7 @@
 #include "khorne/KhorneBase.h"
 #include "wanderers/Wanderer.h"
 #include "fyreslayers/Fyreslayer.h"
+#include "slaanesh/SlaaneshBase.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -50,22 +51,6 @@
 #include "beastsofchaos/Centigors.h"
 #include "beastsofchaos/Doombull.h"
 #include "beastsofchaos/Chimera.h"
-
-#include "slaanesh/Fiends.h"
-#include "slaanesh/Seekers.h"
-#include "slaanesh/Daemonettes.h"
-#include "slaanesh/KeeperOfSecrets.h"
-#include "slaanesh/Hellstriders.h"
-#include "slaanesh/ShalaxiHelbane.h"
-#include "slaanesh/BladebringerExaltedChariot.h"
-#include "slaanesh/BladebringerHellflayer.h"
-#include "slaanesh/BladebringerSeekerChariot.h"
-#include "slaanesh/ExaltedChariot.h"
-#include "slaanesh/Hellflayer.h"
-#include "slaanesh/SeekerChariots.h"
-#include "slaanesh/TheMasque.h"
-#include "slaanesh/Viceleader.h"
-#include "slaanesh/InfernalEnrapturess.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -142,6 +127,7 @@ void Initialize(Verbosity verbosity)
     Khorne::Init();
     Wanderers::Init();
     Fyreslayers::Init();
+    Slaanesh::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();
@@ -173,22 +159,6 @@ void Initialize(Verbosity verbosity)
     BeastsOfChaos::Doombull::Init();
     BeastsOfChaos::Chimera::Init();
 
-    Slaanesh::Daemonettes::Init();
-    Slaanesh::Fiends::Init();
-    Slaanesh::Seekers::Init();
-    Slaanesh::KeeperOfSecrets::Init();
-    Slaanesh::Hellstriders::Init();
-    Slaanesh::ShalaxiHelbane::Init();
-    Slaanesh::BladebringerOnExaltedChariot::Init();
-    Slaanesh::BladebringerOnHellflayer::Init();
-    Slaanesh::BladebringerOnSeekerChariot::Init();
-    Slaanesh::ExaltedChariot::Init();
-    Slaanesh::Hellflayer::Init();
-    Slaanesh::SeekerChariots::Init();
-    Slaanesh::TheMasque::Init();
-    Slaanesh::ViceleaderHeraldOfSlaanesh::Init();
-    Slaanesh::InfernalEnrapturess::Init();
-    
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();
     Nurgle::PutridBlightkings::Init();

@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    void onStartShooting(PlayerId player) override;
+
 private:
 
     Weapon m_ravagingClaw,
@@ -51,7 +53,7 @@ private:
 // -------------------------------------------
 // Discordant Disruption            No
 // Harmonic Alignment               No
-// Versatile Instrument             No
+// Versatile Instrument             Yes
 //
 
 } // Slannesh

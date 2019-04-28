@@ -42,7 +42,7 @@ Hellstriders::Hellstriders() :
     m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};
 }
 
-bool Hellstriders::configure(int numModels, Hellstriders::WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower)
+bool Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -52,6 +52,31 @@ bool Hellstriders::configure(int numModels, Hellstriders::WeaponOption weapons, 
     m_iconBearer = iconBearer;
     m_bannerBearer = bannerBearer;
     m_hornblower = hornblower;
+
+    Model reaver(BASESIZE, WOUNDS);
+    if (weapons == ClawSpear)
+        reaver.addMeleeWeapon(&m_clawSpearReaver);
+    else if (weapons == Hellscourge)
+        reaver.addMeleeWeapon(&m_hellscourgeReaver);
+    reaver.addMeleeWeapon(&m_poisonedTongue);
+    addModel(reaver);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == ClawSpear)
+            model.addMeleeWeapon(&m_clawSpear);
+        else if (weapons == Hellscourge)
+            model.addMeleeWeapon(&m_hellscourge);
+        model.addMeleeWeapon(&m_poisonedTongue);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
 
     return true;
 }

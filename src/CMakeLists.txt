@@ -190,6 +190,7 @@ add_library(
         beastsofchaos/Doombull.cpp
         beastsofchaos/Chimera.cpp
 
+        slaanesh/SlaaneshBase.cpp
         slaanesh/Fiends.cpp
         slaanesh/Daemonettes.cpp
         slaanesh/Seekers.cpp
@@ -205,6 +206,8 @@ add_library(
         slaanesh/TheMasque.cpp
         slaanesh/Viceleader.cpp
         slaanesh/InfernalEnrapturess.cpp
+        slaanesh/SyllEsske.cpp
+        slaanesh/ContortedEpitome.cpp
 
         nurgle/Plaguebearers.cpp
         nurgle/LordOfPlagues.cpp

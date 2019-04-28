@@ -31,6 +31,9 @@ ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, VICELEADER};
 
+    // Lithe and Swift
+    m_runAndCharge = true;
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
 }
@@ -73,6 +76,24 @@ void ViceleaderHeraldOfSlaanesh::Init()
     {
         s_registered = UnitFactory::Register("Viceleader Herald of Slaanesh", factoryMethod);
     }
+}
+
+Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds)
+{
+    Dice dice;
+
+    // Lightning Reflexes
+    Dice::RollResult woundSaves, mortalSaves;
+    dice.rollD6(wounds.normal, woundSaves);
+    dice.rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.normal = std::max(totalWounds.normal, 0);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
 }
 
 } // Slannesh

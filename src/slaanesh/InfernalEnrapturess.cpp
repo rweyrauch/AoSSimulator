@@ -8,6 +8,7 @@
 
 #include <slaanesh/InfernalEnrapturess.h>
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <Board.h>
 
 namespace Slaanesh
@@ -31,6 +32,9 @@ InfernalEnrapturess::InfernalEnrapturess() :
     m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, INFERNAL_ENRAPTURESS};
+
+    // Discordant Disruption
+    m_totalUnbinds = 1;
 }
 
 bool InfernalEnrapturess::configure()
@@ -71,6 +75,30 @@ void InfernalEnrapturess::Init()
     if (!s_registered)
     {
         s_registered = UnitFactory::Register("Infernal Enrapturess Herald of Slaanesh", factoryMethod);
+    }
+}
+
+void InfernalEnrapturess::onStartShooting(PlayerId player)
+{
+    if (player == m_owningPlayer)
+    {
+        auto enemyRoster = Board::Instance()->getPlayerRoster(GetEnemyId(m_owningPlayer));
+
+        Unit* nearestUnit = enemyRoster ? enemyRoster->nearestUnit(this) : nullptr;
+        if (nearestUnit)
+        {
+            float rangeTo = distanceTo(nearestUnit);
+            if (rangeTo < m_lyreCacophonousMelody.range())
+            {
+                m_lyreCacophonousMelody.activate(true);
+                m_lyreEuphonicBlast.activate(false);
+            }
+            else
+            {
+                m_lyreCacophonousMelody.activate(false);
+                m_lyreEuphonicBlast.activate(true);
+            }
+        }
     }
 }
 
