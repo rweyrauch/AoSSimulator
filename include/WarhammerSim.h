@@ -395,6 +395,16 @@ enum Keyword
     CENTIGORS,
     DOOMBULL,
     CHIMERA,
+    GREAT_BRAY_SHAMAN,
+    BEASTLORD,
+    UNGOR,
+    UNGOR_RAIDERS,
+    TUSKGOR_CHARIOTS,
+
+    // Beasts of Chaos Greatfrays
+    ALLHERD,
+    DARKWALKERS,
+    GAVESPAWN,
 
     // Slaanesh
     DAEMONETTES,
@@ -417,6 +427,11 @@ enum Keyword
     THE_CONTORTED_EPITOME,
     BLADEBRINGER,
     HELLFLAYER,
+
+    // Hosts of Slaanesh
+    PRETENDERS,
+    GODSEEKERS,
+    INVADERS,
 
     // Nurgle
     PLAGUEBEARER,

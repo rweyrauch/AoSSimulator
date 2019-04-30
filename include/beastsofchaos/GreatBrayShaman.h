@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DOOMBULL_H
-#define DOOMBULL_H
+#ifndef GREATBRAYSHAMAN_H
+#define GREATBRAYSHAMAN_H
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -15,19 +15,19 @@
 namespace BeastsOfChaos
 {
 
-class Doombull : public BeastsOfChaosBase
+class GreatBrayShaman : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 120;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    Doombull();
-    ~Doombull() override = default;
+    GreatBrayShaman();
+    ~GreatBrayShaman() override = default;
 
     bool configure();
 
@@ -35,12 +35,9 @@ public:
 
 protected:
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
 private:
 
-    Weapon m_bullgorHorns,
-        m_slaughtererAxe;
+    Weapon m_fetishStaff;
 
     static bool s_registered;
 };
@@ -49,10 +46,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodgreed                       Yes
-// Slaughterer's Call               No
+// Infuse with Bestial Vigour       No
+// Devolve                          No
 //
 
 } // namespace BeastsOfChaos
 
-#endif //DOOMBULL_H
+#endif //GREATBRAYSHAMAN_H

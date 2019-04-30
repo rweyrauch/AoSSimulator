@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BESTIGORS_H
-#define BESTIGORS_H
+#ifndef TUSKGORCHARIOTS_H
+#define TUSKGORCHARIOTS_H
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -15,24 +15,26 @@
 namespace BeastsOfChaos
 {
 
-class Bestigors : public BeastsOfChaosBase
+class TuskgorChariots : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int BASESIZE = 105; // x70 ovals
+    static const int WOUNDS = 6;
+    static const int MIN_UNIT_SIZE = 1;
+    static const int MAX_UNIT_SIZE = 4;
+    static const int POINTS_PER_BLOCK = 60;
+    static const int POINTS_MAX_UNIT_SIZE = 240;
 
     static Unit* Create(const ParameterList& parameters);
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
-    Bestigors();
-    ~Bestigors() override = default;
+    TuskgorChariots();
+    ~TuskgorChariots() override = default;
 
-    bool configure(int numModels, bool brayhorn, bool bannerBearer);
+    bool configure(int numModels);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -41,15 +43,13 @@ protected:
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int runModifier() const override;
+    Rerolls chargeRerolls() const override;
 
 private:
 
-    bool m_brayhorn = false;
-    bool m_bannerBearer = false;
-
-    Weapon m_despoilerAxe;
-    Weapon m_despoilerAxeGougeHorn;
+    Weapon m_despoilerAxe,
+        m_gnarledSpear,
+        m_tusksAndHooves;
 
     static bool s_registered;
 };
@@ -58,10 +58,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Tuskgor Charge                   Yes
 // Despoilers                       Yes
-// Beastial Charge                  Yes
 //
 
 } // namespace BeastsOfChaos
 
-#endif //BESTIGORS_H
+#endif //TUSKGORCHARIOTS_H

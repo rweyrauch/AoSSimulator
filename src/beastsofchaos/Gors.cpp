@@ -32,7 +32,7 @@ bool Gors::s_registered = false;
 
 
 Gors::Gors() :
-    Unit("Gors", 6, WOUNDS, 5, 5, false),
+    BeastsOfChaosBase("Gors", 6, WOUNDS, 5, 5, false),
     m_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1),
     m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade (Foe-render)", 1, 2, 4, 3, 0, 1)
 {

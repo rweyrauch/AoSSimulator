@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Doombull::s_registered = false;
 
 Doombull::Doombull() :
-    Unit("Doombull", 8, WOUNDS, 7, 5, false),
+    BeastsOfChaosBase("Doombull", 8, WOUNDS, 7, 5, false),
     m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
     m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3)
 {

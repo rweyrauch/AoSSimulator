@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool Bullgors::s_registered = false;
 
 Bullgors::Bullgors() :
-    Unit("Bullgors", 7, WOUNDS, 6, 5, false),
+    BeastsOfChaosBase("Bullgors", 7, WOUNDS, 6, 5, false),
     m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
     m_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2),
     m_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe (Bloodkine)", 1, 4, 4, 3, -1, 2),

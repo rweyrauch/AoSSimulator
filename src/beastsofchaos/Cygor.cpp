@@ -43,7 +43,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 Cygor::Cygor() :
-    Unit("Cygor", 8, WOUNDS, 7, 5, false),
+    BeastsOfChaosBase("Cygor", 8, WOUNDS, 7, 5, false),
     m_desecratedBoulder(Weapon::Type::Missile, "Desecrated Boulder", 18, 1, 4, 2, -2, RAND_D6),
     m_massiveHorns(Weapon::Type::Melee, "Massive Horns", 2, 8, 4, 3, -1, 1)
 {

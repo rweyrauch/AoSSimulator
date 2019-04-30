@@ -180,6 +180,7 @@ add_library(
         nighthaunt/SpiritHosts.cpp
         nighthaunt/Chainghasts.cpp
 
+        beastsofchaos/BeastsOfChaosBase.cpp
         beastsofchaos/Ghorgon.cpp
         beastsofchaos/Gors.cpp
         beastsofchaos/Bestigors.cpp
@@ -189,6 +190,10 @@ add_library(
         beastsofchaos/Centigors.cpp
         beastsofchaos/Doombull.cpp
         beastsofchaos/Chimera.cpp
+        beastsofchaos/Beastlord.cpp
+        beastsofchaos/GreatBrayShaman.cpp
+        beastsofchaos/UngorRaiders.cpp
+        beastsofchaos/TuskgorChariots.cpp
 
         slaanesh/SlaaneshBase.cpp
         slaanesh/Fiends.cpp

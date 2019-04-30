@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool Centigors::s_registered = false;
 
 Centigors::Centigors() :
-    Unit("Centigors", 14, WOUNDS, 5, 5, false),
+    BeastsOfChaosBase("Centigors", 14, WOUNDS, 5, 5, false),
     m_centigorSpear(Weapon::Type::Melee, "Centigor Spear", 2, 2, 4, 4, 0, 1),
     m_centigorSpearGorehoof(Weapon::Type::Melee, "Centigor Spear (Gorehoof)", 2, 3, 4, 4, 0, 1),
     m_clawedForelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 1, 2, 5, 5, 0, 1)

@@ -9,13 +9,13 @@
 #ifndef CYGOR_H
 #define CYGOR_H
 
-#include <Unit.h>
+#include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
 namespace BeastsOfChaos
 {
 
-class Cygor : public Unit
+class Cygor : public BeastsOfChaosBase
 {
 public:
 

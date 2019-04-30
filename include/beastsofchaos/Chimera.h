@@ -9,13 +9,13 @@
 #ifndef CHIMERA_H
 #define CHIMERA_H
 
-#include <Unit.h>
+#include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
 namespace BeastsOfChaos
 {
 
-class Chimera : public Unit
+class Chimera : public BeastsOfChaosBase
 {
 public:
 

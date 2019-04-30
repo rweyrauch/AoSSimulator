@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GORS_H
-#define GORS_H
+#ifndef UNGORRAIDERS_H
+#define UNGORRAIDERS_H
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -15,41 +15,39 @@
 namespace BeastsOfChaos
 {
 
-class Gors : public BeastsOfChaosBase
+class UngorRaiders : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 25;
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
+    static const int MAX_UNIT_SIZE = 40;
     static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 210;
+    static const int POINTS_MAX_UNIT_SIZE = 320;
 
     static Unit* Create(const ParameterList& parameters);
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
-    Gors();
-    ~Gors() override = default;
+    UngorRaiders();
+    ~UngorRaiders() override = default;
 
-    bool configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer);
+    bool configure(int numModels, bool brayhorn, bool bannerBearer);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    int toSaveModifier(const Weapon* weapon) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-
 private:
 
-    bool m_pairedBlades = false;
     bool m_brayhorn = false;
     bool m_bannerBearer = false;
 
-    Weapon m_gorBlade,
-        m_gorBladeFoeRender;
+    Weapon m_raiderBow,
+        m_raiderBowHalfhorn,
+        m_jaggedShank;
 
     static bool s_registered;
 };
@@ -58,11 +56,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rend and Tear                    Yes
-// Beastshields                     Yes
-// Anarchy and Mayhem               Yes
+// Vile Invaders                    No
+// Braying Anger
 //
 
 } // namespace BeastsOfChaos
 
-#endif //GORS_H
+#endif //UNGORRAIDERS_H

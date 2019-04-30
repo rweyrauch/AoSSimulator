@@ -9,13 +9,13 @@
 #ifndef UNGORS_H
 #define UNGORS_H
 
-#include <Unit.h>
+#include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
 namespace BeastsOfChaos
 {
 
-class Ungors : public Unit
+class Ungors : public BeastsOfChaosBase
 {
 public:
 

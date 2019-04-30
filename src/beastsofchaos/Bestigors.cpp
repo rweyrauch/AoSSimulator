@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool Bestigors::s_registered = false;
 
 Bestigors::Bestigors() :
-    Unit("Bestigors", 6, WOUNDS, 6, 4, false),
+    BeastsOfChaosBase("Bestigors", 6, WOUNDS, 6, 4, false),
     m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
     m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe (Gouge-horn)", 1, 3, 4, 3, -1, 1)
 {

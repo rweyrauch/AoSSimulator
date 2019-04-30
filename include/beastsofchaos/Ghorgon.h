@@ -9,13 +9,13 @@
 #ifndef GHORGON_H
 #define GHORGON_H
 
-#include <Unit.h>
+#include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
 namespace BeastsOfChaos
 {
 
-class Ghorgon : public Unit
+class Ghorgon : public BeastsOfChaosBase
 {
 public:
 

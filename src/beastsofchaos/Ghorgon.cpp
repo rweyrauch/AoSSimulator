@@ -44,7 +44,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 BeastsOfChaos::Ghorgon::Ghorgon() :
-    Unit("Ghorgon", 8, WOUNDS, 7, 5, false),
+    BeastsOfChaosBase("Ghorgon", 8, WOUNDS, 7, 5, false),
     m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
     m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6)
 {

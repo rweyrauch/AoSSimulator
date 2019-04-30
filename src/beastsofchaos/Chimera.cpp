@@ -44,7 +44,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 Chimera::Chimera() :
-    Unit("Chimera", 10, WOUNDS, 6, 5, true),
+    BeastsOfChaosBase("Chimera", 10, WOUNDS, 6, 5, true),
     m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 14, 1, 0, 0, 0, RAND_D6),
     m_avianHead(Weapon::Type::Melee, "Avian Head", 1, 3, 3, 4, -3, RAND_D3),
     m_draconicHead(Weapon::Type::Melee, "Draconic Head", 1, 3, 4, 4, -1, 2),

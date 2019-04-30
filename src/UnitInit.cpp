@@ -21,6 +21,7 @@
 #include "wanderers/Wanderer.h"
 #include "fyreslayers/Fyreslayer.h"
 #include "slaanesh/SlaaneshBase.h"
+#include "beastsofchaos/BeastsOfChaosBase.h"
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -41,16 +42,6 @@
 #include "idonethdeepkin/AkhelianLeviadon.h"
 #include "idonethdeepkin/AkhelianKing.h"
 #include "idonethdeepkin/AkhelianAllopexes.h"
-
-#include "beastsofchaos/Gors.h"
-#include "beastsofchaos/Ghorgon.h"
-#include "beastsofchaos/Ungors.h"
-#include "beastsofchaos/Bestigors.h"
-#include "beastsofchaos/Bullgors.h"
-#include "beastsofchaos/Cygor.h"
-#include "beastsofchaos/Centigors.h"
-#include "beastsofchaos/Doombull.h"
-#include "beastsofchaos/Chimera.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -128,6 +119,7 @@ void Initialize(Verbosity verbosity)
     Wanderers::Init();
     Fyreslayers::Init();
     Slaanesh::Init();
+    BeastsOfChaos::Init();
 
     Sylvaneth::Alarielle::Init();
     Sylvaneth::KurnothHunters::Init();
@@ -148,16 +140,6 @@ void Initialize(Verbosity verbosity)
     IdonethDeepkin::AkhelianLeviadon::Init();
     IdonethDeepkin::AkhelianKing::Init();
     IdonethDeepkin::AkhelianAllopexes::Init();
-
-    BeastsOfChaos::Gors::Init();
-    BeastsOfChaos::Ghorgon::Init();
-    BeastsOfChaos::Bestigors::Init();
-    BeastsOfChaos::Bullgors::Init();
-    BeastsOfChaos::Ungors::Init();
-    BeastsOfChaos::Cygor::Init();
-    BeastsOfChaos::Centigors::Init();
-    BeastsOfChaos::Doombull::Init();
-    BeastsOfChaos::Chimera::Init();
 
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();
