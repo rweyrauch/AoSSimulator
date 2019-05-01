@@ -14,9 +14,10 @@ namespace BeastsOfChaos
 
 static FactoryMethod factoryMethod = {
     Beastlord::Create,
-    nullptr,
-    nullptr,
+    BeastsOfChaosBase::ValueToString,
+    BeastsOfChaosBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -46,6 +47,9 @@ bool Beastlord::configure()
 Unit *Beastlord::Create(const ParameterList &parameters)
 {
     auto unit = new Beastlord();
+
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
 
     bool ok = unit->configure();
     if (!ok)

@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", TuskgorChariots::MIN_UNIT_SIZE, TuskgorChariots::MIN_UNIT_SIZE,
             TuskgorChariots::MAX_UNIT_SIZE, TuskgorChariots::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -72,6 +73,9 @@ Unit *TuskgorChariots::Create(const ParameterList &parameters)
 {
     auto unit = new TuskgorChariots();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
 
     bool ok = unit->configure(numModels);
     if (!ok)

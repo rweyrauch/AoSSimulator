@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKRAGROTT_H
-#define SKRAGROTT_H
+#ifndef CAVESHAMAN_H
+#define CAVESHAMAN_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -16,20 +16,20 @@
 namespace GloomspiteGitz
 {
 
-class Skragrott : public GloomspiteGitzBase
+class FungoidCaveShaman : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 220;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 4;
+    static const int POINTS_PER_UNIT = 90;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
 
-    Skragrott();
-    ~Skragrott() override = default;
+    FungoidCaveShaman();
+    ~FungoidCaveShaman() override = default;
 
     bool configure(LoreOfTheMoonclans lore);
 
@@ -39,8 +39,8 @@ protected:
 
 private:
 
-    Weapon m_daMoonOnnaStikkMissile,
-        m_daMoonOnnaStikk;
+    Weapon m_moonSickle,
+        m_squigsTeeth;
 
     static bool s_registered;
 };
@@ -49,13 +49,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Babbling Wand                    No
-// Da Moon Onna Stikk               No
-// Loonking's Crown                 No
-// Nikkit! Nikkit!                  No
-// The Loonking's Entreaty          No
+// Mouthpiece of Mork               No
+// Deffcap Mushroom                 No
+// Spore Squig                      No
+// Spore Maws                       No
 //
 
 } // namespace GloomspiteGitz
 
-#endif //SKRAGROTT_H
+#endif //CAVESHAMAN_H

@@ -28,6 +28,13 @@
 #include "gloomspitegitz/SquigGobba.h"
 #include "gloomspitegitz/SpiderRiders.h"
 #include "gloomspitegitz/FellwaterTroggoths.h"
+#include "gloomspitegitz/FungoidCaveShaman.h"
+#include "gloomspitegitz/MadcapShaman.h"
+#include "gloomspitegitz/WebspinnerShaman.h"
+#include "gloomspitegitz/WebspinnerShamanOnSpider.h"
+#include "gloomspitegitz/ArachnarokSpiderWithFlinger.h"
+#include "gloomspitegitz/ArachnarokSpiderWithWarparty.h"
+#include "gloomspitegitz/SkitterstrandArachnarok.h"
 
 namespace GloomspiteGitz
 {
@@ -171,6 +178,13 @@ void Init()
     SquigGobba::Init();
     SpiderRiders::Init();
     FellwaterTroggoths::Init();
+    FungoidCaveShaman::Init();
+    MadcapShaman::Init();
+    WebspinnerShaman::Init();
+    WebspinnerShamanOnArachnarokSpider::Init();
+    ArachnarokSpiderWithFlinger::Init();
+    ArachnarokSpiderWithSpiderfangWarparty::Init();
+    SkitterstrandArachnarok::Init();
 }
 
 } //namespace GloomspiteGitz

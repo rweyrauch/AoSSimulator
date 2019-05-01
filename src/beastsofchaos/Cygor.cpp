@@ -14,9 +14,10 @@ namespace BeastsOfChaos
 
 static FactoryMethod factoryMethod = {
     Cygor::Create,
-    nullptr,
-    nullptr,
+    BeastsOfChaosBase::ValueToString,
+    BeastsOfChaosBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -71,6 +72,9 @@ int Cygor::move() const
 Unit *Cygor::Create(const ParameterList &parameters)
 {
     auto unit = new Cygor();
+
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
 
     bool ok = unit->configure();
     if (!ok)

@@ -25,7 +25,8 @@ static FactoryMethod factoryMethod = {
             Ungors::GnarledShortspear, 1
         },
         {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -106,6 +107,9 @@ Unit *Ungors::Create(const ParameterList &parameters)
     bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
     bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
+
     bool ok = unit->configure(numModels, weapon, brayhorn, bannerBearer);
     if (!ok)
     {
@@ -130,14 +134,15 @@ std::string Ungors::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == UngorBlade) { return "Ungor Blade"; }
         else if (parameter.m_intValue == GnarledShortspear) { return "Gnarled Shortspear"; }
     }
-    return ParameterValueToString(parameter);
+    return BeastsOfChaosBase::ValueToString(parameter);
 }
 
 int Ungors::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Ungor Blade") { return UngorBlade; }
     else if (enumString == "Gnarled Shortspear") { return GnarledShortspear; }
-    return 0;
+
+    return BeastsOfChaosBase::EnumStringToInt(enumString);
 }
 
 Rerolls Ungors::toHitRerolls(const Weapon *weapon, const Unit *target) const

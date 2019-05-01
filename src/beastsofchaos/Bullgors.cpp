@@ -25,7 +25,8 @@ static FactoryMethod factoryMethod = {
             Bullgors::BullgorGreatAxe, 1
         },
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -108,6 +109,9 @@ Unit *Bullgors::Create(const ParameterList &parameters)
     bool drummer = GetBoolParam("Drummer", parameters, false);
     bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
+
     bool ok = unit->configure(numModels, weapon, drummer, bannerBearer);
     if (!ok)
     {
@@ -133,7 +137,7 @@ std::string Bullgors::ValueToString(const Parameter &parameter)
         else if (parameter.m_intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
         else if (parameter.m_intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
     }
-    return ParameterValueToString(parameter);
+    return BeastsOfChaosBase::ValueToString(parameter);
 }
 
 int Bullgors::EnumStringToInt(const std::string &enumString)
@@ -141,7 +145,7 @@ int Bullgors::EnumStringToInt(const std::string &enumString)
     if (enumString == "Bullgor Axe") { return BullgorAxe; }
     else if (enumString == "Paired Bullgor Axes") { return PairedBullgorAxes; }
     else if (enumString == "Bullgor Great Axe") { return BullgorGreatAxe; }
-    return 0;
+    return BeastsOfChaosBase::EnumStringToInt(enumString);
 }
 
 int Bullgors::chargeModifier() const

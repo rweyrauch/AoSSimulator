@@ -21,7 +21,8 @@ static FactoryMethod factoryMethod = {
             UngorRaiders::MAX_UNIT_SIZE, UngorRaiders::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -86,6 +87,9 @@ Unit *UngorRaiders::Create(const ParameterList &parameters)
     bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
     bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
+
     bool ok = unit->configure(numModels, brayhorn, bannerBearer);
     if (!ok)
     {
@@ -105,12 +109,12 @@ void UngorRaiders::Init()
 
 std::string UngorRaiders::ValueToString(const Parameter &parameter)
 {
-    return ParameterValueToString(parameter);
+    return BeastsOfChaosBase::ValueToString(parameter);
 }
 
 int UngorRaiders::EnumStringToInt(const std::string &enumString)
 {
-    return 0;
+    return BeastsOfChaosBase::EnumStringToInt(enumString);
 }
 
 } // namespace BeastsOfChaos

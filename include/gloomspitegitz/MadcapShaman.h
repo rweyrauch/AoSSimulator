@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKRAGROTT_H
-#define SKRAGROTT_H
+#ifndef MADCAPSHAMAN_H
+#define MADCAPSHAMAN_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -16,20 +16,20 @@
 namespace GloomspiteGitz
 {
 
-class Skragrott : public GloomspiteGitzBase
+class MadcapShaman : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 220;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 4;
+    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
 
-    Skragrott();
-    ~Skragrott() override = default;
+    MadcapShaman();
+    ~MadcapShaman() override = default;
 
     bool configure(LoreOfTheMoonclans lore);
 
@@ -39,8 +39,7 @@ protected:
 
 private:
 
-    Weapon m_daMoonOnnaStikkMissile,
-        m_daMoonOnnaStikk;
+    Weapon m_moonStaff;
 
     static bool s_registered;
 };
@@ -49,13 +48,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Babbling Wand                    No
-// Da Moon Onna Stikk               No
-// Loonking's Crown                 No
-// Nikkit! Nikkit!                  No
-// The Loonking's Entreaty          No
+// Madcap Mushroom                  No
+// Night Shroud                     No
 //
 
 } // namespace GloomspiteGitz
 
-#endif //SKRAGROTT_H
+#endif //MADCAPSHAMAN_H

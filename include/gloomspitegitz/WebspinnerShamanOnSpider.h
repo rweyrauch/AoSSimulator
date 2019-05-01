@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKRAGROTT_H
-#define SKRAGROTT_H
+#ifndef SHAMANONSPIDER_H
+#define SHAMANONSPIDER_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -16,31 +16,40 @@
 namespace GloomspiteGitz
 {
 
-class Skragrott : public GloomspiteGitzBase
+class WebspinnerShamanOnArachnarokSpider : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 220;
+    static const int BASESIZE = 80;
+    static const int WOUNDS = 14;
+    static const int POINTS_PER_UNIT = 300;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
 
-    Skragrott();
-    ~Skragrott() override = default;
+    WebspinnerShamanOnArachnarokSpider();
+    ~WebspinnerShamanOnArachnarokSpider() override = default;
 
-    bool configure(LoreOfTheMoonclans lore);
+    int move() const override;
+
+    bool configure(LoreOfTheSpiderFangs lore);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    void onWounded() override;
+
 private:
 
-    Weapon m_daMoonOnnaStikkMissile,
-        m_daMoonOnnaStikk;
+    int getDamageTableIndex() const;
+
+    Weapon m_spiderBows,
+        m_spiderGodStaff,
+        m_chitinousLegs,
+        m_monstrousFangs,
+        m_crookedSpears;
 
     static bool s_registered;
 };
@@ -49,13 +58,13 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Babbling Wand                    No
-// Da Moon Onna Stikk               No
-// Loonking's Crown                 No
-// Nikkit! Nikkit!                  No
-// The Loonking's Entreaty          No
+// Catchweb Spidershrine            No
+// Spider Venom                     No
+// Prophet of the Spider God        No
+// Wall Crawler                     No
+// Venom of the Spider God          No
 //
 
 } // namespace GloomspiteGitz
 
-#endif //SKRAGROTT_H
+#endif //SHAMANONSPIDER_H

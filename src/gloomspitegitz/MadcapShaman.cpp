@@ -6,19 +6,18 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <gloomspitegitz/Skragrott.h>
+#include <gloomspitegitz/MadcapShaman.h>
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
 #include <spells/MysticShield.h>
-#include <spells/NikkitNikkit.h>
 
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
-    Skragrott::Create,
-    Skragrott::ValueToString,
-    Skragrott::EnumStringToInt,
+    MadcapShaman::Create,
+    MadcapShaman::ValueToString,
+    MadcapShaman::EnumStringToInt,
     {
         {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
     },
@@ -26,29 +25,27 @@ static FactoryMethod factoryMethod = {
     GLOOMSPITE_GITZ
 };
 
-bool Skragrott::s_registered = false;
+bool MadcapShaman::s_registered = false;
 
-Skragrott::Skragrott() :
-    GloomspiteGitzBase("Skragrott", 4, WOUNDS, 6, 5, false),
-    m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
-    m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3)
+MadcapShaman::MadcapShaman() :
+    GloomspiteGitzBase("Madcap Shaman", 5, WOUNDS, 4, 6, false),
+    m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3)
 {
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
+    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
 
-    m_totalUnbinds = 2;
-    m_totalSpells = 2;
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
-bool Skragrott::configure(LoreOfTheMoonclans lore)
+bool MadcapShaman::configure(LoreOfTheMoonclans lore)
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_daMoonOnnaStikkMissile);
-    model.addMeleeWeapon(&m_daMoonOnnaStikk);
+    model.addMeleeWeapon(&m_moonStaff);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    m_knownSpells.push_back(std::make_unique<NikkitNikkit>(this));
+    //m_knownSpells.push_back(std::make_unique<NightShroud>(this));
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
 
     addModel(model);
@@ -58,9 +55,9 @@ bool Skragrott::configure(LoreOfTheMoonclans lore)
     return true;
 }
 
-Unit *Skragrott::Create(const ParameterList &parameters)
+Unit *MadcapShaman::Create(const ParameterList &parameters)
 {
-    auto unit = new Skragrott();
+    auto unit = new MadcapShaman();
     auto lore = (LoreOfTheMoonclans)GetEnumParam("Lore of the Moonclans", parameters, (int)LoreOfTheMoonclans ::None);
 
     bool ok = unit->configure(lore);
@@ -72,21 +69,20 @@ Unit *Skragrott::Create(const ParameterList &parameters)
     return unit;
 }
 
-void Skragrott::Init()
+void MadcapShaman::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Skragrott", factoryMethod);
+        s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
     }
 }
 
-void Skragrott::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MadcapShaman::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&m_daMoonOnnaStikkMissile);
-    visitor(&m_daMoonOnnaStikk);
+    visitor(&m_moonStaff);
 }
 
-std::string Skragrott::ValueToString(const Parameter &parameter)
+std::string MadcapShaman::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "Lore of the Moonclans")
     {
@@ -95,7 +91,7 @@ std::string Skragrott::ValueToString(const Parameter &parameter)
     return ParameterValueToString(parameter);
 }
 
-int Skragrott::EnumStringToInt(const std::string &enumString)
+int MadcapShaman::EnumStringToInt(const std::string &enumString)
 {
     LoreOfTheMoonclans lore;
     if (FromString(enumString, lore))

@@ -14,9 +14,10 @@ namespace BeastsOfChaos
 
 static FactoryMethod factoryMethod = {
     Doombull::Create,
-    nullptr,
-    nullptr,
+    BeastsOfChaosBase::ValueToString,
+    BeastsOfChaosBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -48,6 +49,9 @@ bool Doombull::configure()
 Unit *Doombull::Create(const ParameterList &parameters)
 {
     auto unit = new Doombull();
+
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
 
     bool ok = unit->configure();
     if (!ok)

@@ -147,6 +147,13 @@ add_library(
         gloomspitegitz/BadMoon.cpp
         gloomspitegitz/SpiderRiders.cpp
         gloomspitegitz/FellwaterTroggoths.cpp
+        gloomspitegitz/FungoidCaveShaman.cpp
+        gloomspitegitz/MadcapShaman.cpp
+        gloomspitegitz/WebspinnerShaman.cpp
+        gloomspitegitz/WebspinnerShamanOnSpider.cpp
+        gloomspitegitz/ArachnarokSpiderWithFlinger.cpp
+        gloomspitegitz/ArachnarokSpiderWithWarparty.cpp
+        gloomspitegitz/SkitterstrandArachnarok.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

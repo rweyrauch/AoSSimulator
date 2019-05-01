@@ -13,8 +13,8 @@ namespace BeastsOfChaos
 {
 static FactoryMethod factoryMethod = {
     Gors::Create,
-    nullptr,
-    nullptr,
+    BeastsOfChaosBase::ValueToString,
+    BeastsOfChaosBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Gors::MIN_UNIT_SIZE, Gors::MIN_UNIT_SIZE,
@@ -22,7 +22,8 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Paired Blades", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -83,6 +84,9 @@ Unit *Gors::Create(const ParameterList &parameters)
     bool pairedBlades = GetBoolParam("Paired Blades", parameters, false);
     bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
     bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
+
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
 
     bool ok = unit->configure(numModels, pairedBlades, brayhorn, bannerBearer);
     if (!ok)

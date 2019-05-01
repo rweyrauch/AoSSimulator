@@ -13,15 +13,16 @@ namespace BeastsOfChaos
 {
 static FactoryMethod factoryMethod = {
     Centigors::Create,
-    nullptr,
-    nullptr,
+    BeastsOfChaosBase::ValueToString,
+    BeastsOfChaosBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Centigors::MIN_UNIT_SIZE, Centigors::MIN_UNIT_SIZE,
             Centigors::MAX_UNIT_SIZE, Centigors::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
     BEASTS_OF_CHAOS
@@ -84,6 +85,9 @@ Unit *Centigors::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
     bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
+
+    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+    unit->setGreatfray(fray);
 
     bool ok = unit->configure(numModels, brayhorn, bannerBearer);
     if (!ok)
