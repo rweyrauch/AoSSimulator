@@ -328,6 +328,8 @@ enum Keyword
     WEBSPINNER_SHAMAN,
     ARACHNAROK_SPIDER,
     SKITTERSTRAND,
+    SNEAKY_SNUFFERS,
+    SCUTTLEBOSS,
 
     // Daughters of Khaine
     MELUSAI,

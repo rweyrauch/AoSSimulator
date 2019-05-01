@@ -35,6 +35,8 @@
 #include "gloomspitegitz/ArachnarokSpiderWithFlinger.h"
 #include "gloomspitegitz/ArachnarokSpiderWithWarparty.h"
 #include "gloomspitegitz/SkitterstrandArachnarok.h"
+#include "gloomspitegitz/SneakySnufflers.h"
+#include "gloomspitegitz/ScuttlebossOnSpider.h"
 
 namespace GloomspiteGitz
 {
@@ -185,6 +187,8 @@ void Init()
     ArachnarokSpiderWithFlinger::Init();
     ArachnarokSpiderWithSpiderfangWarparty::Init();
     SkitterstrandArachnarok::Init();
+    ScuttlebossOnGiganticSpider::Init();
+    SneakySnufflers::Init();
 }
 
 } //namespace GloomspiteGitz

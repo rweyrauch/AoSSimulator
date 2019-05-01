@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPIDERWARPARTY_H
-#define SPIDERWARPARTY_H
+#ifndef SCUTTLEBOSSONSPIDER_H
+#define SCUTTLEBOSSONSPIDER_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -15,20 +15,18 @@
 namespace GloomspiteGitz
 {
 
-class ArachnarokSpiderWithSpiderfangWarparty : public GloomspiteGitzBase
+class ScuttlebossOnGiganticSpider : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 160;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 250;
+    static const int BASESIZE = 60;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    ArachnarokSpiderWithSpiderfangWarparty();
-    ~ArachnarokSpiderWithSpiderfangWarparty() override = default;
-
-    int move() const override;
+    ScuttlebossOnGiganticSpider();
+    ~ScuttlebossOnGiganticSpider() override = default;
 
     bool configure();
 
@@ -36,30 +34,12 @@ public:
 
 protected:
 
-    void onWounded() override;
-
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls runRerolls() const override
-    {
-        // Voracious Predator
-        return RerollFailed;
-    }
-
-    Rerolls chargeRerolls() const override
-    {
-        // Voracious Predator
-        return RerollFailed;
-    }
-    void onCharged() override;
 
 private:
 
-    int getDamageTableIndex() const;
-
-    Weapon m_spiderBows,
-        m_chitinousLegs,
-        m_monstrousFangs,
-        m_crookedSpears;
+    Weapon m_spear,
+        m_fangs;
 
     static bool s_registered;
 };
@@ -68,11 +48,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Voracious Predator               Yes
 // Spider Venom                     Yes
 // Wall Crawler                     Yes
+// Ride'Em All Down!                No
 //
 
 } // namespace GloomspiteGitz
 
-#endif //SPIDERWARPARTY_H
+#endif //SCUTTLEBOSSONSPIDER_H

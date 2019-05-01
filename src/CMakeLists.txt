@@ -154,6 +154,8 @@ add_library(
         gloomspitegitz/ArachnarokSpiderWithFlinger.cpp
         gloomspitegitz/ArachnarokSpiderWithWarparty.cpp
         gloomspitegitz/SkitterstrandArachnarok.cpp
+        gloomspitegitz/SneakySnufflers.cpp
+        gloomspitegitz/ScuttlebossOnSpider.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

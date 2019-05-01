@@ -19,7 +19,7 @@ namespace GloomspiteGitz
 class WebspinnerShamanOnArachnarokSpider : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 80;
+    static const int BASESIZE = 160;
     static const int WOUNDS = 14;
     static const int POINTS_PER_UNIT = 300;
 
