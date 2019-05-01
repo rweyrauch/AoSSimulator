@@ -126,4 +126,15 @@ void ArachnarokSpiderWithFlinger::visitWeapons(std::function<void(const Weapon *
     visitor(&m_crookedSpears);
 }
 
+Wounds ArachnarokSpiderWithFlinger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Spider Venom
+    if ((hitRoll == 6) && (weapon->name() == m_monstrousFangs.name()))
+    {
+        Dice dice;
+        return {0, dice.rollD3()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace GloomspiteGitz

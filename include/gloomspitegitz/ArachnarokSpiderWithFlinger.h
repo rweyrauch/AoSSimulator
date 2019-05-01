@@ -38,6 +38,8 @@ protected:
 
     void onWounded() override;
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     int getDamageTableIndex() const;
@@ -56,8 +58,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Flinger                          No
-// Spider Venom                     No
-// Wall Crawler                     No
+// Spider Venom                     Yes
+// Wall Crawler                     Yes
 //
 
 } // namespace GloomspiteGitz

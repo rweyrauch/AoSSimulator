@@ -41,6 +41,8 @@ protected:
 
     void onWounded() override;
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     int getDamageTableIndex() const;
@@ -59,9 +61,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Catchweb Spidershrine            No
-// Spider Venom                     No
+// Spider Venom                     Yes
 // Prophet of the Spider God        No
-// Wall Crawler                     No
+// Wall Crawler                     Yes
 // Venom of the Spider God          No
 //
 

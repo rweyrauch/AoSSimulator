@@ -123,4 +123,32 @@ void ArachnarokSpiderWithSpiderfangWarparty::visitWeapons(std::function<void(con
     visitor(&m_crookedSpears);
 }
 
+Wounds ArachnarokSpiderWithSpiderfangWarparty::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Spider Venom
+    if ((hitRoll == 6) && (weapon->name() == m_monstrousFangs.name()))
+    {
+        Dice dice;
+        return {0, dice.rollD3()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void ArachnarokSpiderWithSpiderfangWarparty::onCharged()
+{
+    // Voracious Predator
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    for (auto ip : units)
+    {
+        int roll = dice.rollD6();
+        if (roll >= 2)
+        {
+            ip->applyDamage({0, dice.rollD3()});
+        }
+    }
+    Unit::onCharged();
+}
+
+
 } // namespace GloomspiteGitz

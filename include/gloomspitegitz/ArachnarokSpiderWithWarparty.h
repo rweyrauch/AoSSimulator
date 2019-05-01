@@ -38,6 +38,20 @@ protected:
 
     void onWounded() override;
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Rerolls runRerolls() const override
+    {
+        // Voracious Predator
+        return RerollFailed;
+    }
+
+    Rerolls chargeRerolls() const override
+    {
+        // Voracious Predator
+        return RerollFailed;
+    }
+    void onCharged() override;
+
 private:
 
     int getDamageTableIndex() const;
@@ -54,9 +68,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Voracious Predator               No
-// Spider Venom                     No
-// Wall Crawler                     No
+// Voracious Predator               Yes
+// Spider Venom                     Yes
+// Wall Crawler                     Yes
 //
 
 } // namespace GloomspiteGitz
