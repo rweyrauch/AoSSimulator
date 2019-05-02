@@ -31,6 +31,7 @@ protected:
     void onStartHero(PlayerId player) override;
     int castingModifier() const override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    void onRan() override;
 
 protected:
 
@@ -47,10 +48,10 @@ protected:
 // Fangz of the Bad Moon            Yes
 // Bad Moon Magic                   Partial
 // Loonatic Inspiration             No
-// Lunar Squigs                     No
+// Lunar Squigs                     Yes
 // Moonclan Fungus Brew             Yes
-// Spiderfang Venom                 No
-// Troggoth Renawal                 No
+// Spiderfang Venom                 Yes
+// Troggoth Renawal                 Yes
 //
 
 void Init();

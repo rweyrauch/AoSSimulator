@@ -9,6 +9,7 @@
 #ifndef FYRESLAYER_H
 #define FYRESLAYER_H
 
+#include <map>
 #include <Unit.h>
 #include <Weapon.h>
 
@@ -28,6 +29,16 @@ public:
         Lofnir
     };
 
+    enum class Rune
+    {
+        OfFury,
+        OfSearingHeat,
+        OfAwakenedSteel,
+        OfFieryDetermination,
+        OfRelentlessZeal,
+        OfFarsight
+    };
+
     static std::string ValueToString(const Parameter& parameter);
     static int EnumStringToInt(const std::string& enumString);
 
@@ -40,12 +51,22 @@ protected:
     Fyreslayer(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {}
 
+    void onEndRound(int battleRound) override;
+
+    void onStartHero(PlayerId player) override;
+
     int chargeModifier() const override;
     int rollRunDistance() const override;
+
+    void activateRune();
 
 protected:
 
     Lodge m_lodge = None;
+
+    bool m_activatedRune = false;
+    std::map<Rune, bool> m_availableRunes;
+
 };
 
 void Init();

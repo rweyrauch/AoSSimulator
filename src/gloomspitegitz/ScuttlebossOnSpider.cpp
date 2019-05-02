@@ -77,7 +77,8 @@ void ScuttlebossOnGiganticSpider::Init()
 Wounds ScuttlebossOnGiganticSpider::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Spider Venom
-    if ((hitRoll == 6) && (weapon->name() == m_fangs.name()))
+    int threshold = inLightOfTheBadMoon() ? 5 : 6;
+    if ((hitRoll >= threshold) && (weapon->name() == m_fangs.name()))
     {
         return {0, 1};
     }

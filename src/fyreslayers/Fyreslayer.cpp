@@ -109,4 +109,27 @@ int Fyreslayer::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
+void Fyreslayer::activateRune()
+{
+    // Select a rune activate
+}
+
+void Fyreslayer::onEndRound(int battleRound)
+{
+    Unit::onEndRound(battleRound);
+
+    m_activatedRune = false;
+}
+
+void Fyreslayer::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (!m_activatedRune)
+    {
+        activateRune();
+        m_activatedRune = true;
+    }
+}
+
 } // namespace Fyreslayers

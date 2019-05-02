@@ -177,6 +177,7 @@ public:
 
     bool buffModifier(BuffableAttribute which, int modifier, Duration duration);
     bool buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration);
+    bool buffMovement(MovementRules which, bool allowed, Duration duration);
 
 protected:
 

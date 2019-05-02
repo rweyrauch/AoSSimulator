@@ -1022,6 +1022,16 @@ bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration
     return true;
 }
 
+bool Unit::buffMovement(MovementRules which, bool allowed, Duration duration)
+{
+    MovementRuleBuff buff;
+    buff.allowed = allowed;
+    buff.duration = duration;
+    m_movementRules[which].push_back(buff);
+
+    return true;
+}
+
 void Unit::doPileIn()
 {
     // Pile in up to 3" towards nearest enemy model.

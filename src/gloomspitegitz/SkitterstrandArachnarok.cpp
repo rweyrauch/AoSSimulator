@@ -120,7 +120,8 @@ void SkitterstrandArachnarok::visitWeapons(std::function<void(const Weapon *)> &
 Wounds SkitterstrandArachnarok::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Spider Venom
-    if ((hitRoll == 6) && (weapon->name() == m_monstrousFangs.name()))
+    int threshold = inLightOfTheBadMoon() ? 5 : 6;
+    if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name()))
     {
         Dice dice;
         return {0, dice.rollD3()};

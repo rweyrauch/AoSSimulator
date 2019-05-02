@@ -159,6 +159,17 @@ bool GloomspiteGitzBase::inLightOfTheBadMoon() const
     return false;
 }
 
+void GloomspiteGitzBase::onRan()
+{
+    Unit::onRan();
+
+    // Lunar Squigs
+    if (hasKeyword(SQUIG) && inLightOfTheBadMoon())
+    {
+        buffMovement(RunAndCharge, true, {Phase::Hero, m_battleRound+1, owningPlayer()});
+    }
+}
+
 void Init()
 {
     BoingrotBounderz::Init();
