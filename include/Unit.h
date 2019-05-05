@@ -87,7 +87,7 @@ public:
     // Phase functions (these are the 'think' functions that decide what this unit
     // is to do in each of the phases.
 
-    int hero(PlayerId player, int cpAvailable);
+    void hero(PlayerId player);
 
     void movement(PlayerId player);
 
@@ -160,7 +160,6 @@ public:
     bool canRetreatAndCharge() const;
 
     std::vector<Model>::const_iterator modelBegin() const { return m_models.begin(); }
-
     std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }
 
     int slay(int numModels);
@@ -179,6 +178,15 @@ public:
     bool buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration);
     bool buffMovement(MovementRules which, bool allowed, Duration duration);
 
+    std::vector<std::unique_ptr<Spell>>::const_iterator spellBegin() const { return m_knownSpells.begin(); }
+    std::vector<std::unique_ptr<Spell>>::const_iterator spellEnd() const { return m_knownSpells.end(); }
+
+    std::vector<std::unique_ptr<Prayer>>::const_iterator prayerBegin() const { return m_knownPrayers.begin(); }
+    std::vector<std::unique_ptr<Prayer>>::const_iterator prayerEnd() const { return m_knownPrayers.end(); }
+
+    std::vector<std::unique_ptr<CommandAbility>>::const_iterator commandAbilityBegin() const { return m_commandAbilities.begin(); }
+    std::vector<std::unique_ptr<CommandAbility>>::const_iterator commandAbilityEnd() const { return m_commandAbilities.end(); }
+
 protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
@@ -188,7 +196,7 @@ protected:
 
     int rerolling(int initialRoll, Rerolls reroll, Dice& dice) const;
 
-    int useCommandAbility(int cpAvailable);
+    void useCommandAbility();
     void castSpell();
     void makePrayer();
     void doPileIn();

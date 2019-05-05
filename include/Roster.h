@@ -28,7 +28,7 @@ public:
     void endRound(int battleRound);
     void beginTurn(int battleRound, PlayerId playerWithTurn);
     void endTurn(int battleRound);
-    int doHeroPhase(int cpAvailable);
+    void doHeroPhase();
     void doMovementPhase();
     void doShootingPhase();
     void doChargePhase();

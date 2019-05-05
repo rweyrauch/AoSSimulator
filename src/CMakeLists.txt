@@ -20,6 +20,7 @@ add_library(
         UnitStatistics.cpp
         CommandAbility.cpp
         Prayer.cpp
+        Think.cpp
         jps.hh
         pathfinders.cpp
 

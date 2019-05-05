@@ -12,7 +12,7 @@ void Player::doHeroPhase()
 {
     if (m_roster)
     {
-        m_commandPoints = m_roster->doHeroPhase(m_commandPoints);
+        m_roster->doHeroPhase();
     }
 }
 

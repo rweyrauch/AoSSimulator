@@ -280,7 +280,7 @@ void ManoAMano::runHeroPhase()
 {
     SimLog(Verbosity::Narrative, "Starting player %s hero phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
-    m_rosters[(int) m_attackingPlayer]->doHeroPhase(m_cpAvailable[(int) m_attackingPlayer]);
+    m_rosters[(int) m_attackingPlayer]->doHeroPhase();
 }
 
 void ManoAMano::runMovementPhase()

@@ -8,13 +8,12 @@
 #include <cfloat>
 #include <Roster.h>
 
-int Roster::doHeroPhase(int cpAvailable)
+void Roster::doHeroPhase()
 {
     for (auto u : m_units)
     {
-        cpAvailable = u->hero(m_id, cpAvailable);
+        u->hero(m_id);
     }
-    return cpAvailable;
 }
 
 void Roster::doMovementPhase()

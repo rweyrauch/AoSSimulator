@@ -11,6 +11,7 @@
 #include <Dice.h>
 #include <Board.h>
 #include <Roster.h>
+#include <Think.h>
 
 const float PILE_IN_DISTANCE = 3.0f;
 const float MAX_CHARGE_DISTANCE = 12.0f;
@@ -418,7 +419,7 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     return std::max(0.0f, sqrtf(dx*dx + dy*dy) - (basesizeInches() / 2 + tbs));
 }
 
-int Unit::hero(PlayerId player, int cpAvailable)
+void Unit::hero(PlayerId player)
 {
     timeoutBuffs(Phase::Hero, player);
 
@@ -427,7 +428,7 @@ int Unit::hero(PlayerId player, int cpAvailable)
     if (player == m_owningPlayer)
     {
         // Use command ability.
-        cpAvailable = useCommandAbility(cpAvailable);
+        useCommandAbility();
 
         // Cast spell
         castSpell();
@@ -439,8 +440,6 @@ int Unit::hero(PlayerId player, int cpAvailable)
     {
         // Opposing player's hero phase
     }
-
-    return cpAvailable;
 }
 
 void Unit::movement(PlayerId player)
@@ -936,6 +935,7 @@ void Unit::castSpell()
     if (m_spellsCast < m_totalSpells)
     {
         // TODO: Allow unit to cast multiple spells.  A given spell can only be cast once per player per hero phase.
+
         for (auto& sip : m_knownSpells)
         {
             if (sip == nullptr) continue;
@@ -964,9 +964,20 @@ void Unit::castSpell()
     }
 }
 
-int Unit::useCommandAbility(int cpAvailable)
+void Unit::useCommandAbility()
 {
-    return cpAvailable;
+    int cpAvailable = 0; // GetOwningPlayersCP();
+    if (cpAvailable)
+    {
+        // Select _best_ command ability to use (if any)
+        AbilityTarget target;
+        CommandAbility* cip = SelectCommandAbility(this, target);
+        if (cip)
+        {
+            if (target.targetUnit)
+                cip->apply(target.target);
+        }
+    }
 }
 
 void Unit::makePrayer()

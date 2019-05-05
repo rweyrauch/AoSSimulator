@@ -23,11 +23,21 @@ public:
 
     virtual int apply(const Unit* target) = 0;
 
+    float range() const { return m_range; }
+    const std::string& name() const { return m_name; }
+
+    bool targetFriendly() const { return m_targetFriendly; }
+    Phase phase() const { return m_phase; }
+
 protected:
 
     Unit* m_source;
     std::string m_name;
     Duration m_duration;
+    float m_range = 0.0f;
+
+    bool m_targetFriendly = true;
+    Phase m_phase = Phase::Hero;
 };
 
 #endif// COMMANDABILITY_H
