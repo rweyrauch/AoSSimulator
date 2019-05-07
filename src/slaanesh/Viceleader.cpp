@@ -15,9 +15,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     ViceleaderHeraldOfSlaanesh::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -26,7 +27,7 @@ static FactoryMethod factoryMethod = {
 bool ViceleaderHeraldOfSlaanesh::s_registered = false;
 
 ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
-    Unit("Viceleader Herald of Slaanesh", 6, WOUNDS, 10, 5, false),
+    SlaaneshBase("Viceleader Herald of Slaanesh", 6, WOUNDS, 10, 5, false),
     m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, VICELEADER};

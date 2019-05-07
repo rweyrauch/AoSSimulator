@@ -9,13 +9,13 @@
 #ifndef BLADEBRINGERSEEKERCHARIOT_H
 #define BLADEBRINGERSEEKERCHARIOT_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class BladebringerOnSeekerChariot : public Unit
+class BladebringerOnSeekerChariot : public SlaaneshBase
 {
 public:
 

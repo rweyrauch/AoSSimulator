@@ -98,6 +98,10 @@ void Board::render(const std::string &filename) const
         cr->set_source_rgb(1.0, 0.0, 0.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
         {
+            if (mip->slain() || mip->fled())
+            {
+                continue;
+            }
             auto pos = mip->position();
             cr->arc(pos.x * 10.0, pos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
@@ -124,6 +128,11 @@ void Board::render(const std::string &filename) const
         cr->set_source_rgb(0.0, 0.0, 1.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
         {
+            if (mip->slain() || mip->fled())
+            {
+                continue;
+            }
+
             auto pos = mip->position();
             cr->arc(pos.x * 10.0, pos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();

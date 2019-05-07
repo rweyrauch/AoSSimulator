@@ -9,13 +9,13 @@
 #ifndef CONTORTEDEPITOME_H
 #define CONTORTEDEPITOME_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class TheContortedEpitome : public Unit
+class TheContortedEpitome : public SlaaneshBase
 {
 public:
 

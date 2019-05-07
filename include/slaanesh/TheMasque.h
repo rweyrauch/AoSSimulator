@@ -9,13 +9,13 @@
 #ifndef THEMASQUE_H
 #define THEMASQUE_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class TheMasque : public Unit
+class TheMasque : public SlaaneshBase
 {
 public:
 

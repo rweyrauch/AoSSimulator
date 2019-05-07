@@ -15,9 +15,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     BladebringerOnExaltedChariot::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -26,7 +27,7 @@ static FactoryMethod factoryMethod = {
 bool BladebringerOnExaltedChariot::s_registered = false;
 
 BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
-    Unit("Bladebringer, Herald on Exalted Chariot", 10, WOUNDS, 10, 4, false),
+    SlaaneshBase("Bladebringer, Herald on Exalted Chariot", 10, WOUNDS, 10, 4, false),
     m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 9, 3, 4, -1, 1),
     m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1)

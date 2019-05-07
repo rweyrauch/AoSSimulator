@@ -9,13 +9,13 @@
 #ifndef SHALAXIHELBANE_H
 #define SHALAXIHELBANE_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class ShalaxiHelbane : public Unit
+class ShalaxiHelbane : public SlaaneshBase
 {
 public:
 

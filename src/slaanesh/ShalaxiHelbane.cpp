@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     ShalaxiHelbane::EnumStringToInt,
     {
         {ParamType::Enum, "Weapon", ShalaxiHelbane::LivingWhip, ShalaxiHelbane::LivingWhip, ShalaxiHelbane::ShiningAegis, 1},
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -44,7 +45,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool ShalaxiHelbane::s_registered = false;
 
 ShalaxiHelbane::ShalaxiHelbane() :
-    Unit("Shalaxi Helbane", 14, WOUNDS, 10, 4, false),
+    SlaaneshBase("Shalaxi Helbane", 14, WOUNDS, 10, 4, false),
     m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
     m_soulpiercer(Weapon::Type::Melee, "Soulpiercer", 3, 1, 2, 2, -3, RAND_D6),
     m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5)
@@ -186,14 +187,14 @@ std::string ShalaxiHelbane::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == LivingWhip) return "LivingWhip";
         else if (parameter.m_intValue == ShiningAegis) return "Shining Aegis";
     }
-    return ParameterValueToString(parameter);
+    return SlaaneshBase::ValueToString(parameter);
 }
 
 int ShalaxiHelbane::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Living Whip") return LivingWhip;
     else if (enumString == "Shining Aegis") return ShiningAegis;
-    return 0;
+    return SlaaneshBase::EnumStringToInt(enumString);
 }
 
 } // Slannesh

@@ -15,9 +15,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     InfernalEnrapturess::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -26,7 +27,7 @@ static FactoryMethod factoryMethod = {
 bool InfernalEnrapturess::s_registered = false;
 
 InfernalEnrapturess::InfernalEnrapturess() :
-    Unit("Infernal Enrapturess Herald of Slaanesh", 6, WOUNDS, 10, 5, false),
+    SlaaneshBase("Infernal Enrapturess Herald of Slaanesh", 6, WOUNDS, 10, 5, false),
     m_ravagingClaw(Weapon::Type::Melee, "Ravaging Claw", 1, 3, 3, 4, -1, 1),
     m_lyreCacophonousMelody(Weapon::Type::Missile, "Heartstring Lyre: Cacophonous Melody", 18, 6, 3, 4, -1, 1),
     m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3)

@@ -58,6 +58,11 @@ void Player::doBattleshockPhase()
 
 void Player::beginTurn(int battleRound, PlayerId playerWithTurn)
 {
+    if (m_id == playerWithTurn)
+    {
+        m_commandPoints++;
+    }
+
     if (m_roster)
     {
         m_roster->beginTurn(battleRound, playerWithTurn);

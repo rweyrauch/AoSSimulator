@@ -14,9 +14,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     Hellflayer::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -25,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool Hellflayer::s_registered = false;
 
 Hellflayer::Hellflayer() :
-    Unit("Hellflayer", 12, WOUNDS, 10, 4, false),
+    SlaaneshBase("Hellflayer", 12, WOUNDS, 10, 4, false),
     m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 4, 3, 4, -1, 1),
     m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1)

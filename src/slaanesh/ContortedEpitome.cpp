@@ -15,9 +15,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     TheContortedEpitome::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -26,7 +27,7 @@ static FactoryMethod factoryMethod = {
 bool TheContortedEpitome::s_registered = false;
 
 TheContortedEpitome::TheContortedEpitome() :
-    Unit("The Contorted Epitome", 12, WOUNDS, 10, 5, false),
+    SlaaneshBase("The Contorted Epitome", 12, WOUNDS, 10, 5, false),
     m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 9, 3, 4, -1, 1),
     m_coiledTentacles(Weapon::Type::Melee, "Coiled Tentacles", 3, 2, 3, 4, -2, 2)
 {

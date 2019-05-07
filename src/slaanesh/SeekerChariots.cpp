@@ -14,13 +14,14 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     SeekerChariots::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", SeekerChariots::MIN_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE,
             SeekerChariots::MAX_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -29,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool SeekerChariots::s_registered = false;
 
 SeekerChariots::SeekerChariots() :
-    Unit("Seeker Chariots", 12, WOUNDS, 10, 4, false),
+    SlaaneshBase("Seeker Chariots", 12, WOUNDS, 10, 4, false),
     m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 4, 3, 4, -1, 1),
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
     m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1)

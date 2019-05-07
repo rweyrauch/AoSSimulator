@@ -9,13 +9,13 @@
 #ifndef DAEMONETTES_H
 #define DAEMONETTES_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class Daemonettes : public Unit
+class Daemonettes : public SlaaneshBase
 {
 public:
 

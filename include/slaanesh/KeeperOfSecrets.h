@@ -9,13 +9,13 @@
 #ifndef KEEPEROFSECRETS_H
 #define KEEPEROFSECRETS_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class KeeperOfSecrets : public Unit
+class KeeperOfSecrets : public SlaaneshBase
 {
 public:
 

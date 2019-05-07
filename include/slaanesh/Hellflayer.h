@@ -9,13 +9,13 @@
 #ifndef HELLFLAYER_H
 #define HELLFLAYER_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class Hellflayer : public Unit
+class Hellflayer : public SlaaneshBase
 {
 public:
 

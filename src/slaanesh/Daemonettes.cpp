@@ -14,8 +14,8 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     Daemonettes::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Daemonettes::MIN_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE,
@@ -24,6 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -32,7 +33,7 @@ static FactoryMethod factoryMethod = {
 bool Daemonettes::s_registered = false;
 
 Daemonettes::Daemonettes() :
-    Unit("Daemonettes", 6, WOUNDS, 10, 5, false),
+    SlaaneshBase("Daemonettes", 6, WOUNDS, 10, 5, false),
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
     m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws (Alluress)", 1, 3, 4, 4, -1, 1)
 {

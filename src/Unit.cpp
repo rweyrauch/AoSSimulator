@@ -13,7 +13,6 @@
 #include <Roster.h>
 #include <Think.h>
 
-const float PILE_IN_DISTANCE = 3.0f;
 const float MAX_CHARGE_DISTANCE = 12.0f;
 
 Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
@@ -43,14 +42,13 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
             Wounds weaponDamage, reflectedDamage;
             attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
 
-            // apply wound/mortal wound save
-            Wounds damage = targetUnit->applyWoundSave(weaponDamage);
-
-            totalDamage += damage;
+            totalDamage += weaponDamage;
             totalDamageReflected += reflectedDamage;
         }
     }
 
+    // Apply all of the wounds to the target.  Target apply wound save and return
+    // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage);
 
     if (targetUnit->remainingModels() == 0)
@@ -101,22 +99,16 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
             SimLog(Verbosity::Narrative, "\tModel[%d] attack with %s does damage {%d,%d}.\n",
                 i, w->name().c_str(), weaponDamage.normal, weaponDamage.mortal);
 
-            // apply wound/mortal wound save
-            Wounds damage = targetUnit->applyWoundSave(weaponDamage);
-
-            totalDamage += damage;
+            totalDamage += weaponDamage;
             totalDamageReflected += reflectedDamage;
         }
     }
 
     // Some units do mortal wounds for just existing!  See Evocators for example.
-    int mortalWounds = generateMortalWounds(targetUnit);
-    if (mortalWounds)
-    {
-        Wounds damage = targetUnit->applyWoundSave({0, mortalWounds});
-        totalDamage.mortal += damage.mortal;
-    }
+    totalDamage.mortal += generateMortalWounds(targetUnit);
 
+    // Apply all of the wounds to the target.  Target apply wound save and return
+    // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage);
 
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
@@ -217,8 +209,11 @@ void Unit::addModel(const Model &model)
     m_basesize_mm = model.basesize();
 }
 
-int Unit::applyDamage(const Wounds& totalWounds)
+int Unit::applyDamage(const Wounds& totalWoundsInflicted)
 {
+    // apply wound/mortal wound save
+    auto totalWounds = applyWoundSave(totalWoundsInflicted);
+
     // apply both normal and mortal wounds
     int totalDamage = totalWounds.normal + totalWounds.mortal;
     int numSlain = 0;
@@ -405,18 +400,30 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     if (model == nullptr || unit == nullptr || unit->remainingModels() == 0)
         return 0.0f;
 
-    // TODO: find closes model in target unit
-    const float tx = unit->m_models.front().x();
-    const float ty = unit->m_models.front().y();
     const float tbs = unit->basesizeInches() / 2;
 
     const float x = model->x();
     const float y = model->y();
 
-    const float dx = fabsf(tx - x);
-    const float dy = fabsf(ty - y);
+    float minDist = MAXFLOAT;
 
-    return std::max(0.0f, sqrtf(dx*dx + dy*dy) - (basesizeInches() / 2 + tbs));
+    // find closes model in target unit
+    for (auto& ip : unit->m_models)
+    {
+        const float tx = ip.x();
+        const float ty = ip.y();
+
+        const float dx = fabsf(tx - x);
+        const float dy = fabsf(ty - y);
+
+        auto dist = sqrtf(dx*dx + dy*dy) - (basesizeInches() / 2 + tbs);
+        if (dist < minDist)
+        {
+            minDist = dist;
+        }
+    }
+
+    return std::max(0.0f, minDist);
 }
 
 void Unit::hero(PlayerId player)
@@ -502,7 +509,7 @@ void Unit::movement(PlayerId player)
             const float movement = move() + moveModifier();
 
             // get into range (run or not?)
-            if (distance > weapon->range() + movement + PILE_IN_DISTANCE) // todo: pile-in should be unit-specific
+            if (distance > weapon->range() + movement + m_pileInMove)
             {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
@@ -514,10 +521,10 @@ void Unit::movement(PlayerId player)
                 m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
             }
-            else if (distance > PILE_IN_DISTANCE) // pile-in
+            else if (distance > m_pileInMove) // pile-in
             {
                 // move toward unit
-                totalMoveDistance = std::min(movement, distance - PILE_IN_DISTANCE);
+                totalMoveDistance = std::min(movement, distance - m_pileInMove);
 
                 m_currentRecord.m_moved = totalMoveDistance;
             }

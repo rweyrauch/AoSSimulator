@@ -9,13 +9,13 @@
 #ifndef FIENDS_H
 #define FIENDS_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class Fiends : public Unit
+class Fiends : public SlaaneshBase
 {
 public:
 

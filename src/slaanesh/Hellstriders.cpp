@@ -24,6 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -32,7 +33,7 @@ static FactoryMethod factoryMethod = {
 bool Hellstriders::s_registered = false;
 
 Hellstriders::Hellstriders() :
-    Unit("Hellstriders", 14, WOUNDS, 6, 4, false),
+    SlaaneshBase("Hellstriders", 14, WOUNDS, 6, 4, false),
     m_clawSpear(Weapon::Type::Melee, "Claw-spear", 1, 1, 3, 4, -1, 1),
     m_clawSpearReaver(Weapon::Type::Melee, "Claw-spear (Hellreaver)", 1, 2, 3, 4, -1, 1),
     m_hellscourge(Weapon::Type::Melee, "Hellscourge", 3, 1, 3, 4, 0, 1),
@@ -129,14 +130,14 @@ std::string Hellstriders::ValueToString(const Parameter &parameter)
             return "Hellscourge";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlaaneshBase::ValueToString(parameter);
 }
 
 int Hellstriders::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Claw-spear") { return ClawSpear; }
     else if (enumString == "Hellscourge") { return Hellscourge; }
-    return 0;
+    return SlaaneshBase::EnumStringToInt(enumString);
 }
 
 Rerolls Hellstriders::chargeRerolls() const

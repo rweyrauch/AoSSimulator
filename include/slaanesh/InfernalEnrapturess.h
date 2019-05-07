@@ -9,13 +9,13 @@
 #ifndef INFERNALENRAPTURESS_H
 #define INFERNALENRAPTURESS_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class InfernalEnrapturess : public Unit
+class InfernalEnrapturess : public SlaaneshBase
 {
 public:
 

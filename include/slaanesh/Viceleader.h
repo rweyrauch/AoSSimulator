@@ -9,13 +9,13 @@
 #ifndef VICELEADER_H
 #define VICELEADER_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class ViceleaderHeraldOfSlaanesh : public Unit
+class ViceleaderHeraldOfSlaanesh : public SlaaneshBase
 {
 public:
 

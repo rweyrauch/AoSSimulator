@@ -9,13 +9,13 @@
 #ifndef BLADEBRINGERHELLFLAYER_H
 #define BLADEBRINGERHELLFLAYER_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class BladebringerOnHellflayer : public Unit
+class BladebringerOnHellflayer : public SlaaneshBase
 {
 public:
 

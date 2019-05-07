@@ -155,9 +155,13 @@ int Stabbas::toWoundModifier(const Weapon *weapon, const Unit *unit) const
     if (!weapon->isMissile())
     {
         if (remainingModels() >= 30)
-        { modifier += 2; }
+        {
+            modifier += 2;
+        }
         else if (remainingModels() >= 15)
-        { modifier += 1; }
+        {
+            modifier += 1;
+        }
     }
     return modifier;
 }
@@ -166,14 +170,16 @@ int Stabbas::runModifier() const
 {
     int modifier = GloomspiteGitzBase::runModifier();
     if (m_numGongbashers > 0)
-    { modifier += 2; }
+    {
+        modifier += 2;
+    }
     return modifier;
 }
 
 int Stabbas::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
-    if (m_numIconbearers > 0 && weapon->isMissile())
+    if ((m_numIconbearers > 0) && weapon->isMissile())
     {
         modifier += 1;
     }
@@ -189,7 +195,9 @@ int Stabbas::braveryModifier() const
 {
     int modifier = GloomspiteGitzBase::braveryModifier();
     if (m_numFlagbearers > 0)
-    { modifier += 1; }
+    {
+        modifier += 1;
+    }
     return modifier;
 }
 
@@ -252,7 +260,9 @@ int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
             }
         }
         if (hasNets)
-        { modifier -= 1; }
+        {
+            modifier -= 1;
+        }
     }
     return modifier;
 }

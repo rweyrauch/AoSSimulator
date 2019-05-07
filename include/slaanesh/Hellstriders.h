@@ -9,13 +9,13 @@
 #ifndef HELLSTRIDERS_H
 #define HELLSTRIDERS_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class Hellstriders : public Unit
+class Hellstriders : public SlaaneshBase
 {
 public:
 

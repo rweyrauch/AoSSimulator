@@ -15,8 +15,8 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     Seekers::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Seekers::MIN_UNIT_SIZE, Seekers::MIN_UNIT_SIZE,
@@ -25,6 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -33,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool Seekers::s_registered = false;
 
 Seekers::Seekers() :
-    Unit("Seekers", 14, WOUNDS, 10, 5, false),
+    SlaaneshBase("Seekers", 14, WOUNDS, 10, 5, false),
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 3, 4, -1, 1),
     m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws (Heartseeker)", 1, 3, 3, 4, -1, 1),
     m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1)

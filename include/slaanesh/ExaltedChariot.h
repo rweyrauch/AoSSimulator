@@ -9,13 +9,13 @@
 #ifndef EXALTEDCHARIOT_H
 #define EXALTEDCHARIOT_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class ExaltedChariot : public Unit
+class ExaltedChariot : public SlaaneshBase
 {
 public:
 

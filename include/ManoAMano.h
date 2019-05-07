@@ -17,8 +17,8 @@ class Roster;
 class ManoAMano
 {
 public:
-    static const int BoardWidth = 30;
-    static const int BoardDepth = 24;
+    static const int BoardWidth = 36;
+    static const int BoardDepth = 48;
 
     explicit ManoAMano(int numRounds);
     ~ManoAMano();

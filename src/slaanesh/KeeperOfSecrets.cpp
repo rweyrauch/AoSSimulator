@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     KeeperOfSecrets::EnumStringToInt,
     {
         {ParamType::Enum, "Weapon", KeeperOfSecrets::RitualKnife, KeeperOfSecrets::RitualKnife, KeeperOfSecrets::ShiningAegis, 1},
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -45,7 +46,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool KeeperOfSecrets::s_registered = false;
 
 KeeperOfSecrets::KeeperOfSecrets() :
-    Unit("Keeper of Secrets", 14, WOUNDS, 10, 4, false),
+    SlaaneshBase("Keeper of Secrets", 14, WOUNDS, 10, 4, false),
     m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
     m_ritualKnifeOrHand(Weapon::Type::Melee, "Ritual Knife or Sinistrous Hand", 1, 1, 2, 3, -1, 1),
     m_greatblade(Weapon::Type::Melee, "Elegant Greatblade", 2, 4, 3, 3, -1, 2),
@@ -223,7 +224,7 @@ std::string KeeperOfSecrets::ValueToString(const Parameter &parameter)
         else if (parameter.m_intValue == LivingWhip) return "LivingWhip";
         else if (parameter.m_intValue == ShiningAegis) return "Shining Aegis";
     }
-    return ParameterValueToString(parameter);
+    return SlaaneshBase::ValueToString(parameter);
 }
 
 Wounds KeeperOfSecrets::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -245,7 +246,7 @@ int KeeperOfSecrets::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Sinistrous Hand") return SinistrousHand;
     else if (enumString == "Living Whip") return LivingWhip;
     else if (enumString == "Shining Aegis") return ShiningAegis;
-    return 0;
+    return SlaaneshBase::EnumStringToInt(enumString);
 }
 
 } // Slannesh

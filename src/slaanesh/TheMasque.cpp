@@ -14,9 +14,10 @@ namespace Slaanesh
 {
 static FactoryMethod factoryMethod = {
     TheMasque::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -25,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool TheMasque::s_registered = false;
 
 TheMasque::TheMasque() :
-    Unit("The Masque", 10, WOUNDS, 10, 5, false),
+    SlaaneshBase("The Masque", 10, WOUNDS, 10, 5, false),
     m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};

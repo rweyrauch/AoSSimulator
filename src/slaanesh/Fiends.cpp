@@ -16,13 +16,14 @@ namespace Slaanesh
 
 static FactoryMethod factoryMethod = {
     Fiends::Create,
-    nullptr,
-    nullptr,
+    SlaaneshBase::ValueToString,
+    SlaaneshBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Fiends::MIN_UNIT_SIZE, Fiends::MIN_UNIT_SIZE,
             Fiends::MAX_UNIT_SIZE, Fiends::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
     SLAANESH
@@ -31,7 +32,7 @@ static FactoryMethod factoryMethod = {
 bool Fiends::s_registered = false;
 
 Fiends::Fiends() :
-    Unit("Fiends", 12, WOUNDS, 10, 5, false),
+    SlaaneshBase("Fiends", 12, WOUNDS, 10, 5, false),
     m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
     m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers (Blissbringer)", 1, 5, 3, 3, -1, 1),
     m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1)

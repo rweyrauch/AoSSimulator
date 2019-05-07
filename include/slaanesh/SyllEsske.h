@@ -9,13 +9,13 @@
 #ifndef SYLLESSKE_H
 #define SYLLESSKE_H
 
-#include <Unit.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh
 {
 
-class SyllEsske : public Unit
+class SyllEsske : public SlaaneshBase
 {
 public:
 
