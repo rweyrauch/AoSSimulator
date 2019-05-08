@@ -46,6 +46,8 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
 private:
 
     WeaponOptions m_weapons = SpiritHalberd;
@@ -62,7 +64,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Heralds of the Accursed One      No
-// Ebon-wrought Armour              No
+// Ebon-wrought Armour              Yes
 //
 
 } //namespace Death

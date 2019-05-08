@@ -26,7 +26,8 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },
     ORDER,
     DISPOSSESSED
@@ -148,7 +149,7 @@ std::string Longbeards::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return Dispossessed::ValueToString(parameter);
 }
 
 int Longbeards::EnumStringToInt(const std::string &enumString)
@@ -161,7 +162,26 @@ int Longbeards::EnumStringToInt(const std::string &enumString)
     {
         return AncestralGreatAxe;
     }
-    return 0;
+    return Dispossessed::EnumStringToInt(enumString);
+}
+
+int Longbeards::rollRunDistance() const
+{
+    // Sound the Advance
+    if (m_musician)
+    {
+        return 4;
+    }
+    return Unit::rollRunDistance();
+}
+
+void Longbeards::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
+    if (m_standardBearer)
+    {
+        numFled = (numFled + 1)/2;
+    }
 }
 
 } // namespace Dispossessed

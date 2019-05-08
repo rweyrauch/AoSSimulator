@@ -15,15 +15,16 @@ namespace Dispossessed
 
 static FactoryMethod factoryMethod = {
     Hammerers::Create,
-    nullptr,
-    nullptr,
+    Dispossessed::ValueToString,
+    Dispossessed::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
             Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },
     ORDER,
     DISPOSSESSED
@@ -109,6 +110,26 @@ bool Hammerers::battleshockRequired() const
             return false;
     }
     return true;
+}
+
+int Hammerers::rollRunDistance() const
+{
+    // Sound the Advance
+    if (m_musician)
+    {
+        return 4;
+    }
+    return Unit::rollRunDistance();
+}
+
+void Hammerers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
+
+    if (m_standardBearer)
+    {
+        numFled = (numFled + 1)/2;
+    }
 }
 
 } // namespace Dispossessed

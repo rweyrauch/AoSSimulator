@@ -118,4 +118,19 @@ void MorghastArchai::Init()
     }
 }
 
+Wounds MorghastArchai::applyWoundSave(const Wounds &wounds)
+{
+    Dice dice;
+
+    // Ebon-wrought Armour
+    Dice::RollResult mortalSaves;
+    dice.rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
+}
+
 } //namespace Death

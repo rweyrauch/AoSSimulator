@@ -8,6 +8,7 @@
 
 #include <dispossessed/Thunderers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Dispossessed
 {
@@ -25,8 +26,9 @@ static FactoryMethod factoryMethod = {
             Thunderers::BraceOfDuardinPistols, 1
         },
         {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+        {ParamType::Enum, "Standard", Thunderers::None, Thunderers::None, Thunderers::ClanBanner, 1},
+        {ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },
     ORDER,
     DISPOSSESSED
@@ -45,14 +47,14 @@ Thunderers::Thunderers() :
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, THUNDERERS};
 }
 
-bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, bool standardBearer, bool drummers)
+bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, StandardOptions standard, bool drummers)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    m_standardBearer = standardBearer;
+    m_standard = standard;
     m_drummers = drummers;
     m_duardinBucklers = duardinBucklers;
 
@@ -101,10 +103,10 @@ Unit *Thunderers::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapon = (WeaponOptions)GetEnumParam("Veteran Weapon", parameters, DuardinHandgun);
     bool duardinBucklers = GetBoolParam("Duardin Bucklers", parameters, false);
-    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    auto standard = (StandardOptions)GetEnumParam("Standard", parameters, None);
     bool drummer = GetBoolParam("Drummer", parameters, false);
 
-    bool ok = unit->configure(numModels, weapon, duardinBucklers, standardBearer, drummer);
+    bool ok = unit->configure(numModels, weapon, duardinBucklers, standard, drummer);
     if (!ok)
     {
         delete unit;
@@ -134,13 +136,40 @@ std::string Thunderers::ValueToString(const Parameter &parameter)
             return "Brace Of Duardin Pistols";
         }
     }
+    if (parameter.m_name == "Standard")
+    {
+        if (parameter.m_intValue == None)
+        {
+            return "None";
+        }
+        else if (parameter.m_intValue == RunicIcon)
+        {
+            return "Runic Icon";
+        }
+        else if (parameter.m_intValue == ClanBanner)
+        {
+            return "Clan Banner";
+        }
+    }
 
-    return ParameterValueToString(parameter);
+    return Dispossessed::ValueToString(parameter);
 }
 
 int Thunderers::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Duardin Handgun")
+    if (enumString == "None")
+    {
+        return None;
+    }
+    else if (enumString == "Runic Icon")
+    {
+        return RunicIcon;
+    }
+    else if (enumString == "Clan Banner")
+    {
+        return ClanBanner;
+    }
+    else if (enumString == "Duardin Handgun")
     {
         return DuardinHandgun;
     }
@@ -148,7 +177,40 @@ int Thunderers::EnumStringToInt(const std::string &enumString)
     {
         return BraceOfDuardinPistols;
     }
-    return 0;
+    return Dispossessed::EnumStringToInt(enumString);
+}
+
+int Thunderers::rollRunDistance() const
+{
+    // Sound the Advance
+    if (m_drummers)
+    {
+        return 4;
+    }
+    return Unit::rollRunDistance();
+}
+
+void Thunderers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
+
+    if (m_standard == ClanBanner)
+    {
+        numFled = (numFled + 1) / 2;
+    }
+}
+
+int Thunderers::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto modifier = Unit::toHitModifier(weapon, target);
+
+    // Precision Fire
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    if ((remainingModels() >= 20) && units.empty())
+    {
+        modifier += 1;
+    }
+    return modifier;
 }
 
 } // namespace Dispossessed

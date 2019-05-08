@@ -59,6 +59,8 @@ protected:
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
     void onStartCombat(PlayerId player) override;
+    int rollRunDistance() const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
 
 private:
 
@@ -83,7 +85,8 @@ private:
 // Resolute in Defence              Yes
 // Duardin Shields                  Yes
 // Runic Icon                       No
-// Clan Banner                      No
+// Clan Banner                      Yes
+// Hornblowers                      Yes
 //
 
 } // namespace Dispossessed

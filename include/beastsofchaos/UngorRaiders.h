@@ -40,6 +40,8 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     bool m_brayhorn = false;
@@ -57,7 +59,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Vile Invaders                    No
-// Braying Anger
+// Braying Anger                    Yes
 //
 
 } // namespace BeastsOfChaos

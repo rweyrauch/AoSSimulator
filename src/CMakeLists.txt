@@ -273,6 +273,9 @@ add_library(
         dispossessed/Quarrellers.cpp
         dispossessed/Ironbreakers.cpp
         dispossessed/Irondrakes.cpp
+        dispossessed/Unforged.cpp
+        dispossessed/Runelord.cpp
+        dispossessed/WardenKing.cpp
 
         skaven/Skaventide.cpp
         skaven/Clanrats.cpp

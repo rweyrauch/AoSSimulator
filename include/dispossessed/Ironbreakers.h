@@ -53,6 +53,7 @@ protected:
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
     int toSaveModifier(const Weapon *weapon) const override;
     void onStartShooting(PlayerId player) override;
+    int rollRunDistance() const override;
 
 private:
 
@@ -77,6 +78,8 @@ private:
 // Cinderblast Bomb                 Yes
 // Gromril Shields                  Yes
 // Forge-proven Gromril Armour      Yes
+// Musician                         Yes
+// Icon Bearer                      No
 //
 
 } // namespace Dispossessed

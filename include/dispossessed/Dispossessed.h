@@ -28,8 +28,13 @@ public:
         SneakyAmbushers
     };
 
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
+
     Dispossessed() = default;
     ~Dispossessed() override = default;
+
+    void setGrudge(Grudge grudge);
 
 protected:
     Dispossessed(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
@@ -60,6 +65,6 @@ private:
 
 void Init();
 
-} // namespace Nighthaunt
+} // namespace Dispossessed
 
 #endif // DISPOSSESSED_H

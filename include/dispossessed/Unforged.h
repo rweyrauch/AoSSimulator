@@ -6,28 +6,29 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BEASTLORD_H
-#define BEASTLORD_H
+#ifndef UNFORGED_H
+#define UNFORGED_H
 
-#include <beastsofchaos/BeastsOfChaosBase.h>
+#include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
+namespace Dispossessed
 {
 
-class Beastlord : public BeastsOfChaosBase
+class Unforged : public Dispossessed
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 25;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
+
     static void Init();
 
-    Beastlord();
-    ~Beastlord() override = default;
+    Unforged();
+    ~Unforged() override = default;
 
     bool configure();
 
@@ -36,11 +37,12 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
-    Weapon m_pairedAxes;
+    Weapon m_runicAxes;
 
     static bool s_registered;
 };
@@ -49,11 +51,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Dual Axes                        Yes
-// Hatred of Heroes                 Yes
-// Grisly Trophy                    No
+// Runic Axes                       Yes
+// Epic Deathblow                   No
+// Nemesis                          Yes
+// The Bigger They Are...           Yes
 //
 
-} // namespace BeastsOfChaos
+} // namespace Dispossessed
 
-#endif //BEASTLORD_H
+#endif //UNFORGED_H

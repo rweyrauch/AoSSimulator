@@ -510,6 +510,9 @@ enum Keyword
     THUNDERERS,
     IRONBREAKERS,
     IRONDRAKES,
+    UNFORGED,
+    WARDEN_KING,
+    RUNELORD,
 
     // Skaven
     SKAVENTIDE,

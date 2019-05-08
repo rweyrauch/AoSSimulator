@@ -15,6 +15,9 @@
 #include "dispossessed/Longbeards.h"
 #include "dispossessed/Warriors.h"
 #include "dispossessed/Thunderers.h"
+#include "dispossessed/Unforged.h"
+#include "dispossessed/WardenKing.h"
+#include "dispossessed/Runelord.h"
 
 namespace Dispossessed
 {
@@ -74,6 +77,36 @@ Rerolls Dispossessed::toHitRerolls(const Weapon *weapon, const Unit *target) con
     return Unit::toHitRerolls(weapon, target);
 }
 
+void Dispossessed::setGrudge(Dispossessed::Grudge grudge)
+{
+    m_grudge = grudge;
+}
+
+std::string Dispossessed::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Grudge")
+    {
+        if (parameter.m_intValue == StuckUp) { return "Stuck-up"; }
+        else if (parameter.m_intValue == SpeedMerchants) { return "Speed Merchants"; }
+        else if (parameter.m_intValue == MonstrousCheaters) { return "Monstrous Cheaters"; }
+        else if (parameter.m_intValue == CowardlyHorders) { return "Cowardly Horders"; }
+        else if (parameter.m_intValue == ShoddyCraftsmanship) { return "Shoddy Craftsmanship"; }
+        else if (parameter.m_intValue == SneakyAmbushers) { return "Sneaky Ambushers"; }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int Dispossessed::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Stuck-up") { return StuckUp; }
+    else if (enumString == "Speed Merchants") { return SpeedMerchants; }
+    else if (enumString == "Monstrous Cheaters") { return MonstrousCheaters; }
+    else if (enumString == "Cowardly Horders") { return CowardlyHorders; }
+    else if (enumString == "ShoddyCraftsmanship") { return ShoddyCraftsmanship; }
+    else if (enumString == "Sneaky Ambushers") { return SneakyAmbushers; }
+    return 0;
+}
+
 void Init()
 {
     Hammerers::Init();
@@ -83,6 +116,9 @@ void Init()
     Quarrellers::Init();
     Thunderers::Init();
     Warriors::Init();
+    Unforged::Init();
+    Runelord::Init();
+    WardenKing::Init();
 }
 
 } //namespace Dispossessed

@@ -40,6 +40,8 @@ public:
 protected:
 
     bool battleshockRequired() const override;
+    int rollRunDistance() const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
 
 private:
 
@@ -57,8 +59,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Kingsguard                       Yes
-// Musician                         No
-// Standard Bearer                  No
+// Musician                         Yes
+// Standard Bearer                  Yes
 //
 
 } // namespace Dispossessed

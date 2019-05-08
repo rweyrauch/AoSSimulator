@@ -55,6 +55,7 @@ protected:
     int toSaveModifier(const Weapon *weapon) const override;
     void onStartShooting(PlayerId player) override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int rollRunDistance() const override;
 
 private:
 
@@ -81,6 +82,8 @@ private:
 // Cinderblast Bomb                 Yes
 // Forge-proven Gromril Armour      Yes
 // Blaze Away                       Yes
+// Hornblowers                      Yes
+// Icon Bearer                      No
 //
 
 } // namespace Dispossessed

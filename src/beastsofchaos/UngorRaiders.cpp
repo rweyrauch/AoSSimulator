@@ -117,4 +117,21 @@ int UngorRaiders::EnumStringToInt(const std::string &enumString)
     return BeastsOfChaosBase::EnumStringToInt(enumString);
 }
 
+Rerolls UngorRaiders::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Baying Anger
+    if (weapon->isMissile())
+    {
+        if (remainingModels() >= 30)
+        {
+            return RerollOnesAndTwos;
+        }
+        else if (remainingModels() >= 20)
+        {
+            return RerollOnes;
+        }
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
 } // namespace BeastsOfChaos

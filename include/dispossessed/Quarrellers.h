@@ -52,6 +52,8 @@ protected:
 
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    int rollRunDistance() const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
 
 private:
 
@@ -71,10 +73,10 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Volley Fire                      Yes
-// Ruinic Icon                      No
-// Clan Banner                      No
+// Runic Icon                       No
+// Clan Banner                      Yes
 // Duardin Bucklers                 Yes
-// Drummers                         No
+// Drummers                         Yes
 //
 
 } // namespace Dispossessed

@@ -50,6 +50,8 @@ public:
 protected:
 
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    int rollRunDistance() const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
 
 private:
 
@@ -71,6 +73,8 @@ private:
 // -------------------------------------------
 // Gromril Shields                  Yes
 // Old Grumblers                    No
+// Standard Bearer                  Yes
+// Musician                         Yes
 //
 
 } // namespace Dispossessed

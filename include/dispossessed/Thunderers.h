@@ -32,6 +32,13 @@ public:
         BraceOfDuardinPistols
     };
 
+    enum StandardOptions
+    {
+        None,
+        RunicIcon,
+        ClanBanner
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -43,16 +50,20 @@ public:
     Thunderers();
     ~Thunderers() override = default;
 
-    bool configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, bool standardBearer, bool drummers);
+    bool configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, StandardOptions standard, bool drummers);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
 protected:
 
+    int rollRunDistance() const override;
+    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     bool m_duardinBucklers = false;
-    bool m_standardBearer = false;
+    StandardOptions m_standard = None;
     bool m_drummers = false;
 
     Weapon m_duardinHandgun,
@@ -68,10 +79,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Precision Fire                   No
+// Precision Fire                   Yes
 // Runic Icon                       No
-// Clan Banner                      No
+// Clan Banner                      Yes
 // Duardin Bucklers                 No
+// Drummer                          Yes
 //
 
 } // namespace Dispossessed

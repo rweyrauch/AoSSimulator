@@ -26,7 +26,8 @@ static FactoryMethod factoryMethod = {
             Irondrakes::PairedDrakefirePistols, 1
         },
         {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },
     ORDER,
     DISPOSSESSED
@@ -216,7 +217,7 @@ std::string Irondrakes::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return Dispossessed::ValueToString(parameter);
 }
 
 int Irondrakes::EnumStringToInt(const std::string &enumString)
@@ -237,7 +238,17 @@ int Irondrakes::EnumStringToInt(const std::string &enumString)
     {
         return PairedDrakefirePistols;
     }
-    return 0;
+    return Dispossessed::EnumStringToInt(enumString);
+}
+
+int Irondrakes::rollRunDistance() const
+{
+    // Sound the Advance
+    if (m_hornblower)
+    {
+        return 4;
+    }
+    return Unit::rollRunDistance();
 }
 
 } // namespace Dispossessed

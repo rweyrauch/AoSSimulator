@@ -73,4 +73,24 @@ void Beastlord::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_pairedAxes);
 }
 
+Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Dual Axes
+    if (weapon->name() == m_pairedAxes.name())
+    {
+        return RerollOnes;
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Hatred of Heroes
+    if (target->hasKeyword(HERO))
+    {
+        return RerollFailed;
+    }
+    return Unit::toWoundRerolls(weapon, target);
+}
+
 } // namespace BeastsOfChaos
