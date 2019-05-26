@@ -126,6 +126,7 @@ add_library(
         sylvaneth/TreelordAncient.cpp
         sylvaneth/Branchwraith.cpp
         sylvaneth/Branchwych.cpp
+        sylvaneth/ArchRevenant.cpp
 
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp
@@ -204,6 +205,13 @@ add_library(
         beastsofchaos/GreatBrayShaman.cpp
         beastsofchaos/UngorRaiders.cpp
         beastsofchaos/TuskgorChariots.cpp
+        beastsofchaos/Cockatrice.cpp
+        beastsofchaos/ChaosSpawn.cpp
+        beastsofchaos/ChaosWarhounds.cpp
+        beastsofchaos/Jabberslythe.cpp
+        beastsofchaos/DragonOgors.cpp
+        beastsofchaos/DragonOgorShaggoth.cpp
+        beastsofchaos/Razorgors.cpp
 
         slaanesh/SlaaneshBase.cpp
         slaanesh/Fiends.cpp

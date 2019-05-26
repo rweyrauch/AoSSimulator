@@ -47,6 +47,9 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onEndCombat(PlayerId player) override;
+
     WeaponOption m_weaponOption = Greatswords;
 
 private:
@@ -68,7 +71,8 @@ private:
 // -------------------------------------------
 // Tanglethorn Thicket              No
 // Envoys of the Everqueen          No
-// Trample Underfoot                No
+// Trample Underfoot                Yes
+// Sundering Strike                 Yes
 //
 
 } // namespace Sylvaneth

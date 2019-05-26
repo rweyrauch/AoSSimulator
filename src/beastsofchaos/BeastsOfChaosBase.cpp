@@ -20,6 +20,13 @@
 #include "beastsofchaos/GreatBrayShaman.h"
 #include "beastsofchaos/UngorRaiders.h"
 #include "beastsofchaos/TuskgorChariots.h"
+#include "beastsofchaos/Cockatrice.h"
+#include "beastsofchaos/ChaosSpawn.h"
+#include "beastsofchaos/ChaosWarhounds.h"
+#include "beastsofchaos/Jabberslythe.h"
+#include "beastsofchaos/DragonOgors.h"
+#include "beastsofchaos/DragonOgorShaggoth.h"
+#include "beastsofchaos/Razorgors.h"
 
 namespace BeastsOfChaos
 {
@@ -52,19 +59,26 @@ int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
-    Gors::Init();
-    Ghorgon::Init();
+    Beastlord::Init();
     Bestigors::Init();
     Bullgors::Init();
-    Ungors::Init();
-    Cygor::Init();
     Centigors::Init();
-    Doombull::Init();
+    ChaosSpawn::Init();
+    ChaosWarhounds::Init();
     Chimera::Init();
-    Beastlord::Init();
+    Cockatrice::Init();
+    Cygor::Init();
+    Doombull::Init();
+    DragonOgorShaggoth::Init();
+    DragonOgors::Init();
+    Ghorgon::Init();
+    Gors::Init();
     GreatBrayShaman::Init();
-    UngorRaiders::Init();
+    Jabberslythe::Init();
+    Razorgors::Init();
     TuskgorChariots::Init();
+    UngorRaiders::Init();
+    Ungors::Init();
 }
 
 } // namespace BeastsOfChaos

@@ -152,8 +152,6 @@ void Chimera::onStartShooting(PlayerId player)
                 Dice dice;
                 // Auto-hit and inflict mortal wounds.
                 Wounds breathDamage = {0, dice.rollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};
-                // TODO: must allow target a wound save
-                //Wounds damage = m_shootingTarget->applyWoundSave(breathDamage);
                 m_shootingTarget->applyDamage(breathDamage);
             }
         }

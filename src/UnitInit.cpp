@@ -34,6 +34,7 @@
 #include "sylvaneth/TreelordAncient.h"
 #include "sylvaneth/Branchwraith.h"
 #include "sylvaneth/Branchwych.h"
+#include "sylvaneth/ArchRevenant.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
@@ -132,6 +133,7 @@ void Initialize(Verbosity verbosity)
     Sylvaneth::TreelordAncient::Init();
     Sylvaneth::Branchwraith::Init();
     Sylvaneth::Branchwych::Init();
+    Sylvaneth::ArchRevenant::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
     IdonethDeepkin::NamartiReavers::Init();

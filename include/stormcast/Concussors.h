@@ -59,7 +59,7 @@ private:
 // Blast to Ashes                   Yes
 // Intolerable Damage               Yes
 // Sigmarite Shields                Yes
-// Storm Blast                      No
+// Storm Blast                      Yes
 //
 
 } // namespace StormcastEternals

@@ -37,6 +37,10 @@ public:
 
 protected:
 
+    int castingModifier() const override;
+    int unbindingModifier() const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
 private:
 
     Weapon m_daMoonOnnaStikkMissile,
@@ -51,8 +55,8 @@ private:
 // -------------------------------------------
 // Babbling Wand                    No
 // Da Moon Onna Stikk               No
-// Loonking's Crown                 No
-// Nikkit! Nikkit!                  No
+// Loonking's Crown                 Yes
+// Nikkit! Nikkit!                  Yes
 // The Loonking's Entreaty          No
 //
 

@@ -60,7 +60,7 @@ private:
 // Fury of the Storm                Yes
 // Intolerable Damage               Yes
 // Sigmarite Shields                Yes
-// Storm Blast                      No
+// Storm Blast                      Yes
 //
 
 } // namespace StormcastEternals

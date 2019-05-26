@@ -105,4 +105,35 @@ int Skragrott::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
+int Skragrott::castingModifier() const
+{
+    // Loonking's Crown
+    return GloomspiteGitzBase::castingModifier() + 1;
+}
+
+int Skragrott::unbindingModifier() const
+{
+    // Loonking's Crown
+    return Unit::unbindingModifier() + 1;
+}
+
+Wounds Skragrott::applyWoundSave(const Wounds &wounds)
+{
+    // Loonking's Crown
+    Dice dice;
+    Dice::RollResult result;
+
+    Dice::RollResult woundSaves, mortalSaves;
+    dice.rollD6(wounds.normal, woundSaves);
+    dice.rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(4);
+    totalWounds.normal = std::max(totalWounds.normal, 0);
+    totalWounds.mortal -= mortalSaves.rollsGE(4);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
+}
+
 } // namespace GloomspiteGitz

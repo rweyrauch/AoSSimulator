@@ -302,6 +302,8 @@ enum Keyword
     BRANCHWYCH,
     BRANCHWRAITH,
     SYLVANETH_WILDWOOD,
+    FREE_SPIRITS,
+    ARCH_REVENANT,
 
     // Gloomspite Gitz
     SQUIG,
@@ -407,6 +409,16 @@ enum Keyword
     UNGOR,
     UNGOR_RAIDERS,
     TUSKGOR_CHARIOTS,
+    COCKATRICE,
+    CHAOS_SPAWN,
+    CHAOS_WARHOUNDS,
+    JABBERSLYTHE,
+    CHAOS_GARGANT,
+    RAZORGORS,
+    THUNDERSCORN,
+    DRAGON_OGORS,
+    DRAGON_OGOR,
+    SHAGGOTH,
 
     // Beasts of Chaos Greatfrays
     ALLHERD,

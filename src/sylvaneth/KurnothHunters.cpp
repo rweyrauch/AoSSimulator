@@ -10,6 +10,7 @@
 #include <sylvaneth/KurnothHunters.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Sylvaneth
 {
@@ -43,7 +44,7 @@ KurnothHunters::KurnothHunters() :
     m_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe (Huntmaster)", 2, 3, 2, 3, -2, RAND_D3),
     m_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, KURNOTH_HUNTERS};
+    m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, KURNOTH_HUNTERS};
 }
 
 bool KurnothHunters::configure(int numModels, WeaponOption weapons)
@@ -170,6 +171,32 @@ void KurnothHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_scythe);
     visitor(&m_scytheHuntmaster);
     visitor(&m_viciousClaws);
+}
+
+Wounds KurnothHunters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Sundering Strike
+    if ((weapon->name() == m_greatsword.name()) && (woundRoll == 6))
+    {
+        return {weapon->damage(), 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void KurnothHunters::onEndCombat(PlayerId player)
+{
+    Unit::onEndCombat(player);
+
+    // Trample Underfoot
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    if (!units.empty())
+    {
+        auto unit = units.front();
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(unit->remainingModels(), result);
+        unit->applyDamage({0, result.rollsGE(4)});
+    }
 }
 
 } // namespace Sylvaneth

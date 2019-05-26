@@ -109,6 +109,13 @@ Wounds Fulminators::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return {dice.rollD6(), 0};
     }
 
+    // Storm Blast
+    if (weapon->name() == m_stormBlast.name())
+    {
+        Dice dice;
+        return {0, dice.rollD3()};
+    }
+
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
