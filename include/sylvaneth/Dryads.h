@@ -9,13 +9,13 @@
 #ifndef DRYADS_H
 #define DRYADS_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class Dryads : public Unit
+class Dryads : public SylvanethBase
 {
 public:
 

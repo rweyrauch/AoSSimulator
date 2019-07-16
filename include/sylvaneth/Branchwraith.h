@@ -9,19 +9,19 @@
 #ifndef BRANCHWRAITH_H
 #define BRANCHWRAITH_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class Branchwraith : public Unit
+class Branchwraith : public SylvanethBase
 {
 public:
 
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
@@ -35,6 +35,8 @@ public:
 
 protected:
 
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
 private:
 
     Weapon m_piercingTalons;
@@ -46,7 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blessing of the Forest           No
+// Blessing of the Forest           Yes
 // Roused to Wrath                  No
 //
 

@@ -10,6 +10,7 @@
 #include <sylvaneth/Branchwych.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Sylvaneth
 {
@@ -26,11 +27,11 @@ static FactoryMethod factoryMethod = {
 bool Branchwych::s_registered = false;
 
 Branchwych::Branchwych() :
-    Unit("Branchwych", 7, WOUNDS, 7, 5, false),
+    SylvanethBase("Branchwych", 7, WOUNDS, 7, 5, false),
     m_greenwoodScythe(Weapon::Type::Melee, "Greenwood Scythe", 2, 2, 4, 3, 0, 2),
-    m_bittergrubsMandibles(Weapon::Type::Melee, "Bittergrub's Mandibles", 1, 1, 4, 4, -1, 1)
+    m_bittergrubsMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, HERO, WIZARD, BRANCHWYCH};
+    m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
 }
 
 bool Branchwych::configure()
@@ -71,6 +72,30 @@ void Branchwych::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_greenwoodScythe);
     visitor(&m_bittergrubsMandibles);
+}
+
+int Branchwych::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // Quick-tempered
+    if ((weapon->name() == m_greenwoodScythe.name()) && (attackingModel->woundsRemaining() < wounds()))
+    {
+        return 2;
+    }
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+int Branchwych::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    int modifier = Unit::toHitModifier(weapon, target);
+
+    // Fury of the Forest
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, AWAKENED_WYLDWOOD, 6.0f);
+    if (unit != nullptr)
+    {
+        modifier += 1;
+    }
+
+    return modifier;
 }
 
 } // namespace Sylvaneth

@@ -45,12 +45,12 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 TreelordAncient::TreelordAncient() :
-    Unit("Treelord Ancient", 5, WOUNDS, 9, 3, false),
+    SylvanethBase("Treelord Ancient", 5, WOUNDS, 9, 3, false),
     m_doomTendrilStaff(Weapon::Type::Missile, "Doom Tendril Staff", 18, 1, 2, 3, -1, RAND_D6),
     m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 3, 3, 3, -1, RAND_D6),
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, TREELORD_ANCIENT};
+    m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, HERO, WIZARD, TREELORD_ANCIENT};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -124,6 +124,17 @@ void TreelordAncient::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_doomTendrilStaff);
    visitor(&m_sweepingBlows);
     visitor(&m_massiveImpalingTalons);
+}
+
+Wounds TreelordAncient::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Impale
+    if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name()))
+    {
+        Dice dice;
+        return {0, dice.rollD6()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Sylvaneth

@@ -11,6 +11,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include <Board.h>
 
 namespace Sylvaneth
 {
@@ -46,10 +47,10 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 
 
 Alarielle::Alarielle() :
-    Unit("Alarielle", 16, WOUNDS, 10, 3, true),
+    SylvanethBase("Alarielle", 16, WOUNDS, 10, 3, true),
     m_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6),
     m_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1),
-    m_beetleGreatAntlers(Weapon::Type::Melee, "Wardroth Beetle's Great Antlers", 2, 5, 4, 3, -2, 5)
+    m_beetleGreatAntlers(Weapon::Type::Melee, "Great Antlers", 2, 5, 4, 3, -2, 5)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
 
@@ -93,17 +94,23 @@ void Alarielle::onStartHero(PlayerId player)
 {
     if (player == m_owningPlayer)
     {
+        Dice dice;
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
             // Lifebloom - heal herself D3
             int woundsHealed = dice.rollD3();
-            // Soul Amphorae (healing part).  TODO: only do this if not summoning
-            woundsHealed += dice.rollD3();
             for (auto &m : m_models)
             {
                 m.applyHealing(woundsHealed);
             }
+        }
+
+        // Lifebloom
+        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 30.0f);
+        for (auto ip : units)
+        {
+            if (ip->hasKeyword(SYLVANETH))
+                ip->heal(dice.rollD3());
         }
     }
 }
@@ -154,6 +161,34 @@ void Alarielle::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_spearOfKurnoth);
     visitor(&m_talonOfDwindling);
     visitor(&m_beetleGreatAntlers);
+}
+
+void Alarielle::onCharged()
+{
+    Dice dice;
+    // Living Battering Ram
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    for (auto ip : units)
+    {
+        if (dice.rollD6() >= 4)
+        {
+            Wounds wounds;
+            wounds.mortal = dice.rollD3();
+            ip->applyDamage(wounds);
+        }
+    }
+    Unit::onCharged();
+}
+
+Wounds Alarielle::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Talon of the Dwindling
+    if (weapon->name() == m_talonOfDwindling.name() && hitRoll == 6)
+    {
+        Dice dice;
+        return {weapon->damage(), dice.rollD3()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Sylvaneth

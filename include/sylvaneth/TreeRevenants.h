@@ -9,13 +9,13 @@
 #ifndef TREEREVENANTS_H
 #define TREEREVENANTS_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class TreeRevenants : public Unit
+class TreeRevenants : public SylvanethBase
 {
 public:
 
@@ -38,8 +38,24 @@ public:
 
 protected:
 
+    void onBeginTurn(int battleRound) override;
+    Rerolls runRerolls() const override;
+    Rerolls chargeRerolls() const override;
+    Rerolls battleshockRerolls() const override;
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+protected:
+
     bool m_gladeBanners = false;
     bool m_waypipes = false;
+
+    // Martial memories - one reroll per phase.
+    mutable bool m_combatRerollAvailable = false;
+    mutable bool m_moveRerollAvailable = false;
+    mutable bool m_missileRerollAvailable = false;
+    mutable bool m_battleshockRerollAvailable = false;
 
 private:
 
@@ -54,7 +70,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Glade Banner                     No
+// Glade Banner                     Yes
 // Waypipes                         No
 // Martial Memories                 No
 //

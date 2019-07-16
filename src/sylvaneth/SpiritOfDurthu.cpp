@@ -44,12 +44,12 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 SpiritOfDurthu::SpiritOfDurthu() :
-    Unit("Spirit of Durthu", 5, WOUNDS, 9, 3, false),
+    SylvanethBase("Spirit of Durthu", 5, WOUNDS, 9, 3, false),
     m_verdantBlast(Weapon::Type::Missile, "Verdant Blast", 15, 6, 4, 3, -1, RAND_D3),
     m_guardianSword(Weapon::Type::Melee, "Guardian Sword", 3, 3, 3, 3, -2, 6),
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, SPIRIT_OF_DURTHU};
+    m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, MONSTER, HERO, SPIRIT_OF_DURTHU};
 }
 
 bool SpiritOfDurthu::configure()
@@ -117,6 +117,17 @@ void SpiritOfDurthu::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_verdantBlast);
     visitor(&m_guardianSword);
     visitor(&m_massiveImpalingTalons);
+}
+
+Wounds SpiritOfDurthu::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Impale
+    if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name()))
+    {
+        Dice dice;
+        return {0, dice.rollD6()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Sylvaneth

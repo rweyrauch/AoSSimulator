@@ -9,19 +9,19 @@
 #ifndef BRANCHWYCH_H
 #define BRANCHWYCH_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class Branchwych : public Unit
+class Branchwych : public SylvanethBase
 {
 public:
 
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
@@ -35,6 +35,9 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_greenwoodScythe,
@@ -47,8 +50,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Fury of the Forest               No
-// Quick Tempered                   No
+// Fury of the Forest               Yes
+// Quick Tempered                   Yes
 // Unleash Spites                   No
 //
 

@@ -32,11 +32,11 @@ static FactoryMethod factoryMethod = {
 bool Dryads::s_registered = false;
 
 Dryads::Dryads() :
-    Unit("Dryads", 7, WOUNDS, 6, 5, false),
+    SylvanethBase("Dryads", 7, WOUNDS, 6, 5, false),
     m_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1),
     m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons (Nymph)", 2, 3, 4, 4, 0, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, DRYADS};
+    m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, DRYADS};
 }
 
 bool Dryads::configure(int numModels)
@@ -99,7 +99,7 @@ int Dryads::toSaveModifier(const Weapon *weapon) const
     int modifier = Unit::toSaveModifier(weapon);
 
     // Impenetrable Thicket
-    if (remainingModels() >= 12) modifier += 1;
+    if (remainingModels() >= 10) modifier += 1;
 
     return modifier;
 }
@@ -109,7 +109,7 @@ int Dryads::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
     int modifier = Unit::targetHitModifier(weapon, attacker);
 
     // Blessing of the Forest
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, SYLVANETH_WYLDWOOD, 3.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, AWAKENED_WYLDWOOD, 6.0f);
     if (unit != nullptr)
     {
         modifier -= 1;

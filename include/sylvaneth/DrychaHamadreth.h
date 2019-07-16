@@ -9,19 +9,19 @@
 #ifndef DRYCHAHAMADRETH_H
 #define DRYCHAHAMADRETH_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class DrychaHamadreth : public Unit
+class DrychaHamadreth : public SylvanethBase
 {
 public:
 
     static const int BASESIZE = 105; // x70 oval
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 280;
+    static const int POINTS_PER_UNIT = 320;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
@@ -38,8 +38,13 @@ protected:
     void onStartHero(PlayerId id) override;
     void onWounded() override;
     int getDamageTableIndex() const;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onBeginRound(int battleRound) override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
+
+    bool m_enraged = false;
 
     Weapon m_colonyOfFlitterfuries,
         m_swarmOfSquirmlings,
@@ -53,9 +58,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Colony of Flitterfuries          No
-// Swarm of Squirmlings             No
-// Mercurial Aspect                 No
+// Deadly Infestation               Yes
+// Mercurial Aspect                 Yes
 // Song of Spite                    No
 // Primal Terror                    No
 //

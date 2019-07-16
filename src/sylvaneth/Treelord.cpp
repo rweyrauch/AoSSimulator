@@ -44,7 +44,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 Treelord::Treelord() :
-    Unit("Treelord", 6, WOUNDS, 6, 3, false),
+    SylvanethBase("Treelord", 6, WOUNDS, 6, 3, false),
     m_strangleroots(Weapon::Type::Missile, "Strangleroots", 12, 5, 2, 3, -1, 1),
     m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 4, 3, 3, -1, RAND_D6),
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)

@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool TreeRevenants::s_registered = false;
 
 TreeRevenants::TreeRevenants() :
-    Unit("Tree Revenants", 5, WOUNDS, 6, 5, false),
+    SylvanethBase("Tree Revenants", 5, WOUNDS, 6, 5, false),
     m_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1),
     m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade (Scion)", 1, 4, 4, 3, -1, 1),
     m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2)
@@ -76,6 +76,11 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
         m_points = POINTS_MAX_UNIT_SIZE;
     }
 
+    if (m_gladeBanners)
+    {
+        m_pileInMove = 6.0f;
+    }
+
     return true;
 }
 
@@ -109,6 +114,56 @@ void TreeRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_enchantedBlade);
     visitor(&m_enchantedBladeScion);
     visitor(&m_protectorGlaive);
+}
+
+void TreeRevenants::onBeginTurn(int battleRound)
+{
+    m_combatRerollAvailable = true;
+    m_moveRerollAvailable = true;
+    m_missileRerollAvailable = true;
+    m_battleshockRerollAvailable = true;
+
+    Unit::onBeginTurn(battleRound);
+}
+
+Rerolls TreeRevenants::runRerolls() const
+{
+    if (m_moveRerollAvailable)
+    {
+        m_moveRerollAvailable = false;
+        return RerollFailed;
+    }
+    return Unit::runRerolls();
+}
+
+Rerolls TreeRevenants::chargeRerolls() const
+{
+    if (m_moveRerollAvailable)
+    {
+        m_moveRerollAvailable = false;
+        return RerollFailed;
+    }
+    return Unit::chargeRerolls();
+}
+
+Rerolls TreeRevenants::battleshockRerolls() const
+{
+    return Unit::battleshockRerolls();
+}
+
+Rerolls TreeRevenants::toSaveRerolls(const Weapon *weapon) const
+{
+    return Unit::toSaveRerolls(weapon);
+}
+
+Rerolls TreeRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Rerolls TreeRevenants::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    return Unit::toWoundRerolls(weapon, target);
 }
 
 } // namespace Sylvaneth

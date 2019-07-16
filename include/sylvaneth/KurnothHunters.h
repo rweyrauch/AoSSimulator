@@ -9,13 +9,13 @@
 #ifndef KURNOTHHUNTERS_H
 #define KURNOTHHUNTERS_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class KurnothHunters : public Unit
+class KurnothHunters : public SylvanethBase
 {
 public:
 
@@ -61,6 +61,8 @@ private:
         m_scythe,
         m_scytheHuntmaster,
         m_viciousClaws;
+
+    bool m_usingTanglethornThicket = false;
 
     static bool s_registered;
 };

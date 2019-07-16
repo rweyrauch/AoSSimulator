@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool KurnothHunters::s_registered = false;
 
 KurnothHunters::KurnothHunters() :
-    Unit("Kurnoth Hunters", 5, WOUNDS, 7, 4, false),
+    SylvanethBase("Kurnoth Hunters", 5, WOUNDS, 7, 4, false),
     m_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3),
     m_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow (Huntmaster)", 30, 2, 3, 3, -1, RAND_D3),
     m_greatsword(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 3, 3, -1, 2),

@@ -9,19 +9,19 @@
 #ifndef SPIRITOFDURTHU_H
 #define SPIRITOFDURTHU_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class SpiritOfDurthu : public Unit
+class SpiritOfDurthu : public SylvanethBase
 {
 public:
 
     static const int BASESIZE = 105; // x70 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 380;
+    static const int POINTS_PER_UNIT = 340;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
@@ -38,6 +38,7 @@ protected:
     void onStartHero(PlayerId id) override;
     void onWounded() override;
     int getDamageTableIndex() const;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -53,12 +54,10 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Groundshaking Stomp              No
-// Impale                           No
+// Impale                           Yes
 // Spirit Paths                     No
-// Guardian Sword                   No
 // Champions of the Everqueen's Will No
-// Verdant Blast                    No
-// Solemn Guardian                  No
+// Wrathful Guardian                No
 //
 
 } // namespace Sylvaneth

@@ -9,13 +9,13 @@
 #ifndef ARCHREVENANT_H
 #define ARCHREVENANT_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class ArchRevenant : public Unit
+class ArchRevenant : public SylvanethBase
 {
 public:
 
@@ -35,10 +35,21 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+
+    // Buff shields when not our combat phase.
+    void onStartHero(PlayerId id) override { m_crescentShieldProtection = false; }
+
+    // Buff weapons during our combat phase
+    void onStartCombat(PlayerId id) override { m_crescentShieldProtection = true; }
+
 private:
 
     Weapon m_glaive,
         m_tailPincers;
+
+    bool m_crescentShieldProtection = false;
 
     static bool s_registered;
 };
@@ -47,7 +58,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Crescent Shield                  No
+// Crescent Shield                  Yes
 // Champion of Kurnoth              No
 // Ultimate Sacrifice               No
 // Call to Battle                   No

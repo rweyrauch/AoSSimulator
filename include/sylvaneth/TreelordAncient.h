@@ -9,13 +9,13 @@
 #ifndef TREELORDANCIENT_H
 #define TREELORDANCIENT_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class TreelordAncient : public Unit
+class TreelordAncient : public SylvanethBase
 {
 public:
 
@@ -38,6 +38,7 @@ protected:
     void onStartHero(PlayerId id) override;
     void onWounded() override;
     int getDamageTableIndex() const;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -54,7 +55,7 @@ private:
 // -------------------------------------------
 // Groundshaking Stomp              No
 // Spirit Paths                     No
-// Impale                           No
+// Impale                           Yes
 // Silent Communication             No
 // Awakening the Wood               No
 // Heed the Spirit-song             No

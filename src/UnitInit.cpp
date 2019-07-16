@@ -22,19 +22,7 @@
 #include "fyreslayers/Fyreslayer.h"
 #include "slaanesh/SlaaneshBase.h"
 #include "beastsofchaos/BeastsOfChaosBase.h"
-
-#include "sylvaneth/Alarielle.h"
-#include "sylvaneth/KurnothHunters.h"
-#include "sylvaneth/SpiritOfDurthu.h"
-#include "sylvaneth/Dryads.h"
-#include "sylvaneth/TreeRevenants.h"
-#include "sylvaneth/SpiteRevenants.h"
-#include "sylvaneth/DrychaHamadreth.h"
-#include "sylvaneth/Treelord.h"
-#include "sylvaneth/TreelordAncient.h"
-#include "sylvaneth/Branchwraith.h"
-#include "sylvaneth/Branchwych.h"
-#include "sylvaneth/ArchRevenant.h"
+#include "sylvaneth/SylvanethBase.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
@@ -121,19 +109,7 @@ void Initialize(Verbosity verbosity)
     Fyreslayers::Init();
     Slaanesh::Init();
     BeastsOfChaos::Init();
-
-    Sylvaneth::Alarielle::Init();
-    Sylvaneth::KurnothHunters::Init();
-    Sylvaneth::SpiritOfDurthu::Init();
-    Sylvaneth::Dryads::Init();
-    Sylvaneth::TreeRevenants::Init();
-    Sylvaneth::SpiteRevenants::Init();
-    Sylvaneth::DrychaHamadreth::Init();
-    Sylvaneth::Treelord::Init();
-    Sylvaneth::TreelordAncient::Init();
-    Sylvaneth::Branchwraith::Init();
-    Sylvaneth::Branchwych::Init();
-    Sylvaneth::ArchRevenant::Init();
+    Sylvaneth::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
     IdonethDeepkin::NamartiReavers::Init();

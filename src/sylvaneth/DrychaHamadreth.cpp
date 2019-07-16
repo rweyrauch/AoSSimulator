@@ -45,11 +45,10 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 DrychaHamadreth::DrychaHamadreth() :
-    Unit("Drycha Hamadreth", 9, WOUNDS, 8, 3, false),
-    m_colonyOfFlitterfuries(Weapon::Type::Missile, "Colony of Flitterfuries", 18, 0, 0, 0, 0, 0),
-    m_swarmOfSquirmlings(Weapon::Type::Missile, "Swarm of Squirmlings", 10, 0, 3, 0, 0, 0),
-    m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -1, 2),
-    m_thornedSlendervines(Weapon::Type::Melee, "Thorned Slendervines", 2, RAND_2D6, 4, 4, 0, 1)
+    SylvanethBase("Drycha Hamadreth", 9, WOUNDS, 8, 3, false),
+    m_colonyOfFlitterfuries(Weapon::Type::Missile, "Colony of Flitterfuries", 18, 10, 4, 3, -1, 1),
+    m_swarmOfSquirmlings(Weapon::Type::Missile, "Swarm of Squirmlings", 2, 10, 3, 4, 0, 1),
+    m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -2, 2)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
 
@@ -127,6 +126,44 @@ void DrychaHamadreth::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_swarmOfSquirmlings);
     visitor(&m_slashingTalons);
     visitor(&m_thornedSlendervines);
+}
+
+Wounds DrychaHamadreth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Deadly Infestation
+    if (((weapon->name() == m_colonyOfFlitterfuries.name()) || weapon->name() == m_swarmOfSquirmlings.name()) && (woundRoll == 6))
+    {
+        return {0, 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void DrychaHamadreth::onBeginRound(int battleRound)
+{
+    // Mercurial Aspect
+    if (m_meleeTarget)
+    {
+        m_enraged = false;
+    }
+    else
+    {
+        m_enraged = true;
+    }
+    Unit::onBeginRound(battleRound);
+}
+
+int DrychaHamadreth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // Mecurial Aspect
+    if (weapon->name() == m_colonyOfFlitterfuries.name() && m_enraged)
+    {
+        return 10;
+    }
+    else if (weapon->name() == m_swarmOfSquirmlings.name() && !m_enraged)
+    {
+        return 10;
+    }
+    return Unit::extraAttacks(attackingModel, weapon, target);
 }
 
 } // namespace Sylvaneth

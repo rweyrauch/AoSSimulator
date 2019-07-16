@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool ArchRevenant::s_registered = false;
 
 ArchRevenant::ArchRevenant() :
-    Unit("Arch-Revenant", 12, WOUNDS, 8, 4, true),
+    SylvanethBase("Arch-Revenant", 12, WOUNDS, 8, 4, true),
     m_glaive(Weapon::Type::Melee, "Revenant's Glaive", 2, 3, 3, 3, -2, 2),
     m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3)
 {
@@ -71,6 +71,27 @@ void ArchRevenant::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
     visitor(&m_glaive);
     visitor(&m_tailPincers);
+}
+
+Rerolls ArchRevenant::toHitRerolls(const Weapon *weapon, const Unit *unit) const
+{
+    // Crescent Shield
+    if (!m_crescentShieldProtection)
+    {
+        return RerollOnes;
+    }
+    return Unit::toHitRerolls(weapon, unit);
+}
+
+Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon) const
+{
+    // Crescent Shield
+    if (m_crescentShieldProtection)
+    {
+        return RerollOnes;
+    }
+
+    return Unit::toSaveRerolls(weapon);
 }
 
 } // namespace Sylvaneth

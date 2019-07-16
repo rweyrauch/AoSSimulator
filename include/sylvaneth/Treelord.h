@@ -9,19 +9,19 @@
 #ifndef TREELORD_H
 #define TREELORD_H
 
-#include <Unit.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
 namespace Sylvaneth
 {
 
-class Treelord : public Unit
+class Treelord : public SylvanethBase
 {
 public:
 
     static const int BASESIZE = 105; // x70 oval
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 200;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

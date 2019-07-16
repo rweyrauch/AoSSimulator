@@ -115,6 +115,7 @@ add_library(
         khorne/LordOfKhorneOnJuggernaut.cpp
         khorne/BloodBlessingsOfKhorne.cpp
 
+        sylvaneth/SylvanethBase.cpp
         sylvaneth/Alarielle.cpp
         sylvaneth/SpiritOfDurthu.cpp
         sylvaneth/KurnothHunters.cpp
