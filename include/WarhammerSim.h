@@ -620,6 +620,17 @@ enum Keyword
 
     // Everchosen
     ARCHAON,
+
+    // Slaves to Darkness
+    CULTISTS,
+    CYPHER_LORDS,
+    FURIES,
+    IRON_GOLEMS,
+    UNTAMED_BEASTS,
+    RAPTORYX,
+    SPLINTERED_FANG,
+    THE_UNMADE,
+    CORVUS_CABAL,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

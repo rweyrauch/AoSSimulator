@@ -44,6 +44,9 @@ public:
 
     bool hasWeapon(const std::string& name) const;
 
+    void setName(const std::string& name) { m_name = name; }
+    const std::string& getName() const { return m_name; }
+
     int initialWounds() const { return m_initialWounds; }
     int woundsRemaining() const { return m_woundsRemaining; }
     int applyWound(int wounds);
@@ -70,6 +73,8 @@ private:
 
     std::vector<const Weapon*> m_melee;
     std::vector<const Weapon*> m_missile;
+
+    std::string m_name;
 
     const Weapon* m_preferredWeapon = nullptr;
 };

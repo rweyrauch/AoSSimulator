@@ -347,6 +347,15 @@ add_library(
         fyreslayers/Fyreslayer.cpp
 
         everchosen/Archaon.cpp
+
+        slavestodarkness/CorvusCabal.cpp
+        slavestodarkness/CypherLords.cpp
+        slavestodarkness/Furies.cpp
+        slavestodarkness/IronGolems.cpp
+        slavestodarkness/Raptoryx.cpp
+        slavestodarkness/SplinteredFang.cpp
+        slavestodarkness/TheUnmade.cpp
+        slavestodarkness/UntamedBeasts.cpp
 )
 
 target_include_directories(

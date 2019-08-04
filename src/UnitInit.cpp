@@ -80,6 +80,15 @@
 
 #include "everchosen/Archaon.h"
 
+#include "slavestodarkness/CorvusCabal.h"
+#include "slavestodarkness/CypherLords.h"
+#include "slavestodarkness/Furies.h"
+#include "slavestodarkness/IronGolems.h"
+#include "slavestodarkness/Raptoryx.h"
+#include "slavestodarkness/SplinteredFang.h"
+#include "slavestodarkness/TheUnmade.h"
+#include "slavestodarkness/UntamedBeasts.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -166,4 +175,13 @@ void Initialize(Verbosity verbosity)
     Seraphon::Skinks::Init();
 
     Everchosen::Archaon::Init();
+
+    SlavesToDarkness::CorvusCabal::Init();
+    SlavesToDarkness::CypherLords::Init();
+    SlavesToDarkness::Furies::Init();
+    SlavesToDarkness::IronGolems::Init();
+    SlavesToDarkness::Raptoryx::Init();
+    SlavesToDarkness::SplinteredFang::Init();
+    SlavesToDarkness::TheUnmade::Init();
+    SlavesToDarkness::UntamedBeasts::Init();
 }
