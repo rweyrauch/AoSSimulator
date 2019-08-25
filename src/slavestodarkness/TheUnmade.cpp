@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", TheUnmade::MIN_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE,
+            TheUnmade::MAX_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

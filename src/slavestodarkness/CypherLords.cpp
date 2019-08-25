@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", CypherLords::MIN_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE,
+            CypherLords::MAX_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

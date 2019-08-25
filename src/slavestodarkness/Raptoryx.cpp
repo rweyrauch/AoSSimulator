@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", Raptoryx::MIN_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE,
+            Raptoryx::MAX_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

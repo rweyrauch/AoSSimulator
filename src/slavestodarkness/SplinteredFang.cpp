@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", SplinteredFang::MIN_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE,
+            SplinteredFang::MAX_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", CorvusCabal::MIN_UNIT_SIZE, CorvusCabal::MIN_UNIT_SIZE,
+            CorvusCabal::MAX_UNIT_SIZE, CorvusCabal::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

@@ -1,0 +1,311 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+#include <UnitFactory.h>
+#include "slavestodarkness/ChaosWarriors.h"
+
+namespace SlavesToDarkness
+{
+static FactoryMethod factoryMethod = {
+    ChaosWarriors::Create,
+    ChaosWarriors::ValueToString,
+    ChaosWarriors::EnumStringToInt,
+    {
+        {
+            ParamType::Integer, "Models", ChaosWarriors::MIN_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE,
+            ChaosWarriors::MAX_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Enum, "Weapons", ChaosWarriors::HandWeaponAndShield, ChaosWarriors::HandWeaponAndShield,
+            ChaosWarriors::PairedHandWeapons, 1
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+    },
+    CHAOS,
+    SLAVES_TO_DARKNESS
+};
+
+bool ChaosWarriors::s_registered = false;
+
+Unit *ChaosWarriors::Create(const ParameterList &parameters)
+{
+    auto unit = new ChaosWarriors();
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, PairedHandWeapons);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
+    bool hornblower = GetBoolParam("Hornblower", parameters, false);
+
+    bool ok = unit->configure(numModels, weapons, standardBearer, hornblower);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void ChaosWarriors::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Chaos Warriors", factoryMethod);
+    }
+}
+
+ChaosWarriors::ChaosWarriors() :
+    Unit("Chaos Warriors", 5, WOUNDS, 6, 4, false),
+    m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 4, 0, 1),
+    m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 4, 4, 0, 1),
+    m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 4, 3, -1, 1),
+    m_handWeaponsChampion(Weapon::Type::Melee, "Chaos Hand Weapons (Champion)", 1, 2, 2, 4, 0, 1),
+    m_halberdChampion(Weapon::Type::Melee, "Chaos Halberd (Champion)", 2, 2, 3, 4, 0, 1),
+    m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade (Champion)", 1, 2, 3, 3, -1, 1)
+{
+    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_WARRIORS};
+}
+
+bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower)
+{
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_hornblower = hornblower;
+
+    m_hasShields = false;
+    m_pairedWeapons = false;
+
+    Model champion(BASESIZE, WOUNDS);
+    if (weapons == HandWeaponAndShield)
+    {
+        champion.addMeleeWeapon(&m_handWeaponsChampion);
+        m_hasShields = true;
+    }
+    else if (weapons == HalberdAndShield)
+    {
+        champion.addMeleeWeapon(&m_halberdChampion);
+        m_hasShields = true;
+    }
+    else if (weapons == GreatBlade)
+    {
+        champion.addMeleeWeapon(&m_greatBladeChampion);
+    }
+    else if (weapons == PairedHandWeapons)
+    {
+        champion.addMeleeWeapon(&m_handWeaponsChampion);
+        m_pairedWeapons = true;
+    }
+    champion.setName("Aspiring Champion");
+    addModel(champion);
+
+    if (m_standardBearer)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.setName("Standard Bearer");
+        if (weapons == HandWeaponAndShield)
+            model.addMeleeWeapon(&m_handWeapons);
+        else if (weapons == HalberdAndShield)
+            model.addMeleeWeapon(&m_halberd);
+        else if (weapons == GreatBlade)
+            model.addMeleeWeapon(&m_greatBlade);
+        else if (weapons == PairedHandWeapons)
+            model.addMeleeWeapon(&m_handWeapons);
+        addModel(model);
+    }
+
+    if (m_hornblower)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.setName("Hornblower");
+        if (weapons == HandWeaponAndShield)
+            model.addMeleeWeapon(&m_handWeapons);
+        else if (weapons == HalberdAndShield)
+            model.addMeleeWeapon(&m_halberd);
+        else if (weapons == GreatBlade)
+            model.addMeleeWeapon(&m_greatBlade);
+        else if (weapons == PairedHandWeapons)
+            model.addMeleeWeapon(&m_handWeapons);
+        addModel(model);
+    }
+
+    for (auto i = (int)m_models.size(); i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == HandWeaponAndShield)
+            model.addMeleeWeapon(&m_handWeapons);
+        else if (weapons == HalberdAndShield)
+            model.addMeleeWeapon(&m_halberd);
+        else if (weapons == GreatBlade)
+            model.addMeleeWeapon(&m_greatBlade);
+        else if (weapons == PairedHandWeapons)
+            model.addMeleeWeapon(&m_handWeapons);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
+}
+
+void ChaosWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+{
+    visitor(&m_handWeapons);
+    visitor(&m_halberd);
+    visitor(&m_greatBlade);
+    visitor(&m_handWeaponsChampion);
+    visitor(&m_halberdChampion);
+    visitor(&m_greatBladeChampion);
+}
+
+std::string ChaosWarriors::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Weapons")
+    {
+        if (parameter.m_intValue == HandWeaponAndShield)
+        {
+            return "Hand Weapon and Shield";
+        }
+        else if (parameter.m_intValue == HalberdAndShield)
+        {
+            return "Halberd and Shield";
+        }
+        else if (parameter.m_intValue == GreatBlade)
+        {
+            return "Greatblade";
+        }
+        else if (parameter.m_intValue == PairedHandWeapons)
+        {
+            return "Paired Hand Weapons";
+        }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int ChaosWarriors::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Hand Weapon and Shield")
+    {
+        return HandWeaponAndShield;
+    }
+    else if (enumString == "Halberd and Shield")
+    {
+        return HalberdAndShield;
+    }
+    else if (enumString == "Greatblade")
+    {
+        return GreatBlade;
+    }
+    else if (enumString == "Paired Hand Weapons")
+    {
+        return PairedHandWeapons;
+    }
+    return 0;
+}
+
+void ChaosWarriors::onWounded()
+{
+    Unit::onWounded();
+
+    // Check for special models
+    for (const auto& ip : m_models)
+    {
+        if (ip.slain() && (ip.getName() == "Hornblower"))
+        {
+            m_hornblower = false;
+        }
+        if (ip.slain() && (ip.getName() == "Standard Bearer"))
+        {
+            m_standardBearer = false;
+        }
+    }
+}
+
+Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds)
+{
+    if (m_hasShields)
+    {
+        Dice dice;
+
+        // Chaos Runeshield
+        Dice::RollResult woundSaves, mortalSaves;
+        dice.rollD6(wounds.normal, woundSaves);
+        dice.rollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(5);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(5);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
+    }
+    return Unit::applyWoundSave(wounds);
+}
+
+int ChaosWarriors::runModifier() const
+{
+    auto modifier = Unit::runModifier();
+    if (m_hornblower) modifier += 1;
+    return modifier;
+}
+
+int ChaosWarriors::chargeModifier() const
+{
+    auto modifier = Unit::chargeModifier();
+    if (m_hornblower) modifier += 1;
+    return modifier;
+}
+
+int ChaosWarriors::braveryModifier() const
+{
+    auto modifier = Unit::braveryModifier();
+    if (m_standardBearer) modifier += 1;
+    return modifier;
+}
+
+Rerolls ChaosWarriors::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Berserk Fury
+    if (m_pairedWeapons)
+        return RerollOnes;
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon) const
+{
+    // Legions of Chaos
+    if (remainingModels() >= 20)
+        return RerollFailed;
+    return Unit::toSaveRerolls(weapon);
+}
+
+void ChaosWarriors::onRestore()
+{
+    Unit::onRestore();
+
+    // Check for special models
+    for (const auto& ip : m_models)
+    {
+        if (ip.getName() == "Hornblower")
+        {
+            m_hornblower = true;
+        }
+        if (ip.getName() == "Standard Bearer")
+        {
+            m_standardBearer = true;
+        }
+    }
+}
+
+} //SlavesToDarkness

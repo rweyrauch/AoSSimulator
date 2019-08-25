@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", IronGolems::MIN_UNIT_SIZE, IronGolems::MIN_UNIT_SIZE,
+            IronGolems::MAX_UNIT_SIZE, IronGolems::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

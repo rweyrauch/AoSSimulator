@@ -15,6 +15,10 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {
+            ParamType::Integer, "Models", UntamedBeasts::MIN_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE,
+            UntamedBeasts::MAX_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE
+        },
     },
     CHAOS,
     SLAVES_TO_DARKNESS

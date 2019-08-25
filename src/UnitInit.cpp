@@ -80,6 +80,10 @@
 
 #include "everchosen/Archaon.h"
 
+#include "slavestodarkness/ChaosChosen.h"
+#include "slavestodarkness/ChaosKnights.h"
+#include "slavestodarkness/ChaosMarauders.h"
+#include "slavestodarkness/ChaosWarriors.h"
 #include "slavestodarkness/CorvusCabal.h"
 #include "slavestodarkness/CypherLords.h"
 #include "slavestodarkness/Furies.h"
@@ -176,6 +180,10 @@ void Initialize(Verbosity verbosity)
 
     Everchosen::Archaon::Init();
 
+    SlavesToDarkness::ChaosChosen::Init();
+    SlavesToDarkness::ChaosKnights::Init();
+    SlavesToDarkness::ChaosMarauders::Init();
+    SlavesToDarkness::ChaosWarriors::Init();
     SlavesToDarkness::CorvusCabal::Init();
     SlavesToDarkness::CypherLords::Init();
     SlavesToDarkness::Furies::Init();

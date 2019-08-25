@@ -348,6 +348,10 @@ add_library(
 
         everchosen/Archaon.cpp
 
+        slavestodarkness/ChaosChosen.cpp
+        slavestodarkness/ChaosKnights.cpp
+        slavestodarkness/ChaosMarauders.cpp
+        slavestodarkness/ChaosWarriors.cpp
         slavestodarkness/CorvusCabal.cpp
         slavestodarkness/CypherLords.cpp
         slavestodarkness/Furies.cpp
