@@ -150,6 +150,7 @@ enum Keyword
     DEATHMAGES,
     DEATHLORDS,
     EVERCHOSEN,
+    FREE_AGENT,
 
     // Common
     MORTAL,
@@ -647,6 +648,10 @@ enum Keyword
     THEDDRA_SKULL_CRAVER,
     DARKOATH_WARQUEEN,
     LORD_ON_DAEMONIC_MOUNT,
+    SLAMBO,
+
+    // Free Agents (no faction)
+    GOTREK_GURNISSON,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

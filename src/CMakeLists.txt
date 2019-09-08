@@ -357,9 +357,12 @@ add_library(
         slavestodarkness/Furies.cpp
         slavestodarkness/IronGolems.cpp
         slavestodarkness/Raptoryx.cpp
+        slavestodarkness/Slambo.cpp
         slavestodarkness/SplinteredFang.cpp
         slavestodarkness/TheUnmade.cpp
         slavestodarkness/UntamedBeasts.cpp
+
+        freeagents/GotrekGurnisson.cpp
 )
 
 target_include_directories(

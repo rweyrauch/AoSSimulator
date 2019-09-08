@@ -6,7 +6,6 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <nighthaunt/Chainghasts.h>
 #include "WarhammerSim.h"
 
 #include "stormcast/StormcastEternals.h"
@@ -89,9 +88,12 @@
 #include "slavestodarkness/Furies.h"
 #include "slavestodarkness/IronGolems.h"
 #include "slavestodarkness/Raptoryx.h"
+#include "slavestodarkness/Slambo.h"
 #include "slavestodarkness/SplinteredFang.h"
 #include "slavestodarkness/TheUnmade.h"
 #include "slavestodarkness/UntamedBeasts.h"
+
+#include "freeagents/GotrekGurnisson.h"
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
@@ -189,7 +191,10 @@ void Initialize(Verbosity verbosity)
     SlavesToDarkness::Furies::Init();
     SlavesToDarkness::IronGolems::Init();
     SlavesToDarkness::Raptoryx::Init();
+    SlavesToDarkness::Slambo::Init();
     SlavesToDarkness::SplinteredFang::Init();
     SlavesToDarkness::TheUnmade::Init();
     SlavesToDarkness::UntamedBeasts::Init();
+
+    FreeAgent::GotrekGurnisson::Init();
 }
