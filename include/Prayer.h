@@ -10,7 +10,7 @@
 #define PRAYER_H
 
 #include <string>
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 
 class Unit;
 

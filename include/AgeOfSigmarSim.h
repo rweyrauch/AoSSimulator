@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHAMMERSIM_H
-#define WARHAMMERSIM_H
+#ifndef AGEOFSIGMARSIM_H
+#define AGEOFSIGMARSIM_H
 
 #include <cinttypes>
 #include <string>
@@ -752,4 +752,4 @@ void SimLog(Verbosity verbosity, const char* format, ...);
 
 float AverageRandomValue(int value);
 
-#endif //WARHAMMERSIM_H
+#endif //AGEOFSIGMARSIM_H

@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <Unit.h>
 #include <Board.h>
 #include <stormcast/Liberators.h>

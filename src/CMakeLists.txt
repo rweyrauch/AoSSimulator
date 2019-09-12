@@ -12,7 +12,7 @@ add_library(
         Board.cpp
         TerrainFeature.cpp
         ManoAMano.cpp
-        WarhammerSim.cpp
+        AgeOfSigmarSim.cpp
         Spell.cpp
         UnitFactory.cpp
         UnitInit.cpp

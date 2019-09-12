@@ -388,12 +388,12 @@ PlayerId ManoAMano::getVictor() const
         return PlayerId::Red;
     }
     // Red suffered fewer losses
-    if (redUnit()->remainingPoints() > blueUnit()->remainingPoints())
+    if (redUnit()->remainingPoints() / (float)redUnit()->points() > blueUnit()->remainingPoints() / (float)blueUnit()->points())
     {
         return PlayerId::Red;
     }
     // Blue suffered few losses
-    if (redUnit()->remainingPoints() < blueUnit()->remainingPoints())
+    if (redUnit()->remainingPoints() / (float)redUnit()->points() < blueUnit()->remainingPoints() / (float)blueUnit()->points())
     {
         return PlayerId::Blue;
     }

@@ -7,7 +7,7 @@
  */
 #include <cassert>
 #include <Dice.h>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 
 std::random_device Dice::s_rd;
 std::mt19937 Dice::s_gen(s_rd());

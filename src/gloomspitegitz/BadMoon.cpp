@@ -7,7 +7,7 @@
  */
 #include <gloomspitegitz/BadMoon.h>
 #include <Dice.h>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 
 namespace GloomspiteGitz
 {

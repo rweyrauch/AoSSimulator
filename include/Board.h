@@ -10,7 +10,7 @@
 #define BOARD_H
 
 #include <vector>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <TerrainFeature.h>
 #include "MathUtils.h"
 

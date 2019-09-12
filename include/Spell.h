@@ -10,7 +10,7 @@
 #define SPELL_H
 
 #include <string>
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 
 class Unit;
 

@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 
 int main(int argc, char* argv[])
 {

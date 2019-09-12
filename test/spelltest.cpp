@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <stormcast/KnightIncantor.h>
 #include <stormcast/Liberators.h>
 #include <Spell.h>

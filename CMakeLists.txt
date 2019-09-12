@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
         AoSManoAMano
         app/main.cpp
-        include/WarhammerSim.h)
+        include/AgeOfSigmarSim.h)
 
 target_link_libraries(
         AoSManoAMano

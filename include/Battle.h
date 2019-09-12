@@ -9,7 +9,7 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <Player.h>
 
 class Battle

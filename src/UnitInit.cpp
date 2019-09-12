@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 
 #include "stormcast/StormcastEternals.h"
 #include "gloomspitegitz/GloomspiteGitzBase.h"

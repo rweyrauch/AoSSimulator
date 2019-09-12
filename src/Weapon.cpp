@@ -8,7 +8,7 @@
 
 #include <algorithm>
 #include <Weapon.h>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <Dice.h>
 
 Weapon::Weapon(Type type, const std::string &name, int range, int attacks, int toHit, int toWound, int rend, int damage) noexcept :

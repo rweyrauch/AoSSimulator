@@ -7,7 +7,7 @@
  */
 #include <map>
 #include <algorithm>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <sstream>
 #include <cstdarg>
 

@@ -10,7 +10,7 @@
 #define WEAPON_H
 
 #include <string>
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <Dice.h>
 
 struct Hits

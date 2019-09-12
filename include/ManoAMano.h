@@ -9,7 +9,7 @@
 #ifndef MANOAMANO_H
 #define MANOAMANO_H
 
-#include <WarhammerSim.h>
+#include <AgeOfSigmarSim.h>
 #include <Unit.h>
 
 class Roster;

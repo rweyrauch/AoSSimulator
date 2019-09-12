@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <functional>
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 
 struct TurnRecord
 {

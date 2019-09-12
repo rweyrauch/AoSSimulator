@@ -11,7 +11,7 @@
 
 #include <map>
 #include <vector>
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 
 class Unit;
 

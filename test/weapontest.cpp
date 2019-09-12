@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include "WarhammerSim.h"
+#include "AgeOfSigmarSim.h"
 #include "Weapon.h"
 
 TEST(Weapon, Attacks)
