@@ -46,7 +46,7 @@ protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onStartCombat(PlayerId player) override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
 
 private:
 

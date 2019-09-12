@@ -39,6 +39,7 @@ protected:
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds onEndCombat(PlayerId player) override;
 
 private:
 
@@ -53,7 +54,7 @@ private:
 // -------------------------------------------
 // Avatar of Grimnir                Yes
 // Krag Blackhammer's Master Rune   Yes
-// Unstoppable Battle Fury          No
+// Unstoppable Battle Fury          Yes
 // Shoulder Plate of Edassa         Yes
 //
 

@@ -48,7 +48,7 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
 
     WeaponOption m_weaponOption = Greatswords;
 

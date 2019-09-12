@@ -145,9 +145,9 @@ int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
 }
 
-void Decimators::onEndCombat(PlayerId player)
+Wounds Decimators::onEndCombat(PlayerId player)
 {
-    StormcastEternal::onEndCombat(player);
+    auto wounds = StormcastEternal::onEndCombat(player);
 
     // Grim Harvestors
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6.0f);
@@ -155,6 +155,7 @@ void Decimators::onEndCombat(PlayerId player)
     {
         ip->buffModifier(Bravery, -2, {Phase::Battleshock, m_battleRound+1, player});
     }
+    return wounds;
 }
 
 

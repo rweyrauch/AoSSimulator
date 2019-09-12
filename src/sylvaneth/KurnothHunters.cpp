@@ -183,9 +183,9 @@ Wounds KurnothHunters::weaponDamage(const Weapon *weapon, const Unit *target, in
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void KurnothHunters::onEndCombat(PlayerId player)
+Wounds KurnothHunters::onEndCombat(PlayerId player)
 {
-    Unit::onEndCombat(player);
+    auto wounds = Unit::onEndCombat(player);
 
     // Trample Underfoot
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
@@ -195,8 +195,11 @@ void KurnothHunters::onEndCombat(PlayerId player)
         Dice dice;
         Dice::RollResult result;
         dice.rollD6(unit->remainingModels(), result);
-        unit->applyDamage({0, result.rollsGE(4)});
+        Wounds trampleWounds = {0, result.rollsGE(4)};
+        unit->applyDamage(trampleWounds);
+        wounds += trampleWounds;
     }
+    return wounds;
 }
 
 } // namespace Sylvaneth

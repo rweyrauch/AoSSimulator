@@ -53,7 +53,7 @@ protected:
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
     void onStartShooting(PlayerId player) override;
     void onStartCombat(PlayerId player) override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
 
 protected:
 

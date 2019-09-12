@@ -140,9 +140,9 @@ int KeeperOfSecrets::move() const
     return g_damageTable[getDamageTableIndex()].m_move;
 }
 
-void KeeperOfSecrets::onEndCombat(PlayerId player)
+Wounds KeeperOfSecrets::onEndCombat(PlayerId player)
 {
-    Unit::onEndCombat(player);
+    auto wounds = Unit::onEndCombat(player);
 
     auto target = m_meleeTarget;
     if (target == nullptr)
@@ -157,16 +157,19 @@ void KeeperOfSecrets::onEndCombat(PlayerId player)
     // Ritual Knife
     if ((m_weapon == RitualKnife) && target)
     {
+        Wounds knifeWounds = { 0, 0 };
         Dice dice;
         int roll = dice.rollD6();
         if (roll == 6)
         {
-            target->applyDamage({0, dice.rollD3()});
+            knifeWounds = {0, dice.rollD3()};
         }
         else if (roll >= 2)
         {
-            target->applyDamage({0, 1});
+            knifeWounds = {0, 1};
         }
+        target->applyDamage(knifeWounds);
+        wounds += knifeWounds;
     }
 
     // Sinistrous Hand
@@ -176,6 +179,7 @@ void KeeperOfSecrets::onEndCombat(PlayerId player)
         Dice dice;
         heal(dice.rollD3());
     }
+    return wounds;
 }
 
 Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds)

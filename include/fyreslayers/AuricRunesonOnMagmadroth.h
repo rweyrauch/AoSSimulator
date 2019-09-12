@@ -41,7 +41,7 @@ protected:
     int getDamageTableIndex() const;
 
     void onStartShooting(PlayerId player) override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
     Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

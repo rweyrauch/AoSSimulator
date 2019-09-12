@@ -41,7 +41,7 @@ protected:
 
     void onSlain() override;
     Wounds applyWoundSave(const Wounds &wounds) override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
 private:

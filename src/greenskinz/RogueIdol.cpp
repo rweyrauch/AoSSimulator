@@ -151,8 +151,10 @@ Wounds RogueIdol::applyWoundSave(const Wounds &wounds)
     return modifiedWounds;
 }
 
-void RogueIdol::onEndCombat(PlayerId player)
+Wounds RogueIdol::onEndCombat(PlayerId player)
 {
+    auto wounds = Unit::onEndCombat(player);
+
     Dice dice;
 
     // Rubble and Ruin
@@ -162,10 +164,12 @@ void RogueIdol::onEndCombat(PlayerId player)
         int roll = dice.rollD6();
         if (roll >= 4)
         {
-            ip->applyDamage({0, 1});
+            Wounds rubbleRuins = {0,0};
+            ip->applyDamage(rubbleRuins);
+            wounds += rubbleRuins;
         }
     }
-    Unit::onEndCombat(player);
+    return wounds;
 }
 
 Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const

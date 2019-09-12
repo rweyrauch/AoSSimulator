@@ -14,6 +14,7 @@
 #include <Think.h>
 
 const float MAX_CHARGE_DISTANCE = 12.0f;
+const float MIN_CHARGE_DISTANCE = 3.0;
 
 Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 {
@@ -78,6 +79,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
     {
         numAttackingModels = (int)m_models.size();
     }
+
+    doPileIn();
 
     Wounds totalDamage = {0, 0};
     Wounds totalDamageReflected = {0, 0};
@@ -508,8 +511,14 @@ void Unit::movement(PlayerId player)
         {
             const float movement = move() + moveModifier();
 
-            // get into range (run or not?)
-            if (distance > weapon->range() + movement + m_pileInMove)
+            if (distance <= MIN_CHARGE_DISTANCE)
+            {
+                // already in charge range - stand still
+                totalMoveDistance = 0.0f;
+
+                m_currentRecord.m_moved = 0.0f;
+            }
+            if (distance > weapon->range() + movement)
             {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
@@ -521,19 +530,12 @@ void Unit::movement(PlayerId player)
                 m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
             }
-            else if (distance > m_pileInMove) // pile-in
-            {
-                // move toward unit
-                totalMoveDistance = std::min(movement, distance - m_pileInMove);
-
-                m_currentRecord.m_moved = totalMoveDistance;
-            }
             else
             {
-                // already in range - stand still
-                totalMoveDistance = 0.0f;
+                // normal move toward unit
+                totalMoveDistance = std::min(movement, std::max(0.0f, distance - MIN_CHARGE_DISTANCE));
 
-                m_currentRecord.m_moved = 0.0f;
+                m_currentRecord.m_moved = totalMoveDistance;
             }
         }
         Math::Ray ray(position(), closestTarget->position());
@@ -577,7 +579,7 @@ Wounds Unit::fight(PlayerId player, int &numSlain)
     }
     auto wounds = fight(-1, m_meleeTarget, numSlain);
 
-    onEndCombat(player);
+    wounds += onEndCombat(player);
 
     return wounds;
 }
@@ -611,9 +613,6 @@ void Unit::combat(PlayerId player)
 
     m_meleeTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
-    // TODO: pile-in
-    doPileIn();
-
     onStartCombat(player);
 }
 
@@ -643,7 +642,7 @@ void Unit::charge(PlayerId player)
         Dice dice;
         auto distance = distanceTo(closestTarget);
 
-        if (distance < MAX_CHARGE_DISTANCE && distance > 3.0)
+        if ((distance <= MAX_CHARGE_DISTANCE) && (distance >= MIN_CHARGE_DISTANCE))
         {
             float chargeDist = rollChargeDistance();
             if (chargeDist >= distance)

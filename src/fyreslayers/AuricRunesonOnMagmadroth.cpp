@@ -161,9 +161,9 @@ void AuricRunesonOnMagmadroth::onStartShooting(PlayerId player)
     }
 }
 
-void AuricRunesonOnMagmadroth::onEndCombat(PlayerId player)
+Wounds AuricRunesonOnMagmadroth::onEndCombat(PlayerId player)
 {
-    Fyreslayer::onEndCombat(player);
+    auto wounds = Fyreslayer::onEndCombat(player);
 
     // Lashing Tail
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
@@ -172,9 +172,12 @@ void AuricRunesonOnMagmadroth::onEndCombat(PlayerId player)
         Dice dice;
         if (dice.rollD6() < ip->remainingModels())
         {
-            ip->applyDamage({0, dice.rollD3()});
+            Wounds tailWounds ={0, dice.rollD3()};
+            ip->applyDamage(tailWounds);
+            wounds += tailWounds;
         }
     }
+    return wounds;
 }
 
 Wounds AuricRunesonOnMagmadroth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const

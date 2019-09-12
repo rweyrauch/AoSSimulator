@@ -157,9 +157,9 @@ int VanguardPalladors::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void VanguardPalladors::onEndCombat(PlayerId player)
+Wounds VanguardPalladors::onEndCombat(PlayerId player)
 {
-    Unit::onEndCombat(player);
+    auto wounds = Unit::onEndCombat(player);
 
     // TODO: make sure prime model exists
     // Lunar Blade
@@ -169,9 +169,12 @@ void VanguardPalladors::onEndCombat(PlayerId player)
         int roll = dice.rollD6();
         if (roll >= 2)
         {
-            m_meleeTarget->applyDamage({0, 1});
+            Wounds bladeWounds = {0, 1};
+            m_meleeTarget->applyDamage(bladeWounds);
+            wounds += bladeWounds;
         }
     }
+    return wounds;
 }
 
 Wounds VanguardPalladors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

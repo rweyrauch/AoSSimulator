@@ -181,9 +181,9 @@ void DrakeswornTemplar::onStartCombat(PlayerId player)
     }
 }
 
-void DrakeswornTemplar::onEndCombat(PlayerId player)
+Wounds DrakeswornTemplar::onEndCombat(PlayerId player)
 {
-    StormcastEternal::onEndCombat(player);
+    auto wounds = StormcastEternal::onEndCombat(player);
 
     // Sweeping Tail
     {
@@ -210,10 +210,13 @@ void DrakeswornTemplar::onEndCombat(PlayerId player)
                     roll = dice.rollD3();
                     Wounds mortalWounds = {0, roll};
                     (*ip)->applyDamage(mortalWounds);
+
+                    wounds += mortalWounds;
                 }
             }
         }
     }
+    return wounds;
 }
 
 void DrakeswornTemplar::onStartShooting(PlayerId player)

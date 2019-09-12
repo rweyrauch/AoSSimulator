@@ -40,7 +40,7 @@ public:
 protected:
 
     void onStartCombat(PlayerId player) override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
 
 private:
 

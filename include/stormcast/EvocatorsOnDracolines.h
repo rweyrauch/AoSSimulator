@@ -48,7 +48,7 @@ protected:
 
     Rerolls chargeRerolls() const override;
 
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
 
 private:
 

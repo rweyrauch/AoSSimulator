@@ -207,9 +207,9 @@ void LordCelestantOnStardrake::onStartCombat(PlayerId player)
     }
 }
 
-void LordCelestantOnStardrake::onEndCombat(PlayerId player)
+Wounds LordCelestantOnStardrake::onEndCombat(PlayerId player)
 {
-    StormcastEternal::onEndCombat(player);
+    auto wounds = StormcastEternal::onEndCombat(player);
 
     // Sweeping Tail
     {
@@ -236,10 +236,12 @@ void LordCelestantOnStardrake::onEndCombat(PlayerId player)
                     roll = dice.rollD3();
                     Wounds mortalWounds = {0, roll};
                     (*ip)->applyDamage(mortalWounds);
+                    wounds += mortalWounds;
                 }
             }
         }
     }
+    return wounds;
 }
 
 void LordCelestantOnStardrake::onStartShooting(PlayerId player)

@@ -117,5 +117,36 @@ Wounds GotrekGurnisson::weaponDamage(const Weapon *weapon, const Unit *target, i
     return wounds;
 }
 
+Wounds GotrekGurnisson::onEndCombat(PlayerId player)
+{
+    Unit* meleeTarget = m_meleeTarget;
+    if (!meleeTarget)
+    {
+        meleeTarget = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+    }
+
+    Wounds wounds = {0, 0};
+
+    // Unstoppable Battle Fury
+    auto totalMoveDistance = distanceTo(meleeTarget);
+    if (meleeTarget && (totalMoveDistance <= 3.0f))
+    {
+        Math::Ray ray(position(), meleeTarget->position());
+        auto newPos = ray.point_at(totalMoveDistance);
+        setPosition(newPos, ray.get_direction());
+
+        int numSlain = 0;
+        wounds += fight(-1, meleeTarget, numSlain);
+        if (wounds.normal)
+        {
+            SimLog(Verbosity::Narrative, "Gotrek attacks again for {%d, %d} wounds.", wounds.normal, wounds.mortal);
+        }
+    }
+
+    wounds += Unit::onEndCombat(player);
+
+    return wounds;
+}
+
 
 } // namespace Fyreslayers

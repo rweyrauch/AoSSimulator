@@ -201,9 +201,9 @@ int EvocatorsOnCelestialDracolines::EnumStringToInt(const std::string &enumStrin
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void EvocatorsOnCelestialDracolines::onEndCombat(PlayerId player)
+Wounds EvocatorsOnCelestialDracolines::onEndCombat(PlayerId player)
 {
-    StormcastEternal::onEndCombat(player);
+    auto wounds = StormcastEternal::onEndCombat(player);
 
     // Supernatural Roar
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
@@ -211,6 +211,8 @@ void EvocatorsOnCelestialDracolines::onEndCombat(PlayerId player)
     {
         ip->buffModifier(Bravery, -1, {Phase::Battleshock, m_battleRound+1, player});
     }
+
+    return wounds;
 }
 
 } // namespace StormcastEternals

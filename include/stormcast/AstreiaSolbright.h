@@ -42,7 +42,7 @@ protected:
     Rerolls chargeRerolls() const override;
 
     void onStartCombat(PlayerId player) override;
-    void onEndCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
     void onRestore() override { m_shatteredFlasks = false; }
 
 private:

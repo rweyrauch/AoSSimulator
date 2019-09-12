@@ -280,6 +280,14 @@ protected:
      */
     virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return {weapon->damage(), 0}; }
 
+    /*!
+     * Compute the weapon rend against the given target with the hit and wound rolls.
+     * @param weapon Attacking with weapon.
+     * @param target Unit being attacked.
+     * @param hitRoll Roll to-hit
+     * @param woundRoll Roll to-wound
+     * @return Weapon rend
+     */
     virtual int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const { return weapon->rend(); }
 
     /*!
@@ -346,7 +354,7 @@ protected:
 
     virtual void onStartCombat(PlayerId player) {}
 
-    virtual void onEndCombat(PlayerId player) {}
+    virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
 
     virtual void onFlee(int numFled) {}
 

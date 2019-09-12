@@ -99,7 +99,7 @@ void Khorgoraths::onStartCombat(PlayerId player)
     KhorneBase::onStartCombat(player);
 }
 
-void Khorgoraths::onEndCombat(PlayerId player)
+Wounds Khorgoraths::onEndCombat(PlayerId player)
 {
     // Taker of Heads
     if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat)
@@ -108,7 +108,7 @@ void Khorgoraths::onEndCombat(PlayerId player)
             name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
         heal(1);
     }
-    KhorneBase::onEndCombat(player);
+    return KhorneBase::onEndCombat(player);
 }
 
 } //namespace Khorne

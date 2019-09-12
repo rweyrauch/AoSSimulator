@@ -138,9 +138,9 @@ void LordOrdinator::onStartCombat(PlayerId player)
     m_meteoricSlam.clear();
 }
 
-void LordOrdinator::onEndCombat(PlayerId player)
+Wounds LordOrdinator::onEndCombat(PlayerId player)
 {
-    StormcastEternal::onEndCombat(player);
+    auto wounds = StormcastEternal::onEndCombat(player);
 
     // Meteoric Slam
     if (m_meteoricSlam.size() > 1)
@@ -150,9 +150,13 @@ void LordOrdinator::onEndCombat(PlayerId player)
         if (m_meteoricSlam.front() == m_meleeTarget)
         {
             Dice dice;
-            m_meleeTarget->applyDamage({0, dice.rollD3()});
+            Wounds slamWounds = {0, dice.rollD3()};
+            m_meleeTarget->applyDamage(slamWounds);
+            wounds += slamWounds;
         }
     }
+
+    return wounds;
 }
 
 } // namespace StormcastEternals
