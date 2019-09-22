@@ -21,6 +21,9 @@
 #include "sylvaneth/Branchwraith.h"
 #include "sylvaneth/Branchwych.h"
 #include "sylvaneth/ArchRevenant.h"
+#include "sylvaneth/SkaethsWildHunt.h"
+#include "sylvaneth/Ylthari.h"
+#include "sylvaneth/YlthariGardians.h"
 
 
 namespace Sylvaneth
@@ -127,6 +130,9 @@ void Init()
     Branchwraith::Init();
     Branchwych::Init();
     ArchRevenant::Init();
+    SkaethsWildHunt::Init();
+    Ylthari::Init();
+    YltharisGuardians::Init();
 }
 
 } //namespace Sylvaneth

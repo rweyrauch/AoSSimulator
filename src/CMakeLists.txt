@@ -128,6 +128,9 @@ add_library(
         sylvaneth/Branchwraith.cpp
         sylvaneth/Branchwych.cpp
         sylvaneth/ArchRevenant.cpp
+        sylvaneth/Ylthari.cpp
+        sylvaneth/YlthariGardians.cpp
+        sylvaneth/SkaethsWildHunt.cpp
 
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp

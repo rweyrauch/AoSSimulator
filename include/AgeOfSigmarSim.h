@@ -307,6 +307,10 @@ enum Keyword
     FOREST_FOLK,
     NOBLE_SPIRITS,
     ARCH_REVENANT,
+    SKAETHS_WILD_HUNT,
+    YLTHARI,
+    YLTHARIS_GUARDIANS,
+    THORNWYCH,
 
     // Sylvaneth Glades
     OAKENBROW,
