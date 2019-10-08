@@ -25,8 +25,7 @@ bool OrrukMegaboss::s_registered = false;
 
 OrrukMegaboss::OrrukMegaboss() :
     Ironjawz("Orruk Megaboss", 4, WOUNDS, 8, 3, false),
-    m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 2),
-    m_riptoothFist(Weapon::Type::Melee, "Rip-tooth Fist", 1, 2, 5, 3, -2, RAND_D3)
+    m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
 }
@@ -35,8 +34,7 @@ bool OrrukMegaboss::configure()
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bossChoppa);
-    model.addMeleeWeapon(&m_riptoothFist);
+    model.addMeleeWeapon(&m_bossChoppaAndFist);
 
     addModel(model);
 
@@ -47,8 +45,7 @@ bool OrrukMegaboss::configure()
 
 void OrrukMegaboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&m_bossChoppa);
-    visitor(&m_riptoothFist);
+    visitor(&m_bossChoppaAndFist);
 }
 
 Unit *OrrukMegaboss::Create(const ParameterList &parameters)

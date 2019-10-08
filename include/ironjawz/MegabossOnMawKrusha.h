@@ -6,28 +6,30 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ORRUKMEGABOSS_H
-#define ORRUKMEGABOSS_H
+#ifndef MEGABOSS_MAWKRUSHA_H
+#define MEGABOSS_MAWKRUSHA_H
 
 #include <ironjawz/Ironjawz.h>
 
 namespace Ironjawz
 {
 
-class OrrukMegaboss : public Ironjawz
+class MegabossOnMawKrusha : public Ironjawz
 {
 public:
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 150;
+    static const int BASESIZE = 100;
+    static const int WOUNDS = 15;
+    static const int POINTS_PER_UNIT = 460;
 
     static Unit *Create(const ParameterList &parameters);
 
     static void Init();
 
-    OrrukMegaboss();
+    MegabossOnMawKrusha();
 
-    ~OrrukMegaboss() override = default;
+    ~MegabossOnMawKrusha() override = default;
+
+    int move() const override;
 
     bool configure();
 
@@ -35,9 +37,16 @@ public:
 
 protected:
 
+    void onWounded() override;
+
 private:
 
-    Weapon m_bossChoppaAndFist;
+    int getDamageTableIndex() const;
+
+    Weapon m_bellow,
+        m_hackaAndChoppa,
+        m_ripToofFist,
+        m_fistsAndTail;
 
     static bool s_registered;
 };
@@ -46,11 +55,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Go on Ladz, Get Stuck In!        No
-// Strength from Victory            No
+// Destructive Bulk                 No
 // Rip-toof Fist                    No
+// Strength from Victory            No
+// Go on Ladz, Get Stuck In         No
 //
 
 } // namespace Ironjawz
 
-#endif //ORRUKMEGABOSS_H
+#endif //MEGABOSS_MAWKRUSHA_H

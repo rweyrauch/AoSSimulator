@@ -33,12 +33,11 @@ bool OrrukBrutes::s_registered = false;
 
 OrrukBrutes::OrrukBrutes() :
     Ironjawz("Orruk Brutes", 4, WOUNDS, 6, 4, false),
-    m_twoBruteChoppas(Weapon::Type::Melee, "Two Brute Choppas", 1, 4, 3, 3, -1, 1),
+    m_twoBruteChoppas(Weapon::Type::Melee, "Pair of Brute Choppas", 1, 4, 3, 3, -1, 1),
     m_gorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
-    m_gorechoppa(Weapon::Type::Melee, "Gore-choppa", 2, 3, 4, 3, -1, RAND_D3),
+    m_gorechoppa(Weapon::Type::Melee, "Gore-choppa", 2, 3, 4, 3, -1, 2),
     m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 3, 3, 3, -1, 2),
-    m_bossKlaw(Weapon::Type::Melee, "Boss Klaw", 1, 1, 4, 3, -1, 2),
-    m_bruteSmasha(Weapon::Type::Melee, "Brute Smasha", 1, 2, 4, 3, -2, RAND_D3)
+    m_bossKlawAndBruteSmasha(Weapon::Type::Melee, "Boss Klaw and Brute Smasha", 1, 4, 4, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, BRUTES};
 }
@@ -65,9 +64,8 @@ bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChop
     }
     else if (bossWeapon == BossKlaw)
     {
-        bossModel.addMeleeWeapon(&m_bossKlaw);
+        bossModel.addMeleeWeapon(&m_bossKlawAndBruteSmasha);
     }
-    bossModel.addMeleeWeapon(&m_bruteSmasha);
     addModel(bossModel);
 
     for (auto i = 0; i < numGoreChoppas; i++)
@@ -107,8 +105,7 @@ void OrrukBrutes::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_gorehacka);
     visitor(&m_gorechoppa);
     visitor(&m_bossChoppa);
-    visitor(&m_bossKlaw);
-    visitor(&m_bruteSmasha);
+    visitor(&m_bossKlawAndBruteSmasha);
 }
 
 Unit *OrrukBrutes::Create(const ParameterList &parameters)

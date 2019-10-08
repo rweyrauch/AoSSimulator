@@ -51,7 +51,7 @@ protected:
 
     Weapon m_pigironChoppa,
         m_jaggedGorehacka,
-        m_fangedMawAndHooves,
+        m_tusksAndHooves,
         m_bossPigironChoppa,
         m_bossJaggedGorehacka;
 

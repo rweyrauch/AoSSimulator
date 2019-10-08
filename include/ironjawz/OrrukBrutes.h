@@ -22,8 +22,8 @@ public:
     static const int WOUNDS = 3;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 720;
+    static const int POINTS_PER_BLOCK = 140;
+    static const int POINTS_MAX_UNIT_SIZE = 560;
 
     enum WeaponOption
     {
@@ -61,8 +61,7 @@ protected:
         m_gorehacka,
         m_gorechoppa,
         m_bossChoppa,
-        m_bossKlaw,
-        m_bruteSmasha;
+        m_bossKlawAndBruteSmasha;
 
     static bool s_registered;
 };
@@ -72,7 +71,6 @@ protected:
 // Abilities                    Implemented
 // -------------------------------------------
 // Duff Up da Big Thing             Yes
-// Da Grab an' Bash                 No
 //
 
 } // namespace Ironjawz

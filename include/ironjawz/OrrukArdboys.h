@@ -20,23 +20,17 @@ class OrrukArdboys : public Ironjawz
 public:
     static const int BASESIZE = 32;
     static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 10;
+    static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = 450;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 540;
 
-    enum WeaponOption
-    {
-        ChoppaOrSmashaWithShield = 0,
-        ChoppaAndSmasha,
-        BigChoppa
-    };
 
     enum StandardOption
     {
         None = 0,
-        OrrukBanner,
-        IconOfGork
+        BannerBearer,
+        GlyphBearer
     };
 
     static Unit* Create(const ParameterList& parameters);
@@ -50,8 +44,7 @@ public:
     OrrukArdboys();
     ~OrrukArdboys() override = default;
 
-    bool configure(int numModels, int numChoppasAndShield, int numPairedChoppas,
-        int numBigChoppas, WeaponOption bossWeapon, bool drummer, StandardOption standard);
+    bool configure(int numModels, int numShields, bool drummer, StandardOption standard);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -65,19 +58,12 @@ protected:
 
 protected:
 
-    Weapon m_choppaOrSmasha,
-        m_choppaAndSmasha,
-        m_bigChoppa,
-        m_bossChoppaOrSmasha,
-        m_bossChoppaAndSmasha,
-        m_bossBigChoppa;
+    Weapon m_choppa,
+        m_bossChoppa;
 
     bool m_drummer = false;
     StandardOption m_standardBearer = None;
-    int m_numPairedChoppas = 0;
-    int m_numChoppasAndShields = 0;
-    int m_numBigChoppas = 0;
-    WeaponOption m_bossWeapon;
+    int m_numShields = 0;
 
     static bool s_registered;
 };
@@ -87,8 +73,8 @@ protected:
 // Abilities                    Implemented
 // -------------------------------------------
 // Drummer                          Yes
-// Orruk Banner                     Yes
-// Icon of Gork                     Yes
+// Banner                           Yes
+// Glyph Bearer                     No
 // Orruk-forged Shields             Yes
 //
 

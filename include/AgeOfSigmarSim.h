@@ -574,11 +574,11 @@ enum Keyword
     // Ironjawz
     ARDBOYS,
     BRUTES,
-    MAW_CRUSHA,
+    MAW_KRUSHA,
     MEGABOSS,
     GORDRAKK,
     GORE_GRUNTAS,
-    WARCHANTERS,
+    WARCHANTER,
 
     // Eldritch Council
     SWORDMASTERS,

@@ -12,6 +12,9 @@
 #include "ironjawz/OrrukBrutes.h"
 #include "ironjawz/GoreGruntas.h"
 #include "ironjawz/OrrukMegaboss.h"
+#include "ironjawz/OrrukWarchanter.h"
+#include "ironjawz/Gordrakk.h"
+#include "ironjawz/MegabossOnMawKrusha.h"
 
 namespace Ironjawz
 {
@@ -22,6 +25,9 @@ void Init()
     OrrukBrutes::Init();
     OrrukGoreGruntas::Init();
     OrrukMegaboss::Init();
+    OrrukWarchanter::Init();
+    GordrakkTheFistOfGork::Init();
+    MegabossOnMawKrusha::Init();
 }
 
 } // namespace Ironjawz

@@ -17,16 +17,10 @@ static FactoryMethod factoryMethod = {
     OrrukArdboys::EnumStringToInt,
     {
         {ParamType::Integer, "Models", OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Choppas And Shields", 0, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {ParamType::Integer, "Paired Choppas", 0, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {ParamType::Integer, "Big Choppas", 0, 0, OrrukArdboys::MAX_UNIT_SIZE, 1},
-        {
-            ParamType::Enum, "Boss Weapon", OrrukArdboys::ChoppaAndSmasha, OrrukArdboys::ChoppaOrSmashaWithShield,
-            OrrukArdboys::BigChoppa, 1
-        },
+        {ParamType::Integer, "Shields", 0, 0, OrrukArdboys::MAX_UNIT_SIZE / 5 * 2, 1},
         {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {
-            ParamType::Enum, "Standard", OrrukArdboys::None, OrrukArdboys::None, OrrukArdboys::IconOfGork, 1
+            ParamType::Enum, "Standard", OrrukArdboys::None, OrrukArdboys::None, OrrukArdboys::GlyphBearer, 1
         }
     },
     DESTRUCTION,
@@ -37,18 +31,13 @@ bool OrrukArdboys::s_registered = false;
 
 OrrukArdboys::OrrukArdboys() :
     Ironjawz("Orruk Ardboys", 4, WOUNDS, 6, 4, false),
-    m_choppaOrSmasha(Weapon::Type::Melee, "Orruk-forged Choppa or Smasha", 1, 2, 4, 3, 0, 1),
-    m_choppaAndSmasha(Weapon::Type::Melee, "Orruk-forged Choppas and Smashas", 1, 3, 4, 3, 0, 1),
-    m_bigChoppa(Weapon::Type::Melee, "Orruk-forged Big Choppa", 1, 2, 4, 3, -1, 1),
-    m_bossChoppaOrSmasha(Weapon::Type::Melee, "Orruk-forged Choppa or Smasha (Boss)", 1, 2, 3, 3, 0, 1),
-    m_bossChoppaAndSmasha(Weapon::Type::Melee, "Orruk-forged Choppas and Smashas (Boss)", 1, 3, 3, 3, 0, 1),
-    m_bossBigChoppa(Weapon::Type::Melee, "Orruk-forged Big Choppa (Boss)", 1, 2, 3, 3, -1, 1)
+    m_choppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 2, 3, 3, -1, 1),
+    m_bossChoppa(Weapon::Type::Melee, "Ardboy Choppa (Boss)", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, ARDBOYS};
 }
 
-bool OrrukArdboys::configure(int numModels, int numChoppasAndShield, int numPairedChoppas,
-    int numBigChoppas, WeaponOption bossWeapon, bool drummer, StandardOption standard)
+bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, StandardOption standard)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
@@ -56,49 +45,26 @@ bool OrrukArdboys::configure(int numModels, int numChoppasAndShield, int numPair
         // Invalid model count.
         return false;
     }
-    if (numChoppasAndShield + numPairedChoppas + numBigChoppas > numModels)
+    const int maxShields = (numModels / 5) * 2;
+    if (numShields > maxShields)
     {
         // Invalid weapon configuration.
         return false;
     }
 
-    m_numChoppasAndShields = numChoppasAndShield;
-    m_numPairedChoppas = numPairedChoppas;
-    m_numBigChoppas = numBigChoppas;
+    m_numShields = numShields;
     m_drummer = drummer;
     m_standardBearer = standard;
-    m_bossWeapon = bossWeapon;
 
     // Add the Boss
     Model bossModel(BASESIZE, WOUNDS);
-    if (m_bossWeapon == ChoppaOrSmashaWithShield)
-    {
-        bossModel.addMeleeWeapon(&m_bossChoppaOrSmasha);
-    }
-    else if (m_bossWeapon == ChoppaAndSmasha)
-    {
-        bossModel.addMeleeWeapon(&m_bossChoppaAndSmasha);
-    }
-    else if (m_bossWeapon == BigChoppa)
-    {
-        bossModel.addMeleeWeapon(&m_bossBigChoppa);
-    }
+    bossModel.addMeleeWeapon(&m_bossChoppa);
     addModel(bossModel);
 
-    for (auto i = 0; i < numChoppasAndShield; i++)
+    for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_choppaOrSmasha);
-    }
-    for (auto i = 0; i < numPairedChoppas; i++)
-    {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_choppaAndSmasha);
-    }
-    for (auto i = 0; i < numBigChoppas; i++)
-    {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_bigChoppa);
+        model.addMeleeWeapon(&m_choppa);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
@@ -112,26 +78,19 @@ bool OrrukArdboys::configure(int numModels, int numChoppasAndShield, int numPair
 
 void OrrukArdboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
-    visitor(&m_choppaOrSmasha);
-    visitor(&m_choppaAndSmasha);
-    visitor(&m_bigChoppa);
-    visitor(&m_bossChoppaOrSmasha);
-    visitor(&m_bossChoppaAndSmasha);
-    visitor(&m_bossBigChoppa);
+    visitor(&m_choppa);
+    visitor(&m_bossChoppa);
 }
 
 Unit *OrrukArdboys::Create(const ParameterList &parameters)
 {
     auto unit = new OrrukArdboys();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    int numChoppasAndShield = GetIntParam("Choppas And Shields", parameters, 0);
-    int numPairedChoppas = GetIntParam("Paired Choppas", parameters, 0);
-    int numBigChoppas = GetIntParam("Big Choppas", parameters, 0);
-    WeaponOption bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, ChoppaAndSmasha);
+    int numShields = GetIntParam("Shields", parameters, 0);
     bool drummer = GetBoolParam("Drummer", parameters, false);
     StandardOption standard = (StandardOption) GetEnumParam("Standard", parameters, None);
 
-    bool ok = unit->configure(numModels, numChoppasAndShield, numPairedChoppas, numBigChoppas, bossWeapon, drummer, standard);
+    bool ok = unit->configure(numModels, numShields, drummer, standard);
     if (!ok)
     {
         delete unit;
@@ -151,7 +110,7 @@ void OrrukArdboys::Init()
 int OrrukArdboys::bravery() const
 {
     int modBrav = m_bravery;
-    if (m_standardBearer == OrrukBanner)
+    if (m_standardBearer == BannerBearer)
     {
         modBrav += 2;
     }
@@ -160,17 +119,7 @@ int OrrukArdboys::bravery() const
 
 void OrrukArdboys::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
 {
-    if (m_standardBearer == IconOfGork)
-    {
-        Dice dice;
-        Dice::RollResult result;
-        dice.rollD6(numFled, result);
-        numFled -= result.numUnmodified6s();
-    }
-    else
-    {
-        Ironjawz::computeBattleshockEffect(roll, numFled, numAdded);
-    }
+    Ironjawz::computeBattleshockEffect(roll, numFled, numAdded);
 }
 
 int OrrukArdboys::chargeModifier() const
@@ -186,7 +135,7 @@ int OrrukArdboys::chargeModifier() const
 Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds)
 {
     // Orruk-forged Shields
-    if (m_numChoppasAndShields > 0)
+    if (m_numShields > 0)
     {
         Dice dice;
         Dice::RollResult result;
@@ -200,34 +149,19 @@ Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds)
 
 std::string OrrukArdboys::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Boss Weapon")
-    {
-        if (parameter.m_intValue == ChoppaOrSmashaWithShield)
-        {
-            return "Choppa Or Smasha With Shield";
-        }
-        else if (parameter.m_intValue == ChoppaAndSmasha)
-        {
-            return "Choppa And Smasha";
-        }
-        else if (parameter.m_intValue == BigChoppa)
-        {
-            return "Big Choppa";
-        }
-    }
-    else if (parameter.m_name == "Standard")
+    if (parameter.m_name == "Standard")
     {
         if (parameter.m_intValue == None)
         {
             return "None";
         }
-        else if (parameter.m_intValue == OrrukBanner)
+        else if (parameter.m_intValue == BannerBearer)
         {
-            return "Orruk Banner";
+            return "Banner Bearer";
         }
-        else if (parameter.m_intValue == IconOfGork)
+        else if (parameter.m_intValue == GlyphBearer)
         {
-            return "Icon Of Gork";
+            return "Glyph Bearer";
         }
     }
 
@@ -236,29 +170,13 @@ std::string OrrukArdboys::ValueToString(const Parameter &parameter)
 
 int OrrukArdboys::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Choppa Or Smasha With Shield")
+    if (enumString == "Banner Bearer")
     {
-        return ChoppaOrSmashaWithShield;
+        return BannerBearer;
     }
-    else if (enumString == "Choppa And Smasha")
+    else if (enumString == "Glyph Bearer")
     {
-        return ChoppaAndSmasha;
-    }
-    else if (enumString == "Big Choppa")
-    {
-        return BigChoppa;
-    }
-    else if (enumString == "None")
-    {
-        return None;
-    }
-    else if (enumString == "Orruk Banner")
-    {
-        return OrrukBanner;
-    }
-    else if (enumString == "Icon Of Gork")
-    {
-        return IconOfGork;
+        return GlyphBearer;
     }
     return 0;
 }

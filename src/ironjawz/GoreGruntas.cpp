@@ -30,11 +30,11 @@ bool OrrukGoreGruntas::s_registered = false;
 
 OrrukGoreGruntas::OrrukGoreGruntas() :
     Ironjawz("Orruk Gore-gruntas", 9, WOUNDS, 7, 4, false),
-    m_pigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa", 1, 3, 3, 3, -1, 1),
-    m_jaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 4, 3, -1, 1),
-    m_fangedMawAndHooves(Weapon::Type::Melee, "Fanged Maw and Hooves", 1, 4, 4, 4, 0, 1),
-    m_bossPigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa (Boss)", 1, 4, 3, 3, -1, 1),
-    m_bossJaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka (Boss)", 2, 4, 4, 3, -1, 1)
+    m_pigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa", 1, 4, 3, 3, -1, 1),
+    m_jaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
+    m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 4, 0, 1),
+    m_bossPigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa (Boss)", 1, 5, 3, 3, -1, 1),
+    m_bossJaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka (Boss)", 2, 5, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, GORE_GRUNTAS};
 }
@@ -58,7 +58,7 @@ bool OrrukGoreGruntas::configure(int numModels, OrrukGoreGruntas::WeaponOption w
     {
         bossModel.addMeleeWeapon(&m_bossJaggedGorehacka);
     }
-    bossModel.addMeleeWeapon(&m_fangedMawAndHooves);
+    bossModel.addMeleeWeapon(&m_tusksAndHooves);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
@@ -72,7 +72,7 @@ bool OrrukGoreGruntas::configure(int numModels, OrrukGoreGruntas::WeaponOption w
         {
             model.addMeleeWeapon(&m_jaggedGorehacka);
         }
-        model.addMeleeWeapon(&m_fangedMawAndHooves);
+        model.addMeleeWeapon(&m_tusksAndHooves);
         addModel(model);
     }
 
@@ -89,7 +89,7 @@ void OrrukGoreGruntas::visitWeapons(std::function<void(const Weapon *)> &visitor
 {
     visitor(&m_pigironChoppa);
     visitor(&m_jaggedGorehacka);
-    visitor(&m_fangedMawAndHooves);
+    visitor(&m_tusksAndHooves);
     visitor(&m_bossPigironChoppa);
     visitor(&m_bossJaggedGorehacka);
 }

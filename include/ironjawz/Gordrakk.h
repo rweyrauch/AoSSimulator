@@ -6,28 +6,30 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ORRUKMEGABOSS_H
-#define ORRUKMEGABOSS_H
+#ifndef GORDRAKK_H
+#define GORDRAKK_H
 
 #include <ironjawz/Ironjawz.h>
 
 namespace Ironjawz
 {
 
-class OrrukMegaboss : public Ironjawz
+class GordrakkTheFistOfGork : public Ironjawz
 {
 public:
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 150;
+    static const int BASESIZE = 100;
+    static const int WOUNDS = 16;
+    static const int POINTS_PER_UNIT = 540;
 
     static Unit *Create(const ParameterList &parameters);
 
     static void Init();
 
-    OrrukMegaboss();
+    GordrakkTheFistOfGork();
 
-    ~OrrukMegaboss() override = default;
+    ~GordrakkTheFistOfGork() override = default;
+
+    int move() const override;
 
     bool configure();
 
@@ -35,9 +37,16 @@ public:
 
 protected:
 
+    void onWounded() override;
+
 private:
 
-    Weapon m_bossChoppaAndFist;
+    int getDamageTableIndex() const;
+
+    Weapon m_bellow,
+        m_smasha,
+        m_kunnin,
+        m_fistsAndTail;
 
     static bool s_registered;
 };
@@ -46,11 +55,13 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Go on Ladz, Get Stuck In!        No
+// Massively Destructive Bulk       No
+// Kunnin                           No
+// Smasha                           No
 // Strength from Victory            No
-// Rip-toof Fist                    No
+// Voice of Gork                    No
 //
 
 } // namespace Ironjawz
 
-#endif //ORRUKMEGABOSS_H
+#endif //GORDRAKK_H
