@@ -21,7 +21,17 @@ public:
     static const int WOUNDS = 15;
     static const int POINTS_PER_UNIT = 460;
 
+    enum WeaponOption
+    {
+        HackaAndChoppa = 0,
+        ChoppaAndRiptoofFist,
+    };
+
     static Unit *Create(const ParameterList &parameters);
+
+    static std::string ValueToString(const Parameter& parameter);
+
+    static int EnumStringToInt(const std::string& enumString);
 
     static void Init();
 
@@ -31,17 +41,24 @@ public:
 
     int move() const override;
 
-    bool configure();
+    bool configure(WeaponOption weapons);
 
     void visitWeapons(std::function<void(const Weapon *)> &visitor) override;
 
 protected:
 
     void onWounded() override;
+    void onCharged() override;
+    void onStartCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
+    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
 
 private:
 
     int getDamageTableIndex() const;
+
+    WeaponOption m_weaponOption;
+    int m_modelsSlainAtStartOfCombat = 0;
 
     Weapon m_bellow,
         m_hackaAndChoppa,
@@ -55,9 +72,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Destructive Bulk                 No
-// Rip-toof Fist                    No
-// Strength from Victory            No
+// Destructive Bulk                 Yes
+// Rip-toof Fist                    Yes
+// Strength from Victory            Yes
 // Go on Ladz, Get Stuck In         No
 //
 

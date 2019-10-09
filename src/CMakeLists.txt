@@ -317,6 +317,7 @@ add_library(
         ironjawz/OrrukWarchanter.cpp
         ironjawz/Gordrakk.cpp
         ironjawz/MegabossOnMawKrusha.cpp
+        ironjawz/IronskullsBoyz.cpp
 
         eldritchcouncil/Swordmasters.cpp
         eldritchcouncil/Loremaster.cpp

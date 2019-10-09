@@ -39,7 +39,7 @@ OrrukGoreGruntas::OrrukGoreGruntas() :
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, GORE_GRUNTAS};
 }
 
-bool OrrukGoreGruntas::configure(int numModels, OrrukGoreGruntas::WeaponOption weapons)
+bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)

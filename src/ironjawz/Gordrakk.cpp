@@ -8,6 +8,7 @@
 
 #include <ironjawz/Gordrakk.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Ironjawz
 {
@@ -118,6 +119,63 @@ int GordrakkTheFistOfGork::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+void GordrakkTheFistOfGork::onCharged()
+{
+    Unit::onCharged();
+
+    // Massively Destructive Bulk
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    if (!units.empty())
+    {
+        auto unit = units.front();
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
+        Wounds bulkWounds = {0, result.rollsGE(5)};
+        unit->applyDamage(bulkWounds);
+    }
+}
+
+Wounds GordrakkTheFistOfGork::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    if ((woundRoll >= 4) && (weapon->name() == m_kunnin.name()))
+    {
+        if (target->hasKeyword(WIZARD))
+        {
+            Dice dice;
+            return {0, dice.rollD3()};
+        }
+    }
+    else if ((woundRoll >= 4) && (weapon->name() == m_smasha.name()))
+    {
+        if (target->hasKeyword(HERO) && !target->hasKeyword(WIZARD))
+        {
+            Dice dice;
+            return {0, dice.rollD3()};
+        }
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void GordrakkTheFistOfGork::onStartCombat(PlayerId player)
+{
+    m_modelsSlainAtStartOfCombat = m_currentRecord.m_enemyModelsSlain;
+
+    Ironjawz::onStartCombat(player);
+}
+
+Wounds GordrakkTheFistOfGork::onEndCombat(PlayerId player)
+{
+    // Strength from Victory
+    if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat)
+    {
+        heal(1);
+        m_smasha.setAttacks(m_smasha.attacks()+1);
+        m_kunnin.setAttacks(m_kunnin.attacks()+1);
+    }
+    return Ironjawz::onEndCombat(player);
 }
 
 } //namespace Ironjawz

@@ -579,6 +579,10 @@ enum Keyword
     GORDRAKK,
     GORE_GRUNTAS,
     WARCHANTER,
+    IRONSKULLS_BOYZ,
+
+    //
+    IRONSUNZ,
 
     // Eldritch Council
     SWORDMASTERS,

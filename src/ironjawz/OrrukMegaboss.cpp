@@ -69,4 +69,33 @@ void OrrukMegaboss::Init()
     }
 }
 
+Wounds OrrukMegaboss::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    auto wounds = Ironjawz::computeReturnedDamage(weapon, saveRoll);
+    // Rip-toof Fist
+    if (saveRoll == 6)
+    {
+        wounds += {0, 1};
+    }
+    return wounds;
+}
+
+void OrrukMegaboss::onStartCombat(PlayerId player)
+{
+    m_modelsSlainAtStartOfCombat = m_currentRecord.m_enemyModelsSlain;
+
+    Ironjawz::onStartCombat(player);
+}
+
+Wounds OrrukMegaboss::onEndCombat(PlayerId player)
+{
+    // Strength from Victory
+    if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat)
+    {
+        heal(1);
+        m_bossChoppaAndFist.setAttacks(m_bossChoppaAndFist.attacks()+1);
+    }
+    return Ironjawz::onEndCombat(player);
+}
+
 } //namespace Ironjawz

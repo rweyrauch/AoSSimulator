@@ -38,10 +38,16 @@ public:
 protected:
 
     void onWounded() override;
+    void onCharged() override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
 
 private:
 
     int getDamageTableIndex() const;
+
+    int m_modelsSlainAtStartOfCombat = 0;
 
     Weapon m_bellow,
         m_smasha,
@@ -55,10 +61,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Massively Destructive Bulk       No
-// Kunnin                           No
-// Smasha                           No
-// Strength from Victory            No
+// Massively Destructive Bulk       Yes
+// Kunnin                           Yes
+// Smasha                           Yes
+// Strength from Victory            Yes
 // Voice of Gork                    No
 //
 

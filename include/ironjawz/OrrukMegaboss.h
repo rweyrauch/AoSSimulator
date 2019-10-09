@@ -35,9 +35,14 @@ public:
 
 protected:
 
+    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+    void onStartCombat(PlayerId player) override;
+    Wounds onEndCombat(PlayerId player) override;
+
 private:
 
     Weapon m_bossChoppaAndFist;
+    int m_modelsSlainAtStartOfCombat = 0;
 
     static bool s_registered;
 };
@@ -47,8 +52,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Go on Ladz, Get Stuck In!        No
-// Strength from Victory            No
-// Rip-toof Fist                    No
+// Strength from Victory            Yes
+// Rip-toof Fist                    Yes
 //
 
 } // namespace Ironjawz
