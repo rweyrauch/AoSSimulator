@@ -95,6 +95,17 @@
 
 #include "freeagents/GotrekGurnisson.h"
 
+#include "bonesplitterz/BoarboyManiaks.h"
+#include "bonesplitterz/ManiakWeirdnob.h"
+#include "bonesplitterz/OrrukArrowBoys.h"
+#include "bonesplitterz/OrrukMorboys.h"
+#include "bonesplitterz/SavageBigBoss.h"
+#include "bonesplitterz/SavageBigStabbas.h"
+#include "bonesplitterz/SavageBoarboys.h"
+#include "bonesplitterz/SavageOrruks.h"
+#include "bonesplitterz/Wardokk.h"
+#include "bonesplitterz/WurrgogProphet.h"
+
 static Verbosity g_verbosity = Verbosity::Normal;
 
 Verbosity GetVerbosity()
@@ -197,4 +208,15 @@ void Initialize(Verbosity verbosity)
     SlavesToDarkness::UntamedBeasts::Init();
 
     FreeAgent::GotrekGurnisson::Init();
+
+    Bonesplitterz::SavageBoarboyManiaks::Init();
+    Bonesplitterz::ManiakWeirdnob::Init();
+    Bonesplitterz::SavageOrrukArrowboys::Init();
+    Bonesplitterz::SavageOrrukMorboys::Init();
+    Bonesplitterz::SavageBigBoss::Init();
+    Bonesplitterz::SavageBigStabbas::Init();
+    Bonesplitterz::SavageBoarboys::Init();
+    Bonesplitterz::SavageOrruks::Init();
+    Bonesplitterz::Wardokk::Init();
+    Bonesplitterz::WurrgogProphet::Init();
 }

@@ -17,7 +17,7 @@ namespace Ironjawz
 class GordrakkTheFistOfGork : public Ironjawz
 {
 public:
-    static const int BASESIZE = 100;
+    static const int BASESIZE = 160;
     static const int WOUNDS = 16;
     static const int POINTS_PER_UNIT = 540;
 

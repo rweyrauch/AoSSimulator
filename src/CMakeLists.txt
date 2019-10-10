@@ -319,6 +319,17 @@ add_library(
         ironjawz/MegabossOnMawKrusha.cpp
         ironjawz/IronskullsBoyz.cpp
 
+        bonesplitterz/BoarboyManiaks.cpp
+        bonesplitterz/ManiakWeirdnob.cpp
+        bonesplitterz/OrrukArrowBoys.cpp
+        bonesplitterz/OrrukMorboys.cpp
+        bonesplitterz/SavageBigBoss.cpp
+        bonesplitterz/SavageBigStabbas.cpp
+        bonesplitterz/SavageBoarboys.cpp
+        bonesplitterz/SavageOrruks.cpp
+        bonesplitterz/Wardokk.cpp
+        bonesplitterz/WurrgogProphet.cpp
+
         eldritchcouncil/Swordmasters.cpp
         eldritchcouncil/Loremaster.cpp
         eldritchcouncil/Archmage.cpp

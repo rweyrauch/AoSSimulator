@@ -5,29 +5,27 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#ifndef WURRGOGPROPHET_H
+#define WURRGOGPROPHET_H
 
-#ifndef ORRUKWARCHANTER_H
-#define ORRUKWARCHANTER_H
+#include "Unit.h"
 
-#include <Unit.h>
-#include <Weapon.h>
-
-namespace Ironjawz
+namespace Bonesplitterz
 {
 
-class OrrukWarchanter : public Unit
+class WurrgogProphet : public Unit
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    OrrukWarchanter();
-    ~OrrukWarchanter() override = default;
+    WurrgogProphet();
+    ~WurrgogProphet() override = default;
 
     bool configure();
 
@@ -35,9 +33,11 @@ public:
 
 protected:
 
+
 private:
 
-    Weapon m_stikks;
+    Weapon m_staffAndShiv,
+        m_fangedMaw;
 
     static bool s_registered;
 };
@@ -46,9 +46,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rhythm of Destruction            No
-// Violent Fury                     No
+// Beast Mask                       No
+// Prophet of Da Waaagh!            No
+// Fists of Gork                    No
+//
 
-} // namespace Ironjawz
+} // namespace Bonesplitterz
 
-#endif // ORRUKWARCHANTER_H
+#endif //WURRGOGPROPHET_H

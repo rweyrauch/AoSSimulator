@@ -17,7 +17,7 @@ namespace Ironjawz
 class MegabossOnMawKrusha : public Ironjawz
 {
 public:
-    static const int BASESIZE = 100;
+    static const int BASESIZE = 160;
     static const int WOUNDS = 15;
     static const int POINTS_PER_UNIT = 460;
 
