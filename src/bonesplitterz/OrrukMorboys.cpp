@@ -15,6 +15,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {ParamType::Integer, "Models", SavageOrrukMorboys::MIN_UNIT_SIZE, SavageOrrukMorboys::MIN_UNIT_SIZE, SavageOrrukMorboys::MAX_UNIT_SIZE, SavageOrrukMorboys::MIN_UNIT_SIZE},
+        {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -24,7 +27,18 @@ bool SavageOrrukMorboys::s_registered = false;
 
 Unit *SavageOrrukMorboys::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new SavageOrrukMorboys();
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool thumper = GetBoolParam("Skull Thumper", parameters, true);
+    bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
+
+    bool ok = unit->configure(numModels, thumper, totem);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void SavageOrrukMorboys::Init()
@@ -45,7 +59,32 @@ SavageOrrukMorboys::SavageOrrukMorboys() :
 
 bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemBearer)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Boss
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMeleeWeapon(&m_chompaAndShivBoss);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&m_chompaAndShiv);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void SavageOrrukMorboys::visitWeapons(std::function<void(const Weapon *)> &visitor)

@@ -24,7 +24,15 @@ bool WurrgogProphet::s_registered = false;
 
 Unit *WurrgogProphet::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new WurrgogProphet();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void WurrgogProphet::Init()
@@ -45,7 +53,16 @@ WurrgogProphet::WurrgogProphet() :
 
 bool WurrgogProphet::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_staffAndShiv);
+    model.addMeleeWeapon(&m_fangedMaw);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void WurrgogProphet::visitWeapons(std::function<void(const Weapon *)> &visitor)

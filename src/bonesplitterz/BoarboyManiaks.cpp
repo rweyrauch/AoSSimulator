@@ -15,6 +15,9 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {ParamType::Integer, "Models", SavageBoarboyManiaks::MIN_UNIT_SIZE, SavageBoarboyManiaks::MIN_UNIT_SIZE, SavageBoarboyManiaks::MAX_UNIT_SIZE, SavageBoarboyManiaks::MIN_UNIT_SIZE},
+        {ParamType::Boolean, "Boar Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -24,7 +27,18 @@ bool SavageBoarboyManiaks::s_registered = false;
 
 Unit *SavageBoarboyManiaks::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new SavageBoarboyManiaks();
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    bool thumper = GetBoolParam("Boar Thumper", parameters, true);
+    bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
+
+    bool ok = unit->configure(numModels, thumper, totem);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void SavageBoarboyManiaks::Init()
@@ -46,7 +60,34 @@ SavageBoarboyManiaks::SavageBoarboyManiaks() :
 
 bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totemBearer)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Boss
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMeleeWeapon(&m_chompasBoss);
+    bossModel.addMeleeWeapon(&m_tusksAndHooves);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&m_chompas);
+        model.addMeleeWeapon(&m_tusksAndHooves);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void SavageBoarboyManiaks::visitWeapons(std::function<void(const Weapon *)> &visitor)

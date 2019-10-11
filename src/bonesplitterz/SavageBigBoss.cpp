@@ -24,7 +24,15 @@ bool SavageBigBoss::s_registered = false;
 
 Unit *SavageBigBoss::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new SavageBigBoss();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void SavageBigBoss::Init()
@@ -44,7 +52,15 @@ SavageBigBoss::SavageBigBoss() :
 
 bool SavageBigBoss::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_chompasBoss);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void SavageBigBoss::visitWeapons(std::function<void(const Weapon *)> &visitor)

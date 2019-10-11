@@ -24,7 +24,15 @@ bool ManiakWeirdnob::s_registered = false;
 
 Unit *ManiakWeirdnob::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new ManiakWeirdnob();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void ManiakWeirdnob::Init()
@@ -45,7 +53,16 @@ ManiakWeirdnob::ManiakWeirdnob() :
 
 bool ManiakWeirdnob::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_bonebeastStaff);
+    model.addMeleeWeapon(&m_tusksAndHooves);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void ManiakWeirdnob::visitWeapons(std::function<void(const Weapon *)> &visitor)

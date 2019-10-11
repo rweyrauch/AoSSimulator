@@ -12,9 +12,13 @@ namespace Bonesplitterz
 {
 static FactoryMethod factoryMethod = {
     SavageOrruks::Create,
-    nullptr,
-    nullptr,
+    SavageOrruks::ValueToString,
+    SavageOrruks::EnumStringToInt,
     {
+        {ParamType::Integer, "Models", SavageOrruks::MIN_UNIT_SIZE, SavageOrruks::MIN_UNIT_SIZE, SavageOrruks::MAX_UNIT_SIZE, SavageOrruks::MIN_UNIT_SIZE},
+        {ParamType::Enum, "Weapons", SavageOrruks::Chompa, SavageOrruks::Chompa, SavageOrruks::SavageStikka, 1},
+        {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -24,7 +28,19 @@ bool SavageOrruks::s_registered = false;
 
 Unit *SavageOrruks::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new SavageOrruks();
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, Chompa);
+    bool thumper = GetBoolParam("Skull Thumper", parameters, true);
+    bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
+
+    bool ok = unit->configure(numModels, weapons, thumper, totem);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void SavageOrruks::Init()
@@ -45,9 +61,48 @@ SavageOrruks::SavageOrruks() :
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUKS};
 }
 
-bool SavageOrruks::configure(int numModels, bool skullThumper, bool totemBearer)
+bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Boss
+    Model bossModel(BASESIZE, WOUNDS);
+    if (weapons == Chompa)
+    {
+        bossModel.addMeleeWeapon(&m_chompaBoss);
+    }
+    else if (weapons == SavageStikka)
+    {
+        bossModel.addMeleeWeapon(&m_stikkaBoss);
+    }
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == Chompa)
+        {
+            model.addMeleeWeapon(&m_chompa);
+        }
+        else if (weapons == SavageStikka)
+        {
+            model.addMeleeWeapon(&m_stikka);
+        }
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void SavageOrruks::visitWeapons(std::function<void(const Weapon *)> &visitor)
@@ -56,6 +111,23 @@ void SavageOrruks::visitWeapons(std::function<void(const Weapon *)> &visitor)
     visitor(&m_chompaBoss);
     visitor(&m_stikka);
     visitor(&m_stikkaBoss);
+}
+
+std::string SavageOrruks::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Weapons")
+    {
+        if (parameter.m_intValue == Chompa) { return "Chompa"; }
+        else if (parameter.m_intValue == SavageStikka) { return "Savage Stikka"; }
+    }
+    return ValueToString(parameter);
+}
+
+int SavageOrruks::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Chompa") { return Chompa; }
+    else if (enumString == "Savage Stikka") { return SavageStikka; }
+    return EnumStringToInt(enumString);
 }
 
 } // namespace Bonesplitterz

@@ -24,7 +24,15 @@ bool Wardokk::s_registered = false;
 
 Unit *Wardokk::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new Wardokk();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void Wardokk::Init()
@@ -44,7 +52,15 @@ Wardokk::Wardokk() :
 
 bool Wardokk::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_bonebeastStikk);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void Wardokk::visitWeapons(std::function<void(const Weapon *)> &visitor)

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     nullptr,
     {
+        {ParamType::Integer, "Models", SavageBigStabbas::MIN_UNIT_SIZE, SavageBigStabbas::MIN_UNIT_SIZE, SavageBigStabbas::MAX_UNIT_SIZE, SavageBigStabbas::MIN_UNIT_SIZE},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -24,7 +25,16 @@ bool SavageBigStabbas::s_registered = false;
 
 Unit *SavageBigStabbas::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new SavageBigStabbas();
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 void SavageBigStabbas::Init()
@@ -44,7 +54,27 @@ SavageBigStabbas::SavageBigStabbas() :
 
 bool SavageBigStabbas::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&m_gorkToof);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void SavageBigStabbas::visitWeapons(std::function<void(const Weapon *)> &visitor)
