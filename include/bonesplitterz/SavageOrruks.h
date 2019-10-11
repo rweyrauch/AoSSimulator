@@ -63,6 +63,19 @@ protected:
         return mod;
     }
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    int toSaveModifier(const Weapon *weapon) const override
+    {
+        // Bone Shield
+        int mod = Unit::toSaveModifier(weapon);
+        if (!weapon->isMissile())
+        {
+            mod++;
+        }
+        return mod;
+    }
+
 private:
 
     bool m_thumper = false;
@@ -80,8 +93,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Spirit of Gorkamorka             No
-// Bone Shield                      No
+// Spirit of Gorkamorka             Yes
+// Bone Shield                      Yes
 // Thumper                          Yes
 // Totem Bearer                     Yes
 //

@@ -64,6 +64,20 @@ protected:
         return mod;
     }
 
+    int toSaveModifier(const Weapon *weapon) const override
+    {
+        // Bone Shield
+        int mod = Unit::toSaveModifier(weapon);
+        if (!weapon->isMissile())
+        {
+            mod++;
+        }
+        return mod;
+    }
+
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     bool m_thumper = false;
@@ -84,8 +98,8 @@ private:
 // -------------------------------------------
 // Thumper                          Yes
 // Totem Bearer                     Yes
-// Boarboy Charge                   No
-// Bone Shield                      No
+// Boarboy Charge                   Yes
+// Bone Shield                      Yes
 //
 
 } // namespace Bonesplitterz

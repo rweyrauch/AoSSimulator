@@ -137,4 +137,26 @@ int SavageBoarboys::EnumStringToInt(const std::string &enumString)
     return EnumStringToInt(enumString);
 }
 
+int SavageBoarboys::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    // Tusker Charge
+    auto mod = Unit::toHitModifier(weapon, target);
+    if (m_charged && (weapon->name() == m_tusksAndHooves.name() || weapon->name() == m_stikka.name()))
+    {
+        mod++;
+    }
+    return mod;
+}
+
+int SavageBoarboys::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    // Tusker Charge
+    auto mod = Unit::toWoundModifier(weapon, target);
+    if (m_charged && (weapon->name() == m_tusksAndHooves.name() || weapon->name() == m_stikka.name()))
+    {
+        mod++;
+    }
+    return mod;
+}
+
 } // namespace Bonesplitterz

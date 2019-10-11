@@ -55,6 +55,8 @@ protected:
         return mod;
     }
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     bool m_thumper = false;
@@ -72,7 +74,7 @@ private:
 // -------------------------------------------
 // Thumper                          Yes
 // Totem Bearer                     Yes
-// Spirit of Gorkamorka             No
+// Spirit of Gorkamorka             Yes
 // Power of the Beast Spirit        No
 //
 

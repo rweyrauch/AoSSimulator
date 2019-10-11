@@ -341,6 +341,7 @@ protected:
     virtual void onBeginTurn(int battleRound) {}
 
     virtual void onSlain() {}
+    virtual void onModelSlain() {}
 
     virtual void onWounded() {}
 

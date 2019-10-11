@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "bonesplitterz/Wardokk.h"
 
 namespace Bonesplitterz
@@ -48,6 +49,9 @@ Wardokk::Wardokk() :
     m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Wardokk::configure()
@@ -57,6 +61,9 @@ bool Wardokk::configure()
     model.addMeleeWeapon(&m_bonebeastStikk);
 
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

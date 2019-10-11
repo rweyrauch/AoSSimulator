@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onModelSlain() override;
 
 private:
 
@@ -49,8 +51,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Da Final Fling                   No
-// The Bigger They Are              No
-// Savagely Enthusiastic            No
+// The Bigger They Are              Yes
+// Savagely Enthusiastic            Yes
 //
 
 } // namespace Bonesplitterz

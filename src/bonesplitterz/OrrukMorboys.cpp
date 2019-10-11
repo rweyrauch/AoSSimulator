@@ -96,4 +96,14 @@ void SavageOrrukMorboys::visitWeapons(std::function<void(const Weapon *)> &visit
     visitor(&m_chompaAndShivBoss);
 }
 
+int SavageOrrukMorboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // Spirit of Gorkamorka
+    if (remainingModels() >= 15)
+    {
+        return 1;
+    }
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
 } // namespace Bonesplitterz

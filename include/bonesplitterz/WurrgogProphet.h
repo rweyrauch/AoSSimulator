@@ -33,6 +33,7 @@ public:
 
 protected:
 
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
 private:
 
@@ -46,7 +47,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Beast Mask                       No
+// Beast Mask                       Yes
 // Prophet of Da Waaagh!            No
 // Fists of Gork                    No
 //
