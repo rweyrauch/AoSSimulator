@@ -37,10 +37,10 @@ Orruks::Orruks() :
     m_choppa(Weapon::Type::Melee, "Choppa", 1, 1, 4, 4, -1, 1),
     m_pigstikkaSpear(Weapon::Type::Melee, "Pigstikka Spear", 2, 1, 4, 4, 0, 1),
     m_cutta(Weapon::Type::Melee, "Cutta", 1, 1, 4, 5, 0, 1),
-    m_orrukBowBoss(Weapon::Type::Missile, "Orruk Bow (Boss)", 18, 2, 5, 4, 0, 1),
-    m_choppaBoss(Weapon::Type::Melee, "Choppa (Boss)", 1, 2, 4, 4, -1, 1),
-    m_pigstikkaSpearBoss(Weapon::Type::Melee, "Pigstikka Spear (Boss)", 2, 2, 4, 4, 0, 1),
-    m_cuttaBoss(Weapon::Type::Melee, "Cutta (Boss)", 1, 2, 4, 5, 0, 1)
+    m_orrukBowBoss(Weapon::Type::Missile, "Orruk Bow", 18, 2, 5, 4, 0, 1),
+    m_choppaBoss(Weapon::Type::Melee, "Choppa", 1, 2, 4, 4, -1, 1),
+    m_pigstikkaSpearBoss(Weapon::Type::Melee, "Pigstikka Spear", 2, 2, 4, 4, 0, 1),
+    m_cuttaBoss(Weapon::Type::Melee, "Cutta", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUKS};
 }

@@ -37,11 +37,11 @@ bool Sequitors::s_registered = false;
 Sequitors::Sequitors() :
     StormcastEternal("Sequitors", 5, WOUNDS, 7, 4, false),
     m_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1),
-    m_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul (Prime)", 1, 3, 3, 3, 0, 1),
+    m_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul", 1, 3, 3, 3, 0, 1),
     m_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1),
-    m_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade (Prime)", 1, 4, 3, 4, 0, 1),
+    m_tempestBladePrime(Weapon::Type::Melee, "Tempest Blade", 1, 4, 3, 4, 0, 1),
     m_stormsmiteGreatmace(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 2, 3, 3, -1, 2),
-    m_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace (Prime)", 1, 3, 3, 3, -1, 2),
+    m_stormsmiteGreatmacePrime(Weapon::Type::Melee, "Stormsmite Greatmace", 1, 3, 3, 3, -1, 2),
     m_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, REDEEMER, SEQUITORS};

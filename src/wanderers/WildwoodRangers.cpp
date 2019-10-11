@@ -32,7 +32,7 @@ bool WildwoodRangers::s_registered = false;
 WildwoodRangers::WildwoodRangers() :
     Wanderer("Wildwood Rangers", 6, WOUNDS, 7, 5, false),
     m_rangersDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 2, 3, 3, -1, 1),
-    m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich (Warden)", 2, 3, 3, 3, -1, 1)
+    m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, WANDERER, WILDWOOD_RANGERS};
 }

@@ -34,8 +34,8 @@ DoomfireWarlocks::DoomfireWarlocks() :
     DaughterOfKhaine("Doomfire Warlocks", 14, WOUNDS, 6, 5, false),
     m_crossBow(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 4, 4, 0, 1),
     m_scimitar(Weapon::Type::Melee, "Cursed Scimitar", 1, 2, 4, 4, -1, 1),
-    m_crossBowMaster(Weapon::Type::Missile, "Doomfire Crossbow (Master)", 10, 2, 3, 4, 0, 1),
-    m_scimitarMaster(Weapon::Type::Melee, "Cursed Scimitar (Master)", 1, 2, 3, 4, -1, 1),
+    m_crossBowMaster(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 3, 4, 0, 1),
+    m_scimitarMaster(Weapon::Type::Melee, "Cursed Scimitar", 1, 2, 3, 4, -1, 1),
     m_steedsBite(Weapon::Type::Melee, "Dark Steed's Vicious Bite", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WIZARD, DOOMFIRE_WARLOCKS};

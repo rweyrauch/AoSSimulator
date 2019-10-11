@@ -37,9 +37,9 @@ bool Ungors::s_registered = false;
 Ungors::Ungors() :
     BeastsOfChaosBase("Ungors", 6, WOUNDS, 4, 6, false),
     m_ungorBlade(Weapon::Type::Melee, "Ungor Blade", 1, 1, 4, 4, 0, 1),
-    m_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade (Halfhorn)", 1, 2, 4, 4, 0, 1),
+    m_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade", 1, 2, 4, 4, 0, 1),
     m_gnarledShortspear(Weapon::Type::Melee, "Gnarled Shortspear", 2, 1, 5, 4, 0, 1),
-    m_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear (Halfhorn)", 2, 2, 5, 4, 0, 1)
+    m_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear", 2, 2, 5, 4, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
 }

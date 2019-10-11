@@ -39,8 +39,8 @@ Longbeards::Longbeards() :
     Dispossessed("Longbeards", 4, WOUNDS, 7, 4, false),
     m_ancestralAxeHammer(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 1, 3, 4, 0, 1),
     m_ancestralGreatAxe(Weapon::Type::Melee, "Ancestral Great Axe", 1, 1, 4, 3, -1, 1),
-    m_ancestralAxeHammerOldGuard(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer (Old Guard)", 1, 2, 3, 4, 0, 1),
-    m_ancestralGreatAxeOldGuard(Weapon::Type::Melee, "Ancestral Great Axe (Old Guard)", 1, 2, 4, 3, -1, 1)
+    m_ancestralAxeHammerOldGuard(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 2, 3, 4, 0, 1),
+    m_ancestralGreatAxeOldGuard(Weapon::Type::Melee, "Ancestral Great Axe", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, LONGBEARDS};
 }

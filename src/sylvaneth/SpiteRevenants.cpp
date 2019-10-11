@@ -33,7 +33,7 @@ bool SpiteRevenants::s_registered = false;
 SpiteRevenants::SpiteRevenants() :
     SylvanethBase("Spite Revenants", 5, WOUNDS, 6, 5, false),
     m_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 4, 4, 0, 1),
-    m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs (Stalker)", 1, 4, 4, 4, 0, 1)
+    m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, SPITE_REVENANTS};
 }

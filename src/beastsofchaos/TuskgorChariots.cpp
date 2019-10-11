@@ -32,7 +32,7 @@ TuskgorChariots::TuskgorChariots() :
     BeastsOfChaosBase("Tuskgor Chariots", 10, WOUNDS, 6, 4, false),
     m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
     m_gnarledSpear(Weapon::Type::Melee, "Gnarled Spear", 2, 1, 4, 4, 0, 1),
-    m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves)", 1, 4, 4, 3, 0, 1)
+    m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, GORS, BEASTS_OF_CHAOS, BRAYHERD, TUSKGOR_CHARIOTS};
 }

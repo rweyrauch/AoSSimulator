@@ -30,7 +30,7 @@ bool Vargheists::s_registered = false;
 Vargheists::Vargheists() :
     Unit("Vargheists", 12, WOUNDS, 10, 5, true),
     m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
-    m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons (Vargoyle)", 1, 4, 3, 3, -1, 2)
+    m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
 }

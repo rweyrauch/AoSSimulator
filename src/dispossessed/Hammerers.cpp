@@ -35,7 +35,7 @@ bool Hammerers::s_registered = false;
 Hammerers::Hammerers() :
     Dispossessed("Hammerers", 4, WOUNDS, 7, 4, false),
     m_greatHammer(Weapon::Type::Melee, "Gromril Great Hammer", 1, 2, 3, 3, -1, 1),
-    m_greatHammerKeeper(Weapon::Type::Melee, "Gromril Great Hammer (Keeper)", 1, 3, 3, 3, -1, 1)
+    m_greatHammerKeeper(Weapon::Type::Melee, "Gromril Great Hammer", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HAMMERERS};
 }

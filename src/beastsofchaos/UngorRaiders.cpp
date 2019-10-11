@@ -33,7 +33,7 @@ bool UngorRaiders::s_registered = false;
 UngorRaiders::UngorRaiders() :
     BeastsOfChaosBase("Ungor Raiders", 6, WOUNDS, 4, 6, false),
     m_raiderBow(Weapon::Type::Missile, "Raider Bow", 18, 1, 4, 4, 0, 1),
-    m_raiderBowHalfhorn(Weapon::Type::Missile, "Raider Bow (Halfhorn)", 18, 1, 3, 4, 0, 1),
+    m_raiderBowHalfhorn(Weapon::Type::Missile, "Raider Bow", 18, 1, 3, 4, 0, 1),
     m_jaggedShank(Weapon::Type::Melee, "Jagged Shank", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, UNGOR, BEASTS_OF_CHAOS, BRAYHERD, UNGOR_RAIDERS};

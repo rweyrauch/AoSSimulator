@@ -34,9 +34,9 @@ bool BloodStalkers::s_registered = false;
 BloodStalkers::BloodStalkers() :
     DaughterOfKhaine("Blood Stalkers", 8, WOUNDS, 8, 5, false),
     m_hearseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 3, 3, -1, 1),
-    m_sacraficialDaggar(Weapon::Type::Melee, "Sacrificial Daggar", 1, 2, 3, 4, 0, 1),
-    m_heartseekBowKrone(Weapon::Type::Missile, "Heartseeker Bow (Krone)", 24, 1, 2, 3, -1, 1),
-    m_sacraficialDaggarKrone(Weapon::Type::Melee, "Sacrificial Daggar (Krone)", 1, 2, 2, 4, 0, 1),
+    m_sacraficialDaggar(Weapon::Type::Melee, "Sacrificial Dagger", 1, 2, 3, 4, 0, 1),
+    m_heartseekBowKrone(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 2, 3, -1, 1),
+    m_sacraficialDaggarKrone(Weapon::Type::Melee, "Sacrificial Dagger", 1, 2, 2, 4, 0, 1),
     m_bloodWyrm(Weapon::Type::Melee, "Blood Wyrm", 1, 1, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_STALKERS};

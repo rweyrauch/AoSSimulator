@@ -36,8 +36,33 @@ public:
 
 protected:
 
+    int chargeModifier() const override
+    {
+        int mod = Unit::chargeModifier();
+        if (m_thumper)
+        {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int braveryModifier() const override
+    {
+        int mod = Unit::braveryModifier();
+        if (m_totemBearer)
+        {
+            mod++;
+        }
+        return mod;
+    }
+
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
 
 private:
+
+    bool m_thumper = false;
+    bool m_totemBearer = false;
 
     Weapon m_stingaBow,
         m_boneShiv,
@@ -50,10 +75,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Thumper                          No
-// Totem Bearer                     No
-// Aim Fer Its Eyes                 No
-// Loadsa Arrows                    No
+// Thumper                          Yes
+// Totem Bearer                     Yes
+// Aim Fer Its Eyes                 Yes
+// Loadsa Arrows                    Yes
 //
 
 } // namespace Bonesplitterz

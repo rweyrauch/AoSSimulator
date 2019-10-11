@@ -37,7 +37,7 @@ bool Bloodletters::s_registered = false;
 Bloodletters::Bloodletters() :
     KhorneBase("Bloodletters", 5, WOUNDS, 10, 5, false),
     m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
-    m_hellbladeReaper(Weapon::Type::Melee, "Hellblade (Reaper)", 1, 2, 4, 3, -1, 1)
+    m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
 }

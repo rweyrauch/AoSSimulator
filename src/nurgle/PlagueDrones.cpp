@@ -33,7 +33,7 @@ bool PlagueDrones::s_registered = false;
 PlagueDrones::PlagueDrones() :
     Unit("Plague Drones", 8, WOUNDS, 10, 5, true),
     m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
-    m_plagueswordPlaguebringer(Weapon::Type::Melee, "Plaguesword (Plaguebringer)", 1, 2, 4, 3, 0, 1),
+    m_plagueswordPlaguebringer(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1),
     m_deathsHead(Weapon::Type::Missile, "Death's Head", 14, 1, 4, 3, 0, 1),
     m_proboscis(Weapon::Type::Melee, "Prehensile Proboscis", 1, 3, 3, 4, 0, 1),
     m_mouthparts(Weapon::Type::Melee, "Foul Mouthparts", 1, 2, 3, 3, 0, 1),

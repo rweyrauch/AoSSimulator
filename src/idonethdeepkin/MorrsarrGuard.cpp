@@ -34,7 +34,7 @@ bool AkhelianMorrsarrGuard::s_registered = false;
 AkhelianMorrsarrGuard::AkhelianMorrsarrGuard() :
     Unit("Akhelian Morrsarr Guard", 14, WOUNDS, 6, 4, true),
     m_voltspear(Weapon::Type::Melee, "Voltspear", 2, 2, 3, 3, 0, 1),
-    m_voltspearPrince(Weapon::Type::Melee, "Voltspear (Prince)", 2, 3, 3, 3, 0, 1),
+    m_voltspearPrince(Weapon::Type::Melee, "Voltspear", 2, 3, 3, 3, 0, 1),
     m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
     m_fangmoraLashingTail(Weapon::Type::Melee, "Fangmora's Lashing Tail", 2, RAND_D3, 3, 3, 0, 1)
 {

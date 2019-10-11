@@ -34,7 +34,7 @@ bool Dryads::s_registered = false;
 Dryads::Dryads() :
     SylvanethBase("Dryads", 7, WOUNDS, 6, 5, false),
     m_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1),
-    m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons (Nymph)", 2, 3, 4, 4, 0, 1)
+    m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons", 2, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, DRYADS};
 }

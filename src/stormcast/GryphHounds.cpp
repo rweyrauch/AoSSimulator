@@ -32,7 +32,7 @@ bool GryphHounds::s_registered = false;
 GryphHounds::GryphHounds() :
     StormcastEternal("Gryph-hounds", 9, WOUNDS, 6, NoSave, false),
     m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 3, 4, 0, 1),
-    m_beakAndClawsAlpha(Weapon::Type::Melee, "Beak and Claws (Alpha)", 1, 3, 3, 4, 0, 1)
+    m_beakAndClawsAlpha(Weapon::Type::Melee, "Beak and Claws", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, GRYPH_HOUNDS};
 }

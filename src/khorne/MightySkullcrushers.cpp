@@ -38,8 +38,8 @@ MightySkullcrushers::MightySkullcrushers() :
     KhorneBase("Mighty Skullcrushers", 8, WOUNDS, 6, 3, false),
     m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 3, 3, 3, 0, 1),
     m_bloodglaive(Weapon::Type::Melee, "Bloodglaive", 1, 3, 4, 3, -1, 1),
-    m_ensorcelledAxeHunter(Weapon::Type::Melee, "Ensorcelled Axe (Hunter)", 1, 4, 3, 3, 0, 1),
-    m_bloodglaiveHunter(Weapon::Type::Melee, "Bloodglaive (Hunter)", 1, 4, 4, 3, -1, 1),
+    m_ensorcelledAxeHunter(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, 0, 1),
+    m_bloodglaiveHunter(Weapon::Type::Melee, "Bloodglaive", 1, 4, 4, 3, -1, 1),
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, MIGHTY_SKULLCRUSHERS};

@@ -55,8 +55,8 @@ SavageOrruks::SavageOrruks() :
     Unit("Savage Orruks", 5, WOUNDS, 5, 6, false),
     m_chompa(Weapon::Type::Melee, "Chompa", 1, 2, 4, 3, 0, 1),
     m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 2, 4, 4, 0, 1),
-    m_chompaBoss(Weapon::Type::Melee, "Chompa (Boss)", 1, 3, 4, 3, 0, 1),
-    m_stikkaBoss(Weapon::Type::Melee, "Savage Stikka (Boss)", 2, 3, 4, 4, 0, 1)
+    m_chompaBoss(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1),
+    m_stikkaBoss(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUKS};
 }
@@ -69,6 +69,9 @@ bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThum
         // Invalid model count.
         return false;
     }
+
+    m_thumper = skullThumper;
+    m_totemBearer = totemBearer;
 
     // Add the Boss
     Model bossModel(BASESIZE, WOUNDS);

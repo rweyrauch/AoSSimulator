@@ -61,8 +61,8 @@ ChaosKnights::ChaosKnights() :
     Unit("Chaos Knights", 10, WOUNDS, 7, 4, false),
     m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 4, 0, 1),
     m_glaive(Weapon::Type::Melee, "Chaos Glaive", 1, 2, 4, 3, 0, 1),
-    m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon (Doom Knight)", 1, 3, 2, 4, 0, 1),
-    m_glaiveLeader(Weapon::Type::Melee, "Chaos Glaive (Doom Knight)", 1, 2, 3, 3, 0, 1),
+    m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 2, 4, 0, 1),
+    m_glaiveLeader(Weapon::Type::Melee, "Chaos Glaive", 1, 2, 3, 3, 0, 1),
     m_hooves(Weapon::Type::Melee, "War Steed's Roughshod Hooves", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_KNIGHTS};

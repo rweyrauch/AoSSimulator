@@ -32,7 +32,7 @@ bool OrrukArdboys::s_registered = false;
 OrrukArdboys::OrrukArdboys() :
     Ironjawz("Orruk Ardboys", 4, WOUNDS, 6, 4, false),
     m_choppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 2, 3, 3, -1, 1),
-    m_bossChoppa(Weapon::Type::Melee, "Ardboy Choppa (Boss)", 1, 4, 3, 3, -1, 1)
+    m_bossChoppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, ARDBOYS};
 }

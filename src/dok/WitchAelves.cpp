@@ -35,7 +35,7 @@ bool WitchAelves::s_registered = false;
 WitchAelves::WitchAelves() :
     DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false),
     m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
-    m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife (Hag)", 1, 2, 2, 4, 0, 1)
+    m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
 }

@@ -30,7 +30,7 @@ bool TzaangorEnlightened::s_registered = false;
 TzaangorEnlightened::TzaangorEnlightened() :
     Unit("Tzaangor Enlightened", 6, WOUNDS, 6, 5, false),
     m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
-    m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear (Aviarch)", 2, 4, 4, 3, -1, 2),
+    m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
     m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
     m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3)
 {

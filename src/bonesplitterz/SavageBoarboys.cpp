@@ -57,7 +57,7 @@ SavageBoarboys::SavageBoarboys() :
     m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1),
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
     m_chompaBoss(Weapon::Type::Melee, "Chompa", 1, 4, 4, 3, 0, 1),
-    m_stikkaBoss(Weapon::Type::Melee, "Savage Stikka (Boss)", 2, 4, 4, 4, 0, 1)
+    m_stikkaBoss(Weapon::Type::Melee, "Savage Stikka", 2, 4, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, BOARBOYS, SAVAGE_BOARBOYS};
 }
@@ -70,6 +70,9 @@ bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullTh
         // Invalid model count.
         return false;
     }
+
+    m_thumper = skullThumper;
+    m_totemBearer = totemBearer;
 
     // Add the Boss
     Model bossModel(BASESIZE, WOUNDS);

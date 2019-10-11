@@ -30,7 +30,7 @@ bool Protectors::s_registered = false;
 Protectors::Protectors() :
     StormcastEternal("Protectors", 4, WOUNDS, 7, 4, false),
     m_glaive(Weapon::Type::Melee, "Stormstrike Glaive", 3, 3, 3, 3, -1, 1),
-    m_glaivePrime(Weapon::Type::Melee, "Stormstrike Glaive (Prime)", 3, 4, 3, 3, -1, 1),
+    m_glaivePrime(Weapon::Type::Melee, "Stormstrike Glaive", 3, 4, 3, 3, -1, 1),
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, PROTECTORS};

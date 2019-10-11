@@ -40,9 +40,9 @@ bool Bloodreavers::s_registered = false;
 Bloodreavers::Bloodreavers() :
     KhorneBase("Bloodreavers", 6, WOUNDS, 5, 6, false),
     m_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1),
-    m_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades (Chief)", 1, 2, 4, 4, 0, 1),
+    m_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1),
     m_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1),
-    m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe (Chief)", 1, 2, 4, 4, -1, 1)
+    m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
 }

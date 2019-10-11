@@ -32,7 +32,7 @@ bool VanguardRaptorsHurricane::s_registered = false;
 VanguardRaptorsHurricane::VanguardRaptorsHurricane() :
     StormcastEternal("Vanguard Raptors with Hurricane Crossbows", 5, WOUNDS, 7, 4, false),
     m_hurricaneCrossbow(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 4, 4, 0, 1),
-    m_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow (Prime)", 18, 6, 3, 4, 0, 1),
+    m_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 3, 4, 0, 1),
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS};

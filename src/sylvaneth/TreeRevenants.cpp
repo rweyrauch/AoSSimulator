@@ -36,7 +36,7 @@ bool TreeRevenants::s_registered = false;
 TreeRevenants::TreeRevenants() :
     SylvanethBase("Tree Revenants", 5, WOUNDS, 6, 5, false),
     m_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1),
-    m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade (Scion)", 1, 4, 4, 3, -1, 1),
+    m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade", 1, 4, 4, 3, -1, 1),
     m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, SYLVANETH, TREE_REVENANTS};

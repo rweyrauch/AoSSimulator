@@ -31,7 +31,7 @@ NightRunners::NightRunners() :
     Skaventide("Night Runners", 7, WOUNDS, 4, 6, false),
     m_throwingWeapons(Weapon::Type::Missile, "Eshin Throwing Weapons", 12, 1, 4, 5, 0, 1),
     m_stabbingBlade(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1),
-    m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade (Leader)", 1, 1, 4, 4, 0, 1)
+    m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, NIGHT_RUNNERS};
 }

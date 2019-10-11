@@ -64,8 +64,8 @@ ChaosMarauders::ChaosMarauders() :
     Unit("Chaos Marauders", 6, WOUNDS, 5, 6, false),
     m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 1, 4, 4, 0, 1),
     m_flail(Weapon::Type::Melee, "Barbarian Flail", 1, 1, 5, 3, 0, 1),
-    m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe (Chieftain)", 1, 2, 4, 4, 0, 1),
-    m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail (Chieftain)", 1, 2, 5, 3, 0, 1)
+    m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
+    m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 1, 2, 5, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_MARAUDERS};
 }

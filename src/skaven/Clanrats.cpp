@@ -37,9 +37,9 @@ bool Clanrats::s_registered = false;
 Clanrats::Clanrats() :
     Skaventide("Clanrats", 6, WOUNDS, 4, 6, false),
     m_rustySpear(Weapon::Type::Melee, "Rusty Spear", 2, 1, 5, 4, 0, 1),
-    m_rustySpearLeader(Weapon::Type::Melee, "Rusty Spear (Leader)", 2, 2, 5, 4, 0, 1),
+    m_rustySpearLeader(Weapon::Type::Melee, "Rusty Spear", 2, 2, 5, 4, 0, 1),
     m_rustyBlade(Weapon::Type::Melee, "Rusty Blade", 1, 1, 4, 4, 0, 1),
-    m_rustyBladeLeader(Weapon::Type::Melee, "Rusty Blade (Leader)", 1, 2, 4, 4, 0, 1)
+    m_rustyBladeLeader(Weapon::Type::Melee, "Rusty Blade", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, CLANRATS};
 }

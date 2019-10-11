@@ -35,10 +35,10 @@ bool Judicators::s_registered = false;
 Judicators::Judicators() :
     StormcastEternal("Judicators", 5, WOUNDS, 7, 4, false),
     m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
-    m_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow (Prime)", 24, 1, 2, 3, -1, 1),
+    m_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 2, 3, -1, 1),
     m_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1),
     m_shockboltBow(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 3, 3, -1, 1),
-    m_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow (Prime)", 24, 1, 2, 3, -1, 1),
+    m_shockboltPrime(Weapon::Type::Missile, "Shockbolt Bow", 24, 1, 2, 3, -1, 1),
     m_thunderboldCrossbow(Weapon::Type::Missile, "Thunderbolt Crossbow", 18, 0, 0, 0, 0, 0),
     m_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1)
 {

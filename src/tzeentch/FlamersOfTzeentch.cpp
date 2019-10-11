@@ -31,7 +31,7 @@ bool FlamersOfTzeentch::s_registered = false;
 FlamersOfTzeentch::FlamersOfTzeentch() :
     Unit("Flamers of Tzeentch", 9, WOUNDS, 10, 5, true),
     m_warpflame(Weapon::Type::Missile, "Warpflame", 18, 3, 4, 3, 0, RAND_D3),
-    m_warpflamePyrocaster(Weapon::Type::Missile, "Warpflame (Pyrocaster)",  18, 4, 4, 3, 0, RAND_D3),
+    m_warpflamePyrocaster(Weapon::Type::Missile, "Warpflame",  18, 4, 4, 3, 0, RAND_D3),
     m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 1, 2, 5, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMERS};

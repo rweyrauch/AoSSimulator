@@ -35,7 +35,7 @@ CryptFlayers::CryptFlayers() :
     FleshEaterCourts("Crypt Flayers", 12, WOUNDS, 10, 5, true),
     m_deathScream(Weapon::Type::Missile, "Death Scream", 10, 1, 0, 0, 0, 0),
     m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 1, 4, 4, 3, -1, 1),
-    m_piercingTalonsInfernal(Weapon::Type::Melee, "Piercing Talons (Crypt Infernal)", 1, 5, 4, 3, -1, 1)
+    m_piercingTalonsInfernal(Weapon::Type::Melee, "Piercing Talons", 1, 5, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_FLAYERS};
 }

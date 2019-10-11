@@ -30,7 +30,7 @@ bool AuricHearthguard::s_registered = false;
 AuricHearthguard::AuricHearthguard() :
     Fyreslayer("Auric Hearthguard", 4, WOUNDS, 7, 5, false),
     m_magmapike(Weapon::Type::Missile, "Magmapike", 18, 2, 4, 3, -1, 1),
-    m_magmapikeKarl(Weapon::Type::Missile, "Magmapike (Karl)", 18, 3, 4, 3, -1, 1),
+    m_magmapikeKarl(Weapon::Type::Missile, "Magmapike", 18, 3, 4, 3, -1, 1),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
     m_magmapikeMelee(Weapon::Type::Melee, "Magmapike", 1, 1, 3, 3, 0, 1)
 {

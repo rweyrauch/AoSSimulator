@@ -35,9 +35,9 @@ bool Hellstriders::s_registered = false;
 Hellstriders::Hellstriders() :
     SlaaneshBase("Hellstriders", 14, WOUNDS, 6, 4, false),
     m_clawSpear(Weapon::Type::Melee, "Claw-spear", 1, 1, 3, 4, -1, 1),
-    m_clawSpearReaver(Weapon::Type::Melee, "Claw-spear (Hellreaver)", 1, 2, 3, 4, -1, 1),
+    m_clawSpearReaver(Weapon::Type::Melee, "Claw-spear", 1, 2, 3, 4, -1, 1),
     m_hellscourge(Weapon::Type::Melee, "Hellscourge", 3, 1, 3, 4, 0, 1),
-    m_hellscourgeReaver(Weapon::Type::Melee, "Hellscourge (Hellreaver)", 3, 2, 3, 4, 0, 1),
+    m_hellscourgeReaver(Weapon::Type::Melee, "Hellscourge", 3, 2, 3, 4, 0, 1),
     m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};

@@ -41,7 +41,7 @@ Ironbreakers::Ironbreakers() :
     m_drakefirePistol(Weapon::Type::Missile, "Drakefire Pistol", 8, 1, 4, 3, -1, 1),
     m_drakefirePistolMelee(Weapon::Type::Melee, "Drakefire Pistol", 1, 1, 4, 4, 0, 1),
     m_axeOrHammer(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 2, 3, 4, 0, 1),
-    m_axeOrHammerIronbeard(Weapon::Type::Melee, "Ironbreaker Axe or Hammer (Ironbeard)", 1, 3, 3, 4, 0, 1)
+    m_axeOrHammerIronbeard(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONBREAKERS};
 }

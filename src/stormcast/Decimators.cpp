@@ -31,7 +31,7 @@ bool Decimators::s_registered = false;
 Decimators::Decimators() :
     StormcastEternal("Decimators", 4, WOUNDS, 7, 4, false),
     m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 0, 3, 3, -1, 1),
-    m_thunderaxePrime(Weapon::Type::Melee, "Thunderaxe (Prime)", 2, 0, 3, 3, -1, 1),
+    m_thunderaxePrime(Weapon::Type::Melee, "Thunderaxe", 2, 0, 3, 3, -1, 1),
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, DECIMATORS};

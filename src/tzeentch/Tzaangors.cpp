@@ -39,11 +39,11 @@ bool Tzaangors::s_registered = false;
 Tzaangors::Tzaangors() :
     Unit("Tzaangors", 6, WOUNDS, 5, 5, false),
     m_savageBlade(Weapon::Type::Melee, "Savage Blade", 1, 2, 4, 4, 0, 1),
-    m_savageBladeTwistbray(Weapon::Type::Melee, "Savage Blade (Twistbray)", 1, 2, 3, 4, 0, 1),
+    m_savageBladeTwistbray(Weapon::Type::Melee, "Savage Blade", 1, 2, 3, 4, 0, 1),
     m_savageGreatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
-    m_savageGreatbladeTwistbray(Weapon::Type::Melee, "Savage Greatblade (Twistbray)", 1, 1, 3, 4, -1, 2),
+    m_savageGreatbladeTwistbray(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 3, 4, -1, 2),
     m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
-    m_viciousBeakTwistbray(Weapon::Type::Melee, "Vicious Beak (Twistbray)", 1, 1, 3, 5, 0, 1)
+    m_viciousBeakTwistbray(Weapon::Type::Melee, "Vicious Beak", 1, 1, 3, 5, 0, 1)
 {
     m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
 }

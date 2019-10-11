@@ -40,9 +40,9 @@ bool Liberators::s_registered = false;
 Liberators::Liberators() :
     StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false),
     m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
-    m_warhammerPrime(Weapon::Type::Melee, "Warhammer (Prime)", 1, 3, 4, 3, 0, 1),
+    m_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1),
     m_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1),
-    m_warbladePrime(Weapon::Type::Melee, "Warblade (Prime)", 1, 3, 3, 4, 0, 1),
+    m_warbladePrime(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1),
     m_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2),
     m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2)
 {

@@ -32,7 +32,7 @@ bool Swordmasters::s_registered = false;
 Swordmasters::Swordmasters() :
     Unit("Swordmasters", 6, WOUNDS, 7, 4, false),
     m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1),
-    m_greatswordLord(Weapon::Type::Melee, "Greatsword (Bladelord)", 1, 3, 3, 3, -1, 1)
+    m_greatswordLord(Weapon::Type::Melee, "Greatsword", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, SWORDMASTERS};
 }

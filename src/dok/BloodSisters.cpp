@@ -33,7 +33,7 @@ bool BloodSisters::s_registered = false;
 BloodSisters::BloodSisters() :
     DaughterOfKhaine("Blood Sisters", 8, WOUNDS, 8, 5, false),
     m_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1),
-    m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive (Gorgai)", 2, 3, 2, 3, -1, 1),
+    m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 2, 3, -1, 1),
     m_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1),
     m_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1)
 {

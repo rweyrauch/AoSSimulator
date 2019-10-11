@@ -30,7 +30,7 @@ bool Retributors::s_registered = false;
 Retributors::Retributors() :
     StormcastEternal("Retributors", 4, WOUNDS, 7, 4, false),
     m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2),
-    m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer (Prime)", 1, 3, 3, 3, -1, 2),
+    m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 0, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS};

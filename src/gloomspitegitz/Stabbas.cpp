@@ -38,9 +38,9 @@ bool Stabbas::s_registered = false;
 Stabbas::Stabbas() :
     GloomspiteGitzBase("Stabbas", 5, WOUNDS, 4, 6, false),
     m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
-    m_stabbaBoss(Weapon::Type::Melee, "Stabba (Boss)", 1, 1, 3, 4, 0, 1),
+    m_stabbaBoss(Weapon::Type::Melee, "Stabba", 1, 1, 3, 4, 0, 1),
     m_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1),
-    m_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear (Boss)", 2, 1, 4, 4, 0, 1),
+    m_pokinSpearBoss(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 4, 4, 0, 1),
     m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS};

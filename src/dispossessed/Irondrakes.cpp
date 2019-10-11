@@ -38,7 +38,7 @@ bool Irondrakes::s_registered = false;
 Irondrakes::Irondrakes() :
     Dispossessed("Irondrakes", 4, WOUNDS, 7, 4, false),
     m_drakegun(Weapon::Type::Missile, "Drakegun", 16, 1, 3, 3, -1, 1),
-    m_drakegunWarden(Weapon::Type::Missile, "Drakegun (Ironwarden)", 16, 1, 2, 3, -1, 1),
+    m_drakegunWarden(Weapon::Type::Missile, "Drakegun", 16, 1, 2, 3, -1, 1),
     m_grudgehammerTorpedo(Weapon::Type::Missile, "Grudgehammer Torpedo", 20, 1, 3, 3, -2, RAND_D3),
     m_drakefirePistol(Weapon::Type::Missile, "Drakefire Pistol", 8, 1, 4, 3, -1, 1),
     m_drakefirePistolMelee(Weapon::Type::Melee, "Drakefire Pistol", 1, 1, 4, 4, 0, 1),

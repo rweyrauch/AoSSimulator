@@ -53,7 +53,7 @@ SavageBoarboyManiaks::SavageBoarboyManiaks() :
     Unit("Savage Boarboy Maniaks", 12, WOUNDS, 6, 6, false),
     m_chompas(Weapon::Type::Melee, "Pair of Chompas", 1, 4, 4, 3, 0, 1),
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
-    m_chompasBoss(Weapon::Type::Melee, "Pair of Chompas (Boss)", 1, 5, 4, 3, 0, 1)
+    m_chompasBoss(Weapon::Type::Melee, "Pair of Chompas", 1, 5, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, BOARBOYS, SAVAGE_BOARBOY_MANIAKS};
 }
@@ -66,6 +66,9 @@ bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totem
         // Invalid model count.
         return false;
     }
+
+    m_thumper = boarThumper;
+    m_totemBearer = totemBearer;
 
     // Add the Boss
     Model bossModel(BASESIZE, WOUNDS);
@@ -88,6 +91,38 @@ bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totem
     }
 
     return true;
+}
+
+int SavageBoarboyManiaks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // Maniak Fury
+    if (weapon->name() == m_chompas.name() && remainingModels() >= 5)
+    {
+        return 1;
+    }
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+int SavageBoarboyManiaks::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    // Tusker Charge
+    auto mod = Unit::toHitModifier(weapon, target);
+    if (m_charged && weapon->name() == m_tusksAndHooves.name())
+    {
+        mod++;
+    }
+    return mod;
+}
+
+int SavageBoarboyManiaks::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    // Tusker Charge
+    auto mod = Unit::toWoundModifier(weapon, target);
+    if (m_charged && weapon->name() == m_tusksAndHooves.name())
+    {
+        mod++;
+    }
+    return mod;
 }
 
 void SavageBoarboyManiaks::visitWeapons(std::function<void(const Weapon *)> &visitor)

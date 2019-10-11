@@ -38,7 +38,7 @@ bool KairicAcolytes::s_registered = false;
 KairicAcolytes::KairicAcolytes() :
     Unit("Kairic Acolytes", 6, WOUNDS, 5, 6, false),
     m_sorcerousBolt(Weapon::Type::Missile, "Sorcerous Bolt", 12, 1, 5, 4, 0, 1),
-    m_sorcerousBoldAdept(Weapon::Type::Missile, "Sorcerous Bolt (Adept)", 12, 2, 5, 4, 0, 1),
+    m_sorcerousBoldAdept(Weapon::Type::Missile, "Sorcerous Bolt", 12, 2, 5, 4, 0, 1),
     m_cursedBlade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 4, 0, 1),
     m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 4, -1, 1)
 {

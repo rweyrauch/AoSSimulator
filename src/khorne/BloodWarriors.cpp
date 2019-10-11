@@ -36,7 +36,7 @@ bool BloodWarriors::s_registered = false;
 BloodWarriors::BloodWarriors() :
     KhorneBase("Blood Warriors", 5, WOUNDS, 6, 4, false),
     m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1),
-    m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe (Champion)", 1, 3, 3, 4, 0, 1),
+    m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1),
     m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};

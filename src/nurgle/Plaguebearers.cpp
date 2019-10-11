@@ -32,7 +32,7 @@ bool Plaguebearers::s_registered = false;
 Plaguebearers::Plaguebearers() :
     Unit("Plaguebearers", 4, WOUNDS, 10, 5, false),
     m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
-    m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword (Plagueridden)", 1, 2, 4, 3, 0, 1)
+    m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
 }

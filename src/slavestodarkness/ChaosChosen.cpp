@@ -55,7 +55,7 @@ void ChaosChosen::Init()
 ChaosChosen::ChaosChosen() :
     Unit("Chaos Chosen", 5, WOUNDS, 7, 4, false),
     m_greataxe(Weapon::Type::Melee, "Chaos Greataxe", 1, 3, 3, 3, -1, 1),
-    m_greataxeChampion(Weapon::Type::Melee, "Chaos Greataxe (Champion)", 1, 4, 3, 3, -1, 1)
+    m_greataxeChampion(Weapon::Type::Melee, "Chaos Greataxe", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_CHOSEN};
 }

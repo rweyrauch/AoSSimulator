@@ -38,9 +38,9 @@ bool Warriors::s_registered = false;
 Warriors::Warriors() :
     Dispossessed("Warriors", 4, WOUNDS, 6, 5, false),
     m_duardinAxeOrHammer(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer", 1, 1, 3, 4, 0, 1),
-    m_duardinAxeOrHammerVeteran(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer (Veteran)", 1, 2, 3, 4, 0, 1),
+    m_duardinAxeOrHammerVeteran(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer", 1, 2, 3, 4, 0, 1),
     m_doubleHandedAxe(Weapon::Type::Melee, "Double-handed Duardin Axe", 1, 1, 4, 3, -1, 1),
-    m_doubleHandedAxeVeteran(Weapon::Type::Melee, "Double-handed Duardin Axe (Veteran)", 1, 2, 4, 3, -1, 1)
+    m_doubleHandedAxeVeteran(Weapon::Type::Melee, "Double-handed Duardin Axe", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, WARRIORS};
 }

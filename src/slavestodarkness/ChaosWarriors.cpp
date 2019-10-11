@@ -62,9 +62,9 @@ ChaosWarriors::ChaosWarriors() :
     m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 4, 0, 1),
     m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 4, 4, 0, 1),
     m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 4, 3, -1, 1),
-    m_handWeaponsChampion(Weapon::Type::Melee, "Chaos Hand Weapons (Champion)", 1, 2, 2, 4, 0, 1),
-    m_halberdChampion(Weapon::Type::Melee, "Chaos Halberd (Champion)", 2, 2, 3, 4, 0, 1),
-    m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade (Champion)", 1, 2, 3, 3, -1, 1)
+    m_handWeaponsChampion(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 2, 4, 0, 1),
+    m_halberdChampion(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 3, 4, 0, 1),
+    m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_WARRIORS};
 }

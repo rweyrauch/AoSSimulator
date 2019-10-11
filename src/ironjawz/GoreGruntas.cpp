@@ -33,8 +33,8 @@ OrrukGoreGruntas::OrrukGoreGruntas() :
     m_pigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa", 1, 4, 3, 3, -1, 1),
     m_jaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 4, 0, 1),
-    m_bossPigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa (Boss)", 1, 5, 3, 3, -1, 1),
-    m_bossJaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka (Boss)", 2, 5, 3, 3, -1, 1)
+    m_bossPigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa", 1, 5, 3, 3, -1, 1),
+    m_bossJaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 5, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, GORE_GRUNTAS};
 }

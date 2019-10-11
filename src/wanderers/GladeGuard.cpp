@@ -34,7 +34,7 @@ bool GladeGuard::s_registered = false;
 GladeGuard::GladeGuard() :
     Wanderer("Glade Guard", 6, WOUNDS, 6, 6, false),
     m_longbow(Weapon::Type::Missile, "Longbow", 20, 1, 4, 4, 0, 1),
-    m_longbowLord(Weapon::Type::Missile, "Longbow (Lord)", 20, 2, 4, 4, 0, 1),
+    m_longbowLord(Weapon::Type::Missile, "Longbow", 20, 2, 4, 4, 0, 1),
     m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, AELF, WANDERER, GLADE_GUARD};

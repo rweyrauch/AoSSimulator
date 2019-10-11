@@ -36,8 +36,34 @@ public:
 
 protected:
 
+    int chargeModifier() const override
+    {
+        int mod = Unit::chargeModifier();
+        if (m_thumper)
+        {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int braveryModifier() const override
+    {
+        int mod = Unit::braveryModifier();
+        if (m_totemBearer)
+        {
+            mod++;
+        }
+        return mod;
+    }
+
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
+
+    bool m_thumper = false;
+    bool m_totemBearer = false;
 
     Weapon m_chompas,
         m_tusksAndHooves,
@@ -50,10 +76,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Thumper                          No
-// Totem Bearer                     No
-// Maniak Fury                      No
-// Tusker Charge                    No
+// Thumper                          Yes
+// Totem Bearer                     Yes
+// Maniak Fury                      Yes
+// Tusker Charge                    Yes
 //
 
 } // namespace Bonesplitterz

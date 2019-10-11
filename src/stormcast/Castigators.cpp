@@ -29,7 +29,7 @@ bool Castigators::s_registered = false;
 Castigators::Castigators() :
     StormcastEternal("Castigators", 5, WOUNDS, 7, 4, false),
     m_thunderheadGreatbow(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 3, 3, -1, 1),
-    m_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow (Prime)", 18, 1, 2, 3, -1, 1),
+    m_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 2, 3, -1, 1),
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, JUSTICAR, CASTIGATORS};

@@ -32,7 +32,7 @@ SquiqHoppers::SquiqHoppers() :
     GloomspiteGitzBase("Squig Hoppers", RAND_3D6, WOUNDS, 4, 6, true),
     m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
     m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
-    m_slittaBoss(Weapon::Type::Melee, "Slitta (Boss)", 1, 1, 4, 5, 0, 1)
+    m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HOPPERS};
 }

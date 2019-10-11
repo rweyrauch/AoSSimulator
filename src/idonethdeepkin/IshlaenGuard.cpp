@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
     Unit("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true),
     m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
-    m_helsabrePrince(Weapon::Type::Melee, "Helsabre (Prince)", 1, 4, 3, 3, 0, 1),
+    m_helsabrePrince(Weapon::Type::Melee, "Helsabre", 1, 4, 3, 3, 0, 1),
     m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
     m_fangmoraLashingTail(Weapon::Type::Melee, "Fangmora's Lashing Tail", 2, RAND_D3, 3, 3, 0, 1)
 {

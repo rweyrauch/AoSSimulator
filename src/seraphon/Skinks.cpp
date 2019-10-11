@@ -37,11 +37,11 @@ Skinks::Skinks() :
     m_javelinMissile(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
     m_boltspitterMissile(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
     m_javelin(Weapon::Type::Melee, "Meteoric Javelin", 1, 1, 6, 5, 0, 1),
-    m_javelinAlpha(Weapon::Type::Melee, "Meteoric Javelin (Alpha)", 1, 2, 6, 5, 0, 1),
+    m_javelinAlpha(Weapon::Type::Melee, "Meteoric Javelin", 1, 2, 6, 5, 0, 1),
     m_boltspitter(Weapon::Type::Melee, "Boltspitter", 1, 1, 5, 6, 0, 1),
-    m_boltspitterAlpha(Weapon::Type::Melee, "Boltspitter (Alpha)", 1, 2, 5, 6, 0, 1),
+    m_boltspitterAlpha(Weapon::Type::Melee, "Boltspitter", 1, 2, 5, 6, 0, 1),
     m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 5, 4, 0, 1),
-    m_clubAlpha(Weapon::Type::Melee, "Moonstone Club (Alpha)", 1, 2, 5, 4, 0, 1)
+    m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
 }

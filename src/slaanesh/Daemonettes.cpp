@@ -35,7 +35,7 @@ bool Daemonettes::s_registered = false;
 Daemonettes::Daemonettes() :
     SlaaneshBase("Daemonettes", 6, WOUNDS, 10, 5, false),
     m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
-    m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws (Alluress)", 1, 3, 4, 4, -1, 1)
+    m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
 

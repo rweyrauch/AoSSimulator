@@ -36,9 +36,9 @@ bool SaurusKnights::s_registered = false;
 SaurusKnights::SaurusKnights() :
     Unit("Saurus Knights", 7, WOUNDS, 10, 5, false),
     m_celestiteBlade(Weapon::Type::Melee, "Celestite Blade", 1, 1, 3, 3, 0, 1),
-    m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade (Alpha)", 1, 2, 3, 3, 0, 1),
+    m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade", 1, 2, 3, 3, 0, 1),
     m_celestiteLance(Weapon::Type::Melee, "Celestite Lance", 1, 1, 4, 3, 0, 1),
-    m_celestiteLanceAlpha(Weapon::Type::Melee, "Celestite Lance (Alpha)", 1, 2, 4, 3, 0, 1),
+    m_celestiteLanceAlpha(Weapon::Type::Melee, "Celestite Lance", 1, 2, 4, 3, 0, 1),
     m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1),
     m_coldOneBite(Weapon::Type::Melee, "Cold One's Vicious Bite", 1, 2, 3, 4, 0, 1)
 {

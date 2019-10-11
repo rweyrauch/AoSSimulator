@@ -37,9 +37,9 @@ bool SkeletonWarriors::s_registered = false;
 SkeletonWarriors::SkeletonWarriors() :
     Unit("Skeleton Warriors", 4, WOUNDS, 10, 6, false),
     m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
-    m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade (Champion)", 1, 2, 4, 4, 0, 1),
+    m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade", 1, 2, 4, 4, 0, 1),
     m_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1),
-    m_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear (Champion)", 2, 2, 5, 4, 0, 1)
+    m_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear", 2, 2, 5, 4, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, SKELETON_WARRIORS};
 }

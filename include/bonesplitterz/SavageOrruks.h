@@ -43,8 +43,30 @@ public:
 
 protected:
 
+    int chargeModifier() const override
+    {
+        int mod = Unit::chargeModifier();
+        if (m_thumper)
+        {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int braveryModifier() const override
+    {
+        int mod = Unit::braveryModifier();
+        if (m_totemBearer)
+        {
+            mod++;
+        }
+        return mod;
+    }
 
 private:
+
+    bool m_thumper = false;
+    bool m_totemBearer = false;
 
     Weapon m_chompa,
         m_stikka,
@@ -60,8 +82,8 @@ private:
 // -------------------------------------------
 // Spirit of Gorkamorka             No
 // Bone Shield                      No
-// Thumper                          No
-// Totem Bearer                     No
+// Thumper                          Yes
+// Totem Bearer                     Yes
 //
 
 } // namespace Bonesplitterz

@@ -32,9 +32,9 @@ bool HearthguardBerzerkers::s_registered = false;
 HearthguardBerzerkers::HearthguardBerzerkers() :
     Fyreslayer("Hearthguard Berzerkers", 4, WOUNDS, 8, 5, false),
     m_broadaxe(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 2, 3, 3, -1, 2),
-    m_broadaxeKarl(Weapon::Type::Melee, "Berzerker Broadaxe (Karl)", 2, 3, 3, 3, -1, 2),
+    m_broadaxeKarl(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 3, 3, 3, -1, 2),
     m_poleaxe(Weapon::Type::Melee, "Flamestrike Poleaxe", 2, 2, 3, 3, 0, 1),
-    m_poleaxeKarl(Weapon::Type::Melee, "Flamestrike Poleaxe (Karl)", 2, 3, 3, 3, 0, 1),
+    m_poleaxeKarl(Weapon::Type::Melee, "Flamestrike Poleaxe", 2, 3, 3, 3, 0, 1),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HEARTHGUARD_BERZERKERS};

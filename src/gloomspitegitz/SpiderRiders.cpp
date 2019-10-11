@@ -34,7 +34,7 @@ SpiderRiders::SpiderRiders() :
     GloomspiteGitzBase("Spider Riders", 10, WOUNDS, 4, 5, true), // Wall Crawler treated as fly
     m_spiderBow(Weapon::Type::Missile, "Spider-bow", 16, 2, 5, 5, 0, 1),
     m_crookedSpear(Weapon::Type::Melee, "Crooked Spear", 2, 1, 5, 4, 0, 1),
-    m_crookedSpearBoss(Weapon::Type::Melee, "Crooked Spear (Boss)", 2, 1, 4, 4, 0, 1),
+    m_crookedSpearBoss(Weapon::Type::Melee, "Crooked Spear", 2, 1, 4, 4, 0, 1),
     m_fangs(Weapon::Type::Melee, "Fangs", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SPIDERFANG, GROT, SPIDER_RIDERS};

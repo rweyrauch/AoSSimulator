@@ -33,11 +33,11 @@ bool VanguardHunters::s_registered = false;
 VanguardHunters::VanguardHunters() :
     StormcastEternal("Vanguard-Hunters", 6, WOUNDS, 7, 4, false),
     m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
-    m_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol (Prime)", 9, 3, 3, 4, 0, 1),
+    m_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol", 9, 3, 3, 4, 0, 1),
     m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
-    m_shockHandaxePrime(Weapon::Type::Melee, "Shock Handaxe (Prime)", 1, 3, 4, 3, 0, 1),
+    m_shockHandaxePrime(Weapon::Type::Melee, "Shock Handaxe", 1, 3, 4, 3, 0, 1),
     m_stormSabre(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1),
-    m_stormSabrePrime(Weapon::Type::Melee, "Storm Sabre (Prime)", 1, 3, 3, 4, 0, 1)
+    m_stormSabrePrime(Weapon::Type::Melee, "Storm Sabre", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, ANGELOS, VANGUARD_HUNTERS};
 

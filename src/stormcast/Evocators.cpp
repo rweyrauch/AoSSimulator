@@ -34,9 +34,9 @@ bool Evocators::s_registered = false;
 Evocators::Evocators() :
     StormcastEternal("Evocators", 5, WOUNDS, 8, 4, false),
     m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
-    m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave (Prime)", 1, 5, 3, 3, -1, 1),
+    m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1),
     m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
-    m_grandStavePrime(Weapon::Type::Melee, "Grandstave (Prime)", 2, 4, 3, 3, 0, 2)
+    m_grandStavePrime(Weapon::Type::Melee, "Grandstave", 2, 4, 3, 3, 0, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
 

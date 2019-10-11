@@ -35,9 +35,9 @@ bool VulkiteBerzerkers::s_registered = false;
 VulkiteBerzerkers::VulkiteBerzerkers() :
     Fyreslayer("Vulkite Berzerkers", 4, WOUNDS, 7, 5, false),
     m_handaxe(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 2, 3, 3, 0, 1),
-    m_handaxeKarl(Weapon::Type::Melee, "Fyresteel Handaxe (Karl)", 1, 3, 3, 3, 0, 1),
+    m_handaxeKarl(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 3, 3, 3, 0, 1),
     m_warpick(Weapon::Type::Melee, "Fyresteel War-pick", 1, 2, 3, 4, -1, 1),
-    m_warpickKarl(Weapon::Type::Melee, "Fyresteel War-pick (Karl)", 1, 3, 3, 4, -1, 1),
+    m_warpickKarl(Weapon::Type::Melee, "Fyresteel War-pick", 1, 3, 3, 4, -1, 1),
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, VULKITE_BERZERKERS};

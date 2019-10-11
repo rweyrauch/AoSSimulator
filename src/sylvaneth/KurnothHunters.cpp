@@ -37,11 +37,11 @@ bool KurnothHunters::s_registered = false;
 KurnothHunters::KurnothHunters() :
     SylvanethBase("Kurnoth Hunters", 5, WOUNDS, 7, 4, false),
     m_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3),
-    m_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow (Huntmaster)", 30, 2, 3, 3, -1, RAND_D3),
+    m_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 3, 3, -1, RAND_D3),
     m_greatsword(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 3, 3, -1, 2),
-    m_greatswordHuntmaster(Weapon::Type::Melee, "Kurnoth Greatsword (Huntmaster)", 1, 4, 2, 3, -1, 2),
+    m_greatswordHuntmaster(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 2, 3, -1, 2),
     m_scythe(Weapon::Type::Melee, "Kurnoth Scythe", 2, 3, 3, 3, -2, RAND_D3),
-    m_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe (Huntmaster)", 2, 3, 2, 3, -2, RAND_D3),
+    m_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe", 2, 3, 2, 3, -2, RAND_D3),
     m_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, KURNOTH_HUNTERS};

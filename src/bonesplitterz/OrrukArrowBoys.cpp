@@ -67,6 +67,9 @@ bool SavageOrrukArrowboys::configure(int numModels, bool skullThumper, bool tote
         return false;
     }
 
+    m_thumper = skullThumper;
+    m_totemBearer = totemBearer;
+
     // Add the Boss
     Model bossModel(BASESIZE, WOUNDS);
     bossModel.addMissileWeapon(&m_stingaBow);
@@ -95,6 +98,26 @@ void SavageOrrukArrowboys::visitWeapons(std::function<void(const Weapon *)> &vis
     visitor(&m_stingaBow);
     visitor(&m_boneShiv);
     visitor(&m_chompa);
+}
+
+int SavageOrrukArrowboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // Loadsa Arrows
+    if (weapon->name() == m_stingaBow.name() && remainingModels() >= 15)
+    {
+        return 1;
+    }
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+int SavageOrrukArrowboys::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Aim Fer Its Eyes
+    if (weapon->name() == m_stingaBow.name() && target->hasKeyword(MONSTER))
+    {
+        return -1;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Bonesplitterz

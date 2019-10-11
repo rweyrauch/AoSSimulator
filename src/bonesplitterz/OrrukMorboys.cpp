@@ -52,7 +52,7 @@ void SavageOrrukMorboys::Init()
 SavageOrrukMorboys::SavageOrrukMorboys() :
     Unit("Savage Orruk Morboys", 5, WOUNDS, 6, 6, false),
     m_chompaAndShiv(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 3, 4, 3, 0, 1),
-    m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv (Boss)", 1, 4, 4, 3, 0, 1)
+    m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 4, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUK_MORBOYS};
 }
@@ -65,6 +65,9 @@ bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemB
         // Invalid model count.
         return false;
     }
+
+    m_thumper = skullThumper;
+    m_totemBearer = totemBearer;
 
     // Add the Boss
     Model bossModel(BASESIZE, WOUNDS);

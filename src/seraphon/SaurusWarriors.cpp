@@ -36,9 +36,9 @@ bool SaurusWarriors::s_registered = false;
 SaurusWarriors::SaurusWarriors() :
     Unit("Saurus Warriors", 5, WOUNDS, 10, 5, false),
     m_celestiteClub(Weapon::Type::Melee, "Celestite Club", 1, 1, 4, 3, 0, 1),
-    m_celestiteClubAlpha(Weapon::Type::Melee, "Celestite Club (Alpha)", 1, 2, 4, 3, 0, 1),
+    m_celestiteClubAlpha(Weapon::Type::Melee, "Celestite Club", 1, 2, 4, 3, 0, 1),
     m_celestiteSpear(Weapon::Type::Melee, "Celestite Spear", 2, 1, 4, 4, 0, 1),
-    m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Spear (Alpha)", 2, 2, 4, 4, 0, 1),
+    m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Spear", 2, 2, 4, 4, 0, 1),
     m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_WARRIORS};

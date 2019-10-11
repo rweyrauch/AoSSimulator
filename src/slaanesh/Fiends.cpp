@@ -34,7 +34,7 @@ bool Fiends::s_registered = false;
 Fiends::Fiends() :
     SlaaneshBase("Fiends", 12, WOUNDS, 10, 5, false),
     m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
-    m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers (Blissbringer)", 1, 5, 3, 3, -1, 1),
+    m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers", 1, 5, 3, 3, -1, 1),
     m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, FIENDS};

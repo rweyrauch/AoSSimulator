@@ -33,7 +33,7 @@ bool Bestigors::s_registered = false;
 Bestigors::Bestigors() :
     BeastsOfChaosBase("Bestigors", 6, WOUNDS, 6, 4, false),
     m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
-    m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe (Gouge-horn)", 1, 3, 4, 3, -1, 1)
+    m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe", 1, 3, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
 }

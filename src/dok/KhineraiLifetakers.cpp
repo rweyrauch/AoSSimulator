@@ -32,7 +32,7 @@ bool KhineraiLifetakers::s_registered = false;
 KhineraiLifetakers::KhineraiLifetakers() :
     DaughterOfKhaine("Khinerai Lifetakers", 14, WOUNDS, 7, 6, true),
     m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
-    m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle (Harridynn)", 1, 2, 2, 4, 0, 1)
+    m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 2, 4, 0, 1)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
 }

@@ -31,7 +31,7 @@ bool DreadscytheHarridans::s_registered = false;
 DreadscytheHarridans::DreadscytheHarridans() :
     Nighthaunt("Dreadscythe Harridans", 8, WOUNDS, 10, 4, true),
     m_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1),
-    m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs (Crone)", 1, 4, 4, 3, -1, 1)
+    m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs", 1, 4, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS};
 }

@@ -33,7 +33,7 @@ bool Stormvermin::s_registered = false;
 Stormvermin::Stormvermin() :
     Skaventide("Stormvermin", 6, WOUNDS, 5, 5, false),
     m_rustyHalberd(Weapon::Type::Melee, "Rusty Halberd", 2, 2, 4, 3, -1, 1),
-    m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd (Leader)", 2, 3, 4, 3, -1, 1)
+    m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd", 2, 3, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, STORMVERMIN};
 }

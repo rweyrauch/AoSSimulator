@@ -33,7 +33,7 @@ bool Bloodcrushers::s_registered = false;
 Bloodcrushers::Bloodcrushers() :
     KhorneBase("Bloodcrushers", 8, WOUNDS, 10, 4, false),
     m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
-    m_hellbladeHunter(Weapon::Type::Melee, "Hellblade (Bloodhunter)", 1, 2, 4, 3, -1, 1),
+    m_hellbladeHunter(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1),
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};

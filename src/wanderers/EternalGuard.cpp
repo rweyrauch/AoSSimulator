@@ -34,7 +34,7 @@ bool EternalGuard::s_registered = false;
 EternalGuard::EternalGuard() :
     Wanderer("Eternal Guard", 6, WOUNDS, 7, 5, false),
     m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 1, 4, 4, 0, 1),
-    m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave (Warden)", 2, 2, 4, 4, 0, 1)
+    m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, WANDERER, ETERNAL_GUARD};
 }
