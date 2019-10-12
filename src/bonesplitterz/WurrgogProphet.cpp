@@ -13,9 +13,10 @@ namespace Bonesplitterz
 {
 static FactoryMethod factoryMethod = {
     WurrgogProphet::Create,
-    nullptr,
-    nullptr,
+    Bonesplitterz::ValueToString,
+    Bonesplitterz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -27,6 +28,9 @@ Unit *WurrgogProphet::Create(const ParameterList &parameters)
 {
     auto unit = new WurrgogProphet();
 
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+    unit->setWarclan(warclan);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -35,8 +39,6 @@ Unit *WurrgogProphet::Create(const ParameterList &parameters)
     }
     return unit;
 }
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
 void WurrgogProphet::Init()
 {
@@ -47,7 +49,7 @@ void WurrgogProphet::Init()
 }
 
 WurrgogProphet::WurrgogProphet() :
-    Unit("Wurrgog Prophet", 5, WOUNDS, 8, 5, false),
+    Bonesplitterz("Wurrgog Prophet", 5, WOUNDS, 8, 5, false),
     m_staffAndShiv(Weapon::Type::Melee, "Wurrgog Staff and Bone Shiv", 1, 4, 4, 3, 0, RAND_D3),
     m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 4, 3, 0, 1)
 {

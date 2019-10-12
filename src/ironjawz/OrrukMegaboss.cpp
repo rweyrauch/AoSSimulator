@@ -13,9 +13,10 @@ namespace Ironjawz
 {
 static FactoryMethod factoryMethod = {
     OrrukMegaboss::Create,
-    nullptr,
-    nullptr,
+    Ironjawz::ValueToString,
+    Ironjawz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DEATH,
     IRONJAWZ
@@ -51,6 +52,9 @@ void OrrukMegaboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *OrrukMegaboss::Create(const ParameterList &parameters)
 {
     auto unit = new OrrukMegaboss();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)

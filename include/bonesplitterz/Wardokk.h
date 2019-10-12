@@ -8,12 +8,12 @@
 #ifndef WARDOKK_H
 #define WARDOKK_H
 
-#include "Unit.h"
+#include "bonesplitterz/Bonesplitterz.h"
 
 namespace Bonesplitterz
 {
 
-class Wardokk : public Unit
+class Wardokk : public Bonesplitterz
 {
 public:
 

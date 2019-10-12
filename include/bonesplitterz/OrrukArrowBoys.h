@@ -8,12 +8,12 @@
 #ifndef ORRUKARROWBOYS_H
 #define ORRUKARROWBOYS_H
 
-#include "Unit.h"
+#include "bonesplitterz/Bonesplitterz.h"
 
 namespace Bonesplitterz
 {
 
-class SavageOrrukArrowboys : public Unit
+class SavageOrrukArrowboys : public Bonesplitterz
 {
 public:
 

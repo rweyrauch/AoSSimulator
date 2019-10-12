@@ -26,7 +26,8 @@ static FactoryMethod factoryMethod = {
         {
             ParamType::Enum, "Weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords,
             KurnothHunters::Greatbows, 1
-        }
+        },
+        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },
     ORDER,
     SYLVANETH
@@ -107,6 +108,9 @@ Unit *KurnothHunters::Create(const ParameterList &parameters)
     auto unit = new KurnothHunters();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, KurnothHunters::Greatswords);
+
+    auto glade = (Glade)GetEnumParam("Glade", parameters, SylvanethBase::None);
+    unit->setGlade(glade);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)

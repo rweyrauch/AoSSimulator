@@ -16,8 +16,8 @@ namespace Sylvaneth
 
 static FactoryMethod factoryMethod = {
     TreeRevenants::Create,
-    nullptr,
-    nullptr,
+    SylvanethBase::ValueToString,
+    SylvanethBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", TreeRevenants::MIN_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE,
@@ -26,6 +26,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Scion Glaive", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Glade Banners", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Waypipes", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },
     ORDER,
     SYLVANETH
@@ -91,6 +92,9 @@ Unit *TreeRevenants::Create(const ParameterList &parameters)
     bool scionGlaive = GetBoolParam("Scion Glaive", parameters, false);
     bool gladeBanners = GetBoolParam("Glade Banners", parameters, false);
     bool waypipes = GetBoolParam("Waypipes", parameters, false);
+
+    auto glade = (Glade)GetEnumParam("Glade", parameters, SylvanethBase::None);
+    unit->setGlade(glade);
 
     bool ok = unit->configure(numModels, scionGlaive, gladeBanners, waypipes);
     if (!ok)

@@ -13,9 +13,10 @@ namespace Ironjawz
 {
 static FactoryMethod factoryMethod = {
     IronskullsBoyz::Create,
-    nullptr,
-    nullptr,
+    Ironjawz::ValueToString,
+    Ironjawz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DESTRUCTION,
     IRONJAWZ
@@ -62,6 +63,9 @@ void IronskullsBoyz::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *IronskullsBoyz::Create(const ParameterList &parameters)
 {
     auto unit = new IronskullsBoyz();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)

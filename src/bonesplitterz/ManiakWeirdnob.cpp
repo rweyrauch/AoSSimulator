@@ -12,9 +12,10 @@ namespace Bonesplitterz
 {
 static FactoryMethod factoryMethod = {
     ManiakWeirdnob::Create,
-    nullptr,
-    nullptr,
+    Bonesplitterz::ValueToString,
+    Bonesplitterz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -25,6 +26,9 @@ bool ManiakWeirdnob::s_registered = false;
 Unit *ManiakWeirdnob::Create(const ParameterList &parameters)
 {
     auto unit = new ManiakWeirdnob();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)
@@ -44,7 +48,7 @@ void ManiakWeirdnob::Init()
 }
 
 ManiakWeirdnob::ManiakWeirdnob() :
-    Unit("Maniak Weirdnob", 12, WOUNDS, 7, 6, false),
+    Bonesplitterz("Maniak Weirdnob", 12, WOUNDS, 7, 6, false),
     m_bonebeastStaff(Weapon::Type::Melee, "Bonebeast Staff", 1, 3, 4, 3, 0, RAND_D3),
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1)
 {

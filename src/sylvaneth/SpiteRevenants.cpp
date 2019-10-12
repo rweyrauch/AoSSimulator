@@ -16,13 +16,14 @@ namespace Sylvaneth
 
 static FactoryMethod factoryMethod = {
     SpiteRevenants::Create,
-    nullptr,
-    nullptr,
+    SylvanethBase::ValueToString,
+    SylvanethBase::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", SpiteRevenants::MIN_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE,
             SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },
     ORDER,
     SYLVANETH
@@ -69,6 +70,9 @@ Unit *SpiteRevenants::Create(const ParameterList &parameters)
 {
     auto unit = new SpiteRevenants();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto glade = (Glade)GetEnumParam("Glade", parameters, SylvanethBase::None);
+    unit->setGlade(glade);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -5,8 +5,8 @@ namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
     YltharisGuardians::Create,
-    nullptr,
-    nullptr,
+    SylvanethBase::ValueToString,
+    SylvanethBase::EnumStringToInt,
     {
     },
     ORDER,

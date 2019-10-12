@@ -8,12 +8,12 @@
 #ifndef BOARBOYMANIAKS_H
 #define BOARBOYMANIAKS_H
 
-#include "Unit.h"
+#include "bonesplitterz/Bonesplitterz.h"
 
 namespace Bonesplitterz
 {
 
-class SavageBoarboyManiaks : public Unit
+class SavageBoarboyManiaks : public Bonesplitterz
 {
 public:
 

@@ -8,11 +8,11 @@
 #ifndef SAVAGEBIGBOSS_H
 #define SAVAGEBIGBOSS_H
 
-#include "Unit.h"
+#include "bonesplitterz/Bonesplitterz.h"
 
 namespace Bonesplitterz
 {
-class SavageBigBoss : public Unit
+class SavageBigBoss : public Bonesplitterz
 {
 public:
 

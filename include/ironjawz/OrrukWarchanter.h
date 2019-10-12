@@ -9,13 +9,13 @@
 #ifndef ORRUKWARCHANTER_H
 #define ORRUKWARCHANTER_H
 
-#include <Unit.h>
+#include "Ironjawz.h"
 #include <Weapon.h>
 
 namespace Ironjawz
 {
 
-class OrrukWarchanter : public Unit
+class OrrukWarchanter : public Ironjawz
 {
 public:
 

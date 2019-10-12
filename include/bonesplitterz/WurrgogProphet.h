@@ -8,12 +8,12 @@
 #ifndef WURRGOGPROPHET_H
 #define WURRGOGPROPHET_H
 
-#include "Unit.h"
+#include "bonesplitterz/Bonesplitterz.h"
 
 namespace Bonesplitterz
 {
 
-class WurrgogProphet : public Unit
+class WurrgogProphet : public Bonesplitterz
 {
 public:
 

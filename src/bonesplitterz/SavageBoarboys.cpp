@@ -18,7 +18,8 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Models", SavageBoarboys::MIN_UNIT_SIZE, SavageBoarboys::MIN_UNIT_SIZE, SavageBoarboys::MAX_UNIT_SIZE, SavageBoarboys::MIN_UNIT_SIZE},
         {ParamType::Enum, "Weapons", SavageBoarboys::Chompa, SavageBoarboys::Chompa, SavageBoarboys::SavageStikka, 1},
         {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -33,6 +34,9 @@ Unit *SavageBoarboys::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, Chompa);
     bool thumper = GetBoolParam("Skull Thumper", parameters, true);
     bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure(numModels, weapons, thumper, totem);
     if (!ok)
@@ -52,7 +56,7 @@ void SavageBoarboys::Init()
 }
 
 SavageBoarboys::SavageBoarboys() :
-    Unit("Savage Boarboys", 12, WOUNDS, 5, 6, false),
+    Bonesplitterz("Savage Boarboys", 12, WOUNDS, 5, 6, false),
     m_chompa(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1),
     m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1),
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
@@ -127,14 +131,14 @@ std::string SavageBoarboys::ValueToString(const Parameter &parameter)
         if (parameter.m_intValue == Chompa) { return "Chompa"; }
         else if (parameter.m_intValue == SavageStikka) { return "Savage Stikka"; }
     }
-    return ValueToString(parameter);
+    return Bonesplitterz::ValueToString(parameter);
 }
 
 int SavageBoarboys::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Chompa") { return Chompa; }
     else if (enumString == "Savage Stikka") { return SavageStikka; }
-    return EnumStringToInt(enumString);
+    return Bonesplitterz::EnumStringToInt(enumString);
 }
 
 int SavageBoarboys::toHitModifier(const Weapon *weapon, const Unit *target) const

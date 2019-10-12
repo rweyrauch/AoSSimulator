@@ -14,9 +14,10 @@ namespace Ironjawz
 {
 static FactoryMethod factoryMethod = {
     OrrukWarchanter::Create,
-    nullptr,
-    nullptr,
+    Ironjawz::ValueToString,
+    Ironjawz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DESTRUCTION,
     IRONJAWZ
@@ -25,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool OrrukWarchanter::s_registered = false;
 
 OrrukWarchanter::OrrukWarchanter() :
-    Unit("Orruk Warchanter", 4, WOUNDS, 7, 4, false),
+    Ironjawz("Orruk Warchanter", 4, WOUNDS, 7, 4, false),
     m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
@@ -50,6 +51,9 @@ void OrrukWarchanter::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *OrrukWarchanter::Create(const ParameterList &parameters)
 {
     auto unit = new OrrukWarchanter();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)

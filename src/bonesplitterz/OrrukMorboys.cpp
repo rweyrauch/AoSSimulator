@@ -12,12 +12,13 @@ namespace Bonesplitterz
 {
 static FactoryMethod factoryMethod = {
     SavageOrrukMorboys::Create,
-    nullptr,
-    nullptr,
+    Bonesplitterz::ValueToString,
+    Bonesplitterz::EnumStringToInt,
     {
         {ParamType::Integer, "Models", SavageOrrukMorboys::MIN_UNIT_SIZE, SavageOrrukMorboys::MIN_UNIT_SIZE, SavageOrrukMorboys::MAX_UNIT_SIZE, SavageOrrukMorboys::MIN_UNIT_SIZE},
         {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -31,6 +32,9 @@ Unit *SavageOrrukMorboys::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool thumper = GetBoolParam("Skull Thumper", parameters, true);
     bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure(numModels, thumper, totem);
     if (!ok)
@@ -50,7 +54,7 @@ void SavageOrrukMorboys::Init()
 }
 
 SavageOrrukMorboys::SavageOrrukMorboys() :
-    Unit("Savage Orruk Morboys", 5, WOUNDS, 6, 6, false),
+    Bonesplitterz("Savage Orruk Morboys", 5, WOUNDS, 6, 6, false),
     m_chompaAndShiv(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 3, 4, 3, 0, 1),
     m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 4, 4, 3, 0, 1)
 {

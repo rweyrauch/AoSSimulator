@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", OrrukGoreGruntas::PigIronChoppa, OrrukGoreGruntas::PigIronChoppa,
             OrrukGoreGruntas::JaggedGorehacka, 1
         },
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DESTRUCTION,
     IRONJAWZ
@@ -100,6 +101,9 @@ Unit *OrrukGoreGruntas::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PigIronChoppa);
 
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
+
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
     {
@@ -122,7 +126,7 @@ std::string OrrukGoreGruntas::ValueToString(const Parameter &parameter)
             return "Jagged Gore-hacka";
         }
     }
-    return ParameterValueToString(parameter);
+    return Ironjawz::ValueToString(parameter);
 }
 
 int OrrukGoreGruntas::EnumStringToInt(const std::string &enumString)
@@ -135,7 +139,7 @@ int OrrukGoreGruntas::EnumStringToInt(const std::string &enumString)
     {
         return JaggedGorehacka;
     }
-    return 0;
+    return Ironjawz::EnumStringToInt(enumString);
 }
 
 void OrrukGoreGruntas::Init()

@@ -6,26 +6,26 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef IRONJAWZ_H
-#define IRONJAWZ_H
+#ifndef BONESPLITTERZ_H
+#define BONESPLITTERZ_H
 
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Ironjawz
+namespace Bonesplitterz
 {
 
-class Ironjawz : public Unit
+class Bonesplitterz : public Unit
 {
 public:
-    Ironjawz() = default;
-    ~Ironjawz() override = default;
+    Bonesplitterz() = default;
+    ~Bonesplitterz() override = default;
 
     enum Warclan
     {
-        Ironsunz,
-        Bloodtoofs,
-        DaChoppas
+        Bonegrinz,
+        Drakkfoot,
+        Icebone
     };
 
     static std::string ValueToString(const Parameter& parameter);
@@ -34,17 +34,14 @@ public:
     void setWarclan(Warclan warclan);
 
 protected:
-    Ironjawz(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
+    Bonesplitterz(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {}
 
 protected:
 
-    int chargeModifier() const override;
-    int runModifier() const override;
-
 protected:
 
-    Warclan m_warclan = Ironsunz;
+    Warclan m_warclan = Bonegrinz;
 
 };
 
@@ -52,13 +49,15 @@ protected:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mighty Destroyers                No
-// Smashing and Bashing             No
-// Eager for Battle                 Yes
-// Mad as Hell                      No
+// Tireless Trackers                No
+// Warpaint                         No
+// Monster Hunters                  No
+// Spirit of the Beast              No
+// Bonesplitterz Waaagh!            No
+//
 
 void Init();
 
-} // namespace Ironjawz
+} // namespace Bonesplitterz
 
-#endif // IRONJAWZ_H
+#endif // BONESPLITTERZ_H

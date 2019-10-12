@@ -16,9 +16,10 @@ namespace Sylvaneth
 {
 static FactoryMethod factoryMethod = {
     Branchwraith::Create,
-    nullptr,
-    nullptr,
+    SylvanethBase::ValueToString,
+    SylvanethBase::EnumStringToInt,
     {
+        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },
     ORDER,
     SYLVANETH
@@ -48,6 +49,9 @@ bool Branchwraith::configure()
 Unit *Branchwraith::Create(const ParameterList &parameters)
 {
     auto unit = new Branchwraith();
+
+    auto glade = (Glade)GetEnumParam("Glade", parameters, SylvanethBase::None);
+    unit->setGlade(glade);
 
     bool ok = unit->configure();
     if (!ok)

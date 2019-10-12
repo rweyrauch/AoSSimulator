@@ -20,6 +20,71 @@
 namespace Ironjawz
 {
 
+int Ironjawz::chargeModifier() const
+{
+    int mod = Unit::chargeModifier();
+
+    // Eager for Battle
+    mod++;
+
+    // Hunt and Crush
+    if (m_warclan == Bloodtoofs)
+    {
+        mod++;
+    }
+    return mod;
+}
+
+int Ironjawz::runModifier() const
+{
+    int mod = Unit::runModifier();
+
+    // Hunt and Crush
+    if (m_warclan == Bloodtoofs)
+    {
+        mod++;
+    }
+    return mod;
+}
+
+void Ironjawz::setWarclan(Ironjawz::Warclan warclan)
+{
+    m_warclan = warclan;
+    switch (warclan)
+    {
+        case Ironsunz:
+            addKeyword(IRONSUNZ);
+            break;
+        case Bloodtoofs:
+            addKeyword(BLOODTOOFS);
+            break;
+        case DaChoppas:
+            addKeyword(CHOPPAS);
+            break;
+        default:
+            break;
+    }
+}
+
+std::string Ironjawz::ValueToString(const Parameter &parameter)
+{
+    if (parameter.m_name == "Warclan")
+    {
+        if (parameter.m_intValue == Ironsunz) { return "Ironsunz"; }
+        else if (parameter.m_intValue == Bloodtoofs) { return "Bloodtoofs"; }
+        else if (parameter.m_intValue == DaChoppas) { return "Da Choppas"; }
+    }
+    return ParameterValueToString(parameter);
+}
+
+int Ironjawz::EnumStringToInt(const std::string &enumString)
+{
+    if (enumString == "Ironsunz") { return Ironsunz; }
+    else if (enumString == "Bloodtoofs") { return Bloodtoofs; }
+    else if (enumString == "Da Choppas") { return DaChoppas; }
+    return 0;
+}
+
 void Init()
 {
     OrrukArdboys::Init();

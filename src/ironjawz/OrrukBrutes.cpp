@@ -23,7 +23,8 @@ static FactoryMethod factoryMethod = {
         },
         {
             ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
-        }
+        },
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DESTRUCTION,
     IRONJAWZ
@@ -116,6 +117,9 @@ Unit *OrrukBrutes::Create(const ParameterList &parameters)
     int numGoreChoppas = GetIntParam("Gore Choppas", parameters, 0);
     BossWeaponOption bossWeapon = (BossWeaponOption) GetEnumParam("Boss Weapon", parameters, BossChoppa);
 
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
+
     bool ok = unit->configure(numModels, weapons, numGoreChoppas, bossWeapon);
     if (!ok)
     {
@@ -159,7 +163,7 @@ std::string OrrukBrutes::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return Ironjawz::ValueToString(parameter);
 }
 
 int OrrukBrutes::EnumStringToInt(const std::string &enumString)
@@ -181,7 +185,7 @@ int OrrukBrutes::EnumStringToInt(const std::string &enumString)
         return BossKlaw;
     }
 
-    return 0;
+    return Ironjawz::EnumStringToInt(enumString);
 }
 
 Rerolls OrrukBrutes::toHitRerolls(const Weapon *weapon, const Unit *target) const

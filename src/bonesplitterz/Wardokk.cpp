@@ -13,9 +13,10 @@ namespace Bonesplitterz
 {
 static FactoryMethod factoryMethod = {
     Wardokk::Create,
-    nullptr,
-    nullptr,
+    Bonesplitterz::ValueToString,
+    Bonesplitterz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -26,6 +27,9 @@ bool Wardokk::s_registered = false;
 Unit *Wardokk::Create(const ParameterList &parameters)
 {
     auto unit = new Wardokk();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void Wardokk::Init()
 }
 
 Wardokk::Wardokk() :
-    Unit("Wardokk", 5, WOUNDS, 7, 6, false),
+    Bonesplitterz("Wardokk", 5, WOUNDS, 7, 6, false),
     m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};

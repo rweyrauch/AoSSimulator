@@ -21,7 +21,8 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {
             ParamType::Enum, "Standard", OrrukArdboys::None, OrrukArdboys::None, OrrukArdboys::GlyphBearer, 1
-        }
+        },
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DESTRUCTION,
     IRONJAWZ
@@ -89,6 +90,9 @@ Unit *OrrukArdboys::Create(const ParameterList &parameters)
     int numShields = GetIntParam("Shields", parameters, 0);
     bool drummer = GetBoolParam("Drummer", parameters, false);
     StandardOption standard = (StandardOption) GetEnumParam("Standard", parameters, None);
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure(numModels, numShields, drummer, standard);
     if (!ok)
@@ -165,7 +169,7 @@ std::string OrrukArdboys::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return Ironjawz::ValueToString(parameter);
 }
 
 int OrrukArdboys::EnumStringToInt(const std::string &enumString)
@@ -178,7 +182,7 @@ int OrrukArdboys::EnumStringToInt(const std::string &enumString)
     {
         return GlyphBearer;
     }
-    return 0;
+    return Ironjawz::EnumStringToInt(enumString);
 }
 
 } // namespace Ironjawz

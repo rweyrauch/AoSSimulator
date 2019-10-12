@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa, MegabossOnMawKrusha::HackaAndChoppa,
             MegabossOnMawKrusha::ChoppaAndRiptoofFist, 1
         },
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DEATH,
     IRONJAWZ
@@ -93,6 +94,9 @@ Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters)
 {
     auto unit = new MegabossOnMawKrusha();
     WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HackaAndChoppa);
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure(weapons);
     if (!ok)
@@ -196,7 +200,7 @@ std::string MegabossOnMawKrusha::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return Ironjawz::ValueToString(parameter);
 }
 
 int MegabossOnMawKrusha::EnumStringToInt(const std::string &enumString)
@@ -209,7 +213,7 @@ int MegabossOnMawKrusha::EnumStringToInt(const std::string &enumString)
     {
         return ChoppaAndRiptoofFist;
     }
-    return 0;
+    return Ironjawz::EnumStringToInt(enumString);
 }
 
 } //namespace Ironjawz

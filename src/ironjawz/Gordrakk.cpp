@@ -14,9 +14,10 @@ namespace Ironjawz
 {
 static FactoryMethod factoryMethod = {
     GordrakkTheFistOfGork::Create,
-    nullptr,
-    nullptr,
+    Ironjawz::ValueToString,
+    Ironjawz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DEATH,
     IRONJAWZ
@@ -79,6 +80,9 @@ void GordrakkTheFistOfGork::visitWeapons(std::function<void(const Weapon *)> &vi
 Unit *GordrakkTheFistOfGork::Create(const ParameterList &parameters)
 {
     auto unit = new GordrakkTheFistOfGork();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)

@@ -12,9 +12,10 @@ namespace Bonesplitterz
 {
 static FactoryMethod factoryMethod = {
     SavageBigBoss::Create,
-    nullptr,
-    nullptr,
+    Bonesplitterz::ValueToString,
+    Bonesplitterz::EnumStringToInt,
     {
+        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
     BONESPLITTERZ
@@ -25,6 +26,9 @@ bool SavageBigBoss::s_registered = false;
 Unit *SavageBigBoss::Create(const ParameterList &parameters)
 {
     auto unit = new SavageBigBoss();
+
+    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+    unit->setWarclan(warclan);
 
     bool ok = unit->configure();
     if (!ok)
@@ -44,7 +48,7 @@ void SavageBigBoss::Init()
 }
 
 SavageBigBoss::SavageBigBoss() :
-    Unit("Savage Big Boss", 5, WOUNDS, 7, 6, false),
+    Bonesplitterz("Savage Big Boss", 5, WOUNDS, 7, 6, false),
     m_chompasBoss(Weapon::Type::Melee, "Boss Chompa", 1, 6, 3, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, SAVAGE_BIG_BOSS};

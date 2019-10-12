@@ -600,6 +600,11 @@ enum Keyword
     BLOODTOOFS,
     CHOPPAS,
 
+    // Bonesplitterz Warclans
+    BONEGRINZ,
+    DRAKKFOOT,
+    ICEBONE,
+
     // Eldritch Council
     SWORDMASTERS,
     ARCHMAGE,

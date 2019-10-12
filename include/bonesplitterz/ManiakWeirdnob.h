@@ -8,12 +8,12 @@
 #ifndef MANIAKWEIRDNOB_H
 #define MANIAKWEIRDNOB_H
 
-#include "Unit.h"
+#include "bonesplitterz/Bonesplitterz.h"
 
 namespace Bonesplitterz
 {
 
-class ManiakWeirdnob : public Unit
+class ManiakWeirdnob : public Bonesplitterz
 {
 public:
 

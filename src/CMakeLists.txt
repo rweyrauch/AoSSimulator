@@ -319,6 +319,7 @@ add_library(
         ironjawz/MegabossOnMawKrusha.cpp
         ironjawz/IronskullsBoyz.cpp
 
+        bonesplitterz/Bonesplitterz.cpp
         bonesplitterz/BoarboyManiaks.cpp
         bonesplitterz/ManiakWeirdnob.cpp
         bonesplitterz/OrrukArrowBoys.cpp
