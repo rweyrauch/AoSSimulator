@@ -43,6 +43,11 @@ protected:
 
 private:
 
+    Weapon m_runesword,
+        m_greathammer,
+        m_lance,
+        m_claws,
+        m_beak;
 
     static bool s_registered;
 };

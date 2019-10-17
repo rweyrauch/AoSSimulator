@@ -34,7 +34,7 @@ public:
     FlamespyrePhoenix();
     ~FlamespyrePhoenix() override = default;
 
-    bool configure();
+    bool configure(bool anoited);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -43,6 +43,8 @@ protected:
 
 private:
 
+    Weapon m_talons,
+        m_halberd;
 
     static bool s_registered;
 };

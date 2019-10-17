@@ -43,6 +43,7 @@ protected:
 
 private:
 
+    Weapon m_zweihander;
 
     static bool s_registered;
 };

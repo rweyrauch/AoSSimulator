@@ -34,7 +34,7 @@ public:
     SteamTank();
     ~SteamTank() override = default;
 
-    bool configure();
+    bool configure(bool commander);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -43,6 +43,12 @@ protected:
 
 private:
 
+    Weapon m_steamCannon,
+        m_steamGun,
+        m_longRifle,
+        m_handgun,
+        m_crushingWheels,
+        m_sword;
 
     static bool s_registered;
 };

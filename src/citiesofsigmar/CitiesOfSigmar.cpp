@@ -69,17 +69,60 @@ namespace CitiesOfSigmar
 
 std::string CitizenOfSigmar::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    if (parameter.m_name == "City")
+    {
+        if (parameter.m_intValue == Hammerhal) { return "Hammerhal"; }
+        else if (parameter.m_intValue == LivingCity) { return "Living City"; }
+        else if (parameter.m_intValue == GreywaterFastness) { return "Greywater Fastness"; }
+        else if (parameter.m_intValue == Phoenicium) { return "Phoenicium"; }
+        else if (parameter.m_intValue == Anvilgard) { return "Anvilgard"; }
+        else if (parameter.m_intValue == Hallowheart) { return "Hallowheart"; }
+        else if (parameter.m_intValue == TempestsEye) {return "Tempest's Eye"; }
+    }
+    return ParameterValueToString(parameter);
 }
 
 int CitizenOfSigmar::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Hammerhal") { return Hammerhal; }
+    else if (enumString == "Living City") { return LivingCity; }
+    else if (enumString == "Greywater Fastness") { return GreywaterFastness; }
+    else if (enumString == "Phoenicium") { return Phoenicium; }
+    else if (enumString == "Anvilgard") { return Anvilgard; }
+    else if (enumString == "Hallowheart") { return Hallowheart; }
+    else if (enumString == "Tempest's Eye") { return TempestsEye; }
     return 0;
 }
 
 void CitizenOfSigmar::setCity(CitizenOfSigmar::City city)
 {
-
+    m_city = city;
+    switch (city)
+    {
+        case Hammerhal:
+            addKeyword(HAMMERHAL);
+            break;
+        case LivingCity:
+            addKeyword(LIVING_CITY);
+            break;
+        case GreywaterFastness:
+            addKeyword(GREYWATER_FASTNESS);
+            break;
+        case Phoenicium:
+            addKeyword(PHOENICIUM);
+            break;
+        case Anvilgard:
+            addKeyword(ANVILGARD);
+            break;
+        case Hallowheart:
+            addKeyword(HALLOWHEART);
+            break;
+        case TempestsEye:
+            addKeyword(TEMPESTS_EYE);
+            break;
+        default:
+            break;
+    }
 }
 
 void Init()

@@ -37,7 +37,7 @@ public:
     FreeguildCrossbowmen();
     ~FreeguildCrossbowmen() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool piper);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,9 @@ protected:
 
 private:
 
+    Weapon m_crossbow,
+        m_dagger,
+        m_crossbowMarksman;
 
     static bool s_registered;
 };

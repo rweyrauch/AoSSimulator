@@ -43,6 +43,12 @@ protected:
 
 private:
 
+    Weapon m_crossbow,
+        m_noxiousBreath,
+        m_blade,
+        m_lance,
+        m_jaws,
+        m_claws;
 
     static bool s_registered;
 };

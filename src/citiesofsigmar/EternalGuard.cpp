@@ -24,19 +24,20 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Glade Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    WANDERER
+    CITIES_OF_SIGMAR
 };
 
 bool EternalGuard::s_registered = false;
 
 EternalGuard::EternalGuard() :
-    CitizenOfSigmar("Eternal Guard", 6, WOUNDS, 7, 5, false),
-    m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 1, 4, 4, 0, 1),
-    m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 2, 4, 4, 0, 1)
+    CitizenOfSigmar("Eternal Guard", 6, WOUNDS, 7, 4, false),
+    m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 2, 3, 4, 0, 1),
+    m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 3, 3, 4, 0, 1)
 {
-    m_keywords = {ORDER, AELF, WANDERER, ETERNAL_GUARD};
+    m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, ETERNAL_GUARD};
 }
 
 bool EternalGuard::configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields)
@@ -83,6 +84,9 @@ Unit *EternalGuard::Create(const ParameterList &parameters)
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
     bool shields = GetBoolParam("Glade Shields", parameters, false);
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure(numModels, standardBearer, hornblower, shields);
     if (!ok)

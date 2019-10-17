@@ -43,6 +43,10 @@ protected:
 
 private:
 
+    Weapon m_fieryBreath,
+        m_fangs,
+        m_limbs,
+        m_goadAndWhips;
 
     static bool s_registered;
 };

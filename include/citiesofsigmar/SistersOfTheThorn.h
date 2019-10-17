@@ -37,7 +37,7 @@ public:
     SistersOfTheThorn();
     ~SistersOfTheThorn() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,10 @@ protected:
 
 private:
 
+    Weapon m_javelin,
+        m_staff,
+        m_antlersAndHooves,
+        m_staffMaiden;
 
     static bool s_registered;
 };

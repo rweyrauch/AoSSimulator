@@ -37,7 +37,7 @@ public:
     FreeguildPistoliers();
     ~FreeguildPistoliers() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool trumpeter);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,11 @@ protected:
 
 private:
 
+    Weapon m_pistols,
+        m_handgun,
+        m_sabreAndPistolButt,
+        m_hooves,
+        m_sabreAndPistolButtOutrider;
 
     static bool s_registered;
 };

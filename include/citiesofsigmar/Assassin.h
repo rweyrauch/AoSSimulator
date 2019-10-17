@@ -43,6 +43,7 @@ protected:
 
 private:
 
+    Weapon m_blades;
 
     static bool s_registered;
 };

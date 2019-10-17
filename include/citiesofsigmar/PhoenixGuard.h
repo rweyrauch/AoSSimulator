@@ -37,7 +37,7 @@ public:
     PhoenixGuard();
     ~PhoenixGuard() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool drummer);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,8 @@ protected:
 
 private:
 
+    Weapon m_halberd,
+        m_halberdKeeper;
 
     static bool s_registered;
 };

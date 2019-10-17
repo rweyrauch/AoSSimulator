@@ -37,7 +37,7 @@ public:
     BlackArkCorsairs();
     ~BlackArkCorsairs() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,12 @@ protected:
 
 private:
 
+    Weapon m_handbow,
+        m_cutlass,
+        m_blade,
+        m_handbowReaver,
+        m_cutlassReaver,
+        m_bladeReaver;
 
     static bool s_registered;
 };

@@ -6,37 +6,69 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <UnitFactory.h>
 #include "citiesofsigmar/Gyrobombers.h"
 
 namespace CitiesOfSigmar
 {
+static FactoryMethod factoryMethod = {
+    Gyrobombers::Create,
+    Gyrobombers::ValueToString,
+    Gyrobombers::EnumStringToInt,
+    {
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+    },
+    ORDER,
+    CITIES_OF_SIGMAR
+};
+
+bool Gyrobombers::s_registered = false;
 
 Unit *Gyrobombers::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new Gyrobombers();
+
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
+
+    bool ok = unit->configure(numModels);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 std::string Gyrobombers::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int Gyrobombers::EnumStringToInt(const std::string &enumString)
 {
-    return 0;
+    return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
 void Gyrobombers::Init()
 {
-
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Gyrobombers", factoryMethod);
+    }
 }
 
-Gyrobombers::Gyrobombers()
+Gyrobombers::Gyrobombers() :
+    CitizenOfSigmar("Gyrobombers", 12, WOUNDS, 6, 4, true),
+    m_clattergun(Weapon::Type::Missile, "Clattergun", 20, 4, 4, 3, -1, 1),
+    m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1)
 {
-
+    m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROBOMBERS};
 }
 
-bool Gyrobombers::configure()
+bool Gyrobombers::configure(int numModels)
 {
     return false;
 }
@@ -45,4 +77,5 @@ void Gyrobombers::visitWeapons(std::function<void(const Weapon *)> &visitor)
 {
 
 }
-}
+
+} // namespace CitiesOfSigmar

@@ -34,7 +34,7 @@ public:
     CelestialHurricanum();
     ~CelestialHurricanum() override = default;
 
-    bool configure();
+    bool configure(bool battlemage);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -43,6 +43,10 @@ protected:
 
 private:
 
+    Weapon m_stormOfShemtek,
+        m_wizardStaff,
+        m_arcaneTools,
+        m_hooves;
 
     static bool s_registered;
 };

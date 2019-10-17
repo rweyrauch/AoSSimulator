@@ -28,9 +28,10 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    DISPOSSESSED
+    CITIES_OF_SIGMAR
 };
 
 bool Ironbreakers::s_registered = false;
@@ -107,6 +108,9 @@ Unit *Ironbreakers::Create(const ParameterList &parameters)
     WeaponOptions weapon = (WeaponOptions)GetEnumParam("Ironbeard Weapon", parameters, (int)IronbreakerAxeOrHammer);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool drummer = GetBoolParam("Drummer", parameters, false);
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure(numModels, weapon, iconBearer, drummer);
     if (!ok)

@@ -24,9 +24,10 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    DISPOSSESSED
+    CITIES_OF_SIGMAR
 };
 
 bool Hammerers::s_registered = false;
@@ -81,6 +82,9 @@ Unit *Hammerers::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool musician = GetBoolParam("Musician", parameters, false);
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure(numModels, standardBearer, musician);
     if (!ok)

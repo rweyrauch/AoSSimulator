@@ -37,7 +37,7 @@ public:
     SistersOfTheWatch();
     ~SistersOfTheWatch() override = default;
 
-    bool configure();
+    bool configure(int numModels);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,9 @@ protected:
 
 private:
 
+    Weapon m_bow,
+        m_sword,
+        m_bowHighSister;
 
     static bool s_registered;
 };

@@ -43,6 +43,7 @@ protected:
 
 private:
 
+    Weapon m_witchstaff;
 
     static bool s_registered;
 };

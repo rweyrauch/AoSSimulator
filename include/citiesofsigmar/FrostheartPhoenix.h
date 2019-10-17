@@ -43,6 +43,8 @@ protected:
 
 private:
 
+    Weapon m_talons,
+        m_halberd;
 
     static bool s_registered;
 };

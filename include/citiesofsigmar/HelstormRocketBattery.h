@@ -43,6 +43,8 @@ protected:
 
 private:
 
+    Weapon m_rocketSalvo,
+        m_crewsTools;
 
     static bool s_registered;
 };

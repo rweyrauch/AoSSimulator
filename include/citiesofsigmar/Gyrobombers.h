@@ -37,7 +37,7 @@ public:
     Gyrobombers();
     ~Gyrobombers() override = default;
 
-    bool configure();
+    bool configure(int numModels);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,8 @@ protected:
 
 private:
 
+    Weapon m_clattergun,
+        m_rotorBlades;
 
     static bool s_registered;
 };

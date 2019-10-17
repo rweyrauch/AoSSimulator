@@ -16,9 +16,10 @@ static FactoryMethod factoryMethod = {
     CitizenOfSigmar::ValueToString,
     CitizenOfSigmar::EnumStringToInt,
     {
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    DISPOSSESSED
+    CITIES_OF_SIGMAR
 };
 
 bool WardenKing::s_registered = false;
@@ -50,6 +51,9 @@ void WardenKing::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *WardenKing::Create(const ParameterList &parameters)
 {
     auto unit = new WardenKing();
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure();
     if (!ok)

@@ -37,7 +37,7 @@ public:
     DrakespawnKnights();
     ~DrakespawnKnights() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,9 @@ protected:
 
 private:
 
+    Weapon m_lance,
+        m_lanceDreadKnight,
+        m_jaws;
 
     static bool s_registered;
 };

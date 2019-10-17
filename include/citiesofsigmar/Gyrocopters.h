@@ -37,7 +37,7 @@ public:
     Gyrocopters();
     ~Gyrocopters() override = default;
 
-    bool configure();
+    bool configure(int numModels);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,9 @@ protected:
 
 private:
 
+    Weapon m_brimstoneGun,
+        m_steamGun,
+        m_rotorBlades;
 
     static bool s_registered;
 };

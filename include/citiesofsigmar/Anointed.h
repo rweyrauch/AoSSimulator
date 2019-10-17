@@ -43,6 +43,7 @@ protected:
 
 private:
 
+    Weapon m_halberd;
 
     static bool s_registered;
 };

@@ -35,7 +35,7 @@ public:
     LuminarkOfHysh();
     ~LuminarkOfHysh() override = default;
 
-    bool configure();
+    bool configure(bool battlemage);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -44,6 +44,10 @@ protected:
 
 private:
 
+    Weapon m_beamOfLight,
+        m_wizardsStaff,
+        m_arcaneTools,
+        m_hooves;
 
     static bool s_registered;
 };

@@ -37,7 +37,7 @@ public:
     DarkRiders();
     ~DarkRiders() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,10 @@ protected:
 
 private:
 
+    Weapon m_crossbow,
+        m_spear,
+        m_bite,
+        m_crossbowHerald;
 
     static bool s_registered;
 };

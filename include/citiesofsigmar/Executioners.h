@@ -37,7 +37,7 @@ public:
     Executioners();
     ~Executioners() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool drummer);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,8 @@ protected:
 
 private:
 
+    Weapon m_draich,
+        m_draichMaster;
 
     static bool s_registered;
 };

@@ -43,6 +43,8 @@ protected:
 
 private:
 
+    Weapon m_cutlass,
+        m_murderHook;
 
     static bool s_registered;
 };

@@ -37,7 +37,7 @@ public:
     Flagellants();
     ~Flagellants() override = default;
 
-    bool configure();
+    bool configure(int numModels);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,8 @@ protected:
 
 private:
 
+    Weapon m_flailsAndClubs,
+        m_flailsAndClubsProphet;
 
     static bool s_registered;
 };

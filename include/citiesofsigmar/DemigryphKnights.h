@@ -37,7 +37,7 @@ public:
     DemigryphKnights();
     ~DemigryphKnights() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,11 @@ protected:
 
 private:
 
+    Weapon m_halberd,
+        m_lance,
+        m_halberdPreceptor,
+        m_lancePreceptor,
+        m_beakAndTalons;
 
     static bool s_registered;
 };

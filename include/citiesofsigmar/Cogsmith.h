@@ -43,6 +43,10 @@ protected:
 
 private:
 
+    Weapon m_grudgeRaker,
+        m_pistols,
+        m_cogAxe,
+        m_gunButt;
 
     static bool s_registered;
 };

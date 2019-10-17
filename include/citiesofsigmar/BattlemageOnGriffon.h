@@ -43,6 +43,9 @@ protected:
 
 private:
 
+    Weapon m_beastStaff,
+        m_twinBeaks,
+        m_razorClaws;
 
     static bool s_registered;
 };

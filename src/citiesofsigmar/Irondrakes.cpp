@@ -27,9 +27,10 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    DISPOSSESSED
+    CITIES_OF_SIGMAR
 };
 
 bool Irondrakes::s_registered = false;
@@ -117,6 +118,9 @@ Unit *Irondrakes::Create(const ParameterList &parameters)
     WeaponOptions weapon = (WeaponOptions)GetEnumParam("Ironwarden Weapon", parameters, (int)Drakegun);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure(numModels, weapon, iconBearer, hornblower);
     if (!ok)

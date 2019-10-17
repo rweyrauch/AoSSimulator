@@ -37,7 +37,7 @@ public:
     Bleakswords();
     ~Bleakswords() override = default;
 
-    bool configure();
+    bool configure(int numModels, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
 
@@ -46,6 +46,7 @@ protected:
 
 private:
 
+    Weapon m_sword, m_swordLordling;
 
     static bool s_registered;
 };

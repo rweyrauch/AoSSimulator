@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    DISPOSSESSED
+    CITIES_OF_SIGMAR
 };
 
 bool Runelord::s_registered = false;
@@ -56,6 +56,9 @@ void Runelord::visitWeapons(std::function<void(const Weapon *)> &visitor)
 Unit *Runelord::Create(const ParameterList &parameters)
 {
     auto unit = new Runelord();
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure();
     if (!ok)

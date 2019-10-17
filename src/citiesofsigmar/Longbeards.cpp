@@ -27,9 +27,10 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    DISPOSSESSED
+    CITIES_OF_SIGMAR
 };
 
 bool Longbeards::s_registered = false;
@@ -105,6 +106,9 @@ Unit *Longbeards::Create(const ParameterList &parameters)
     bool gromrilShields = GetBoolParam("Gromril Shields", parameters, false);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool musician = GetBoolParam("Musician", parameters, false);
+
+    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+    unit->setCity(city);
 
     bool ok = unit->configure(numModels, weapons, gromrilShields, standardBearer, musician);
     if (!ok)

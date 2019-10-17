@@ -43,6 +43,10 @@ protected:
 
 private:
 
+    Weapon m_tentacles,
+        m_tail,
+        m_limbs,
+        m_goadsAndWhips;
 
     static bool s_registered;
 };

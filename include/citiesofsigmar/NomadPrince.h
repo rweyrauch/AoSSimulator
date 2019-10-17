@@ -43,6 +43,7 @@ protected:
 
 private:
 
+    Weapon m_spear;
 
     static bool s_registered;
 };
