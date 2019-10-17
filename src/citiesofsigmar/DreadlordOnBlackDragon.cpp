@@ -75,9 +75,14 @@ bool DreadlordOnBlackDragon::configure()
     return false;
 }
 
-void DreadlordOnBlackDragon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DreadlordOnBlackDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_crossbow);
+    visitor(m_noxiousBreath);
+    visitor(m_blade);
+    visitor(m_lance);
+    visitor(m_jaws);
+    visitor(m_claws);
 }
 
 } // namespace CitiesOfSigmar

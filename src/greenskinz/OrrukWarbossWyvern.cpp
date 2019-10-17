@@ -67,11 +67,11 @@ bool OrrukWarbossOnWyvern::configure(bool pairedChoppas)
     return true;
 }
 
-void OrrukWarbossOnWyvern::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukWarbossOnWyvern::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bossChoppa);
-    visitor(&m_hornsClawsAndTeeth);
-    visitor(&m_barbedTail);
+    visitor(m_bossChoppa);
+    visitor(m_hornsClawsAndTeeth);
+    visitor(m_barbedTail);
 }
 
 Unit *OrrukWarbossOnWyvern::Create(const ParameterList &parameters)

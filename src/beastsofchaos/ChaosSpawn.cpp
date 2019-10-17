@@ -58,9 +58,9 @@ bool ChaosSpawn::configure(int numModels)
     return true;
 }
 
-void ChaosSpawn::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChaosSpawn::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_freakingMutations);
+    visitor(m_freakingMutations);
 }
 
 Unit *ChaosSpawn::Create(const ParameterList &parameters)

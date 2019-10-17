@@ -74,9 +74,11 @@ bool ShadowWarriors::configure(int numModels)
     return false;
 }
 
-void ShadowWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ShadowWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_bow);
+    visitor(m_blade);
+    visitor(m_bowWalker);
 }
 
 } // namespace CitiesOfSigmar

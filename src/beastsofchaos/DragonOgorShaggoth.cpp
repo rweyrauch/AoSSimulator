@@ -72,11 +72,11 @@ void DragonOgorShaggoth::Init()
     }
 }
 
-void DragonOgorShaggoth::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DragonOgorShaggoth::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormWroughtAxe);
-    visitor(&m_sweepingTail);
-    visitor(&m_talonedForelimbs);
+    visitor(m_stormWroughtAxe);
+    visitor(m_sweepingTail);
+    visitor(m_talonedForelimbs);
 }
 
 } // namespace BeastsOfChaos

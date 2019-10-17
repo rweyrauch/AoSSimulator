@@ -51,9 +51,9 @@ bool AbhorrantGhoulKing::configure()
     return true;
 }
 
-void AbhorrantGhoulKing::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AbhorrantGhoulKing::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_goryTalonsAndFangs);
+    visitor(m_goryTalonsAndFangs);
 }
 
 Unit *AbhorrantGhoulKing::Create(const ParameterList &parameters)

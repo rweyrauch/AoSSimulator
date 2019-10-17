@@ -144,10 +144,10 @@ Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon, int saveRoll) co
     return wounds;
 }
 
-void WitchAelves::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WitchAelves::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_sacrificialKnife);
-    visitor(&m_sacrificialKnifeHag);
+    visitor(m_sacrificialKnife);
+    visitor(m_sacrificialKnifeHag);
 }
 
 } // namespace DaughtersOfKhaine

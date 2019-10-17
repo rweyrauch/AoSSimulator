@@ -75,12 +75,12 @@ bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool m
     return true;
 }
 
-void AkhelianIshlaenGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AkhelianIshlaenGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_helsabre);
-    visitor(&m_helsabrePrince);
-    visitor(&m_fangmoraFangedMaw);
-    visitor(&m_fangmoraLashingTail);
+    visitor(m_helsabre);
+    visitor(m_helsabrePrince);
+    visitor(m_fangmoraFangedMaw);
+    visitor(m_fangmoraLashingTail);
 }
 
 Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters)

@@ -77,9 +77,9 @@ void WebspinnerShaman::Init()
     }
 }
 
-void WebspinnerShaman::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WebspinnerShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiderGodStaff);
+    visitor(m_spiderGodStaff);
 }
 
 std::string WebspinnerShaman::ValueToString(const Parameter &parameter)

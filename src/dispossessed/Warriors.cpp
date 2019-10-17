@@ -90,12 +90,12 @@ bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShiel
     return true;
 }
 
-void Warriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Warriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_duardinAxeOrHammer);
-    visitor(&m_duardinAxeOrHammerVeteran);
-    visitor(&m_doubleHandedAxe);
-    visitor(&m_doubleHandedAxeVeteran);
+    visitor(m_duardinAxeOrHammer);
+    visitor(m_duardinAxeOrHammerVeteran);
+    visitor(m_doubleHandedAxe);
+    visitor(m_doubleHandedAxeVeteran);
 }
 
 Unit *Warriors::Create(const ParameterList &parameters)

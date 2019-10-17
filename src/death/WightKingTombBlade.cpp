@@ -32,10 +32,10 @@ WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade() :
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
 }
 
-void WightKingWithBalefulTombBlade::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WightKingWithBalefulTombBlade::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_balefulTombBlade);
-    visitor(&m_steedsHoovesAndTeeth);
+    visitor(m_balefulTombBlade);
+    visitor(m_steedsHoovesAndTeeth);
 }
 
 Unit *WightKingWithBalefulTombBlade::Create(const ParameterList &parameters)

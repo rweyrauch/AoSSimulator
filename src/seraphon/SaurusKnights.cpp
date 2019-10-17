@@ -96,14 +96,14 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
     return true;
 }
 
-void SaurusKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SaurusKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_celestiteBlade);
-    visitor(&m_celestiteBladeAlpha);
-    visitor(&m_celestiteLance);
-    visitor(&m_celestiteLanceAlpha);
-    visitor(&m_jawsAndShield);
-    visitor(&m_coldOneBite);
+    visitor(m_celestiteBlade);
+    visitor(m_celestiteBladeAlpha);
+    visitor(m_celestiteLance);
+    visitor(m_celestiteLanceAlpha);
+    visitor(m_jawsAndShield);
+    visitor(m_coldOneBite);
 }
 
 Unit *SaurusKnights::Create(const ParameterList &parameters)

@@ -43,9 +43,9 @@ bool Unforged::configure()
     return true;
 }
 
-void Unforged::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Unforged::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_runicAxes);
+    visitor(m_runicAxes);
 }
 
 Unit *Unforged::Create(const ParameterList &parameters)

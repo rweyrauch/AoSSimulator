@@ -62,11 +62,11 @@ bool Concussors::configure(int numModels)
     return true;
 }
 
-void Concussors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Concussors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormBlast);
-    visitor(&m_lightningHammer);
-    visitor(&m_clawsAndFangs);
+    visitor(m_stormBlast);
+    visitor(m_lightningHammer);
+    visitor(m_clawsAndFangs);
 }
 
 Unit *Concussors::Create(const ParameterList &parameters)

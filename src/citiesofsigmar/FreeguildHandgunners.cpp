@@ -78,9 +78,13 @@ bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool ho
     return false;
 }
 
-void FreeguildHandgunners::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildHandgunners::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_longRifle);
+    visitor(m_handgun);
+    visitor(m_freeguildHandgun);
+    visitor(m_dagger);
+    visitor(m_handgunMarksman);
 }
 
 } // namespace CitiesOfSigmar

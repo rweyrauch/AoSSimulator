@@ -158,14 +158,14 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
     return true;
 }
 
-void ChaosWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChaosWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_handWeapons);
-    visitor(&m_halberd);
-    visitor(&m_greatBlade);
-    visitor(&m_handWeaponsChampion);
-    visitor(&m_halberdChampion);
-    visitor(&m_greatBladeChampion);
+    visitor(m_handWeapons);
+    visitor(m_halberd);
+    visitor(m_greatBlade);
+    visitor(m_handWeaponsChampion);
+    visitor(m_halberdChampion);
+    visitor(m_greatBladeChampion);
 }
 
 std::string ChaosWarriors::ValueToString(const Parameter &parameter)

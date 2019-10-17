@@ -68,9 +68,9 @@ void KnightAzyros::Init()
     }
 }
 
-void KnightAzyros::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightAzyros::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_starblade);
+    visitor(m_starblade);
 }
 
 void KnightAzyros::onStartHero(PlayerId player)

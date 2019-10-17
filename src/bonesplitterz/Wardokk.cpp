@@ -74,9 +74,9 @@ bool Wardokk::configure()
     return true;
 }
 
-void Wardokk::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Wardokk::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bonebeastStikk);
+    visitor(m_bonebeastStikk);
 }
 
 } // namespace Bonesplitterz

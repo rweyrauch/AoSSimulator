@@ -140,11 +140,11 @@ void BloodWarriors::Init()
     }
 }
 
-void BloodWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_goreaxe);
-    visitor(&m_goreaxeChampion);
-    visitor(&m_goreglaive);
+    visitor(m_goreaxe);
+    visitor(m_goreaxeChampion);
+    visitor(m_goreglaive);
 }
 
 Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, int saveRoll) const

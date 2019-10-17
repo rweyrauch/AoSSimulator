@@ -68,11 +68,11 @@ int DreadSaurian::move() const
     return g_damageTable[getDamageTableIndex()].m_move;
 }
 
-void DreadSaurian::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DreadSaurian::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_gargantuanJaws);
-    visitor(&m_rakingClaws);
-    visitor(&m_armouredTail);
+    visitor(m_gargantuanJaws);
+    visitor(m_rakingClaws);
+    visitor(m_armouredTail);
 }
 
 Unit *DreadSaurian::Create(const ParameterList &parameters)

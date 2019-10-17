@@ -74,11 +74,11 @@ bool Quarrellers::configure(int numModels, bool duardinBucklers, StandardOptions
     return true;
 }
 
-void Quarrellers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Quarrellers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_duardinCrossbow);
-    visitor(&m_duardinCrossbowVeteran);
-    visitor(&m_rangersAxe);
+    visitor(m_duardinCrossbow);
+    visitor(m_duardinCrossbowVeteran);
+    visitor(m_rangersAxe);
 }
 
 Unit *Quarrellers::Create(const ParameterList &parameters)

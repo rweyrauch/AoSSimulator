@@ -82,10 +82,10 @@ int KnightZephyros::extraAttacks(const Model *attackingModel, const Weapon *weap
     return attacks;
 }
 
-void KnightZephyros::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightZephyros::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boltstormPistol);
-    visitor(&m_tempestAxes);
+    visitor(m_boltstormPistol);
+    visitor(m_tempestAxes);
 }
 
 } // namespace StormcastEternals

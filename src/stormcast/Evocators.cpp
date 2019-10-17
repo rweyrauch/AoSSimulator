@@ -160,12 +160,12 @@ void Evocators::Init()
     }
 }
 
-void Evocators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Evocators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_tempestBladeAndStave);
-    visitor(&m_tempestBladeAndStavePrime);
-    visitor(&m_grandStave);
-    visitor(&m_grandStavePrime);
+    visitor(m_tempestBladeAndStave);
+    visitor(m_tempestBladeAndStavePrime);
+    visitor(m_grandStave);
+    visitor(m_grandStavePrime);
 }
 
 std::string Evocators::ValueToString(const Parameter &parameter)

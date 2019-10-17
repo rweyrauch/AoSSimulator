@@ -49,12 +49,12 @@ bool AuricRuneson::configure()
     return true;
 }
 
-void AuricRuneson::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AuricRuneson::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_javelin);
-    visitor(&m_warAxe);
-    visitor(&m_javelinMelee);
+    visitor(m_throwingAxe);
+    visitor(m_javelin);
+    visitor(m_warAxe);
+    visitor(m_javelinMelee);
 }
 
 Unit *AuricRuneson::Create(const ParameterList &parameters)

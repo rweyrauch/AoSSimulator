@@ -68,9 +68,9 @@ void GreatBrayShaman::Init()
     }
 }
 
-void GreatBrayShaman::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GreatBrayShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_fetishStaff);
+    visitor(m_fetishStaff);
 }
 
 } // namespace BeastsOfChaos

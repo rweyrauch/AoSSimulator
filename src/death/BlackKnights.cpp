@@ -71,11 +71,11 @@ bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowe
     return true;
 }
 
-void BlackKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BlackKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_barrowLance);
-    visitor(&m_barrowLanceKnight);
-    visitor(&m_hoovesAndTeeth);
+    visitor(m_barrowLance);
+    visitor(m_barrowLanceKnight);
+    visitor(m_hoovesAndTeeth);
 }
 
 Unit *BlackKnights::Create(const ParameterList &parameters)

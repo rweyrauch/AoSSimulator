@@ -72,11 +72,11 @@ void Jabberslythe::Init()
     }
 }
 
-void Jabberslythe::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Jabberslythe::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slytheyTongue);
-    visitor(&m_vorpalClaws);
-    visitor(&m_spikedTail);
+    visitor(m_slytheyTongue);
+    visitor(m_vorpalClaws);
+    visitor(m_spikedTail);
 }
 
 } // namespace BeastsOfChaos

@@ -45,10 +45,10 @@ bool Bloodstoker::configure()
     return true;
 }
 
-void Bloodstoker::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bloodstoker::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_tortureBlade);
-    visitor(&m_bloodWhip);
+    visitor(m_tortureBlade);
+    visitor(m_bloodWhip);
 }
 
 Unit *Bloodstoker::Create(const ParameterList &parameters)

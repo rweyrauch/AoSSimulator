@@ -94,13 +94,13 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
     return true;
 }
 
-void OrrukBoarboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukBoarboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_choppa);
-    visitor(&m_pigstikkaSpear);
-    visitor(&m_warBoarsTusks);
-    visitor(&m_choppaBoss);
-    visitor(&m_pigstikkaSpearBoss);
+    visitor(m_choppa);
+    visitor(m_pigstikkaSpear);
+    visitor(m_warBoarsTusks);
+    visitor(m_choppaBoss);
+    visitor(m_pigstikkaSpearBoss);
 }
 
 Unit *OrrukBoarboys::Create(const ParameterList &parameters)

@@ -93,11 +93,11 @@ bool CorvusCabal::configure(int numModels)
     return true;
 }
 
-void CorvusCabal::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CorvusCabal::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ravenDarts);
-    visitor(&m_corvusWeapons);
-    visitor(&m_corvusWeaponsLeader);
+    visitor(m_ravenDarts);
+    visitor(m_corvusWeapons);
+    visitor(m_corvusWeaponsLeader);
 }
 
 Rerolls CorvusCabal::chargeRerolls() const

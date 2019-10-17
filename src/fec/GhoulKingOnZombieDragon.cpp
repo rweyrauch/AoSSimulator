@@ -75,12 +75,12 @@ bool AbhorrantGhoulKingOnZombieDragon::configure()
     return true;
 }
 
-void AbhorrantGhoulKingOnZombieDragon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AbhorrantGhoulKingOnZombieDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pestilentialBreath);
-    visitor(&m_goryTalonsAndFangs);
-    visitor(&m_snappingMaw);
-    visitor(&m_swordlikeClaws);
+    visitor(m_pestilentialBreath);
+    visitor(m_goryTalonsAndFangs);
+    visitor(m_snappingMaw);
+    visitor(m_swordlikeClaws);
 }
 
 Unit *AbhorrantGhoulKingOnZombieDragon::Create(const ParameterList &parameters)

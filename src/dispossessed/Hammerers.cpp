@@ -70,10 +70,10 @@ bool Hammerers::configure(int numModels, bool standardBearer, bool musician)
     return true;
 }
 
-void Hammerers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Hammerers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greatHammer);
-    visitor(&m_greatHammerKeeper);
+    visitor(m_greatHammer);
+    visitor(m_greatHammerKeeper);
 }
 
 Unit *Hammerers::Create(const ParameterList &parameters)

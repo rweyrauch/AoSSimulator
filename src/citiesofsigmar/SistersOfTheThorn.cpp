@@ -77,9 +77,12 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
     return false;
 }
 
-void SistersOfTheThorn::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SistersOfTheThorn::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_javelin);
+    visitor(m_staff);
+    visitor(m_antlersAndHooves);
+    visitor(m_staffMaiden);
 }
 
 } // namespace CitiesOfSigmar

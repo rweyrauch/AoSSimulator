@@ -105,11 +105,11 @@ int VanguardRaptorsHurricane::extraAttacks(const Model *attackingModel, const We
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
 }
 
-void VanguardRaptorsHurricane::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VanguardRaptorsHurricane::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hurricaneCrossbow);
-    visitor(&m_hurricaneCrossbowPrime);
-    visitor(&m_heavyStock);
+    visitor(m_hurricaneCrossbow);
+    visitor(m_hurricaneCrossbowPrime);
+    visitor(m_heavyStock);
 }
 
 } // namespace StormcastEternals

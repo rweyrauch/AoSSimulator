@@ -66,11 +66,11 @@ bool SeekerChariots::configure(int numModels)
     return true;
 }
 
-void SeekerChariots::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SeekerChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_flensingWhips);
-    visitor(&m_piercingClaws);
-    visitor(&m_poisonedTongues);
+    visitor(m_flensingWhips);
+    visitor(m_piercingClaws);
+    visitor(m_poisonedTongues);
 }
 
 Unit *SeekerChariots::Create(const ParameterList &parameters)

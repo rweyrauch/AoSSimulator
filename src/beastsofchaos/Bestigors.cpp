@@ -70,10 +70,10 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
     return true;
 }
 
-void Bestigors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bestigors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_despoilerAxe);
-    visitor(&m_despoilerAxeGougeHorn);
+    visitor(m_despoilerAxe);
+    visitor(m_despoilerAxeGougeHorn);
 }
 
 Unit *Bestigors::Create(const ParameterList &parameters)

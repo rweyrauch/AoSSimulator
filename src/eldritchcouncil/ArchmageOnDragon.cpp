@@ -85,15 +85,15 @@ bool ArchmageOnDragon::configure(bool arcaneTome, bool talisman)
     return true;
 }
 
-void ArchmageOnDragon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ArchmageOnDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_magestaff);
+    visitor(m_magestaff);
     if (!m_arcaneTome)
     {
-        visitor(&m_sorcerousBlade);
+        visitor(m_sorcerousBlade);
     }
-    visitor(&m_dragonClaws);
-    visitor(&m_dragonJaws);
+    visitor(m_dragonClaws);
+    visitor(m_dragonJaws);
 }
 
 Unit *ArchmageOnDragon::Create(const ParameterList &parameters)

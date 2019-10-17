@@ -107,10 +107,10 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
     return true;
 }
 
-void ChaosChosen::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChaosChosen::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greataxe);
-    visitor(&m_greataxeChampion);
+    visitor(m_greataxe);
+    visitor(m_greataxeChampion);
 }
 
 void ChaosChosen::onWounded()

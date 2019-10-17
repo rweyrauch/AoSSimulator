@@ -68,10 +68,10 @@ bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblo
     return true;
 }
 
-void WildwoodRangers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WildwoodRangers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_rangersDraich);
-    visitor(&m_wardensDraich);
+    visitor(m_rangersDraich);
+    visitor(m_wardensDraich);
 }
 
 Unit *WildwoodRangers::Create(const ParameterList &parameters)

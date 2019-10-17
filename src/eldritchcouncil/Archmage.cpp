@@ -57,12 +57,12 @@ bool Archmage::configure(bool steed)
     return true;
 }
 
-void Archmage::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Archmage::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_seerstaff);
+    visitor(m_seerstaff);
     if (m_steed)
     {
-        visitor(&m_steedHooves);
+        visitor(m_steedHooves);
     }
 }
 

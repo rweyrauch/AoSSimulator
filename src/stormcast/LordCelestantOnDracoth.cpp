@@ -199,13 +199,13 @@ int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormstrikeGlaive);
-    visitor(&m_lightningHammer);
-    visitor(&m_thunderaxe);
-    visitor(&m_tempestosHammer);
-    visitor(&m_clawsAndFangs);
+    visitor(m_stormstrikeGlaive);
+    visitor(m_lightningHammer);
+    visitor(m_thunderaxe);
+    visitor(m_tempestosHammer);
+    visitor(m_clawsAndFangs);
 }
 
 Wounds LordCelestantOnDracoth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

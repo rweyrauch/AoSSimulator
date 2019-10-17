@@ -73,12 +73,12 @@ bool TheGlottkin::configure()
     return true;
 }
 
-void TheGlottkin::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TheGlottkin::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pestilentTorrent);
-    visitor(&m_flailingTentacle);
-    visitor(&m_lampreyMaw);
-    visitor(&m_poisonScythe);
+    visitor(m_pestilentTorrent);
+    visitor(m_flailingTentacle);
+    visitor(m_lampreyMaw);
+    visitor(m_poisonScythe);
 }
 
 Unit *TheGlottkin::Create(const ParameterList &parameters)

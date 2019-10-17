@@ -60,9 +60,9 @@ bool RockgutTroggoths::configure(int numModels)
     return true;
 }
 
-void RockgutTroggoths::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void RockgutTroggoths::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_massiveStoneMaul);
+    visitor(m_massiveStoneMaul);
 }
 
 Unit *RockgutTroggoths::Create(const ParameterList &parameters)

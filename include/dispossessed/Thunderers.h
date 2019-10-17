@@ -52,7 +52,7 @@ public:
 
     bool configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, StandardOptions standard, bool drummers);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

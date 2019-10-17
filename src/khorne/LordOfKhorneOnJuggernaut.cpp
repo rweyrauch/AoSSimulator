@@ -46,10 +46,10 @@ bool LordOfKhorneOnJuggernaut::configure()
     return true;
 }
 
-void LordOfKhorneOnJuggernaut::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordOfKhorneOnJuggernaut::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_wrathforgedAxe);
-    visitor(&m_brazenHooves);
+    visitor(m_wrathforgedAxe);
+    visitor(m_brazenHooves);
 }
 
 Unit *LordOfKhorneOnJuggernaut::Create(const ParameterList &parameters)

@@ -63,10 +63,10 @@ bool GutterRunners::configure(int numModels)
     return true;
 }
 
-void GutterRunners::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GutterRunners::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingStars);
-    visitor(&m_punchDaggerAndBlade);
+    visitor(m_throwingStars);
+    visitor(m_punchDaggerAndBlade);
 }
 
 Unit *GutterRunners::Create(const ParameterList &parameters)

@@ -76,9 +76,11 @@ bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower)
     return false;
 }
 
-void Darkshards::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Darkshards::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_crossbow);
+    visitor(m_dagger);
+    visitor(m_crossbowMaster);
 }
 
 } //namespace CitiesOfSigmar

@@ -47,11 +47,11 @@ bool Doomwheel::configure()
     return true;
 }
 
-void Doomwheel::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Doomwheel::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_warpBolts);
-    visitor(&m_grindingWheel);
-    visitor(&m_teethAndKnives);
+    visitor(m_warpBolts);
+    visitor(m_grindingWheel);
+    visitor(m_teethAndKnives);
 }
 
 Unit *Doomwheel::Create(const ParameterList &parameters)

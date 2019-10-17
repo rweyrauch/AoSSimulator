@@ -44,9 +44,9 @@ bool Skulltaker::configure()
     return true;
 }
 
-void Skulltaker::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skulltaker::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slayerSword);
+    visitor(m_slayerSword);
 }
 
 Unit *Skulltaker::Create(const ParameterList &parameters)

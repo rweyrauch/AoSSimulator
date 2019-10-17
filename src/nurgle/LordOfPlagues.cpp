@@ -41,9 +41,9 @@ bool LordOfPlagues::configure()
     return true;
 }
 
-void LordOfPlagues::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordOfPlagues::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_plagueriddenGreatBlade);
+    visitor(m_plagueriddenGreatBlade);
 }
 
 Unit *LordOfPlagues::Create(const ParameterList &parameters)

@@ -77,10 +77,10 @@ bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, Standa
     return true;
 }
 
-void OrrukArdboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukArdboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_choppa);
-    visitor(&m_bossChoppa);
+    visitor(m_choppa);
+    visitor(m_bossChoppa);
 }
 
 Unit *OrrukArdboys::Create(const ParameterList &parameters)

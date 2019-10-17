@@ -230,13 +230,13 @@ int Stabbas::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
-void Stabbas::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Stabbas::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stabba);
-    visitor(&m_stabbaBoss);
-    visitor(&m_pokinSpear);
-    visitor(&m_pokinSpearBoss);
-    visitor(&m_barbedNet);
+    visitor(m_stabba);
+    visitor(m_stabbaBoss);
+    visitor(m_pokinSpear);
+    visitor(m_pokinSpearBoss);
+    visitor(m_barbedNet);
 }
 
 int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

@@ -66,11 +66,11 @@ bool FlamersOfTzeentch::configure(int numModels)
     return true;
 }
 
-void FlamersOfTzeentch::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FlamersOfTzeentch::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_warpflame);
-    visitor(&m_warpflamePyrocaster);
-    visitor(&m_flamingMaw);
+    visitor(m_warpflame);
+    visitor(m_warpflamePyrocaster);
+    visitor(m_flamingMaw);
 }
 
 Unit *FlamersOfTzeentch::Create(const ParameterList &parameters)

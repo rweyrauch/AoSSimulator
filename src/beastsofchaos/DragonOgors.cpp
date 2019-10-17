@@ -90,12 +90,12 @@ bool DragonOgors::configure(int numModels, int numPairedWeapons, int numGlaives,
     return true;
 }
 
-void DragonOgors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DragonOgors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pairedAncientWeapons);
-    visitor(&m_draconicWarglaive);
-    visitor(&m_draconicCrusher);
-    visitor(&m_rakingForeclaws);
+    visitor(m_pairedAncientWeapons);
+    visitor(m_draconicWarglaive);
+    visitor(m_draconicCrusher);
+    visitor(m_rakingForeclaws);
 }
 
 Unit *DragonOgors::Create(const ParameterList &parameters)

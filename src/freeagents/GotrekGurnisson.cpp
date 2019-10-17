@@ -42,9 +42,9 @@ bool GotrekGurnisson::configure()
     return true;
 }
 
-void GotrekGurnisson::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GotrekGurnisson::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_zangromThaz);
+    visitor(m_zangromThaz);
 }
 
 Unit *GotrekGurnisson::Create(const ParameterList &parameters)

@@ -59,10 +59,10 @@ bool OrrukBoarChariots::configure(int numModels)
     return true;
 }
 
-void OrrukBoarChariots::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukBoarChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pigstikkaSpears);
-    visitor(&m_warBoarsTusks);
+    visitor(m_pigstikkaSpears);
+    visitor(m_warBoarsTusks);
 }
 
 Unit *OrrukBoarChariots::Create(const ParameterList &parameters)

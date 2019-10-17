@@ -75,9 +75,10 @@ bool FreeguildGreatswords::configure(int numModels, bool standardBearer, bool ho
     return false;
 }
 
-void FreeguildGreatswords::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildGreatswords::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_zweihander);
+    visitor(m_zweihanderChampion);
 }
 
 } // namespace CitiesOfSigmar

@@ -77,9 +77,10 @@ bool Executioners::configure(int numModels, bool standardBearer, bool drummer)
     return false;
 }
 
-void Executioners::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Executioners::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_draich);
+    visitor(m_draichMaster);
 }
 
 } // namespace CitiesOfSigmar

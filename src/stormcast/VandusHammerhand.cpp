@@ -80,10 +80,10 @@ int VandusHammerhand::extraAttacks(const Model *attackingModel, const Weapon *we
     return attacks;
 }
 
-void VandusHammerhand::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VandusHammerhand::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_heldensen);
-    visitor(&m_clawsAndFangs);
+    visitor(m_heldensen);
+    visitor(m_clawsAndFangs);
 }
 
 Wounds VandusHammerhand::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

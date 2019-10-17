@@ -73,11 +73,11 @@ bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
     return true;
 }
 
-void SaurusGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SaurusGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_celestitePolearm);
-    visitor(&m_celestitePolearmAlpha);
-    visitor(&m_jawsAndShield);
+    visitor(m_celestitePolearm);
+    visitor(m_celestitePolearmAlpha);
+    visitor(m_jawsAndShield);
 }
 
 Unit *SaurusGuard::Create(const ParameterList &parameters)

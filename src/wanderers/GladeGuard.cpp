@@ -72,11 +72,11 @@ bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower)
     return true;
 }
 
-void GladeGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GladeGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_longbow);
-    visitor(&m_longbowLord);
-    visitor(&m_gladeBlade);
+    visitor(m_longbow);
+    visitor(m_longbowLord);
+    visitor(m_gladeBlade);
 }
 
 Unit *GladeGuard::Create(const ParameterList &parameters)

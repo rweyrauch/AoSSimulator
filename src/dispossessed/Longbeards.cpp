@@ -90,12 +90,12 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
     return true;
 }
 
-void Longbeards::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Longbeards::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ancestralAxeHammer);
-    visitor(&m_ancestralAxeHammerOldGuard);
-    visitor(&m_ancestralGreatAxe);
-    visitor(&m_ancestralGreatAxeOldGuard);
+    visitor(m_ancestralAxeHammer);
+    visitor(m_ancestralAxeHammerOldGuard);
+    visitor(m_ancestralGreatAxe);
+    visitor(m_ancestralGreatAxeOldGuard);
 }
 
 Unit *Longbeards::Create(const ParameterList &parameters)

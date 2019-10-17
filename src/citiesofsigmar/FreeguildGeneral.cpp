@@ -70,9 +70,9 @@ bool FreeguildGeneral::configure()
     return false;
 }
 
-void FreeguildGeneral::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildGeneral::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_zweihander);
 }
 
 } // namespace CitiesOfSigmar

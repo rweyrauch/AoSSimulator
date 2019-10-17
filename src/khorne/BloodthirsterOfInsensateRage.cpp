@@ -62,9 +62,9 @@ bool BloodthirsterOfInsensateRage::configure()
     return true;
 }
 
-void BloodthirsterOfInsensateRage::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodthirsterOfInsensateRage::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greatAxeOfKhorne);
+    visitor(m_greatAxeOfKhorne);
 }
 
 Unit *BloodthirsterOfInsensateRage::Create(const ParameterList &parameters)

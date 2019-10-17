@@ -73,12 +73,12 @@ void KnightVenator::Init()
     }
 }
 
-void KnightVenator::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightVenator::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_realmhuntersBow);
-    visitor(&m_beakAndTalonsMissile);
-    visitor(&m_bowStave);
-    visitor(&m_beakAndTalons);
+    visitor(m_realmhuntersBow);
+    visitor(m_beakAndTalonsMissile);
+    visitor(m_bowStave);
+    visitor(m_beakAndTalons);
 }
 
 int KnightVenator::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

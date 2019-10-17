@@ -123,12 +123,12 @@ Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds)
     return Unit::applyWoundSave(wounds);
 }
 
-void KairicAcolytes::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KairicAcolytes::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_sorcerousBolt);
-    visitor(&m_sorcerousBoldAdept);
-    visitor(&m_cursedBlade);
-    visitor(&m_cursedGlaive);
+    visitor(m_sorcerousBolt);
+    visitor(m_sorcerousBoldAdept);
+    visitor(m_cursedBlade);
+    visitor(m_cursedGlaive);
 }
 
 void KairicAcolytes::Init()

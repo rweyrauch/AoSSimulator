@@ -102,12 +102,12 @@ Wounds KhineraiHeartrenders::computeReturnedDamage(const Weapon *weapon, int sav
     return wounds;
 }
 
-void KhineraiHeartrenders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KhineraiHeartrenders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_barbedJavelinMissile);
-    visitor(&m_barbedJavelin);
-    visitor(&m_barbedJavelinShrykeMissile);
-    visitor(&m_barbedJavelinShryke);
+    visitor(m_barbedJavelinMissile);
+    visitor(m_barbedJavelin);
+    visitor(m_barbedJavelinShrykeMissile);
+    visitor(m_barbedJavelinShryke);
 }
 
 } // namespace DaughtersOfKhaine

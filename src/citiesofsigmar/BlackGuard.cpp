@@ -75,9 +75,10 @@ bool BlackGuard::configure(int numModels, bool standardBearer, bool drummer)
     return false;
 }
 
-void BlackGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BlackGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_halberd);
+    visitor(m_halberdCaptain);
 }
 
 } //namespace CitiesOfSigmar

@@ -135,13 +135,13 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardB
     return true;
 }
 
-void ChaosKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChaosKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ensorcelledWeapon);
-    visitor(&m_glaive);
-    visitor(&m_ensorcelledWeaponLeader);
-    visitor(&m_glaiveLeader);
-    visitor(&m_hooves);
+    visitor(m_ensorcelledWeapon);
+    visitor(m_glaive);
+    visitor(m_ensorcelledWeaponLeader);
+    visitor(m_glaiveLeader);
+    visitor(m_hooves);
 }
 
 std::string ChaosKnights::ValueToString(const Parameter &parameter)

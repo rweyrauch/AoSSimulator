@@ -89,12 +89,12 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
     return true;
 }
 
-void GraveGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GraveGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_wightBlade);
-    visitor(&m_wightBladeSeneschal);
-    visitor(&m_greatWightBlade);
-    visitor(&m_greatWightBladeSeneschal);
+    visitor(m_wightBlade);
+    visitor(m_wightBladeSeneschal);
+    visitor(m_greatWightBlade);
+    visitor(m_greatWightBladeSeneschal);
 }
 
 Unit *GraveGuard::Create(const ParameterList &parameters)

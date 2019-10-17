@@ -69,11 +69,11 @@ bool Fiends::configure(int numModels)
     return true;
 }
 
-void Fiends::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Fiends::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_deadlyPincers);
-    visitor(&m_deadlyPincersBlissbringer);
-    visitor(&m_barbedStinger);
+    visitor(m_deadlyPincers);
+    visitor(m_deadlyPincersBlissbringer);
+    visitor(m_barbedStinger);
 }
 
 Unit *Fiends::Create(const ParameterList &parameters)

@@ -45,9 +45,9 @@ bool DankholdTroggboss::configure()
     return true;
 }
 
-void DankholdTroggboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DankholdTroggboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boulderClub);
+    visitor(m_boulderClub);
 }
 
 Unit *DankholdTroggboss::Create(const ParameterList &parameters)

@@ -64,10 +64,10 @@ bool BloodthirsterOfUnfetteredFury::configure()
     return true;
 }
 
-void BloodthirsterOfUnfetteredFury::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodthirsterOfUnfetteredFury::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_lashOfKhorne);
-    visitor(&m_mightyAxeOfKhorne);
+    visitor(m_lashOfKhorne);
+    visitor(m_mightyAxeOfKhorne);
 }
 
 Unit *BloodthirsterOfUnfetteredFury::Create(const ParameterList &parameters)

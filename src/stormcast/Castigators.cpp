@@ -157,11 +157,11 @@ Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     return StormcastEternal::toHitRerolls(weapon, unit);
 }
 
-void Castigators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Castigators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_thunderheadGreatbow);
-    visitor(&m_thunderheadGreatbowPrime);
-    visitor(&m_heavyStock);
+    visitor(m_thunderheadGreatbow);
+    visitor(m_thunderheadGreatbowPrime);
+    visitor(m_heavyStock);
 }
 
 } // namespace StormcastEternals

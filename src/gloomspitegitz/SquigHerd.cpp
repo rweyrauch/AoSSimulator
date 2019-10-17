@@ -144,10 +144,10 @@ void SquiqHerd::onFlee(int numFled)
     GloomspiteGitzBase::onFlee(numFled);
 }
 
-void SquiqHerd::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SquiqHerd::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_squigProdder);
-    visitor(&m_fangFilledGob);
+    visitor(m_squigProdder);
+    visitor(m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

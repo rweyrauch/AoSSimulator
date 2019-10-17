@@ -69,12 +69,12 @@ bool AuricHearthguard::configure(int numModels)
     return true;
 }
 
-void AuricHearthguard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AuricHearthguard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_magmapike);
-    visitor(&m_magmapikeKarl);
-    visitor(&m_throwingAxe);
-    visitor(&m_magmapikeMelee);
+    visitor(m_magmapike);
+    visitor(m_magmapikeKarl);
+    visitor(m_throwingAxe);
+    visitor(m_magmapikeMelee);
 }
 
 Unit *AuricHearthguard::Create(const ParameterList &parameters)

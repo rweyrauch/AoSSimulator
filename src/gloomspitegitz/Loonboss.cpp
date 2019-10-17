@@ -66,9 +66,9 @@ void Loonboss::Init()
     }
 }
 
-void Loonboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Loonboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_moonslicer);
+    visitor(m_moonslicer);
 }
 
 int Loonboss::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

@@ -78,12 +78,12 @@ void LordAquilor::Init()
     }
 }
 
-void LordAquilor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordAquilor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boltstormPistol);
-    visitor(&m_starboundBlade);
-    visitor(&m_shockHandaxe);
-    visitor(&m_beakAndClaws);
+    visitor(m_boltstormPistol);
+    visitor(m_starboundBlade);
+    visitor(m_shockHandaxe);
+    visitor(m_beakAndClaws);
 }
 
 Wounds LordAquilor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

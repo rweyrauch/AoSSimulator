@@ -116,10 +116,10 @@ int Cygor::getDamageTableIndex() const
     return 0;
 }
 
-void Cygor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Cygor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_desecratedBoulder);
-    visitor(&m_massiveHorns);
+    visitor(m_desecratedBoulder);
+    visitor(m_massiveHorns);
 }
 
 Rerolls Cygor::toHitRerolls(const Weapon *weapon, const Unit *target) const

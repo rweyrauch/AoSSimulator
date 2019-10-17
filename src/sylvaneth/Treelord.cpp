@@ -116,11 +116,11 @@ void Treelord::Init()
     }
 }
 
-void Treelord::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Treelord::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_strangleroots);
-    visitor(&m_sweepingBlows);
-    visitor(&m_massiveImpalingTalons);
+    visitor(m_strangleroots);
+    visitor(m_sweepingBlows);
+    visitor(m_massiveImpalingTalons);
 }
 
 } // namespace Sylvaneth

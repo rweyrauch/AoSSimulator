@@ -52,10 +52,10 @@ bool KorghosKhul::configure()
     return true;
 }
 
-void KorghosKhul::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KorghosKhul::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_axeOfKhorne);
-    visitor(&m_clawsAndFangs);
+    visitor(m_axeOfKhorne);
+    visitor(m_clawsAndFangs);
 }
 
 Unit *KorghosKhul::Create(const ParameterList &parameters)

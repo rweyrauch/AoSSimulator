@@ -313,11 +313,11 @@ int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordCelestantOnStardrake::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordCelestantOnStardrake::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_celestineHammer);
-    visitor(&m_stormboundBlade);
-    visitor(&m_greatClaws);
+    visitor(m_celestineHammer);
+    visitor(m_stormboundBlade);
+    visitor(m_greatClaws);
 }
 
 } // namespace StormcastEternals

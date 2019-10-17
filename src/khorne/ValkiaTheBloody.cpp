@@ -43,9 +43,9 @@ bool ValkiaTheBloody::configure()
     return true;
 }
 
-void ValkiaTheBloody::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ValkiaTheBloody::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slaupnir);
+    visitor(m_slaupnir);
 }
 
 Unit *ValkiaTheBloody::Create(const ParameterList &parameters)

@@ -84,13 +84,13 @@ bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons)
     return true;
 }
 
-void HearthguardBerzerkers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void HearthguardBerzerkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_broadaxe);
-    visitor(&m_broadaxeKarl);
-    visitor(&m_poleaxe);
-    visitor(&m_poleaxeKarl);
-    visitor(&m_throwingAxe);
+    visitor(m_broadaxe);
+    visitor(m_broadaxeKarl);
+    visitor(m_poleaxe);
+    visitor(m_poleaxeKarl);
+    visitor(m_throwingAxe);
 }
 
 Unit *HearthguardBerzerkers::Create(const ParameterList &parameters)

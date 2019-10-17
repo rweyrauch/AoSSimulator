@@ -49,10 +49,10 @@ bool MightyLordOfKhorne::configure()
     return true;
 }
 
-void MightyLordOfKhorne::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MightyLordOfKhorne::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_axeOfKhorne);
-    visitor(&m_bloodDarkClaws);
+    visitor(m_axeOfKhorne);
+    visitor(m_bloodDarkClaws);
 }
 
 Unit *MightyLordOfKhorne::Create(const ParameterList &parameters)

@@ -128,11 +128,11 @@ void Decimators::Init()
     }
 }
 
-void Decimators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Decimators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_thunderaxe);
-    visitor(&m_thunderaxePrime);
-    visitor(&m_starsoulMace);
+    visitor(m_thunderaxe);
+    visitor(m_thunderaxePrime);
+    visitor(m_starsoulMace);
 }
 
 int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

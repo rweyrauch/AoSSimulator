@@ -117,13 +117,13 @@ void ArachnarokSpiderWithFlinger::Init()
     }
 }
 
-void ArachnarokSpiderWithFlinger::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ArachnarokSpiderWithFlinger::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiderBows);
-    visitor(&m_flinger);
-    visitor(&m_chitinousLegs);
-    visitor(&m_monstrousFangs);
-    visitor(&m_crookedSpears);
+    visitor(m_spiderBows);
+    visitor(m_flinger);
+    visitor(m_chitinousLegs);
+    visitor(m_monstrousFangs);
+    visitor(m_crookedSpears);
 }
 
 Wounds ArachnarokSpiderWithFlinger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

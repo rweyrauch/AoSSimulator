@@ -63,11 +63,11 @@ bool SkullCannons::configure(int numModels)
     return true;
 }
 
-void SkullCannons::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SkullCannons::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_burningSkulls);
-    visitor(&m_hellblades);
-    visitor(&m_gnashingMaw);
+    visitor(m_burningSkulls);
+    visitor(m_hellblades);
+    visitor(m_gnashingMaw);
 }
 
 Unit *SkullCannons::Create(const ParameterList &parameters)

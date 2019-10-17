@@ -54,11 +54,11 @@ bool BladebringerOnHellflayer::configure()
     return true;
 }
 
-void BladebringerOnHellflayer::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BladebringerOnHellflayer::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_flensingWhips);
-    visitor(&m_piercingClaws);
-    visitor(&m_poisonedTongues);
+    visitor(m_flensingWhips);
+    visitor(m_piercingClaws);
+    visitor(m_poisonedTongues);
 }
 
 Unit *BladebringerOnHellflayer::Create(const ParameterList &parameters)

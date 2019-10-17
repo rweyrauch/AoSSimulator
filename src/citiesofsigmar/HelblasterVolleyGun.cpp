@@ -73,9 +73,12 @@ bool HelblasterVolleyGun::configure()
     return false;
 }
 
-void HelblasterVolleyGun::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void HelblasterVolleyGun::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_volley1);
+    visitor(m_volley2);
+    visitor(m_volley3);
+    visitor(m_crewsTools);
 }
 
 } // namespace CitiesOfSigmar

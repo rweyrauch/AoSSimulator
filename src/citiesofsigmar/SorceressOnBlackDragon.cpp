@@ -75,9 +75,14 @@ bool SorceressOnBlackDragon::configure()
     return false;
 }
 
-void SorceressOnBlackDragon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SorceressOnBlackDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_noxiousBreath);
+    visitor(m_rod);
+    visitor(m_sword);
+    visitor(m_lash);
+    visitor(m_jaws);
+    visitor(m_claws);
 }
 
 } // namespace CitiesOfSigmar

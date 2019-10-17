@@ -48,11 +48,11 @@ bool ExaltedChariot::configure()
     return true;
 }
 
-void ExaltedChariot::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ExaltedChariot::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_flensingWhips);
-    visitor(&m_piercingClaws);
-    visitor(&m_poisonedTongues);
+    visitor(m_flensingWhips);
+    visitor(m_piercingClaws);
+    visitor(m_poisonedTongues);
 }
 
 Unit *ExaltedChariot::Create(const ParameterList &parameters)

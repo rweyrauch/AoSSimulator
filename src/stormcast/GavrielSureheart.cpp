@@ -65,9 +65,9 @@ void GavrielSureheart::Init()
     }
 }
 
-void GavrielSureheart::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GavrielSureheart::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_starboundBlade);
+    visitor(m_starboundBlade);
 }
 
 Rerolls GavrielSureheart::toSaveRerolls(const Weapon *weapon) const

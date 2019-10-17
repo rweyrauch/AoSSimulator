@@ -99,11 +99,11 @@ bool IronGolems::configure(int numModels)
     return true;
 }
 
-void IronGolems::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void IronGolems::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bolas);
-    visitor(&m_legionWeapons);
-    visitor(&m_legionWeaponsDominar);
+    visitor(m_bolas);
+    visitor(m_legionWeapons);
+    visitor(m_legionWeaponsDominar);
 }
 
 int IronGolems::braveryModifier() const

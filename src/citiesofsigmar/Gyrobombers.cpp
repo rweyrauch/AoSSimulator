@@ -73,9 +73,10 @@ bool Gyrobombers::configure(int numModels)
     return false;
 }
 
-void Gyrobombers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Gyrobombers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_clattergun);
+    visitor(m_rotorBlades);
 }
 
 } // namespace CitiesOfSigmar

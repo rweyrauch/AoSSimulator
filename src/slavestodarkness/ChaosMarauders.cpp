@@ -151,12 +151,12 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool shields
     return true;
 }
 
-void ChaosMarauders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChaosMarauders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_axe);
-    visitor(&m_flail);
-    visitor(&m_axeChieftain);
-    visitor(&m_flailChieftain);
+    visitor(m_axe);
+    visitor(m_flail);
+    visitor(m_axeChieftain);
+    visitor(m_flailChieftain);
 }
 
 std::string ChaosMarauders::ValueToString(const Parameter &parameter)

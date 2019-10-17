@@ -67,9 +67,9 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
     return true;
 }
 
-void PutridBlightkings::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void PutridBlightkings::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_blightedWeapon);
+    visitor(m_blightedWeapon);
 }
 
 Unit *PutridBlightkings::Create(const ParameterList &parameters)

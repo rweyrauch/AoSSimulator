@@ -168,12 +168,12 @@ int Bloodreavers::EnumStringToInt(const std::string &enumString)
     return KhorneBase::EnumStringToInt(enumString);
 }
 
-void Bloodreavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bloodreavers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_reaverBlades);
-    visitor(&m_reaverBladesChieftain);
-    visitor(&m_meatripperAxe);
-    visitor(&m_meatripperAxeChieftain);
+    visitor(m_reaverBlades);
+    visitor(m_reaverBladesChieftain);
+    visitor(m_meatripperAxe);
+    visitor(m_meatripperAxeChieftain);
 }
 
 int Bloodreavers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

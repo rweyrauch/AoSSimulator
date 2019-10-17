@@ -67,11 +67,11 @@ bool RoyalTerrorgheist::configure()
     return true;
 }
 
-void RoyalTerrorgheist::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void RoyalTerrorgheist::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_deathShriek);
-    visitor(&m_skeletalClaws);
-    visitor(&m_fangedMaw);
+    visitor(m_deathShriek);
+    visitor(m_skeletalClaws);
+    visitor(m_fangedMaw);
 }
 
 Unit *RoyalTerrorgheist::Create(const ParameterList &parameters)

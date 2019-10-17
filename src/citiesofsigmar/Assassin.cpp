@@ -70,9 +70,9 @@ bool Assassin::configure()
     return false;
 }
 
-void Assassin::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Assassin::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_blades);
 }
 
 } //namespace CitiesOfSigmar

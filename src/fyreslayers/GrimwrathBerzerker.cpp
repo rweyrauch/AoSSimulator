@@ -45,10 +45,10 @@ bool GrimwrathBerzerker::configure()
     return true;
 }
 
-void GrimwrathBerzerker::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GrimwrathBerzerker::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_greatAxe);
+    visitor(m_throwingAxe);
+    visitor(m_greatAxe);
 }
 
 Unit *GrimwrathBerzerker::Create(const ParameterList &parameters)

@@ -85,10 +85,10 @@ void DreadscytheHarridans::Init()
     }
 }
 
-void DreadscytheHarridans::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DreadscytheHarridans::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_scythedLimbs);
-    visitor(&m_scythedLimbsCrone);
+    visitor(m_scythedLimbs);
+    visitor(m_scythedLimbsCrone);
 }
 
 Wounds DreadscytheHarridans::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

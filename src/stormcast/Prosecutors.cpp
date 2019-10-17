@@ -192,20 +192,20 @@ Wounds Prosecutors::weaponDamage(const Weapon *weapon, const Unit *target, int h
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void Prosecutors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Prosecutors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_celestialHammersMissile);
-    visitor(&m_stormcallJavelinMissile);
-    visitor(&m_stormcallJavelinMissilePrime);
-    visitor(&m_stormsurgeTridentMissile);
-    visitor(&m_stormsurgeTridentMissilePrime);
-    visitor(&m_celestialHammers);
-    visitor(&m_celestialHammersPrime);
-    visitor(&m_grandaxe);
-    visitor(&m_grandblade);
-    visitor(&m_grandhammer);
-    visitor(&m_stormcallJavelin);
-    visitor(&m_stormsurgeTrident);
+    visitor(m_celestialHammersMissile);
+    visitor(m_stormcallJavelinMissile);
+    visitor(m_stormcallJavelinMissilePrime);
+    visitor(m_stormsurgeTridentMissile);
+    visitor(m_stormsurgeTridentMissilePrime);
+    visitor(m_celestialHammers);
+    visitor(m_celestialHammersPrime);
+    visitor(m_grandaxe);
+    visitor(m_grandblade);
+    visitor(m_grandhammer);
+    visitor(m_stormcallJavelin);
+    visitor(m_stormsurgeTrident);
 }
 
 Unit *Prosecutors::Create(const ParameterList &parameters)

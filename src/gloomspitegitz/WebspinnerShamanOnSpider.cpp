@@ -128,13 +128,13 @@ void WebspinnerShamanOnArachnarokSpider::Init()
     }
 }
 
-void WebspinnerShamanOnArachnarokSpider::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WebspinnerShamanOnArachnarokSpider::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiderBows);
-    visitor(&m_spiderGodStaff);
-    visitor(&m_chitinousLegs);
-    visitor(&m_monstrousFangs);
-    visitor(&m_crookedSpears);
+    visitor(m_spiderBows);
+    visitor(m_spiderGodStaff);
+    visitor(m_chitinousLegs);
+    visitor(m_monstrousFangs);
+    visitor(m_crookedSpears);
 }
 
 

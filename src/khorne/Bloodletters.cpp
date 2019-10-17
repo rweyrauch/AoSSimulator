@@ -125,10 +125,10 @@ int Bloodletters::extraAttacks(const Model *attackingModel, const Weapon *weapon
     return attacks;
 }
 
-void Bloodletters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bloodletters::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hellblade);
-    visitor(&m_hellbladeReaper);
+    visitor(m_hellblade);
+    visitor(m_hellbladeReaper);
 }
 
 Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) const

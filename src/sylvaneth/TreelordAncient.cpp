@@ -123,11 +123,11 @@ void TreelordAncient::Init()
     }
 }
 
-void TreelordAncient::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TreelordAncient::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_doomTendrilStaff);
-   visitor(&m_sweepingBlows);
-    visitor(&m_massiveImpalingTalons);
+    visitor(m_doomTendrilStaff);
+   visitor(m_sweepingBlows);
+    visitor(m_massiveImpalingTalons);
 }
 
 Wounds TreelordAncient::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

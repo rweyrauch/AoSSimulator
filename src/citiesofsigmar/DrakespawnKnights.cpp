@@ -76,9 +76,11 @@ bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornb
     return false;
 }
 
-void DrakespawnKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DrakespawnKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_lance);
+    visitor(m_lanceDreadKnight);
+    visitor(m_jaws);
 }
 
 } // namespace CitiesOfSigmar

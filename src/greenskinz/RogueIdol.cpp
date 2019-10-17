@@ -63,10 +63,10 @@ bool RogueIdol::configure()
     return true;
 }
 
-void RogueIdol::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void RogueIdol::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boulderFists);
-    visitor(&m_stompinFeet);
+    visitor(m_boulderFists);
+    visitor(m_stompinFeet);
 }
 
 Unit *RogueIdol::Create(const ParameterList &parameters)

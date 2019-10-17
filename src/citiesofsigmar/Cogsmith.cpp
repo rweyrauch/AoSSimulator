@@ -73,9 +73,12 @@ bool Cogsmith::configure()
     return false;
 }
 
-void Cogsmith::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Cogsmith::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_grudgeRaker);
+    visitor(m_pistols);
+    visitor(m_cogAxe);
+    visitor(m_gunButt);
 }
 
 } //namespace CitiesOfSigmar

@@ -47,10 +47,10 @@ bool Runelord::configure()
     return true;
 }
 
-void Runelord::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Runelord::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_runeStaff);
-    visitor(&m_forgehammer);
+    visitor(m_runeStaff);
+    visitor(m_forgehammer);
 }
 
 Unit *Runelord::Create(const ParameterList &parameters)

@@ -73,10 +73,10 @@ bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer)
     return true;
 }
 
-void Centigors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Centigors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_centigorSpear);
-    visitor(&m_clawedForelimbs);
+    visitor(m_centigorSpear);
+    visitor(m_clawedForelimbs);
 }
 
 Unit *Centigors::Create(const ParameterList &parameters)

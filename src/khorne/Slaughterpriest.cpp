@@ -69,11 +69,11 @@ bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne bles
     return true;
 }
 
-void Slaughterpriest::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Slaughterpriest::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bloodbathedAxe);
-    visitor(&m_hackblade);
-    visitor(&m_wrathHammer);
+    visitor(m_bloodbathedAxe);
+    visitor(m_hackblade);
+    visitor(m_wrathHammer);
 }
 
 Unit *Slaughterpriest::Create(const ParameterList &parameters)

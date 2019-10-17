@@ -70,9 +70,9 @@ bool Sorceress::configure()
     return false;
 }
 
-void Sorceress::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Sorceress::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_witchstaff);
 }
 
 } // namespace CitiesOfSigmar

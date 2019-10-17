@@ -82,9 +82,14 @@ bool SteamTank::configure(bool commander)
     return false;
 }
 
-void SteamTank::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SteamTank::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_steamCannon);
+    visitor(m_steamGun);
+    visitor(m_longRifle);
+    visitor(m_handgun);
+    visitor(m_crushingWheels);
+    visitor(m_sword);
 }
 
 } // namespace CitiesOfSigmar

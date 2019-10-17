@@ -63,10 +63,10 @@ bool WrathOfKhorneBloodthirster::configure()
     return true;
 }
 
-void WrathOfKhorneBloodthirster::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WrathOfKhorneBloodthirster::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bloodflail);
-    visitor(&m_mightyAxeOfKhorne);
+    visitor(m_bloodflail);
+    visitor(m_mightyAxeOfKhorne);
 }
 
 Unit *WrathOfKhorneBloodthirster::Create(const ParameterList &parameters)

@@ -78,15 +78,15 @@ int AuricRunesonOnMagmadroth::move() const
     return g_damageTable[getDamageTableIndex()].m_move;
 }
 
-void AuricRunesonOnMagmadroth::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AuricRunesonOnMagmadroth::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_fyrestream);
-    visitor(&m_clawsAndHorns);
-    visitor(&m_blazingMaw);
-    visitor(&m_javelin);
-    visitor(&m_warAxe);
-    visitor(&m_javelinMelee);
+    visitor(m_throwingAxe);
+    visitor(m_fyrestream);
+    visitor(m_clawsAndHorns);
+    visitor(m_blazingMaw);
+    visitor(m_javelin);
+    visitor(m_warAxe);
+    visitor(m_javelinMelee);
 }
 
 Unit *AuricRunesonOnMagmadroth::Create(const ParameterList &parameters)

@@ -69,11 +69,11 @@ bool CryptFlayers::configure(int numModels)
     return true;
 }
 
-void CryptFlayers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CryptFlayers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_deathScream);
-    visitor(&m_piercingTalons);
-    visitor(&m_piercingTalonsInfernal);
+    visitor(m_deathScream);
+    visitor(m_piercingTalons);
+    visitor(m_piercingTalonsInfernal);
 }
 
 Unit *CryptFlayers::Create(const ParameterList &parameters)

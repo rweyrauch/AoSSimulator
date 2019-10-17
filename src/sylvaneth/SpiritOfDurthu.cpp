@@ -116,11 +116,11 @@ void SpiritOfDurthu::Init()
     }
 }
 
-void SpiritOfDurthu::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SpiritOfDurthu::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_verdantBlast);
-    visitor(&m_guardianSword);
-    visitor(&m_massiveImpalingTalons);
+    visitor(m_verdantBlast);
+    visitor(m_guardianSword);
+    visitor(m_massiveImpalingTalons);
 }
 
 Wounds SpiritOfDurthu::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

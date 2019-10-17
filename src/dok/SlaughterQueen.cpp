@@ -43,10 +43,10 @@ bool SlaughterQueen::configure()
     return true;
 }
 
-void SlaughterQueen::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SlaughterQueen::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bladeOfKhaine);
-    visitor(&m_deathsword);
+    visitor(m_bladeOfKhaine);
+    visitor(m_deathsword);
 }
 
 Unit *SlaughterQueen::Create(const ParameterList &parameters)

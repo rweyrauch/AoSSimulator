@@ -63,11 +63,11 @@ bool ExaltedDeathbringer::configure(WeaponOption weapon)
     return true;
 }
 
-void ExaltedDeathbringer::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ExaltedDeathbringer::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ruinousAxe);
-    visitor(&m_bloodbiteAxe);
-    visitor(&m_impalingSpear);
+    visitor(m_ruinousAxe);
+    visitor(m_bloodbiteAxe);
+    visitor(m_impalingSpear);
 }
 
 Unit *ExaltedDeathbringer::Create(const ParameterList &parameters)

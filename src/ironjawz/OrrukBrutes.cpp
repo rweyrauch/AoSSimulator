@@ -100,13 +100,13 @@ bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChop
     return true;
 }
 
-void OrrukBrutes::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukBrutes::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_twoBruteChoppas);
-    visitor(&m_gorehacka);
-    visitor(&m_gorechoppa);
-    visitor(&m_bossChoppa);
-    visitor(&m_bossKlawAndBruteSmasha);
+    visitor(m_twoBruteChoppas);
+    visitor(m_gorehacka);
+    visitor(m_gorechoppa);
+    visitor(m_bossChoppa);
+    visitor(m_bossKlawAndBruteSmasha);
 }
 
 Unit *OrrukBrutes::Create(const ParameterList &parameters)

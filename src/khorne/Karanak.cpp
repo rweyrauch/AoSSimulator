@@ -46,10 +46,10 @@ bool Karanak::configure()
     return true;
 }
 
-void Karanak::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Karanak::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_goreSlickClaws);
-    visitor(&m_savageMaws);
+    visitor(m_goreSlickClaws);
+    visitor(m_savageMaws);
 }
 
 Unit *Karanak::Create(const ParameterList &parameters)

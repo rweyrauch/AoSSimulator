@@ -79,11 +79,11 @@ bool ShalaxiHelbane::configure(WeaponOption weapon)
     return true;
 }
 
-void ShalaxiHelbane::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ShalaxiHelbane::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_livingWhip);
-    visitor(&m_soulpiercer);
-    visitor(&m_impalingClaws);
+    visitor(m_livingWhip);
+    visitor(m_soulpiercer);
+    visitor(m_impalingClaws);
 }
 
 Unit *ShalaxiHelbane::Create(const ParameterList &parameters)

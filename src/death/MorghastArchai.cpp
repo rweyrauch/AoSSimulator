@@ -70,10 +70,10 @@ bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
     return true;
 }
 
-void MorghastArchai::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MorghastArchai::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiritHalberd);
-    visitor(&m_spiritSwords);
+    visitor(m_spiritHalberd);
+    visitor(m_spiritSwords);
 }
 
 Unit *MorghastArchai::Create(const ParameterList &parameters)

@@ -44,9 +44,9 @@ bool OrrukMegaboss::configure()
     return true;
 }
 
-void OrrukMegaboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukMegaboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bossChoppaAndFist);
+    visitor(m_bossChoppaAndFist);
 }
 
 Unit *OrrukMegaboss::Create(const ParameterList &parameters)

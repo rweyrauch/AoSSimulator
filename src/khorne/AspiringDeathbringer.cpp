@@ -62,12 +62,12 @@ bool AspiringDeathbringer::configure(WeaponOption weapon)
     return true;
 }
 
-void AspiringDeathbringer::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AspiringDeathbringer::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bloodAxe);
-    visitor(&m_wrathHammer);
-    visitor(&m_goreaxe);
-    visitor(&m_skullhammer);
+    visitor(m_bloodAxe);
+    visitor(m_wrathHammer);
+    visitor(m_goreaxe);
+    visitor(m_skullhammer);
 }
 
 Unit *AspiringDeathbringer::Create(const ParameterList &parameters)

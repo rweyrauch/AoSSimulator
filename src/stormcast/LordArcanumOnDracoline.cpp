@@ -119,10 +119,10 @@ int LordArcanumOnDracoline::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordArcanumOnDracoline::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordArcanumOnDracoline::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_aetherstave);
-    visitor(&m_monstrousClaws);
+    visitor(m_aetherstave);
+    visitor(m_monstrousClaws);
 }
 
 Wounds LordArcanumOnDracoline::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

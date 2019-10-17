@@ -101,14 +101,14 @@ bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool 
     return true;
 }
 
-void Irondrakes::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Irondrakes::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_drakegun);
-    visitor(&m_drakegunWarden);
-    visitor(&m_grudgehammerTorpedo);
-    visitor(&m_drakefirePistol);
-    visitor(&m_drakefirePistolMelee);
-    visitor(&m_mailedFist);
+    visitor(m_drakegun);
+    visitor(m_drakegunWarden);
+    visitor(m_grudgehammerTorpedo);
+    visitor(m_drakefirePistol);
+    visitor(m_drakefirePistolMelee);
+    visitor(m_mailedFist);
 }
 
 Unit *Irondrakes::Create(const ParameterList &parameters)

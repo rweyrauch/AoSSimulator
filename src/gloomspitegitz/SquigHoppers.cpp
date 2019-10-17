@@ -92,11 +92,11 @@ void SquiqHoppers::Init()
     }
 }
 
-void SquiqHoppers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SquiqHoppers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slitta);
-    visitor(&m_slittaBoss);
-    visitor(&m_fangFilledGob);
+    visitor(m_slitta);
+    visitor(m_slittaBoss);
+    visitor(m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

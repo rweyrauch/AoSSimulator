@@ -74,11 +74,11 @@ bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)
     return true;
 }
 
-void PinkHorrors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void PinkHorrors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_magicalFlames);
-    visitor(&m_graspingHands);
-    visitor(&m_graspingHandsHorror);
+    visitor(m_magicalFlames);
+    visitor(m_graspingHands);
+    visitor(m_graspingHandsHorror);
 }
 
 Unit *PinkHorrors::Create(const ParameterList &parameters)

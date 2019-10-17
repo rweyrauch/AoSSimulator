@@ -66,10 +66,10 @@ bool CryptHorrors::configure(int numModels)
     return true;
 }
 
-void CryptHorrors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CryptHorrors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_clubsAndTalons);
-    visitor(&m_clubsAndTalonsHaunter);
+    visitor(m_clubsAndTalons);
+    visitor(m_clubsAndTalonsHaunter);
 }
 
 Unit *CryptHorrors::Create(const ParameterList &parameters)

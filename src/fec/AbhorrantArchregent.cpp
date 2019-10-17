@@ -52,9 +52,9 @@ bool AbhorrantArchregent::configure()
     return true;
 }
 
-void AbhorrantArchregent::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AbhorrantArchregent::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_goryTalonsAndFangs);
+    visitor(m_goryTalonsAndFangs);
 }
 
 Unit *AbhorrantArchregent::Create(const ParameterList &parameters)

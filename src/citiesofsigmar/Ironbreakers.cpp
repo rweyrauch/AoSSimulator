@@ -93,12 +93,12 @@ bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool
     return true;
 }
 
-void Ironbreakers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Ironbreakers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_drakefirePistol);
-    visitor(&m_drakefirePistolMelee);
-    visitor(&m_axeOrHammer);
-    visitor(&m_axeOrHammerIronbeard);
+    visitor(m_drakefirePistol);
+    visitor(m_drakefirePistolMelee);
+    visitor(m_axeOrHammer);
+    visitor(m_axeOrHammerIronbeard);
 }
 
 Unit *Ironbreakers::Create(const ParameterList &parameters)

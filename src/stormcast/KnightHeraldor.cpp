@@ -67,9 +67,9 @@ void KnightHeraldor::Init()
     }
 }
 
-void KnightHeraldor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightHeraldor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_broadsword);
+    visitor(m_broadsword);
 }
 
 

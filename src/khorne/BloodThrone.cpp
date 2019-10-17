@@ -47,11 +47,11 @@ bool HeraldOfKhorneOnBloodThrone::configure()
     return true;
 }
 
-void HeraldOfKhorneOnBloodThrone::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void HeraldOfKhorneOnBloodThrone::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bladeOfBlood);
-    visitor(&m_hellblades);
-    visitor(&m_gnashingMaw);
+    visitor(m_bladeOfBlood);
+    visitor(m_hellblades);
+    visitor(m_gnashingMaw);
 }
 
 Unit *HeraldOfKhorneOnBloodThrone::Create(const ParameterList &parameters)

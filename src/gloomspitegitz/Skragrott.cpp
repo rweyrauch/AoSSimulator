@@ -80,10 +80,10 @@ void Skragrott::Init()
     }
 }
 
-void Skragrott::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skragrott::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_daMoonOnnaStikkMissile);
-    visitor(&m_daMoonOnnaStikk);
+    visitor(m_daMoonOnnaStikkMissile);
+    visitor(m_daMoonOnnaStikk);
 }
 
 std::string Skragrott::ValueToString(const Parameter &parameter)

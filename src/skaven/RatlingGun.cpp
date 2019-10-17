@@ -45,10 +45,10 @@ bool RatlingGun::configure()
     return true;
 }
 
-void RatlingGun::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void RatlingGun::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ratlingGun);
-    visitor(&m_rustyKnives);
+    visitor(m_ratlingGun);
+    visitor(m_rustyKnives);
 }
 
 Unit *RatlingGun::Create(const ParameterList &parameters)

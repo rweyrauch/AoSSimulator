@@ -134,11 +134,11 @@ void ColossalSquig::Init()
     }
 }
 
-void ColossalSquig::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ColossalSquig::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_enormousJaws);
-    visitor(&m_tramplingFeet);
-    visitor(&m_puffSpores);
+    visitor(m_enormousJaws);
+    visitor(m_tramplingFeet);
+    visitor(m_puffSpores);
 }
 
 int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

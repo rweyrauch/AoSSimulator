@@ -97,11 +97,11 @@ bool SavageOrrukArrowboys::configure(int numModels, bool skullThumper, bool tote
     return true;
 }
 
-void SavageOrrukArrowboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SavageOrrukArrowboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stingaBow);
-    visitor(&m_boneShiv);
-    visitor(&m_chompa);
+    visitor(m_stingaBow);
+    visitor(m_boneShiv);
+    visitor(m_chompa);
 }
 
 int SavageOrrukArrowboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

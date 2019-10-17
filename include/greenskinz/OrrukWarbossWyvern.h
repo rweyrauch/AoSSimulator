@@ -31,7 +31,7 @@ public:
 
     bool configure(bool pairedChoppas);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
     int move() const override;
 
 protected:

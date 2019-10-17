@@ -60,11 +60,11 @@ bool Ylthari::configure()
     return true;
 }
 
-void Ylthari::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Ylthari::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_briarStaff);
-    visitor(&m_thorns);
-    visitor(&m_snappingMandibles);
+    visitor(m_briarStaff);
+    visitor(m_thorns);
+    visitor(m_snappingMandibles);
 }
 
 } // namespace Sylvaneth

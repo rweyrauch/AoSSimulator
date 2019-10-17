@@ -77,9 +77,14 @@ bool ScourgerunnerChariots::configure(int numModels)
     return false;
 }
 
-void ScourgerunnerChariots::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ScourgerunnerChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_harpoon);
+    visitor(m_crossbow);
+    visitor(m_hookSpear);
+    visitor(m_bite);
+    visitor(m_harpoonMaster);
+    visitor(m_crossbowMaster);
 }
 
 } // namespace CitiesOfSigmar

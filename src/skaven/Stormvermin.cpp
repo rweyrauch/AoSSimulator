@@ -78,10 +78,10 @@ bool Stormvermin::configure(int numModels, bool clanshields, int standardBearers
     return true;
 }
 
-void Stormvermin::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Stormvermin::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_rustyHalberd);
-    visitor(&m_rustyHalberdLeader);
+    visitor(m_rustyHalberd);
+    visitor(m_rustyHalberdLeader);
 }
 
 Unit *Stormvermin::Create(const ParameterList &parameters)

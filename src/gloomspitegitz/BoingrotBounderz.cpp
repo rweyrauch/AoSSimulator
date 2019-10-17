@@ -125,11 +125,11 @@ int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) co
     return modifier;
 }
 
-void BoingrotBounderz::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BoingrotBounderz::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pokinLance);
-    visitor(&m_pokinLanceBoss);
-    visitor(&m_fangFilledGob);
+    visitor(m_pokinLance);
+    visitor(m_pokinLanceBoss);
+    visitor(m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

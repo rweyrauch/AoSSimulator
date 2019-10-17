@@ -92,10 +92,10 @@ void Dryads::Init()
     }
 }
 
-void Dryads::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Dryads::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_wrackingTalons);
-    visitor(&m_wrackingTalonsNymph);
+    visitor(m_wrackingTalons);
+    visitor(m_wrackingTalonsNymph);
 }
 
 int Dryads::toSaveModifier(const Weapon *weapon) const

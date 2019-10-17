@@ -83,9 +83,9 @@ Rerolls KnightQuestor::toSaveRerolls(const Weapon *weapon) const
     return RerollFailed;
 }
 
-void KnightQuestor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightQuestor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_warblade);
+    visitor(m_warblade);
 }
 
 Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

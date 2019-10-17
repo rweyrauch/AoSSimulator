@@ -67,9 +67,9 @@ void KnightVexillor::Init()
     }
 }
 
-void KnightVexillor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightVexillor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_warhammer);
+    visitor(m_warhammer);
 }
 
 

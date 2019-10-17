@@ -94,10 +94,10 @@ bool SplinteredFang::configure(int numModels)
     return true;
 }
 
-void SplinteredFang::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SplinteredFang::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_poisonedWeapons);
-    visitor(&m_poisonedWeaponsLeader);
+    visitor(m_poisonedWeapons);
+    visitor(m_poisonedWeaponsLeader);
 }
 
 Wounds SplinteredFang::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

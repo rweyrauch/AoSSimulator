@@ -62,10 +62,10 @@ bool FellwaterTroggoths::configure(int numModels)
     return true;
 }
 
-void FellwaterTroggoths::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FellwaterTroggoths::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_noxiousVomit);
-    visitor(&m_spikedClub);
+    visitor(m_noxiousVomit);
+    visitor(m_spikedClub);
 }
 
 Unit *FellwaterTroggoths::Create(const ParameterList &parameters)

@@ -194,15 +194,15 @@ int Judicators::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void Judicators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Judicators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormGladius);
-    visitor(&m_shockboltBow);
-    visitor(&m_shockboltPrime);
-    visitor(&m_skyboltBow);
-    visitor(&m_skyboltPrime);
-    visitor(&m_thunderboldCrossbow);
-    visitor(&m_boltstormCrossbow);
+    visitor(m_stormGladius);
+    visitor(m_shockboltBow);
+    visitor(m_shockboltPrime);
+    visitor(m_skyboltBow);
+    visitor(m_skyboltPrime);
+    visitor(m_thunderboldCrossbow);
+    visitor(m_boltstormCrossbow);
 }
 
 int Judicators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

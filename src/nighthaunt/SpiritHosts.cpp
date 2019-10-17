@@ -57,9 +57,9 @@ bool SpiritHosts::configure(int numModels)
     return true;
 }
 
-void SpiritHosts::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SpiritHosts::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spectralClawsAndDaggars);
+    visitor(m_spectralClawsAndDaggars);
 }
 
 Unit *SpiritHosts::Create(const ParameterList &parameters)

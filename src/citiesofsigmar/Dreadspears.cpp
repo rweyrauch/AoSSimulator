@@ -75,9 +75,10 @@ bool Dreadspears::configure(int numModels, bool standardBearer, bool hornblower)
     return false;
 }
 
-void Dreadspears::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Dreadspears::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_spear);
+    visitor(m_spearLordling);
 }
 
 } // namespace CitiesOfSigmar

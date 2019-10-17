@@ -133,11 +133,11 @@ void Protectors::Init()
     }
 }
 
-void Protectors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Protectors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_glaive);
-    visitor(&m_glaivePrime);
-    visitor(&m_starsoulMace);
+    visitor(m_glaive);
+    visitor(m_glaivePrime);
+    visitor(m_starsoulMace);
 }
 
 int Protectors::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

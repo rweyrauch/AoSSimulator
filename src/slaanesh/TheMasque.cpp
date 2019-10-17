@@ -49,9 +49,9 @@ bool TheMasque::configure()
     return true;
 }
 
-void TheMasque::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TheMasque::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ravagingClaws);
+    visitor(m_ravagingClaws);
 }
 
 Unit *TheMasque::Create(const ParameterList &parameters)

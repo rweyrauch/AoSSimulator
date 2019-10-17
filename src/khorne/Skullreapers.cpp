@@ -71,10 +71,10 @@ bool Skullreapers::configure(int numModels, bool iconBearer)
     return true;
 }
 
-void Skullreapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skullreapers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_blades);
-    visitor(&m_viciousMutation);
+    visitor(m_blades);
+    visitor(m_viciousMutation);
 }
 
 Unit *Skullreapers::Create(const ParameterList &parameters)

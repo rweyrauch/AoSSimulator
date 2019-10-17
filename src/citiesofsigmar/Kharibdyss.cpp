@@ -73,9 +73,12 @@ bool Kharibdyss::configure()
     return false;
 }
 
-void Kharibdyss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Kharibdyss::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_tentacles);
+    visitor(m_tail);
+    visitor(m_limbs);
+    visitor(m_goadsAndWhips);
 }
 
 } // namespace CitiesOfSigmar

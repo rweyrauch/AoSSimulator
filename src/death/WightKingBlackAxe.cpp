@@ -42,9 +42,9 @@ bool WightKingWithBlackAxe::configure()
     return true;
 }
 
-void WightKingWithBlackAxe::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WightKingWithBlackAxe::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_blackAxe);
+    visitor(m_blackAxe);
 }
 
 Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters)

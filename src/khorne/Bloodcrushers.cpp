@@ -73,11 +73,11 @@ bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers)
     return true;
 }
 
-void Bloodcrushers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bloodcrushers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hellblade);
-    visitor(&m_hellbladeHunter);
-    visitor(&m_brazenHooves);
+    visitor(m_hellblade);
+    visitor(m_hellbladeHunter);
+    visitor(m_brazenHooves);
 }
 
 Unit *Bloodcrushers::Create(const ParameterList &parameters)

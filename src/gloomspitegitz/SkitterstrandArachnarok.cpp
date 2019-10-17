@@ -111,10 +111,10 @@ void SkitterstrandArachnarok::Init()
     }
 }
 
-void SkitterstrandArachnarok::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SkitterstrandArachnarok::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_chitinousLegs);
-    visitor(&m_monstrousFangs);
+    visitor(m_chitinousLegs);
+    visitor(m_monstrousFangs);
 }
 
 Wounds SkitterstrandArachnarok::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

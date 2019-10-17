@@ -150,14 +150,14 @@ int VanguardHunters::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void VanguardHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VanguardHunters::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boltstormPistol);
-    visitor(&m_boltstormPistolPrime);
-    visitor(&m_shockHandaxe);
-    visitor(&m_shockHandaxePrime);
-    visitor(&m_stormSabre);
-    visitor(&m_stormSabrePrime);
+    visitor(m_boltstormPistol);
+    visitor(m_boltstormPistolPrime);
+    visitor(m_shockHandaxe);
+    visitor(m_shockHandaxePrime);
+    visitor(m_stormSabre);
+    visitor(m_stormSabrePrime);
 }
 
 } // namespace StormcastEternals

@@ -49,10 +49,10 @@ bool OrrukGreatShaman::configure(bool warboar)
     return true;
 }
 
-void OrrukGreatShaman::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukGreatShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_totemicStaff);
-    visitor(&m_boarsTusks);
+    visitor(m_totemicStaff);
+    visitor(m_boarsTusks);
 }
 
 Unit *OrrukGreatShaman::Create(const ParameterList &parameters)

@@ -90,11 +90,11 @@ bool TheUnmade::configure(int numModels)
     return true;
 }
 
-void TheUnmade::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TheUnmade::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_maimingWeapons);
-    visitor(&m_maimingWeaponsLeader);
-    visitor(&m_nigthmareSickles);
+    visitor(m_maimingWeapons);
+    visitor(m_maimingWeaponsLeader);
+    visitor(m_nigthmareSickles);
 }
 
 } //SlavesToDarkness

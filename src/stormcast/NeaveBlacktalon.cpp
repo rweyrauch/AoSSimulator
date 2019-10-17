@@ -81,10 +81,10 @@ int NeaveBlacktalon::extraAttacks(const Model *attackingModel, const Weapon *wea
     return attacks;
 }
 
-void NeaveBlacktalon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void NeaveBlacktalon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boltstormPistol);
-    visitor(&m_whirlwindAxes);
+    visitor(m_boltstormPistol);
+    visitor(m_whirlwindAxes);
 }
 
 Wounds NeaveBlacktalon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

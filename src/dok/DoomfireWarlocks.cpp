@@ -101,13 +101,13 @@ void DoomfireWarlocks::Init()
     }
 }
 
-void DoomfireWarlocks::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DoomfireWarlocks::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_crossBow);
-    visitor(&m_crossBowMaster);
-    visitor(&m_scimitar);
-    visitor(&m_scimitarMaster);
-    visitor(&m_steedsBite);
+    visitor(m_crossBow);
+    visitor(m_crossBowMaster);
+    visitor(m_scimitar);
+    visitor(m_scimitarMaster);
+    visitor(m_steedsBite);
 }
 
 } // namespace DaughtersOfKhaine

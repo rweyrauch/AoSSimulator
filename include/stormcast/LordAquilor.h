@@ -32,7 +32,7 @@ public:
 
     bool configure(bool astralCompass);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

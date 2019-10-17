@@ -98,12 +98,12 @@ bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool cl
     return true;
 }
 
-void Clanrats::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Clanrats::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_rustySpear);
-    visitor(&m_rustySpearLeader);
-    visitor(&m_rustyBlade);
-    visitor(&m_rustyBladeLeader);
+    visitor(m_rustySpear);
+    visitor(m_rustySpearLeader);
+    visitor(m_rustyBlade);
+    visitor(m_rustyBladeLeader);
 }
 
 Unit *Clanrats::Create(const ParameterList &parameters)

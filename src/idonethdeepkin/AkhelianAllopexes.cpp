@@ -74,13 +74,13 @@ bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
     return true;
 }
 
-void AkhelianAllopexes::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AkhelianAllopexes::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_harpoonLauncher);
-    visitor(&m_netLauncher);
-    visitor(&m_hooksAndBlades);
-    visitor(&m_allopexBite);
-    visitor(&m_allopexFins);
+    visitor(m_harpoonLauncher);
+    visitor(m_netLauncher);
+    visitor(m_hooksAndBlades);
+    visitor(m_allopexBite);
+    visitor(m_allopexFins);
 }
 
 Unit *AkhelianAllopexes::Create(const ParameterList &parameters)

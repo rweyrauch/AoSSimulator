@@ -74,9 +74,11 @@ bool SistersOfTheWatch::configure(int numModels)
     return false;
 }
 
-void SistersOfTheWatch::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SistersOfTheWatch::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_bow);
+    visitor(m_sword);
+    visitor(m_bowHighSister);
 }
 
 } // namespace CitiesOfSigmar

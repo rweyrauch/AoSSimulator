@@ -109,14 +109,14 @@ bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblad
     return true;
 }
 
-void Tzaangors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Tzaangors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_savageBlade);
-    visitor(&m_savageBladeTwistbray);
-    visitor(&m_savageGreatblade);
-    visitor(&m_savageGreatbladeTwistbray);
-    visitor(&m_viciousBeak);
-    visitor(&m_viciousBeakTwistbray);
+    visitor(m_savageBlade);
+    visitor(m_savageBladeTwistbray);
+    visitor(m_savageGreatblade);
+    visitor(m_savageGreatbladeTwistbray);
+    visitor(m_viciousBeak);
+    visitor(m_viciousBeakTwistbray);
 }
 
 Unit *Tzaangors::Create(const ParameterList &parameters)

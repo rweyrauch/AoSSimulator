@@ -93,11 +93,11 @@ void AleguzzlerGargant::Init()
     }
 }
 
-void AleguzzlerGargant::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AleguzzlerGargant::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_eadbutt);
-    visitor(&m_massiveClub);
-    visitor(&m_mightyKick);
+    visitor(m_eadbutt);
+    visitor(m_massiveClub);
+    visitor(m_mightyKick);
 }
 
 int AleguzzlerGargant::getDamageTableIndex() const

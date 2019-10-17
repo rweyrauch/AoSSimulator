@@ -73,12 +73,12 @@ bool Archaon::configure()
     return true;
 }
 
-void Archaon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Archaon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slayerOfKings);
-    visitor(&m_dorgharsClaws);
-    visitor(&m_dorgharsTails);
-    visitor(&m_dorgharsHeads);
+    visitor(m_slayerOfKings);
+    visitor(m_dorgharsClaws);
+    visitor(m_dorgharsTails);
+    visitor(m_dorgharsHeads);
 }
 
 int Archaon::move() const

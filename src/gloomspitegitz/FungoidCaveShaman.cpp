@@ -79,10 +79,10 @@ void FungoidCaveShaman::Init()
     }
 }
 
-void FungoidCaveShaman::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FungoidCaveShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_moonSickle);
-    visitor(&m_squigsTeeth);
+    visitor(m_moonSickle);
+    visitor(m_squigsTeeth);
 }
 
 std::string FungoidCaveShaman::ValueToString(const Parameter &parameter)

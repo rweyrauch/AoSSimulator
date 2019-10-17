@@ -76,9 +76,11 @@ bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower)
     return false;
 }
 
-void WildRiders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WildRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_spear);
+    visitor(m_hooves);
+    visitor(m_spearHunter);
 }
 
 } // namespace CitiesOfSigmar

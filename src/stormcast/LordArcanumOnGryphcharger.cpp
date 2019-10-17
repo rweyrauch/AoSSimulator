@@ -120,10 +120,10 @@ int LordArcanumOnGryphcharger::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordArcanumOnGryphcharger::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordArcanumOnGryphcharger::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_aetherstave);
-    visitor(&m_beakAndClaws);
+    visitor(m_aetherstave);
+    visitor(m_beakAndClaws);
 }
 
 Wounds LordArcanumOnGryphcharger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

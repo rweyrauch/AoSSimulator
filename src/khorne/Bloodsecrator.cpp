@@ -43,9 +43,9 @@ bool Bloodsecrator::configure()
     return true;
 }
 
-void Bloodsecrator::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bloodsecrator::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ensorcelledAxe);
+    visitor(m_ensorcelledAxe);
 }
 
 Unit *Bloodsecrator::Create(const ParameterList &parameters)

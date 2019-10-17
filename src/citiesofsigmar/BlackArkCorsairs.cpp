@@ -79,9 +79,14 @@ bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornbl
     return false;
 }
 
-void BlackArkCorsairs::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BlackArkCorsairs::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_handbow);
+    visitor(m_cutlass);
+    visitor(m_blade);
+    visitor(m_handbowReaver);
+    visitor(m_cutlassReaver);
+    visitor(m_bladeReaver);
 }
 
 }//namespace CitiesOfSigmar

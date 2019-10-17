@@ -55,11 +55,11 @@ bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon)
     return true;
 }
 
-void LoonbossOnGiantCaveSquig::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LoonbossOnGiantCaveSquig::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_massiveFangFilledGob);
-    visitor(&m_moonCutta);
-    visitor(&m_moonclanStabba);
+    visitor(m_massiveFangFilledGob);
+    visitor(m_moonCutta);
+    visitor(m_moonclanStabba);
 }
 
 Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters)

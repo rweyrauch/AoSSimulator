@@ -113,11 +113,11 @@ void TreeRevenants::Init()
     }
 }
 
-void TreeRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TreeRevenants::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_enchantedBlade);
-    visitor(&m_enchantedBladeScion);
-    visitor(&m_protectorGlaive);
+    visitor(m_enchantedBlade);
+    visitor(m_enchantedBladeScion);
+    visitor(m_protectorGlaive);
 }
 
 void TreeRevenants::onBeginTurn(int battleRound)

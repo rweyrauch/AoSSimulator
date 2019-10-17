@@ -53,9 +53,9 @@ bool ViceleaderHeraldOfSlaanesh::configure()
     return true;
 }
 
-void ViceleaderHeraldOfSlaanesh::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ViceleaderHeraldOfSlaanesh::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ravagingClaws);
+    visitor(m_ravagingClaws);
 }
 
 Unit *ViceleaderHeraldOfSlaanesh::Create(const ParameterList &parameters)

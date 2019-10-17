@@ -91,10 +91,10 @@ void SpiteRevenants::Init()
     }
 }
 
-void SpiteRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SpiteRevenants::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_cruelTalonsAndFangs);
-    visitor(&m_cruelTalonsAndFangsShadestalker);
+    visitor(m_cruelTalonsAndFangs);
+    visitor(m_cruelTalonsAndFangsShadestalker);
 }
 
 Rerolls SpiteRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) const

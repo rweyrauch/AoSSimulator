@@ -49,13 +49,13 @@ bool AkhelianLeviadon::configure()
     return true;
 }
 
-void AkhelianLeviadon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AkhelianLeviadon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_harpoonLauncher);
-    visitor(&m_crushingJaws);
-    visitor(&m_scythedFins);
-    visitor(&m_twinProngedSpear);
-    visitor(&m_razorshellHarpoons);
+    visitor(m_harpoonLauncher);
+    visitor(m_crushingJaws);
+    visitor(m_scythedFins);
+    visitor(m_twinProngedSpear);
+    visitor(m_razorshellHarpoons);
 }
 
 Unit *AkhelianLeviadon::Create(const ParameterList &parameters)

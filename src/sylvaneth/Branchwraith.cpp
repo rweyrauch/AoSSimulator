@@ -70,9 +70,9 @@ void Branchwraith::Init()
     }
 }
 
-void Branchwraith::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Branchwraith::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_piercingTalons);
+    visitor(m_piercingTalons);
 }
 
 int Branchwraith::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

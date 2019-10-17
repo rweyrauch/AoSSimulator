@@ -65,11 +65,11 @@ bool Hexwraiths::configure(int numModels)
     return true;
 }
 
-void Hexwraiths::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Hexwraiths::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spectralScythe);
-    visitor(&m_hoovesAndTeeth);
-    visitor(&m_spectralScytheHellwraith);
+    visitor(m_spectralScythe);
+    visitor(m_hoovesAndTeeth);
+    visitor(m_spectralScytheHellwraith);
 }
 
 Unit *Hexwraiths::Create(const ParameterList &parameters)

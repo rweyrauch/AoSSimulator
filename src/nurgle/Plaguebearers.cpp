@@ -68,10 +68,10 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
     return true;
 }
 
-void Plaguebearers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Plaguebearers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_plaguesword);
-    visitor(&m_plagueswordPlagueRidden);
+    visitor(m_plaguesword);
+    visitor(m_plagueswordPlagueRidden);
 }
 
 Unit *Plaguebearers::Create(const ParameterList &parameters)

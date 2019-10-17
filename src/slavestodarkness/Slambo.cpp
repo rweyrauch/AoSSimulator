@@ -62,10 +62,10 @@ bool Slambo::configure()
     return true;
 }
 
-void Slambo::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Slambo::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hurledAxe);
-    visitor(&m_chaosAxes);
+    visitor(m_hurledAxe);
+    visitor(m_chaosAxes);
 }
 
 } //SlavesToDarkness

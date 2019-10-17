@@ -94,10 +94,10 @@ bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemB
     return true;
 }
 
-void SavageOrrukMorboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SavageOrrukMorboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_chompaAndShiv);
-    visitor(&m_chompaAndShivBoss);
+    visitor(m_chompaAndShiv);
+    visitor(m_chompaAndShivBoss);
 }
 
 int SavageOrrukMorboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

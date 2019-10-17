@@ -71,13 +71,13 @@ bool VorgarothAndSkalok::configure()
     return true;
 }
 
-void VorgarothAndSkalok::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VorgarothAndSkalok::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_balefire);
-    visitor(&m_skullCleaverAxeOfKhorne);
-    visitor(&m_evisceratingClaws);
-    visitor(&m_cavernousJaws);
-    visitor(&m_brassPlatedTail);
+    visitor(m_balefire);
+    visitor(m_skullCleaverAxeOfKhorne);
+    visitor(m_evisceratingClaws);
+    visitor(m_cavernousJaws);
+    visitor(m_brassPlatedTail);
 }
 
 Unit *VorgarothAndSkalok::Create(const ParameterList &parameters)

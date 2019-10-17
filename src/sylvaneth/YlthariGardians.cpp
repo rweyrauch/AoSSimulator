@@ -69,12 +69,12 @@ bool YltharisGuardians::configure()
     return true;
 }
 
-void YltharisGuardians::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void YltharisGuardians::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_revenantBow);
-    visitor(&m_enchantedGreatBlade);
-    visitor(&m_protectorGlaive);
-    visitor(&m_revenantBowMelee);
+    visitor(m_revenantBow);
+    visitor(m_enchantedGreatBlade);
+    visitor(m_protectorGlaive);
+    visitor(m_revenantBowMelee);
 }
 
 Rerolls YltharisGuardians::toWoundRerolls(const Weapon *weapon, const Unit *target) const

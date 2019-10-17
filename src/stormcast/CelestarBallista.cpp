@@ -109,11 +109,11 @@ void CelestarBallista::onStartShooting(PlayerId player)
     }
 }
 
-void CelestarBallista::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CelestarBallista::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormboltsSingle);
-    visitor(&m_stormboltsRapid);
-    visitor(&m_sigmariteBlades);
+    visitor(m_stormboltsSingle);
+    visitor(m_stormboltsRapid);
+    visitor(m_sigmariteBlades);
 }
 
 } // namespace StormcastEternals

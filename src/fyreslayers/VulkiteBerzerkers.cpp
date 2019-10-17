@@ -90,13 +90,13 @@ bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool horn
     return true;
 }
 
-void VulkiteBerzerkers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VulkiteBerzerkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_handaxe);
-    visitor(&m_handaxeKarl);
-    visitor(&m_warpick);
-    visitor(&m_warpickKarl);
-    visitor(&m_throwingAxe);
+    visitor(m_handaxe);
+    visitor(m_handaxeKarl);
+    visitor(m_warpick);
+    visitor(m_warpickKarl);
+    visitor(m_throwingAxe);
 }
 
 Unit *VulkiteBerzerkers::Create(const ParameterList &parameters)

@@ -43,10 +43,10 @@ bool AvatarOfKhaine::configure()
     return true;
 }
 
-void AvatarOfKhaine::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AvatarOfKhaine::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_torrentOfBurningBlood);
-    visitor(&m_sword);
+    visitor(m_torrentOfBurningBlood);
+    visitor(m_sword);
 }
 
 Unit *AvatarOfKhaine::Create(const ParameterList &parameters)

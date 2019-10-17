@@ -112,12 +112,12 @@ bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThum
     return true;
 }
 
-void SavageOrruks::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SavageOrruks::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_chompa);
-    visitor(&m_chompaBoss);
-    visitor(&m_stikka);
-    visitor(&m_stikkaBoss);
+    visitor(m_chompa);
+    visitor(m_chompaBoss);
+    visitor(m_stikka);
+    visitor(m_stikkaBoss);
 }
 
 std::string SavageOrruks::ValueToString(const Parameter &parameter)

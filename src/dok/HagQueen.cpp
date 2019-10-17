@@ -41,9 +41,9 @@ bool HagQueen::configure()
     return true;
 }
 
-void HagQueen::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void HagQueen::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bladeOfKhaine);
+    visitor(m_bladeOfKhaine);
 }
 
 Unit *HagQueen::Create(const ParameterList &parameters)

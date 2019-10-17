@@ -166,15 +166,15 @@ int KurnothHunters::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
-void KurnothHunters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KurnothHunters::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greatbow);
-    visitor(&m_greatbowHuntmaster);
-    visitor(&m_greatsword);
-    visitor(&m_greatswordHuntmaster);
-    visitor(&m_scythe);
-    visitor(&m_scytheHuntmaster);
-    visitor(&m_viciousClaws);
+    visitor(m_greatbow);
+    visitor(m_greatbowHuntmaster);
+    visitor(m_greatsword);
+    visitor(m_greatswordHuntmaster);
+    visitor(m_scythe);
+    visitor(m_scytheHuntmaster);
+    visitor(m_viciousClaws);
 }
 
 Wounds KurnothHunters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

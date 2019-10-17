@@ -74,9 +74,13 @@ bool FreeguildGeneralOnGriffon::configure()
     return false;
 }
 
-void FreeguildGeneralOnGriffon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildGeneralOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_runesword);
+    visitor(m_greathammer);
+    visitor(m_lance);
+    visitor(m_claws);
+    visitor(m_beak);
 }
 
 } // namespace CitiesOfSigmar

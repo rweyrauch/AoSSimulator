@@ -71,9 +71,10 @@ bool BlackArkFleetmaster::configure()
     return false;
 }
 
-void BlackArkFleetmaster::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BlackArkFleetmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_cutlass);
+    visitor(m_murderHook);
 }
 
 }//namespace CitiesOfSigmar

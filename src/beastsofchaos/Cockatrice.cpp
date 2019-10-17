@@ -74,11 +74,11 @@ void Cockatrice::Init()
     }
 }
 
-void Cockatrice::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Cockatrice::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_petrifyingGaze);
-    visitor(&m_viciousBeak);
-    visitor(&m_swordlikeTalons);
+    visitor(m_petrifyingGaze);
+    visitor(m_viciousBeak);
+    visitor(m_swordlikeTalons);
 }
 
 int Cockatrice::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

@@ -119,13 +119,13 @@ void VanguardPalladors::Init()
     }
 }
 
-void VanguardPalladors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VanguardPalladors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boltstormPistol);
-    visitor(&m_starstrikeJavelinMissile);
-    visitor(&m_shockHandaxe);
-    visitor(&m_starstrikeJavelin);
-    visitor(&m_beakAndClaws);
+    visitor(m_boltstormPistol);
+    visitor(m_starstrikeJavelinMissile);
+    visitor(m_shockHandaxe);
+    visitor(m_starstrikeJavelin);
+    visitor(m_beakAndClaws);
 }
 
 std::string VanguardPalladors::ValueToString(const Parameter &parameter)

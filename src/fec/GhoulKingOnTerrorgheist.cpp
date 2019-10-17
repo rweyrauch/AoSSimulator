@@ -76,12 +76,12 @@ bool AbhorrantGhoulKingOnTerrorgheist::configure()
     return true;
 }
 
-void AbhorrantGhoulKingOnTerrorgheist::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AbhorrantGhoulKingOnTerrorgheist::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_deathShriek);
-    visitor(&m_goryTalonsAndFangs);
-    visitor(&m_skeletalClaws);
-    visitor(&m_fangedMaw);
+    visitor(m_deathShriek);
+    visitor(m_goryTalonsAndFangs);
+    visitor(m_skeletalClaws);
+    visitor(m_fangedMaw);
 }
 
 Unit *AbhorrantGhoulKingOnTerrorgheist::Create(const ParameterList &parameters)

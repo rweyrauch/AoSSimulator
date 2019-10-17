@@ -78,9 +78,9 @@ bool Raptoryx::configure(int numModels)
     return true;
 }
 
-void Raptoryx::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Raptoryx::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_beakAndTalons);
+    visitor(m_beakAndTalons);
 }
 
 int Raptoryx::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

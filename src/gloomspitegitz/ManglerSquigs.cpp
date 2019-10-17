@@ -127,11 +127,11 @@ void ManglerSquigs::Init()
     }
 }
 
-void ManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ManglerSquigs::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hugeFangFilledGob);
-    visitor(&m_ballsAndChains);
-    visitor(&m_grotsBashinStikk);
+    visitor(m_hugeFangFilledGob);
+    visitor(m_ballsAndChains);
+    visitor(m_grotsBashinStikk);
 }
 
 void ManglerSquigs::onSlain()

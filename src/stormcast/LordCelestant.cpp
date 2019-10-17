@@ -93,10 +93,10 @@ void LordCelestant::onStartShooting(PlayerId player)
     StormcastEternal::onStartShooting(player);
 }
 
-void LordCelestant::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordCelestant::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_runeblade);
-    visitor(&m_warhammer);
+    visitor(m_runeblade);
+    visitor(m_warhammer);
 }
 
 } // namespace StormcastEternals

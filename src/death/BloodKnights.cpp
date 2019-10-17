@@ -71,11 +71,11 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
     return true;
 }
 
-void BloodKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_templarLanceOrBlade);
-    visitor(&m_templarLanceOrBladeKastellan);
-    visitor(&m_hoovesAndTeeth);
+    visitor(m_templarLanceOrBlade);
+    visitor(m_templarLanceOrBladeKastellan);
+    visitor(m_hoovesAndTeeth);
 }
 
 Unit *BloodKnights::Create(const ParameterList &parameters)

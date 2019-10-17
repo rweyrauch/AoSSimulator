@@ -76,9 +76,9 @@ void LordRelictor::Init()
     }
 }
 
-void LordRelictor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordRelictor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_relicHammer);
+    visitor(m_relicHammer);
 }
 
 std::string LordRelictor::ValueToString(const Parameter &parameter)

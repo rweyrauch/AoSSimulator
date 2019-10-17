@@ -72,11 +72,11 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
     return true;
 }
 
-void NamartiReavers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void NamartiReavers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_whisperbowStormFire);
-    visitor(&m_whisperbowAimedFire);
-    visitor(&m_keeningBlade);
+    visitor(m_whisperbowStormFire);
+    visitor(m_whisperbowAimedFire);
+    visitor(m_keeningBlade);
 }
 
 Unit *NamartiReavers::Create(const ParameterList &parameters)

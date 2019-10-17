@@ -232,14 +232,14 @@ int Sequitors::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void Sequitors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Sequitors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormsmiteMaul);
-    visitor(&m_stormsmiteMaulPrime);
-    visitor(&m_tempestBlade);
-    visitor(&m_tempestBladePrime);
-    visitor(&m_stormsmiteGreatmace);
-    visitor(&m_stormsmiteGreatmacePrime);
+    visitor(m_stormsmiteMaul);
+    visitor(m_stormsmiteMaulPrime);
+    visitor(m_tempestBlade);
+    visitor(m_tempestBladePrime);
+    visitor(m_stormsmiteGreatmace);
+    visitor(m_stormsmiteGreatmacePrime);
 }
 
 void Sequitors::onStartShooting(PlayerId player)

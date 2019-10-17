@@ -168,7 +168,7 @@ public:
 
     float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
-    virtual void visitWeapons(std::function<void(const Weapon *)> &visitor) = 0;
+    virtual void visitWeapons(std::function<void(const Weapon &)> &visitor) = 0;
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
 
@@ -432,7 +432,7 @@ class CustomUnit : public Unit
 public:
     CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
-    void visitWeapons(std::function<void(const Weapon *)> &visitor) override {}
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override {}
 };
 
 #endif //UNIT_H

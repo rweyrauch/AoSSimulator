@@ -69,10 +69,10 @@ bool ManiakWeirdnob::configure()
     return true;
 }
 
-void ManiakWeirdnob::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ManiakWeirdnob::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bonebeastStaff);
-    visitor(&m_tusksAndHooves);
+    visitor(m_bonebeastStaff);
+    visitor(m_tusksAndHooves);
 }
 
 } // namespace Bonesplitterz

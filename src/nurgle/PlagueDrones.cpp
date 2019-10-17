@@ -94,14 +94,14 @@ bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBeare
     return true;
 }
 
-void PlagueDrones::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void PlagueDrones::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_plaguesword);
-    visitor(&m_plagueswordPlaguebringer);
-    visitor(&m_deathsHead);
-    visitor(&m_proboscis);
-    visitor(&m_mouthparts);
-    visitor(&m_venemousSting);
+    visitor(m_plaguesword);
+    visitor(m_plagueswordPlaguebringer);
+    visitor(m_deathsHead);
+    visitor(m_proboscis);
+    visitor(m_mouthparts);
+    visitor(m_venemousSting);
 }
 
 Unit *PlagueDrones::Create(const ParameterList &parameters)

@@ -34,7 +34,7 @@ public:
 
     bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

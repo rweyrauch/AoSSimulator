@@ -72,9 +72,10 @@ bool HelstormRocketBattery::configure()
     return false;
 }
 
-void HelstormRocketBattery::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void HelstormRocketBattery::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_rocketSalvo);
+    visitor(m_crewsTools);
 }
 
 } // namespace CitiesOfSigmar

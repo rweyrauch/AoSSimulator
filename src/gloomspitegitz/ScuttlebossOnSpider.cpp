@@ -47,10 +47,10 @@ bool ScuttlebossOnGiganticSpider::configure()
     return true;
 }
 
-void ScuttlebossOnGiganticSpider::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ScuttlebossOnGiganticSpider::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spear);
-    visitor(&m_fangs);
+    visitor(m_spear);
+    visitor(m_fangs);
 }
 
 Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters)

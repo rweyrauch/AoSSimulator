@@ -43,9 +43,9 @@ bool Skullgrinder::configure()
     return true;
 }
 
-void Skullgrinder::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skullgrinder::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_brazenAnvil);
+    visitor(m_brazenAnvil);
 }
 
 Unit *Skullgrinder::Create(const ParameterList &parameters)

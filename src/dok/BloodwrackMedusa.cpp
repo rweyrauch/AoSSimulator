@@ -47,12 +47,12 @@ bool BloodwrackMedusa::configure()
     return true;
 }
 
-void BloodwrackMedusa::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodwrackMedusa::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bloodwrackStare);
-    visitor(&m_whisperclaw);
-    visitor(&m_tailOfSerpents);
-    visitor(&m_bloodwrackSpear);
+    visitor(m_bloodwrackStare);
+    visitor(m_whisperclaw);
+    visitor(m_tailOfSerpents);
+    visitor(m_bloodwrackSpear);
 }
 
 Unit *BloodwrackMedusa::Create(const ParameterList &parameters)

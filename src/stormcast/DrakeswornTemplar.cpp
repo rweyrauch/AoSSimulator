@@ -292,13 +292,13 @@ int DrakeswornTemplar::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void DrakeswornTemplar::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DrakeswornTemplar::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_skyboltBow);
-    visitor(&m_tempestAxe);
-    visitor(&m_arcHammer);
-    visitor(&m_stormlance);
-    visitor(&m_greatClaws);
+    visitor(m_skyboltBow);
+    visitor(m_tempestAxe);
+    visitor(m_arcHammer);
+    visitor(m_stormlance);
+    visitor(m_greatClaws);
 }
 
 int DrakeswornTemplar::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

@@ -79,9 +79,14 @@ bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer)
     return false;
 }
 
-void FreeguildGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_halberd);
+    visitor(m_spear);
+    visitor(m_sword);
+    visitor(m_halberdSergeant);
+    visitor(m_spearSergeant);
+    visitor(m_swordSergeant);
 }
 
 } // namespace CitiesOfSigmar

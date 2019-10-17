@@ -54,11 +54,11 @@ bool BladebringerOnExaltedChariot::configure()
     return true;
 }
 
-void BladebringerOnExaltedChariot::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BladebringerOnExaltedChariot::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_flensingWhips);
-    visitor(&m_piercingClaws);
-    visitor(&m_poisonedTongues);
+    visitor(m_flensingWhips);
+    visitor(m_piercingClaws);
+    visitor(m_poisonedTongues);
 }
 
 Unit *BladebringerOnExaltedChariot::Create(const ParameterList &parameters)

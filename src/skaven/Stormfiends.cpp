@@ -116,15 +116,15 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
     return true;
 }
 
-void Stormfiends::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Stormfiends::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ratlingCannons);
-    visitor(&m_windlaunchers);
-    visitor(&m_warpfireProjectors);
-    visitor(&m_doomfireGauntlets);
-    visitor(&m_grinderfists);
-    visitor(&m_shockGauntlets);
-    visitor(&m_clubbingBlows);
+    visitor(m_ratlingCannons);
+    visitor(m_windlaunchers);
+    visitor(m_warpfireProjectors);
+    visitor(m_doomfireGauntlets);
+    visitor(m_grinderfists);
+    visitor(m_shockGauntlets);
+    visitor(m_clubbingBlows);
 }
 
 Unit *Stormfiends::Create(const ParameterList &parameters)

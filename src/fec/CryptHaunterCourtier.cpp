@@ -47,10 +47,10 @@ bool CryptHaunterCourtier::configure()
     return true;
 }
 
-void CryptHaunterCourtier::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CryptHaunterCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_massiveBoneClub);
-    visitor(&m_rancidTalons);
+    visitor(m_massiveBoneClub);
+    visitor(m_rancidTalons);
 }
 
 Unit *CryptHaunterCourtier::Create(const ParameterList &parameters)

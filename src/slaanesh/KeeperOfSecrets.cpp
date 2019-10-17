@@ -84,12 +84,12 @@ bool KeeperOfSecrets::configure(WeaponOption weapon)
     return true;
 }
 
-void KeeperOfSecrets::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KeeperOfSecrets::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_livingWhip);
-    visitor(&m_ritualKnifeOrHand);
-    visitor(&m_greatblade);
-    visitor(&m_impalingClaws);
+    visitor(m_livingWhip);
+    visitor(m_ritualKnifeOrHand);
+    visitor(m_greatblade);
+    visitor(m_impalingClaws);
 }
 
 Unit *KeeperOfSecrets::Create(const ParameterList &parameters)

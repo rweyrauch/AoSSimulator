@@ -46,11 +46,11 @@ bool Volturnos::configure()
     return true;
 }
 
-void Volturnos::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Volturnos::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_theAstraSolus);
-    visitor(&m_deepmareJawsTalons);
-    visitor(&m_deepmareTails);
+    visitor(m_theAstraSolus);
+    visitor(m_deepmareJawsTalons);
+    visitor(m_deepmareTails);
 }
 
 Unit *Volturnos::Create(const ParameterList &parameters)

@@ -64,10 +64,10 @@ bool BeastsOfNurgle::configure(int numModels)
     return true;
 }
 
-void BeastsOfNurgle::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BeastsOfNurgle::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_clawsAndTentacles);
-    visitor(&m_slobberingTongue);
+    visitor(m_clawsAndTentacles);
+    visitor(m_slobberingTongue);
 }
 
 Unit *BeastsOfNurgle::Create(const ParameterList &parameters)

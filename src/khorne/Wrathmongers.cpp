@@ -63,10 +63,10 @@ bool Wrathmongers::configure(int numModels)
     return true;
 }
 
-void Wrathmongers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Wrathmongers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_wrathflails);
-    visitor(&m_wrathflailsMaster);
+    visitor(m_wrathflails);
+    visitor(m_wrathflailsMaster);
 }
 
 Unit *Wrathmongers::Create(const ParameterList &parameters)

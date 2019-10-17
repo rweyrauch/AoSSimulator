@@ -115,13 +115,13 @@ bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullTh
     return true;
 }
 
-void SavageBoarboys::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SavageBoarboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_chompa);
-    visitor(&m_chompaBoss);
-    visitor(&m_stikka);
-    visitor(&m_stikkaBoss);
-    visitor(&m_tusksAndHooves);
+    visitor(m_chompa);
+    visitor(m_chompaBoss);
+    visitor(m_stikka);
+    visitor(m_stikkaBoss);
+    visitor(m_tusksAndHooves);
 }
 
 std::string SavageBoarboys::ValueToString(const Parameter &parameter)

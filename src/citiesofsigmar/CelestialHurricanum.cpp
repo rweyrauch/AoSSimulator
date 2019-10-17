@@ -81,9 +81,12 @@ bool CelestialHurricanum::configure(bool battlemage)
     return false;
 }
 
-void CelestialHurricanum::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CelestialHurricanum::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_stormOfShemtek);
+    visitor(m_wizardStaff);
+    visitor(m_arcaneTools);
+    visitor(m_hooves);
 }
 
 } //namespace CitiesOfSigmar

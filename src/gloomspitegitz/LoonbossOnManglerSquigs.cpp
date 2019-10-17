@@ -149,12 +149,12 @@ void LoonbossOnManglerSquigs::onSlain()
     GloomspiteGitzBase::onSlain();
 }
 
-void LoonbossOnManglerSquigs::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LoonbossOnManglerSquigs::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hugeFangFilledGob);
-    visitor(&m_ballsAndChains);
-    visitor(&m_moonCutta);
-    visitor(&m_grotsBashinStikk);
+    visitor(m_hugeFangFilledGob);
+    visitor(m_ballsAndChains);
+    visitor(m_moonCutta);
+    visitor(m_grotsBashinStikk);
 }
 
 void LoonbossOnManglerSquigs::onStartHero(PlayerId player)

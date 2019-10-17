@@ -44,9 +44,9 @@ bool Bloodmaster::configure()
     return true;
 }
 
-void Bloodmaster::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bloodmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bladeOfBlood);
+    visitor(m_bladeOfBlood);
 }
 
 Unit *Bloodmaster::Create(const ParameterList &parameters)

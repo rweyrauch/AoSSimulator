@@ -63,10 +63,10 @@ bool Vargheists::configure(int numModels)
     return true;
 }
 
-void Vargheists::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Vargheists::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_fangsAndTalons);
-    visitor(&m_fangsAndTalonsVargoyle);
+    visitor(m_fangsAndTalons);
+    visitor(m_fangsAndTalonsVargoyle);
 }
 
 Unit *Vargheists::Create(const ParameterList &parameters)

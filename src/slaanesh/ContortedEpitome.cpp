@@ -52,10 +52,10 @@ bool TheContortedEpitome::configure()
     return true;
 }
 
-void TheContortedEpitome::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TheContortedEpitome::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ravagingClaws);
-    visitor(&m_coiledTentacles);
+    visitor(m_ravagingClaws);
+    visitor(m_coiledTentacles);
 }
 
 Unit *TheContortedEpitome::Create(const ParameterList &parameters)

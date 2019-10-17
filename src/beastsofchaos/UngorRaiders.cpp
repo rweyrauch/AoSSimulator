@@ -73,11 +73,11 @@ bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer)
     return true;
 }
 
-void UngorRaiders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void UngorRaiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_raiderBow);
-    visitor(&m_raiderBowHalfhorn);
-    visitor(&m_jaggedShank);
+    visitor(m_raiderBow);
+    visitor(m_raiderBowHalfhorn);
+    visitor(m_jaggedShank);
 }
 
 Unit *UngorRaiders::Create(const ParameterList &parameters)

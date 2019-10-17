@@ -92,9 +92,9 @@ void NamartiThralls::Init()
     }
 }
 
-void NamartiThralls::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void NamartiThralls::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_lanmariBlade);
+    visitor(m_lanmariBlade);
 }
 
 } // namespace IdonethDeepkin

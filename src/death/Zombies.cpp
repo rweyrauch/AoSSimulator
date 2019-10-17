@@ -63,9 +63,9 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
     return true;
 }
 
-void Zombies::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Zombies::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_zombieBite);
+    visitor(m_zombieBite);
 }
 
 Unit *Zombies::Create(const ParameterList &parameters)

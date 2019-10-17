@@ -78,9 +78,9 @@ Furies::Furies() :
     m_keywords = { CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES };
 }
 
-void Furies::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Furies::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_daggerAndClaws);
+    visitor(m_daggerAndClaws);
 }
 
 } //SlavesToDarkness

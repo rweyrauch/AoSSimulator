@@ -129,11 +129,11 @@ int SavageBoarboyManiaks::toWoundModifier(const Weapon *weapon, const Unit *targ
     return mod;
 }
 
-void SavageBoarboyManiaks::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SavageBoarboyManiaks::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_chompas);
-    visitor(&m_chompasBoss);
-    visitor(&m_tusksAndHooves);
+    visitor(m_chompas);
+    visitor(m_chompasBoss);
+    visitor(m_tusksAndHooves);
 }
 
 } // namespace Bonesplitterz

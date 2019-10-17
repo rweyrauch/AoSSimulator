@@ -78,12 +78,12 @@ bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
     return true;
 }
 
-void SpiderRiders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SpiderRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiderBow);
-    visitor(&m_crookedSpear);
-    visitor(&m_crookedSpearBoss);
-    visitor(&m_fangs);
+    visitor(m_spiderBow);
+    visitor(m_crookedSpear);
+    visitor(m_crookedSpearBoss);
+    visitor(m_fangs);
 }
 
 Unit *SpiderRiders::Create(const ParameterList &parameters)

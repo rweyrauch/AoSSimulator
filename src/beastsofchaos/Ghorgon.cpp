@@ -148,10 +148,10 @@ void Ghorgon::onStartCombat(PlayerId player)
     }
 }
 
-void Ghorgon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Ghorgon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_butcheringBlades);
-    visitor(&m_hugeSlaveringMaw);
+    visitor(m_butcheringBlades);
+    visitor(m_hugeSlaveringMaw);
 }
 
 } // namespace BeastsOfChaos

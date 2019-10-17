@@ -70,10 +70,10 @@ bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons)
     return true;
 }
 
-void MorghastHarbingers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MorghastHarbingers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiritHalberd);
-    visitor(&m_spiritSwords);
+    visitor(m_spiritHalberd);
+    visitor(m_spiritSwords);
 }
 
 Unit *MorghastHarbingers::Create(const ParameterList &parameters)

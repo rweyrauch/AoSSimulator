@@ -77,9 +77,9 @@ void MadcapShaman::Init()
     }
 }
 
-void MadcapShaman::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MadcapShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_moonStaff);
+    visitor(m_moonStaff);
 }
 
 std::string MadcapShaman::ValueToString(const Parameter &parameter)

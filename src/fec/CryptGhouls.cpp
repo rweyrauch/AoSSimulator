@@ -65,10 +65,10 @@ bool CryptGhouls::configure(int numModels)
     return true;
 }
 
-void CryptGhouls::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CryptGhouls::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_teethAndClaws);
-    visitor(&m_teethAndClawsGhast);
+    visitor(m_teethAndClaws);
+    visitor(m_teethAndClawsGhast);
 }
 
 Unit *CryptGhouls::Create(const ParameterList &parameters)

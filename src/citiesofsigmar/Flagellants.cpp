@@ -73,9 +73,10 @@ bool Flagellants::configure(int numModels)
     return false;
 }
 
-void Flagellants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Flagellants::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_flailsAndClubs);
+    visitor(m_flailsAndClubsProphet);
 }
 
 } // namespace CitiesOfSigmar

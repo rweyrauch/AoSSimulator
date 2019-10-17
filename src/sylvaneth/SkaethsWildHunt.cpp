@@ -89,13 +89,13 @@ bool SkaethsWildHunt::configure()
     return true;
 }
 
-void SkaethsWildHunt::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SkaethsWildHunt::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_seekerBow);
-    visitor(&m_javalin);
-    visitor(&m_javalinMelee);
-    visitor(&m_huntingWeapon);
-    visitor(&m_teethAndClaws);
+    visitor(m_seekerBow);
+    visitor(m_javalin);
+    visitor(m_javalinMelee);
+    visitor(m_huntingWeapon);
+    visitor(m_teethAndClaws);
 }
 
 } // namespace Sylvaneth

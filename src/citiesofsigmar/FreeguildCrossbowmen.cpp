@@ -76,9 +76,11 @@ bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool pi
     return false;
 }
 
-void FreeguildCrossbowmen::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildCrossbowmen::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_crossbow);
+    visitor(m_dagger);
+    visitor(m_crossbowMarksman);
 }
 
 } // namespace CitiesOfSigmar

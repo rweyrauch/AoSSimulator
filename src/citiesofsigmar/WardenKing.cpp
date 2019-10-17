@@ -43,9 +43,9 @@ bool WardenKing::configure()
     return true;
 }
 
-void WardenKing::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WardenKing::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_runeWeapon);
+    visitor(m_runeWeapon);
 }
 
 Unit *WardenKing::Create(const ParameterList &parameters)

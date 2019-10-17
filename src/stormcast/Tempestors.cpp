@@ -65,12 +65,12 @@ bool Tempestors::configure(int numModels)
     return true;
 }
 
-void Tempestors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Tempestors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormBlast);
-    visitor(&m_volleystormCrossbow);
-    visitor(&m_warblade);
-    visitor(&m_clawsAndFangs);
+    visitor(m_stormBlast);
+    visitor(m_volleystormCrossbow);
+    visitor(m_warblade);
+    visitor(m_clawsAndFangs);
 }
 
 Unit *Tempestors::Create(const ParameterList &parameters)

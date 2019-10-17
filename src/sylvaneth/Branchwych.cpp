@@ -72,10 +72,10 @@ void Branchwych::Init()
     }
 }
 
-void Branchwych::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Branchwych::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greenwoodScythe);
-    visitor(&m_bittergrubsMandibles);
+    visitor(m_greenwoodScythe);
+    visitor(m_bittergrubsMandibles);
 }
 
 int Branchwych::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

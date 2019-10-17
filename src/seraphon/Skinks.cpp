@@ -113,16 +113,16 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     return true;
 }
 
-void Skinks::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skinks::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_javelinMissile);
-    visitor(&m_boltspitterMissile);
-    visitor(&m_javelin);
-    visitor(&m_javelinAlpha);
-    visitor(&m_boltspitter);
-    visitor(&m_boltspitterAlpha);
-    visitor(&m_club);
-    visitor(&m_clubAlpha);
+    visitor(m_javelinMissile);
+    visitor(m_boltspitterMissile);
+    visitor(m_javelin);
+    visitor(m_javelinAlpha);
+    visitor(m_boltspitter);
+    visitor(m_boltspitterAlpha);
+    visitor(m_club);
+    visitor(m_clubAlpha);
 }
 
 Unit *Skinks::Create(const ParameterList &parameters)

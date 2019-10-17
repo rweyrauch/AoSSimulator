@@ -78,9 +78,13 @@ bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornbl
     return false;
 }
 
-void DemigryphKnights::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DemigryphKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_halberd);
+    visitor(m_lance);
+    visitor(m_halberdPreceptor);
+    visitor(m_lancePreceptor);
+    visitor(m_beakAndTalons);
 }
 
 } // namespace CitiesOfSigmar

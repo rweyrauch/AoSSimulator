@@ -86,10 +86,10 @@ void SneakySnufflers::Init()
     }
 }
 
-void SneakySnufflers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SneakySnufflers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_sickle);
-    visitor(&m_gnashers);
+    visitor(m_sickle);
+    visitor(m_gnashers);
 }
 
 } // namespace GloomspiteGitz

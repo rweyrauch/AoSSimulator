@@ -97,10 +97,10 @@ Rerolls GrimghastReapers::toHitRerolls(const Weapon *weapon, const Unit *unit) c
     return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
-void GrimghastReapers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GrimghastReapers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slasherScythe);
-    visitor(&m_deathKnell);
+    visitor(m_slasherScythe);
+    visitor(m_deathKnell);
 }
 
 } // namespace Nighthaunt

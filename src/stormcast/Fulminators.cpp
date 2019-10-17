@@ -62,11 +62,11 @@ bool Fulminators::configure(int numModels)
     return true;
 }
 
-void Fulminators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Fulminators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormBlast);
-    visitor(&m_stormstrkeGlaive);
-    visitor(&m_clawsAndFangs);
+    visitor(m_stormBlast);
+    visitor(m_stormstrkeGlaive);
+    visitor(m_clawsAndFangs);
 }
 
 Unit *Fulminators::Create(const ParameterList &parameters)

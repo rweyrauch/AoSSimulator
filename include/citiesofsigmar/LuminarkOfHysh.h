@@ -37,7 +37,7 @@ public:
 
     bool configure(bool battlemage);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

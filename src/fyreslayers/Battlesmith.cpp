@@ -45,10 +45,10 @@ bool Battlesmith::configure()
     return true;
 }
 
-void Battlesmith::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Battlesmith::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_battleAxe);
+    visitor(m_throwingAxe);
+    visitor(m_battleAxe);
 }
 
 Unit *Battlesmith::Create(const ParameterList &parameters)

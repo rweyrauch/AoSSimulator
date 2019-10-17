@@ -67,12 +67,12 @@ bool OrrukWarboss::configure(WeaponOption weapon, bool warboar)
     return true;
 }
 
-void OrrukWarboss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukWarboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bossChoppa);
-    visitor(&m_massiveChoppa);
-    visitor(&m_greatWaaaghBanner);
-    visitor(&m_boarTusks);
+    visitor(m_bossChoppa);
+    visitor(m_massiveChoppa);
+    visitor(m_greatWaaaghBanner);
+    visitor(m_boarTusks);
 }
 
 Unit *OrrukWarboss::Create(const ParameterList &parameters)

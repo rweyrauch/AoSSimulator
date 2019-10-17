@@ -120,10 +120,10 @@ int LordArcanumOnTauralon::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordArcanumOnTauralon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordArcanumOnTauralon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_aetherstave);
-    visitor(&m_hornsAndHooves);
+    visitor(m_aetherstave);
+    visitor(m_hornsAndHooves);
 }
 
 void LordArcanumOnTauralon::onCharged()

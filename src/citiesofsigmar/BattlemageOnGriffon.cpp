@@ -72,9 +72,11 @@ bool BattlemageOnGriffon::configure()
     return false;
 }
 
-void BattlemageOnGriffon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BattlemageOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_beastStaff);
+    visitor(m_twinBeaks);
+    visitor(m_razorClaws);
 }
 
 } //namespace CitiesOfSigmar

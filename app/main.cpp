@@ -409,15 +409,12 @@ std::string damageToString(int damage)
 
 void displayWeapons(const std::string& unitName)
 {
-    std::function<void(const Weapon*)> weaponVistor = [](const Weapon* weapon) {
-        if (weapon)
-        {
-            std::cout << "        " << weapon->name() << "  Type: " << (weapon->isMissile() ? "Missile" : "Melee")
-                      << "  Range: " << weapon->range() << " Attacks: " << weapon->attacks()
-                      << " To Hit: " << weapon->toHit() << "+  To Wound: " << weapon->toWound()
-                      << "+  Rend: " << weapon->rend() << "  Damage: " << damageToString(weapon->damage())
-                      << " Strength: " << weapon->strength() << std::endl;
-        }
+    std::function<void(const Weapon&)> weaponVistor = [](const Weapon& weapon) {
+        std::cout << "        " << weapon.name() << "  Type: " << (weapon.isMissile() ? "Missile" : "Melee")
+                  << "  Range: " << weapon.range() << " Attacks: " << weapon.attacks()
+                  << " To Hit: " << weapon.toHit() << "+  To Wound: " << weapon.toWound()
+                  << "+  Rend: " << weapon.rend() << "  Damage: " << damageToString(weapon.damage())
+                  << " Strength: " << weapon.strength() << std::endl;
     };
 
     if (unitName == "none") return;

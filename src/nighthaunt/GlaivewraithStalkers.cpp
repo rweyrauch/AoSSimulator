@@ -96,9 +96,9 @@ Rerolls GlaivewraithStalkers::toHitRerolls(const Weapon *weapon, const Unit *uni
     return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
-void GlaivewraithStalkers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GlaivewraithStalkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_huntersGlaive);
+    visitor(m_huntersGlaive);
 }
 
 } // namespace Nighthaunt

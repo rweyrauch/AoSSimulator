@@ -47,11 +47,11 @@ bool Hellflayer::configure()
     return true;
 }
 
-void Hellflayer::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Hellflayer::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_flensingWhips);
-    visitor(&m_piercingClaws);
-    visitor(&m_poisonedTongues);
+    visitor(m_flensingWhips);
+    visitor(m_piercingClaws);
+    visitor(m_poisonedTongues);
 }
 
 Unit *Hellflayer::Create(const ParameterList &parameters)

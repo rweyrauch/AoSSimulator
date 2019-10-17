@@ -75,9 +75,10 @@ bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower)
     return false;
 }
 
-void Bleakswords::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bleakswords::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_sword);
+    visitor(m_swordLordling);
 }
 
 } //namespace CitiesOfSigmar

@@ -62,11 +62,11 @@ bool TuskgorChariots::configure(int numModels)
     return true;
 }
 
-void TuskgorChariots::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void TuskgorChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_despoilerAxe);
-    visitor(&m_gnarledSpear);
-    visitor(&m_tusksAndHooves);
+    visitor(m_despoilerAxe);
+    visitor(m_gnarledSpear);
+    visitor(m_tusksAndHooves);
 }
 
 Unit *TuskgorChariots::Create(const ParameterList &parameters)

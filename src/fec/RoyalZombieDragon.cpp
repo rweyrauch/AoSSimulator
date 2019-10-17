@@ -72,11 +72,11 @@ bool RoyalZombieDragon::configure()
     return true;
 }
 
-void RoyalZombieDragon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void RoyalZombieDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pestilentialBreath);
-    visitor(&m_snappingMaw);
-    visitor(&m_swordlikeClaws);
+    visitor(m_pestilentialBreath);
+    visitor(m_snappingMaw);
+    visitor(m_swordlikeClaws);
 }
 
 Unit *RoyalZombieDragon::Create(const ParameterList &parameters)

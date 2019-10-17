@@ -81,9 +81,12 @@ bool LuminarkOfHysh::configure(bool battlemage)
     return false;
 }
 
-void LuminarkOfHysh::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LuminarkOfHysh::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_beamOfLight);
+    visitor(m_wizardsStaff);
+    visitor(m_arcaneTools);
+    visitor(m_hooves);
 }
 
 } // namespace CitiesOfSigmar

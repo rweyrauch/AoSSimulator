@@ -60,10 +60,10 @@ bool Chainghasts::configure(int numModels)
     return true;
 }
 
-void Chainghasts::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Chainghasts::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ghastflailsMissile);
-    visitor(&m_ghastflails);
+    visitor(m_ghastflailsMissile);
+    visitor(m_ghastflails);
 }
 
 Unit *Chainghasts::Create(const ParameterList &parameters)

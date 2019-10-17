@@ -73,9 +73,12 @@ bool WarHydra::configure()
     return false;
 }
 
-void WarHydra::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WarHydra::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_fieryBreath);
+    visitor(m_fangs);
+    visitor(m_limbs);
+    visitor(m_goadAndWhips);
 }
 
 } // namespace CitiesOfSigmar

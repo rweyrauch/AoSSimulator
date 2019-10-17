@@ -212,14 +212,14 @@ int Liberators::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void Liberators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Liberators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_grandblade);
-    visitor(&m_grandhammer);
-    visitor(&m_warhammer);
-    visitor(&m_warhammerPrime);
-    visitor(&m_warblade);
-    visitor(&m_warbladePrime);
+    visitor(m_grandblade);
+    visitor(m_grandhammer);
+    visitor(m_warhammer);
+    visitor(m_warhammerPrime);
+    visitor(m_warblade);
+    visitor(m_warbladePrime);
 }
 
 } // namespace StormcastEternals

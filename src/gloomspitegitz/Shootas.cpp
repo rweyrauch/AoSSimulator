@@ -181,13 +181,13 @@ int Shootas::toSaveModifier(const Weapon *weapon) const
     return modifier;
 }
 
-void Shootas::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Shootas::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slitta);
-    visitor(&m_slittaBoss);
-    visitor(&m_moonclanBow);
-    visitor(&m_moonclanBowBoss);
-    visitor(&m_barbedNet);
+    visitor(m_slitta);
+    visitor(m_slittaBoss);
+    visitor(m_moonclanBow);
+    visitor(m_moonclanBowBoss);
+    visitor(m_barbedNet);
 }
 
 int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

@@ -79,9 +79,9 @@ void LordVeritant::Init()
     }
 }
 
-void LordVeritant::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordVeritant::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_judgementBlade);
+    visitor(m_judgementBlade);
 }
 
 std::string LordVeritant::ValueToString(const Parameter &parameter)

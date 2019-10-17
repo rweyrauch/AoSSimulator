@@ -49,9 +49,9 @@ bool Loremaster::configure()
     return true;
 }
 
-void Loremaster::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Loremaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greatsword);
+    visitor(m_greatsword);
 }
 
 Unit *Loremaster::Create(const ParameterList &parameters)

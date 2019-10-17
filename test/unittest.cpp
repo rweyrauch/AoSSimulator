@@ -176,7 +176,7 @@ TEST(Unit, BallistaVsAlarielle)
         ballista2.beginTurn(i, PlayerId::Red);
         lordOrdinator.beginTurn(i, PlayerId::Red);
 
-        alarielle.hero(PlayerId::Red, 0);
+        alarielle.hero(PlayerId::Red);
         std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after hero phase." << std::endl;
 
         int numSlain = 0;

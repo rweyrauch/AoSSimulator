@@ -68,9 +68,9 @@ void Beastlord::Init()
     }
 }
 
-void Beastlord::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Beastlord::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pairedAxes);
+    visitor(m_pairedAxes);
 }
 
 Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const

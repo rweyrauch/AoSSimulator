@@ -97,10 +97,10 @@ void FleshHounds::Init()
     }
 }
 
-void FleshHounds::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FleshHounds::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_burningRoar);
-    visitor(&m_blooddarkClaws);
+    visitor(m_burningRoar);
+    visitor(m_blooddarkClaws);
 }
 
 } // namespace Khorne

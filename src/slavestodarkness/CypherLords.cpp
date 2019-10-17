@@ -92,10 +92,10 @@ bool CypherLords::configure(int numModels)
     return true;
 }
 
-void CypherLords::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CypherLords::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingStars);
-    visitor(&m_exoticBlades);
+    visitor(m_throwingStars);
+    visitor(m_exoticBlades);
 }
 
 int CypherLords::chargeModifier() const

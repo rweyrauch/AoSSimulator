@@ -47,11 +47,11 @@ bool Doomseeker::configure()
     return true;
 }
 
-void Doomseeker::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Doomseeker::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_warIron);
-    visitor(&m_doomseekerAxe);
+    visitor(m_throwingAxe);
+    visitor(m_warIron);
+    visitor(m_doomseekerAxe);
 }
 
 Unit *Doomseeker::Create(const ParameterList &parameters)

@@ -92,13 +92,13 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
     return true;
 }
 
-void Bullgors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Bullgors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bullgorHorns);
-    visitor(&m_bullgorAxe);
-    visitor(&m_bullgorAxeBloodkine);
-    visitor(&m_bullgorGreatAxe);
-    visitor(&m_bullgorGreatAxeBloodkine);
+    visitor(m_bullgorHorns);
+    visitor(m_bullgorAxe);
+    visitor(m_bullgorAxeBloodkine);
+    visitor(m_bullgorGreatAxe);
+    visitor(m_bullgorGreatAxeBloodkine);
 }
 
 Unit *Bullgors::Create(const ParameterList &parameters)

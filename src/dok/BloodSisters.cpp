@@ -102,10 +102,10 @@ Wounds BloodSisters::weaponDamage(const Weapon *weapon, const Unit *target, int 
     return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void BloodSisters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodSisters::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_heartshardGlaive);
-    visitor(&m_heartshardGlaiveGorgai);
+    visitor(m_heartshardGlaive);
+    visitor(m_heartshardGlaiveGorgai);
 }
 
 } // namespace DaughtersOfKhaine

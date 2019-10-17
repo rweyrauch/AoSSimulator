@@ -51,11 +51,11 @@ bool InfernalEnrapturess::configure()
     return true;
 }
 
-void InfernalEnrapturess::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void InfernalEnrapturess::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ravagingClaw);
-    visitor(&m_lyreCacophonousMelody);
-    visitor(&m_lyreEuphonicBlast);
+    visitor(m_ravagingClaw);
+    visitor(m_lyreCacophonousMelody);
+    visitor(m_lyreEuphonicBlast);
 }
 
 Unit *InfernalEnrapturess::Create(const ParameterList &parameters)

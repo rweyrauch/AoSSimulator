@@ -70,10 +70,10 @@ void Doombull::Init()
     }
 }
 
-void Doombull::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Doombull::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bullgorHorns);
-    visitor(&m_slaughtererAxe);
+    visitor(m_bullgorHorns);
+    visitor(m_slaughtererAxe);
 }
 
 Wounds Doombull::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

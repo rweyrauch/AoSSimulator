@@ -53,11 +53,11 @@ bool IronskullsBoyz::configure()
     return true;
 }
 
-void IronskullsBoyz::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void IronskullsBoyz::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_eadButt);
-    visitor(&m_pairedChoppas);
-    visitor(&m_bigChoppa);
+    visitor(m_eadButt);
+    visitor(m_pairedChoppas);
+    visitor(m_bigChoppa);
 }
 
 Unit *IronskullsBoyz::Create(const ParameterList &parameters)

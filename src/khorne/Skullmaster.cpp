@@ -46,10 +46,10 @@ bool Skullmaster::configure()
     return true;
 }
 
-void Skullmaster::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skullmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bladeOfBlood);
-    visitor(&m_brazenHooves);
+    visitor(m_bladeOfBlood);
+    visitor(m_brazenHooves);
 }
 
 Unit *Skullmaster::Create(const ParameterList &parameters)

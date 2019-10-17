@@ -64,10 +64,10 @@ bool DireWolves::configure(int numModels)
     return true;
 }
 
-void DireWolves::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DireWolves::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_fangsAndClaws);
-    visitor(&m_fangsAndClawsDoom);
+    visitor(m_fangsAndClaws);
+    visitor(m_fangsAndClawsDoom);
 }
 
 Unit *DireWolves::Create(const ParameterList &parameters)

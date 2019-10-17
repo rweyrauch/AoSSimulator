@@ -51,10 +51,10 @@ bool ScylaAnfingrimm::configure()
     return true;
 }
 
-void ScylaAnfingrimm::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ScylaAnfingrimm::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_brutalFists);
-    visitor(&m_serpentineTail);
+    visitor(m_brutalFists);
+    visitor(m_serpentineTail);
 }
 
 Unit *ScylaAnfingrimm::Create(const ParameterList &parameters)

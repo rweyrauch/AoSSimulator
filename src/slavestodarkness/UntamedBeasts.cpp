@@ -96,11 +96,11 @@ bool UntamedBeasts::configure(int numModels)
     return true;
 }
 
-void UntamedBeasts::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void UntamedBeasts::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_harpoonFirstFang);
-    visitor(&m_huntingWeapons);
-    visitor(&m_huntingWeaponsHeartEater);
+    visitor(m_harpoonFirstFang);
+    visitor(m_huntingWeapons);
+    visitor(m_huntingWeaponsHeartEater);
 }
 
 } //SlavesToDarkness

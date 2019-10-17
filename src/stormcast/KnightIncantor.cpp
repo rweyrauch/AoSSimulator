@@ -89,9 +89,9 @@ void KnightIncantor::Init()
     }
 }
 
-void KnightIncantor::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KnightIncantor::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_staff);
+    visitor(m_staff);
 }
 
 std::string KnightIncantor::ValueToString(const Parameter &parameter)

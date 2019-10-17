@@ -82,12 +82,12 @@ bool MegabossOnMawKrusha::configure(WeaponOption weapons)
     return true;
 }
 
-void MegabossOnMawKrusha::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MegabossOnMawKrusha::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bellow);
-    visitor(&m_hackaAndChoppa);
-    visitor(&m_ripToofFist);
-    visitor(&m_fistsAndTail);
+    visitor(m_bellow);
+    visitor(m_hackaAndChoppa);
+    visitor(m_ripToofFist);
+    visitor(m_fistsAndTail);
 }
 
 Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters)

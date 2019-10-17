@@ -68,11 +68,11 @@ bool NightRunners::configure(int numModels)
     return true;
 }
 
-void NightRunners::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void NightRunners::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingWeapons);
-    visitor(&m_stabbingBlade);
-    visitor(&m_stabbingBladeLeader);
+    visitor(m_throwingWeapons);
+    visitor(m_stabbingBlade);
+    visitor(m_stabbingBladeLeader);
 }
 
 Unit *NightRunners::Create(const ParameterList &parameters)

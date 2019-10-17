@@ -82,13 +82,13 @@ bool Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBeare
     return true;
 }
 
-void Hellstriders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Hellstriders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_clawSpear);
-    visitor(&m_clawSpearReaver);
-    visitor(&m_hellscourge);
-    visitor(&m_hellscourgeReaver);
-    visitor(&m_poisonedTongue);
+    visitor(m_clawSpear);
+    visitor(m_clawSpearReaver);
+    visitor(m_hellscourge);
+    visitor(m_hellscourgeReaver);
+    visitor(m_poisonedTongue);
 }
 
 Unit *Hellstriders::Create(const ParameterList &parameters)

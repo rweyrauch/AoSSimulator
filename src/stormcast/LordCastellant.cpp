@@ -67,9 +67,9 @@ void LordCastellant::Init()
     }
 }
 
-void LordCastellant::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordCastellant::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_halberd);
+    visitor(m_halberd);
 }
 
 } // namespace StormcastEternals

@@ -64,10 +64,10 @@ bool Skarbrand::configure()
     return true;
 }
 
-void Skarbrand::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Skarbrand::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slaughter);
-    visitor(&m_carnage);
+    visitor(m_slaughter);
+    visitor(m_carnage);
 }
 
 Unit *Skarbrand::Create(const ParameterList &parameters)

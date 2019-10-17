@@ -58,9 +58,9 @@ bool DankholdTroggoths::configure(int numModels)
     return true;
 }
 
-void DankholdTroggoths::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DankholdTroggoths::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boulderClub);
+    visitor(m_boulderClub);
 }
 
 Unit *DankholdTroggoths::Create(const ParameterList &parameters)

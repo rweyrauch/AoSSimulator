@@ -74,9 +74,11 @@ bool Gyrocopters::configure(int numModels)
     return false;
 }
 
-void Gyrocopters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Gyrocopters::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_brimstoneGun);
+    visitor(m_steamGun);
+    visitor(m_rotorBlades);
 }
 
 } // namespace CitiesOfSigmar

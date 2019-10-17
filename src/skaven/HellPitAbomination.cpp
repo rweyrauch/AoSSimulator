@@ -66,11 +66,11 @@ bool HellPitAbomination::configure()
     return true;
 }
 
-void HellPitAbomination::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void HellPitAbomination::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_gnashingTeath);
-    visitor(&m_flailingFists);
-    visitor(&m_avalancheOfFlesh);
+    visitor(m_gnashingTeath);
+    visitor(m_flailingFists);
+    visitor(m_avalancheOfFlesh);
 }
 
 int HellPitAbomination::getDamageTableIndex() const

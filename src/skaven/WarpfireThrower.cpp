@@ -45,10 +45,10 @@ bool WarpfireThrower::configure()
     return true;
 }
 
-void WarpfireThrower::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WarpfireThrower::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_warpfireThrower);
-    visitor(&m_rustyKnives);
+    visitor(m_warpfireThrower);
+    visitor(m_rustyKnives);
 }
 
 Unit *WarpfireThrower::Create(const ParameterList &parameters)

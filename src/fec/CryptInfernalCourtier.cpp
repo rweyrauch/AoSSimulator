@@ -47,10 +47,10 @@ bool CryptInfernalCourtier::configure()
     return true;
 }
 
-void CryptInfernalCourtier::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CryptInfernalCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_foetidBreath);
-    visitor(&m_skeweringTalons);
+    visitor(m_foetidBreath);
+    visitor(m_skeweringTalons);
 }
 
 Unit *CryptInfernalCourtier::Create(const ParameterList &parameters)

@@ -90,9 +90,9 @@ void LordExorcist::Init()
     }
 }
 
-void LordExorcist::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordExorcist::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stave);
+    visitor(m_stave);
 }
 
 std::string LordExorcist::ValueToString(const Parameter &parameter)

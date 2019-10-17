@@ -116,10 +116,10 @@ Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon, int saveR
     return wounds;
 }
 
-void KhineraiLifetakers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void KhineraiLifetakers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_barbedSickle);
-    visitor(&m_barbedSickleHarridynn);
+    visitor(m_barbedSickle);
+    visitor(m_barbedSickleHarridynn);
 }
 
 } // namespace DaughtersOfKhaine

@@ -70,10 +70,10 @@ bool EternalGuard::configure(int numModels, bool standardBearer, bool hornblower
     return true;
 }
 
-void EternalGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void EternalGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spearStave);
-    visitor(&m_spearStaveWarden);
+    visitor(m_spearStave);
+    visitor(m_spearStaveWarden);
 }
 
 Unit *EternalGuard::Create(const ParameterList &parameters)

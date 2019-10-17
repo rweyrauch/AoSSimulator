@@ -41,7 +41,7 @@ public:
     bool configure(WeaponOption weapons, bool skyboltBow);
     int move() const override;
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

@@ -46,10 +46,10 @@ bool WarpLightningCannon::configure()
     return true;
 }
 
-void WarpLightningCannon::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WarpLightningCannon::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_warpLightningBlast);
-    visitor(&m_teethAndKnives);
+    visitor(m_warpLightningBlast);
+    visitor(m_teethAndKnives);
 }
 
 Unit *WarpLightningCannon::Create(const ParameterList &parameters)

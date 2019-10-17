@@ -117,11 +117,11 @@ void Retributors::Init()
     }
 }
 
-void Retributors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Retributors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_lightningHammer);
-    visitor(&m_lightningHammerPrime);
-    visitor(&m_starsoulMace);
+    visitor(m_lightningHammer);
+    visitor(m_lightningHammerPrime);
+    visitor(m_starsoulMace);
 }
 
 void Retributors::onStartCombat(PlayerId player)

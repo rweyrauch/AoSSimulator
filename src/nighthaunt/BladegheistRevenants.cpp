@@ -109,9 +109,9 @@ int BladegheistRevenants::extraAttacks(const Model *attackingModel, const Weapon
     return attacks;
 }
 
-void BladegheistRevenants::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BladegheistRevenants::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_tombGreatblade);
+    visitor(m_tombGreatblade);
 }
 
 } // namespace Nighthaunt

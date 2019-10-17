@@ -77,9 +77,13 @@ bool FreeguildPistoliers::configure(int numModels, bool trumpeter)
     return false;
 }
 
-void FreeguildPistoliers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FreeguildPistoliers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_pistols);
+    visitor(m_handgun);
+    visitor(m_sabreAndPistolButt);
+    visitor(m_hooves);
+    visitor(m_sabreAndPistolButtOutrider);
 }
 
 } // namespace CitiesOfSigmar

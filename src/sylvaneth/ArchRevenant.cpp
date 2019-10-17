@@ -71,10 +71,10 @@ void ArchRevenant::Init()
     }
 }
 
-void ArchRevenant::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ArchRevenant::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_glaive);
-    visitor(&m_tailPincers);
+    visitor(m_glaive);
+    visitor(m_tailPincers);
 }
 
 Rerolls ArchRevenant::toHitRerolls(const Weapon *weapon, const Unit *unit) const

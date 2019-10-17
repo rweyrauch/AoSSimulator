@@ -76,10 +76,10 @@ bool WurrgogProphet::configure()
     return true;
 }
 
-void WurrgogProphet::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void WurrgogProphet::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_staffAndShiv);
-    visitor(&m_fangedMaw);
+    visitor(m_staffAndShiv);
+    visitor(m_fangedMaw);
 }
 
 int WurrgogProphet::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

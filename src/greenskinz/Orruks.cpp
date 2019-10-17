@@ -109,16 +109,16 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
     return true;
 }
 
-void Orruks::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Orruks::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_orrukBows);
-    visitor(&m_orrukBowBoss);
-    visitor(&m_choppa);
-    visitor(&m_choppaBoss);
-    visitor(&m_pigstikkaSpear);
-    visitor(&m_pigstikkaSpearBoss);
-    visitor(&m_cutta);
-    visitor(&m_cuttaBoss);
+    visitor(m_orrukBows);
+    visitor(m_orrukBowBoss);
+    visitor(m_choppa);
+    visitor(m_choppaBoss);
+    visitor(m_pigstikkaSpear);
+    visitor(m_pigstikkaSpearBoss);
+    visitor(m_cutta);
+    visitor(m_cuttaBoss);
 }
 
 Unit *Orruks::Create(const ParameterList &parameters)

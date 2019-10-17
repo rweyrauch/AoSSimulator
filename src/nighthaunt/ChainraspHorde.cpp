@@ -96,10 +96,10 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
     return Nighthaunt::toHitRerolls(weapon, unit);
 }
 
-void ChainraspHorde::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChainraspHorde::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_malignantWeapon);
-    visitor(&m_malignantWeaponWarden);
+    visitor(m_malignantWeapon);
+    visitor(m_malignantWeaponWarden);
 }
 
 } // namespace Nighthaunt

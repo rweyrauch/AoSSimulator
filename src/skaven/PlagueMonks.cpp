@@ -96,10 +96,10 @@ bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionB
     return true;
 }
 
-void PlagueMonks::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void PlagueMonks::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_foetidBlade);
-    visitor(&m_woeStave);
+    visitor(m_foetidBlade);
+    visitor(m_woeStave);
 }
 
 Unit *PlagueMonks::Create(const ParameterList &parameters)

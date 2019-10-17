@@ -61,10 +61,10 @@ bool Khorgoraths::configure(int numModels)
     return true;
 }
 
-void Khorgoraths::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Khorgoraths::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boneTentacles);
-    visitor(&m_clawAndFangs);
+    visitor(m_boneTentacles);
+    visitor(m_clawAndFangs);
 }
 
 Unit *Khorgoraths::Create(const ParameterList &parameters)

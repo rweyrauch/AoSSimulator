@@ -47,10 +47,10 @@ bool VarghulfCourtier::configure()
     return true;
 }
 
-void VarghulfCourtier::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VarghulfCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_immenseClaws);
-    visitor(&m_daggerlikeFangs);
+    visitor(m_immenseClaws);
+    visitor(m_daggerlikeFangs);
 }
 
 Unit *VarghulfCourtier::Create(const ParameterList &parameters)

@@ -45,10 +45,10 @@ bool AuricRunefather::configure()
     return true;
 }
 
-void AuricRunefather::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AuricRunefather::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_grandAxe);
+    visitor(m_throwingAxe);
+    visitor(m_grandAxe);
 }
 
 Unit *AuricRunefather::Create(const ParameterList &parameters)

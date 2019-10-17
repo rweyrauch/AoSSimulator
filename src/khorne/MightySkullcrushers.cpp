@@ -94,13 +94,13 @@ bool MightySkullcrushers::configure(int numModels, WeaponOption weapons, bool st
     return true;
 }
 
-void MightySkullcrushers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void MightySkullcrushers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ensorcelledAxe);
-    visitor(&m_bloodglaive);
-    visitor(&m_ensorcelledAxeHunter);
-    visitor(&m_bloodglaiveHunter);
-    visitor(&m_brazenHooves);
+    visitor(m_ensorcelledAxe);
+    visitor(m_bloodglaive);
+    visitor(m_ensorcelledAxeHunter);
+    visitor(m_bloodglaiveHunter);
+    visitor(m_brazenHooves);
 }
 
 Unit *MightySkullcrushers::Create(const ParameterList &parameters)

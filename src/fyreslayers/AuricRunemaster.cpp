@@ -47,11 +47,11 @@ bool AuricRunemaster::configure()
     return true;
 }
 
-void AuricRunemaster::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AuricRunemaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_brazierStaff);
-    visitor(&m_runicIron);
+    visitor(m_throwingAxe);
+    visitor(m_brazierStaff);
+    visitor(m_runicIron);
 }
 
 Unit *AuricRunemaster::Create(const ParameterList &parameters)

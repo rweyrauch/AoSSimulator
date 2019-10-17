@@ -79,11 +79,11 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
     return true;
 }
 
-void Seekers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Seekers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_piercingClaws);
-    visitor(&m_piercingClawsHeartseeker);
-    visitor(&m_poisonedTongue);
+    visitor(m_piercingClaws);
+    visitor(m_piercingClawsHeartseeker);
+    visitor(m_poisonedTongue);
 }
 
 Unit *Seekers::Create(const ParameterList &parameters)

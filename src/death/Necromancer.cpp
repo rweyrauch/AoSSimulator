@@ -42,9 +42,9 @@ bool Necromancer::configure()
     return true;
 }
 
-void Necromancer::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Necromancer::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_staff);
+    visitor(m_staff);
 }
 
 Unit *Necromancer::Create(const ParameterList &parameters)

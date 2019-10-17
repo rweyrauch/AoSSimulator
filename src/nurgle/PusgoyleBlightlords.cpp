@@ -73,12 +73,12 @@ bool PusgoyleBlightlords::configure(int numModels, int numTocsins)
     return true;
 }
 
-void PusgoyleBlightlords::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void PusgoyleBlightlords::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_blightedWeapon);
-    visitor(&m_dolorousTocsin);
-    visitor(&m_mouthparts);
-    visitor(&m_venemousSting);
+    visitor(m_blightedWeapon);
+    visitor(m_dolorousTocsin);
+    visitor(m_mouthparts);
+    visitor(m_venemousSting);
 }
 
 Unit *PusgoyleBlightlords::Create(const ParameterList &parameters)

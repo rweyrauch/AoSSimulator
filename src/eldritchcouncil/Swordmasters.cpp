@@ -67,10 +67,10 @@ bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer
     return true;
 }
 
-void Swordmasters::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Swordmasters::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_greatsword);
-    visitor(&m_greatswordLord);
+    visitor(m_greatsword);
+    visitor(m_greatswordLord);
 }
 
 Unit *Swordmasters::Create(const ParameterList &parameters)

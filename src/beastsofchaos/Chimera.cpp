@@ -119,13 +119,13 @@ int Chimera::getDamageTableIndex() const
     return 0;
 }
 
-void Chimera::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Chimera::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_fieryBreath);
-    visitor(&m_avianHead);
-    visitor(&m_draconicHead);
-    visitor(&m_leonineHead);
-    visitor(&m_maulingClaws);
+    visitor(m_fieryBreath);
+    visitor(m_avianHead);
+    visitor(m_draconicHead);
+    visitor(m_leonineHead);
+    visitor(m_maulingClaws);
 }
 
 int Chimera::chargeModifier() const

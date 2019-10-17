@@ -75,12 +75,12 @@ bool AkhelianMorrsarrGuard::configure(int numModels, bool standardBearers, bool 
     return true;
 }
 
-void AkhelianMorrsarrGuard::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AkhelianMorrsarrGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_voltspear);
-    visitor(&m_voltspearPrince);
-    visitor(&m_fangmoraFangedMaw);
-    visitor(&m_fangmoraLashingTail);
+    visitor(m_voltspear);
+    visitor(m_voltspearPrince);
+    visitor(m_fangmoraFangedMaw);
+    visitor(m_fangmoraLashingTail);
 }
 
 Unit *AkhelianMorrsarrGuard::Create(const ParameterList &parameters)

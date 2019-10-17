@@ -71,9 +71,9 @@ bool Battlemage::configure()
     return false;
 }
 
-void Battlemage::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Battlemage::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_staff);
 }
 
 }//namespace CitiesOfSigmar

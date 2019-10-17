@@ -160,11 +160,11 @@ void Alarielle::Init()
     }
 }
 
-void Alarielle::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Alarielle::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spearOfKurnoth);
-    visitor(&m_talonOfDwindling);
-    visitor(&m_beetleGreatAntlers);
+    visitor(m_spearOfKurnoth);
+    visitor(m_talonOfDwindling);
+    visitor(m_beetleGreatAntlers);
 }
 
 void Alarielle::onCharged()

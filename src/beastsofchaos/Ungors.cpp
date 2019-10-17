@@ -91,12 +91,12 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
     return true;
 }
 
-void Ungors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Ungors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ungorBlade);
-    visitor(&m_ungorBladeHalfhorn);
-    visitor(&m_gnarledShortspear);
-    visitor(&m_gnarledShortspearHalfhorn);
+    visitor(m_ungorBlade);
+    visitor(m_ungorBladeHalfhorn);
+    visitor(m_gnarledShortspear);
+    visitor(m_gnarledShortspearHalfhorn);
 }
 
 Unit *Ungors::Create(const ParameterList &parameters)

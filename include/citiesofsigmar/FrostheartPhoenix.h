@@ -34,9 +34,9 @@ public:
     FrostheartPhoenix();
     ~FrostheartPhoenix() override = default;
 
-    bool configure();
+    bool configure(bool anointed);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

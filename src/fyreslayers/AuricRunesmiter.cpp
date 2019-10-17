@@ -47,11 +47,11 @@ bool AuricRunesmiter::configure()
     return true;
 }
 
-void AuricRunesmiter::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AuricRunesmiter::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_throwingAxe);
-    visitor(&m_latchAxe);
-    visitor(&m_runicIron);
+    visitor(m_throwingAxe);
+    visitor(m_latchAxe);
+    visitor(m_runicIron);
 }
 
 Unit *AuricRunesmiter::Create(const ParameterList &parameters)

@@ -86,13 +86,13 @@ bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
     return true;
 }
 
-void OrrukGoreGruntas::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukGoreGruntas::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_pigironChoppa);
-    visitor(&m_jaggedGorehacka);
-    visitor(&m_tusksAndHooves);
-    visitor(&m_bossPigironChoppa);
-    visitor(&m_bossJaggedGorehacka);
+    visitor(m_pigironChoppa);
+    visitor(m_jaggedGorehacka);
+    visitor(m_tusksAndHooves);
+    visitor(m_bossPigironChoppa);
+    visitor(m_bossJaggedGorehacka);
 }
 
 Unit *OrrukGoreGruntas::Create(const ParameterList &parameters)

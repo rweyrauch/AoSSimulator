@@ -57,13 +57,13 @@ bool AkhelianKing::configure(WeaponOption weapon)
     return true;
 }
 
-void AkhelianKing::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void AkhelianKing::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bladedPolearm);
-    visitor(&m_greatsword);
-    visitor(&m_falchion);
-    visitor(&m_deepmareJawsTalons);
-    visitor(&m_deepmareTails);
+    visitor(m_bladedPolearm);
+    visitor(m_greatsword);
+    visitor(m_falchion);
+    visitor(m_deepmareJawsTalons);
+    visitor(m_deepmareTails);
 }
 
 Unit *AkhelianKing::Create(const ParameterList &parameters)

@@ -55,10 +55,10 @@ bool SyllEsske::configure()
     return true;
 }
 
-void SyllEsske::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SyllEsske::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_axeOfDominion);
-    visitor(&m_scourgingWhip);
+    visitor(m_axeOfDominion);
+    visitor(m_scourgingWhip);
 }
 
 Unit *SyllEsske::Create(const ParameterList &parameters)

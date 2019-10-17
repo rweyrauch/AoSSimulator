@@ -166,13 +166,13 @@ void EvocatorsOnCelestialDracolines::Init()
     }
 }
 
-void EvocatorsOnCelestialDracolines::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void EvocatorsOnCelestialDracolines::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_tempestBladeAndStave);
-    visitor(&m_tempestBladeAndStavePrime);
-    visitor(&m_grandStave);
-    visitor(&m_grandStavePrime);
-    visitor(&m_monstrousClaws);
+    visitor(m_tempestBladeAndStave);
+    visitor(m_tempestBladeAndStavePrime);
+    visitor(m_grandStave);
+    visitor(m_grandStavePrime);
+    visitor(m_monstrousClaws);
 }
 
 Rerolls EvocatorsOnCelestialDracolines::chargeRerolls() const

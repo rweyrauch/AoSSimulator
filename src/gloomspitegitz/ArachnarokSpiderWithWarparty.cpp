@@ -115,12 +115,12 @@ void ArachnarokSpiderWithSpiderfangWarparty::Init()
     }
 }
 
-void ArachnarokSpiderWithSpiderfangWarparty::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ArachnarokSpiderWithSpiderfangWarparty::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spiderBows);
-    visitor(&m_chitinousLegs);
-    visitor(&m_monstrousFangs);
-    visitor(&m_crookedSpears);
+    visitor(m_spiderBows);
+    visitor(m_chitinousLegs);
+    visitor(m_monstrousFangs);
+    visitor(m_crookedSpears);
 }
 
 Wounds ArachnarokSpiderWithSpiderfangWarparty::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

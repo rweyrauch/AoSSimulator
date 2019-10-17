@@ -123,11 +123,11 @@ Wounds VanguardRaptorsLongstrike::weaponDamage(const Weapon *weapon, const Unit 
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void VanguardRaptorsLongstrike::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void VanguardRaptorsLongstrike::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_longstikeCrossbow);
-    visitor(&m_heavyStock);
-    visitor(&m_beakAndClaws);
+    visitor(m_longstikeCrossbow);
+    visitor(m_heavyStock);
+    visitor(m_beakAndClaws);
 }
 
 } // namespace StormcastEternals

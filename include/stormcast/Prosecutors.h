@@ -53,7 +53,7 @@ public:
     bool configure(int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
         int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

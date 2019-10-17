@@ -58,9 +58,9 @@ bool ChaosWarhounds::configure(int numModels)
     return true;
 }
 
-void ChaosWarhounds::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void ChaosWarhounds::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_slaveringJaws);
+    visitor(m_slaveringJaws);
 }
 
 Unit *ChaosWarhounds::Create(const ParameterList &parameters)

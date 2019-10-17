@@ -70,9 +70,9 @@ bool Anointed::configure()
     return false;
 }
 
-void Anointed::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Anointed::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_halberd);
 }
 
 } //namespace CitiesOfSigmar

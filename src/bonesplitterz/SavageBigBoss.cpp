@@ -67,9 +67,9 @@ bool SavageBigBoss::configure()
     return true;
 }
 
-void SavageBigBoss::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SavageBigBoss::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_chompasBoss);
+    visitor(m_chompasBoss);
 }
 
 } // namespace Bonesplitterz

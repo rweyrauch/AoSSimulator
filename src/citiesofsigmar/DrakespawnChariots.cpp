@@ -74,9 +74,11 @@ bool DrakespawnChariots::configure(int numModels)
     return false;
 }
 
-void DrakespawnChariots::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DrakespawnChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_crossbow);
+    visitor(m_spear);
+    visitor(m_jaws);
 }
 
 } // namespace CitiesOfSigmar

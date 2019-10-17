@@ -47,10 +47,10 @@ bool CryptGhastCourtier::configure()
     return true;
 }
 
-void CryptGhastCourtier::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void CryptGhastCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_boneClub);
-    visitor(&m_filthyClaws);
+    visitor(m_boneClub);
+    visitor(m_filthyClaws);
 }
 
 Unit *CryptGhastCourtier::Create(const ParameterList &parameters)

@@ -46,11 +46,11 @@ bool SquigGobba::configure()
     return true;
 }
 
-void SquigGobba::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SquigGobba::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_spitSquigs);
-    visitor(&m_bashinSticks);
-    visitor(&m_cavernousMaw);
+    visitor(m_spitSquigs);
+    visitor(m_bashinSticks);
+    visitor(m_cavernousMaw);
 }
 
 Unit *SquigGobba::Create(const ParameterList &parameters)

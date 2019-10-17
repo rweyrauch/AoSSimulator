@@ -69,12 +69,12 @@ bool GordrakkTheFistOfGork::configure()
     return true;
 }
 
-void GordrakkTheFistOfGork::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void GordrakkTheFistOfGork::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_bellow);
-    visitor(&m_smasha);
-    visitor(&m_kunnin);
-    visitor(&m_fistsAndTail);
+    visitor(m_bellow);
+    visitor(m_smasha);
+    visitor(m_kunnin);
+    visitor(m_fistsAndTail);
 }
 
 Unit *GordrakkTheFistOfGork::Create(const ParameterList &parameters)

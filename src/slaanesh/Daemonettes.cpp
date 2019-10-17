@@ -75,10 +75,10 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, b
     return true;
 }
 
-void Daemonettes::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Daemonettes::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_piercingClaws);
-    visitor(&m_piercingClawsAlluress);
+    visitor(m_piercingClaws);
+    visitor(m_piercingClawsAlluress);
 }
 
 Unit *Daemonettes::Create(const ParameterList &parameters)

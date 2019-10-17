@@ -62,11 +62,11 @@ bool Desolators::configure(int numModels)
     return true;
 }
 
-void Desolators::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Desolators::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stormBlast);
-    visitor(&m_thunderAxe);
-    visitor(&m_clawsAndFangs);
+    visitor(m_stormBlast);
+    visitor(m_thunderAxe);
+    visitor(m_clawsAndFangs);
 }
 
 Unit *Desolators::Create(const ParameterList &parameters)

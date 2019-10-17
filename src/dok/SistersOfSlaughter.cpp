@@ -146,12 +146,12 @@ Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon, int saveR
     return wounds;
 }
 
-void SistersOfSlaughter::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SistersOfSlaughter::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_sacrificialKnife);
-    visitor(&m_sacrificialKnifeHandmaiden);
-    visitor(&m_barbedWhip);
-    visitor(&m_barbedWhipHandmaiden);
+    visitor(m_sacrificialKnife);
+    visitor(m_sacrificialKnifeHandmaiden);
+    visitor(m_barbedWhip);
+    visitor(m_barbedWhipHandmaiden);
 }
 
 } // namespace DaughtersOfKhaine

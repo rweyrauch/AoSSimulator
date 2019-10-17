@@ -45,10 +45,10 @@ bool Doomflayer::configure()
     return true;
 }
 
-void Doomflayer::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Doomflayer::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_whirlingBlades);
-    visitor(&m_rustyKnives);
+    visitor(m_whirlingBlades);
+    visitor(m_rustyKnives);
 }
 
 Unit *Doomflayer::Create(const ParameterList &parameters)

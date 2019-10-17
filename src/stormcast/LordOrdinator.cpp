@@ -110,10 +110,10 @@ int LordOrdinator::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordOrdinator::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordOrdinator::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_astralHammers);
-    visitor(&m_astralGrandhammer);
+    visitor(m_astralHammers);
+    visitor(m_astralGrandhammer);
 }
 
 Wounds LordOrdinator::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

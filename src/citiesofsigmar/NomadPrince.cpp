@@ -70,9 +70,9 @@ bool NomadPrince::configure()
     return false;
 }
 
-void NomadPrince::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void NomadPrince::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_spear);
 }
 
 } // namespace CitiesOfSigmar

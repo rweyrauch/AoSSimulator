@@ -28,10 +28,12 @@ Unit *FrostheartPhoenix::Create(const ParameterList &parameters)
 {
     auto unit = new FrostheartPhoenix();
 
+    auto anointed = GetBoolParam("Anointed", parameters, true);
+
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(anointed);
     if (!ok)
     {
         delete unit;
@@ -58,19 +60,28 @@ void FrostheartPhoenix::Init()
     }
 }
 
-FrostheartPhoenix::FrostheartPhoenix()
+FrostheartPhoenix::FrostheartPhoenix() :
+    CitizenOfSigmar("Frostheart Phoenix", 16, WOUNDS, 9, 4, true),
+    m_talons(Weapon::Type::Melee, "Ice-cold Talons", 2, 8, 3, 3, -1, 2),
+    m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1)
 {
-
+    m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FROSTHEART_PHOENIX};
 }
 
-bool FrostheartPhoenix::configure()
+bool FrostheartPhoenix::configure(bool anointed)
 {
+    if (anointed)
+    {
+        addKeyword(HERO);
+    }
+
     return false;
 }
 
-void FrostheartPhoenix::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FrostheartPhoenix::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_talons);
+    visitor(m_halberd);
 }
 
 } // namespace CitiesOfSigmar

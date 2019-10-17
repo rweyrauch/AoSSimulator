@@ -124,12 +124,12 @@ void DrychaHamadreth::Init()
     }
 }
 
-void DrychaHamadreth::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DrychaHamadreth::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_colonyOfFlitterfuries);
-    visitor(&m_swarmOfSquirmlings);
-    visitor(&m_slashingTalons);
-    visitor(&m_thornedSlendervines);
+    visitor(m_colonyOfFlitterfuries);
+    visitor(m_swarmOfSquirmlings);
+    visitor(m_slashingTalons);
+    visitor(m_thornedSlendervines);
 }
 
 Wounds DrychaHamadreth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

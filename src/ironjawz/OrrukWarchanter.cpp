@@ -43,9 +43,9 @@ bool OrrukWarchanter::configure()
     return true;
 }
 
-void OrrukWarchanter::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void OrrukWarchanter::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_stikks);
+    visitor(m_stikks);
 }
 
 Unit *OrrukWarchanter::Create(const ParameterList &parameters)

@@ -93,13 +93,13 @@ bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapo
     return true;
 }
 
-void SaurusWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SaurusWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_celestiteClub);
-    visitor(&m_celestiteClubAlpha);
-    visitor(&m_celestiteSpear);
-    visitor(&m_celestiteSpearAlpha);
-    visitor(&m_jawsAndShield);
+    visitor(m_celestiteClub);
+    visitor(m_celestiteClubAlpha);
+    visitor(m_celestiteSpear);
+    visitor(m_celestiteSpearAlpha);
+    visitor(m_jawsAndShield);
 }
 
 Unit *SaurusWarriors::Create(const ParameterList &parameters)

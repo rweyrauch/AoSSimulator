@@ -34,7 +34,7 @@ public:
 
     bool configure(PrayersOfTheStormhost prayer);
 
-    void visitWeapons(std::function<void(const Weapon*)>& visitor) override;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

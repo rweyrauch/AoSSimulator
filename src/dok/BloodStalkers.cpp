@@ -109,13 +109,13 @@ Wounds BloodStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int
     return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-void BloodStalkers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void BloodStalkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_hearseekerBow);
-    visitor(&m_sacraficialDaggar);
-    visitor(&m_heartseekBowKrone);
-    visitor(&m_sacraficialDaggarKrone);
-    visitor(&m_bloodWyrm);
+    visitor(m_hearseekerBow);
+    visitor(m_sacraficialDaggar);
+    visitor(m_heartseekBowKrone);
+    visitor(m_sacraficialDaggarKrone);
+    visitor(m_bloodWyrm);
 }
 
 } // namespace DaughtersOfKhaine

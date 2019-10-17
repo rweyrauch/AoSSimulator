@@ -71,10 +71,10 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
     return true;
 }
 
-void Gors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Gors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_gorBlade);
-    visitor(&m_gorBladeFoeRender);
+    visitor(m_gorBlade);
+    visitor(m_gorBladeFoeRender);
 }
 
 Unit *Gors::Create(const ParameterList &parameters)

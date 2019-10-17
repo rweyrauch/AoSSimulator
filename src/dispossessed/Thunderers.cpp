@@ -88,13 +88,13 @@ bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duar
     return true;
 }
 
-void Thunderers::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Thunderers::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_duardinHandgun);
-    visitor(&m_duardinHandgunVeteran);
-    visitor(&m_braceOfDuardinPistols);
-    visitor(&m_duardinHandgunMelee);
-    visitor(&m_braceOfDuardinPistolsMelee);
+    visitor(m_duardinHandgun);
+    visitor(m_duardinHandgunVeteran);
+    visitor(m_braceOfDuardinPistols);
+    visitor(m_duardinHandgunMelee);
+    visitor(m_braceOfDuardinPistolsMelee);
 }
 
 Unit *Thunderers::Create(const ParameterList &parameters)

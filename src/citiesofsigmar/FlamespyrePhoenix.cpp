@@ -78,9 +78,10 @@ bool FlamespyrePhoenix::configure(bool anoited)
     return false;
 }
 
-void FlamespyrePhoenix::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void FlamespyrePhoenix::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_talons);
+    visitor(m_halberd);
 }
 
 } // namespace CitiesOfSigmar

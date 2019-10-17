@@ -91,12 +91,12 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
     return true;
 }
 
-void SkeletonWarriors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void SkeletonWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_ancientBlade);
-    visitor(&m_ancientBladeChampion);
-    visitor(&m_ancientSpear);
-    visitor(&m_ancientSpearChampion);
+    visitor(m_ancientBlade);
+    visitor(m_ancientBladeChampion);
+    visitor(m_ancientSpear);
+    visitor(m_ancientSpearChampion);
 }
 
 Unit *SkeletonWarriors::Create(const ParameterList &parameters)

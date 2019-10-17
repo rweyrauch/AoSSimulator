@@ -78,9 +78,12 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
     return false;
 }
 
-void DarkRiders::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void DarkRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-
+    visitor(m_crossbow);
+    visitor(m_spear);
+    visitor(m_bite);
+    visitor(m_crossbowHerald);
 }
 
 } //namespace CitiesOfSigmar

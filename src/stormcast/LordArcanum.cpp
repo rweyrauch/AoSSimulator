@@ -117,9 +117,9 @@ int LordArcanum::EnumStringToInt(const std::string &enumString)
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-void LordArcanum::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void LordArcanum::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_aetherstave);
+    visitor(m_aetherstave);
 }
 
 void LordArcanum::onStartCombat(PlayerId player)

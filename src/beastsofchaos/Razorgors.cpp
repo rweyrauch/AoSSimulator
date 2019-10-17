@@ -58,9 +58,9 @@ bool Razorgors::configure(int numModels)
     return true;
 }
 
-void Razorgors::visitWeapons(std::function<void(const Weapon *)> &visitor)
+void Razorgors::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(&m_tusksAndHooves);
+    visitor(m_tusksAndHooves);
 }
 
 Unit *Razorgors::Create(const ParameterList &parameters)
