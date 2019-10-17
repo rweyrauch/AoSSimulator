@@ -217,7 +217,8 @@ static std::map<std::string, Keyword> g_factionNameLookup = {
     { "Deathlords", DEATHLORDS },
     { "Everchosen", EVERCHOSEN },
     { "Free Agent", FREE_AGENT },
-    { "Bonesplitterz", BONESPLITTERZ }
+    { "Bonesplitterz", BONESPLITTERZ },
+    { "Cities of Sigmar", CITIES_OF_SIGMAR }
 };
 
 Keyword grandAllianceStringToKeyword(const std::string &allianceName)

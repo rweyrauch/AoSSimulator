@@ -151,6 +151,7 @@ enum Keyword
     DEATHLORDS,
     EVERCHOSEN,
     FREE_AGENT,
+    CITIES_OF_SIGMAR,
 
     // Common
     MORTAL,
@@ -681,6 +682,16 @@ enum Keyword
 
     // Free Agents (no faction)
     GOTREK_GURNISSON,
+
+    // Cities of Sigmar
+    HAMMERHAL,
+    LIVING_CITY,
+    GREYWATER_FASTNESS,
+    PHOENICIUM,
+    ANVILGARD,
+    HALLOWHEART,
+    TEMPESTS_EYE,
+
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

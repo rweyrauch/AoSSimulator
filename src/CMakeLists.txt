@@ -382,6 +382,62 @@ add_library(
         slavestodarkness/UntamedBeasts.cpp
 
         freeagents/GotrekGurnisson.cpp
+
+        citiesofsigmar/Anointed.cpp
+        citiesofsigmar/Assassin.cpp
+        citiesofsigmar/Battlemage.cpp
+        citiesofsigmar/BattlemageOnGriffon.cpp
+        citiesofsigmar/BlackArkCorsairs.cpp
+        citiesofsigmar/BlackArkFleetmaster.cpp
+        citiesofsigmar/BlackGuard.cpp
+        citiesofsigmar/Bleakswords.cpp
+        citiesofsigmar/CelestialHurricanum.cpp
+        citiesofsigmar/CitiesOfSigmar.cpp
+        citiesofsigmar/Cogsmith.cpp
+        citiesofsigmar/DarkRiders.cpp
+        citiesofsigmar/Darkshards.cpp
+        citiesofsigmar/DemigryphKnights.cpp
+        citiesofsigmar/DrakespawnChariots.cpp
+        citiesofsigmar/DrakespawnKnights.cpp
+        citiesofsigmar/DreadlordOnBlackDragon.cpp
+        citiesofsigmar/Dreadspears.cpp
+        citiesofsigmar/EternalGuard.cpp
+        citiesofsigmar/Executioners.cpp
+        citiesofsigmar/Flagellants.cpp
+        citiesofsigmar/FlamespyrePhoenix.cpp
+        citiesofsigmar/FreeguildCrossbowmen.cpp
+        citiesofsigmar/FreeguildGeneral.cpp
+        citiesofsigmar/FreeguildGeneralOnGriffon.cpp
+        citiesofsigmar/FreeguildGreatswords.cpp
+        citiesofsigmar/FreeguildGuard.cpp
+        citiesofsigmar/FreeguildHandgunners.cpp
+        citiesofsigmar/FreeguildOutriders.cpp
+        citiesofsigmar/FreeguildPistoliers.cpp
+        citiesofsigmar/FrostheartPhoenix.cpp
+        citiesofsigmar/Gyrobombers.cpp
+        citiesofsigmar/Gyrocopters.cpp
+        citiesofsigmar/Hammerers.cpp
+        citiesofsigmar/HelblasterVolleyGun.cpp
+        citiesofsigmar/HelstormRocketBattery.cpp
+        citiesofsigmar/Ironbreakers.cpp
+        citiesofsigmar/Irondrakes.cpp
+        citiesofsigmar/Kharibdyss.cpp
+        citiesofsigmar/Longbeards.cpp
+        citiesofsigmar/LuminarkOfHysh.cpp
+        citiesofsigmar/NomadPrince.cpp
+        citiesofsigmar/PhoenixGuard.cpp
+        citiesofsigmar/Runelord.cpp
+        citiesofsigmar/ScourgerunnerChariots.cpp
+        citiesofsigmar/ShadowWarriors.cpp
+        citiesofsigmar/SistersOfTheThorn.cpp
+        citiesofsigmar/SistersOfTheWatch.cpp
+        citiesofsigmar/Sorceress.cpp
+        citiesofsigmar/SorceressOnBlackDragon.cpp
+        citiesofsigmar/SteamTank.cpp
+        citiesofsigmar/WardenKing.cpp
+        citiesofsigmar/WarHydra.cpp
+        citiesofsigmar/WildRiders.cpp
+        citiesofsigmar/WildwoodRangers.cpp
 )
 
 target_include_directories(

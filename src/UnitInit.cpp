@@ -22,6 +22,7 @@
 #include "slaanesh/SlaaneshBase.h"
 #include "beastsofchaos/BeastsOfChaosBase.h"
 #include "sylvaneth/SylvanethBase.h"
+#include "citiesofsigmar/CitiesOfSigmar.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
@@ -136,6 +137,7 @@ void Initialize(Verbosity verbosity)
     Slaanesh::Init();
     BeastsOfChaos::Init();
     Sylvaneth::Init();
+    CitiesOfSigmar::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
     IdonethDeepkin::NamartiReavers::Init();
