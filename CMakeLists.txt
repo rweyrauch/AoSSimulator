@@ -19,7 +19,7 @@ add_executable(
 
 target_link_libraries(
         AoSManoAMano
-        whSim
+        AoSSim
         ${JSONCPP_LIBRARIES}
 )
 
@@ -31,3 +31,4 @@ target_include_directories(
 add_subdirectory("src")
 add_subdirectory("test")
 add_subdirectory("gtkManoAMano")
+add_subdirectory("queryTool")

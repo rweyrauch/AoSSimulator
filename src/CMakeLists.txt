@@ -1,7 +1,7 @@
 project(WarhammerSim)
 
 add_library(
-        whSim
+        AoSSim
         Dice.cpp
         Unit.cpp
         Weapon.cpp
@@ -441,18 +441,18 @@ add_library(
 )
 
 target_include_directories(
-        whSim PUBLIC
+        AoSSim PUBLIC
         ${GTK3_INCLUDE_DIRS}
         ../include
 )
 
 target_link_libraries(
-        whSim
+        AoSSim
         ${GTK3_LIBRARIES}
 )
 
 target_compile_options(
-        whSim PRIVATE
+        AoSSim PRIVATE
         -Wextra
         -Wall
         -Wno-unused-parameter

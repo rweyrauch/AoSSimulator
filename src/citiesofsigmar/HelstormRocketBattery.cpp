@@ -69,7 +69,16 @@ HelstormRocketBattery::HelstormRocketBattery() :
 
 bool HelstormRocketBattery::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMissileWeapon(&m_rocketSalvo);
+    model.addMeleeWeapon(&m_crewsTools);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void HelstormRocketBattery::visitWeapons(std::function<void(const Weapon &)> &visitor)

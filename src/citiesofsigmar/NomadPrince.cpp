@@ -67,7 +67,15 @@ NomadPrince::NomadPrince() :
 
 bool NomadPrince::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_spear);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void NomadPrince::visitWeapons(std::function<void(const Weapon &)> &visitor)

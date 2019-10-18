@@ -45,7 +45,7 @@ add_executable(
 target_link_libraries(
         WarhammerSimTest
         gtest_main
-        whSim
+        AoSSim
         ${GTK3_LIBRARIES}
 )
 

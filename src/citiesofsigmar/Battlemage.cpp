@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/Battlemage.h"
 
 namespace CitiesOfSigmar
@@ -64,11 +65,25 @@ Battlemage::Battlemage() :
     m_staff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, HERO, WIZARD, BATTLEMAGE};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Battlemage::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_staff);
+
+    addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void Battlemage::visitWeapons(std::function<void(const Weapon &)> &visitor)

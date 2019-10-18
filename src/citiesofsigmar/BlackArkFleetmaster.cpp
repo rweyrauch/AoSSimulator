@@ -68,7 +68,16 @@ BlackArkFleetmaster::BlackArkFleetmaster() :
 
 bool BlackArkFleetmaster::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_cutlass);
+    model.addMeleeWeapon(&m_murderHook);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void BlackArkFleetmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)

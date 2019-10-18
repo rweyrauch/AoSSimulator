@@ -70,7 +70,18 @@ Cogsmith::Cogsmith() :
 
 bool Cogsmith::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMissileWeapon(&m_grudgeRaker);
+    model.addMissileWeapon(&m_pistols);
+    model.addMeleeWeapon(&m_cogAxe);
+    model.addMeleeWeapon(&m_gunButt);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void Cogsmith::visitWeapons(std::function<void(const Weapon &)> &visitor)

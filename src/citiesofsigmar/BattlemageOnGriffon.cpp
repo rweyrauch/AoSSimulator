@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/BattlemageOnGriffon.h"
 
 namespace CitiesOfSigmar
@@ -65,11 +66,27 @@ BattlemageOnGriffon::BattlemageOnGriffon() :
     m_razorClaws(Weapon::Type::Melee, "Razor Claws", 2, 6, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, MONSTER, HERO, WIZARD, BATTLEMAGE};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool BattlemageOnGriffon::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_beastStaff);
+    model.addMeleeWeapon(&m_twinBeaks);
+    model.addMeleeWeapon(&m_razorClaws);
+
+    addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void BattlemageOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visitor)

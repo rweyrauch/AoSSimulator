@@ -70,7 +70,17 @@ HelblasterVolleyGun::HelblasterVolleyGun() :
 
 bool HelblasterVolleyGun::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    // TODO: allow selection of 1, 2 or 3 decks
+    model.addMissileWeapon(&m_volley1);
+    model.addMeleeWeapon(&m_crewsTools);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void HelblasterVolleyGun::visitWeapons(std::function<void(const Weapon &)> &visitor)

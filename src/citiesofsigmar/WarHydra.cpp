@@ -70,7 +70,18 @@ WarHydra::WarHydra() :
 
 bool WarHydra::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMissileWeapon(&m_fieryBreath);
+    model.addMeleeWeapon(&m_fangs);
+    model.addMeleeWeapon(&m_limbs);
+    model.addMeleeWeapon(&m_goadAndWhips);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void WarHydra::visitWeapons(std::function<void(const Weapon &)> &visitor)

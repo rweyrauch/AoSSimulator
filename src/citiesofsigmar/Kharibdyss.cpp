@@ -70,7 +70,18 @@ Kharibdyss::Kharibdyss() :
 
 bool Kharibdyss::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_tentacles);
+    model.addMeleeWeapon(&m_tail);
+    model.addMeleeWeapon(&m_limbs);
+    model.addMeleeWeapon(&m_goadsAndWhips);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void Kharibdyss::visitWeapons(std::function<void(const Weapon &)> &visitor)

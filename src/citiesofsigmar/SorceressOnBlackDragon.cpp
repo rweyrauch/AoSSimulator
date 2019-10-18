@@ -72,7 +72,21 @@ SorceressOnBlackDragon::SorceressOnBlackDragon() :
 
 bool SorceressOnBlackDragon::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMissileWeapon(&m_noxiousBreath);
+
+    // TODO: weapon options
+    model.addMeleeWeapon(&m_rod);
+
+    model.addMeleeWeapon(&m_jaws);
+    model.addMeleeWeapon(&m_claws);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void SorceressOnBlackDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)

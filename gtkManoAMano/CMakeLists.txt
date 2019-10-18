@@ -14,6 +14,6 @@ target_include_directories(
 
 target_link_libraries(
         gtkManoAMano
-        whSim
+        AoSSim
         ${GTK3_LIBRARIES}
 )

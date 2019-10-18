@@ -67,7 +67,15 @@ Assassin::Assassin() :
 
 bool Assassin::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_blades);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void Assassin::visitWeapons(std::function<void(const Weapon &)> &visitor)

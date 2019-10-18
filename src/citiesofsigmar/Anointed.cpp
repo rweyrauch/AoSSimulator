@@ -63,11 +63,22 @@ Anointed::Anointed() :
     m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, HERO, ANOINTED};
+
+    // Blessing of the Ur-Phoenix
+    m_totalUnbinds = 1;
 }
 
 bool Anointed::configure()
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    model.addMeleeWeapon(&m_halberd);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void Anointed::visitWeapons(std::function<void(const Weapon &)> &visitor)
