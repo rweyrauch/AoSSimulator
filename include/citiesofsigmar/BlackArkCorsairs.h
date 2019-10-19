@@ -26,6 +26,12 @@ public:
     static const int POINTS_PER_BLOCK = 80;
     static const int POINTS_MAX_UNIT_SIZE = 280;
 
+    enum WeaponOption
+    {
+        RepeaterHandbow,
+        WickedCutlass
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -37,7 +43,7 @@ public:
     BlackArkCorsairs();
     ~BlackArkCorsairs() override = default;
 
-    bool configure(int numModels, bool standardBearer, bool hornblower);
+    bool configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -45,6 +51,9 @@ protected:
 
 
 private:
+
+    bool m_standardBearer = false;
+    bool m_hornblower = false;
 
     Weapon m_handbow,
         m_cutlass,

@@ -46,6 +46,9 @@ protected:
 
 private:
 
+    bool m_standardBearer = false;
+    bool m_hornblower = false;
+
     Weapon m_zweihander,
         m_zweihanderChampion;
 

@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     DrakespawnChariots::ValueToString,
     DrakespawnChariots::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", DrakespawnChariots::MIN_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE,
+            DrakespawnChariots::MAX_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -71,7 +75,29 @@ DrakespawnChariots::DrakespawnChariots() :
 
 bool DrakespawnChariots::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_crossbow);
+        model.addMeleeWeapon(&m_spear);
+        model.addMeleeWeapon(&m_jaws);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void DrakespawnChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)

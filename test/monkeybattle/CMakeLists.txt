@@ -6,7 +6,7 @@ add_executable(
 
 target_link_libraries(
         monkeytest
-        whSim
+        AoSSim
         ${GTK2_LIBRARIES}
 )
 

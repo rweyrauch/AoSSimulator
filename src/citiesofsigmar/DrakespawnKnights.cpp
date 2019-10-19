@@ -16,6 +16,12 @@ static FactoryMethod factoryMethod = {
     DrakespawnKnights::ValueToString,
     DrakespawnKnights::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", DrakespawnKnights::MIN_UNIT_SIZE, DrakespawnKnights::MIN_UNIT_SIZE,
+            DrakespawnKnights::MAX_UNIT_SIZE, DrakespawnKnights::MIN_UNIT_SIZE
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -73,7 +79,37 @@ DrakespawnKnights::DrakespawnKnights() :
 
 bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornblower)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_hornblower = hornblower;
+
+    // Add the Dread Knight
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMeleeWeapon(&m_lanceDreadKnight);
+    bossModel.addMeleeWeapon(&m_jaws);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&m_lance);
+        model.addMeleeWeapon(&m_jaws);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void DrakespawnKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)

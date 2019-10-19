@@ -16,6 +16,16 @@ static FactoryMethod factoryMethod = {
     BlackArkCorsairs::ValueToString,
     BlackArkCorsairs::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", BlackArkCorsairs::MIN_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE,
+            BlackArkCorsairs::MAX_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Enum, "Weapons", BlackArkCorsairs::WickedCutlass, BlackArkCorsairs::RepeaterHandbow,
+            BlackArkCorsairs::WickedCutlass, 1
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -31,11 +41,12 @@ Unit *BlackArkCorsairs::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool standard = GetBoolParam("Standard Bearer", parameters, true);
     bool hornblower = GetBoolParam("Hornblower", parameters, true);
+    auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, WickedCutlass);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, standard, hornblower);
+    bool ok = unit->configure(numModels, standard, hornblower, weapons);
     if (!ok)
     {
         delete unit;
@@ -46,11 +57,30 @@ Unit *BlackArkCorsairs::Create(const ParameterList &parameters)
 
 std::string BlackArkCorsairs::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Weapons")
+    {
+        if (parameter.m_intValue == RepeaterHandbow)
+        {
+            return "Repeater Handbow";
+        }
+        else if (parameter.m_intValue == WickedCutlass)
+        {
+            return "Wicked Cutlass";
+        }
+    }
     return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int BlackArkCorsairs::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Repeater Handbow")
+    {
+        return RepeaterHandbow;
+    }
+    else if (enumString == "Wicked Cutlass")
+    {
+        return WickedCutlass;
+    }
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
@@ -74,9 +104,53 @@ BlackArkCorsairs::BlackArkCorsairs() :
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, BLACK_ARK_CORSAIRS};
 }
 
-bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornblower)
+bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_hornblower = hornblower;
+
+    // Add the Reaver
+    Model bossModel(BASESIZE, WOUNDS);
+    if (weapons == RepeaterHandbow)
+    {
+        bossModel.addMissileWeapon(&m_handbowReaver);
+    }
+    else if (weapons == WickedCutlass)
+    {
+        bossModel.addMeleeWeapon(&m_cutlassReaver);   
+    }
+    bossModel.addMeleeWeapon(&m_bladeReaver);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == RepeaterHandbow)
+        {
+            model.addMissileWeapon(&m_handbow);
+        }
+        else if (weapons == WickedCutlass)
+        {
+            model.addMeleeWeapon(&m_cutlass);
+        }
+        model.addMeleeWeapon(&m_blade);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void BlackArkCorsairs::visitWeapons(std::function<void(const Weapon &)> &visitor)

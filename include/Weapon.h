@@ -70,6 +70,8 @@ public:
     // value the more powerful the weapon is.
     float strength() const;
 
+    float averageDamage(int againstSave = 4) const;
+
 protected:
 
     int numTotalHits() const;

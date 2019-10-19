@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     Flagellants::ValueToString,
     Flagellants::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", Flagellants::MIN_UNIT_SIZE, Flagellants::MIN_UNIT_SIZE,
+            Flagellants::MAX_UNIT_SIZE, Flagellants::MIN_UNIT_SIZE
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -70,7 +74,32 @@ Flagellants::Flagellants() :
 
 bool Flagellants::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Prophet
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMeleeWeapon(&m_flailsAndClubsProphet);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMeleeWeapon(&m_flailsAndClubs);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void Flagellants::visitWeapons(std::function<void(const Weapon &)> &visitor)

@@ -16,6 +16,16 @@ static FactoryMethod factoryMethod = {
     DemigryphKnights::ValueToString,
     DemigryphKnights::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", DemigryphKnights::MIN_UNIT_SIZE, DemigryphKnights::MIN_UNIT_SIZE,
+            DemigryphKnights::MAX_UNIT_SIZE, DemigryphKnights::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Enum, "Weapons", DemigryphKnights::Lance, DemigryphKnights::Halberd,
+            DemigryphKnights::Lance, 1
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -32,10 +42,12 @@ Unit *DemigryphKnights::Create(const ParameterList &parameters)
     bool standard = GetBoolParam("Standard Bearer", parameters, true);
     bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
+    auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Lance);
+
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, standard, hornblower);
+    bool ok = unit->configure(numModels, standard, hornblower, weapons);
     if (!ok)
     {
         delete unit;
@@ -46,11 +58,30 @@ Unit *DemigryphKnights::Create(const ParameterList &parameters)
 
 std::string DemigryphKnights::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Weapons")
+    {
+        if (parameter.m_intValue == Halberd)
+        {
+            return "Halberd";
+        }
+        else if (parameter.m_intValue == Lance)
+        {
+            return "Lance";
+        }
+    }
     return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int DemigryphKnights::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Halberd")
+    {
+        return Halberd;
+    }
+    else if (enumString == "Lance")
+    {
+        return Lance;
+    }
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
@@ -73,9 +104,53 @@ DemigryphKnights::DemigryphKnights() :
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, DEMIGRYPH_KNIGHTS};
 }
 
-bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornblower)
+bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_hornblower = hornblower;
+
+    // Add the Preceptor
+    Model bossModel(BASESIZE, WOUNDS);
+    if (weapons == Halberd)
+    {
+        bossModel.addMeleeWeapon(&m_halberdPreceptor);
+    }
+    else if (weapons == Lance)
+    {
+        bossModel.addMeleeWeapon(&m_lancePreceptor);
+    }
+    bossModel.addMeleeWeapon(&m_beakAndTalons);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == Halberd)
+        {
+            model.addMeleeWeapon(&m_halberd);
+        }
+        else if (weapons == Lance)
+        {
+            model.addMeleeWeapon(&m_lance);
+        }
+        model.addMeleeWeapon(&m_beakAndTalons);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void DemigryphKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)

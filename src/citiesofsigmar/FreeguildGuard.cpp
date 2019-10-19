@@ -16,6 +16,16 @@ static FactoryMethod factoryMethod = {
     FreeguildGuard::ValueToString,
     FreeguildGuard::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", FreeguildGuard::MIN_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE,
+            FreeguildGuard::MAX_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Enum, "Weapons", FreeguildGuard::Spear, FreeguildGuard::Halberd,
+            FreeguildGuard::Sword, 1
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -31,11 +41,12 @@ Unit *FreeguildGuard::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool standard = GetBoolParam("Standard Bearer", parameters, true);
     bool drummer = GetBoolParam("Drummer", parameters, true);
+    auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Halberd);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, standard, drummer);
+    bool ok = unit->configure(numModels, standard, drummer, weapons);
     if (!ok)
     {
         delete unit;
@@ -46,11 +57,38 @@ Unit *FreeguildGuard::Create(const ParameterList &parameters)
 
 std::string FreeguildGuard::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Weapons")
+    {
+        if (parameter.m_intValue == Halberd)
+        {
+            return "Halberd";
+        }
+        else if (parameter.m_intValue == Spear)
+        {
+            return "Spear";
+        }
+        else if (parameter.m_intValue == Sword)
+        {
+            return "Sword";
+        }
+    }
     return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int FreeguildGuard::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Halberd")
+    {
+        return Halberd;
+    }
+    else if (enumString == "Spear")
+    {
+        return Spear;
+    }
+    else if (enumString == "Sword")
+    {
+        return Sword;
+    }
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
@@ -74,9 +112,59 @@ FreeguildGuard::FreeguildGuard() :
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_GUARD};
 }
 
-bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer)
+bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer, WeaponOption weapons)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_drummer = drummer;
+
+    // Add the Sergeant
+    Model bossModel(BASESIZE, WOUNDS);
+    if (weapons == Halberd)
+    {
+        bossModel.addMeleeWeapon(&m_halberdSergeant);
+    }
+    else if (weapons == Spear)
+    {
+        bossModel.addMeleeWeapon(&m_spearSergeant);
+    }
+    else if (weapons == Sword)
+    {
+        bossModel.addMeleeWeapon(&m_swordSergeant);
+    }
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == Halberd)
+        {
+            model.addMeleeWeapon(&m_halberd);
+        }
+        else if (weapons == Spear)
+        {
+            model.addMeleeWeapon(&m_spearSergeant);
+        }
+        else if (weapons == Sword)
+        {
+            model.addMeleeWeapon(&m_sword);
+        }
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void FreeguildGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)

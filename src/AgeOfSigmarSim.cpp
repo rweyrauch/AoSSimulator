@@ -108,26 +108,31 @@ std::string PlayerIdToString(PlayerId id)
 
 float AverageRandomValue(int value)
 {
-    float avgValue = value;
+    constexpr float avgD3 = (1 + 2 + 3) / 3.0f;
+    constexpr float avgD6 = (1 + 2 + 3 + 4 + 5 + 6) / 6.0f;
+
+    float avgValue = (float)value;
     switch (value)
     {
         case RAND_D3:
-            avgValue = 2.0f;
+            avgValue = avgD3;
+            break;
+        case RAND_2D3:
+            avgValue = 2.0f * avgD3;
             break;
         case RAND_D6:
-            avgValue = 3.5;
+            avgValue = avgD6;
             break;
         case RAND_2D6:
-            avgValue = 3.5f * 2;
+            avgValue = 2.0f * avgD6;
             break;
         case RAND_3D6:
-            avgValue = 3.5f * 3;
+            avgValue = 3.0f * avgD6;
             break;
         case RAND_4D6:
-            avgValue = 3.5f * 4;
+            avgValue = 4.0f * avgD6;
             break;
         default:
-            avgValue = value;
             break;
     }
     return avgValue;

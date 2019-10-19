@@ -13,7 +13,6 @@ void Model::addMeleeWeapon(const Weapon *weapon)
 {
     if (weapon == nullptr)
     { return; }
-
     m_melee.push_back(weapon);
 
     auto preStr = -1.0f;
@@ -33,7 +32,6 @@ void Model::addMissileWeapon(const Weapon *weapon)
     {
         return;
     }
-
     m_missile.push_back(weapon);
 
     auto preStr = -1.0f;

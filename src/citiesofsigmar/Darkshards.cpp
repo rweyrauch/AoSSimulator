@@ -16,6 +16,12 @@ static FactoryMethod factoryMethod = {
     Darkshards::ValueToString,
     Darkshards::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", Darkshards::MIN_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE,
+            Darkshards::MAX_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -73,7 +79,37 @@ Darkshards::Darkshards() :
 
 bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_hornblower = hornblower;
+
+    // Add the Guardmaster
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMissileWeapon(&m_crossbowMaster);
+    bossModel.addMeleeWeapon(&m_dagger);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_crossbow);
+        model.addMeleeWeapon(&m_dagger);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void Darkshards::visitWeapons(std::function<void(const Weapon &)> &visitor)

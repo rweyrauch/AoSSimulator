@@ -170,3 +170,8 @@ float Weapon::strength() const
 
     return m_strength;
 }
+
+float Weapon::averageDamage(int againstSave) const
+{
+    return AverageRandomValue(damage());
+}

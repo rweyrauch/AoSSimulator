@@ -26,6 +26,13 @@ public:
     static const int POINTS_PER_BLOCK = 100;
     static const int POINTS_MAX_UNIT_SIZE = 300;
 
+    enum WeaponOption
+    {
+        Handgun,
+        LongRifle,
+        RepeaterHandgun
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -37,7 +44,7 @@ public:
     FreeguildHandgunners();
     ~FreeguildHandgunners() override = default;
 
-    bool configure(int numModels, bool standardBearer, bool piper);
+    bool configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -46,10 +53,13 @@ protected:
 
 private:
 
-    Weapon m_longRifle,
-        m_handgun,
-        m_freeguildHandgun,
+    bool m_standardBearer = false;
+    bool m_piper = false;
+
+    Weapon m_freeguildHandgun,
         m_dagger,
+        m_longRifle,
+        m_repeaterHandgun,
         m_handgunMarksman;
 
     static bool s_registered;

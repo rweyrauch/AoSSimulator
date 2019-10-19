@@ -26,6 +26,12 @@ public:
     static const int POINTS_PER_BLOCK = 180;
     static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
 
+    enum WeaponOption
+    {
+        Halberd,
+        Lance
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -37,7 +43,7 @@ public:
     DemigryphKnights();
     ~DemigryphKnights() override = default;
 
-    bool configure(int numModels, bool standardBearer, bool hornblower);
+    bool configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -45,6 +51,9 @@ protected:
 
 
 private:
+
+    bool m_standardBearer = false;
+    bool m_hornblower = false;
 
     Weapon m_halberd,
         m_lance,

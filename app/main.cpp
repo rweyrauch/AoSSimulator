@@ -393,6 +393,8 @@ std::string damageToString(int damage)
         {
             case RAND_D3:
                 return "D3";
+            case RAND_2D3:
+                return "2D3";
             case RAND_D6:
                 return "D6";
             case RAND_2D6:
@@ -401,7 +403,6 @@ std::string damageToString(int damage)
                 return "3D6";
             case RAND_4D6:
                 return "4D6";
-
         }
     }
     return std::string(std::to_string(damage));

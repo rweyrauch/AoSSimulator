@@ -26,6 +26,13 @@ public:
     static const int POINTS_PER_BLOCK = 80;
     static const int POINTS_MAX_UNIT_SIZE = 280;
 
+    enum WeaponOption
+    {
+        Halberd,
+        Spear,
+        Sword
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -37,7 +44,7 @@ public:
     FreeguildGuard();
     ~FreeguildGuard() override = default;
 
-    bool configure(int numModels, bool standardBearer, bool drummer);
+    bool configure(int numModels, bool standardBearer, bool drummer, WeaponOption weapons);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -45,6 +52,9 @@ protected:
 
 
 private:
+
+    bool m_standardBearer = false;
+    bool m_drummer = false;
 
     Weapon m_halberd,
         m_spear,
