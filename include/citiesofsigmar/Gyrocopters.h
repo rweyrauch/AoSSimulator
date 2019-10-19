@@ -26,6 +26,12 @@ public:
     static const int POINTS_PER_BLOCK = 70;
     static const int POINTS_MAX_UNIT_SIZE = 180;
 
+    enum WeaponOption
+    {
+        BrimstoneGun,
+        SteamGun
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -37,7 +43,7 @@ public:
     Gyrocopters();
     ~Gyrocopters() override = default;
 
-    bool configure(int numModels);
+    bool configure(int numModels, WeaponOption weapons);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 

@@ -26,6 +26,13 @@ public:
     static const int POINTS_PER_BLOCK = 100;
     static const int POINTS_MAX_UNIT_SIZE = 400;
 
+    enum WeaponOption
+    {
+        RepeaterHandgun,
+        Blunderbuss,
+        BraceOfPistols
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -37,7 +44,7 @@ public:
     FreeguildOutriders();
     ~FreeguildOutriders() override = default;
 
-    bool configure(int numModels, bool trumpeter);
+    bool configure(int numModels, bool trumpeter, WeaponOption sharpshooterWeapon);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -45,6 +52,8 @@ protected:
 
 
 private:
+
+    bool m_trumpeter = false;
 
     Weapon m_blunderbuss,
         m_pistols,

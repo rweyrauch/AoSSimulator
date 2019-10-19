@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     Gyrobombers::ValueToString,
     Gyrobombers::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", Gyrobombers::MIN_UNIT_SIZE, Gyrobombers::MIN_UNIT_SIZE,
+            Gyrobombers::MAX_UNIT_SIZE, Gyrobombers::MIN_UNIT_SIZE
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -70,7 +74,28 @@ Gyrobombers::Gyrobombers() :
 
 bool Gyrobombers::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_clattergun);
+        model.addMeleeWeapon(&m_rotorBlades);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void Gyrobombers::visitWeapons(std::function<void(const Weapon &)> &visitor)

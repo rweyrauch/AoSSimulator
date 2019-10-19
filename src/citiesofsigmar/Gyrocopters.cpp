@@ -16,6 +16,14 @@ static FactoryMethod factoryMethod = {
     Gyrocopters::ValueToString,
     Gyrocopters::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", Gyrocopters::MIN_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE,
+            Gyrocopters::MAX_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Enum, "Weapons", Gyrocopters::BrimstoneGun, Gyrocopters::BrimstoneGun,
+            Gyrocopters::SteamGun, 1
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -29,11 +37,12 @@ Unit *Gyrocopters::Create(const ParameterList &parameters)
     auto unit = new Gyrocopters();
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BrimstoneGun);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels);
+    bool ok = unit->configure(numModels, weapons);
     if (!ok)
     {
         delete unit;
@@ -44,11 +53,30 @@ Unit *Gyrocopters::Create(const ParameterList &parameters)
 
 std::string Gyrocopters::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Weapons")
+    {
+        if (parameter.m_intValue == BrimstoneGun)
+        {
+            return "Brimstone Gun";
+        }
+        else if (parameter.m_intValue == SteamGun)
+        {
+            return "Steam Gun";
+        }
+    }
     return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int Gyrocopters::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Brimstone Gun")
+    {
+        return BrimstoneGun;
+    }
+    else if (enumString == "Steam Gun")
+    {
+        return SteamGun;
+    }
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
@@ -69,9 +97,37 @@ Gyrocopters::Gyrocopters() :
     m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROCOPTERS};
 }
 
-bool Gyrocopters::configure(int numModels)
+bool Gyrocopters::configure(int numModels, WeaponOption weapons)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        if (weapons == BrimstoneGun)
+        {
+            model.addMissileWeapon(&m_brimstoneGun);
+        }
+        else if (weapons == SteamGun)
+        {
+            model.addMissileWeapon(&m_steamGun);
+        }
+        model.addMeleeWeapon(&m_rotorBlades);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void Gyrocopters::visitWeapons(std::function<void(const Weapon &)> &visitor)

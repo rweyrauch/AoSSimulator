@@ -16,6 +16,15 @@ static FactoryMethod factoryMethod = {
     FreeguildOutriders::ValueToString,
     FreeguildOutriders::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", FreeguildOutriders::MIN_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE,
+            FreeguildOutriders::MAX_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE
+        },
+        {
+            ParamType::Enum, "Sharpshooter Weapon", FreeguildOutriders::RepeaterHandgun, FreeguildOutriders::RepeaterHandgun,
+            FreeguildOutriders::BraceOfPistols, 1
+        },
+        {ParamType::Boolean, "Trumpeter", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -30,11 +39,12 @@ Unit *FreeguildOutriders::Create(const ParameterList &parameters)
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool trumpeter = GetBoolParam("Trumpeter", parameters, true);
+    auto sharpshooterWeapon = (WeaponOption) GetEnumParam("Sharpshooter Weapon", parameters, RepeaterHandgun);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, trumpeter);
+    bool ok = unit->configure(numModels, trumpeter, sharpshooterWeapon);
     if (!ok)
     {
         delete unit;
@@ -45,11 +55,38 @@ Unit *FreeguildOutriders::Create(const ParameterList &parameters)
 
 std::string FreeguildOutriders::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Sharpshooter Weapon")
+    {
+        if (parameter.m_intValue == RepeaterHandgun)
+        {
+            return "Repeater Handgun";
+        }
+        else if (parameter.m_intValue == Blunderbuss)
+        {
+            return "Blunderbuss";
+        }
+        else if (parameter.m_intValue == BraceOfPistols)
+        {
+            return "Brace of Pistols";
+        }
+    }
     return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int FreeguildOutriders::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Repeater Handgun")
+    {
+        return RepeaterHandgun;
+    }
+    else if (enumString == "Blunderbuss")
+    {
+        return Blunderbuss;
+    }
+    else if (enumString == "Brace of Pistols")
+    {
+        return BraceOfPistols;
+    }
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
@@ -73,9 +110,51 @@ FreeguildOutriders::FreeguildOutriders() :
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_OUTRIDERS};
 }
 
-bool FreeguildOutriders::configure(int numModels, bool trumpeter)
+bool FreeguildOutriders::configure(int numModels, bool trumpeter, WeaponOption sharpshooterWeapon)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_trumpeter = trumpeter;
+
+    // Add the Sharpshooter
+    Model bossModel(BASESIZE, WOUNDS);
+    if (sharpshooterWeapon == RepeaterHandgun)
+    {
+        bossModel.addMissileWeapon(&m_handgun);
+    }
+    else if (sharpshooterWeapon == Blunderbuss)
+    {
+        bossModel.addMissileWeapon(&m_blunderbuss);
+    }
+    else if (sharpshooterWeapon == BraceOfPistols)
+    {
+        bossModel.addMeleeWeapon(&m_pistols);
+    }
+    bossModel.addMeleeWeapon(&m_sabreSharpshooter);
+    bossModel.addMeleeWeapon(&m_hooves);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_handgun);
+        model.addMeleeWeapon(&m_sabre);
+        model.addMeleeWeapon(&m_hooves);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void FreeguildOutriders::visitWeapons(std::function<void(const Weapon &)> &visitor)
