@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     ScourgerunnerChariots::ValueToString,
     ScourgerunnerChariots::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", ScourgerunnerChariots::MIN_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE,
+            ScourgerunnerChariots::MAX_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -74,7 +78,38 @@ ScourgerunnerChariots::ScourgerunnerChariots() :
 
 bool ScourgerunnerChariots::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Master
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMissileWeapon(&m_crossbowMaster);
+    bossModel.addMissileWeapon(&m_harpoonMaster);
+    bossModel.addMeleeWeapon(&m_hookSpear);
+    bossModel.addMeleeWeapon(&m_bite);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_crossbow);
+        model.addMissileWeapon(&m_harpoon);
+        model.addMeleeWeapon(&m_hookSpear);
+        model.addMeleeWeapon(&m_bite);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void ScourgerunnerChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)

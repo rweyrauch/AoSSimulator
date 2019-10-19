@@ -54,6 +54,10 @@
 #include "stormcast/AstreiaSolbright.h"
 #include "stormcast/VanguardPalladors.h"
 #include "stormcast/DrakeswornTemplar.h"
+#include "stormcast/CelestantPrime.h"
+#include "stormcast/Aetherwings.h"
+#include "stormcast/SteelheartsChampions.h"
+#include "stormcast/TheFarstriders.h"
 
 namespace StormcastEternals
 {
@@ -173,15 +177,16 @@ int StormcastEternal::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
-    // CelestantPrime::Init()
+    CelestantPrime::Init();
     AventisFirestrike::Init();
     AstreiaSolbright::Init();
     VandusHammerhand::Init();
     NeaveBlacktalon::Init();
     GavrielSureheart::Init();
-    // SteelheartsChampions::Init();
-    // TheFarstriders::Init();
-    // StormsiresCursebreakers::Init()
+    SteelheartsChampions::Init();
+    TheFarstriders::Init();
+    // AveronStormsire::Init();
+    // StormsiresCursebreakers::Init();
     LordArcanumOnDracoline::Init();
     LordArcanumOnGryphcharger::Init();
     LordArcanumOnTauralon::Init();
@@ -218,7 +223,7 @@ void Init()
     VanguardRaptorsLongstrike::Init();
     VanguardHunters::Init();
     VanguardPalladors::Init();
-    // Aetherwings::Init();
+    Aetherwings::Init();
     Castigators::Init();
     CelestarBallista::Init();
     Sequitors::Init();

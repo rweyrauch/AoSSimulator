@@ -14,8 +14,8 @@ namespace CitiesOfSigmar
 
 static FactoryMethod factoryMethod = {
     EternalGuard::Create,
-    nullptr,
-    nullptr,
+    CitizenOfSigmar::ValueToString,
+    CitizenOfSigmar::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", EternalGuard::MIN_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE,

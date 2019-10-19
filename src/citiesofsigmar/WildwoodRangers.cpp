@@ -13,8 +13,8 @@ namespace CitiesOfSigmar
 {
 static FactoryMethod factoryMethod = {
     WildwoodRangers::Create,
-    nullptr,
-    nullptr,
+    CitizenOfSigmar::ValueToString,
+    CitizenOfSigmar::EnumStringToInt,
     {
         {
             ParamType::Integer, "Models", WildwoodRangers::MIN_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE,

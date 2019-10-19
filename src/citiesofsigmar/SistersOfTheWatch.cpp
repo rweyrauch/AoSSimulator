@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     SistersOfTheWatch::ValueToString,
     SistersOfTheWatch::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", SistersOfTheWatch::MIN_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE,
+            SistersOfTheWatch::MAX_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -71,7 +75,34 @@ SistersOfTheWatch::SistersOfTheWatch() :
 
 bool SistersOfTheWatch::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the High Sister
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMissileWeapon(&m_bowHighSister);
+    bossModel.addMeleeWeapon(&m_sword);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_bow);
+        model.addMeleeWeapon(&m_sword);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void SistersOfTheWatch::visitWeapons(std::function<void(const Weapon &)> &visitor)

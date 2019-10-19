@@ -31,6 +31,8 @@ add_library(
         spells/LoreOfTheStorm.cpp
         spells/GloomspiteSpells.cpp
 
+        stormcast/CelestantPrime.cpp
+        stormcast/Aetherwings.cpp
         stormcast/StormcastEternals.cpp
         stormcast/Liberators.cpp
         stormcast/Judicators.cpp
@@ -80,6 +82,8 @@ add_library(
         stormcast/DrakeswornTemplar.cpp
         stormcast/PrayersOfTheStormhosts.cpp
         stormcast/StormcastPrayers.cpp
+        stormcast/SteelheartsChampions.cpp
+        stormcast/TheFarstriders.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp

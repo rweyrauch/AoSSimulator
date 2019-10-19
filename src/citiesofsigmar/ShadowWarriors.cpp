@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     ShadowWarriors::ValueToString,
     ShadowWarriors::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", ShadowWarriors::MIN_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE,
+            ShadowWarriors::MAX_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -71,7 +75,34 @@ ShadowWarriors::ShadowWarriors() :
 
 bool ShadowWarriors::configure(int numModels)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    // Add the Walker
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMissileWeapon(&m_bowWalker);
+    bossModel.addMeleeWeapon(&m_blade);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_bow);
+        model.addMeleeWeapon(&m_blade);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void ShadowWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)

@@ -16,6 +16,12 @@ static FactoryMethod factoryMethod = {
     SistersOfTheThorn::ValueToString,
     SistersOfTheThorn::EnumStringToInt,
     {
+        {
+            ParamType::Integer, "Models", SistersOfTheThorn::MIN_UNIT_SIZE, SistersOfTheThorn::MIN_UNIT_SIZE,
+            SistersOfTheThorn::MAX_UNIT_SIZE, SistersOfTheThorn::MIN_UNIT_SIZE
+        },
+        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -74,7 +80,39 @@ SistersOfTheThorn::SistersOfTheThorn() :
 
 bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornblower)
 {
-    return false;
+    // validate inputs
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        // Invalid model count.
+        return false;
+    }
+
+    m_standardBearer = standardBearer;
+    m_hornblower = hornblower;
+
+    // Add the Handmaiden
+    Model bossModel(BASESIZE, WOUNDS);
+    bossModel.addMissileWeapon(&m_javelin);
+    bossModel.addMeleeWeapon(&m_staffMaiden);
+    bossModel.addMeleeWeapon(&m_antlersAndHooves);
+    addModel(bossModel);
+
+    for (auto i = 1; i < numModels; i++)
+    {
+        Model model(BASESIZE, WOUNDS);
+        model.addMissileWeapon(&m_javelin);
+        model.addMeleeWeapon(&m_staff);
+        model.addMeleeWeapon(&m_antlersAndHooves);
+        addModel(model);
+    }
+
+    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        m_points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return true;
 }
 
 void SistersOfTheThorn::visitWeapons(std::function<void(const Weapon &)> &visitor)

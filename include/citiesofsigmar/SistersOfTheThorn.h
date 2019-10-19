@@ -46,6 +46,9 @@ protected:
 
 private:
 
+    bool m_standardBearer = false;
+    bool m_hornblower = false;
+
     Weapon m_javelin,
         m_staff,
         m_antlersAndHooves,
