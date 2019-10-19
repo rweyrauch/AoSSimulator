@@ -58,6 +58,8 @@
 #include "stormcast/Aetherwings.h"
 #include "stormcast/SteelheartsChampions.h"
 #include "stormcast/TheFarstriders.h"
+#include "stormcast/StormsiresCursebreakers.h"
+#include "stormcast/AveronStormsire.h"
 
 namespace StormcastEternals
 {
@@ -185,8 +187,8 @@ void Init()
     GavrielSureheart::Init();
     SteelheartsChampions::Init();
     TheFarstriders::Init();
-    // AveronStormsire::Init();
-    // StormsiresCursebreakers::Init();
+    AveronStormsire::Init();
+    StormsiresCursebreakers::Init();
     LordArcanumOnDracoline::Init();
     LordArcanumOnGryphcharger::Init();
     LordArcanumOnTauralon::Init();

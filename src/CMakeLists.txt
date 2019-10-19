@@ -84,6 +84,8 @@ add_library(
         stormcast/StormcastPrayers.cpp
         stormcast/SteelheartsChampions.cpp
         stormcast/TheFarstriders.cpp
+        stormcast/AveronStormsire.cpp
+        stormcast/StormsiresCursebreakers.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp
