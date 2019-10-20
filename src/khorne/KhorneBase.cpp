@@ -39,6 +39,8 @@
 #include "khorne/Skullgrinder.h"
 #include "khorne/ScylaAnfingrimm.h"
 #include "khorne/LordOfKhorneOnJuggernaut.h"
+#include "khorne/SkarrBloodwrath.h"
+#include "khorne/Riptooth.h"
 
 namespace Khorne
 {
@@ -175,8 +177,10 @@ void Init()
     LordOfKhorneOnJuggernaut::Init();
     MightyLordOfKhorne::Init();
     MightySkullcrushers::Init();
+    Riptooth::Init();
     ScylaAnfingrimm::Init();
     Skarbrand::Init();
+    SkarrBloodwrath::Init();
     SkullCannons::Init();
     Skullgrinder::Init();
     Skullmaster::Init();

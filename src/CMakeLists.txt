@@ -120,6 +120,10 @@ add_library(
         khorne/ScylaAnfingrimm.cpp
         khorne/LordOfKhorneOnJuggernaut.cpp
         khorne/BloodBlessingsOfKhorne.cpp
+        khorne/SkarrBloodwrath.cpp
+        khorne/Riptooth.cpp
+        khorne/MagoresFiends.cpp
+        khorne/GarreksReavers.cpp
 
         sylvaneth/SylvanethBase.cpp
         sylvaneth/Alarielle.cpp
