@@ -16,6 +16,11 @@ static FactoryMethod factoryMethod = {
     FreeguildGeneralOnGriffon::ValueToString,
     FreeguildGeneralOnGriffon::EnumStringToInt,
     {
+        {
+            ParamType::Enum, "Weapon", FreeguildGeneralOnGriffon::Lance, FreeguildGeneralOnGriffon::RuneSword,
+            FreeguildGeneralOnGriffon::Lance, 1
+        },
+        {ParamType::Boolean, "Freeguild Shield", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -24,14 +29,35 @@ static FactoryMethod factoryMethod = {
 
 bool FreeguildGeneralOnGriffon::s_registered = false;
 
+struct TableEntry
+{
+    int m_move;
+    int m_clawAttacks;
+    int m_beakDamage;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, FreeguildGeneralOnGriffon::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {15, 6, 4},
+        {13, 5, 3},
+        {11, 4, 2},
+        {9,  3, 1},
+        {7,  2, 1}
+    };
+
 Unit *FreeguildGeneralOnGriffon::Create(const ParameterList &parameters)
 {
     auto unit = new FreeguildGeneralOnGriffon();
 
+    bool shield = GetBoolParam("Freeguild Shield", parameters, true);
+    auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Lance);
+
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(weapon, shield);
     if (!ok)
     {
         delete unit;
@@ -69,9 +95,23 @@ FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon() :
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, MONSTER, HERO,FREEGUILD_GENERAL};
 }
 
-bool FreeguildGeneralOnGriffon::configure()
+bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield)
 {
-    return false;
+    Model model(BASESIZE, WOUNDS);
+
+    if (weapon == RuneSword)
+        model.addMeleeWeapon(&m_runesword);
+    else if (weapon == Greathammer)
+        model.addMeleeWeapon(&m_greathammer);
+    else if (weapon == Lance)
+        model.addMeleeWeapon(&m_lance);
+    addModel(model);
+
+    m_shield = hasShield;
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 void FreeguildGeneralOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visitor)
@@ -82,5 +122,64 @@ void FreeguildGeneralOnGriffon::visitWeapons(std::function<void(const Weapon &)>
     visitor(m_claws);
     visitor(m_beak);
 }
+
+int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon) const
+{
+    auto mod = Unit::toSaveModifier(weapon);
+    if (m_shield) mod++;
+    return mod;
+}
+
+int FreeguildGeneralOnGriffon::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Charging Lance
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        return -2;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int FreeguildGeneralOnGriffon::runModifier() const
+{
+    // Skilled Rider
+    auto mod = Unit::runModifier();
+    if (!m_shield) mod++;
+    return mod;
+}
+
+int FreeguildGeneralOnGriffon::chargeModifier() const
+{
+    // Skilled Rider
+    auto mod = Unit::chargeModifier();
+    if (!m_shield) mod++;
+    return mod;
+}
+
+int FreeguildGeneralOnGriffon::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void FreeguildGeneralOnGriffon::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+    m_beak.setDamage(g_damageTable[damageIndex].m_beakDamage);
+}
+
+int FreeguildGeneralOnGriffon::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+
 
 } // namespace CitiesOfSigmar

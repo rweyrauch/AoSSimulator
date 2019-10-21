@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/FreeguildOutriders.h"
 
 namespace CitiesOfSigmar
@@ -108,6 +109,10 @@ FreeguildOutriders::FreeguildOutriders() :
     m_sabreSharpshooter(Weapon::Type::Melee, "Freeguild Cavalry Sabre", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_OUTRIDERS};
+
+    // Skilled Riders
+    m_runAndShoot = true;
+    m_retreatAndShoot = true;
 }
 
 bool FreeguildOutriders::configure(int numModels, bool trumpeter, WeaponOption sharpshooterWeapon)
@@ -165,6 +170,32 @@ void FreeguildOutriders::visitWeapons(std::function<void(const Weapon &)> &visit
     visitor(m_sabre);
     visitor(m_hooves);
     visitor(m_sabreSharpshooter);
+}
+
+int FreeguildOutriders::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_trumpeter) mod++;
+    return mod;
+}
+
+int FreeguildOutriders::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_trumpeter) mod++;
+    return mod;
+}
+
+int FreeguildOutriders::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+    // Expert Gunners
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    if ((weapon->name() == m_handgun.name()) && units.empty())
+    {
+        extras++;
+    }
+    return extras;
 }
 
 } // namespace CitiesOfSigmar

@@ -49,6 +49,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    Rerolls runRerolls() const override;
+    Rerolls chargeRerolls() const override;
 
 private:
 
@@ -67,9 +71,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Trumpeter                        No
+// Trumpeter                        Yes
 // Hail of Bullets                  No
-// Reckless Riders                  No
+// Reckless Riders                  Yes
 //
 
 } // namespace CitiesOfSigmar

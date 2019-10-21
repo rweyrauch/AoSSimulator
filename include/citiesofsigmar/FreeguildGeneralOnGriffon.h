@@ -23,6 +23,13 @@ public:
     static const int WOUNDS = 13;
     static const int POINTS_PER_UNIT = 320;
 
+    enum WeaponOption
+    {
+        RuneSword,
+        Greathammer,
+        Lance
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -34,14 +41,25 @@ public:
     FreeguildGeneralOnGriffon();
     ~FreeguildGeneralOnGriffon() override = default;
 
-    bool configure();
+    int move() const override;
+
+    bool configure(WeaponOption weapon, bool hasShield);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    int toSaveModifier(const Weapon *weapon) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
+    void onWounded() override;
 
 private:
+
+    int getDamageTableIndex() const;
+
+    bool m_shield = false;
 
     Weapon m_runesword,
         m_greathammer,
@@ -56,9 +74,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Charging Lance                   No
-// Freeguild Shield                 No
-// Skilled Rider                    No
+// Charging Lance                   Yes
+// Freeguild Shield                 Yes
+// Skilled Rider                    Yes
 // Piercing Bloodroar               No
 // Rousing Battle Cry               No
 //

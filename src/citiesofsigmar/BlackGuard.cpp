@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/BlackGuard.h"
 
 namespace CitiesOfSigmar
@@ -113,6 +114,36 @@ void BlackGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
     visitor(m_halberd);
     visitor(m_halberdCaptain);
+}
+
+int BlackGuard::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int BlackGuard::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int BlackGuard::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int BlackGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+    // Elite Bodyguard
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 18.0f);
+    if (unit && unit->hasKeyword(DARKLING_COVENS)) mod++;
+    return mod;
 }
 
 } //namespace CitiesOfSigmar

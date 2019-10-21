@@ -43,6 +43,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -60,9 +64,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Piper                            No
-// Reload, Fire!                    No
+// Standard Bearer                  Yes
+// Piper                            Yes
+// Reload, Fire!                    Yes
 //
 
 } // namespace CitiesOfSigmar

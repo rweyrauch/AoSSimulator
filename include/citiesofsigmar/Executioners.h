@@ -43,6 +43,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -59,9 +63,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Drummer                          No
-// Severing Strike                  No
+// Standard Bearer                  Yes
+// Drummer                          Yes
+// Severing Strike                  Yes
 //
 
 } // namespace CitiesOfSigmar

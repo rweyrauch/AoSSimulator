@@ -115,4 +115,43 @@ void Bleakswords::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_swordLordling);
 }
 
+int Bleakswords::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Bleakswords::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Bleakswords::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int Bleakswords::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Quicksilver Strike
+    if (unmodifiedHitRoll == 6)
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int Bleakswords::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+    // Ranks of Cold Steel
+    if (remainingModels() >= 10) mod++;
+    return mod;
+}
+
 } //namespace CitiesOfSigmar

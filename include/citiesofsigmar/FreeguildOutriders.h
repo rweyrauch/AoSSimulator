@@ -50,6 +50,9 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -69,9 +72,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Trumpeter                        No
-// Expert Gunners                   No
-// Skilled Riders                   No
+// Trumpeter                        Yes
+// Expert Gunners                   Yes
+// Skilled Riders                   Yes
 //
 
 } // namespace CitiesOfSigmar

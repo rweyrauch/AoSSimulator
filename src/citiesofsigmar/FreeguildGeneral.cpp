@@ -83,4 +83,12 @@ void FreeguildGeneral::visitWeapons(std::function<void(const Weapon &)> &visitor
     visitor(m_zweihander);
 }
 
+Wounds FreeguildGeneral::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Decapitating Swing
+    auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    if (hitRoll == 6) damage.mortal++;
+    return damage;
+}
+
 } // namespace CitiesOfSigmar

@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/Flagellants.h"
 
 namespace CitiesOfSigmar
@@ -106,6 +107,62 @@ void Flagellants::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
     visitor(m_flailsAndClubs);
     visitor(m_flailsAndClubsProphet);
+}
+
+int Flagellants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Glorious Martyrs
+    if (m_modelsSlain >= 5)
+    {
+        extras += 2;
+    }
+    else if (m_modelsSlain)
+    {
+        extras++;
+    }
+    return extras;
+}
+
+int Flagellants::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Fanatical Fury
+    if (m_charged) mod++;
+
+    return mod;
+}
+
+int Flagellants::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toWoundModifier(weapon, target);
+
+    // Fanatical Fury
+    if (m_charged) mod++;
+
+    return mod;
+}
+
+void Flagellants::onFlee(int numFled)
+{
+    Dice dice;
+
+    // Reckless Abandon
+    Dice::RollResult rolls;
+    dice.rollD6(numFled, rolls);
+    int numMortalWounds = rolls.rollsGE(4);
+    if (numMortalWounds)
+    {
+        auto board = Board::Instance();
+        auto closestTarget = board->getNearestUnit(this, PlayerId::None);
+        if (closestTarget && distanceTo(closestTarget) <= 6.0f)
+        {
+            closestTarget->applyDamage({0, numMortalWounds});
+        }
+    }
+    Unit::onFlee(numFled);
 }
 
 } // namespace CitiesOfSigmar

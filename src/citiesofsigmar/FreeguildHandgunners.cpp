@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/FreeguildHandgunners.h"
 
 namespace CitiesOfSigmar
@@ -164,6 +165,38 @@ void FreeguildHandgunners::visitWeapons(std::function<void(const Weapon &)> &vis
     visitor(m_freeguildHandgun);
     visitor(m_dagger);
     visitor(m_handgunMarksman);
+}
+
+int FreeguildHandgunners::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_piper) mod++;
+    return mod;
+}
+
+int FreeguildHandgunners::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_piper) mod++;
+    return mod;
+}
+
+int FreeguildHandgunners::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int FreeguildHandgunners::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Steady Aim
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    if ((remainingModels() >= 10) && !m_moved && units.empty()) mod++;
+
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

@@ -119,4 +119,33 @@ void Darkshards::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_crossbowMaster);
 }
 
+int Darkshards::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Darkshards::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Darkshards::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int Darkshards::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+    // Storm of Iron-tipped Bolts
+    if ((remainingModels() >= 10) && (weapon->name() == m_crossbow.name())) mod++;
+    return mod;
+}
+
 } //namespace CitiesOfSigmar

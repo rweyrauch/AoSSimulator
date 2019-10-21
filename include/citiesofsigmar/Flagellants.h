@@ -43,6 +43,10 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+    void onFlee(int numFled) override;
 
 private:
 
@@ -56,9 +60,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Glorious Martyrs                 No
-// Fanatical Fury                   No
-// Reckless Abandon                 No
+// Glorious Martyrs                 Yes
+// Fanatical Fury                   Yes
+// Reckless Abandon                 Yes
 //
 
 } // namespace CitiesOfSigmar

@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/FreeguildGreatswords.h"
 
 namespace CitiesOfSigmar
@@ -113,6 +114,44 @@ void FreeguildGreatswords::visitWeapons(std::function<void(const Weapon &)> &vis
 {
     visitor(m_zweihander);
     visitor(m_zweihanderChampion);
+}
+
+int FreeguildGreatswords::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int FreeguildGreatswords::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int FreeguildGreatswords::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+Wounds FreeguildGreatswords::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Decapitating Swing
+    auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    if (hitRoll == 6) damage.mortal++;
+    return damage;
+}
+
+int FreeguildGreatswords::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+    // Oathsworn Honour Guard
+    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 18.0f);
+    if (unit && unit->hasKeyword(FREEGUILD)) mod++;
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

@@ -153,4 +153,30 @@ void FreeguildPistoliers::visitWeapons(std::function<void(const Weapon &)> &visi
     visitor(m_sabreAndPistolButtOutrider);
 }
 
+int FreeguildPistoliers::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_trumpeter) mod++;
+    return mod;
+}
+
+int FreeguildPistoliers::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_trumpeter) mod++;
+    return mod;
+}
+
+Rerolls FreeguildPistoliers::runRerolls() const
+{
+    // Reckless Riders
+    return RerollFailed;
+}
+
+Rerolls FreeguildPistoliers::chargeRerolls() const
+{
+    // Reckless Riders
+    return RerollFailed;
+}
+
 } // namespace CitiesOfSigmar

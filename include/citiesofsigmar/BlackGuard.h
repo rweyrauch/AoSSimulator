@@ -43,6 +43,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -58,9 +62,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Drummer                          No
-// Elite Bodyguard                  No
+// Standard Bearer                  Yes
+// Drummer                          Yes
+// Elite Bodyguard                  Yes
 //
 
 } // namespace CitiesOfSigmar

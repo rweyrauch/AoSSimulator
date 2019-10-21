@@ -43,6 +43,11 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -58,10 +63,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
-// Coven Guard                      No
-// Ranks of Cold Steel              No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
+// Coven Guard                      Yes
+// Ranks of Cold Steel              Yes
 //
 
 } // namespace CitiesOfSigmar

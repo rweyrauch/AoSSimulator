@@ -50,6 +50,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -69,10 +73,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Piper                            No
+// Standard Bearer                  Yes
+// Piper                            Yes
 // Stand and Shoot                  No
-// Steady Aim                       No
+// Steady Aim                       Yes
 // Cradk Shot                       No
 //
 

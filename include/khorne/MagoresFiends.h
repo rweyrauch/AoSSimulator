@@ -20,7 +20,7 @@ class MagoresFiends : public KhorneBase
 public:
     static const int BASESIZE = 32;
     static const int WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 40;
+    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

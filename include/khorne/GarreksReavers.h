@@ -20,7 +20,7 @@ class GarreksReavers : public KhorneBase
 public:
     static const int BASESIZE = 32;
     static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 40;
+    static const int POINTS_PER_UNIT = 60;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
@@ -34,6 +34,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -49,9 +52,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Gorebeard                        No
-// Frenzied Devotion                No
-// Reaver Blades                    No
+// Gorebeard                        Yes
+// Frenzied Devotion                Yes
+// Reaver Blades                    Yes
 // Grisly Trophies                  No
 //
 

@@ -50,6 +50,11 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
 
 private:
 
@@ -70,11 +75,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Drummer                          No
-// Standard Bearer                  No
-// Massed Ranks                     No
-// Parry and Block                  No
-// Wall of Spears                   No
+// Drummer                          Yes
+// Standard Bearer                  Yes
+// Massed Ranks                     Yes
+// Parry and Block                  Yes
+// Wall of Spears                   Yes
 //
 
 } // namespace CitiesOfSigmar

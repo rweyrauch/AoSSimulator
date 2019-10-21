@@ -177,4 +177,49 @@ void FreeguildGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_swordSergeant);
 }
 
+int FreeguildGuard::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int FreeguildGuard::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int FreeguildGuard::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int FreeguildGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Massed Ranks
+    if (remainingModels() >= 20) mod += 2;
+    else if (remainingModels() >= 10) mod++;
+
+    // Wall of Spears
+    if (target->charged() && (weapon->name() == m_spear.name())) mod++;
+
+    return mod;
+}
+
+int FreeguildGuard::toSaveModifier(const Weapon *weapon) const
+{
+    auto mod = Unit::toSaveModifier(weapon);
+
+    // Parry and Block
+    if (weapon->name() == m_sword.name()) mod++;
+
+    return mod;
+}
+
 } // namespace CitiesOfSigmar

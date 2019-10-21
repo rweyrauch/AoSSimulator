@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/FreeguildCrossbowmen.h"
 
 namespace CitiesOfSigmar
@@ -117,6 +118,39 @@ void FreeguildCrossbowmen::visitWeapons(std::function<void(const Weapon &)> &vis
     visitor(m_crossbow);
     visitor(m_dagger);
     visitor(m_crossbowMarksman);
+}
+
+int FreeguildCrossbowmen::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_piper) mod++;
+    return mod;
+}
+
+int FreeguildCrossbowmen::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_piper) mod++;
+    return mod;
+}
+
+int FreeguildCrossbowmen::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int FreeguildCrossbowmen::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+    // Reload, Fire!
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    if (!m_moved && units.empty())
+    {
+        extras++;
+    }
+    return extras;
 }
 
 } // namespace CitiesOfSigmar

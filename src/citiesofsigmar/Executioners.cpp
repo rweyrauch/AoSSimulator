@@ -117,4 +117,35 @@ void Executioners::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_draichMaster);
 }
 
+int Executioners::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int Executioners::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int Executioners::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+Wounds Executioners::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Severing Strike
+    if (hitRoll == 6)
+    {
+        return { 0, 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace CitiesOfSigmar

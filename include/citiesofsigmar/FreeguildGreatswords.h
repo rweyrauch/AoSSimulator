@@ -43,6 +43,11 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -59,10 +64,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
-// Decapitating Strike              No
-// Oathsworn Honour Guard           No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
+// Decapitating Strike              Yes
+// Oathsworn Honour Guard           Yes
 //
 
 } // namespace CitiesOfSigmar

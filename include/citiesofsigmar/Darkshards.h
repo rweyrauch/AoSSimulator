@@ -43,6 +43,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -60,9 +64,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
-// Storm of Iron-tipped Bolts       No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
+// Storm of Iron-tipped Bolts       Yes
 //
 
 } // namespace CitiesOfSigmar

@@ -8,6 +8,7 @@
 
 #include <khorne/GarreksReavers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Khorne
 {
@@ -94,6 +95,44 @@ void GarreksReavers::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_KarusAxe);
     visitor(m_SaeksAxe);
     visitor(m_blades);
+}
+
+Rerolls GarreksReavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const
+{
+    // Reaver Blades
+    if (weapon->name() == m_blades.name())
+    {
+        return RerollOnes;
+    }
+
+    return KhorneBase::toHitRerolls(weapon, unit);
+}
+
+int GarreksReavers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    int attacks = KhorneBase::extraAttacks(nullptr, weapon, target);
+
+    // Frenzied Devotion
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
+    for (auto ip : units)
+    {
+        if (ip->hasKeyword(KHORNE) && ip->hasKeyword(TOTEM))
+        {
+            attacks += 1;
+            break;
+        }
+    }
+
+    return attacks;
+}
+
+Wounds GarreksReavers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    if ((hitRoll == 6) && (weapon->name() == m_garreksAxe.name()))
+    {
+        return { 0, 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Khorne

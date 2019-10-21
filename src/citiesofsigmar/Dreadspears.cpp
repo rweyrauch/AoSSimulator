@@ -115,4 +115,43 @@ void Dreadspears::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_spearLordling);
 }
 
+int Dreadspears::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Dreadspears::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Dreadspears::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int Dreadspears::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+    // Ranks of Cold Steel
+    if (remainingModels() >= 10) mod++;
+    return mod;
+}
+
+int Dreadspears::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Coven Guard
+    if (hitRoll == 6)
+    {
+        return -1;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace CitiesOfSigmar
