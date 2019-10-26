@@ -49,6 +49,18 @@ public:
 
 protected:
 
+    int toSaveModifier(const Weapon *weapon) const override
+    {
+        // Sea Dragon Cloak
+        auto mod = CitizenOfSigmar::toSaveModifier(weapon);
+        if (weapon->isMissile()) mod++;
+        return mod;
+    }
+
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -69,10 +81,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
-// Flashing Steel                   No
-// Sea Dragon Cloak                 No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
+// Flashing Steel                   Yes
+// Sea Dragon Cloak                 Yes
 //
 
 } // namespace CitiesOfSigmar

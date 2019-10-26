@@ -22,6 +22,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_talonAttacks;
+    int m_blizzazdAura;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, FrostheartPhoenix::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {16, 8, 9},
+        {14, 6, 6},
+        {12, 5, 3},
+        {10,  4, 2},
+        {8,  2, 1}
+    };
+
 bool FrostheartPhoenix::s_registered = false;
 
 Unit *FrostheartPhoenix::Create(const ParameterList &parameters)
@@ -82,6 +100,32 @@ void FrostheartPhoenix::visitWeapons(std::function<void(const Weapon &)> &visito
 {
     visitor(m_talons);
     visitor(m_halberd);
+}
+
+int FrostheartPhoenix::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void FrostheartPhoenix::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
+
+    Unit::onWounded();
+}
+
+int FrostheartPhoenix::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

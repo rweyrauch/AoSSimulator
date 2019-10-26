@@ -40,6 +40,15 @@ public:
 
 protected:
 
+    int toSaveModifier(const Weapon *weapon) const override
+    {
+        // Sea Dragon Cloak
+        auto mod = CitizenOfSigmar::toSaveModifier(weapon);
+        if (weapon->isMissile()) mod++;
+        return mod;
+    }
+
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
 private:
 
@@ -53,8 +62,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Murderous Swashbuckler           No
-// Sea Dragon Cloak                 No
+// Murderous Swashbuckler           Yes
+// Sea Dragon Cloak                 Yes
 // At Them, You Curs!               No
 //
 

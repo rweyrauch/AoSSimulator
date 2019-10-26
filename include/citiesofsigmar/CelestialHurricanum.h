@@ -34,14 +34,19 @@ public:
     CelestialHurricanum();
     ~CelestialHurricanum() override = default;
 
+    int move() const override;
+
     bool configure(bool battlemage);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    void onWounded() override;
 
 private:
+
+    int getDamageTableIndex() const;
 
     Weapon m_stormOfShemtek,
         m_wizardStaff,

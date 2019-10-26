@@ -83,4 +83,15 @@ void Assassin::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_blades);
 }
 
+Wounds Assassin::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Deathshead Poison
+    if ((woundRoll == 6) && (weapon->name() == m_blades.name()))
+    {
+        Dice dice;
+        return { 0,  dice.rollD3() };
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace CitiesOfSigmar

@@ -105,47 +105,56 @@ void EternalGuard::Init()
     }
 }
 
-Rerolls EternalGuard::runRerolls() const
+int EternalGuard::runModifier() const
 {
-    if (m_hornblower)
-    {
-        return RerollFailed;
-    }
-    return CitizenOfSigmar::runRerolls();
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int EternalGuard::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
 }
 
 int EternalGuard::braveryModifier() const
 {
-    int modifier = CitizenOfSigmar::braveryModifier();
-    if (m_standardBearer)
-    {
-        modifier += 1;
-
-        // if (Board::Instance()->unitInCover(this)) { modifier += 1; }
-    }
-    return modifier;
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
 }
 
-Rerolls EternalGuard::toSaveRerolls(const Weapon *weapon) const
+int EternalGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    if (m_gladeShields)
-    {
-        // if (Board::Instance()->unitInCover(this)) { return RerollOnesAndTwos; }
-        return RerollOnes;
-    }
-    return CitizenOfSigmar::toSaveRerolls(weapon);
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Form Fortress of Boughs
+    if (!m_moved) mod++;
+
+    return mod;
 }
 
-void EternalGuard::onStartHero(PlayerId player)
+int EternalGuard::toWoundModifier(const Weapon *weapon, const Unit *target) const
 {
-    m_fortressModifier = 0;
-    m_canMove = true;
+    auto mod = Unit::toWoundModifier(weapon, target);
 
-    if (m_meleeTarget)
-    {
-        m_fortressModifier = 1;
-        m_canMove = false;
-    }
+    // Form Fortress of Boughs
+    if (!m_moved) mod++;
+
+    return mod;
+}
+
+int EternalGuard::toSaveModifier(const Weapon *weapon) const
+{
+    auto mod = Unit::toSaveModifier(weapon);
+
+    // Fortress of Boughs
+    if (!m_moved) mod++;
+
+    return mod;
+
 }
 
 } // namespace CitiesOfSigmar

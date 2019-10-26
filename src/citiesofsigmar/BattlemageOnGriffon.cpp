@@ -23,6 +23,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_beaksDamage;
+    int m_clawAttacks;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 11, BattlemageOnGriffon::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {15, 3, 6},
+        {13, 2, 5},
+        {11, 2, 4},
+        {9,  1, 3},
+        {7,  1, 2}
+    };
+
 bool BattlemageOnGriffon::s_registered = false;
 
 Unit *BattlemageOnGriffon::Create(const ParameterList &parameters)
@@ -94,6 +112,35 @@ void BattlemageOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visi
     visitor(m_beastStaff);
     visitor(m_twinBeaks);
     visitor(m_razorClaws);
+}
+
+int BattlemageOnGriffon::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void BattlemageOnGriffon::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_twinBeaks.setDamage(g_damageTable[damageIndex].m_beaksDamage);
+    m_razorClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+
+    // TODO: set beak damage.
+    
+    Unit::onWounded();
+}
+
+int BattlemageOnGriffon::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } //namespace CitiesOfSigmar

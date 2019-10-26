@@ -43,6 +43,9 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
 
 private:
 
@@ -61,8 +64,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
 // Armour of Thorns                 No
 //
 

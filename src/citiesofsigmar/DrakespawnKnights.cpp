@@ -119,4 +119,46 @@ void DrakespawnKnights::visitWeapons(std::function<void(const Weapon &)> &visito
     visitor(m_jaws);
 }
 
+int DrakespawnKnights::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int DrakespawnKnights::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int DrakespawnKnights::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+Wounds DrakespawnKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Lance Charge
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        return {2, 0};
+    }
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int DrakespawnKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Lance Charge
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        return -2;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace CitiesOfSigmar

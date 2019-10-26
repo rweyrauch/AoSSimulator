@@ -123,4 +123,25 @@ void SistersOfTheThorn::visitWeapons(std::function<void(const Weapon &)> &visito
     visitor(m_staffMaiden);
 }
 
+int SistersOfTheThorn::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int SistersOfTheThorn::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int SistersOfTheThorn::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
 } // namespace CitiesOfSigmar

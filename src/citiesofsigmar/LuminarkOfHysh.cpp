@@ -22,6 +22,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_auraRange;
+    int m_beamOfLight;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, LuminarkOfHysh::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {10, 10, 2},
+        {9, 8, 3},
+        {8, 6, 4},
+        {7,  4, 5},
+        {6,  2, 6}
+    };
+
 bool LuminarkOfHysh::s_registered = false;
 
 Unit *LuminarkOfHysh::Create(const ParameterList &parameters)
@@ -87,6 +105,29 @@ void LuminarkOfHysh::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_wizardsStaff);
     visitor(m_arcaneTools);
     visitor(m_hooves);
+}
+
+int LuminarkOfHysh::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void LuminarkOfHysh::onWounded()
+{
+    Unit::onWounded();
+}
+
+int LuminarkOfHysh::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

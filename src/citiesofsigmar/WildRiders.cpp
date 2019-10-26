@@ -115,4 +115,46 @@ void WildRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_spearHunter);
 }
 
+int WildRiders::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int WildRiders::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int WildRiders::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+Wounds WildRiders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Unbound Fury
+    if (m_charged && (weapon->name() == m_spear.name()))
+    {
+        return {2, 0};
+    }
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int WildRiders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Unbound Fury
+    if (m_charged && (weapon->name() == m_spear.name()))
+    {
+        return -2;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace CitiesOfSigmar

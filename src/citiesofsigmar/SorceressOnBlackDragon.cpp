@@ -22,6 +22,25 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_jawsToWound;
+    int m_clawAttacks;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, SorceressOnBlackDragon::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {14, 1, 6},
+        {12, 2, 5},
+        {10, 3, 4},
+        {8,  4, 3},
+        {6,  5, 2}
+    };
+
+
 bool SorceressOnBlackDragon::s_registered = false;
 
 Unit *SorceressOnBlackDragon::Create(const ParameterList &parameters)
@@ -97,6 +116,33 @@ void SorceressOnBlackDragon::visitWeapons(std::function<void(const Weapon &)> &v
     visitor(m_lash);
     visitor(m_jaws);
     visitor(m_claws);
+}
+
+int SorceressOnBlackDragon::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void SorceressOnBlackDragon::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+    m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
+
+    Unit::onWounded();
+}
+
+int SorceressOnBlackDragon::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

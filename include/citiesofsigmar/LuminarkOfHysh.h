@@ -35,14 +35,19 @@ public:
     LuminarkOfHysh();
     ~LuminarkOfHysh() override = default;
 
+    int move() const override;
+
     bool configure(bool battlemage);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    void onWounded() override;
 
 private:
+
+    int getDamageTableIndex() const;
 
     Weapon m_beamOfLight,
         m_wizardsStaff,

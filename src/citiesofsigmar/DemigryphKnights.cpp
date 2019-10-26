@@ -162,4 +162,51 @@ void DemigryphKnights::visitWeapons(std::function<void(const Weapon &)> &visitor
     visitor(m_beakAndTalons);
 }
 
+int DemigryphKnights::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int DemigryphKnights::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int DemigryphKnights::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+Wounds DemigryphKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Charging Lance
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        return {2, 0};
+    }
+
+    // Savage Ferocity
+    if ((woundRoll == 6) && (weapon->name() == m_beakAndTalons.name()))
+    {
+        return {1, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int DemigryphKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Charging Lance
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        return -2;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace CitiesOfSigmar

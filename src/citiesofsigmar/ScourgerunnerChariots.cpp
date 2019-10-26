@@ -122,4 +122,15 @@ void ScourgerunnerChariots::visitWeapons(std::function<void(const Weapon &)> &vi
     visitor(m_crossbowMaster);
 }
 
+Wounds ScourgerunnerChariots::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Lay the Beast Low
+    if ((hitRoll == 6) && (weapon->name() == m_harpoon.name()))
+    {
+        Dice dice;
+        return { 0, dice.rollD3()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace CitiesOfSigmar

@@ -24,6 +24,24 @@ static FactoryMethod factoryMethod = {
 
 bool Kharibdyss::s_registered = false;
 
+struct TableEntry
+{
+    int m_move;
+    int m_tentacleAttacks;
+    int m_tailToWound;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {1, 3, 5, 7, Kharibdyss::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {7, 6, 2},
+        {6, 5, 3},
+        {5, 4, 4},
+        {5,  3, 5},
+        {4,  2, 6}
+    };
+
 Unit *Kharibdyss::Create(const ParameterList &parameters)
 {
     auto unit = new Kharibdyss();
@@ -90,6 +108,33 @@ void Kharibdyss::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_tail);
     visitor(m_limbs);
     visitor(m_goadsAndWhips);
+}
+
+int Kharibdyss::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void Kharibdyss::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_tentacles.setAttacks(g_damageTable[damageIndex].m_tentacleAttacks);
+    m_tail.setToWound(g_damageTable[damageIndex].m_tailToWound);
+
+    Unit::onWounded();
+}
+
+int Kharibdyss::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

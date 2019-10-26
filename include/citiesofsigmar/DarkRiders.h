@@ -43,6 +43,9 @@ public:
 
 protected:
 
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -61,10 +64,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Herald                           No
-// Standard Bearer                  No
-// Hornblower                       No
-// Murderous Charge                 No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
+// Murderous Charge                 Yes
 // Sow Terror and Confusion         No
 //
 

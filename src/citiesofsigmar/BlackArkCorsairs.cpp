@@ -163,4 +163,35 @@ void BlackArkCorsairs::visitWeapons(std::function<void(const Weapon &)> &visitor
     visitor(m_bladeReaver);
 }
 
+int BlackArkCorsairs::runModifier() const
+{
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int BlackArkCorsairs::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int BlackArkCorsairs::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+int BlackArkCorsairs::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Flashing Steel
+    if (remainingModels() >= 15) mod++;
+
+    return mod;
+}
+
 }//namespace CitiesOfSigmar

@@ -38,21 +38,18 @@ public:
 
 protected:
 
-    void onStartHero(PlayerId player) override;
-    Rerolls runRerolls() const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
     int braveryModifier() const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
-    int toSaveModifier(const Weapon *weapon) const override { return m_fortressModifier; }
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
 
 private:
 
     bool m_hornblower = false,
         m_standardBearer = false,
         m_gladeShields = false;
-
-    int m_fortressModifier = 0;
 
     Weapon m_spearStave,
         m_spearStaveWarden;
@@ -65,7 +62,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Fortress of Boughs               Yes
-// Glade Shields                    Yes
+// Form Fortress of Boughs          Yes
 // Standard Bearer                  Yes
 // Hornblower                       Yes
 //

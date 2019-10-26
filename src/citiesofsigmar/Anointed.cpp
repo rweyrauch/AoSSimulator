@@ -86,4 +86,22 @@ void Anointed::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_halberd);
 }
 
+Wounds Anointed::applyWoundSave(const Wounds &wounds)
+{
+    Dice dice;
+
+    // Witness to Destiny
+    Dice::RollResult woundSaves, mortalSaves;
+    dice.rollD6(wounds.normal, woundSaves);
+    dice.rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(4);
+    totalWounds.normal = std::max(totalWounds.normal, 0);
+    totalWounds.mortal -= mortalSaves.rollsGE(4);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
+}
+
 } //namespace CitiesOfSigmar

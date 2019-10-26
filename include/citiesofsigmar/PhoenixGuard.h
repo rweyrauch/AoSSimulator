@@ -43,6 +43,10 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 
@@ -59,10 +63,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Drummer                          No
+// Standard Bearer                  Yes
+// Drummer                          Yes
 // Emboldened                       No
-// Witness to Destiny               No
+// Witness to Destiny               Yes
 //
 
 } // namespace CitiesOfSigmar

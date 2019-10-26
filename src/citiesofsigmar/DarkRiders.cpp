@@ -124,4 +124,28 @@ void DarkRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_crossbowHerald);
 }
 
+int DarkRiders::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int DarkRiders::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
+}
+
+Wounds DarkRiders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Murderous Charge
+    if (m_charged && (weapon->name() == m_spear.name()))
+    {
+        return {2, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace CitiesOfSigmar

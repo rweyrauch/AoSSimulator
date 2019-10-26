@@ -43,6 +43,8 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -57,9 +59,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Eldritch Arrows                  No
+// Eldritch Arrows                  Yes
 // Loose Until the Last             No
-// Quicksilver Shot                 No
+// Quicksilver Shot                 Yes
 //
 
 } // namespace CitiesOfSigmar

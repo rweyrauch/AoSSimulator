@@ -86,4 +86,14 @@ void BlackArkFleetmaster::visitWeapons(std::function<void(const Weapon &)> &visi
     visitor(m_murderHook);
 }
 
+int BlackArkFleetmaster::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Murderous Swashbuckler
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_cutlass.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 }//namespace CitiesOfSigmar

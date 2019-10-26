@@ -40,6 +40,7 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 
@@ -52,8 +53,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blessing of the Ur-Phoenix       No
-// Witness to Destiny               No
+// Blessing of the Ur-Phoenix       Yes
+// Witness to Destiny               Yes
 // Captain of the Phoenix Guard     No
 //
 

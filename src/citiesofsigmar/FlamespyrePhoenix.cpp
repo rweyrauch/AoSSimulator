@@ -22,6 +22,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_talonAttacks;
+    int m_wakeOfFire;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, FlamespyrePhoenix::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {16, 6, 5},
+        {14, 5, 4},
+        {12, 4, 3},
+        {10,  3, 2},
+        {8,  2, 61}
+    };
+
 bool FlamespyrePhoenix::s_registered = false;
 
 Unit *FlamespyrePhoenix::Create(const ParameterList &parameters)
@@ -82,6 +100,32 @@ void FlamespyrePhoenix::visitWeapons(std::function<void(const Weapon &)> &visito
 {
     visitor(m_talons);
     visitor(m_halberd);
+}
+
+int FlamespyrePhoenix::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void FlamespyrePhoenix::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
+
+    Unit::onWounded();
+}
+
+int FlamespyrePhoenix::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

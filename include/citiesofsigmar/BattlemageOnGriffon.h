@@ -34,14 +34,19 @@ public:
     BattlemageOnGriffon();
     ~BattlemageOnGriffon() override = default;
 
+    int move() const override;
+
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    void onWounded() override;
 
 private:
+
+    int getDamageTableIndex() const;
 
     Weapon m_beastStaff,
         m_twinBeaks,

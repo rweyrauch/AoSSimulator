@@ -22,6 +22,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_breathAttacks;
+    int m_fangAttacks;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 7, 9, WarHydra::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {8, 6, 6},
+        {7, 5, 5},
+        {6, 4, 4},
+        {5,  3, 3},
+        {4,  2, 2}
+    };
+
 bool WarHydra::s_registered = false;
 
 Unit *WarHydra::Create(const ParameterList &parameters)
@@ -90,6 +108,33 @@ void WarHydra::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_fangs);
     visitor(m_limbs);
     visitor(m_goadAndWhips);
+}
+
+int WarHydra::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void WarHydra::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_fieryBreath.setAttacks(g_damageTable[damageIndex].m_breathAttacks);
+    m_fangs.setAttacks(g_damageTable[damageIndex].m_fangAttacks);
+
+    Unit::onWounded();
+}
+
+int WarHydra::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

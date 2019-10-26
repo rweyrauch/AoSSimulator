@@ -22,6 +22,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_canonRange;
+    int m_gunToWound;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SteamTank::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {RAND_2D6, 30, 2},
+        {RAND_2D6, 24, 3},
+        {RAND_D6, 18, 4},
+        {RAND_D6,  12, 5},
+        {RAND_D3,  6, 6}
+    };
+
 bool SteamTank::s_registered = false;
 
 Unit *SteamTank::Create(const ParameterList &parameters)
@@ -106,6 +124,35 @@ void SteamTank::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_handgun);
     visitor(m_crushingWheels);
     visitor(m_sword);
+}
+
+int SteamTank::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void SteamTank::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_steamCannon.setRange(g_damageTable[damageIndex].m_canonRange);
+    m_steamGun.setToWound(g_damageTable[damageIndex].m_gunToWound);
+
+    // TODO: change range of model's Steam Cannon
+
+    Unit::onWounded();
+}
+
+int SteamTank::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

@@ -166,6 +166,8 @@ void FreeguildGeneralOnGriffon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
     m_beak.setDamage(g_damageTable[damageIndex].m_beakDamage);
+
+    Unit::onWounded();
 }
 
 int FreeguildGeneralOnGriffon::getDamageTableIndex() const

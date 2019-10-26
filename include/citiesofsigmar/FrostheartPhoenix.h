@@ -34,14 +34,19 @@ public:
     FrostheartPhoenix();
     ~FrostheartPhoenix() override = default;
 
+    int move() const override;
+
     bool configure(bool anointed);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    void onWounded() override;
 
 private:
+
+    int getDamageTableIndex() const;
 
     Weapon m_talons,
         m_halberd;

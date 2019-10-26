@@ -40,6 +40,7 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -52,7 +53,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deathshead Poison                No
+// Deathshead Poison                Yes
 // Hidden Murderer                  No
 //
 

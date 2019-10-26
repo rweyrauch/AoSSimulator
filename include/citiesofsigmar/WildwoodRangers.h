@@ -39,7 +39,8 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls runRerolls() const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
     int braveryModifier() const override;
 
 private:

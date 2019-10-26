@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/SistersOfTheWatch.h"
 
 namespace CitiesOfSigmar
@@ -110,6 +111,30 @@ void SistersOfTheWatch::visitWeapons(std::function<void(const Weapon &)> &visito
     visitor(m_bow);
     visitor(m_sword);
     visitor(m_bowHighSister);
+}
+
+int SistersOfTheWatch::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    if (weapon->name() == m_bow.name())
+    {
+        // Quicksilver Shot
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+        if (units.empty())
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+Wounds SistersOfTheWatch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Eldritch Arrows
+    if ((woundRoll == 6) && (weapon->name() == m_bow.name()))
+    {
+        return { weapon->damage(), 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace CitiesOfSigmar

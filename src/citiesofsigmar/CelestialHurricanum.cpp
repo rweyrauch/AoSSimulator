@@ -22,6 +22,24 @@ static FactoryMethod factoryMethod = {
     CITIES_OF_SIGMAR
 };
 
+struct TableEntry
+{
+    int m_move;
+    int m_portentsOfBattle;
+    int m_stormOfShemtek;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, CelestialHurricanum::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {10, 10, 3},
+        {9, 8, 2},
+        {8, 6, 2},
+        {7,  4, 1},
+        {6,  2, 1}
+    };
+
 bool CelestialHurricanum::s_registered = false;
 
 Unit *CelestialHurricanum::Create(const ParameterList &parameters)
@@ -87,6 +105,29 @@ void CelestialHurricanum::visitWeapons(std::function<void(const Weapon &)> &visi
     visitor(m_wizardStaff);
     visitor(m_arcaneTools);
     visitor(m_hooves);
+}
+
+int CelestialHurricanum::move() const
+{
+    return g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void CelestialHurricanum::onWounded()
+{
+    Unit::onWounded();
+}
+
+int CelestialHurricanum::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } //namespace CitiesOfSigmar

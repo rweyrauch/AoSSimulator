@@ -49,6 +49,11 @@ public:
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -68,10 +73,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
-// Charging Lance                   No
-// Savage Ferocity                  No
+// Standard Bearer                  Yes
+// Hornblower                       Yes
+// Charging Lance                   Yes
+// Savage Ferocity                  Yes
 //
 
 } // namespace CitiesOfSigmar

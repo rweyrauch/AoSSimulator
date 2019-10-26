@@ -35,7 +35,7 @@ WildwoodRangers::WildwoodRangers() :
     m_rangersDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 2, 3, 3, -1, 1),
     m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 3, 3, 3, -1, 1)
 {
-    m_keywords = {ORDER, AELF, WANDERER, WILDWOOD_RANGERS};
+    m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILDWOOD_RANGERS};
 }
 
 bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblower)
@@ -103,34 +103,33 @@ void WildwoodRangers::Init()
 
 Wounds WildwoodRangers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    // Guardians of the Kindreds
+    // Guardians of the Kindred
     if (target->hasKeyword(MONSTER))
     {
-        Dice dice;
-        return {dice.rollD3(), 0};
+        return {2, 0};
     }
     return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-Rerolls WildwoodRangers::runRerolls() const
+int WildwoodRangers::runModifier() const
 {
-    if (m_hornblower)
-    {
-        return RerollFailed;
-    }
-    return CitizenOfSigmar::runRerolls();
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int WildwoodRangers::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
 }
 
 int WildwoodRangers::braveryModifier() const
 {
-    int modifier = CitizenOfSigmar::braveryModifier();
-    if (m_standardBearer)
-    {
-        modifier += 1;
-
-        // if (Board::Instance()->unitInCover(this)) { modifier += 1; }
-    }
-    return modifier;
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
 }
 
 } // namespace Wanderers
