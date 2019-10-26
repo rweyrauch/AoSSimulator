@@ -44,6 +44,7 @@ protected:
 
     void onWounded() override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    int castingModifier() const override;
 
 private:
 
@@ -60,7 +61,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Amber Battlemage                 No
+// Amber Battlemage                 Yes
 // Two-headed                       Yes
 // Amber Spear                      No
 // Wildform                         No

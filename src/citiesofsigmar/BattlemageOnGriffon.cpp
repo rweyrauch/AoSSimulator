@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "citiesofsigmar/BattlemageOnGriffon.h"
 
 namespace CitiesOfSigmar
@@ -151,6 +152,16 @@ int BattlemageOnGriffon::generateHits(int unmodifiedHitRoll, const Weapon *weapo
         return 2;
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int BattlemageOnGriffon::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    // Amber Battlemage
+    if (Board::Instance()->getRealm() == Ghur) mod++;
+
+    return mod;
 }
 
 } //namespace CitiesOfSigmar

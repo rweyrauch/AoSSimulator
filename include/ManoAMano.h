@@ -20,7 +20,7 @@ public:
     static const int BoardWidth = 36;
     static const int BoardDepth = 48;
 
-    explicit ManoAMano(int numRounds);
+    explicit ManoAMano(int numRounds, Realm realm = Azyr);
     ~ManoAMano();
 
     void combatants(Unit* red, Unit* blue);

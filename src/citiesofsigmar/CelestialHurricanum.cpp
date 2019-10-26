@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/CelestialHurricanum.h"
 
 namespace CitiesOfSigmar
@@ -151,6 +152,16 @@ void CelestialHurricanum::onStartShooting(PlayerId player)
             }
         }
     }
+}
+
+int CelestialHurricanum::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    // Celestial Battlemage
+    if (Board::Instance()->getRealm() == Azyr) mod++;
+
+    return mod;
 }
 
 } //namespace CitiesOfSigmar

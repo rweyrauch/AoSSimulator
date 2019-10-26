@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Battlemage::ValueToString,
     Battlemage::EnumStringToInt,
     {
+        {ParamType::Enum, "Realm", Azyr, Aqshy, Ulgu},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -29,10 +30,12 @@ Unit *Battlemage::Create(const ParameterList &parameters)
 {
     auto unit = new Battlemage();
 
+    auto realm = (Realm)GetEnumParam("Realm", parameters, Azyr);
+
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(realm);
     if (!ok)
     {
         delete unit;
@@ -70,7 +73,7 @@ Battlemage::Battlemage() :
     m_totalSpells = 1;
 }
 
-bool Battlemage::configure()
+bool Battlemage::configure(Realm realm)
 {
     Model model(BASESIZE, WOUNDS);
 
@@ -81,6 +84,7 @@ bool Battlemage::configure()
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
+    m_realm = realm;
     m_points = POINTS_PER_UNIT;
 
     return true;

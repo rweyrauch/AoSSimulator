@@ -44,6 +44,7 @@ public:
 protected:
 
     void onWounded() override;
+    int castingModifier() const override;
 
 private:
 
@@ -64,7 +65,7 @@ private:
 // Aura of Protection               No
 // Locus of Hysh                    No
 // Searing Beam of Light            No
-// White Battlemage                 No
+// White Battlemage                 Yes
 // Burning Gaze                     No
 // Pha's Protection                 No
 //

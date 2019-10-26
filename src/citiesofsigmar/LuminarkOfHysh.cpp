@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/LuminarkOfHysh.h"
 
 namespace CitiesOfSigmar
@@ -128,6 +129,16 @@ int LuminarkOfHysh::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int LuminarkOfHysh::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    // White Battlemage
+    if (Board::Instance()->getRealm() == Hysh) mod++;
+
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

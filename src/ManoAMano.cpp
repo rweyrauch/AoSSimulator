@@ -13,11 +13,12 @@
 #include <Board.h>
 #include <gloomspitegitz/BadMoon.h>
 
-ManoAMano::ManoAMano(int numRounds) :
+ManoAMano::ManoAMano(int numRounds, Realm realm) :
     m_numRounds(numRounds)
 {
     auto board = Board::Instance();
     board->setSize(BoardWidth, BoardDepth);
+    board->setRealm(realm);
 }
 
 void ManoAMano::combatants(Unit *red, Unit *blue)

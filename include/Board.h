@@ -55,6 +55,12 @@ public:
     std::vector<Unit*> getUnitsWithin(const Math::Point3& point, PlayerId fromPlayer, float distance);
     Unit* getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
 
+    void setRealm(Realm realm)
+    {
+        m_realm = realm;
+    }
+    Realm getRealm() const { return m_realm; }
+
     enum Quadrant
     {
         Northwest = 0, //
@@ -83,6 +89,7 @@ private:
     std::vector<TerrainFeature*> m_features;
     std::vector<Objective*> m_objectives;
     Roster* m_rosters[2] = {nullptr, nullptr};
+    Realm m_realm = Azyr;
 
     static Board* s_pInstance;
 };

@@ -34,7 +34,7 @@ public:
     Battlemage();
     ~Battlemage() override = default;
 
-    bool configure();
+    bool configure(Realm realm);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -44,6 +44,7 @@ protected:
 private:
 
     Weapon m_staff;
+    Realm m_realm = Azyr;
 
     static bool s_registered;
 };

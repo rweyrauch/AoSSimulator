@@ -53,7 +53,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Decapitating Strike              No
+// Decapitating Strike              Yes
 // Inspiring Leader                 No
 // Hold the Line                    No
 //

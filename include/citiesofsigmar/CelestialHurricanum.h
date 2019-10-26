@@ -44,6 +44,7 @@ protected:
 
     void onWounded() override;
     void onStartShooting(PlayerId player) override;
+    int castingModifier() const override;
 
 private:
 
@@ -61,7 +62,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Celestial Battlemage             No
+// Celestial Battlemage             Yes
 // Locus of Azyr                    No
 // Portents of Battle               No
 // Storm of Shemtek                 Yes

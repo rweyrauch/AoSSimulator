@@ -95,6 +95,18 @@ enum MovementRules
     NUM_MOVEMENT_RULES
 };
 
+enum Realm
+{
+    Aqshy,
+    Azyr,
+    Chamon,
+    Ghur,
+    Ghyran,
+    Hysh,
+    Shyish,
+    Ulgu
+};
+
 enum Keyword
 {
     UNKNOWN = -1,
