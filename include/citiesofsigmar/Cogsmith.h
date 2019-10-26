@@ -23,6 +23,12 @@ public:
     static const int WOUNDS = 5;
     static const int POINTS_PER_UNIT = 60;
 
+    enum WeaponOption
+    {
+        GrudgeRaker,
+        CogAxe
+    };
+
     static Unit* Create(const ParameterList& parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -34,14 +40,17 @@ public:
     Cogsmith();
     ~Cogsmith() override = default;
 
-    bool configure();
+    bool configure(WeaponOption weapon);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
+
+    WeaponOption m_weaponOption = GrudgeRaker;
 
     Weapon m_grudgeRaker,
         m_pistols,
@@ -55,7 +64,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Free Arm                         No
+// Free Arm                         Yes
 // Master Engineer                  No
 //
 

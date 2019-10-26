@@ -130,4 +130,27 @@ int CelestialHurricanum::getDamageTableIndex() const
     return 0;
 }
 
+void CelestialHurricanum::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    if (m_shootingTarget)
+    {
+        // Storm of Shemtek
+        auto dist = distanceTo(m_shootingTarget);
+        if (dist <= m_stormOfShemtek.range())
+        {
+            Dice dice;
+            Dice::RollResult result;
+            dice.rollD6(g_damageTable[getDamageTableIndex()].m_stormOfShemtek, result);
+            auto numHits = result.rollsGE(2);
+            for (auto i = 0; i < numHits; i++)
+            {
+                auto mw = dice.rollD3();
+                m_shootingTarget->applyDamage({0, mw});
+            }
+        }
+    }
+}
+
 } //namespace CitiesOfSigmar

@@ -43,6 +43,7 @@ public:
 protected:
 
     void onWounded() override;
+    void onStartShooting(PlayerId player) override;
 
 private:
 
@@ -63,7 +64,7 @@ private:
 // Celestial Battlemage             No
 // Locus of Azyr                    No
 // Portents of Battle               No
-// Storm of Shemtek                 No
+// Storm of Shemtek                 Yes
 // Chain Lightning                  No
 // Comet of Casandora               No
 //

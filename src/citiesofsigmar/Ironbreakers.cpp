@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer, Ironbreakers::IronbreakerAxeOrHammer,
             Ironbreakers::PairedDrakefirePistols, 1
         },
-        {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
@@ -46,14 +46,14 @@ Ironbreakers::Ironbreakers() :
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONBREAKERS};
 }
 
-bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool iconBearer, bool drummer)
+bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    m_iconBearer = iconBearer;
+    m_standardBearer = standardBearer;
     m_drummer = drummer;
 
     Model ironbeard(BASESIZE, WOUNDS);
@@ -106,13 +106,13 @@ Unit *Ironbreakers::Create(const ParameterList &parameters)
     auto unit = new Ironbreakers();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     WeaponOptions weapon = (WeaponOptions)GetEnumParam("Ironbeard Weapon", parameters, (int)IronbreakerAxeOrHammer);
-    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool drummer = GetBoolParam("Drummer", parameters, false);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, weapon, iconBearer, drummer);
+    bool ok = unit->configure(numModels, weapon, standardBearer, drummer);
     if (!ok)
     {
         delete unit;
@@ -212,14 +212,25 @@ int Ironbreakers::EnumStringToInt(const std::string &enumString)
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
-int Ironbreakers::rollRunDistance() const
+int Ironbreakers::runModifier() const
 {
-    // Sound the Advance
-    if (m_drummer)
-    {
-        return 4;
-    }
-    return Unit::rollRunDistance();
+    auto mod = Unit::runModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int Ironbreakers::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_drummer) mod++;
+    return mod;
+}
+
+int Ironbreakers::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

@@ -45,7 +45,7 @@ public:
     Irondrakes();
     ~Irondrakes() override = default;
 
-    bool configure(int numModels, WeaponOptions ironWardenWeapons, bool iconBearer, bool hornblower);
+    bool configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -55,11 +55,13 @@ protected:
     int toSaveModifier(const Weapon *weapon) const override;
     void onStartShooting(PlayerId player) override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int rollRunDistance() const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
 
 private:
 
-    bool m_iconBearer = false;
+    bool m_standardBearer = false;
     bool m_hornblower = false;
     bool m_hasCinderblastBomb = false;
 
@@ -77,7 +79,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brace of Drakefire Pistols       Yes
+// Paired  Drakefire Pistols        Yes
 // Grudgehammer Torpedo             Yes
 // Cinderblast Bomb                 Yes
 // Forge-proven Gromril Armour      Yes

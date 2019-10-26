@@ -40,8 +40,9 @@ public:
 protected:
 
     bool battleshockRequired() const override;
-    int rollRunDistance() const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
 
 private:
 
@@ -61,6 +62,7 @@ private:
 // Kingsguard                       Yes
 // Musician                         Yes
 // Standard Bearer                  Yes
+// Musician                         Yes
 //
 
 } // namespace CitiesOfSigmar

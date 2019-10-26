@@ -126,7 +126,7 @@ void BattlemageOnGriffon::onWounded()
     m_razorClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
 
     // TODO: set beak damage.
-    
+
     Unit::onWounded();
 }
 
@@ -141,6 +141,16 @@ int BattlemageOnGriffon::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int BattlemageOnGriffon::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Two-headed
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_twinBeaks.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } //namespace CitiesOfSigmar

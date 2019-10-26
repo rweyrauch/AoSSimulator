@@ -16,6 +16,10 @@ static FactoryMethod factoryMethod = {
     Cogsmith::ValueToString,
     Cogsmith::EnumStringToInt,
     {
+        {
+            ParamType::Enum, "Weapon", Cogsmith::GrudgeRaker, Cogsmith::GrudgeRaker,
+            Cogsmith::CogAxe, 1
+        },
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
@@ -28,10 +32,12 @@ Unit *Cogsmith::Create(const ParameterList &parameters)
 {
     auto unit = new Cogsmith();
 
+    auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, GrudgeRaker);
+
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(weapon);
     if (!ok)
     {
         delete unit;
@@ -42,11 +48,31 @@ Unit *Cogsmith::Create(const ParameterList &parameters)
 
 std::string Cogsmith::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Weapon")
+    {
+        if (parameter.m_intValue == GrudgeRaker)
+        {
+            return "Grudge-raker";
+        }
+        else if (parameter.m_intValue == CogAxe)
+        {
+            return "Cog Axe";
+        }
+    }
+
     return CitizenOfSigmar::ValueToString(parameter);
 }
 
 int Cogsmith::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Grudge-raker")
+    {
+        return GrudgeRaker;
+    }
+    else if (enumString == "Cog Axe")
+    {
+        return CogAxe;
+    }
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
@@ -68,17 +94,25 @@ Cogsmith::Cogsmith() :
     m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, HERO, ENGINEER, COGSMITH};
 }
 
-bool Cogsmith::configure()
+bool Cogsmith::configure(WeaponOption weapon)
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_grudgeRaker);
     model.addMissileWeapon(&m_pistols);
-    model.addMeleeWeapon(&m_cogAxe);
+    if (weapon == GrudgeRaker)
+    {
+        model.addMissileWeapon(&m_grudgeRaker);
+    }
+
     model.addMeleeWeapon(&m_gunButt);
+    if (weapon == CogAxe)
+    {
+        model.addMeleeWeapon(&m_cogAxe);
+    }
 
     addModel(model);
 
+    m_weaponOption = weapon;
     m_points = POINTS_PER_UNIT;
 
     return true;
@@ -90,6 +124,17 @@ void Cogsmith::visitWeapons(std::function<void(const Weapon &)> &visitor)
     visitor(m_pistols);
     visitor(m_cogAxe);
     visitor(m_gunButt);
+}
+
+int Cogsmith::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Free Arm
+    if ((m_weaponOption == GrudgeRaker) && (weapon->name() == m_grudgeRaker.name())) mod++;
+    else if ((m_weaponOption == CogAxe) && (weapon->name() == m_cogAxe.name())) mod++;
+
+    return mod;
 }
 
 } //namespace CitiesOfSigmar

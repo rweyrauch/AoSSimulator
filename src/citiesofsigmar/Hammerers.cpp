@@ -115,24 +115,25 @@ bool Hammerers::battleshockRequired() const
     return true;
 }
 
-int Hammerers::rollRunDistance() const
+int Hammerers::runModifier() const
 {
-    // Sound the Advance
-    if (m_musician)
-    {
-        return 4;
-    }
-    return Unit::rollRunDistance();
+    auto mod = Unit::runModifier();
+    if (m_musician) mod++;
+    return mod;
 }
 
-void Hammerers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+int Hammerers::chargeModifier() const
 {
-    CitizenOfSigmar::computeBattleshockEffect(roll, numFled, numAdded);
+    auto mod = Unit::chargeModifier();
+    if (m_musician) mod++;
+    return mod;
+}
 
-    if (m_standardBearer)
-    {
-        numFled = (numFled + 1)/2;
-    }
+int Hammerers::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

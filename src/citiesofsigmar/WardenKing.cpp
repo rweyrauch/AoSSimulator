@@ -25,8 +25,8 @@ static FactoryMethod factoryMethod = {
 bool WardenKing::s_registered = false;
 
 WardenKing::WardenKing() :
-    CitizenOfSigmar("Warden King", 4, WOUNDS, 8, 4, false),
-    m_runeWeapon(Weapon::Type::Melee, "Rune Weapon", 1, 4, 3, 3, -1, RAND_D3)
+    CitizenOfSigmar("Warden King", 4, WOUNDS, 8, 3, false),
+    m_runeWeapon(Weapon::Type::Melee, "Rune Hammer", 1, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
 }

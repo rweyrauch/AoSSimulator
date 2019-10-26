@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
             Irondrakes::PairedDrakefirePistols, 1
         },
-        {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
@@ -47,14 +47,14 @@ Irondrakes::Irondrakes() :
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONDRAKES};
 }
 
-bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool iconBearer, bool hornblower)
+bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    m_iconBearer = iconBearer;
+    m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
     Model ironwarden(BASESIZE, WOUNDS);
@@ -116,13 +116,13 @@ Unit *Irondrakes::Create(const ParameterList &parameters)
     auto unit = new Irondrakes();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     WeaponOptions weapon = (WeaponOptions)GetEnumParam("Ironwarden Weapon", parameters, (int)Drakegun);
-    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+    bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, weapon, iconBearer, hornblower);
+    bool ok = unit->configure(numModels, weapon, standardBearer, hornblower);
     if (!ok)
     {
         delete unit;
@@ -244,14 +244,25 @@ int Irondrakes::EnumStringToInt(const std::string &enumString)
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
-int Irondrakes::rollRunDistance() const
+int Irondrakes::runModifier() const
 {
-    // Sound the Advance
-    if (m_hornblower)
-    {
-        return 4;
-    }
-    return Unit::rollRunDistance();
+    auto mod = Unit::runModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Irondrakes::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+    if (m_hornblower) mod++;
+    return mod;
+}
+
+int Irondrakes::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

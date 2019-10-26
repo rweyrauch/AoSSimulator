@@ -21,10 +21,9 @@ static FactoryMethod factoryMethod = {
             Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", Longbeards::AncestralAxesOrHammers, Longbeards::AncestralAxesOrHammers,
+            ParamType::Enum, "Weapons", Longbeards::AncestralWeaponAndShield, Longbeards::AncestralWeaponAndShield,
             Longbeards::AncestralGreatAxe, 1
         },
-        {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
@@ -45,7 +44,7 @@ Longbeards::Longbeards() :
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, LONGBEARDS};
 }
 
-bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShields, bool standardBearer, bool musician)
+bool Longbeards::configure(int numModels, WeaponOptions weapons, bool standardBearer, bool musician)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -54,10 +53,9 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
 
     m_standardBearer = standardBearer;
     m_musician = musician;
-    m_gromrilShields = gromrilShields;
 
     Model oldguard(BASESIZE, WOUNDS);
-    if (weapons == AncestralAxesOrHammers)
+    if (weapons == AncestralWeaponAndShield)
     {
         oldguard.addMeleeWeapon(&m_ancestralAxeHammerOldGuard);
     }
@@ -70,7 +68,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
     for (auto i = 1; i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        if (weapons == AncestralAxesOrHammers)
+        if (weapons == AncestralWeaponAndShield)
         {
             model.addMeleeWeapon(&m_ancestralAxeHammer);
         }
@@ -81,6 +79,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
         addModel(model);
     }
 
+    m_weaponOption = weapons;
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
     {
@@ -102,15 +101,14 @@ Unit *Longbeards::Create(const ParameterList &parameters)
 {
     auto unit = new Longbeards();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, AncestralAxesOrHammers);
-    bool gromrilShields = GetBoolParam("Gromril Shields", parameters, false);
+    auto weapons = (WeaponOptions)GetEnumParam("Weapons", parameters, AncestralWeaponAndShield);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool musician = GetBoolParam("Musician", parameters, false);
 
     auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
     unit->setCity(city);
 
-    bool ok = unit->configure(numModels, weapons, gromrilShields, standardBearer, musician);
+    bool ok = unit->configure(numModels, weapons, standardBearer, musician);
     if (!ok)
     {
         delete unit;
@@ -130,11 +128,8 @@ void Longbeards::Init()
 Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const
 {
     // Gromril Shields
-    if (!m_ran && !m_charged)
-    {
-        if (!weapon->isMissile())
-            return RerollFailed;
-    }
+    if ((m_weaponOption == AncestralWeaponAndShield) && !weapon->isMissile()) return RerollFailed;
+
     return CitizenOfSigmar::toSaveRerolls(weapon);
 }
 
@@ -142,9 +137,9 @@ std::string Longbeards::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "Weapons")
     {
-        if (parameter.m_intValue == AncestralAxesOrHammers)
+        if (parameter.m_intValue == AncestralWeaponAndShield)
         {
-            return "Ancestral Axes Or Hammers";
+            return "Ancestral Weapon and Gromril Shield";
         }
         else if (parameter.m_intValue == AncestralGreatAxe)
         {
@@ -157,9 +152,9 @@ std::string Longbeards::ValueToString(const Parameter &parameter)
 
 int Longbeards::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Ancestral Axes Or Hammers")
+    if (enumString == "Ancestral Weapon and Gromril Shield")
     {
-        return AncestralAxesOrHammers;
+        return AncestralWeaponAndShield;
     }
     else if (enumString == "Ancestral Great Axe")
     {
@@ -168,23 +163,25 @@ int Longbeards::EnumStringToInt(const std::string &enumString)
     return CitizenOfSigmar::EnumStringToInt(enumString);
 }
 
-int Longbeards::rollRunDistance() const
+int Longbeards::runModifier() const
 {
-    // Sound the Advance
-    if (m_musician)
-    {
-        return 4;
-    }
-    return Unit::rollRunDistance();
+    auto mod = Unit::runModifier();
+    if (m_musician) mod++;
+    return mod;
 }
 
-void Longbeards::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+int Longbeards::chargeModifier() const
 {
-    CitizenOfSigmar::computeBattleshockEffect(roll, numFled, numAdded);
-    if (m_standardBearer)
-    {
-        numFled = (numFled + 1)/2;
-    }
+    auto mod = Unit::chargeModifier();
+    if (m_musician) mod++;
+    return mod;
+}
+
+int Longbeards::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+    if (m_standardBearer) mod++;
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

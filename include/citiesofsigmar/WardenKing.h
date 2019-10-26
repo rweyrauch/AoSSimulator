@@ -36,8 +36,6 @@ public:
 
 protected:
 
-    // Ancestor Shield
-    Rerolls toSaveRerolls(const Weapon *weapon) const override { return RerollFailed; }
 
 private:
 
@@ -50,7 +48,6 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ancestor Shield                  Yes
 // Oath Stone                       No
 // Ancestral Grudge                 No
 //

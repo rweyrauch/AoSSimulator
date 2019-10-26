@@ -28,7 +28,7 @@ public:
 
     enum WeaponOptions
     {
-        AncestralAxesOrHammers,
+        AncestralWeaponAndShield,
         AncestralGreatAxe
     };
 
@@ -43,19 +43,20 @@ public:
     Longbeards();
     ~Longbeards() override = default;
 
-    bool configure(int numModels, WeaponOptions weapons, bool gromrilShields, bool standardBearer, bool musician);
+    bool configure(int numModels, WeaponOptions weapons, bool standardBearer, bool musician);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int rollRunDistance() const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
 
 private:
 
-    bool m_gromrilShields = false;
+    WeaponOptions m_weaponOption = AncestralWeaponAndShield;
     bool m_standardBearer = false;
     bool m_musician = false;
 

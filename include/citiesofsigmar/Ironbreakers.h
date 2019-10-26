@@ -44,7 +44,7 @@ public:
     Ironbreakers();
     ~Ironbreakers() override = default;
 
-    bool configure(int numModels, WeaponOptions ironbeardWeapons, bool iconBearer, bool drummer);
+    bool configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -53,11 +53,13 @@ protected:
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
     int toSaveModifier(const Weapon *weapon) const override;
     void onStartShooting(PlayerId player) override;
-    int rollRunDistance() const override;
+    int runModifier() const override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
 
 private:
 
-    bool m_iconBearer = false;
+    bool m_standardBearer = false;
     bool m_drummer = false;
 
     bool m_hasCinderblastBomb = false;
