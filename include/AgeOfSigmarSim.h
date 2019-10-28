@@ -166,6 +166,9 @@ enum Keyword
     CITIES_OF_SIGMAR,
     COLLEGIATE_ARCANE,
     IRONWELD_ARSENAL,
+    OGOR_MAWTRIBES,
+    GUTBUSTERS,
+    OSSIARCH_BONEREAPERS,
 
     // Common
     MORTAL,
@@ -757,6 +760,21 @@ enum Keyword
     NOMAD_PRINCE,
     WILD_RIDERS,
     SORCERESS,
+
+    // Ogor Mawtribes
+    OGOR,
+    TYRANT,
+    OGOR_GLUTTONS,
+    LEADBELCHERS,
+    IRONBLASTER,
+    RHINOX,
+
+    // Ossiarch Bonereapers
+    MORTIS_PRAETORIANS,
+    HEKATOS,
+    VOKMORTIAN,
+    MORTEK_GUARD,
+    NECROPOLIS_STALKERS,
 };
 
 Keyword grandAllianceStringToKeyword(const std::string& allianceName);

@@ -1,0 +1,138 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#include <UnitFactory.h>
+#include <Board.h>
+#include <Roster.h>
+#include "mawtribes/Ironblaster.h"
+
+namespace OgorMawtribes
+{
+static FactoryMethod factoryMethod = {
+    Ironblaster::Create,
+    Ironblaster::ValueToString,
+    Ironblaster::EnumStringToInt,
+    {
+    },
+    DESTRUCTION,
+    OGOR_MAWTRIBES
+};
+
+bool Ironblaster::s_registered = false;
+
+Unit *Ironblaster::Create(const ParameterList &parameters)
+{
+    auto unit = new Ironblaster();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+std::string Ironblaster::ValueToString(const Parameter &parameter)
+{
+    return MawtribesBase::ValueToString(parameter);
+}
+
+int Ironblaster::EnumStringToInt(const std::string &enumString)
+{
+    return MawtribesBase::EnumStringToInt(enumString);
+}
+
+void Ironblaster::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Ironblaster", factoryMethod);
+    }
+}
+
+Ironblaster::Ironblaster() :
+    MawtribesBase("Ironblaster", 7, WOUNDS, 6, 4, false),
+    m_cannonBall(Weapon::Type::Missile, "Ironblaster Cannon: Cannon Ball", 24, 1, 4, 2, -2, RAND_D6),
+    m_hailShot(Weapon::Type::Missile, "Ironblaster Cannon: Hail Shot", 12, 6, 3, 3, -1, 1),
+    m_clubber(Weapon::Type::Melee, "Gunner's Clubber", 1, 3, 3, 3, 0, 2),
+    m_horns(Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 2, 4, 3, -1, RAND_D3),
+    m_blade(Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1)
+{
+    m_keywords = {DESTRUCTION, OGOR, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, IRONBLASTER};
+}
+
+bool Ironblaster::configure()
+{
+    Model model(BASESIZE, WOUNDS);
+
+    m_hailShot.activate(false);
+
+    model.addMissileWeapon(&m_cannonBall);
+    model.addMissileWeapon(&m_hailShot);
+    model.addMeleeWeapon(&m_clubber);
+    model.addMeleeWeapon(&m_horns);
+    model.addMeleeWeapon(&m_blade);
+
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
+}
+
+void Ironblaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
+{
+    visitor(m_cannonBall);
+    visitor(m_hailShot);
+    visitor(m_clubber);
+    visitor(m_horns);
+    visitor(m_blade);
+}
+
+Wounds Ironblaster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Rhinox Charge
+    if (m_charged && (weapon->name() == m_horns.name()))
+    {
+        return {weapon->damage()+1, 0};
+    }
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void Ironblaster::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    auto board = Board::Instance();
+    PlayerId otherPlayer = PlayerId::Red;
+    if (player == PlayerId::Red)
+    {
+        otherPlayer = PlayerId::Blue;
+    }
+    auto otherRoster = board->getPlayerRoster(otherPlayer);
+
+    auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+    if (nearestUnit)
+    {
+        float rangeTo = distanceTo(nearestUnit);
+        if (rangeTo < m_hailShot.range())
+        {
+            m_hailShot.activate(true);
+            m_cannonBall.activate(false);
+        }
+        else
+        {
+            m_hailShot.activate(false);
+            m_cannonBall.activate(true);
+        }
+    }
+}
+
+} // namespace OgorMawtribes

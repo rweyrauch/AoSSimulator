@@ -12,6 +12,7 @@
 std::random_device Dice::s_rd;
 std::mt19937 Dice::s_gen(s_rd());
 std::uniform_int_distribution<int> Dice::s_d6(1, 6);
+std::uniform_int_distribution<int> Dice::s_d4(1, 4);
 
 Dice::Dice() = default;
 
@@ -38,6 +39,11 @@ int Dice::roll4D6()
 int Dice::rollD3()
 {
     return (s_d6(s_gen) + 1) / 2;
+}
+
+int Dice::rollD4()
+{
+    return (s_d4(s_gen));
 }
 
 std::vector<int> Dice::rollD6(int number)

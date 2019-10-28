@@ -60,7 +60,6 @@ void Battlemage::Init()
     {
         s_registered = UnitFactory::Register("Battlemage", factoryMethod);
     }
-
 }
 
 Battlemage::Battlemage() :

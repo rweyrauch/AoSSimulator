@@ -448,6 +448,17 @@ add_library(
         citiesofsigmar/WarHydra.cpp
         citiesofsigmar/WildRiders.cpp
         citiesofsigmar/WildwoodRangers.cpp
+
+        mawtribes/MawtribesBase.cpp
+        mawtribes/Tyrant.cpp
+        mawtribes/OgorGluttons.cpp
+        mawtribes/Leadbelchers.cpp
+        mawtribes/Ironblaster.cpp
+
+        ossiarch/OssiarchBonereaperBase.cpp
+        ossiarch/MortekGuard.cpp
+        ossiarch/NecropolisStalkers.cpp
+        ossiarch/Vokmortian.cpp
 )
 
 target_include_directories(
