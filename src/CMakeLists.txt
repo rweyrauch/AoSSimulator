@@ -459,6 +459,8 @@ add_library(
         ossiarch/MortekGuard.cpp
         ossiarch/NecropolisStalkers.cpp
         ossiarch/Vokmortian.cpp
+        ossiarch/KavalosDeathriders.cpp
+        ossiarch/ImmortisGuard.cpp
 )
 
 target_include_directories(

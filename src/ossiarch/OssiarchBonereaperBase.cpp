@@ -11,6 +11,8 @@
 #include "ossiarch/MortekGuard.h"
 #include "ossiarch/NecropolisStalkers.h"
 #include "ossiarch/Vokmortian.h"
+#include "ossiarch/ImmortisGuard.h"
+#include "ossiarch/KavalosDeathriders.h"
 
 namespace OssiarchBonereapers
 {
@@ -27,6 +29,8 @@ int OssiarchBonereaperBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
+    ImmortisGuard::Init();
+    KavalosDeathriders::Init();
     MortekGuard::Init();
     NecropolisStalkers::Init();
     Vokmortian::Init();
