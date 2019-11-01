@@ -13,6 +13,10 @@
 #include "ossiarch/Vokmortian.h"
 #include "ossiarch/ImmortisGuard.h"
 #include "ossiarch/KavalosDeathriders.h"
+#include "ossiarch/GothizzarHarvester.h"
+#include "ossiarch/MortekCrawler.h"
+#include "ossiarch/OrpheonKatakros.h"
+#include "ossiarch/LiegeKavalos.h"
 
 namespace OssiarchBonereapers
 {
@@ -29,10 +33,14 @@ int OssiarchBonereaperBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
+    GothizzarHarvester::Init();
     ImmortisGuard::Init();
     KavalosDeathriders::Init();
+    LiegeKavalos::Init();
+    MortekCrawler::Init();
     MortekGuard::Init();
     NecropolisStalkers::Init();
+    OrpheonKatakros::Init();
     Vokmortian::Init();
 }
 

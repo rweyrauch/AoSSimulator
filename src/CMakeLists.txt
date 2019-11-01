@@ -461,6 +461,10 @@ add_library(
         ossiarch/Vokmortian.cpp
         ossiarch/KavalosDeathriders.cpp
         ossiarch/ImmortisGuard.cpp
+        ossiarch/GothizzarHarvester.cpp
+        ossiarch/MortekCrawler.cpp
+        ossiarch/OrpheonKatakros.cpp
+        ossiarch/LiegeKavalos.cpp
 )
 
 target_include_directories(
