@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef IMMORTISGUARD_H
-#define IMMORTISGUARD_H
+#ifndef SOULMASON_H
+#define SOULMASON_H
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -15,16 +15,13 @@
 namespace OssiarchBonereapers
 {
 
-class ImmortisGuard : public OssiarchBonereaperBase
+class MortisanSoulmason : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 200;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 180;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -34,21 +31,20 @@ public:
 
     static void Init();
 
-    ImmortisGuard();
-    ~ImmortisGuard() override = default;
+    MortisanSoulmason();
+    ~MortisanSoulmason() override = default;
 
-    bool configure(int numModels);
+    bool configure();
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
 private:
 
-    Weapon m_halberd,
-        m_battleShield;
+
+    Weapon m_staff,
+        m_claws;
 
     static bool s_registered;
 };
@@ -57,11 +53,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deadly Combination               Yes
-// Soulbound Protectors             No
-// Crushing Assault                 No
+// Mortek Throne                    No
+// Soul-guide                       No
 //
 
 } // namespace OssiarchBonereapers
 
-#endif //IMMORTISGUARD_H
+#endif //SOULMASON_H

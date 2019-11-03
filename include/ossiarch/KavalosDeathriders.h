@@ -19,12 +19,12 @@ class KavalosDeathriders : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 60; // x35
     static const int WOUNDS = 3;
     static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int MAX_UNIT_SIZE = 15;
+    static const int POINTS_PER_BLOCK = 180;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
     enum WeaponOption
     {

@@ -465,6 +465,10 @@ add_library(
         ossiarch/MortekCrawler.cpp
         ossiarch/OrpheonKatakros.cpp
         ossiarch/LiegeKavalos.cpp
+        ossiarch/KavalosZandtos.cpp
+        ossiarch/Boneshaper.cpp
+        ossiarch/Soulmason.cpp
+        ossiarch/Soulreaper.cpp
 )
 
 target_include_directories(

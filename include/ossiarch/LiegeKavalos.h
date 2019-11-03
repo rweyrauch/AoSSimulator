@@ -19,9 +19,9 @@ class LiegeKavalos : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 80;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 110;
+    static const int POINTS_PER_UNIT = 200;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -54,6 +54,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Unstoppable Charge               No
+// Endless Duty                     No
 //
 
 } // namespace OssiarchBonereapers

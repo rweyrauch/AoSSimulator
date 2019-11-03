@@ -19,9 +19,9 @@ class Vokmortian : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 32;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int POINTS_PER_UNIT = 180;
 
     static Unit* Create(const ParameterList& parameters);
 

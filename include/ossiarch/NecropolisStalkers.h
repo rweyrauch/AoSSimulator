@@ -19,12 +19,12 @@ class NecropolisStalkers : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 50;
     static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int MAX_UNIT_SIZE = 6;
+    static const int POINTS_PER_BLOCK = 200;
+    static const int POINTS_MAX_UNIT_SIZE = 400;
 
     static Unit* Create(const ParameterList& parameters);
 
