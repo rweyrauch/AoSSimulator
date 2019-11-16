@@ -375,6 +375,7 @@ enum Keyword
     SKITTERSTRAND,
     SNEAKY_SNUFFERS,
     SCUTTLEBOSS,
+    RIPPAS_SNARLFANGS,
 
     // Daughters of Khaine
     MELUSAI,
@@ -523,6 +524,7 @@ enum Keyword
     MORGHAST,
     MORGHAST_ARCHAI,
     MORGHAST_HARBINGERS,
+    ARKHAN,
 
     // Flesh-eater Court
     MORDANT,

@@ -172,6 +172,7 @@ add_library(
         gloomspitegitz/SkitterstrandArachnarok.cpp
         gloomspitegitz/SneakySnufflers.cpp
         gloomspitegitz/ScuttlebossOnSpider.cpp
+        gloomspitegitz/RippasSnarlfangs.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
@@ -469,6 +470,9 @@ add_library(
         ossiarch/Boneshaper.cpp
         ossiarch/Soulmason.cpp
         ossiarch/Soulreaper.cpp
+        ossiarch/MorghastArchai.cpp
+        ossiarch/MorghastHarbingers.cpp
+        ossiarch/ArkhanTheBlack.cpp
 )
 
 target_include_directories(

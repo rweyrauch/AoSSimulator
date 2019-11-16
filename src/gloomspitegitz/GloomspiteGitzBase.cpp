@@ -37,6 +37,7 @@
 #include "gloomspitegitz/SkitterstrandArachnarok.h"
 #include "gloomspitegitz/SneakySnufflers.h"
 #include "gloomspitegitz/ScuttlebossOnSpider.h"
+#include "gloomspitegitz/RippasSnarlfangs.h"
 
 namespace GloomspiteGitz
 {
@@ -200,6 +201,7 @@ void Init()
     SkitterstrandArachnarok::Init();
     ScuttlebossOnGiganticSpider::Init();
     SneakySnufflers::Init();
+    RippasSnarlfangs::Init();
 }
 
 } //namespace GloomspiteGitz

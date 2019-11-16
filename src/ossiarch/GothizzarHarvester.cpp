@@ -58,11 +58,18 @@ Unit *GothizzarHarvester::Create(const ParameterList &parameters)
 
 std::string GothizzarHarvester::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Weapon")
+    {
+        if (parameter.m_intValue == Sickles) return "Soulcleaver Sickles";
+        else if (parameter.m_intValue == Bludgeons) return "Soulcrusher Bludgeons";
+    }
     return OssiarchBonereaperBase::ValueToString(parameter);
 }
 
 int GothizzarHarvester::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Soulcleaver Sickles") return Sickles;
+    else if (enumString == "Soulcrusher Bludgeons") return Bludgeons;
     return OssiarchBonereaperBase::EnumStringToInt(enumString);
 }
 
@@ -132,6 +139,28 @@ int GothizzarHarvester::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int GothizzarHarvester::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Soulcleaver Sickles
+    if ((weapon->name() == m_sickles.name()) && (target->remainingModels() >= 5))
+    {
+        mod++;
+    }
+    return mod;
+}
+
+Wounds GothizzarHarvester::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Soulcrusher Bludgeons
+    if ((hitRoll == 6) && (weapon->name() == m_bludgeons.name()))
+    {
+        return {0, 2};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace OssiarchBonereapers

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef KAVALOSZANDTOS_H
-#define KAVALOSZANDTOS_H
+#ifndef ARKHANTHEBLACK_H
+#define ARKHANTHEBLACK_H
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -15,13 +15,13 @@
 namespace OssiarchBonereapers
 {
 
-class ArchKavalosZandtos : public OssiarchBonereaperBase
+class ArkhanTheBlack : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 80;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 220;
+    static const int BASESIZE = 105;
+    static const int WOUNDS = 11;
+    static const int POINTS_PER_UNIT = 360;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -31,8 +31,10 @@ public:
 
     static void Init();
 
-    ArchKavalosZandtos();
-    ~ArchKavalosZandtos() override = default;
+    ArkhanTheBlack();
+    ~ArkhanTheBlack() override = default;
+
+    int move() const override;
 
     bool configure();
 
@@ -40,14 +42,17 @@ public:
 
 protected:
 
+    void onWounded() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
-    Weapon m_lance,
-        m_shield,
-        m_hoovesAndTeeth;
+    int getDamageTableIndex() const;
+
+    Weapon m_zefetKar,
+        m_khenashAn,
+        m_claws,
+        m_clawsAndDaggers;
 
     static bool s_registered;
 };
@@ -56,13 +61,14 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// The Dark Lance                   Yes
-// Hatred of the Living             Yes
-// Unstoppable Charge               No
-// Endless Duty                     No
-// Still Their Breath               No
+// Feaster of Souls                 No
+// Frightful Touch                  Yes
+// Staff of Spirits                 No
+// Mortarch of Sacrament            No
+// Curse of Years                   No
+// First of the Mortarchs           No
 //
 
 } // namespace OssiarchBonereapers
 
-#endif //KAVALOSZANDTOS_H
+#endif //ARKHANTHEBLACK_H

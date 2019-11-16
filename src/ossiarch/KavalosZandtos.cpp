@@ -82,4 +82,28 @@ void ArchKavalosZandtos::visitWeapons(std::function<void(const Weapon &)> &visit
     visitor(m_hoovesAndTeeth);
 }
 
+Wounds ArchKavalosZandtos::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // The Dark Lance
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        return { 3, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+Rerolls ArchKavalosZandtos::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Hatred of the Living
+    if (target->hasKeyword(ORDER) || target->hasKeyword(DESTRUCTION))
+    {
+        return RerollOnes;
+    }
+    else if (target->hasKeyword(CHAOS))
+    {
+        return RerollFailed;
+    }
+    return Unit::toWoundRerolls(weapon, target);
+}
+
 } // namespace OssiarchBonereapers
