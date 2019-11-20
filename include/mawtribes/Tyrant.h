@@ -21,7 +21,7 @@ public:
 
     static const int BASESIZE = 50;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 80;
+    static const int POINTS_PER_UNIT = 160;
 
     enum BigName
     {

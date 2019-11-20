@@ -376,6 +376,8 @@ enum Keyword
     SNEAKY_SNUFFERS,
     SCUTTLEBOSS,
     RIPPAS_SNARLFANGS,
+    ZARBAG,
+    ZARBAGS_GITZ,
 
     // Daughters of Khaine
     MELUSAI,

@@ -12,6 +12,10 @@
 #include "mawtribes/Ironblaster.h"
 #include "mawtribes/Leadbelchers.h"
 #include "mawtribes/OgorGluttons.h"
+#include "mawtribes/Butcher.h"
+#include "mawtribes/Slaughtermaster.h"
+#include "mawtribes/Gorgers.h"
+#include "mawtribes/Ironguts.h"
 
 namespace OgorMawtribes
 {
@@ -28,10 +32,14 @@ int MawtribesBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
+    Butcher::Init();
     Tyrant::Init();
     Ironblaster::Init();
     Leadbelchers::Init();
     OgorGluttons::Init();
+    Slaughtermaster::Init();
+    Gorgers::Init();
+    Ironguts::Init();
 }
 
 } // namespace OgorMawtribes

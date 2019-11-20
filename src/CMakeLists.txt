@@ -173,6 +173,8 @@ add_library(
         gloomspitegitz/SneakySnufflers.cpp
         gloomspitegitz/ScuttlebossOnSpider.cpp
         gloomspitegitz/RippasSnarlfangs.cpp
+        gloomspitegitz/Zarbag.cpp
+        gloomspitegitz/ZarbagsGitz.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
@@ -455,6 +457,10 @@ add_library(
         mawtribes/OgorGluttons.cpp
         mawtribes/Leadbelchers.cpp
         mawtribes/Ironblaster.cpp
+        mawtribes/Slaughtermaster.cpp
+        mawtribes/Butcher.cpp
+        mawtribes/Gorgers.cpp
+        mawtribes/Ironguts.cpp
 
         ossiarch/OssiarchBonereaperBase.cpp
         ossiarch/MortekGuard.cpp

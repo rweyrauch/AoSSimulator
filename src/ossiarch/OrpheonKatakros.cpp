@@ -119,7 +119,7 @@ void OrpheonKatakros::onWounded()
         m_greatblade.activate(false);
         m_indaKhaat.setAttacks(2);
     }
-    else if (woundsTaken() >= 1)
+    else if (woundsTaken() >= 2)
     {
         m_nadiriteDagger.activate(false);
     }

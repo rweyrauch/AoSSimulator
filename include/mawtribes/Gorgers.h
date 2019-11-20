@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LEADBELCHERS_H
-#define LEADBELCHERS_H
+#ifndef GORGERS_H
+#define GORGERS_H
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -15,27 +15,23 @@
 namespace OgorMawtribes
 {
 
-class Leadbelchers : public MawtribesBase
+class Gorgers : public MawtribesBase
 {
 public:
 
     static const int BASESIZE = 40;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
+    static const int WOUNDS = 5;
+    static const int MIN_UNIT_SIZE = 1;
+    static const int MAX_UNIT_SIZE = 3;
     static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int POINTS_MAX_UNIT_SIZE = 240;
 
     static Unit* Create(const ParameterList& parameters);
 
-    static std::string ValueToString(const Parameter &parameter);
-
-    static int EnumStringToInt(const std::string &enumString);
-
     static void Init();
 
-    Leadbelchers();
-    ~Leadbelchers() override = default;
+    Gorgers();
+    ~Gorgers() override = default;
 
     bool configure(int numModels);
 
@@ -43,14 +39,11 @@ public:
 
 protected:
 
-    void onStartShooting(PlayerId player) override;
 
 private:
 
-    Weapon m_gun,
-        m_blow,
-        m_bite,
-        m_blowThunderfist;
+    Weapon m_claws,
+        m_jaw;
 
     static bool s_registered;
 };
@@ -59,9 +52,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Thunderous Blasts of Hot Metal   Yes
-//
+// Ambushing Hunters                No
+// Insatiable Hunger                No
 
 } // namespace OgorMawtribes
 
-#endif //LEADBELCHERS_H
+#endif //GORGERS_H

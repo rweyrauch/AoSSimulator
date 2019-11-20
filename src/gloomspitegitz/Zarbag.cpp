@@ -5,19 +5,16 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
-#include <gloomspitegitz/MadcapShaman.h>
+#include <gloomspitegitz/Zarbag.h>
 #include <UnitFactory.h>
-#include <iostream>
-#include <Board.h>
 #include <spells/MysticShield.h>
 
 namespace GloomspiteGitz
 {
 static FactoryMethod factoryMethod = {
-    MadcapShaman::Create,
-    MadcapShaman::ValueToString,
-    MadcapShaman::EnumStringToInt,
+    Zarbag::Create,
+    Zarbag::ValueToString,
+    Zarbag::EnumStringToInt,
     {
         {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
     },
@@ -25,27 +22,27 @@ static FactoryMethod factoryMethod = {
     GLOOMSPITE_GITZ
 };
 
-bool MadcapShaman::s_registered = false;
+bool Zarbag::s_registered = false;
 
-MadcapShaman::MadcapShaman() :
-    GloomspiteGitzBase("Madcap Shaman", 5, WOUNDS, 4, 6, false),
-    m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3)
+Zarbag::Zarbag() :
+    GloomspiteGitzBase("Zarbag", 5, WOUNDS, 4, 6, false),
+    m_sickle(Weapon::Type::Melee, "Cursed Sickle", 2, 3, 3, 3, -1, 1)
 {
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
+    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN, ZARBAG};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
 }
 
-bool MadcapShaman::configure(LoreOfTheMoonclans lore)
+bool Zarbag::configure(LoreOfTheMoonclans lore)
 {
     Model model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_moonStaff);
+    model.addMeleeWeapon(&m_sickle);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    //m_knownSpells.push_back(std::make_unique<NightShroud>(this));
+    //m_knownSpells.push_back(std::make_unique<FaceOfDaBadMoon>(this));
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
 
     addModel(model);
@@ -55,9 +52,9 @@ bool MadcapShaman::configure(LoreOfTheMoonclans lore)
     return true;
 }
 
-Unit *MadcapShaman::Create(const ParameterList &parameters)
+Unit *Zarbag::Create(const ParameterList &parameters)
 {
-    auto unit = new MadcapShaman();
+    auto unit = new Zarbag();
     auto lore = (LoreOfTheMoonclans)GetEnumParam("Lore of the Moonclans", parameters, (int)LoreOfTheMoonclans ::None);
 
     bool ok = unit->configure(lore);
@@ -69,20 +66,20 @@ Unit *MadcapShaman::Create(const ParameterList &parameters)
     return unit;
 }
 
-void MadcapShaman::Init()
+void Zarbag::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Madcap Shaman", factoryMethod);
+        s_registered = UnitFactory::Register("Zarbag", factoryMethod);
     }
 }
 
-void MadcapShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
+void Zarbag::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
-    visitor(m_moonStaff);
+    visitor(m_sickle);
 }
 
-std::string MadcapShaman::ValueToString(const Parameter &parameter)
+std::string Zarbag::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "Lore of the Moonclans")
     {
@@ -91,7 +88,7 @@ std::string MadcapShaman::ValueToString(const Parameter &parameter)
     return ParameterValueToString(parameter);
 }
 
-int MadcapShaman::EnumStringToInt(const std::string &enumString)
+int Zarbag::EnumStringToInt(const std::string &enumString)
 {
     LoreOfTheMoonclans lore;
     if (FromString(enumString, lore))

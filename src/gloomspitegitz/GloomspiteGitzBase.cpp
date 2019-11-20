@@ -38,6 +38,8 @@
 #include "gloomspitegitz/SneakySnufflers.h"
 #include "gloomspitegitz/ScuttlebossOnSpider.h"
 #include "gloomspitegitz/RippasSnarlfangs.h"
+#include "gloomspitegitz/Zarbag.h"
+#include "gloomspitegitz/ZarbagsGitz.h"
 
 namespace GloomspiteGitz
 {
@@ -202,6 +204,8 @@ void Init()
     ScuttlebossOnGiganticSpider::Init();
     SneakySnufflers::Init();
     RippasSnarlfangs::Init();
+    Zarbag::Init();
+    ZarbagsGitz::Init();
 }
 
 } //namespace GloomspiteGitz
