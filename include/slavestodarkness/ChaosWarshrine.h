@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDONDRAK_H
-#define LORDONDRAK_H
+#ifndef CHAOSWARSHRINE_H
+#define CHAOSWARSHRINE_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,37 +15,35 @@
 namespace SlavesToDarkness
 {
 
-class ChaosLordOnKarkadrak : public Unit
+class ChaosWarshrine : public Unit
 {
 public:
 
     static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 9;
+    static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
-
     static void Init();
 
-    ChaosLordOnKarkadrak();
-    ~ChaosLordOnKarkadrak() override = default;
+    ChaosWarshrine();
+    ~ChaosWarshrine() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
+    int move() const override;
+
 protected:
 
-    void onCharged() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onWounded() override;
+    int getDamageTableIndex() const;
 
 private:
 
-    Weapon m_battleAxe,
-        m_blade,
-        m_hornsAndClaws,
-        m_tail;
+    Weapon m_blade,
+        m_fists;
 
     static bool s_registered;
 };
@@ -54,13 +52,16 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brutish Rampage                  Yes
-// Daemonbound                      Yes
-// Fuelled by Carnage               No
-// Rune-etched Plating              Yes
-// The Knights of Chaos             No
+// Mark of Chaos                    No
+// Protection of the Dark Gods      No
+// Favour of the Ruinous Powers     No
+//   Favour of Khorne               No
+//   Favour of Tzeentch             No
+//   Favour of Nurgle               No
+//   Favour of Slaanesh             No
+//   Favour of Chaos                No
 //
 
 } // SlavesToDarkness
 
-#endif //LORDONDRAK_H
+#endif //CHAOSWARSHRINE_H

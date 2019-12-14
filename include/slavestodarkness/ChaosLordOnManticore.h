@@ -52,6 +52,12 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     WeaponOption m_weapon = WeaponOption::BladeAndShield;
@@ -69,11 +75,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Chaos Runeshield                 No
-// Daemonbound                      No
-// Chaos Lance                      No
-// Daggerfist                       No
-// Territorial Predator             No
+// Chaos Runeshield                 Yes
+// Daemonbound                      Yes
+// Chaos Lance                      Yes
+// Daggerfist                       Yes
+// Territorial Predator             Yes
 // Iron-willed Overlord             No
 // Mark of Chaos                    No
 //

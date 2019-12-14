@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "slavestodarkness/ChaosLordOnKarkadrak.h"
 
 namespace SlavesToDarkness
@@ -74,6 +75,47 @@ void ChaosLordOnKarkadrak::visitWeapons(std::function<void(const Weapon &)> &vis
     visitor(m_blade);
     visitor(m_hornsAndClaws);
     visitor(m_tail);
+}
+
+void ChaosLordOnKarkadrak::onCharged()
+{
+    Unit::onCharged();
+
+    // Brutish Rampage
+    if (m_charged)
+    {
+        Dice dice;
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+        for (auto unit : units)
+        {
+            if (dice.rollD6() >= 2)
+            {
+                unit->applyDamage({0, dice.rollD3()});
+            }
+        }
+    }
+}
+
+Wounds ChaosLordOnKarkadrak::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    // Daemonbound
+    if ((hitRoll == 6) && (weapon->name() == m_blade.name()))
+    {
+        damage.mortal++;
+    }
+    return damage;
+}
+
+Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds)
+{
+    auto savedWounds = Unit::applyWoundSave(wounds);
+    Dice dice;
+    Dice::RollResult result;
+    // Rune-etched Plating
+    dice.rollD6(savedWounds.mortal, result);
+    savedWounds.mortal -= result.rollsGE(5);
+    return savedWounds;
 }
 
 } //namespace SlavesToDarkness

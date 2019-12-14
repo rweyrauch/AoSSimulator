@@ -395,6 +395,7 @@ add_library(
         slavestodarkness/UntamedBeasts.cpp
         slavestodarkness/ChaosLordOnKarkadrak.cpp
         slavestodarkness/ChaosLordOnManticore.cpp
+        slavestodarkness/ChaosWarshrine.cpp
 
         freeagents/GotrekGurnisson.cpp
 

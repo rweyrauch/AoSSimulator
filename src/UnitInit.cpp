@@ -97,6 +97,7 @@
 #include "slavestodarkness/UntamedBeasts.h"
 #include "slavestodarkness/ChaosLordOnKarkadrak.h"
 #include "slavestodarkness/ChaosLordOnManticore.h"
+#include "slavestodarkness/ChaosWarshrine.h"
 
 #include "freeagents/GotrekGurnisson.h"
 
@@ -216,7 +217,7 @@ void Initialize(Verbosity verbosity)
     SlavesToDarkness::UntamedBeasts::Init();
     SlavesToDarkness::ChaosLordOnKarkadrak::Init();
     SlavesToDarkness::ChaosLordOnManticore::Init();
-
+    SlavesToDarkness::ChaosWarshrine::Init();
 
     FreeAgent::GotrekGurnisson::Init();
 

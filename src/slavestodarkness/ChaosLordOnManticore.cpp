@@ -180,4 +180,66 @@ int ChaosLordOnManticore::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
+Wounds ChaosLordOnManticore::applyWoundSave(const Wounds &wounds)
+{
+    auto savedWounds = Unit::applyWoundSave(wounds);
+    Dice dice;
+    Dice::RollResult result;
+    // Chaos Runeshield
+    dice.rollD6(savedWounds.mortal, result);
+    savedWounds.mortal -= result.rollsGE(5);
+    return savedWounds;
+}
+
+Wounds ChaosLordOnManticore::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    // Daemonbound
+    if ((hitRoll == 6) && (weapon->name() == m_blade.name()))
+    {
+        damage.mortal++;
+    }
+    // Chaos Lance
+    else if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        damage.normal++;
+    }
+    return damage;
+}
+
+Wounds ChaosLordOnManticore::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    auto damage = Unit::computeReturnedDamage(weapon, saveRoll);
+
+    // Daggerfist
+    if ((saveRoll == 6) && (!weapon->isMissile()) &&
+        (m_weapon == WeaponOption::FlailAndDaggerfist || m_weapon == WeaponOption::BladeAndDaggerfist))
+    {
+        damage.mortal++;
+    }
+    return damage;
+}
+
+int ChaosLordOnManticore::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+
+    // Chaos Lance
+    if (m_charged && (weapon->name() == m_lance.name()))
+    {
+        rend -= 2;
+    }
+    return rend;
+}
+
+Rerolls ChaosLordOnManticore::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Territorial Predator
+    if ((weapon->name() == m_fangsAndClaws.name()) && (target->hasKeyword(MONSTER)))
+    {
+        return RerollFailed;
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
 } //namespace SlavesToDarkness
