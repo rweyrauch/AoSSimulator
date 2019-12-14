@@ -95,6 +95,8 @@
 #include "slavestodarkness/SplinteredFang.h"
 #include "slavestodarkness/TheUnmade.h"
 #include "slavestodarkness/UntamedBeasts.h"
+#include "slavestodarkness/ChaosLordOnKarkadrak.h"
+#include "slavestodarkness/ChaosLordOnManticore.h"
 
 #include "freeagents/GotrekGurnisson.h"
 
@@ -212,6 +214,9 @@ void Initialize(Verbosity verbosity)
     SlavesToDarkness::SplinteredFang::Init();
     SlavesToDarkness::TheUnmade::Init();
     SlavesToDarkness::UntamedBeasts::Init();
+    SlavesToDarkness::ChaosLordOnKarkadrak::Init();
+    SlavesToDarkness::ChaosLordOnManticore::Init();
+
 
     FreeAgent::GotrekGurnisson::Init();
 

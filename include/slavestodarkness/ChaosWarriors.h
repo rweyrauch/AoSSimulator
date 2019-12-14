@@ -84,7 +84,7 @@ private:
 // Hornblower                       Yes
 // Chaos Runeshields                Yes
 // Mark of Chaos                    No
-// Berserk Fury                     Yes
+// Pair of Chaos Hand Weapons       Yes
 // Legions of Chaos                 Yes
 //
 

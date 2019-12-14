@@ -21,7 +21,11 @@ static FactoryMethod factoryMethod = {
         },
         {
             ParamType::Enum, "Weapons", ChaosKnights::EnsorcelledWeapon, ChaosKnights::EnsorcelledWeapon,
-            ChaosKnights::ChaosGlaive, 1
+            ChaosKnights::CursedLance, 1
+        },
+        {
+            ParamType::Enum, "Doom Knight Weapon", ChaosKnights::EnsorcelledWeapon, ChaosKnights::EnsorcelledWeapon,
+            ChaosKnights::CursedFlail, 1
         },
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
@@ -37,10 +41,11 @@ Unit *ChaosKnights::Create(const ParameterList &parameters)
     auto unit = new ChaosKnights();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, EnsorcelledWeapon);
+    auto doomWeapon = (WeaponOption)GetEnumParam("Doom Knight Weapon", parameters, EnsorcelledWeapon);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
-    bool ok = unit->configure(numModels, weapons, standardBearer, hornblower);
+    bool ok = unit->configure(numModels, weapons, doomWeapon, standardBearer, hornblower);
     if (!ok)
     {
         delete unit;
@@ -59,18 +64,23 @@ void ChaosKnights::Init()
 
 ChaosKnights::ChaosKnights() :
     Unit("Chaos Knights", 10, WOUNDS, 7, 4, false),
-    m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 4, 0, 1),
-    m_glaive(Weapon::Type::Melee, "Chaos Glaive", 1, 2, 4, 3, 0, 1),
-    m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 2, 4, 0, 1),
-    m_glaiveLeader(Weapon::Type::Melee, "Chaos Glaive", 1, 2, 3, 3, 0, 1),
-    m_hooves(Weapon::Type::Melee, "War Steed's Roughshod Hooves", 1, 2, 4, 4, 0, 1)
+    m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 3, -1, 1),
+    m_lance(Weapon::Type::Melee, "Cursed Lance", 2, 2, 4, 3, 0, 1),
+    m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 4, 3, 3, -1, 1),
+    m_lanceLeader(Weapon::Type::Melee, "Cursed Lance", 2, 3, 4, 3, 0, 1),
+    m_flailLeader(Weapon::Type::Melee, "Cursed Flail", 2, RAND_D6, 4, 3, 0, 1),
+    m_hooves(Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1)
 {
-    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_KNIGHTS};
+    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_KNIGHTS};
 }
 
-bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower)
+bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+    if (weapons == CursedFlail)
     {
         return false;
     }
@@ -79,13 +89,17 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardB
     m_hornblower = hornblower;
 
     Model leader(BASESIZE, WOUNDS);
-    if (weapons == EnsorcelledWeapon)
+    if (doomKnightWeapon == EnsorcelledWeapon)
     {
         leader.addMeleeWeapon(&m_ensorcelledWeaponLeader);
     }
-    else if (weapons == ChaosGlaive)
+    else if (doomKnightWeapon == CursedLance)
     {
-        leader.addMeleeWeapon(&m_glaiveLeader);
+        leader.addMeleeWeapon(&m_lanceLeader);
+    }
+    else if (doomKnightWeapon == CursedFlail)
+    {
+        leader.addMeleeWeapon(&m_flailLeader);
     }
     leader.addMeleeWeapon(&m_hooves);
     leader.setName("Doom Knight");
@@ -97,8 +111,8 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardB
         model.setName("Standard Bearer");
         if (weapons == EnsorcelledWeapon)
             model.addMeleeWeapon(&m_ensorcelledWeapon);
-        else if (weapons == ChaosGlaive)
-            model.addMeleeWeapon(&m_glaive);
+        else if (weapons == CursedLance)
+            model.addMeleeWeapon(&m_lance);
         model.addMeleeWeapon(&m_hooves);
         addModel(model);
     }
@@ -109,8 +123,8 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardB
         model.setName("Hornblower");
         if (weapons == EnsorcelledWeapon)
             model.addMeleeWeapon(&m_ensorcelledWeapon);
-        else if (weapons == ChaosGlaive)
-            model.addMeleeWeapon(&m_glaive);
+        else if (weapons == CursedLance)
+            model.addMeleeWeapon(&m_lance);
         model.addMeleeWeapon(&m_hooves);
         addModel(model);
     }
@@ -120,8 +134,8 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardB
         Model model(BASESIZE, WOUNDS);
         if (weapons == EnsorcelledWeapon)
             model.addMeleeWeapon(&m_ensorcelledWeapon);
-        else if (weapons == ChaosGlaive)
-            model.addMeleeWeapon(&m_glaive);
+        else if (weapons == CursedLance)
+            model.addMeleeWeapon(&m_lance);
         model.addMeleeWeapon(&m_hooves);
         addModel(model);
     }
@@ -138,23 +152,28 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, bool standardB
 void ChaosKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
 {
     visitor(m_ensorcelledWeapon);
-    visitor(m_glaive);
+    visitor(m_lance);
     visitor(m_ensorcelledWeaponLeader);
-    visitor(m_glaiveLeader);
+    visitor(m_lanceLeader);
+    visitor(m_flailLeader);
     visitor(m_hooves);
 }
 
 std::string ChaosKnights::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (parameter.m_name == "Weapons" || parameter.m_name == "Doom Knight Weapon")
     {
         if (parameter.m_intValue == EnsorcelledWeapon)
         {
             return "Ensorcelled Weapon";
         }
-        else if (parameter.m_intValue == ChaosGlaive)
+        else if (parameter.m_intValue == CursedLance)
         {
-            return "Chaos Glaive";
+            return "Cursed Lance";
+        }
+        else if (parameter.m_intValue == CursedFlail)
+        {
+            return "Cursed Flail";
         }
     }
     return ParameterValueToString(parameter);
@@ -162,13 +181,17 @@ std::string ChaosKnights::ValueToString(const Parameter &parameter)
 
 int ChaosKnights::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Chaos Glaive")
+    if (enumString == "Ensorcelled Weapon")
     {
-        return ChaosGlaive;
+        return EnsorcelledWeapon;
     }
-    else if (enumString == "Chaos Glaive")
+    else if (enumString == "Cursed Lance")
     {
-        return ChaosGlaive;
+        return CursedLance;
+    }
+    else if (enumString == "Cursed Flail")
+    {
+        return CursedFlail;
     }
     return 0;
 }
@@ -197,12 +220,9 @@ Wounds ChaosKnights::applyWoundSave(const Wounds &wounds)
 
     // Chaos Runeshield
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
     dice.rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
-    totalWounds.normal -= woundSaves.rollsGE(5);
-    totalWounds.normal = std::max(totalWounds.normal, 0);
     totalWounds.mortal -= mortalSaves.rollsGE(5);
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
@@ -251,9 +271,9 @@ void ChaosKnights::onRestore()
 Wounds ChaosKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Impaling Charge
-    if (m_charged && (weapon->name() == m_glaive.name()))
+    if (m_charged && (weapon->name() == m_lance.name()))
     {
-        return { 2, 0};
+        return { weapon->damage()+1, 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
@@ -261,9 +281,9 @@ Wounds ChaosKnights::weaponDamage(const Weapon *weapon, const Unit *target, int 
 int ChaosKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Impaling Charge
-    if (m_charged && (weapon->name() == m_glaive.name()))
+    if (m_charged && (weapon->name() == m_lance.name()))
     {
-        return -1;
+        return weapon->rend()-2;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
 }

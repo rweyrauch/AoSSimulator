@@ -58,15 +58,15 @@ void ChaosWarriors::Init()
 }
 
 ChaosWarriors::ChaosWarriors() :
-    Unit("Chaos Warriors", 5, WOUNDS, 6, 4, false),
-    m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 4, 0, 1),
-    m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 4, 4, 0, 1),
+    Unit("Chaos Warriors", 5, WOUNDS, 7, 4, false),
+    m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 3, 0, 1),
+    m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 3, 4, 0, 1),
     m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 4, 3, -1, 1),
-    m_handWeaponsChampion(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 2, 4, 0, 1),
-    m_halberdChampion(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 3, 4, 0, 1),
-    m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 3, 3, -1, 1)
+    m_handWeaponsChampion(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 3, 3, 3, 0, 1),
+    m_halberdChampion(Weapon::Type::Melee, "Chaos Halberd", 2, 3, 3, 4, 0, 1),
+    m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade", 1, 3, 4, 3, -1, 1)
 {
-    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_WARRIORS};
+    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
 }
 
 bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower)
@@ -239,12 +239,9 @@ Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds)
 
         // Chaos Runeshield
         Dice::RollResult woundSaves, mortalSaves;
-        dice.rollD6(wounds.normal, woundSaves);
         dice.rollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(5);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
         totalWounds.mortal -= mortalSaves.rollsGE(5);
         totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
@@ -276,7 +273,7 @@ int ChaosWarriors::braveryModifier() const
 
 Rerolls ChaosWarriors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    // Berserk Fury
+    // Pair of Chaos Hand Weapons
     if (m_pairedWeapons)
         return RerollOnes;
     return Unit::toHitRerolls(weapon, target);
@@ -285,7 +282,7 @@ Rerolls ChaosWarriors::toHitRerolls(const Weapon *weapon, const Unit *target) co
 Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon) const
 {
     // Legions of Chaos
-    if (remainingModels() >= 20)
+    if (remainingModels() >= 10)
         return RerollFailed;
     return Unit::toSaveRerolls(weapon);
 }

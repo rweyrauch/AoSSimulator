@@ -53,11 +53,11 @@ void ChaosChosen::Init()
 }
 
 ChaosChosen::ChaosChosen() :
-    Unit("Chaos Chosen", 5, WOUNDS, 7, 4, false),
-    m_greataxe(Weapon::Type::Melee, "Chaos Greataxe", 1, 3, 3, 3, -1, 1),
-    m_greataxeChampion(Weapon::Type::Melee, "Chaos Greataxe", 1, 4, 3, 3, -1, 1)
+    Unit("Chaos Chosen", 6, WOUNDS, 7, 4, false),
+    m_greataxe(Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1),
+    m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1)
 {
-    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_CHOSEN};
+    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
 }
 
 bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
@@ -145,13 +145,6 @@ int ChaosChosen::chargeModifier() const
     return modifier;
 }
 
-int ChaosChosen::braveryModifier() const
-{
-    auto modifier = Unit::braveryModifier();
-    if (m_iconBearer) modifier += 1;
-    return modifier;
-}
-
 void ChaosChosen::onRestore()
 {
     Unit::onRestore();
@@ -172,10 +165,10 @@ void ChaosChosen::onRestore()
 
 Wounds ChaosChosen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    // Chaos Greataxe
+    // Soul splitter
     if ((hitRoll >= 6) && (weapon->name() == m_greataxe.name()))
     {
-        return { 0, 1};
+        return { weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

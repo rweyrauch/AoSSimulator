@@ -41,7 +41,6 @@ protected:
     void onWounded() override;
     int runModifier() const override;
     int chargeModifier() const override;
-    int braveryModifier() const override;
     void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -62,11 +61,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon Bearer                      Yes
+// Icon Bearer                      No
 // Drummer                          Yes
 // Mark of Chaos                    No
 // Slaughter-leaders                No
-// Chaos Greataxe                   Yes
+// Soul Splitter                    Yes
 //
 
 } // SlavesToDarkness

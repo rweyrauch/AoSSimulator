@@ -681,6 +681,7 @@ enum Keyword
 
     // Everchosen
     ARCHAON,
+    UNDIVIDED,
 
     // Slaves to Darkness
     CULTISTS,
@@ -709,6 +710,9 @@ enum Keyword
     DARKOATH_WARQUEEN,
     LORD_ON_DAEMONIC_MOUNT,
     SLAMBO,
+    MARK_OF_CHAOS,
+    EYE_OF_THE_GODS,
+    MANTICORE,
 
     // Free Agents (no faction)
     GOTREK_GURNISSON,

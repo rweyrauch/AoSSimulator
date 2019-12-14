@@ -393,6 +393,8 @@ add_library(
         slavestodarkness/SplinteredFang.cpp
         slavestodarkness/TheUnmade.cpp
         slavestodarkness/UntamedBeasts.cpp
+        slavestodarkness/ChaosLordOnKarkadrak.cpp
+        slavestodarkness/ChaosLordOnManticore.cpp
 
         freeagents/GotrekGurnisson.cpp
 

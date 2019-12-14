@@ -20,12 +20,10 @@ static FactoryMethod factoryMethod = {
             ChaosMarauders::MAX_UNIT_SIZE, ChaosMarauders::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", ChaosMarauders::Axe, ChaosMarauders::Flail,
-            ChaosMarauders::Axe, 1
+            ParamType::Enum, "Weapons", ChaosMarauders::AxeAndShield, ChaosMarauders::Flail,
+            ChaosMarauders::AxeAndShield, 1
         },
-        {ParamType::Boolean, "Shields", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Damned Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Tribal Banner", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
@@ -38,12 +36,10 @@ Unit *ChaosMarauders::Create(const ParameterList &parameters)
 {
     auto unit = new ChaosMarauders();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, Axe);
-    bool shields = GetBoolParam("Shields", parameters, true);
-    bool damnedIcon = GetBoolParam("Damned Icon", parameters, false);
-    bool tribalBanner = GetBoolParam("Tribal Banner", parameters, false);
+    auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, AxeAndShield);
+    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool drummer = GetBoolParam("Drummer", parameters, false);
-    bool ok = unit->configure(numModels, weapons, shields, damnedIcon, tribalBanner, drummer);
+    bool ok = unit->configure(numModels, weapons, iconBearer, drummer);
     if (!ok)
     {
         delete unit;
@@ -62,28 +58,27 @@ void ChaosMarauders::Init()
 
 ChaosMarauders::ChaosMarauders() :
     Unit("Chaos Marauders", 6, WOUNDS, 5, 6, false),
-    m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 1, 4, 4, 0, 1),
-    m_flail(Weapon::Type::Melee, "Barbarian Flail", 1, 1, 5, 3, 0, 1),
-    m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
-    m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 1, 2, 5, 3, 0, 1)
+    m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
+    m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, 0, 1),
+    m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1),
+    m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, 0, 1)
 {
-    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_MARAUDERS};
+    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
 }
 
-bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool shields, bool damnedIcon, bool tribalBanner, bool drummer)
+bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    m_hasShields = shields;
-    m_damnedIcon = damnedIcon;
-    m_tribalBanner = tribalBanner;
+    m_weapons = weapons;
+    m_iconBearer = iconBearer;
     m_drummer = drummer;
 
     Model leader(BASESIZE, WOUNDS);
-    if (weapons == Axe)
+    if (weapons == AxeAndShield)
     {
         leader.addMeleeWeapon(&m_axeChieftain);
     }
@@ -94,22 +89,11 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool shields
     leader.setName("Marauder Chieftain");
     addModel(leader);
 
-    if (m_damnedIcon)
+    if (m_iconBearer)
     {
         Model model(BASESIZE, WOUNDS);
-        model.setName("Damned Icon Bearer");
-        if (weapons == Axe)
-            model.addMeleeWeapon(&m_axe);
-        else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
-        addModel(model);
-    }
-
-    if (m_tribalBanner)
-    {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Tribal Banner Bearer");
-        if (weapons == Axe)
+        model.setName("Icon Bearer");
+        if (weapons == AxeAndShield)
             model.addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
             model.addMeleeWeapon(&m_flail);
@@ -120,7 +104,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool shields
     {
         Model model(BASESIZE, WOUNDS);
         model.setName("Drummer");
-        if (weapons == Axe)
+        if (weapons == AxeAndShield)
             model.addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
             model.addMeleeWeapon(&m_flail);
@@ -130,14 +114,15 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool shields
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
         Model model(BASESIZE, WOUNDS);
-        if (weapons == Axe)
+        if (weapons == AxeAndShield)
             model.addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
             model.addMeleeWeapon(&m_flail);
         addModel(model);
     }
 
-    if (m_hasShields)
+    // Darkwood Shields
+    if (m_weapons == WeaponOption::AxeAndShield)
     {
         m_save = 5;
     }
@@ -163,9 +148,9 @@ std::string ChaosMarauders::ValueToString(const Parameter &parameter)
 {
     if (parameter.m_name == "Weapons")
     {
-        if (parameter.m_intValue == Axe)
+        if (parameter.m_intValue == AxeAndShield)
         {
-            return "Barbarian Axe";
+            return "Barbarian Axe and Darkwood Shield";
         }
         else if (parameter.m_intValue == Flail)
         {
@@ -177,9 +162,9 @@ std::string ChaosMarauders::ValueToString(const Parameter &parameter)
 
 int ChaosMarauders::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Barbarian Axe")
+    if (enumString == "Barbarian Axe and Darkwood Shield")
     {
-        return Axe;
+        return AxeAndShield;
     }
     else if (enumString == "Barbarian Flail")
     {
@@ -199,13 +184,9 @@ void ChaosMarauders::onWounded()
         {
             m_drummer = false;
         }
-        if (ip.slain() && (ip.getName() == "Damned Icon Bearer"))
+        if (ip.slain() && (ip.getName() == "Icon Bearer"))
         {
-            m_damnedIcon = false;
-        }
-        if (ip.slain() && (ip.getName() == "Tribal Banner Bearer"))
-        {
-            m_tribalBanner = false;
+            m_iconBearer = false;
         }
     }
 }
@@ -224,13 +205,6 @@ int ChaosMarauders::chargeModifier() const
     return modifier;
 }
 
-int ChaosMarauders::braveryModifier() const
-{
-    auto modifier = Unit::braveryModifier();
-    if (m_tribalBanner) modifier += 1;
-    return modifier;
-}
-
 void ChaosMarauders::onRestore()
 {
     Unit::onRestore();
@@ -242,57 +216,27 @@ void ChaosMarauders::onRestore()
         {
             m_drummer = true;
         }
-        if (ip.getName() == "Damned Icon Bearer")
+        if (ip.getName() == "Icon Bearer")
         {
-            m_damnedIcon = true;
-        }
-        if (ip.getName() == "Tribal Banner Bearer")
-        {
-            m_tribalBanner = true;
+            m_iconBearer = true;
         }
     }
-}
-
-Rerolls ChaosMarauders::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    if (m_damnedIcon)
-    {
-        return RerollOnes;
-    }
-    return Unit::toHitRerolls(weapon, target);
-}
-
-void ChaosMarauders::onStartCombat(PlayerId player)
-{
-    Dice dice;
-
-    m_hordeWoundModifier = 0;
-    m_hordeHitModifier = 0;
-
-    // Barbarian Horde
-    int roll = dice.rollD6();
-    if (remainingModels() >= 20)
-        roll++;
-
-    if (roll >= 4)
-        m_hordeHitModifier = 1;
-
-    if (roll >= 6)
-        m_hordeWoundModifier = 1;
-
-    Unit::onStartCombat(player);
 }
 
 int ChaosMarauders::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
+    // Barbarian Hordes
     auto modifier = Unit::toHitModifier(weapon, target);
-    return m_hordeHitModifier + modifier;
+    if (remainingModels() >= 10) modifier++;
+    return modifier;
 }
 
-int ChaosMarauders::toWoundModifier(const Weapon *weapon, const Unit *target) const
+int ChaosMarauders::weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const
 {
-    auto modifier = Unit::toWoundModifier(weapon, target);
-    return m_hordeWoundModifier + modifier;
+    // Barbarian Hordes
+    auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    if (remainingModels() >= 20) rend--;
+    return rend;
 }
 
 } //SlavesToDarkness

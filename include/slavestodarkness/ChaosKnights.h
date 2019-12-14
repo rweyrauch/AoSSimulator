@@ -29,7 +29,8 @@ public:
     enum WeaponOption
     {
         EnsorcelledWeapon = 0,
-        ChaosGlaive,
+        CursedLance,
+        CursedFlail,    // Doom Knight only
     };
 
     static Unit* Create(const ParameterList& parameters);
@@ -40,7 +41,7 @@ public:
     ChaosKnights();
     ~ChaosKnights() override = default;
 
-    bool configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower);
+    bool configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
@@ -63,9 +64,10 @@ protected:
 private:
 
     Weapon m_ensorcelledWeapon,
-        m_glaive,
+        m_lance,
         m_ensorcelledWeaponLeader,
-        m_glaiveLeader,
+        m_lanceLeader,
+        m_flailLeader,
         m_hooves;
 
     static bool s_registered;

@@ -25,7 +25,6 @@ static FactoryMethod factoryMethod = {
 struct TableEntry
 {
     int m_move;
-    int m_clawsToHit;
     int m_headsAttacks;
 };
 
@@ -33,23 +32,23 @@ const size_t NUM_TABLE_ENTRIES = 5;
 static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, 16, Archaon::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {12, 2, 6},
-        {10, 3, 5},
-        {8,  4, 4},
-        {7,  4, 3},
-        {6,  5, 2}
+        {14, 6},
+        {12, 5},
+        {10, 4},
+        {8, 3},
+        {6, 2}
     };
 
 bool Archaon::s_registered = false;
 
 Archaon::Archaon() :
-    Unit("Archaon", 12, WOUNDS, 10, 3, true),
-    m_slayerOfKings(Weapon::Type::Melee, "The Slayer of Kings", 1, 4, 2, 3, -1, 3),
-    m_dorgharsClaws(Weapon::Type::Melee, "Dorghar's Monstrous Claws", 1, 2, 2, 3, -1, RAND_D6),
-    m_dorgharsTails(Weapon::Type::Melee, "Dorghar's Lashing Tails", 3, RAND_2D6, 4, 3, 0, 1),
-    m_dorgharsHeads(Weapon::Type::Melee, "Dorghar's Three Heads", 3, 6, 4, 3, -1, 1)
+    Unit("Archaon", 14, WOUNDS, 10, 3, true),
+    m_slayerOfKings(Weapon::Type::Melee, "The Slayer of Kings", 1, 4, 2, 3, -2, 3),
+    m_dorgharsClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 2, 2, 3, -2, RAND_D6),
+    m_dorgharsTails(Weapon::Type::Melee, "Lashing Tails", 3, RAND_2D6, 4, 3, 0, 1),
+    m_dorgharsHeads(Weapon::Type::Melee, "Three Heads", 3, 6, 3, 3, -1, 2)
 {
-    m_keywords = {CHAOS, DAEMON, MORTAL, KHORNE, NURGLE, SLAANESH, TZEENTCH, EVERCHOSEN, MONSTER, HERO, WIZARD, ARCHAON};
+    m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH, HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
 
     m_totalUnbinds = 2;
     m_totalSpells = 2;
@@ -110,7 +109,6 @@ void Archaon::Init()
 void Archaon::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_dorgharsClaws.setToHit(g_damageTable[damageIndex].m_clawsToHit);
     m_dorgharsHeads.setAttacks(g_damageTable[damageIndex].m_headsAttacks);
 }
 
@@ -120,7 +118,7 @@ int Archaon::getDamageTableIndex() const
     for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
     {
         if (woundsInflicted < g_woundThresholds[i])
-        {
+        {return false;
             return i;
         }
     }
@@ -129,26 +127,12 @@ int Archaon::getDamageTableIndex() const
 
 Wounds Archaon::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    // The Armour of Morkar
-    if (saveRoll == 6)
-    {
-        return {0, 1};
-    }
     return Unit::computeReturnedDamage(weapon, saveRoll);
 }
 
 Wounds Archaon::applyWoundSave(const Wounds &wounds)
 {
     auto modifiedWounds = Unit::applyWoundSave(wounds);
-
-    // Chaos Runeshield
-    Dice dice;
-    Dice::RollResult rollResult;
-
-    dice.rollD6(wounds.normal, rollResult);
-    modifiedWounds.normal -= rollResult.rollsGE(5);
-    dice.rollD6(wounds.mortal, rollResult);
-    modifiedWounds.mortal -= rollResult.rollsGE(5);
 
     return modifiedWounds;
 }
@@ -157,14 +141,12 @@ Wounds Archaon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRo
 {
     auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     // The Slayer of Kings
-    if ((hitRoll == 6) && (weapon->name() == m_slayerOfKings.name()))
+    if ((woundRoll == 6) && (target->hasKeyword(HERO)) && (weapon->name() == m_slayerOfKings.name()))
     {
         m_slayerOfKingsSixesThisCombat++;
 
         if (m_slayerOfKingsSixesThisCombat >= 2)
         {
-            // TODO: Hack for now.  Expect next revision of Archaon warscroll to remove the auto-slay and instead
-            // do some large number of mortal wounds (just like Skarbrand).
             // Target is slain.  (Fake it by generating a lot of mortal wounds).
             wounds = {weapon->damage(), target->wounds()*10};
         }

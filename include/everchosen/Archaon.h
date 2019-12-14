@@ -64,14 +64,15 @@ private:
 // The Eye of Sheerian              No
 // The Slayer of Kings              Yes
 // The Armour of Morkar             Yes
-// Chaos Runeshield                 Yes
 // The Crown of Domination          No
-// Triple-headed Monstrosity        No
+// Three-headed Titan               No
 //   Filth-spewer                   No
 //   Skull-gorger                   No
 //   Spell-eater                    No
 // The Everchosen                   No
 // Warlord Without Equal            No
+// By My Will                       No
+// All-seeing Dominion              No
 //
 
 } // namespace Everchosen

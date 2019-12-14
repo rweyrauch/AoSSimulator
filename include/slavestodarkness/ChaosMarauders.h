@@ -29,7 +29,7 @@ public:
     enum WeaponOption
     {
         Flail = 0,
-        Axe,
+        AxeAndShield,
     };
 
     static Unit* Create(const ParameterList& parameters);
@@ -40,31 +40,24 @@ public:
     ChaosMarauders();
     ~ChaosMarauders() override = default;
 
-    bool configure(int numModels, WeaponOption weapons, bool shields, bool damnedIcon, bool tribalBanner, bool drummer);
+    bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
     void onWounded() override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     int runModifier() const override;
     int chargeModifier() const override;
-    int braveryModifier() const override;
     void onRestore() override;
-    void onStartCombat(PlayerId player) override;
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
 
 protected:
 
-    bool m_damnedIcon = false;
-    bool m_tribalBanner = false;
+    bool m_iconBearer = false;
     bool m_drummer = false;
-    bool m_hasShields = false;
-
-    int m_hordeHitModifier = 0;
-    int m_hordeWoundModifier = 0;
+    bool m_weapons = WeaponOption::AxeAndShield;
 
 private:
 
@@ -73,7 +66,6 @@ private:
         m_axeChieftain,
         m_flailChieftain;
 
-
     static bool s_registered;
 };
 
@@ -81,12 +73,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Damned Icon Bearer               Yes
+// Icon Bearer                      No
 // Drummer                          Yes
 // Darkwood Shields                 Yes
 // Mark of Chaos                    No
 // Barbarian Hordes                 Yes
-// Tribal Banner                    Yes
+// Boundless Ferocity               No
 //
 
 } // SlavesToDarkness
