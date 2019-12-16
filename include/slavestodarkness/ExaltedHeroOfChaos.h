@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CHAOSWARSHRINE_H
-#define CHAOSWARSHRINE_H
+#ifndef EXALTEDHERO_H
+#define EXALTEDHERO_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,35 +15,29 @@
 namespace SlavesToDarkness
 {
 
-class ChaosWarshrine : public Unit
+class ExaltedHeroOfChaos : public Unit
 {
 public:
 
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 160;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    ChaosWarshrine();
-    ~ChaosWarshrine() override = default;
+    ExaltedHeroOfChaos();
+    ~ExaltedHeroOfChaos() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
-    int move() const override;
-
 protected:
-
-    void onWounded() override;
-    int getDamageTableIndex() const;
 
 private:
 
-    Weapon m_blade,
-        m_fists;
+    Weapon m_blades;
 
     static bool s_registered;
 };
@@ -53,15 +47,12 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    No
-// Protection of the Dark Gods      No
-// Favour of the Ruinous Powers     No
-//   Favour of Khorne               No
-//   Favour of Tzeentch             No
-//   Favour of Nurgle               No
-//   Favour of Slaanesh             No
-//   Favour of Chaos                No
+// Dark Blessings                   No
+// Glory-hungry Bladesman           No
+// Thrice-damned Dagger             No
+// Trail of Red Ruin                No
 //
 
 } // SlavesToDarkness
 
-#endif //CHAOSWARSHRINE_H
+#endif //EXALTEDHERO_H

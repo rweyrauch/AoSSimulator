@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CHAOSWARSHRINE_H
-#define CHAOSWARSHRINE_H
+#ifndef CHAOSSORCERER_H
+#define CHAOSSORCERER_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,35 +15,30 @@
 namespace SlavesToDarkness
 {
 
-class ChaosWarshrine : public Unit
+class ChaosSorcerer : public Unit
 {
 public:
 
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 160;
+    static const int BASESIZE = 32; // x52 oval
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    ChaosWarshrine();
-    ~ChaosWarshrine() override = default;
+    ChaosSorcerer();
+    ~ChaosSorcerer() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
-    int move() const override;
-
 protected:
-
-    void onWounded() override;
-    int getDamageTableIndex() const;
 
 private:
 
-    Weapon m_blade,
-        m_fists;
+    Weapon m_staff,
+        m_blade;
 
     static bool s_registered;
 };
@@ -52,16 +47,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Oracular Visions                 No
+// Deamonic Power                   No
 // Mark of Chaos                    No
-// Protection of the Dark Gods      No
-// Favour of the Ruinous Powers     No
-//   Favour of Khorne               No
-//   Favour of Tzeentch             No
-//   Favour of Nurgle               No
-//   Favour of Slaanesh             No
-//   Favour of Chaos                No
 //
 
 } // SlavesToDarkness
 
-#endif //CHAOSWARSHRINE_H
+#endif //CHAOSSORCERER_H

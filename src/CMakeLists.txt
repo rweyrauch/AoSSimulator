@@ -379,10 +379,12 @@ add_library(
         fyreslayers/Fyreslayer.cpp
 
         everchosen/Archaon.cpp
+        everchosen/Varanguard.cpp
 
         slavestodarkness/ChaosChosen.cpp
         slavestodarkness/ChaosKnights.cpp
         slavestodarkness/ChaosMarauders.cpp
+        slavestodarkness/ChaosMarauderHorsemen.cpp
         slavestodarkness/ChaosWarriors.cpp
         slavestodarkness/CorvusCabal.cpp
         slavestodarkness/CypherLords.cpp
@@ -396,6 +398,11 @@ add_library(
         slavestodarkness/ChaosLordOnKarkadrak.cpp
         slavestodarkness/ChaosLordOnManticore.cpp
         slavestodarkness/ChaosWarshrine.cpp
+        slavestodarkness/ChaosSorcererOnManticore.cpp
+        slavestodarkness/ChaosSorcerer.cpp
+        slavestodarkness/DarkoathChieftain.cpp
+        slavestodarkness/DarkoathWarqueen.cpp
+        slavestodarkness/ExaltedHeroOfChaos.cpp
 
         freeagents/GotrekGurnisson.cpp
 

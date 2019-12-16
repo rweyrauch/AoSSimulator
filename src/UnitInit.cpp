@@ -81,6 +81,7 @@
 #include "seraphon/Skinks.h"
 
 #include "everchosen/Archaon.h"
+#include "everchosen/Varanguard.h"
 
 #include "slavestodarkness/ChaosChosen.h"
 #include "slavestodarkness/ChaosKnights.h"
@@ -98,6 +99,11 @@
 #include "slavestodarkness/ChaosLordOnKarkadrak.h"
 #include "slavestodarkness/ChaosLordOnManticore.h"
 #include "slavestodarkness/ChaosWarshrine.h"
+#include "slavestodarkness/ChaosSorcererOnManticore.h"
+#include "slavestodarkness/ChaosSorcerer.h"
+#include "slavestodarkness/DarkoathChieftain.h"
+#include "slavestodarkness/DarkoathWarqueen.h"
+#include "slavestodarkness/ExaltedHeroOfChaos.h"
 
 #include "freeagents/GotrekGurnisson.h"
 
@@ -201,6 +207,7 @@ void Initialize(Verbosity verbosity)
     Seraphon::Skinks::Init();
 
     Everchosen::Archaon::Init();
+    Everchosen::Varanguard::Init();
 
     SlavesToDarkness::ChaosChosen::Init();
     SlavesToDarkness::ChaosKnights::Init();
@@ -218,6 +225,11 @@ void Initialize(Verbosity verbosity)
     SlavesToDarkness::ChaosLordOnKarkadrak::Init();
     SlavesToDarkness::ChaosLordOnManticore::Init();
     SlavesToDarkness::ChaosWarshrine::Init();
+    SlavesToDarkness::ChaosSorcererOnManticore::Init();
+    SlavesToDarkness::ChaosSorcerer::Init();
+    SlavesToDarkness::DarkoathChieftain::Init();
+    SlavesToDarkness::DarkoathWarqueen::Init();
+    SlavesToDarkness::ExaltedHeroOfChaos::Init();
 
     FreeAgent::GotrekGurnisson::Init();
 
