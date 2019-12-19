@@ -20,7 +20,7 @@ class ValkiaTheBloody : public KhorneBase
 public:
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 140;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

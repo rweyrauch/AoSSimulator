@@ -19,7 +19,7 @@ class Gorgers : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 50;
     static const int WOUNDS = 5;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 3;

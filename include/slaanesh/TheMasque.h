@@ -19,7 +19,7 @@ class TheMasque : public SlaaneshBase
 {
 public:
 
-    static const int BASESIZE = 25;
+    static const int BASESIZE = 32;
     static const int WOUNDS = 5;
     static const int POINTS_PER_UNIT = 120;
 

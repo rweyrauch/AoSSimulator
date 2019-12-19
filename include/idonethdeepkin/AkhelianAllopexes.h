@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 8;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 4;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 560;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 400;
 
     enum WeaponOption
     {

@@ -20,7 +20,7 @@ class Skullmaster : public KhorneBase
 public:
     static const int BASESIZE = 75; // x50 oval
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 80;
+    static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

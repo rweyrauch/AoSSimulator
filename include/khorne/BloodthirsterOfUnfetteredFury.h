@@ -20,7 +20,7 @@ class BloodthirsterOfUnfetteredFury : public KhorneBase
 public:
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 300;
+    static const int POINTS_PER_UNIT = 270;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

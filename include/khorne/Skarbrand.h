@@ -20,7 +20,7 @@ class Skarbrand : public KhorneBase
 public:
     static const int BASESIZE = 100;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 400;
+    static const int POINTS_PER_UNIT = 380;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

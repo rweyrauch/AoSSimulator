@@ -20,7 +20,7 @@ class AbhorrantGhoulKingOnTerrorgheist : public FleshEaterCourts
 public:
     static const int BASESIZE = 130;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 400;
+    static const int POINTS_PER_UNIT = 420;
 
     static Unit* Create(const ParameterList& parameters);
 

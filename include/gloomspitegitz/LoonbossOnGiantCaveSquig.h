@@ -18,7 +18,7 @@ namespace GloomspiteGitz
 class LoonbossOnGiantCaveSquig : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 50;
+    static const int BASESIZE = 40;
     static const int WOUNDS = 6;
     static const int POINTS_PER_UNIT = 110;
 

@@ -19,7 +19,7 @@ class OrpheonKatakros : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 120;
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 20;
     static const int POINTS_PER_UNIT = 500;
 

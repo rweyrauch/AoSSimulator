@@ -20,7 +20,7 @@ class ScylaAnfingrimm : public KhorneBase
 public:
     static const int BASESIZE = 60;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 80;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

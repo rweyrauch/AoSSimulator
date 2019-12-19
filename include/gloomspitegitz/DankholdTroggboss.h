@@ -20,7 +20,7 @@ class DankholdTroggboss : public GloomspiteGitzBase
 public:
     static const int BASESIZE = 60;
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 300;
+    static const int POINTS_PER_UNIT = 270;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

@@ -20,7 +20,7 @@ class LordOfKhorneOnJuggernaut : public KhorneBase
 public:
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 140;
+    static const int POINTS_PER_UNIT = 160;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
