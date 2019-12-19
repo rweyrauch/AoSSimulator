@@ -403,6 +403,8 @@ add_library(
         slavestodarkness/DarkoathChieftain.cpp
         slavestodarkness/DarkoathWarqueen.cpp
         slavestodarkness/ExaltedHeroOfChaos.cpp
+        slavestodarkness/ChaosLordOnDaemonicMount.cpp
+        slavestodarkness/ChaosLord.cpp
 
         freeagents/GotrekGurnisson.cpp
 

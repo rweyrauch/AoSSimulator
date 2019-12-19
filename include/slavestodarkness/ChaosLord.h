@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CHAOSSORCERER_H
-#define CHAOSSORCERER_H
+#ifndef CHAOSLORD_H
+#define CHAOSLORD_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,30 +15,42 @@
 namespace SlavesToDarkness
 {
 
-class ChaosSorcerer : public Unit
+class ChaosLord : public Unit
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 7;
     static const int POINTS_PER_UNIT = 110;
 
+    enum WeaponOption
+    {
+        Reaperblade,
+        DaemonboundSteel,
+        DaemonboundWarFlail
+    };
+
     static Unit* Create(const ParameterList& parameters);
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
     static void Init();
 
-    ChaosSorcerer();
-    ~ChaosSorcerer() override = default;
+    ChaosLord();
+    ~ChaosLord() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
-    Weapon m_staff,
-        m_blade;
+    Weapon m_blade,
+        m_steel,
+        m_flail;
 
     static bool s_registered;
 };
@@ -47,11 +59,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oracular Visions                 No
-// Deamonic Power                   No
+// Daemonbound                      No
+// Spurred by the Gods              No
 // Mark of Chaos                    No
 //
 
 } // SlavesToDarkness
 
-#endif //CHAOSSORCERER_H
+#endif //CHAOSLORD_H

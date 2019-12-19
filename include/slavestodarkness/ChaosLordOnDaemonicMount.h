@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CHAOSWARSHRINE_H
-#define CHAOSWARSHRINE_H
+#ifndef LORDONMOUNT_H
+#define LORDONMOUNT_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,35 +15,33 @@
 namespace SlavesToDarkness
 {
 
-class ChaosWarshrine : public Unit
+class ChaosLordOnDaemonicMount : public Unit
 {
 public:
 
     static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 12;
+    static const int WOUNDS = 8;
     static const int POINTS_PER_UNIT = 170;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
 
-    ChaosWarshrine();
-    ~ChaosWarshrine() override = default;
+    ChaosLordOnDaemonicMount();
+    ~ChaosLordOnDaemonicMount() override = default;
 
     bool configure();
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
-    int move() const override;
-
 protected:
 
-    void onWounded() override;
-    int getDamageTableIndex() const;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
-    Weapon m_blade,
-        m_fists;
+    Weapon m_hammer,
+        m_hooves;
 
     static bool s_registered;
 };
@@ -52,16 +50,13 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Chaos Runeshield                 Yes
+// Cursed Warhammer                 No
+// Fuelled by Carnage               No
+// The Knights of Chaos             No
 // Mark of Chaos                    No
-// Protection of the Dark Gods      No
-// Favour of the Ruinous Powers     No
-//   Favour of Khorne               No
-//   Favour of Tzeentch             No
-//   Favour of Nurgle               No
-//   Favour of Slaanesh             No
-//   Favour of Chaos                No
 //
 
 } // SlavesToDarkness
 
-#endif //CHAOSWARSHRINE_H
+#endif //LORDONMOUNT_H

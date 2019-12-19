@@ -20,7 +20,7 @@ class Archaon : public Unit
 public:
     static const int BASESIZE = 130;
     static const int WOUNDS = 20;
-    static const int POINTS_PER_UNIT = 660;
+    static const int POINTS_PER_UNIT = 800;
 
     static Unit* Create(const ParameterList& parameters);
 
