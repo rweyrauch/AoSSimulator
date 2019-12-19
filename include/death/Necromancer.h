@@ -20,7 +20,7 @@ class Necromancer : public Unit
 public:
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 110;
+    static const int POINTS_PER_UNIT = 130;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

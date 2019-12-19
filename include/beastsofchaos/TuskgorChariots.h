@@ -24,7 +24,7 @@ public:
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 4;
     static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 240;
+    static const int POINTS_MAX_UNIT_SIZE = 200;
 
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter& parameter);
