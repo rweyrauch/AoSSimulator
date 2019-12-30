@@ -50,7 +50,7 @@ public:
     PurifyingBlast(Unit* caster);
 
     Result cast(Unit* target, int round) override;
-    Result cast(float x, float y, int round)  { return cast(nullptr, round); }
+    Result cast(float x, float y, int round) override  { return cast(nullptr, round); }
 
 };
 

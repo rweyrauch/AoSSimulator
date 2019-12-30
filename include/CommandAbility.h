@@ -20,6 +20,7 @@ public:
     CommandAbility(Unit* source, const std::string& name) :
         m_source(source),
         m_name(name) {}
+    virtual ~CommandAbility() = default;
 
     virtual int apply(const Unit* target) = 0;
 

@@ -8,9 +8,11 @@
 
 #include <vector>
 #include <algorithm>
+#ifdef HAVE_CAIRO
 #include <cairommconfig.h>
 #include <cairomm/context.h>
 #include <cairomm/surface.h>
+#endif
 #include <Board.h>
 #include <Roster.h>
 #include "jps.hh"
@@ -60,6 +62,7 @@ Board *Board::Instance()
 
 void Board::render(const std::string &filename) const
 {
+#ifdef HAVE_CAIRO
     // use cairomm to create a raster image of the current board state
     int imageW = (int) (m_width * 10.0f); // tenth's of inches
     int imageH = (int) (m_depth * 10.0f);
@@ -182,6 +185,7 @@ void Board::render(const std::string &filename) const
     }
 
     surface->write_to_png(filename);
+#endif
 }
 
 std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, float distance)

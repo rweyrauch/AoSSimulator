@@ -24,6 +24,8 @@ public:
         m_range(range),
         m_damageOn1(damageOn1) {}
 
+    virtual ~Prayer() = default;
+
     virtual bool pray(Unit* target, int round) = 0;
     virtual bool pray(float x, float y, int round) = 0;
 

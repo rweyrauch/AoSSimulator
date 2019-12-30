@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <iostream>
+#include <cfloat>
 #include <algorithm>
 #include <Unit.h>
 #include <Dice.h>
@@ -411,7 +411,7 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     const float x = model->x();
     const float y = model->y();
 
-    float minDist = MAXFLOAT;
+    float minDist = FLT_MAX;
 
     // find closes model in target unit
     for (auto& ip : unit->m_models)

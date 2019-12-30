@@ -7,7 +7,7 @@
  */
 
 #ifndef SLAUGHTERQUEEN_H
-#define HAGQUEEN_H
+#define SLAUGHTERQUEEN_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -59,4 +59,4 @@ private:
 
 } // namespace DaughtersOfKhaine
 
-#endif //HAGQUEEN_H
+#endif //SLAUGHTERQUEEN_H
