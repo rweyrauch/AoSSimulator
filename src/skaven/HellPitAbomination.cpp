@@ -53,11 +53,11 @@ HellPitAbomination::HellPitAbomination() :
 
 bool HellPitAbomination::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_gnashingTeath);
-    model.addMeleeWeapon(&m_flailingFists);
-    model.addMeleeWeapon(&m_avalancheOfFlesh);
+    model->addMeleeWeapon(&m_gnashingTeath);
+    model->addMeleeWeapon(&m_flailingFists);
+    model->addMeleeWeapon(&m_avalancheOfFlesh);
 
     addModel(model);
 
@@ -151,7 +151,7 @@ void HellPitAbomination::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
     }
@@ -171,8 +171,8 @@ void HellPitAbomination::onSlain()
         {
             // It's Alive!
             roll = dice.rollD6();
-            m_models.front().restore();
-            m_models.front().applyWound(WOUNDS - roll);
+            m_models.front()->restore();
+            m_models.front()->applyWound(WOUNDS - roll);
         }
         else if (roll >= 3)
         {

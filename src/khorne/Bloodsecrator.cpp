@@ -34,8 +34,8 @@ Bloodsecrator::Bloodsecrator() :
 
 bool Bloodsecrator::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_ensorcelledAxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_ensorcelledAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

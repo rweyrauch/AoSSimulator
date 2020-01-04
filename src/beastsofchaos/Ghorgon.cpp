@@ -54,10 +54,10 @@ BeastsOfChaos::Ghorgon::Ghorgon() :
 
 bool BeastsOfChaos::Ghorgon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_butcheringBlades);
-    model.addMeleeWeapon(&m_hugeSlaveringMaw);
+    model->addMeleeWeapon(&m_butcheringBlades);
+    model->addMeleeWeapon(&m_hugeSlaveringMaw);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

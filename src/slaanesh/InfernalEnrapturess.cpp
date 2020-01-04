@@ -40,10 +40,10 @@ InfernalEnrapturess::InfernalEnrapturess() :
 
 bool InfernalEnrapturess::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_lyreCacophonousMelody);
-    model.addMissileWeapon(&m_lyreEuphonicBlast);
-    model.addMeleeWeapon(&m_ravagingClaw);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_lyreCacophonousMelody);
+    model->addMissileWeapon(&m_lyreEuphonicBlast);
+    model->addMeleeWeapon(&m_ravagingClaw);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

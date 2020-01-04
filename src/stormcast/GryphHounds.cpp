@@ -44,14 +44,14 @@ bool GryphHounds::configure(int numModels)
         return false;
     }
 
-    Model alpha(BASESIZE, WOUNDS);
-    alpha.addMeleeWeapon(&m_beakAndClawsAlpha);
+    auto alpha = new Model(BASESIZE, WOUNDS);
+    alpha->addMeleeWeapon(&m_beakAndClawsAlpha);
     addModel(alpha);
 
     for (int i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_beakAndClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_beakAndClaws);
         addModel(model);
     }
 

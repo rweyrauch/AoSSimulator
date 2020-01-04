@@ -52,9 +52,9 @@ Skarbrand::Skarbrand() :
 
 bool Skarbrand::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_slaughter);
+    model->addMeleeWeapon(&m_slaughter);
     // Do not add Carnage or Roar of Total Rage, their attacks are special.
 
     addModel(model);

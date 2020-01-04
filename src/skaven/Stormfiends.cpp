@@ -68,31 +68,31 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
 
     for (auto i = 0; i < numWeapon1; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapon1 == WarpfireProjectors)
         {
-            model.addMissileWeapon(&m_warpfireProjectors);
+            model->addMissileWeapon(&m_warpfireProjectors);
         }
         else if (weapon1 == Windlaunchers)
         {
-            model.addMissileWeapon(&m_windlaunchers);
+            model->addMissileWeapon(&m_windlaunchers);
         }
-        model.addMeleeWeapon(&m_clubbingBlows);
+        model->addMeleeWeapon(&m_clubbingBlows);
         addModel(model);
     }
 
     int numWeapon2 = numModels / 3;
     for (auto i = 0; i < numWeapon2; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapon2 == Grinderfists)
         {
-            model.addMeleeWeapon(&m_grinderfists);
+            model->addMeleeWeapon(&m_grinderfists);
         }
         else if (weapon2 == RatlingCannons)
         {
-            model.addMissileWeapon(&m_ratlingCannons);
-            model.addMeleeWeapon(&m_clubbingBlows);
+            model->addMissileWeapon(&m_ratlingCannons);
+            model->addMeleeWeapon(&m_clubbingBlows);
         }
         addModel(model);
     }
@@ -101,14 +101,14 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
     for (auto i = 0; i < numWeapon3; i++)
     {
         // Warpstone-laced Armour => +1 wounds
-        Model model(BASESIZE, WOUNDS+1);
+        auto model = new Model(BASESIZE, WOUNDS+1);
         if (weapon3 == DoomflayerGauntlets)
         {
-            model.addMeleeWeapon(&m_doomfireGauntlets);
+            model->addMeleeWeapon(&m_doomfireGauntlets);
         }
         else if (weapon3 == ShockGauntlets)
         {
-            model.addMeleeWeapon(&m_shockGauntlets);
+            model->addMeleeWeapon(&m_shockGauntlets);
         }
         addModel(model);
     }

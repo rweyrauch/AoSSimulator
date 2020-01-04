@@ -52,16 +52,16 @@ bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)
     m_iconBearer = iconBearer;
     m_hornblower = hornblower;
 
-    Model horror(BASESIZE, WOUNDS);
-    horror.addMissileWeapon(&m_magicalFlames);
-    horror.addMeleeWeapon(&m_graspingHandsHorror);
+    auto horror = new Model(BASESIZE, WOUNDS);
+    horror->addMissileWeapon(&m_magicalFlames);
+    horror->addMeleeWeapon(&m_graspingHandsHorror);
     addModel(horror);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_magicalFlames);
-        model.addMeleeWeapon(&m_graspingHands);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_magicalFlames);
+        model->addMeleeWeapon(&m_graspingHands);
         addModel(model);
     }
 
@@ -122,11 +122,11 @@ void  PinkHorrors::computeBattleshockEffect(int roll, int& numFled, int& numAdde
 void PinkHorrors::restoreModels(int numModels)
 {
     // Icon Bearer
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_magicalFlames);
-    model.addMeleeWeapon(&m_graspingHands);
     for (auto i = 0; i < numModels; i++)
     {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_magicalFlames);
+        model->addMeleeWeapon(&m_graspingHands);
         addModel(model);
     }
 }

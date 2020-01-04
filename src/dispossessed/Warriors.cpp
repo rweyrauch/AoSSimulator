@@ -56,27 +56,27 @@ bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShiel
     m_hornblowers = hornblowers;
     m_duardinShields = duardinShields;
 
-    Model veteran(BASESIZE, WOUNDS);
+    auto veteran = new Model(BASESIZE, WOUNDS);
     if (weapons == DuardinAxeOrHammer)
     {
-        veteran.addMeleeWeapon(&m_duardinAxeOrHammerVeteran);
+        veteran->addMeleeWeapon(&m_duardinAxeOrHammerVeteran);
     }
     else if (weapons == DoubleHandedDuardinAxe)
     {
-        veteran.addMeleeWeapon(&m_doubleHandedAxeVeteran);
+        veteran->addMeleeWeapon(&m_doubleHandedAxeVeteran);
     }
     addModel(veteran);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == DuardinAxeOrHammer)
         {
-            model.addMeleeWeapon(&m_duardinAxeOrHammer);
+            model->addMeleeWeapon(&m_duardinAxeOrHammer);
         }
         else if (weapons == DoubleHandedDuardinAxe)
         {
-            model.addMeleeWeapon(&m_doubleHandedAxe);
+            model->addMeleeWeapon(&m_doubleHandedAxe);
         }
         addModel(model);
     }

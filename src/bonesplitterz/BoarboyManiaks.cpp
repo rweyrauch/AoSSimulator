@@ -75,16 +75,16 @@ bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totem
     m_totemBearer = totemBearer;
 
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_chompasBoss);
-    bossModel.addMeleeWeapon(&m_tusksAndHooves);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_chompasBoss);
+    bossModel->addMeleeWeapon(&m_tusksAndHooves);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_chompas);
-        model.addMeleeWeapon(&m_tusksAndHooves);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_chompas);
+        model->addMeleeWeapon(&m_tusksAndHooves);
         addModel(model);
     }
 

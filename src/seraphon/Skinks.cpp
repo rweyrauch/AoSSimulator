@@ -56,24 +56,24 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     m_weaponOption = weapons;
     
     // Add the Alpha
-    Model alpha(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, WOUNDS);
     switch (m_weaponOption)
     {
         case JavelinsAndBucklers:
-            alpha.addMissileWeapon(&m_javelinMissile);
-            alpha.addMeleeWeapon(&m_javelinAlpha);
+            alpha->addMissileWeapon(&m_javelinMissile);
+            alpha->addMeleeWeapon(&m_javelinAlpha);
             break;
         case BoltspittersAndBucklers:
-            alpha.addMissileWeapon(&m_boltspitterMissile);
-            alpha.addMeleeWeapon(&m_boltspitterAlpha);
+            alpha->addMissileWeapon(&m_boltspitterMissile);
+            alpha->addMeleeWeapon(&m_boltspitterAlpha);
             break;
         case BoltspittersAndClubs:
-            alpha.addMissileWeapon(&m_boltspitterMissile);
-            alpha.addMeleeWeapon(&m_clubAlpha);
-            alpha.addMeleeWeapon(&m_boltspitterAlpha);
+            alpha->addMissileWeapon(&m_boltspitterMissile);
+            alpha->addMeleeWeapon(&m_clubAlpha);
+            alpha->addMeleeWeapon(&m_boltspitterAlpha);
             break;
         case ClubsAndBucklers:
-            alpha.addMeleeWeapon(&m_clubAlpha);
+            alpha->addMeleeWeapon(&m_clubAlpha);
             break;
     }
     addModel(alpha);
@@ -81,24 +81,24 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         switch (m_weaponOption)
         {
             case JavelinsAndBucklers:
-                model.addMissileWeapon(&m_javelinMissile);
-                model.addMeleeWeapon(&m_javelin);
+                model->addMissileWeapon(&m_javelinMissile);
+                model->addMeleeWeapon(&m_javelin);
                 break;
             case BoltspittersAndBucklers:
-                model.addMissileWeapon(&m_boltspitterMissile);
-                model.addMeleeWeapon(&m_boltspitter);
+                model->addMissileWeapon(&m_boltspitterMissile);
+                model->addMeleeWeapon(&m_boltspitter);
                 break;
             case BoltspittersAndClubs:
-                model.addMissileWeapon(&m_boltspitterMissile);
-                model.addMeleeWeapon(&m_club);
-                model.addMeleeWeapon(&m_boltspitter);
+                model->addMissileWeapon(&m_boltspitterMissile);
+                model->addMeleeWeapon(&m_club);
+                model->addMeleeWeapon(&m_boltspitter);
                 break;
             case ClubsAndBucklers:
-                model.addMeleeWeapon(&m_club);
+                model->addMeleeWeapon(&m_club);
                 break;
         }
         addModel(model);

@@ -139,32 +139,32 @@ DreadlordOnBlackDragon::DreadlordOnBlackDragon() :
 
 bool DreadlordOnBlackDragon::configure(WeaponOption weapon)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_noxiousBreath);
-    model.addMeleeWeapon(&m_jaws);
-    model.addMeleeWeapon(&m_claws);
+    model->addMissileWeapon(&m_noxiousBreath);
+    model->addMeleeWeapon(&m_jaws);
+    model->addMeleeWeapon(&m_claws);
     if (weapon == LanceAndShield)
     {
-        model.addMeleeWeapon(&m_lance);
+        model->addMeleeWeapon(&m_lance);
     }
     else if (weapon == LanceAndCrossbow)
     {
-        model.addMeleeWeapon(&m_lance);
-        model.addMissileWeapon(&m_crossbow);
+        model->addMeleeWeapon(&m_lance);
+        model->addMissileWeapon(&m_crossbow);
     }
     else if (weapon == ExileBladeAndShield)
     {
-        model.addMeleeWeapon(&m_blade);
+        model->addMeleeWeapon(&m_blade);
     }
     else if (weapon == ExileBladeAndCrossbow)
     {
-        model.addMeleeWeapon(&m_blade);
-        model.addMissileWeapon(&m_crossbow);
+        model->addMeleeWeapon(&m_blade);
+        model->addMissileWeapon(&m_crossbow);
     }
     else if (weapon == PairExileBlades)
     {
-        model.addMeleeWeapon(&m_blade);
+        model->addMeleeWeapon(&m_blade);
     }
     addModel(model);
 

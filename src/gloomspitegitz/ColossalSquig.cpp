@@ -59,11 +59,11 @@ int ColossalSquig::move() const
 
 bool ColossalSquig::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_enormousJaws);
-    model.addMeleeWeapon(&m_tramplingFeet);
-    model.addMissileWeapon(&m_puffSpores);
+    model->addMeleeWeapon(&m_enormousJaws);
+    model->addMeleeWeapon(&m_tramplingFeet);
+    model->addMissileWeapon(&m_puffSpores);
 
     addModel(model);
 

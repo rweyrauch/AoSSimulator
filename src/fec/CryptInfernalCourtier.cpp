@@ -37,9 +37,9 @@ CryptInfernalCourtier::CryptInfernalCourtier() :
 
 bool CryptInfernalCourtier::configure()
 {
-    Model infernal(BASESIZE, WOUNDS);
-    infernal.addMissileWeapon(&m_foetidBreath);
-    infernal.addMeleeWeapon(&m_skeweringTalons);
+    auto infernal = new Model(BASESIZE, WOUNDS);
+    infernal->addMissileWeapon(&m_foetidBreath);
+    infernal->addMeleeWeapon(&m_skeweringTalons);
     addModel(infernal);
 
     m_points = POINTS_PER_UNIT;

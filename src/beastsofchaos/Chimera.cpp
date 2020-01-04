@@ -57,14 +57,14 @@ Chimera::Chimera() :
 
 bool Chimera::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     // NOTE: Fiery Breath attack is special, do not treat it as a weapon
 
-    model.addMeleeWeapon(&m_avianHead);
-    model.addMeleeWeapon(&m_draconicHead);
-    model.addMeleeWeapon(&m_leonineHead);
-    model.addMeleeWeapon(&m_maulingClaws);
+    model->addMeleeWeapon(&m_avianHead);
+    model->addMeleeWeapon(&m_draconicHead);
+    model->addMeleeWeapon(&m_leonineHead);
+    model->addMeleeWeapon(&m_maulingClaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

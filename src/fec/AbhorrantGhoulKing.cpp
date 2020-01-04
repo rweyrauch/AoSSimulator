@@ -38,9 +38,9 @@ AbhorrantGhoulKing::AbhorrantGhoulKing() :
 
 bool AbhorrantGhoulKing::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_goryTalonsAndFangs);
+    model->addMeleeWeapon(&m_goryTalonsAndFangs);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -94,7 +94,7 @@ void AbhorrantGhoulKing::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
     }

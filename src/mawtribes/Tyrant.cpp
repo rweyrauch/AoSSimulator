@@ -87,12 +87,12 @@ bool Tyrant::configure(BigName bigName)
 {
     if (bigName == Deathcheater) m_wounds = WOUNDS + 1;
 
-    Model model(BASESIZE, wounds());
+    auto model = new Model(BASESIZE, wounds());
 
-    model.addMissileWeapon(&m_pistols);
-    model.addMeleeWeapon(&m_thundermace);
-    model.addMeleeWeapon(&m_glaive);
-    model.addMeleeWeapon(&m_bite);
+    model->addMissileWeapon(&m_pistols);
+    model->addMeleeWeapon(&m_thundermace);
+    model->addMeleeWeapon(&m_glaive);
+    model->addMeleeWeapon(&m_bite);
 
     addModel(model);
 

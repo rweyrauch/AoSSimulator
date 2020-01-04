@@ -60,20 +60,20 @@ KeeperOfSecrets::KeeperOfSecrets() :
 
 bool KeeperOfSecrets::configure(WeaponOption weapon)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     m_weapon = weapon;
 
     if (weapon == LivingWhip)
     {
-        model.addMissileWeapon(&m_livingWhip);
+        model->addMissileWeapon(&m_livingWhip);
     }
     if (weapon == RitualKnife || weapon == SinistrousHand)
     {
-        model.addMeleeWeapon(&m_ritualKnifeOrHand);
+        model->addMeleeWeapon(&m_ritualKnifeOrHand);
     }
-    model.addMeleeWeapon(&m_greatblade);
-    model.addMeleeWeapon(&m_impalingClaws);
+    model->addMeleeWeapon(&m_greatblade);
+    model->addMeleeWeapon(&m_impalingClaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

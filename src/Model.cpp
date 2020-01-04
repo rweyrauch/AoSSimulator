@@ -52,11 +52,11 @@ void Model::restore()
     m_fled = false;
 }
 
-float Model::distanceBetween(const Model& m0, const Model& m1)
+float Model::distanceBetween(const Model* m0, const Model* m1)
 {
-    float distance = m0.position().distance(m1.position());
-    distance -= m0.basesizeInches() / 2.0f;
-    distance -= m1.basesizeInches() / 2.0f;
+    float distance = m0->position().distance(m1->position());
+    distance -= m0->basesizeInches() / 2.0f;
+    distance -= m1->basesizeInches() / 2.0f;
     return std::max(0.0f, distance);
 }
 

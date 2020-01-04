@@ -67,14 +67,14 @@ bool ArchmageOnDragon::configure(bool arcaneTome, bool talisman)
         m_totalUnbinds = 2;
     }
 
-    Model model;
-    model.addMeleeWeapon(&m_magestaff);
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_magestaff);
     if (!m_arcaneTome)
     {
-        model.addMeleeWeapon(&m_sorcerousBlade);
+        model->addMeleeWeapon(&m_sorcerousBlade);
     }
-    model.addMeleeWeapon(&m_dragonClaws);
-    model.addMeleeWeapon(&m_dragonJaws);
+    model->addMeleeWeapon(&m_dragonClaws);
+    model->addMeleeWeapon(&m_dragonJaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

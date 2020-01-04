@@ -37,12 +37,12 @@ Cockatrice::Cockatrice() :
 
 bool Cockatrice::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     // NOTE: Petrifying Gaze attack is special, do not treat it as a weapon
 
-    model.addMeleeWeapon(&m_viciousBeak);
-    model.addMeleeWeapon(&m_swordlikeTalons);
+    model->addMeleeWeapon(&m_viciousBeak);
+    model->addMeleeWeapon(&m_swordlikeTalons);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

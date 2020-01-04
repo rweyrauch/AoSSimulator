@@ -42,8 +42,8 @@ LordVeritant::LordVeritant() :
 
 bool LordVeritant::configure(PrayersOfTheStormhost prayer)
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_judgementBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_judgementBlade);
     addModel(model);
 
     m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateSanction(this)));

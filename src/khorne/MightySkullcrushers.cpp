@@ -57,31 +57,31 @@ bool MightySkullcrushers::configure(int numModels, WeaponOption weapons, bool st
     m_hornblower = hornblowers;
 
     // Add the Skullhunter
-    Model hunter(BASESIZE, WOUNDS);
+    auto hunter = new Model(BASESIZE, WOUNDS);
     if (m_weaponOption == EnsorcelledAxe)
     {
-        hunter.addMeleeWeapon(&m_ensorcelledAxeHunter);
+        hunter->addMeleeWeapon(&m_ensorcelledAxeHunter);
     }
     else if (m_weaponOption == Bloodglaive)
     {
-        hunter.addMeleeWeapon(&m_bloodglaiveHunter);
+        hunter->addMeleeWeapon(&m_bloodglaiveHunter);
     }
-    hunter.addMeleeWeapon(&m_brazenHooves);
+    hunter->addMeleeWeapon(&m_brazenHooves);
     addModel(hunter);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weaponOption == EnsorcelledAxe)
         {
-            model.addMeleeWeapon(&m_ensorcelledAxe);
+            model->addMeleeWeapon(&m_ensorcelledAxe);
         }
         else if (m_weaponOption == Bloodglaive)
         {
-            model.addMeleeWeapon(&m_bloodglaive);
+            model->addMeleeWeapon(&m_bloodglaive);
         }
-        model.addMeleeWeapon(&m_brazenHooves);
+        model->addMeleeWeapon(&m_brazenHooves);
         addModel(model);
     }
 

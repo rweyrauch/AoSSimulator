@@ -43,18 +43,18 @@ bool AspiringDeathbringer::configure(WeaponOption weapon)
 {
     m_weaponOption = weapon;
 
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     if (m_weaponOption == BloodaxeAndWrathhammer)
     {
-        model.addMeleeWeapon(&m_bloodAxe);
-        model.addMeleeWeapon(&m_wrathHammer);
+        model->addMeleeWeapon(&m_bloodAxe);
+        model->addMeleeWeapon(&m_wrathHammer);
         m_points = POINTS_PER_UNIT;
     }
     else if (m_weaponOption == GoreaxeAndSkullhammer)
     {
-        model.addMeleeWeapon(&m_goreaxe);
-        model.addMeleeWeapon(&m_skullhammer);
+        model->addMeleeWeapon(&m_goreaxe);
+        model->addMeleeWeapon(&m_skullhammer);
         m_points = POINTS_PER_UNIT_WITH_GOREAXE;
     }
     addModel(model);

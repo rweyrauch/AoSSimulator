@@ -86,14 +86,14 @@ bool NecropolisStalkers::configure(int numModels, int numFalchions)
 
     for (auto i = 0; i < numFalchions; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_falchions);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_falchions);
         addModel(model);
     }
     for (auto i = numFalchions; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_blades);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_blades);
         addModel(model);
     }
 

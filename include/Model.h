@@ -9,6 +9,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <memory>
 #include <vector>
 #include <MathUtils.h>
 #include <Weapon.h>
@@ -16,7 +17,8 @@
 class Model
 {
 public:
-    Model() : m_baseSize_mm(0) {}
+
+    Model() = delete;
     Model(int baseSize, int wounds) :
         m_baseSize_mm(baseSize),
         m_initialWounds(wounds),
@@ -61,9 +63,10 @@ public:
 
     const Weapon* preferredWeapon() const { return m_preferredWeapon; }
 
-    static float distanceBetween(const Model& m0, const Model& m1);
+    static float distanceBetween(const Model* m0, const Model* m1);
 
 private:
+
     int m_baseSize_mm = 0;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
     int m_initialWounds = 0;

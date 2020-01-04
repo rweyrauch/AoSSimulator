@@ -33,9 +33,9 @@ OrrukMegaboss::OrrukMegaboss() :
 
 bool OrrukMegaboss::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bossChoppaAndFist);
+    model->addMeleeWeapon(&m_bossChoppaAndFist);
 
     addModel(model);
 

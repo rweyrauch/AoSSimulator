@@ -69,40 +69,40 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
     m_pairedWeapons = pairedWeapons;
 
     // Add the Prime
-    Model primeModel(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, WOUNDS);
     if (m_weaponOption == Warhammer)
     {
-        primeModel.addMeleeWeapon(&m_warhammerPrime);
+        primeModel->addMeleeWeapon(&m_warhammerPrime);
     }
     else if (m_weaponOption == Warblade)
     {
-        primeModel.addMeleeWeapon(&m_warbladePrime);
+        primeModel->addMeleeWeapon(&m_warbladePrime);
     }
     addModel(primeModel);
 
     for (auto i = 0; i < numGrandblades; i++)
     {
-        Model grandbladeModel(BASESIZE, WOUNDS);
-        grandbladeModel.addMeleeWeapon(&m_grandblade);
+        auto grandbladeModel = new Model(BASESIZE, WOUNDS);
+        grandbladeModel->addMeleeWeapon(&m_grandblade);
         addModel(grandbladeModel);
     }
     for (auto i = 0; i < numGrandhammers; i++)
     {
-        Model grandhammerModel(BASESIZE, WOUNDS);
-        grandhammerModel.addMeleeWeapon(&m_grandhammer);
+        auto grandhammerModel = new Model(BASESIZE, WOUNDS);
+        grandhammerModel->addMeleeWeapon(&m_grandhammer);
         addModel(grandhammerModel);
     }
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weaponOption == Warhammer)
         {
-            model.addMeleeWeapon(&m_warhammer);
+            model->addMeleeWeapon(&m_warhammer);
         }
         else if (m_weaponOption == Warblade)
         {
-            model.addMeleeWeapon(&m_warblade);
+            model->addMeleeWeapon(&m_warblade);
         }
         addModel(model);
     }

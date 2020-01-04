@@ -35,10 +35,10 @@ Skullmaster::Skullmaster() :
 
 bool Skullmaster::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bladeOfBlood);
-    model.addMeleeWeapon(&m_brazenHooves);
+    model->addMeleeWeapon(&m_bladeOfBlood);
+    model->addMeleeWeapon(&m_brazenHooves);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

@@ -34,10 +34,10 @@ LordOfKhorneOnJuggernaut::LordOfKhorneOnJuggernaut() :
 
 bool LordOfKhorneOnJuggernaut::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_wrathforgedAxe);
-    model.addMeleeWeapon(&m_brazenHooves);
+    model->addMeleeWeapon(&m_wrathforgedAxe);
+    model->addMeleeWeapon(&m_brazenHooves);
 
     addModel(model);
 

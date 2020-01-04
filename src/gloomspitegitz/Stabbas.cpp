@@ -74,15 +74,15 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     m_numIconbearers = numIconbearers;
 
     // Add the boss
-    Model boss(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, WOUNDS);
     if (bossWeapon == Stabba)
     {
-        boss.addMeleeWeapon(&m_stabbaBoss);
+        boss->addMeleeWeapon(&m_stabbaBoss);
         m_ranks = 2;
     }
     else if (bossWeapon == PokinSpear)
     {
-        boss.addMeleeWeapon(&m_pokinSpearBoss);
+        boss->addMeleeWeapon(&m_pokinSpearBoss);
         m_ranks = 3;
     }
     addModel(boss);
@@ -90,8 +90,8 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     // add the nets
     for (auto i = 1; i < numBarbedNets; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_barbedNet);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_barbedNet);
         addModel(model);
     }
 
@@ -99,14 +99,14 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == Stabba)
         {
-            model.addMeleeWeapon(&m_stabba);
+            model->addMeleeWeapon(&m_stabba);
         }
         else if (weapons == PokinSpear)
         {
-            model.addMeleeWeapon(&m_pokinSpear);
+            model->addMeleeWeapon(&m_pokinSpear);
         }
         addModel(model);
     }
@@ -246,9 +246,9 @@ int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
     if (distanceTo(attacker) <= 2.0f)
     {
         bool hasNets = false;
-        for (auto ip : m_models)
+        for (const auto& ip : m_models)
         {
-            for (auto wip = ip.meleeWeaponBegin(); wip != ip.meleeWeaponEnd(); ++wip)
+            for (auto wip = ip->meleeWeaponBegin(); wip != ip->meleeWeaponEnd(); ++wip)
             {
                 const Weapon *w = *wip;
 

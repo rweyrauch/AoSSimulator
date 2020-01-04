@@ -117,30 +117,30 @@ bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornbl
     m_hornblower = hornblower;
 
     // Add the Preceptor
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (weapons == Halberd)
     {
-        bossModel.addMeleeWeapon(&m_halberdPreceptor);
+        bossModel->addMeleeWeapon(&m_halberdPreceptor);
     }
     else if (weapons == Lance)
     {
-        bossModel.addMeleeWeapon(&m_lancePreceptor);
+        bossModel->addMeleeWeapon(&m_lancePreceptor);
     }
-    bossModel.addMeleeWeapon(&m_beakAndTalons);
+    bossModel->addMeleeWeapon(&m_beakAndTalons);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == Halberd)
         {
-            model.addMeleeWeapon(&m_halberd);
+            model->addMeleeWeapon(&m_halberd);
         }
         else if (weapons == Lance)
         {
-            model.addMeleeWeapon(&m_lance);
+            model->addMeleeWeapon(&m_lance);
         }
-        model.addMeleeWeapon(&m_beakAndTalons);
+        model->addMeleeWeapon(&m_beakAndTalons);
         addModel(model);
     }
 

@@ -96,18 +96,18 @@ Cogsmith::Cogsmith() :
 
 bool Cogsmith::configure(WeaponOption weapon)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_pistols);
+    model->addMissileWeapon(&m_pistols);
     if (weapon == GrudgeRaker)
     {
-        model.addMissileWeapon(&m_grudgeRaker);
+        model->addMissileWeapon(&m_grudgeRaker);
     }
 
-    model.addMeleeWeapon(&m_gunButt);
+    model->addMeleeWeapon(&m_gunButt);
     if (weapon == CogAxe)
     {
-        model.addMeleeWeapon(&m_cogAxe);
+        model->addMeleeWeapon(&m_cogAxe);
     }
 
     addModel(model);

@@ -33,10 +33,10 @@ RatlingGun::RatlingGun() :
 
 bool RatlingGun::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_ratlingGun);
-    model.addMeleeWeapon(&m_rustyKnives);
+    model->addMissileWeapon(&m_ratlingGun);
+    model->addMeleeWeapon(&m_rustyKnives);
 
     addModel(model);
 

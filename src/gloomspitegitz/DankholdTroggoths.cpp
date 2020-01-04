@@ -44,8 +44,8 @@ bool DankholdTroggoths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_boulderClub);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_boulderClub);
         addModel(model);
     }
 
@@ -101,12 +101,12 @@ void DankholdTroggoths::onStartHero(PlayerId player)
                     woundsHealed *= 2;
                 for (auto &m : m_models)
                 {
-                    if (!m.slain() || !m.fled())
+                    if (!m->slain() || !m->fled())
                     {
-                        if (m.woundsRemaining() < WOUNDS)
+                        if (m->woundsRemaining() < WOUNDS)
                         {
-                            int numToHeal = std::min(woundsHealed, WOUNDS - m.woundsRemaining());
-                            m.applyHealing(numToHeal);
+                            int numToHeal = std::min(woundsHealed, WOUNDS - m->woundsRemaining());
+                            m->applyHealing(numToHeal);
                             woundsHealed -= numToHeal;
                             if (woundsHealed <= 0) { break; }
                         }

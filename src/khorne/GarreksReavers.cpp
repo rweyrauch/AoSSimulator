@@ -61,28 +61,30 @@ GarreksReavers::GarreksReavers() :
 
 bool GarreksReavers::configure()
 {
-    Model garrek(BASESIZE, WOUNDS);
-    garrek.setName("Garrek");
-    garrek.addMeleeWeapon(&m_garreksAxe);
+    auto garrek = new Model(BASESIZE, WOUNDS);
+    garrek->setName("Garrek");
+    garrek->addMeleeWeapon(&m_garreksAxe);
     addModel(garrek);
 
-    Model karsus(BASESIZE, WOUNDS);
-    karsus.setName("Karsus");
-    karsus.addMeleeWeapon(&m_KarusAxe);
+    auto karsus = new Model(BASESIZE, WOUNDS);
+    karsus->setName("Karsus");
+    karsus->addMeleeWeapon(&m_KarusAxe);
     addModel(karsus);
 
-    Model saek(BASESIZE, WOUNDS);
-    saek.setName("Saek");
-    saek.addMeleeWeapon(&m_SaeksAxe);
+    auto saek = new Model(BASESIZE, WOUNDS);
+    saek->setName("Saek");
+    saek->addMeleeWeapon(&m_SaeksAxe);
     addModel(saek);
 
-    Model reaver(BASESIZE, WOUNDS);
-    reaver.setName("Targor");
-    reaver.addMeleeWeapon(&m_blades);
-    addModel(reaver);
+    auto targor = new Model(BASESIZE, WOUNDS);
+    targor->setName("Targor");
+    targor->addMeleeWeapon(&m_blades);
+    addModel(targor);
 
-    reaver.setName("Arnulf");
-    addModel(reaver);
+    auto arnulf = new Model(BASESIZE, WOUNDS);
+    arnulf->setName("Arnulf");
+    arnulf->addMeleeWeapon(&m_blades);
+    addModel(arnulf);
 
     m_points = POINTS_PER_UNIT;
 

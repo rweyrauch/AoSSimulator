@@ -46,8 +46,8 @@ bool LordArcanum::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoratio
         return false;
     }
 
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_aetherstave);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_aetherstave);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));

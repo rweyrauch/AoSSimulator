@@ -53,22 +53,22 @@ bool Decimators::configure(int numModels, int numStarsoulMaces)
     }
 
     // Add the Prime
-    Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMeleeWeapon(&m_thunderaxePrime);
+    auto primeModel = new Model(BASESIZE, WOUNDS);
+    primeModel->addMeleeWeapon(&m_thunderaxePrime);
     addModel(primeModel);
 
     for (auto i = 0; i < numStarsoulMaces; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_starsoulMace);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_starsoulMace);
         addModel(model);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_thunderaxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_thunderaxe);
         addModel(model);
     }
 

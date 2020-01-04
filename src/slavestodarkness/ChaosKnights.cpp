@@ -88,55 +88,55 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
     m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
-    Model leader(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, WOUNDS);
     if (doomKnightWeapon == EnsorcelledWeapon)
     {
-        leader.addMeleeWeapon(&m_ensorcelledWeaponLeader);
+        leader->addMeleeWeapon(&m_ensorcelledWeaponLeader);
     }
     else if (doomKnightWeapon == CursedLance)
     {
-        leader.addMeleeWeapon(&m_lanceLeader);
+        leader->addMeleeWeapon(&m_lanceLeader);
     }
     else if (doomKnightWeapon == CursedFlail)
     {
-        leader.addMeleeWeapon(&m_flailLeader);
+        leader->addMeleeWeapon(&m_flailLeader);
     }
-    leader.addMeleeWeapon(&m_hooves);
-    leader.setName("Doom Knight");
+    leader->addMeleeWeapon(&m_hooves);
+    leader->setName("Doom Knight");
     addModel(leader);
 
     if (m_standardBearer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Standard Bearer");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Standard Bearer");
         if (weapons == EnsorcelledWeapon)
-            model.addMeleeWeapon(&m_ensorcelledWeapon);
+            model->addMeleeWeapon(&m_ensorcelledWeapon);
         else if (weapons == CursedLance)
-            model.addMeleeWeapon(&m_lance);
-        model.addMeleeWeapon(&m_hooves);
+            model->addMeleeWeapon(&m_lance);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 
     if (m_hornblower)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Hornblower");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Hornblower");
         if (weapons == EnsorcelledWeapon)
-            model.addMeleeWeapon(&m_ensorcelledWeapon);
+            model->addMeleeWeapon(&m_ensorcelledWeapon);
         else if (weapons == CursedLance)
-            model.addMeleeWeapon(&m_lance);
-        model.addMeleeWeapon(&m_hooves);
+            model->addMeleeWeapon(&m_lance);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == EnsorcelledWeapon)
-            model.addMeleeWeapon(&m_ensorcelledWeapon);
+            model->addMeleeWeapon(&m_ensorcelledWeapon);
         else if (weapons == CursedLance)
-            model.addMeleeWeapon(&m_lance);
-        model.addMeleeWeapon(&m_hooves);
+            model->addMeleeWeapon(&m_lance);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 
@@ -203,11 +203,11 @@ void ChaosKnights::onWounded()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Hornblower"))
+        if (ip->slain() && (ip->getName() == "Hornblower"))
         {
             m_hornblower = false;
         }
-        if (ip.slain() && (ip.getName() == "Standard Bearer"))
+        if (ip->slain() && (ip->getName() == "Standard Bearer"))
         {
             m_standardBearer = false;
         }
@@ -257,11 +257,11 @@ void ChaosKnights::onRestore()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.getName() == "Hornblower")
+        if (ip->getName() == "Hornblower")
         {
             m_hornblower = true;
         }
-        if (ip.getName() == "Standard Bearer")
+        if (ip->getName() == "Standard Bearer")
         {
             m_standardBearer = true;
         }

@@ -35,10 +35,10 @@ Doombull::Doombull() :
 
 bool Doombull::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bullgorHorns);
-    model.addMeleeWeapon(&m_slaughtererAxe);
+    model->addMeleeWeapon(&m_bullgorHorns);
+    model->addMeleeWeapon(&m_slaughtererAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

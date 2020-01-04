@@ -38,14 +38,14 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 {
     m_weaponOption = weaponOption;
 
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     if (m_weaponOption == AstralHammers)
     {
-        model.addMeleeWeapon(&m_astralHammers);
+        model->addMeleeWeapon(&m_astralHammers);
     }
     else
     {
-        model.addMeleeWeapon(&m_astralGrandhammer);
+        model->addMeleeWeapon(&m_astralGrandhammer);
     }
     addModel(model);
 

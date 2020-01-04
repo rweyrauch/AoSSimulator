@@ -33,10 +33,10 @@ Doomflayer::Doomflayer() :
 
 bool Doomflayer::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_whirlingBlades);
-    model.addMeleeWeapon(&m_rustyKnives);
+    model->addMeleeWeapon(&m_whirlingBlades);
+    model->addMeleeWeapon(&m_rustyKnives);
 
     addModel(model);
 

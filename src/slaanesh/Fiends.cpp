@@ -47,16 +47,16 @@ bool Fiends::configure(int numModels)
         return false;
     }
 
-    Model blissbringer(BASESIZE, WOUNDS);
-    blissbringer.addMeleeWeapon(&m_deadlyPincersBlissbringer);
-    blissbringer.addMeleeWeapon(&m_barbedStinger);
+    auto blissbringer = new Model(BASESIZE, WOUNDS);
+    blissbringer->addMeleeWeapon(&m_deadlyPincersBlissbringer);
+    blissbringer->addMeleeWeapon(&m_barbedStinger);
     addModel(blissbringer);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_deadlyPincers);
-        model.addMeleeWeapon(&m_barbedStinger);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_deadlyPincers);
+        model->addMeleeWeapon(&m_barbedStinger);
         addModel(model);
     }
 

@@ -51,14 +51,14 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
     m_bannerBearer = bannerBearer;
     m_pairedBlades = pairedBlades;
 
-    Model foe(BASESIZE, WOUNDS);
-    foe.addMeleeWeapon(&m_gorBladeFoeRender);
+    auto foe = new Model(BASESIZE, WOUNDS);
+    foe->addMeleeWeapon(&m_gorBladeFoeRender);
     addModel(foe);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_gorBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_gorBlade);
         addModel(model);
     }
 

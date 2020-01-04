@@ -34,19 +34,19 @@ SteelheartsChampions::SteelheartsChampions() :
 
 bool SteelheartsChampions::configure()
 {
-    Model severin(BASESIZE, WOUNDS);
-    severin.setName("Severin");
-    severin.addMeleeWeapon(&m_broadSword);
+    auto severin = new Model(BASESIZE, WOUNDS);
+    severin->setName("Severin");
+    severin->addMeleeWeapon(&m_broadSword);
     addModel(severin);
 
-    Model obryn(BASESIZE, WOUNDS);
-    obryn.setName("Obryn");
-    obryn.addMeleeWeapon(&m_grandhammer);
+    auto obryn = new Model(BASESIZE, WOUNDS);
+    obryn->setName("Obryn");
+    obryn->addMeleeWeapon(&m_grandhammer);
     addModel(obryn);
 
-    Model angharad(BASESIZE, WOUNDS);
-    angharad.setName("Angharad");
-    angharad.addMeleeWeapon(&m_warhammer);
+    auto angharad = new Model(BASESIZE, WOUNDS);
+    angharad->setName("Angharad");
+    angharad->addMeleeWeapon(&m_warhammer);
     addModel(angharad);
 
     m_points = POINTS_PER_UNIT;
@@ -72,7 +72,7 @@ Rerolls SteelheartsChampions::toSaveRerolls(const Weapon *weapon) const
     // Sigmarite Shields
     for (const auto& ip : m_models)
     {
-        if (ip.getName() == "Angharad")
+        if (ip->getName() == "Angharad")
         {
             return RerollOnes;
         }

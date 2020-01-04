@@ -83,16 +83,16 @@ bool ShadowWarriors::configure(int numModels)
     }
 
     // Add the Walker
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMissileWeapon(&m_bowWalker);
-    bossModel.addMeleeWeapon(&m_blade);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMissileWeapon(&m_bowWalker);
+    bossModel->addMeleeWeapon(&m_blade);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_bow);
-        model.addMeleeWeapon(&m_blade);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_bow);
+        model->addMeleeWeapon(&m_blade);
         addModel(model);
     }
 

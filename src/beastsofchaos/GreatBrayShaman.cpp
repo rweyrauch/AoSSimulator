@@ -34,9 +34,9 @@ GreatBrayShaman::GreatBrayShaman() :
 
 bool GreatBrayShaman::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_fetishStaff);
+    model->addMeleeWeapon(&m_fetishStaff);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

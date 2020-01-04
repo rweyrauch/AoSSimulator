@@ -74,29 +74,29 @@ bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblad
     // Brayhorns
     m_runAndCharge = brayhorns;
 
-    Model twistbray(BASESIZE, WOUNDS);
+    auto twistbray = new Model(BASESIZE, WOUNDS);
     if (numGreatblades)
-        twistbray.addMeleeWeapon(&m_savageGreatbladeTwistbray);
+        twistbray->addMeleeWeapon(&m_savageGreatbladeTwistbray);
     else
-        twistbray.addMeleeWeapon(&m_savageBladeTwistbray);
-    twistbray.addMeleeWeapon(&m_viciousBeakTwistbray);
+        twistbray->addMeleeWeapon(&m_savageBladeTwistbray);
+    twistbray->addMeleeWeapon(&m_viciousBeakTwistbray);
     addModel(twistbray);
 
     // the Twistbray is always given a greatblade if there are any greatblades
     for (auto i = 1; i < numGreatblades; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_savageGreatblade);
-        model.addMeleeWeapon(&m_viciousBeak);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_savageGreatblade);
+        model->addMeleeWeapon(&m_viciousBeak);
         addModel(model);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_savageBlade);
-        model.addMeleeWeapon(&m_viciousBeak);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_savageBlade);
+        model->addMeleeWeapon(&m_viciousBeak);
         addModel(model);
     }
 

@@ -37,11 +37,11 @@ KnightVenator::KnightVenator() :
 
 bool KnightVenator::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_realmhuntersBow);
-    model.addMissileWeapon(&m_beakAndTalonsMissile);
-    model.addMeleeWeapon(&m_bowStave);
-    model.addMeleeWeapon(&m_beakAndTalons);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_realmhuntersBow);
+    model->addMissileWeapon(&m_beakAndTalonsMissile);
+    model->addMeleeWeapon(&m_bowStave);
+    model->addMeleeWeapon(&m_beakAndTalons);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

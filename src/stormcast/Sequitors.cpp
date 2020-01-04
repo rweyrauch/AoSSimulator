@@ -71,43 +71,43 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     m_haveRedemptionCache = redemptionCache;
 
     // Add the Prime
-    Model primeModel(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, WOUNDS);
     if (primeGreatmace)
     {
-        primeModel.addMeleeWeapon(&m_stormsmiteGreatmacePrime);
+        primeModel->addMeleeWeapon(&m_stormsmiteGreatmacePrime);
     }
     else if (m_weaponOption == StormsmiteMaul)
     {
-        primeModel.addMeleeWeapon(&m_stormsmiteMaulPrime);
+        primeModel->addMeleeWeapon(&m_stormsmiteMaulPrime);
     }
     else if (m_weaponOption == TempestBlade)
     {
-        primeModel.addMeleeWeapon(&m_tempestBladePrime);
+        primeModel->addMeleeWeapon(&m_tempestBladePrime);
     }
     if (m_haveRedemptionCache)
     {
-        primeModel.addMissileWeapon(&m_redemptionCache);
+        primeModel->addMissileWeapon(&m_redemptionCache);
     }
     addModel(primeModel);
 
     for (auto i = 0; i < numGreatmaces; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_stormsmiteGreatmace);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_stormsmiteGreatmace);
         addModel(model);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weaponOption == StormsmiteMaul)
         {
-            model.addMeleeWeapon(&m_stormsmiteMaul);
+            model->addMeleeWeapon(&m_stormsmiteMaul);
         }
         else if (m_weaponOption == TempestBlade)
         {
-            model.addMeleeWeapon(&m_tempestBlade);
+            model->addMeleeWeapon(&m_tempestBlade);
         }
         addModel(model);
     }
@@ -129,7 +129,7 @@ Rerolls Sequitors::toSaveRerolls(const Weapon *weapon) const
     for (const auto &m : m_models)
     {
         // check if remaining models have a shield
-        for (auto ip = m.meleeWeaponBegin(); ip != m.meleeWeaponEnd(); ++ip)
+        for (auto ip = m->meleeWeaponBegin(); ip != m->meleeWeaponEnd(); ++ip)
         {
             if ((*ip)->name() == m_stormsmiteMaul.name() || (*ip)->name() == m_tempestBlade.name())
             {

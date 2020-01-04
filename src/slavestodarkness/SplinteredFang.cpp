@@ -63,25 +63,25 @@ bool SplinteredFang::configure(int numModels)
         return false;
     }
 
-    Model trueblood(BASESIZE, WOUNDS);
-    trueblood.addMeleeWeapon(&m_poisonedWeaponsLeader);
-    trueblood.setName("Trueblood");
+    auto trueblood = new Model(BASESIZE, WOUNDS);
+    trueblood->addMeleeWeapon(&m_poisonedWeaponsLeader);
+    trueblood->setName("Trueblood");
     addModel(trueblood);
 
-    Model serpentCaller(BASESIZE, WOUNDS);
-    serpentCaller.addMeleeWeapon(&m_poisonedWeapons);
-    serpentCaller.setName("Serpent Caller");
+    auto serpentCaller = new Model(BASESIZE, WOUNDS);
+    serpentCaller->addMeleeWeapon(&m_poisonedWeapons);
+    serpentCaller->setName("Serpent Caller");
     addModel(serpentCaller);
 
-    Model serpent(BASESIZE, WOUNDS+1);
-    serpent.addMeleeWeapon(&m_poisonedWeapons);
-    serpent.setName("Serpent");
+    auto serpent = new Model(BASESIZE, WOUNDS+1);
+    serpent->addMeleeWeapon(&m_poisonedWeapons);
+    serpent->setName("Serpent");
     addModel(serpent);
 
     for (auto i = 3; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_poisonedWeapons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_poisonedWeapons);
         addModel(model);
     }
 
@@ -117,7 +117,7 @@ void SplinteredFang::onWounded()
     // Check for Serpent Caller
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Serpent Caller"))
+        if (ip->slain() && (ip->getName() == "Serpent Caller"))
         {
             m_hasSerpentCaller = false;
             break;

@@ -47,17 +47,17 @@ bool SquiqHoppers::configure(int numModels)
     }
 
     // Add the boss
-    Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&m_slittaBoss);
-    boss.addMeleeWeapon(&m_fangFilledGob);
+    auto boss = new Model(BASESIZE, WOUNDS);
+    boss->addMeleeWeapon(&m_slittaBoss);
+    boss->addMeleeWeapon(&m_fangFilledGob);
     addModel(boss);
 
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_slitta);
-        model.addMeleeWeapon(&m_fangFilledGob);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_slitta);
+        model->addMeleeWeapon(&m_fangFilledGob);
         addModel(model);
     }
 

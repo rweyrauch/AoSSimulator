@@ -39,9 +39,9 @@ TheContortedEpitome::TheContortedEpitome() :
 
 bool TheContortedEpitome::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_ravagingClaws);
-    model.addMeleeWeapon(&m_coiledTentacles);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_ravagingClaws);
+    model->addMeleeWeapon(&m_coiledTentacles);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

@@ -125,27 +125,27 @@ bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool pi
     m_piper = piper;
 
     // Add the Marksman
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (marksmanWeapon == Handgun)
     {
-        bossModel.addMissileWeapon(&m_handgunMarksman);
+        bossModel->addMissileWeapon(&m_handgunMarksman);
     }
     else if (marksmanWeapon == LongRifle)
     {
-        bossModel.addMissileWeapon(&m_longRifle);
+        bossModel->addMissileWeapon(&m_longRifle);
     }
     else if (marksmanWeapon == RepeaterHandgun)
     {
-        bossModel.addMeleeWeapon(&m_repeaterHandgun);
+        bossModel->addMeleeWeapon(&m_repeaterHandgun);
     }
-    bossModel.addMeleeWeapon(&m_dagger);
+    bossModel->addMeleeWeapon(&m_dagger);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_freeguildHandgun);
-        model.addMeleeWeapon(&m_dagger);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_freeguildHandgun);
+        model->addMeleeWeapon(&m_dagger);
         addModel(model);
     }
 

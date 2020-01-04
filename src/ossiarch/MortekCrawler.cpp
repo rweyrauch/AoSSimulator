@@ -83,12 +83,12 @@ MortekCrawler::MortekCrawler() :
 
 bool MortekCrawler::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_catapultSkulls);
-    model.addMissileWeapon(&m_catapultCauldron);
-    model.addMissileWeapon(&m_catapultStele);
-    model.addMeleeWeapon(&m_tools);
+    model->addMissileWeapon(&m_catapultSkulls);
+    model->addMissileWeapon(&m_catapultCauldron);
+    model->addMissileWeapon(&m_catapultStele);
+    model->addMeleeWeapon(&m_tools);
 
     m_catapultCauldron.activate(false);
     m_catapultStele.activate(false);

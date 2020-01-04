@@ -66,45 +66,45 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     m_weaponOption = weapons;
 
     // Add the Prime
-    Model primeModel(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, WOUNDS);
     if (m_weaponOption == SkyboltBow)
     {
-        primeModel.addMissileWeapon(&m_skyboltPrime);
+        primeModel->addMissileWeapon(&m_skyboltPrime);
     }
     else if (m_weaponOption == BoltstormCrossbow)
     {
-        primeModel.addMissileWeapon(&m_shockboltPrime);
+        primeModel->addMissileWeapon(&m_shockboltPrime);
     }
-    primeModel.addMeleeWeapon(&m_stormGladius);
+    primeModel->addMeleeWeapon(&m_stormGladius);
     addModel(primeModel);
 
     for (auto i = 0; i < numShockboltBows; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_shockboltBow);
-        model.addMeleeWeapon(&m_stormGladius);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_shockboltBow);
+        model->addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
     for (auto i = 0; i < numThunderboltCrossbows; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_thunderboldCrossbow);
-        model.addMeleeWeapon(&m_stormGladius);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_thunderboldCrossbow);
+        model->addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weaponOption == SkyboltBow)
         {
-            model.addMissileWeapon(&m_skyboltBow);
+            model->addMissileWeapon(&m_skyboltBow);
         }
         else if (m_weaponOption == BoltstormCrossbow)
         {
-            model.addMissileWeapon(&m_boltstormCrossbow);
+            model->addMissileWeapon(&m_boltstormCrossbow);
         }
-        model.addMeleeWeapon(&m_stormGladius);
+        model->addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
 
@@ -222,10 +222,10 @@ void Judicators::onStartShooting(PlayerId player)
 
     if (m_shootingTarget)
     {
-        for (auto ip : m_models)
+        for (const auto& ip : m_models)
         {
             // Thunderbolt Crossbow
-            if (ip.hasWeapon(m_thunderboldCrossbow.name()))
+            if (ip->hasWeapon(m_thunderboldCrossbow.name()))
             {
                 Dice dice;
                 int roll = dice.rollD6();

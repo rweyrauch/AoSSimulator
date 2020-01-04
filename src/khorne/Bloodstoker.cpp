@@ -35,9 +35,9 @@ Bloodstoker::Bloodstoker() :
 
 bool Bloodstoker::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_tortureBlade);
-    model.addMeleeWeapon(&m_bloodWhip);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_tortureBlade);
+    model->addMeleeWeapon(&m_bloodWhip);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

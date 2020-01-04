@@ -43,15 +43,15 @@ bool GrimghastReapers::configure(int numModels)
         return false;
     }
 
-    Model extoller(BASESIZE, WOUNDS);
+    auto extoller = new Model(BASESIZE, WOUNDS);
     // TODO: implement 'For Whom the Bell Tolls' (mortal wounds)
-    extoller.addMeleeWeapon(&m_deathKnell);
+    extoller->addMeleeWeapon(&m_deathKnell);
     addModel(extoller);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_slasherScythe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_slasherScythe);
         addModel(model);
     }
 

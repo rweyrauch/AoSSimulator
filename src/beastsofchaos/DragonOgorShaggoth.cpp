@@ -36,11 +36,11 @@ DragonOgorShaggoth::DragonOgorShaggoth() :
 
 bool DragonOgorShaggoth::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_stormWroughtAxe);
-    model.addMeleeWeapon(&m_sweepingTail);
-    model.addMeleeWeapon(&m_talonedForelimbs);
+    model->addMeleeWeapon(&m_stormWroughtAxe);
+    model->addMeleeWeapon(&m_sweepingTail);
+    model->addMeleeWeapon(&m_talonedForelimbs);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

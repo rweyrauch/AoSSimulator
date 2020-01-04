@@ -37,10 +37,10 @@ MightyLordOfKhorne::MightyLordOfKhorne() :
 
 bool MightyLordOfKhorne::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_axeOfKhorne);
-    model.addMeleeWeapon(&m_bloodDarkClaws);
+    model->addMeleeWeapon(&m_axeOfKhorne);
+    model->addMeleeWeapon(&m_bloodDarkClaws);
 
     addModel(model);
 

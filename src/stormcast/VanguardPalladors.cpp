@@ -52,35 +52,35 @@ bool VanguardPalladors::configure(int numModels, WeaponOption weapons)
     }
 
     // Add the Prime
-    Model primeModel(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, WOUNDS);
     if (weapons == ShockHandaxe)
     {
-        primeModel.addMeleeWeapon(&m_shockHandaxe);
+        primeModel->addMeleeWeapon(&m_shockHandaxe);
     }
     else
     {
-        primeModel.addMissileWeapon(&m_starstrikeJavelinMissile);
-        primeModel.addMeleeWeapon(&m_starstrikeJavelin);
+        primeModel->addMissileWeapon(&m_starstrikeJavelinMissile);
+        primeModel->addMeleeWeapon(&m_starstrikeJavelin);
     }
-    primeModel.addMissileWeapon(&m_boltstormPistol);
-    primeModel.addMeleeWeapon(&m_beakAndClaws);
+    primeModel->addMissileWeapon(&m_boltstormPistol);
+    primeModel->addMeleeWeapon(&m_beakAndClaws);
     addModel(primeModel);
 
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == ShockHandaxe)
         {
-            model.addMeleeWeapon(&m_shockHandaxe);
+            model->addMeleeWeapon(&m_shockHandaxe);
         }
         else
         {
-            model.addMissileWeapon(&m_starstrikeJavelinMissile);
-            model.addMeleeWeapon(&m_starstrikeJavelin);
+            model->addMissileWeapon(&m_starstrikeJavelinMissile);
+            model->addMeleeWeapon(&m_starstrikeJavelin);
         }
-        model.addMissileWeapon(&m_boltstormPistol);
-        model.addMeleeWeapon(&m_beakAndClaws);
+        model->addMissileWeapon(&m_boltstormPistol);
+        model->addMeleeWeapon(&m_beakAndClaws);
         addModel(model);
     }
 

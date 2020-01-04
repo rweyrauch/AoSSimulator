@@ -40,10 +40,10 @@ FungoidCaveShaman::FungoidCaveShaman() :
 
 bool FungoidCaveShaman::configure(LoreOfTheMoonclans lore)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_moonSickle);
-    model.addMeleeWeapon(&m_squigsTeeth);
+    model->addMeleeWeapon(&m_moonSickle);
+    model->addMeleeWeapon(&m_squigsTeeth);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));

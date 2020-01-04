@@ -40,8 +40,8 @@ TheMasque::TheMasque() :
 
 bool TheMasque::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_ravagingClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_ravagingClaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

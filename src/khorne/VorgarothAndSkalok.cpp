@@ -57,13 +57,13 @@ VorgarothAndSkalok::VorgarothAndSkalok() :
 
 bool VorgarothAndSkalok::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_balefire);
-    model.addMeleeWeapon(&m_skullCleaverAxeOfKhorne);
-    model.addMeleeWeapon(&m_evisceratingClaws);
-    model.addMeleeWeapon(&m_cavernousJaws);
-    model.addMeleeWeapon(&m_brassPlatedTail);
+    model->addMissileWeapon(&m_balefire);
+    model->addMeleeWeapon(&m_skullCleaverAxeOfKhorne);
+    model->addMeleeWeapon(&m_evisceratingClaws);
+    model->addMeleeWeapon(&m_cavernousJaws);
+    model->addMeleeWeapon(&m_brassPlatedTail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

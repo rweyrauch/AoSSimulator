@@ -43,10 +43,10 @@ BladebringerOnSeekerChariot::BladebringerOnSeekerChariot() :
 
 bool BladebringerOnSeekerChariot::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_flensingWhips);
-    model.addMeleeWeapon(&m_piercingClaws);
-    model.addMeleeWeapon(&m_poisonedTongues);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_flensingWhips);
+    model->addMeleeWeapon(&m_piercingClaws);
+    model->addMeleeWeapon(&m_poisonedTongues);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

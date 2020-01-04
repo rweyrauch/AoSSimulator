@@ -59,35 +59,35 @@ bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChop
         return false;
     }
 
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (bossWeapon == BossChoppa)
     {
-        bossModel.addMeleeWeapon(&m_bossChoppa);
+        bossModel->addMeleeWeapon(&m_bossChoppa);
     }
     else if (bossWeapon == BossKlaw)
     {
-        bossModel.addMeleeWeapon(&m_bossKlawAndBruteSmasha);
+        bossModel->addMeleeWeapon(&m_bossKlawAndBruteSmasha);
     }
     addModel(bossModel);
 
     for (auto i = 0; i < numGoreChoppas; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_gorechoppa);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_gorechoppa);
         addModel(model);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == TwoBruteChoppas)
         {
-            model.addMeleeWeapon(&m_twoBruteChoppas);
+            model->addMeleeWeapon(&m_twoBruteChoppas);
         }
         else if (weapons == JaggedGorehacka)
         {
-            model.addMeleeWeapon(&m_gorehacka);
+            model->addMeleeWeapon(&m_gorehacka);
         }
         addModel(model);
     }

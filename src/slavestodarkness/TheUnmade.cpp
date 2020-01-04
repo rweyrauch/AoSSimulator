@@ -64,20 +64,20 @@ bool TheUnmade::configure(int numModels)
         return false;
     }
 
-    Model joyousOne(BASESIZE, WOUNDS);
-    joyousOne.addMeleeWeapon(&m_maimingWeaponsLeader);
-    joyousOne.setName("Joyous One");
+    auto joyousOne = new Model(BASESIZE, WOUNDS);
+    joyousOne->addMeleeWeapon(&m_maimingWeaponsLeader);
+    joyousOne->setName("Joyous One");
     addModel(joyousOne);
 
-    Model blissfulOne(BASESIZE, WOUNDS);
-    blissfulOne.addMeleeWeapon(&m_nigthmareSickles);
-    blissfulOne.setName("Blissful One");
+    auto blissfulOne = new Model(BASESIZE, WOUNDS);
+    blissfulOne->addMeleeWeapon(&m_nigthmareSickles);
+    blissfulOne->setName("Blissful One");
     addModel(blissfulOne);
 
     for (auto i = 2; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_maimingWeapons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_maimingWeapons);
         addModel(model);
     }
 

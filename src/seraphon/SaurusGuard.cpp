@@ -50,17 +50,17 @@ bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
     m_wardrum = wardrum;
 
     // Add the Alpha
-    Model alpha(BASESIZE, WOUNDS);
-    alpha.addMeleeWeapon(&m_celestitePolearmAlpha);
-    alpha.addMeleeWeapon(&m_jawsAndShield);
+    auto alpha = new Model(BASESIZE, WOUNDS);
+    alpha->addMeleeWeapon(&m_celestitePolearmAlpha);
+    alpha->addMeleeWeapon(&m_jawsAndShield);
     addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_celestitePolearm);
-        model.addMeleeWeapon(&m_jawsAndShield);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_celestitePolearm);
+        model->addMeleeWeapon(&m_jawsAndShield);
         addModel(model);
     }
 

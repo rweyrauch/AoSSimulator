@@ -49,9 +49,9 @@ bool SneakySnufflers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_sickle);
-        model.addMeleeWeapon(&m_gnashers);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_sickle);
+        model->addMeleeWeapon(&m_gnashers);
         addModel(model);
     }
 

@@ -63,17 +63,17 @@ Butcher::Butcher() :
 
 bool Butcher::configure(WeaponOption weaponOption)
 {
-    Model model(BASESIZE, wounds());
+    auto model = new Model(BASESIZE, wounds());
 
     if (weaponOption == Tenderiser)
     {
-        model.addMeleeWeapon(&m_tenderizer);
+        model->addMeleeWeapon(&m_tenderizer);
     }
     else if (weaponOption == Cleaver)
     {
-        model.addMeleeWeapon(&m_cleaver);
+        model->addMeleeWeapon(&m_cleaver);
     }
-    model.addMeleeWeapon(&m_bite);
+    model->addMeleeWeapon(&m_bite);
 
     addModel(model);
 

@@ -48,20 +48,20 @@ YltharisGuardians::YltharisGuardians() :
 
 bool YltharisGuardians::configure()
 {
-    Model gallanghann(BASESIZE, WOUNDS);
-    gallanghann.addMeleeWeapon(&m_protectorGlaive);
-    gallanghann.setName("Gallanghann");
+    auto gallanghann = new Model(BASESIZE, WOUNDS);
+    gallanghann->addMeleeWeapon(&m_protectorGlaive);
+    gallanghann->setName("Gallanghann");
     addModel(gallanghann);
 
-    Model skhathael(BASESIZE, WOUNDS);
-    skhathael.addMeleeWeapon(&m_enchantedGreatBlade);
-    skhathael.setName("Skhathael");
+    auto skhathael = new Model(BASESIZE, WOUNDS);
+    skhathael->addMeleeWeapon(&m_enchantedGreatBlade);
+    skhathael->setName("Skhathael");
     addModel(skhathael);
 
-    Model ahnslaine(BASESIZE, WOUNDS);
-    ahnslaine.addMissileWeapon(&m_revenantBow);
-    ahnslaine.addMeleeWeapon(&m_revenantBowMelee);
-    ahnslaine.setName("Ahnslaine");
+    auto ahnslaine = new Model(BASESIZE, WOUNDS);
+    ahnslaine->addMissileWeapon(&m_revenantBow);
+    ahnslaine->addMeleeWeapon(&m_revenantBowMelee);
+    ahnslaine->setName("Ahnslaine");
     addModel(ahnslaine);
 
     m_points = POINTS_PER_UNIT;

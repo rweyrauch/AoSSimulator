@@ -47,14 +47,14 @@ bool Dryads::configure(int numModels)
         return false;
     }
 
-    Model nymph(BASESIZE, WOUNDS);
-    nymph.addMeleeWeapon(&m_wrackingTalonsNymph);
+    auto nymph = new Model(BASESIZE, WOUNDS);
+    nymph->addMeleeWeapon(&m_wrackingTalonsNymph);
     addModel(nymph);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_wrackingTalons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_wrackingTalons);
         addModel(model);
     }
 

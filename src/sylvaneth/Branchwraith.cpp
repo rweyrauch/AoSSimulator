@@ -36,9 +36,9 @@ Branchwraith::Branchwraith() :
 
 bool Branchwraith::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_piercingTalons);
+    model->addMeleeWeapon(&m_piercingTalons);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

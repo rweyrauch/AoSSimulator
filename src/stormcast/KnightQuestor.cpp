@@ -34,8 +34,8 @@ KnightQuestor::KnightQuestor() :
 
 bool KnightQuestor::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_warblade);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_warblade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

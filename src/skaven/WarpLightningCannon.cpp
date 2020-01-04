@@ -34,10 +34,10 @@ WarpLightningCannon::WarpLightningCannon() :
 
 bool WarpLightningCannon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_warpLightningBlast);
-    model.addMeleeWeapon(&m_teethAndKnives);
+    model->addMissileWeapon(&m_warpLightningBlast);
+    model->addMeleeWeapon(&m_teethAndKnives);
 
     addModel(model);
 

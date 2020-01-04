@@ -35,10 +35,10 @@ Karanak::Karanak() :
 
 bool Karanak::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_goreSlickClaws);
-    model.addMeleeWeapon(&m_savageMaws);
+    model->addMeleeWeapon(&m_goreSlickClaws);
+    model->addMeleeWeapon(&m_savageMaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

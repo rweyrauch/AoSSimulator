@@ -44,16 +44,16 @@ bool FlamersOfTzeentch::configure(int numModels)
         return false;
     }
 
-    Model pyrocaster(BASESIZE, WOUNDS);
-    pyrocaster.addMissileWeapon(&m_warpflamePyrocaster);
-    pyrocaster.addMeleeWeapon(&m_flamingMaw);
+    auto pyrocaster = new Model(BASESIZE, WOUNDS);
+    pyrocaster->addMissileWeapon(&m_warpflamePyrocaster);
+    pyrocaster->addMeleeWeapon(&m_flamingMaw);
     addModel(pyrocaster);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_warpflame);
-        model.addMeleeWeapon(&m_flamingMaw);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_warpflame);
+        model->addMeleeWeapon(&m_flamingMaw);
         addModel(model);
     }
 

@@ -57,33 +57,33 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
     m_wardrum = wardrum;
 
     // Add the Alpha
-    Model alpha(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, WOUNDS);
     if (m_weaponOption == CelestiteBlade)
     {
-        alpha.addMeleeWeapon(&m_celestiteBladeAlpha);
+        alpha->addMeleeWeapon(&m_celestiteBladeAlpha);
     }
     else if (m_weaponOption == CelestiteLance)
     {
-        alpha.addMeleeWeapon(&m_celestiteLanceAlpha);
+        alpha->addMeleeWeapon(&m_celestiteLanceAlpha);
     }
-    alpha.addMeleeWeapon(&m_jawsAndShield);
-    alpha.addMeleeWeapon(&m_coldOneBite);
+    alpha->addMeleeWeapon(&m_jawsAndShield);
+    alpha->addMeleeWeapon(&m_coldOneBite);
     addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weaponOption == CelestiteBlade)
         {
-            model.addMeleeWeapon(&m_celestiteBlade);
+            model->addMeleeWeapon(&m_celestiteBlade);
         }
         else if (m_weaponOption == CelestiteLance)
         {
-            model.addMeleeWeapon(&m_celestiteLance);
+            model->addMeleeWeapon(&m_celestiteLance);
         }
-        model.addMeleeWeapon(&m_jawsAndShield);
-        model.addMeleeWeapon(&m_coldOneBite);
+        model->addMeleeWeapon(&m_jawsAndShield);
+        model->addMeleeWeapon(&m_coldOneBite);
         addModel(model);
     }
 

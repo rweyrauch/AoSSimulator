@@ -49,14 +49,14 @@ bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == SpiritHalberd)
         {
-            model.addMeleeWeapon(&m_spiritHalberd);
+            model->addMeleeWeapon(&m_spiritHalberd);
         }
         else if (weapons == SpiritSwords)
         {
-            model.addMeleeWeapon(&m_spiritSwords);
+            model->addMeleeWeapon(&m_spiritSwords);
         }
         addModel(model);
     }

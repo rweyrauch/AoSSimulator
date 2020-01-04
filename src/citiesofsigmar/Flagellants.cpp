@@ -83,14 +83,14 @@ bool Flagellants::configure(int numModels)
     }
 
     // Add the Prophet
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_flailsAndClubsProphet);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_flailsAndClubsProphet);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_flailsAndClubs);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_flailsAndClubs);
         addModel(model);
     }
 

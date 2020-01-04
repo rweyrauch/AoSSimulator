@@ -54,20 +54,20 @@ bool TzaangorEnlightened::configure(int numModels, bool disksOfTzeentch)
         addKeyword(DAEMON);
     }
 
-    Model aviarch(BASESIZE, disksOfTzeentch ? WOUNDS_WITH_DISK : WOUNDS);
-    aviarch.addMeleeWeapon(&m_tzeentchianSpearAviarch);
-    aviarch.addMeleeWeapon(&m_viciousBeak);
+    auto aviarch = new Model(BASESIZE, disksOfTzeentch ? WOUNDS_WITH_DISK : WOUNDS);
+    aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
+    aviarch->addMeleeWeapon(&m_viciousBeak);
     if (disksOfTzeentch)
-        aviarch.addMeleeWeapon(&m_teethAndHorns);
+        aviarch->addMeleeWeapon(&m_teethAndHorns);
     addModel(aviarch);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, disksOfTzeentch ? WOUNDS_WITH_DISK : WOUNDS);
-        model.addMeleeWeapon(&m_tzeentchianSpear);
-        model.addMeleeWeapon(&m_viciousBeak);
+        auto model = new Model(BASESIZE, disksOfTzeentch ? WOUNDS_WITH_DISK : WOUNDS);
+        model->addMeleeWeapon(&m_tzeentchianSpear);
+        model->addMeleeWeapon(&m_viciousBeak);
         if (disksOfTzeentch)
-            model.addMeleeWeapon(&m_teethAndHorns);
+            model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
     }
 

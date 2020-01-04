@@ -59,12 +59,12 @@ DrychaHamadreth::DrychaHamadreth() :
 
 bool DrychaHamadreth::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_colonyOfFlitterfuries);
-    model.addMissileWeapon(&m_swarmOfSquirmlings);
-    model.addMeleeWeapon(&m_slashingTalons);
-    model.addMeleeWeapon(&m_thornedSlendervines);
+    model->addMissileWeapon(&m_colonyOfFlitterfuries);
+    model->addMissileWeapon(&m_swarmOfSquirmlings);
+    model->addMeleeWeapon(&m_slashingTalons);
+    model->addMeleeWeapon(&m_thornedSlendervines);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

@@ -72,16 +72,16 @@ bool Ironguts::configure(int numModels, bool runeMawBearer, bool bellower)
     m_runeMawBearer = runeMawBearer;
     m_bellower = bellower;
 
-    Model gutlord(BASESIZE, WOUNDS);
-    gutlord.addMeleeWeapon(&m_bashingWeaponGutlord);
-    gutlord.addMeleeWeapon(&m_bite);
+    auto gutlord = new Model(BASESIZE, WOUNDS);
+    gutlord->addMeleeWeapon(&m_bashingWeaponGutlord);
+    gutlord->addMeleeWeapon(&m_bite);
     addModel(gutlord);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_bashingWeapon);
-        model.addMeleeWeapon(&m_bite);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_bashingWeapon);
+        model->addMeleeWeapon(&m_bite);
         addModel(model);
     }
 

@@ -56,13 +56,13 @@ ArachnarokSpiderWithFlinger::ArachnarokSpiderWithFlinger() :
 
 bool ArachnarokSpiderWithFlinger::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_spiderBows);
-    model.addMissileWeapon(&m_flinger);
-    model.addMeleeWeapon(&m_chitinousLegs);
-    model.addMeleeWeapon(&m_monstrousFangs);
-    model.addMeleeWeapon(&m_crookedSpears);
+    model->addMissileWeapon(&m_spiderBows);
+    model->addMissileWeapon(&m_flinger);
+    model->addMeleeWeapon(&m_chitinousLegs);
+    model->addMeleeWeapon(&m_monstrousFangs);
+    model->addMeleeWeapon(&m_crookedSpears);
 
     addModel(model);
 

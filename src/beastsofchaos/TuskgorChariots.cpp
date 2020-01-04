@@ -46,10 +46,10 @@ bool TuskgorChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_despoilerAxe);
-        model.addMeleeWeapon(&m_gnarledSpear);
-        model.addMeleeWeapon(&m_tusksAndHooves);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_despoilerAxe);
+        model->addMeleeWeapon(&m_gnarledSpear);
+        model->addMeleeWeapon(&m_tusksAndHooves);
         addModel(model);
     }
 

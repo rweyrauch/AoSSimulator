@@ -36,16 +36,17 @@ IronskullsBoyz::IronskullsBoyz() :
 bool IronskullsBoyz::configure()
 {
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_eadButt);
-    bossModel.addMeleeWeapon(&m_bigChoppa);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_eadButt);
+    bossModel->addMeleeWeapon(&m_bigChoppa);
     addModel(bossModel);
 
     for (auto i = 1; i < 4; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_eadButt);
-        model.addMeleeWeapon(&m_pairedChoppas);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_eadButt);
+        model->addMeleeWeapon(&m_pairedChoppas);
+        addModel(model);
     }
 
     m_points = POINTS_PER_UNIT;

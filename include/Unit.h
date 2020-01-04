@@ -69,7 +69,7 @@ public:
      * Add a model to this unit.
      * @param model
      */
-    void addModel(const Model &model);
+    void addModel(Model* model);
 
     /*!
      * Restore a unit to its initial condition, as it was at the start of the battle.
@@ -159,8 +159,8 @@ public:
     bool canRetreatAndShoot() const;
     bool canRetreatAndCharge() const;
 
-    std::vector<Model>::const_iterator modelBegin() const { return m_models.begin(); }
-    std::vector<Model>::const_iterator modelEnd() const { return m_models.end(); }
+    std::vector<std::unique_ptr<Model>>::const_iterator modelBegin() const { return m_models.begin(); }
+    std::vector<std::unique_ptr<Model>>::const_iterator modelEnd() const { return m_models.end(); }
 
     int slay(int numModels);
 
@@ -187,11 +187,13 @@ public:
     std::vector<std::unique_ptr<CommandAbility>>::const_iterator commandAbilityBegin() const { return m_commandAbilities.begin(); }
     std::vector<std::unique_ptr<CommandAbility>>::const_iterator commandAbilityEnd() const { return m_commandAbilities.end(); }
 
+    int numOfWoundedModels() const;
+
 protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
-    void attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fromModel,
+    void attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fromModel,
         Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered);
 
     int rerolling(int initialRoll, Rerolls reroll, Dice& dice) const;
@@ -397,7 +399,7 @@ protected:
     int m_totalPrayers = 0;
 
     int m_ranks = 1;
-    std::vector<Model> m_models;
+    std::vector<std::unique_ptr<Model>> m_models;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
     Math::Vector3 m_orientation = {1.0f, 0.0f, 0.0f};
 

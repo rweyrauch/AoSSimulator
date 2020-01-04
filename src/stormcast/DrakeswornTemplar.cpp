@@ -63,24 +63,24 @@ bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow)
 {
     m_weapons = weapons;
 
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
     if (skyboltBow)
     {
-        model.addMissileWeapon(&m_skyboltBow);
+        model->addMissileWeapon(&m_skyboltBow);
     }
     if (weapons == TempestAxe)
     {
-        model.addMeleeWeapon(&m_tempestAxe);
+        model->addMeleeWeapon(&m_tempestAxe);
     }
     else if (weapons == ArcHammer)
     {
-        model.addMeleeWeapon(&m_arcHammer);
+        model->addMeleeWeapon(&m_arcHammer);
     }
     else if (weapons == Stormlance)
     {
-        model.addMeleeWeapon(&m_stormlance);
+        model->addMeleeWeapon(&m_stormlance);
     }
-    model.addMeleeWeapon(&m_greatClaws);
+    model->addMeleeWeapon(&m_greatClaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

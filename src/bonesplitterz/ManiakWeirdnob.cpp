@@ -57,10 +57,10 @@ ManiakWeirdnob::ManiakWeirdnob() :
 
 bool ManiakWeirdnob::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bonebeastStaff);
-    model.addMeleeWeapon(&m_tusksAndHooves);
+    model->addMeleeWeapon(&m_bonebeastStaff);
+    model->addMeleeWeapon(&m_tusksAndHooves);
 
     addModel(model);
 

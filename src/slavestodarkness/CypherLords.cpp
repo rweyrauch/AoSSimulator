@@ -63,23 +63,23 @@ bool CypherLords::configure(int numModels)
         return false;
     }
 
-    Model thrallmaster(BASESIZE, WOUNDS);
-    thrallmaster.addMissileWeapon(&m_throwingStars);
-    thrallmaster.addMeleeWeapon(&m_exoticBlades);
-    thrallmaster.setName("Thrallmaster");
+    auto thrallmaster = new Model(BASESIZE, WOUNDS);
+    thrallmaster->addMissileWeapon(&m_throwingStars);
+    thrallmaster->addMeleeWeapon(&m_exoticBlades);
+    thrallmaster->setName("Thrallmaster");
     addModel(thrallmaster);
 
-    Model luminate(BASESIZE, WOUNDS);
-    luminate.addMissileWeapon(&m_throwingStars);
-    luminate.addMeleeWeapon(&m_exoticBlades);
-    luminate.setName("Luminate");
+    auto luminate = new Model(BASESIZE, WOUNDS);
+    luminate->addMissileWeapon(&m_throwingStars);
+    luminate->addMeleeWeapon(&m_exoticBlades);
+    luminate->setName("Luminate");
     addModel(luminate);
 
     for (auto i = 2; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_throwingStars);
-        model.addMeleeWeapon(&m_exoticBlades);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_throwingStars);
+        model->addMeleeWeapon(&m_exoticBlades);
         addModel(model);
     }
 
@@ -115,11 +115,11 @@ void CypherLords::onWounded()
     // Check for Thrallmaster and Luminate
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Thrallmaster"))
+        if (ip->slain() && (ip->getName() == "Thrallmaster"))
         {
             m_hasThrallmaster = false;
         }
-        if (ip.slain() && (ip.getName() == "Luminate"))
+        if (ip->slain() && (ip->getName() == "Luminate"))
         {
             m_hasLuminate = false;
         }

@@ -47,8 +47,8 @@ bool Aetherwings::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_beakAndClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_beakAndClaws);
         addModel(model);
     }
 

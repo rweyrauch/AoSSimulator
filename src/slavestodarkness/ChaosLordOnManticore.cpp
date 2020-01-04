@@ -82,34 +82,34 @@ bool ChaosLordOnManticore::configure(WeaponOption weapon)
 {
     m_weapon = weapon;
 
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     switch (weapon)
     {
         case WeaponOption::BladeAndLance:
-            model.addMeleeWeapon(&m_blade);
-            model.addMeleeWeapon(&m_lance);
+            model->addMeleeWeapon(&m_blade);
+            model->addMeleeWeapon(&m_lance);
             break;
         case WeaponOption::BladeAndShield:
-            model.addMeleeWeapon(&m_blade);
+            model->addMeleeWeapon(&m_blade);
             break;
         case WeaponOption::BladeAndDaggerfist:
-            model.addMeleeWeapon(&m_blade);
+            model->addMeleeWeapon(&m_blade);
             break;
         case WeaponOption::FlailAndLance:
-            model.addMeleeWeapon(&m_flail);
-            model.addMeleeWeapon(&m_lance);
+            model->addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_lance);
             break;
         case WeaponOption::FlailAndShield:
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
             break;
         case WeaponOption::FlailAndDaggerfist:
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
             break;
     }
 
-    model.addMeleeWeapon(&m_fangsAndClaws);
-    model.addMeleeWeapon(&m_tail);
+    model->addMeleeWeapon(&m_fangsAndClaws);
+    model->addMeleeWeapon(&m_tail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

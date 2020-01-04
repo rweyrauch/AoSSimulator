@@ -37,31 +37,36 @@ ZarbagsGitz::ZarbagsGitz() :
 
 bool ZarbagsGitz::configure()
 {
-    Model herder(BASESIZE, SQUIG_WOUNDS);
-    herder.addMeleeWeapon(&m_prodder);
-    herder.setName("Herder");
+    auto herder = new Model(BASESIZE, SQUIG_WOUNDS);
+    herder->addMeleeWeapon(&m_prodder);
+    herder->setName("Herder");
     addModel(herder);
 
-    Model squig(BASESIZE, SQUIG_WOUNDS);
-    squig.addMeleeWeapon(&m_teeth);
-    squig.setName("Squig");
     // Two squigs
-    addModel(squig);
-    addModel(squig);
+    auto squig1 = new Model(BASESIZE, SQUIG_WOUNDS);
+    squig1->addMeleeWeapon(&m_teeth);
+    squig1->setName("Squig");
+    addModel(squig1);
 
-    Model netter(BASESIZE, WOUNDS);
-    netter.addMeleeWeapon(&m_slitta);
-    netter.setName("Netter");
+    auto squig2 = new Model(BASESIZE, SQUIG_WOUNDS);
+    squig2->addMeleeWeapon(&m_teeth);
+    squig2->setName("Squig");
+    addModel(squig2);
+
+    auto netter = new Model(BASESIZE, WOUNDS);
+    netter->addMeleeWeapon(&m_slitta);
+    netter->setName("Netter");
     addModel(netter);
 
-    Model shoota(BASESIZE, WOUNDS);
-    shoota.addMissileWeapon(&m_bow);
-    shoota.addMeleeWeapon(&m_slitta);
-    shoota.setName("Shoota");
     // Three shootas
-    addModel(shoota);
-    addModel(shoota);
-    addModel(shoota);
+    for (auto i = 0; i < 3; i++)
+    {
+        auto shoota = new Model(BASESIZE, WOUNDS);
+        shoota->addMissileWeapon(&m_bow);
+        shoota->addMeleeWeapon(&m_slitta);
+        shoota->setName("Shoota");
+        addModel(shoota);
+    }
 
     m_points = POINTS_PER_UNIT;
 
@@ -104,9 +109,9 @@ int ZarbagsGitz::targetHitModifier(const Weapon *weapon, const Unit *attacker) c
     if (distanceTo(attacker) <= 2.0f)
     {
         bool hasNets = false;
-        for (auto ip : m_models)
+        for (auto& ip : m_models)
         {
-            if (ip.getName() == "Netter")
+            if (ip->getName() == "Netter")
             {
                 hasNets = true;
                 break;

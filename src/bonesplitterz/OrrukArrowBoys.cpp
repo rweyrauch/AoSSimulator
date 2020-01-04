@@ -75,16 +75,16 @@ bool SavageOrrukArrowboys::configure(int numModels, bool skullThumper, bool tote
     m_totemBearer = totemBearer;
 
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMissileWeapon(&m_stingaBow);
-    bossModel.addMeleeWeapon(&m_chompa);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMissileWeapon(&m_stingaBow);
+    bossModel->addMeleeWeapon(&m_chompa);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_stingaBow);
-        model.addMeleeWeapon(&m_boneShiv);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_stingaBow);
+        model->addMeleeWeapon(&m_boneShiv);
         addModel(model);
     }
 

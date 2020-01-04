@@ -45,9 +45,9 @@ bool BeastsOfNurgle::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_clawsAndTentacles);
-        model.addMeleeWeapon(&m_slobberingTongue);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_clawsAndTentacles);
+        model->addMeleeWeapon(&m_slobberingTongue);
         addModel(model);
     }
 

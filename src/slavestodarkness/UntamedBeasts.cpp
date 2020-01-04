@@ -64,26 +64,26 @@ bool UntamedBeasts::configure(int numModels)
         return false;
     }
 
-    Model hearteater(BASESIZE, WOUNDS);
-    hearteater.addMeleeWeapon(&m_huntingWeaponsHeartEater);
-    hearteater.setName("Heart-eater");
+    auto hearteater = new Model(BASESIZE, WOUNDS);
+    hearteater->addMeleeWeapon(&m_huntingWeaponsHeartEater);
+    hearteater->setName("Heart-eater");
     addModel(hearteater);
 
-    Model firstfang(BASESIZE, WOUNDS);
-    firstfang.addMissileWeapon(&m_harpoonFirstFang);
-    firstfang.addMeleeWeapon(&m_huntingWeapons);
-    firstfang.setName("First Fang");
+    auto firstfang = new Model(BASESIZE, WOUNDS);
+    firstfang->addMissileWeapon(&m_harpoonFirstFang);
+    firstfang->addMeleeWeapon(&m_huntingWeapons);
+    firstfang->setName("First Fang");
     addModel(firstfang);
 
-    Model prowler(BASESIZE, 2);
-    prowler.addMeleeWeapon(&m_huntingWeapons);
-    prowler.setName("Rocktusk Prowler");
+    auto prowler = new Model(BASESIZE, 2);
+    prowler->addMeleeWeapon(&m_huntingWeapons);
+    prowler->setName("Rocktusk Prowler");
     addModel(prowler);
 
     for (auto i = 3; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_huntingWeapons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_huntingWeapons);
         addModel(model);
     }
 

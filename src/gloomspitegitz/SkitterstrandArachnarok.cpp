@@ -53,10 +53,10 @@ SkitterstrandArachnarok::SkitterstrandArachnarok() :
 
 bool SkitterstrandArachnarok::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_chitinousLegs);
-    model.addMeleeWeapon(&m_monstrousFangs);
+    model->addMeleeWeapon(&m_chitinousLegs);
+    model->addMeleeWeapon(&m_monstrousFangs);
 
     addModel(model);
 

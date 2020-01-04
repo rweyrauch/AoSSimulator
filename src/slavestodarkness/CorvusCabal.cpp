@@ -64,23 +64,23 @@ bool CorvusCabal::configure(int numModels)
         return false;
     }
 
-    Model piercer(BASESIZE, WOUNDS);
-    piercer.addMissileWeapon(&m_ravenDarts);
-    piercer.addMeleeWeapon(&m_corvusWeaponsLeader);
-    piercer.setName("Shadow Piercer");
+    auto piercer = new Model(BASESIZE, WOUNDS);
+    piercer->addMissileWeapon(&m_ravenDarts);
+    piercer->addMeleeWeapon(&m_corvusWeaponsLeader);
+    piercer->setName("Shadow Piercer");
     addModel(piercer);
 
-    Model talon(BASESIZE, WOUNDS);
-    talon.addMissileWeapon(&m_ravenDarts);
-    talon.addMeleeWeapon(&m_corvusWeapons);
-    talon.setName("Shrike Talon");
+    auto talon = new Model(BASESIZE, WOUNDS);
+    talon->addMissileWeapon(&m_ravenDarts);
+    talon->addMeleeWeapon(&m_corvusWeapons);
+    talon->setName("Shrike Talon");
     addModel(talon);
 
     for (auto i = 2; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_ravenDarts);
-        model.addMeleeWeapon(&m_corvusWeapons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_ravenDarts);
+        model->addMeleeWeapon(&m_corvusWeapons);
         addModel(model);
     }
 
@@ -116,7 +116,7 @@ void CorvusCabal::onWounded()
     // Check for Shrike Talon
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Shrike Talon"))
+        if (ip->slain() && (ip->getName() == "Shrike Talon"))
         {
             m_hasShrikeTalon = false;
             break;

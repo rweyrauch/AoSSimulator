@@ -57,16 +57,16 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
     m_hornblower = hornblower;
 
     // Add the Heartseeker
-    Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(&m_piercingClawsHeartseeker);
-    reaperModel.addMeleeWeapon(&m_poisonedTongue);
+    auto reaperModel = new Model(BASESIZE, WOUNDS);
+    reaperModel->addMeleeWeapon(&m_piercingClawsHeartseeker);
+    reaperModel->addMeleeWeapon(&m_poisonedTongue);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_piercingClaws);
-        model.addMeleeWeapon(&m_poisonedTongue);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_piercingClaws);
+        model->addMeleeWeapon(&m_poisonedTongue);
         addModel(model);
     }
 
@@ -128,11 +128,11 @@ void Seekers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) co
 void Seekers::restoreModels(int numModels)
 {
     // Icon Bearer
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_piercingClaws);
-    model.addMeleeWeapon(&m_poisonedTongue);
     for (auto i = 0; i < numModels; i++)
     {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_piercingClaws);
+        model->addMeleeWeapon(&m_poisonedTongue);
         addModel(model);
     }
 }

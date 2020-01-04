@@ -51,16 +51,16 @@ bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_runAndCharge = m_brayhorn;
 
-    Model halfhorn(BASESIZE, WOUNDS);
-    halfhorn.addMissileWeapon(&m_raiderBowHalfhorn);
-    halfhorn.addMeleeWeapon(&m_jaggedShank);
+    auto halfhorn = new Model(BASESIZE, WOUNDS);
+    halfhorn->addMissileWeapon(&m_raiderBowHalfhorn);
+    halfhorn->addMeleeWeapon(&m_jaggedShank);
     addModel(halfhorn);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_raiderBow);
-        model.addMeleeWeapon(&m_jaggedShank);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_raiderBow);
+        model->addMeleeWeapon(&m_jaggedShank);
         addModel(model);
     }
 

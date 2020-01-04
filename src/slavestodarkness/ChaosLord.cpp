@@ -60,14 +60,14 @@ ChaosLord::ChaosLord() :
 
 bool ChaosLord::configure(WeaponOption option)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     if (option == Reaperblade)
-        model.addMeleeWeapon(&m_blade);
+        model->addMeleeWeapon(&m_blade);
     else if (option == DaemonboundSteel)
-        model.addMeleeWeapon(&m_steel);
+        model->addMeleeWeapon(&m_steel);
     else if (option == DaemonboundWarFlail)
-        model.addMeleeWeapon(&m_flail);
+        model->addMeleeWeapon(&m_flail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

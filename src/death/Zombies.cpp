@@ -49,8 +49,8 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_zombieBite);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_zombieBite);
         addModel(model);
     }
 

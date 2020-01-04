@@ -55,15 +55,15 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     m_hornblower = hornblowers;
 
     // Add the Hellreaper
-    Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(&m_hellbladeReaper);
+    auto reaperModel = new Model(BASESIZE, WOUNDS);
+    reaperModel->addMeleeWeapon(&m_hellbladeReaper);
     addModel(reaperModel);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_hellblade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_hellblade);
         addModel(model);
     }
 
@@ -162,10 +162,10 @@ void Bloodletters::computeBattleshockEffect(int roll, int &numFled, int &numAdde
 void Bloodletters::restoreModels(int numModels)
 {
     // Icon Bearer
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_hellblade);
     for (auto i = 0; i < numModels; i++)
     {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_hellblade);
         addModel(model);
     }
 }

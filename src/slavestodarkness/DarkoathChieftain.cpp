@@ -53,10 +53,10 @@ DarkoathChieftain::DarkoathChieftain() :
 
 bool DarkoathChieftain::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_axe);
-    model.addMeleeWeapon(&m_broadsword);
+    model->addMeleeWeapon(&m_axe);
+    model->addMeleeWeapon(&m_broadsword);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

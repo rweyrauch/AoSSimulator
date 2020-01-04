@@ -98,16 +98,16 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     m_numIconbearers = numIconbearers;
 
     // Add the boss
-    Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&m_slittaBoss);
-    boss.addMissileWeapon(&m_moonclanBowBoss);
+    auto boss = new Model(BASESIZE, WOUNDS);
+    boss->addMeleeWeapon(&m_slittaBoss);
+    boss->addMissileWeapon(&m_moonclanBowBoss);
     addModel(boss);
 
     // add the nets
     for (auto i = 1; i < numBarbedNets; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_barbedNet);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_barbedNet);
         addModel(model);
     }
 
@@ -115,9 +115,9 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_slitta);
-        model.addMissileWeapon(&m_moonclanBow);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_slitta);
+        model->addMissileWeapon(&m_moonclanBow);
         addModel(model);
     }
 
@@ -197,9 +197,9 @@ int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
     if (distanceTo(attacker) <= 2.0f)
     {
         bool hasNets = false;
-        for (auto ip : m_models)
+        for (const auto& ip : m_models)
         {
-            for (auto wip = ip.meleeWeaponBegin(); wip != ip.meleeWeaponEnd(); ++wip)
+            for (auto wip = ip->meleeWeaponBegin(); wip != ip->meleeWeaponEnd(); ++wip)
             {
                 const Weapon *w = *wip;
 

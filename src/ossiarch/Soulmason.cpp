@@ -66,10 +66,10 @@ MortisanSoulmason::MortisanSoulmason() :
 
 bool MortisanSoulmason::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_staff);
-    model.addMeleeWeapon(&m_claws);
+    model->addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_claws);
 
     addModel(model);
 

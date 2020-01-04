@@ -35,9 +35,9 @@ LordCelestant::LordCelestant() :
 
 bool LordCelestant::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_runeblade);
-    model.addMeleeWeapon(&m_warhammer);
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_runeblade);
+    model->addMeleeWeapon(&m_warhammer);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

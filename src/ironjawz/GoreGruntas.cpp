@@ -50,30 +50,30 @@ bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
     }
 
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (weapons == PigIronChoppa)
     {
-        bossModel.addMeleeWeapon(&m_bossPigironChoppa);
+        bossModel->addMeleeWeapon(&m_bossPigironChoppa);
     }
     else if (weapons == JaggedGorehacka)
     {
-        bossModel.addMeleeWeapon(&m_bossJaggedGorehacka);
+        bossModel->addMeleeWeapon(&m_bossJaggedGorehacka);
     }
-    bossModel.addMeleeWeapon(&m_tusksAndHooves);
+    bossModel->addMeleeWeapon(&m_tusksAndHooves);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == PigIronChoppa)
         {
-            model.addMeleeWeapon(&m_pigironChoppa);
+            model->addMeleeWeapon(&m_pigironChoppa);
         }
         else if (weapons == JaggedGorehacka)
         {
-            model.addMeleeWeapon(&m_jaggedGorehacka);
+            model->addMeleeWeapon(&m_jaggedGorehacka);
         }
-        model.addMeleeWeapon(&m_tusksAndHooves);
+        model->addMeleeWeapon(&m_tusksAndHooves);
         addModel(model);
     }
 

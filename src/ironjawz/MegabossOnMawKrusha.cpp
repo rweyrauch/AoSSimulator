@@ -59,19 +59,19 @@ MegabossOnMawKrusha::MegabossOnMawKrusha() :
 
 bool MegabossOnMawKrusha::configure(WeaponOption weapons)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_bellow);
+    model->addMissileWeapon(&m_bellow);
 
     if (weapons == HackaAndChoppa)
     {
-        model.addMeleeWeapon(&m_hackaAndChoppa);
+        model->addMeleeWeapon(&m_hackaAndChoppa);
     }
     else if (weapons == ChoppaAndRiptoofFist)
     {
-        model.addMeleeWeapon(&m_ripToofFist);
+        model->addMeleeWeapon(&m_ripToofFist);
     }
-    model.addMeleeWeapon(&m_fistsAndTail);
+    model->addMeleeWeapon(&m_fistsAndTail);
 
     addModel(model);
 

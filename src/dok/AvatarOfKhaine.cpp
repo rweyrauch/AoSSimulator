@@ -32,10 +32,10 @@ AvatarOfKhaine::AvatarOfKhaine() :
 
 bool AvatarOfKhaine::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_torrentOfBurningBlood);
-    model.addMeleeWeapon(&m_sword);
+    model->addMissileWeapon(&m_torrentOfBurningBlood);
+    model->addMeleeWeapon(&m_sword);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

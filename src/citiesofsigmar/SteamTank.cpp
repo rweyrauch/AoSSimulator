@@ -93,20 +93,20 @@ SteamTank::SteamTank() :
 bool SteamTank::configure(bool commander)
 {
 
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_steamCannon);
-    model.addMissileWeapon(&m_steamGun);
-    model.addMeleeWeapon(&m_crushingWheels);
+    model->addMissileWeapon(&m_steamCannon);
+    model->addMissileWeapon(&m_steamGun);
+    model->addMeleeWeapon(&m_crushingWheels);
 
     m_points = POINTS_PER_UNIT;
 
     if (commander)
     {
         addKeyword(HERO);
-        model.addMissileWeapon(&m_longRifle);
-        model.addMissileWeapon(&m_handgun);
-        model.addMeleeWeapon(&m_sword);
+        model->addMissileWeapon(&m_longRifle);
+        model->addMissileWeapon(&m_handgun);
+        model->addMeleeWeapon(&m_sword);
 
         m_points += POINTS_FOR_COMMANDER;
     }

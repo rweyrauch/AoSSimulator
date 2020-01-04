@@ -46,8 +46,8 @@ bool KnightIncantor::configure(LoreOfTheStorm storm, LoreOfInvigoration invigora
         return false;
     }
 
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_staff);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_staff);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

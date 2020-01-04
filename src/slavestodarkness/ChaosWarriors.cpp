@@ -82,70 +82,70 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
     m_hasShields = false;
     m_pairedWeapons = false;
 
-    Model champion(BASESIZE, WOUNDS);
+    auto champion = new Model(BASESIZE, WOUNDS);
     if (weapons == HandWeaponAndShield)
     {
-        champion.addMeleeWeapon(&m_handWeaponsChampion);
+        champion->addMeleeWeapon(&m_handWeaponsChampion);
         m_hasShields = true;
     }
     else if (weapons == HalberdAndShield)
     {
-        champion.addMeleeWeapon(&m_halberdChampion);
+        champion->addMeleeWeapon(&m_halberdChampion);
         m_hasShields = true;
     }
     else if (weapons == GreatBlade)
     {
-        champion.addMeleeWeapon(&m_greatBladeChampion);
+        champion->addMeleeWeapon(&m_greatBladeChampion);
     }
     else if (weapons == PairedHandWeapons)
     {
-        champion.addMeleeWeapon(&m_handWeaponsChampion);
+        champion->addMeleeWeapon(&m_handWeaponsChampion);
         m_pairedWeapons = true;
     }
-    champion.setName("Aspiring Champion");
+    champion->setName("Aspiring Champion");
     addModel(champion);
 
     if (m_standardBearer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Standard Bearer");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Standard Bearer");
         if (weapons == HandWeaponAndShield)
-            model.addMeleeWeapon(&m_handWeapons);
+            model->addMeleeWeapon(&m_handWeapons);
         else if (weapons == HalberdAndShield)
-            model.addMeleeWeapon(&m_halberd);
+            model->addMeleeWeapon(&m_halberd);
         else if (weapons == GreatBlade)
-            model.addMeleeWeapon(&m_greatBlade);
+            model->addMeleeWeapon(&m_greatBlade);
         else if (weapons == PairedHandWeapons)
-            model.addMeleeWeapon(&m_handWeapons);
+            model->addMeleeWeapon(&m_handWeapons);
         addModel(model);
     }
 
     if (m_hornblower)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Hornblower");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Hornblower");
         if (weapons == HandWeaponAndShield)
-            model.addMeleeWeapon(&m_handWeapons);
+            model->addMeleeWeapon(&m_handWeapons);
         else if (weapons == HalberdAndShield)
-            model.addMeleeWeapon(&m_halberd);
+            model->addMeleeWeapon(&m_halberd);
         else if (weapons == GreatBlade)
-            model.addMeleeWeapon(&m_greatBlade);
+            model->addMeleeWeapon(&m_greatBlade);
         else if (weapons == PairedHandWeapons)
-            model.addMeleeWeapon(&m_handWeapons);
+            model->addMeleeWeapon(&m_handWeapons);
         addModel(model);
     }
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == HandWeaponAndShield)
-            model.addMeleeWeapon(&m_handWeapons);
+            model->addMeleeWeapon(&m_handWeapons);
         else if (weapons == HalberdAndShield)
-            model.addMeleeWeapon(&m_halberd);
+            model->addMeleeWeapon(&m_halberd);
         else if (weapons == GreatBlade)
-            model.addMeleeWeapon(&m_greatBlade);
+            model->addMeleeWeapon(&m_greatBlade);
         else if (weapons == PairedHandWeapons)
-            model.addMeleeWeapon(&m_handWeapons);
+            model->addMeleeWeapon(&m_handWeapons);
         addModel(model);
     }
 
@@ -220,11 +220,11 @@ void ChaosWarriors::onWounded()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Hornblower"))
+        if (ip->slain() && (ip->getName() == "Hornblower"))
         {
             m_hornblower = false;
         }
-        if (ip.slain() && (ip.getName() == "Standard Bearer"))
+        if (ip->slain() && (ip->getName() == "Standard Bearer"))
         {
             m_standardBearer = false;
         }
@@ -294,11 +294,11 @@ void ChaosWarriors::onRestore()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.getName() == "Hornblower")
+        if (ip->getName() == "Hornblower")
         {
             m_hornblower = true;
         }
-        if (ip.getName() == "Standard Bearer")
+        if (ip->getName() == "Standard Bearer")
         {
             m_standardBearer = true;
         }

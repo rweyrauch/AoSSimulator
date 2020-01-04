@@ -60,20 +60,20 @@ MagoresFiends::MagoresFiends() :
 
 bool MagoresFiends::configure()
 {
-    Model magore(BASESIZE, WOUNDS);
-    magore.setName("Magore");
-    magore.addMeleeWeapon(&m_bellyMaw);
-    magore.addMeleeWeapon(&m_daemonicAxe);
+    auto magore = new Model(BASESIZE, WOUNDS);
+    magore->setName("Magore");
+    magore->addMeleeWeapon(&m_bellyMaw);
+    magore->addMeleeWeapon(&m_daemonicAxe);
     addModel(magore);
 
-    Model ghartok(BASESIZE, WOUNDS);
-    ghartok.setName("Ghartok");
-    ghartok.addMeleeWeapon(&m_goreaxe);
+    auto ghartok = new Model(BASESIZE, WOUNDS);
+    ghartok->setName("Ghartok");
+    ghartok->addMeleeWeapon(&m_goreaxe);
     addModel(ghartok);
 
-    Model zharkus(BASESIZE, WOUNDS);
-    zharkus.setName("Zharkus");
-    zharkus.addMeleeWeapon(&m_goreaxe);
+    auto zharkus = new Model(BASESIZE, WOUNDS);
+    zharkus->setName("Zharkus");
+    zharkus->addMeleeWeapon(&m_goreaxe);
     addModel(zharkus);
 
     m_points = POINTS_PER_UNIT;

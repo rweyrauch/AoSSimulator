@@ -78,27 +78,27 @@ bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThum
     m_totemBearer = totemBearer;
 
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (weapons == Chompa)
     {
-        bossModel.addMeleeWeapon(&m_chompaBoss);
+        bossModel->addMeleeWeapon(&m_chompaBoss);
     }
     else if (weapons == SavageStikka)
     {
-        bossModel.addMeleeWeapon(&m_stikkaBoss);
+        bossModel->addMeleeWeapon(&m_stikkaBoss);
     }
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == Chompa)
         {
-            model.addMeleeWeapon(&m_chompa);
+            model->addMeleeWeapon(&m_chompa);
         }
         else if (weapons == SavageStikka)
         {
-            model.addMeleeWeapon(&m_stikka);
+            model->addMeleeWeapon(&m_stikka);
         }
         addModel(model);
     }

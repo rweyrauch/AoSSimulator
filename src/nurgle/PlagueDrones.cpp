@@ -54,34 +54,34 @@ bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBeare
     m_weapon = weapons;
 
     // Add the Plaguebringer
-    Model leader(BASESIZE, WOUNDS);
-    leader.addMissileWeapon(&m_deathsHead);
-    leader.addMeleeWeapon(&m_plagueswordPlaguebringer);
+    auto leader = new Model(BASESIZE, WOUNDS);
+    leader->addMissileWeapon(&m_deathsHead);
+    leader->addMeleeWeapon(&m_plagueswordPlaguebringer);
     if (weapons == PrehensileProboscis)
     {
-        leader.addMeleeWeapon(&m_proboscis);
+        leader->addMeleeWeapon(&m_proboscis);
     }
     else if (weapons == FoulMouthparts)
     {
-        leader.addMeleeWeapon(&m_mouthparts);
+        leader->addMeleeWeapon(&m_mouthparts);
     }
-    leader.addMeleeWeapon(&m_venemousSting);
+    leader->addMeleeWeapon(&m_venemousSting);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_deathsHead);
-        model.addMeleeWeapon(&m_plaguesword);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_deathsHead);
+        model->addMeleeWeapon(&m_plaguesword);
         if (weapons == PrehensileProboscis)
         {
-            model.addMeleeWeapon(&m_proboscis);
+            model->addMeleeWeapon(&m_proboscis);
         }
         else if (weapons == FoulMouthparts)
         {
-            model.addMeleeWeapon(&m_mouthparts);
+            model->addMeleeWeapon(&m_mouthparts);
         }
-        model.addMeleeWeapon(&m_venemousSting);
+        model->addMeleeWeapon(&m_venemousSting);
         addModel(model);
     }
 
@@ -164,20 +164,20 @@ void PlagueDrones::computeBattleshockEffect(int roll, int &numFled, int &numAdde
 void PlagueDrones::restoreModels(int numModels)
 {
     // Icon Bearer
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_deathsHead);
-    model.addMeleeWeapon(&m_plaguesword);
-    if (m_weapon == PrehensileProboscis)
-    {
-        model.addMeleeWeapon(&m_proboscis);
-    }
-    else if (m_weapon == FoulMouthparts)
-    {
-        model.addMeleeWeapon(&m_mouthparts);
-    }
-    model.addMeleeWeapon(&m_venemousSting);
     for (auto i = 0; i < numModels; i++)
     {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_deathsHead);
+        model->addMeleeWeapon(&m_plaguesword);
+        if (m_weapon == PrehensileProboscis)
+        {
+            model->addMeleeWeapon(&m_proboscis);
+        }
+        else if (m_weapon == FoulMouthparts)
+        {
+            model->addMeleeWeapon(&m_mouthparts);
+        }
+        model->addMeleeWeapon(&m_venemousSting);
         addModel(model);
     }
 }

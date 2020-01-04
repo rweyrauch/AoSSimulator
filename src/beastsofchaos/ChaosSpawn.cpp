@@ -44,8 +44,8 @@ bool ChaosSpawn::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_freakingMutations);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_freakingMutations);
         addModel(model);
     }
 

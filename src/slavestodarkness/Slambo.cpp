@@ -52,9 +52,9 @@ Slambo::Slambo() :
 
 bool Slambo::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_hurledAxe);
-    model.addMeleeWeapon(&m_chaosAxes);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_hurledAxe);
+    model->addMeleeWeapon(&m_chaosAxes);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

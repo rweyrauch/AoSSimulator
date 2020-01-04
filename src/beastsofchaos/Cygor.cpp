@@ -53,10 +53,10 @@ Cygor::Cygor() :
 
 bool Cygor::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_desecratedBoulder);
-    model.addMeleeWeapon(&m_massiveHorns);
+    model->addMeleeWeapon(&m_desecratedBoulder);
+    model->addMeleeWeapon(&m_massiveHorns);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

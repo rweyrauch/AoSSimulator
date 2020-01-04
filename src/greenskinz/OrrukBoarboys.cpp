@@ -56,32 +56,32 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
     m_weapons = weapons;
 
     // Add the boss
-    Model boss(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, WOUNDS);
     switch (weapons)
     {
         case Choppa:
-            boss.addMeleeWeapon(&m_choppaBoss);
+            boss->addMeleeWeapon(&m_choppaBoss);
             break;
         case PigstikkaSpear:
-            boss.addMeleeWeapon(&m_pigstikkaSpearBoss);
+            boss->addMeleeWeapon(&m_pigstikkaSpearBoss);
             break;
     }
-    boss.addMeleeWeapon(&m_warBoarsTusks);
+    boss->addMeleeWeapon(&m_warBoarsTusks);
     addModel(boss);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         switch (weapons)
         {
             case Choppa:
-                model.addMeleeWeapon(&m_choppa);
+                model->addMeleeWeapon(&m_choppa);
                 break;
             case PigstikkaSpear:
-                model.addMeleeWeapon(&m_pigstikkaSpear);
+                model->addMeleeWeapon(&m_pigstikkaSpear);
                 break;
         }
-        model.addMeleeWeapon(&m_warBoarsTusks);
+        model->addMeleeWeapon(&m_warBoarsTusks);
         addModel(model);
     }
 

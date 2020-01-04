@@ -51,11 +51,11 @@ DreadSaurian::DreadSaurian() :
 
 bool DreadSaurian::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_gargantuanJaws);
-    model.addMeleeWeapon(&m_rakingClaws);
-    model.addMeleeWeapon(&m_armouredTail);
+    model->addMeleeWeapon(&m_gargantuanJaws);
+    model->addMeleeWeapon(&m_rakingClaws);
+    model->addMeleeWeapon(&m_armouredTail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -145,7 +145,7 @@ void DreadSaurian::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
     }

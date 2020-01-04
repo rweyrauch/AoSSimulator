@@ -58,11 +58,11 @@ TheGlottkin::TheGlottkin() :
 
 bool TheGlottkin::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_pestilentTorrent);
-    model.addMeleeWeapon(&m_flailingTentacle);
-    model.addMeleeWeapon(&m_lampreyMaw);
-    model.addMeleeWeapon(&m_poisonScythe);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_pestilentTorrent);
+    model->addMeleeWeapon(&m_flailingTentacle);
+    model->addMeleeWeapon(&m_lampreyMaw);
+    model->addMeleeWeapon(&m_poisonScythe);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -117,7 +117,7 @@ void TheGlottkin::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
     }

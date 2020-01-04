@@ -56,12 +56,12 @@ ChaosLordOnKarkadrak::ChaosLordOnKarkadrak() :
 
 bool ChaosLordOnKarkadrak::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_battleAxe);
-    model.addMeleeWeapon(&m_blade);
-    model.addMeleeWeapon(&m_hornsAndClaws);
-    model.addMeleeWeapon(&m_tail);
+    model->addMeleeWeapon(&m_battleAxe);
+    model->addMeleeWeapon(&m_blade);
+    model->addMeleeWeapon(&m_hornsAndClaws);
+    model->addMeleeWeapon(&m_tail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

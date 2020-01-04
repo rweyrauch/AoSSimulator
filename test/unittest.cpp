@@ -21,10 +21,10 @@ TEST(Unit, Combat)
     Weapon warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
     Weapon warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1);
 
-    Model troop(40, liberators.wounds());
-    Model prime(40, liberators.wounds());
-    prime.addMeleeWeapon(&warhammerPrime);
-    troop.addMeleeWeapon(&warhammer);
+    auto troop = new Model(40, liberators.wounds());
+    auto prime = new Model(40, liberators.wounds());
+    prime->addMeleeWeapon(&warhammerPrime);
+    troop->addMeleeWeapon(&warhammer);
 
     liberators.addModel(prime);
     for (int i = 0; i < 4; i++)
@@ -36,10 +36,10 @@ TEST(Unit, Combat)
     CustomUnit bloodreavers("Bloodreavers", 6, 1, 5, 6, false);
     Weapon reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
     Weapon chieftanBlades(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1);
-    Model reaver(32, bloodreavers.wounds());
-    reaver.addMeleeWeapon(&reaverBlades);
-    Model chieftan(32, bloodreavers.wounds());
-    chieftan.addMeleeWeapon(&chieftanBlades);
+    auto reaver = new Model(32, bloodreavers.wounds());
+    reaver->addMeleeWeapon(&reaverBlades);
+    auto chieftan = new Model(32, bloodreavers.wounds());
+    chieftan->addMeleeWeapon(&chieftanBlades);
 
     bloodreavers.addModel(chieftan);
     for (int i = 0; i < 19; i++)

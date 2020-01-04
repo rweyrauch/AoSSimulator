@@ -61,10 +61,10 @@ WurrgogProphet::WurrgogProphet() :
 
 bool WurrgogProphet::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_staffAndShiv);
-    model.addMeleeWeapon(&m_fangedMaw);
+    model->addMeleeWeapon(&m_staffAndShiv);
+    model->addMeleeWeapon(&m_fangedMaw);
 
     addModel(model);
 

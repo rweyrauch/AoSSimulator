@@ -34,9 +34,9 @@ VandusHammerhand::VandusHammerhand() :
 
 bool VandusHammerhand::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_heldensen);
-    model.addMeleeWeapon(&m_clawsAndFangs);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_heldensen);
+    model->addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

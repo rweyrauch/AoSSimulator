@@ -58,24 +58,24 @@ bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duar
     m_drummers = drummers;
     m_duardinBucklers = duardinBucklers;
 
-    Model veteran(BASESIZE, WOUNDS);
+    auto veteran = new Model(BASESIZE, WOUNDS);
     if (veteranWeapon == DuardinHandgun)
     {
-        veteran.addMissileWeapon(&m_duardinHandgunVeteran);
-        veteran.addMeleeWeapon(&m_duardinHandgunMelee);
+        veteran->addMissileWeapon(&m_duardinHandgunVeteran);
+        veteran->addMeleeWeapon(&m_duardinHandgunMelee);
     }
     else if (veteranWeapon == BraceOfDuardinPistols)
     {
-        veteran.addMissileWeapon(&m_braceOfDuardinPistols);
-        veteran.addMeleeWeapon(&m_braceOfDuardinPistolsMelee);
+        veteran->addMissileWeapon(&m_braceOfDuardinPistols);
+        veteran->addMeleeWeapon(&m_braceOfDuardinPistolsMelee);
     }
     addModel(veteran);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_duardinHandgun);
-        model.addMeleeWeapon(&m_duardinHandgunMelee);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_duardinHandgun);
+        model->addMeleeWeapon(&m_duardinHandgunMelee);
         addModel(model);
     }
 

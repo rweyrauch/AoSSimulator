@@ -64,10 +64,10 @@ LiegeKavalos::LiegeKavalos() :
 
 bool LiegeKavalos::configure()
 {
-    Model model(WOUNDS, BASESIZE);
-    model.addMeleeWeapon(&m_blade);
-    model.addMeleeWeapon(&m_shield);
-    model.addMeleeWeapon(&m_hoovesAndTeeth);
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_blade);
+    model->addMeleeWeapon(&m_shield);
+    model->addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

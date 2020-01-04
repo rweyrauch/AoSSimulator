@@ -55,14 +55,14 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, b
     m_hornblower = hornblower;
 
     // Add the Alluress
-    Model reaperModel(BASESIZE, WOUNDS);
-    reaperModel.addMeleeWeapon(&m_piercingClawsAlluress);
+    auto reaperModel = new Model(BASESIZE, WOUNDS);
+    reaperModel->addMeleeWeapon(&m_piercingClawsAlluress);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_piercingClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_piercingClaws);
         addModel(model);
     }
 
@@ -123,10 +123,10 @@ void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded
 void Daemonettes::restoreModels(int numModels)
 {
     // Icon Bearer
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_piercingClaws);
     for (auto i = 0; i < numModels; i++)
     {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_piercingClaws);
         addModel(model);
     }
 }

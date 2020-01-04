@@ -43,16 +43,16 @@ bool Hexwraiths::configure(int numModels)
         return false;
     }
 
-    Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&m_spectralScytheHellwraith);
-    boss.addMeleeWeapon(&m_hoovesAndTeeth);
+    auto boss = new Model(BASESIZE, WOUNDS);
+    boss->addMeleeWeapon(&m_spectralScytheHellwraith);
+    boss->addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(boss);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_spectralScythe);
-        model.addMeleeWeapon(&m_hoovesAndTeeth);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_spectralScythe);
+        model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
     }
 

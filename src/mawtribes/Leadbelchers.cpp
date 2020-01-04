@@ -76,18 +76,18 @@ bool Leadbelchers::configure(int numModels)
         return false;
     }
 
-    Model boss(BASESIZE, WOUNDS);
-    boss.addMissileWeapon(&m_gun);
-    boss.addMeleeWeapon(&m_blowThunderfist);
-    boss.addMeleeWeapon(&m_bite);
+    auto boss = new Model(BASESIZE, WOUNDS);
+    boss->addMissileWeapon(&m_gun);
+    boss->addMeleeWeapon(&m_blowThunderfist);
+    boss->addMeleeWeapon(&m_bite);
     addModel(boss);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_gun);
-        model.addMeleeWeapon(&m_blow);
-        model.addMeleeWeapon(&m_bite);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_gun);
+        model->addMeleeWeapon(&m_blow);
+        model->addMeleeWeapon(&m_bite);
         addModel(model);
     }
 

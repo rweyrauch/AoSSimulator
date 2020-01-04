@@ -64,27 +64,27 @@ bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool cl
     // Standard Bearers
     m_retreatAndCharge = (standardBearers > 0);
 
-    Model leader(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, WOUNDS);
     if (weapons == RustySpear)
     {
-        leader.addMeleeWeapon(&m_rustySpearLeader);
+        leader->addMeleeWeapon(&m_rustySpearLeader);
     }
     else if (weapons == RustyBlade)
     {
-        leader.addMeleeWeapon(&m_rustyBladeLeader);
+        leader->addMeleeWeapon(&m_rustyBladeLeader);
     }
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == RustySpear)
         {
-            model.addMeleeWeapon(&m_rustySpear);
+            model->addMeleeWeapon(&m_rustySpear);
         }
         else if (weapons == RustyBlade)
         {
-            model.addMeleeWeapon(&m_rustyBlade);
+            model->addMeleeWeapon(&m_rustyBlade);
         }
         addModel(model);
     }

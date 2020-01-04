@@ -55,13 +55,13 @@ AuricRunefatherOnMagmadroth::AuricRunefatherOnMagmadroth() :
 
 bool AuricRunefatherOnMagmadroth::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMissileWeapon(&m_fyrestream);
-    model.addMeleeWeapon(&m_clawsAndHorns);
-    model.addMeleeWeapon(&m_blazingMaw);
-    model.addMeleeWeapon(&m_grandAxe);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMissileWeapon(&m_fyrestream);
+    model->addMeleeWeapon(&m_clawsAndHorns);
+    model->addMeleeWeapon(&m_blazingMaw);
+    model->addMeleeWeapon(&m_grandAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

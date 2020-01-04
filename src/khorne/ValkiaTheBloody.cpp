@@ -34,8 +34,8 @@ ValkiaTheBloody::ValkiaTheBloody() :
 
 bool ValkiaTheBloody::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_slaupnir);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_slaupnir);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

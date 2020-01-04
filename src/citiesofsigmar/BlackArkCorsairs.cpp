@@ -117,30 +117,30 @@ bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornbl
     m_hornblower = hornblower;
 
     // Add the Reaver
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (weapons == RepeaterHandbow)
     {
-        bossModel.addMissileWeapon(&m_handbowReaver);
+        bossModel->addMissileWeapon(&m_handbowReaver);
     }
     else if (weapons == WickedCutlass)
     {
-        bossModel.addMeleeWeapon(&m_cutlassReaver);   
+        bossModel->addMeleeWeapon(&m_cutlassReaver);
     }
-    bossModel.addMeleeWeapon(&m_bladeReaver);
+    bossModel->addMeleeWeapon(&m_bladeReaver);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == RepeaterHandbow)
         {
-            model.addMissileWeapon(&m_handbow);
+            model->addMissileWeapon(&m_handbow);
         }
         else if (weapons == WickedCutlass)
         {
-            model.addMeleeWeapon(&m_cutlass);
+            model->addMeleeWeapon(&m_cutlass);
         }
-        model.addMeleeWeapon(&m_blade);
+        model->addMeleeWeapon(&m_blade);
         addModel(model);
     }
 

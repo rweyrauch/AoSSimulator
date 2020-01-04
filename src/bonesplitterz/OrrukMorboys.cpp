@@ -74,14 +74,14 @@ bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemB
     m_totemBearer = totemBearer;
 
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_chompaAndShivBoss);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_chompaAndShivBoss);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_chompaAndShiv);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_chompaAndShiv);
         addModel(model);
     }
 

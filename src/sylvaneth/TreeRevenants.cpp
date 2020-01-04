@@ -53,21 +53,21 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
     m_gladeBanners = gladeBanners;
     m_waypipes = waypipes;
 
-    Model scion(BASESIZE, WOUNDS);
+    auto scion = new Model(BASESIZE, WOUNDS);
     if (scionGlaive)
     {
-        scion.addMeleeWeapon(&m_protectorGlaive);
+        scion->addMeleeWeapon(&m_protectorGlaive);
     }
     else
     {
-        scion.addMeleeWeapon(&m_enchantedBladeScion);
+        scion->addMeleeWeapon(&m_enchantedBladeScion);
     }
     addModel(scion);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_enchantedBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_enchantedBlade);
         addModel(model);
     }
 

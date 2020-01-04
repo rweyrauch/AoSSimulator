@@ -67,9 +67,9 @@ FreeguildGeneral::FreeguildGeneral() :
 
 bool FreeguildGeneral::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_zweihander);
+    model->addMeleeWeapon(&m_zweihander);
 
     addModel(model);
 

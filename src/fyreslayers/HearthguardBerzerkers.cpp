@@ -47,30 +47,30 @@ bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons)
         return false;
     }
 
-    Model karl(BASESIZE, WOUNDS);
-    karl.addMissileWeapon(&m_throwingAxe);
+    auto karl = new Model(BASESIZE, WOUNDS);
+    karl->addMissileWeapon(&m_throwingAxe);
     if (weapons == BerzerkerBroadaxe)
     {
-        karl.addMeleeWeapon(&m_broadaxeKarl);
+        karl->addMeleeWeapon(&m_broadaxeKarl);
     }
     else if (weapons == FlamestrikePoleaxe)
     {
-        karl.addMeleeWeapon(&m_poleaxeKarl);
+        karl->addMeleeWeapon(&m_poleaxeKarl);
     }
     addModel(karl);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_throwingAxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_throwingAxe);
         if (weapons == BerzerkerBroadaxe)
         {
-            model.addMeleeWeapon(&m_broadaxe);
+            model->addMeleeWeapon(&m_broadaxe);
         }
         else if (weapons == FlamestrikePoleaxe)
         {
-            model.addMeleeWeapon(&m_poleaxe);
+            model->addMeleeWeapon(&m_poleaxe);
         }
         addModel(model);
     }

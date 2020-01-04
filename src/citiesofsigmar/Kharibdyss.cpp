@@ -88,12 +88,12 @@ Kharibdyss::Kharibdyss() :
 
 bool Kharibdyss::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_tentacles);
-    model.addMeleeWeapon(&m_tail);
-    model.addMeleeWeapon(&m_limbs);
-    model.addMeleeWeapon(&m_goadsAndWhips);
+    model->addMeleeWeapon(&m_tentacles);
+    model->addMeleeWeapon(&m_tail);
+    model->addMeleeWeapon(&m_limbs);
+    model->addMeleeWeapon(&m_goadsAndWhips);
 
     addModel(model);
 

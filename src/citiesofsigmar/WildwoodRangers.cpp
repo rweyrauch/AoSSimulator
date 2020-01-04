@@ -48,14 +48,14 @@ bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblo
     m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
-    Model warden(BASESIZE, WOUNDS);
-    warden.addMeleeWeapon(&m_wardensDraich);
+    auto warden = new Model(BASESIZE, WOUNDS);
+    warden->addMeleeWeapon(&m_wardensDraich);
     addModel(warden);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_rangersDraich);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_rangersDraich);
         addModel(model);
     }
 

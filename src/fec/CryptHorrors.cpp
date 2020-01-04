@@ -46,14 +46,14 @@ bool CryptHorrors::configure(int numModels)
         return false;
     }
 
-    Model haunter(BASESIZE, WOUNDS);
-    haunter.addMeleeWeapon(&m_clubsAndTalonsHaunter);
+    auto haunter = new Model(BASESIZE, WOUNDS);
+    haunter->addMeleeWeapon(&m_clubsAndTalonsHaunter);
     addModel(haunter);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_clubsAndTalons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_clubsAndTalons);
         addModel(model);
     }
 

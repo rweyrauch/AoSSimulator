@@ -70,31 +70,31 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
     m_iconBearer = iconBearer;
     m_drummer = drummer;
 
-    Model champion(BASESIZE, WOUNDS);
-    champion.addMeleeWeapon(&m_greataxeChampion);
-    champion.setName("Exalted Champion");
+    auto champion = new Model(BASESIZE, WOUNDS);
+    champion->addMeleeWeapon(&m_greataxeChampion);
+    champion->setName("Exalted Champion");
     addModel(champion);
 
     if (m_iconBearer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Icon Bearer");
-        model.addMeleeWeapon(&m_greataxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Icon Bearer");
+        model->addMeleeWeapon(&m_greataxe);
         addModel(model);
     }
 
     if (m_drummer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Drummer");
-        model.addMeleeWeapon(&m_greataxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Drummer");
+        model->addMeleeWeapon(&m_greataxe);
         addModel(model);
     }
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_greataxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_greataxe);
         addModel(model);
     }
 
@@ -120,11 +120,11 @@ void ChaosChosen::onWounded()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Drummer"))
+        if (ip->slain() && (ip->getName() == "Drummer"))
         {
             m_drummer = false;
         }
-        if (ip.slain() && (ip.getName() == "Icon Bearer"))
+        if (ip->slain() && (ip->getName() == "Icon Bearer"))
         {
             m_iconBearer = false;
         }
@@ -152,11 +152,11 @@ void ChaosChosen::onRestore()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.getName() == "Drummer")
+        if (ip->getName() == "Drummer")
         {
             m_drummer = true;
         }
-        if (ip.getName() == "Icon Bearer")
+        if (ip->getName() == "Icon Bearer")
         {
             m_iconBearer = true;
         }

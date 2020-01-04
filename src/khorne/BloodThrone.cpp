@@ -36,10 +36,10 @@ HeraldOfKhorneOnBloodThrone::HeraldOfKhorneOnBloodThrone() :
 
 bool HeraldOfKhorneOnBloodThrone::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_bladeOfBlood);
-    model.addMeleeWeapon(&m_hellblades);
-    model.addMeleeWeapon(&m_gnashingMaw);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_bladeOfBlood);
+    model->addMeleeWeapon(&m_hellblades);
+    model->addMeleeWeapon(&m_gnashingMaw);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

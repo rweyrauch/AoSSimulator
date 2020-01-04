@@ -34,12 +34,12 @@ BloodwrackMedusa::BloodwrackMedusa() :
 
 bool BloodwrackMedusa::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_bloodwrackStare);
-    model.addMeleeWeapon(&m_whisperclaw);
-    model.addMeleeWeapon(&m_tailOfSerpents);
-    model.addMeleeWeapon(&m_bloodwrackSpear);
+    model->addMissileWeapon(&m_bloodwrackStare);
+    model->addMeleeWeapon(&m_whisperclaw);
+    model->addMeleeWeapon(&m_tailOfSerpents);
+    model->addMeleeWeapon(&m_bloodwrackSpear);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

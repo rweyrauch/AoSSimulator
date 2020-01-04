@@ -37,10 +37,10 @@ Runelord::Runelord() :
 
 bool Runelord::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_runeStaff);
-    model.addMeleeWeapon(&m_forgehammer);
+    model->addMeleeWeapon(&m_runeStaff);
+    model->addMeleeWeapon(&m_forgehammer);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

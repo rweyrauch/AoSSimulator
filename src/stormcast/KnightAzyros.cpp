@@ -35,8 +35,8 @@ KnightAzyros::KnightAzyros() :
 
 bool KnightAzyros::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_starblade);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_starblade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

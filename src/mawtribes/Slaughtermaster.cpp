@@ -60,11 +60,11 @@ Slaughtermaster::Slaughtermaster() :
 
 bool Slaughtermaster::configure()
 {
-    Model model(BASESIZE, wounds());
+    auto model = new Model(BASESIZE, wounds());
 
-    model.addMeleeWeapon(&m_stumpBlades);
-    model.addMeleeWeapon(&m_assortedWeapons);
-    model.addMeleeWeapon(&m_bite);
+    model->addMeleeWeapon(&m_stumpBlades);
+    model->addMeleeWeapon(&m_assortedWeapons);
+    model->addMeleeWeapon(&m_bite);
 
     addModel(model);
 

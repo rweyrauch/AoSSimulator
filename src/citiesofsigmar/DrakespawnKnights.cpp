@@ -90,16 +90,16 @@ bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornb
     m_hornblower = hornblower;
 
     // Add the Dread Knight
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_lanceDreadKnight);
-    bossModel.addMeleeWeapon(&m_jaws);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_lanceDreadKnight);
+    bossModel->addMeleeWeapon(&m_jaws);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_lance);
-        model.addMeleeWeapon(&m_jaws);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_lance);
+        model->addMeleeWeapon(&m_jaws);
         addModel(model);
     }
 

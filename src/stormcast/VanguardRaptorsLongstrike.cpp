@@ -48,17 +48,17 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
     }
 
     // Add the Prime
-    Model primeModel(BASESIZE, WOUNDS);
-    primeModel.addMissileWeapon(&m_longstikeCrossbow);
-    primeModel.addMeleeWeapon(&m_heavyStock);
-    primeModel.addMeleeWeapon(&m_beakAndClaws);
+    auto primeModel = new Model(BASESIZE, WOUNDS);
+    primeModel->addMissileWeapon(&m_longstikeCrossbow);
+    primeModel->addMeleeWeapon(&m_heavyStock);
+    primeModel->addMeleeWeapon(&m_beakAndClaws);
     addModel(primeModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_longstikeCrossbow);
-        model.addMeleeWeapon(&m_heavyStock);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_longstikeCrossbow);
+        model->addMeleeWeapon(&m_heavyStock);
         addModel(model);
     }
 

@@ -46,9 +46,9 @@ bool Khorgoraths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_boneTentacles);
-        model.addMeleeWeapon(&m_clawAndFangs);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_boneTentacles);
+        model->addMeleeWeapon(&m_clawAndFangs);
         addModel(model);
     }
 

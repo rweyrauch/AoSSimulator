@@ -56,10 +56,10 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_whisperbowStormFire);
-        model.addMissileWeapon(&m_whisperbowAimedFire);
-        model.addMeleeWeapon(&m_keeningBlade);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_whisperbowStormFire);
+        model->addMissileWeapon(&m_whisperbowAimedFire);
+        model->addMeleeWeapon(&m_keeningBlade);
         addModel(model);
     }
 

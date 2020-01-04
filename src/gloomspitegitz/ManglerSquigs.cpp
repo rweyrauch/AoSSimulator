@@ -59,11 +59,11 @@ int ManglerSquigs::move() const
 
 bool ManglerSquigs::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_hugeFangFilledGob);
-    model.addMeleeWeapon(&m_ballsAndChains);
-    model.addMeleeWeapon(&m_grotsBashinStikk);
+    model->addMeleeWeapon(&m_hugeFangFilledGob);
+    model->addMeleeWeapon(&m_ballsAndChains);
+    model->addMeleeWeapon(&m_grotsBashinStikk);
 
     addModel(model);
 

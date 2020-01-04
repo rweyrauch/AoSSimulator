@@ -79,25 +79,25 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
         m_sorcerousBolt.setRange(18);
     }
 
-    Model adept(BASESIZE, WOUNDS);
-    adept.addMissileWeapon(&m_sorcerousBoldAdept);
-    adept.addMeleeWeapon(&m_cursedBlade);
+    auto adept = new Model(BASESIZE, WOUNDS);
+    adept->addMissileWeapon(&m_sorcerousBoldAdept);
+    adept->addMeleeWeapon(&m_cursedBlade);
     addModel(adept);
 
     for (auto i = 0; i < m_numCursedGlaives; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_sorcerousBolt);
-        model.addMeleeWeapon(&m_cursedGlaive);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_sorcerousBolt);
+        model->addMeleeWeapon(&m_cursedGlaive);
         addModel(model);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_sorcerousBolt);
-        model.addMeleeWeapon(&m_cursedBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_sorcerousBolt);
+        model->addMeleeWeapon(&m_cursedBlade);
         addModel(model);
     }
 

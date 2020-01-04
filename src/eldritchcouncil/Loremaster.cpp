@@ -36,9 +36,8 @@ Loremaster::Loremaster() :
 
 bool Loremaster::configure()
 {
-    Model model;
-    model.addMeleeWeapon(&m_greatsword);
-
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_greatsword);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

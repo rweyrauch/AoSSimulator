@@ -49,17 +49,17 @@ bool FleshHounds::configure(int numModels)
     // Add the Gore Hounds
     for (auto i = 0; i < numGoreHounds; i++)
     {
-        Model goreHound(BASESIZE, WOUNDS);
-        goreHound.addMissileWeapon(&m_burningRoar);
-        goreHound.addMeleeWeapon(&m_blooddarkClaws);
+        auto goreHound = new Model(BASESIZE, WOUNDS);
+        goreHound->addMissileWeapon(&m_burningRoar);
+        goreHound->addMeleeWeapon(&m_blooddarkClaws);
         addModel(goreHound);
     }
 
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_blooddarkClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_blooddarkClaws);
         addModel(model);
     }
 

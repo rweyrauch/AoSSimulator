@@ -50,16 +50,16 @@ bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower)
     m_pennantBearer = pennantBearer;
     m_hornblower = hornblower;
 
-    Model lord(BASESIZE, WOUNDS);
-    lord.addMissileWeapon(&m_longbowLord);
-    lord.addMeleeWeapon(&m_gladeBlade);
+    auto lord = new Model(BASESIZE, WOUNDS);
+    lord->addMissileWeapon(&m_longbowLord);
+    lord->addMeleeWeapon(&m_gladeBlade);
     addModel(lord);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_longbow);
-        model.addMeleeWeapon(&m_gladeBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_longbow);
+        model->addMeleeWeapon(&m_gladeBlade);
         addModel(model);
     }
 

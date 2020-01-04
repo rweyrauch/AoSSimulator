@@ -34,9 +34,9 @@ DankholdTroggboss::DankholdTroggboss() :
 
 bool DankholdTroggboss::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_boulderClub);
+    model->addMeleeWeapon(&m_boulderClub);
 
     addModel(model);
 
@@ -87,7 +87,7 @@ void DankholdTroggboss::onStartHero(PlayerId player)
                     woundsHealed *= 2;
                 for (auto &m : m_models)
                 {
-                    m.applyHealing(woundsHealed);
+                    m->applyHealing(woundsHealed);
                 }
             }
         }

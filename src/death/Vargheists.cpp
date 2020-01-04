@@ -43,14 +43,14 @@ bool Vargheists::configure(int numModels)
         return false;
     }
 
-    Model vargoyle(BASESIZE, WOUNDS);
-    vargoyle.addMeleeWeapon(&m_fangsAndTalonsVargoyle);
+    auto vargoyle = new Model(BASESIZE, WOUNDS);
+    vargoyle->addMeleeWeapon(&m_fangsAndTalonsVargoyle);
     addModel(vargoyle);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_fangsAndTalons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_fangsAndTalons);
         addModel(model);
     }
 

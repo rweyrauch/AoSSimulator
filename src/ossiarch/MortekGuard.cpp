@@ -106,39 +106,39 @@ bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblad
         return false;
     }
 
-    Model hekatos(WOUNDS, BASESIZE);
+    auto hekatos = new Model(BASESIZE, WOUNDS);
     if (numGreatblades)
     {
-        hekatos.addMeleeWeapon(&m_greatbladeHekatos);
+        hekatos->addMeleeWeapon(&m_greatbladeHekatos);
         numGreatblades--;
     }
     else if (option == NadiriteBladeAndShield)
     {
-        hekatos.addMeleeWeapon(&m_bladeHekatos);
+        hekatos->addMeleeWeapon(&m_bladeHekatos);
     }
     else if (option == NadirateSpearAndShield)
     {
-        hekatos.addMeleeWeapon(&m_spearHekatos);
+        hekatos->addMeleeWeapon(&m_spearHekatos);
     }
     addModel(hekatos);
     for (auto i = 0; i < numGreatblades; i++)
     {
-        Model model(WOUNDS, BASESIZE);
-        model.addMeleeWeapon(&m_greatblade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_greatblade);
         addModel(model);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(WOUNDS, BASESIZE);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (option == NadiriteBladeAndShield)
         {
-            model.addMeleeWeapon(&m_bladeHekatos);
+            model->addMeleeWeapon(&m_bladeHekatos);
         }
         else if (option == NadirateSpearAndShield)
         {
-            model.addMeleeWeapon(&m_spearHekatos);
+            model->addMeleeWeapon(&m_spearHekatos);
         }
         addModel(model);
     }

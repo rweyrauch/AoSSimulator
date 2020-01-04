@@ -92,18 +92,18 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
     m_hornblower = hornblower;
 
     // Add the Herald
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMissileWeapon(&m_crossbowHerald);
-    bossModel.addMeleeWeapon(&m_spear);
-    bossModel.addMeleeWeapon(&m_bite);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMissileWeapon(&m_crossbowHerald);
+    bossModel->addMeleeWeapon(&m_spear);
+    bossModel->addMeleeWeapon(&m_bite);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_crossbow);
-        model.addMeleeWeapon(&m_spear);
-        model.addMeleeWeapon(&m_bite);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_crossbow);
+        model->addMeleeWeapon(&m_spear);
+        model->addMeleeWeapon(&m_bite);
         addModel(model);
     }
 

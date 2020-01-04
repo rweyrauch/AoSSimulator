@@ -37,9 +37,9 @@ VarghulfCourtier::VarghulfCourtier() :
 
 bool VarghulfCourtier::configure()
 {
-    Model courtier(BASESIZE, WOUNDS);
-    courtier.addMeleeWeapon(&m_immenseClaws);
-    courtier.addMeleeWeapon(&m_daggerlikeFangs);
+    auto courtier = new Model(BASESIZE, WOUNDS);
+    courtier->addMeleeWeapon(&m_immenseClaws);
+    courtier->addMeleeWeapon(&m_daggerlikeFangs);
     addModel(courtier);
 
     m_points = POINTS_PER_UNIT;

@@ -56,29 +56,30 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
     m_drummer = drummer;
     m_bannerBearer = bannerBearer;
     m_pairedAxes = (options == PairedBullgorAxes);
-    Model bloodkine(BASESIZE, WOUNDS);
-    bloodkine.addMeleeWeapon(&m_bullgorHorns);
+
+    auto bloodkine = new Model(BASESIZE, WOUNDS);
+    bloodkine->addMeleeWeapon(&m_bullgorHorns);
     if (options == BullgorAxe || options == PairedBullgorAxes)
     {
-        bloodkine.addMeleeWeapon(&m_bullgorAxeBloodkine);
+        bloodkine->addMeleeWeapon(&m_bullgorAxeBloodkine);
     }
     else if (options == BullgorGreatAxe)
     {
-        bloodkine.addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
+        bloodkine->addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
     }
     addModel(bloodkine);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_bullgorHorns);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_bullgorHorns);
         if (options == BullgorAxe || options == PairedBullgorAxes)
         {
-            model.addMeleeWeapon(&m_bullgorAxe);
+            model->addMeleeWeapon(&m_bullgorAxe);
         }
         else if (options == BullgorGreatAxe)
         {
-            model.addMeleeWeapon(&m_bullgorGreatAxe);
+            model->addMeleeWeapon(&m_bullgorGreatAxe);
         }
         addModel(model);
     }

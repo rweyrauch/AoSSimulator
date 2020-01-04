@@ -61,13 +61,13 @@ WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
 
 bool WebspinnerShamanOnArachnarokSpider::configure(LoreOfTheSpiderFangs lore)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_spiderBows);
-    model.addMeleeWeapon(&m_spiderGodStaff);
-    model.addMeleeWeapon(&m_chitinousLegs);
-    model.addMeleeWeapon(&m_monstrousFangs);
-    model.addMeleeWeapon(&m_crookedSpears);
+    model->addMissileWeapon(&m_spiderBows);
+    model->addMeleeWeapon(&m_spiderGodStaff);
+    model->addMeleeWeapon(&m_chitinousLegs);
+    model->addMeleeWeapon(&m_monstrousFangs);
+    model->addMeleeWeapon(&m_crookedSpears);
 
     addModel(model);
 

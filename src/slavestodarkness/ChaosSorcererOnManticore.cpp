@@ -72,11 +72,11 @@ ChaosSorcererOnManticore::ChaosSorcererOnManticore() :
 
 bool ChaosSorcererOnManticore::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_staff);
-    model.addMeleeWeapon(&m_fangsAndClaws);
-    model.addMeleeWeapon(&m_tail);
+    model->addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_fangsAndClaws);
+    model->addMeleeWeapon(&m_tail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

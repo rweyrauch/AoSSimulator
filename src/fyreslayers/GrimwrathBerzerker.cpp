@@ -34,10 +34,10 @@ GrimwrathBerzerker::GrimwrathBerzerker() :
 
 bool GrimwrathBerzerker::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMeleeWeapon(&m_greatAxe);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMeleeWeapon(&m_greatAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

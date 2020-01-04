@@ -50,10 +50,10 @@ bool SeekerChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_flensingWhips);
-        model.addMeleeWeapon(&m_piercingClaws);
-        model.addMeleeWeapon(&m_poisonedTongues);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_flensingWhips);
+        model->addMeleeWeapon(&m_piercingClaws);
+        model->addMeleeWeapon(&m_poisonedTongues);
         addModel(model);
     }
 

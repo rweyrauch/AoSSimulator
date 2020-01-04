@@ -55,11 +55,11 @@ SpiritOfDurthu::SpiritOfDurthu() :
 
 bool SpiritOfDurthu::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_verdantBlast);
-    model.addMeleeWeapon(&m_guardianSword);
-    model.addMeleeWeapon(&m_massiveImpalingTalons);
+    model->addMissileWeapon(&m_verdantBlast);
+    model->addMeleeWeapon(&m_guardianSword);
+    model->addMeleeWeapon(&m_massiveImpalingTalons);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

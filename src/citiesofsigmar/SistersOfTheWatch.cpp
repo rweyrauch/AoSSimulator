@@ -84,16 +84,16 @@ bool SistersOfTheWatch::configure(int numModels)
     }
 
     // Add the High Sister
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMissileWeapon(&m_bowHighSister);
-    bossModel.addMeleeWeapon(&m_sword);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMissileWeapon(&m_bowHighSister);
+    bossModel->addMeleeWeapon(&m_sword);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_bow);
-        model.addMeleeWeapon(&m_sword);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_bow);
+        model->addMeleeWeapon(&m_sword);
         addModel(model);
     }
 

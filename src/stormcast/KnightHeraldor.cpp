@@ -34,8 +34,8 @@ KnightHeraldor::KnightHeraldor() :
 
 bool KnightHeraldor::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_broadsword);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_broadsword);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

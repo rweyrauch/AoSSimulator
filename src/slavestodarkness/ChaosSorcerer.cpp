@@ -53,10 +53,10 @@ ChaosSorcerer::ChaosSorcerer() :
 
 bool ChaosSorcerer::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_staff);
-    model.addMeleeWeapon(&m_blade);
+    model->addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_blade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

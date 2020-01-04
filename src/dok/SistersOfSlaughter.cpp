@@ -58,22 +58,22 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
         m_runAndCharge = true;
     }
 
-    Model handmaiden(BASESIZE, WOUNDS);
+    auto handmaiden = new Model(BASESIZE, WOUNDS);
     if (m_hasSacrificialKnife)
     {
-        handmaiden.addMeleeWeapon(&m_sacrificialKnifeHandmaiden);
+        handmaiden->addMeleeWeapon(&m_sacrificialKnifeHandmaiden);
     }
-    handmaiden.addMeleeWeapon(&m_barbedWhipHandmaiden);
+    handmaiden->addMeleeWeapon(&m_barbedWhipHandmaiden);
     addModel(handmaiden);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_hasSacrificialKnife)
         {
-            model.addMeleeWeapon(&m_sacrificialKnife);
+            model->addMeleeWeapon(&m_sacrificialKnife);
         }
-        model.addMeleeWeapon(&m_barbedWhip);
+        model->addMeleeWeapon(&m_barbedWhip);
         addModel(model);
     }
 

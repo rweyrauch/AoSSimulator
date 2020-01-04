@@ -50,17 +50,17 @@ bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers)
     m_hornblower = hornblowers;
 
     // Add the Bloodhunter
-    Model hunter(BASESIZE, WOUNDS);
-    hunter.addMeleeWeapon(&m_hellbladeHunter);
-    hunter.addMeleeWeapon(&m_brazenHooves);
+    auto hunter = new Model(BASESIZE, WOUNDS);
+    hunter->addMeleeWeapon(&m_hellbladeHunter);
+    hunter->addMeleeWeapon(&m_brazenHooves);
     addModel(hunter);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_hellblade);
-        model.addMeleeWeapon(&m_brazenHooves);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_hellblade);
+        model->addMeleeWeapon(&m_brazenHooves);
         addModel(model);
     }
 

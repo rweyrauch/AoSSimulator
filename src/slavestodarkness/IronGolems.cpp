@@ -64,29 +64,29 @@ bool IronGolems::configure(int numModels)
         return false;
     }
 
-    Model dominar(BASESIZE, WOUNDS);
-    dominar.addMissileWeapon(&m_bolas);
-    dominar.addMeleeWeapon(&m_legionWeaponsDominar);
-    dominar.setName("Dominar");
+    auto dominar = new Model(BASESIZE, WOUNDS);
+    dominar->addMissileWeapon(&m_bolas);
+    dominar->addMeleeWeapon(&m_legionWeaponsDominar);
+    dominar->setName("Dominar");
     addModel(dominar);
 
-    Model signifer(BASESIZE, WOUNDS);
-    signifer.addMissileWeapon(&m_bolas);
-    signifer.addMeleeWeapon(&m_legionWeapons);
-    signifer.setName("Signifer");
+    auto signifer = new Model(BASESIZE, WOUNDS);
+    signifer->addMissileWeapon(&m_bolas);
+    signifer->addMeleeWeapon(&m_legionWeapons);
+    signifer->setName("Signifer");
     addModel(signifer);
 
-    Model breacher(BASESIZE, 3);
-    breacher.addMissileWeapon(&m_bolas);
-    breacher.addMeleeWeapon(&m_legionWeapons);
-    breacher.setName("Ogor Breacher");
+    auto breacher = new Model(BASESIZE, 3);
+    breacher->addMissileWeapon(&m_bolas);
+    breacher->addMeleeWeapon(&m_legionWeapons);
+    breacher->setName("Ogor Breacher");
     addModel(breacher);
 
     for (auto i = 3; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_bolas);
-        model.addMeleeWeapon(&m_legionWeapons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_bolas);
+        model->addMeleeWeapon(&m_legionWeapons);
         addModel(model);
     }
 
@@ -123,7 +123,7 @@ void IronGolems::onWounded()
     // Check for Signifer
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Signifer"))
+        if (ip->slain() && (ip->getName() == "Signifer"))
         {
             m_hasSignifer = false;
             break;

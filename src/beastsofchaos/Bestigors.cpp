@@ -50,14 +50,14 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_runAndCharge = m_brayhorn;
 
-    Model gougehorn(BASESIZE, WOUNDS);
-    gougehorn.addMeleeWeapon(&m_despoilerAxeGougeHorn);
+    auto gougehorn = new Model(BASESIZE, WOUNDS);
+    gougehorn->addMeleeWeapon(&m_despoilerAxeGougeHorn);
     addModel(gougehorn);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_despoilerAxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_despoilerAxe);
         addModel(model);
     }
 

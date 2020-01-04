@@ -54,11 +54,11 @@ AleguzzlerGargant::AleguzzlerGargant() :
 
 bool AleguzzlerGargant::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_eadbutt);
-    model.addMeleeWeapon(&m_massiveClub);
-    model.addMeleeWeapon(&m_mightyKick);
+    model->addMeleeWeapon(&m_eadbutt);
+    model->addMeleeWeapon(&m_massiveClub);
+    model->addMeleeWeapon(&m_mightyKick);
 
     addModel(model);
 

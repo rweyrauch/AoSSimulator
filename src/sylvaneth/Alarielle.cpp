@@ -61,11 +61,11 @@ Alarielle::Alarielle() :
 
 bool Alarielle::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_spearOfKurnoth);
-    model.addMeleeWeapon(&m_talonOfDwindling);
-    model.addMeleeWeapon(&m_beetleGreatAntlers);
+    model->addMissileWeapon(&m_spearOfKurnoth);
+    model->addMeleeWeapon(&m_talonOfDwindling);
+    model->addMeleeWeapon(&m_beetleGreatAntlers);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -102,7 +102,7 @@ void Alarielle::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
 
@@ -176,7 +176,7 @@ void Alarielle::onCharged()
     {
         if (dice.rollD6() >= 4)
         {
-            Wounds wounds;
+            Wounds wounds = {0, 0};
             wounds.mortal = dice.rollD3();
             ip->applyDamage(wounds);
         }

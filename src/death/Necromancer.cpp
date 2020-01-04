@@ -32,9 +32,9 @@ Necromancer::Necromancer() :
 
 bool Necromancer::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_staff);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

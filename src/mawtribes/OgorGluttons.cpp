@@ -99,16 +99,16 @@ bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBeare
     m_lookoutGnoblar = lookoutGnoblar;
     m_bellower = bellower;
 
-    Model crusher(BASESIZE, WOUNDS);
-    crusher.addMeleeWeapon(&m_clubOrBladeCrusher);
-    crusher.addMeleeWeapon(&m_bite);
+    auto crusher = new Model(BASESIZE, WOUNDS);
+    crusher->addMeleeWeapon(&m_clubOrBladeCrusher);
+    crusher->addMeleeWeapon(&m_bite);
     addModel(crusher);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_clubOrBlade);
-        model.addMeleeWeapon(&m_bite);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_clubOrBlade);
+        model->addMeleeWeapon(&m_bite);
         addModel(model);
     }
 

@@ -33,10 +33,10 @@ WarpfireThrower::WarpfireThrower() :
 
 bool WarpfireThrower::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_warpfireThrower);
-    model.addMeleeWeapon(&m_rustyKnives);
+    model->addMissileWeapon(&m_warpfireThrower);
+    model->addMeleeWeapon(&m_rustyKnives);
 
     addModel(model);
 

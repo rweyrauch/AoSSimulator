@@ -58,14 +58,15 @@ bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, Standa
     m_standardBearer = standard;
 
     // Add the Boss
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_bossChoppa);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_bossChoppa);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_choppa);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_choppa);
+        addModel(model);
     }
 
     m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;

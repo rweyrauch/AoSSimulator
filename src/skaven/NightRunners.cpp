@@ -46,16 +46,16 @@ bool NightRunners::configure(int numModels)
     // Running Death
     m_runAndShoot = true;
 
-    Model leader(BASESIZE, WOUNDS);
-    leader.addMissileWeapon(&m_throwingWeapons);
-    leader.addMeleeWeapon(&m_stabbingBladeLeader);
+    auto leader = new Model(BASESIZE, WOUNDS);
+    leader->addMissileWeapon(&m_throwingWeapons);
+    leader->addMeleeWeapon(&m_stabbingBladeLeader);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_throwingWeapons);
-        model.addMeleeWeapon(&m_stabbingBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_throwingWeapons);
+        model->addMeleeWeapon(&m_stabbingBlade);
         addModel(model);
     }
 

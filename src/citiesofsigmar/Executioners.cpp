@@ -91,14 +91,14 @@ bool Executioners::configure(int numModels, bool standardBearer, bool drummer)
     m_drummer = drummer;
 
     // Add the Master
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_draichMaster);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_draichMaster);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_draich);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_draich);
         addModel(model);
     }
 

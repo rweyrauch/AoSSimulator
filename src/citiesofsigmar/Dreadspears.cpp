@@ -89,14 +89,14 @@ bool Dreadspears::configure(int numModels, bool standardBearer, bool hornblower)
     m_hornblower = hornblower;
 
     // Add the Lordling
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMeleeWeapon(&m_spearLordling);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMeleeWeapon(&m_spearLordling);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_spear);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_spear);
         addModel(model);
     }
 

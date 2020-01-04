@@ -78,9 +78,9 @@ bool ImmortisGuard::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_halberd);
-        model.addMeleeWeapon(&m_battleShield);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_halberd);
+        model->addMeleeWeapon(&m_battleShield);
         addModel(model);
     }
 

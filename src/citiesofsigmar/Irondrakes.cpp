@@ -57,38 +57,38 @@ bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool 
     m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
-    Model ironwarden(BASESIZE, WOUNDS);
+    auto ironwarden = new Model(BASESIZE, WOUNDS);
     if (ironWardenWeapons == Drakegun)
     {
-        ironwarden.addMissileWeapon(&m_drakegunWarden);
-        ironwarden.addMeleeWeapon(&m_mailedFist);
+        ironwarden->addMissileWeapon(&m_drakegunWarden);
+        ironwarden->addMeleeWeapon(&m_mailedFist);
     }
     else if (ironWardenWeapons == DrakefirePistolAndCinderblastBomb)
     {
-        ironwarden.addMissileWeapon(&m_drakefirePistol);
-        ironwarden.addMeleeWeapon(&m_drakefirePistolMelee);
+        ironwarden->addMissileWeapon(&m_drakefirePistol);
+        ironwarden->addMeleeWeapon(&m_drakefirePistolMelee);
         m_hasCinderblastBomb = true;
     }
     else if (ironWardenWeapons == PairedDrakefirePistols)
     {
         // two attacks when using dual-pistols
-        ironwarden.addMissileWeapon(&m_drakefirePistol);
-        ironwarden.addMissileWeapon(&m_drakefirePistol);
-        ironwarden.addMeleeWeapon(&m_drakefirePistolMelee);
-        ironwarden.addMeleeWeapon(&m_drakefirePistolMelee);
+        ironwarden->addMissileWeapon(&m_drakefirePistol);
+        ironwarden->addMissileWeapon(&m_drakefirePistol);
+        ironwarden->addMeleeWeapon(&m_drakefirePistolMelee);
+        ironwarden->addMeleeWeapon(&m_drakefirePistolMelee);
     }
     else if (ironWardenWeapons == GrudgehammerTorpedo)
     {
-        ironwarden.addMissileWeapon(&m_grudgehammerTorpedo);
-        ironwarden.addMeleeWeapon(&m_mailedFist);
+        ironwarden->addMissileWeapon(&m_grudgehammerTorpedo);
+        ironwarden->addMeleeWeapon(&m_mailedFist);
     }
     addModel(ironwarden);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_drakegun);
-        model.addMeleeWeapon(&m_mailedFist);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_drakegun);
+        model->addMeleeWeapon(&m_mailedFist);
         addModel(model);
     }
 

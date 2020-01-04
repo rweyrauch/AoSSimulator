@@ -56,31 +56,31 @@ bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool
     m_standardBearer = standardBearer;
     m_drummer = drummer;
 
-    Model ironbeard(BASESIZE, WOUNDS);
+    auto ironbeard = new Model(BASESIZE, WOUNDS);
     if (ironbeardWeapons == IronbreakerAxeOrHammer)
     {
-        ironbeard.addMeleeWeapon(&m_axeOrHammerIronbeard);
+        ironbeard->addMeleeWeapon(&m_axeOrHammerIronbeard);
     }
     else if (ironbeardWeapons == DrakefirePistolAndCinderblastBomb)
     {
-        ironbeard.addMissileWeapon(&m_drakefirePistol);
-        ironbeard.addMeleeWeapon(&m_drakefirePistolMelee);
+        ironbeard->addMissileWeapon(&m_drakefirePistol);
+        ironbeard->addMeleeWeapon(&m_drakefirePistolMelee);
         m_hasCinderblastBomb = true;
     }
     else if (ironbeardWeapons == PairedDrakefirePistols)
     {
         // two attacks when using dual-pistols
-        ironbeard.addMissileWeapon(&m_drakefirePistol);
-        ironbeard.addMissileWeapon(&m_drakefirePistol);
-        ironbeard.addMeleeWeapon(&m_drakefirePistolMelee);
-        ironbeard.addMeleeWeapon(&m_drakefirePistolMelee);
+        ironbeard->addMissileWeapon(&m_drakefirePistol);
+        ironbeard->addMissileWeapon(&m_drakefirePistol);
+        ironbeard->addMeleeWeapon(&m_drakefirePistolMelee);
+        ironbeard->addMeleeWeapon(&m_drakefirePistolMelee);
     }
     addModel(ironbeard);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_axeOrHammer);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_axeOrHammer);
         addModel(model);
     }
 

@@ -31,9 +31,9 @@ HagQueen::HagQueen() :
 
 bool HagQueen::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bladeOfKhaine);
+    model->addMeleeWeapon(&m_bladeOfKhaine);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

@@ -43,14 +43,14 @@ CelestarBallista::CelestarBallista() :
 
 bool CelestarBallista::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_sigmariteBlades);
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_sigmariteBlades);
 
     m_stormboltsRapid.activate(true);
     m_stormboltsSingle.activate(false);
 
-    model.addMissileWeapon(&m_stormboltsSingle);
-    model.addMissileWeapon(&m_stormboltsRapid);
+    model->addMissileWeapon(&m_stormboltsSingle);
+    model->addMissileWeapon(&m_stormboltsRapid);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

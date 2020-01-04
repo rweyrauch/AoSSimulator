@@ -34,11 +34,11 @@ Doomwheel::Doomwheel() :
 
 bool Doomwheel::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_warpBolts);
-    model.addMeleeWeapon(&m_grindingWheel);
-    model.addMeleeWeapon(&m_teethAndKnives);
+    model->addMissileWeapon(&m_warpBolts);
+    model->addMeleeWeapon(&m_grindingWheel);
+    model->addMeleeWeapon(&m_teethAndKnives);
 
     addModel(model);
 

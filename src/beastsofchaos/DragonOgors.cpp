@@ -64,20 +64,20 @@ bool DragonOgors::configure(int numModels, int numPairedWeapons, int numGlaives,
 
     for (auto i = 0; i < numPairedWeapons; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_pairedAncientWeapons);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_pairedAncientWeapons);
         addModel(model);
     }
     for (auto i = 0; i < numGlaives; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_draconicWarglaive);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_draconicWarglaive);
         addModel(model);
     }
     for (auto i = 0; i < numCrushers; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_draconicCrusher);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_draconicCrusher);
         addModel(model);
     }
 

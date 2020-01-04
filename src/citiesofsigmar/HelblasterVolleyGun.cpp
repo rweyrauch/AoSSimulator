@@ -70,11 +70,11 @@ HelblasterVolleyGun::HelblasterVolleyGun() :
 
 bool HelblasterVolleyGun::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     // TODO: allow selection of 1, 2 or 3 decks
-    model.addMissileWeapon(&m_volley1);
-    model.addMeleeWeapon(&m_crewsTools);
+    model->addMissileWeapon(&m_volley1);
+    model->addMeleeWeapon(&m_crewsTools);
 
     addModel(model);
 

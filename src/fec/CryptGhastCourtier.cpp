@@ -37,9 +37,9 @@ CryptGhastCourtier::CryptGhastCourtier() :
 
 bool CryptGhastCourtier::configure()
 {
-    Model infernal(BASESIZE, WOUNDS);
-    infernal.addMeleeWeapon(&m_boneClub);
-    infernal.addMeleeWeapon(&m_filthyClaws);
+    auto infernal = new Model(BASESIZE, WOUNDS);
+    infernal->addMeleeWeapon(&m_boneClub);
+    infernal->addMeleeWeapon(&m_filthyClaws);
     addModel(infernal);
 
     m_points = POINTS_PER_UNIT;

@@ -47,9 +47,9 @@ bool LordArcanumOnDracoline::configure(LoreOfTheStorm storm, LoreOfInvigoration 
         return false;
     }
 
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_aetherstave);
-    model.addMeleeWeapon(&m_monstrousClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_aetherstave);
+    model->addMeleeWeapon(&m_monstrousClaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));

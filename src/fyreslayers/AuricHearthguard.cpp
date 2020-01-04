@@ -44,19 +44,19 @@ bool AuricHearthguard::configure(int numModels)
         return false;
     }
 
-    Model karl(BASESIZE, WOUNDS);
-    karl.addMissileWeapon(&m_magmapikeKarl);
-    karl.addMissileWeapon(&m_throwingAxe);
-    karl.addMeleeWeapon(&m_magmapikeMelee);
+    auto karl = new Model(BASESIZE, WOUNDS);
+    karl->addMissileWeapon(&m_magmapikeKarl);
+    karl->addMissileWeapon(&m_throwingAxe);
+    karl->addMeleeWeapon(&m_magmapikeMelee);
     addModel(karl);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_magmapike);
-        model.addMissileWeapon(&m_throwingAxe);
-        model.addMeleeWeapon(&m_magmapikeMelee);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_magmapike);
+        model->addMissileWeapon(&m_throwingAxe);
+        model->addMeleeWeapon(&m_magmapikeMelee);
         addModel(model);
     }
 

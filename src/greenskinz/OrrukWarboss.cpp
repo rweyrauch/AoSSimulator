@@ -37,7 +37,7 @@ OrrukWarboss::OrrukWarboss() :
 
 bool OrrukWarboss::configure(WeaponOption weapon, bool warboar)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     m_weapon = weapon;
 
@@ -45,19 +45,19 @@ bool OrrukWarboss::configure(WeaponOption weapon, bool warboar)
     {
         case BossChoppaAndShield:
         case PairedBossChoppas:
-            model.addMeleeWeapon(&m_bossChoppa);
+            model->addMeleeWeapon(&m_bossChoppa);
             break;
         case MassiveChoppa:
-            model.addMeleeWeapon(&m_massiveChoppa);
+            model->addMeleeWeapon(&m_massiveChoppa);
             break;
         case GreatWaaaghBanner:
-            model.addMeleeWeapon(&m_greatWaaaghBanner);
+            model->addMeleeWeapon(&m_greatWaaaghBanner);
             addKeyword(TOTEM);
             break;
     }
     if (warboar)
     {
-        model.addMeleeWeapon(&m_boarTusks);
+        model->addMeleeWeapon(&m_boarTusks);
         m_move = 9;
     }
     addModel(model);

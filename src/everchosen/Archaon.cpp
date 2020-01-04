@@ -56,12 +56,12 @@ Archaon::Archaon() :
 
 bool Archaon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_slayerOfKings);
-    model.addMeleeWeapon(&m_dorgharsClaws);
-    model.addMeleeWeapon(&m_dorgharsTails);
-    model.addMeleeWeapon(&m_dorgharsHeads);
+    model->addMeleeWeapon(&m_slayerOfKings);
+    model->addMeleeWeapon(&m_dorgharsClaws);
+    model->addMeleeWeapon(&m_dorgharsTails);
+    model->addMeleeWeapon(&m_dorgharsHeads);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

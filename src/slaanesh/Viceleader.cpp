@@ -41,8 +41,8 @@ ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
 
 bool ViceleaderHeraldOfSlaanesh::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_ravagingClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_ravagingClaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

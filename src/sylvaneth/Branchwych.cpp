@@ -37,10 +37,10 @@ Branchwych::Branchwych() :
 
 bool Branchwych::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_greenwoodScythe);
-    model.addMeleeWeapon(&m_bittergrubsMandibles);
+    model->addMeleeWeapon(&m_greenwoodScythe);
+    model->addMeleeWeapon(&m_bittergrubsMandibles);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

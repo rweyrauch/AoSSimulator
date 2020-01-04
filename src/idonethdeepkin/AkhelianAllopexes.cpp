@@ -50,18 +50,18 @@ bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == HarpoonLauncher)
         {
-            model.addMissileWeapon(&m_harpoonLauncher);
+            model->addMissileWeapon(&m_harpoonLauncher);
         }
         else if (weapons == NetLauncher)
         {
-            model.addMissileWeapon(&m_netLauncher);
+            model->addMissileWeapon(&m_netLauncher);
         }
-        model.addMeleeWeapon(&m_hooksAndBlades);
-        model.addMeleeWeapon(&m_allopexBite);
-        model.addMeleeWeapon(&m_allopexFins);
+        model->addMeleeWeapon(&m_hooksAndBlades);
+        model->addMeleeWeapon(&m_allopexBite);
+        model->addMeleeWeapon(&m_allopexFins);
         addModel(model);
     }
 

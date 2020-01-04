@@ -57,31 +57,31 @@ SkaethsWildHunt::SkaethsWildHunt() :
 
 bool SkaethsWildHunt::configure()
 {
-    Model skaeth(BASESIZE, WOUNDS);
-    skaeth.addMissileWeapon(&m_javalin);
-    skaeth.addMeleeWeapon(&m_javalinMelee);
-    skaeth.setName("Skaeth");
+    auto skaeth = new Model(BASESIZE, WOUNDS);
+    skaeth->addMissileWeapon(&m_javalin);
+    skaeth->addMeleeWeapon(&m_javalinMelee);
+    skaeth->setName("Skaeth");
     addModel(skaeth);
 
-    Model althaen(BASESIZE, WOUNDS);
-    althaen.addMissileWeapon(&m_seekerBow);
-    althaen.addMeleeWeapon(&m_huntingWeapon);
-    althaen.setName("Althaen");
+    auto althaen = new Model(BASESIZE, WOUNDS);
+    althaen->addMissileWeapon(&m_seekerBow);
+    althaen->addMeleeWeapon(&m_huntingWeapon);
+    althaen->setName("Althaen");
     addModel(althaen);
 
-    Model karthaen(BASESIZE, WOUNDS);
-    karthaen.addMeleeWeapon(&m_huntingWeapon);
-    karthaen.setName("Karthaen");
+    auto karthaen = new Model(BASESIZE, WOUNDS);
+    karthaen->addMeleeWeapon(&m_huntingWeapon);
+    karthaen->setName("Karthaen");
     addModel(karthaen);
 
-    Model sheoch(BASESIZE, WOUNDS);
-    sheoch.addMeleeWeapon(&m_huntingWeapon);
-    sheoch.setName("Sheoch");
+    auto sheoch = new Model(BASESIZE, WOUNDS);
+    sheoch->addMeleeWeapon(&m_huntingWeapon);
+    sheoch->setName("Sheoch");
     addModel(sheoch);
 
-    Model lighaen(BASESIZE, WOUNDS);
-    lighaen.addMeleeWeapon(&m_teethAndClaws);
-    lighaen.setName("Lighaen");
+    auto lighaen = new Model(BASESIZE, WOUNDS);
+    lighaen->addMeleeWeapon(&m_teethAndClaws);
+    lighaen->setName("Lighaen");
     addModel(lighaen);
 
     m_points = POINTS_PER_UNIT;

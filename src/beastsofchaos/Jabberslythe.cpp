@@ -36,11 +36,11 @@ Jabberslythe::Jabberslythe() :
 
 bool Jabberslythe::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_slytheyTongue);
-    model.addMeleeWeapon(&m_vorpalClaws);
-    model.addMeleeWeapon(&m_spikedTail);
+    model->addMissileWeapon(&m_slytheyTongue);
+    model->addMeleeWeapon(&m_vorpalClaws);
+    model->addMeleeWeapon(&m_spikedTail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

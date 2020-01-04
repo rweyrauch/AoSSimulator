@@ -46,10 +46,10 @@ bool Desolators::configure(int numModels)
 
     for (int i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_stormBlast);
-        model.addMeleeWeapon(&m_thunderAxe);
-        model.addMeleeWeapon(&m_clawsAndFangs);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_stormBlast);
+        model->addMeleeWeapon(&m_thunderAxe);
+        model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
     }
 

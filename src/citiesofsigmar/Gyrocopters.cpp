@@ -108,16 +108,16 @@ bool Gyrocopters::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == BrimstoneGun)
         {
-            model.addMissileWeapon(&m_brimstoneGun);
+            model->addMissileWeapon(&m_brimstoneGun);
         }
         else if (weapons == SteamGun)
         {
-            model.addMissileWeapon(&m_steamGun);
+            model->addMissileWeapon(&m_steamGun);
         }
-        model.addMeleeWeapon(&m_rotorBlades);
+        model->addMeleeWeapon(&m_rotorBlades);
         addModel(model);
     }
 

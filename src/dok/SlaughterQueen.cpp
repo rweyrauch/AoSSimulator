@@ -32,10 +32,10 @@ SlaughterQueen::SlaughterQueen() :
 
 bool SlaughterQueen::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bladeOfKhaine);
-    model.addMeleeWeapon(&m_deathsword);
+    model->addMeleeWeapon(&m_bladeOfKhaine);
+    model->addMeleeWeapon(&m_deathsword);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

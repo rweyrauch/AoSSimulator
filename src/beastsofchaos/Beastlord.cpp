@@ -34,9 +34,9 @@ Beastlord::Beastlord() :
 
 bool Beastlord::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_pairedAxes);
+    model->addMeleeWeapon(&m_pairedAxes);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

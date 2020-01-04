@@ -52,16 +52,16 @@ bool Quarrellers::configure(int numModels, bool duardinBucklers, StandardOptions
     m_drummer = drummer;
     m_duardinBucklers = duardinBucklers;
 
-    Model veteran(BASESIZE, WOUNDS);
-    veteran.addMissileWeapon(&m_duardinCrossbowVeteran);
-    veteran.addMeleeWeapon(&m_rangersAxe);
+    auto veteran = new Model(BASESIZE, WOUNDS);
+    veteran->addMissileWeapon(&m_duardinCrossbowVeteran);
+    veteran->addMeleeWeapon(&m_rangersAxe);
     addModel(veteran);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_duardinCrossbow);
-        model.addMeleeWeapon(&m_rangersAxe);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_duardinCrossbow);
+        model->addMeleeWeapon(&m_rangersAxe);
         addModel(model);
     }
 

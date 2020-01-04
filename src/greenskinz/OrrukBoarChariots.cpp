@@ -44,9 +44,9 @@ bool OrrukBoarChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_pigstikkaSpears);
-        model.addMeleeWeapon(&m_warBoarsTusks);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_pigstikkaSpears);
+        model->addMeleeWeapon(&m_warBoarsTusks);
         addModel(model);
     }
 

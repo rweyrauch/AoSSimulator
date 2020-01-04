@@ -36,12 +36,12 @@ AuricRuneson::AuricRuneson() :
 
 bool AuricRuneson::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMissileWeapon(&m_javelin);
-    model.addMeleeWeapon(&m_warAxe);
-    model.addMeleeWeapon(&m_javelinMelee);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMissileWeapon(&m_javelin);
+    model->addMeleeWeapon(&m_warAxe);
+    model->addMeleeWeapon(&m_javelinMelee);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

@@ -35,11 +35,11 @@ AuricRunemaster::AuricRunemaster() :
 
 bool AuricRunemaster::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMeleeWeapon(&m_brazierStaff);
-    model.addMeleeWeapon(&m_runicIron);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMeleeWeapon(&m_brazierStaff);
+    model->addMeleeWeapon(&m_runicIron);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

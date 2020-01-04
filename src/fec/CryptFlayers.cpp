@@ -47,16 +47,16 @@ bool CryptFlayers::configure(int numModels)
         return false;
     }
 
-    Model infernal(BASESIZE, WOUNDS);
-    infernal.addMissileWeapon(&m_deathScream);
-    infernal.addMeleeWeapon(&m_piercingTalonsInfernal);
+    auto infernal = new Model(BASESIZE, WOUNDS);
+    infernal->addMissileWeapon(&m_deathScream);
+    infernal->addMeleeWeapon(&m_piercingTalonsInfernal);
     addModel(infernal);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_deathScream);
-        model.addMeleeWeapon(&m_piercingTalons);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_deathScream);
+        model->addMeleeWeapon(&m_piercingTalons);
         addModel(model);
     }
 

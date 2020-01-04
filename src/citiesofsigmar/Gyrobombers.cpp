@@ -83,9 +83,9 @@ bool Gyrobombers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_clattergun);
-        model.addMeleeWeapon(&m_rotorBlades);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_clattergun);
+        model->addMeleeWeapon(&m_rotorBlades);
         addModel(model);
     }
 

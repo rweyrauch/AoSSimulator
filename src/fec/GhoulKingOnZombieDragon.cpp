@@ -59,12 +59,12 @@ AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
 
 bool AbhorrantGhoulKingOnZombieDragon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_pestilentialBreath);
-    model.addMeleeWeapon(&m_goryTalonsAndFangs);
-    model.addMeleeWeapon(&m_snappingMaw);
-    model.addMeleeWeapon(&m_swordlikeClaws);
+    model->addMissileWeapon(&m_pestilentialBreath);
+    model->addMeleeWeapon(&m_goryTalonsAndFangs);
+    model->addMeleeWeapon(&m_snappingMaw);
+    model->addMeleeWeapon(&m_swordlikeClaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -126,7 +126,7 @@ void AbhorrantGhoulKingOnZombieDragon::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
     }

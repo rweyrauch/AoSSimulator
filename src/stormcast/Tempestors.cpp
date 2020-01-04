@@ -48,11 +48,11 @@ bool Tempestors::configure(int numModels)
 
     for (int i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_stormBlast);
-        model.addMissileWeapon(&m_volleystormCrossbow);
-        model.addMeleeWeapon(&m_warblade);
-        model.addMeleeWeapon(&m_clawsAndFangs);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_stormBlast);
+        model->addMissileWeapon(&m_volleystormCrossbow);
+        model->addMeleeWeapon(&m_warblade);
+        model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
     }
 

@@ -59,37 +59,37 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
 
     m_weaponOption = weapons;
 
-    Model huntmaster(BASESIZE, WOUNDS);
+    auto huntmaster = new Model(BASESIZE, WOUNDS);
     if (m_weaponOption == Greatbows)
     {
-        huntmaster.addMissileWeapon(&m_greatbowHuntmaster);
-        huntmaster.addMeleeWeapon(&m_viciousClaws);
+        huntmaster->addMissileWeapon(&m_greatbowHuntmaster);
+        huntmaster->addMeleeWeapon(&m_viciousClaws);
     }
     else if (m_weaponOption == Greatswords)
     {
-        huntmaster.addMeleeWeapon(&m_greatswordHuntmaster);
+        huntmaster->addMeleeWeapon(&m_greatswordHuntmaster);
     }
     else if (m_weaponOption == Scythes)
     {
-        huntmaster.addMeleeWeapon(&m_scytheHuntmaster);
+        huntmaster->addMeleeWeapon(&m_scytheHuntmaster);
     }
     addModel(huntmaster);
 
     for (int i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weaponOption == Greatbows)
         {
-            model.addMissileWeapon(&m_greatbow);
-            model.addMeleeWeapon(&m_viciousClaws);
+            model->addMissileWeapon(&m_greatbow);
+            model->addMeleeWeapon(&m_viciousClaws);
         }
         else if (m_weaponOption == Greatswords)
         {
-            model.addMeleeWeapon(&m_greatsword);
+            model->addMeleeWeapon(&m_greatsword);
         }
         else if (m_weaponOption == Scythes)
         {
-            model.addMeleeWeapon(&m_scythe);
+            model->addMeleeWeapon(&m_scythe);
         }
         addModel(model);
     }

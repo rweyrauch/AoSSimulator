@@ -62,14 +62,14 @@ void WightKingWithBalefulTombBlade::Init()
 
 bool WightKingWithBalefulTombBlade::configure(bool hasSteed)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     m_hasSteed = hasSteed;
 
-    model.addMeleeWeapon(&m_balefulTombBlade);
+    model->addMeleeWeapon(&m_balefulTombBlade);
     if (m_hasSteed)
     {
-        model.addMeleeWeapon(&m_steedsHoovesAndTeeth);
+        model->addMeleeWeapon(&m_steedsHoovesAndTeeth);
         m_move = 12;
     }
     addModel(model);

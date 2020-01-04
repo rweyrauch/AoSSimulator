@@ -33,9 +33,9 @@ WardenKing::WardenKing() :
 
 bool WardenKing::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_runeWeapon);
+    model->addMeleeWeapon(&m_runeWeapon);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

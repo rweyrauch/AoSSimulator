@@ -93,36 +93,36 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
 
     m_weapon = weapons;
 
-    Model prime(BASESIZE, WOUNDS);
+    auto prime = new Model(BASESIZE, WOUNDS);
     switch (primeGrandWeapon)
     {
         case None:
             if (weapons == CelestialHammerAndShield || weapons == PairedCelestialHammers)
             {
-                prime.addMissileWeapon(&m_celestialHammersMissile);
-                prime.addMeleeWeapon(&m_celestialHammersPrime);
+                prime->addMissileWeapon(&m_celestialHammersMissile);
+                prime->addMeleeWeapon(&m_celestialHammersPrime);
             }
             else if (weapons == StormcallJavelinAndShield)
             {
-                prime.addMissileWeapon(&m_stormcallJavelinMissilePrime);
-                prime.addMeleeWeapon(&m_stormcallJavelin);
+                prime->addMissileWeapon(&m_stormcallJavelinMissilePrime);
+                prime->addMeleeWeapon(&m_stormcallJavelin);
             }
             break;
         case StormsurgeTrident:
-            prime.addMissileWeapon(&m_stormsurgeTridentMissilePrime);
-            prime.addMeleeWeapon(&m_stormsurgeTrident);
+            prime->addMissileWeapon(&m_stormsurgeTridentMissilePrime);
+            prime->addMeleeWeapon(&m_stormsurgeTrident);
             totalTridents--;
             break;
         case Grandaxe:
-            prime.addMeleeWeapon(&m_grandaxe);
+            prime->addMeleeWeapon(&m_grandaxe);
             numGrandaxes--;
             break;
         case Grandblade:
-            prime.addMeleeWeapon(&m_grandblade);
+            prime->addMeleeWeapon(&m_grandblade);
             numGrandblades--;
             break;
         case Grandhammer:
-            prime.addMeleeWeapon(&m_grandhammer);
+            prime->addMeleeWeapon(&m_grandhammer);
             numGrandhammers--;
             break;
     }
@@ -130,42 +130,42 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
 
     for (auto i = 0; i < totalTridents; i++)
     {
-        Model tridentModel(BASESIZE, WOUNDS);
-        tridentModel.addMissileWeapon(&m_stormsurgeTridentMissile);
-        tridentModel.addMeleeWeapon(&m_stormsurgeTrident);
+        auto tridentModel = new Model(BASESIZE, WOUNDS);
+        tridentModel->addMissileWeapon(&m_stormsurgeTridentMissile);
+        tridentModel->addMeleeWeapon(&m_stormsurgeTrident);
         addModel(tridentModel);
     }
     for (auto i = 0; i < numGrandaxes; i++)
     {
-        Model grandaxeModel(BASESIZE, WOUNDS);
-        grandaxeModel.addMeleeWeapon(&m_grandaxe);
+        auto grandaxeModel = new Model(BASESIZE, WOUNDS);
+        grandaxeModel->addMeleeWeapon(&m_grandaxe);
         addModel(grandaxeModel);
     }
     for (auto i = 0; i < numGrandblades; i++)
     {
-        Model grandbladeModel(BASESIZE, WOUNDS);
-        grandbladeModel.addMeleeWeapon(&m_grandblade);
+        auto grandbladeModel = new Model(BASESIZE, WOUNDS);
+        grandbladeModel->addMeleeWeapon(&m_grandblade);
         addModel(grandbladeModel);
     }
     for (auto i = 0; i < numGrandhammers; i++)
     {
-        Model grandhammerModel(BASESIZE, WOUNDS);
-        grandhammerModel.addMeleeWeapon(&m_grandhammer);
+        auto grandhammerModel = new Model(BASESIZE, WOUNDS);
+        grandhammerModel->addMeleeWeapon(&m_grandhammer);
         addModel(grandhammerModel);
     }
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (m_weapon == CelestialHammerAndShield || m_weapon == PairedCelestialHammers)
         {
-            model.addMissileWeapon(&m_celestialHammersMissile);
-            model.addMeleeWeapon(&m_celestialHammers);
+            model->addMissileWeapon(&m_celestialHammersMissile);
+            model->addMeleeWeapon(&m_celestialHammers);
         }
         else if (m_weapon == StormcallJavelinAndShield)
         {
-            model.addMissileWeapon(&m_stormcallJavelinMissile);
-            model.addMeleeWeapon(&m_stormcallJavelin);
+            model->addMissileWeapon(&m_stormcallJavelinMissile);
+            model->addMeleeWeapon(&m_stormcallJavelin);
         }
         addModel(model);
     }

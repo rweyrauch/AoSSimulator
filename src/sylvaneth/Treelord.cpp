@@ -55,11 +55,11 @@ Treelord::Treelord() :
 
 bool Treelord::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_strangleroots);
-    model.addMeleeWeapon(&m_sweepingBlows);
-    model.addMeleeWeapon(&m_massiveImpalingTalons);
+    model->addMissileWeapon(&m_strangleroots);
+    model->addMeleeWeapon(&m_sweepingBlows);
+    model->addMeleeWeapon(&m_massiveImpalingTalons);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

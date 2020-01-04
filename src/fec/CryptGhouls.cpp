@@ -45,14 +45,14 @@ bool CryptGhouls::configure(int numModels)
         return false;
     }
 
-    Model ghast(BASESIZE, WOUNDS);
-    ghast.addMeleeWeapon(&m_teethAndClawsGhast);
+    auto ghast = new Model(BASESIZE, WOUNDS);
+    ghast->addMeleeWeapon(&m_teethAndClawsGhast);
     addModel(ghast);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_teethAndClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_teethAndClaws);
         addModel(model);
     }
 

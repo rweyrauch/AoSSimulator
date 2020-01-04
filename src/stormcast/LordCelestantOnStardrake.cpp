@@ -60,16 +60,16 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 {
     m_weapons = weapons;
 
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
     if (weapons == CelestineHammer)
     {
-        model.addMeleeWeapon(&m_celestineHammer);
+        model->addMeleeWeapon(&m_celestineHammer);
     }
     else if (weapons == StormboundBlade)
     {
-        model.addMeleeWeapon(&m_stormboundBlade);
+        model->addMeleeWeapon(&m_stormboundBlade);
     }
-    model.addMeleeWeapon(&m_greatClaws);
+    model->addMeleeWeapon(&m_greatClaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

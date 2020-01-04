@@ -34,10 +34,10 @@ Battlesmith::Battlesmith() :
 
 bool Battlesmith::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMeleeWeapon(&m_battleAxe);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMeleeWeapon(&m_battleAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

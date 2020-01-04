@@ -47,8 +47,8 @@ bool LordExorcist::configure(LoreOfTheStorm storm, LoreOfInvigoration invigorati
         return false;
     }
 
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_stave);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_stave);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

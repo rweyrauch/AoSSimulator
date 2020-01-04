@@ -60,8 +60,8 @@ Riptooth::Riptooth() :
 
 bool Riptooth::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_claws);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_claws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

@@ -41,9 +41,9 @@ ScylaAnfingrimm::ScylaAnfingrimm() :
 
 bool ScylaAnfingrimm::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_brutalFists);
-    model.addMeleeWeapon(&m_serpentineTail);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_brutalFists);
+    model->addMeleeWeapon(&m_serpentineTail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

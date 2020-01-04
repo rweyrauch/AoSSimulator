@@ -47,14 +47,14 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
     m_sonorousTocsin = sonorousTocsin;
 
     // Add the Blightlord
-    Model leader(BASESIZE, WOUNDS + 1);
-    leader.addMeleeWeapon(&m_blightedWeapon);
+    auto leader = new Model(BASESIZE, WOUNDS + 1);
+    leader->addMeleeWeapon(&m_blightedWeapon);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_blightedWeapon);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_blightedWeapon);
         addModel(model);
     }
 

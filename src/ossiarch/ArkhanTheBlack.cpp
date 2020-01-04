@@ -87,12 +87,12 @@ ArkhanTheBlack::ArkhanTheBlack() :
 
 bool ArkhanTheBlack::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_zefetKar);
-    model.addMeleeWeapon(&m_khenashAn);
-    model.addMeleeWeapon(&m_claws);
-    model.addMeleeWeapon(&m_clawsAndDaggers);
+    model->addMeleeWeapon(&m_zefetKar);
+    model->addMeleeWeapon(&m_khenashAn);
+    model->addMeleeWeapon(&m_claws);
+    model->addMeleeWeapon(&m_clawsAndDaggers);
 
     addModel(model);
 

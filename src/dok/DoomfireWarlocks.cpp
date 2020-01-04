@@ -48,23 +48,23 @@ bool DoomfireWarlocks::configure(int numModels, bool crossbows)
         return false;
     }
 
-    Model master(BASESIZE, WOUNDS);
-    master.addMeleeWeapon(&m_scimitarMaster);
-    master.addMeleeWeapon(&m_steedsBite);
+    auto master = new Model(BASESIZE, WOUNDS);
+    master->addMeleeWeapon(&m_scimitarMaster);
+    master->addMeleeWeapon(&m_steedsBite);
     if (crossbows)
     {
-        master.addMissileWeapon(&m_crossBowMaster);
+        master->addMissileWeapon(&m_crossBowMaster);
     }
     addModel(master);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_scimitar);
-        model.addMeleeWeapon(&m_steedsBite);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_scimitar);
+        model->addMeleeWeapon(&m_steedsBite);
         if (crossbows)
         {
-            model.addMissileWeapon(&m_crossBow);
+            model->addMissileWeapon(&m_crossBow);
         }
         addModel(model);
     }

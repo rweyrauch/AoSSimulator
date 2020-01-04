@@ -37,9 +37,9 @@ KnightZephyros::KnightZephyros() :
 
 bool KnightZephyros::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_boltstormPistol);
-    model.addMeleeWeapon(&m_tempestAxes);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_boltstormPistol);
+    model->addMeleeWeapon(&m_tempestAxes);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

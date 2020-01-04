@@ -47,17 +47,17 @@ bool BoingrotBounderz::configure(int numModels)
     }
 
     // Add the boss
-    Model boss(BASESIZE, WOUNDS);
-    boss.addMeleeWeapon(&m_pokinLanceBoss);
-    boss.addMeleeWeapon(&m_fangFilledGob);
+    auto boss = new Model(BASESIZE, WOUNDS);
+    boss->addMeleeWeapon(&m_pokinLanceBoss);
+    boss->addMeleeWeapon(&m_fangFilledGob);
     addModel(boss);
 
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_pokinLance);
-        model.addMeleeWeapon(&m_fangFilledGob);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_pokinLance);
+        model->addMeleeWeapon(&m_fangFilledGob);
         addModel(model);
     }
 

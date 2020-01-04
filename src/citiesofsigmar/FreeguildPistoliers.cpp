@@ -113,25 +113,25 @@ bool FreeguildPistoliers::configure(int numModels, bool trumpeter, WeaponOption 
     m_trumpeter = trumpeter;
 
     // Add the Sharpshooter
-    Model bossModel(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
     if (outriderWeapon == RepeaterHandgun)
     {
-        bossModel.addMissileWeapon(&m_handgun);
+        bossModel->addMissileWeapon(&m_handgun);
     }
     else if (outriderWeapon == BraceOfPistols)
     {
-        bossModel.addMeleeWeapon(&m_pistols);
+        bossModel->addMeleeWeapon(&m_pistols);
     }
-    bossModel.addMeleeWeapon(&m_sabreAndPistolButtOutrider);
-    bossModel.addMeleeWeapon(&m_hooves);
+    bossModel->addMeleeWeapon(&m_sabreAndPistolButtOutrider);
+    bossModel->addMeleeWeapon(&m_hooves);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_pistols);
-        model.addMeleeWeapon(&m_sabreAndPistolButt);
-        model.addMeleeWeapon(&m_hooves);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_pistols);
+        model->addMeleeWeapon(&m_sabreAndPistolButt);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 

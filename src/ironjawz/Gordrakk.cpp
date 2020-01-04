@@ -55,12 +55,12 @@ GordrakkTheFistOfGork::GordrakkTheFistOfGork() :
 
 bool GordrakkTheFistOfGork::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_bellow);
-    model.addMeleeWeapon(&m_smasha);
-    model.addMeleeWeapon(&m_kunnin);
-    model.addMeleeWeapon(&m_fistsAndTail);
+    model->addMissileWeapon(&m_bellow);
+    model->addMeleeWeapon(&m_smasha);
+    model->addMeleeWeapon(&m_kunnin);
+    model->addMeleeWeapon(&m_fistsAndTail);
 
     addModel(model);
 

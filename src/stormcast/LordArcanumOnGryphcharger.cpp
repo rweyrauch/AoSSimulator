@@ -48,9 +48,9 @@ bool LordArcanumOnGryphcharger::configure(LoreOfTheStorm storm, LoreOfInvigorati
         return false;
     }
 
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_aetherstave);
-    model.addMeleeWeapon(&m_beakAndClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_aetherstave);
+    model->addMeleeWeapon(&m_beakAndClaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));

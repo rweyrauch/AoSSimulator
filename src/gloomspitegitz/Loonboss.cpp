@@ -34,9 +34,9 @@ Loonboss::Loonboss() :
 
 bool Loonboss::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_moonslicer);
+    model->addMeleeWeapon(&m_moonslicer);
 
     addModel(model);
 

@@ -70,9 +70,9 @@ Anointed::Anointed() :
 
 bool Anointed::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_halberd);
+    model->addMeleeWeapon(&m_halberd);
 
     addModel(model);
 

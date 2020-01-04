@@ -93,14 +93,14 @@ GothizzarHarvester::GothizzarHarvester() :
 
 bool GothizzarHarvester::configure(WeaponOption option)
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_deathsHeadMaw);
+    model->addMissileWeapon(&m_deathsHeadMaw);
     if (option == Sickles)
-        model.addMeleeWeapon(&m_sickles);
+        model->addMeleeWeapon(&m_sickles);
     else if (option == Bludgeons)
-        model.addMeleeWeapon(&m_bludgeons);
-    model.addMeleeWeapon(&m_hoovesAndTail);
+        model->addMeleeWeapon(&m_bludgeons);
+    model->addMeleeWeapon(&m_hoovesAndTail);
 
     addModel(model);
 

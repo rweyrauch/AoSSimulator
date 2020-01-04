@@ -69,10 +69,10 @@ HelstormRocketBattery::HelstormRocketBattery() :
 
 bool HelstormRocketBattery::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_rocketSalvo);
-    model.addMeleeWeapon(&m_crewsTools);
+    model->addMissileWeapon(&m_rocketSalvo);
+    model->addMeleeWeapon(&m_crewsTools);
 
     addModel(model);
 

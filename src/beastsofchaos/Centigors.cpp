@@ -51,16 +51,16 @@ bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_runAndCharge = m_brayhorn;
 
-    Model gorehoof(BASESIZE, WOUNDS);
-    gorehoof.addMeleeWeapon(&m_centigorSpearGorehoof);
-    gorehoof.addMeleeWeapon(&m_clawedForelimbs);
+    auto gorehoof = new Model(BASESIZE, WOUNDS);
+    gorehoof->addMeleeWeapon(&m_centigorSpearGorehoof);
+    gorehoof->addMeleeWeapon(&m_clawedForelimbs);
     addModel(gorehoof);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_centigorSpear);
-        model.addMeleeWeapon(&m_clawedForelimbs);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_centigorSpear);
+        model->addMeleeWeapon(&m_clawedForelimbs);
         addModel(model);
     }
 

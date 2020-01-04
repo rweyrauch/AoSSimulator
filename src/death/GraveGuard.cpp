@@ -55,27 +55,27 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
     m_hornblowers = hornblowers;
     m_weapons = weapons;
 
-    Model seneschal(BASESIZE, WOUNDS);
+    auto seneschal = new Model(BASESIZE, WOUNDS);
     if (weapons == WightBlade)
     {
-        seneschal.addMeleeWeapon(&m_wightBladeSeneschal);
+        seneschal->addMeleeWeapon(&m_wightBladeSeneschal);
     }
     else if (weapons == GreatWightBlade)
     {
-        seneschal.addMeleeWeapon(&m_greatWightBladeSeneschal);
+        seneschal->addMeleeWeapon(&m_greatWightBladeSeneschal);
     }
     addModel(seneschal);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == WightBlade)
         {
-            model.addMeleeWeapon(&m_wightBlade);
+            model->addMeleeWeapon(&m_wightBlade);
         }
         else if (weapons == GreatWightBlade)
         {
-            model.addMeleeWeapon(&m_greatWightBlade);
+            model->addMeleeWeapon(&m_greatWightBlade);
         }
         addModel(model);
     }

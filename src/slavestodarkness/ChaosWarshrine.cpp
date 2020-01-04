@@ -71,10 +71,10 @@ ChaosWarshrine::ChaosWarshrine() :
 
 bool ChaosWarshrine::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_blade);
-    model.addMeleeWeapon(&m_fists);
+    model->addMeleeWeapon(&m_blade);
+    model->addMeleeWeapon(&m_fists);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

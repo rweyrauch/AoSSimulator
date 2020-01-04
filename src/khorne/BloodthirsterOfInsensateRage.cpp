@@ -52,9 +52,9 @@ BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage() :
 
 bool BloodthirsterOfInsensateRage::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_greatAxeOfKhorne);
+    model->addMeleeWeapon(&m_greatAxeOfKhorne);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

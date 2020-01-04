@@ -32,8 +32,8 @@ LordOfPlagues::LordOfPlagues() :
 
 bool LordOfPlagues::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_plagueriddenGreatBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_plagueriddenGreatBlade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

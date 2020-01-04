@@ -55,8 +55,8 @@ bool NamartiThralls::configure(int numModels, int numIconBearers)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_lanmariBlade);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_lanmariBlade);
         addModel(model);
     }
 

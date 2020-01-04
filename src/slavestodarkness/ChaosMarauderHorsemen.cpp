@@ -86,71 +86,71 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
     m_iconBearer = iconBearer;
     m_hornblower = hornblower;
 
-    Model leader(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, WOUNDS);
     if (weapons == AxeAndShield)
     {
-        leader.addMeleeWeapon(&m_axeMaster);
+        leader->addMeleeWeapon(&m_axeMaster);
     }
     else if (weapons == Flail)
     {
-        leader.addMeleeWeapon(&m_flailMaster);
+        leader->addMeleeWeapon(&m_flailMaster);
     }
     else if (weapons == JavelinAndShield)
     {
-        leader.addMeleeWeapon(&m_javelinMaster);
-        leader.addMissileWeapon(&m_javelinMissile);
+        leader->addMeleeWeapon(&m_javelinMaster);
+        leader->addMissileWeapon(&m_javelinMissile);
     }
-    leader.addMeleeWeapon(&m_hooves);
-    leader.setName("Marauder Chieftain");
+    leader->addMeleeWeapon(&m_hooves);
+    leader->setName("Marauder Chieftain");
     addModel(leader);
 
     if (m_iconBearer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Icon Bearer");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Icon Bearer");
         if (weapons == AxeAndShield)
-            model.addMeleeWeapon(&m_axe);
+            model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
         else if (weapons == JavelinAndShield)
         {
-            model.addMissileWeapon(&m_javelinMissile);
-            model.addMeleeWeapon(&m_javelin);
+            model->addMissileWeapon(&m_javelinMissile);
+            model->addMeleeWeapon(&m_javelin);
         }
-        model.addMeleeWeapon(&m_hooves);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 
     if (m_hornblower)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Hornblower");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Hornblower");
         if (weapons == AxeAndShield)
-            model.addMeleeWeapon(&m_axe);
+            model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
         else if (weapons == JavelinAndShield)
         {
-            model.addMissileWeapon(&m_javelinMissile);
-            model.addMeleeWeapon(&m_javelin);
+            model->addMissileWeapon(&m_javelinMissile);
+            model->addMeleeWeapon(&m_javelin);
         }
-        model.addMeleeWeapon(&m_hooves);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == AxeAndShield)
-            model.addMeleeWeapon(&m_axe);
+            model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
         else if (weapons == JavelinAndShield)
         {
-            model.addMissileWeapon(&m_javelinMissile);
-            model.addMeleeWeapon(&m_javelin);
+            model->addMissileWeapon(&m_javelinMissile);
+            model->addMeleeWeapon(&m_javelin);
         }
-        model.addMeleeWeapon(&m_hooves);
+        model->addMeleeWeapon(&m_hooves);
         addModel(model);
     }
 
@@ -224,11 +224,11 @@ void ChaosMarauderHorsemen::onWounded()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Hornblower"))
+        if (ip->slain() && (ip->getName() == "Hornblower"))
         {
             m_hornblower = false;
         }
-        if (ip.slain() && (ip.getName() == "Icon Bearer"))
+        if (ip->slain() && (ip->getName() == "Icon Bearer"))
         {
             m_iconBearer = false;
         }
@@ -256,11 +256,11 @@ void ChaosMarauderHorsemen::onRestore()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.getName() == "Hornblower")
+        if (ip->getName() == "Hornblower")
         {
             m_hornblower = true;
         }
-        if (ip.getName() == "Icon Bearer")
+        if (ip->getName() == "Icon Bearer")
         {
             m_iconBearer = true;
         }

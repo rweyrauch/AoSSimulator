@@ -42,9 +42,9 @@ SyllEsske::SyllEsske() :
 
 bool SyllEsske::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_axeOfDominion);
-    model.addMeleeWeapon(&m_scourgingWhip);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_axeOfDominion);
+    model->addMeleeWeapon(&m_scourgingWhip);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

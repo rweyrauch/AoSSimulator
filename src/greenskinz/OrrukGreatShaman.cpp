@@ -35,11 +35,11 @@ OrrukGreatShaman::OrrukGreatShaman() :
 
 bool OrrukGreatShaman::configure(bool warboar)
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_totemicStaff);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_totemicStaff);
     if (warboar)
     {
-        model.addMeleeWeapon(&m_boarsTusks);
+        model->addMeleeWeapon(&m_boarsTusks);
         m_move = 9;
     }
     addModel(model);

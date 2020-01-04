@@ -77,47 +77,47 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
     m_iconBearer = iconBearer;
     m_drummer = drummer;
 
-    Model leader(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, WOUNDS);
     if (weapons == AxeAndShield)
     {
-        leader.addMeleeWeapon(&m_axeChieftain);
+        leader->addMeleeWeapon(&m_axeChieftain);
     }
     else if (weapons == Flail)
     {
-        leader.addMeleeWeapon(&m_flailChieftain);
+        leader->addMeleeWeapon(&m_flailChieftain);
     }
-    leader.setName("Marauder Chieftain");
+    leader->setName("Marauder Chieftain");
     addModel(leader);
 
     if (m_iconBearer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Icon Bearer");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Icon Bearer");
         if (weapons == AxeAndShield)
-            model.addMeleeWeapon(&m_axe);
+            model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
         addModel(model);
     }
 
     if (m_drummer)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.setName("Drummer");
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Drummer");
         if (weapons == AxeAndShield)
-            model.addMeleeWeapon(&m_axe);
+            model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
         addModel(model);
     }
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == AxeAndShield)
-            model.addMeleeWeapon(&m_axe);
+            model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)
-            model.addMeleeWeapon(&m_flail);
+            model->addMeleeWeapon(&m_flail);
         addModel(model);
     }
 
@@ -180,11 +180,11 @@ void ChaosMarauders::onWounded()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.slain() && (ip.getName() == "Drummer"))
+        if (ip->slain() && (ip->getName() == "Drummer"))
         {
             m_drummer = false;
         }
-        if (ip.slain() && (ip.getName() == "Icon Bearer"))
+        if (ip->slain() && (ip->getName() == "Icon Bearer"))
         {
             m_iconBearer = false;
         }
@@ -212,11 +212,11 @@ void ChaosMarauders::onRestore()
     // Check for special models
     for (const auto& ip : m_models)
     {
-        if (ip.getName() == "Drummer")
+        if (ip->getName() == "Drummer")
         {
             m_drummer = true;
         }
-        if (ip.getName() == "Icon Bearer")
+        if (ip->getName() == "Icon Bearer")
         {
             m_iconBearer = true;
         }

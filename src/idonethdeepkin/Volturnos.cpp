@@ -34,10 +34,10 @@ Volturnos::Volturnos() :
 
 bool Volturnos::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_theAstraSolus);
-    model.addMeleeWeapon(&m_deepmareJawsTalons);
-    model.addMeleeWeapon(&m_deepmareTails);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_theAstraSolus);
+    model->addMeleeWeapon(&m_deepmareJawsTalons);
+    model->addMeleeWeapon(&m_deepmareTails);
 
     addModel(model);
 

@@ -67,9 +67,9 @@ bool Gorgers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_claws);
-        model.addMeleeWeapon(&m_jaw);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_claws);
+        model->addMeleeWeapon(&m_jaw);
         addModel(model);
     }
 

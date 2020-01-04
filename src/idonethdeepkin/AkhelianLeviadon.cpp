@@ -35,12 +35,12 @@ AkhelianLeviadon::AkhelianLeviadon() :
 
 bool AkhelianLeviadon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_harpoonLauncher);
-    model.addMeleeWeapon(&m_crushingJaws);
-    model.addMeleeWeapon(&m_scythedFins);
-    model.addMeleeWeapon(&m_twinProngedSpear);
-    model.addMeleeWeapon(&m_razorshellHarpoons);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_harpoonLauncher);
+    model->addMeleeWeapon(&m_crushingJaws);
+    model->addMeleeWeapon(&m_scythedFins);
+    model->addMeleeWeapon(&m_twinProngedSpear);
+    model->addMeleeWeapon(&m_razorshellHarpoons);
 
     addModel(model);
 

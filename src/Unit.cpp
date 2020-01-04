@@ -33,10 +33,10 @@ Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 
     for (auto i = 0; i < numAttackingModels; i++)
     {
-        const Model& model = m_models.at(i);
-        if (model.fled() || model.slain()) continue;
+        auto model = m_models.at(i).get();
+        if (model->fled() || model->slain()) continue;
 
-        for (auto wip = model.missileWeaponBegin(); wip != model.missileWeaponEnd(); ++wip)
+        for (auto wip = model->missileWeaponBegin(); wip != model->missileWeaponEnd(); ++wip)
         {
             const Weapon *w = *wip;
 
@@ -89,10 +89,10 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
 
     for (auto i = 0; i < numAttackingModels; i++)
     {
-        const Model& model = m_models.at(i);
-        if (model.fled() || model.slain()) continue;
+        const auto model = m_models.at(i).get();
+        if (model->fled() || model->slain()) continue;
 
-        for (auto wip = model.meleeWeaponBegin(); wip != model.meleeWeaponEnd(); ++wip)
+        for (auto wip = model->meleeWeaponBegin(); wip != model->meleeWeaponEnd(); ++wip)
         {
             const Weapon *w = *wip;
 
@@ -143,8 +143,9 @@ int Unit::applyBattleshock()
 
     for (auto ip = m_models.rbegin(); ip != m_models.rend() && numFleeing > 0; ++ip)
     {
-        if (ip->fled() || ip->slain()) continue;
-        ip->flee();
+        Model* model = ip->get();
+        if (model->fled() || model->slain()) continue;
+        model->flee();
         numFleeing--;
     }
 
@@ -206,10 +207,10 @@ void Unit::endTurn(int battleRound)
     m_statistics.record(m_currentRecord);
 }
 
-void Unit::addModel(const Model &model)
+void Unit::addModel(Model* model)
 {
-    m_models.push_back(model);
-    m_basesize_mm = model.basesize();
+    m_models.push_back(std::unique_ptr<Model>(model));
+    m_basesize_mm = model->basesize();
 }
 
 int Unit::applyDamage(const Wounds& totalWoundsInflicted)
@@ -220,12 +221,12 @@ int Unit::applyDamage(const Wounds& totalWoundsInflicted)
     // apply both normal and mortal wounds
     int totalDamage = totalWounds.normal + totalWounds.mortal;
     int numSlain = 0;
-    for (auto &model : m_models)
+    for (const auto& model : m_models)
     {
-        if (model.slain() || model.fled()) continue;
+        if (model->slain() || model->fled()) continue;
 
-        auto wounds = model.woundsRemaining();
-        auto remainingWounds = model.applyWound(totalDamage);
+        auto wounds = model->woundsRemaining();
+        auto remainingWounds = model->applyWound(totalDamage);
         if (totalDamage >= wounds)
         {
             totalDamage -= wounds;
@@ -260,7 +261,7 @@ int Unit::remainingModels() const
     int models = 0;
     for (const auto& m : m_models)
     {
-        if (!m.slain() && !m.fled())
+        if (!m->slain() && !m->fled())
             models++;
     }
     return models;
@@ -271,8 +272,8 @@ int Unit::remainingWounds() const
     int wounds = 0;
     for (const auto& m : m_models)
     {
-        if (!m.slain() && !m.fled())
-            wounds += m.woundsRemaining();
+        if (!m->slain() && !m->fled())
+            wounds += m->woundsRemaining();
     }
     return wounds;
 }
@@ -303,7 +304,7 @@ void Unit::restore()
 {
     for (auto& m : m_models)
     {
-        m.restore();
+        m->restore();
     }
 
     m_battleRound = 0;
@@ -342,7 +343,7 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
     m_position = pos;
     for (auto& m : m_models)
     {
-        m.setPosition(pos);
+        m->setPosition(pos);
     }
 
     int unitW = (int)m_models.size() / m_ranks;
@@ -363,7 +364,7 @@ bool Unit::setPosition(const Math::Point3& pos, const Math::Vector3& orientation
 
     for (auto& m : m_models)
     {
-        m.setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
+        m->setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
 
         xi++;
         curPos += dx;
@@ -414,10 +415,10 @@ float Unit::distanceBetween(const Model* model, const Unit* unit) const
     float minDist = FLT_MAX;
 
     // find closes model in target unit
-    for (auto& ip : unit->m_models)
+    for (auto& m : unit->m_models)
     {
-        const float tx = ip.x();
-        const float ty = ip.y();
+        const float tx = m->x();
+        const float ty = m->y();
 
         const float dx = fabsf(tx - x);
         const float dy = fabsf(ty - y);
@@ -466,7 +467,7 @@ void Unit::movement(PlayerId player)
     // Unit cannot move
     if (!m_canMove) return;
 
-    auto weapon = m_models.front().preferredWeapon();
+    auto weapon = m_models.front()->preferredWeapon();
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
         otherPlayer = PlayerId::Blue;
@@ -625,7 +626,7 @@ void Unit::charge(PlayerId player)
 
     auto board = Board::Instance();
 
-    auto weapon = m_models.front().preferredWeapon();
+    auto weapon = m_models.front()->preferredWeapon();
     if (weapon->isMissile()) return;
 
     PlayerId otherPlayer = PlayerId::Red;
@@ -716,9 +717,9 @@ int Unit::slay(int numModels)
     int numSlain = 0;
     for (auto &model : m_models)
     {
-        if (model.slain() || model.fled()) continue;
+        if (model->slain() || model->fled()) continue;
 
-        model.slay();
+        model->slay();
         numSlain++;
 
         if (numSlain > numModels) break;
@@ -734,10 +735,10 @@ int Unit::heal(int numWounds)
     int numHealedWounds = 0;
     for (auto &model : m_models)
     {
-        if (model.slain() || model.fled()) continue;
+        if (model->slain() || model->fled()) continue;
 
-        auto toHeal = wounds() - model.woundsRemaining();
-        model.applyHealing(toHeal);
+        auto toHeal = wounds() - model->woundsRemaining();
+        model->applyHealing(toHeal);
         if (toHeal >= numWounds)
         {
             numHealedWounds += numWounds;
@@ -788,7 +789,7 @@ bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* t
     return saveMade;
 }
 
-void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fromModel,
+void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fromModel,
     Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered)
 {
     totalWoundsInflicted = {0, 0};
@@ -801,7 +802,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
     }
 
     // check range to target unit
-    float distanceToTarget = distanceBetween(&fromModel, target);
+    float distanceToTarget = distanceBetween(fromModel, target);
     if (distanceToTarget > weapon->range())
     {
         // out of range
@@ -814,7 +815,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model& fro
     const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this);
     const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this);
 
-    const int totalAttacks = weapon->numAttacks(extraAttacks(&fromModel, weapon, target));
+    const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target));
     for (auto a = 0; a < totalAttacks; a++)
     {
         m_currentRecord.m_attacksMade++;
@@ -1056,15 +1057,15 @@ const Model* Unit::nearestModel(const Model* model, const Unit* targetUnit) cons
 {
     if (!targetUnit || targetUnit->m_models.empty()) { return nullptr; }
 
-    auto nearestModel = &targetUnit->m_models[0];
+    auto nearestModel = targetUnit->m_models[0].get();
     auto minDistance = Math::INFINITE;
     for (const auto& m : targetUnit->m_models)
     {
-        const auto dist = Model::distanceBetween(m, *model);
+        const auto dist = Model::distanceBetween(m.get(), model);
         if (dist < minDistance)
         {
             minDistance = dist;
-            nearestModel = &m;
+            nearestModel = m.get();
         }
     }
     return nearestModel;
@@ -1078,14 +1079,14 @@ void Unit::doPileIn()
     for (auto& m : m_models)
     {
         // Find closest model in melee target unit.
-        auto closestTarget = nearestModel(&m, m_meleeTarget);
+        auto closestTarget = nearestModel(m.get(), m_meleeTarget);
         // Move toward that model if possible
         if (closestTarget)
         {
-            auto totalMoveDistance = std::min((float)m_pileInMove, Model::distanceBetween(m, *closestTarget));
-            const Math::Ray ray(m.position(), closestTarget->position());
+            auto totalMoveDistance = std::min((float)m_pileInMove, Model::distanceBetween(m.get(), closestTarget));
+            const Math::Ray ray(m->position(), closestTarget->position());
             auto newPos = ray.point_at(totalMoveDistance);
-            m.setPosition(newPos);
+            m->setPosition(newPos);
         }
     }
 }
@@ -1096,9 +1097,9 @@ int Unit::numModelsWithin(const Model *model, float range) const
     // Count the number of remaining models from this unit within 'range' of the given model.
     for (auto& m : m_models)
     {
-        if (!m.slain() && !m.fled())
+        if (!m->slain() && !m->fled())
         {
-            float distanceToModel = Model::distanceBetween(m, *model);
+            float distanceToModel = Model::distanceBetween(m.get(), model);
             if (distanceToModel <= range) count++;
         }
     }
@@ -1379,6 +1380,22 @@ int Unit::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const
         modifier += bi.modifier;
     }
     return modifier;
+}
+
+int Unit::numOfWoundedModels() const
+{
+    int count = 0;
+    for (const auto& m : m_models)
+    {
+        if (!m->slain() && !m->fled())
+        {
+            if (m->woundsRemaining() < m->initialWounds())
+            {
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

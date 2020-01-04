@@ -38,8 +38,8 @@ LordRelictor::LordRelictor() :
 
 bool LordRelictor::configure(PrayersOfTheStormhost prayer)
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_relicHammer);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_relicHammer);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

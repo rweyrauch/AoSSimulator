@@ -59,11 +59,11 @@ TreelordAncient::TreelordAncient() :
 
 bool TreelordAncient::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_doomTendrilStaff);
-    model.addMeleeWeapon(&m_sweepingBlows);
-    model.addMeleeWeapon(&m_massiveImpalingTalons);
+    model->addMissileWeapon(&m_doomTendrilStaff);
+    model->addMeleeWeapon(&m_sweepingBlows);
+    model->addMeleeWeapon(&m_massiveImpalingTalons);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

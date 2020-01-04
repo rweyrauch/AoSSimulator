@@ -52,9 +52,9 @@ ExaltedHeroOfChaos::ExaltedHeroOfChaos() :
 
 bool ExaltedHeroOfChaos::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_blades);
+    model->addMeleeWeapon(&m_blades);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

@@ -37,9 +37,9 @@ CryptHaunterCourtier::CryptHaunterCourtier() :
 
 bool CryptHaunterCourtier::configure()
 {
-    Model infernal(BASESIZE, WOUNDS);
-    infernal.addMeleeWeapon(&m_massiveBoneClub);
-    infernal.addMeleeWeapon(&m_rancidTalons);
+    auto infernal = new Model(BASESIZE, WOUNDS);
+    infernal->addMeleeWeapon(&m_massiveBoneClub);
+    infernal->addMeleeWeapon(&m_rancidTalons);
     addModel(infernal);
 
     m_points = POINTS_PER_UNIT;

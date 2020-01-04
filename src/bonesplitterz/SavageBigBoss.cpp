@@ -56,9 +56,9 @@ SavageBigBoss::SavageBigBoss() :
 
 bool SavageBigBoss::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_chompasBoss);
+    model->addMeleeWeapon(&m_chompasBoss);
 
     addModel(model);
 

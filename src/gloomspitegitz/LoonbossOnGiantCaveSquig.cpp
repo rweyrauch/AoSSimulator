@@ -37,16 +37,16 @@ LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
 
 bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_massiveFangFilledGob);
+    model->addMeleeWeapon(&m_massiveFangFilledGob);
     if (weapon == Mooncutta)
     {
-        model.addMeleeWeapon(&m_moonCutta);
+        model->addMeleeWeapon(&m_moonCutta);
     }
     else if (weapon == MoonclanStabba)
     {
-        model.addMeleeWeapon(&m_moonclanStabba);
+        model->addMeleeWeapon(&m_moonclanStabba);
     }
     addModel(model);
 

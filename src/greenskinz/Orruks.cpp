@@ -59,42 +59,42 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
     m_weapons = weapons;
 
     // Add the boss
-    Model boss(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, WOUNDS);
     switch (weapons)
     {
         case ChoppaAndShield:
-            boss.addMeleeWeapon(&m_choppaBoss);
+            boss->addMeleeWeapon(&m_choppaBoss);
             break;
         case SpearAndShield:
-            boss.addMeleeWeapon(&m_pigstikkaSpearBoss);
+            boss->addMeleeWeapon(&m_pigstikkaSpearBoss);
             break;
         case PairedChoppas:
-            boss.addMeleeWeapon(&m_choppaBoss);
+            boss->addMeleeWeapon(&m_choppaBoss);
             break;
         case OrrukBowAndCutta:
-            boss.addMissileWeapon(&m_orrukBowBoss);
-            boss.addMeleeWeapon(&m_choppaBoss);
+            boss->addMissileWeapon(&m_orrukBowBoss);
+            boss->addMeleeWeapon(&m_choppaBoss);
             break;
     }
     addModel(boss);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         switch (weapons)
         {
             case ChoppaAndShield:
-                model.addMeleeWeapon(&m_choppa);
+                model->addMeleeWeapon(&m_choppa);
                 break;
             case SpearAndShield:
-                model.addMeleeWeapon(&m_pigstikkaSpear);
+                model->addMeleeWeapon(&m_pigstikkaSpear);
                 break;
             case PairedChoppas:
-                model.addMeleeWeapon(&m_choppa);
+                model->addMeleeWeapon(&m_choppa);
                 break;
             case OrrukBowAndCutta:
-                model.addMissileWeapon(&m_orrukBows);
-                model.addMeleeWeapon(&m_choppa);
+                model->addMissileWeapon(&m_orrukBows);
+                model->addMeleeWeapon(&m_choppa);
                 break;
         }
         addModel(model);

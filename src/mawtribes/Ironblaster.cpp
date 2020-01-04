@@ -69,15 +69,15 @@ Ironblaster::Ironblaster() :
 
 bool Ironblaster::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     m_hailShot.activate(false);
 
-    model.addMissileWeapon(&m_cannonBall);
-    model.addMissileWeapon(&m_hailShot);
-    model.addMeleeWeapon(&m_clubber);
-    model.addMeleeWeapon(&m_horns);
-    model.addMeleeWeapon(&m_blade);
+    model->addMissileWeapon(&m_cannonBall);
+    model->addMissileWeapon(&m_hailShot);
+    model->addMeleeWeapon(&m_clubber);
+    model->addMeleeWeapon(&m_horns);
+    model->addMeleeWeapon(&m_blade);
 
     addModel(model);
 

@@ -33,9 +33,9 @@ Unforged::Unforged() :
 
 bool Unforged::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_runicAxes);
+    model->addMeleeWeapon(&m_runicAxes);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

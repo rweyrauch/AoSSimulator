@@ -65,9 +65,9 @@ MortisanBoneshaper::MortisanBoneshaper() :
 
 bool MortisanBoneshaper::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_talons);
+    model->addMeleeWeapon(&m_talons);
 
     addModel(model);
 

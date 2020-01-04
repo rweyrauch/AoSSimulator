@@ -45,9 +45,9 @@ bool Chainghasts::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_ghastflailsMissile);
-        model.addMeleeWeapon(&m_ghastflails);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_ghastflailsMissile);
+        model->addMeleeWeapon(&m_ghastflails);
         addModel(model);
     }
 

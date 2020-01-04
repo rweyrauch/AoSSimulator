@@ -67,9 +67,9 @@ NomadPrince::NomadPrince() :
 
 bool NomadPrince::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_spear);
+    model->addMeleeWeapon(&m_spear);
 
     addModel(model);
 

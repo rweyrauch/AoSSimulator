@@ -37,18 +37,18 @@ AkhelianKing::AkhelianKing() :
 
 bool AkhelianKing::configure(WeaponOption weapon)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
     if (weapon == BladedPolearm)
     {
-        model.addMeleeWeapon(&m_bladedPolearm);
+        model->addMeleeWeapon(&m_bladedPolearm);
     }
     else
     {
-        model.addMeleeWeapon(&m_greatsword);
+        model->addMeleeWeapon(&m_greatsword);
     }
-    model.addMeleeWeapon(&m_falchion);
-    model.addMeleeWeapon(&m_deepmareJawsTalons);
-    model.addMeleeWeapon(&m_deepmareTails);
+    model->addMeleeWeapon(&m_falchion);
+    model->addMeleeWeapon(&m_deepmareJawsTalons);
+    model->addMeleeWeapon(&m_deepmareTails);
 
     addModel(model);
 

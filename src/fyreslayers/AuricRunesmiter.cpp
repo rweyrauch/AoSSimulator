@@ -35,11 +35,11 @@ AuricRunesmiter::AuricRunesmiter() :
 
 bool AuricRunesmiter::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMeleeWeapon(&m_latchAxe);
-    model.addMeleeWeapon(&m_runicIron);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMeleeWeapon(&m_latchAxe);
+    model->addMeleeWeapon(&m_runicIron);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

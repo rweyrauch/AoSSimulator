@@ -53,13 +53,13 @@ OrrukWarbossOnWyvern::OrrukWarbossOnWyvern() :
 
 bool OrrukWarbossOnWyvern::configure(bool pairedChoppas)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     m_pairedChoppas = pairedChoppas;
 
-    model.addMeleeWeapon(&m_bossChoppa);
-    model.addMeleeWeapon(&m_hornsClawsAndTeeth);
-    model.addMeleeWeapon(&m_barbedTail);
+    model->addMeleeWeapon(&m_bossChoppa);
+    model->addMeleeWeapon(&m_hornsClawsAndTeeth);
+    model->addMeleeWeapon(&m_barbedTail);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

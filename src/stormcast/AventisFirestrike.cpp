@@ -44,9 +44,9 @@ bool AventisFirestrike::configure(LoreOfTheStorm storm, LoreOfInvigoration invig
         return false;
     }
 
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_staffOfHammerhal);
-    model.addMeleeWeapon(&m_hornsAndHooves);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_staffOfHammerhal);
+    model->addMeleeWeapon(&m_hornsAndHooves);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));

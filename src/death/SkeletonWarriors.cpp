@@ -57,27 +57,27 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
     // TODO: minimum charge distance is 6" with hornblower present
     m_hornblowers = hornblowers;
 
-    Model champion(BASESIZE, WOUNDS);
+    auto champion = new Model(BASESIZE, WOUNDS);
     if (weapons == AncientBlade)
     {
-        champion.addMeleeWeapon(&m_ancientBladeChampion);
+        champion->addMeleeWeapon(&m_ancientBladeChampion);
     }
     else if (weapons == AncientSpear)
     {
-        champion.addMeleeWeapon(&m_ancientSpearChampion);
+        champion->addMeleeWeapon(&m_ancientSpearChampion);
     }
     addModel(champion);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == AncientBlade)
         {
-            model.addMeleeWeapon(&m_ancientBlade);
+            model->addMeleeWeapon(&m_ancientBlade);
         }
         else if (weapons == AncientSpear)
         {
-            model.addMeleeWeapon(&m_ancientSpear);
+            model->addMeleeWeapon(&m_ancientSpear);
         }
         addModel(model);
     }

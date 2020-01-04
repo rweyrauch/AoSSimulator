@@ -66,10 +66,10 @@ Vokmortian::Vokmortian() :
 
 bool Vokmortian::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_gazeOfDeath);
-    model.addMeleeWeapon(&m_staff);
+    model->addMissileWeapon(&m_gazeOfDeath);
+    model->addMeleeWeapon(&m_staff);
 
     addModel(model);
 

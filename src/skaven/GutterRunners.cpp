@@ -48,9 +48,9 @@ bool GutterRunners::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_throwingStars);
-        model.addMeleeWeapon(&m_punchDaggerAndBlade);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_throwingStars);
+        model->addMeleeWeapon(&m_punchDaggerAndBlade);
         addModel(model);
     }
 

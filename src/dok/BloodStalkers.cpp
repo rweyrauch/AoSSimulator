@@ -49,20 +49,20 @@ bool BloodStalkers::configure(int numModels, bool bloodWyrm)
         return false;
     }
 
-    Model krone(BASESIZE, WOUNDS);
-    krone.addMissileWeapon(&m_heartseekBowKrone);
-    krone.addMeleeWeapon(&m_sacraficialDaggarKrone);
+    auto krone = new Model(BASESIZE, WOUNDS);
+    krone->addMissileWeapon(&m_heartseekBowKrone);
+    krone->addMeleeWeapon(&m_sacraficialDaggarKrone);
     if (bloodWyrm)
     {
-        krone.addMeleeWeapon(&m_bloodWyrm);
+        krone->addMeleeWeapon(&m_bloodWyrm);
     }
     addModel(krone);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_hearseekerBow);
-        model.addMeleeWeapon(&m_sacraficialDaggar);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_hearseekerBow);
+        model->addMeleeWeapon(&m_sacraficialDaggar);
         addModel(model);
     }
 

@@ -42,19 +42,19 @@ bool ExaltedDeathbringer::configure(WeaponOption weapon)
 {
     m_weaponOption = weapon;
 
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     if (m_weaponOption == RuinousAxeAndSkullgouger)
     {
-        model.addMeleeWeapon(&m_ruinousAxe);
+        model->addMeleeWeapon(&m_ruinousAxe);
     }
     else if (m_weaponOption == BloodbiteAxeAndRunemarkedShield)
     {
-        model.addMeleeWeapon(&m_bloodbiteAxe);
+        model->addMeleeWeapon(&m_bloodbiteAxe);
     }
     else if (m_weaponOption == ImpalingSpear)
     {
-        model.addMeleeWeapon(&m_impalingSpear);
+        model->addMeleeWeapon(&m_impalingSpear);
     }
     addModel(model);
 

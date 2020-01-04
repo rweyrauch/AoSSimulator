@@ -34,22 +34,22 @@ TheFarstriders::TheFarstriders() :
 
 bool TheFarstriders::configure()
 {
-    Model sanson(BASESIZE, WOUNDS);
-    sanson.setName("Sanson");
-    sanson.addMissileWeapon(&m_boltstormPistol);
-    sanson.addMeleeWeapon(&m_shockHandaxe);
+    auto sanson = new Model(BASESIZE, WOUNDS);
+    sanson->setName("Sanson");
+    sanson->addMissileWeapon(&m_boltstormPistol);
+    sanson->addMeleeWeapon(&m_shockHandaxe);
     addModel(sanson);
 
-    Model almeric(BASESIZE, WOUNDS);
-    almeric.setName("Almeric");
-    almeric.addMissileWeapon(&m_boltstormPistol);
-    almeric.addMeleeWeapon(&m_shockHandaxe);
+    auto almeric = new Model(BASESIZE, WOUNDS);
+    almeric->setName("Almeric");
+    almeric->addMissileWeapon(&m_boltstormPistol);
+    almeric->addMeleeWeapon(&m_shockHandaxe);
     addModel(almeric);
 
-    Model elias(BASESIZE, WOUNDS);
-    elias.setName("Elias");
-    elias.addMissileWeapon(&m_boltstormPistol);
-    elias.addMeleeWeapon(&m_stormSaber);
+    auto elias = new Model(BASESIZE, WOUNDS);
+    elias->setName("Elias");
+    elias->addMissileWeapon(&m_boltstormPistol);
+    elias->addMeleeWeapon(&m_stormSaber);
     addModel(elias);
 
     m_points = POINTS_PER_UNIT;

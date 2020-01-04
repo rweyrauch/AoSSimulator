@@ -57,8 +57,8 @@ bool Furies::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_daggerAndClaws);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_daggerAndClaws);
         addModel(model);
     }
 

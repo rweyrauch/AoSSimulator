@@ -34,8 +34,8 @@ Skullgrinder::Skullgrinder() :
 
 bool Skullgrinder::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_brazenAnvil);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_brazenAnvil);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

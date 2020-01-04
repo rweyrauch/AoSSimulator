@@ -92,11 +92,11 @@ BattlemageOnGriffon::BattlemageOnGriffon() :
 
 bool BattlemageOnGriffon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_beastStaff);
-    model.addMeleeWeapon(&m_twinBeaks);
-    model.addMeleeWeapon(&m_razorClaws);
+    model->addMeleeWeapon(&m_beastStaff);
+    model->addMeleeWeapon(&m_twinBeaks);
+    model->addMeleeWeapon(&m_razorClaws);
 
     addModel(model);
 

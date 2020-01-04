@@ -34,10 +34,10 @@ SquigGobba::SquigGobba() :
 
 bool SquigGobba::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_spitSquigs);
-    model.addMeleeWeapon(&m_bashinSticks);
-    model.addMeleeWeapon(&m_cavernousMaw);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_spitSquigs);
+    model->addMeleeWeapon(&m_bashinSticks);
+    model->addMeleeWeapon(&m_cavernousMaw);
 
     m_points = POINTS_PER_UNIT;
 

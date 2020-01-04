@@ -58,16 +58,16 @@ ShalaxiHelbane::ShalaxiHelbane() :
 
 bool ShalaxiHelbane::configure(WeaponOption weapon)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     m_weapon = weapon;
 
     if (m_weapon == LivingWhip)
     {
-        model.addMissileWeapon(&m_livingWhip);
+        model->addMissileWeapon(&m_livingWhip);
     }
-    model.addMeleeWeapon(&m_soulpiercer);
-    model.addMeleeWeapon(&m_impalingClaws);
+    model->addMeleeWeapon(&m_soulpiercer);
+    model->addMeleeWeapon(&m_impalingClaws);
 
     addModel(model);
 

@@ -60,22 +60,22 @@ RippasSnarlfangs::RippasSnarlfangs() :
 
 bool RippasSnarlfangs::configure()
 {
-    Model rippa(BASESIZE, WOUNDS);
-    rippa.addMeleeWeapon(&m_bossLoppa);
-    rippa.addMeleeWeapon(&m_jaws);
-    rippa.setName("Rippa Narkbad");
+    auto rippa = new Model(BASESIZE, WOUNDS);
+    rippa->addMeleeWeapon(&m_bossLoppa);
+    rippa->addMeleeWeapon(&m_jaws);
+    rippa->setName("Rippa Narkbad");
     addModel(rippa);
 
-    Model stabbit(BASESIZE, WOUNDS);
-    stabbit.addMeleeWeapon(&m_stikka);
-    stabbit.addMeleeWeapon(&m_jaws);
-    stabbit.setName("Stabbit");
+    auto stabbit = new Model(BASESIZE, WOUNDS);
+    stabbit->addMeleeWeapon(&m_stikka);
+    stabbit->addMeleeWeapon(&m_jaws);
+    stabbit->setName("Stabbit");
     addModel(stabbit);
 
-    Model meanEye(BASESIZE, WOUNDS);
-    meanEye.addMissileWeapon(&m_grotBow);
-    meanEye.addMeleeWeapon(&m_bowStave);
-    meanEye.addMeleeWeapon(&m_jaws);
+    auto meanEye = new Model(BASESIZE, WOUNDS);
+    meanEye->addMissileWeapon(&m_grotBow);
+    meanEye->addMeleeWeapon(&m_bowStave);
+    meanEye->addMeleeWeapon(&m_jaws);
     addModel(meanEye);
 
     m_points = POINTS_PER_UNIT;
@@ -97,22 +97,9 @@ int RippasSnarlfangs::toHitModifier(const Weapon *weapon, const Unit *target) co
     auto mod = GloomspiteGitzBase::toHitModifier(weapon, target);
 
     // Smell Weakness
-    // TODO: add method to unit, isWounded(), rather than loop thru the target's models here
-    if (target->remainingModels() < target->initialModels())
-        mod++;
-    else
+    if (target->numOfWoundedModels() > 0)
     {
-        // Check for wounded models
-        for (auto m = target->modelBegin(); m != target->modelEnd(); ++m)
-        {
-            if (!m->slain() && !m->fled())
-            {
-                if (m->woundsRemaining() < m->initialWounds())
-                {
-                    mod++;
-                }
-            }
-        }
+        mod++;
     }
 
     return mod;

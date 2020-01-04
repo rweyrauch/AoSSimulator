@@ -74,9 +74,9 @@ Battlemage::Battlemage() :
 
 bool Battlemage::configure(Realm realm)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_staff);
 
     addModel(model);
 

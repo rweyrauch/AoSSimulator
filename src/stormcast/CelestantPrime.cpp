@@ -68,8 +68,8 @@ CelestantPrime::CelestantPrime() :
 
 bool CelestantPrime::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_ghalMaraz);
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_ghalMaraz);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

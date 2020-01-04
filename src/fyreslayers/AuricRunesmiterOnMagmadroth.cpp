@@ -56,14 +56,14 @@ AuricRunesmiterOnMagmadroth::AuricRunesmiterOnMagmadroth() :
 
 bool AuricRunesmiterOnMagmadroth::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMissileWeapon(&m_fyrestream);
-    model.addMeleeWeapon(&m_clawsAndHorns);
-    model.addMeleeWeapon(&m_blazingMaw);
-    model.addMeleeWeapon(&m_latchAxe);
-    model.addMeleeWeapon(&m_runicIron);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMissileWeapon(&m_fyrestream);
+    model->addMeleeWeapon(&m_clawsAndHorns);
+    model->addMeleeWeapon(&m_blazingMaw);
+    model->addMeleeWeapon(&m_latchAxe);
+    model->addMeleeWeapon(&m_runicIron);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

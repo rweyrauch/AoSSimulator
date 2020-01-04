@@ -33,8 +33,8 @@ GavrielSureheart::GavrielSureheart() :
 
 bool GavrielSureheart::configure()
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMeleeWeapon(&m_starboundBlade);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_starboundBlade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

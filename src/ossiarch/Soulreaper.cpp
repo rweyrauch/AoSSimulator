@@ -65,9 +65,9 @@ MortisanSoulreaper::MortisanSoulreaper() :
 
 bool MortisanSoulreaper::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_scythe);
+    model->addMeleeWeapon(&m_scythe);
 
     addModel(model);
 

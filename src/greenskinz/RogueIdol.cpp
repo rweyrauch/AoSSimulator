@@ -52,10 +52,10 @@ RogueIdol::RogueIdol() :
 
 bool RogueIdol::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_boulderFists);
-    model.addMeleeWeapon(&m_stompinFeet);
+    model->addMeleeWeapon(&m_boulderFists);
+    model->addMeleeWeapon(&m_stompinFeet);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

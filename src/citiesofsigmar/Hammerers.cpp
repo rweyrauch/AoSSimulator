@@ -50,14 +50,14 @@ bool Hammerers::configure(int numModels, bool standardBearer, bool musician)
     m_standardBearer = standardBearer;
     m_musician = musician;
 
-    Model keeper(BASESIZE, WOUNDS);
-    keeper.addMeleeWeapon(&m_greatHammerKeeper);
+    auto keeper = new Model(BASESIZE, WOUNDS);
+    keeper->addMeleeWeapon(&m_greatHammerKeeper);
     addModel(keeper);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_greatHammer);
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_greatHammer);
         addModel(model);
     }
 

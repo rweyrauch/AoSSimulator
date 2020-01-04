@@ -57,11 +57,11 @@ RoyalZombieDragon::RoyalZombieDragon() :
 
 bool RoyalZombieDragon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_pestilentialBreath);
-    model.addMeleeWeapon(&m_snappingMaw);
-    model.addMeleeWeapon(&m_swordlikeClaws);
+    model->addMissileWeapon(&m_pestilentialBreath);
+    model->addMeleeWeapon(&m_snappingMaw);
+    model->addMeleeWeapon(&m_swordlikeClaws);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

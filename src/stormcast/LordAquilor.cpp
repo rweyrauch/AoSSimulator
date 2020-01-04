@@ -39,11 +39,11 @@ LordAquilor::LordAquilor() :
 
 bool LordAquilor::configure(bool astralCompass)
 {
-    Model model(BASESIZE, WOUNDS);
-    model.addMissileWeapon(&m_boltstormPistol);
-    model.addMeleeWeapon(&m_starboundBlade);
-    model.addMeleeWeapon(&m_shockHandaxe);
-    model.addMeleeWeapon(&m_beakAndClaws);
+        auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_boltstormPistol);
+    model->addMeleeWeapon(&m_starboundBlade);
+    model->addMeleeWeapon(&m_shockHandaxe);
+    model->addMeleeWeapon(&m_beakAndClaws);
     addModel(model);
 
     m_astralCompass = astralCompass;

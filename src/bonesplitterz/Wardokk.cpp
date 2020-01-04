@@ -60,9 +60,9 @@ Wardokk::Wardokk() :
 
 bool Wardokk::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_bonebeastStikk);
+    model->addMeleeWeapon(&m_bonebeastStikk);
 
     addModel(model);
 

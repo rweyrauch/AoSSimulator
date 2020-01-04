@@ -57,27 +57,27 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
 
     m_runAndCharge = m_brayhorn;
 
-    Model halfhorn(BASESIZE, WOUNDS);
+    auto halfhorn = new Model(BASESIZE, WOUNDS);
     if (weapons == UngorBlade)
     {
-        halfhorn.addMeleeWeapon(&m_ungorBladeHalfhorn);
+        halfhorn->addMeleeWeapon(&m_ungorBladeHalfhorn);
     }
     else if (weapons == GnarledShortspear)
     {
-        halfhorn.addMeleeWeapon(&m_gnarledShortspearHalfhorn);
+        halfhorn->addMeleeWeapon(&m_gnarledShortspearHalfhorn);
     }
     addModel(halfhorn);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == UngorBlade)
         {
-            model.addMeleeWeapon(&m_ungorBlade);
+            model->addMeleeWeapon(&m_ungorBlade);
         }
         else if (weapons == GnarledShortspear)
         {
-            model.addMeleeWeapon(&m_gnarledShortspear);
+            model->addMeleeWeapon(&m_gnarledShortspear);
         }
         addModel(model);
     }

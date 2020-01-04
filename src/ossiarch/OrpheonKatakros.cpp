@@ -66,14 +66,14 @@ OrpheonKatakros::OrpheonKatakros() :
 
 bool OrpheonKatakros::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_indaKhaat);
-    model.addMeleeWeapon(&m_shieldImmortis);
-    model.addMeleeWeapon(&m_nadiriteDagger);
-    model.addMeleeWeapon(&m_blades);
-    model.addMeleeWeapon(&m_greatblade);
-    model.addMeleeWeapon(&m_spiritDagger);
+    model->addMeleeWeapon(&m_indaKhaat);
+    model->addMeleeWeapon(&m_shieldImmortis);
+    model->addMeleeWeapon(&m_nadiriteDagger);
+    model->addMeleeWeapon(&m_blades);
+    model->addMeleeWeapon(&m_greatblade);
+    model->addMeleeWeapon(&m_spiritDagger);
 
     m_shieldImmortis.activate(false);
 

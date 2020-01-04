@@ -97,30 +97,30 @@ bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necr
         return false;
     }
 
-    Model hekatos(WOUNDS, BASESIZE);
+    auto hekatos = new Model(BASESIZE, WOUNDS);
     if (option == NadiriteBladeAndShield)
     {
-        hekatos.addMeleeWeapon(&m_bladeHekatos);
+        hekatos->addMeleeWeapon(&m_bladeHekatos);
     }
     else if (option == NadirateSpearAndShield)
     {
-        hekatos.addMeleeWeapon(&m_spearHekatos);
+        hekatos->addMeleeWeapon(&m_spearHekatos);
     }
-    hekatos.addMeleeWeapon(&m_hoovesAndTeeth);
+    hekatos->addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(hekatos);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(WOUNDS, BASESIZE);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (option == NadiriteBladeAndShield)
         {
-            model.addMeleeWeapon(&m_bladeHekatos);
+            model->addMeleeWeapon(&m_bladeHekatos);
         }
         else if (option == NadirateSpearAndShield)
         {
-            model.addMeleeWeapon(&m_spearHekatos);
+            model->addMeleeWeapon(&m_spearHekatos);
         }
-        model.addMeleeWeapon(&m_hoovesAndTeeth);
+        model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
     }
 

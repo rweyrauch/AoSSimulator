@@ -36,10 +36,10 @@ ArchRevenant::ArchRevenant() :
 
 bool ArchRevenant::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMeleeWeapon(&m_glaive);
-    model.addMeleeWeapon(&m_tailPincers);
+    model->addMeleeWeapon(&m_glaive);
+    model->addMeleeWeapon(&m_tailPincers);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

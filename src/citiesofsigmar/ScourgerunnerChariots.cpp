@@ -86,20 +86,20 @@ bool ScourgerunnerChariots::configure(int numModels)
     }
 
     // Add the Master
-    Model bossModel(BASESIZE, WOUNDS);
-    bossModel.addMissileWeapon(&m_crossbowMaster);
-    bossModel.addMissileWeapon(&m_harpoonMaster);
-    bossModel.addMeleeWeapon(&m_hookSpear);
-    bossModel.addMeleeWeapon(&m_bite);
+    auto bossModel = new Model(BASESIZE, WOUNDS);
+    bossModel->addMissileWeapon(&m_crossbowMaster);
+    bossModel->addMissileWeapon(&m_harpoonMaster);
+    bossModel->addMeleeWeapon(&m_hookSpear);
+    bossModel->addMeleeWeapon(&m_bite);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMissileWeapon(&m_crossbow);
-        model.addMissileWeapon(&m_harpoon);
-        model.addMeleeWeapon(&m_hookSpear);
-        model.addMeleeWeapon(&m_bite);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_crossbow);
+        model->addMissileWeapon(&m_harpoon);
+        model->addMeleeWeapon(&m_hookSpear);
+        model->addMeleeWeapon(&m_bite);
         addModel(model);
     }
 

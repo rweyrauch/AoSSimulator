@@ -45,25 +45,25 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
     m_weapon = weapons;
     m_sigmariteThundershield = sigmariteThundershield;
 
-    Model model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     if (m_weapon == StormstrikeGlaive)
     {
-        model.addMeleeWeapon(&m_stormstrikeGlaive);
+        model->addMeleeWeapon(&m_stormstrikeGlaive);
     }
     else if (m_weapon == LightningHammer)
     {
-        model.addMeleeWeapon(&m_lightningHammer);
+        model->addMeleeWeapon(&m_lightningHammer);
     }
     else if (m_weapon == Thunderaxe)
     {
-        model.addMeleeWeapon(&m_thunderaxe);
+        model->addMeleeWeapon(&m_thunderaxe);
     }
     else if (m_weapon == TempestosHammer)
     {
-        model.addMeleeWeapon(&m_tempestosHammer);
+        model->addMeleeWeapon(&m_tempestosHammer);
     }
 
-    model.addMeleeWeapon(&m_clawsAndFangs);
+    model->addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;

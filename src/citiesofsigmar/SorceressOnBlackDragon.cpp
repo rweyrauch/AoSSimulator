@@ -91,15 +91,15 @@ SorceressOnBlackDragon::SorceressOnBlackDragon() :
 
 bool SorceressOnBlackDragon::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_noxiousBreath);
+    model->addMissileWeapon(&m_noxiousBreath);
 
     // TODO: weapon options
-    model.addMeleeWeapon(&m_rod);
+    model->addMeleeWeapon(&m_rod);
 
-    model.addMeleeWeapon(&m_jaws);
-    model.addMeleeWeapon(&m_claws);
+    model->addMeleeWeapon(&m_jaws);
+    model->addMeleeWeapon(&m_claws);
 
     addModel(model);
 

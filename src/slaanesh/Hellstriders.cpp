@@ -54,22 +54,22 @@ bool Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBeare
     m_bannerBearer = bannerBearer;
     m_hornblower = hornblower;
 
-    Model reaver(BASESIZE, WOUNDS);
+    auto reaver = new Model(BASESIZE, WOUNDS);
     if (weapons == ClawSpear)
-        reaver.addMeleeWeapon(&m_clawSpearReaver);
+        reaver->addMeleeWeapon(&m_clawSpearReaver);
     else if (weapons == Hellscourge)
-        reaver.addMeleeWeapon(&m_hellscourgeReaver);
-    reaver.addMeleeWeapon(&m_poisonedTongue);
+        reaver->addMeleeWeapon(&m_hellscourgeReaver);
+    reaver->addMeleeWeapon(&m_poisonedTongue);
     addModel(reaver);
 
     for (auto i = 1; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == ClawSpear)
-            model.addMeleeWeapon(&m_clawSpear);
+            model->addMeleeWeapon(&m_clawSpear);
         else if (weapons == Hellscourge)
-            model.addMeleeWeapon(&m_hellscourge);
-        model.addMeleeWeapon(&m_poisonedTongue);
+            model->addMeleeWeapon(&m_hellscourge);
+        model->addMeleeWeapon(&m_poisonedTongue);
         addModel(model);
     }
 

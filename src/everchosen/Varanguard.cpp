@@ -95,20 +95,20 @@ bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
+            auto model = new Model(BASESIZE, WOUNDS);
         if (weapon == EnsorcelledWeapon)
         {
-            model.addMeleeWeapon(&m_ensorcelledWeapon);
+            model->addMeleeWeapon(&m_ensorcelledWeapon);
         }
         else if (weapon == Fellspear)
         {
-            model.addMeleeWeapon(&m_fellspear);
+            model->addMeleeWeapon(&m_fellspear);
         }
         else if (weapon == DaemonforgedBlade)
         {
-            model.addMeleeWeapon(&m_blade);
+            model->addMeleeWeapon(&m_blade);
         }
-        model.addMeleeWeapon(&m_fangs);
+        model->addMeleeWeapon(&m_fangs);
         addModel(model);
     }
 

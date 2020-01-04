@@ -97,14 +97,14 @@ FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon() :
 
 bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield)
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
     if (weapon == RuneSword)
-        model.addMeleeWeapon(&m_runesword);
+        model->addMeleeWeapon(&m_runesword);
     else if (weapon == Greathammer)
-        model.addMeleeWeapon(&m_greathammer);
+        model->addMeleeWeapon(&m_greathammer);
     else if (weapon == Lance)
-        model.addMeleeWeapon(&m_lance);
+        model->addMeleeWeapon(&m_lance);
     addModel(model);
 
     m_shield = hasShield;

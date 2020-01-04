@@ -60,12 +60,12 @@ AbhorrantGhoulKingOnTerrorgheist::AbhorrantGhoulKingOnTerrorgheist() :
 
 bool AbhorrantGhoulKingOnTerrorgheist::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_deathShriek);
-    model.addMeleeWeapon(&m_goryTalonsAndFangs);
-    model.addMeleeWeapon(&m_skeletalClaws);
-    model.addMeleeWeapon(&m_fangedMaw);
+    model->addMissileWeapon(&m_deathShriek);
+    model->addMeleeWeapon(&m_goryTalonsAndFangs);
+    model->addMeleeWeapon(&m_skeletalClaws);
+    model->addMeleeWeapon(&m_fangedMaw);
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -132,7 +132,7 @@ void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player)
             int woundsHealed = dice.rollD3();
             for (auto &m : m_models)
             {
-                m.applyHealing(woundsHealed);
+                m->applyHealing(woundsHealed);
             }
         }
     }

@@ -76,8 +76,8 @@ bool SavageBigStabbas::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        Model model(BASESIZE, WOUNDS);
-        model.addMeleeWeapon(&m_gorkToof);
+            auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_gorkToof);
         addModel(model);
     }
 

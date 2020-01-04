@@ -34,10 +34,10 @@ AuricRunefather::AuricRunefather() :
 
 bool AuricRunefather::configure()
 {
-    Model model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
 
-    model.addMissileWeapon(&m_throwingAxe);
-    model.addMeleeWeapon(&m_grandAxe);
+    model->addMissileWeapon(&m_throwingAxe);
+    model->addMeleeWeapon(&m_grandAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
