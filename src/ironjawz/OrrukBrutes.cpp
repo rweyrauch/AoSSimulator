@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", OrrukBrutes::TwoBruteChoppas, OrrukBrutes::TwoBruteChoppas,
             OrrukBrutes::JaggedGorehacka, 1
         },
+        {ParamType::Integer, "Gore Choppas", 0, 0, OrrukBrutes::MAX_UNIT_SIZE / 5, 1},
         {
             ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
         },

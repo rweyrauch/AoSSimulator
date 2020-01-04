@@ -199,6 +199,7 @@ protected:
     void useCommandAbility();
     void castSpell();
     void makePrayer();
+    const Model* nearestModel(const Model* model, const Unit* targetUnit) const;
     void doPileIn();
 
     void timeoutBuffs(Phase phase, PlayerId player);

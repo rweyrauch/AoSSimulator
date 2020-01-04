@@ -1052,14 +1052,41 @@ bool Unit::buffMovement(MovementRules which, bool allowed, Duration duration)
     return true;
 }
 
+const Model* Unit::nearestModel(const Model* model, const Unit* targetUnit) const
+{
+    if (!targetUnit || targetUnit->m_models.empty()) { return nullptr; }
+
+    auto nearestModel = &targetUnit->m_models[0];
+    auto minDistance = Math::INFINITE;
+    for (const auto& m : targetUnit->m_models)
+    {
+        const auto dist = Model::distanceBetween(m, *model);
+        if (dist < minDistance)
+        {
+            minDistance = dist;
+            nearestModel = &m;
+        }
+    }
+    return nearestModel;
+}
+
 void Unit::doPileIn()
 {
+    if (!m_meleeTarget) return;
+
     // Pile in up to 3" towards nearest enemy model.
     for (auto& m : m_models)
     {
         // Find closest model in melee target unit.
-
+        auto closestTarget = nearestModel(&m, m_meleeTarget);
         // Move toward that model if possible
+        if (closestTarget)
+        {
+            auto totalMoveDistance = std::min((float)m_pileInMove, Model::distanceBetween(m, *closestTarget));
+            const Math::Ray ray(m.position(), closestTarget->position());
+            auto newPos = ray.point_at(totalMoveDistance);
+            m.setPosition(newPos);
+        }
     }
 }
 
