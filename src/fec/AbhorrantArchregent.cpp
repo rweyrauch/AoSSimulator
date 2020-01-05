@@ -30,8 +30,8 @@ AbhorrantArchregent::AbhorrantArchregent() :
     FleshEaterCourts("Abhorrant Archregent", 6, WOUNDS, 10, 4, false),
     m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 7, 3, 3, -1, 1)
 {
-    m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
-        ABHORRANT_ARCHREGENT};
+    m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD, ABHORRANT_ARCHREGENT};
+    m_weapons = {&m_goryTalonsAndFangs};
 
     m_totalUnbinds = 2;
     m_totalSpells = 2;
@@ -39,8 +39,7 @@ AbhorrantArchregent::AbhorrantArchregent() :
 
 bool AbhorrantArchregent::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_goryTalonsAndFangs);
     addModel(model);
 
@@ -50,11 +49,6 @@ bool AbhorrantArchregent::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AbhorrantArchregent::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_goryTalonsAndFangs);
 }
 
 Unit *AbhorrantArchregent::Create(const ParameterList &parameters)

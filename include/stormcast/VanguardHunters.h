@@ -42,8 +42,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, bool astralCompass);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 private:

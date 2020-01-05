@@ -33,6 +33,7 @@ ZarbagsGitz::ZarbagsGitz() :
     m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, ZARBAGS_GITZ};
+    m_weapons = {&m_bow, &m_teeth, &m_prodder, &m_slitta};
 }
 
 bool ZarbagsGitz::configure()
@@ -92,14 +93,6 @@ void ZarbagsGitz::Init()
     {
         s_registered = UnitFactory::Register("Zarbag's Gitz", factoryMethod);
     }
-}
-
-void ZarbagsGitz::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bow);
-    visitor(m_teeth);
-    visitor(m_prodder);
-    visitor(m_slitta);
 }
 
 int ZarbagsGitz::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

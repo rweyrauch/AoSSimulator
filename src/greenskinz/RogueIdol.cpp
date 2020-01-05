@@ -48,12 +48,12 @@ RogueIdol::RogueIdol() :
     m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2)
 {
     m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
+    m_weapons = {&m_boulderFists, &m_stompinFeet};
 }
 
 bool RogueIdol::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_boulderFists);
     model->addMeleeWeapon(&m_stompinFeet);
     addModel(model);
@@ -61,12 +61,6 @@ bool RogueIdol::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void RogueIdol::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boulderFists);
-    visitor(m_stompinFeet);
 }
 
 Unit *RogueIdol::Create(const ParameterList &parameters)

@@ -54,7 +54,7 @@ SavageBigStabbas::SavageBigStabbas() :
     m_gorkToof(Weapon::Type::Melee, "Gorktoof", 3, 3, 3, 3, -2, RAND_D3)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_BIG_STABBAS};
-
+    m_weapons = { &m_gorkToof };
     // Savagely Enthusiastic
     m_runAndCharge = true;
 }
@@ -76,7 +76,7 @@ bool SavageBigStabbas::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_gorkToof);
         addModel(model);
     }
@@ -88,11 +88,6 @@ bool SavageBigStabbas::configure(int numModels)
     }
 
     return true;
-}
-
-void SavageBigStabbas::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_gorkToof);
 }
 
 Wounds SavageBigStabbas::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

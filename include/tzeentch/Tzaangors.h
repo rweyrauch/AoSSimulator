@@ -45,8 +45,6 @@ public:
 
     bool configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer, bool brayhorns);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Wounds applyWoundSave(const Wounds &wounds) override;
@@ -56,7 +54,7 @@ protected:
 
 private:
 
-    WeaponOptions m_weapons = PairedSavageBlades;
+    WeaponOptions m_weaponOption = PairedSavageBlades;
     int m_numGreatblades = 0;
     int m_numMutants = 0;
     bool m_iconBearer = false;

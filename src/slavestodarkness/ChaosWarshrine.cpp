@@ -67,12 +67,12 @@ ChaosWarshrine::ChaosWarshrine() :
     m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, TOTEM, PRIEST, MARK_OF_CHAOS, CHAOS_WARSHRINE };
+    m_weapons = {&m_blade, &m_fists};
 }
 
 bool ChaosWarshrine::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_blade);
     model->addMeleeWeapon(&m_fists);
     addModel(model);
@@ -80,12 +80,6 @@ bool ChaosWarshrine::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosWarshrine::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blade);
-    visitor(m_fists);
 }
 
 int ChaosWarshrine::move() const

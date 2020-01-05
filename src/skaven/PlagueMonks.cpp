@@ -43,6 +43,7 @@ PlagueMonks::PlagueMonks() :
     m_woeStave(Weapon::Type::Melee, "Woe-stave", 2, 1, 4, 5, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_MONKS};
+    m_weapons = {&m_foetidBlade, &m_woeStave};
 }
 
 bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence, int doomGongs, int baleChimes)
@@ -62,7 +63,7 @@ bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionB
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
     m_numContagionBanners = contagionBanners;
     m_numIconsOfPestilence = iconsOfPestilence;
     m_numDoomGongs = doomGongs;
@@ -94,12 +95,6 @@ bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionB
     }
 
     return true;
-}
-
-void PlagueMonks::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_foetidBlade);
-    visitor(m_woeStave);
 }
 
 Unit *PlagueMonks::Create(const ParameterList &parameters)
@@ -160,7 +155,7 @@ int PlagueMonks::chargeModifier() const
 Rerolls PlagueMonks::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Pair of Foetid Blades
-    if ((m_weapons == PairedFoetidBlades) && (weapon->name() == m_foetidBlade.name()))
+    if ((m_weaponOption == PairedFoetidBlades) && (weapon->name() == m_foetidBlade.name()))
     {
         return RerollFailed;
     }

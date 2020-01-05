@@ -49,8 +49,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;

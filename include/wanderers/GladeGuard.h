@@ -34,8 +34,6 @@ public:
 
     bool configure(int numModels, bool pennantBearer, bool hornblower);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;

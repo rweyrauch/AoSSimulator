@@ -31,6 +31,7 @@ ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
     m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, VICELEADER};
+    m_weapons = {&m_ravagingClaws};
 
     // Lithe and Swift
     m_runAndCharge = true;
@@ -41,7 +42,7 @@ ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
 
 bool ViceleaderHeraldOfSlaanesh::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_ravagingClaws);
     addModel(model);
 
@@ -51,11 +52,6 @@ bool ViceleaderHeraldOfSlaanesh::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ViceleaderHeraldOfSlaanesh::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ravagingClaws);
 }
 
 Unit *ViceleaderHeraldOfSlaanesh::Create(const ParameterList &parameters)

@@ -46,8 +46,6 @@ public:
 
     bool configure(int numModels, WeaponOptions ironbeardWeapons, bool iconBearer, bool drummer);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toSaveRerolls(const Weapon *weapon) const override;

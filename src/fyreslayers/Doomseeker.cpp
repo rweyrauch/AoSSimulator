@@ -31,12 +31,12 @@ Doomseeker::Doomseeker() :
     m_doomseekerAxe(Weapon::Type::Melee, "Doomseeker Axe", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, DOOMSEEKER};
+    m_weapons = {&m_throwingAxe, &m_warIron, &m_doomseekerAxe};
 }
 
 bool Doomseeker::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_warIron);
     model->addMeleeWeapon(&m_doomseekerAxe);
@@ -45,13 +45,6 @@ bool Doomseeker::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Doomseeker::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_warIron);
-    visitor(m_doomseekerAxe);
 }
 
 Unit *Doomseeker::Create(const ParameterList &parameters)

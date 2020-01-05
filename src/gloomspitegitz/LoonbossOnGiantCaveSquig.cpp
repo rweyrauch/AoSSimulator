@@ -33,11 +33,12 @@ LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
     m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
+    m_weapons = {&m_massiveFangFilledGob, &m_moonCutta, &m_moonclanStabba};
 }
 
 bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     model->addMeleeWeapon(&m_massiveFangFilledGob);
     if (weapon == Mooncutta)
@@ -53,13 +54,6 @@ bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void LoonbossOnGiantCaveSquig::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_massiveFangFilledGob);
-    visitor(m_moonCutta);
-    visitor(m_moonclanStabba);
 }
 
 Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters)

@@ -33,6 +33,7 @@ CryptHaunterCourtier::CryptHaunterCourtier() :
     m_rancidTalons(Weapon::Type::Melee, "Rancid Talons", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_HAUNTER_COURTIER};
+    m_weapons = {&m_massiveBoneClub, &m_rancidTalons};
 }
 
 bool CryptHaunterCourtier::configure()
@@ -45,12 +46,6 @@ bool CryptHaunterCourtier::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void CryptHaunterCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_massiveBoneClub);
-    visitor(m_rancidTalons);
 }
 
 Unit *CryptHaunterCourtier::Create(const ParameterList &parameters)

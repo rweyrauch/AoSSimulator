@@ -34,6 +34,7 @@ Protectors::Protectors() :
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, PROTECTORS};
+    m_weapons = {&m_glaive, &m_glaivePrime, &m_starsoulMace};
 }
 
 bool Protectors::configure(int numModels, int numStarsoulMaces)
@@ -131,13 +132,6 @@ void Protectors::Init()
     {
         s_registered = UnitFactory::Register("Protectors", factoryMethod);
     }
-}
-
-void Protectors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_glaive);
-    visitor(m_glaivePrime);
-    visitor(m_starsoulMace);
 }
 
 int Protectors::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

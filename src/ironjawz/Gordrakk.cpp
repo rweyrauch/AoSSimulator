@@ -51,30 +51,21 @@ GordrakkTheFistOfGork::GordrakkTheFistOfGork() :
     m_fistsAndTail(Weapon::Type::Melee, "Mighty Fists and Tail", 1, 9, 3, 3, -2, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
+    m_weapons = {&m_bellow, &m_smasha, &m_kunnin, &m_fistsAndTail};
 }
 
 bool GordrakkTheFistOfGork::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_bellow);
     model->addMeleeWeapon(&m_smasha);
     model->addMeleeWeapon(&m_kunnin);
     model->addMeleeWeapon(&m_fistsAndTail);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void GordrakkTheFistOfGork::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bellow);
-    visitor(m_smasha);
-    visitor(m_kunnin);
-    visitor(m_fistsAndTail);
 }
 
 Unit *GordrakkTheFistOfGork::Create(const ParameterList &parameters)

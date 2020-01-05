@@ -32,6 +32,7 @@ SyllEsske::SyllEsske() :
     m_scourgingWhip(Weapon::Type::Melee, "Scourging Whip", 2, 8, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, SYLL_ESSKE, THE_VENGEFUL_ALLEGIANCE};
+    m_weapons = {&m_axeOfDominion, &m_scourgingWhip};
 
     // Lithe and Swift
     m_runAndCharge = true;
@@ -42,7 +43,7 @@ SyllEsske::SyllEsske() :
 
 bool SyllEsske::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_axeOfDominion);
     model->addMeleeWeapon(&m_scourgingWhip);
     addModel(model);
@@ -53,12 +54,6 @@ bool SyllEsske::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void SyllEsske::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_axeOfDominion);
-    visitor(m_scourgingWhip);
 }
 
 Unit *SyllEsske::Create(const ParameterList &parameters)

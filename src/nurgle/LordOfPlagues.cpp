@@ -28,22 +28,18 @@ LordOfPlagues::LordOfPlagues() :
     m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
+    m_weapons = {&m_plagueriddenGreatBlade};
 }
 
 bool LordOfPlagues::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_plagueriddenGreatBlade);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void LordOfPlagues::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_plagueriddenGreatBlade);
 }
 
 Unit *LordOfPlagues::Create(const ParameterList &parameters)

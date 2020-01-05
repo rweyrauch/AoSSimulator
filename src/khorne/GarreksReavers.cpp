@@ -57,6 +57,7 @@ GarreksReavers::GarreksReavers() :
     m_blades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOODREAVERS, GARREKS_REAVERS};
+    m_weapons = {&m_garreksAxe, &m_KarusAxe, &m_SaeksAxe, &m_blades};
 }
 
 bool GarreksReavers::configure()
@@ -89,14 +90,6 @@ bool GarreksReavers::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void GarreksReavers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_garreksAxe);
-    visitor(m_KarusAxe);
-    visitor(m_SaeksAxe);
-    visitor(m_blades);
 }
 
 Rerolls GarreksReavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const

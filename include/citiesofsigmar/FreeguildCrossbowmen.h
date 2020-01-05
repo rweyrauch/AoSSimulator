@@ -39,8 +39,6 @@ public:
 
     bool configure(int numModels, bool standardBearer, bool piper);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int runModifier() const override;

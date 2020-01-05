@@ -29,26 +29,19 @@ WarpfireThrower::WarpfireThrower() :
     m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, WARPFIRE_THROWER};
+    m_weapons = {&m_warpfireThrower, &m_rustyKnives};
 }
 
 bool WarpfireThrower::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_warpfireThrower);
     model->addMeleeWeapon(&m_rustyKnives);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WarpfireThrower::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_warpfireThrower);
-    visitor(m_rustyKnives);
 }
 
 Unit *WarpfireThrower::Create(const ParameterList &parameters)

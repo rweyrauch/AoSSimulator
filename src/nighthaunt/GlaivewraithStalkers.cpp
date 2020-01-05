@@ -34,6 +34,7 @@ GlaivewraithStalkers::GlaivewraithStalkers() :
     m_huntersGlaive(Weapon::Type::Melee, "Hunter's Glaive", 2, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GLAIVEWRAITH_STALKERS};
+    m_weapons = {&m_huntersGlaive};
 }
 
 bool GlaivewraithStalkers::configure(int numModels, bool drummer)
@@ -48,7 +49,7 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_huntersGlaive);
         addModel(model);
     }
@@ -94,11 +95,6 @@ Rerolls GlaivewraithStalkers::toHitRerolls(const Weapon *weapon, const Unit *uni
     }
 
     return Nighthaunt::toHitRerolls(weapon, unit);
-}
-
-void GlaivewraithStalkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_huntersGlaive);
 }
 
 } // namespace Nighthaunt

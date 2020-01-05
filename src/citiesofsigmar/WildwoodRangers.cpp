@@ -36,6 +36,7 @@ WildwoodRangers::WildwoodRangers() :
     m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILDWOOD_RANGERS};
+    m_weapons = {&m_rangersDraich, &m_wardensDraich};
 }
 
 bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblower)
@@ -66,12 +67,6 @@ bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblo
     }
 
     return true;
-}
-
-void WildwoodRangers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_rangersDraich);
-    visitor(m_wardensDraich);
 }
 
 Unit *WildwoodRangers::Create(const ParameterList &parameters)

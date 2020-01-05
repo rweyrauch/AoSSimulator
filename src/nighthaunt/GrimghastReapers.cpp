@@ -34,6 +34,7 @@ GrimghastReapers::GrimghastReapers() :
     m_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GRIMGHAST_REAPERS};
+    m_weapons = {&m_slasherScythe, &m_deathKnell};
 }
 
 bool GrimghastReapers::configure(int numModels)
@@ -95,12 +96,6 @@ Rerolls GrimghastReapers::toHitRerolls(const Weapon *weapon, const Unit *unit) c
     }
 
     return Nighthaunt::toHitRerolls(weapon, unit);
-}
-
-void GrimghastReapers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slasherScythe);
-    visitor(m_deathKnell);
 }
 
 } // namespace Nighthaunt

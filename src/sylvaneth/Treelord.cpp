@@ -51,12 +51,12 @@ Treelord::Treelord() :
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, TREELORD};
+    m_weapons = {&m_strangleroots, &m_sweepingBlows, &m_massiveImpalingTalons};
 }
 
 bool Treelord::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_strangleroots);
     model->addMeleeWeapon(&m_sweepingBlows);
     model->addMeleeWeapon(&m_massiveImpalingTalons);
@@ -114,13 +114,6 @@ void Treelord::Init()
     {
         s_registered = UnitFactory::Register("Treelord", factoryMethod);
     }
-}
-
-void Treelord::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_strangleroots);
-    visitor(m_sweepingBlows);
-    visitor(m_massiveImpalingTalons);
 }
 
 } // namespace Sylvaneth

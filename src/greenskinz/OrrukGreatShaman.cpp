@@ -31,11 +31,12 @@ OrrukGreatShaman::OrrukGreatShaman() :
     m_boarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, WIZARD, ORRUK_GREAT_SHAMAN};
+    m_weapons = {&m_totemicStaff, &m_boarsTusks};
 }
 
 bool OrrukGreatShaman::configure(bool warboar)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_totemicStaff);
     if (warboar)
     {
@@ -47,12 +48,6 @@ bool OrrukGreatShaman::configure(bool warboar)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void OrrukGreatShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_totemicStaff);
-    visitor(m_boarsTusks);
 }
 
 Unit *OrrukGreatShaman::Create(const ParameterList &parameters)

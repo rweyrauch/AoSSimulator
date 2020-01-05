@@ -31,6 +31,7 @@ LordCelestant::LordCelestant() :
     m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
+    m_weapons = {&m_runeblade, &m_warhammer};
 }
 
 bool LordCelestant::configure()
@@ -91,12 +92,6 @@ void LordCelestant::onStartShooting(PlayerId player)
         }
     }
     StormcastEternal::onStartShooting(player);
-}
-
-void LordCelestant::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_runeblade);
-    visitor(m_warhammer);
 }
 
 } // namespace StormcastEternals

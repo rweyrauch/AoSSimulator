@@ -35,6 +35,7 @@ Concussors::Concussors() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, CONCUSSORS};
+    m_weapons = {&m_stormBlast, &m_lightningHammer, &m_clawsAndFangs};
 }
 
 bool Concussors::configure(int numModels)
@@ -60,13 +61,6 @@ bool Concussors::configure(int numModels)
     }
 
     return true;
-}
-
-void Concussors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormBlast);
-    visitor(m_lightningHammer);
-    visitor(m_clawsAndFangs);
 }
 
 Unit *Concussors::Create(const ParameterList &parameters)

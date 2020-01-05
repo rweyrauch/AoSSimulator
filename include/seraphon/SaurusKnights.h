@@ -42,8 +42,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

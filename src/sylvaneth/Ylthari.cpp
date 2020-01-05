@@ -44,12 +44,12 @@ Ylthari::Ylthari() :
     m_snappingMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1)
 {
     m_keywords = {ORDER, SYLVANETH, OAKENBROW, HERO, WIZARD, THORNWYCH, YLTHARI};
+    m_weapons = {&m_briarStaff, &m_thorns, &m_snappingMandibles};
 }
 
 bool Ylthari::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_briarStaff);
     model->addMeleeWeapon(&m_thorns);
     model->addMeleeWeapon(&m_snappingMandibles);
@@ -58,13 +58,6 @@ bool Ylthari::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Ylthari::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_briarStaff);
-    visitor(m_thorns);
-    visitor(m_snappingMandibles);
 }
 
 } // namespace Sylvaneth

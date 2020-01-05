@@ -36,6 +36,7 @@ BloodKnights::BloodKnights() :
     m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
+    m_weapons = {&m_templarLanceOrBlade, &m_templarLanceOrBladeKastellan, &m_hoovesAndTeeth};
 }
 
 bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowers)
@@ -69,13 +70,6 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
     }
 
     return true;
-}
-
-void BloodKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_templarLanceOrBlade);
-    visitor(m_templarLanceOrBladeKastellan);
-    visitor(m_hoovesAndTeeth);
 }
 
 Unit *BloodKnights::Create(const ParameterList &parameters)

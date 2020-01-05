@@ -37,13 +37,14 @@ AspiringDeathbringer::AspiringDeathbringer() :
     m_skullhammer(Weapon::Type::Melee, "Skullhammer", 3, 3, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, ASPIRING_DEATHBRINGER};
+    m_weapons = {&m_bloodAxe, &m_wrathHammer, &m_goreaxe, &m_skullhammer};
 }
 
 bool AspiringDeathbringer::configure(WeaponOption weapon)
 {
     m_weaponOption = weapon;
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     if (m_weaponOption == BloodaxeAndWrathhammer)
     {
@@ -60,14 +61,6 @@ bool AspiringDeathbringer::configure(WeaponOption weapon)
     addModel(model);
 
     return true;
-}
-
-void AspiringDeathbringer::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bloodAxe);
-    visitor(m_wrathHammer);
-    visitor(m_goreaxe);
-    visitor(m_skullhammer);
 }
 
 Unit *AspiringDeathbringer::Create(const ParameterList &parameters)

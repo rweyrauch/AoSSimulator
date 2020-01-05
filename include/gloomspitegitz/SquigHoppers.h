@@ -33,8 +33,6 @@ public:
 
     bool configure(int numModels);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Weapon m_fangFilledGob,

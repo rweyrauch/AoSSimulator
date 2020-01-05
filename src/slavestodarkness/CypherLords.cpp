@@ -54,6 +54,7 @@ CypherLords::CypherLords() :
     m_exoticBlades(Weapon::Type::Melee, "Exotic Blades", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CYPHER_LORDS};
+    m_weapons = {&m_throwingStars, &m_exoticBlades};
 }
 
 bool CypherLords::configure(int numModels)
@@ -90,12 +91,6 @@ bool CypherLords::configure(int numModels)
     }
 
     return true;
-}
-
-void CypherLords::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingStars);
-    visitor(m_exoticBlades);
 }
 
 int CypherLords::chargeModifier() const

@@ -38,6 +38,7 @@ Hammerers::Hammerers() :
     m_greatHammerKeeper(Weapon::Type::Melee, "Gromril Great Hammer", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HAMMERERS};
+    m_weapons = {&m_greatHammer, &m_greatHammerKeeper};
 }
 
 bool Hammerers::configure(int numModels, bool standardBearer, bool musician)
@@ -68,12 +69,6 @@ bool Hammerers::configure(int numModels, bool standardBearer, bool musician)
     }
 
     return true;
-}
-
-void Hammerers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greatHammer);
-    visitor(m_greatHammerKeeper);
 }
 
 Unit *Hammerers::Create(const ParameterList &parameters)

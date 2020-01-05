@@ -43,6 +43,7 @@ Judicators::Judicators() :
     m_stormGladius(Weapon::Type::Melee, "Storm Gladius", 1, 1, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS};
+    m_weapons = {&m_skyboltBow, &m_skyboltPrime, &m_boltstormCrossbow, &m_shockboltBow, &m_shockboltPrime, &m_thunderboldCrossbow, &m_stormGladius};
 
     // Chained Lightning
     m_shockboltBow.setHitsPerAttack(RAND_D6);
@@ -192,17 +193,6 @@ int Judicators::EnumStringToInt(const std::string &enumString)
         return BoltstormCrossbow;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void Judicators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormGladius);
-    visitor(m_shockboltBow);
-    visitor(m_shockboltPrime);
-    visitor(m_skyboltBow);
-    visitor(m_skyboltPrime);
-    visitor(m_thunderboldCrossbow);
-    visitor(m_boltstormCrossbow);
 }
 
 int Judicators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

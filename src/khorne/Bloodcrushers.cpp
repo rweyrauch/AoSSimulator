@@ -37,6 +37,7 @@ Bloodcrushers::Bloodcrushers() :
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};
+    m_weapons = {&m_hellblade,&m_hellbladeHunter, &m_brazenHooves};
 }
 
 bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers)
@@ -71,13 +72,6 @@ bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers)
     }
 
     return true;
-}
-
-void Bloodcrushers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hellblade);
-    visitor(m_hellbladeHunter);
-    visitor(m_brazenHooves);
 }
 
 Unit *Bloodcrushers::Create(const ParameterList &parameters)

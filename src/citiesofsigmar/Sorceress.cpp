@@ -63,24 +63,18 @@ Sorceress::Sorceress() :
     m_witchstaff(Weapon::Type::Melee, "Witchstaff", 2, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, HERO, WIZARD, SORCERESS};
+    m_weapons = {&m_witchstaff};
 }
 
 bool Sorceress::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_witchstaff);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Sorceress::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_witchstaff);
 }
 
 } // namespace CitiesOfSigmar

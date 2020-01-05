@@ -45,8 +45,6 @@ public:
 
     bool configure(WeaponOption weapon, bool hasShield);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int toSaveModifier(const Weapon *weapon) const override;

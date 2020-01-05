@@ -33,6 +33,7 @@ OrrukBoarChariots::OrrukBoarChariots() :
     m_warBoarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOAR_CHARIOTS};
+    m_weapons = {&m_pigstikkaSpears, &m_warBoarsTusks};
 }
 
 bool OrrukBoarChariots::configure(int numModels)
@@ -44,7 +45,7 @@ bool OrrukBoarChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_pigstikkaSpears);
         model->addMeleeWeapon(&m_warBoarsTusks);
         addModel(model);
@@ -57,12 +58,6 @@ bool OrrukBoarChariots::configure(int numModels)
     }
 
     return true;
-}
-
-void OrrukBoarChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pigstikkaSpears);
-    visitor(m_warBoarsTusks);
 }
 
 Unit *OrrukBoarChariots::Create(const ParameterList &parameters)

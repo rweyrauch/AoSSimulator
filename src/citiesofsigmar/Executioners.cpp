@@ -76,6 +76,7 @@ Executioners::Executioners() :
     m_draichMaster(Weapon::Type::Melee, "Executioner's Draich", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, EXECUTIONERS};
+    m_weapons = {&m_draich, &m_draichMaster};
 }
 
 bool Executioners::configure(int numModels, bool standardBearer, bool drummer)
@@ -97,7 +98,7 @@ bool Executioners::configure(int numModels, bool standardBearer, bool drummer)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_draich);
         addModel(model);
     }
@@ -109,12 +110,6 @@ bool Executioners::configure(int numModels, bool standardBearer, bool drummer)
     }
 
     return true;
-}
-
-void Executioners::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_draich);
-    visitor(m_draichMaster);
 }
 
 int Executioners::runModifier() const

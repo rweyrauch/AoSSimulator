@@ -36,6 +36,7 @@ Stormvermin::Stormvermin() :
     m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd", 2, 3, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, STORMVERMIN};
+    m_weapons = {&m_rustyHalberd, &m_rustyHalberdLeader};
 }
 
 bool Stormvermin::configure(int numModels, bool clanshields, int standardBearers, int drummers)
@@ -76,12 +77,6 @@ bool Stormvermin::configure(int numModels, bool clanshields, int standardBearers
     }
 
     return true;
-}
-
-void Stormvermin::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_rustyHalberd);
-    visitor(m_rustyHalberdLeader);
 }
 
 Unit *Stormvermin::Create(const ParameterList &parameters)

@@ -31,11 +31,12 @@ Bloodstoker::Bloodstoker() :
     m_bloodWhip(Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
+    m_weapons = {&m_tortureBlade, &m_bloodWhip};
 }
 
 bool Bloodstoker::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_tortureBlade);
     model->addMeleeWeapon(&m_bloodWhip);
     addModel(model);
@@ -43,12 +44,6 @@ bool Bloodstoker::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Bloodstoker::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tortureBlade);
-    visitor(m_bloodWhip);
 }
 
 Unit *Bloodstoker::Create(const ParameterList &parameters)

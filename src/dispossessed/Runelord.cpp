@@ -26,10 +26,11 @@ bool Runelord::s_registered = false;
 
 Runelord::Runelord() :
     Dispossessed("Runelord", 4, WOUNDS, 7, 4, false),
-    m_runeStaff(Weapon::Type::Melee, "Runic Axes", 1, 6, 3, 3, -1, 1),
-    m_forgehammer()
+    m_runeStaff(Weapon::Type::Melee, "Rune Staff", 1, 1, 4, 3, 0, RAND_D3),
+    m_forgehammer(Weapon::Type::Melee, "Forgehammer", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, PRIEST, RUNELORD};
+    m_weapons = {&m_runeStaff, &m_forgehammer};
 
     // Runes of Spellbreaking
     m_totalUnbinds = 1;
@@ -37,8 +38,7 @@ Runelord::Runelord() :
 
 bool Runelord::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_runeStaff);
     model->addMeleeWeapon(&m_forgehammer);
     addModel(model);
@@ -46,12 +46,6 @@ bool Runelord::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Runelord::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_runeStaff);
-    visitor(m_forgehammer);
 }
 
 Unit *Runelord::Create(const ParameterList &parameters)

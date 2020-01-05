@@ -36,6 +36,7 @@ VanguardRaptorsHurricane::VanguardRaptorsHurricane() :
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS};
+    m_weapons = {&m_hurricaneCrossbow, &m_hurricaneCrossbowPrime, &m_heavyStock};
 }
 
 bool VanguardRaptorsHurricane::configure(int numModels)
@@ -103,13 +104,6 @@ int VanguardRaptorsHurricane::extraAttacks(const Model *attackingModel, const We
         return 3;
     }
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
-}
-
-void VanguardRaptorsHurricane::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hurricaneCrossbow);
-    visitor(m_hurricaneCrossbowPrime);
-    visitor(m_heavyStock);
 }
 
 } // namespace StormcastEternals

@@ -41,6 +41,7 @@ Hellstriders::Hellstriders() :
     m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};
+    m_weapons = {&m_clawSpear, &m_clawSpearReaver, &m_hellscourge, &m_hellscourgeReaver, &m_poisonedTongue};
 }
 
 bool Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower)
@@ -80,15 +81,6 @@ bool Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBeare
     }
 
     return true;
-}
-
-void Hellstriders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_clawSpear);
-    visitor(m_clawSpearReaver);
-    visitor(m_hellscourge);
-    visitor(m_hellscourgeReaver);
-    visitor(m_poisonedTongue);
 }
 
 Unit *Hellstriders::Create(const ParameterList &parameters)

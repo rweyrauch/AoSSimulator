@@ -33,6 +33,7 @@ Castigators::Castigators() :
     m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, JUSTICAR, CASTIGATORS};
+    m_weapons = {&m_thunderheadGreatbow, &m_thunderheadGreatbowPrime, &m_heavyStock};
 }
 
 bool Castigators::configure(int numModels)
@@ -155,13 +156,6 @@ Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
         }
     }
     return StormcastEternal::toHitRerolls(weapon, unit);
-}
-
-void Castigators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_thunderheadGreatbow);
-    visitor(m_thunderheadGreatbowPrime);
-    visitor(m_heavyStock);
 }
 
 } // namespace StormcastEternals

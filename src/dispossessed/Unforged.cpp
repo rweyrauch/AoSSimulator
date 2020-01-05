@@ -29,23 +29,18 @@ Unforged::Unforged() :
     m_runicAxes(Weapon::Type::Melee, "Runic Axes", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, UNFORGED};
+    m_weapons = {&m_runicAxes};
 }
 
 bool Unforged::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_runicAxes);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Unforged::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_runicAxes);
 }
 
 Unit *Unforged::Create(const ParameterList &parameters)

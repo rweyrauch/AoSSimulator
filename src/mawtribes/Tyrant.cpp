@@ -81,6 +81,7 @@ Tyrant::Tyrant() :
     m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, TYRANT};
+    m_weapons = {&m_pistols, &m_thundermace, &m_glaive, &m_bite};
 }
 
 bool Tyrant::configure(BigName bigName)
@@ -88,12 +89,10 @@ bool Tyrant::configure(BigName bigName)
     if (bigName == Deathcheater) m_wounds = WOUNDS + 1;
 
     auto model = new Model(BASESIZE, wounds());
-
     model->addMissileWeapon(&m_pistols);
     model->addMeleeWeapon(&m_thundermace);
     model->addMeleeWeapon(&m_glaive);
     model->addMeleeWeapon(&m_bite);
-
     addModel(model);
 
     if (bigName == Fateseeker) m_save = 3;
@@ -103,14 +102,6 @@ bool Tyrant::configure(BigName bigName)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Tyrant::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pistols);
-    visitor(m_thundermace);
-    visitor(m_glaive);
-    visitor(m_bite);
 }
 
 Wounds Tyrant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

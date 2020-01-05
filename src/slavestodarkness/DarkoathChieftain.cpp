@@ -49,12 +49,12 @@ DarkoathChieftain::DarkoathChieftain() :
     m_broadsword(Weapon::Type::Melee, "Cursed Broadsword", 1, 3, 4, 3, -1, 2)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_CHIEFTAIN };
+    m_weapons = {&m_axe, &m_broadsword};
 }
 
 bool DarkoathChieftain::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_axe);
     model->addMeleeWeapon(&m_broadsword);
     addModel(model);
@@ -62,12 +62,6 @@ bool DarkoathChieftain::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void DarkoathChieftain::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_axe);
-    visitor(m_broadsword);
 }
 
 } //namespace SlavesToDarkness

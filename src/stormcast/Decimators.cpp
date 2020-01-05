@@ -35,6 +35,7 @@ Decimators::Decimators() :
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, DECIMATORS};
+    m_weapons = {&m_thunderaxe, &m_thunderaxePrime, &m_starsoulMace};
 }
 
 bool Decimators::configure(int numModels, int numStarsoulMaces)
@@ -126,13 +127,6 @@ void Decimators::Init()
     {
         s_registered = UnitFactory::Register("Decimators", factoryMethod);
     }
-}
-
-void Decimators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_thunderaxe);
-    visitor(m_thunderaxePrime);
-    visitor(m_starsoulMace);
 }
 
 int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

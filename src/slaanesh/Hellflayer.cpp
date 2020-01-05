@@ -32,11 +32,12 @@ Hellflayer::Hellflayer() :
     m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HELLFLAYER};
+    m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
 }
 
 bool Hellflayer::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_flensingWhips);
     model->addMeleeWeapon(&m_piercingClaws);
     model->addMeleeWeapon(&m_poisonedTongues);
@@ -45,13 +46,6 @@ bool Hellflayer::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Hellflayer::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_flensingWhips);
-    visitor(m_piercingClaws);
-    visitor(m_poisonedTongues);
 }
 
 Unit *Hellflayer::Create(const ParameterList &parameters)

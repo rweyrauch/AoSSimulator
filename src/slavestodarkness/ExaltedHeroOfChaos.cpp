@@ -48,23 +48,18 @@ ExaltedHeroOfChaos::ExaltedHeroOfChaos() :
     m_blades(Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS };
+    m_weapons = {&m_blades};
 }
 
 bool ExaltedHeroOfChaos::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_blades);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ExaltedHeroOfChaos::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blades);
 }
 
 } //namespace SlavesToDarkness

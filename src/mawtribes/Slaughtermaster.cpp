@@ -53,6 +53,7 @@ Slaughtermaster::Slaughtermaster() :
     m_assortedWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER, SLAUGHTERMASTER};
+    m_weapons = {&m_stumpBlades, &m_bite, &m_assortedWeapons};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -75,13 +76,6 @@ bool Slaughtermaster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Slaughtermaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stumpBlades);
-    visitor(m_assortedWeapons);
-    visitor(m_bite);
 }
 
 } // namespace OgorMawtribes

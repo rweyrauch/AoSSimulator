@@ -60,6 +60,7 @@ SavageBoarboyManiaks::SavageBoarboyManiaks() :
     m_chompasBoss(Weapon::Type::Melee, "Pair of Chompas", 1, 5, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, BOARBOYS, SAVAGE_BOARBOY_MANIAKS};
+    m_weapons = {&m_chompas, &m_tusksAndHooves, &m_chompasBoss};
 }
 
 bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totemBearer)
@@ -127,13 +128,6 @@ int SavageBoarboyManiaks::toWoundModifier(const Weapon *weapon, const Unit *targ
         mod++;
     }
     return mod;
-}
-
-void SavageBoarboyManiaks::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_chompas);
-    visitor(m_chompasBoss);
-    visitor(m_tusksAndHooves);
 }
 
 } // namespace Bonesplitterz

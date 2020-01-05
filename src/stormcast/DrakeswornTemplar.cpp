@@ -57,13 +57,14 @@ DrakeswornTemplar::DrakeswornTemplar() :
     m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, MONSTER, HERO, DRAKESWORN_TEMPLAR};
+    m_weapons = {&m_skyboltBow, &m_tempestAxe, &m_arcHammer, &m_stormlance, &m_greatClaws};
 }
 
 bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow)
 {
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     if (skyboltBow)
     {
         model->addMissileWeapon(&m_skyboltBow);
@@ -290,15 +291,6 @@ int DrakeswornTemplar::EnumStringToInt(const std::string &enumString)
         return Stormlance;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void DrakeswornTemplar::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_skyboltBow);
-    visitor(m_tempestAxe);
-    visitor(m_arcHammer);
-    visitor(m_stormlance);
-    visitor(m_greatClaws);
 }
 
 int DrakeswornTemplar::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

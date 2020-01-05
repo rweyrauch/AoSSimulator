@@ -49,11 +49,12 @@ OrrukWarbossOnWyvern::OrrukWarbossOnWyvern() :
     m_barbedTail(Weapon::Type::Melee, "Wyvern's Barbed, Venomous Tail", 3, 2, 4, 2, -1, 3)
 {
     m_keywords = {DESTRUCTION, ORRUK, WYVERN, GREENSKINZ, MONSTER, HERO, ORRUK_WARBOSS};
+    m_weapons = {&m_bossChoppa, &m_hornsClawsAndTeeth, &m_barbedTail};
 }
 
 bool OrrukWarbossOnWyvern::configure(bool pairedChoppas)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     m_pairedChoppas = pairedChoppas;
 
@@ -65,13 +66,6 @@ bool OrrukWarbossOnWyvern::configure(bool pairedChoppas)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void OrrukWarbossOnWyvern::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bossChoppa);
-    visitor(m_hornsClawsAndTeeth);
-    visitor(m_barbedTail);
 }
 
 Unit *OrrukWarbossOnWyvern::Create(const ParameterList &parameters)

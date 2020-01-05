@@ -29,23 +29,18 @@ WardenKing::WardenKing() :
     m_runeWeapon(Weapon::Type::Melee, "Rune Weapon", 1, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
+    m_weapons = {&m_runeWeapon};
 }
 
 bool WardenKing::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_runeWeapon);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WardenKing::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_runeWeapon);
 }
 
 Unit *WardenKing::Create(const ParameterList &parameters)

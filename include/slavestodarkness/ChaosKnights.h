@@ -43,8 +43,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     void onWounded() override;

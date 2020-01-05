@@ -31,6 +31,7 @@ AbhorrantGhoulKing::AbhorrantGhoulKing() :
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
         ABHORRANT_GHOUL_KING};
+    m_weapons = {&m_goryTalonsAndFangs};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -38,8 +39,7 @@ AbhorrantGhoulKing::AbhorrantGhoulKing() :
 
 bool AbhorrantGhoulKing::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_goryTalonsAndFangs);
     addModel(model);
 
@@ -49,11 +49,6 @@ bool AbhorrantGhoulKing::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AbhorrantGhoulKing::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_goryTalonsAndFangs);
 }
 
 Unit *AbhorrantGhoulKing::Create(const ParameterList &parameters)

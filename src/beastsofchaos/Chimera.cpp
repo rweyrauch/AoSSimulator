@@ -53,11 +53,12 @@ Chimera::Chimera() :
     m_maulingClaws(Weapon::Type::Melee, "Mauling Claws", 2, 6, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHIMERA};
+    m_weapons = {&m_fieryBreath, &m_avianHead, &m_draconicHead, &m_leonineHead, &m_maulingClaws };
 }
 
 bool Chimera::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     // NOTE: Fiery Breath attack is special, do not treat it as a weapon
 
@@ -117,15 +118,6 @@ int Chimera::getDamageTableIndex() const
         }
     }
     return 0;
-}
-
-void Chimera::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_fieryBreath);
-    visitor(m_avianHead);
-    visitor(m_draconicHead);
-    visitor(m_leonineHead);
-    visitor(m_maulingClaws);
 }
 
 int Chimera::chargeModifier() const

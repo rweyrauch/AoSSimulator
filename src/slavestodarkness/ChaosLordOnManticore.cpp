@@ -76,13 +76,14 @@ ChaosLordOnManticore::ChaosLordOnManticore() :
     m_tail(Weapon::Type::Melee, "Shredding Tail", 3, 5, 4, 4, 0, 1)
 {
     m_keywords = { CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO, CHAOS_LORD };
+    m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
 }
 
 bool ChaosLordOnManticore::configure(WeaponOption weapon)
 {
     m_weapon = weapon;
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     switch (weapon)
     {
@@ -115,15 +116,6 @@ bool ChaosLordOnManticore::configure(WeaponOption weapon)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosLordOnManticore::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_lance);
-    visitor(m_blade);
-    visitor(m_flail);
-    visitor(m_fangsAndClaws);
-    visitor(m_tail);
 }
 
 int ChaosLordOnManticore::move() const

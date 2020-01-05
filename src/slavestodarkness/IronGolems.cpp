@@ -55,6 +55,7 @@ IronGolems::IronGolems() :
     m_legionWeaponsDominar(Weapon::Type::Melee, "Legion Weapons (Dominar)", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, IRON_GOLEMS};
+    m_weapons = {&m_bolas, &m_legionWeapons, &m_legionWeaponsDominar};
 }
 
 bool IronGolems::configure(int numModels)
@@ -97,13 +98,6 @@ bool IronGolems::configure(int numModels)
     }
 
     return true;
-}
-
-void IronGolems::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bolas);
-    visitor(m_legionWeapons);
-    visitor(m_legionWeaponsDominar);
 }
 
 int IronGolems::braveryModifier() const

@@ -35,6 +35,7 @@ KhineraiLifetakers::KhineraiLifetakers() :
     m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 2, 4, 0, 1)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
+    m_weapons = {&m_barbedSickle, &m_barbedSickleHarridynn};
 }
 
 bool KhineraiLifetakers::configure(int numModels)
@@ -114,12 +115,6 @@ Wounds KhineraiLifetakers::computeReturnedDamage(const Weapon *weapon, int saveR
         wounds += {0, 1};
     }
     return wounds;
-}
-
-void KhineraiLifetakers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_barbedSickle);
-    visitor(m_barbedSickleHarridynn);
 }
 
 } // namespace DaughtersOfKhaine

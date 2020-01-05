@@ -72,6 +72,7 @@ ChaosKnights::ChaosKnights() :
     m_hooves(Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_KNIGHTS};
+    m_weapons = {&m_ensorcelledWeapon, &m_lance, &m_ensorcelledWeaponLeader, &m_lanceLeader, &m_flailLeader, &m_hooves};
 }
 
 bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower)
@@ -147,16 +148,6 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
     }
 
     return true;
-}
-
-void ChaosKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ensorcelledWeapon);
-    visitor(m_lance);
-    visitor(m_ensorcelledWeaponLeader);
-    visitor(m_lanceLeader);
-    visitor(m_flailLeader);
-    visitor(m_hooves);
 }
 
 std::string ChaosKnights::ValueToString(const Parameter &parameter)

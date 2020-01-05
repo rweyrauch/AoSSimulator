@@ -41,8 +41,6 @@ public:
 
     bool configure(WeaponOption weapons, bool sigmariteThundershield);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     WeaponOption m_weapon;

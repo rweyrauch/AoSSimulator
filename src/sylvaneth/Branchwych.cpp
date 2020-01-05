@@ -33,12 +33,12 @@ Branchwych::Branchwych() :
     m_bittergrubsMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1)
 {
     m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
+    m_weapons = {&m_greenwoodScythe, &m_bittergrubsMandibles};
 }
 
 bool Branchwych::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_greenwoodScythe);
     model->addMeleeWeapon(&m_bittergrubsMandibles);
     addModel(model);
@@ -70,12 +70,6 @@ void Branchwych::Init()
     {
         s_registered = UnitFactory::Register("Branchwych", factoryMethod);
     }
-}
-
-void Branchwych::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greenwoodScythe);
-    visitor(m_bittergrubsMandibles);
 }
 
 int Branchwych::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

@@ -36,6 +36,7 @@ SquiqHerd::SquiqHerd() :
     m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD};
+    m_weapons = {&m_fangFilledGob, &m_squigProdder};
 }
 
 bool SquiqHerd::configure(int numModels)
@@ -142,12 +143,6 @@ void SquiqHerd::onFlee(int numFled)
         }
     }
     GloomspiteGitzBase::onFlee(numFled);
-}
-
-void SquiqHerd::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_squigProdder);
-    visitor(m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

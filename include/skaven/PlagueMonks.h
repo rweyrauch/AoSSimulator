@@ -44,8 +44,6 @@ public:
 
     bool configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence, int doomGongs, int baleChimes);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     void onStartHero(PlayerId player) override;
@@ -57,7 +55,7 @@ protected:
 
 private:
 
-    WeaponOptions m_weapons = PairedFoetidBlades;
+    WeaponOptions m_weaponOption = PairedFoetidBlades;
     int m_numContagionBanners = 0;
     int m_numIconsOfPestilence = 0;
     int m_numDoomGongs = 0;

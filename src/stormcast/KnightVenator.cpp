@@ -33,11 +33,12 @@ KnightVenator::KnightVenator() :
     m_beakAndTalons(Weapon::Type::Melee, "Celestial Beak and Talons", 1, 3, 4, 3, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VENATOR};
+    m_weapons = {&m_realmhuntersBow, &m_beakAndTalonsMissile, &m_bowStave, &m_beakAndTalons};
 }
 
 bool KnightVenator::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_realmhuntersBow);
     model->addMissileWeapon(&m_beakAndTalonsMissile);
     model->addMeleeWeapon(&m_bowStave);
@@ -71,14 +72,6 @@ void KnightVenator::Init()
     {
         s_registered = UnitFactory::Register("Knight-Venator", factoryMethod);
     }
-}
-
-void KnightVenator::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_realmhuntersBow);
-    visitor(m_beakAndTalonsMissile);
-    visitor(m_bowStave);
-    visitor(m_beakAndTalons);
 }
 
 int KnightVenator::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

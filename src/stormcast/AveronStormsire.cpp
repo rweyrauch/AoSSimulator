@@ -34,6 +34,8 @@ AveronStormsire::AveronStormsire() :
     m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR, AVERON_STORMSIRE};
+    m_weapons = {&m_staff};
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
 }
@@ -45,7 +47,7 @@ bool AveronStormsire::configure(LoreOfTheStorm storm, LoreOfInvigoration invigor
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_staff);
     addModel(model);
 
@@ -86,11 +88,6 @@ void AveronStormsire::Init()
     {
         s_registered = UnitFactory::Register("Averon Stormsire", factoryMethod);
     }
-}
-
-void AveronStormsire::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_staff);
 }
 
 std::string AveronStormsire::ValueToString(const Parameter &parameter)

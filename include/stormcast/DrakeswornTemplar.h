@@ -41,8 +41,6 @@ public:
     bool configure(WeaponOption weapons, bool skyboltBow);
     int move() const override;
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     void onWounded() override;
@@ -56,7 +54,7 @@ protected:
 
 protected:
 
-    WeaponOption m_weapons = TempestAxe;
+    WeaponOption m_weaponOption = TempestAxe;
 
 private:
 

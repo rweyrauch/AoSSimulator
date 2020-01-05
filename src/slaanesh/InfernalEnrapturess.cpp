@@ -33,6 +33,7 @@ InfernalEnrapturess::InfernalEnrapturess() :
     m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, INFERNAL_ENRAPTURESS};
+    m_weapons = {&m_ravagingClaw, &m_lyreCacophonousMelody, &m_lyreEuphonicBlast};
 
     // Discordant Disruption
     m_totalUnbinds = 1;
@@ -40,7 +41,7 @@ InfernalEnrapturess::InfernalEnrapturess() :
 
 bool InfernalEnrapturess::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_lyreCacophonousMelody);
     model->addMissileWeapon(&m_lyreEuphonicBlast);
     model->addMeleeWeapon(&m_ravagingClaw);
@@ -49,13 +50,6 @@ bool InfernalEnrapturess::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void InfernalEnrapturess::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ravagingClaw);
-    visitor(m_lyreCacophonousMelody);
-    visitor(m_lyreEuphonicBlast);
 }
 
 Unit *InfernalEnrapturess::Create(const ParameterList &parameters)

@@ -35,6 +35,7 @@ BoingrotBounderz::BoingrotBounderz() :
     m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 3, 4, -1, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, BOINGROT_BOUNDERZ};
+    m_weapons = {&m_fangFilledGob, &m_pokinLance, &m_pokinLanceBoss};
 }
 
 bool BoingrotBounderz::configure(int numModels)
@@ -123,13 +124,6 @@ int BoingrotBounderz::toWoundModifier(const Weapon *weapon, const Unit *unit) co
     }
 
     return modifier;
-}
-
-void BoingrotBounderz::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pokinLance);
-    visitor(m_pokinLanceBoss);
-    visitor(m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

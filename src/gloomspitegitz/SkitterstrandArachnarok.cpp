@@ -49,15 +49,14 @@ SkitterstrandArachnarok::SkitterstrandArachnarok() :
     m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3)
 {
     m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
+    m_weapons = {&m_chitinousLegs, &m_monstrousFangs};
 }
 
 bool SkitterstrandArachnarok::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_chitinousLegs);
     model->addMeleeWeapon(&m_monstrousFangs);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -109,12 +108,6 @@ void SkitterstrandArachnarok::Init()
     {
         s_registered = UnitFactory::Register("Skitterstrand Arachnarok", factoryMethod);
     }
-}
-
-void SkitterstrandArachnarok::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_chitinousLegs);
-    visitor(m_monstrousFangs);
 }
 
 Wounds SkitterstrandArachnarok::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

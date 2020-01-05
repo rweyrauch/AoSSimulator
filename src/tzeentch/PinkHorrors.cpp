@@ -37,6 +37,7 @@ PinkHorrors::PinkHorrors() :
     m_graspingHandsHorror(Weapon::Type::Melee, "Grasping Hands", 1, 2, 5, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, TZEENTCH, WIZARD, PINK_HORRORS};
+    m_weapons = {&m_magicalFlames, &m_graspingHands, &m_graspingHandsHorror};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -72,13 +73,6 @@ bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)
     }
 
     return true;
-}
-
-void PinkHorrors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_magicalFlames);
-    visitor(m_graspingHands);
-    visitor(m_graspingHandsHorror);
 }
 
 Unit *PinkHorrors::Create(const ParameterList &parameters)

@@ -30,11 +30,12 @@ KnightQuestor::KnightQuestor() :
     m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
+    m_weapons = {&m_warblade};
 }
 
 bool KnightQuestor::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_warblade);
     addModel(model);
 
@@ -81,11 +82,6 @@ Rerolls KnightQuestor::toSaveRerolls(const Weapon *weapon) const
 {
     // Sigmarite Shield
     return RerollFailed;
-}
-
-void KnightQuestor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_warblade);
 }
 
 Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

@@ -30,8 +30,6 @@ public:
 
     bool configure();
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;

@@ -33,6 +33,7 @@ DankholdTroggoths::DankholdTroggoths() :
     m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
+    m_weapons = {&m_boulderClub};
 }
 
 bool DankholdTroggoths::configure(int numModels)
@@ -44,7 +45,7 @@ bool DankholdTroggoths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_boulderClub);
         addModel(model);
     }
@@ -56,11 +57,6 @@ bool DankholdTroggoths::configure(int numModels)
     }
 
     return true;
-}
-
-void DankholdTroggoths::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boulderClub);
 }
 
 Unit *DankholdTroggoths::Create(const ParameterList &parameters)

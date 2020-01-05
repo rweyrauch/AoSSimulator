@@ -29,6 +29,7 @@ Loremaster::Loremaster() :
     m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, LOREMASTER};
+    m_weapons = {&m_greatsword};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -46,11 +47,6 @@ bool Loremaster::configure()
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     return true;
-}
-
-void Loremaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greatsword);
 }
 
 Unit *Loremaster::Create(const ParameterList &parameters)

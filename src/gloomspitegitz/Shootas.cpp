@@ -42,6 +42,7 @@ Shootas::Shootas() :
     m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SHOOTAS};
+    m_weapons = {&m_slitta, &m_slittaBoss, &m_moonclanBow, &m_moonclanBowBoss, &m_barbedNet};
 }
 
 
@@ -179,15 +180,6 @@ int Shootas::toSaveModifier(const Weapon *weapon) const
         modifier += 1;
     }
     return modifier;
-}
-
-void Shootas::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slitta);
-    visitor(m_slittaBoss);
-    visitor(m_moonclanBow);
-    visitor(m_moonclanBowBoss);
-    visitor(m_barbedNet);
 }
 
 int Shootas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

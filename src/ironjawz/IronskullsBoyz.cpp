@@ -31,6 +31,7 @@ IronskullsBoyz::IronskullsBoyz() :
     m_bigChoppa(Weapon::Type::Melee, "Ardboy Big Choppa", 1, 2, 4, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, IRONSUNZ, ARDBOYS, IRONSKULLS_BOYZ};
+    m_weapons = {&m_eadButt, &m_pairedChoppas, &m_bigChoppa};
 }
 
 bool IronskullsBoyz::configure()
@@ -52,13 +53,6 @@ bool IronskullsBoyz::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void IronskullsBoyz::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_eadButt);
-    visitor(m_pairedChoppas);
-    visitor(m_bigChoppa);
 }
 
 Unit *IronskullsBoyz::Create(const ParameterList &parameters)

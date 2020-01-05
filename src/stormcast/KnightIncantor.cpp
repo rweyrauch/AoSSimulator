@@ -35,6 +35,8 @@ KnightIncantor::KnightIncantor() :
     m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR};
+    m_weapons = {&m_staff};
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
 }
@@ -46,7 +48,7 @@ bool KnightIncantor::configure(LoreOfTheStorm storm, LoreOfInvigoration invigora
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_staff);
     addModel(model);
 
@@ -87,11 +89,6 @@ void KnightIncantor::Init()
     {
         s_registered = UnitFactory::Register("Knight-Incantor", factoryMethod);
     }
-}
-
-void KnightIncantor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_staff);
 }
 
 std::string KnightIncantor::ValueToString(const Parameter &parameter)

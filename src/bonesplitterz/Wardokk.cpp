@@ -53,17 +53,15 @@ Wardokk::Wardokk() :
     m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
-
+    m_weapons = {&m_bonebeastStikk};
     m_totalUnbinds = 1;
     m_totalSpells = 1;
 }
 
 bool Wardokk::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bonebeastStikk);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -72,11 +70,6 @@ bool Wardokk::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Wardokk::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bonebeastStikk);
 }
 
 } // namespace Bonesplitterz

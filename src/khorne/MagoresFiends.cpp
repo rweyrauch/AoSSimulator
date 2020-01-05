@@ -56,6 +56,7 @@ MagoresFiends::MagoresFiends() :
     m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOOD_WARRIORS, MAGORES_FIENDS};
+    m_weapons = {&m_bellyMaw, &m_daemonicAxe, &m_goreaxe};
 }
 
 bool MagoresFiends::configure()
@@ -79,13 +80,6 @@ bool MagoresFiends::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MagoresFiends::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bellyMaw);
-    visitor(m_daemonicAxe);
-    visitor(m_goreaxe);
 }
 
 Rerolls MagoresFiends::toHitRerolls(const Weapon *weapon, const Unit *target) const

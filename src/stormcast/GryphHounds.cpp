@@ -35,6 +35,7 @@ GryphHounds::GryphHounds() :
     m_beakAndClawsAlpha(Weapon::Type::Melee, "Beak and Claws", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, GRYPH_HOUNDS};
+    m_weapons = {&m_beakAndClaws, &m_beakAndClawsAlpha};
 }
 
 bool GryphHounds::configure(int numModels)
@@ -62,12 +63,6 @@ bool GryphHounds::configure(int numModels)
     }
 
     return true;
-}
-
-void GryphHounds::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_beakAndClaws);
-    visitor(m_beakAndClawsAlpha);
 }
 
 Unit *GryphHounds::Create(const ParameterList &parameters)

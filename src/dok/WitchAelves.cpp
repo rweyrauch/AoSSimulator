@@ -38,6 +38,7 @@ WitchAelves::WitchAelves() :
     m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
+    m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHag};
 }
 
 bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers)
@@ -142,12 +143,6 @@ Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon, int saveRoll) co
         wounds += {0, 1};
     }
     return wounds;
-}
-
-void WitchAelves::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_sacrificialKnife);
-    visitor(m_sacrificialKnifeHag);
 }
 
 } // namespace DaughtersOfKhaine

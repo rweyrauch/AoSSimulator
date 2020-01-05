@@ -40,6 +40,7 @@ Bloodletters::Bloodletters() :
     m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
+    m_weapons = {&m_hellblade, &m_hellbladeReaper};
 }
 
 
@@ -123,12 +124,6 @@ int Bloodletters::extraAttacks(const Model *attackingModel, const Weapon *weapon
         attacks += 1;
     }
     return attacks;
-}
-
-void Bloodletters::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hellblade);
-    visitor(m_hellbladeReaper);
 }
 
 Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) const

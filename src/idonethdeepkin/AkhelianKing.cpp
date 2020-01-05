@@ -33,11 +33,12 @@ AkhelianKing::AkhelianKing() :
     m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING};
+    m_weapons = {&m_bladedPolearm, &m_greatsword, &m_falchion, &m_deepmareJawsTalons, &m_deepmareTails};
 }
 
 bool AkhelianKing::configure(WeaponOption weapon)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     if (weapon == BladedPolearm)
     {
         model->addMeleeWeapon(&m_bladedPolearm);
@@ -55,15 +56,6 @@ bool AkhelianKing::configure(WeaponOption weapon)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AkhelianKing::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bladedPolearm);
-    visitor(m_greatsword);
-    visitor(m_falchion);
-    visitor(m_deepmareJawsTalons);
-    visitor(m_deepmareTails);
 }
 
 Unit *AkhelianKing::Create(const ParameterList &parameters)

@@ -67,6 +67,7 @@ Leadbelchers::Leadbelchers() :
     m_blowThunderfist(Weapon::Type::Melee, "Bludgeoning Blow", 1, 3, 3, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, LEADBELCHERS};
+    m_weapons = {&m_gun, &m_blow, &m_bite, &m_blowThunderfist};
 }
 
 bool Leadbelchers::configure(int numModels)
@@ -84,7 +85,7 @@ bool Leadbelchers::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_gun);
         model->addMeleeWeapon(&m_blow);
         model->addMeleeWeapon(&m_bite);
@@ -98,14 +99,6 @@ bool Leadbelchers::configure(int numModels)
     }
 
     return true;
-}
-
-void Leadbelchers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_gun);
-    visitor(m_blow);
-    visitor(m_bite);
-    visitor(m_blowThunderfist);
 }
 
 void Leadbelchers::onStartShooting(PlayerId player)

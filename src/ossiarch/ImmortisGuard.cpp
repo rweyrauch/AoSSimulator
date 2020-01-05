@@ -65,6 +65,7 @@ ImmortisGuard::ImmortisGuard() :
     m_battleShield(Weapon::Type::Melee, "Battle Shield", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, IMMORTIS_GUARD};
+    m_weapons = {&m_halberd, &m_battleShield};
 }
 
 bool ImmortisGuard::configure(int numModels)
@@ -91,12 +92,6 @@ bool ImmortisGuard::configure(int numModels)
     }
 
     return true;
-}
-
-void ImmortisGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_halberd);
-    visitor(m_battleShield);
 }
 
 Wounds ImmortisGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

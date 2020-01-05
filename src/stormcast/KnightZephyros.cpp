@@ -31,13 +31,15 @@ KnightZephyros::KnightZephyros() :
     m_tempestAxes(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_ZEPHYROS};
+    m_weapons = {&m_boltstormPistol, &m_tempestAxes};
+
     // Tireless hunder
     m_runAndShoot = true;
 }
 
 bool KnightZephyros::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_boltstormPistol);
     model->addMeleeWeapon(&m_tempestAxes);
     addModel(model);
@@ -80,12 +82,6 @@ int KnightZephyros::extraAttacks(const Model *attackingModel, const Weapon *weap
         attacks += 1;
     }
     return attacks;
-}
-
-void KnightZephyros::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boltstormPistol);
-    visitor(m_tempestAxes);
 }
 
 } // namespace StormcastEternals

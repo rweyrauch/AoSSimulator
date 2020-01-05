@@ -38,6 +38,7 @@ Dryads::Dryads() :
     m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons", 2, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, DRYADS};
+    m_weapons = {&m_wrackingTalons, &m_wrackingTalonsNymph};
 }
 
 bool Dryads::configure(int numModels)
@@ -90,12 +91,6 @@ void Dryads::Init()
     {
         s_registered = UnitFactory::Register("Dryads", factoryMethod);
     }
-}
-
-void Dryads::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_wrackingTalons);
-    visitor(m_wrackingTalonsNymph);
 }
 
 int Dryads::toSaveModifier(const Weapon *weapon) const

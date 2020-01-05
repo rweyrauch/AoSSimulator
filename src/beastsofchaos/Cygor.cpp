@@ -49,12 +49,12 @@ Cygor::Cygor() :
     m_massiveHorns(Weapon::Type::Melee, "Massive Horns", 2, 8, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, CYGOR};
+    m_weapons = { &m_desecratedBoulder, &m_massiveHorns };
 }
 
 bool Cygor::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_desecratedBoulder);
     model->addMeleeWeapon(&m_massiveHorns);
     addModel(model);
@@ -114,12 +114,6 @@ int Cygor::getDamageTableIndex() const
         }
     }
     return 0;
-}
-
-void Cygor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_desecratedBoulder);
-    visitor(m_massiveHorns);
 }
 
 Rerolls Cygor::toHitRerolls(const Weapon *weapon, const Unit *target) const

@@ -30,12 +30,12 @@ GrimwrathBerzerker::GrimwrathBerzerker() :
     m_greatAxe(Weapon::Type::Melee, "Fyrestorm Greataxe", 1, 4, 3, 3, -2, 2)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, GRIMWRATH_BERZERKER};
+    m_weapons = {&m_throwingAxe, &m_greatAxe};
 }
 
 bool GrimwrathBerzerker::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_greatAxe);
     addModel(model);
@@ -43,12 +43,6 @@ bool GrimwrathBerzerker::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void GrimwrathBerzerker::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_greatAxe);
 }
 
 Unit *GrimwrathBerzerker::Create(const ParameterList &parameters)

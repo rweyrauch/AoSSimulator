@@ -34,6 +34,7 @@ Retributors::Retributors() :
     m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 0, 0, 0, 0, 0)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS};
+    m_weapons = {&m_lightningHammer, &m_lightningHammerPrime, &m_starsoulMace};
 }
 
 bool Retributors::configure(int numModels, int numStarsoulMaces)
@@ -115,13 +116,6 @@ void Retributors::Init()
     {
         s_registered = UnitFactory::Register("Retributors", factoryMethod);
     }
-}
-
-void Retributors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_lightningHammer);
-    visitor(m_lightningHammerPrime);
-    visitor(m_starsoulMace);
 }
 
 void Retributors::onStartCombat(PlayerId player)

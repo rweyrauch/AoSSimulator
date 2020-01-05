@@ -59,6 +59,7 @@ MortisanSoulmason::MortisanSoulmason() :
     m_claws(Weapon::Type::Melee, "Ossified Claws", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULMASON};
+    m_weapons = {&m_staff, &m_claws};
 
     m_totalSpells = 2;
     m_totalUnbinds = 2;
@@ -67,10 +68,8 @@ MortisanSoulmason::MortisanSoulmason() :
 bool MortisanSoulmason::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_claws);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -79,12 +78,6 @@ bool MortisanSoulmason::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MortisanSoulmason::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_claws);
-    visitor(m_staff);
 }
 
 } // namespace OssiarchBonereapers

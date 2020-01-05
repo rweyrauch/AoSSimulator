@@ -34,6 +34,7 @@ BeastsOfNurgle::BeastsOfNurgle() :
     m_slobberingTongue(Weapon::Type::Melee, "Slobbering Tongue", 2, 1, 3, 3, 0, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, NURGLE, BEASTS_OF_NURGLE};
+    m_weapons = {&m_clawsAndTentacles, &m_slobberingTongue};
 }
 
 bool BeastsOfNurgle::configure(int numModels)
@@ -45,7 +46,7 @@ bool BeastsOfNurgle::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_clawsAndTentacles);
         model->addMeleeWeapon(&m_slobberingTongue);
         addModel(model);
@@ -62,12 +63,6 @@ bool BeastsOfNurgle::configure(int numModels)
     }
 
     return true;
-}
-
-void BeastsOfNurgle::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_clawsAndTentacles);
-    visitor(m_slobberingTongue);
 }
 
 Unit *BeastsOfNurgle::Create(const ParameterList &parameters)

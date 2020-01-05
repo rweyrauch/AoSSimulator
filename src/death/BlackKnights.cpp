@@ -36,6 +36,7 @@ BlackKnights::BlackKnights() :
     m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
+    m_weapons = {&m_barrowLance, &m_barrowLanceKnight, &m_hoovesAndTeeth};
 }
 
 bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowers)
@@ -69,13 +70,6 @@ bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowe
     }
 
     return true;
-}
-
-void BlackKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_barrowLance);
-    visitor(m_barrowLanceKnight);
-    visitor(m_hoovesAndTeeth);
 }
 
 Unit *BlackKnights::Create(const ParameterList &parameters)

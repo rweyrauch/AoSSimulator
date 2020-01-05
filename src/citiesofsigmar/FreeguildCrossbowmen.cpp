@@ -76,6 +76,7 @@ FreeguildCrossbowmen::FreeguildCrossbowmen() :
     m_crossbowMarksman(Weapon::Type::Missile, "Freeguild Crossbow", 24, 1, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_CROSSBOWMEN};
+    m_weapons = {&m_crossbow, &m_dagger, &m_crossbowMarksman};
 }
 
 bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool piper)
@@ -98,7 +99,7 @@ bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool pi
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
@@ -111,13 +112,6 @@ bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool pi
     }
 
     return true;
-}
-
-void FreeguildCrossbowmen::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_crossbow);
-    visitor(m_dagger);
-    visitor(m_crossbowMarksman);
 }
 
 int FreeguildCrossbowmen::runModifier() const

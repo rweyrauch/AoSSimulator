@@ -50,6 +50,7 @@ ColossalSquig::ColossalSquig() :
     m_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, COLOSSAL_SQUIG};
+    m_weapons = {&m_puffSpores, &m_enormousJaws, &m_tramplingFeet};
 }
 
 int ColossalSquig::move() const
@@ -59,12 +60,10 @@ int ColossalSquig::move() const
 
 bool ColossalSquig::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_enormousJaws);
     model->addMeleeWeapon(&m_tramplingFeet);
     model->addMissileWeapon(&m_puffSpores);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -132,13 +131,6 @@ void ColossalSquig::Init()
     {
         s_registered = UnitFactory::Register("Colossal Squig", factoryMethod);
     }
-}
-
-void ColossalSquig::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_enormousJaws);
-    visitor(m_tramplingFeet);
-    visitor(m_puffSpores);
 }
 
 int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

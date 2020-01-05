@@ -34,6 +34,7 @@ GutterRunners::GutterRunners() :
     m_punchDaggerAndBlade(Weapon::Type::Melee, "Punch Daggar and Blade", 1, 2, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, GUTTER_RUNNERS};
+    m_weapons = {&m_throwingStars, &m_punchDaggerAndBlade};
 }
 
 bool GutterRunners::configure(int numModels)
@@ -48,7 +49,7 @@ bool GutterRunners::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_throwingStars);
         model->addMeleeWeapon(&m_punchDaggerAndBlade);
         addModel(model);
@@ -61,12 +62,6 @@ bool GutterRunners::configure(int numModels)
     }
 
     return true;
-}
-
-void GutterRunners::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingStars);
-    visitor(m_punchDaggerAndBlade);
 }
 
 Unit *GutterRunners::Create(const ParameterList &parameters)

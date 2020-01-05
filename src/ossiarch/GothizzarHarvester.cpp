@@ -89,6 +89,7 @@ GothizzarHarvester::GothizzarHarvester() :
     m_hoovesAndTail(Weapon::Type::Melee, "Ossified Hooves and Tail", 2, 4, 3, 2, -1, 2)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MONSTER, GOTHIZZAR_HARVESTER};
+    m_weapons = {&m_deathsHeadMaw, &m_sickles, &m_bludgeons, &m_hoovesAndTail};
 }
 
 bool GothizzarHarvester::configure(WeaponOption option)
@@ -107,14 +108,6 @@ bool GothizzarHarvester::configure(WeaponOption option)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void GothizzarHarvester::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_deathsHeadMaw);
-    visitor(m_sickles);
-    visitor(m_bludgeons);
-    visitor(m_hoovesAndTail);
 }
 
 void GothizzarHarvester::onWounded()

@@ -66,11 +66,12 @@ HelblasterVolleyGun::HelblasterVolleyGun() :
     m_crewsTools(Weapon::Type::Melee, "Crew's Tools", 1, 3, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELBLASTER_VOLLEY_GUN};
+    m_weapons = {&m_volley1, &m_volley2, &m_volley3, &m_crewsTools};
 }
 
 bool HelblasterVolleyGun::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     // TODO: allow selection of 1, 2 or 3 decks
     model->addMissileWeapon(&m_volley1);
@@ -81,14 +82,6 @@ bool HelblasterVolleyGun::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void HelblasterVolleyGun::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_volley1);
-    visitor(m_volley2);
-    visitor(m_volley3);
-    visitor(m_crewsTools);
 }
 
 } // namespace CitiesOfSigmar

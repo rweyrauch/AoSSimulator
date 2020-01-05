@@ -36,8 +36,6 @@ public:
 
     bool configure(Realm realm);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 

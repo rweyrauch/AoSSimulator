@@ -30,23 +30,18 @@ Bloodmaster::Bloodmaster() :
     m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, BLOODMASTER};
+    m_weapons = {&m_bladeOfBlood};
 }
 
 bool Bloodmaster::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bladeOfBlood);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Bloodmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bladeOfBlood);
 }
 
 Unit *Bloodmaster::Create(const ParameterList &parameters)

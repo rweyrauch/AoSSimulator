@@ -33,8 +33,6 @@ public:
 
     bool configure(LoreOfTheMoonclans lore);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 private:

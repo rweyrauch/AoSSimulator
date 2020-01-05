@@ -39,6 +39,7 @@ AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
     m_fangmoraLashingTail(Weapon::Type::Melee, "Fangmora's Lashing Tail", 2, RAND_D3, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, AKHELIAN_GUARD, ISHLAEN_GUARD};
+    m_weapons = {&m_helsabre, &m_helsabrePrince, &m_fangmoraFangedMaw, &m_fangmoraLashingTail};
 }
 
 bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool musicians)
@@ -73,14 +74,6 @@ bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool m
     }
 
     return true;
-}
-
-void AkhelianIshlaenGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_helsabre);
-    visitor(m_helsabrePrince);
-    visitor(m_fangmoraFangedMaw);
-    visitor(m_fangmoraLashingTail);
 }
 
 Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters)

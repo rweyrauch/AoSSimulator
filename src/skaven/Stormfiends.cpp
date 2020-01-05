@@ -51,6 +51,7 @@ Stormfiends::Stormfiends() :
     m_clubbingBlows(Weapon::Type::Melee, "Clubbing Blows", 1, 4, 4, 3, 0, 2)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, CLANS_SKRYRE, STORMFIENDS};
+    m_weapons = {&m_ratlingCannons, &m_windlaunchers, &m_warpfireProjectors, &m_doomfireGauntlets, &m_grinderfists, &m_shockGauntlets, &m_clubbingBlows};
 }
 
 bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, Stormfiends::WeaponOption_2 weapon2, Stormfiends::WeaponOption_3 weapon3)
@@ -68,7 +69,7 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
 
     for (auto i = 0; i < numWeapon1; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapon1 == WarpfireProjectors)
         {
             model->addMissileWeapon(&m_warpfireProjectors);
@@ -84,7 +85,7 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
     int numWeapon2 = numModels / 3;
     for (auto i = 0; i < numWeapon2; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapon2 == Grinderfists)
         {
             model->addMeleeWeapon(&m_grinderfists);
@@ -114,17 +115,6 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
     }
 
     return true;
-}
-
-void Stormfiends::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ratlingCannons);
-    visitor(m_windlaunchers);
-    visitor(m_warpfireProjectors);
-    visitor(m_doomfireGauntlets);
-    visitor(m_grinderfists);
-    visitor(m_shockGauntlets);
-    visitor(m_clubbingBlows);
 }
 
 Unit *Stormfiends::Create(const ParameterList &parameters)

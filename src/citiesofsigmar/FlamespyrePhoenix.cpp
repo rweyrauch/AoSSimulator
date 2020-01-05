@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     FlamespyrePhoenix::EnumStringToInt,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+        {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     CITIES_OF_SIGMAR
@@ -84,22 +85,34 @@ FlamespyrePhoenix::FlamespyrePhoenix() :
     m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
+    m_weapons = {&m_talons, &m_halberd};
 }
 
-bool FlamespyrePhoenix::configure(bool anoited)
+bool FlamespyrePhoenix::configure(bool anointed)
 {
-    if (anoited)
+    if (anointed)
     {
         addKeyword(HERO);
     }
 
-    return false;
-}
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_talons);
+    if (anointed)
+    {
+        model->addMeleeWeapon(&m_halberd);
+    }
+    addModel(model);
 
-void FlamespyrePhoenix::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_talons);
-    visitor(m_halberd);
+    if (anointed)
+    {
+        m_points = POINTS_PER_UNIT_WITH_ANOINTED;
+    }
+    else
+    {
+        m_points = POINTS_PER_UNIT;
+    }
+
+    return true;
 }
 
 int FlamespyrePhoenix::move() const

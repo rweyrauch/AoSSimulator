@@ -60,6 +60,7 @@ Ironguts::Ironguts() :
     m_bashingWeaponGutlord(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, IRONGUTS};
+    m_weapons = {&m_bashingWeapon, &m_bite, &m_bashingWeaponGutlord};
 }
 
 bool Ironguts::configure(int numModels, bool runeMawBearer, bool bellower)
@@ -92,13 +93,6 @@ bool Ironguts::configure(int numModels, bool runeMawBearer, bool bellower)
     }
 
     return true;
-}
-
-void Ironguts::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bashingWeapon);
-    visitor(m_bite);
-    visitor(m_bashingWeaponGutlord);
 }
 
 } // namespace OgorMawtribes

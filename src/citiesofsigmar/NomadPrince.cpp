@@ -63,24 +63,18 @@ NomadPrince::NomadPrince() :
     m_spear(Weapon::Type::Melee, "Starlight Spear", 2, 4, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, HERO, NOMAD_PRINCE};
+    m_weapons = {&m_spear};
 }
 
 bool NomadPrince::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_spear);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void NomadPrince::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spear);
 }
 
 } // namespace CitiesOfSigmar

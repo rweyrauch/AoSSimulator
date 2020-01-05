@@ -53,6 +53,7 @@ AbhorrantGhoulKingOnTerrorgheist::AbhorrantGhoulKingOnTerrorgheist() :
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, MONSTER, HERO,
         WIZARD, ABHORRANT_GHOUL_KING};
+    m_weapons = {&m_deathShriek, &m_goryTalonsAndFangs, &m_skeletalClaws, &m_fangedMaw};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -60,8 +61,7 @@ AbhorrantGhoulKingOnTerrorgheist::AbhorrantGhoulKingOnTerrorgheist() :
 
 bool AbhorrantGhoulKingOnTerrorgheist::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_deathShriek);
     model->addMeleeWeapon(&m_goryTalonsAndFangs);
     model->addMeleeWeapon(&m_skeletalClaws);
@@ -74,14 +74,6 @@ bool AbhorrantGhoulKingOnTerrorgheist::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AbhorrantGhoulKingOnTerrorgheist::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_deathShriek);
-    visitor(m_goryTalonsAndFangs);
-    visitor(m_skeletalClaws);
-    visitor(m_fangedMaw);
 }
 
 Unit *AbhorrantGhoulKingOnTerrorgheist::Create(const ParameterList &parameters)

@@ -33,6 +33,7 @@ Vargheists::Vargheists() :
     m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
+    m_weapons = {&m_fangsAndTalons, &m_fangsAndTalonsVargoyle};
 }
 
 bool Vargheists::configure(int numModels)
@@ -61,12 +62,6 @@ bool Vargheists::configure(int numModels)
     }
 
     return true;
-}
-
-void Vargheists::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_fangsAndTalons);
-    visitor(m_fangsAndTalonsVargoyle);
 }
 
 Unit *Vargheists::Create(const ParameterList &parameters)

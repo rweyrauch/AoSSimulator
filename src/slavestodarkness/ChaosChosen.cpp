@@ -58,6 +58,7 @@ ChaosChosen::ChaosChosen() :
     m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
+    m_weapons = {&m_greataxe, &m_greataxeChampion};
 }
 
 bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
@@ -105,12 +106,6 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
     }
 
     return true;
-}
-
-void ChaosChosen::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greataxe);
-    visitor(m_greataxeChampion);
 }
 
 void ChaosChosen::onWounded()

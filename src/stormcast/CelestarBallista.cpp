@@ -39,6 +39,7 @@ CelestarBallista::CelestarBallista() :
     m_stormboltsRapid.setHitsPerAttack(RAND_D6);
 
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE, CELESTAR_BALLISTA};
+    m_weapons = {&m_stormboltsSingle, &m_stormboltsRapid, &m_sigmariteBlades};
 }
 
 bool CelestarBallista::configure()
@@ -107,13 +108,6 @@ void CelestarBallista::onStartShooting(PlayerId player)
             m_stormboltsSingle.activate(true);
         }
     }
-}
-
-void CelestarBallista::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormboltsSingle);
-    visitor(m_stormboltsRapid);
-    visitor(m_sigmariteBlades);
 }
 
 } // namespace StormcastEternals

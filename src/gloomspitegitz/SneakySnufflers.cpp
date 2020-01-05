@@ -36,6 +36,7 @@ SneakySnufflers::SneakySnufflers() :
     m_gnashers(Weapon::Type::Melee, "Gnashers", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SNEAKY_SNUFFERS};
+    m_weapons = {&m_sickle, &m_gnashers};
 }
 
 bool SneakySnufflers::configure(int numModels)
@@ -49,7 +50,7 @@ bool SneakySnufflers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_sickle);
         model->addMeleeWeapon(&m_gnashers);
         addModel(model);
@@ -84,12 +85,6 @@ void SneakySnufflers::Init()
     {
         s_registered = UnitFactory::Register("Sneaky Snufflers", factoryMethod);
     }
-}
-
-void SneakySnufflers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_sickle);
-    visitor(m_gnashers);
 }
 
 } // namespace GloomspiteGitz

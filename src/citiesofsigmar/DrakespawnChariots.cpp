@@ -71,6 +71,7 @@ DrakespawnChariots::DrakespawnChariots() :
     m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, DRAKESPAWN_CHARIOTS};
+    m_weapons = {&m_crossbow, &m_spear, &m_jaws};
 }
 
 bool DrakespawnChariots::configure(int numModels)
@@ -84,7 +85,7 @@ bool DrakespawnChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_jaws);
@@ -98,13 +99,6 @@ bool DrakespawnChariots::configure(int numModels)
     }
 
     return true;
-}
-
-void DrakespawnChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_crossbow);
-    visitor(m_spear);
-    visitor(m_jaws);
 }
 
 } // namespace CitiesOfSigmar

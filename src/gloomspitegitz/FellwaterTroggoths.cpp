@@ -36,6 +36,7 @@ FellwaterTroggoths::FellwaterTroggoths() :
     m_spikedClub(Weapon::Type::Melee, "Spiked Club", 2, 4, 3, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, FELLWATER};
+    m_weapons = {&m_noxiousVomit, &m_spikedClub};
 }
 
 bool FellwaterTroggoths::configure(int numModels)
@@ -47,7 +48,7 @@ bool FellwaterTroggoths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_noxiousVomit);
         model->addMeleeWeapon(&m_spikedClub);
         addModel(model);
@@ -60,12 +61,6 @@ bool FellwaterTroggoths::configure(int numModels)
     }
 
     return true;
-}
-
-void FellwaterTroggoths::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_noxiousVomit);
-    visitor(m_spikedClub);
 }
 
 Unit *FellwaterTroggoths::Create(const ParameterList &parameters)

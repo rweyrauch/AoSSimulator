@@ -39,6 +39,7 @@ Quarrellers::Quarrellers() :
     m_rangersAxe(Weapon::Type::Melee, "Ranger's Axe", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, QUARRELLERS};
+    m_weapons = {&m_duardinCrossbow, &m_duardinCrossbowVeteran, &m_rangersAxe};
 }
 
 bool Quarrellers::configure(int numModels, bool duardinBucklers, StandardOptions standard, bool drummer)
@@ -72,13 +73,6 @@ bool Quarrellers::configure(int numModels, bool duardinBucklers, StandardOptions
     }
 
     return true;
-}
-
-void Quarrellers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_duardinCrossbow);
-    visitor(m_duardinCrossbowVeteran);
-    visitor(m_rangersAxe);
 }
 
 Unit *Quarrellers::Create(const ParameterList &parameters)

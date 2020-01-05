@@ -22,7 +22,7 @@ public:
     static const int BASESIZE = 105;
     static const int WOUNDS = 11;
     static const int POINTS_PER_UNIT = 210;
-    static const int POINTS_PER_MAGE = 60;
+    static const int POINTS_PER_UNIT_WITH_BATTLEMAGE = 270;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -38,8 +38,6 @@ public:
     int move() const override;
 
     bool configure(bool battlemage);
-
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

@@ -34,6 +34,7 @@ Wrathmongers::Wrathmongers() :
     m_wrathflailsMaster(Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, WRATHMONGERS};
+    m_weapons = {&m_wrathflails, &m_wrathflailsMaster};
 }
 
 bool Wrathmongers::configure(int numModels)
@@ -61,12 +62,6 @@ bool Wrathmongers::configure(int numModels)
     }
 
     return true;
-}
-
-void Wrathmongers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_wrathflails);
-    visitor(m_wrathflailsMaster);
 }
 
 Unit *Wrathmongers::Create(const ParameterList &parameters)

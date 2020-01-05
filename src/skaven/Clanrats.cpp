@@ -42,6 +42,7 @@ Clanrats::Clanrats() :
     m_rustyBladeLeader(Weapon::Type::Melee, "Rusty Blade", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, CLANRATS};
+    m_weapons = {&m_rustySpear, &m_rustySpearLeader, &m_rustyBlade, &m_rustyBladeLeader};
 }
 
 bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool clanshields, int standardBearers, int bellRingers)
@@ -96,14 +97,6 @@ bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool cl
     }
 
     return true;
-}
-
-void Clanrats::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_rustySpear);
-    visitor(m_rustySpearLeader);
-    visitor(m_rustyBlade);
-    visitor(m_rustyBladeLeader);
 }
 
 Unit *Clanrats::Create(const ParameterList &parameters)

@@ -30,12 +30,12 @@ BloodwrackMedusa::BloodwrackMedusa() :
     m_bloodwrackSpear(Weapon::Type::Melee, "Bloodwrack Spear", 2, 2, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, MELUSAI, DAUGHTERS_OF_KHAINE, HERO, WIZARD, BLOODWRACK_MEDUSA};
+    m_weapons = {&m_bloodwrackStare, &m_whisperclaw, &m_tailOfSerpents, &m_bloodwrackSpear};
 }
 
 bool BloodwrackMedusa::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_bloodwrackStare);
     model->addMeleeWeapon(&m_whisperclaw);
     model->addMeleeWeapon(&m_tailOfSerpents);
@@ -45,14 +45,6 @@ bool BloodwrackMedusa::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void BloodwrackMedusa::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bloodwrackStare);
-    visitor(m_whisperclaw);
-    visitor(m_tailOfSerpents);
-    visitor(m_bloodwrackSpear);
 }
 
 Unit *BloodwrackMedusa::Create(const ParameterList &parameters)

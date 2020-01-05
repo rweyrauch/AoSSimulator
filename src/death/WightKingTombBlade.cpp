@@ -30,12 +30,7 @@ WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade() :
     m_steedsHoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
-}
-
-void WightKingWithBalefulTombBlade::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_balefulTombBlade);
-    visitor(m_steedsHoovesAndTeeth);
+    m_weapons = {&m_balefulTombBlade, &m_steedsHoovesAndTeeth};
 }
 
 Unit *WightKingWithBalefulTombBlade::Create(const ParameterList &parameters)
@@ -62,7 +57,7 @@ void WightKingWithBalefulTombBlade::Init()
 
 bool WightKingWithBalefulTombBlade::configure(bool hasSteed)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     m_hasSteed = hasSteed;
 

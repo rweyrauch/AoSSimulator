@@ -53,6 +53,7 @@ Raptoryx::Raptoryx() :
     m_beakAndTalons(Weapon::Type::Melee, "Razor-sharp Beak and Talons", 1, 2, 3, 3, 0, 1)
 {
     m_keywords = { CHAOS, SLAVES_TO_DARKNESS, RAPTORYX };
+    m_weapons = {&m_beakAndTalons};
 }
 
 bool Raptoryx::configure(int numModels)
@@ -64,7 +65,7 @@ bool Raptoryx::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_beakAndTalons);
         addModel(model);
     }
@@ -76,11 +77,6 @@ bool Raptoryx::configure(int numModels)
     }
 
     return true;
-}
-
-void Raptoryx::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_beakAndTalons);
 }
 
 int Raptoryx::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

@@ -35,6 +35,7 @@ TuskgorChariots::TuskgorChariots() :
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, GORS, BEASTS_OF_CHAOS, BRAYHERD, TUSKGOR_CHARIOTS};
+    m_weapons = { &m_despoilerAxe, &m_gnarledSpear, &m_tusksAndHooves };
 }
 
 bool TuskgorChariots::configure(int numModels)
@@ -46,7 +47,7 @@ bool TuskgorChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_despoilerAxe);
         model->addMeleeWeapon(&m_gnarledSpear);
         model->addMeleeWeapon(&m_tusksAndHooves);
@@ -60,13 +61,6 @@ bool TuskgorChariots::configure(int numModels)
     }
 
     return true;
-}
-
-void TuskgorChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_despoilerAxe);
-    visitor(m_gnarledSpear);
-    visitor(m_tusksAndHooves);
 }
 
 Unit *TuskgorChariots::Create(const ParameterList &parameters)

@@ -74,6 +74,7 @@ PhoenixGuard::PhoenixGuard() :
     m_halberdKeeper(Weapon::Type::Melee, "Phoenix Halberd", 2, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, PHOENIX_GUARD};
+    m_weapons = {&m_halberd, &m_halberdKeeper};
 }
 
 bool PhoenixGuard::configure(int numModels, bool standardBearer, bool drummer)
@@ -95,7 +96,7 @@ bool PhoenixGuard::configure(int numModels, bool standardBearer, bool drummer)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
     }
@@ -107,12 +108,6 @@ bool PhoenixGuard::configure(int numModels, bool standardBearer, bool drummer)
     }
 
     return true;
-}
-
-void PhoenixGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_halberd);
-    visitor(m_halberdKeeper);
 }
 
 int PhoenixGuard::runModifier() const

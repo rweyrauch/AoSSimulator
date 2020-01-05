@@ -59,6 +59,7 @@ Vokmortian::Vokmortian() :
     m_staff(Weapon::Type::Melee, "Staff of Retribution", 2, 2, 3, 3, -1, RAND_D3)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, HERO, WIZARD, VOKMORTIAN};
+    m_weapons = {&m_gazeOfDeath, &m_staff};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -67,10 +68,8 @@ Vokmortian::Vokmortian() :
 bool Vokmortian::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMissileWeapon(&m_gazeOfDeath);
     model->addMeleeWeapon(&m_staff);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -79,12 +78,6 @@ bool Vokmortian::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Vokmortian::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_gazeOfDeath);
-    visitor(m_staff);
 }
 
 } // namespace OssiarchBonereapers

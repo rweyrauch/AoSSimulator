@@ -40,6 +40,7 @@ VanguardHunters::VanguardHunters() :
     m_stormSabrePrime(Weapon::Type::Melee, "Storm Sabre", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, ANGELOS, VANGUARD_HUNTERS};
+    m_weapons = {&m_boltstormPistol, &m_boltstormPistolPrime, &m_shockHandaxe, &m_shockHandaxePrime, &m_stormSabre, &m_stormSabrePrime};
 
     // Tireless Hunters
     m_runAndShoot = true;
@@ -148,16 +149,6 @@ int VanguardHunters::EnumStringToInt(const std::string &enumString)
         return ShockHandaxe;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void VanguardHunters::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boltstormPistol);
-    visitor(m_boltstormPistolPrime);
-    visitor(m_shockHandaxe);
-    visitor(m_shockHandaxePrime);
-    visitor(m_stormSabre);
-    visitor(m_stormSabrePrime);
 }
 
 } // namespace StormcastEternals

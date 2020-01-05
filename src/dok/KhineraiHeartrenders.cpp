@@ -37,6 +37,7 @@ KhineraiHeartrenders::KhineraiHeartrenders() :
     m_barbedJavelinShryke(Weapon::Type::Melee, "Barbed Javelin", 2, 1, 3, 4, -1, 1)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_HEARTRENDERS};
+    m_weapons = {&m_barbedJavelinMissile, &m_barbedJavelin, &m_barbedJavelinShrykeMissile, &m_barbedJavelinShryke};
 }
 
 bool KhineraiHeartrenders::configure(int numModels)
@@ -100,14 +101,6 @@ Wounds KhineraiHeartrenders::computeReturnedDamage(const Weapon *weapon, int sav
         wounds += {0, 1};
     }
     return wounds;
-}
-
-void KhineraiHeartrenders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_barbedJavelinMissile);
-    visitor(m_barbedJavelin);
-    visitor(m_barbedJavelinShrykeMissile);
-    visitor(m_barbedJavelinShryke);
 }
 
 } // namespace DaughtersOfKhaine

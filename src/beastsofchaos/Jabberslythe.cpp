@@ -32,12 +32,12 @@ Jabberslythe::Jabberslythe() :
     m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
+    m_weapons = { &m_slytheyTongue, &m_vorpalClaws, &m_spikedTail };
 }
 
 bool Jabberslythe::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_slytheyTongue);
     model->addMeleeWeapon(&m_vorpalClaws);
     model->addMeleeWeapon(&m_spikedTail);
@@ -70,13 +70,6 @@ void Jabberslythe::Init()
     {
         s_registered = UnitFactory::Register("Jabberslythe", factoryMethod);
     }
-}
-
-void Jabberslythe::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slytheyTongue);
-    visitor(m_vorpalClaws);
-    visitor(m_spikedTail);
 }
 
 } // namespace BeastsOfChaos

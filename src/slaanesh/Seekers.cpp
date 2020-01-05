@@ -40,6 +40,7 @@ Seekers::Seekers() :
     m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTES, SLAANESH, HEDONITE, SEEKERS};
+    m_weapons = {&m_piercingClaws, &m_piercingClawsHeartseeker, &m_poisonedTongue};
 
     // Quicksilver Speed
     m_runAndCharge = true;
@@ -77,13 +78,6 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
     }
 
     return true;
-}
-
-void Seekers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_piercingClaws);
-    visitor(m_piercingClawsHeartseeker);
-    visitor(m_poisonedTongue);
 }
 
 Unit *Seekers::Create(const ParameterList &parameters)

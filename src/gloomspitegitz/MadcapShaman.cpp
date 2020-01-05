@@ -32,6 +32,7 @@ MadcapShaman::MadcapShaman() :
     m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
+    m_weapons = {&m_moonStaff};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -39,8 +40,7 @@ MadcapShaman::MadcapShaman() :
 
 bool MadcapShaman::configure(LoreOfTheMoonclans lore)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_moonStaff);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -75,11 +75,6 @@ void MadcapShaman::Init()
     {
         s_registered = UnitFactory::Register("Madcap Shaman", factoryMethod);
     }
-}
-
-void MadcapShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_moonStaff);
 }
 
 std::string MadcapShaman::ValueToString(const Parameter &parameter)

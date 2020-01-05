@@ -39,8 +39,6 @@ public:
 
     bool configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 private:

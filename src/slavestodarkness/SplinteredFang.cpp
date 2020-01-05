@@ -54,6 +54,7 @@ SplinteredFang::SplinteredFang() :
     m_poisonedWeaponsLeader(Weapon::Type::Melee, "Poisoned Weapons (Trueblood)", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPLINTERED_FANG};
+    m_weapons = {&m_poisonedWeapons, &m_poisonedWeaponsLeader};
 }
 
 bool SplinteredFang::configure(int numModels)
@@ -92,12 +93,6 @@ bool SplinteredFang::configure(int numModels)
     }
 
     return true;
-}
-
-void SplinteredFang::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_poisonedWeapons);
-    visitor(m_poisonedWeaponsLeader);
 }
 
 Wounds SplinteredFang::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

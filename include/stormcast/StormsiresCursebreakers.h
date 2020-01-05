@@ -35,8 +35,6 @@ public:
 
     bool configure(LoreOfInvigoration invigoration);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toSaveRerolls(const Weapon *weapon) const override;

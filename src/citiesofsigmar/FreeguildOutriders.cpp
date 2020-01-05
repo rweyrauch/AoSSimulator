@@ -109,6 +109,7 @@ FreeguildOutriders::FreeguildOutriders() :
     m_sabreSharpshooter(Weapon::Type::Melee, "Freeguild Cavalry Sabre", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_OUTRIDERS};
+    m_weapons = {&m_blunderbuss, &m_pistols, &m_handgun, &m_sabre, &m_hooves, &m_sabreSharpshooter};
 
     // Skilled Riders
     m_runAndShoot = true;
@@ -146,7 +147,7 @@ bool FreeguildOutriders::configure(int numModels, bool trumpeter, WeaponOption s
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_handgun);
         model->addMeleeWeapon(&m_sabre);
         model->addMeleeWeapon(&m_hooves);
@@ -160,16 +161,6 @@ bool FreeguildOutriders::configure(int numModels, bool trumpeter, WeaponOption s
     }
 
     return true;
-}
-
-void FreeguildOutriders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blunderbuss);
-    visitor(m_pistols);
-    visitor(m_handgun);
-    visitor(m_sabre);
-    visitor(m_hooves);
-    visitor(m_sabreSharpshooter);
 }
 
 int FreeguildOutriders::runModifier() const

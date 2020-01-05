@@ -50,16 +50,15 @@ AleguzzlerGargant::AleguzzlerGargant() :
     m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 3, 1, 3, 3, -2, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GARGANT, GLOOMSPITE_GITZ, ALEGUZZLER, MONSTER};
+    m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
 }
 
 bool AleguzzlerGargant::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_eadbutt);
     model->addMeleeWeapon(&m_massiveClub);
     model->addMeleeWeapon(&m_mightyKick);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -91,13 +90,6 @@ void AleguzzlerGargant::Init()
     {
         s_registered = UnitFactory::Register("Aleguzzler Gargant", factoryMethod);
     }
-}
-
-void AleguzzlerGargant::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_eadbutt);
-    visitor(m_massiveClub);
-    visitor(m_mightyKick);
 }
 
 int AleguzzlerGargant::getDamageTableIndex() const

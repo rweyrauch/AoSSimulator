@@ -110,6 +110,7 @@ FreeguildHandgunners::FreeguildHandgunners() :
     m_handgunMarksman(Weapon::Type::Missile, "Freeguild Handgun", 16, 1, 2, 3, -1, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_HANDGUNNERS};
+    m_weapons = {&m_freeguildHandgun, &m_dagger, &m_longRifle, &m_repeaterHandgun, &m_handgunMarksman};
 }
 
 bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon)
@@ -143,7 +144,7 @@ bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool pi
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_freeguildHandgun);
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
@@ -156,15 +157,6 @@ bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool pi
     }
 
     return true;
-}
-
-void FreeguildHandgunners::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_longRifle);
-    visitor(m_repeaterHandgun);
-    visitor(m_freeguildHandgun);
-    visitor(m_dagger);
-    visitor(m_handgunMarksman);
 }
 
 int FreeguildHandgunners::runModifier() const

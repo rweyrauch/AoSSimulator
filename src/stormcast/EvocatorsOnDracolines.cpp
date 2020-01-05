@@ -42,6 +42,7 @@ EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines() :
     m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws",1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+    m_weapons = {&m_tempestBladeAndStave, &m_tempestBladeAndStavePrime, &m_grandStave, &m_grandStavePrime, &m_monstrousClaws};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -164,15 +165,6 @@ void EvocatorsOnCelestialDracolines::Init()
     {
         s_registered = UnitFactory::Register("Evocators on Celestial Dracolines", factoryMethod);
     }
-}
-
-void EvocatorsOnCelestialDracolines::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tempestBladeAndStave);
-    visitor(m_tempestBladeAndStavePrime);
-    visitor(m_grandStave);
-    visitor(m_grandStavePrime);
-    visitor(m_monstrousClaws);
 }
 
 Rerolls EvocatorsOnCelestialDracolines::chargeRerolls() const

@@ -32,13 +32,14 @@ LordRelictor::LordRelictor() :
     m_relicHammer(Weapon::Type::Melee, "Relic Hammer", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_RELICTOR};
+    m_weapons = {&m_relicHammer};
 
     m_totalPrayers = 2;
 }
 
 bool LordRelictor::configure(PrayersOfTheStormhost prayer)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_relicHammer);
     addModel(model);
 
@@ -74,11 +75,6 @@ void LordRelictor::Init()
     {
         s_registered = UnitFactory::Register("Lord-Relictor", factoryMethod);
     }
-}
-
-void LordRelictor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_relicHammer);
 }
 
 std::string LordRelictor::ValueToString(const Parameter &parameter)

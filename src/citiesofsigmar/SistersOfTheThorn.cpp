@@ -76,6 +76,7 @@ SistersOfTheThorn::SistersOfTheThorn() :
     m_staffMaiden(Weapon::Type::Melee, "Deepwood Coven Staff", 2, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WIZARD, SISTERS_OF_THE_THORN};
+    m_weapons = {&m_javelin, &m_staff, &m_antlersAndHooves, &m_staffMaiden};
 }
 
 bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornblower)
@@ -99,7 +100,7 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_javelin);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_antlersAndHooves);
@@ -113,14 +114,6 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
     }
 
     return true;
-}
-
-void SistersOfTheThorn::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_javelin);
-    visitor(m_staff);
-    visitor(m_antlersAndHooves);
-    visitor(m_staffMaiden);
 }
 
 int SistersOfTheThorn::runModifier() const

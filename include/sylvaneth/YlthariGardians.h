@@ -31,8 +31,6 @@ public:
 
     bool configure();
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;

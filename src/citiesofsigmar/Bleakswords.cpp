@@ -74,6 +74,7 @@ Bleakswords::Bleakswords() :
     m_swordLordling(Weapon::Type::Melee, "Darkling Sword", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLEAKSWORDS};
+    m_weapons = {&m_sword, &m_swordLordling};
 }
 
 bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower)
@@ -95,7 +96,7 @@ bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_sword);
         addModel(model);
     }
@@ -107,12 +108,6 @@ bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower)
     }
 
     return true;
-}
-
-void Bleakswords::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_sword);
-    visitor(m_swordLordling);
 }
 
 int Bleakswords::runModifier() const

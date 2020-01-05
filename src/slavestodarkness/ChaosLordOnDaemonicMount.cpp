@@ -49,12 +49,12 @@ ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount() :
     m_hooves(Weapon::Type::Melee, "Mighty Hooves", 1, 3, 4, 3, 0, 1)
 {
     m_keywords = { CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD };
+    m_weapons = {&m_hammer, &m_hooves};
 }
 
 bool ChaosLordOnDaemonicMount::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_hammer);
     model->addMeleeWeapon(&m_hooves);
     addModel(model);
@@ -62,12 +62,6 @@ bool ChaosLordOnDaemonicMount::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosLordOnDaemonicMount::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hammer);
-    visitor(m_hooves);
 }
 
 Wounds ChaosLordOnDaemonicMount::applyWoundSave(const Wounds &wounds)

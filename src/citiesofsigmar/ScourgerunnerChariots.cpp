@@ -74,6 +74,7 @@ ScourgerunnerChariots::ScourgerunnerChariots() :
     m_crossbowMaster(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, SCOURGERUNNER_CHARIOTS};
+    m_weapons = {&m_harpoon, &m_crossbow, &m_hookSpear, &m_bite, &m_harpoonMaster, &m_crossbowMaster};
 }
 
 bool ScourgerunnerChariots::configure(int numModels)
@@ -95,7 +96,7 @@ bool ScourgerunnerChariots::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_crossbow);
         model->addMissileWeapon(&m_harpoon);
         model->addMeleeWeapon(&m_hookSpear);
@@ -110,16 +111,6 @@ bool ScourgerunnerChariots::configure(int numModels)
     }
 
     return true;
-}
-
-void ScourgerunnerChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_harpoon);
-    visitor(m_crossbow);
-    visitor(m_hookSpear);
-    visitor(m_bite);
-    visitor(m_harpoonMaster);
-    visitor(m_crossbowMaster);
 }
 
 Wounds ScourgerunnerChariots::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

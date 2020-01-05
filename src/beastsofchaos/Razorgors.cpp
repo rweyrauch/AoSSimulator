@@ -33,6 +33,7 @@ Razorgors::Razorgors() :
     m_tusksAndHooves(Weapon::Type::Melee, "Large Tusks and Hooves", 1, 4, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, RAZORGORS};
+    m_weapons = { &m_tusksAndHooves };
 }
 
 bool Razorgors::configure(int numModels)
@@ -56,11 +57,6 @@ bool Razorgors::configure(int numModels)
     }
 
     return true;
-}
-
-void Razorgors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tusksAndHooves);
 }
 
 Unit *Razorgors::Create(const ParameterList &parameters)

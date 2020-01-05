@@ -34,6 +34,7 @@ PutridBlightkings::PutridBlightkings() :
     m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS};
+    m_weapons = {&m_blightedWeapon};
 }
 
 bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousTocsin)
@@ -65,11 +66,6 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
     }
 
     return true;
-}
-
-void PutridBlightkings::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blightedWeapon);
 }
 
 Unit *PutridBlightkings::Create(const ParameterList &parameters)

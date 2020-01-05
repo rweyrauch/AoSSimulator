@@ -64,6 +64,7 @@ CelestantPrime::CelestantPrime() :
     m_ghalMaraz(Weapon::Type::Melee, "Ghal Maraz, the Hammer of Sigmar", 2, 3, 3, 2, -3, 3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
+    m_weapons = {&m_ghalMaraz};
 }
 
 bool CelestantPrime::configure()
@@ -75,11 +76,6 @@ bool CelestantPrime::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void CelestantPrime::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ghalMaraz);
 }
 
 

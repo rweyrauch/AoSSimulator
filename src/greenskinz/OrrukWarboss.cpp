@@ -33,11 +33,12 @@ OrrukWarboss::OrrukWarboss() :
     m_boarTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, ORRUK_WARBOSS};
+    m_weapons = {&m_bossChoppa, &m_massiveChoppa, &m_greatWaaaghBanner, &m_boarTusks};
 }
 
 bool OrrukWarboss::configure(WeaponOption weapon, bool warboar)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     m_weapon = weapon;
 
@@ -65,14 +66,6 @@ bool OrrukWarboss::configure(WeaponOption weapon, bool warboar)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void OrrukWarboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bossChoppa);
-    visitor(m_massiveChoppa);
-    visitor(m_greatWaaaghBanner);
-    visitor(m_boarTusks);
 }
 
 Unit *OrrukWarboss::Create(const ParameterList &parameters)

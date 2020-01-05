@@ -56,11 +56,12 @@ ChaosLord::ChaosLord() :
     m_flail(Weapon::Type::Melee, "Daemonbound War-flail", 2, 6, 4, 4, -2, 1)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD };
+    m_weapons = {&m_blade, &m_steel, &m_flail};
 }
 
 bool ChaosLord::configure(WeaponOption option)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     if (option == Reaperblade)
         model->addMeleeWeapon(&m_blade);
@@ -73,13 +74,6 @@ bool ChaosLord::configure(WeaponOption option)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosLord::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blade);
-    visitor(m_steel);
-    visitor(m_flail);
 }
 
 Wounds ChaosLord::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

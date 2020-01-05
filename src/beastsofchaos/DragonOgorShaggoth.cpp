@@ -32,12 +32,12 @@ DragonOgorShaggoth::DragonOgorShaggoth() :
     m_talonedForelimbs(Weapon::Type::Melee, "Taloned Forelimbs", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGOR, MONSTER, HERO, WIZARD, SHAGGOTH};
+    m_weapons = { &m_stormWroughtAxe, &m_sweepingTail, &m_talonedForelimbs };
 }
 
 bool DragonOgorShaggoth::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_stormWroughtAxe);
     model->addMeleeWeapon(&m_sweepingTail);
     model->addMeleeWeapon(&m_talonedForelimbs);
@@ -70,13 +70,6 @@ void DragonOgorShaggoth::Init()
     {
         s_registered = UnitFactory::Register("Dragon Ogor Shaggoth", factoryMethod);
     }
-}
-
-void DragonOgorShaggoth::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormWroughtAxe);
-    visitor(m_sweepingTail);
-    visitor(m_talonedForelimbs);
 }
 
 } // namespace BeastsOfChaos

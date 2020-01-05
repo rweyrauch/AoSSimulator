@@ -35,6 +35,7 @@ Swordmasters::Swordmasters() :
     m_greatswordLord(Weapon::Type::Melee, "Greatsword", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, SWORDMASTERS};
+    m_weapons = {&m_greatsword, &m_greatswordLord};
 }
 
 bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer)
@@ -65,12 +66,6 @@ bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer
     }
 
     return true;
-}
-
-void Swordmasters::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greatsword);
-    visitor(m_greatswordLord);
 }
 
 Unit *Swordmasters::Create(const ParameterList &parameters)

@@ -34,8 +34,6 @@ public:
 
     bool configure(int numModels, bool standardBearers, bool musicians);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls battleshockRerolls() const override;

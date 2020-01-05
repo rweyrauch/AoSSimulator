@@ -30,11 +30,12 @@ SquigGobba::SquigGobba() :
     m_cavernousMaw(Weapon::Type::Melee, "Cavernous Maw", 2, 3, 3, 3, -2, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SQUIG, MOONCLAN, MONSTER, SQUIG_GOBBA};
+    m_weapons = {&m_spitSquigs, &m_bashinSticks, &m_cavernousMaw};
 }
 
 bool SquigGobba::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_spitSquigs);
     model->addMeleeWeapon(&m_bashinSticks);
     model->addMeleeWeapon(&m_cavernousMaw);
@@ -44,13 +45,6 @@ bool SquigGobba::configure()
     addModel(model);
 
     return true;
-}
-
-void SquigGobba::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spitSquigs);
-    visitor(m_bashinSticks);
-    visitor(m_cavernousMaw);
 }
 
 Unit *SquigGobba::Create(const ParameterList &parameters)

@@ -52,6 +52,7 @@ AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
 {
     m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, MONSTER, HERO,
         WIZARD, ABHORRANT_GHOUL_KING};
+    m_weapons = {&m_pestilentialBreath, &m_goryTalonsAndFangs, &m_snappingMaw, &m_swordlikeClaws};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -59,8 +60,7 @@ AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
 
 bool AbhorrantGhoulKingOnZombieDragon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_pestilentialBreath);
     model->addMeleeWeapon(&m_goryTalonsAndFangs);
     model->addMeleeWeapon(&m_snappingMaw);
@@ -73,14 +73,6 @@ bool AbhorrantGhoulKingOnZombieDragon::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AbhorrantGhoulKingOnZombieDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pestilentialBreath);
-    visitor(m_goryTalonsAndFangs);
-    visitor(m_snappingMaw);
-    visitor(m_swordlikeClaws);
 }
 
 Unit *AbhorrantGhoulKingOnZombieDragon::Create(const ParameterList &parameters)

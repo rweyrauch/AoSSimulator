@@ -35,8 +35,6 @@ public:
 
     bool configure(int numModels, bool runeMawBearer, bool bellower);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 private:

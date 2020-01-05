@@ -93,12 +93,12 @@ FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon() :
     m_beak(Weapon::Type::Melee, "Deadly Beak", 2, 2, 3, 3, -2, 4)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, MONSTER, HERO,FREEGUILD_GENERAL};
+    m_weapons = {&m_runesword, &m_greathammer, &m_lance, &m_claws, &m_beak};
 }
 
 bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     if (weapon == RuneSword)
         model->addMeleeWeapon(&m_runesword);
     else if (weapon == Greathammer)
@@ -112,15 +112,6 @@ bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void FreeguildGeneralOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_runesword);
-    visitor(m_greathammer);
-    visitor(m_lance);
-    visitor(m_claws);
-    visitor(m_beak);
 }
 
 int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon) const

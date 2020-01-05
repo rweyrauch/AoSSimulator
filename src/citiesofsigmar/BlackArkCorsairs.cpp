@@ -102,6 +102,7 @@ BlackArkCorsairs::BlackArkCorsairs() :
     m_bladeReaver(Weapon::Type::Melee, "Vicious Blade", 1, 1, 3, 5, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, BLACK_ARK_CORSAIRS};
+    m_weapons = {&m_handbow, &m_cutlass, &m_blade, &m_handbowReaver, &m_cutlassReaver, &m_bladeReaver};
 }
 
 bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons)
@@ -151,16 +152,6 @@ bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornbl
     }
 
     return true;
-}
-
-void BlackArkCorsairs::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_handbow);
-    visitor(m_cutlass);
-    visitor(m_blade);
-    visitor(m_handbowReaver);
-    visitor(m_cutlassReaver);
-    visitor(m_bladeReaver);
 }
 
 int BlackArkCorsairs::runModifier() const

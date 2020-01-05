@@ -43,6 +43,7 @@ KairicAcolytes::KairicAcolytes() :
     m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, KAIRIC_ACOLYTES};
+    m_weapons = {&m_sorcerousBolt, &m_sorcerousBoldAdept, &m_cursedBlade, &m_cursedGlaive};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -67,7 +68,7 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
     m_numCursedGlaives = numCursedGlaives;
     m_numScrollsOfDarkArts = numScrollsOfDarkArts;
     m_numVulcharcs = numVulcharcs;
@@ -113,7 +114,7 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
 Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds)
 {
     // Arcanite Shield
-    if (m_weapons == CursedBladeAndShield)
+    if (m_weaponOption == CursedBladeAndShield)
     {
         Dice dice;
         auto roll = dice.rollD6();
@@ -121,14 +122,6 @@ Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds)
             return {0, 0};
     }
     return Unit::applyWoundSave(wounds);
-}
-
-void KairicAcolytes::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_sorcerousBolt);
-    visitor(m_sorcerousBoldAdept);
-    visitor(m_cursedBlade);
-    visitor(m_cursedGlaive);
 }
 
 void KairicAcolytes::Init()
@@ -216,7 +209,7 @@ int KairicAcolytes::toHitModifier(const Weapon *weapon, const Unit *target) cons
 {
     int modifier = Unit::toHitModifier(weapon, target);
     // Paired Cursed Blades
-    if ((m_weapons == PairedCursedBlades) && (weapon->name() == m_cursedBlade.name()))
+    if ((m_weaponOption == PairedCursedBlades) && (weapon->name() == m_cursedBlade.name()))
     {
         modifier += 1;
     }

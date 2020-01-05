@@ -58,6 +58,7 @@ MortisanBoneshaper::MortisanBoneshaper() :
     m_talons(Weapon::Type::Melee, "Ossified Talons", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_BONESHAPER};
+    m_weapons = {&m_talons};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -66,9 +67,7 @@ MortisanBoneshaper::MortisanBoneshaper() :
 bool MortisanBoneshaper::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMeleeWeapon(&m_talons);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -77,11 +76,6 @@ bool MortisanBoneshaper::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MortisanBoneshaper::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_talons);
 }
 
 } // namespace OssiarchBonereapers

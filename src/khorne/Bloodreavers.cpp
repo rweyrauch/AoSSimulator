@@ -45,6 +45,7 @@ Bloodreavers::Bloodreavers() :
     m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
+    m_weapons = {&m_reaverBlades, &m_reaverBladesChieftain, &m_meatripperAxe, &m_meatripperAxeChieftain};
 }
 
 
@@ -166,14 +167,6 @@ int Bloodreavers::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Meatripper Axe")
     { return MeatripperAxe; }
     return KhorneBase::EnumStringToInt(enumString);
-}
-
-void Bloodreavers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_reaverBlades);
-    visitor(m_reaverBladesChieftain);
-    visitor(m_meatripperAxe);
-    visitor(m_meatripperAxeChieftain);
 }
 
 int Bloodreavers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

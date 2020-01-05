@@ -36,6 +36,7 @@ SeekerChariots::SeekerChariots() :
     m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, SEEKER_CHARIOTS};
+    m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
 
     // Impossibly Swift
     m_retreatAndCharge = true;
@@ -50,7 +51,7 @@ bool SeekerChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongues);
@@ -64,13 +65,6 @@ bool SeekerChariots::configure(int numModels)
     }
 
     return true;
-}
-
-void SeekerChariots::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_flensingWhips);
-    visitor(m_piercingClaws);
-    visitor(m_poisonedTongues);
 }
 
 Unit *SeekerChariots::Create(const ParameterList &parameters)

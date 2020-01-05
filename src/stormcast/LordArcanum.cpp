@@ -34,6 +34,7 @@ LordArcanum::LordArcanum() :
     m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
+    m_weapons = {&m_aetherstave};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -46,7 +47,7 @@ bool LordArcanum::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoratio
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_aetherstave);
     addModel(model);
 
@@ -115,11 +116,6 @@ int LordArcanum::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordArcanum::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_aetherstave);
 }
 
 void LordArcanum::onStartCombat(PlayerId player)

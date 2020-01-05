@@ -49,12 +49,12 @@ ChaosSorcerer::ChaosSorcerer() :
     m_blade(Weapon::Type::Melee, "Chaos Runeblade", 1, 2, 3, 3, 0, 1)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, WIZARD, CHAOS_SORCERER_LORD };
+    m_weapons = {&m_staff, &m_blade};
 }
 
 bool ChaosSorcerer::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_blade);
     addModel(model);
@@ -62,12 +62,6 @@ bool ChaosSorcerer::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosSorcerer::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_staff);
-    visitor(m_blade);
 }
 
 } //namespace SlavesToDarkness

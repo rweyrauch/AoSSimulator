@@ -32,12 +32,12 @@ ArchRevenant::ArchRevenant() :
     m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3)
 {
     m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, HERO, ARCH_REVENANT};
+    m_weapons = {&m_glaive, &m_tailPincers};
 }
 
 bool ArchRevenant::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_glaive);
     model->addMeleeWeapon(&m_tailPincers);
     addModel(model);
@@ -69,12 +69,6 @@ void ArchRevenant::Init()
     {
         s_registered = UnitFactory::Register("Arch-Revenant", factoryMethod);
     }
-}
-
-void ArchRevenant::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_glaive);
-    visitor(m_tailPincers);
 }
 
 Rerolls ArchRevenant::toHitRerolls(const Weapon *weapon, const Unit *unit) const

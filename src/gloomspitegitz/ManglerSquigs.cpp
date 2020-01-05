@@ -50,6 +50,7 @@ ManglerSquigs::ManglerSquigs() :
     m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, MANGLER_SQUIG};
+    m_weapons = {&m_hugeFangFilledGob, &m_ballsAndChains, &m_grotsBashinStikk};
 }
 
 int ManglerSquigs::move() const
@@ -59,12 +60,10 @@ int ManglerSquigs::move() const
 
 bool ManglerSquigs::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_hugeFangFilledGob);
     model->addMeleeWeapon(&m_ballsAndChains);
     model->addMeleeWeapon(&m_grotsBashinStikk);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -125,13 +124,6 @@ void ManglerSquigs::Init()
     {
         s_registered = UnitFactory::Register("Mangler Squigs", factoryMethod);
     }
-}
-
-void ManglerSquigs::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hugeFangFilledGob);
-    visitor(m_ballsAndChains);
-    visitor(m_grotsBashinStikk);
 }
 
 void ManglerSquigs::onSlain()

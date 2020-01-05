@@ -45,6 +45,7 @@ Thunderers::Thunderers() :
     m_braceOfDuardinPistolsMelee(Weapon::Type::Melee, "Brace of Duardin Pistols", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, THUNDERERS};
+    m_weapons = {&m_duardinHandgun, &m_duardinHandgunVeteran, &m_braceOfDuardinPistols, &m_duardinHandgunMelee, &m_braceOfDuardinPistolsMelee};
 }
 
 bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, StandardOptions standard, bool drummers)
@@ -86,15 +87,6 @@ bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duar
     }
 
     return true;
-}
-
-void Thunderers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_duardinHandgun);
-    visitor(m_duardinHandgunVeteran);
-    visitor(m_braceOfDuardinPistols);
-    visitor(m_duardinHandgunMelee);
-    visitor(m_braceOfDuardinPistolsMelee);
 }
 
 Unit *Thunderers::Create(const ParameterList &parameters)

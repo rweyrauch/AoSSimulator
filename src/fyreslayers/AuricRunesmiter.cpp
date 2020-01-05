@@ -31,12 +31,12 @@ AuricRunesmiter::AuricRunesmiter() :
     m_latchAxe(Weapon::Type::Melee, "Latch-axe", 1, 1, 4, 3, 0, 2)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNESMITER};
+    m_weapons = {&m_throwingAxe, &m_runicIron, &m_latchAxe};
 }
 
 bool AuricRunesmiter::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_latchAxe);
     model->addMeleeWeapon(&m_runicIron);
@@ -45,13 +45,6 @@ bool AuricRunesmiter::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AuricRunesmiter::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_latchAxe);
-    visitor(m_runicIron);
 }
 
 Unit *AuricRunesmiter::Create(const ParameterList &parameters)

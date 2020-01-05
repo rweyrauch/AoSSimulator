@@ -30,26 +30,19 @@ WarpLightningCannon::WarpLightningCannon() :
     m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
+    m_weapons = {&m_warpLightningBlast, &m_teethAndKnives};
 }
 
 bool WarpLightningCannon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_warpLightningBlast);
     model->addMeleeWeapon(&m_teethAndKnives);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WarpLightningCannon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_warpLightningBlast);
-    visitor(m_teethAndKnives);
 }
 
 Unit *WarpLightningCannon::Create(const ParameterList &parameters)

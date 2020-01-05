@@ -55,6 +55,7 @@ TheUnmade::TheUnmade() :
     m_nigthmareSickles(Weapon::Type::Melee, "Nightmare Sickles", 1, 3, 4, 3, -1, 2)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, THE_UNMADE};
+    m_weapons = {&m_maimingWeapons, &m_maimingWeaponsLeader, &m_nigthmareSickles};
 }
 
 bool TheUnmade::configure(int numModels)
@@ -88,13 +89,6 @@ bool TheUnmade::configure(int numModels)
     }
 
     return true;
-}
-
-void TheUnmade::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_maimingWeapons);
-    visitor(m_maimingWeaponsLeader);
-    visitor(m_nigthmareSickles);
 }
 
 } //SlavesToDarkness

@@ -84,6 +84,7 @@ OgorGluttons::OgorGluttons() :
     m_clubOrBladeCrusher(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, OGOR_GLUTTONS};
+    m_weapons = {&m_clubOrBlade, &m_bite, &m_clubOrBladeCrusher};
 }
 
 bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar, bool bellower)
@@ -119,13 +120,6 @@ bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBeare
     }
 
     return true;
-}
-
-void OgorGluttons::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_clubOrBlade);
-    visitor(m_bite);
-    visitor(m_clubOrBladeCrusher);
 }
 
 int OgorGluttons::braveryModifier() const

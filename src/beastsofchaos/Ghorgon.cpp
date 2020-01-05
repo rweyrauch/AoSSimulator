@@ -50,12 +50,12 @@ BeastsOfChaos::Ghorgon::Ghorgon() :
     m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6)
 {
     m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
+    m_weapons = { &m_butcheringBlades, &m_hugeSlaveringMaw };
 }
 
 bool BeastsOfChaos::Ghorgon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_butcheringBlades);
     model->addMeleeWeapon(&m_hugeSlaveringMaw);
     addModel(model);
@@ -146,12 +146,6 @@ void Ghorgon::onStartCombat(PlayerId player)
             m_meleeTarget->slay(1);
         }
     }
-}
-
-void Ghorgon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_butcheringBlades);
-    visitor(m_hugeSlaveringMaw);
 }
 
 } // namespace BeastsOfChaos

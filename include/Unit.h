@@ -159,16 +159,13 @@ public:
     bool canRetreatAndShoot() const;
     bool canRetreatAndCharge() const;
 
-    std::vector<std::unique_ptr<Model>>::const_iterator modelBegin() const { return m_models.begin(); }
-    std::vector<std::unique_ptr<Model>>::const_iterator modelEnd() const { return m_models.end(); }
-
     int slay(int numModels);
 
     bool unbind(const Unit* caster, int castRoll);
 
     float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
-    virtual void visitWeapons(std::function<void(const Weapon &)> &visitor) = 0;
+    void visitWeapons(std::function<void(const Weapon &)> &visitor);
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
 
@@ -418,6 +415,8 @@ protected:
     std::vector<std::unique_ptr<Prayer>> m_knownPrayers;
     std::vector<std::unique_ptr<CommandAbility>> m_commandAbilities;
 
+    std::vector<const Weapon*> m_weapons;
+
     Unit *m_shootingTarget = nullptr;
     Unit *m_meleeTarget = nullptr;
 
@@ -434,8 +433,6 @@ class CustomUnit : public Unit
 {
 public:
     CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
-
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override {}
 };
 
 #endif //UNIT_H

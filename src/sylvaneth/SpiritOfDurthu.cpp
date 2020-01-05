@@ -51,12 +51,12 @@ SpiritOfDurthu::SpiritOfDurthu() :
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, MONSTER, HERO, SPIRIT_OF_DURTHU};
+    m_weapons = {&m_verdantBlast, &m_guardianSword, &m_massiveImpalingTalons};
 }
 
 bool SpiritOfDurthu::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_verdantBlast);
     model->addMeleeWeapon(&m_guardianSword);
     model->addMeleeWeapon(&m_massiveImpalingTalons);
@@ -114,13 +114,6 @@ void SpiritOfDurthu::Init()
     {
         s_registered = UnitFactory::Register("Spirit of Durthu", factoryMethod);
     }
-}
-
-void SpiritOfDurthu::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_verdantBlast);
-    visitor(m_guardianSword);
-    visitor(m_massiveImpalingTalons);
 }
 
 Wounds SpiritOfDurthu::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

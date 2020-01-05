@@ -27,23 +27,18 @@ HagQueen::HagQueen() :
     m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN};
+    m_weapons = {&m_bladeOfKhaine};
 }
 
 bool HagQueen::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bladeOfKhaine);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void HagQueen::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bladeOfKhaine);
 }
 
 Unit *HagQueen::Create(const ParameterList &parameters)

@@ -33,11 +33,12 @@ Cockatrice::Cockatrice() :
     m_swordlikeTalons(Weapon::Type::Melee, "Sword-like Talons", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, COCKATRICE};
+    m_weapons = {&m_petrifyingGaze, &m_viciousBeak, &m_swordlikeTalons };
 }
 
 bool Cockatrice::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     // NOTE: Petrifying Gaze attack is special, do not treat it as a weapon
 
@@ -72,13 +73,6 @@ void Cockatrice::Init()
     {
         s_registered = UnitFactory::Register("Cockatrice", factoryMethod);
     }
-}
-
-void Cockatrice::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_petrifyingGaze);
-    visitor(m_viciousBeak);
-    visitor(m_swordlikeTalons);
 }
 
 int Cockatrice::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

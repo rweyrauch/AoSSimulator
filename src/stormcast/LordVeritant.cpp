@@ -33,6 +33,7 @@ LordVeritant::LordVeritant() :
     m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
+    m_weapons = {&m_judgementBlade};
 
     m_totalPrayers = 2;
 
@@ -42,7 +43,7 @@ LordVeritant::LordVeritant() :
 
 bool LordVeritant::configure(PrayersOfTheStormhost prayer)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_judgementBlade);
     addModel(model);
 
@@ -77,11 +78,6 @@ void LordVeritant::Init()
     {
         s_registered = UnitFactory::Register("Lord-Veritant", factoryMethod);
     }
-}
-
-void LordVeritant::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_judgementBlade);
 }
 
 std::string LordVeritant::ValueToString(const Parameter &parameter)

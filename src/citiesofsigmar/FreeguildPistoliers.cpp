@@ -99,6 +99,7 @@ FreeguildPistoliers::FreeguildPistoliers() :
     m_sabreAndPistolButtOutrider(Weapon::Type::Melee, "Sabre and Pistol Butt", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_PISTOLIERS};
+    m_weapons = {&m_pistols, &m_handgun, &m_sabreAndPistolButt, &m_hooves, &m_sabreAndPistolButtOutrider};
 }
 
 bool FreeguildPistoliers::configure(int numModels, bool trumpeter, WeaponOption outriderWeapon)
@@ -128,7 +129,7 @@ bool FreeguildPistoliers::configure(int numModels, bool trumpeter, WeaponOption 
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_pistols);
         model->addMeleeWeapon(&m_sabreAndPistolButt);
         model->addMeleeWeapon(&m_hooves);
@@ -142,15 +143,6 @@ bool FreeguildPistoliers::configure(int numModels, bool trumpeter, WeaponOption 
     }
 
     return true;
-}
-
-void FreeguildPistoliers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pistols);
-    visitor(m_handgun);
-    visitor(m_sabreAndPistolButt);
-    visitor(m_hooves);
-    visitor(m_sabreAndPistolButtOutrider);
 }
 
 int FreeguildPistoliers::runModifier() const

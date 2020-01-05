@@ -34,6 +34,7 @@ DreadscytheHarridans::DreadscytheHarridans() :
     m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs", 1, 4, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS};
+    m_weapons = {&m_scythedLimbs, &m_scythedLimbsCrone};
 }
 
 bool DreadscytheHarridans::configure(int numModels)
@@ -83,12 +84,6 @@ void DreadscytheHarridans::Init()
     {
         s_registered = UnitFactory::Register("Dreadscythe Harridans", factoryMethod);
     }
-}
-
-void DreadscytheHarridans::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_scythedLimbs);
-    visitor(m_scythedLimbsCrone);
 }
 
 Wounds DreadscytheHarridans::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

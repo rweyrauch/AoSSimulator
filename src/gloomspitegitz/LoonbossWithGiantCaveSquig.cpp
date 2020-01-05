@@ -32,28 +32,20 @@ LoonbossWithGiantCaveSquig::LoonbossWithGiantCaveSquig() :
     m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
+    m_weapons = {&m_moonProdderMissile, &m_moonProdder, &m_massiveFangFilledGob};
 }
 
 bool LoonbossWithGiantCaveSquig::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_moonProdderMissile);
     model->addMeleeWeapon(&m_moonProdder);
     model->addMeleeWeapon(&m_massiveFangFilledGob);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void LoonbossWithGiantCaveSquig::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_moonProdderMissile);
-    visitor(m_moonProdder);
-    visitor(m_massiveFangFilledGob);
 }
 
 Unit *LoonbossWithGiantCaveSquig::Create(const ParameterList &parameters)

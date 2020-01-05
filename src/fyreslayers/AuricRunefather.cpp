@@ -30,12 +30,12 @@ AuricRunefather::AuricRunefather() :
     m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER};
+    m_weapons = {&m_throwingAxe, &m_grandAxe};
 }
 
 bool AuricRunefather::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_grandAxe);
     addModel(model);
@@ -43,12 +43,6 @@ bool AuricRunefather::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AuricRunefather::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_grandAxe);
 }
 
 Unit *AuricRunefather::Create(const ParameterList &parameters)

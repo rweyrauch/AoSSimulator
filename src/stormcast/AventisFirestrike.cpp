@@ -35,6 +35,7 @@ AventisFirestrike::AventisFirestrike() :
     m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 4, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, MONSTER, WIZARD, LORD_ARCANUM, AVENTIS_FIRESTRIKE};
+    m_weapons = {&m_staffOfHammerhal, &m_hornsAndHooves};
 }
 
 bool AventisFirestrike::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)
@@ -44,7 +45,7 @@ bool AventisFirestrike::configure(LoreOfTheStorm storm, LoreOfInvigoration invig
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_staffOfHammerhal);
     model->addMeleeWeapon(&m_hornsAndHooves);
     addModel(model);
@@ -113,12 +114,6 @@ int AventisFirestrike::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void AventisFirestrike::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_staffOfHammerhal);
-    visitor(m_hornsAndHooves);
 }
 
 void AventisFirestrike::onStartCombat(PlayerId player)

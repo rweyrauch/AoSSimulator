@@ -36,6 +36,7 @@ OrrukArdboys::OrrukArdboys() :
     m_bossChoppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, ARDBOYS};
+    m_weapons = {&m_choppa, &m_bossChoppa};
 }
 
 bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, StandardOption standard)
@@ -76,12 +77,6 @@ bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, Standa
     }
 
     return true;
-}
-
-void OrrukArdboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_choppa);
-    visitor(m_bossChoppa);
 }
 
 Unit *OrrukArdboys::Create(const ParameterList &parameters)

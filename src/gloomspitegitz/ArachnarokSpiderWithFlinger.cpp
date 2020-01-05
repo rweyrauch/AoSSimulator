@@ -52,18 +52,17 @@ ArachnarokSpiderWithFlinger::ArachnarokSpiderWithFlinger() :
     m_crookedSpears(Weapon::Type::Melee, "Crooked Spears", 1, 8, 5, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, MONSTER};
+    m_weapons = {&m_spiderBows, &m_flinger, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
 }
 
 bool ArachnarokSpiderWithFlinger::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_spiderBows);
     model->addMissileWeapon(&m_flinger);
     model->addMeleeWeapon(&m_chitinousLegs);
     model->addMeleeWeapon(&m_monstrousFangs);
     model->addMeleeWeapon(&m_crookedSpears);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
@@ -115,15 +114,6 @@ void ArachnarokSpiderWithFlinger::Init()
     {
         s_registered = UnitFactory::Register("Arachnarok Spider with Flinger", factoryMethod);
     }
-}
-
-void ArachnarokSpiderWithFlinger::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spiderBows);
-    visitor(m_flinger);
-    visitor(m_chitinousLegs);
-    visitor(m_monstrousFangs);
-    visitor(m_crookedSpears);
 }
 
 Wounds ArachnarokSpiderWithFlinger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

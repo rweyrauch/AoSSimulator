@@ -31,8 +31,6 @@ public:
 
     bool configure();
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;

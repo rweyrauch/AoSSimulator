@@ -35,6 +35,7 @@ SquiqHoppers::SquiqHoppers() :
     m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HOPPERS};
+    m_weapons = {&m_fangFilledGob, &m_slitta, &m_slittaBoss};
 }
 
 bool SquiqHoppers::configure(int numModels)
@@ -90,13 +91,6 @@ void SquiqHoppers::Init()
     {
         s_registered = UnitFactory::Register("Squiq Hoppers", factoryMethod);
     }
-}
-
-void SquiqHoppers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slitta);
-    visitor(m_slittaBoss);
-    visitor(m_fangFilledGob);
 }
 
 } // namespace GloomspiteGitz

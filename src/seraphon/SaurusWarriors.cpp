@@ -42,6 +42,7 @@ SaurusWarriors::SaurusWarriors() :
     m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_WARRIORS};
+    m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jawsAndShield};
 }
 
 bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapons, bool iconBearer, bool wardrum)
@@ -91,15 +92,6 @@ bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapo
     }
 
     return true;
-}
-
-void SaurusWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_celestiteClub);
-    visitor(m_celestiteClubAlpha);
-    visitor(m_celestiteSpear);
-    visitor(m_celestiteSpearAlpha);
-    visitor(m_jawsAndShield);
 }
 
 Unit *SaurusWarriors::Create(const ParameterList &parameters)

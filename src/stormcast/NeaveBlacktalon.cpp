@@ -30,6 +30,7 @@ NeaveBlacktalon::NeaveBlacktalon() :
     m_whirlwindAxes(Weapon::Type::Melee, "The Whirlwind Axes", 1, 7, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS, NEAVE_BLACKTALON};
+    m_weapons = {&m_boltstormPistol, &m_whirlwindAxes};
 
     // Tireless hunter
     m_runAndShoot = true;
@@ -37,7 +38,7 @@ NeaveBlacktalon::NeaveBlacktalon() :
 
 bool NeaveBlacktalon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_boltstormPistol);
     model->addMeleeWeapon(&m_whirlwindAxes);
     addModel(model);
@@ -79,12 +80,6 @@ int NeaveBlacktalon::extraAttacks(const Model *attackingModel, const Weapon *wea
         attacks += 1;
     }
     return attacks;
-}
-
-void NeaveBlacktalon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boltstormPistol);
-    visitor(m_whirlwindAxes);
 }
 
 Wounds NeaveBlacktalon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

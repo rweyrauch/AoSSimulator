@@ -86,6 +86,7 @@ KavalosDeathriders::KavalosDeathriders() :
     m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, KAVALOS_DEATHRIDERS};
+    m_weapons = {&m_blade, &m_spear, &m_bladeHekatos, &m_spearHekatos, &m_hoovesAndTeeth};
 }
 
 bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necrophoros)
@@ -133,15 +134,6 @@ bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necr
     }
 
     return true;
-}
-
-void KavalosDeathriders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blade);
-    visitor(m_spear);
-    visitor(m_bladeHekatos);
-    visitor(m_spearHekatos);
-    visitor(m_hoovesAndTeeth);
 }
 
 int KavalosDeathriders::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

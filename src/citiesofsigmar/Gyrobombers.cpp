@@ -70,6 +70,7 @@ Gyrobombers::Gyrobombers() :
     m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROBOMBERS};
+    m_weapons = {&m_clattergun, &m_rotorBlades};
 }
 
 bool Gyrobombers::configure(int numModels)
@@ -83,7 +84,7 @@ bool Gyrobombers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_clattergun);
         model->addMeleeWeapon(&m_rotorBlades);
         addModel(model);
@@ -96,12 +97,6 @@ bool Gyrobombers::configure(int numModels)
     }
 
     return true;
-}
-
-void Gyrobombers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_clattergun);
-    visitor(m_rotorBlades);
 }
 
 } // namespace CitiesOfSigmar

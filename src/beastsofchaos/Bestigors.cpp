@@ -36,6 +36,7 @@ Bestigors::Bestigors() :
     m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe", 1, 3, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
+    m_weapons = { &m_despoilerAxe, &m_despoilerAxeGougeHorn };
 }
 
 bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
@@ -68,12 +69,6 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
     }
 
     return true;
-}
-
-void Bestigors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_despoilerAxe);
-    visitor(m_despoilerAxeGougeHorn);
 }
 
 Unit *Bestigors::Create(const ParameterList &parameters)

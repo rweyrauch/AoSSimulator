@@ -84,30 +84,21 @@ Kharibdyss::Kharibdyss() :
     m_goadsAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, MONSTER, KHARIBDYSS};
+    m_weapons = {&m_tentacles, &m_tail, &m_limbs, &m_goadsAndWhips};
 }
 
 bool Kharibdyss::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_tentacles);
     model->addMeleeWeapon(&m_tail);
     model->addMeleeWeapon(&m_limbs);
     model->addMeleeWeapon(&m_goadsAndWhips);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Kharibdyss::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tentacles);
-    visitor(m_tail);
-    visitor(m_limbs);
-    visitor(m_goadsAndWhips);
 }
 
 int Kharibdyss::move() const

@@ -38,6 +38,7 @@ LordCelestantOnDracoth::LordCelestantOnDracoth() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
+    m_weapons = {&m_stormstrikeGlaive, &m_lightningHammer, &m_thunderaxe, &m_tempestosHammer, &m_clawsAndFangs};
 }
 
 bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield)
@@ -197,15 +198,6 @@ int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
         return StormstrikeGlaive;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordCelestantOnDracoth::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormstrikeGlaive);
-    visitor(m_lightningHammer);
-    visitor(m_thunderaxe);
-    visitor(m_tempestosHammer);
-    visitor(m_clawsAndFangs);
 }
 
 Wounds LordCelestantOnDracoth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

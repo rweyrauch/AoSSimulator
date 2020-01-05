@@ -48,11 +48,12 @@ Slambo::Slambo() :
     m_chaosAxes(Weapon::Type::Melee, "Chaos Axes", 1, RAND_D6, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EXALTED_HERO_OF_CHAOS, SLAMBO};
+    m_weapons = {&m_hurledAxe, &m_chaosAxes};
 }
 
 bool Slambo::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_hurledAxe);
     model->addMeleeWeapon(&m_chaosAxes);
     addModel(model);
@@ -60,12 +61,6 @@ bool Slambo::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Slambo::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hurledAxe);
-    visitor(m_chaosAxes);
 }
 
 } //SlavesToDarkness

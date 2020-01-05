@@ -30,28 +30,20 @@ Doomwheel::Doomwheel() :
     m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, 6, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, DOOMWHEEL};
+    m_weapons = {&m_warpBolts, &m_grindingWheel, &m_teethAndKnives};
 }
 
 bool Doomwheel::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_warpBolts);
     model->addMeleeWeapon(&m_grindingWheel);
     model->addMeleeWeapon(&m_teethAndKnives);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Doomwheel::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_warpBolts);
-    visitor(m_grindingWheel);
-    visitor(m_teethAndKnives);
 }
 
 Unit *Doomwheel::Create(const ParameterList &parameters)

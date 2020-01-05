@@ -46,6 +46,7 @@ Tzaangors::Tzaangors() :
     m_viciousBeakTwistbray(Weapon::Type::Melee, "Vicious Beak", 1, 1, 3, 5, 0, 1)
 {
     m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
+    m_weapons = {&m_savageBlade, &m_savageBladeTwistbray, &m_savageGreatblade, &m_savageGreatbladeTwistbray, &m_viciousBeak, &m_viciousBeakTwistbray};
 }
 
 bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer, bool brayhorns)
@@ -65,7 +66,7 @@ bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblad
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
     m_numGreatblades = numGreatblades;
     m_numMutants = numMutants;
     m_iconBearer = iconBearer;
@@ -107,16 +108,6 @@ bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblad
     }
 
     return true;
-}
-
-void Tzaangors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_savageBlade);
-    visitor(m_savageBladeTwistbray);
-    visitor(m_savageGreatblade);
-    visitor(m_savageGreatbladeTwistbray);
-    visitor(m_viciousBeak);
-    visitor(m_viciousBeakTwistbray);
 }
 
 Unit *Tzaangors::Create(const ParameterList &parameters)
@@ -179,7 +170,7 @@ int Tzaangors::EnumStringToInt(const std::string &enumString)
 Wounds Tzaangors::applyWoundSave(const Wounds &wounds)
 {
     // Arcanite Shield
-    if (m_weapons == SavageBladeAndShield)
+    if (m_weaponOption == SavageBladeAndShield)
     {
         Dice dice;
         auto roll = dice.rollD6();
@@ -194,7 +185,7 @@ int Tzaangors::toHitModifier(const Weapon *weapon, const Unit *target) const
     int modifier = Unit::toHitModifier(weapon, target);
 
     // Paired Savage Blades
-    if ((m_weapons == PairedSavageBlades) && (weapon->name() == m_savageBlade.name()))
+    if ((m_weaponOption == PairedSavageBlades) && (weapon->name() == m_savageBlade.name()))
         modifier += 1;
 
     return modifier;

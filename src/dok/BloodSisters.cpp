@@ -38,6 +38,7 @@ BloodSisters::BloodSisters() :
     m_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
+    m_weapons = {&m_heartshardGlaive, &m_heartshardGlaiveGorgai, &m_crystalTouch, &m_crystalTouchGorgai};
 }
 
 bool BloodSisters::configure(int numModels)
@@ -100,12 +101,6 @@ Wounds BloodSisters::weaponDamage(const Weapon *weapon, const Unit *target, int 
     }
 
     return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-void BloodSisters::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_heartshardGlaive);
-    visitor(m_heartshardGlaiveGorgai);
 }
 
 } // namespace DaughtersOfKhaine

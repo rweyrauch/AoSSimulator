@@ -51,12 +51,12 @@ RoyalTerrorgheist::RoyalTerrorgheist() :
     m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6)
 {
     m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_TERRORGHEIST};
+    m_weapons = {&m_deathShriek, &m_skeletalClaws, &m_fangedMaw};
 }
 
 bool RoyalTerrorgheist::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_deathShriek);
     model->addMeleeWeapon(&m_skeletalClaws);
     model->addMeleeWeapon(&m_fangedMaw);
@@ -65,13 +65,6 @@ bool RoyalTerrorgheist::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void RoyalTerrorgheist::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_deathShriek);
-    visitor(m_skeletalClaws);
-    visitor(m_fangedMaw);
 }
 
 Unit *RoyalTerrorgheist::Create(const ParameterList &parameters)

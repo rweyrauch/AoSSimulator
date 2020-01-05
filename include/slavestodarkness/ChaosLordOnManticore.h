@@ -43,8 +43,6 @@ public:
 
     bool configure(WeaponOption weapon);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
     int move() const override;
 
 protected:

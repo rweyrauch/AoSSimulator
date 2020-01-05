@@ -34,6 +34,7 @@ Chainghasts::Chainghasts() :
     m_ghastflails(Weapon::Type::Melee, "Ghastflails", 2, 0, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
+    m_weapons = {&m_ghastflailsMissile, &m_ghastflails};
 }
 
 bool Chainghasts::configure(int numModels)
@@ -45,7 +46,7 @@ bool Chainghasts::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_ghastflailsMissile);
         model->addMeleeWeapon(&m_ghastflails);
         addModel(model);
@@ -58,12 +59,6 @@ bool Chainghasts::configure(int numModels)
     }
 
     return true;
-}
-
-void Chainghasts::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ghastflailsMissile);
-    visitor(m_ghastflails);
 }
 
 Unit *Chainghasts::Create(const ParameterList &parameters)

@@ -42,6 +42,7 @@ SkeletonWarriors::SkeletonWarriors() :
     m_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear", 2, 2, 5, 4, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, SKELETON_WARRIORS};
+    m_weapons = {&m_ancientBlade, &m_ancientBladeChampion, &m_ancientSpear, &m_ancientSpearChampion};
 }
 
 bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers)
@@ -89,14 +90,6 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
     }
 
     return true;
-}
-
-void SkeletonWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ancientBlade);
-    visitor(m_ancientBladeChampion);
-    visitor(m_ancientSpear);
-    visitor(m_ancientSpearChampion);
 }
 
 Unit *SkeletonWarriors::Create(const ParameterList &parameters)

@@ -30,8 +30,6 @@ public:
 
     bool configure();
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Wounds applyWoundSave(const Wounds &wounds) override;

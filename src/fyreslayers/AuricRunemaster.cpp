@@ -31,12 +31,12 @@ AuricRunemaster::AuricRunemaster() :
     m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNEMASTER};
+    m_weapons = {&m_throwingAxe, &m_brazierStaff, &m_runicIron};
 }
 
 bool AuricRunemaster::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_brazierStaff);
     model->addMeleeWeapon(&m_runicIron);
@@ -45,13 +45,6 @@ bool AuricRunemaster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AuricRunemaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_brazierStaff);
-    visitor(m_runicIron);
 }
 
 Unit *AuricRunemaster::Create(const ParameterList &parameters)

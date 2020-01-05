@@ -46,6 +46,7 @@ KurnothHunters::KurnothHunters() :
     m_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, KURNOTH_HUNTERS};
+    m_weapons = {&m_greatbow, &m_greatbowHuntmaster, &m_greatsword, &m_greatswordHuntmaster, &m_scythe, &m_scytheHuntmaster, &m_viciousClaws};
 }
 
 bool KurnothHunters::configure(int numModels, WeaponOption weapons)
@@ -164,17 +165,6 @@ int KurnothHunters::EnumStringToInt(const std::string &enumString)
         return Greatbows;
     }
     return 0;
-}
-
-void KurnothHunters::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greatbow);
-    visitor(m_greatbowHuntmaster);
-    visitor(m_greatsword);
-    visitor(m_greatswordHuntmaster);
-    visitor(m_scythe);
-    visitor(m_scytheHuntmaster);
-    visitor(m_viciousClaws);
 }
 
 Wounds KurnothHunters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

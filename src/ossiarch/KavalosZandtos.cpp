@@ -60,6 +60,7 @@ ArchKavalosZandtos::ArchKavalosZandtos() :
     m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, ARCH_KAVALOS_ZANDTOS};
+    m_weapons = {&m_lance, &m_shield, &m_hoovesAndTeeth};
 }
 
 bool ArchKavalosZandtos::configure()
@@ -73,13 +74,6 @@ bool ArchKavalosZandtos::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ArchKavalosZandtos::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_lance);
-    visitor(m_shield);
-    visitor(m_hoovesAndTeeth);
 }
 
 Wounds ArchKavalosZandtos::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

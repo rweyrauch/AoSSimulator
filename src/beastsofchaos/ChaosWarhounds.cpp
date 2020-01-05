@@ -33,6 +33,7 @@ ChaosWarhounds::ChaosWarhounds() :
     m_slaveringJaws(Weapon::Type::Melee, "Slavering Jaws", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, CHAOS_WARHOUNDS};
+    m_weapons = { &m_slaveringJaws };
 }
 
 bool ChaosWarhounds::configure(int numModels)
@@ -44,7 +45,7 @@ bool ChaosWarhounds::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_slaveringJaws);
         addModel(model);
     }
@@ -56,11 +57,6 @@ bool ChaosWarhounds::configure(int numModels)
     }
 
     return true;
-}
-
-void ChaosWarhounds::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slaveringJaws);
 }
 
 Unit *ChaosWarhounds::Create(const ParameterList &parameters)

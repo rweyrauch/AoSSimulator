@@ -49,6 +49,7 @@ DragonOgors::DragonOgors() :
     m_rakingForeclaws(Weapon::Type::Melee, "Raking Foreclaws", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGORS};
+    m_weapons = { &m_pairedAncientWeapons, &m_draconicWarglaive, &m_draconicCrusher, &m_rakingForeclaws };
 }
 
 bool DragonOgors::configure(int numModels, int numPairedWeapons, int numGlaives, int numCrushers)
@@ -64,19 +65,19 @@ bool DragonOgors::configure(int numModels, int numPairedWeapons, int numGlaives,
 
     for (auto i = 0; i < numPairedWeapons; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_pairedAncientWeapons);
         addModel(model);
     }
     for (auto i = 0; i < numGlaives; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_draconicWarglaive);
         addModel(model);
     }
     for (auto i = 0; i < numCrushers; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_draconicCrusher);
         addModel(model);
     }
@@ -88,14 +89,6 @@ bool DragonOgors::configure(int numModels, int numPairedWeapons, int numGlaives,
     }
 
     return true;
-}
-
-void DragonOgors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pairedAncientWeapons);
-    visitor(m_draconicWarglaive);
-    visitor(m_draconicCrusher);
-    visitor(m_rakingForeclaws);
 }
 
 Unit *DragonOgors::Create(const ParameterList &parameters)

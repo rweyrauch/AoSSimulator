@@ -80,6 +80,7 @@ ArkhanTheBlack::ArkhanTheBlack() :
     m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Dagger", 1, 6, 5, 4, 0, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, ARKHAN};
+    m_weapons = {&m_zefetKar, &m_khenashAn, &m_claws, &m_clawsAndDaggers};
 
     m_totalSpells = 3;
     m_totalUnbinds = 3;
@@ -88,12 +89,10 @@ ArkhanTheBlack::ArkhanTheBlack() :
 bool ArkhanTheBlack::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMeleeWeapon(&m_zefetKar);
     model->addMeleeWeapon(&m_khenashAn);
     model->addMeleeWeapon(&m_claws);
     model->addMeleeWeapon(&m_clawsAndDaggers);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -102,14 +101,6 @@ bool ArkhanTheBlack::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ArkhanTheBlack::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_zefetKar);
-    visitor(m_khenashAn);
-    visitor(m_claws);
-    visitor(m_clawsAndDaggers);
 }
 
 void ArkhanTheBlack::onWounded()

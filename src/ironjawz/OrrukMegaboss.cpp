@@ -29,24 +29,18 @@ OrrukMegaboss::OrrukMegaboss() :
     m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
+    m_weapons = {&m_bossChoppaAndFist};
 }
 
 bool OrrukMegaboss::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bossChoppaAndFist);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void OrrukMegaboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bossChoppaAndFist);
 }
 
 Unit *OrrukMegaboss::Create(const ParameterList &parameters)

@@ -30,12 +30,12 @@ GreatBrayShaman::GreatBrayShaman() :
     m_fetishStaff(Weapon::Type::Melee, "Fetish Staff", 2, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, WIZARD, GREAT_BRAY_SHAMAN};
+    m_weapons = { &m_fetishStaff };
 }
 
 bool GreatBrayShaman::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_fetishStaff);
     addModel(model);
 
@@ -66,11 +66,6 @@ void GreatBrayShaman::Init()
     {
         s_registered = UnitFactory::Register("Great Bray-shaman", factoryMethod);
     }
-}
-
-void GreatBrayShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_fetishStaff);
 }
 
 } // namespace BeastsOfChaos

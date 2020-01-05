@@ -58,6 +58,7 @@ MortisanSoulreaper::MortisanSoulreaper() :
     m_scythe(Weapon::Type::Melee, "Soulreaper Scythe", 2, 3, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULREAPER};
+    m_weapons = {&m_scythe};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -66,9 +67,7 @@ MortisanSoulreaper::MortisanSoulreaper() :
 bool MortisanSoulreaper::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMeleeWeapon(&m_scythe);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -77,11 +76,6 @@ bool MortisanSoulreaper::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MortisanSoulreaper::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_scythe);
 }
 
 Wounds MortisanSoulreaper::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

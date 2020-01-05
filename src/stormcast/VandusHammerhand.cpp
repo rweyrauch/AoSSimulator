@@ -30,11 +30,12 @@ VandusHammerhand::VandusHammerhand() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT, VANDUS_HAMMERHAND};
+    m_weapons = {&m_heldensen, &m_clawsAndFangs};
 }
 
 bool VandusHammerhand::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_heldensen);
     model->addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);
@@ -78,12 +79,6 @@ int VandusHammerhand::extraAttacks(const Model *attackingModel, const Weapon *we
         attacks += dice.rollD3();
     }
     return attacks;
-}
-
-void VandusHammerhand::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_heldensen);
-    visitor(m_clawsAndFangs);
 }
 
 Wounds VandusHammerhand::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

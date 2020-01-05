@@ -49,28 +49,20 @@ HellPitAbomination::HellPitAbomination() :
     m_avalancheOfFlesh(Weapon::Type::Melee, "Avalanche of Flesh", 1, 0, 0, 0, 0, 0)
 {
     m_keywords = {CHAOS, SKAVENTIDE, CLANS_MOULDER, FIGHTING_BEAST, MONSTER, HELL_PIT_ABOMINATION};
+    m_weapons = {&m_gnashingTeath, &m_flailingFists, &m_avalancheOfFlesh};
 }
 
 bool HellPitAbomination::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_gnashingTeath);
     model->addMeleeWeapon(&m_flailingFists);
     model->addMeleeWeapon(&m_avalancheOfFlesh);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void HellPitAbomination::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_gnashingTeath);
-    visitor(m_flailingFists);
-    visitor(m_avalancheOfFlesh);
 }
 
 int HellPitAbomination::getDamageTableIndex() const

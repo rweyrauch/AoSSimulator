@@ -64,26 +64,19 @@ BlackArkFleetmaster::BlackArkFleetmaster() :
     m_murderHook(Weapon::Type::Melee, "Murder Hook", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, HERO, BLACK_ARK_FLEETMASTER};
+    m_weapons = {&m_cutlass, &m_murderHook};
 }
 
 bool BlackArkFleetmaster::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_cutlass);
     model->addMeleeWeapon(&m_murderHook);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void BlackArkFleetmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_cutlass);
-    visitor(m_murderHook);
 }
 
 int BlackArkFleetmaster::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

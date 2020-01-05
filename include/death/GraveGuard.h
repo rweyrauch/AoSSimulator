@@ -42,8 +42,6 @@ public:
 
     bool configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
@@ -53,7 +51,7 @@ private:
 
     bool m_standardBearers = false;
     bool m_hornblowers = false;
-    WeaponOptions m_weapons = WightBlade;
+    WeaponOptions m_weaponOption = WightBlade;
 
     Weapon m_wightBlade,
         m_wightBladeSeneschal,

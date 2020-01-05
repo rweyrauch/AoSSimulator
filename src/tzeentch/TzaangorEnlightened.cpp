@@ -35,6 +35,7 @@ TzaangorEnlightened::TzaangorEnlightened() :
     m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_ENLIGHTENED};
+    m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak, &m_teethAndHorns};
 }
 
 bool TzaangorEnlightened::configure(int numModels, bool disksOfTzeentch)
@@ -89,14 +90,6 @@ bool TzaangorEnlightened::configure(int numModels, bool disksOfTzeentch)
     }
 
     return true;
-}
-
-void TzaangorEnlightened::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tzeentchianSpear);
-    visitor(m_tzeentchianSpearAviarch);
-    visitor(m_viciousBeak);
-    visitor(m_teethAndHorns);
 }
 
 Unit *TzaangorEnlightened::Create(const ParameterList &parameters)

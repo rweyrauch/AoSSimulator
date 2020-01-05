@@ -89,6 +89,7 @@ MortekGuard::MortekGuard() :
     m_greatbladeHekatos(Weapon::Type::Melee, "Soulcleaver Greatblade", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTEK_GUARD};
+    m_weapons = {&m_blade, &m_spear, &m_greatblade, &m_bladeHekatos, &m_spearHekatos, &m_greatbladeHekatos};
 }
 
 bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblades, bool necrophoros)
@@ -152,16 +153,6 @@ bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblad
     }
 
     return true;
-}
-
-void MortekGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blade);
-    visitor(m_spear);
-    visitor(m_greatblade);
-    visitor(m_bladeHekatos);
-    visitor(m_spearHekatos);
-    visitor(m_greatbladeHekatos);
 }
 
 int MortekGuard::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

@@ -45,8 +45,6 @@ public:
 
     bool configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar, bool bellower);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int braveryModifier() const override;

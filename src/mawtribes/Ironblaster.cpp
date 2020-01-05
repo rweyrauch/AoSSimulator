@@ -65,11 +65,12 @@ Ironblaster::Ironblaster() :
     m_blade(Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, OGOR, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, IRONBLASTER};
+    m_weapons = {&m_cannonBall, &m_hailShot, &m_clubber, &m_horns, &m_blade};
 }
 
 bool Ironblaster::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     m_hailShot.activate(false);
 
@@ -84,15 +85,6 @@ bool Ironblaster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Ironblaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_cannonBall);
-    visitor(m_hailShot);
-    visitor(m_clubber);
-    visitor(m_horns);
-    visitor(m_blade);
 }
 
 Wounds Ironblaster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

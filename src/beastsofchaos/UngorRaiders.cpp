@@ -37,6 +37,7 @@ UngorRaiders::UngorRaiders() :
     m_jaggedShank(Weapon::Type::Melee, "Jagged Shank", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, UNGOR, BEASTS_OF_CHAOS, BRAYHERD, UNGOR_RAIDERS};
+    m_weapons = { &m_raiderBow, &m_raiderBowHalfhorn, &m_jaggedShank };
 }
 
 bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer)
@@ -71,13 +72,6 @@ bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer)
     }
 
     return true;
-}
-
-void UngorRaiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_raiderBow);
-    visitor(m_raiderBowHalfhorn);
-    visitor(m_jaggedShank);
 }
 
 Unit *UngorRaiders::Create(const ParameterList &parameters)

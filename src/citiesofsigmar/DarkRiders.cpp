@@ -77,6 +77,7 @@ DarkRiders::DarkRiders() :
     m_crossbowHerald(Weapon::Type::Missile, "Repeater Crossbow", 16, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, DARK_RIDERS};
+    m_weapons = {&m_crossbow, &m_spear, &m_bite, &m_crossbowHerald};
 }
 
 bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
@@ -100,7 +101,7 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_bite);
@@ -114,14 +115,6 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
     }
 
     return true;
-}
-
-void DarkRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_crossbow);
-    visitor(m_spear);
-    visitor(m_bite);
-    visitor(m_crossbowHerald);
 }
 
 int DarkRiders::chargeModifier() const

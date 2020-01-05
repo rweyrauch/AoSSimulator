@@ -35,6 +35,7 @@ Desolators::Desolators() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, DESOLATORS};
+    m_weapons = {&m_stormBlast, &m_thunderAxe, &m_clawsAndFangs};
 }
 
 bool Desolators::configure(int numModels)
@@ -46,7 +47,7 @@ bool Desolators::configure(int numModels)
 
     for (int i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_stormBlast);
         model->addMeleeWeapon(&m_thunderAxe);
         model->addMeleeWeapon(&m_clawsAndFangs);
@@ -60,13 +61,6 @@ bool Desolators::configure(int numModels)
     }
 
     return true;
-}
-
-void Desolators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormBlast);
-    visitor(m_thunderAxe);
-    visitor(m_clawsAndFangs);
 }
 
 Unit *Desolators::Create(const ParameterList &parameters)

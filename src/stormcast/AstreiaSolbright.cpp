@@ -35,6 +35,7 @@ AstreiaSolbright::AstreiaSolbright() :
     m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, WIZARD, LORD_ARCANUM, ASTREIA_SOLBRIGHT};
+    m_weapons = {&m_aetherstave, &m_monstrousClaws};
 }
 
 bool AstreiaSolbright::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)
@@ -44,7 +45,7 @@ bool AstreiaSolbright::configure(LoreOfTheStorm storm, LoreOfInvigoration invigo
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_monstrousClaws);
     addModel(model);
@@ -113,12 +114,6 @@ int AstreiaSolbright::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void AstreiaSolbright::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_aetherstave);
-    visitor(m_monstrousClaws);
 }
 
 Wounds AstreiaSolbright::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

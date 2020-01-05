@@ -38,6 +38,7 @@ Fiends::Fiends() :
     m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, FIENDS};
+    m_weapons = {&m_deadlyPincers, &m_deadlyPincersBlissbringer, &m_barbedStinger};
 }
 
 bool Fiends::configure(int numModels)
@@ -67,13 +68,6 @@ bool Fiends::configure(int numModels)
     }
 
     return true;
-}
-
-void Fiends::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_deadlyPincers);
-    visitor(m_deadlyPincersBlissbringer);
-    visitor(m_barbedStinger);
 }
 
 Unit *Fiends::Create(const ParameterList &parameters)

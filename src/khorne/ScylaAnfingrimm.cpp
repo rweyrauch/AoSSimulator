@@ -31,6 +31,7 @@ ScylaAnfingrimm::ScylaAnfingrimm() :
     m_serpentineTail(Weapon::Type::Melee, "Serpentine Tail", 3, 2, 3, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SCYLA_ANFINGRIMM};
+    m_weapons = {&m_brutalFists, &m_serpentineTail};
 
     // Brass Collar of Khorne
     m_totalUnbinds = 1;
@@ -41,7 +42,7 @@ ScylaAnfingrimm::ScylaAnfingrimm() :
 
 bool ScylaAnfingrimm::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_brutalFists);
     model->addMeleeWeapon(&m_serpentineTail);
     addModel(model);
@@ -49,12 +50,6 @@ bool ScylaAnfingrimm::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ScylaAnfingrimm::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_brutalFists);
-    visitor(m_serpentineTail);
 }
 
 Unit *ScylaAnfingrimm::Create(const ParameterList &parameters)

@@ -46,6 +46,7 @@ SkaethsWildHunt::SkaethsWildHunt() :
     m_teethAndClaws(Weapon::Type::Melee, "Teeth and Claws", 1, 2, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, OAKENBROW, SKAETHS_WILD_HUNT};
+    m_weapons = {&m_seekerBow, &m_javalin, &m_javalinMelee, &m_huntingWeapon, &m_teethAndClaws};
 
     // Fleet of Foot
     m_runAndCharge = true;
@@ -87,15 +88,6 @@ bool SkaethsWildHunt::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void SkaethsWildHunt::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_seekerBow);
-    visitor(m_javalin);
-    visitor(m_javalinMelee);
-    visitor(m_huntingWeapon);
-    visitor(m_teethAndClaws);
 }
 
 } // namespace Sylvaneth

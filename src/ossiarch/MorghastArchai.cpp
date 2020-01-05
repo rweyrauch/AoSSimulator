@@ -35,6 +35,7 @@ MorghastArchai::MorghastArchai() :
     m_spiritSwords(Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, MORGHAST, DEATHLORDS, OSSIARCH_BONEREAPERS, HEKATOS, MORGHAST_ARCHAI};
+    m_weapons = {&m_spiritHalberd, &m_spiritSwords};
 }
 
 bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
@@ -45,7 +46,7 @@ bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
     for (auto i = 0; i < numModels; i++)
     {
@@ -68,12 +69,6 @@ bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
     }
 
     return true;
-}
-
-void MorghastArchai::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spiritHalberd);
-    visitor(m_spiritSwords);
 }
 
 Unit *MorghastArchai::Create(const ParameterList &parameters)

@@ -79,12 +79,12 @@ MortekCrawler::MortekCrawler() :
     m_tools(Weapon::Type::Melee, "Crawler Tools", 1, 6, 3, 4, 0, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, WAR_MACHINE, MORTEK_CRAWLER};
+    m_weapons = {&m_catapultSkulls, &m_catapultCauldron, &m_catapultSkulls, &m_tools};
 }
 
 bool MortekCrawler::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMissileWeapon(&m_catapultSkulls);
     model->addMissileWeapon(&m_catapultCauldron);
     model->addMissileWeapon(&m_catapultStele);
@@ -98,14 +98,6 @@ bool MortekCrawler::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MortekCrawler::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_catapultSkulls);
-    visitor(m_catapultCauldron);
-    visitor(m_catapultStele);
-    visitor(m_tools);
 }
 
 void MortekCrawler::onWounded()

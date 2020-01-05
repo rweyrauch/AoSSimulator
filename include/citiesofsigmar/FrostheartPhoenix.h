@@ -22,6 +22,7 @@ public:
     static const int BASESIZE = 105;
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 220;
+    static const int POINTS_PER_UNIT_WITH_ANOINTED = 320;
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -37,8 +38,6 @@ public:
     int move() const override;
 
     bool configure(bool anointed);
-
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
 
 protected:
 

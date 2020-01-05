@@ -47,12 +47,12 @@ DreadSaurian::DreadSaurian() :
     m_armouredTail(Weapon::Type::Melee, "Armoured Tail", 1, 1, 4, 3, -1, RAND_D6)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, MONSTER, DREAD_SAURIAN};
+    m_weapons = {&m_gargantuanJaws, &m_rakingClaws, &m_armouredTail};
 }
 
 bool DreadSaurian::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_gargantuanJaws);
     model->addMeleeWeapon(&m_rakingClaws);
     model->addMeleeWeapon(&m_armouredTail);
@@ -66,13 +66,6 @@ bool DreadSaurian::configure()
 int DreadSaurian::move() const
 {
     return g_damageTable[getDamageTableIndex()].m_move;
-}
-
-void DreadSaurian::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_gargantuanJaws);
-    visitor(m_rakingClaws);
-    visitor(m_armouredTail);
 }
 
 Unit *DreadSaurian::Create(const ParameterList &parameters)

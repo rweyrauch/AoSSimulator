@@ -72,6 +72,7 @@ SistersOfTheWatch::SistersOfTheWatch() :
     m_bowHighSister(Weapon::Type::Missile, "Watch Bow", 18, 2, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, SISTERS_OF_THE_WATCH};
+    m_weapons = {&m_bow, &m_sword, &m_bowHighSister};
 }
 
 bool SistersOfTheWatch::configure(int numModels)
@@ -91,7 +92,7 @@ bool SistersOfTheWatch::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_bow);
         model->addMeleeWeapon(&m_sword);
         addModel(model);
@@ -104,13 +105,6 @@ bool SistersOfTheWatch::configure(int numModels)
     }
 
     return true;
-}
-
-void SistersOfTheWatch::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bow);
-    visitor(m_sword);
-    visitor(m_bowHighSister);
 }
 
 int SistersOfTheWatch::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

@@ -30,6 +30,7 @@ TheMasque::TheMasque() :
     m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};
+    m_weapons = {&m_ravagingClaws};
 
     // Lithe and Swift
     m_runAndCharge = true;
@@ -40,18 +41,13 @@ TheMasque::TheMasque() :
 
 bool TheMasque::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_ravagingClaws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void TheMasque::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ravagingClaws);
 }
 
 Unit *TheMasque::Create(const ParameterList &parameters)

@@ -67,6 +67,7 @@ ChaosWarriors::ChaosWarriors() :
     m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade", 1, 3, 4, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
+    m_weapons = {&m_handWeapons, &m_halberd, &m_greatBlade, &m_handWeaponsChampion, &m_halberdChampion, &m_greatBladeChampion};
 }
 
 bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower)
@@ -156,16 +157,6 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
     }
 
     return true;
-}
-
-void ChaosWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_handWeapons);
-    visitor(m_halberd);
-    visitor(m_greatBlade);
-    visitor(m_handWeaponsChampion);
-    visitor(m_halberdChampion);
-    visitor(m_greatBladeChampion);
 }
 
 std::string ChaosWarriors::ValueToString(const Parameter &parameter)

@@ -54,13 +54,14 @@ LordCelestantOnStardrake::LordCelestantOnStardrake() :
     m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT};
+    m_weapons = {&m_celestineHammer, &m_stormboundBlade, &m_greatClaws};
 }
 
 bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 {
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     if (weapons == CelestineHammer)
     {
         model->addMeleeWeapon(&m_celestineHammer);
@@ -311,13 +312,6 @@ int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
         return StormboundBlade;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordCelestantOnStardrake::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_celestineHammer);
-    visitor(m_stormboundBlade);
-    visitor(m_greatClaws);
 }
 
 } // namespace StormcastEternals

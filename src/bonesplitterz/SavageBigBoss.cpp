@@ -52,24 +52,18 @@ SavageBigBoss::SavageBigBoss() :
     m_chompasBoss(Weapon::Type::Melee, "Boss Chompa", 1, 6, 3, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, SAVAGE_BIG_BOSS};
+    m_weapons = { &m_chompasBoss };
 }
 
 bool SavageBigBoss::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_chompasBoss);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void SavageBigBoss::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_chompasBoss);
 }
 
 } // namespace Bonesplitterz

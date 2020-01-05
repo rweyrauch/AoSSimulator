@@ -34,6 +34,7 @@ DireWolves::DireWolves() :
     m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
+    m_weapons = {&m_fangsAndClaws, &m_fangsAndClawsDoom};
 }
 
 bool DireWolves::configure(int numModels)
@@ -62,12 +63,6 @@ bool DireWolves::configure(int numModels)
     }
 
     return true;
-}
-
-void DireWolves::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_fangsAndClaws);
-    visitor(m_fangsAndClawsDoom);
 }
 
 Unit *DireWolves::Create(const ParameterList &parameters)

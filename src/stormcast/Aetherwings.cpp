@@ -31,6 +31,7 @@ Aetherwings::Aetherwings() :
     m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, AETHERWINGS};
+    m_weapons = {&m_beakAndClaws};
 
     // Swooping Hunters
     m_retreatAndCharge = true;
@@ -84,11 +85,6 @@ void Aetherwings::Init()
     {
         s_registered = UnitFactory::Register("Aetherwings", factoryMethod);
     }
-}
-
-void Aetherwings::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_beakAndClaws);
 }
 
 } // namespace StormcastEternals

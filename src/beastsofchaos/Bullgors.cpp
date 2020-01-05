@@ -43,6 +43,7 @@ Bullgors::Bullgors() :
     m_bullgorGreatAxeBloodkine(Weapon::Type::Melee, "Bullgor Great Axe", 1, 3, 4, 3, -2, 3)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
+    m_weapons = { &m_bullgorHorns, &m_bullgorAxe, &m_bullgorAxeBloodkine, &m_bullgorGreatAxe, &m_bullgorGreatAxeBloodkine };
 }
 
 bool Bullgors::configure(int numModels, WeaponOptions options,
@@ -91,15 +92,6 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
     }
 
     return true;
-}
-
-void Bullgors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bullgorHorns);
-    visitor(m_bullgorAxe);
-    visitor(m_bullgorAxeBloodkine);
-    visitor(m_bullgorGreatAxe);
-    visitor(m_bullgorGreatAxeBloodkine);
 }
 
 Unit *Bullgors::Create(const ParameterList &parameters)

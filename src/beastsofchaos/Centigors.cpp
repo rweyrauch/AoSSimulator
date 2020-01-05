@@ -37,6 +37,7 @@ Centigors::Centigors() :
     m_clawedForelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, CENTIGORS};
+    m_weapons = { &m_centigorSpear, &m_centigorSpearGorehoof, &m_clawedForelimbs };
 }
 
 bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer)
@@ -71,12 +72,6 @@ bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer)
     }
 
     return true;
-}
-
-void Centigors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_centigorSpear);
-    visitor(m_clawedForelimbs);
 }
 
 Unit *Centigors::Create(const ParameterList &parameters)

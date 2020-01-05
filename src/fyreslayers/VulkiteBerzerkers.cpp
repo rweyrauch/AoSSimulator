@@ -41,6 +41,7 @@ VulkiteBerzerkers::VulkiteBerzerkers() :
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, VULKITE_BERZERKERS};
+    m_weapons = {&m_handaxe, &m_handaxeKarl, &m_warpick, &m_warpickKarl, &m_throwingAxe};
 }
 
 bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool hornOfGrimnir)
@@ -50,7 +51,7 @@ bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool horn
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
     m_hornOfGrimnir = hornOfGrimnir;
 
     auto karl = new Model(BASESIZE, WOUNDS);
@@ -88,15 +89,6 @@ bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool horn
     }
 
     return true;
-}
-
-void VulkiteBerzerkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_handaxe);
-    visitor(m_handaxeKarl);
-    visitor(m_warpick);
-    visitor(m_warpickKarl);
-    visitor(m_throwingAxe);
 }
 
 Unit *VulkiteBerzerkers::Create(const ParameterList &parameters)
@@ -147,7 +139,7 @@ int VulkiteBerzerkers::EnumStringToInt(const std::string &enumString)
 
 Rerolls VulkiteBerzerkers::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    if ((weapon->name() == m_handaxe.name()) && (m_weapons == PairedHandaxes))
+    if ((weapon->name() == m_handaxe.name()) && (m_weaponOption == PairedHandaxes))
     {
         return RerollFailed;
     }

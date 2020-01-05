@@ -53,6 +53,7 @@ RippasSnarlfangs::RippasSnarlfangs() :
     m_jaws(Weapon::Type::Melee, "Snarlfang's Jaws", 1, 2, 3, 3, 0, 2)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, RIPPAS_SNARLFANGS};
+    m_weapons = {&m_grotBow, &m_bossLoppa, &m_stikka, &m_bowStave, &m_jaws};
 
     // Ferocious Pounce
     m_pileInMove = 6;
@@ -81,15 +82,6 @@ bool RippasSnarlfangs::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void RippasSnarlfangs::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_grotBow);
-    visitor(m_bossLoppa);
-    visitor(m_stikka);
-    visitor(m_bowStave);
-    visitor(m_jaws);
 }
 
 int RippasSnarlfangs::toHitModifier(const Weapon *weapon, const Unit *target) const

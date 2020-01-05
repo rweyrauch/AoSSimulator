@@ -32,6 +32,7 @@ WebspinnerShaman::WebspinnerShaman() :
     m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, WIZARD, WEBSPINNER_SHAMAN};
+    m_weapons = {&m_spiderGodStaff};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -39,8 +40,7 @@ WebspinnerShaman::WebspinnerShaman() :
 
 bool WebspinnerShaman::configure(LoreOfTheSpiderFangs lore)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_spiderGodStaff);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -75,11 +75,6 @@ void WebspinnerShaman::Init()
     {
         s_registered = UnitFactory::Register("Webspinner Shaman", factoryMethod);
     }
-}
-
-void WebspinnerShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spiderGodStaff);
 }
 
 std::string WebspinnerShaman::ValueToString(const Parameter &parameter)

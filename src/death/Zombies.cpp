@@ -32,6 +32,7 @@ Zombies::Zombies() :
     m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
+    m_weapons = {&m_zombieBite};
 }
 
 bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
@@ -49,7 +50,7 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_zombieBite);
         addModel(model);
     }
@@ -61,11 +62,6 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
     }
 
     return true;
-}
-
-void Zombies::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_zombieBite);
 }
 
 Unit *Zombies::Create(const ParameterList &parameters)

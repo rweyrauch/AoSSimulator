@@ -33,6 +33,7 @@ VarghulfCourtier::VarghulfCourtier() :
     m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
+    m_weapons = {&m_immenseClaws, &m_daggerlikeFangs};
 }
 
 bool VarghulfCourtier::configure()
@@ -45,12 +46,6 @@ bool VarghulfCourtier::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void VarghulfCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_immenseClaws);
-    visitor(m_daggerlikeFangs);
 }
 
 Unit *VarghulfCourtier::Create(const ParameterList &parameters)

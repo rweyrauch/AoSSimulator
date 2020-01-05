@@ -37,6 +37,7 @@ PusgoyleBlightlords::PusgoyleBlightlords() :
     m_venemousSting(Weapon::Type::Melee, "Venomous String", 1, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, PUSGOYLE_BLIGHTLORDS};
+    m_weapons = {&m_blightedWeapon, &m_dolorousTocsin, &m_mouthparts, &m_venemousSting};
 }
 
 bool PusgoyleBlightlords::configure(int numModels, int numTocsins)
@@ -53,7 +54,7 @@ bool PusgoyleBlightlords::configure(int numModels, int numTocsins)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_blightedWeapon);
         model->addMeleeWeapon(&m_mouthparts);
         model->addMeleeWeapon(&m_venemousSting);
@@ -71,14 +72,6 @@ bool PusgoyleBlightlords::configure(int numModels, int numTocsins)
     }
 
     return true;
-}
-
-void PusgoyleBlightlords::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blightedWeapon);
-    visitor(m_dolorousTocsin);
-    visitor(m_mouthparts);
-    visitor(m_venemousSting);
 }
 
 Unit *PusgoyleBlightlords::Create(const ParameterList &parameters)

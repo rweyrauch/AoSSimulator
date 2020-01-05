@@ -52,6 +52,7 @@ DrychaHamadreth::DrychaHamadreth() :
     m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -2, 2)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
+    m_weapons = {&m_colonyOfFlitterfuries, &m_swarmOfSquirmlings, &m_slashingTalons};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -59,8 +60,7 @@ DrychaHamadreth::DrychaHamadreth() :
 
 bool DrychaHamadreth::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_colonyOfFlitterfuries);
     model->addMissileWeapon(&m_swarmOfSquirmlings);
     model->addMeleeWeapon(&m_slashingTalons);
@@ -122,14 +122,6 @@ void DrychaHamadreth::Init()
     {
         s_registered = UnitFactory::Register("Drycha Hamadreth", factoryMethod);
     }
-}
-
-void DrychaHamadreth::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_colonyOfFlitterfuries);
-    visitor(m_swarmOfSquirmlings);
-    visitor(m_slashingTalons);
-    visitor(m_thornedSlendervines);
 }
 
 Wounds DrychaHamadreth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

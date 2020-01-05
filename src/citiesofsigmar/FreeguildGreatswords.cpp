@@ -75,6 +75,7 @@ FreeguildGreatswords::FreeguildGreatswords() :
     m_zweihanderChampion(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_GREATSWORDS};
+    m_weapons = {&m_zweihander, &m_zweihanderChampion};
 }
 
 bool FreeguildGreatswords::configure(int numModels, bool standardBearer, bool hornblower)
@@ -96,7 +97,7 @@ bool FreeguildGreatswords::configure(int numModels, bool standardBearer, bool ho
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_zweihander);
         addModel(model);
     }
@@ -108,12 +109,6 @@ bool FreeguildGreatswords::configure(int numModels, bool standardBearer, bool ho
     }
 
     return true;
-}
-
-void FreeguildGreatswords::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_zweihander);
-    visitor(m_zweihanderChampion);
 }
 
 int FreeguildGreatswords::runModifier() const

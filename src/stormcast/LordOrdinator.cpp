@@ -32,6 +32,7 @@ LordOrdinator::LordOrdinator() :
     m_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR};
+    m_weapons = {&m_astralHammers, &m_astralGrandhammer};
 }
 
 bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
@@ -108,12 +109,6 @@ int LordOrdinator::EnumStringToInt(const std::string &enumString)
     }
 
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordOrdinator::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_astralHammers);
-    visitor(m_astralGrandhammer);
 }
 
 Wounds LordOrdinator::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

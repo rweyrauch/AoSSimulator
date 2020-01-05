@@ -40,6 +40,7 @@ GraveGuard::GraveGuard() :
     m_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
+    m_weapons = {&m_wightBlade, &m_wightBladeSeneschal, &m_greatWightBlade, &m_greatWightBladeSeneschal};
 }
 
 bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, bool standardBearers, bool hornblowers)
@@ -53,7 +54,7 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
     m_standardBearers = standardBearers;
     // TODO: units with hornblowers min charge distance is 6".
     m_hornblowers = hornblowers;
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
     auto seneschal = new Model(BASESIZE, WOUNDS);
     if (weapons == WightBlade)
@@ -87,14 +88,6 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
     }
 
     return true;
-}
-
-void GraveGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_wightBlade);
-    visitor(m_wightBladeSeneschal);
-    visitor(m_greatWightBlade);
-    visitor(m_greatWightBladeSeneschal);
 }
 
 Unit *GraveGuard::Create(const ParameterList &parameters)

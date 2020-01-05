@@ -48,23 +48,18 @@ BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage() :
     m_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 5, 4, 2, -2, RAND_D6)
 {
     m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_INSENSATE_RAGE};
+    m_weapons = {&m_greatAxeOfKhorne};
 }
 
 bool BloodthirsterOfInsensateRage::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_greatAxeOfKhorne);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void BloodthirsterOfInsensateRage::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_greatAxeOfKhorne);
 }
 
 Unit *BloodthirsterOfInsensateRage::Create(const ParameterList &parameters)

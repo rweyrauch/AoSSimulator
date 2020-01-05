@@ -32,12 +32,12 @@ Branchwraith::Branchwraith() :
     m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 2, 3, 4, 4, -1, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, HERO, WIZARD, BRANCHWRAITH};
+    m_weapons = {&m_piercingTalons};
 }
 
 bool Branchwraith::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_piercingTalons);
     addModel(model);
 
@@ -68,11 +68,6 @@ void Branchwraith::Init()
     {
         s_registered = UnitFactory::Register("Branchwraith", factoryMethod);
     }
-}
-
-void Branchwraith::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_piercingTalons);
 }
 
 int Branchwraith::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

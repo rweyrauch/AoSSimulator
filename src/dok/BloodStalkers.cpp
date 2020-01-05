@@ -40,6 +40,7 @@ BloodStalkers::BloodStalkers() :
     m_bloodWyrm(Weapon::Type::Melee, "Blood Wyrm", 1, 1, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_STALKERS};
+    m_weapons = {&m_hearseekerBow, &m_sacraficialDaggar, &m_heartseekBowKrone, &m_sacraficialDaggarKrone, &m_bloodWyrm};
 }
 
 bool BloodStalkers::configure(int numModels, bool bloodWyrm)
@@ -107,15 +108,6 @@ Wounds BloodStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int
     }
 
     return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-void BloodStalkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hearseekerBow);
-    visitor(m_sacraficialDaggar);
-    visitor(m_heartseekBowKrone);
-    visitor(m_sacraficialDaggarKrone);
-    visitor(m_bloodWyrm);
 }
 
 } // namespace DaughtersOfKhaine

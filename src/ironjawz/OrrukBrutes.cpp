@@ -42,6 +42,7 @@ OrrukBrutes::OrrukBrutes() :
     m_bossKlawAndBruteSmasha(Weapon::Type::Melee, "Boss Klaw and Brute Smasha", 1, 4, 4, 3, -1, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, BRUTES};
+    m_weapons = {&m_twoBruteChoppas, &m_gorehacka, &m_gorechoppa, &m_bossChoppa, &m_bossKlawAndBruteSmasha};
 }
 
 bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon)
@@ -99,15 +100,6 @@ bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChop
     }
 
     return true;
-}
-
-void OrrukBrutes::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_twoBruteChoppas);
-    visitor(m_gorehacka);
-    visitor(m_gorechoppa);
-    visitor(m_bossChoppa);
-    visitor(m_bossKlawAndBruteSmasha);
 }
 
 Unit *OrrukBrutes::Create(const ParameterList &parameters)

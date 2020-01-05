@@ -33,8 +33,6 @@ public:
 
     bool configure(int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;

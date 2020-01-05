@@ -32,12 +32,12 @@ ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider() :
     m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
+    m_weapons = {&m_spear, &m_fangs};
 }
 
 bool ScuttlebossOnGiganticSpider::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_spear);
     model->addMeleeWeapon(&m_fangs);
     addModel(model);
@@ -45,12 +45,6 @@ bool ScuttlebossOnGiganticSpider::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ScuttlebossOnGiganticSpider::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spear);
-    visitor(m_fangs);
 }
 
 Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters)

@@ -30,6 +30,7 @@ KorghosKhul::KorghosKhul() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 4, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, HERO, MIGHTY_LORD_OF_KHORNE, KORGHOS_KHUL};
+    m_weapons = {&m_axeOfKhorne, &m_clawsAndFangs};
 
     // Collar of Khorne
     m_totalUnbinds = 1;
@@ -40,22 +41,14 @@ KorghosKhul::KorghosKhul() :
 
 bool KorghosKhul::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_axeOfKhorne);
     model->addMeleeWeapon(&m_clawsAndFangs);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void KorghosKhul::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_axeOfKhorne);
-    visitor(m_clawsAndFangs);
 }
 
 Unit *KorghosKhul::Create(const ParameterList &parameters)

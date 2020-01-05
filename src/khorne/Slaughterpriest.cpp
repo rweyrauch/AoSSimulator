@@ -39,6 +39,7 @@ Slaughterpriest::Slaughterpriest() :
     m_wrathHammer(Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, PRIEST, SLAUGHTERPRIEST};
+    m_weapons = {&m_bloodbathedAxe, &m_hackblade, &m_wrathHammer};
 
     // Scorn of Sorcery
     m_totalUnbinds = 1;
@@ -48,7 +49,7 @@ Slaughterpriest::Slaughterpriest() :
 
 bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     if (weapon == BloodbathedAxe)
     {
@@ -67,13 +68,6 @@ bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne bles
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Slaughterpriest::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bloodbathedAxe);
-    visitor(m_hackblade);
-    visitor(m_wrathHammer);
 }
 
 Unit *Slaughterpriest::Create(const ParameterList &parameters)

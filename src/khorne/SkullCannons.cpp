@@ -36,6 +36,7 @@ SkullCannons::SkullCannons() :
     m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, SKULL_CANNONS};
+    m_weapons = {&m_burningSkulls, &m_hellblades, &m_gnashingMaw};
 }
 
 bool SkullCannons::configure(int numModels)
@@ -47,7 +48,7 @@ bool SkullCannons::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_burningSkulls);
         model->addMeleeWeapon(&m_hellblades);
         model->addMeleeWeapon(&m_gnashingMaw);
@@ -61,13 +62,6 @@ bool SkullCannons::configure(int numModels)
     }
 
     return true;
-}
-
-void SkullCannons::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_burningSkulls);
-    visitor(m_hellblades);
-    visitor(m_gnashingMaw);
 }
 
 Unit *SkullCannons::Create(const ParameterList &parameters)

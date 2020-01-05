@@ -62,12 +62,12 @@ OrpheonKatakros::OrpheonKatakros() :
     m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
+    m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
 }
 
 bool OrpheonKatakros::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-
     model->addMeleeWeapon(&m_indaKhaat);
     model->addMeleeWeapon(&m_shieldImmortis);
     model->addMeleeWeapon(&m_nadiriteDagger);
@@ -82,16 +82,6 @@ bool OrpheonKatakros::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void OrpheonKatakros::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_indaKhaat);
-    visitor(m_shieldImmortis);
-    visitor(m_nadiriteDagger);
-    visitor(m_blades);
-    visitor(m_greatblade);
-    visitor(m_spiritDagger);
 }
 
 int OrpheonKatakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const

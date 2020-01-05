@@ -35,6 +35,7 @@ LordExorcist::LordExorcist() :
     m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
+    m_weapons = {&m_stave};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -47,7 +48,7 @@ bool LordExorcist::configure(LoreOfTheStorm storm, LoreOfInvigoration invigorati
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_stave);
     addModel(model);
 
@@ -88,11 +89,6 @@ void LordExorcist::Init()
     {
         s_registered = UnitFactory::Register("Lord-Exorcist", factoryMethod);
     }
-}
-
-void LordExorcist::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stave);
 }
 
 std::string LordExorcist::ValueToString(const Parameter &parameter)

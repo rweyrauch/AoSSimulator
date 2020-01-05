@@ -60,6 +60,7 @@ LiegeKavalos::LiegeKavalos() :
     m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, LIEGE, HERO, LIEGE_KAVALOS};
+    m_weapons = {&m_blade, &m_shield, &m_hoovesAndTeeth};
 }
 
 bool LiegeKavalos::configure()
@@ -74,12 +75,4 @@ bool LiegeKavalos::configure()
 
     return true;
 }
-
-void LiegeKavalos::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blade);
-    visitor(m_shield);
-    visitor(m_hoovesAndTeeth);
-}
-
 } // namespace OssiarchBonereapers

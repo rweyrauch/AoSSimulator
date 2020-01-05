@@ -84,30 +84,21 @@ WarHydra::WarHydra() :
     m_goadAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, WAR_HYDRA};
+    m_weapons = {&m_fieryBreath, &m_fangs, &m_limbs, &m_goadAndWhips};
 }
 
 bool WarHydra::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_fieryBreath);
     model->addMeleeWeapon(&m_fangs);
     model->addMeleeWeapon(&m_limbs);
     model->addMeleeWeapon(&m_goadAndWhips);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WarHydra::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_fieryBreath);
-    visitor(m_fangs);
-    visitor(m_limbs);
-    visitor(m_goadAndWhips);
 }
 
 int WarHydra::move() const

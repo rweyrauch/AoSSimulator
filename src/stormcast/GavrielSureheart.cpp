@@ -29,11 +29,12 @@ GavrielSureheart::GavrielSureheart() :
     m_starboundBlade(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, LORD_CELESTANT, GAVRIEL_SUREHEART};
+    m_weapons = {&m_starboundBlade};
 }
 
 bool GavrielSureheart::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_starboundBlade);
     addModel(model);
 
@@ -63,11 +64,6 @@ void GavrielSureheart::Init()
     {
         s_registered = UnitFactory::Register("Gavriel Sureheart", factoryMethod);
     }
-}
-
-void GavrielSureheart::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_starboundBlade);
 }
 
 Rerolls GavrielSureheart::toSaveRerolls(const Weapon *weapon) const

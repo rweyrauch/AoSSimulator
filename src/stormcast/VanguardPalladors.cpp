@@ -40,6 +40,7 @@ VanguardPalladors::VanguardPalladors() :
     m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, ANGELOS, VANGUARD_PALLADORS};
+    m_weapons = {&m_boltstormPistol, &m_starstrikeJavelinMissile, &m_shockHandaxe, &m_starstrikeJavelin, &m_beakAndClaws};
 }
 
 bool VanguardPalladors::configure(int numModels, WeaponOption weapons)
@@ -117,15 +118,6 @@ void VanguardPalladors::Init()
     {
         s_registered = UnitFactory::Register("Vanguard-Palladors", factoryMethod);
     }
-}
-
-void VanguardPalladors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boltstormPistol);
-    visitor(m_starstrikeJavelinMissile);
-    visitor(m_shockHandaxe);
-    visitor(m_starstrikeJavelin);
-    visitor(m_beakAndClaws);
 }
 
 std::string VanguardPalladors::ValueToString(const Parameter &parameter)

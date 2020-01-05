@@ -36,6 +36,7 @@ VanguardRaptorsLongstrike::VanguardRaptorsLongstrike() :
     m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS};
+    m_weapons = {&m_longstikeCrossbow, &m_heavyStock, &m_beakAndClaws};
 }
 
 bool VanguardRaptorsLongstrike::configure(int numModels)
@@ -121,13 +122,6 @@ Wounds VanguardRaptorsLongstrike::weaponDamage(const Weapon *weapon, const Unit 
         return {0, 2};
     }
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-void VanguardRaptorsLongstrike::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_longstikeCrossbow);
-    visitor(m_heavyStock);
-    visitor(m_beakAndClaws);
 }
 
 } // namespace StormcastEternals

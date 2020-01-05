@@ -37,6 +37,7 @@ Tempestors::Tempestors() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, TEMPESTORS};
+    m_weapons = {&m_stormBlast, &m_volleystormCrossbow, &m_warblade, &m_clawsAndFangs};
 }
 
 bool Tempestors::configure(int numModels)
@@ -63,14 +64,6 @@ bool Tempestors::configure(int numModels)
     }
 
     return true;
-}
-
-void Tempestors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormBlast);
-    visitor(m_volleystormCrossbow);
-    visitor(m_warblade);
-    visitor(m_clawsAndFangs);
 }
 
 Unit *Tempestors::Create(const ParameterList &parameters)

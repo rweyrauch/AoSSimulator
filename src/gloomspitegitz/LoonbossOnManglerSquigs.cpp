@@ -51,11 +51,12 @@ LoonbossOnManglerSquigs::LoonbossOnManglerSquigs() :
     m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, LOONBOSS, MANGLER_SQUIG};
+    m_weapons = {&m_hugeFangFilledGob, &m_moonCutta, &m_ballsAndChains, &m_grotsBashinStikk};
 }
 
 bool LoonbossOnManglerSquigs::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     model->addMeleeWeapon(&m_moonCutta);
     model->addMeleeWeapon(&m_hugeFangFilledGob);
@@ -147,14 +148,6 @@ void LoonbossOnManglerSquigs::onSlain()
         }
     }
     GloomspiteGitzBase::onSlain();
-}
-
-void LoonbossOnManglerSquigs::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_hugeFangFilledGob);
-    visitor(m_ballsAndChains);
-    visitor(m_moonCutta);
-    visitor(m_grotsBashinStikk);
 }
 
 void LoonbossOnManglerSquigs::onStartHero(PlayerId player)

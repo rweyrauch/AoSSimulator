@@ -56,6 +56,7 @@ Gorgers::Gorgers() :
     m_jaw(Weapon::Type::Melee, "Distensible Jaw", 1, 1, 3, 3, -1, RAND_D3)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, GORGERS};
+    m_weapons = {&m_claws, &m_jaw};
 }
 
 bool Gorgers::configure(int numModels)
@@ -67,7 +68,7 @@ bool Gorgers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_jaw);
         addModel(model);
@@ -80,12 +81,6 @@ bool Gorgers::configure(int numModels)
     }
 
     return true;
-}
-
-void Gorgers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_claws);
-    visitor(m_jaw);
 }
 
 } // namespace OgorMawtribes

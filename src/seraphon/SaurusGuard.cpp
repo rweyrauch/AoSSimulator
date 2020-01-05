@@ -37,6 +37,7 @@ SaurusGuard::SaurusGuard() :
     m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_GUARD};
+    m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jawsAndShield};
 }
 
 bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
@@ -71,13 +72,6 @@ bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
     }
 
     return true;
-}
-
-void SaurusGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_celestitePolearm);
-    visitor(m_celestitePolearmAlpha);
-    visitor(m_jawsAndShield);
 }
 
 Unit *SaurusGuard::Create(const ParameterList &parameters)

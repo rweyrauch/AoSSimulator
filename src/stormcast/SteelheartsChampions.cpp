@@ -30,6 +30,7 @@ SteelheartsChampions::SteelheartsChampions() :
     m_warhammer(Weapon::Type::Melee, "Angharad's Warhammer", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, REDEEMER, LIBERATORS, STEELHEARTS_CHAMPIONS};
+    m_weapons = {&m_broadSword, &m_grandhammer, &m_warhammer};
 }
 
 bool SteelheartsChampions::configure()
@@ -101,13 +102,6 @@ void SteelheartsChampions::Init()
     {
         s_registered = UnitFactory::Register("Steelheart's Champions", factoryMethod);
     }
-}
-
-void SteelheartsChampions::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_broadSword);
-    visitor(m_grandhammer);
-    visitor(m_warhammer);
 }
 
 Rerolls SteelheartsChampions::toHitRerolls(const Weapon *weapon, const Unit *target) const

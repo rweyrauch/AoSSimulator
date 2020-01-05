@@ -40,6 +40,7 @@ SistersOfSlaughter::SistersOfSlaughter() :
     m_barbedWhipHandmaiden(Weapon::Type::Melee, "Barbed Whip (Handmaiden)", 2, 2, 2, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, SISTERS_OF_SLAUGHTER};
+    m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHandmaiden, &m_barbedWhip, &m_barbedWhipHandmaiden};
 }
 
 bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers)
@@ -144,14 +145,6 @@ Wounds SistersOfSlaughter::computeReturnedDamage(const Weapon *weapon, int saveR
         wounds += {0, 1};
     }
     return wounds;
-}
-
-void SistersOfSlaughter::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_sacrificialKnife);
-    visitor(m_sacrificialKnifeHandmaiden);
-    visitor(m_barbedWhip);
-    visitor(m_barbedWhipHandmaiden);
 }
 
 } // namespace DaughtersOfKhaine

@@ -45,6 +45,7 @@ Irondrakes::Irondrakes() :
     m_mailedFist(Weapon::Type::Melee, "Mailed Fist", 1, 1, 4, 5, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONDRAKES};
+    m_weapons = {&m_drakegun, &m_drakegunWarden, &m_grudgehammerTorpedo, &m_drakefirePistol, &m_drakefirePistolMelee, &m_mailedFist};
 }
 
 bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower)
@@ -99,16 +100,6 @@ bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool 
     }
 
     return true;
-}
-
-void Irondrakes::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_drakegun);
-    visitor(m_drakegunWarden);
-    visitor(m_grudgehammerTorpedo);
-    visitor(m_drakefirePistol);
-    visitor(m_drakefirePistolMelee);
-    visitor(m_mailedFist);
 }
 
 Unit *Irondrakes::Create(const ParameterList &parameters)

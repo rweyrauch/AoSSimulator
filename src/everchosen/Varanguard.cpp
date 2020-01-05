@@ -84,6 +84,7 @@ Varanguard::Varanguard() :
     m_fangs(Weapon::Type::Melee, "Tearing Fangs", 1, 3, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, MARK_OF_CHAOS, VARANGUARD};
+    m_weapons = {&m_ensorcelledWeapon, &m_fellspear, &m_blade, &m_fangs};
 }
 
 bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon)
@@ -95,7 +96,7 @@ bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapon == EnsorcelledWeapon)
         {
             model->addMeleeWeapon(&m_ensorcelledWeapon);
@@ -119,14 +120,6 @@ bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon)
     }
 
     return true;
-}
-
-void Varanguard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ensorcelledWeapon);
-    visitor(m_fellspear);
-    visitor(m_blade);
-    visitor(m_fangs);
 }
 
 Wounds Varanguard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

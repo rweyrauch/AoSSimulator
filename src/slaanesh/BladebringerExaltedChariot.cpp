@@ -33,6 +33,7 @@ BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
     m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, EXALTED_CHARIOT, BLADEBRINGER};
+    m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -40,7 +41,7 @@ BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
 
 bool BladebringerOnExaltedChariot::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_flensingWhips);
     model->addMeleeWeapon(&m_piercingClaws);
     model->addMeleeWeapon(&m_poisonedTongues);
@@ -52,13 +53,6 @@ bool BladebringerOnExaltedChariot::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void BladebringerOnExaltedChariot::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_flensingWhips);
-    visitor(m_piercingClaws);
-    visitor(m_poisonedTongues);
 }
 
 Unit *BladebringerOnExaltedChariot::Create(const ParameterList &parameters)

@@ -110,6 +110,7 @@ FreeguildGuard::FreeguildGuard() :
     m_swordSergeant(Weapon::Type::Melee, "Freeguild Sword", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_GUARD};
+    m_weapons = {&m_halberd, &m_spear, &m_sword, &m_halberdSergeant, &m_spearSergeant, &m_swordSergeant};
 }
 
 bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer, WeaponOption weapons)
@@ -142,7 +143,7 @@ bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer,
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == Halberd)
         {
             model->addMeleeWeapon(&m_halberd);
@@ -165,16 +166,6 @@ bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer,
     }
 
     return true;
-}
-
-void FreeguildGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_halberd);
-    visitor(m_spear);
-    visitor(m_sword);
-    visitor(m_halberdSergeant);
-    visitor(m_spearSergeant);
-    visitor(m_swordSergeant);
 }
 
 int FreeguildGuard::runModifier() const

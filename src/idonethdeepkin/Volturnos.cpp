@@ -30,27 +30,20 @@ Volturnos::Volturnos() :
     m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING, VOLTURNOS};
+    m_weapons = {&m_theAstraSolus, &m_deepmareJawsTalons, &m_deepmareTails};
 }
 
 bool Volturnos::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_theAstraSolus);
     model->addMeleeWeapon(&m_deepmareJawsTalons);
     model->addMeleeWeapon(&m_deepmareTails);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Volturnos::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_theAstraSolus);
-    visitor(m_deepmareJawsTalons);
-    visitor(m_deepmareTails);
 }
 
 Unit *Volturnos::Create(const ParameterList &parameters)

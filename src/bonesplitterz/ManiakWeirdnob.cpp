@@ -53,12 +53,12 @@ ManiakWeirdnob::ManiakWeirdnob() :
     m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
+    m_weapons = {&m_bonebeastStaff, &m_tusksAndHooves};
 }
 
 bool ManiakWeirdnob::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bonebeastStaff);
     model->addMeleeWeapon(&m_tusksAndHooves);
 
@@ -67,12 +67,6 @@ bool ManiakWeirdnob::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ManiakWeirdnob::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bonebeastStaff);
-    visitor(m_tusksAndHooves);
 }
 
 } // namespace Bonesplitterz

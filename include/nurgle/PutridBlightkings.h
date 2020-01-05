@@ -35,8 +35,6 @@ public:
 
     bool configure(int numModels, bool iconBearer, bool sonorousTocsin);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;

@@ -33,6 +33,7 @@ ChaosSpawn::ChaosSpawn() :
     m_freakingMutations(Weapon::Type::Melee, "Freakish Mutations", 1, RAND_2D6, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_SPAWN};
+    m_weapons = { &m_freakingMutations };
 }
 
 bool ChaosSpawn::configure(int numModels)
@@ -44,7 +45,7 @@ bool ChaosSpawn::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_freakingMutations);
         addModel(model);
     }
@@ -56,11 +57,6 @@ bool ChaosSpawn::configure(int numModels)
     }
 
     return true;
-}
-
-void ChaosSpawn::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_freakingMutations);
 }
 
 Unit *ChaosSpawn::Create(const ParameterList &parameters)

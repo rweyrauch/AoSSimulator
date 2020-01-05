@@ -38,6 +38,7 @@ SpiderRiders::SpiderRiders() :
     m_fangs(Weapon::Type::Melee, "Fangs", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SPIDERFANG, GROT, SPIDER_RIDERS};
+    m_weapons = {&m_spiderBow, &m_crookedSpear, &m_crookedSpearBoss, &m_fangs};
 }
 
 bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
@@ -62,7 +63,7 @@ bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_spiderBow);
         model->addMeleeWeapon(&m_crookedSpear);
         model->addMeleeWeapon(&m_fangs);
@@ -76,14 +77,6 @@ bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
     }
 
     return true;
-}
-
-void SpiderRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spiderBow);
-    visitor(m_crookedSpear);
-    visitor(m_crookedSpearBoss);
-    visitor(m_fangs);
 }
 
 Unit *SpiderRiders::Create(const ParameterList &parameters)

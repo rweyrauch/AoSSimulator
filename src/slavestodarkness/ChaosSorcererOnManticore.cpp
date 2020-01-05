@@ -68,12 +68,12 @@ ChaosSorcererOnManticore::ChaosSorcererOnManticore() :
     m_tail(Weapon::Type::Melee, "Shredding Tail", 3, 5, 4, 4, 0, 1)
 {
     m_keywords = { CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO, WIZARD, CHAOS_SORCERER_LORD };
+    m_weapons = {&m_staff, &m_fangsAndClaws, &m_tail};
 }
 
 bool ChaosSorcererOnManticore::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_fangsAndClaws);
     model->addMeleeWeapon(&m_tail);
@@ -82,13 +82,6 @@ bool ChaosSorcererOnManticore::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosSorcererOnManticore::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_staff);
-    visitor(m_fangsAndClaws);
-    visitor(m_tail);
 }
 
 int ChaosSorcererOnManticore::move() const

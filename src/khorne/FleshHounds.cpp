@@ -36,6 +36,7 @@ FleshHounds::FleshHounds() :
     m_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, KHORNE, FLESH_HOUNDS};
+    m_weapons = {&m_burningRoar, &m_blooddarkClaws};
 }
 
 bool FleshHounds::configure(int numModels)
@@ -95,12 +96,6 @@ void FleshHounds::Init()
     {
         s_registered = UnitFactory::Register("Flesh Hounds", factoryMethod);
     }
-}
-
-void FleshHounds::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_burningRoar);
-    visitor(m_blooddarkClaws);
 }
 
 } // namespace Khorne

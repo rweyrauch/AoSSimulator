@@ -52,6 +52,7 @@ ArchmageOnDragon::ArchmageOnDragon() :
     m_dragonJaws(Weapon::Type::Melee, "Dragon's Fearsome Jaws", 3, 3, 4, 2, -2, RAND_D6)
 {
     m_keywords = {ORDER, AELF, DRAGON, ELDRITCH_COUNCIL, HERO, WIZARD, MONSTER, ARCHMAGE};
+    m_weapons = {&m_magestaff, &m_sorcerousBlade, &m_dragonClaws, &m_dragonJaws};
     m_totalUnbinds = 1;
     m_totalSpells = 1;
 }
@@ -83,17 +84,6 @@ bool ArchmageOnDragon::configure(bool arcaneTome, bool talisman)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ArchmageOnDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_magestaff);
-    if (!m_arcaneTome)
-    {
-        visitor(m_sorcerousBlade);
-    }
-    visitor(m_dragonClaws);
-    visitor(m_dragonJaws);
 }
 
 Unit *ArchmageOnDragon::Create(const ParameterList &parameters)

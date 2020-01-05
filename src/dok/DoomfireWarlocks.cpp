@@ -39,6 +39,7 @@ DoomfireWarlocks::DoomfireWarlocks() :
     m_steedsBite(Weapon::Type::Melee, "Dark Steed's Vicious Bite", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WIZARD, DOOMFIRE_WARLOCKS};
+    m_weapons = {&m_crossBow, &m_scimitar, &m_crossBowMaster, &m_scimitarMaster, &m_steedsBite};
 }
 
 bool DoomfireWarlocks::configure(int numModels, bool crossbows)
@@ -99,15 +100,6 @@ void DoomfireWarlocks::Init()
     {
         s_registered = UnitFactory::Register("Doomfire Warlocks", factoryMethod);
     }
-}
-
-void DoomfireWarlocks::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_crossBow);
-    visitor(m_crossBowMaster);
-    visitor(m_scimitar);
-    visitor(m_scimitarMaster);
-    visitor(m_steedsBite);
 }
 
 } // namespace DaughtersOfKhaine

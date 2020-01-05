@@ -53,6 +53,7 @@ KeeperOfSecrets::KeeperOfSecrets() :
     m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5)
 {
     m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS};
+    m_weapons = {&m_livingWhip, &m_ritualKnifeOrHand, &m_greatblade, &m_impalingClaws};
 
     m_totalSpells = 2;
     m_totalUnbinds = 2;
@@ -60,7 +61,7 @@ KeeperOfSecrets::KeeperOfSecrets() :
 
 bool KeeperOfSecrets::configure(WeaponOption weapon)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     m_weapon = weapon;
 
@@ -82,14 +83,6 @@ bool KeeperOfSecrets::configure(WeaponOption weapon)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void KeeperOfSecrets::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_livingWhip);
-    visitor(m_ritualKnifeOrHand);
-    visitor(m_greatblade);
-    visitor(m_impalingClaws);
 }
 
 Unit *KeeperOfSecrets::Create(const ParameterList &parameters)

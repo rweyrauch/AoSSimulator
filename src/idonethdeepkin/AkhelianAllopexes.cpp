@@ -39,6 +39,7 @@ AkhelianAllopexes::AkhelianAllopexes() :
     m_allopexFins(Weapon::Type::Melee, "Allopex's Scythed Fins", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, MONSTER, ALLOPEX};
+    m_weapons = {&m_harpoonLauncher, &m_netLauncher, &m_hooksAndBlades, &m_allopexBite, &m_allopexFins};
 }
 
 bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
@@ -50,7 +51,7 @@ bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == HarpoonLauncher)
         {
             model->addMissileWeapon(&m_harpoonLauncher);
@@ -72,15 +73,6 @@ bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
     }
 
     return true;
-}
-
-void AkhelianAllopexes::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_harpoonLauncher);
-    visitor(m_netLauncher);
-    visitor(m_hooksAndBlades);
-    visitor(m_allopexBite);
-    visitor(m_allopexFins);
 }
 
 Unit *AkhelianAllopexes::Create(const ParameterList &parameters)

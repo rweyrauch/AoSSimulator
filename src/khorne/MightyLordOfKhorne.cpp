@@ -30,6 +30,7 @@ MightyLordOfKhorne::MightyLordOfKhorne() :
     m_bloodDarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MIGHTY_LORD_OF_KHORNE};
+    m_weapons = {&m_axeOfKhorne, &m_bloodDarkClaws};
 
     // Collar of Khorne
     m_totalUnbinds = 1;
@@ -37,22 +38,14 @@ MightyLordOfKhorne::MightyLordOfKhorne() :
 
 bool MightyLordOfKhorne::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_axeOfKhorne);
     model->addMeleeWeapon(&m_bloodDarkClaws);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MightyLordOfKhorne::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_axeOfKhorne);
-    visitor(m_bloodDarkClaws);
 }
 
 Unit *MightyLordOfKhorne::Create(const ParameterList &parameters)

@@ -47,6 +47,7 @@ Liberators::Liberators() :
     m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
+    m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
 }
 
 bool
@@ -210,16 +211,6 @@ int Liberators::EnumStringToInt(const std::string &enumString)
         return Warblade;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void Liberators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_grandblade);
-    visitor(m_grandhammer);
-    visitor(m_warhammer);
-    visitor(m_warhammerPrime);
-    visitor(m_warblade);
-    visitor(m_warbladePrime);
 }
 
 } // namespace StormcastEternals

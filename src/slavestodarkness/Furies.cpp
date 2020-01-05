@@ -57,7 +57,7 @@ bool Furies::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_daggerAndClaws);
         addModel(model);
     }
@@ -76,11 +76,7 @@ Furies::Furies() :
     m_daggerAndClaws(Weapon::Type::Melee, "Razor-sharp Dagger and Claws", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = { CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES };
-}
-
-void Furies::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_daggerAndClaws);
+    m_weapons = {&m_daggerAndClaws};
 }
 
 } //SlavesToDarkness

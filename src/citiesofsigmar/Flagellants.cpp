@@ -71,6 +71,7 @@ Flagellants::Flagellants() :
     m_flailsAndClubsProphet(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 3, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, DEVOTED_OF_SIGMAR, FLAGELLANTS};
+    m_weapons = {&m_flailsAndClubs, &m_flailsAndClubsProphet};
 }
 
 bool Flagellants::configure(int numModels)
@@ -89,7 +90,7 @@ bool Flagellants::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_flailsAndClubs);
         addModel(model);
     }
@@ -101,12 +102,6 @@ bool Flagellants::configure(int numModels)
     }
 
     return true;
-}
-
-void Flagellants::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_flailsAndClubs);
-    visitor(m_flailsAndClubsProphet);
 }
 
 int Flagellants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

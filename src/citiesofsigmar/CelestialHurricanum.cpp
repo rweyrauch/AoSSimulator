@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/CelestialHurricanum.h"
 
 namespace CitiesOfSigmar
@@ -18,6 +19,7 @@ static FactoryMethod factoryMethod = {
     CelestialHurricanum::EnumStringToInt,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+        {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     CITIES_OF_SIGMAR
@@ -87,6 +89,7 @@ CelestialHurricanum::CelestialHurricanum() :
     m_hooves(Weapon::Type::Melee, "Steel-shod Hooves", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, CELESTIAL_HURRICANUM};
+    m_weapons = {&m_stormOfShemtek, &m_wizardStaff, &m_arcaneTools, &m_hooves};
 }
 
 bool CelestialHurricanum::configure(bool battlemage)
@@ -97,15 +100,28 @@ bool CelestialHurricanum::configure(bool battlemage)
         addKeyword(HERO);
     }
 
-    return false;
-}
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_stormOfShemtek);
+    model->addMeleeWeapon(&m_arcaneTools);
+    model->addMeleeWeapon(&m_hooves);
+    if (battlemage)
+    {
+        model->addMeleeWeapon(&m_wizardStaff);
+    }
+    addModel(model);
 
-void CelestialHurricanum::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormOfShemtek);
-    visitor(m_wizardStaff);
-    visitor(m_arcaneTools);
-    visitor(m_hooves);
+    if (battlemage)
+    {
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_points = POINTS_PER_UNIT_WITH_BATTLEMAGE;
+    }
+    else
+    {
+        m_points = POINTS_PER_UNIT;
+    }
+
+    return true;
 }
 
 int CelestialHurricanum::move() const

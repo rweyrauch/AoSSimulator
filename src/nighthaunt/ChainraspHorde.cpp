@@ -34,6 +34,7 @@ ChainraspHorde::ChainraspHorde() :
     m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
+    m_weapons = {&m_malignantWeapon, &m_malignantWeaponWarden};
 }
 
 bool ChainraspHorde::configure(int numModels)
@@ -94,12 +95,6 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
     }
 
     return Nighthaunt::toHitRerolls(weapon, unit);
-}
-
-void ChainraspHorde::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_malignantWeapon);
-    visitor(m_malignantWeaponWarden);
 }
 
 } // namespace Nighthaunt

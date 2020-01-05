@@ -34,6 +34,7 @@ Hexwraiths::Hexwraiths() :
     m_spectralScytheHellwraith(Weapon::Type::Melee, "Spectral Scythe", 1, 3, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, HEXWRAITHS};
+    m_weapons = {&m_spectralScythe, &m_spectralScytheHellwraith, &m_hoovesAndTeeth};
 }
 
 bool Hexwraiths::configure(int numModels)
@@ -50,7 +51,7 @@ bool Hexwraiths::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_spectralScythe);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
@@ -63,13 +64,6 @@ bool Hexwraiths::configure(int numModels)
     }
 
     return true;
-}
-
-void Hexwraiths::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spectralScythe);
-    visitor(m_hoovesAndTeeth);
-    visitor(m_spectralScytheHellwraith);
 }
 
 Unit *Hexwraiths::Create(const ParameterList &parameters)

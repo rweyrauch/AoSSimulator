@@ -32,6 +32,7 @@ TheContortedEpitome::TheContortedEpitome() :
     m_coiledTentacles(Weapon::Type::Melee, "Coiled Tentacles", 3, 2, 3, 4, -2, 2)
 {
     m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, THE_CONTORTED_EPITOME};
+    m_weapons = {&m_ravagingClaws, &m_coiledTentacles};
 
     m_totalSpells = 2;
     m_totalUnbinds = 2;
@@ -39,7 +40,7 @@ TheContortedEpitome::TheContortedEpitome() :
 
 bool TheContortedEpitome::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_ravagingClaws);
     model->addMeleeWeapon(&m_coiledTentacles);
     addModel(model);
@@ -50,12 +51,6 @@ bool TheContortedEpitome::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void TheContortedEpitome::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ravagingClaws);
-    visitor(m_coiledTentacles);
 }
 
 Unit *TheContortedEpitome::Create(const ParameterList &parameters)

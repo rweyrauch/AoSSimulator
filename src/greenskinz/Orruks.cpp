@@ -43,6 +43,14 @@ Orruks::Orruks() :
     m_cuttaBoss(Weapon::Type::Melee, "Cutta", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUKS};
+    m_weapons = {&m_orrukBows,
+                 &m_choppa,
+                 &m_pigstikkaSpear,
+                 &m_cutta,
+                 &m_orrukBowBoss,
+                 &m_choppaBoss,
+                 &m_pigstikkaSpearBoss,
+                 &m_cuttaBoss};
 }
 
 bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, StandardBearer standardBearer)
@@ -56,7 +64,7 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
 
     m_waaaghDrummer = drummer;
     m_standardBearer = standardBearer;
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
     // Add the boss
     auto boss = new Model(BASESIZE, WOUNDS);
@@ -80,7 +88,7 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         switch (weapons)
         {
             case ChoppaAndShield:
@@ -107,18 +115,6 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
     }
 
     return true;
-}
-
-void Orruks::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_orrukBows);
-    visitor(m_orrukBowBoss);
-    visitor(m_choppa);
-    visitor(m_choppaBoss);
-    visitor(m_pigstikkaSpear);
-    visitor(m_pigstikkaSpearBoss);
-    visitor(m_cutta);
-    visitor(m_cuttaBoss);
 }
 
 Unit *Orruks::Create(const ParameterList &parameters)
@@ -243,7 +239,7 @@ int Orruks::braveryModifier() const
 Rerolls Orruks::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Choppas
-    if ((m_weapons == PairedChoppas) && (weapon->name() == m_choppa.name()))
+    if ((m_weaponOption == PairedChoppas) && (weapon->name() == m_choppa.name()))
     {
         return RerollOnes;
     }
@@ -264,7 +260,7 @@ int Orruks::extraAttacks(const Model *attackingModel, const Weapon *weapon, cons
 Rerolls Orruks::toSaveRerolls(const Weapon *weapon) const
 {
     // Waaagh! Shield
-    if (!weapon->isMissile() && (m_weapons == ChoppaAndShield || m_weapons == SpearAndShield))
+    if (!weapon->isMissile() && (m_weaponOption == ChoppaAndShield || m_weaponOption == SpearAndShield))
     {
         return RerollFailed;
     }

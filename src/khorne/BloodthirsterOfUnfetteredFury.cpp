@@ -49,12 +49,12 @@ BloodthirsterOfUnfetteredFury::BloodthirsterOfUnfetteredFury() :
     m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_UNFETTERED_FURY};
+    m_weapons = {&m_lashOfKhorne, &m_mightyAxeOfKhorne};
 }
 
 bool BloodthirsterOfUnfetteredFury::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_lashOfKhorne);
     model->addMeleeWeapon(&m_mightyAxeOfKhorne);
     addModel(model);
@@ -62,12 +62,6 @@ bool BloodthirsterOfUnfetteredFury::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void BloodthirsterOfUnfetteredFury::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_lashOfKhorne);
-    visitor(m_mightyAxeOfKhorne);
 }
 
 Unit *BloodthirsterOfUnfetteredFury::Create(const ParameterList &parameters)

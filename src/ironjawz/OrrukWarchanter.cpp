@@ -30,22 +30,18 @@ OrrukWarchanter::OrrukWarchanter() :
     m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
+    m_weapons = {&m_stikks};
 }
 
 bool OrrukWarchanter::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_stikks);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void OrrukWarchanter::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stikks);
 }
 
 Unit *OrrukWarchanter::Create(const ParameterList &parameters)

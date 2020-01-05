@@ -31,8 +31,6 @@ public:
 
     bool configure(bool steed);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 private:

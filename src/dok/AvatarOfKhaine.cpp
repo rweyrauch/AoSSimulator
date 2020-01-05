@@ -28,12 +28,12 @@ AvatarOfKhaine::AvatarOfKhaine() :
     m_sword(Weapon::Type::Melee, "Avatar of Khaine's Sword", 2, 4, 3, 3, -2, 3)
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, TOTEM, AVATAR_OF_KHAINE};
+    m_weapons = {&m_torrentOfBurningBlood, &m_sword};
 }
 
 bool AvatarOfKhaine::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_torrentOfBurningBlood);
     model->addMeleeWeapon(&m_sword);
     addModel(model);
@@ -41,12 +41,6 @@ bool AvatarOfKhaine::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AvatarOfKhaine::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_torrentOfBurningBlood);
-    visitor(m_sword);
 }
 
 Unit *AvatarOfKhaine::Create(const ParameterList &parameters)

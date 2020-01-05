@@ -35,8 +35,6 @@ public:
 
     bool configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;

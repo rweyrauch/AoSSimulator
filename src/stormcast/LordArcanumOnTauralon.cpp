@@ -36,6 +36,7 @@ LordArcanumOnTauralon::LordArcanumOnTauralon() :
     m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 3, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD, LORD_ARCANUM};
+    m_weapons = {&m_aetherstave, &m_hornsAndHooves};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -48,7 +49,7 @@ bool LordArcanumOnTauralon::configure(LoreOfTheStorm storm, LoreOfInvigoration i
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_hornsAndHooves);
     addModel(model);
@@ -118,12 +119,6 @@ int LordArcanumOnTauralon::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordArcanumOnTauralon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_aetherstave);
-    visitor(m_hornsAndHooves);
 }
 
 void LordArcanumOnTauralon::onCharged()

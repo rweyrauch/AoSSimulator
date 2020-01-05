@@ -44,6 +44,7 @@ Ironbreakers::Ironbreakers() :
     m_axeOrHammerIronbeard(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 3, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONBREAKERS};
+    m_weapons = {&m_drakefirePistol, &m_drakefirePistolMelee, &m_axeOrHammer, &m_axeOrHammerIronbeard};
 }
 
 bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer)
@@ -91,14 +92,6 @@ bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool
     }
 
     return true;
-}
-
-void Ironbreakers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_drakefirePistol);
-    visitor(m_drakefirePistolMelee);
-    visitor(m_axeOrHammer);
-    visitor(m_axeOrHammerIronbeard);
 }
 
 Unit *Ironbreakers::Create(const ParameterList &parameters)

@@ -34,6 +34,7 @@ NightRunners::NightRunners() :
     m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, NIGHT_RUNNERS};
+    m_weapons = {&m_throwingWeapons, &m_stabbingBlade, &m_stabbingBladeLeader};
 }
 
 bool NightRunners::configure(int numModels)
@@ -66,13 +67,6 @@ bool NightRunners::configure(int numModels)
     }
 
     return true;
-}
-
-void NightRunners::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingWeapons);
-    visitor(m_stabbingBlade);
-    visitor(m_stabbingBladeLeader);
 }
 
 Unit *NightRunners::Create(const ParameterList &parameters)

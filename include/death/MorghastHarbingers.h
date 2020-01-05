@@ -42,13 +42,11 @@ public:
 
     bool configure(int numModels, WeaponOptions weapons);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 private:
 
-    WeaponOptions m_weapons = SpiritHalberd;
+    WeaponOptions m_weaponOption = SpiritHalberd;
 
     Weapon m_spiritHalberd,
         m_spiritSwords;

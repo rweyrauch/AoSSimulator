@@ -31,12 +31,12 @@ Doombull::Doombull() :
     m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3)
 {
     m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, HERO, DOOMBULL};
+    m_weapons = { &m_bullgorHorns, &m_slaughtererAxe };
 }
 
 bool Doombull::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bullgorHorns);
     model->addMeleeWeapon(&m_slaughtererAxe);
     addModel(model);
@@ -68,12 +68,6 @@ void Doombull::Init()
     {
         s_registered = UnitFactory::Register("Doombull", factoryMethod);
     }
-}
-
-void Doombull::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bullgorHorns);
-    visitor(m_slaughtererAxe);
 }
 
 Wounds Doombull::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

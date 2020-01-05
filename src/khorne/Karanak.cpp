@@ -31,12 +31,12 @@ Karanak::Karanak() :
     m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
+    m_weapons = {&m_goreSlickClaws, &m_savageMaws};
 }
 
 bool Karanak::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_goreSlickClaws);
     model->addMeleeWeapon(&m_savageMaws);
     addModel(model);
@@ -44,12 +44,6 @@ bool Karanak::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Karanak::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_goreSlickClaws);
-    visitor(m_savageMaws);
 }
 
 Unit *Karanak::Create(const ParameterList &parameters)

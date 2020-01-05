@@ -65,26 +65,19 @@ HelstormRocketBattery::HelstormRocketBattery() :
     m_crewsTools(Weapon::Type::Melee, "Crew's Tools", 1, 3, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELSTORM_ROCKET_BATTERY};
+    m_weapons = {&m_rocketSalvo, &m_crewsTools};
 }
 
 bool HelstormRocketBattery::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_rocketSalvo);
     model->addMeleeWeapon(&m_crewsTools);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void HelstormRocketBattery::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_rocketSalvo);
-    visitor(m_crewsTools);
 }
 
 } // namespace CitiesOfSigmar

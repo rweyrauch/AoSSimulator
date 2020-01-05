@@ -75,6 +75,7 @@ BlackGuard::BlackGuard() :
     m_halberdCaptain(Weapon::Type::Melee, "Ebon Halberd", 2, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLACK_GUARD};
+    m_weapons = {&m_halberd, &m_halberdCaptain};
 }
 
 bool BlackGuard::configure(int numModels, bool standardBearer, bool drummer)
@@ -108,12 +109,6 @@ bool BlackGuard::configure(int numModels, bool standardBearer, bool drummer)
     }
 
     return true;
-}
-
-void BlackGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_halberd);
-    visitor(m_halberdCaptain);
 }
 
 int BlackGuard::runModifier() const

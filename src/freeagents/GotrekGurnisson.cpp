@@ -28,23 +28,18 @@ GotrekGurnisson::GotrekGurnisson() :
     m_zangromThaz(Weapon::Type::Melee, "Zangrom-Thaz", 1, 6, 3, 3, -2, 3)
 {
     m_keywords = {ORDER, DUARDIN, HERO, GOTREK_GURNISSON};
+    m_weapons = {&m_zangromThaz};
 }
 
 bool GotrekGurnisson::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_zangromThaz);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void GotrekGurnisson::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_zangromThaz);
 }
 
 Unit *GotrekGurnisson::Create(const ParameterList &parameters)

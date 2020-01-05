@@ -64,6 +64,7 @@ SavageBoarboys::SavageBoarboys() :
     m_stikkaBoss(Weapon::Type::Melee, "Savage Stikka", 2, 4, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, BOARBOYS, SAVAGE_BOARBOYS};
+    m_weapons = { &m_chompa, &m_stikka, &m_tusksAndHooves, &m_chompaBoss, &m_stikkaBoss};
 }
 
 bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer)
@@ -115,14 +116,6 @@ bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullTh
     return true;
 }
 
-void SavageBoarboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_chompa);
-    visitor(m_chompaBoss);
-    visitor(m_stikka);
-    visitor(m_stikkaBoss);
-    visitor(m_tusksAndHooves);
-}
 
 std::string SavageBoarboys::ValueToString(const Parameter &parameter)
 {

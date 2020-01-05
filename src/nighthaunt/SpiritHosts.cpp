@@ -32,6 +32,7 @@ SpiritHosts::SpiritHosts() :
     m_spectralClawsAndDaggars(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
+    m_weapons = {&m_spectralClawsAndDaggars};
 }
 
 bool SpiritHosts::configure(int numModels)
@@ -43,7 +44,7 @@ bool SpiritHosts::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_spectralClawsAndDaggars);
         addModel(model);
     }
@@ -55,11 +56,6 @@ bool SpiritHosts::configure(int numModels)
     }
 
     return true;
-}
-
-void SpiritHosts::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spectralClawsAndDaggars);
 }
 
 Unit *SpiritHosts::Create(const ParameterList &parameters)

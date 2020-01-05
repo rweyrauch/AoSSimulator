@@ -42,15 +42,13 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, bool hornOfGrimnir);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
-    WeaponOption m_weapons = HandaxeAndShield;
+    WeaponOption m_weaponOption = HandaxeAndShield;
     bool m_hornOfGrimnir = false;
 
     Weapon m_handaxe,

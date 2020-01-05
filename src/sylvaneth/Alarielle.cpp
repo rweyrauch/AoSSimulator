@@ -54,6 +54,7 @@ Alarielle::Alarielle() :
     m_beetleGreatAntlers(Weapon::Type::Melee, "Great Antlers", 2, 5, 4, 3, -2, 5)
 {
     m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
+    m_weapons = {&m_spearOfKurnoth, &m_talonOfDwindling, &m_beetleGreatAntlers};
 
     m_totalUnbinds = 3;
     m_totalSpells = 3;
@@ -61,8 +62,7 @@ Alarielle::Alarielle() :
 
 bool Alarielle::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_spearOfKurnoth);
     model->addMeleeWeapon(&m_talonOfDwindling);
     model->addMeleeWeapon(&m_beetleGreatAntlers);
@@ -158,13 +158,6 @@ void Alarielle::Init()
     {
         s_registered = UnitFactory::Register("Alarielle", factoryMethod);
     }
-}
-
-void Alarielle::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spearOfKurnoth);
-    visitor(m_talonOfDwindling);
-    visitor(m_beetleGreatAntlers);
 }
 
 void Alarielle::onCharged()

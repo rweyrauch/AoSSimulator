@@ -45,6 +45,13 @@ Sequitors::Sequitors() :
     m_redemptionCache(Weapon::Type::Missile, "Redemption Cache", 6, 1, 4, 0, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, REDEEMER, SEQUITORS};
+    m_weapons = {&m_stormsmiteMaul,
+                 &m_stormsmiteMaulPrime,
+                 &m_tempestBlade,
+                 &m_tempestBladePrime,
+                 &m_stormsmiteGreatmace,
+                 &m_stormsmiteGreatmacePrime,
+                 &m_redemptionCache};
 }
 
 bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache)
@@ -230,16 +237,6 @@ int Sequitors::EnumStringToInt(const std::string &enumString)
         return TempestBlade;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void Sequitors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormsmiteMaul);
-    visitor(m_stormsmiteMaulPrime);
-    visitor(m_tempestBlade);
-    visitor(m_tempestBladePrime);
-    visitor(m_stormsmiteGreatmace);
-    visitor(m_stormsmiteGreatmacePrime);
 }
 
 void Sequitors::onStartShooting(PlayerId player)

@@ -39,6 +39,7 @@ Evocators::Evocators() :
     m_grandStavePrime(Weapon::Type::Melee, "Grandstave", 2, 4, 3, 3, 0, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+    m_weapons = {&m_tempestBladeAndStave, &m_tempestBladeAndStavePrime, &m_grandStave, &m_grandStavePrime};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -158,14 +159,6 @@ void Evocators::Init()
     {
         s_registered = UnitFactory::Register("Evocators", factoryMethod);
     }
-}
-
-void Evocators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tempestBladeAndStave);
-    visitor(m_tempestBladeAndStavePrime);
-    visitor(m_grandStave);
-    visitor(m_grandStavePrime);
 }
 
 std::string Evocators::ValueToString(const Parameter &parameter)

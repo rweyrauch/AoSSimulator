@@ -63,24 +63,18 @@ FreeguildGeneral::FreeguildGeneral() :
     m_zweihander(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -2, RAND_D3)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, HERO, FREEGUILD_GENERAL};
+    m_weapons = {&m_zweihander};
 }
 
 bool FreeguildGeneral::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_zweihander);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void FreeguildGeneral::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_zweihander);
 }
 
 Wounds FreeguildGeneral::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

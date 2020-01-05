@@ -30,24 +30,18 @@ DankholdTroggboss::DankholdTroggboss() :
     m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
+    m_weapons = {&m_boulderClub};
 }
 
 bool DankholdTroggboss::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_boulderClub);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void DankholdTroggboss::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boulderClub);
 }
 
 Unit *DankholdTroggboss::Create(const ParameterList &parameters)

@@ -56,6 +56,7 @@ Butcher::Butcher() :
     m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER};
+    m_weapons = {&m_tenderizer, &m_cleaver, &m_bite};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -84,13 +85,6 @@ bool Butcher::configure(WeaponOption weaponOption)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Butcher::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tenderizer);
-    visitor(m_cleaver);
-    visitor(m_bite);
 }
 
 std::string Butcher::ValueToString(const Parameter &parameter)

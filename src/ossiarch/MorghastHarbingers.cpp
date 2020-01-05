@@ -35,6 +35,7 @@ MorghastHarbingers::MorghastHarbingers() :
     m_spiritSwords(Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2)
 {
     m_keywords = {DEATH, MORGHAST, DEATHLORDS, OSSIARCH_BONEREAPERS, HEKATOS, MORGHAST_HARBINGERS};
+    m_weapons = {&m_spiritHalberd, &m_spiritSwords};
 }
 
 bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons)
@@ -45,7 +46,7 @@ bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons)
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
     for (auto i = 0; i < numModels; i++)
     {
@@ -68,12 +69,6 @@ bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons)
     }
 
     return true;
-}
-
-void MorghastHarbingers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spiritHalberd);
-    visitor(m_spiritSwords);
 }
 
 Unit *MorghastHarbingers::Create(const ParameterList &parameters)

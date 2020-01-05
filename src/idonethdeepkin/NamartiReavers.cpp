@@ -38,6 +38,7 @@ NamartiReavers::NamartiReavers() :
     m_whisperbowStormFire(Weapon::Type::Missile, "Whisperbow: Storm Fire", 9, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, REAVERS};
+    m_weapons = {&m_keeningBlade, &m_whisperbowAimedFire, &m_whisperbowStormFire};
 }
 
 bool NamartiReavers::configure(int numModels, int numIconBearers)
@@ -56,7 +57,7 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_whisperbowStormFire);
         model->addMissileWeapon(&m_whisperbowAimedFire);
         model->addMeleeWeapon(&m_keeningBlade);
@@ -70,13 +71,6 @@ bool NamartiReavers::configure(int numModels, int numIconBearers)
     }
 
     return true;
-}
-
-void NamartiReavers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_whisperbowStormFire);
-    visitor(m_whisperbowAimedFire);
-    visitor(m_keeningBlade);
 }
 
 Unit *NamartiReavers::Create(const ParameterList &parameters)

@@ -31,11 +31,12 @@ KnightAzyros::KnightAzyros() :
     m_starblade(Weapon::Type::Melee, "Starblade", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_AZYROS};
+    m_weapons = {&m_starblade};
 }
 
 bool KnightAzyros::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_starblade);
     addModel(model);
 
@@ -66,11 +67,6 @@ void KnightAzyros::Init()
     {
         s_registered = UnitFactory::Register("Knight-Azyros", factoryMethod);
     }
-}
-
-void KnightAzyros::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_starblade);
 }
 
 void KnightAzyros::onStartHero(PlayerId player)

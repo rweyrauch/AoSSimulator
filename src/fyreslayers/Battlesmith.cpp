@@ -30,12 +30,12 @@ Battlesmith::Battlesmith() :
     m_battleAxe(Weapon::Type::Melee, "Ancestral Battle-axe", 1, 3, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, TOTEM, BATTLESMITH};
+    m_weapons = {&m_throwingAxe, &m_battleAxe};
 }
 
 bool Battlesmith::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_battleAxe);
     addModel(model);
@@ -43,12 +43,6 @@ bool Battlesmith::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Battlesmith::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_battleAxe);
 }
 
 Unit *Battlesmith::Create(const ParameterList &parameters)

@@ -34,6 +34,7 @@ Skragrott::Skragrott() :
     m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
+    m_weapons = {&m_daMoonOnnaStikk, &m_daMoonOnnaStikkMissile};
 
     m_totalUnbinds = 2;
     m_totalSpells = 2;
@@ -41,8 +42,7 @@ Skragrott::Skragrott() :
 
 bool Skragrott::configure(LoreOfTheMoonclans lore)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
     model->addMeleeWeapon(&m_daMoonOnnaStikk);
 
@@ -78,12 +78,6 @@ void Skragrott::Init()
     {
         s_registered = UnitFactory::Register("Skragrott", factoryMethod);
     }
-}
-
-void Skragrott::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_daMoonOnnaStikkMissile);
-    visitor(m_daMoonOnnaStikk);
 }
 
 std::string Skragrott::ValueToString(const Parameter &parameter)

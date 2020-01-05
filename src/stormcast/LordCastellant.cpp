@@ -30,11 +30,12 @@ LordCastellant::LordCastellant() :
     m_halberd(Weapon::Type::Melee, "Castellant's Halberd", 2, 3, 3, 3, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CASTELLANT};
+    m_weapons = {&m_halberd};
 }
 
 bool LordCastellant::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_halberd);
     addModel(model);
 
@@ -65,11 +66,6 @@ void LordCastellant::Init()
     {
         s_registered = UnitFactory::Register("Lord-Castellant", factoryMethod);
     }
-}
-
-void LordCastellant::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_halberd);
 }
 
 } // namespace StormcastEternals

@@ -50,6 +50,7 @@ RoyalZombieDragon::RoyalZombieDragon() :
     m_swordlikeClaws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2)
 {
     m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_ZOMBIE_DRAGON};
+    m_weapons = {&m_pestilentialBreath, &m_snappingMaw, &m_swordlikeClaws};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -57,8 +58,7 @@ RoyalZombieDragon::RoyalZombieDragon() :
 
 bool RoyalZombieDragon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_pestilentialBreath);
     model->addMeleeWeapon(&m_snappingMaw);
     model->addMeleeWeapon(&m_swordlikeClaws);
@@ -70,13 +70,6 @@ bool RoyalZombieDragon::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void RoyalZombieDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pestilentialBreath);
-    visitor(m_snappingMaw);
-    visitor(m_swordlikeClaws);
 }
 
 Unit *RoyalZombieDragon::Create(const ParameterList &parameters)

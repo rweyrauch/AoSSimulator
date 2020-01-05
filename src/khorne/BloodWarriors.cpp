@@ -40,6 +40,7 @@ BloodWarriors::BloodWarriors() :
     m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};
+    m_weapons = {&m_goreaxe, &m_goreaxeChampion, &m_goreglaive};
 }
 
 
@@ -138,13 +139,6 @@ void BloodWarriors::Init()
     {
         s_registered = UnitFactory::Register("Blood Warriors", factoryMethod);
     }
-}
-
-void BloodWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_goreaxe);
-    visitor(m_goreaxeChampion);
-    visitor(m_goreglaive);
 }
 
 Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, int saveRoll) const

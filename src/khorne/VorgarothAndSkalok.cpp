@@ -53,12 +53,12 @@ VorgarothAndSkalok::VorgarothAndSkalok() :
     m_brassPlatedTail(Weapon::Type::Melee, "Brass-plated Tail", 3, RAND_3D6, 4, 4, -1, 3)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MONSTER, VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE};
+    m_weapons = {&m_balefire, &m_skullCleaverAxeOfKhorne, &m_evisceratingClaws, &m_cavernousJaws, &m_brassPlatedTail};
 }
 
 bool VorgarothAndSkalok::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_balefire);
     model->addMeleeWeapon(&m_skullCleaverAxeOfKhorne);
     model->addMeleeWeapon(&m_evisceratingClaws);
@@ -69,15 +69,6 @@ bool VorgarothAndSkalok::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void VorgarothAndSkalok::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_balefire);
-    visitor(m_skullCleaverAxeOfKhorne);
-    visitor(m_evisceratingClaws);
-    visitor(m_cavernousJaws);
-    visitor(m_brassPlatedTail);
 }
 
 Unit *VorgarothAndSkalok::Create(const ParameterList &parameters)

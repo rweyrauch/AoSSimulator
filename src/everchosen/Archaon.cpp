@@ -49,15 +49,14 @@ Archaon::Archaon() :
     m_dorgharsHeads(Weapon::Type::Melee, "Three Heads", 3, 6, 3, 3, -1, 2)
 {
     m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH, HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
-
+    m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
     m_totalUnbinds = 2;
     m_totalSpells = 2;
 }
 
 bool Archaon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_slayerOfKings);
     model->addMeleeWeapon(&m_dorgharsClaws);
     model->addMeleeWeapon(&m_dorgharsTails);
@@ -70,14 +69,6 @@ bool Archaon::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Archaon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slayerOfKings);
-    visitor(m_dorgharsClaws);
-    visitor(m_dorgharsTails);
-    visitor(m_dorgharsHeads);
 }
 
 int Archaon::move() const

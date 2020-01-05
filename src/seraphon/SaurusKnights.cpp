@@ -43,6 +43,7 @@ SaurusKnights::SaurusKnights() :
     m_coldOneBite(Weapon::Type::Melee, "Cold One's Vicious Bite", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_KNIGHTS};
+    m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteLance, &m_celestiteLanceAlpha, &m_jawsAndShield, &m_coldOneBite};
 }
 
 bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons, bool iconBearer, bool wardrum)
@@ -94,16 +95,6 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
     }
 
     return true;
-}
-
-void SaurusKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_celestiteBlade);
-    visitor(m_celestiteBladeAlpha);
-    visitor(m_celestiteLance);
-    visitor(m_celestiteLanceAlpha);
-    visitor(m_jawsAndShield);
-    visitor(m_coldOneBite);
 }
 
 Unit *SaurusKnights::Create(const ParameterList &parameters)

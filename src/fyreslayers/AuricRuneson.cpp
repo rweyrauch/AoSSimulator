@@ -32,12 +32,12 @@ AuricRuneson::AuricRuneson() :
     m_javelinMelee(Weapon::Type::Melee, "Wyrmslayer Javelin", 3, 1, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNESON};
+    m_weapons = {&m_throwingAxe, &m_javelin, &m_warAxe, &m_javelinMelee};
 }
 
 bool AuricRuneson::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMissileWeapon(&m_javelin);
     model->addMeleeWeapon(&m_warAxe);
@@ -47,14 +47,6 @@ bool AuricRuneson::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AuricRuneson::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_javelin);
-    visitor(m_warAxe);
-    visitor(m_javelinMelee);
 }
 
 Unit *AuricRuneson::Create(const ParameterList &parameters)

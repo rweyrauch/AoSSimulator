@@ -38,6 +38,7 @@ OrrukGoreGruntas::OrrukGoreGruntas() :
     m_bossJaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 5, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, GORE_GRUNTAS};
+    m_weapons = {&m_pigironChoppa, &m_jaggedGorehacka, &m_tusksAndHooves, &m_bossPigironChoppa, &m_bossJaggedGorehacka};
 }
 
 bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
@@ -84,15 +85,6 @@ bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
     }
 
     return true;
-}
-
-void OrrukGoreGruntas::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pigironChoppa);
-    visitor(m_jaggedGorehacka);
-    visitor(m_tusksAndHooves);
-    visitor(m_bossPigironChoppa);
-    visitor(m_bossJaggedGorehacka);
 }
 
 Unit *OrrukGoreGruntas::Create(const ParameterList &parameters)

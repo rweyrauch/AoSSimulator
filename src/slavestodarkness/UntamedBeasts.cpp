@@ -55,6 +55,7 @@ UntamedBeasts::UntamedBeasts() :
     m_huntingWeaponsHeartEater(Weapon::Type::Melee, "Hunting Weapons (Heart-eater)", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, UNTAMED_BEASTS };
+    m_weapons = {&m_harpoonFirstFang, &m_huntingWeapons, &m_huntingWeaponsHeartEater};
 }
 
 bool UntamedBeasts::configure(int numModels)
@@ -94,13 +95,6 @@ bool UntamedBeasts::configure(int numModels)
     }
 
     return true;
-}
-
-void UntamedBeasts::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_harpoonFirstFang);
-    visitor(m_huntingWeapons);
-    visitor(m_huntingWeaponsHeartEater);
 }
 
 } //SlavesToDarkness

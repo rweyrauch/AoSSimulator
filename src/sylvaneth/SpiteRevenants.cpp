@@ -37,6 +37,7 @@ SpiteRevenants::SpiteRevenants() :
     m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, SPITE_REVENANTS};
+    m_weapons = {&m_cruelTalonsAndFangs, &m_cruelTalonsAndFangsShadestalker};
 }
 
 bool SpiteRevenants::configure(int numModels)
@@ -89,12 +90,6 @@ void SpiteRevenants::Init()
     {
         s_registered = UnitFactory::Register("Spite-Revenants", factoryMethod);
     }
-}
-
-void SpiteRevenants::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_cruelTalonsAndFangs);
-    visitor(m_cruelTalonsAndFangsShadestalker);
 }
 
 Rerolls SpiteRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) const

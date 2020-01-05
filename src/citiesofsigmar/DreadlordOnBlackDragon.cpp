@@ -135,12 +135,12 @@ DreadlordOnBlackDragon::DreadlordOnBlackDragon() :
     m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, HERO, DREADLORD};
+    m_weapons = {&m_crossbow, &m_noxiousBreath, &m_blade, &m_lance, &m_jaws, &m_claws};
 }
 
 bool DreadlordOnBlackDragon::configure(WeaponOption weapon)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_noxiousBreath);
     model->addMeleeWeapon(&m_jaws);
     model->addMeleeWeapon(&m_claws);
@@ -172,16 +172,6 @@ bool DreadlordOnBlackDragon::configure(WeaponOption weapon)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void DreadlordOnBlackDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_crossbow);
-    visitor(m_noxiousBreath);
-    visitor(m_blade);
-    visitor(m_lance);
-    visitor(m_jaws);
-    visitor(m_claws);
 }
 
 int DreadlordOnBlackDragon::move() const

@@ -35,6 +35,7 @@ Plaguebearers::Plaguebearers() :
     m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
+    m_weapons = {&m_plaguesword, &m_plagueswordPlagueRidden};
 }
 
 bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
@@ -66,12 +67,6 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
     }
 
     return true;
-}
-
-void Plaguebearers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_plaguesword);
-    visitor(m_plagueswordPlagueRidden);
 }
 
 Unit *Plaguebearers::Create(const ParameterList &parameters)

@@ -48,12 +48,12 @@ WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
     m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
+    m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne};
 }
 
 bool WrathOfKhorneBloodthirster::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_bloodflail);
     model->addMeleeWeapon(&m_mightyAxeOfKhorne);
     addModel(model);
@@ -61,12 +61,6 @@ bool WrathOfKhorneBloodthirster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WrathOfKhorneBloodthirster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bloodflail);
-    visitor(m_mightyAxeOfKhorne);
 }
 
 Unit *WrathOfKhorneBloodthirster::Create(const ParameterList &parameters)

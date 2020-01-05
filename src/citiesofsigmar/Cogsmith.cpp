@@ -92,12 +92,12 @@ Cogsmith::Cogsmith() :
     m_gunButt(Weapon::Type::Melee, "Gun Butt", 1, 1, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, HERO, ENGINEER, COGSMITH};
+    m_weapons = {&m_grudgeRaker, &m_pistols, &m_cogAxe, &m_gunButt};
 }
 
 bool Cogsmith::configure(WeaponOption weapon)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_pistols);
     if (weapon == GrudgeRaker)
     {
@@ -109,21 +109,12 @@ bool Cogsmith::configure(WeaponOption weapon)
     {
         model->addMeleeWeapon(&m_cogAxe);
     }
-
     addModel(model);
 
     m_weaponOption = weapon;
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Cogsmith::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_grudgeRaker);
-    visitor(m_pistols);
-    visitor(m_cogAxe);
-    visitor(m_gunButt);
 }
 
 int Cogsmith::toHitModifier(const Weapon *weapon, const Unit *target) const

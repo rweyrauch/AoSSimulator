@@ -102,6 +102,7 @@ DemigryphKnights::DemigryphKnights() :
     m_beakAndTalons(Weapon::Type::Melee, "Beak and Talons", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, DEMIGRYPH_KNIGHTS};
+    m_weapons = {&m_halberd, &m_lance, &m_halberdPreceptor, &m_lancePreceptor, &m_beakAndTalons};
 }
 
 bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons)
@@ -131,7 +132,7 @@ bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornbl
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == Halberd)
         {
             model->addMeleeWeapon(&m_halberd);
@@ -151,15 +152,6 @@ bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornbl
     }
 
     return true;
-}
-
-void DemigryphKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_halberd);
-    visitor(m_lance);
-    visitor(m_halberdPreceptor);
-    visitor(m_lancePreceptor);
-    visitor(m_beakAndTalons);
 }
 
 int DemigryphKnights::runModifier() const

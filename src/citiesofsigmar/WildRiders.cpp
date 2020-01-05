@@ -71,6 +71,7 @@ WildRiders::WildRiders() :
     m_spearHunter(Weapon::Type::Melee, "Hunting Spear", 2, 3, 3, 4, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILD_RIDERS};
+    m_weapons = {&m_spear, &m_hooves, &m_spearHunter};
 }
 
 bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower)
@@ -93,7 +94,7 @@ bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_hooves);
         addModel(model);
@@ -106,13 +107,6 @@ bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower)
     }
 
     return true;
-}
-
-void WildRiders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spear);
-    visitor(m_hooves);
-    visitor(m_spearHunter);
 }
 
 int WildRiders::runModifier() const

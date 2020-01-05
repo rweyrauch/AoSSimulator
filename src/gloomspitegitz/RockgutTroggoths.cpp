@@ -35,6 +35,7 @@ RockgutTroggoths::RockgutTroggoths() :
     m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3)
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
+    m_weapons = {&m_massiveStoneMaul};
 }
 
 bool RockgutTroggoths::configure(int numModels)
@@ -46,7 +47,7 @@ bool RockgutTroggoths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_massiveStoneMaul);
         addModel(model);
     }
@@ -58,11 +59,6 @@ bool RockgutTroggoths::configure(int numModels)
     }
 
     return true;
-}
-
-void RockgutTroggoths::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_massiveStoneMaul);
 }
 
 Unit *RockgutTroggoths::Create(const ParameterList &parameters)

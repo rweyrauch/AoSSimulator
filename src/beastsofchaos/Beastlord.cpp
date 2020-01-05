@@ -30,12 +30,12 @@ Beastlord::Beastlord() :
     m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
+    m_weapons.push_back(&m_pairedAxes);
 }
 
 bool Beastlord::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_pairedAxes);
     addModel(model);
 
@@ -66,11 +66,6 @@ void Beastlord::Init()
     {
         s_registered = UnitFactory::Register("Beastlord", factoryMethod);
     }
-}
-
-void Beastlord::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pairedAxes);
 }
 
 Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const

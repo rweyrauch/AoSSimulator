@@ -63,24 +63,18 @@ Assassin::Assassin() :
     m_blades(Weapon::Type::Melee, "Poison-coated Blades", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, HERO, ASSASSIN};
+    m_weapons = {&m_blades};
 }
 
 bool Assassin::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_blades);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Assassin::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blades);
 }
 
 Wounds Assassin::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

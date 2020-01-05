@@ -28,23 +28,18 @@ WightKingWithBlackAxe::WightKingWithBlackAxe() :
     m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
+    m_weapons = {&m_blackAxe};
 }
 
 bool WightKingWithBlackAxe::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_blackAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WightKingWithBlackAxe::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blackAxe);
 }
 
 Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters)

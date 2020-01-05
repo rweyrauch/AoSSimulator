@@ -36,6 +36,7 @@ LordArcanumOnGryphcharger::LordArcanumOnGryphcharger() :
     m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
+    m_weapons = {&m_aetherstave, &m_beakAndClaws};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -48,7 +49,7 @@ bool LordArcanumOnGryphcharger::configure(LoreOfTheStorm storm, LoreOfInvigorati
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_beakAndClaws);
     addModel(model);
@@ -118,12 +119,6 @@ int LordArcanumOnGryphcharger::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordArcanumOnGryphcharger::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_aetherstave);
-    visitor(m_beakAndClaws);
 }
 
 Wounds LordArcanumOnGryphcharger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

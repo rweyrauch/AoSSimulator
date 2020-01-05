@@ -44,6 +44,7 @@ YltharisGuardians::YltharisGuardians() :
     m_revenantBowMelee(Weapon::Type::Melee, "Revenent Bow (Melee)", 1, 1, 4, 3, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, OAKENBROW, TREE_REVENANTS, YLTHARIS_GUARDIANS};
+    m_weapons = {&m_enchantedGreatBlade, &m_revenantBow, &m_protectorGlaive, &m_revenantBowMelee};
 }
 
 bool YltharisGuardians::configure()
@@ -67,14 +68,6 @@ bool YltharisGuardians::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void YltharisGuardians::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_revenantBow);
-    visitor(m_enchantedGreatBlade);
-    visitor(m_protectorGlaive);
-    visitor(m_revenantBowMelee);
 }
 
 Rerolls YltharisGuardians::toWoundRerolls(const Weapon *weapon, const Unit *target) const

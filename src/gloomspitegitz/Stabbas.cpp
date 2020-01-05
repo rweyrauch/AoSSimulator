@@ -44,6 +44,7 @@ Stabbas::Stabbas() :
     m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS};
+    m_weapons = {&m_stabba, &m_stabbaBoss, &m_pokinSpear, &m_pokinSpearBoss, &m_barbedNet};
 }
 
 bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
@@ -228,15 +229,6 @@ int Stabbas::EnumStringToInt(const std::string &enumString)
         return PokinSpear;
     }
     return 0;
-}
-
-void Stabbas::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stabba);
-    visitor(m_stabbaBoss);
-    visitor(m_pokinSpear);
-    visitor(m_pokinSpearBoss);
-    visitor(m_barbedNet);
 }
 
 int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

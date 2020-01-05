@@ -43,6 +43,7 @@ Warriors::Warriors() :
     m_doubleHandedAxeVeteran(Weapon::Type::Melee, "Double-handed Duardin Axe", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, WARRIORS};
+    m_weapons = {&m_duardinAxeOrHammer, &m_duardinAxeOrHammerVeteran, &m_doubleHandedAxe, &m_doubleHandedAxeVeteran};
 }
 
 bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard, bool hornblowers)
@@ -88,14 +89,6 @@ bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShiel
     }
 
     return true;
-}
-
-void Warriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_duardinAxeOrHammer);
-    visitor(m_duardinAxeOrHammerVeteran);
-    visitor(m_doubleHandedAxe);
-    visitor(m_doubleHandedAxeVeteran);
 }
 
 Unit *Warriors::Create(const ParameterList &parameters)

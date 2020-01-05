@@ -31,8 +31,6 @@ public:
 
     bool configure(bool warboar);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int castingModifier() const override;

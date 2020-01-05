@@ -38,6 +38,7 @@ Daemonettes::Daemonettes() :
     m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1)
 {
     m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
+    m_weapons = {&m_piercingClaws, &m_piercingClawsAlluress};
 
     // Lithe and Swift
     m_runAndCharge = true;
@@ -73,12 +74,6 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, b
     }
 
     return true;
-}
-
-void Daemonettes::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_piercingClaws);
-    visitor(m_piercingClawsAlluress);
 }
 
 Unit *Daemonettes::Create(const ParameterList &parameters)

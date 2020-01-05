@@ -35,6 +35,7 @@ FlamersOfTzeentch::FlamersOfTzeentch() :
     m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 1, 2, 5, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMERS};
+    m_weapons = {&m_warpflame, &m_warpflamePyrocaster, &m_flamingMaw};
 }
 
 bool FlamersOfTzeentch::configure(int numModels)
@@ -64,13 +65,6 @@ bool FlamersOfTzeentch::configure(int numModels)
     }
 
     return true;
-}
-
-void FlamersOfTzeentch::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_warpflame);
-    visitor(m_warpflamePyrocaster);
-    visitor(m_flamingMaw);
 }
 
 Unit *FlamersOfTzeentch::Create(const ParameterList &parameters)

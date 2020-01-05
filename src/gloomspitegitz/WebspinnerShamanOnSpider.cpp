@@ -54,6 +54,7 @@ WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
     m_crookedSpears(Weapon::Type::Melee, "Crooked Spears", 1, 8, 5, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, MONSTER, HERO, WIZARD, WEBSPINNER_SHAMAN};
+    m_weapons = {&m_spiderBows, &m_spiderGodStaff, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
 
     m_totalUnbinds = 2;
     m_totalSpells = 2;
@@ -61,14 +62,12 @@ WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
 
 bool WebspinnerShamanOnArachnarokSpider::configure(LoreOfTheSpiderFangs lore)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_spiderBows);
     model->addMeleeWeapon(&m_spiderGodStaff);
     model->addMeleeWeapon(&m_chitinousLegs);
     model->addMeleeWeapon(&m_monstrousFangs);
     model->addMeleeWeapon(&m_crookedSpears);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -127,16 +126,6 @@ void WebspinnerShamanOnArachnarokSpider::Init()
         s_registered = UnitFactory::Register("Webspinner Shaman on Arachnarok Spider", factoryMethod);
     }
 }
-
-void WebspinnerShamanOnArachnarokSpider::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_spiderBows);
-    visitor(m_spiderGodStaff);
-    visitor(m_chitinousLegs);
-    visitor(m_monstrousFangs);
-    visitor(m_crookedSpears);
-}
-
 
 std::string WebspinnerShamanOnArachnarokSpider::ValueToString(const Parameter &parameter)
 {

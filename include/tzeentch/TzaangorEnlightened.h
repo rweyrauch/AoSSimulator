@@ -38,8 +38,6 @@ public:
 
     bool configure(int numModels, bool disksOfTzeentch);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
 

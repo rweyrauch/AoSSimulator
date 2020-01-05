@@ -40,6 +40,7 @@ PlagueDrones::PlagueDrones() :
     m_venemousSting(Weapon::Type::Melee, "Venomous String", 1, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUE_DRONES};
+    m_weapons = {&m_plaguesword, &m_plagueswordPlaguebringer, &m_deathsHead, &m_proboscis, &m_mouthparts, &m_venemousSting};
 }
 
 bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bellTollers)
@@ -92,16 +93,6 @@ bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBeare
     }
 
     return true;
-}
-
-void PlagueDrones::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_plaguesword);
-    visitor(m_plagueswordPlaguebringer);
-    visitor(m_deathsHead);
-    visitor(m_proboscis);
-    visitor(m_mouthparts);
-    visitor(m_venemousSting);
 }
 
 Unit *PlagueDrones::Create(const ParameterList &parameters)

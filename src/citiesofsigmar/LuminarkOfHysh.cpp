@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/LuminarkOfHysh.h"
 
 namespace CitiesOfSigmar
@@ -18,6 +19,7 @@ static FactoryMethod factoryMethod = {
     LuminarkOfHysh::EnumStringToInt,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+        {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
     CITIES_OF_SIGMAR
@@ -87,6 +89,7 @@ LuminarkOfHysh::LuminarkOfHysh() :
     m_hooves(Weapon::Type::Melee, "Steel-shod Hooves", 1, 4, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, LUMINARK_OF_HYSH};
+    m_weapons = {&m_beamOfLight, &m_wizardsStaff, &m_arcaneTools, &m_hooves};
 }
 
 bool LuminarkOfHysh::configure(bool battlemage)
@@ -97,15 +100,28 @@ bool LuminarkOfHysh::configure(bool battlemage)
         addKeyword(HERO);
     }
 
-    return false;
-}
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_beamOfLight);
+    model->addMeleeWeapon(&m_arcaneTools);
+    model->addMeleeWeapon(&m_hooves);
+    if (battlemage)
+    {
+        model->addMeleeWeapon(&m_wizardsStaff);
+    }
+    addModel(model);
 
-void LuminarkOfHysh::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_beamOfLight);
-    visitor(m_wizardsStaff);
-    visitor(m_arcaneTools);
-    visitor(m_hooves);
+    if (battlemage)
+    {
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_points = POINTS_PER_UNIT_WITH_BATTLEMAGE;
+    }
+    else
+    {
+        m_points = POINTS_PER_UNIT;
+    }
+
+    return true;
 }
 
 int LuminarkOfHysh::move() const

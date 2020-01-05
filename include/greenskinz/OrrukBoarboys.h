@@ -42,8 +42,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, bool glyphBearer, bool horns);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int chargeModifier() const override;
@@ -55,7 +53,7 @@ private:
 
     bool m_waaaghHorns = false;
     bool m_glyphBearer = false;
-    WeaponOption m_weapons = Choppa;
+    WeaponOption m_weaponOption = Choppa;
 
     Weapon m_choppa,
         m_pigstikkaSpear,

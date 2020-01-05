@@ -53,12 +53,12 @@ AuricRunesonOnMagmadroth::AuricRunesonOnMagmadroth() :
     m_javelinMelee(Weapon::Type::Melee, "Wyrmslayer Javelin", 3, 1, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
+    m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_javelin, &m_warAxe, &m_javelinMelee};
 }
 
 bool AuricRunesonOnMagmadroth::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMissileWeapon(&m_fyrestream);
     model->addMeleeWeapon(&m_clawsAndHorns);
@@ -76,17 +76,6 @@ bool AuricRunesonOnMagmadroth::configure()
 int AuricRunesonOnMagmadroth::move() const
 {
     return g_damageTable[getDamageTableIndex()].m_move;
-}
-
-void AuricRunesonOnMagmadroth::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_fyrestream);
-    visitor(m_clawsAndHorns);
-    visitor(m_blazingMaw);
-    visitor(m_javelin);
-    visitor(m_warAxe);
-    visitor(m_javelinMelee);
 }
 
 Unit *AuricRunesonOnMagmadroth::Create(const ParameterList &parameters)

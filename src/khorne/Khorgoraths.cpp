@@ -35,6 +35,7 @@ Khorgoraths::Khorgoraths() :
     m_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2)
 {
     m_keywords = {CHAOS, KHORNE, MONSTER, BLOODBOUND, KHORGORATHS};
+    m_weapons = {&m_boneTentacles, &m_clawAndFangs};
 }
 
 bool Khorgoraths::configure(int numModels)
@@ -46,7 +47,7 @@ bool Khorgoraths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_boneTentacles);
         model->addMeleeWeapon(&m_clawAndFangs);
         addModel(model);
@@ -59,12 +60,6 @@ bool Khorgoraths::configure(int numModels)
     }
 
     return true;
-}
-
-void Khorgoraths::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boneTentacles);
-    visitor(m_clawAndFangs);
 }
 
 Unit *Khorgoraths::Create(const ParameterList &parameters)

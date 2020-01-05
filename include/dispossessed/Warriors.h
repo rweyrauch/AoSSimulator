@@ -52,8 +52,6 @@ public:
 
     bool configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard, bool hornblowers);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toSaveRerolls(const Weapon *weapon) const override;

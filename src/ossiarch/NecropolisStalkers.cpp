@@ -67,6 +67,7 @@ NecropolisStalkers::NecropolisStalkers() :
     m_blades(Weapon::Type::Melee, "Spirit Blades", 1, 5, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, NECROPOLIS_STALKERS};
+    m_weapons = {&m_falchions, &m_blades};
 }
 
 bool NecropolisStalkers::configure(int numModels, int numFalchions)
@@ -104,12 +105,6 @@ bool NecropolisStalkers::configure(int numModels, int numFalchions)
     }
 
     return true;
-}
-
-void NecropolisStalkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_falchions);
-    visitor(m_blades);
 }
 
 void NecropolisStalkers::onStartCombat(PlayerId player)

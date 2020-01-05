@@ -75,6 +75,7 @@ DrakespawnKnights::DrakespawnKnights() :
     m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, DRAKESPAWN_KNIGHTS};
+    m_weapons = {&m_lance, &m_lanceDreadKnight, &m_jaws};
 }
 
 bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornblower)
@@ -97,7 +98,7 @@ bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornb
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_lance);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
@@ -110,13 +111,6 @@ bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornb
     }
 
     return true;
-}
-
-void DrakespawnKnights::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_lance);
-    visitor(m_lanceDreadKnight);
-    visitor(m_jaws);
 }
 
 int DrakespawnKnights::runModifier() const

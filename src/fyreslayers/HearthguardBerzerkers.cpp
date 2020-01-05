@@ -38,6 +38,7 @@ HearthguardBerzerkers::HearthguardBerzerkers() :
     m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HEARTHGUARD_BERZERKERS};
+    m_weapons = {&m_broadaxe, &m_broadaxeKarl, &m_poleaxe, &m_poleaxeKarl, &m_throwingAxe};
 }
 
 bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons)
@@ -82,15 +83,6 @@ bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons)
     }
 
     return true;
-}
-
-void HearthguardBerzerkers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_broadaxe);
-    visitor(m_broadaxeKarl);
-    visitor(m_poleaxe);
-    visitor(m_poleaxeKarl);
-    visitor(m_throwingAxe);
 }
 
 Unit *HearthguardBerzerkers::Create(const ParameterList &parameters)

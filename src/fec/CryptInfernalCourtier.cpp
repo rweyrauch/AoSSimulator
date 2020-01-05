@@ -33,6 +33,7 @@ CryptInfernalCourtier::CryptInfernalCourtier() :
     m_skeweringTalons(Weapon::Type::Melee, "Skewering Talons", 1, 5, 4, 3, -1, 2)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_INFERNAL_COURTIER};
+    m_weapons = {&m_foetidBreath, &m_skeweringTalons};
 }
 
 bool CryptInfernalCourtier::configure()
@@ -45,12 +46,6 @@ bool CryptInfernalCourtier::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void CryptInfernalCourtier::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_foetidBreath);
-    visitor(m_skeweringTalons);
 }
 
 Unit *CryptInfernalCourtier::Create(const ParameterList &parameters)

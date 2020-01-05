@@ -40,6 +40,7 @@ OrrukBoarboys::OrrukBoarboys() :
     m_pigstikkaSpearBoss(Weapon::Type::Melee, "Pigstikka Spear", 2, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOARBOYS};
+    m_weapons = {&m_choppa, &m_pigstikkaSpear, &m_warBoarsTusks, &m_choppaBoss, &m_pigstikkaSpearBoss};
 }
 
 bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBearer, bool horns)
@@ -53,7 +54,7 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
 
     m_waaaghHorns = horns;
     m_glyphBearer = glyphBearer;
-    m_weapons = weapons;
+    m_weaponOption = weapons;
 
     // Add the boss
     auto boss = new Model(BASESIZE, WOUNDS);
@@ -71,7 +72,7 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         switch (weapons)
         {
             case Choppa:
@@ -92,15 +93,6 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
     }
 
     return true;
-}
-
-void OrrukBoarboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_choppa);
-    visitor(m_pigstikkaSpear);
-    visitor(m_warBoarsTusks);
-    visitor(m_choppaBoss);
-    visitor(m_pigstikkaSpearBoss);
 }
 
 Unit *OrrukBoarboys::Create(const ParameterList &parameters)

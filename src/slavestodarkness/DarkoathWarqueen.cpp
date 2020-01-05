@@ -48,23 +48,18 @@ DarkoathWarqueen::DarkoathWarqueen() :
     m_axe(Weapon::Type::Melee, "Rune-etched Axe", 1, 6, 3, 3, -1, 1)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_WARQUEEN };
+    m_weapons = {&m_axe};
 }
 
 bool DarkoathWarqueen::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_axe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void DarkoathWarqueen::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_axe);
 }
 
 } //namespace SlavesToDarkness

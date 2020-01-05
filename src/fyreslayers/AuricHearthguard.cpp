@@ -35,6 +35,7 @@ AuricHearthguard::AuricHearthguard() :
     m_magmapikeMelee(Weapon::Type::Melee, "Magmapike", 1, 1, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, FYRESLAYERS, AURIC_HEARTHGUARD};
+    m_weapons = {&m_magmapike, &m_magmapikeKarl, &m_throwingAxe, &m_magmapikeMelee};
 }
 
 bool AuricHearthguard::configure(int numModels)
@@ -67,14 +68,6 @@ bool AuricHearthguard::configure(int numModels)
     }
 
     return true;
-}
-
-void AuricHearthguard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_magmapike);
-    visitor(m_magmapikeKarl);
-    visitor(m_throwingAxe);
-    visitor(m_magmapikeMelee);
 }
 
 Unit *AuricHearthguard::Create(const ParameterList &parameters)

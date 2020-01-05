@@ -87,12 +87,12 @@ SorceressOnBlackDragon::SorceressOnBlackDragon() :
     m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, MONSTER, HERO, WIZARD, SORCERESS};
+    m_weapons = {&m_noxiousBreath, &m_rod, &m_sword, &m_lash, &m_jaws, &m_claws};
 }
 
 bool SorceressOnBlackDragon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_noxiousBreath);
 
     // TODO: weapon options
@@ -106,16 +106,6 @@ bool SorceressOnBlackDragon::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void SorceressOnBlackDragon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_noxiousBreath);
-    visitor(m_rod);
-    visitor(m_sword);
-    visitor(m_lash);
-    visitor(m_jaws);
-    visitor(m_claws);
 }
 
 int SorceressOnBlackDragon::move() const

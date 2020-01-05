@@ -31,12 +31,12 @@ Skullmaster::Skullmaster() :
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
+    m_weapons = {&m_bladeOfBlood, &m_brazenHooves};
 }
 
 bool Skullmaster::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bladeOfBlood);
     model->addMeleeWeapon(&m_brazenHooves);
     addModel(model);
@@ -44,12 +44,6 @@ bool Skullmaster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Skullmaster::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bladeOfBlood);
-    visitor(m_brazenHooves);
 }
 
 Unit *Skullmaster::Create(const ParameterList &parameters)

@@ -31,11 +31,12 @@ AkhelianLeviadon::AkhelianLeviadon() :
     m_razorshellHarpoons(Weapon::Type::Melee, "Razorshell Harpoons", 1, 4, 3, 3, 0, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, MONSTER, AKHELIAN, LEVIADON};
+    m_weapons = {&m_harpoonLauncher, &m_crushingJaws, &m_scythedFins, &m_twinProngedSpear, &m_razorshellHarpoons};
 }
 
 bool AkhelianLeviadon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_harpoonLauncher);
     model->addMeleeWeapon(&m_crushingJaws);
     model->addMeleeWeapon(&m_scythedFins);
@@ -47,15 +48,6 @@ bool AkhelianLeviadon::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void AkhelianLeviadon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_harpoonLauncher);
-    visitor(m_crushingJaws);
-    visitor(m_scythedFins);
-    visitor(m_twinProngedSpear);
-    visitor(m_razorshellHarpoons);
 }
 
 Unit *AkhelianLeviadon::Create(const ParameterList &parameters)

@@ -29,6 +29,7 @@ Zarbag::Zarbag() :
     m_sickle(Weapon::Type::Melee, "Cursed Sickle", 2, 3, 3, 3, -1, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN, ZARBAG};
+    m_weapons = {&m_sickle};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -36,8 +37,7 @@ Zarbag::Zarbag() :
 
 bool Zarbag::configure(LoreOfTheMoonclans lore)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_sickle);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -72,11 +72,6 @@ void Zarbag::Init()
     {
         s_registered = UnitFactory::Register("Zarbag", factoryMethod);
     }
-}
-
-void Zarbag::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_sickle);
 }
 
 std::string Zarbag::ValueToString(const Parameter &parameter)

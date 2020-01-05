@@ -75,6 +75,7 @@ Darkshards::Darkshards() :
     m_crossbowMaster(Weapon::Type::Missile, "Repeater Crossbow", 16, 2, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, DARKSHARDS};
+    m_weapons = {&m_crossbow, &m_dagger, &m_crossbowMaster};
 }
 
 bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower)
@@ -97,7 +98,7 @@ bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
@@ -110,13 +111,6 @@ bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower)
     }
 
     return true;
-}
-
-void Darkshards::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_crossbow);
-    visitor(m_dagger);
-    visitor(m_crossbowMaster);
 }
 
 int Darkshards::runModifier() const

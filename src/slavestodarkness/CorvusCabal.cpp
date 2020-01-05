@@ -55,6 +55,7 @@ CorvusCabal::CorvusCabal() :
     m_corvusWeaponsLeader(Weapon::Type::Melee, "Corvus Weapons (Shadow Piercer)", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CORVUS_CABAL};
+    m_weapons = {&m_ravenDarts, &m_corvusWeapons, &m_corvusWeaponsLeader};
 }
 
 bool CorvusCabal::configure(int numModels)
@@ -91,13 +92,6 @@ bool CorvusCabal::configure(int numModels)
     }
 
     return true;
-}
-
-void CorvusCabal::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ravenDarts);
-    visitor(m_corvusWeapons);
-    visitor(m_corvusWeaponsLeader);
 }
 
 Rerolls CorvusCabal::chargeRerolls() const

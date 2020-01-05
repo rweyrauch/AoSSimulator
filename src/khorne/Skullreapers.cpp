@@ -34,6 +34,7 @@ Skullreapers::Skullreapers() :
     m_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SKULLREAPERS};
+    m_weapons = {&m_blades, &m_viciousMutation};
 }
 
 bool Skullreapers::configure(int numModels, bool iconBearer)
@@ -69,12 +70,6 @@ bool Skullreapers::configure(int numModels, bool iconBearer)
     }
 
     return true;
-}
-
-void Skullreapers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blades);
-    visitor(m_viciousMutation);
 }
 
 Unit *Skullreapers::Create(const ParameterList &parameters)

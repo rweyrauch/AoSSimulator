@@ -32,6 +32,7 @@ StormsiresCursebreakers::StormsiresCursebreakers() :
     m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+    m_weapons = {&m_tempestBladeAndStave};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -109,11 +110,6 @@ void StormsiresCursebreakers::Init()
     {
         s_registered = UnitFactory::Register("Stormsire's Cursebreakers", factoryMethod);
     }
-}
-
-void StormsiresCursebreakers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tempestBladeAndStave);
 }
 
 std::string StormsiresCursebreakers::ValueToString(const Parameter &parameter)

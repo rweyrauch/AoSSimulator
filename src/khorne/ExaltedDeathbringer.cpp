@@ -36,13 +36,14 @@ ExaltedDeathbringer::ExaltedDeathbringer() :
     m_impalingSpear(Weapon::Type::Melee, "Impaling Spear", 2, 5, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, EXALTED_DEATHBRINGER};
+    m_weapons = {&m_ruinousAxe, &m_bloodbiteAxe, &m_impalingSpear};
 }
 
 bool ExaltedDeathbringer::configure(WeaponOption weapon)
 {
     m_weaponOption = weapon;
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     if (m_weaponOption == RuinousAxeAndSkullgouger)
     {
@@ -61,13 +62,6 @@ bool ExaltedDeathbringer::configure(WeaponOption weapon)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ExaltedDeathbringer::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ruinousAxe);
-    visitor(m_bloodbiteAxe);
-    visitor(m_impalingSpear);
 }
 
 Unit *ExaltedDeathbringer::Create(const ParameterList &parameters)

@@ -43,8 +43,6 @@ public:
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     void onWounded() override;
@@ -58,7 +56,7 @@ protected:
 
     bool m_iconBearer = false;
     bool m_hornblower = false;
-    bool m_weapons = WeaponOption::AxeAndShield;
+    bool m_weaponOption = WeaponOption::AxeAndShield;
 
 private:
 

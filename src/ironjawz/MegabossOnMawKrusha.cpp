@@ -55,12 +55,12 @@ MegabossOnMawKrusha::MegabossOnMawKrusha() :
     m_fistsAndTail(Weapon::Type::Melee, "Mighty Fists and Tail", 1, 8, 3, 3, -2, 2)
 {
     m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
+    m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
 }
 
 bool MegabossOnMawKrusha::configure(WeaponOption weapons)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_bellow);
 
     if (weapons == HackaAndChoppa)
@@ -80,14 +80,6 @@ bool MegabossOnMawKrusha::configure(WeaponOption weapons)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void MegabossOnMawKrusha::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bellow);
-    visitor(m_hackaAndChoppa);
-    visitor(m_ripToofFist);
-    visitor(m_fistsAndTail);
 }
 
 Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters)

@@ -54,18 +54,16 @@ WurrgogProphet::WurrgogProphet() :
     m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, WURRGOG_PROPHET};
-
+    m_weapons = {&m_staffAndShiv, &m_fangedMaw};
     m_totalUnbinds = 2;
     m_totalSpells = 2;
 }
 
 bool WurrgogProphet::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_staffAndShiv);
     model->addMeleeWeapon(&m_fangedMaw);
-
     addModel(model);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -74,12 +72,6 @@ bool WurrgogProphet::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void WurrgogProphet::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_staffAndShiv);
-    visitor(m_fangedMaw);
 }
 
 int WurrgogProphet::targetHitModifier(const Weapon *weapon, const Unit *attacker) const

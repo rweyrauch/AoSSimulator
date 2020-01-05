@@ -30,11 +30,12 @@ KnightVexillor::KnightVexillor() :
     m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
+    m_weapons = {&m_warhammer};
 }
 
 bool KnightVexillor::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_warhammer);
     addModel(model);
 
@@ -66,11 +67,5 @@ void KnightVexillor::Init()
         s_registered = UnitFactory::Register("Knight-Vexillor", factoryMethod);
     }
 }
-
-void KnightVexillor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_warhammer);
-}
-
 
 } // namespace StormcastEternals

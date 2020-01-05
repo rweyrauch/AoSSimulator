@@ -85,14 +85,14 @@ BattlemageOnGriffon::BattlemageOnGriffon() :
     m_razorClaws(Weapon::Type::Melee, "Razor Claws", 2, 6, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, MONSTER, HERO, WIZARD, BATTLEMAGE};
-
+    m_weapons = {&m_beastStaff, &m_twinBeaks, &m_razorClaws};
     m_totalUnbinds = 1;
     m_totalSpells = 1;
 }
 
 bool BattlemageOnGriffon::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
 
     model->addMeleeWeapon(&m_beastStaff);
     model->addMeleeWeapon(&m_twinBeaks);
@@ -106,13 +106,6 @@ bool BattlemageOnGriffon::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void BattlemageOnGriffon::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_beastStaff);
-    visitor(m_twinBeaks);
-    visitor(m_razorClaws);
 }
 
 int BattlemageOnGriffon::move() const

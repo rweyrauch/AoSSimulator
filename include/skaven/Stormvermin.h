@@ -34,8 +34,6 @@ public:
 
     bool configure(int numModels, bool clanshields, int standardBearers, int drummers);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int toSaveModifier(const Weapon *weapon) const override;

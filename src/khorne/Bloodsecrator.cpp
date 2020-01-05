@@ -30,22 +30,18 @@ Bloodsecrator::Bloodsecrator() :
     m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
+    m_weapons = {&m_ensorcelledAxe};
 }
 
 bool Bloodsecrator::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_ensorcelledAxe);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Bloodsecrator::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ensorcelledAxe);
 }
 
 Unit *Bloodsecrator::Create(const ParameterList &parameters)

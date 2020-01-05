@@ -35,6 +35,7 @@ LordArcanumOnDracoline::LordArcanumOnDracoline() :
     m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
+    m_weapons = {&m_aetherstave, &m_monstrousClaws};
 
     m_totalSpells = 1;
     m_totalUnbinds = 1;
@@ -47,7 +48,7 @@ bool LordArcanumOnDracoline::configure(LoreOfTheStorm storm, LoreOfInvigoration 
         return false;
     }
 
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_monstrousClaws);
     addModel(model);
@@ -117,12 +118,6 @@ int LordArcanumOnDracoline::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
-}
-
-void LordArcanumOnDracoline::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_aetherstave);
-    visitor(m_monstrousClaws);
 }
 
 Wounds LordArcanumOnDracoline::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

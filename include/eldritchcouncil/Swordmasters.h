@@ -35,8 +35,6 @@ public:
 
     bool configure(int numModels, bool hornblower, bool standardBearer);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;

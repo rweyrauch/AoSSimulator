@@ -46,8 +46,6 @@ public:
 
     bool configure(int numModels, bool trumpeter, WeaponOption sharpshooterWeapon);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     int runModifier() const override;

@@ -39,8 +39,6 @@ public:
 
     bool configure(int numModels, int numFalchions);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     void onStartCombat(PlayerId player) override;

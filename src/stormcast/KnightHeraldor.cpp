@@ -30,11 +30,12 @@ KnightHeraldor::KnightHeraldor() :
     m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
+    m_weapons = {&m_broadsword};
 }
 
 bool KnightHeraldor::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_broadsword);
     addModel(model);
 
@@ -65,11 +66,6 @@ void KnightHeraldor::Init()
     {
         s_registered = UnitFactory::Register("Knight-Heraldor", factoryMethod);
     }
-}
-
-void KnightHeraldor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_broadsword);
 }
 
 

@@ -1398,6 +1398,17 @@ int Unit::numOfWoundedModels() const
     return count;
 }
 
+void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor)
+{
+    // Every unit must have at least one weapon.
+    assert(!m_weapons.empty());
+
+    for (const auto& w : m_weapons)
+    {
+        visitor(*w);
+    }
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

@@ -42,6 +42,7 @@ Ungors::Ungors() :
     m_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear", 2, 2, 5, 4, 0, 1)
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
+    m_weapons = { &m_ungorBlade, &m_ungorBladeHalfhorn, &m_gnarledShortspear, &m_gnarledShortspearHalfhorn };
 }
 
 bool Ungors::configure(int numModels, WeaponOptions weapons,
@@ -89,14 +90,6 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
     }
 
     return true;
-}
-
-void Ungors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ungorBlade);
-    visitor(m_ungorBladeHalfhorn);
-    visitor(m_gnarledShortspear);
-    visitor(m_gnarledShortspearHalfhorn);
 }
 
 Unit *Ungors::Create(const ParameterList &parameters)

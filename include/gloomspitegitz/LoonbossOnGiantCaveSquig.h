@@ -38,8 +38,6 @@ public:
 
     bool configure(WeaponOptions weapon);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     void onStartHero(PlayerId player) override;

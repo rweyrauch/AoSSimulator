@@ -71,6 +71,7 @@ ShadowWarriors::ShadowWarriors() :
     m_bowWalker(Weapon::Type::Missile, "Ranger Bow", 18, 1, 2, 4, -1, 1)
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, SHADOW_WARRIORS};
+    m_weapons = {&m_bow, &m_blade, &m_bowWalker};
 }
 
 bool ShadowWarriors::configure(int numModels)
@@ -90,7 +91,7 @@ bool ShadowWarriors::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMissileWeapon(&m_bow);
         model->addMeleeWeapon(&m_blade);
         addModel(model);
@@ -103,13 +104,6 @@ bool ShadowWarriors::configure(int numModels)
     }
 
     return true;
-}
-
-void ShadowWarriors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bow);
-    visitor(m_blade);
-    visitor(m_bowWalker);
 }
 
 } // namespace CitiesOfSigmar

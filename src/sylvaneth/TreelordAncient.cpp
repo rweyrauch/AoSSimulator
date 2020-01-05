@@ -52,6 +52,7 @@ TreelordAncient::TreelordAncient() :
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
     m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, HERO, WIZARD, TREELORD_ANCIENT};
+    m_weapons = {&m_doomTendrilStaff, &m_sweepingBlows, &m_massiveImpalingTalons};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -59,8 +60,7 @@ TreelordAncient::TreelordAncient() :
 
 bool TreelordAncient::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_doomTendrilStaff);
     model->addMeleeWeapon(&m_sweepingBlows);
     model->addMeleeWeapon(&m_massiveImpalingTalons);
@@ -121,13 +121,6 @@ void TreelordAncient::Init()
     {
         s_registered = UnitFactory::Register("Treelord Ancient", factoryMethod);
     }
-}
-
-void TreelordAncient::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_doomTendrilStaff);
-   visitor(m_sweepingBlows);
-    visitor(m_massiveImpalingTalons);
 }
 
 Wounds TreelordAncient::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

@@ -95,6 +95,7 @@ Gyrocopters::Gyrocopters() :
     m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROCOPTERS};
+    m_weapons = {&m_brimstoneGun, &m_steamGun, &m_rotorBlades};
 }
 
 bool Gyrocopters::configure(int numModels, WeaponOption weapons)
@@ -108,7 +109,7 @@ bool Gyrocopters::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         if (weapons == BrimstoneGun)
         {
             model->addMissileWeapon(&m_brimstoneGun);
@@ -128,13 +129,6 @@ bool Gyrocopters::configure(int numModels, WeaponOption weapons)
     }
 
     return true;
-}
-
-void Gyrocopters::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_brimstoneGun);
-    visitor(m_steamGun);
-    visitor(m_rotorBlades);
 }
 
 } // namespace CitiesOfSigmar

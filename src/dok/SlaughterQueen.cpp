@@ -28,12 +28,12 @@ SlaughterQueen::SlaughterQueen() :
     m_deathsword(Weapon::Type::Melee, "Deathsword", 1, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, SLAUGHTER_QUEEN};
+    m_weapons = {&m_bladeOfKhaine, &m_deathsword};
 }
 
 bool SlaughterQueen::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_bladeOfKhaine);
     model->addMeleeWeapon(&m_deathsword);
     addModel(model);
@@ -41,12 +41,6 @@ bool SlaughterQueen::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void SlaughterQueen::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_bladeOfKhaine);
-    visitor(m_deathsword);
 }
 
 Unit *SlaughterQueen::Create(const ParameterList &parameters)

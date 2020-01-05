@@ -48,6 +48,18 @@ Prosecutors::Prosecutors() :
     m_stormsurgeTrident(Weapon::Type::Melee, "Stormsurge Trident", 2, 1, 4, 4, -1, 2)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, ANGELOS, PROSECUTORS};
+    m_weapons = {&m_celestialHammersMissile,
+                 &m_stormcallJavelinMissile,
+                 &m_stormcallJavelinMissilePrime,
+                 &m_stormsurgeTridentMissile,
+                 &m_stormsurgeTridentMissilePrime,
+                 &m_celestialHammers,
+                 &m_celestialHammersPrime,
+                 &m_grandaxe,
+                 &m_grandblade,
+                 &m_grandhammer,
+                 &m_stormcallJavelin,
+                 &m_stormsurgeTrident};
 }
 
 bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Prosecutors::GrandWeaponOption primeGrandWeapon, int numTridents, int numGrandaxes,
@@ -91,7 +103,7 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
         return false;
     }
 
-    m_weapon = weapons;
+    m_weaponOption = weapons;
 
     auto prime = new Model(BASESIZE, WOUNDS);
     switch (primeGrandWeapon)
@@ -157,12 +169,12 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
     for (auto i = currentModelCount; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        if (m_weapon == CelestialHammerAndShield || m_weapon == PairedCelestialHammers)
+        if (m_weaponOption == CelestialHammerAndShield || m_weaponOption == PairedCelestialHammers)
         {
             model->addMissileWeapon(&m_celestialHammersMissile);
             model->addMeleeWeapon(&m_celestialHammers);
         }
-        else if (m_weapon == StormcallJavelinAndShield)
+        else if (m_weaponOption == StormcallJavelinAndShield)
         {
             model->addMissileWeapon(&m_stormcallJavelinMissile);
             model->addMeleeWeapon(&m_stormcallJavelin);
@@ -190,22 +202,6 @@ Wounds Prosecutors::weaponDamage(const Weapon *weapon, const Unit *target, int h
         }
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-void Prosecutors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_celestialHammersMissile);
-    visitor(m_stormcallJavelinMissile);
-    visitor(m_stormcallJavelinMissilePrime);
-    visitor(m_stormsurgeTridentMissile);
-    visitor(m_stormsurgeTridentMissilePrime);
-    visitor(m_celestialHammers);
-    visitor(m_celestialHammersPrime);
-    visitor(m_grandaxe);
-    visitor(m_grandblade);
-    visitor(m_grandhammer);
-    visitor(m_stormcallJavelin);
-    visitor(m_stormsurgeTrident);
 }
 
 Unit *Prosecutors::Create(const ParameterList &parameters)
@@ -322,7 +318,7 @@ void Prosecutors::Init()
 
 Rerolls Prosecutors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    if ((m_weapon == PairedCelestialHammers) && (weapon->name() == m_celestialHammers.name()))
+    if ((m_weaponOption == PairedCelestialHammers) && (weapon->name() == m_celestialHammers.name()))
     {
         return RerollOnes;
     }
@@ -332,7 +328,7 @@ Rerolls Prosecutors::toHitRerolls(const Weapon *weapon, const Unit *target) cons
 Rerolls Prosecutors::toSaveRerolls(const Weapon *weapon) const
 {
     // Sigmarite Shields
-    if (m_weapon == CelestialHammerAndShield || m_weapon == StormcallJavelinAndShield)
+    if (m_weaponOption == CelestialHammerAndShield || m_weaponOption == StormcallJavelinAndShield)
     {
         return RerollOnes;
     }

@@ -34,6 +34,7 @@ BladegheistRevenants::BladegheistRevenants() :
     m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
+    m_weapons = {&m_tombGreatblade};
 }
 
 bool BladegheistRevenants::configure(int numModels)
@@ -47,7 +48,7 @@ bool BladegheistRevenants::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_tombGreatblade);
         addModel(model);
     }
@@ -107,11 +108,6 @@ int BladegheistRevenants::extraAttacks(const Model *attackingModel, const Weapon
         attacks += 1;
     }
     return attacks;
-}
-
-void BladegheistRevenants::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_tombGreatblade);
 }
 
 } // namespace Nighthaunt

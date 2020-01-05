@@ -30,26 +30,19 @@ LordOfKhorneOnJuggernaut::LordOfKhorneOnJuggernaut() :
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, LORD_OF_KHORNE_ON_JUGGERNAUT};
+    m_weapons = {&m_wrathforgedAxe, &m_brazenHooves};
 }
 
 bool LordOfKhorneOnJuggernaut::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_wrathforgedAxe);
     model->addMeleeWeapon(&m_brazenHooves);
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void LordOfKhorneOnJuggernaut::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_wrathforgedAxe);
-    visitor(m_brazenHooves);
 }
 
 Unit *LordOfKhorneOnJuggernaut::Create(const ParameterList &parameters)

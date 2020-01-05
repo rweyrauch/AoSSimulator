@@ -43,6 +43,7 @@ Longbeards::Longbeards() :
     m_ancestralGreatAxeOldGuard(Weapon::Type::Melee, "Ancestral Great Axe", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = {ORDER, DUARDIN, DISPOSSESSED, LONGBEARDS};
+    m_weapons = {&m_ancestralAxeHammer, &m_ancestralGreatAxe, &m_ancestralAxeHammerOldGuard, &m_ancestralGreatAxeOldGuard};
 }
 
 bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShields, bool standardBearer, bool musician)
@@ -88,14 +89,6 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
     }
 
     return true;
-}
-
-void Longbeards::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ancestralAxeHammer);
-    visitor(m_ancestralAxeHammerOldGuard);
-    visitor(m_ancestralGreatAxe);
-    visitor(m_ancestralGreatAxeOldGuard);
 }
 
 Unit *Longbeards::Create(const ParameterList &parameters)

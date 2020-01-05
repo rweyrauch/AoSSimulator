@@ -38,6 +38,7 @@ GladeGuard::GladeGuard() :
     m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {ORDER, AELF, WANDERER, GLADE_GUARD};
+    m_weapons = {&m_longbow, &m_longbowLord, &m_gladeBlade};
 }
 
 bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower)
@@ -70,13 +71,6 @@ bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower)
     }
 
     return true;
-}
-
-void GladeGuard::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_longbow);
-    visitor(m_longbowLord);
-    visitor(m_gladeBlade);
 }
 
 Unit *GladeGuard::Create(const ParameterList &parameters)

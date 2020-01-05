@@ -46,8 +46,6 @@ public:
 
     bool configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts, int numVulcharcs);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Wounds applyWoundSave(const Wounds &wounds) override;
@@ -56,7 +54,7 @@ protected:
 
 private:
 
-    WeaponOptions m_weapons = CursedBlade;
+    WeaponOptions m_weaponOption = CursedBlade;
     int m_numCursedGlaives = 0;
     int m_numScrollsOfDarkArts = 0;
     int m_numVulcharcs = 0;

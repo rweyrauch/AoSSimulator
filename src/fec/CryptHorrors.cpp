@@ -37,6 +37,7 @@ CryptHorrors::CryptHorrors() :
     m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 4, 4, 3, 0, 2)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_HORRORS};
+    m_weapons = {&m_clubsAndTalons, &m_clubsAndTalonsHaunter};
 }
 
 bool CryptHorrors::configure(int numModels)
@@ -64,12 +65,6 @@ bool CryptHorrors::configure(int numModels)
     }
 
     return true;
-}
-
-void CryptHorrors::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_clubsAndTalons);
-    visitor(m_clubsAndTalonsHaunter);
 }
 
 Unit *CryptHorrors::Create(const ParameterList &parameters)

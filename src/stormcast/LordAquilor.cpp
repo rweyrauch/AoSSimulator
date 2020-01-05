@@ -35,11 +35,12 @@ LordAquilor::LordAquilor() :
     m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, HERO, LORD_AQUILOR};
+    m_weapons = {&m_boltstormPistol, &m_starboundBlade, &m_shockHandaxe, &m_beakAndClaws};
 }
 
 bool LordAquilor::configure(bool astralCompass)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_boltstormPistol);
     model->addMeleeWeapon(&m_starboundBlade);
     model->addMeleeWeapon(&m_shockHandaxe);
@@ -76,14 +77,6 @@ void LordAquilor::Init()
     {
         s_registered = UnitFactory::Register("Lord-Aquilor", factoryMethod);
     }
-}
-
-void LordAquilor::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boltstormPistol);
-    visitor(m_starboundBlade);
-    visitor(m_shockHandaxe);
-    visitor(m_beakAndClaws);
 }
 
 Wounds LordAquilor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

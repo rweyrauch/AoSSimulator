@@ -41,6 +41,7 @@ TreeRevenants::TreeRevenants() :
     m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2)
 {
     m_keywords = {ORDER, SYLVANETH, TREE_REVENANTS};
+    m_weapons = {&m_enchantedBlade, &m_enchantedBladeScion, &m_protectorGlaive};
 }
 
 bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes)
@@ -111,13 +112,6 @@ void TreeRevenants::Init()
     {
         s_registered = UnitFactory::Register("Tree-Revenants", factoryMethod);
     }
-}
-
-void TreeRevenants::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_enchantedBlade);
-    visitor(m_enchantedBladeScion);
-    visitor(m_protectorGlaive);
 }
 
 void TreeRevenants::onBeginTurn(int battleRound)

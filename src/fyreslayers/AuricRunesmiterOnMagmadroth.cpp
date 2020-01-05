@@ -52,12 +52,12 @@ AuricRunesmiterOnMagmadroth::AuricRunesmiterOnMagmadroth() :
     m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, PRIEST, AURIC_RUNESMITER};
+    m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_latchAxe, &m_runicIron};
 }
 
 bool AuricRunesmiterOnMagmadroth::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_throwingAxe);
     model->addMissileWeapon(&m_fyrestream);
     model->addMeleeWeapon(&m_clawsAndHorns);
@@ -74,16 +74,6 @@ bool AuricRunesmiterOnMagmadroth::configure()
 int AuricRunesmiterOnMagmadroth::move() const
 {
     return g_damageTable[getDamageTableIndex()].m_move;
-}
-
-void AuricRunesmiterOnMagmadroth::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_throwingAxe);
-    visitor(m_fyrestream);
-    visitor(m_clawsAndHorns);
-    visitor(m_blazingMaw);
-    visitor(m_latchAxe);
-    visitor(m_runicIron);
 }
 
 Unit *AuricRunesmiterOnMagmadroth::Create(const ParameterList &parameters)

@@ -88,13 +88,12 @@ SteamTank::SteamTank() :
     m_sword(Weapon::Type::Melee, "Sword or Rod", 1, 2, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, STEAM_TANK};
+    m_weapons = {&m_steamCannon, &m_steamGun, &m_longRifle, &m_handgun, &m_crushingWheels, &m_sword};
 }
 
 bool SteamTank::configure(bool commander)
 {
-
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_steamCannon);
     model->addMissileWeapon(&m_steamGun);
     model->addMeleeWeapon(&m_crushingWheels);
@@ -110,20 +109,9 @@ bool SteamTank::configure(bool commander)
 
         m_points += POINTS_FOR_COMMANDER;
     }
-
     addModel(model);
 
     return true;
-}
-
-void SteamTank::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_steamCannon);
-    visitor(m_steamGun);
-    visitor(m_longRifle);
-    visitor(m_handgun);
-    visitor(m_crushingWheels);
-    visitor(m_sword);
 }
 
 int SteamTank::move() const

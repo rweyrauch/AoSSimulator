@@ -64,6 +64,7 @@ ChaosMarauders::ChaosMarauders() :
     m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
+    m_weapons = {&m_axe, &m_flail, &m_axeChieftain, &m_flailChieftain};
 }
 
 bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer)
@@ -73,7 +74,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
     m_iconBearer = iconBearer;
     m_drummer = drummer;
 
@@ -122,7 +123,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
     }
 
     // Darkwood Shields
-    if (m_weapons == WeaponOption::AxeAndShield)
+    if (m_weaponOption == WeaponOption::AxeAndShield)
     {
         m_save = 5;
     }
@@ -134,14 +135,6 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
     }
 
     return true;
-}
-
-void ChaosMarauders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_axe);
-    visitor(m_flail);
-    visitor(m_axeChieftain);
-    visitor(m_flailChieftain);
 }
 
 std::string ChaosMarauders::ValueToString(const Parameter &parameter)

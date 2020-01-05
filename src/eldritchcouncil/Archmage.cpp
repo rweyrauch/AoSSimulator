@@ -31,6 +31,7 @@ Archmage::Archmage() :
     m_steedHooves(Weapon::Type::Melee, "Aelven Steed's Swift Hooves", 1, 2, 4, 5, 0, 1)
 {
     m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, ARCHMAGE};
+    m_weapons = { &m_seerstaff, &m_steedHooves};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -55,15 +56,6 @@ bool Archmage::configure(bool steed)
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Archmage::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_seerstaff);
-    if (m_steed)
-    {
-        visitor(m_steedHooves);
-    }
 }
 
 Unit *Archmage::Create(const ParameterList &parameters)

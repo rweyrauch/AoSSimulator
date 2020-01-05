@@ -48,26 +48,19 @@ Skarbrand::Skarbrand() :
     m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
+    m_weapons = {&m_slaughter, &m_carnage};
 }
 
 bool Skarbrand::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_slaughter);
     // Do not add Carnage or Roar of Total Rage, their attacks are special.
-
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Skarbrand::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_slaughter);
-    visitor(m_carnage);
 }
 
 Unit *Skarbrand::Create(const ParameterList &parameters)

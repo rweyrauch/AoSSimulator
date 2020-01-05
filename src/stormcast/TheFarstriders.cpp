@@ -30,6 +30,7 @@ TheFarstriders::TheFarstriders() :
     m_stormSaber(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, ANGELOS, VANGUARD_HUNTERS, THE_FARSTRIDERS};
+    m_weapons = {&m_boltstormPistol, &m_shockHandaxe, &m_stormSaber};
 }
 
 bool TheFarstriders::configure()
@@ -77,13 +78,6 @@ void TheFarstriders::Init()
     {
         s_registered = UnitFactory::Register("The Farstriders", factoryMethod);
     }
-}
-
-void TheFarstriders::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_boltstormPistol);
-    visitor(m_shockHandaxe);
-    visitor(m_stormSaber);
 }
 
 } // namespace StormcastEternals

@@ -43,6 +43,7 @@ MightySkullcrushers::MightySkullcrushers() :
     m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, MIGHTY_SKULLCRUSHERS};
+    m_weapons = {&m_ensorcelledAxe, &m_bloodglaive, &m_ensorcelledAxeHunter, &m_bloodglaiveHunter, &m_brazenHooves};
 }
 
 bool MightySkullcrushers::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers)
@@ -92,15 +93,6 @@ bool MightySkullcrushers::configure(int numModels, WeaponOption weapons, bool st
     }
 
     return true;
-}
-
-void MightySkullcrushers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_ensorcelledAxe);
-    visitor(m_bloodglaive);
-    visitor(m_ensorcelledAxeHunter);
-    visitor(m_bloodglaiveHunter);
-    visitor(m_brazenHooves);
 }
 
 Unit *MightySkullcrushers::Create(const ParameterList &parameters)

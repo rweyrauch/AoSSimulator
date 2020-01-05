@@ -52,12 +52,12 @@ ChaosLordOnKarkadrak::ChaosLordOnKarkadrak() :
     m_tail(Weapon::Type::Melee, "Battering Tail", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD };
+    m_weapons = {&m_battleAxe, &m_blade, &m_hornsAndClaws, &m_tail};
 }
 
 bool ChaosLordOnKarkadrak::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_battleAxe);
     model->addMeleeWeapon(&m_blade);
     model->addMeleeWeapon(&m_hornsAndClaws);
@@ -67,14 +67,6 @@ bool ChaosLordOnKarkadrak::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void ChaosLordOnKarkadrak::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_battleAxe);
-    visitor(m_blade);
-    visitor(m_hornsAndClaws);
-    visitor(m_tail);
 }
 
 void ChaosLordOnKarkadrak::onCharged()

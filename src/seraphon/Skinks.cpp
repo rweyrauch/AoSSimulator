@@ -44,6 +44,7 @@ Skinks::Skinks() :
     m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 5, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
+    m_weapons = {&m_javelinMissile, &m_boltspitterMissile, &m_javelin, &m_javelinAlpha, &m_boltspitter, &m_boltspitterAlpha, &m_club, &m_clubAlpha};
 }
 
 bool Skinks::configure(int numModels, WeaponOption weapons)
@@ -111,18 +112,6 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     }
 
     return true;
-}
-
-void Skinks::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_javelinMissile);
-    visitor(m_boltspitterMissile);
-    visitor(m_javelin);
-    visitor(m_javelinAlpha);
-    visitor(m_boltspitter);
-    visitor(m_boltspitterAlpha);
-    visitor(m_club);
-    visitor(m_clubAlpha);
 }
 
 Unit *Skinks::Create(const ParameterList &parameters)

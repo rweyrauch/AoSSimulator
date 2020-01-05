@@ -51,6 +51,7 @@ TheGlottkin::TheGlottkin() :
     m_poisonScythe(Weapon::Type::Melee, "Otto's Poison-slick Scythe", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, WIZARD, THE_GLOTTKIN};
+    m_weapons = {&m_pestilentTorrent, &m_flailingTentacle, &m_lampreyMaw, &m_poisonScythe};
 
     m_totalUnbinds = 1;
     m_totalSpells = 2;
@@ -58,7 +59,7 @@ TheGlottkin::TheGlottkin() :
 
 bool TheGlottkin::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_pestilentTorrent);
     model->addMeleeWeapon(&m_flailingTentacle);
     model->addMeleeWeapon(&m_lampreyMaw);
@@ -71,14 +72,6 @@ bool TheGlottkin::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void TheGlottkin::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_pestilentTorrent);
-    visitor(m_flailingTentacle);
-    visitor(m_lampreyMaw);
-    visitor(m_poisonScythe);
 }
 
 Unit *TheGlottkin::Create(const ParameterList &parameters)

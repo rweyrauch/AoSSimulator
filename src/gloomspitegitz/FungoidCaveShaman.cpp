@@ -33,6 +33,7 @@ FungoidCaveShaman::FungoidCaveShaman() :
     m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
+    m_weapons = {&m_moonSickle, &m_squigsTeeth};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -40,8 +41,7 @@ FungoidCaveShaman::FungoidCaveShaman() :
 
 bool FungoidCaveShaman::configure(LoreOfTheMoonclans lore)
 {
-        auto model = new Model(BASESIZE, WOUNDS);
-
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_moonSickle);
     model->addMeleeWeapon(&m_squigsTeeth);
 
@@ -77,12 +77,6 @@ void FungoidCaveShaman::Init()
     {
         s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
     }
-}
-
-void FungoidCaveShaman::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_moonSickle);
-    visitor(m_squigsTeeth);
 }
 
 std::string FungoidCaveShaman::ValueToString(const Parameter &parameter)

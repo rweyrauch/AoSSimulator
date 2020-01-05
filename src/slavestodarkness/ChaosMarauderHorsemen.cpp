@@ -69,6 +69,7 @@ ChaosMarauderHorsemen::ChaosMarauderHorsemen() :
     m_hooves(Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDER_HORSEMEN};
+    m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster, &m_hooves};
 
     // Feigned Flight
     m_retreatAndCharge = true;
@@ -82,7 +83,7 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
         return false;
     }
 
-    m_weapons = weapons;
+    m_weaponOption = weapons;
     m_iconBearer = iconBearer;
     m_hornblower = hornblower;
 
@@ -155,7 +156,7 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
     }
 
     // Darkwood Shields
-    if (m_weapons == AxeAndShield || m_weapons == JavelinAndShield)
+    if (m_weaponOption == AxeAndShield || m_weaponOption == JavelinAndShield)
     {
         m_save = 5;
     }
@@ -167,17 +168,6 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
     }
 
     return true;
-}
-
-void ChaosMarauderHorsemen::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_javelinMissile);
-    visitor(m_axe);
-    visitor(m_flail);
-    visitor(m_javelin);
-    visitor(m_axeMaster);
-    visitor(m_flailMaster);
-    visitor(m_javelinMaster);
 }
 
 std::string ChaosMarauderHorsemen::ValueToString(const Parameter &parameter)

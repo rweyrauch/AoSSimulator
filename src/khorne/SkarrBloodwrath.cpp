@@ -30,22 +30,18 @@ SkarrBloodwrath::SkarrBloodwrath() :
     m_blades(Weapon::Type::Melee, "Bloodstorm Blades", 3, 5, 2, 3, -1, 1)
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKARR_BLOODWRATH};
+    m_weapons = {&m_blades};
 }
 
 bool SkarrBloodwrath::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_blades);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void SkarrBloodwrath::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_blades);
 }
 
 Unit *SkarrBloodwrath::Create(const ParameterList &parameters)

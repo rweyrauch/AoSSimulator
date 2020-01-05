@@ -53,8 +53,6 @@ public:
     bool configure(int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
         int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
@@ -64,7 +62,7 @@ protected:
 
 private:
 
-    WeaponOption m_weapon = StormcallJavelinAndShield;
+    WeaponOption m_weaponOption = StormcallJavelinAndShield;
 
     Weapon m_celestialHammersMissile,
         m_stormcallJavelinMissile,

@@ -38,6 +38,7 @@ CryptFlayers::CryptFlayers() :
     m_piercingTalonsInfernal(Weapon::Type::Melee, "Piercing Talons", 1, 5, 4, 3, -1, 1)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_FLAYERS};
+    m_weapons = {&m_deathScream, &m_piercingTalons, &m_piercingTalonsInfernal};
 }
 
 bool CryptFlayers::configure(int numModels)
@@ -67,13 +68,6 @@ bool CryptFlayers::configure(int numModels)
     }
 
     return true;
-}
-
-void CryptFlayers::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_deathScream);
-    visitor(m_piercingTalons);
-    visitor(m_piercingTalonsInfernal);
 }
 
 Unit *CryptFlayers::Create(const ParameterList &parameters)

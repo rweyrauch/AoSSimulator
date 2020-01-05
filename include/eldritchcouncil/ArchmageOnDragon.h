@@ -30,8 +30,6 @@ public:
 
     bool configure(bool arcaneTome, bool talisman);
 
-    void visitWeapons(std::function<void(const Weapon &)> &visitor) override;
-
     int move() const override;
 
 protected:

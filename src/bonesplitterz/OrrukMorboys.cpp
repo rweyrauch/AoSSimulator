@@ -59,6 +59,7 @@ SavageOrrukMorboys::SavageOrrukMorboys() :
     m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 4, 4, 3, 0, 1)
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUK_MORBOYS};
+    m_weapons = {&m_chompaAndShiv, &m_chompaAndShivBoss};
 }
 
 bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemBearer)
@@ -92,12 +93,6 @@ bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemB
     }
 
     return true;
-}
-
-void SavageOrrukMorboys::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_chompaAndShiv);
-    visitor(m_chompaAndShivBoss);
 }
 
 int SavageOrrukMorboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const

@@ -35,6 +35,7 @@ Fulminators::Fulminators() :
     m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, FULMINATORS};
+    m_weapons = {&m_stormBlast, &m_stormstrkeGlaive, &m_clawsAndFangs};
 }
 
 bool Fulminators::configure(int numModels)
@@ -60,13 +61,6 @@ bool Fulminators::configure(int numModels)
     }
 
     return true;
-}
-
-void Fulminators::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_stormBlast);
-    visitor(m_stormstrkeGlaive);
-    visitor(m_clawsAndFangs);
 }
 
 Unit *Fulminators::Create(const ParameterList &parameters)

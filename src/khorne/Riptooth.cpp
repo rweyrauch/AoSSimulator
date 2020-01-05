@@ -53,6 +53,7 @@ Riptooth::Riptooth() :
     m_claws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1)
 {
     m_keywords = {CHAOS, DAEMON, GORETIDE, KHORNE, FLESH_HOUND, RIPTOOTH};
+    m_weapons = {&m_claws};
 
     // Collar of Khorne
     m_totalUnbinds = 1;
@@ -60,18 +61,13 @@ Riptooth::Riptooth() :
 
 bool Riptooth::configure()
 {
-        auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_claws);
     addModel(model);
 
     m_points = POINTS_PER_UNIT;
 
     return true;
-}
-
-void Riptooth::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_claws);
 }
 
 } // namespace Khorne

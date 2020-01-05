@@ -36,6 +36,7 @@ CryptGhouls::CryptGhouls() :
     m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, SERFS, CRYPT_GHOULS};
+    m_weapons = {&m_teethAndClaws, &m_teethAndClawsGhast};
 }
 
 bool CryptGhouls::configure(int numModels)
@@ -63,12 +64,6 @@ bool CryptGhouls::configure(int numModels)
     }
 
     return true;
-}
-
-void CryptGhouls::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-    visitor(m_teethAndClaws);
-    visitor(m_teethAndClawsGhast);
 }
 
 Unit *CryptGhouls::Create(const ParameterList &parameters)
