@@ -818,9 +818,9 @@ enum Keyword
 
 };
 
-Keyword grandAllianceStringToKeyword(const std::string& allianceName);
-Keyword factionStringToKeyword(const std::string& factionName);
-std::string factionKeywordToString(Keyword faction);
+Keyword GrandAllianceStringToKeyword(const std::string& allianceName);
+Keyword FactionStringToKeyword(const std::string& factionName);
+std::string FactionKeywordToString(Keyword faction);
 
 struct Duration
 {
@@ -829,7 +829,7 @@ struct Duration
     PlayerId player;
 };
 
-bool expired(const Duration& duration, const Duration& current);
+bool Expired(const Duration& duration, const Duration& current);
 
 struct ModifierBuff
 {
@@ -915,5 +915,6 @@ Verbosity GetVerbosity();
 void SimLog(Verbosity verbosity, const char* format, ...);
 
 float AverageRandomValue(int value);
+
 
 #endif //AGEOFSIGMARSIM_H

@@ -115,7 +115,6 @@ Wounds Skragrott::applyWoundSave(const Wounds &wounds)
 {
     // Loonking's Crown
     Dice dice;
-    Dice::RollResult result;
 
     Dice::RollResult woundSaves, mortalSaves;
     dice.rollD6(wounds.normal, woundSaves);

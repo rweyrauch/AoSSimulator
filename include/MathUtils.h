@@ -206,14 +206,6 @@ public:
         this->z = z;
     }
 
-    const float& at(size_t i) const
-    {
-        if (i == 0) return x;
-        else if (i == 1) return y;
-        else if (i == 2) return z;
-        else assert(0);
-    }
-
     float& at(int index)
     {
         switch (index)
@@ -404,14 +396,6 @@ public:
         this->x = x;
         this->y = y;
         this->z = z;
-    }
-
-    const float& at(size_t i) const
-    {
-        if (i == 0) return x;
-        else if (i == 1) return y;
-        else if (i == 2) return z;
-        else assert(0);
     }
 
     float& at(int index) { switch (index) { case 0: return x; case 1: return y; case 2: return z; }; throw std::out_of_range("Invalid index.");}

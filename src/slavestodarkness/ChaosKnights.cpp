@@ -210,7 +210,7 @@ Wounds ChaosKnights::applyWoundSave(const Wounds &wounds)
     Dice dice;
 
     // Chaos Runeshield
-    Dice::RollResult woundSaves, mortalSaves;
+    Dice::RollResult mortalSaves;
     dice.rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;

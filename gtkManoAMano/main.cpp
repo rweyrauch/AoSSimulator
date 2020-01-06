@@ -77,7 +77,7 @@ static void populateUnits(const std::string& factionName, Gtk::ComboBoxText *pCo
 
     for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
     {
-        auto ki = factionStringToKeyword(factionName);
+        auto ki = FactionStringToKeyword(factionName);
         // filter based on keyword
         if (ki == ruip->second.m_faction)
                 unitNames.push_back(ruip->first);
@@ -109,7 +109,7 @@ static void populateFactions(int allianceId, Gtk::ComboBoxText *pCombo)
     factionKeywords.unique();
     for (auto ip : factionKeywords)
     {
-        pCombo->append(factionKeywordToString(ip));
+        pCombo->append(FactionKeywordToString(ip));
     }
     pCombo->set_active(0);
 }
@@ -119,7 +119,7 @@ static void on_red_alliance_selected()
     if (pRedAlliance)
     {
         auto alliance = pRedAlliance->get_active_text();
-        g_redAlliance = grandAllianceStringToKeyword(alliance);
+        g_redAlliance = GrandAllianceStringToKeyword(alliance);
 
         std::cout << "Red selected Grand Alliance " << alliance << " with ID: " << g_redAlliance << std::endl;
 
@@ -132,7 +132,7 @@ static void on_blue_alliance_selected()
     if (pBlueAlliance)
     {
         auto alliance = pBlueAlliance->get_active_text();
-        g_blueAlliance = grandAllianceStringToKeyword(alliance);
+        g_blueAlliance = GrandAllianceStringToKeyword(alliance);
 
         std::cout << "Blue selected Grand Alliance " << alliance << " with ID: " << g_blueAlliance << std::endl;
 

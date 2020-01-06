@@ -1,7 +1,9 @@
 project(WarhammerSim)
 
+option(JsBuild "JsBuild" OFF)
+
 add_library(
-        AoSSim
+        AoSSim STATIC
         Dice.cpp
         Unit.cpp
         Weapon.cpp
@@ -510,3 +512,15 @@ target_compile_options(
         -Wall
         -Wno-unused-parameter
 )
+
+if(JsBuild)
+target_link_options(
+        AoSSim PUBLIC
+        -s WASM=1
+        -s MODULARIZE=1
+        -s 'EXPORT_NAME="AoSSim"' 
+        -s NO_FILESYSTEM=1 
+        -s EXPORT_BINDINGS=1 -s
+        --bind
+)
+endif(JsBuild)

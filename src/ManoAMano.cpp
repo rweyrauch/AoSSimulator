@@ -13,6 +13,10 @@
 #include <Board.h>
 #include <gloomspitegitz/BadMoon.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/bind.h>
+#endif
+
 ManoAMano::ManoAMano(int numRounds, Realm realm) :
     m_numRounds(numRounds)
 {
@@ -491,3 +495,18 @@ const Unit *ManoAMano::blueUnit() const
     const auto blue = m_rosters[1]->unitBegin();
     return *blue;
 }
+
+#ifdef __EMSCRIPTEN__
+EMSCRIPTEN_BINDINGS(manoamano_class) 
+{
+    emscripten::class_<ManoAMano>("ManoAMano")
+        .constructor<int, Realm>()
+        .function("combatants", &ManoAMano::combatants, emscripten::allow_raw_pointers())
+        .function("start", &ManoAMano::start)
+        .function("simulate", &ManoAMano::simulate)
+        .function("next", &ManoAMano::next)
+        .function("done", &ManoAMano::done)
+        .function("getVictor", &ManoAMano::getVictor)
+        ;
+}
+#endif // __EMSCRIPTEN__

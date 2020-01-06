@@ -11,6 +11,10 @@
 #include <sstream>
 #include <cstdarg>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/bind.h>
+#endif
+
 
 std::vector<Parameter>::const_iterator FindParam(const std::string &name, const ParameterList &parameters)
 {
@@ -229,7 +233,7 @@ static std::map<std::string, Keyword> g_factionNameLookup = {
     { "Ossiarch Bonereapers", OSSIARCH_BONEREAPERS },
 };
 
-Keyword grandAllianceStringToKeyword(const std::string &allianceName)
+Keyword GrandAllianceStringToKeyword(const std::string &allianceName)
 {
     auto ki = g_allianceNameLookup.find(allianceName);
     if (ki != g_factionNameLookup.end())
@@ -237,7 +241,7 @@ Keyword grandAllianceStringToKeyword(const std::string &allianceName)
     return UNKNOWN;
 }
 
-Keyword factionStringToKeyword(const std::string &factionName)
+Keyword FactionStringToKeyword(const std::string &factionName)
 {
     auto ki = g_factionNameLookup.find(factionName);
     if (ki != g_factionNameLookup.end())
@@ -245,7 +249,7 @@ Keyword factionStringToKeyword(const std::string &factionName)
     return UNKNOWN;
 }
 
-std::string factionKeywordToString(Keyword faction)
+std::string FactionKeywordToString(Keyword faction)
 {
     for (const auto& ip : g_factionNameLookup)
     {
@@ -266,7 +270,62 @@ void SimLog(Verbosity verbosity, const char* format, ...)
     va_end(args);
 }
 
-bool expired(const Duration& duration, const Duration& current)
+bool Expired(const Duration& duration, const Duration& current)
 {
     return ((duration.player == current.player) && (duration.round < current.round) && (duration.phase == current.phase));
 }
+
+#ifdef __EMSCRIPTEN__
+
+EMSCRIPTEN_BINDINGS(aos_sim_module) {
+    emscripten::enum_<Phase>("Phase")
+        .value("Initiative", Phase::Initiative)
+        .value("Hero", Phase::Hero)
+        .value("Movement", Phase::Movement)
+        .value("Shooting", Phase::Shooting)
+        .value("Charge", Phase::Charge)
+        .value("Combat", Phase::Combat)
+        .value("Battleshock", Phase::Battleshock)
+    ;
+    emscripten::enum_<PlayerId>("PlayerId")
+        .value("None", PlayerId::None)
+        .value("Red", PlayerId::Red)
+        .value("Blue", PlayerId::Blue)
+    ;
+    emscripten::enum_<Rerolls>("Rerolls")
+        .value("NoRerolls", Rerolls::NoRerolls)
+        .value("RerollOnes",  Rerolls::RerollOnes)
+        .value("RerollOnesAndTwos", Rerolls::RerollOnesAndTwos)
+        .value("RerollSixes", Rerolls::RerollSixes)
+        .value("RerollFailed", Rerolls::RerollFailed)
+    ;
+    emscripten::enum_<Verbosity>("Verbosity")
+        .value("Silence", Verbosity::Silence)
+        .value("Normal", Verbosity::Normal)
+        .value("Narrative", Verbosity::Narrative)
+        .value("Debug", Verbosity::Debug)
+    ;
+    emscripten::enum_<ParamType>("ParamType")
+        .value("Boolean", ParamType::Boolean)
+        .value("Integer", ParamType::Integer)
+        .value("Enum", ParamType::Enum)
+    ;
+    emscripten::class_<Parameter>("Parameter")
+        .constructor<>()
+        .property("paramType", &Parameter::m_paramType)
+        .property("name", &Parameter::m_name)
+        .property("intValue", &Parameter::m_intValue)
+        .property("minValue", &Parameter::m_minValue)
+        .property("maxValue", &Parameter::m_maxValue)
+        .property("increment", &Parameter::m_increment)
+    ;
+
+    emscripten::function("Initialize", &Initialize);
+    emscripten::function("GrandAllianceStringToKeyword", &GrandAllianceStringToKeyword);
+    emscripten::function("FactionStringToKeyword", &FactionStringToKeyword);
+    emscripten::function("FactionKeywordToString", &FactionKeywordToString);
+    emscripten::function("ParameterValueToString", &ParameterValueToString);
+}
+
+#endif
+

@@ -13,6 +13,10 @@
 #include <Roster.h>
 #include <Think.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/bind.h>
+#endif
+
 const float MAX_CHARGE_DISTANCE = 12.0f;
 const float MIN_CHARGE_DISTANCE = 3.0;
 
@@ -1119,7 +1123,7 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
     {
         for (auto bi = list.begin(); bi != list.end();)
         {
-            if (expired(bi->duration, currentPhase))
+            if (Expired(bi->duration, currentPhase))
             {
                 bi = list.erase(bi);
             }
@@ -1134,7 +1138,7 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
     {
         for (auto bi = list.begin(); bi != list.end();)
         {
-            if (expired(bi->duration, currentPhase))
+            if (Expired(bi->duration, currentPhase))
             {
                 bi = list.erase(bi);
             }
@@ -1149,7 +1153,7 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
     {
         for (auto bi = list.begin(); bi != list.end();)
         {
-            if (expired(bi->duration, currentPhase))
+            if (Expired(bi->duration, currentPhase))
             {
                 bi = list.erase(bi);
             }
@@ -1414,3 +1418,12 @@ CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int braver
     Unit(name, move, wounds, bravery, save, fly)
 {
 }
+
+#ifdef __EMSCRIPTEN__
+EMSCRIPTEN_BINDINGS(unit_class) 
+{
+    emscripten::class_<Unit>("Unit")
+        .constructor<>()
+        ;
+}
+#endif // __EMSCRIPTEN__

@@ -209,7 +209,7 @@ void displayUnits(Verbosity verbose, const std::string& faction)
     {
         if (!listAll)
         {
-            auto ki = factionStringToKeyword(faction);
+            auto ki = FactionStringToKeyword(faction);
             if (ki != UNKNOWN)
             {
                 // filter based on keyword
