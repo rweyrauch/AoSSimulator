@@ -1,0 +1,38 @@
+
+enum Realm
+{
+    "Aqshy",
+    "Azyr",
+    "Chamon",
+    "Ghur",
+    "Ghyran",
+    "Hysh",
+    "Shyish",
+    "Ulgu"
+};
+
+enum PlayerId
+{
+    "None",
+    "Red",
+    "Blue"
+};
+
+interface Unit {
+    void Unit();
+
+    long points();
+    void restore();
+};
+
+interface ManoAMano {
+    void ManoAMano(long numRounds, Realm realm);
+    void combatants(Unit red, Unit blue);
+    void start();
+    void simulate();
+    void next();
+    boolean done();
+    long currentRound();
+    void logStatistics();
+    PlayerId getVictor();
+};
