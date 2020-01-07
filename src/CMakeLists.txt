@@ -1,7 +1,5 @@
 project(WarhammerSim)
 
-option(JsBuild "JsBuild" OFF)
-
 add_library(
         AoSSim STATIC
         Dice.cpp
@@ -527,10 +525,3 @@ target_compile_options(
         -Wall
         -Wno-unused-parameter
 )
-
-if(JsBuild)
-set(CMAKE_STATIC_LINKER_FLAGS, "--bind")
-#target_link_options(
-#        AoSSim PRIVATE
-#)
-endif(JsBuild)

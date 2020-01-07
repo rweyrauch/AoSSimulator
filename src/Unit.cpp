@@ -13,10 +13,6 @@
 #include <Roster.h>
 #include <Think.h>
 
-#ifdef __EMSCRIPTEN__
-#include <emscripten/bind.h>
-#endif
-
 const float MAX_CHARGE_DISTANCE = 12.0f;
 const float MIN_CHARGE_DISTANCE = 3.0;
 
@@ -1418,12 +1414,3 @@ CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int braver
     Unit(name, move, wounds, bravery, save, fly)
 {
 }
-
-#ifdef __EMSCRIPTEN__
-EMSCRIPTEN_BINDINGS(unit_class) 
-{
-    emscripten::class_<Unit>("Unit")
-        .constructor<>()
-        ;
-}
-#endif // __EMSCRIPTEN__

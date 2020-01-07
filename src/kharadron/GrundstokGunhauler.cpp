@@ -17,7 +17,7 @@ Unit *GrundstokGunhauler::Create(const ParameterList &parameters)
 
 std::string GrundstokGunhauler::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    return KharadronBase::ValueToString(parameter);
 }
 
 int GrundstokGunhauler::EnumStringToInt(const std::string &enumString)

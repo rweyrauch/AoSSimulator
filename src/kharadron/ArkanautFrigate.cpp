@@ -17,12 +17,12 @@ Unit *ArkanautFrigate::Create(const ParameterList &parameters)
 
 std::string ArkanautFrigate::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    return KharadronBase::ValueToString(parameter);
 }
 
 int ArkanautFrigate::EnumStringToInt(const std::string &enumString)
 {
-    return 0;
+    return KharadronBase::EnumStringToInt(enumString);
 }
 
 void ArkanautFrigate::Init()

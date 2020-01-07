@@ -17,7 +17,7 @@ Unit *GrundstokThunderers::Create(const ParameterList &parameters)
 
 std::string GrundstokThunderers::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    return KharadronBase::ValueToString(parameter);
 }
 
 int GrundstokThunderers::EnumStringToInt(const std::string &enumString)

@@ -9,7 +9,9 @@
 
 #include <cmath>
 #include <cassert>
+#ifndef __EMSCRIPTEN__
 #include <stdexcept>
+#endif
 
 namespace Math {
 
@@ -210,29 +212,29 @@ public:
     {
         switch (index)
         {
-            case 0:
-                return x;
-            case 1:
-                return y;
-            case 2:
-                return z;
-            default:
-                throw std::out_of_range("Invalid index.");
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
         };
+#ifndef __EMSCRIPTEN__
+        throw std::out_of_range("Invalid index.");
+#else
+        return x;
+#endif
     }
     const float& at(int index) const
     {
         switch (index)
         {
-            case 0:
-                return x;
-            case 1:
-                return y;
-            case 2:
-                return z;
-            default:
-                throw std::out_of_range("Invalid index.");
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
         };
+#ifndef __EMSCRIPTEN__
+        throw std::out_of_range("Invalid index.");
+#else
+        return x;
+#endif
     }
 
 public:
@@ -398,8 +400,34 @@ public:
         this->z = z;
     }
 
-    float& at(int index) { switch (index) { case 0: return x; case 1: return y; case 2: return z; }; throw std::out_of_range("Invalid index.");}
-    const float& at(int index) const { switch (index) { case 0: return x; case 1: return y; case 2: return z; }; throw std::out_of_range("Invalid index.");}
+    float& at(int index)
+    {
+        switch (index)
+        {
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
+        };
+#ifndef __EMSCRIPTEN__
+        throw std::out_of_range("Invalid index.");
+#else
+        return x;
+#endif
+    }
+    const float& at(int index) const
+    {
+        switch (index)
+        {
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
+        };
+#ifndef __EMSCRIPTEN__
+        throw std::out_of_range("Invalid index.");
+#else
+        return x;
+#endif
+    }
 
     static float Dot(const Vector3& v1, const Vector3& v2);
     static float Dot(const Vector3& v1, const Point3& p2);

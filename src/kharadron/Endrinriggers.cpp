@@ -17,7 +17,7 @@ Unit *Endrinriggers::Create(const ParameterList &parameters)
 
 std::string Endrinriggers::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    return KharadronBase::ValueToString(parameter);
 }
 
 int Endrinriggers::EnumStringToInt(const std::string &enumString)

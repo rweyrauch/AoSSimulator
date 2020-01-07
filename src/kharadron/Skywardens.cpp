@@ -17,7 +17,7 @@ Unit *Skywardens::Create(const ParameterList &parameters)
 
 std::string Skywardens::ValueToString(const Parameter &parameter)
 {
-    return std::__cxx11::string();
+    return KharadronBase::ValueToString(parameter);
 }
 
 int Skywardens::EnumStringToInt(const std::string &enumString)
