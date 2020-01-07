@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ARKANAUTFRIGATE_H
-#define ARKANAUTFRIGATE_H
+#ifndef SKYWARDENS_H
+#define SKYWARDENS_H
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -15,13 +15,16 @@
 namespace KharadronOverlords
 {
 
-class ArkanautFrigate : public KharadronBase
+class Skywardens : public KharadronBase
 {
 public:
 
-    static const int BASESIZE = 0;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 200;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 400;
 
     static Unit *Create(const ParameterList &parameters);
 
@@ -31,9 +34,9 @@ public:
 
     static void Init();
 
-    ArkanautFrigate();
+    Skywardens();
 
-    ~ArkanautFrigate() override = default;
+    ~Skywardens() override = default;
 
     bool configure();
 
@@ -41,11 +44,12 @@ protected:
 
 private:
 
-    Weapon m_cannonShrapnel,
-        m_cannonShell,
+    Weapon m_volleyGun,
         m_skyhook,
-        m_carbines,
-        m_boardingWeapons;
+        m_drillLauncher,
+        m_pistol,
+        m_gunButt,
+        m_skypike;
 
     static bool s_registered;
 };
@@ -54,15 +58,14 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Garrison                         No
-// Aetheric Navigator/Endrinrigger  No
-// Bomb Racks                       No
-// Disengage                        No
-// Fly High                         No
-// Heavy Skyhook                    No
-// Heavy Sky Cannon                 No
+// Drill Launcher                   No
+// Grapnel Launcher                 No
+// Hitchers                         No
+// Skyhook                          No
+// Skymines                         No
+// Timed Charges                    No
 //
 
 } // namespace KharadronOverlords
 
-#endif //ARKANAUTFRIGATE_H
+#endif //SKYWARDENS_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ARKANAUTFRIGATE_H
-#define ARKANAUTFRIGATE_H
+#ifndef GRUNDSTOKGUNHAULER_H
+#define GRUNDSTOKGUNHAULER_H
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -15,13 +15,13 @@
 namespace KharadronOverlords
 {
 
-class ArkanautFrigate : public KharadronBase
+class GrundstokGunhauler : public KharadronBase
 {
 public:
 
     static const int BASESIZE = 0;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 200;
+    static const int WOUNDS = 0;
+    static const int POINTS_PER_UNIT = 130;
 
     static Unit *Create(const ParameterList &parameters);
 
@@ -31,9 +31,9 @@ public:
 
     static void Init();
 
-    ArkanautFrigate();
+    GrundstokGunhauler();
 
-    ~ArkanautFrigate() override = default;
+    ~GrundstokGunhauler() override = default;
 
     bool configure();
 
@@ -43,7 +43,7 @@ private:
 
     Weapon m_cannonShrapnel,
         m_cannonShell,
-        m_skyhook,
+        m_drillCannon,
         m_carbines,
         m_boardingWeapons;
 
@@ -54,15 +54,15 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Garrison                         No
-// Aetheric Navigator/Endrinrigger  No
+// Ahead Full                       No
+// Escort Vessel                    No
 // Bomb Racks                       No
 // Disengage                        No
 // Fly High                         No
-// Heavy Skyhook                    No
-// Heavy Sky Cannon                 No
+// Drill Cannon                     No
+// Sky Cannon                       No
 //
 
 } // namespace KharadronOverlords
 
-#endif //ARKANAUTFRIGATE_H
+#endif //GRUNDSTOKGUNHAULER_H

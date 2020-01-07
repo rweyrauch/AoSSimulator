@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ARKANAUTFRIGATE_H
-#define ARKANAUTFRIGATE_H
+#ifndef GRUNDSTOKTHUNDERERS_H
+#define GRUNDSTOKTHUNDERERS_H
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -15,13 +15,16 @@
 namespace KharadronOverlords
 {
 
-class ArkanautFrigate : public KharadronBase
+class GrundstokThunderers : public KharadronBase
 {
 public:
 
     static const int BASESIZE = 0;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 200;
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 20;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 360;
 
     static Unit *Create(const ParameterList &parameters);
 
@@ -31,9 +34,9 @@ public:
 
     static void Init();
 
-    ArkanautFrigate();
+    GrundstokThunderers();
 
-    ~ArkanautFrigate() override = default;
+    ~GrundstokThunderers() override = default;
 
     bool configure();
 
@@ -41,11 +44,14 @@ protected:
 
 private:
 
-    Weapon m_cannonShrapnel,
-        m_cannonShell,
-        m_skyhook,
-        m_carbines,
-        m_boardingWeapons;
+    Weapon m_rifle,
+        m_doubleBarrelledRifle,
+        m_fumigator,
+        m_decksweeper,
+        m_aethercannon,
+        m_mortar,
+        m_drillbill,
+        m_gunButt;
 
     static bool s_registered;
 };
@@ -54,15 +60,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Garrison                         No
-// Aetheric Navigator/Endrinrigger  No
-// Bomb Racks                       No
-// Disengage                        No
-// Fly High                         No
-// Heavy Skyhook                    No
-// Heavy Sky Cannon                 No
+// Honour Bearer                    No
+// Chocking Fug                     No
+// Drive Them Back!                 No
+// Pin THem, Shred Them, Finish Them    No
 //
 
 } // namespace KharadronOverlords
 
-#endif //ARKANAUTFRIGATE_H
+#endif //GRUNDSTOKTHUNDERERS_H

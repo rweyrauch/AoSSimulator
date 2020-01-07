@@ -1,0 +1,57 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#ifndef AETHERICNAVIGATOR_H
+#define AETHERICNAVIGATOR_H
+
+#include <kharadron/KharadronBase.h>
+#include <Weapon.h>
+
+namespace KharadronOverlords
+{
+
+class AethericNavigator : public KharadronBase
+{
+public:
+
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 80;
+
+    static Unit *Create(const ParameterList &parameters);
+
+    static void Init();
+
+    AethericNavigator();
+
+    ~AethericNavigator() override = default;
+
+    bool configure();
+
+protected:
+
+private:
+
+    Weapon m_pistol,
+        m_zephyrscope;
+
+    static bool s_registered;
+};
+
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Aethersight                      Yes
+// Aetherstorm                      No
+// Read the Winds                   No
+//
+
+} // namespace KharadronOverlords
+
+#endif //AETHERICNAVIGATOR_H

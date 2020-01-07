@@ -60,6 +60,7 @@ Prayer* CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit* priest)
         case BloodBlessingsOfKhorne::KillingFrenzy:
             return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16.0f, ToHitMelee, 1, true, 1);
         case BloodBlessingsOfKhorne::SpellbaneHex:
+        case BloodBlessingsOfKhorne::None:
             return nullptr;
     }
     return nullptr;

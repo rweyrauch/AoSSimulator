@@ -493,6 +493,21 @@ add_library(
         ossiarch/MorghastArchai.cpp
         ossiarch/MorghastHarbingers.cpp
         ossiarch/ArkhanTheBlack.cpp
+
+        kharadron/AethericNavigator.cpp
+        kharadron/AetherKhemist.cpp
+        kharadron/ArkanautAdmiral.cpp
+        kharadron/ArkanautCompany.cpp
+        kharadron/ArkanautFrigate.cpp
+        kharadron/ArkanautIronclad.cpp
+        kharadron/BrokkGrungsson.cpp
+        kharadron/EndrinmasterWithHarness.cpp
+        kharadron/EndrinmasterWithSuit.cpp
+        kharadron/Endrinriggers.cpp
+        kharadron/GrundstokGunhauler.cpp
+        kharadron/GrundstokThunderers.cpp
+        kharadron/KharadronBase.cpp
+        kharadron/Skywardens.cpp
 )
 
 target_include_directories(
@@ -514,13 +529,8 @@ target_compile_options(
 )
 
 if(JsBuild)
-target_link_options(
-        AoSSim PUBLIC
-        -s WASM=1
-        -s MODULARIZE=1
-        -s 'EXPORT_NAME="AoSSim"' 
-        -s NO_FILESYSTEM=1 
-        -s EXPORT_BINDINGS=1 -s
-        --bind
-)
+set(CMAKE_STATIC_LINKER_FLAGS, "--bind")
+#target_link_options(
+#        AoSSim PRIVATE
+#)
 endif(JsBuild)

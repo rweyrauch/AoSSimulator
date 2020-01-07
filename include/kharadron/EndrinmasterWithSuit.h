@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef AETHERKHEMIST_H
-#define AETHERKHEMIST_H
+#ifndef ENDRINMASTERSUIT_H
+#define ENDRINMASTERSUIT_H
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -15,21 +15,21 @@
 namespace KharadronOverlords
 {
 
-class AetherKhemist : public KharadronBase
+class EndrinmasterWithDirigibleSuit : public KharadronBase
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int BASESIZE = 0;
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 160;
 
     static Unit *Create(const ParameterList &parameters);
 
     static void Init();
 
-    AetherKhemist();
+    EndrinmasterWithDirigibleSuit();
 
-    ~AetherKhemist() override = default;
+    ~EndrinmasterWithDirigibleSuit() override = default;
 
     bool configure();
 
@@ -37,8 +37,10 @@ protected:
 
 private:
 
-    Weapon m_anatomiser,
-        m_instruments;
+    Weapon m_aethercannon,
+        m_weaponBattery,
+        m_gaze,
+        m_saw;
 
     static bool s_registered;
 };
@@ -47,10 +49,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aetheric Augmentation            No
-// Atmospheric Isolation            No
+// Endrinmaster                     No
+// Hitcher                          No
+// By Grungni, I Have My Eye On You!    No
 //
 
 } // namespace KharadronOverlords
 
-#endif //AETHERKHEMIST_H
+#endif //ENDRINMASTERSUIT_H

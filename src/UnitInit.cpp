@@ -25,6 +25,7 @@
 #include "citiesofsigmar/CitiesOfSigmar.h"
 #include "mawtribes/MawtribesBase.h"
 #include "ossiarch/OssiarchBonereaperBase.h"
+#include "kharadron/KharadronBase.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
@@ -153,6 +154,7 @@ void Initialize(Verbosity verbosity)
     CitiesOfSigmar::Init();
     OgorMawtribes::Init();
     OssiarchBonereapers::Init();
+    KharadronOverlords::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
     IdonethDeepkin::NamartiReavers::Init();
