@@ -18,6 +18,21 @@ enum PlayerId
     "Blue"
 };
 
+enum Verbosity
+{
+    "Silence",
+    "Normal",
+    "Narrative",
+    "Debug"
+};
+
+enum ParamType
+{
+    "Boolean",
+    "Integer",
+    "Enum",
+};
+
 interface Unit {
     void Unit();
 
@@ -35,4 +50,21 @@ interface ManoAMano {
     long currentRound();
     void logStatistics();
     PlayerId getVictor();
+};
+
+interface ParameterJS {
+    attribute ParamType paramType;
+    attribute DOMString name;
+    attribute long intValue;
+    attribute long minValue;
+    attribute long maxValue;
+    attribute long increment;
+};
+
+interface JSInterface {
+    static void Initialize();
+    static long GrandAllianceStringToKeyword(DOMString allianceName);
+    static long FactionStringToKeyword(DOMString factionName);
+    [Const] static DOMString FactionKeywordToString(long faction);
+    [Const] static DOMString ParameterValueToString([Ref] ParameterJS param);
 };

@@ -15,6 +15,18 @@
         }
 
         AosSim().then(function(AosSim) {
+            AosSim.JSInterface.prototype.Initialize();
+
+            // Run some basic tests.
+            var gac = AosSim.JSInterface.prototype.GrandAllianceStringToKeyword("Chaos");
+            var gad = AosSim.JSInterface.prototype.GrandAllianceStringToKeyword("Destruction");
+
+            console.log("GA: " + gac + " " + gad);
+
+            var sce = AosSim.JSInterface.prototype.FactionStringToKeyword("Stormcast Eternal");
+            var scetxt = AosSim.JSInterface.prototype.FactionKeywordToString(sce);
+            console.log("ScE: " + sce + "  Text: " + scetxt);
+
             var mano = new AosSim.ManoAMano(5);
             if (mano) {
                 console.log("Create a ManoAMano object.  Current round: " + mano.currentRound() + "  Victor: " + mano.getVictor());
