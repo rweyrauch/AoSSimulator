@@ -38,9 +38,12 @@ public:
 
     ~Endrinriggers() override = default;
 
-    bool configure();
+    bool configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks);
 
 protected:
+
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int chargeModifier() const override;
 
 private:
 
@@ -49,7 +52,9 @@ private:
         m_drillLauncher,
         m_rivetGun,
         m_saw,
-        m_gunButt;
+        m_gunButt,
+        m_sawMaster,
+        m_gunButtMaster;
 
     static bool s_registered;
 };
@@ -58,11 +63,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Drill Launcher                   No
+// Drill Launcher                   Yes
 // Endrincraft                      No
 // Grapnel Launcher                 No
 // Hitchers                         No
-// Skyhook                          No
+// Skyhook                          Yes
 //
 
 } // namespace KharadronOverlords

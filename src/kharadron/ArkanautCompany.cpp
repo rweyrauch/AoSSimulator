@@ -54,11 +54,18 @@ Unit *ArkanautCompany::Create(const ParameterList &parameters)
 
 std::string ArkanautCompany::ValueToString(const Parameter &parameter)
 {
+    if (parameter.m_name == "Captain Weapon")
+    {
+        if (parameter.m_intValue == AetherflarePistol) return "Aetherflare Pistol";
+        else if (parameter.m_intValue == PrivateerPistol) return "Privateer Pistol";
+    }
     return KharadronBase::ValueToString(parameter);
 }
 
 int ArkanautCompany::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Privateer Pistol") return PrivateerPistol;
+    else if (enumString == "Aetherflare Pistol") return AetherflarePistol;
     return KharadronBase::EnumStringToInt(enumString);
 }
 

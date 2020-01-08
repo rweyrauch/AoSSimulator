@@ -38,7 +38,7 @@ public:
 
     ~GrundstokThunderers() override = default;
 
-    bool configure();
+    bool configure(int numModels, int numMortars, int numCannons, int numFumigators, int numDecksweeper, int numHonourBearers);
 
 protected:
 

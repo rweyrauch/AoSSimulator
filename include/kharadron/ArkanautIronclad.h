@@ -23,6 +23,13 @@ public:
     static const int WOUNDS = 18;
     static const int POINTS_PER_UNIT = 380;
 
+    enum WeaponOption
+    {
+        GreatSkyCannon,
+        GreatSkyhook,
+        GreatVolleyCannon
+    };
+
     static Unit *Create(const ParameterList &parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -35,11 +42,23 @@ public:
 
     ~ArkanautIronclad() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
+
+    int move() const override;
 
 protected:
 
+    void onWounded() override;
+    int getDamageTableIndex() const;
+    void onStartShooting(PlayerId player) override;
+    int chargeModifier() const override;
+    void onStartHero(PlayerId player) override;
+    Rerolls runRerolls() const override;
+    void onStartCombat(PlayerId player) override;
+
 private:
+
+    WeaponOption m_weaponOption = GreatSkyCannon;
 
     Weapon m_cannonShrapnel,
         m_cannonShell,
@@ -56,6 +75,13 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Garrison                         No
+// Aetheric Navigator/Endrinrigger  Yes
+// Bomb Racks                       Yes
+// Disengage                        No
+// Fly High                         No
+// Great Skyhook                    Yes
+// Great Sky Cannon                 Yes
 //
 
 } // namespace KharadronOverlords

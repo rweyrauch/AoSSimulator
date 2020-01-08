@@ -23,6 +23,12 @@ public:
     static const int WOUNDS = 0;
     static const int POINTS_PER_UNIT = 130;
 
+    enum WeaponOption
+    {
+        SkyCannon,
+        DrillCannon
+    };
+
     static Unit *Create(const ParameterList &parameters);
 
     static std::string ValueToString(const Parameter &parameter);
@@ -35,7 +41,7 @@ public:
 
     ~GrundstokGunhauler() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
 
 protected:
 

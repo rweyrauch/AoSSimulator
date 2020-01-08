@@ -35,6 +35,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_pistol,
@@ -47,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// If You Want A Job Done...        No
+// If You Want A Job Done...        Yes
 // Protect the Admiral!             No
 // Master of the Skies              No
 // On My Mark, Fire!                No

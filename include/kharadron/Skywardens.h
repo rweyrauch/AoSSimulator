@@ -38,9 +38,12 @@ public:
 
     ~Skywardens() override = default;
 
-    bool configure();
+    bool configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks);
 
 protected:
+
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int chargeModifier() const override;
 
 private:
 
@@ -49,7 +52,9 @@ private:
         m_drillLauncher,
         m_pistol,
         m_gunButt,
-        m_skypike;
+        m_skypike,
+        m_gunButtCustodian,
+        m_skypikeCustodian;
 
     static bool s_registered;
 };
@@ -58,10 +63,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Drill Launcher                   No
+// Drill Launcher                   Yes
 // Grapnel Launcher                 No
 // Hitchers                         No
-// Skyhook                          No
+// Skyhook                          Yes
 // Skymines                         No
 // Timed Charges                    No
 //

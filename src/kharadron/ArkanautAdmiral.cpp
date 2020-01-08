@@ -65,4 +65,20 @@ bool ArkanautAdmiral::configure()
     return true;
 }
 
+Rerolls ArkanautAdmiral::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // If You Want A Job Done...
+    if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return RerollOnes;
+
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Rerolls ArkanautAdmiral::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // If You Want A Job Done...
+    if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return RerollOnes;
+
+    return Unit::toWoundRerolls(weapon, target);
+}
+
 } //KharadronOverlords
