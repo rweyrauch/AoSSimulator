@@ -14,7 +14,7 @@
 #include <vector>
 #include "Dice.h"
 
-enum class Phase
+enum Phase
 {
     Initiative,
     Hero,
@@ -35,7 +35,7 @@ enum RandomNumber
     RAND_2D3 = -6,
 };
 
-enum class PlayerId
+enum PlayerId
 {
     None = -1,
     Red = 0,
@@ -53,7 +53,7 @@ enum Rerolls
 
 const int NoSave = 7;
 
-enum class Role
+enum Role
 {
     Battleline,
     Leader,
@@ -877,7 +877,7 @@ struct MovementRuleBuff
     Duration duration;
 };
 
-enum class Verbosity : int
+enum Verbosity : int
 {
     Silence = 0,
     Normal,
@@ -899,7 +899,7 @@ struct Wounds
 };
 
 
-enum class ParamType
+enum ParamType
 {
     Boolean,
     Integer,

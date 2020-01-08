@@ -5,7 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script type="module" src="AoSManoAMano.js"></script>
+    <script type="text/javascript" src="AosSim_min.js"></script>
+    <script type="text/javascript">
+        if (AosSim === undefined) {
+            console.log("Module not found");
+        }
+        else {
+            console.log("AoS module is loaded.");
+        }
+
+        AosSim().then(function(AosSim) {
+            var mano = new AosSim.ManoAMano(5);
+            if (mano) {
+                console.log("Create a ManoAMano object.  Current round: " + mano.currentRound() + "  Victor: " + mano.getVictor());
+            }
+
+        }); 
+
+    </script>
 </head>
 <body>
     
