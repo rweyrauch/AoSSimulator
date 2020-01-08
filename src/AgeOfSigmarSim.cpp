@@ -168,14 +168,14 @@ PlayerId GetEnemyId(PlayerId friendlyId)
 }
 
 
-static std::map<std::string, Keyword> g_allianceNameLookup = {
+static const std::map<std::string, Keyword> g_allianceNameLookup = {
     { "Order", ORDER },
     { "Chaos", CHAOS },
     { "Death", DEATH },
     { "Destruction", DESTRUCTION }
 };
 
-static std::map<std::string, Keyword> g_factionNameLookup = {
+static const std::map<std::string, Keyword> g_factionNameLookup = {
     { "Stormcast Eternal", STORMCAST_ETERNAL, },
     { "Khorne", KHORNE },
     { "Sylvaneth", SYLVANETH },
@@ -244,14 +244,16 @@ Keyword FactionStringToKeyword(const std::string &factionName)
     return UNKNOWN;
 }
 
-std::string FactionKeywordToString(Keyword faction)
+static const std::string g_notFound("Not Found");
+
+const std::string& FactionKeywordToString(Keyword faction)
 {
     for (const auto& ip : g_factionNameLookup)
     {
         if (ip.second == faction)
             return ip.first;
     }
-    return "Not Found";
+    return g_notFound;
 }
 
 void SimLog(Verbosity verbosity, const char* format, ...)

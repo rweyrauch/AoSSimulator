@@ -20,9 +20,9 @@ int JSInterface::FactionStringToKeyword(const char* factionName)
 
 const char* JSInterface::FactionKeywordToString(int faction)
 {
-    // TODO: review this - who owns the returned char*?
-    auto str = ::FactionKeywordToString((Keyword)faction);
-    return strdup(str.c_str());
+    // Returned string is a const.
+    const auto& str = ::FactionKeywordToString((Keyword)faction);
+    return str.c_str();
 }
 
 const char* JSInterface::ParameterValueToString(const ParameterJS& param)

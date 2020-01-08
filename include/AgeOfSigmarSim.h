@@ -848,7 +848,7 @@ enum Keyword
 
 Keyword GrandAllianceStringToKeyword(const std::string& allianceName);
 Keyword FactionStringToKeyword(const std::string& factionName);
-std::string FactionKeywordToString(Keyword faction);
+const std::string& FactionKeywordToString(Keyword faction);
 
 struct Duration
 {
