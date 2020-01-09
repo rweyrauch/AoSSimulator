@@ -246,6 +246,16 @@ Keyword FactionStringToKeyword(const std::string &factionName)
 
 static const std::string g_notFound("Not Found");
 
+const std::string& GrandAllianceKeywordToString(Keyword ga)
+{
+    for (const auto& ip : g_allianceNameLookup)
+    {
+        if (ip.second == ga)
+            return ip.first;
+    }
+    return g_notFound;
+}
+
 const std::string& FactionKeywordToString(Keyword faction)
 {
     for (const auto& ip : g_factionNameLookup)

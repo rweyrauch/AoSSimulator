@@ -316,7 +316,7 @@ OBJECTS += \
         src/skaven/Doomwheel.o \
         src/skaven/Doomflayer.o \
         src/tzeentch/KairicAcolytes.o \
-        src/tzeentch/PinkHorrors.o \
+        src/tzeentch/HorrorsOfTzeentch.o \
         src/tzeentch/TzaangorEnlightened.o \
         src/tzeentch/Tzaangors.o \
         src/tzeentch/FlamersOfTzeentch.o \

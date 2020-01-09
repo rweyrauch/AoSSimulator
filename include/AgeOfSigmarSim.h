@@ -597,10 +597,12 @@ enum Keyword
     // Tzeentch
     ARCANITE,
     KAIRIC_ACOLYTES,
-    PINK_HORRORS,
     TZAANGORS,
     TZAANGOR_ENLIGHTENED,
     FLAMERS,
+    FLAMERS_OF_TZEENTCH,
+    HORROR,
+    HORROR_OF_TZEENTCH,
 
     // Ironjawz
     ARDBOYS,
@@ -848,6 +850,7 @@ enum Keyword
 
 Keyword GrandAllianceStringToKeyword(const std::string& allianceName);
 Keyword FactionStringToKeyword(const std::string& factionName);
+const std::string& GrandAllianceKeywordToString(Keyword ga);
 const std::string& FactionKeywordToString(Keyword faction);
 
 struct Duration

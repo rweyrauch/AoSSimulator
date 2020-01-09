@@ -10,6 +10,17 @@
 #define AGEOFSIGMARSIMJS_H
 
 #include "AgeOfSigmarSim.h"
+#include "Unit.h"
+
+struct JSUnitInfo
+{
+public:
+    const char* name;
+    const Parameter* parameters;
+    int numberOfParameters;
+    int grandAlliance;
+    int faction;
+};
 
 class JSInterface 
 {
@@ -18,28 +29,15 @@ public:
     static int GrandAllianceStringToKeyword(const char* allianceName);
     static int FactionStringToKeyword(const char* factionName);
     static const char* FactionKeywordToString(int faction);
+    static const char* GrandAllianceKeywordToString(int ga);
 
-    static const char* ParameterValueToString(const Parameter& param);
+    static Unit* CreateUnit(const char* name, const Parameter* parameters, int numParams);
+    static int GetNumberOfAvailableUnits();
+    static void GetUnitInfo(int which, JSUnitInfo& info);
+    static const char* UnitParameterValueToString(const char* name, const Parameter& parameter);
+    static int UnitEnumStringToInt(const char* name, const char* enumString);
 };
 
-/*
-struct JSFactoryMethod
-{
-public:
-    std::vector<ParameterJS> parameters;
-    int grandAlliance;
-    int faction;
-};
 
-class JSUnitFactory
-{
-public:
-
-    static Unit* Create(const char* name, const std::vector<ParameterJS>& parameters);
- 
-    static int GetNumRegisteredUnits();
-    static const JSFactoryMethod* LookupUnit(const char* name);
-};
-*/
 
 #endif //AGEOFSIGMARSIMJS_H

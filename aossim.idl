@@ -53,6 +53,7 @@ interface ManoAMano {
 };
 
 interface Parameter {
+    void Parameter();
     attribute ParamType paramType;
     [Const] attribute DOMString name;
     attribute long intValue;
@@ -61,10 +62,25 @@ interface Parameter {
     attribute long increment;
 };
 
+interface JSUnitInfo {
+    void JSUnitInfo();
+    [Const] attribute DOMString name;
+    [Const] attribute Parameter parameters;
+    attribute long numberOfParameters;
+    attribute long grandAlliance;
+    attribute long faction;
+};
+
 interface JSInterface {
     static void Initialize();
     static long GrandAllianceStringToKeyword(DOMString allianceName);
     static long FactionStringToKeyword(DOMString factionName);
+    [Const] static DOMString GrandAllianceKeywordToString(long ga);
     [Const] static DOMString FactionKeywordToString(long faction);
-    [Const] static DOMString ParameterValueToString([Ref] Parameter param);
+
+    static Unit CreateUnit(DOMString name, [Const] Parameter parameters, long numParameters);
+    static long GetNumberOfAvailableUnits();
+    static void GetUnitInfo(long which, [Ref] JSUnitInfo info);
+    [Const] static DOMString UnitParameterValueToString([Const] DOMString name, [Ref] Parameter parameter);
+    static long UnitEnumStringToInt([Const] DOMString name, [Const] DOMString enumString);
 };

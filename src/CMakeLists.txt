@@ -317,7 +317,7 @@ add_library(
         skaven/Doomflayer.cpp
 
         tzeentch/KairicAcolytes.cpp
-        tzeentch/PinkHorrors.cpp
+        tzeentch/HorrorsOfTzeentch.cpp
         tzeentch/TzaangorEnlightened.cpp
         tzeentch/Tzaangors.cpp
         tzeentch/FlamersOfTzeentch.cpp

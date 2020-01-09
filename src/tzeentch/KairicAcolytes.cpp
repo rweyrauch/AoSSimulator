@@ -36,14 +36,15 @@ static FactoryMethod factoryMethod = {
 bool KairicAcolytes::s_registered = false;
 
 KairicAcolytes::KairicAcolytes() :
-    Unit("Kairic Acolytes", 6, WOUNDS, 5, 6, false),
-    m_sorcerousBolt(Weapon::Type::Missile, "Sorcerous Bolt", 12, 1, 5, 4, 0, 1),
-    m_sorcerousBoldAdept(Weapon::Type::Missile, "Sorcerous Bolt", 12, 2, 5, 4, 0, 1),
-    m_cursedBlade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 4, 0, 1),
-    m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 4, -1, 1)
+    Unit("Kairic Acolytes", 6, WOUNDS, 5, 5, false),
+    m_sorcerousBolt(Weapon::Type::Missile, "Sorcerous Bolt", 18, 1, 4, 3, 0, 1),
+    m_cursedBlade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 3, 0, 1),
+    m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 3, -1, 2),
+    m_cursedBladeAdept(Weapon::Type::Melee, "Cursed Blade", 1, 2, 4, 3, 0, 1),
+    m_cursedGlaiveAdept(Weapon::Type::Melee, "Cursed Glaive", 1, 2, 4, 3, -1, 2)
 {
     m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, KAIRIC_ACOLYTES};
-    m_weapons = {&m_sorcerousBolt, &m_sorcerousBoldAdept, &m_cursedBlade, &m_cursedGlaive};
+    m_weapons = {&m_sorcerousBolt, &m_cursedBlade, &m_cursedGlaive, &m_cursedBladeAdept, &m_cursedGlaiveAdept};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
@@ -73,16 +74,9 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
     m_numScrollsOfDarkArts = numScrollsOfDarkArts;
     m_numVulcharcs = numVulcharcs;
 
-    // Scroll of Dark Arts
-    if (m_numScrollsOfDarkArts)
-    {
-        m_sorcerousBoldAdept.setRange(18);
-        m_sorcerousBolt.setRange(18);
-    }
-
     auto adept = new Model(BASESIZE, WOUNDS);
-    adept->addMissileWeapon(&m_sorcerousBoldAdept);
-    adept->addMeleeWeapon(&m_cursedBlade);
+    adept->addMissileWeapon(&m_sorcerousBolt);
+    adept->addMeleeWeapon(&m_cursedBladeAdept);
     addModel(adept);
 
     for (auto i = 0; i < m_numCursedGlaives; i++)
@@ -116,10 +110,6 @@ Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds)
     // Arcanite Shield
     if (m_weaponOption == CursedBladeAndShield)
     {
-        Dice dice;
-        auto roll = dice.rollD6();
-        if (roll == 6)
-            return {0, 0};
     }
     return Unit::applyWoundSave(wounds);
 }
@@ -192,28 +182,20 @@ int KairicAcolytes::castingModifier() const
 {
     int modifier = Unit::castingModifier();
 
-    // Gestalt Sorcery
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 9.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(TZEENTCH) && ip->hasKeyword(WIZARD))
-        {
-            modifier += 1;
-            break;
-        }
-    }
+    // Scroll of Dark Arts
+    if (m_numScrollsOfDarkArts) modifier++;
+
     return modifier;
 }
 
-int KairicAcolytes::toHitModifier(const Weapon *weapon, const Unit *target) const
+Rerolls KairicAcolytes::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toHitModifier(weapon, target);
     // Paired Cursed Blades
     if ((m_weaponOption == PairedCursedBlades) && (weapon->name() == m_cursedBlade.name()))
     {
-        modifier += 1;
+        return RerollFailed;
     }
-    return modifier;
+    return Unit::toHitRerolls(weapon, target);
 }
 
 } //namespace Tzeentch

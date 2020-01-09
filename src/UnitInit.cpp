@@ -57,7 +57,7 @@
 #include "death/MorghastHarbingers.h"
 
 #include "tzeentch/KairicAcolytes.h"
-#include "tzeentch/PinkHorrors.h"
+#include "tzeentch/HorrorsOfTzeentch.h"
 #include "tzeentch/TzaangorEnlightened.h"
 #include "tzeentch/Tzaangors.h"
 #include "tzeentch/FlamersOfTzeentch.h"
@@ -186,7 +186,7 @@ void Initialize(Verbosity verbosity)
     Death::MorghastHarbingers::Init();
 
     Tzeentch::KairicAcolytes::Init();
-    Tzeentch::PinkHorrors::Init();
+    Tzeentch::HorrorsOfTzeentch::Init();
     Tzeentch::TzaangorEnlightened::Init();
     Tzeentch::Tzaangors::Init();
     Tzeentch::FlamersOfTzeentch::Init();

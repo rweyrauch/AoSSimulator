@@ -6,20 +6,20 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <tzeentch/PinkHorrors.h>
+#include <tzeentch/HorrorsOfTzeentch.h>
 #include <UnitFactory.h>
 #include <Board.h>
 
 namespace Tzeentch
 {
 static FactoryMethod factoryMethod = {
-    PinkHorrors::Create,
+    HorrorsOfTzeentch::Create,
     nullptr,
     nullptr,
     {
         {
-            ParamType::Integer, "Models", PinkHorrors::MIN_UNIT_SIZE, PinkHorrors::MIN_UNIT_SIZE,
-            PinkHorrors::MAX_UNIT_SIZE, PinkHorrors::MIN_UNIT_SIZE
+            ParamType::Integer, "Models", HorrorsOfTzeentch::MIN_UNIT_SIZE, HorrorsOfTzeentch::MIN_UNIT_SIZE,
+            HorrorsOfTzeentch::MAX_UNIT_SIZE, HorrorsOfTzeentch::MIN_UNIT_SIZE
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
@@ -28,22 +28,32 @@ static FactoryMethod factoryMethod = {
     TZEENTCH
 };
 
-bool PinkHorrors::s_registered = false;
+bool HorrorsOfTzeentch::s_registered = false;
 
-PinkHorrors::PinkHorrors() :
-    Unit("Pink Horrors", 5, WOUNDS, 10, 5, false),
-    m_magicalFlames(Weapon::Type::Missile, "Magical Flames", 18, 1, 4, 4, 0, 1),
-    m_graspingHands(Weapon::Type::Melee, "Grasping Hands",  1, 1, 5, 4, 0, 1),
-    m_graspingHandsHorror(Weapon::Type::Melee, "Grasping Hands", 1, 2, 5, 4, 0, 1)
+HorrorsOfTzeentch::HorrorsOfTzeentch() :
+    Unit("Pink Horrors", 5, WOUNDS, 10, 6, false),
+    m_magicalFlamesPink(Weapon::Type::Missile, "Magical Flames (Pink)", 12, 3, 5, 4, 0, 1),
+    m_magicalFlamesBlue(Weapon::Type::Missile, "Magical Flames (Blue)", 12, 2, 5, 4, 0, 1),
+    m_magicalFlamesBrimstone(Weapon::Type::Missile, "Magical Flames (Brimstone)", 12, 1, 5, 4, 0, 1),
+    m_talonedHandsPink(Weapon::Type::Melee, "Taloned Hands (Pink)",  1, 1, 5, 4, 0, 1),
+    m_talonedHandsBlue(Weapon::Type::Melee, "Taloned Hands (Blue)",  1, 1, 5, 4, 0, 1),
+    m_talonedHandsBrimstone(Weapon::Type::Melee, "Taloned Hands (Brimstone)",  1, 2, 5, 4, 0, 1),
+    m_talonedHandsIridescent(Weapon::Type::Melee, "Taloned Hands (Iridescent)", 1, 2, 5, 4, 0, 1)
 {
-    m_keywords = {CHAOS, DAEMON, TZEENTCH, WIZARD, PINK_HORRORS};
-    m_weapons = {&m_magicalFlames, &m_graspingHands, &m_graspingHandsHorror};
+    m_keywords = {CHAOS, DAEMON, TZEENTCH, HORROR, HORROR_OF_TZEENTCH};
+    m_weapons = {&m_magicalFlamesPink,
+                 &m_magicalFlamesBlue,
+                 &m_magicalFlamesBrimstone,
+                 &m_talonedHandsPink,
+                 &m_talonedHandsBlue,
+                 &m_talonedHandsBrimstone,
+                 &m_talonedHandsIridescent};
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
 }
 
-bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)
+bool HorrorsOfTzeentch::configure(int numModels, bool iconBearer, bool hornblower)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -54,15 +64,15 @@ bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)
     m_hornblower = hornblower;
 
     auto horror = new Model(BASESIZE, WOUNDS);
-    horror->addMissileWeapon(&m_magicalFlames);
-    horror->addMeleeWeapon(&m_graspingHandsHorror);
+    horror->addMissileWeapon(&m_magicalFlamesPink);
+    horror->addMeleeWeapon(&m_talonedHandsIridescent);
     addModel(horror);
 
     for (auto i = 1; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        model->addMissileWeapon(&m_magicalFlames);
-        model->addMeleeWeapon(&m_graspingHands);
+        model->addMissileWeapon(&m_magicalFlamesPink);
+        model->addMeleeWeapon(&m_talonedHandsPink);
         addModel(model);
     }
 
@@ -75,9 +85,9 @@ bool PinkHorrors::configure(int numModels, bool iconBearer, bool hornblower)
     return true;
 }
 
-Unit *PinkHorrors::Create(const ParameterList &parameters)
+Unit *HorrorsOfTzeentch::Create(const ParameterList &parameters)
 {
-    auto unit = new PinkHorrors();
+    auto unit = new HorrorsOfTzeentch();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -91,7 +101,7 @@ Unit *PinkHorrors::Create(const ParameterList &parameters)
     return unit;
 }
 
-void PinkHorrors::Init()
+void HorrorsOfTzeentch::Init()
 {
     if (!s_registered)
     {
@@ -99,7 +109,7 @@ void PinkHorrors::Init()
     }
 }
 
-void  PinkHorrors::computeBattleshockEffect(int roll, int& numFled, int& numAdded) const
+void  HorrorsOfTzeentch::computeBattleshockEffect(int roll, int& numFled, int& numAdded) const
 {
     Unit::computeBattleshockEffect(roll, numFled, numAdded);
     if (m_iconBearer)
@@ -113,19 +123,19 @@ void  PinkHorrors::computeBattleshockEffect(int roll, int& numFled, int& numAdde
     }
 }
 
-void PinkHorrors::restoreModels(int numModels)
+void HorrorsOfTzeentch::restoreModels(int numModels)
 {
     // Icon Bearer
     for (auto i = 0; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        model->addMissileWeapon(&m_magicalFlames);
-        model->addMeleeWeapon(&m_graspingHands);
+        model->addMissileWeapon(&m_magicalFlamesPink);
+        model->addMeleeWeapon(&m_talonedHandsPink);
         addModel(model);
     }
 }
 
-int PinkHorrors::toHitModifier(const Weapon *weapon, const Unit *target) const
+int HorrorsOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
     int modifier = Unit::toHitModifier(weapon, target);
     // Flickering Flames
@@ -134,7 +144,7 @@ int PinkHorrors::toHitModifier(const Weapon *weapon, const Unit *target) const
     return modifier;
 }
 
-int PinkHorrors::castingModifier() const
+int HorrorsOfTzeentch::castingModifier() const
 {
     int modifier = Unit::castingModifier();
 

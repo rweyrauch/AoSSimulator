@@ -52,7 +52,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Capricious Warpflame             No
-// Locus of Transmogrification      No
+// Touched by Fire                  No
+// Guided by Billowing Flames       No
 //
 
 } // Tzeentch

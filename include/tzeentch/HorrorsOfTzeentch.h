@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef PINKHORRORS_H
-#define PINKHORRORS_H
+#ifndef HORRORS_H
+#define HORRORS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace Tzeentch
 {
 
-class PinkHorrors : public Unit
+class HorrorsOfTzeentch : public Unit
 {
 public:
 
@@ -30,8 +30,8 @@ public:
 
     static void Init();
 
-    PinkHorrors();
-    ~PinkHorrors() override = default;
+    HorrorsOfTzeentch();
+    ~HorrorsOfTzeentch() override = default;
 
     bool configure(int numModels, bool iconBearer, bool hornblower);
 
@@ -47,9 +47,13 @@ private:
     bool m_iconBearer = false;
     bool m_hornblower = false;
 
-    Weapon m_magicalFlames,
-        m_graspingHands,
-        m_graspingHandsHorror;
+    Weapon m_magicalFlamesPink,
+        m_magicalFlamesBlue,
+        m_magicalFlamesBrimstone,
+        m_talonedHandsPink,
+        m_talonedHandsBlue,
+        m_talonedHandsBrimstone,
+        m_talonedHandsIridescent;
 
     static bool s_registered;
 };
@@ -62,8 +66,12 @@ private:
 // Hornblower                       No
 // Flickering Flames                Yes
 // Locus of Conjuration             Yes
+// Ectoplasmic Elasticity           No
+// Split and Split Again            No
+// Petty Vengeance                  No
+// Channelled Pink Fire             No
 //
 
 } // Tzeentch
 
-#endif //PINKHORRORS_H
+#endif //HORRORS_H

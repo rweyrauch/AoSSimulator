@@ -34,7 +34,7 @@ FlamersOfTzeentch::FlamersOfTzeentch() :
     m_warpflamePyrocaster(Weapon::Type::Missile, "Warpflame",  18, 4, 4, 3, 0, RAND_D3),
     m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 1, 2, 5, 3, 0, 1)
 {
-    m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMERS};
+    m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMERS, FLAMERS_OF_TZEENTCH};
     m_weapons = {&m_warpflame, &m_warpflamePyrocaster, &m_flamingMaw};
 }
 

@@ -27,8 +27,43 @@
             var scetxt = AosSim.JSInterface.prototype.FactionKeywordToString(sce);
             console.log("ScE: " + sce + "  Text: " + scetxt);
 
+            var numUnits = AosSim.JSInterface.prototype.GetNumberOfAvailableUnits();
+            console.log("Number of units: " + numUnits);
+
+            for (var i = 0; i < numUnits; i++) {
+                var unitInfo = new AosSim.JSUnitInfo();
+                AosSim.JSInterface.prototype.GetUnitInfo(i, unitInfo);
+                console.log("Name: " + unitInfo.name + " GA: " + unitInfo.grandAlliance + " Faction: " +
+                    AosSim.JSInterface.prototype.FactionKeywordToString(unitInfo.faction) + "  Params: " + unitInfo.numberOfParameters);
+            }
+
+            var unitInfo = new AosSim.JSUnitInfo();
+            AosSim.JSInterface.prototype.GetUnitInfo(0, unitInfo);
+
+            var unit1 = AosSim.JSInterface.prototype.CreateUnit(unitInfo.name, unitInfo.parameters, unitInfo.numberOfParameters);
+            if (unit1) {
+                console.log("Created a unit!  Name: " + unitInfo.name + "  Points: " + unit1.points());
+            }
+
+            AosSim.JSInterface.prototype.GetUnitInfo(1, unitInfo);
+
+            var unit2 = AosSim.JSInterface.prototype.CreateUnit(unitInfo.name, unitInfo.parameters, unitInfo.numberOfParameters);
+            if (unit2) {
+                console.log("Created a unit!  Name: " + unitInfo.name + "  Points: " + unit2.points());
+            }
+
             var mano = new AosSim.ManoAMano(5);
             if (mano) {
+
+                mano.combatants(unit1, unit2);
+                mano.start();
+                while (!mano.done()) {
+                    mano.simulate();
+
+                    const round = mano.currentRound();
+                    mano.next();
+                }
+
                 console.log("Create a ManoAMano object.  Current round: " + mano.currentRound() + "  Victor: " + mano.getVictor());
             }
 

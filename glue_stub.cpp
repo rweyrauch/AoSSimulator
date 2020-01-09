@@ -2,10 +2,19 @@
 #include "include/AgeOfSigmarSimJS.h"
 #include "include/ManoAMano.h"
 #include "include/Unit.h"
+#include "include/UnitFactory.h"
+
+static std::vector<std::string> g_unitNames;
 
 void JSInterface::Initialize()
 {
     ::Initialize(Verbosity::Normal);
+
+    for (auto ip = UnitFactory::RegisteredUnitsBegin(); ip != UnitFactory::RegisteredUnitsEnd(); ++ip)
+    {
+        auto name = ip->first;
+        g_unitNames.push_back(name);
+    }
 }
 
 int JSInterface::GrandAllianceStringToKeyword(const char* allianceName)
@@ -18,6 +27,13 @@ int JSInterface::FactionStringToKeyword(const char* factionName)
     return ::FactionStringToKeyword(std::string(factionName));
 }
 
+const char* JSInterface::GrandAllianceKeywordToString(int ga)
+{
+    // Returned string is a const.
+    const auto& str = ::GrandAllianceKeywordToString((Keyword)ga);
+    return str.c_str();
+}
+
 const char* JSInterface::FactionKeywordToString(int faction)
 {
     // Returned string is a const.
@@ -25,11 +41,52 @@ const char* JSInterface::FactionKeywordToString(int faction)
     return str.c_str();
 }
 
-const char* JSInterface::ParameterValueToString(const Parameter& param)
+Unit* JSInterface::CreateUnit(const char* name, const Parameter* parameters, int numParams)
 {
-    // TODO: review this - who owns the returned char*?
-    auto str = ::ParameterValueToString(param);
-    return strdup(str.c_str());
+    const std::vector<Parameter> paramList(parameters, parameters+numParams);
+    return UnitFactory::Create(std::string(name), paramList);
+}
+
+int JSInterface::GetNumberOfAvailableUnits()
+{
+    return (int)g_unitNames.size();
+}
+
+void JSInterface::GetUnitInfo(int which, JSUnitInfo& info)
+{
+    const auto& name = g_unitNames[which];
+    auto factory = UnitFactory::LookupUnit(std::string(name));
+    if (factory)
+    {
+        info.name = name.c_str();
+        info.faction = factory->m_faction;
+        info.grandAlliance = factory->m_grandAlliance;
+        info.numberOfParameters = (int)factory->m_parameters.size();
+        info.parameters = factory->m_parameters.data();
+    }
+}
+
+const char* JSInterface::UnitParameterValueToString(const char* name, const Parameter& parameter)
+{
+    auto factory = UnitFactory::LookupUnit(std::string(name));
+    if (factory)
+    {
+        // TODO: review this - who owns the returned char*?
+        auto value = factory->m_paramToString(parameter);
+        return strdup(value.c_str());
+    }
+    return nullptr;
+}
+
+int JSInterface::UnitEnumStringToInt(const char* name, const char* enumString)
+{
+    auto factory = UnitFactory::LookupUnit(std::string(name));
+    if (factory)
+    {
+        auto value = factory->m_enumStringToInt(std::string(enumString));
+        return value;
+    }
+    return 0;
 }
 
 #include "aossim_glue.cpp"
