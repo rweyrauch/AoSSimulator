@@ -90,13 +90,13 @@ void AspiringDeathbringer::Init()
 
 std::string AspiringDeathbringer::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == BloodaxeAndWrathhammer)
+        if (parameter.intValue == BloodaxeAndWrathhammer)
         {
             return "Bloodaxe and Wrath-hammer";
         }
-        else if (parameter.m_intValue == GoreaxeAndSkullhammer)
+        else if (parameter.intValue == GoreaxeAndSkullhammer)
         {
             return "Goreaxe and Skullhammer";
         }

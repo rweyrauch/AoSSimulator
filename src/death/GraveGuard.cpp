@@ -117,11 +117,11 @@ void GraveGuard::Init()
 
 std::string GraveGuard::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == WightBlade)
+        if (parameter.intValue == WightBlade)
         { return "Wight Blade"; }
-        else if (parameter.m_intValue == GreatWightBlade)
+        else if (parameter.intValue == GreatWightBlade)
         { return "Great Wight Blade"; }
     }
     return ParameterValueToString(parameter);

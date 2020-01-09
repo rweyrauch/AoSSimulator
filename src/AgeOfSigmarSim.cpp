@@ -14,7 +14,7 @@
 std::vector<Parameter>::const_iterator FindParam(const std::string &name, const ParameterList &parameters)
 {
     auto matchName = [name](const Parameter &param) -> bool
-    { return (param.m_name == name); };
+    { return (param.name == name); };
     auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
     return pip;
 }
@@ -22,7 +22,7 @@ std::vector<Parameter>::const_iterator FindParam(const std::string &name, const 
 std::vector<Parameter>::iterator FindParam(const std::string &name, ParameterList &parameters)
 {
     auto matchName = [name](const Parameter &param) -> bool
-    { return (param.m_name == name); };
+    { return (param.name == name); };
     auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
     return pip;
 }
@@ -33,9 +33,9 @@ int GetIntParam(const std::string &name, const ParameterList &parameters, int de
     auto pip = FindParam(name, parameters);
     if (pip != parameters.end())
     {
-        if (pip->m_paramType == ParamType::Integer)
+        if (pip->paramType == ParamType::Integer)
         {
-            value = pip->m_intValue;
+            value = pip->intValue;
         }
     }
     return value;
@@ -47,9 +47,9 @@ int GetEnumParam(const std::string &name, const ParameterList &parameters, int d
     auto pip = FindParam(name, parameters);
     if (pip != parameters.end())
     {
-        if (pip->m_paramType == ParamType::Enum)
+        if (pip->paramType == ParamType::Enum)
         {
-            value = pip->m_intValue;
+            value = pip->intValue;
         }
     }
     return value;
@@ -61,9 +61,9 @@ bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool
     auto pip = FindParam(name, parameters);
     if (pip != parameters.end())
     {
-        if (pip->m_paramType == ParamType::Boolean)
+        if (pip->paramType == ParamType::Boolean)
         {
-            value = (pip->m_intValue == 0) ? false : true;
+            value = (pip->intValue == 0) ? false : true;
         }
     }
     return value;
@@ -140,13 +140,13 @@ float AverageRandomValue(int value)
 std::string ParameterValueToString(const Parameter &param)
 {
     std::stringstream ss;
-    if (param.m_paramType == ParamType::Integer || param.m_paramType == ParamType::Enum)
+    if (param.paramType == ParamType::Integer || param.paramType == ParamType::Enum)
     {
-        ss << param.m_intValue;
+        ss << param.intValue;
     }
-    else if (param.m_paramType == ParamType::Boolean)
+    else if (param.paramType == ParamType::Boolean)
     {
-        if (param.m_intValue != 0)
+        if (param.intValue != 0)
             ss << "true";
         else
             ss << "false";

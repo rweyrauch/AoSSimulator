@@ -107,13 +107,13 @@ Unit *OrrukGoreGruntas::Create(const ParameterList &parameters)
 
 std::string OrrukGoreGruntas::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (std::string(parameter.name) == "weapons")
     {
-        if (parameter.m_intValue == PigIronChoppa)
+        if (parameter.intValue == PigIronChoppa)
         {
             return "Pig-iron Choppa";
         }
-        else if (parameter.m_intValue == JaggedGorehacka)
+        else if (parameter.intValue == JaggedGorehacka)
         {
             return "Jagged Gore-hacka";
         }

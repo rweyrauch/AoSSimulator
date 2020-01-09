@@ -176,10 +176,10 @@ Wounds ShalaxiHelbane::weaponDamage(const Weapon *weapon, const Unit *target, in
 
 std::string ShalaxiHelbane::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == LivingWhip) return "LivingWhip";
-        else if (parameter.m_intValue == ShiningAegis) return "Shining Aegis";
+        if (parameter.intValue == LivingWhip) return "LivingWhip";
+        else if (parameter.intValue == ShiningAegis) return "Shining Aegis";
     }
     return SlaaneshBase::ValueToString(parameter);
 }

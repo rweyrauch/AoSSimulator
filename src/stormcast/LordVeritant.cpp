@@ -82,9 +82,9 @@ void LordVeritant::Init()
 
 std::string LordVeritant::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Prayers of the Stormhost")
+    if (std::string(parameter.name) == "Prayers of the Stormhost")
     {
-        return ToString((PrayersOfTheStormhost) parameter.m_intValue);
+        return ToString((PrayersOfTheStormhost) parameter.intValue);
     }
     return StormcastEternal::ValueToString(parameter);
 }

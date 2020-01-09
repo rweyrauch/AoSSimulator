@@ -88,11 +88,11 @@ Unit *MorghastArchai::Create(const ParameterList &parameters)
 
 std::string MorghastArchai::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == SpiritHalberd)
+        if (parameter.intValue == SpiritHalberd)
         { return "Spirit Halberd"; }
-        else if (parameter.m_intValue == SpiritSwords)
+        else if (parameter.intValue == SpiritSwords)
         { return "Spirit Swords"; }
     }
     return ParameterValueToString(parameter);

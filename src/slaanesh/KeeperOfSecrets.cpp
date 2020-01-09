@@ -214,12 +214,12 @@ void KeeperOfSecrets::onStartCombat(PlayerId player)
 
 std::string KeeperOfSecrets::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == RitualKnife) return "Ritual Knife";
-        else if (parameter.m_intValue == SinistrousHand) return "Sinistrous Hand";
-        else if (parameter.m_intValue == LivingWhip) return "LivingWhip";
-        else if (parameter.m_intValue == ShiningAegis) return "Shining Aegis";
+        if (parameter.intValue == RitualKnife) return "Ritual Knife";
+        else if (parameter.intValue == SinistrousHand) return "Sinistrous Hand";
+        else if (parameter.intValue == LivingWhip) return "LivingWhip";
+        else if (parameter.intValue == ShiningAegis) return "Shining Aegis";
     }
     return SlaaneshBase::ValueToString(parameter);
 }

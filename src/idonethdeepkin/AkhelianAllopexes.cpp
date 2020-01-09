@@ -100,13 +100,13 @@ void AkhelianAllopexes::Init()
 
 std::string AkhelianAllopexes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == HarpoonLauncher)
+        if (parameter.intValue == HarpoonLauncher)
         {
             return "Razorshell Harpoon Launcher";
         }
-        else if (parameter.m_intValue == NetLauncher)
+        else if (parameter.intValue == NetLauncher)
         {
             return "Retarius Net Launcher";
         }

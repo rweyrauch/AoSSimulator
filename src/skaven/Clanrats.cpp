@@ -127,13 +127,13 @@ void Clanrats::Init()
 
 std::string Clanrats::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == RustySpear)
+        if (parameter.intValue == RustySpear)
         {
             return "Rusty Spear";
         }
-        else if (parameter.m_intValue == RustyBlade)
+        else if (parameter.intValue == RustyBlade)
         {
             return "Rusty Blade";
         }

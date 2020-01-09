@@ -144,36 +144,36 @@ void Orruks::Init()
 
 std::string Orruks::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == ChoppaAndShield)
+        if (parameter.intValue == ChoppaAndShield)
         {
             return "Choppa and Shield";
         }
-        else if (parameter.m_intValue == SpearAndShield)
+        else if (parameter.intValue == SpearAndShield)
         {
             return "Pigstikka Spear And Shield";
         }
-        else if (parameter.m_intValue == PairedChoppas)
+        else if (parameter.intValue == PairedChoppas)
         {
             return "Paired Choppas";
         }
-        else if (parameter.m_intValue == OrrukBowAndCutta)
+        else if (parameter.intValue == OrrukBowAndCutta)
         {
             return "Orruk Bow and Cutta";
         }
     }
-    else if (parameter.m_name == "Standard Bearer")
+    else if (std::string(parameter.name) == "Standard Bearer")
     {
-        if (parameter.m_intValue == OrrukBanner)
+        if (parameter.intValue == OrrukBanner)
         {
             return "Orruk Banner";
         }
-        else if (parameter.m_intValue == SkullIcon)
+        else if (parameter.intValue == SkullIcon)
         {
             return "Skull Icon";
         }
-        else if (parameter.m_intValue == None)
+        else if (parameter.intValue == None)
         {
             return "None";
         }

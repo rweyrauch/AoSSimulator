@@ -38,12 +38,12 @@ void BeastsOfChaosBase::setGreatfray(BeastsOfChaosBase::Greatfray fray)
 
 std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Greatfray")
+    if (std::string(parameter.name) == "Greatfray")
     {
-        if (parameter.m_intValue == Allherd) { return "Allherd"; }
-        else if (parameter.m_intValue == Darkwalkers) { return "Darkwalkers"; }
-        else if (parameter.m_intValue == Gavespawn) { return "Gavespawn"; }
-        else if (parameter.m_intValue == None) { return "None"; }
+        if (parameter.intValue == Allherd) { return "Allherd"; }
+        else if (parameter.intValue == Darkwalkers) { return "Darkwalkers"; }
+        else if (parameter.intValue == Gavespawn) { return "Gavespawn"; }
+        else if (parameter.intValue == None) { return "None"; }
     }
     return ParameterValueToString(parameter);
 }

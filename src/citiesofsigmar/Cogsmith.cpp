@@ -48,13 +48,13 @@ Unit *Cogsmith::Create(const ParameterList &parameters)
 
 std::string Cogsmith::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == GrudgeRaker)
+        if (parameter.intValue == GrudgeRaker)
         {
             return "Grudge-raker";
         }
-        else if (parameter.m_intValue == CogAxe)
+        else if (parameter.intValue == CogAxe)
         {
             return "Cog Axe";
         }

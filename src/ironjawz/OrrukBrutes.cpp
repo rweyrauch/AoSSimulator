@@ -132,25 +132,25 @@ void OrrukBrutes::Init()
 
 std::string OrrukBrutes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == TwoBruteChoppas)
+        if (parameter.intValue == TwoBruteChoppas)
         {
             return "Two Brute Choppas";
         }
-        else if (parameter.m_intValue == JaggedGorehacka)
+        else if (parameter.intValue == JaggedGorehacka)
         {
             return "Jagged Gore-hacka";
         }
     }
 
-    if (parameter.m_name == "Boss Weapon")
+    if (std::string(parameter.name) == "Boss Weapon")
     {
-        if (parameter.m_intValue == BossChoppa)
+        if (parameter.intValue == BossChoppa)
         {
             return "Boss Choppa";
         }
-        else if (parameter.m_intValue == BossKlaw)
+        else if (parameter.intValue == BossKlaw)
         {
             return "Boss Klaw";
         }

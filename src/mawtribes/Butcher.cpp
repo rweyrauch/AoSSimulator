@@ -89,10 +89,10 @@ bool Butcher::configure(WeaponOption weaponOption)
 
 std::string Butcher::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == Tenderiser) return "Tenderiser";
-        else if (parameter.m_intValue == Cleaver) return "Cleaver";
+        if (parameter.intValue == Tenderiser) return "Tenderiser";
+        else if (parameter.intValue == Cleaver) return "Cleaver";
     }
     return ParameterValueToString(parameter);
 }

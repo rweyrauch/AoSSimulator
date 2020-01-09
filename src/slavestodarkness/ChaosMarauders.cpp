@@ -139,13 +139,13 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
 
 std::string ChaosMarauders::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == AxeAndShield)
+        if (parameter.intValue == AxeAndShield)
         {
             return "Barbarian Axe and Darkwood Shield";
         }
-        else if (parameter.m_intValue == Flail)
+        else if (parameter.intValue == Flail)
         {
             return "Barbarian Flail";
         }

@@ -32,6 +32,9 @@ Unit *GrundstokGunhauler::Create(const ParameterList &parameters)
     auto unit = new GrundstokGunhauler();
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, SkyCannon);
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure(option);
     if (!ok)
     {
@@ -43,10 +46,10 @@ Unit *GrundstokGunhauler::Create(const ParameterList &parameters)
 
 std::string GrundstokGunhauler::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == SkyCannon) return "Sky Cannon";
-        else if (parameter.m_intValue == DrillCannon) return "Drill Cannon";
+        if (parameter.intValue == SkyCannon) return "Sky Cannon";
+        else if (parameter.intValue == DrillCannon) return "Drill Cannon";
     }
     return KharadronBase::ValueToString(parameter);
 }

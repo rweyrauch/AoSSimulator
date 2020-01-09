@@ -229,40 +229,40 @@ Unit *Prosecutors::Create(const ParameterList &parameters)
 
 std::string Prosecutors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == StormcallJavelinAndShield)
+        if (parameter.intValue == StormcallJavelinAndShield)
         {
             return "Stormcall Javelin and Shield";
         }
-        else if (parameter.m_intValue == CelestialHammerAndShield)
+        else if (parameter.intValue == CelestialHammerAndShield)
         {
             return "Celestial Hammer and Shield";
         }
-        else if (parameter.m_intValue == PairedCelestialHammers)
+        else if (parameter.intValue == PairedCelestialHammers)
         {
             return "Paired Celestial Hammers";
         }
     }
-    else if (parameter.m_name == "Prime Grand Weapon")
+    else if (std::string(parameter.name) == "Prime Grand Weapon")
     {
-        if (parameter.m_intValue == None)
+        if (parameter.intValue == None)
         {
             return "None";
         }
-        else if (parameter.m_intValue == StormsurgeTrident)
+        else if (parameter.intValue == StormsurgeTrident)
         {
             return "Stormsurge Trident";
         }
-        else if (parameter.m_intValue == Grandaxe)
+        else if (parameter.intValue == Grandaxe)
         {
             return "Grandaxe";
         }
-        else if (parameter.m_intValue == Grandblade)
+        else if (parameter.intValue == Grandblade)
         {
             return "Grandblade";
         }
-        else if (parameter.m_intValue == Grandhammer)
+        else if (parameter.intValue == Grandhammer)
         {
             return "Grandhammer";
         }

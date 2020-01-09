@@ -169,23 +169,23 @@ Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds)
 
 std::string FleshEaterCourts::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Grand Court")
+    if (std::string(parameter.name) == "Grand Court")
     {
-        if (parameter.m_intValue == Morgaunt) { return "Morgaunt"; }
-        else if (parameter.m_intValue == Hollowmourne) { return "Hollowmourne"; }
-        else if (parameter.m_intValue == Blisterskin) { return "Blisterskin"; }
-        else if (parameter.m_intValue == Gristlegore) { return "Gristlegore"; }
-        else if (parameter.m_intValue == NoCourt) { return "No Court"; }
+        if (parameter.intValue == Morgaunt) { return "Morgaunt"; }
+        else if (parameter.intValue == Hollowmourne) { return "Hollowmourne"; }
+        else if (parameter.intValue == Blisterskin) { return "Blisterskin"; }
+        else if (parameter.intValue == Gristlegore) { return "Gristlegore"; }
+        else if (parameter.intValue == NoCourt) { return "No Court"; }
     }
-    else if (parameter.m_name == "Delusion")
+    else if (std::string(parameter.name) == "Delusion")
     {
-        if (parameter.m_intValue == CrusadingArmy) { return "Crusading Army"; }
-        else if (parameter.m_intValue == TheRoyalHunt) { return "The Royal Hunt"; }
-        else if (parameter.m_intValue == TheFeastDay) { return "The Feast Day"; }
-        else if (parameter.m_intValue == AMatterOfHonour) { return "A Matter of Honour"; }
-        else if (parameter.m_intValue == TheGrandTournament) { return "The Grand Tournament"; }
-        else if (parameter.m_intValue == DefendersOfTheRealm) { return "Defenders of the Realm"; }
-        else if (parameter.m_intValue == None) { return "None"; }
+        if (parameter.intValue == CrusadingArmy) { return "Crusading Army"; }
+        else if (parameter.intValue == TheRoyalHunt) { return "The Royal Hunt"; }
+        else if (parameter.intValue == TheFeastDay) { return "The Feast Day"; }
+        else if (parameter.intValue == AMatterOfHonour) { return "A Matter of Honour"; }
+        else if (parameter.intValue == TheGrandTournament) { return "The Grand Tournament"; }
+        else if (parameter.intValue == DefendersOfTheRealm) { return "Defenders of the Realm"; }
+        else if (parameter.intValue == None) { return "None"; }
     }
     return ParameterValueToString(parameter);
 }

@@ -89,9 +89,9 @@ Wounds ChaosLord::weaponDamage(const Weapon *weapon, const Unit *target, int hit
 
 std::string ChaosLord::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        switch (parameter.m_intValue)
+        switch (parameter.intValue)
         {
             case Reaperblade: return "Reaperblade";
             case DaemonboundSteel: return "Daemonbound Steel";

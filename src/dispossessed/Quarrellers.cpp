@@ -127,17 +127,17 @@ Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const
 
 std::string Quarrellers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Standard")
+    if (std::string(parameter.name) == "Standard")
     {
-        if (parameter.m_intValue == None)
+        if (parameter.intValue == None)
         {
             return "None";
         }
-        else if (parameter.m_intValue == RunicIcon)
+        else if (parameter.intValue == RunicIcon)
         {
             return "Runic Icon";
         }
-        else if (parameter.m_intValue == ClanBanner)
+        else if (parameter.intValue == ClanBanner)
         {
             return "Clan Banner";
         }

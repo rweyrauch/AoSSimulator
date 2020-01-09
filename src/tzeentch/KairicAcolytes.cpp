@@ -152,17 +152,17 @@ Unit *KairicAcolytes::Create(const ParameterList &parameters)
 
 std::string KairicAcolytes::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == CursedBlade)
+        if (parameter.intValue == CursedBlade)
         {
             return "Cursed Blade";
         }
-        else if (parameter.m_intValue == PairedCursedBlades)
+        else if (parameter.intValue == PairedCursedBlades)
         {
             return "Paired Cursed Blades";
         }
-        else if (parameter.m_intValue == CursedBladeAndShield)
+        else if (parameter.intValue == CursedBladeAndShield)
         {
             return "Cursed Blade And Shield";
         }

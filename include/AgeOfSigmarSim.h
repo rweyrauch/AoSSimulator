@@ -914,12 +914,12 @@ enum
 
 struct Parameter
 {
-    ParamType m_paramType;
-    std::string m_name;
-    int m_intValue = 0;
-    int m_minValue = 0;
-    int m_maxValue = 0;
-    int m_increment = 1;
+    ParamType paramType;
+    const char* name;
+    int intValue = 0;
+    int minValue = 0;
+    int maxValue = 0;
+    int increment = 1;
 };
 
 typedef std::vector<Parameter> ParameterList;

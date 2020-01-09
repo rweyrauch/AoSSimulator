@@ -68,11 +68,11 @@ void Ironjawz::setWarclan(Ironjawz::Warclan warclan)
 
 std::string Ironjawz::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Warclan")
+    if (std::string(parameter.name) == "Warclan")
     {
-        if (parameter.m_intValue == Ironsunz) { return "Ironsunz"; }
-        else if (parameter.m_intValue == Bloodtoofs) { return "Bloodtoofs"; }
-        else if (parameter.m_intValue == DaChoppas) { return "Da Choppas"; }
+        if (parameter.intValue == Ironsunz) { return "Ironsunz"; }
+        else if (parameter.intValue == Bloodtoofs) { return "Bloodtoofs"; }
+        else if (parameter.intValue == DaChoppas) { return "Da Choppas"; }
     }
     return ParameterValueToString(parameter);
 }

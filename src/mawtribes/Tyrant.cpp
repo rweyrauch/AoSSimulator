@@ -41,14 +41,14 @@ Unit *Tyrant::Create(const ParameterList &parameters)
 
 std::string Tyrant::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Big Name")
+    if (std::string(parameter.name) == "Big Name")
     {
-        if (parameter.m_intValue == Deathcheater) return "Deathcheater";
-        else if (parameter.m_intValue == Brawlerguts) return "Brawlerguts";
-        else if (parameter.m_intValue == Fateseeker) return "Fateseeker";
-        else if (parameter.m_intValue == Longstrider) return "Longstrider";
-        else if (parameter.m_intValue == Giantbreaker) return "Giantbreaker";
-        else if (parameter.m_intValue == Wallcrusher) return "Wallcrusher";
+        if (parameter.intValue == Deathcheater) return "Deathcheater";
+        else if (parameter.intValue == Brawlerguts) return "Brawlerguts";
+        else if (parameter.intValue == Fateseeker) return "Fateseeker";
+        else if (parameter.intValue == Longstrider) return "Longstrider";
+        else if (parameter.intValue == Giantbreaker) return "Giantbreaker";
+        else if (parameter.intValue == Wallcrusher) return "Wallcrusher";
     }
     return MawtribesBase::ValueToString(parameter);
 }

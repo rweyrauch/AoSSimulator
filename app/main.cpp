@@ -237,53 +237,53 @@ void displayUnits(Verbosity verbose, const std::string& faction)
             std::cout << "\t  Parameters:" << std::endl;
             for (auto pip : ruip->second.m_parameters)
             {
-                if (pip.m_paramType == ParamType::Integer || pip.m_paramType == ParamType::Enum)
+                if (pip.paramType == ParamType::Integer || pip.paramType == ParamType::Enum)
                 {
                     if (ruip->second.m_paramToString == nullptr)
                     {
-                        if (pip.m_increment > 0)
+                        if (pip.increment > 0)
                         {
-                            std::cout << "\t\tName: " << pip.m_name << " Type: Integer  Value: "
-                                      << pip.m_intValue << "  Allowed Values: ";
-                            for (auto v = pip.m_minValue; v <= pip.m_maxValue; v += pip.m_increment)
+                            std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
+                                      << pip.intValue << "  Allowed Values: ";
+                            for (auto v = pip.minValue; v <= pip.maxValue; v += pip.increment)
                             {
                                 std::cout << v;
-                                if (v < pip.m_maxValue) std::cout << ", ";
+                                if (v < pip.maxValue) std::cout << ", ";
                             }
                             std::cout << std::endl;
                         }
                         else
                         {
-                            std::cout << "\t\tName: " << pip.m_name << " Type: Integer  Value: "
-                                      << pip.m_intValue
-                                      << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue
+                            std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
+                                      << pip.intValue
+                                      << "  Min: " << pip.minValue << "  Max: " << pip.maxValue
                                       << std::endl;
                         }
                     }
-                    else if (pip.m_increment > 0)
+                    else if (pip.increment > 0)
                     {
-                        std::cout << "\t\tName: " << pip.m_name << " Type: Integer  Value: "
+                        std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
                                   << ruip->second.m_paramToString(pip) << "  Allowed Values: ";
                         Parameter parm(pip);
-                        for (auto v = pip.m_minValue; v <= pip.m_maxValue; v += pip.m_increment)
+                        for (auto v = pip.minValue; v <= pip.maxValue; v += pip.increment)
                         {
-                            parm.m_intValue = v;
+                            parm.intValue = v;
                             std::cout << ruip->second.m_paramToString(parm);
-                            if (v < pip.m_maxValue) std::cout << ", ";
+                            if (v < pip.maxValue) std::cout << ", ";
                         }
                         std::cout << std::endl;
                     }
                     else
                     {
-                        std::cout << "\t\tName: " << pip.m_name << " Type: Integer  Value: "
-                                  << ruip->second.m_paramToString(pip) << "  Min: " << pip.m_minValue
-                                  << "  Max: " << pip.m_maxValue << std::endl;
+                        std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
+                                  << ruip->second.m_paramToString(pip) << "  Min: " << pip.minValue
+                                  << "  Max: " << pip.maxValue << std::endl;
                     }
                 }
-                else if (pip.m_paramType == ParamType::Boolean)
+                else if (pip.paramType == ParamType::Boolean)
                 {
-                    std::cout << "\t\tName: " << pip.m_name << " Type: Boolean  Value: "
-                              << (pip.m_intValue ? "true" : "false") << std::endl;
+                    std::cout << "\t\tName: " << std::string(pip.name) << " Type: Boolean  Value: "
+                              << (pip.intValue ? "true" : "false") << std::endl;
                 }
             }
         }
@@ -346,11 +346,11 @@ Unit* parseUnitDescription(const std::string& desc)
                     paramType = ParamType::Enum;
                 }
 
-                auto matchParam = [paramName](Parameter& p)->bool { return (p.m_name == paramName); };
+                auto matchParam = [paramName](Parameter& p)->bool { return (std::string(p.name) == paramName); };
                 auto pv = std::find_if(defaultParams.begin(), defaultParams.end(), matchParam);
                 if (pv != defaultParams.end())
                 {
-                    if (pv->m_paramType != paramType)
+                    if (pv->paramType != paramType)
                     {
                         // invalid parameter
                         continue;
@@ -358,24 +358,24 @@ Unit* parseUnitDescription(const std::string& desc)
                     if (paramType == ParamType::Boolean)
                     {
                         if (value == "true")
-                            pv->m_intValue = SIM_TRUE;
+                            pv->intValue = SIM_TRUE;
                         else
-                            pv->m_intValue = SIM_FALSE;
+                            pv->intValue = SIM_FALSE;
                     }
                     else if (paramType == ParamType::Integer)
                     {
                         try
                         {
-                            pv->m_intValue = std::stoi(value);
+                            pv->intValue = std::stoi(value);
                         }
                         catch (std::invalid_argument)
                         {
-                            pv->m_intValue = factory->m_enumStringToInt(value);
+                            pv->intValue = factory->m_enumStringToInt(value);
                         }
                     }
                     else if (paramType == ParamType::Enum)
                     {
-                        pv->m_intValue = factory->m_enumStringToInt(value);
+                        pv->intValue = factory->m_enumStringToInt(value);
                     }
                 }
             }

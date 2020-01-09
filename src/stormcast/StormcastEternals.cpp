@@ -148,17 +148,17 @@ void StormcastEternal::setStormhost(Stormhost host)
 
 std::string StormcastEternal::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Stormhost")
+    if (std::string(parameter.name) == "Stormhost")
     {
-        if (parameter.m_intValue == HammersOfSigmar) { return "Hammers of Sigmar"; }
-        else if (parameter.m_intValue == HallowedKnights) { return "Hallowed Knights"; }
-        else if (parameter.m_intValue == CelestialVindicators) { return "Celestial Vindicators"; }
-        else if (parameter.m_intValue == AnvilsOfTheHeldenhammer) { return "Anvils of the Heldenhammer"; }
-        else if (parameter.m_intValue == KnightsExcelsior) return "Knights Excelsior";
-        else if (parameter.m_intValue == CelestialWarbringers) return "Celestial Warbringers";
-        else if (parameter.m_intValue == TempestLords) return "Tempest Lords";
-        else if (parameter.m_intValue == AstralTemplars) return "Astral Templars";
-        else if (parameter.m_intValue == None) { return "None"; }
+        if (parameter.intValue == HammersOfSigmar) { return "Hammers of Sigmar"; }
+        else if (parameter.intValue == HallowedKnights) { return "Hallowed Knights"; }
+        else if (parameter.intValue == CelestialVindicators) { return "Celestial Vindicators"; }
+        else if (parameter.intValue == AnvilsOfTheHeldenhammer) { return "Anvils of the Heldenhammer"; }
+        else if (parameter.intValue == KnightsExcelsior) return "Knights Excelsior";
+        else if (parameter.intValue == CelestialWarbringers) return "Celestial Warbringers";
+        else if (parameter.intValue == TempestLords) return "Tempest Lords";
+        else if (parameter.intValue == AstralTemplars) return "Astral Templars";
+        else if (parameter.intValue == None) { return "None"; }
     }
     return ParameterValueToString(parameter);
 }

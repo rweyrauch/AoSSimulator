@@ -52,9 +52,9 @@ interface ManoAMano {
     PlayerId getVictor();
 };
 
-interface ParameterJS {
+interface Parameter {
     attribute ParamType paramType;
-    attribute DOMString name;
+    [Const] attribute DOMString name;
     attribute long intValue;
     attribute long minValue;
     attribute long maxValue;
@@ -66,5 +66,5 @@ interface JSInterface {
     static long GrandAllianceStringToKeyword(DOMString allianceName);
     static long FactionStringToKeyword(DOMString factionName);
     [Const] static DOMString FactionKeywordToString(long faction);
-    [Const] static DOMString ParameterValueToString([Ref] ParameterJS param);
+    [Const] static DOMString ParameterValueToString([Ref] Parameter param);
 };

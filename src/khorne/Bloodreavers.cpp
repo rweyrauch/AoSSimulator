@@ -150,11 +150,11 @@ void Bloodreavers::Init()
 
 std::string Bloodreavers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == ReaverBlades)
+        if (parameter.intValue == ReaverBlades)
         { return "Reaver Blades"; }
-        else if (parameter.m_intValue == MeatripperAxe)
+        else if (parameter.intValue == MeatripperAxe)
         { return "Meatripper Axe"; }
     }
     return KhorneBase::ValueToString(parameter);

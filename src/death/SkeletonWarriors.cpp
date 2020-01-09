@@ -119,10 +119,10 @@ void SkeletonWarriors::Init()
 
 std::string SkeletonWarriors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == AncientBlade) { return "Ancient Blade"; }
-        else if (parameter.m_intValue == AncientSpear) { return "Ancient Spear"; }
+        if (parameter.intValue == AncientBlade) { return "Ancient Blade"; }
+        else if (parameter.intValue == AncientSpear) { return "Ancient Spear"; }
     }
     return ParameterValueToString(parameter);
 }

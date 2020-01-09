@@ -79,9 +79,9 @@ void MadcapShaman::Init()
 
 std::string MadcapShaman::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Lore of the Moonclans")
+    if (std::string(parameter.name) == "Lore of the Moonclans")
     {
-        return ToString((LoreOfTheMoonclans)parameter.m_intValue);
+        return ToString((LoreOfTheMoonclans)parameter.intValue);
     }
     return ParameterValueToString(parameter);
 }

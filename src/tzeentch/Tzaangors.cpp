@@ -139,13 +139,13 @@ void Tzaangors::Init()
 
 std::string Tzaangors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == SavageBladeAndShield)
+        if (parameter.intValue == SavageBladeAndShield)
         {
             return "Savage Blade And Shield";
         }
-        else if (parameter.m_intValue == PairedSavageBlades)
+        else if (parameter.intValue == PairedSavageBlades)
         {
             return "Paired Savage Blades";
         }

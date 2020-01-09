@@ -163,9 +163,9 @@ void Evocators::Init()
 
 std::string Evocators::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Lore of Invigoration")
+    if (std::string(parameter.name) == "Lore of Invigoration")
     {
-        return ToString((LoreOfInvigoration) parameter.m_intValue);
+        return ToString((LoreOfInvigoration) parameter.intValue);
     }
     return StormcastEternal::ValueToString(parameter);
 }

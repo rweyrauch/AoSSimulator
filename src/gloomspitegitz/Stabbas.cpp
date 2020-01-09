@@ -204,13 +204,13 @@ int Stabbas::braveryModifier() const
 
 std::string Stabbas::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons" || parameter.m_name == "Boss Weapon")
+    if (std::string(parameter.name) == "Weapons" || std::string(parameter.name) == "Boss Weapon")
     {
-        if (parameter.m_intValue == Stabba)
+        if (parameter.intValue == Stabba)
         {
             return "Stabba";
         }
-        else if (parameter.m_intValue == PokinSpear)
+        else if (parameter.intValue == PokinSpear)
         {
             return "Pokin' Spear";
         }

@@ -88,13 +88,13 @@ int Fyreslayer::rollRunDistance() const
 
 std::string Fyreslayer::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Lodge")
+    if (std::string(parameter.name) == "Lodge")
     {
-        if (parameter.m_intValue == Vostarg) { return "Vostarg"; }
-        else if (parameter.m_intValue == Greyfyrd) { return "Greyfyrd"; }
-        else if (parameter.m_intValue == Hermdar) { return "Hermdar"; }
-        else if (parameter.m_intValue == Lofnir) { return "Lofnir"; }
-        else if (parameter.m_intValue == None) { return "None"; }
+        if (parameter.intValue == Vostarg) { return "Vostarg"; }
+        else if (parameter.intValue == Greyfyrd) { return "Greyfyrd"; }
+        else if (parameter.intValue == Hermdar) { return "Hermdar"; }
+        else if (parameter.intValue == Lofnir) { return "Lofnir"; }
+        else if (parameter.intValue == None) { return "None"; }
     }
     return ParameterValueToString(parameter);
 }

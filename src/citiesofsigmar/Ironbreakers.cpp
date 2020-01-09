@@ -169,17 +169,17 @@ void Ironbreakers::onStartShooting(PlayerId player)
 
 std::string Ironbreakers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Ironbeard Weapon")
+    if (std::string(parameter.name) == "Ironbeard Weapon")
     {
-        if (parameter.m_intValue == IronbreakerAxeOrHammer)
+        if (parameter.intValue == IronbreakerAxeOrHammer)
         {
             return "Ironbreaker Axe Or Hammer";
         }
-        else if (parameter.m_intValue == DrakefirePistolAndCinderblastBomb)
+        else if (parameter.intValue == DrakefirePistolAndCinderblastBomb)
         {
             return "Drakefire Pistol And Cinderblast Bomb";
         }
-        else if (parameter.m_intValue == PairedDrakefirePistols)
+        else if (parameter.intValue == PairedDrakefirePistols)
         {
             return "Paired Drakefire Pistols";
         }

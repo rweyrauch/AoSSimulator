@@ -139,12 +139,12 @@ void Skinks::Init()
 
 std::string Skinks::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == JavelinsAndBucklers) { return "Javelins and Bucklers"; }
-        else if (parameter.m_intValue == BoltspittersAndClubs) { return "Boltspitters and Clubs"; }
-        else if (parameter.m_intValue == BoltspittersAndBucklers) { return "Boltspitters and Bucklers"; }
-        else if (parameter.m_intValue == ClubsAndBucklers) { return "ClubsAndBucklers"; }
+        if (parameter.intValue == JavelinsAndBucklers) { return "Javelins and Bucklers"; }
+        else if (parameter.intValue == BoltspittersAndClubs) { return "Boltspitters and Clubs"; }
+        else if (parameter.intValue == BoltspittersAndBucklers) { return "Boltspitters and Bucklers"; }
+        else if (parameter.intValue == ClubsAndBucklers) { return "ClubsAndBucklers"; }
     }
     return ParameterValueToString(parameter);
 }

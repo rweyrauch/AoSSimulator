@@ -100,21 +100,21 @@ void LordCelestantOnDracoth::Init()
 
 std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == TempestosHammer)
+        if (parameter.intValue == TempestosHammer)
         {
             return "Tempestos Hammer";
         }
-        else if (parameter.m_intValue == Thunderaxe)
+        else if (parameter.intValue == Thunderaxe)
         {
             return "Thunderaxe";
         }
-        else if (parameter.m_intValue == LightningHammer)
+        else if (parameter.intValue == LightningHammer)
         {
             return "Lightning Hammer";
         }
-        else if (parameter.m_intValue == StormstrikeGlaive)
+        else if (parameter.intValue == StormstrikeGlaive)
         {
             return "Stormstrike Glaive";
         }

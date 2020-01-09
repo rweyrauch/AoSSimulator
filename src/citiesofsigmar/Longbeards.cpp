@@ -128,13 +128,13 @@ Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const
 
 std::string Longbeards::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == AncestralWeaponAndShield)
+        if (parameter.intValue == AncestralWeaponAndShield)
         {
             return "Ancestral Weapon and Gromril Shield";
         }
-        else if (parameter.m_intValue == AncestralGreatAxe)
+        else if (parameter.intValue == AncestralGreatAxe)
         {
             return "Ancestral Great Axe";
         }

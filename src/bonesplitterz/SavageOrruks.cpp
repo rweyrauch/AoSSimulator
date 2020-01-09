@@ -115,10 +115,10 @@ bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThum
 
 std::string SavageOrruks::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == Chompa) { return "Chompa"; }
-        else if (parameter.m_intValue == SavageStikka) { return "Savage Stikka"; }
+        if (parameter.intValue == Chompa) { return "Chompa"; }
+        else if (parameter.intValue == SavageStikka) { return "Savage Stikka"; }
     }
     return Bonesplitterz::ValueToString(parameter);
 }

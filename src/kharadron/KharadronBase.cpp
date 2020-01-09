@@ -25,16 +25,16 @@ namespace KharadronOverlords
 
 std::string KharadronBase::ValueToString(const Parameter& parameter)
 {
-    if (parameter.m_name == "Skyport")
+    if (std::string(parameter.name) == "Skyport")
     {
-        if (parameter.m_intValue == BarakNar) return "Barak-Nar";
-        else if (parameter.m_intValue == BarakZon) return "Barak-Zon";
-        else if (parameter.m_intValue == BarakZilfin) return "Barak-Zilfin";
-        else if (parameter.m_intValue == BarakUrbaz) return "Barak-Urbaz";
-        else if (parameter.m_intValue == BarakThryng) return "Barak-Thryng";
-        else if (parameter.m_intValue == BarakMhornar) return "Barak-Mhornar";
-        else if (parameter.m_intValue == None) return "None";
-        else if (parameter.m_intValue == Custom) return "Custom";
+        if (parameter.intValue == BarakNar) return "Barak-Nar";
+        else if (parameter.intValue == BarakZon) return "Barak-Zon";
+        else if (parameter.intValue == BarakZilfin) return "Barak-Zilfin";
+        else if (parameter.intValue == BarakUrbaz) return "Barak-Urbaz";
+        else if (parameter.intValue == BarakThryng) return "Barak-Thryng";
+        else if (parameter.intValue == BarakMhornar) return "Barak-Mhornar";
+        else if (parameter.intValue == None) return "None";
+        else if (parameter.intValue == Custom) return "Custom";
     }
     return ParameterValueToString(parameter);
 }

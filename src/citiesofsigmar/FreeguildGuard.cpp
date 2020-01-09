@@ -57,17 +57,17 @@ Unit *FreeguildGuard::Create(const ParameterList &parameters)
 
 std::string FreeguildGuard::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == Halberd)
+        if (parameter.intValue == Halberd)
         {
             return "Halberd";
         }
-        else if (parameter.m_intValue == Spear)
+        else if (parameter.intValue == Spear)
         {
             return "Spear";
         }
-        else if (parameter.m_intValue == Sword)
+        else if (parameter.intValue == Sword)
         {
             return "Sword";
         }

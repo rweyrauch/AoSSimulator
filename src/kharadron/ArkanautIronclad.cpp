@@ -51,6 +51,9 @@ Unit *ArkanautIronclad::Create(const ParameterList &parameters)
     auto unit = new ArkanautIronclad();
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, GreatSkyCannon);
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure(option);
     if (!ok)
     {
@@ -62,11 +65,11 @@ Unit *ArkanautIronclad::Create(const ParameterList &parameters)
 
 std::string ArkanautIronclad::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == GreatSkyCannon) return "Great Sky Cannon";
-        else if (parameter.m_intValue == GreatVolleyCannon) return  "Great Volley Cannon";
-        else if (parameter.m_intValue == GreatSkyhook) return "Great Skyhook";
+        if (parameter.intValue == GreatSkyCannon) return "Great Sky Cannon";
+        else if (parameter.intValue == GreatVolleyCannon) return  "Great Volley Cannon";
+        else if (parameter.intValue == GreatSkyhook) return "Great Skyhook";
     }
     return KharadronBase::ValueToString(parameter);
 }

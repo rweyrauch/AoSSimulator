@@ -149,17 +149,17 @@ Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds)
 
 std::string OrrukArdboys::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Standard")
+    if (std::string(parameter.name) == "Standard")
     {
-        if (parameter.m_intValue == None)
+        if (parameter.intValue == None)
         {
             return "None";
         }
-        else if (parameter.m_intValue == BannerBearer)
+        else if (parameter.intValue == BannerBearer)
         {
             return "Banner Bearer";
         }
-        else if (parameter.m_intValue == GlyphBearer)
+        else if (parameter.intValue == GlyphBearer)
         {
             return "Glyph Bearer";
         }

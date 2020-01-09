@@ -93,21 +93,21 @@ void OrrukWarboss::Init()
 
 std::string OrrukWarboss::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == BossChoppaAndShield)
+        if (parameter.intValue == BossChoppaAndShield)
         {
             return "Boss Choppa and Shield";
         }
-        else if (parameter.m_intValue == MassiveChoppa)
+        else if (parameter.intValue == MassiveChoppa)
         {
             return "Massive Choppa";
         }
-        else if (parameter.m_intValue == PairedBossChoppas)
+        else if (parameter.intValue == PairedBossChoppas)
         {
             return "Paired Boss Choppas";
         }
-        else if (parameter.m_intValue == GreatWaaaghBanner)
+        else if (parameter.intValue == GreatWaaaghBanner)
         {
             return "Great Waaagh! Banner";
         }

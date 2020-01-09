@@ -150,28 +150,28 @@ void Warriors::onStartCombat(PlayerId player)
 
 std::string Warriors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == DuardinAxeOrHammer)
+        if (parameter.intValue == DuardinAxeOrHammer)
         {
             return "Duardin Axe Or Hammer";
         }
-        else if (parameter.m_intValue == DoubleHandedDuardinAxe)
+        else if (parameter.intValue == DoubleHandedDuardinAxe)
         {
             return "Double Handed Duardin Axe";
         }
     }
-    else if (parameter.m_name == "Standard")
+    else if (std::string(parameter.name) == "Standard")
     {
-        if (parameter.m_intValue == None)
+        if (parameter.intValue == None)
         {
             return "None";
         }
-        else if (parameter.m_intValue == RunicIcon)
+        else if (parameter.intValue == RunicIcon)
         {
             return "Runic Icon";
         }
-        else if (parameter.m_intValue == ClanBanner)
+        else if (parameter.intValue == ClanBanner)
         {
             return "Clan Banner";
         }

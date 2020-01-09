@@ -49,13 +49,13 @@ Unit *MortekGuard::Create(const ParameterList &parameters)
 
 std::string MortekGuard::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == NadirateSpearAndShield)
+        if (parameter.intValue == NadirateSpearAndShield)
         {
             return "Nadirate Spear and Shield";
         }
-        else if (parameter.m_intValue == NadiriteBladeAndShield)
+        else if (parameter.intValue == NadiriteBladeAndShield)
         {
             return "Nadirite Blade and Shield";
         }

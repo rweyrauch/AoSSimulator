@@ -14,14 +14,14 @@ static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, c
     descriptor << "\"" << name;
     for (auto ip : parameters)
     {
-        descriptor << "," << ip.m_name << "=";
-        if (ip.m_paramType == ParamType::Enum)
+        descriptor << "," << ip.name << "=";
+        if (ip.paramType == ParamType::Enum)
             descriptor << factory->m_paramToString(ip);
-        else if (ip.m_paramType == ParamType::Integer)
-            descriptor << ip.m_intValue;
-        else if (ip.m_paramType == ParamType::Boolean)
+        else if (ip.paramType == ParamType::Integer)
+            descriptor << ip.intValue;
+        else if (ip.paramType == ParamType::Boolean)
         {
-            if (ip.m_intValue != 0)
+            if (ip.intValue != 0)
                 descriptor << "true";
             else
                 descriptor << "false";

@@ -53,13 +53,13 @@ Unit *Gyrocopters::Create(const ParameterList &parameters)
 
 std::string Gyrocopters::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == BrimstoneGun)
+        if (parameter.intValue == BrimstoneGun)
         {
             return "Brimstone Gun";
         }
-        else if (parameter.m_intValue == SteamGun)
+        else if (parameter.intValue == SteamGun)
         {
             return "Steam Gun";
         }

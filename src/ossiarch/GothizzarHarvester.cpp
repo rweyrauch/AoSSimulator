@@ -58,10 +58,10 @@ Unit *GothizzarHarvester::Create(const ParameterList &parameters)
 
 std::string GothizzarHarvester::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == Sickles) return "Soulcleaver Sickles";
-        else if (parameter.m_intValue == Bludgeons) return "Soulcrusher Bludgeons";
+        if (parameter.intValue == Sickles) return "Soulcleaver Sickles";
+        else if (parameter.intValue == Bludgeons) return "Soulcrusher Bludgeons";
     }
     return OssiarchBonereaperBase::ValueToString(parameter);
 }

@@ -124,11 +124,11 @@ void Bullgors::Init()
 
 std::string Bullgors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == BullgorAxe) { return "Bullgor Axe"; }
-        else if (parameter.m_intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
-        else if (parameter.m_intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
+        if (parameter.intValue == BullgorAxe) { return "Bullgor Axe"; }
+        else if (parameter.intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
+        else if (parameter.intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
     }
     return BeastsOfChaosBase::ValueToString(parameter);
 }

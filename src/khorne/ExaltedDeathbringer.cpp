@@ -91,17 +91,17 @@ void ExaltedDeathbringer::Init()
 
 std::string ExaltedDeathbringer::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == RuinousAxeAndSkullgouger)
+        if (parameter.intValue == RuinousAxeAndSkullgouger)
         {
             return "Ruinous Axe and Skullgouger";
         }
-        else if (parameter.m_intValue == BloodbiteAxeAndRunemarkedShield)
+        else if (parameter.intValue == BloodbiteAxeAndRunemarkedShield)
         {
             return "Bloodbite Axe and Runemarked Shield";
         }
-        else if (parameter.m_intValue == ImpalingSpear)
+        else if (parameter.intValue == ImpalingSpear)
         {
             return "Impaling Spear";
         }

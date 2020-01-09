@@ -144,35 +144,35 @@ void Stormfiends::Init()
 
 std::string Stormfiends::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon A")
+    if (std::string(parameter.name) == "Weapon A")
     {
-        if (parameter.m_intValue == WarpfireProjectors)
+        if (parameter.intValue == WarpfireProjectors)
         {
             return "Warpfire Projectors";
         }
-        else if (parameter.m_intValue == Windlaunchers)
+        else if (parameter.intValue == Windlaunchers)
         {
             return "Windlaunchers";
         }
     }
-    else if (parameter.m_name == "Weapon B")
+    else if (std::string(parameter.name) == "Weapon B")
     {
-        if (parameter.m_intValue == Grinderfists)
+        if (parameter.intValue == Grinderfists)
         {
             return "Grinderfists";
         }
-        else if (parameter.m_intValue == RatlingCannons)
+        else if (parameter.intValue == RatlingCannons)
         {
             return "Ratling Cannons";
         }
     }
-    else if (parameter.m_name == "Weapon C")
+    else if (std::string(parameter.name) == "Weapon C")
     {
-        if (parameter.m_intValue == DoomflayerGauntlets)
+        if (parameter.intValue == DoomflayerGauntlets)
         {
             return "Doomflayer Gauntlets";
         }
-        else if (parameter.m_intValue == ShockGauntlets)
+        else if (parameter.intValue == ShockGauntlets)
         {
             return "Shock Gauntlets";
         }

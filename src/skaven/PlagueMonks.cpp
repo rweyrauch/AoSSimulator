@@ -197,13 +197,13 @@ void PlagueMonks::onStartHero(PlayerId player)
 
 std::string PlagueMonks::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == PairedFoetidBlades)
+        if (parameter.intValue == PairedFoetidBlades)
         {
             return "Paired Foetid Blades";
         }
-        else if (parameter.m_intValue == FoetidBladeAndWoeStave)
+        else if (parameter.intValue == FoetidBladeAndWoeStave)
         {
             return "Foetid Blade And Woe Stave";
         }

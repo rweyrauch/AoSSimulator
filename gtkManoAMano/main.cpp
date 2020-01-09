@@ -372,35 +372,35 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
         std::vector<Parameter> defaultParams = factory->m_parameters;
         for (const auto& ip : defaultParams)
         {
-            if (ip.m_paramType == ParamType::Integer)
+            if (ip.paramType == ParamType::Integer)
             {
                 Gtk::Label* pLabel = Gtk::manage(new Gtk::Label());
-                pLabel->set_text(ip.m_name);
+                pLabel->set_text(ip.name);
                 pGrid->attach(*pLabel, left, top, 1, 1);
                 pLabel->show();
 
                 Gtk::SpinButton *pSpin = Gtk::manage(new Gtk::SpinButton());
                 pSpin->set_numeric();
                 pSpin->set_digits(0);
-                pSpin->set_range(ip.m_minValue, ip.m_maxValue);
-                pSpin->set_increments(ip.m_increment, ip.m_increment);
-                pSpin->set_value(ip.m_intValue);
+                pSpin->set_range(ip.minValue, ip.maxValue);
+                pSpin->set_increments(ip.increment, ip.increment);
+                pSpin->set_value(ip.intValue);
                 pGrid->attach(*pSpin, right, top, 1, 1);
                 pSpin->show();
                 top++;
             }
-            else if (ip.m_paramType == ParamType::Enum)
+            else if (ip.paramType == ParamType::Enum)
             {
                 Gtk::Label* pLabel = Gtk::manage(new Gtk::Label());
-                pLabel->set_text(ip.m_name);
+                pLabel->set_text(ip.name);
                 pGrid->attach(*pLabel, left, top, 1, 1);
                 pLabel->show();
 
                 Gtk::ComboBoxText *pCombo = Gtk::manage(new Gtk::ComboBoxText());
-                for (auto i = ip.m_minValue; i <= ip.m_maxValue; i += ip.m_increment)
+                for (auto i = ip.minValue; i <= ip.maxValue; i += ip.increment)
                 {
                     Parameter param = ip;
-                    param.m_intValue = i;
+                    param.intValue = i;
                     pCombo->append(factory->m_paramToString(param));
                 }
                 pCombo->set_active_text(factory->m_paramToString(ip));
@@ -408,14 +408,14 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
                 pCombo->show();
                 top++;
             }
-            else if (ip.m_paramType == ParamType::Boolean)
+            else if (ip.paramType == ParamType::Boolean)
             {
                 Gtk::Label* pLabel = Gtk::manage(new Gtk::Label());
-                pLabel->set_text(ip.m_name);
+                pLabel->set_text(ip.name);
                 pGrid->attach(*pLabel, left, top, 1, 1);
                 pLabel->show();
                 Gtk::CheckButton* pCheck = Gtk::manage(new Gtk::CheckButton());
-                pCheck->set_active((ip.m_intValue == 0) ? false : true);
+                pCheck->set_active((ip.intValue == 0) ? false : true);
                 pGrid->attach(*pCheck, right, top, 1, 1);
                 pCheck->show();
                 top++;
@@ -454,28 +454,28 @@ Unit* createUnit(const std::string& unitName, Gtk::Box* pUnitUI)
                     if (pp != parameters.end())
                     {
                         //std::cout << "Found matching parameter for " << pp->m_name << " of type " << (int)pp->m_paramType << std::endl;
-                        if (pp->m_paramType == ParamType::Integer)
+                        if (pp->paramType == ParamType::Integer)
                         {
                             auto pSpin = dynamic_cast<Gtk::SpinButton*>(value);
                             if (pSpin)
                             {
-                                pp->m_intValue = pSpin->get_value_as_int();
+                                pp->intValue = pSpin->get_value_as_int();
                             }
                         }
-                        else if (pp->m_paramType == ParamType::Boolean)
+                        else if (pp->paramType == ParamType::Boolean)
                         {
                             auto pCheck = dynamic_cast<Gtk::CheckButton*>(value);
                             if (pCheck)
                             {
-                                pp->m_intValue = pCheck->get_active() ? 1 : 0;
+                                pp->intValue = pCheck->get_active() ? 1 : 0;
                             }
                         }
-                        else if (pp->m_paramType == ParamType::Enum)
+                        else if (pp->paramType == ParamType::Enum)
                         {
                             auto pCombo = dynamic_cast<Gtk::ComboBoxText*>(value);
                             if (pCombo)
                             {
-                                pp->m_intValue = factory->m_enumStringToInt(pCombo->get_active_text());
+                                pp->intValue = factory->m_enumStringToInt(pCombo->get_active_text());
                             }
                         }
                     }

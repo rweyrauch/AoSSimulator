@@ -27,6 +27,9 @@ Unit *EndrinmasterWithDirigibleSuit::Create(const ParameterList &parameters)
 {
     auto unit = new EndrinmasterWithDirigibleSuit();
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure();
     if (!ok)
     {

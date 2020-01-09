@@ -11,16 +11,6 @@
 
 #include "AgeOfSigmarSim.h"
 
-struct ParameterJS
-{
-    ParamType paramType;
-    char* name;
-    int intValue;
-    int minValue;
-    int maxValue;
-    int increment;
-};
-
 class JSInterface 
 {
 public:
@@ -29,7 +19,7 @@ public:
     static int FactionStringToKeyword(const char* factionName);
     static const char* FactionKeywordToString(int faction);
 
-    static const char* ParameterValueToString(const ParameterJS& param);
+    static const char* ParameterValueToString(const Parameter& param);
 };
 
 /*

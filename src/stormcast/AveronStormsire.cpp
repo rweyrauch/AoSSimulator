@@ -92,13 +92,13 @@ void AveronStormsire::Init()
 
 std::string AveronStormsire::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Lore of the Storm")
+    if (std::string(parameter.name) == "Lore of the Storm")
     {
-        return ToString((LoreOfTheStorm) parameter.m_intValue);
+        return ToString((LoreOfTheStorm) parameter.intValue);
     }
-    else if (parameter.m_name == "Lore of Invigoration")
+    else if (std::string(parameter.name) == "Lore of Invigoration")
     {
-        return ToString((LoreOfInvigoration) parameter.m_intValue);
+        return ToString((LoreOfInvigoration) parameter.intValue);
     }
     return StormcastEternal::ValueToString(parameter);
 }

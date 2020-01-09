@@ -72,12 +72,10 @@ Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters)
 
 std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter& parameter)
 {
-    if (parameter.m_name == "weapons")
+    if (std::string(parameter.name) == "weapons")
     {
-        if (parameter.m_intValue == Mooncutta)
-        { return "Mooncutta"; }
-        else if (parameter.m_intValue == MoonclanStabba)
-        { return "MoonclanStabba"; }
+        if (parameter.intValue == Mooncutta) { return "Mooncutta"; }
+        else if (parameter.intValue == MoonclanStabba) { return "MoonclanStabba"; }
     }
     return ParameterValueToString(parameter);
 }

@@ -117,28 +117,28 @@ void Thunderers::Init()
 
 std::string Thunderers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Veteran Weapon")
+    if (std::string(parameter.name) == "Veteran Weapon")
     {
-        if (parameter.m_intValue == DuardinHandgun)
+        if (parameter.intValue == DuardinHandgun)
         {
             return "Duardin Handgun";
         }
-        else if (parameter.m_intValue == BraceOfDuardinPistols)
+        else if (parameter.intValue == BraceOfDuardinPistols)
         {
             return "Brace Of Duardin Pistols";
         }
     }
-    if (parameter.m_name == "Standard")
+    if (std::string(parameter.name) == "Standard")
     {
-        if (parameter.m_intValue == None)
+        if (parameter.intValue == None)
         {
             return "None";
         }
-        else if (parameter.m_intValue == RunicIcon)
+        else if (parameter.intValue == RunicIcon)
         {
             return "Runic Icon";
         }
-        else if (parameter.m_intValue == ClanBanner)
+        else if (parameter.intValue == ClanBanner)
         {
             return "Clan Banner";
         }

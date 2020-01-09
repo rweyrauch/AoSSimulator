@@ -98,14 +98,14 @@ void Slaughterpriest::Init()
 
 std::string Slaughterpriest::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == BloodbathedAxe) { return "Bloodbathed Axe"; }
-        else if (parameter.m_intValue == HackbladeAndWrathHammer) { return "Hackblade and Wrath-hammer"; }
+        if (parameter.intValue == BloodbathedAxe) { return "Bloodbathed Axe"; }
+        else if (parameter.intValue == HackbladeAndWrathHammer) { return "Hackblade and Wrath-hammer"; }
     }
-    else if (parameter.m_name == "Blood Blessings of Khorne")
+    else if (std::string(parameter.name) == "Blood Blessings of Khorne")
     {
-        return ToString((BloodBlessingsOfKhorne)parameter.m_intValue);
+        return ToString((BloodBlessingsOfKhorne)parameter.intValue);
     }
     return KhorneBase::ValueToString(parameter);
 }

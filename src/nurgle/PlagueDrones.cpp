@@ -175,10 +175,10 @@ void PlagueDrones::restoreModels(int numModels)
 
 std::string PlagueDrones::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == PrehensileProboscis) { return "Prehensile Proboscis"; }
-        else if (parameter.m_intValue == FoulMouthparts) { return "Foul Mouthparts"; }
+        if (parameter.intValue == PrehensileProboscis) { return "Prehensile Proboscis"; }
+        else if (parameter.intValue == FoulMouthparts) { return "Foul Mouthparts"; }
     }
     return ParameterValueToString(parameter);
 }

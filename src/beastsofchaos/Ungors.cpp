@@ -122,10 +122,10 @@ void Ungors::Init()
 
 std::string Ungors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == UngorBlade) { return "Ungor Blade"; }
-        else if (parameter.m_intValue == GnarledShortspear) { return "Gnarled Shortspear"; }
+        if (parameter.intValue == UngorBlade) { return "Ungor Blade"; }
+        else if (parameter.intValue == GnarledShortspear) { return "Gnarled Shortspear"; }
     }
     return BeastsOfChaosBase::ValueToString(parameter);
 }

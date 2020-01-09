@@ -53,10 +53,10 @@ Unit *OgorGluttons::Create(const ParameterList &parameters)
 
 std::string OgorGluttons::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == ClubOrBladeAndIronfist) return "Club or Blade and Ironfist";
-        else if (parameter.m_intValue == PairedClubOrBlade) return "Paired Club or Blade";
+        if (parameter.intValue == ClubOrBladeAndIronfist) return "Club or Blade and Ironfist";
+        else if (parameter.intValue == PairedClubOrBlade) return "Paired Club or Blade";
     }
     return MawtribesBase::ValueToString(parameter);
 }

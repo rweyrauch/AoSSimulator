@@ -84,14 +84,14 @@ void Dispossessed::setGrudge(Dispossessed::Grudge grudge)
 
 std::string Dispossessed::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Grudge")
+    if (std::string(parameter.name) == "Grudge")
     {
-        if (parameter.m_intValue == StuckUp) { return "Stuck-up"; }
-        else if (parameter.m_intValue == SpeedMerchants) { return "Speed Merchants"; }
-        else if (parameter.m_intValue == MonstrousCheaters) { return "Monstrous Cheaters"; }
-        else if (parameter.m_intValue == CowardlyHorders) { return "Cowardly Horders"; }
-        else if (parameter.m_intValue == ShoddyCraftsmanship) { return "Shoddy Craftsmanship"; }
-        else if (parameter.m_intValue == SneakyAmbushers) { return "Sneaky Ambushers"; }
+        if (parameter.intValue == StuckUp) { return "Stuck-up"; }
+        else if (parameter.intValue == SpeedMerchants) { return "Speed Merchants"; }
+        else if (parameter.intValue == MonstrousCheaters) { return "Monstrous Cheaters"; }
+        else if (parameter.intValue == CowardlyHorders) { return "Cowardly Horders"; }
+        else if (parameter.intValue == ShoddyCraftsmanship) { return "Shoddy Craftsmanship"; }
+        else if (parameter.intValue == SneakyAmbushers) { return "Sneaky Ambushers"; }
     }
     return ParameterValueToString(parameter);
 }

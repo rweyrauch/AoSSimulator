@@ -57,13 +57,13 @@ Unit *BlackArkCorsairs::Create(const ParameterList &parameters)
 
 std::string BlackArkCorsairs::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == RepeaterHandbow)
+        if (parameter.intValue == RepeaterHandbow)
         {
             return "Repeater Handbow";
         }
-        else if (parameter.m_intValue == WickedCutlass)
+        else if (parameter.intValue == WickedCutlass)
         {
             return "Wicked Cutlass";
         }

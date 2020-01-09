@@ -113,10 +113,10 @@ void HearthguardBerzerkers::Init()
 
 std::string HearthguardBerzerkers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == BerzerkerBroadaxe) { return "Berzerker Broadaxe"; }
-        else if (parameter.m_intValue == FlamestrikePoleaxe) { return "Flamestrike Poleaxe"; }
+        if (parameter.intValue == BerzerkerBroadaxe) { return "Berzerker Broadaxe"; }
+        else if (parameter.intValue == FlamestrikePoleaxe) { return "Flamestrike Poleaxe"; }
     }
     return Fyreslayer::ValueToString(parameter);
 }

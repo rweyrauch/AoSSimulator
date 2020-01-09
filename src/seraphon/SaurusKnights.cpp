@@ -116,10 +116,10 @@ Unit *SaurusKnights::Create(const ParameterList &parameters)
 
 std::string SaurusKnights::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == CelestiteBlade) { return "Celestite Blade"; }
-        else if (parameter.m_intValue == CelestiteLance) { return "Celestite Lance"; }
+        if (parameter.intValue == CelestiteBlade) { return "Celestite Blade"; }
+        else if (parameter.intValue == CelestiteLance) { return "Celestite Lance"; }
     }
     return ParameterValueToString(parameter);
 }

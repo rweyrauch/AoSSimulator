@@ -149,10 +149,10 @@ int MightySkullcrushers::braveryModifier() const
 
 std::string MightySkullcrushers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == EnsorcelledAxe) { return "Ensorcelled Axe"; }
-        else if (parameter.m_intValue == Bloodglaive) { return "Bloodglaive"; }
+        if (parameter.intValue == EnsorcelledAxe) { return "Ensorcelled Axe"; }
+        else if (parameter.intValue == Bloodglaive) { return "Bloodglaive"; }
     }
     return KhorneBase::ValueToString(parameter);
 }

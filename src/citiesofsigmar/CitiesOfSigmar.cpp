@@ -69,15 +69,15 @@ namespace CitiesOfSigmar
 
 std::string CitizenOfSigmar::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "City")
+    if (std::string(parameter.name) == "City")
     {
-        if (parameter.m_intValue == Hammerhal) { return "Hammerhal"; }
-        else if (parameter.m_intValue == LivingCity) { return "Living City"; }
-        else if (parameter.m_intValue == GreywaterFastness) { return "Greywater Fastness"; }
-        else if (parameter.m_intValue == Phoenicium) { return "Phoenicium"; }
-        else if (parameter.m_intValue == Anvilgard) { return "Anvilgard"; }
-        else if (parameter.m_intValue == Hallowheart) { return "Hallowheart"; }
-        else if (parameter.m_intValue == TempestsEye) {return "Tempest's Eye"; }
+        if (parameter.intValue == Hammerhal) { return "Hammerhal"; }
+        else if (parameter.intValue == LivingCity) { return "Living City"; }
+        else if (parameter.intValue == GreywaterFastness) { return "Greywater Fastness"; }
+        else if (parameter.intValue == Phoenicium) { return "Phoenicium"; }
+        else if (parameter.intValue == Anvilgard) { return "Anvilgard"; }
+        else if (parameter.intValue == Hallowheart) { return "Hallowheart"; }
+        else if (parameter.intValue == TempestsEye) {return "Tempest's Eye"; }
     }
     return ParameterValueToString(parameter);
 }

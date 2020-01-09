@@ -89,16 +89,16 @@ Rerolls SylvanethBase::toHitRerolls(const Weapon *weapon, const Unit *unit) cons
 
 std::string SylvanethBase::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Glade")
+    if (std::string(parameter.name) == "Glade")
     {
-        if (parameter.m_intValue == Oakenbrow) { return "Oakenbrow"; }
-        else if (parameter.m_intValue == Gnarlroot) { return "Gnarlroot"; }
-        else if (parameter.m_intValue == Heartwood) { return "Heartwood"; }
-        else if (parameter.m_intValue == Ironbark) { return "Ironbark"; }
-        else if (parameter.m_intValue == Winterleaf) { return "Winterleaf"; }
-        else if (parameter.m_intValue == Dreadwood) { return "Dreadwood"; }
-        else if (parameter.m_intValue == Harvestboon) { return "Harvestboon"; }
-        else if (parameter.m_intValue == None) { return "None"; }
+        if (parameter.intValue == Oakenbrow) { return "Oakenbrow"; }
+        else if (parameter.intValue == Gnarlroot) { return "Gnarlroot"; }
+        else if (parameter.intValue == Heartwood) { return "Heartwood"; }
+        else if (parameter.intValue == Ironbark) { return "Ironbark"; }
+        else if (parameter.intValue == Winterleaf) { return "Winterleaf"; }
+        else if (parameter.intValue == Dreadwood) { return "Dreadwood"; }
+        else if (parameter.intValue == Harvestboon) { return "Harvestboon"; }
+        else if (parameter.intValue == None) { return "None"; }
     }
     return ParameterValueToString(parameter);
 }

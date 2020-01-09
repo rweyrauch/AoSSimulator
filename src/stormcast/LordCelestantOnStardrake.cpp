@@ -110,13 +110,13 @@ void LordCelestantOnStardrake::Init()
 
 std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == CelestineHammer)
+        if (parameter.intValue == CelestineHammer)
         {
             return "Celestine Hammer";
         }
-        else if (parameter.m_intValue == StormboundBlade)
+        else if (parameter.intValue == StormboundBlade)
         {
             return "Stormbound Blade";
         }

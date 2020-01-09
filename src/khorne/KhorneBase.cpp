@@ -135,13 +135,13 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 
 std::string KhorneBase::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Slaughter Host")
+    if (std::string(parameter.name) == "Slaughter Host")
     {
-        if (parameter.m_intValue == ReapersOfVengeance) { return "Reapers of Vengeance"; }
-        else if (parameter.m_intValue == Bloodlords) { return "Bloodlords"; }
-        else if (parameter.m_intValue == Goretide) { return "Goretide"; }
-        else if (parameter.m_intValue == SkullfiendTribe) { return "Skullfiend Tribe"; }
-        else if (parameter.m_intValue == None) { return "None"; }
+        if (parameter.intValue == ReapersOfVengeance) { return "Reapers of Vengeance"; }
+        else if (parameter.intValue == Bloodlords) { return "Bloodlords"; }
+        else if (parameter.intValue == Goretide) { return "Goretide"; }
+        else if (parameter.intValue == SkullfiendTribe) { return "Skullfiend Tribe"; }
+        else if (parameter.intValue == None) { return "None"; }
     }
     return ParameterValueToString(parameter);
 }

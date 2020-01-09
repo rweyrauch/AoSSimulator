@@ -120,11 +120,11 @@ void VulkiteBerzerkers::Init()
 
 std::string VulkiteBerzerkers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == HandaxeAndShield) { return "Fyresteel Handaxe and Bladed Slingshield"; }
-        else if (parameter.m_intValue == WarpickAndShield) { return "Fyresteel War-pick and Bladed Slingshield"; }
-        else if (parameter.m_intValue == PairedHandaxes) { return "Paired Fyresteel Handaxes"; }
+        if (parameter.intValue == HandaxeAndShield) { return "Fyresteel Handaxe and Bladed Slingshield"; }
+        else if (parameter.intValue == WarpickAndShield) { return "Fyresteel War-pick and Bladed Slingshield"; }
+        else if (parameter.intValue == PairedHandaxes) { return "Paired Fyresteel Handaxes"; }
     }
     return Fyreslayer::ValueToString(parameter);
 }

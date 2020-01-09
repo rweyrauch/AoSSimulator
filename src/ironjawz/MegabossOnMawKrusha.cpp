@@ -180,13 +180,13 @@ Wounds MegabossOnMawKrusha::computeReturnedDamage(const Weapon *weapon, int save
 
 std::string MegabossOnMawKrusha::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == HackaAndChoppa)
+        if (parameter.intValue == HackaAndChoppa)
         {
             return "Boss Gore-hacka and Choppa";
         }
-        else if (parameter.m_intValue == ChoppaAndRiptoofFist)
+        else if (parameter.intValue == ChoppaAndRiptoofFist)
         {
             return "Boss Choppa and Rip-toof Fist";
         }

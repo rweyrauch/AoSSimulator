@@ -55,13 +55,13 @@ Unit *FreeguildPistoliers::Create(const ParameterList &parameters)
 
 std::string FreeguildPistoliers::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Outrider Weapon")
+    if (std::string(parameter.name) == "Outrider Weapon")
     {
-        if (parameter.m_intValue == RepeaterHandgun)
+        if (parameter.intValue == RepeaterHandgun)
         {
             return "Repeater Handgun";
         }
-        else if (parameter.m_intValue == BraceOfPistols)
+        else if (parameter.intValue == BraceOfPistols)
         {
             return "Brace of Pistols";
         }

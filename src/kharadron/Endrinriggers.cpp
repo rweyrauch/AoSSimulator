@@ -40,6 +40,9 @@ Unit *Endrinriggers::Create(const ParameterList &parameters)
     int numGrapnels = GetIntParam("Grapnel Launchers", parameters, 1);
     int numSkyhooks = GetIntParam("Skyhooks", parameters, 0);
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure(numModel, numVolleyGuns, numDrills, numGrapnels, numSkyhooks);
     if (!ok)
     {

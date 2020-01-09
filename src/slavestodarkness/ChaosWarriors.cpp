@@ -161,21 +161,21 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
 
 std::string ChaosWarriors::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == HandWeaponAndShield)
+        if (parameter.intValue == HandWeaponAndShield)
         {
             return "Hand Weapon and Shield";
         }
-        else if (parameter.m_intValue == HalberdAndShield)
+        else if (parameter.intValue == HalberdAndShield)
         {
             return "Halberd and Shield";
         }
-        else if (parameter.m_intValue == GreatBlade)
+        else if (parameter.intValue == GreatBlade)
         {
             return "Greatblade";
         }
-        else if (parameter.m_intValue == PairedHandWeapons)
+        else if (parameter.intValue == PairedHandWeapons)
         {
             return "Paired Hand Weapons";
         }

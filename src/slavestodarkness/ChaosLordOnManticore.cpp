@@ -145,9 +145,9 @@ int ChaosLordOnManticore::getDamageTableIndex() const
 
 std::string ChaosLordOnManticore::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        switch (parameter.m_intValue)
+        switch (parameter.intValue)
         {
             case BladeAndLance: return "Daemon Blade and Chaos Lance";
             case FlailAndLance: return "Chaos Flail and Chaos Lance";

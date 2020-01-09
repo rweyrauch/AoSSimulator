@@ -58,13 +58,13 @@ Unit *DemigryphKnights::Create(const ParameterList &parameters)
 
 std::string DemigryphKnights::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == Halberd)
+        if (parameter.intValue == Halberd)
         {
             return "Halberd";
         }
-        else if (parameter.m_intValue == Lance)
+        else if (parameter.intValue == Lance)
         {
             return "Lance";
         }

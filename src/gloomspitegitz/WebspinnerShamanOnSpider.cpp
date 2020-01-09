@@ -129,9 +129,9 @@ void WebspinnerShamanOnArachnarokSpider::Init()
 
 std::string WebspinnerShamanOnArachnarokSpider::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Lore of the Spiderfangs")
+    if (std::string(parameter.name) == "Lore of the Spiderfangs")
     {
-        return ToString((LoreOfTheSpiderFangs)parameter.m_intValue);
+        return ToString((LoreOfTheSpiderFangs)parameter.intValue);
     }
     return ParameterValueToString(parameter);
 }

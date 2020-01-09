@@ -49,11 +49,11 @@ void SlaaneshBase::setHost(Host host)
 
 std::string SlaaneshBase::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Host")
+    if (std::string(parameter.name) == "Host")
     {
-        if (parameter.m_intValue == Invaders) { return "Invaders"; }
-        else if (parameter.m_intValue == Pretenders) { return "Pretenders"; }
-        else if (parameter.m_intValue == Godseekers) { return "Godseekers"; }
+        if (parameter.intValue == Invaders) { return "Invaders"; }
+        else if (parameter.intValue == Pretenders) { return "Pretenders"; }
+        else if (parameter.intValue == Godseekers) { return "Godseekers"; }
     }
     return ParameterValueToString(parameter);
 }

@@ -44,11 +44,11 @@ void Bonesplitterz::setWarclan(Warclan warclan)
 
 std::string Bonesplitterz::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Warclan")
+    if (std::string(parameter.name) == "Warclan")
     {
-        if (parameter.m_intValue == Bonegrinz) { return "Bonegrinz"; }
-        else if (parameter.m_intValue == Drakkfoot) { return "Drakkfoot"; }
-        else if (parameter.m_intValue == Icebone) { return "Icebone"; }
+        if (parameter.intValue == Bonegrinz) { return "Bonegrinz"; }
+        else if (parameter.intValue == Drakkfoot) { return "Drakkfoot"; }
+        else if (parameter.intValue == Icebone) { return "Icebone"; }
     }
     return ParameterValueToString(parameter);
 }

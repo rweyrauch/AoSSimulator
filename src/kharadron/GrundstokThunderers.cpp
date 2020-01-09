@@ -42,6 +42,9 @@ Unit *GrundstokThunderers::Create(const ParameterList &parameters)
     int numDecksweepers = GetIntParam("Desksweepers", parameters, 1);
     int numHonourBearers = GetIntParam("Honour Bearers", parameters, 1);
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure(numModel, numMortars, numCannons, numFumigators, numDecksweepers, numHonourBearers);
     if (!ok)
     {

@@ -56,17 +56,17 @@ Unit *FreeguildOutriders::Create(const ParameterList &parameters)
 
 std::string FreeguildOutriders::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Sharpshooter Weapon")
+    if (std::string(parameter.name) == "Sharpshooter Weapon")
     {
-        if (parameter.m_intValue == RepeaterHandgun)
+        if (parameter.intValue == RepeaterHandgun)
         {
             return "Repeater Handgun";
         }
-        else if (parameter.m_intValue == Blunderbuss)
+        else if (parameter.intValue == Blunderbuss)
         {
             return "Blunderbuss";
         }
-        else if (parameter.m_intValue == BraceOfPistols)
+        else if (parameter.intValue == BraceOfPistols)
         {
             return "Brace of Pistols";
         }

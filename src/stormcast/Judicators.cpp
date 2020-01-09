@@ -168,13 +168,13 @@ void Judicators::Init()
 
 std::string Judicators::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == SkyboltBow)
+        if (parameter.intValue == SkyboltBow)
         {
             return "Skybolt Bow";
         }
-        else if (parameter.m_intValue == BoltstormCrossbow)
+        else if (parameter.intValue == BoltstormCrossbow)
         {
             return "Boltstorm Crossbow";
         }

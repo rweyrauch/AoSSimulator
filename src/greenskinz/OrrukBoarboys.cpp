@@ -122,13 +122,13 @@ void OrrukBoarboys::Init()
 
 std::string OrrukBoarboys::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == Choppa)
+        if (parameter.intValue == Choppa)
         {
             return "Choppa";
         }
-        else if (parameter.m_intValue == PigstikkaSpear)
+        else if (parameter.intValue == PigstikkaSpear)
         {
             return "Pigstikka Spear";
         }

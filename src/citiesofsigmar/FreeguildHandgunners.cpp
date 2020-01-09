@@ -58,17 +58,17 @@ Unit *FreeguildHandgunners::Create(const ParameterList &parameters)
 
 std::string FreeguildHandgunners::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Marksman Weapon")
+    if (std::string(parameter.name) == "Marksman Weapon")
     {
-        if (parameter.m_intValue == Handgun)
+        if (parameter.intValue == Handgun)
         {
             return "Handgun";
         }
-        else if (parameter.m_intValue == LongRifle)
+        else if (parameter.intValue == LongRifle)
         {
             return "Long Rifle";
         }
-        else if (parameter.m_intValue == RepeaterHandgun)
+        else if (parameter.intValue == RepeaterHandgun)
         {
             return "Repeater Handgun";
         }

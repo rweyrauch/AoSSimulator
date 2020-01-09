@@ -249,23 +249,23 @@ TEST(Unit, RegisteredUnits)
 
         for (auto pip : ruip->second.m_parameters)
         {
-            if (pip.m_paramType == ParamType::Integer)
+            if (pip.paramType == ParamType::Integer)
             {
                 if (ruip->second.m_paramToString == nullptr)
                 {
-                    std::cout << "\tParam: " << pip.m_name << " Type: Integer  Value: " << pip.m_intValue
-                              << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue << std::endl;
+                    std::cout << "\tParam: " << std::string(pip.name) << " Type: Integer  Value: " << pip.intValue
+                              << "  Min: " << pip.minValue << "  Max: " << pip.maxValue << std::endl;
                 }
                 else
                 {
-                    std::cout << "\tParam: " << pip.m_name << " Type: Integer  Value: " << ruip->second.m_paramToString(pip)
-                              << "  Min: " << pip.m_minValue << "  Max: " << pip.m_maxValue << std::endl;
+                    std::cout << "\tParam: " << std::string(pip.name) << " Type: Integer  Value: " << ruip->second.m_paramToString(pip)
+                              << "  Min: " << pip.minValue << "  Max: " << pip.maxValue << std::endl;
                 }
             }
-            else if (pip.m_paramType == ParamType::Boolean)
+            else if (pip.paramType == ParamType::Boolean)
             {
-                std::cout << "\tParam: " << pip.m_name << " Type: Boolean  Value: "
-                          << (pip.m_intValue ? "true" : "false") << std::endl;
+                std::cout << "\tParam: " << std::string(pip.name) << " Type: Boolean  Value: "
+                          << (pip.intValue ? "true" : "false") << std::endl;
             }
         }
     }
@@ -279,9 +279,9 @@ TEST(Unit, ConfigureRegisteredUnits)
         for (auto pip : ruip->second.m_parameters)
         {
             Parameter param = pip;
-            if ((param.m_paramType == ParamType::Integer) && (param.m_name == "numModels"))
+            if ((param.paramType == ParamType::Integer) && (std::string(param.name) == "numModels"))
             {
-                param.m_intValue = param.m_maxValue;
+                param.intValue = param.maxValue;
             }
             parameters.push_back(param);
         }

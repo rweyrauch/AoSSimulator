@@ -152,17 +152,17 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
 
 std::string ChaosKnights::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons" || parameter.m_name == "Doom Knight Weapon")
+    if (std::string(parameter.name) == "Weapons" || std::string(parameter.name) == "Doom Knight Weapon")
     {
-        if (parameter.m_intValue == EnsorcelledWeapon)
+        if (parameter.intValue == EnsorcelledWeapon)
         {
             return "Ensorcelled Weapon";
         }
-        else if (parameter.m_intValue == CursedLance)
+        else if (parameter.intValue == CursedLance)
         {
             return "Cursed Lance";
         }
-        else if (parameter.m_intValue == CursedFlail)
+        else if (parameter.intValue == CursedFlail)
         {
             return "Cursed Flail";
         }

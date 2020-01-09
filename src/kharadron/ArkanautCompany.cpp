@@ -43,6 +43,9 @@ Unit *ArkanautCompany::Create(const ParameterList &parameters)
     int numSkypikes = GetIntParam("Skypikes", parameters, 1);
     auto option = (CaptainWeapon)GetEnumParam("Captain Weapon", parameters, AetherflarePistol);
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure(numModel, numVolleyGuns, numSkyhooks, numSkypikes, option);
     if (!ok)
     {
@@ -54,10 +57,10 @@ Unit *ArkanautCompany::Create(const ParameterList &parameters)
 
 std::string ArkanautCompany::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Captain Weapon")
+    if (std::string(parameter.name) == "Captain Weapon")
     {
-        if (parameter.m_intValue == AetherflarePistol) return "Aetherflare Pistol";
-        else if (parameter.m_intValue == PrivateerPistol) return "Privateer Pistol";
+        if (parameter.intValue == AetherflarePistol) return "Aetherflare Pistol";
+        else if (parameter.intValue == PrivateerPistol) return "Privateer Pistol";
     }
     return KharadronBase::ValueToString(parameter);
 }

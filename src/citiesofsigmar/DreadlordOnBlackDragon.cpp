@@ -66,25 +66,25 @@ Unit *DreadlordOnBlackDragon::Create(const ParameterList &parameters)
 
 std::string DreadlordOnBlackDragon::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == ExileBladeAndShield)
+        if (parameter.intValue == ExileBladeAndShield)
         {
             return "Exile Blade and Tyrant Shield";
         }
-        else if (parameter.m_intValue == ExileBladeAndCrossbow)
+        else if (parameter.intValue == ExileBladeAndCrossbow)
         {
             return "Exile Blade and Repeater Crossbow";
         }
-        else if (parameter.m_intValue == LanceAndShield)
+        else if (parameter.intValue == LanceAndShield)
         {
             return "Lance of Spite and Tyrant Shield";
         }
-        else if (parameter.m_intValue == LanceAndCrossbow)
+        else if (parameter.intValue == LanceAndCrossbow)
         {
             return "Lance of Spite and Repeater Crossbow";
         }
-        else if (parameter.m_intValue == PairExileBlades)
+        else if (parameter.intValue == PairExileBlades)
         {
             return "Pair of Exile Blades";
         }

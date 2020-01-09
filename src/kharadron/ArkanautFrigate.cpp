@@ -52,6 +52,9 @@ Unit *ArkanautFrigate::Create(const ParameterList &parameters)
     auto unit = new ArkanautFrigate();
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, HeavySkyCannon);
 
+    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
+    unit->setSkyport(port);
+
     bool ok = unit->configure(option);
     if (!ok)
     {
@@ -63,10 +66,10 @@ Unit *ArkanautFrigate::Create(const ParameterList &parameters)
 
 std::string ArkanautFrigate::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == HeavySkyCannon) return "Heavy Sky Cannon";
-        else if (parameter.m_intValue == HeavySkyhook) return "Heavy Skyhook";
+        if (parameter.intValue == HeavySkyCannon) return "Heavy Sky Cannon";
+        else if (parameter.intValue == HeavySkyhook) return "Heavy Skyhook";
     }
     return KharadronBase::ValueToString(parameter);
 }

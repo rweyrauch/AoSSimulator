@@ -122,17 +122,17 @@ void DrakeswornTemplar::Init()
 
 std::string DrakeswornTemplar::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == TempestAxe)
+        if (parameter.intValue == TempestAxe)
         {
             return "Tempest Axe";
         }
-        else if (parameter.m_intValue == ArcHammer)
+        else if (parameter.intValue == ArcHammer)
         {
             return "Arc Hammer";
         }
-        else if (parameter.m_intValue == Stormlance)
+        else if (parameter.intValue == Stormlance)
         {
             return "Stormlance";
         }

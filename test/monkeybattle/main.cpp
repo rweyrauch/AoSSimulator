@@ -124,24 +124,24 @@ Unit* GenerateRandomUnit()
     auto parameters = factory->m_parameters;
     for (auto& ip : parameters)
     {
-        if (ip.m_paramType == ParamType::Boolean)
+        if (ip.paramType == ParamType::Boolean)
         {
             int value = allInts(gen) % 2;
-            ip.m_intValue = value;
+            ip.intValue = value;
         }
-        else if (ip.m_paramType == ParamType::Integer || ip.m_paramType == ParamType::Enum)
+        else if (ip.paramType == ParamType::Integer || ip.paramType == ParamType::Enum)
         {
-            int minValue = ip.m_minValue;
-            if (ip.m_increment != 0) minValue /= ip.m_increment;
-            int maxValue = ip.m_maxValue;
-            if (ip.m_increment != 0) maxValue /= ip.m_increment;
+            int minValue = ip.minValue;
+            if (ip.increment != 0) minValue /= ip.increment;
+            int maxValue = ip.maxValue;
+            if (ip.increment != 0) maxValue /= ip.increment;
 
             int valueRange = (maxValue - minValue);
 
             int value = allInts(gen) % valueRange + minValue;
-            if (ip.m_increment != 0) value *= ip.m_increment;
+            if (ip.increment != 0) value *= ip.increment;
 
-            ip.m_intValue = value;
+            ip.intValue = value;
         }
     }
 
@@ -150,8 +150,8 @@ Unit* GenerateRandomUnit()
     {
         for (auto& pp : parameters)
         {
-            if (pp.m_paramType == ParamType::Integer && pp.m_name != "Models")
-                pp.m_intValue = 0;
+            if (pp.paramType == ParamType::Integer && std::string(pp.name) != "Models")
+                pp.intValue = 0;
         }
 
         unit = UnitFactory::Create(name, parameters);
@@ -161,7 +161,7 @@ Unit* GenerateRandomUnit()
             std::cerr << "\tParameters: " << std::endl;
             for (auto &pp : parameters)
             {
-                std::cerr << "\t\t" << pp.m_name << ": " << pp.m_intValue << std::endl;
+                std::cerr << "\t\t" << std::string(pp.name) << ": " << pp.intValue << std::endl;
             }
         }
     }

@@ -25,18 +25,10 @@ const char* JSInterface::FactionKeywordToString(int faction)
     return str.c_str();
 }
 
-const char* JSInterface::ParameterValueToString(const ParameterJS& param)
+const char* JSInterface::ParameterValueToString(const Parameter& param)
 {
-    Parameter localParam;
-    localParam.m_name = std::string(param.name);
-    localParam.m_paramType = param.paramType;
-    localParam.m_intValue = param.intValue;
-    localParam.m_minValue = param.minValue;
-    localParam.m_maxValue = param.maxValue;
-    localParam.m_increment = param.increment;
-
     // TODO: review this - who owns the returned char*?
-    auto str = ::ParameterValueToString(localParam);
+    auto str = ::ParameterValueToString(param);
     return strdup(str.c_str());
 }
 

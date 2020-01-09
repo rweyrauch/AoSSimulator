@@ -82,13 +82,13 @@ void LordOrdinator::Init()
 
 std::string LordOrdinator::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == AstralHammers)
+        if (parameter.intValue == AstralHammers)
         {
             return "Astral Hammers";
         }
-        else if (parameter.m_intValue == AstralGrandhammer)
+        else if (parameter.intValue == AstralGrandhammer)
         {
             return "Astral Grandhammer";
         }

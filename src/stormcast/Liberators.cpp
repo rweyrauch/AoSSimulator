@@ -185,13 +185,13 @@ void Liberators::Init()
 
 std::string Liberators::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == Warhammer)
+        if (parameter.intValue == Warhammer)
         {
             return "Warhammer";
         }
-        else if (parameter.m_intValue == Warblade)
+        else if (parameter.intValue == Warblade)
         {
             return "Warblade";
         }

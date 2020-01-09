@@ -82,13 +82,13 @@ void AkhelianKing::Init()
 
 std::string AkhelianKing::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapon")
+    if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.m_intValue == BladedPolearm)
+        if (parameter.intValue == BladedPolearm)
         {
             return "Bladed Polearm";
         }
-        else if (parameter.m_intValue == Greatsword)
+        else if (parameter.intValue == Greatsword)
         {
             return "Greatsword";
         }

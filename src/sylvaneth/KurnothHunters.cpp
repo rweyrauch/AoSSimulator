@@ -132,17 +132,17 @@ void KurnothHunters::Init()
 
 std::string KurnothHunters::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == Greatswords)
+        if (parameter.intValue == Greatswords)
         {
             return "Greatswords";
         }
-        else if (parameter.m_intValue == Scythes)
+        else if (parameter.intValue == Scythes)
         {
             return "Scythes";
         }
-        else if (parameter.m_intValue == Greatbows)
+        else if (parameter.intValue == Greatbows)
         {
             return "Greatbows";
         }

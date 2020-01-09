@@ -111,13 +111,13 @@ void Hellstriders::Init()
 
 std::string Hellstriders::ValueToString(const Parameter &parameter)
 {
-    if (parameter.m_name == "Weapons")
+    if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.m_intValue == ClawSpear)
+        if (parameter.intValue == ClawSpear)
         {
             return "Claw-spear";
         }
-        else if (parameter.m_intValue == Hellscourge)
+        else if (parameter.intValue == Hellscourge)
         {
             return "Hellscourge";
         }
