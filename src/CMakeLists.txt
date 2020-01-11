@@ -319,8 +319,13 @@ add_library(
         tzeentch/KairicAcolytes.cpp
         tzeentch/HorrorsOfTzeentch.cpp
         tzeentch/TzaangorEnlightened.cpp
+        tzeentch/TzaangorEnlightenedOnDisks.cpp
         tzeentch/Tzaangors.cpp
         tzeentch/FlamersOfTzeentch.cpp
+        tzeentch/ExaltedFlamersOfTzeentch.cpp
+        tzeentch/TzaangorSkyfires.cpp
+        tzeentch/ScreamersOfTzeentch.cpp
+        tzeentch/LordOfChange.cpp
 
         ironjawz/Ironjawz.cpp
         ironjawz/OrrukArdboys.cpp

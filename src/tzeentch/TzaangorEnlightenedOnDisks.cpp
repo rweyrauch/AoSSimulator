@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <tzeentch/TzaangorEnlightened.h>
+#include <tzeentch/TzaangorEnlightenedOnDisks.h>
 #include <UnitFactory.h>
 #include <Board.h>
 
@@ -14,30 +14,31 @@ namespace Tzeentch
 {
 
 static FactoryMethod factoryMethod = {
-    TzaangorEnlightened::Create,
+    TzaangorEnlightenedOnDisks::Create,
     nullptr,
     nullptr,
     {
-        {ParamType::Integer, "Models", TzaangorEnlightened::MIN_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE,
-         TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
+        {ParamType::Integer, "Models", TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE,
+         TzaangorEnlightenedOnDisks::MAX_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE},
     },
     CHAOS,
     TZEENTCH
 };
 
-bool TzaangorEnlightened::s_registered = false;
+bool TzaangorEnlightenedOnDisks::s_registered = false;
 
-TzaangorEnlightened::TzaangorEnlightened() :
-    Unit("Tzaangor Enlightened", 6, WOUNDS, 6, 5, false),
+TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks() :
+    Unit("Tzaangor Enlightened on Disks", 16, WOUNDS, 6, 5, true),
     m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
     m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
-    m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1)
+    m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
+    m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_ENLIGHTENED};
-    m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak};
+    m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak, &m_teethAndHorns};
 }
 
-bool TzaangorEnlightened::configure(int numModels)
+bool TzaangorEnlightenedOnDisks::configure(int numModels)
 {
     // validate inputs
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
@@ -49,6 +50,7 @@ bool TzaangorEnlightened::configure(int numModels)
     auto aviarch = new Model(BASESIZE, WOUNDS);
     aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
     aviarch->addMeleeWeapon(&m_viciousBeak);
+    aviarch->addMeleeWeapon(&m_teethAndHorns);
     addModel(aviarch);
 
     for (auto i = 1; i < numModels; i++)
@@ -56,6 +58,7 @@ bool TzaangorEnlightened::configure(int numModels)
         auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_tzeentchianSpear);
         model->addMeleeWeapon(&m_viciousBeak);
+        model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
     }
 
@@ -68,9 +71,9 @@ bool TzaangorEnlightened::configure(int numModels)
     return true;
 }
 
-Unit *TzaangorEnlightened::Create(const ParameterList &parameters)
+Unit *TzaangorEnlightenedOnDisks::Create(const ParameterList &parameters)
 {
-    auto *unit = new TzaangorEnlightened();
+    auto *unit = new TzaangorEnlightenedOnDisks();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
@@ -82,15 +85,15 @@ Unit *TzaangorEnlightened::Create(const ParameterList &parameters)
     return unit;
 }
 
-void TzaangorEnlightened::Init()
+void TzaangorEnlightenedOnDisks::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Tzaangor Enlightened", factoryMethod);
+        s_registered = UnitFactory::Register("Tzaangor Enlightened on Disks", factoryMethod);
     }
 }
 
-Rerolls TzaangorEnlightened::toHitRerolls(const Weapon *weapon, const Unit *target) const
+Rerolls TzaangorEnlightenedOnDisks::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Guided by the Past
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
@@ -104,7 +107,7 @@ Rerolls TzaangorEnlightened::toHitRerolls(const Weapon *weapon, const Unit *targ
     return Unit::toHitRerolls(weapon, target);
 }
 
-Rerolls TzaangorEnlightened::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+Rerolls TzaangorEnlightenedOnDisks::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Guided by the Past
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);

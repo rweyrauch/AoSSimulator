@@ -153,6 +153,8 @@ public:
 
     bool ran() const { return m_ran; }
 
+    bool hasFought() const { return m_hasFought; }
+
     bool canFly() const;
     bool canRunAndShoot() const;
     bool canRunAndCharge() const;
@@ -406,6 +408,7 @@ protected:
     bool m_charged = false;
     bool m_moved = false;
     bool m_canMove = true;
+    bool m_hasFought = false;
 
     int m_spellsCast = 0;
     int m_spellsUnbound = 0;

@@ -59,8 +59,12 @@
 #include "tzeentch/KairicAcolytes.h"
 #include "tzeentch/HorrorsOfTzeentch.h"
 #include "tzeentch/TzaangorEnlightened.h"
+#include "tzeentch/TzaangorEnlightenedOnDisks.h"
 #include "tzeentch/Tzaangors.h"
 #include "tzeentch/FlamersOfTzeentch.h"
+#include "tzeentch/ExaltedFlamersOfTzeentch.h"
+#include "tzeentch/TzaangorSkyfires.h"
+#include "tzeentch/ScreamersOfTzeentch.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -188,8 +192,12 @@ void Initialize(Verbosity verbosity)
     Tzeentch::KairicAcolytes::Init();
     Tzeentch::HorrorsOfTzeentch::Init();
     Tzeentch::TzaangorEnlightened::Init();
+    Tzeentch::TzaangorEnlightenedOnDisks::Init();
     Tzeentch::Tzaangors::Init();
     Tzeentch::FlamersOfTzeentch::Init();
+    Tzeentch::ExaltedFlamersOfTzeentch::Init();
+    Tzeentch::TzaangorSkyfires::Init();
+    Tzeentch::ScreamersOfTzeentch::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

@@ -318,8 +318,11 @@ OBJECTS += \
         src/tzeentch/KairicAcolytes.o \
         src/tzeentch/HorrorsOfTzeentch.o \
         src/tzeentch/TzaangorEnlightened.o \
+        src/tzeentch/TzaangorEnlightenedOnDisks.o \
         src/tzeentch/Tzaangors.o \
         src/tzeentch/FlamersOfTzeentch.o \
+        src/tzeentch/ExaltedFlamersOfTzeentch.o \
+        src/tzeentch/TzaangorSkyfires.o \
         src/ironjawz/Ironjawz.o \
         src/ironjawz/OrrukArdboys.o \
         src/ironjawz/OrrukBrutes.o \

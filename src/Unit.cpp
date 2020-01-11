@@ -125,6 +125,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain)
     m_currentRecord.m_enemyModelsSlain += numSlain;
     m_currentRecord.m_modelsSlain += numSlainByReturnedDamage;
 
+    m_hasFought = true;
+
     return totalDamage;
 }
 
@@ -190,6 +192,7 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn)
     m_ran = false;
     m_charged = false;
     m_moved = false;
+    m_hasFought = false;
     m_modelsSlain = 0;
     m_spellsCast = 0;
     m_prayersAttempted = 0;

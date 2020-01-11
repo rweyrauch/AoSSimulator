@@ -1,7 +1,7 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-20 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
@@ -195,8 +195,8 @@ int Tzaangors::toWoundModifier(const Weapon *weapon, const Unit *target) const
 {
     int modifier = Unit::toWoundModifier(weapon, target);
 
-    // Anarchy and Mayhem
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 9.0f);
+    // Destined Mayhem
+    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(ARCANITE) && ip->hasKeyword(HERO))
@@ -214,10 +214,8 @@ int Tzaangors::extraAttacks(const Model *attackingModel, const Weapon *weapon, c
     int attacks = Unit::extraAttacks(nullptr, weapon, target);
 
     // Savagery Unleashed
-    if (weapon->name() == m_savageBlade.name() || weapon->name() == m_savageGreatblade.name())
-    {
-        attacks += std::max(3, remainingModels() / 9);
-    }
+    if (remainingModels() >= 9) attacks++;
+
     return attacks;
 }
 

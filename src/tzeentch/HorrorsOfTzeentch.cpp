@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool HorrorsOfTzeentch::s_registered = false;
 
 HorrorsOfTzeentch::HorrorsOfTzeentch() :
-    Unit("Pink Horrors", 5, WOUNDS, 10, 6, false),
+    Unit("Horrors of Tzeentch", 5, WOUNDS, 10, 6, false),
     m_magicalFlamesPink(Weapon::Type::Missile, "Magical Flames (Pink)", 12, 3, 5, 4, 0, 1),
     m_magicalFlamesBlue(Weapon::Type::Missile, "Magical Flames (Blue)", 12, 2, 5, 4, 0, 1),
     m_magicalFlamesBrimstone(Weapon::Type::Missile, "Magical Flames (Brimstone)", 12, 1, 5, 4, 0, 1),
@@ -105,7 +105,7 @@ void HorrorsOfTzeentch::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Pink Horrors", factoryMethod);
+        s_registered = UnitFactory::Register("Horrors of Tzeentch", factoryMethod);
     }
 }
 

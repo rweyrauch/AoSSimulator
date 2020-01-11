@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef TZAANGORENLIGHTENED_H
-#define TZAANGORENLIGHTENED_H
+#ifndef TZAANGORENLIGHTENEDONDISKS_H
+#define TZAANGORENLIGHTENEDONDISKS_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,23 +15,23 @@
 namespace Tzeentch
 {
 
-class TzaangorEnlightened : public Unit
+class TzaangorEnlightenedOnDisks : public Unit
 {
 public:
 
     static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
+    static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 9;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int POINTS_PER_BLOCK = 160;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
     static Unit* Create(const ParameterList& parameters);
 
     static void Init();
 
-    TzaangorEnlightened();
-    ~TzaangorEnlightened() override = default;
+    TzaangorEnlightenedOnDisks();
+    ~TzaangorEnlightenedOnDisks() override = default;
 
     bool configure(int numModels);
 
@@ -44,7 +44,8 @@ private:
 
     Weapon m_tzeentchianSpear,
         m_tzeentchianSpearAviarch,
-        m_viciousBeak;
+        m_viciousBeak,
+        m_teethAndHorns;
 
     static bool s_registered;
 };
@@ -59,4 +60,4 @@ private:
 
 } // Tzeentch
 
-#endif //TZAANGORENLIGHTENED_H
+#endif //TZAANGORENLIGHTENEDONDISKS_H

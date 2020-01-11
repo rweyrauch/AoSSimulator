@@ -34,7 +34,7 @@ FlamersOfTzeentch::FlamersOfTzeentch() :
     m_warpflamePyrocaster(Weapon::Type::Missile, "Warpflame",  18, 4, 4, 3, 0, RAND_D3),
     m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 1, 2, 5, 3, 0, 1)
 {
-    m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMERS, FLAMERS_OF_TZEENTCH};
+    m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMER, FLAMERS_OF_TZEENTCH};
     m_weapons = {&m_warpflame, &m_warpflamePyrocaster, &m_flamingMaw};
 }
 
@@ -87,6 +87,44 @@ void FlamersOfTzeentch::Init()
     {
         s_registered = UnitFactory::Register("Flamers Of Tzeentch", factoryMethod);
     }
+}
+
+Wounds FlamersOfTzeentch::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
+
+    Dice dice;
+
+    // Touched by Fire
+    Dice::RollResult mortalSaves;
+    dice.rollD6(wounds.mortal, mortalSaves);
+    wounds.mortal += mortalSaves.rollsGE(5);
+
+    return wounds;
+}
+
+int FlamersOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Capricious Warpflame
+    if (target->remainingModels() >= 20) mod += 2;
+    else if (target->remainingModels() >= 10) mod++;
+
+    // Guided by Billowing Flames
+    if (weapon->name() == m_warpflame.name())
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 9.0f);
+        for (auto ip : units)
+        {
+            if (ip->hasKeyword(EXALTED_FLAMERS))
+            {
+                mod++;
+                break;
+            }
+        }
+    }
+    return mod;
 }
 
 } //namespace Tzeentch

@@ -1,7 +1,7 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-20 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
@@ -74,10 +74,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon Bearers                     No
+// Ornate Totems                    No
 // Brayhorns                        Yes
 // Arcanite Shield                  Yes
-// Anarchy and Mayhem               Yes
+// Destined Mayhem                  Yes
 // Paired Savage Blades             Yes
 // Savagery Unleashed               Yes
 //
