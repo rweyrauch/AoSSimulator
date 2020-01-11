@@ -5,9 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#include <iostream>
-
 #include <Dice.h>
 #include <Battle.h>
 
@@ -85,10 +82,10 @@ bool Battle::done()
 
 void Battle::simulate()
 {
-    std::cout << "Battle State:" << std::endl;
-    std::cout << "\tRound: " << m_round << " of " << m_numRounds << ".  Top of round: " << m_topOfRound << std::endl;
-    std::cout << "\tPhase: " << PhaseToString(m_currentPhase) << std::endl;
-    std::cout << "\tCurrent Player: " << PlayerIdToString(m_currentPlayer) << std::endl;
+    SimLog(Verbosity::Narrative, "Battle State:\n");
+    SimLog(Verbosity::Narrative, "\tRound: %d of %d.  Top of round: %d\n", m_round, m_numRounds, m_topOfRound);
+    SimLog(Verbosity::Narrative, "\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
+    SimLog(Verbosity::Narrative, "\tCurrent Player: %s\n", PlayerIdToString(m_currentPlayer).c_str());
 
     // run the simulation for the current state
     switch (m_currentPhase)
@@ -146,8 +143,7 @@ void Battle::runInitiativePhase()
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
-    std::cout << "Player " << PlayerIdToString(m_currentPlayer) << " wins initiative.  P1: " <<
-              p1 << " P2: " << p2 << std::endl;
+    SimLog(Verbosity::Narrative, "Player %s wins initiative.  P1: %d P2: %d", PlayerIdToString(m_currentPlayer).c_str(), p1, p2);
 }
 
 void Battle::runHeroPhase()

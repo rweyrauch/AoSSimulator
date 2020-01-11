@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <iostream>
 #include <cassert>
 #include <ManoAMano.h>
 #include <Dice.h>
@@ -405,38 +404,38 @@ PlayerId ManoAMano::getVictor() const
 
 static void logUnitStats(const UnitStatistics &stats)
 {
-    std::cout << "\tTotal Movement: " << stats.totalMovementDistance() << "  Rounds Moved: " << stats.numberOfRoundsMoved() << std::endl;
-    std::cout << "\tTotal Run Distance: " << stats.totalRunDistance() << "  Rounds Ran: " << stats.numberOfRoundsRan() << std::endl;
-    std::cout << "\tTotal Charge Distance: " << stats.totalChargeDistance() << "  Rounds Charged: " << stats.numberOfRoundsCharged() << std::endl;
-    std::cout << "\tTotal Enemy Models Slain: " << stats.totalEnemyModelsSlain() << "  Wounds Inflicted: " << stats.totalWoundsInflicted().normal
-              << ", " << stats.totalWoundsInflicted().mortal << std::endl;
-    std::cout << "\tTotal Models Slain: " << stats.totalModelsSlain() << "  Wounds Taken: " << stats.totalWoundsTaken().normal
-              << ", " << stats.totalWoundsTaken().mortal << std::endl;
-    std::cout << "\tTotal Models Fled: " << stats.totalModelsFled() << std::endl;
+    SimLog(Verbosity::Narrative, "\tTotal Movement: %f  Rounds Moved: %d\n", stats.totalMovementDistance(), stats.numberOfRoundsMoved());
+    SimLog(Verbosity::Narrative, "\tTotal Run Distance: %f  Rounds Ran: %d\n", stats.totalRunDistance(), stats.numberOfRoundsRan());
+    SimLog(Verbosity::Narrative, "\tTotal Charge Distance: %f  Rounds Charged: %d\n" , stats.totalChargeDistance(), stats.numberOfRoundsCharged());
+    SimLog(Verbosity::Narrative, "\tTotal Enemy Models Slain: %d  Wounds Inflicted: {%d, %d}\n",  stats.totalEnemyModelsSlain(),
+        stats.totalWoundsInflicted().normal, stats.totalWoundsInflicted().mortal);
+    SimLog(Verbosity::Narrative, "\tTotal Models Slain: %d  Wounds Taken: {%d, %d}\n", stats.totalModelsSlain(),
+        stats.totalWoundsTaken().normal, stats.totalWoundsTaken().mortal);
+    SimLog(Verbosity::Narrative, "\tTotal Models Fled: %d\n", stats.totalModelsFled());
 }
 
 void ManoAMano::logStatistics() const
 {
     std::function<void(const TurnRecord &)> turnVistor = [](const TurnRecord &turn)
     {
-        std::cout << "\tTurn " << turn.m_round << "  Player: " << PlayerIdToString(turn.m_playerWithTurn) << std::endl;
-        std::cout << "\t\tMoved: " << turn.m_moved << "  Ran: " << turn.m_ran << " Charged: " << turn.m_charged << std::endl;
-        std::cout << "\t\tAttacks Made: " << turn.m_attacksMade << "  Attacks Hit: " << turn.m_attacksHitting << std::endl;
-        std::cout << "\t\tEnemy Slain: " << turn.m_enemyModelsSlain << "  Wounds Inflicted: " << turn.m_woundsInflicted.normal
-                  << ", " << turn.m_woundsInflicted.mortal << std::endl;
-        std::cout << "\t\tSaves Made: " << turn.m_savesMade << " Failed: " << turn.m_savesFailed << std::endl;
-        std::cout << "\t\tModel Slain: " << turn.m_modelsSlain << "  Wounds Taken: " << turn.m_woundsTaken.normal
-                  << ", " << turn.m_woundsTaken.mortal << std::endl;
+        SimLog(Verbosity::Narrative, "\tTurn %d  Player: %s\n", turn.m_round, PlayerIdToString(turn.m_playerWithTurn).c_str());
+        SimLog(Verbosity::Narrative, "\t\tMoved: %f  Ran: %f Charged: %f\n", turn.m_moved , turn.m_ran, turn.m_charged);
+        SimLog(Verbosity::Narrative, "\t\tAttacks Made: %d  Attacks Hit: %d\n", turn.m_attacksMade, turn.m_attacksHitting);
+        SimLog(Verbosity::Narrative, "\t\tEnemy Slain: %d  Wounds Inflicted: {%d, %d}\n", turn.m_enemyModelsSlain,
+            turn.m_woundsInflicted.normal, turn.m_woundsInflicted.mortal);
+        SimLog(Verbosity::Narrative, "\t\tSaves Made: %d  Failed: %d\n", turn.m_savesMade, turn.m_savesFailed);
+        SimLog(Verbosity::Narrative, "\t\tModel Slain: %d  Wounds Taken: {%d, %d}\n",  turn.m_modelsSlain,
+            turn.m_woundsTaken.normal, turn.m_woundsTaken.mortal);
     };
 
     auto redStats = redUnit()->getStatistics();
-    std::cout << "Red Statistics:" << std::endl;
+    SimLog(Verbosity::Narrative, "Red Statistics:\n");
     logUnitStats(redStats);
     if (GetVerbosity() == Verbosity::Narrative)
         redStats.visitTurn(turnVistor);
 
     auto blueStats = blueUnit()->getStatistics();
-    std::cout << "Blue Statistics:" << std::endl;
+    SimLog(Verbosity::Narrative, "Blue Statistics:\n");
     logUnitStats(blueStats);
     if (GetVerbosity() == Verbosity::Narrative)
         blueStats.visitTurn(turnVistor);

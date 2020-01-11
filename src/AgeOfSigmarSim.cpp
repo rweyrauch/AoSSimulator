@@ -10,6 +10,9 @@
 #include <AgeOfSigmarSim.h>
 #include <sstream>
 #include <cstdarg>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 std::vector<Parameter>::const_iterator FindParam(const std::string &name, const ParameterList &parameters)
 {
@@ -271,10 +274,14 @@ void SimLog(Verbosity verbosity, const char* format, ...)
     if ((int)verbosity >= (int)GetVerbosity())
         return;
 
+#ifndef __EMSCRIPTEN__
     va_list args;
     va_start(args, format);
     vfprintf(stdout, format, args);
     va_end(args);
+#else
+
+#endif
 }
 
 bool Expired(const Duration& duration, const Duration& current)
