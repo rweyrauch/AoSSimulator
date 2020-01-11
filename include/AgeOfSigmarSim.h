@@ -607,6 +607,9 @@ enum Keyword
     TZAANGOR_SKYFIRES,
     SCREAMERS,
     LORD_OF_CHANGE,
+    KAIROS_FATEWEAVER,
+    MAGISTER,
+    BURNING_CHARIOTS,
 
     // Ironjawz
     ARDBOYS,

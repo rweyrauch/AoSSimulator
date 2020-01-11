@@ -1412,6 +1412,12 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor)
     }
 }
 
+int Unit::rollCasting() const
+{
+    Dice dice;
+    return dice.roll2D6();
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
     Unit(name, move, wounds, bravery, save, fly)

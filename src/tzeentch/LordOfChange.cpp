@@ -37,6 +37,10 @@ static FactoryMethod factoryMethod = {
     LordOfChange::ValueToString,
     LordOfChange::EnumStringToInt,
     {
+        {
+            ParamType::Enum, "Weapon", LordOfChange::BalefulSword, LordOfChange::BalefulSword,
+            LordOfChange::CurvedBeakAndTalons, 1
+        },
     },
     CHAOS,
     TZEENTCH
@@ -46,7 +50,17 @@ bool LordOfChange::s_registered = false;
 
 Unit *LordOfChange::Create(const ParameterList &parameters)
 {
-    return nullptr;
+    auto unit = new LordOfChange();
+
+    auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, BalefulSword);
+
+    bool ok = unit->configure(weapon);
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
 }
 
 std::string LordOfChange::ValueToString(const Parameter &parameter)
@@ -137,6 +151,15 @@ int LordOfChange::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int LordOfChange::rollCasting() const
+{
+    // Mastery of Magic
+    Dice dice;
+    auto r0 = dice.rollD6();
+    auto r1 = dice.rollD6();
+    return std::max(r0, r1) * 2;
 }
 
 } // Tzeentch

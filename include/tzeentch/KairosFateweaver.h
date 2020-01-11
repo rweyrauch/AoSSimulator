@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDOFCHANGE_H
-#define LORDOFCHANGE_H
+#ifndef FATEWEAVER_H
+#define FATEWEAVER_H
 
 #include <Unit.h>
 #include <Weapon.h>
@@ -15,20 +15,13 @@
 namespace Tzeentch
 {
 
-class LordOfChange : public Unit
+class KairosFateweaver : public Unit
 {
 public:
 
     static const int BASESIZE = 0;
     static const int WOUNDS = 14;
     static const int POINTS_PER_UNIT = 380;
-
-    enum WeaponOption
-    {
-        BalefulSword,
-        RodOfSorcery,
-        CurvedBeakAndTalons
-    };
 
     static Unit* Create(const ParameterList& parameters);
 
@@ -38,10 +31,10 @@ public:
 
     static void Init();
 
-    LordOfChange();
-    ~LordOfChange() override = default;
+    KairosFateweaver();
+    ~KairosFateweaver() override = default;
 
-    bool configure(WeaponOption option);
+    bool configure();
     int move() const override;
 
     int rollCasting() const override;
@@ -53,9 +46,7 @@ protected:
 
 private:
 
-    Weapon m_rodOfSorcery,
-        m_staff,
-        m_sword,
+    Weapon m_staff,
         m_beakAndTalons;
 
     static bool s_registered;
@@ -67,11 +58,10 @@ private:
 // -------------------------------------------
 // Master of Magic                  Yes
 // Spell-eater                      No
-// Spell-thief                      No
-// Infernal Gateway                 No
-// Beacon of Sorcery                No
+// Oracle of Eternity               No
+// Gift of Change                   No
 //
 
 } // namespace Tzeentch
 
-#endif //LORDOFCHANGE_H
+#endif //FATEWEAVER_H

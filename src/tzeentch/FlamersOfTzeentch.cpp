@@ -85,7 +85,7 @@ void FlamersOfTzeentch::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Flamers Of Tzeentch", factoryMethod);
+        s_registered = UnitFactory::Register("Flamers of Tzeentch", factoryMethod);
     }
 }
 

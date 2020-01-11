@@ -4,7 +4,7 @@
 #
 
 PYTHON=$(ENV) python
-BUILD := min
+BUILD := debug
 ACTIVE = AosSim
 
 LINK_OPTS = -std=c++14 -s MODULARIZE=1 -s 'EXPORT_NAME="AosSim"' -s EXPORT_BINDINGS=1 -s RESERVED_FUNCTION_POINTERS=20 --post-js aossim_glue.js --memory-init-file 0 -s NO_EXIT_RUNTIME=1 glue_stub.cpp -s EXPORTED_RUNTIME_METHODS=[]
@@ -323,6 +323,12 @@ OBJECTS += \
         src/tzeentch/FlamersOfTzeentch.o \
         src/tzeentch/ExaltedFlamersOfTzeentch.o \
         src/tzeentch/TzaangorSkyfires.o \
+        src/tzeentch/ScreamersOfTzeentch.o \
+        src/tzeentch/LordOfChange.o \
+        src/tzeentch/KairosFateweaver.o \
+        src/tzeentch/MagisterOnDisc.o \
+        src/tzeentch/Magister.o \
+        src/tzeentch/BurningChariots.o \
         src/ironjawz/Ironjawz.o \
         src/ironjawz/OrrukArdboys.o \
         src/ironjawz/OrrukBrutes.o \

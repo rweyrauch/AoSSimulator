@@ -188,6 +188,9 @@ public:
 
     int numOfWoundedModels() const;
 
+    virtual int rollCasting() const;
+    virtual int castingModifier() const;
+
 protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
@@ -318,8 +321,6 @@ protected:
     virtual int rollBattleshock() const;
 
     virtual void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const;
-
-    virtual int castingModifier() const;
 
     virtual int unbindingModifier() const;
 

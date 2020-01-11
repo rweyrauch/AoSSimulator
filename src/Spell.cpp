@@ -45,7 +45,7 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
     Spell::Result result = Failed;
 
     int mortalWounds = 0;
-    const int castingRoll = dice.roll2D6();
+    const int castingRoll = m_caster->rollCasting() + m_caster->castingModifier();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);

@@ -65,6 +65,10 @@
 #include "tzeentch/ExaltedFlamersOfTzeentch.h"
 #include "tzeentch/TzaangorSkyfires.h"
 #include "tzeentch/ScreamersOfTzeentch.h"
+#include "tzeentch/LordOfChange.h"
+#include "tzeentch/KairosFateweaver.h"
+#include "tzeentch/MagisterOnDisc.h"
+#include "tzeentch/Magister.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -198,6 +202,10 @@ void Initialize(Verbosity verbosity)
     Tzeentch::ExaltedFlamersOfTzeentch::Init();
     Tzeentch::TzaangorSkyfires::Init();
     Tzeentch::ScreamersOfTzeentch::Init();
+    Tzeentch::LordOfChange::Init();
+    Tzeentch::KairosFateweaver::Init();
+    Tzeentch::MagisterOnDiscOfTzeentch::Init();
+    Tzeentch::Magister::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

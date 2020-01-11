@@ -326,6 +326,10 @@ add_library(
         tzeentch/TzaangorSkyfires.cpp
         tzeentch/ScreamersOfTzeentch.cpp
         tzeentch/LordOfChange.cpp
+        tzeentch/KairosFateweaver.cpp
+        tzeentch/MagisterOnDisc.cpp
+        tzeentch/Magister.cpp
+        tzeentch/BurningChariots.cpp
 
         ironjawz/Ironjawz.cpp
         ironjawz/OrrukArdboys.cpp
