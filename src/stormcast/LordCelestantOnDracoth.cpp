@@ -160,25 +160,6 @@ Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon, int s
     return wounds;
 }
 
-void LordCelestantOnDracoth::onCharged()
-{
-    // TODO: replace this with damageModifier()
-    if (m_weapon == StormstrikeGlaive)
-    {
-        m_stormstrikeGlaive.setDamage(m_stormstrikeGlaive.damage() + 2);
-    }
-    StormcastEternal::onCharged();
-}
-
-void LordCelestantOnDracoth::onBeginTurn(int battleRound)
-{
-    if (m_weapon == StormstrikeGlaive)
-    {
-        m_stormstrikeGlaive.setDamage(m_stormstrikeGlaive.damage());
-    }
-    StormcastEternal::onBeginTurn(battleRound);
-}
-
 int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Tempestos Hammer")
@@ -214,6 +195,11 @@ Wounds LordCelestantOnDracoth::weaponDamage(const Weapon *weapon, const Unit *ta
     if ((hitRoll == 6) && (weapon->name() == m_lightningHammer.name()))
     {
         return {weapon->damage(), 2};
+    }
+
+    if (m_charged && (m_weapon == StormstrikeGlaive))
+    {
+        return { weapon->damage() + 2, 0};
     }
 
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);

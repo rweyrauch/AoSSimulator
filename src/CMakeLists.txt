@@ -330,6 +330,9 @@ add_library(
         tzeentch/MagisterOnDisc.cpp
         tzeentch/Magister.cpp
         tzeentch/BurningChariots.cpp
+        tzeentch/GauntSummoner.cpp
+        tzeentch/TheChangeling.cpp
+        tzeentch/OgroidThaumaturge.cpp
 
         ironjawz/Ironjawz.cpp
         ironjawz/OrrukArdboys.cpp

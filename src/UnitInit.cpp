@@ -69,6 +69,9 @@
 #include "tzeentch/KairosFateweaver.h"
 #include "tzeentch/MagisterOnDisc.h"
 #include "tzeentch/Magister.h"
+#include "tzeentch/GauntSummoner.h"
+#include "tzeentch/OgroidThaumaturge.h"
+#include "tzeentch/TheChangeling.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -206,6 +209,9 @@ void Initialize(Verbosity verbosity)
     Tzeentch::KairosFateweaver::Init();
     Tzeentch::MagisterOnDiscOfTzeentch::Init();
     Tzeentch::Magister::Init();
+    Tzeentch::GauntSummonerOfTzeentch::Init();
+    Tzeentch::TheChangeling::Init();
+    Tzeentch::OgroidThaumaturge::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

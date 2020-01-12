@@ -7,7 +7,7 @@ PYTHON=$(ENV) python
 BUILD := debug
 ACTIVE = AosSim
 
-LINK_OPTS = -std=c++14 -s MODULARIZE=1 -s 'EXPORT_NAME="AosSim"' -s NO_FILESYSTEM=1 -s EXPORT_BINDINGS=1 -s RESERVED_FUNCTION_POINTERS=20 --post-js aossim_glue.js --memory-init-file 0 -s NO_EXIT_RUNTIME=1 glue_stub.cpp -s EXPORTED_RUNTIME_METHODS=[]
+LINK_OPTS = -std=c++14 -s MODULARIZE=1 -s 'EXPORT_NAME="AosSim"' -s NO_FILESYSTEM=0 -s EXPORT_BINDINGS=1 -s RESERVED_FUNCTION_POINTERS=20 --post-js aossim_glue.js --memory-init-file 0 -s NO_EXIT_RUNTIME=1 glue_stub.cpp -s EXPORTED_RUNTIME_METHODS=[]
 OPTS = -std=c++14
 
 ifeq ($(BUILD), debug)
@@ -329,6 +329,9 @@ OBJECTS += \
         src/tzeentch/MagisterOnDisc.o \
         src/tzeentch/Magister.o \
         src/tzeentch/BurningChariots.o \
+        src/tzeentch/GauntSummoner.o \
+        src/tzeentch/TheChangeling.o \
+        src/tzeentch/OgroidThaumaturge.o \
         src/ironjawz/Ironjawz.o \
         src/ironjawz/OrrukArdboys.o \
         src/ironjawz/OrrukBrutes.o \

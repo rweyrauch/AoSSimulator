@@ -610,6 +610,14 @@ enum Keyword
     KAIROS_FATEWEAVER,
     MAGISTER,
     BURNING_CHARIOTS,
+    GAUNT_SUMMONER,
+    THE_CHANGELING,
+    THE_BLUE_SCRIBES,
+    TZAANGOR_SHAMAN,
+    CURSELING,
+    FATESKIMMER,
+    VORTEMIS_THE_ALL_SEEING,
+    OGROID_THAUMATURGE,
 
     // Ironjawz
     ARDBOYS,
@@ -951,6 +959,7 @@ void SetVerbosity(Verbosity verbosity);
 Verbosity GetVerbosity();
 
 void SimLog(Verbosity verbosity, const char* format, ...);
+
 
 float AverageRandomValue(int value);
 
