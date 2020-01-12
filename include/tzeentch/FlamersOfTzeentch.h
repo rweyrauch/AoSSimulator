@@ -19,7 +19,7 @@ class FlamersOfTzeentch : public Unit
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 32;
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;

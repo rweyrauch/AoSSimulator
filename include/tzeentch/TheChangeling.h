@@ -19,7 +19,7 @@ class TheChangeling : public Unit
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 40;
     static const int WOUNDS = 5;
     static const int POINTS_PER_UNIT = 180;
 

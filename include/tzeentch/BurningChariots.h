@@ -19,7 +19,7 @@ class BurningChariotsOfTzeentch : public Unit
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 120;  //x92
     static const int WOUNDS = 6;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 3;

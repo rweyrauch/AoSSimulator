@@ -206,6 +206,12 @@ OBJECTS += \
         src/idonethdeepkin/AkhelianKing.o \
         src/idonethdeepkin/Volturnos.o \
         src/idonethdeepkin/AkhelianAllopexes.o \
+        src/idonethdeepkin/EidolonSea.o \
+        src/idonethdeepkin/EidolonStorm.o \
+        src/idonethdeepkin/Lotann.o \
+        src/idonethdeepkin/IsharannSoulscryer.o \
+        src/idonethdeepkin/IsharannSoulrender.o \
+        src/idonethdeepkin/IsharannTidecaster.o \
         src/nighthaunt/Nighthaunt.o \
         src/nighthaunt/GrimghastReapers.o \
         src/nighthaunt/ChainraspHorde.o \

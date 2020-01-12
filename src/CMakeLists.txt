@@ -197,6 +197,12 @@ add_library(
         idonethdeepkin/AkhelianKing.cpp
         idonethdeepkin/Volturnos.cpp
         idonethdeepkin/AkhelianAllopexes.cpp
+        idonethdeepkin/EidolonSea.cpp
+        idonethdeepkin/EidolonStorm.cpp
+        idonethdeepkin/Lotann.cpp
+        idonethdeepkin/IsharannSoulscryer.cpp
+        idonethdeepkin/IsharannSoulrender.cpp
+        idonethdeepkin/IsharannTidecaster.cpp
 
         nighthaunt/Nighthaunt.cpp
         nighthaunt/GrimghastReapers.cpp

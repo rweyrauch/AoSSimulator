@@ -34,6 +34,13 @@
 #include "idonethdeepkin/AkhelianLeviadon.h"
 #include "idonethdeepkin/AkhelianKing.h"
 #include "idonethdeepkin/AkhelianAllopexes.h"
+#include "idonethdeepkin/EidolonSea.h"
+#include "idonethdeepkin/EidolonStorm.h"
+#include "idonethdeepkin/Volturnos.h"
+#include "idonethdeepkin/Lotann.h"
+#include "idonethdeepkin/IsharannSoulscryer.h"
+#include "idonethdeepkin/IsharannSoulrender.h"
+#include "idonethdeepkin/IsharannTidecaster.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -174,6 +181,13 @@ void Initialize(Verbosity verbosity)
     IdonethDeepkin::AkhelianLeviadon::Init();
     IdonethDeepkin::AkhelianKing::Init();
     IdonethDeepkin::AkhelianAllopexes::Init();
+    IdonethDeepkin::Volturnos::Init();
+    IdonethDeepkin::EidolonOfMathlannAspectOfTheSea::Init();
+    IdonethDeepkin::EidolonOfMathlannAspectOfTheStorm::Init();
+    IdonethDeepkin::Lotann::Init();
+    IdonethDeepkin::IsharannSoulscryer::Init();
+    IdonethDeepkin::IsharannSoulrender::Init();
+    IdonethDeepkin::IsharannTidecaster::Init();
 
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();

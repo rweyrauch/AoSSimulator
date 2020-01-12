@@ -19,7 +19,7 @@ class ExaltedFlamersOfTzeentch : public Unit
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 75; // x42
     static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 6;
