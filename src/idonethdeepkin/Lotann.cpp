@@ -69,4 +69,20 @@ bool Lotann::configure()
     return true;
 }
 
+Wounds Lotann::applyWoundSave(const Wounds &wounds)
+{
+    Dice dice;
+    Dice::RollResult normalSaves, mortalSaves;
+    dice.rollD6(wounds.normal, normalSaves);
+    dice.rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= normalSaves.rollsGE(5);
+    totalWounds.normal = std::max(totalWounds.normal, 0);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
+}
+
 } //IdonethDeepkin

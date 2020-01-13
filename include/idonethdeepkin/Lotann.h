@@ -33,6 +33,7 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds& wounds) override;
 
 private:
 
@@ -49,7 +50,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Catalogue of Souls               No
-// Writhing Tentacles               No
+// Writhing Tentacles               Yes
 //
 
 } // namespace IdonethDeepkin
