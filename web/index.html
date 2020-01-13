@@ -6,70 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script type="text/javascript" src="AosSim_debug.js"></script>
-    <script type="text/javascript">
-        if (AosSim === undefined) {
-            console.log("Module not found");
-        }
-        else {
-            console.log("AoS module is loaded.");
-        }
-
-        AosSim().then(function(AosSim) {
-            AosSim.JSInterface.prototype.Initialize();
-
-            // Run some basic tests.
-            var gac = AosSim.JSInterface.prototype.GrandAllianceStringToKeyword("Chaos");
-            var gad = AosSim.JSInterface.prototype.GrandAllianceStringToKeyword("Destruction");
-
-            console.log("GA: " + gac + " " + gad);
-
-            var sce = AosSim.JSInterface.prototype.FactionStringToKeyword("Stormcast Eternal");
-            var scetxt = AosSim.JSInterface.prototype.FactionKeywordToString(sce);
-            console.log("ScE: " + sce + "  Text: " + scetxt);
-
-            var numUnits = AosSim.JSInterface.prototype.GetNumberOfAvailableUnits();
-            console.log("Number of units: " + numUnits);
-
-            for (var i = 0; i < numUnits; i++) {
-                var unitInfo = new AosSim.JSUnitInfo();
-                AosSim.JSInterface.prototype.GetUnitInfo(i, unitInfo);
-                console.log("Name: " + unitInfo.name + " GA: " + unitInfo.grandAlliance + " Factions: " + unitInfo.numberOfFactions + " " +
-                    unitInfo.getFaction(0) + "  Params: " + unitInfo.numberOfParameters);
-            }
-
-            var unitInfo = new AosSim.JSUnitInfo();
-            AosSim.JSInterface.prototype.GetUnitInfo(0, unitInfo);
-
-            var unit1 = AosSim.JSInterface.prototype.CreateUnit(unitInfo.name, unitInfo.parameters, unitInfo.numberOfParameters);
-            if (unit1) {
-                console.log("Created a unit!  Name: " + unitInfo.name + "  Points: " + unit1.points());
-            }
-
-            AosSim.JSInterface.prototype.GetUnitInfo(1, unitInfo);
-
-            var unit2 = AosSim.JSInterface.prototype.CreateUnit(unitInfo.name, unitInfo.parameters, unitInfo.numberOfParameters);
-            if (unit2) {
-                console.log("Created a unit!  Name: " + unitInfo.name + "  Points: " + unit2.points());
-            }
-
-            var mano = new AosSim.ManoAMano(5);
-            if (mano) {
-
-                mano.combatants(unit1, unit2);
-                mano.start();
-                while (!mano.done()) {
-                    mano.simulate();
-
-                    const round = mano.currentRound();
-                    mano.next();
-                }
-
-                console.log("Create a ManoAMano object.  Current round: " + mano.currentRound() + "  Victor: " + mano.getVictor());
-            }
-
-        }); 
-
-    </script>
+    <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
     

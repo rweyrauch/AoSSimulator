@@ -58,7 +58,7 @@ void LordOfPlagues::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("LordOfPlagues", factoryMethod);
+        s_registered = UnitFactory::Register("Lord of Plagues", factoryMethod);
     }
 }
 
