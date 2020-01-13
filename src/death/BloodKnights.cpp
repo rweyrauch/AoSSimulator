@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
-    SOULBLIGHT
+    { SOULBLIGHT }
 };
 
 bool BloodKnights::s_registered = false;

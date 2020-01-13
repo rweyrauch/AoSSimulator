@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool ExaltedFlamersOfTzeentch::s_registered = false;

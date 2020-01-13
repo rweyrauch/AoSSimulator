@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool SquigGobba::s_registered = false;

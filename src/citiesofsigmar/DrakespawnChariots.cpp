@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },
     ORDER,
-    CITIES_OF_SIGMAR
+    { CITIES_OF_SIGMAR }
 };
 
 bool DrakespawnChariots::s_registered = false;

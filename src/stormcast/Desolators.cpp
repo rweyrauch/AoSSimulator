@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },
     ORDER,
-    STORMCAST_ETERNAL
+    { STORMCAST_ETERNAL }
 };
 
 bool Desolators::s_registered = false;

@@ -28,7 +28,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Icon Bearers", 0, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool Shootas::s_registered = false;

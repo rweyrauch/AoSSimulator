@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 

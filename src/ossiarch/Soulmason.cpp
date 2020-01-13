@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     MortisanSoulmason::EnumStringToInt,
     {},
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool MortisanSoulmason::s_registered = false;

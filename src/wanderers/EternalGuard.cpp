@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Glade Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    WANDERER
+    { WANDERER }
 };
 
 bool EternalGuard::s_registered = false;

@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool ScreamersOfTzeentch::s_registered = false;

@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool TheChangeling::s_registered = false;

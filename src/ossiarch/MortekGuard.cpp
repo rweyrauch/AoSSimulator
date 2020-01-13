@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Soulcleaver Greatblade", 1, 0, MortekGuard::MAX_UNIT_SIZE/3, 1},
     },
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool MortekGuard::s_registered = false;

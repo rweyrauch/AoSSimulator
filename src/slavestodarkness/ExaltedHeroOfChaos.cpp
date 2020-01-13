@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    SLAVES_TO_DARKNESS
+    { SLAVES_TO_DARKNESS }
 };
 
 bool ExaltedHeroOfChaos::s_registered = false;

@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Two Boss Choppas", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DESTRUCTION,
-    GREENSKINZ
+    { GREENSKINZ }
 };
 
 struct TableEntry

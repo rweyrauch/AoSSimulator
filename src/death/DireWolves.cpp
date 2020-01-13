@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    DEADWALKERS
+    { DEADWALKERS }
 };
 
 bool DireWolves::s_registered = false;

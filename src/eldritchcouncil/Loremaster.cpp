@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    ELDRITCH_COUNCIL
+    { ELDRITCH_COUNCIL }
 };
 
 bool Loremaster::s_registered = false;

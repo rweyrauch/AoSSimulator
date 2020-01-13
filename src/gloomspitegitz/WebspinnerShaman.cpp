@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Lore of the Spiderfangs", (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool WebspinnerShaman::s_registered = false;

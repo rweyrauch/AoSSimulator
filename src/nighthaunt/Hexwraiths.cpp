@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    NIGHTHAUNT
+    { NIGHTHAUNT }
 };
 
 bool Hexwraiths::s_registered = false;

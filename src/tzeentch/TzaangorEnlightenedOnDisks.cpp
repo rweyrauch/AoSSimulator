@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
          TzaangorEnlightenedOnDisks::MAX_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE},
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool TzaangorEnlightenedOnDisks::s_registered = false;

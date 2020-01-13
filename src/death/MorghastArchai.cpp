@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    DEATHLORDS
+    { DEATHLORDS }
 };
 
 bool MorghastArchai::s_registered = false;

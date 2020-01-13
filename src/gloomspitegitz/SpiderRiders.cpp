@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         { ParamType::Boolean, "Totem Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool SpiderRiders::s_registered = false;

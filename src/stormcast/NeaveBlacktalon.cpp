@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    STORMCAST_ETERNAL
+    { STORMCAST_ETERNAL }
 };
 
 bool NeaveBlacktalon::s_registered = false;

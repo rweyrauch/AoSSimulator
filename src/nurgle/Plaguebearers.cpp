@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Piper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 bool Plaguebearers::s_registered = false;

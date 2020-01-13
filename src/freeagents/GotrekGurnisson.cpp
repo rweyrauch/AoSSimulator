@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    FREE_AGENT
+    { FREE_AGENT }
 };
 
 bool GotrekGurnisson::s_registered = false;

@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
-    SLAVES_TO_DARKNESS
+    { SLAVES_TO_DARKNESS }
 };
 
 bool ChaosChosen::s_registered = false;

@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 bool BeastsOfNurgle::s_registered = false;

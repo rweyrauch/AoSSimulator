@@ -32,7 +32,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Bale Chimes", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool PlagueMonks::s_registered = false;

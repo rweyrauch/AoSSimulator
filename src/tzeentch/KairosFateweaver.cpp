@@ -39,7 +39,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool KairosFateweaver::s_registered = false;

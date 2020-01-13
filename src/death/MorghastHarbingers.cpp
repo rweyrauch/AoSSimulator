@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    DEATHLORDS
+    { DEATHLORDS }
 };
 
 bool MorghastHarbingers::s_registered = false;

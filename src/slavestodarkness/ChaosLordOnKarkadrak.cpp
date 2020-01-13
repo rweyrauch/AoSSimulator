@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    SLAVES_TO_DARKNESS
+    { SLAVES_TO_DARKNESS }
 };
 
 bool ChaosLordOnKarkadrak::s_registered = false;

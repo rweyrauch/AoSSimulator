@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    ELDRITCH_COUNCIL
+    { ELDRITCH_COUNCIL }
 };
 
 bool Swordmasters::s_registered = false;

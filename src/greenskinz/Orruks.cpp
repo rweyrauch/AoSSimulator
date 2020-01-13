@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Standard Bearer", Orruks::OrrukBanner, Orruks::None, Orruks::SkullIcon, 1},
     },
     DESTRUCTION,
-    GREENSKINZ
+    { GREENSKINZ }
 };
 
 bool Orruks::s_registered = false;

@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    EVERCHOSEN
+    { EVERCHOSEN }
 };
 
 struct TableEntry

@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },
     CHAOS,
-    KHORNE
+    { KHORNE }
 };
 
 bool FleshHounds::s_registered = false;

@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
          TzaangorSkyfires::MAX_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE},
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool TzaangorSkyfires::s_registered = false;

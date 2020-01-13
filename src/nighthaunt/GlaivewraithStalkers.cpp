@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     DEATH,
-    NIGHTHAUNT
+    { NIGHTHAUNT }
 };
 
 bool GlaivewraithStalkers::s_registered = false;

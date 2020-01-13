@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },
     ORDER,
-    SYLVANETH
+    { SYLVANETH }
 };
 
 bool Alarielle::s_registered = false;

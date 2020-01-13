@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     Vokmortian::EnumStringToInt,
     {},
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool Vokmortian::s_registered = false;

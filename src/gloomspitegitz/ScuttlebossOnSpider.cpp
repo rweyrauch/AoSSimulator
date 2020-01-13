@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool ScuttlebossOnGiganticSpider::s_registered = false;

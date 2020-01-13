@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 bool IsharannTidecaster::s_registered = false;

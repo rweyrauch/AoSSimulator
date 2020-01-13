@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     ORDER,
-    DAUGHTERS_OF_KHAINE
+    { DAUGHTERS_OF_KHAINE }
 };
 
 bool KhineraiHeartrenders::s_registered = false;

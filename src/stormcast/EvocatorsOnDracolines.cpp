@@ -28,7 +28,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
     },
     ORDER,
-    STORMCAST_ETERNAL
+    { STORMCAST_ETERNAL }
 };
 
 bool EvocatorsOnCelestialDracolines::s_registered = false;

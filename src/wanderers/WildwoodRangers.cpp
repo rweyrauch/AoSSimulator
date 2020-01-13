@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    WANDERER
+    { WANDERER }
 };
 
 bool WildwoodRangers::s_registered = false;

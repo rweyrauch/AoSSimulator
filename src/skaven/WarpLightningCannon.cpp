@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool WarpLightningCannon::s_registered = false;

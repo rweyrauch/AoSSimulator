@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         }
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool SquiqHoppers::s_registered = false;

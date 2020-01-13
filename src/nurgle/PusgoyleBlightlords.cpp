@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Dolorous Tocsin", 0, 0, PusgoyleBlightlords::MAX_UNIT_SIZE/2},
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 bool PusgoyleBlightlords::s_registered = false;

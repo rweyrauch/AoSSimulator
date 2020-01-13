@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Weapon", GothizzarHarvester::Sickles, GothizzarHarvester::Sickles, GothizzarHarvester::Bludgeons, 1},
     },
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 struct TableEntry

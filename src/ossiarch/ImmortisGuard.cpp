@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool ImmortisGuard::s_registered = false;

@@ -28,7 +28,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
     },
     ORDER,
-    SERAPHON
+    { SERAPHON }
 };
 
 bool SaurusWarriors::s_registered = false;

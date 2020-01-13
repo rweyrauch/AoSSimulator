@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Weapons", AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::NetLauncher, 1},
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 

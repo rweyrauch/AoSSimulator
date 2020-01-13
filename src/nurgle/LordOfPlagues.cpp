@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 bool LordOfPlagues::s_registered = false;

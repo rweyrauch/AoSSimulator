@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
-    SLAANESH
+    { SLAANESH }
 };
 
 bool BladebringerOnExaltedChariot::s_registered = false;

@@ -16,7 +16,7 @@ static FactoryMethod factoryMethod = {
     OrpheonKatakros::EnumStringToInt,
     {},
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool OrpheonKatakros::s_registered = false;

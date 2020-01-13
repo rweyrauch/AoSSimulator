@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Noisemaker", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
     },
     DEATH,
-    DEADWALKERS
+    { DEADWALKERS }
 };
 
 bool Zombies::s_registered = false;

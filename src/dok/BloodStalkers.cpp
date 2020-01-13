@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType ::Boolean, "Blood Wyrm", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    DAUGHTERS_OF_KHAINE
+    { DAUGHTERS_OF_KHAINE }
 };
 
 

@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
-    FYRESLAYERS
+    { FYRESLAYERS }
 };
 
 bool VulkiteBerzerkers::s_registered = false;

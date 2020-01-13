@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool LoonbossWithGiantCaveSquig::s_registered = false;

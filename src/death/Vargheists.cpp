@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    SOULBLIGHT
+    { SOULBLIGHT }
 };
 
 bool Vargheists::s_registered = false;

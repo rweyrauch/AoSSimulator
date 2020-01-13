@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    NIGHTHAUNT
+    { NIGHTHAUNT }
 };
 
 bool DreadscytheHarridans::s_registered = false;

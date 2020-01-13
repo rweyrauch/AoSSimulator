@@ -213,8 +213,11 @@ void displayUnits(Verbosity verbose, const std::string& faction)
             if (ki != UNKNOWN)
             {
                 // filter based on keyword
-                if (ki != ruip->second.m_faction)
-                    continue;
+                for (auto fip : ruip->second.m_factions)
+                {
+                    if (ki != fip)
+                        continue;
+                }
             }
             else
             {

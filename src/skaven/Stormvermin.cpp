@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Drummers", 0, 0, Stormvermin::MAX_UNIT_SIZE / Stormvermin::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool Stormvermin::s_registered = false;

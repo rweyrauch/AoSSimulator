@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool Stormfiends::s_registered = false;

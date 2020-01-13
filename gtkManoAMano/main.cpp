@@ -79,8 +79,11 @@ static void populateUnits(const std::string& factionName, Gtk::ComboBoxText *pCo
     {
         auto ki = FactionStringToKeyword(factionName);
         // filter based on keyword
-        if (ki == ruip->second.m_faction)
+        for (auto fip : ruip->second.m_factions)
+        {
+            if (ki == fip)
                 unitNames.push_back(ruip->first);
+        }
     }
     if (!unitNames.empty())
     {
@@ -102,7 +105,10 @@ static void populateFactions(int allianceId, Gtk::ComboBoxText *pCombo)
     {
         if (allianceId == ruip->second.m_grandAlliance)
         {
-            factionKeywords.push_back(ruip->second.m_faction);
+            for (auto fip : ruip->second.m_factions)
+            {
+                factionKeywords.push_back(fip);
+            }
         }
     }
     factionKeywords.sort();

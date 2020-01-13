@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool NightRunners::s_registered = false;

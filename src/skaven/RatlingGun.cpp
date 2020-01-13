@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool RatlingGun::s_registered = false;

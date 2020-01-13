@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Bell Ringers", 0, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool Clanrats::s_registered = false;

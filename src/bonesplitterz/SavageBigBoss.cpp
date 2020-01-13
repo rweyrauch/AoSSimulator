@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },
     DESTRUCTION,
-    BONESPLITTERZ
+    { BONESPLITTERZ }
 };
 
 bool SavageBigBoss::s_registered = false;

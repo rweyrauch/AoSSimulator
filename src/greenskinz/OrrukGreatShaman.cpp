@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DESTRUCTION,
-    GREENSKINZ
+    { GREENSKINZ }
 };
 
 bool OrrukGreatShaman::s_registered = false;

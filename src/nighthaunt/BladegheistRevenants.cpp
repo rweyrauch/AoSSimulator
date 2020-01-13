@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    NIGHTHAUNT
+    { NIGHTHAUNT }
 };
 
 bool BladegheistRevenants::s_registered = false;

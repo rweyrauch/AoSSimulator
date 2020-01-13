@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },
     ORDER,
-    FYRESLAYERS
+    { FYRESLAYERS }
 };
 
 bool AuricHearthguard::s_registered = false;

@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Icon Bearers", 0, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 bool NamartiReavers::s_registered = false;

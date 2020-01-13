@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    ELDRITCH_COUNCIL
+    { ELDRITCH_COUNCIL }
 };
 
 bool Archmage::s_registered = false;

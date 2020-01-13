@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Crossbows", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    DAUGHTERS_OF_KHAINE
+    { DAUGHTERS_OF_KHAINE }
 };
 
 bool DoomfireWarlocks::s_registered = false;

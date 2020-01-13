@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DESTRUCTION,
-    GREENSKINZ
+    { GREENSKINZ }
 };
 
 bool OrrukBoarChariots::s_registered = false;

@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 bool Volturnos::s_registered = false;

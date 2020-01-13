@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
-    DAUGHTERS_OF_KHAINE
+    { DAUGHTERS_OF_KHAINE }
 };
 
 bool SistersOfSlaughter::s_registered = false;

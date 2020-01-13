@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    STORMCAST_ETERNAL
+    { STORMCAST_ETERNAL }
 };
 
 bool TheFarstriders::s_registered = false;

@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Icon Bearers", 0, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool Stabbas::s_registered = false;

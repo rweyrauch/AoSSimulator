@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DESTRUCTION,
-    GREENSKINZ
+    { GREENSKINZ }
 };
 
 struct TableEntry

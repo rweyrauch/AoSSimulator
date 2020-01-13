@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Big Name", Tyrant::Fateseeker, Tyrant::Deathcheater, Tyrant::Wallcrusher, 1},
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    { OGOR_MAWTRIBES }
 };
 
 bool Tyrant::s_registered = false;

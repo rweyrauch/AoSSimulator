@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    SERAPHON
+    { SERAPHON }
 };
 
 bool DreadSaurian::s_registered = false;

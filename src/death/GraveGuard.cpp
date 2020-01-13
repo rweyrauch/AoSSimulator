@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
-    DEATHRATTLE
+    { DEATHRATTLE }
 };
 
 bool GraveGuard::s_registered = false;

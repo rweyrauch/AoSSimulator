@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DEATH,
-    NIGHTHAUNT
+    { NIGHTHAUNT }
 };
 
 bool GrimghastReapers::s_registered = false;

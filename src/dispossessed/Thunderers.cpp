@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },
     ORDER,
-    DISPOSSESSED
+    { DISPOSSESSED }
 };
 
 bool Thunderers::s_registered = false;

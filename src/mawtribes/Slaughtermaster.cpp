@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    { OGOR_MAWTRIBES }
 };
 
 bool Slaughtermaster::s_registered = false;

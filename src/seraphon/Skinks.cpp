@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     ORDER,
-    SERAPHON
+    { SERAPHON }
 };
 
 bool Skinks::s_registered = false;

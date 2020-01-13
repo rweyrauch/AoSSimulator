@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Dread Falchions", 1, 0, NecropolisStalkers::MAX_UNIT_SIZE/3, 1},
     },
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool NecropolisStalkers::s_registered = false;

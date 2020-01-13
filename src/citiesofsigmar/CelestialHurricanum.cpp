@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
-    CITIES_OF_SIGMAR
+    { CITIES_OF_SIGMAR }
 };
 
 struct TableEntry

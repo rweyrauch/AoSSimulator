@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         }
     },
     DESTRUCTION,
-    GLOOMSPITE_GITZ
+    { GLOOMSPITE_GITZ }
 };
 
 bool SneakySnufflers::s_registered = false;

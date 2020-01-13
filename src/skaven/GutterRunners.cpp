@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool GutterRunners::s_registered = false;

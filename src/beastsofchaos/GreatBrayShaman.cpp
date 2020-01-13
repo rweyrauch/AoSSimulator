@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
-    BEASTS_OF_CHAOS
+    { BEASTS_OF_CHAOS }
 };
 
 bool GreatBrayShaman::s_registered = false;

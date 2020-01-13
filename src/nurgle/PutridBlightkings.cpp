@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Sonorous Tocsin", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 bool PutridBlightkings::s_registered = false;

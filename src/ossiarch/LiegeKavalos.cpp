@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool LiegeKavalos::s_registered = false;

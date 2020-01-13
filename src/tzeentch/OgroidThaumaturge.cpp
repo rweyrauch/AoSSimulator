@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool OgroidThaumaturge::s_registered = false;

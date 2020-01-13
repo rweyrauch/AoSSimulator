@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DEATH,
-    DEATHMAGES
+    { DEATHMAGES }
 };
 
 bool Necromancer::s_registered = false;

@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },
     CHAOS,
-    BEASTS_OF_CHAOS
+    { BEASTS_OF_CHAOS }
 };
 
 bool Ghorgon::s_registered = false;

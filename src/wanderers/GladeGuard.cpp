@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    WANDERER
+    { WANDERER }
 };
 
 bool GladeGuard::s_registered = false;

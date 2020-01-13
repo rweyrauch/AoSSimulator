@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Icon Bearers", 0, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1}
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 

@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 struct TableEntry

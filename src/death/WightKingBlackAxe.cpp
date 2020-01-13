@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DEATH,
-    DEATHRATTLE
+    { DEATHRATTLE }
 };
 
 bool WightKingWithBlackAxe::s_registered = false;

@@ -39,7 +39,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Talisman of Arcane Power", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     ORDER,
-    ELDRITCH_COUNCIL
+    { ELDRITCH_COUNCIL }
 };
 
 bool ArchmageOnDragon::s_registered = false;

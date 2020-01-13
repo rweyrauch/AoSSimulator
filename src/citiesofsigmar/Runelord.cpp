@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    CITIES_OF_SIGMAR
+    { CITIES_OF_SIGMAR }
 };
 
 bool Runelord::s_registered = false;

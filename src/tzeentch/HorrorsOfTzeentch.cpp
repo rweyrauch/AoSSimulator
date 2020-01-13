@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool HorrorsOfTzeentch::s_registered = false;

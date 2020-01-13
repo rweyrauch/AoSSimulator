@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Bell Tollers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 bool PlagueDrones::s_registered = false;

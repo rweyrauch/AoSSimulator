@@ -21,7 +21,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    { OGOR_MAWTRIBES }
 };
 
 bool Gorgers::s_registered = false;

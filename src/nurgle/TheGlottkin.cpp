@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    NURGLE
+    { NURGLE }
 };
 
 struct TableEntry

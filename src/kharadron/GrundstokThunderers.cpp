@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
     },
     ORDER,
-    KHARADRON_OVERLORDS
+    { KHARADRON_OVERLORDS }
 };
 
 bool GrundstokThunderers::s_registered = false;

@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    SKAVEN
+    { SKAVEN }
 };
 
 bool Doomwheel::s_registered = false;

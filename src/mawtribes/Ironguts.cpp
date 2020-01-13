@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    { OGOR_MAWTRIBES }
 };
 
 bool Ironguts::s_registered = false;

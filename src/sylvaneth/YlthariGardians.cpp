@@ -10,7 +10,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    SYLVANETH
+    { SYLVANETH }
 };
 
 bool YltharisGuardians::s_registered = false;

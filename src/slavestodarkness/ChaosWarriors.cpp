@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     CHAOS,
-    SLAVES_TO_DARKNESS
+    { SLAVES_TO_DARKNESS }
 };
 
 bool ChaosWarriors::s_registered = false;

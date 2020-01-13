@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
     },
     DEATH,
-    OSSIARCH_BONEREAPERS
+    { OSSIARCH_BONEREAPERS }
 };
 
 bool KavalosDeathriders::s_registered = false;

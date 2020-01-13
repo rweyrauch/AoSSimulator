@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    { OGOR_MAWTRIBES }
 };
 
 bool Ironblaster::s_registered = false;

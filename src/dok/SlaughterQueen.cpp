@@ -17,7 +17,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     ORDER,
-    DAUGHTERS_OF_KHAINE
+    { DAUGHTERS_OF_KHAINE }
 };
 
 bool SlaughterQueen::s_registered = false;

@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Weapon", AkhelianKing::BladedPolearm, AkhelianKing::BladedPolearm, AkhelianKing::Greatsword, 1},
     },
     ORDER,
-    IDONETH_DEEPKIN
+    { IDONETH_DEEPKIN }
 };
 
 bool AkhelianKing::s_registered = false;

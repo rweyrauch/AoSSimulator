@@ -43,7 +43,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool LordOfChange::s_registered = false;

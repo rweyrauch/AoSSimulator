@@ -27,7 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },
     CHAOS,
-    SLAANESH
+    { SLAANESH }
 };
 
 bool Hellstriders::s_registered = false;

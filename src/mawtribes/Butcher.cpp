@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Weapon", Butcher::Cleaver, Butcher::Tenderiser, Butcher::Cleaver, 1},
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    { OGOR_MAWTRIBES }
 };
 
 bool Butcher::s_registered = false;

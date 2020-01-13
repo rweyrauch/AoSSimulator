@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Vulcharcs", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool KairicAcolytes::s_registered = false;

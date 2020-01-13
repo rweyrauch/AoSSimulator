@@ -24,7 +24,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },
     DEATH,
-    IRONJAWZ
+    { IRONJAWZ }
 };
 
 bool MegabossOnMawKrusha::s_registered = false;

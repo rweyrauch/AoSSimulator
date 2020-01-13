@@ -22,7 +22,7 @@ static FactoryMethod factoryMethod = {
          TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
     },
     CHAOS,
-    TZEENTCH
+    { TZEENTCH }
 };
 
 bool TzaangorEnlightened::s_registered = false;

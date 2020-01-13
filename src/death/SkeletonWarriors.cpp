@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },
     DEATH,
-    DEATHRATTLE
+    { DEATHRATTLE }
 };
 
 bool SkeletonWarriors::s_registered = false;

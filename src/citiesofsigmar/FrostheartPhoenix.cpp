@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },
     ORDER,
-    CITIES_OF_SIGMAR
+    { CITIES_OF_SIGMAR }
 };
 
 struct TableEntry

@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
     },
     DEATH,
-    FLESH_EATER_COURTS
+    { FLESH_EATER_COURTS }
 };
 
 bool AbhorrantGhoulKingOnZombieDragon::s_registered = false;
