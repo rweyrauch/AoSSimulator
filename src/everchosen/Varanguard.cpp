@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
         },
     },
     CHAOS,
-    { SLAVES_TO_DARKNESS }
+    { SLAVES_TO_DARKNESS, KHORNE, SLAANESH, TZEENTCH, NURGLE }
 };
 
 bool Varanguard::s_registered = false;

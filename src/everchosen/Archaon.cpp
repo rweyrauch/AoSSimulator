@@ -19,7 +19,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    { EVERCHOSEN }
+    { EVERCHOSEN, SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, NURGLE, SLAANESH }
 };
 
 struct TableEntry

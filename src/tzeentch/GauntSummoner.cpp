@@ -20,7 +20,7 @@ static FactoryMethod factoryMethod = {
     {
     },
     CHAOS,
-    { TZEENTCH }
+    { TZEENTCH, SLAVES_TO_DARKNESS }
 };
 
 bool GauntSummonerOfTzeentch::s_registered = false;

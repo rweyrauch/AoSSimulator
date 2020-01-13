@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Brayhorns", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
     },
     CHAOS,
-    { TZEENTCH }
+    { TZEENTCH, BEASTS_OF_CHAOS }
 };
 
 bool Tzaangors::s_registered = false;

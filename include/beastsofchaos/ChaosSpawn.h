@@ -47,6 +47,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Curse of the Dark Gods           No
 // Writhing Tentacles               No
 //
 
