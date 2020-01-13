@@ -1,0 +1,12 @@
+body {
+    font-family: "Nunito", sans-serif;
+}
+
+.content {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#mapViewer {
+    border: 1px solid grey;
+}

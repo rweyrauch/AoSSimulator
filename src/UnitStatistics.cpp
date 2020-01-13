@@ -38,9 +38,8 @@ float UnitStatistics::totalRunDistance() const
 float UnitStatistics::averageRunDistance() const
 {
     int numRounds = numberOfRoundsRan();
-    if (numRounds <= 0)
-    { return 0.0f; }
-    return totalRunDistance() / m_numRounds;
+    if (numRounds <= 0) { return 0.0f; }
+    return totalRunDistance() / numRounds;
 }
 
 float UnitStatistics::totalChargeDistance() const
@@ -56,9 +55,8 @@ float UnitStatistics::totalChargeDistance() const
 float UnitStatistics::averageChargeDistance() const
 {
     int numRounds = numberOfRoundsCharged();
-    if (numRounds <= 0)
-    { return 0.0f; }
-    return totalChargeDistance() / m_numRounds;
+    if (numRounds <= 0) { return 0.0f; }
+    return totalChargeDistance() / numRounds;
 }
 
 int UnitStatistics::totalEnemyModelsSlain() const
@@ -71,15 +69,14 @@ int UnitStatistics::totalEnemyModelsSlain() const
     return totalSlain;
 }
 
-Wounds UnitStatistics::totalWoundsInflicted() const
+void UnitStatistics::totalWoundsInflicted(Wounds& wounds) const
 {
-    Wounds totalWounds = {0, 0};
+    wounds = {0, 0};
     for (auto ip : m_actions)
     {
-        totalWounds.normal += ip.m_woundsInflicted.normal;
-        totalWounds.mortal += ip.m_woundsInflicted.mortal;
+        wounds.normal += ip.m_woundsInflicted.normal;
+        wounds.mortal += ip.m_woundsInflicted.mortal;
     }
-    return totalWounds;
 }
 
 int UnitStatistics::totalModelsSlain() const
@@ -92,15 +89,14 @@ int UnitStatistics::totalModelsSlain() const
     return totalSlain;
 }
 
-Wounds UnitStatistics::totalWoundsTaken() const
+void UnitStatistics::totalWoundsTaken(Wounds& wounds) const
 {
-    Wounds totalWounds = {0, 0};
+    wounds = {0, 0};
     for (auto ip : m_actions)
     {
-        totalWounds.normal += ip.m_woundsTaken.normal;
-        totalWounds.mortal += ip.m_woundsTaken.mortal;
+        wounds.normal += ip.m_woundsTaken.normal;
+        wounds.mortal += ip.m_woundsTaken.mortal;
     }
-    return totalWounds;
 }
 
 int UnitStatistics::numberOfRoundsMoved() const
@@ -185,6 +181,9 @@ void TurnRecord::clear()
 
     m_attacksMade = 0;
     m_attacksHitting = 0;
+
+    m_savesMade = 0;
+    m_savesFailed = 0;
 
     m_enemyModelsSlain = 0;
     m_woundsInflicted = {0, 0};

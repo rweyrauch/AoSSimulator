@@ -34,6 +34,8 @@ public:
     Phase currentPhase() const { return m_currentPhase; }
 
     void logStatistics() const;
+    void getStatistics(PlayerId which, UnitStatistics& stats);
+
     PlayerId getVictor() const;
 
 protected:

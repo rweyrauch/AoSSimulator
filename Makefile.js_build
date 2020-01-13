@@ -526,10 +526,10 @@ aossim_glue.cpp: aossim.idl
 aossim_glue.h: aossim_glue.cpp
 
 aossim.js: aossim.o aossim_glue.cpp aossim_glue.h
-	$(CXX) $(LINK_OPTS) -I.. -I../include -I./include $< -o build/$(ACTIVE)_$(BUILD).js -s WASM=0 -frtti
+	$(CXX) $(LINK_OPTS) -I.. -I../include -I./include $< -o web/dist/$(ACTIVE)_$(BUILD).js -s WASM=0 -frtti
 
 aossim.wasm.js: aossim.o aossim_glue.cpp aossim_glue.h
-	$(CXX) $(LINK_OPTS) -I.. -I../include -I./include $< -o build/$(ACTIVE)_$(BUILD).wasm.js -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -frtti
+	$(CXX) $(LINK_OPTS) -I.. -I../include -I./include $< -o web/dist/$(ACTIVE)_$(BUILD).wasm.js -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -frtti
 
 clean:
 	rm -f $(OBJECTS)

@@ -404,13 +404,16 @@ PlayerId ManoAMano::getVictor() const
 
 static void logUnitStats(const UnitStatistics &stats)
 {
+    Wounds woundsTaken, woundsInflicted;
+    stats.totalWoundsInflicted(woundsInflicted);
+    stats.totalWoundsTaken(woundsTaken);
     SimLog(Verbosity::Narrative, "\tTotal Movement: %f  Rounds Moved: %d\n", stats.totalMovementDistance(), stats.numberOfRoundsMoved());
     SimLog(Verbosity::Narrative, "\tTotal Run Distance: %f  Rounds Ran: %d\n", stats.totalRunDistance(), stats.numberOfRoundsRan());
     SimLog(Verbosity::Narrative, "\tTotal Charge Distance: %f  Rounds Charged: %d\n" , stats.totalChargeDistance(), stats.numberOfRoundsCharged());
     SimLog(Verbosity::Narrative, "\tTotal Enemy Models Slain: %d  Wounds Inflicted: {%d, %d}\n",  stats.totalEnemyModelsSlain(),
-        stats.totalWoundsInflicted().normal, stats.totalWoundsInflicted().mortal);
+        woundsInflicted.normal, woundsInflicted.mortal);
     SimLog(Verbosity::Narrative, "\tTotal Models Slain: %d  Wounds Taken: {%d, %d}\n", stats.totalModelsSlain(),
-        stats.totalWoundsTaken().normal, stats.totalWoundsTaken().mortal);
+        woundsTaken.normal,woundsTaken.mortal);
     SimLog(Verbosity::Narrative, "\tTotal Models Fled: %d\n", stats.totalModelsFled());
 }
 
@@ -489,4 +492,16 @@ const Unit *ManoAMano::blueUnit() const
 {
     const auto blue = m_rosters[1]->unitBegin();
     return *blue;
+}
+
+void ManoAMano::getStatistics(PlayerId which, UnitStatistics &stats)
+{
+    if (which == PlayerId::Red)
+    {
+        stats = redUnit()->getStatistics();
+    }
+    else if (which == PlayerId::Blue)
+    {
+        stats = blueUnit()->getStatistics();
+    }
 }

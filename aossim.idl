@@ -33,11 +33,45 @@ enum ParamType
     "Enum",
 };
 
+interface Wounds {
+    void Wounds();
+
+    attribute long normal;
+    attribute long mortal;
+};
+
 interface Unit {
     void Unit();
 
     long points();
     void restore();
+};
+
+interface UnitStatistics {
+    void UnitStatistics();
+
+    long numberOfRoundsMoved();
+    long numberOfRoundsRan();
+    long numberOfRoundsCharged();
+
+    // Totals
+    float totalMovementDistance();
+    float averageMovementDistance();
+    float totalRunDistance();
+    float averageRunDistance();
+    float totalChargeDistance();
+    float averageChargeDistance();
+
+    long totalSavesMade();
+    long totalSavesFailed();
+
+    long totalEnemyModelsSlain();
+    void totalWoundsInflicted([Ref] Wounds wounds);
+
+    long totalModelsSlain();
+    void totalWoundsTaken([Ref] Wounds wounds);
+
+    long totalModelsFled();
 };
 
 interface ManoAMano {
@@ -48,7 +82,7 @@ interface ManoAMano {
     void next();
     boolean done();
     long currentRound();
-    void logStatistics();
+    void getStatistics(PlayerId which, [Ref] UnitStatistics stats);
     PlayerId getVictor();
 };
 
@@ -65,8 +99,8 @@ interface Parameter {
 interface JSUnitInfo {
     void JSUnitInfo();
     [Const] attribute DOMString name;
-    [Const] attribute Parameter parameters;
     attribute long numberOfParameters;
+    void getParameter(long which, [Ref] Parameter param);
     attribute long grandAlliance;
     attribute long numberOfFactions;
     long getFaction(long which);
@@ -74,6 +108,7 @@ interface JSUnitInfo {
 
 interface JSInterface {
     static void Initialize();
+    static void SetVerbosity(Verbosity verbosity);
     static long GrandAllianceStringToKeyword(DOMString allianceName);
     static long FactionStringToKeyword(DOMString factionName);
     [Const] static DOMString GrandAllianceKeywordToString(long ga);
@@ -82,6 +117,7 @@ interface JSInterface {
     static Unit CreateUnit(DOMString name, [Const] Parameter parameters, long numParameters);
     static long GetNumberOfAvailableUnits();
     static void GetUnitInfo(long which, [Ref] JSUnitInfo info);
+    static void GetUnitInfoByName([Const] DOMString name, [Ref] JSUnitInfo info);
     [Const] static DOMString UnitParameterValueToString([Const] DOMString name, [Ref] Parameter parameter);
     static long UnitEnumStringToInt([Const] DOMString name, [Const] DOMString enumString);
 };

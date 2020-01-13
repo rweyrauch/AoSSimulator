@@ -65,10 +65,10 @@ public:
     int totalSavesFailed() const;
 
     int totalEnemyModelsSlain() const;
-    Wounds totalWoundsInflicted() const;
+    void totalWoundsInflicted(Wounds& wounds) const;
 
     int totalModelsSlain() const;
-    Wounds totalWoundsTaken() const;
+    void totalWoundsTaken(Wounds& wounds) const;
 
     int totalModelsFled() const;
 

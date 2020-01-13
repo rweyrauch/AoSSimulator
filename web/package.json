@@ -1,0 +1,27 @@
+{
+  "name": "age-of-sigmar-sim-web",
+  "version": "1.0.0",
+  "description": "Web-based Age of Sigmar 1v1 battle simulator.",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "author": "Rick Weyrauch",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rweyrauch/AoSSimWeb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rweyrauch/AoSSimWeb/issues"
+  },
+  "homepage": "https://github.com/rweyrauch/AoSSimWeb#readme",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.3.31",
+    "dts-gen": "^0.6.0"
+  }
+}

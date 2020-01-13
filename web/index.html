@@ -4,11 +4,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script type="text/javascript" src="AosSim_debug.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <title>AoS Mano a Mano</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
-    
+<nav id="mainNavbar" class="navbar navbar-fixed-top navbar-expand-md navbar-dark bg-dark">
+    <a href="#" class="navbar-brand">AoS Mano a Mano</a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navLinks">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="" class="nav-link">Options</a>
+            </li>
+            <li class="nav-item">
+                <a href="" class="nav-link">About</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="card-group">
+    <div id="red-card" class="card border-danger rounded m-2">
+        <h5 class="card-header bg-danger">Red Team</h5>
+        <div class="card-body">
+            <form>
+                <fieldset class="form-group m-1">
+                    <label for="red-ga">Grand Alliance</label>
+                    <select class="btn btn-secondary form-control" name="red-ga" id="red-ga-select">
+                        <option value="Order">Order</option>
+                        <option value="Chaos">Chaos</option>
+                        <option value="Death">Death</option>
+                        <option value="Destruction">Destruction</option>
+                    </select>
+                </fieldset>
+                <fieldset class="form-group m-1">
+                    <label for="red-faction">Faction</label>
+                    <select class="btn btn-secondary form-control" name="red-faction" id="red-faction-select">
+                        <!-- <option value="none">None</option> -->
+                    </select>
+                </fieldset>
+                <fieldset class="form-group m-1">
+                    <label for="red-units">Unit</label>
+                    <select class="btn btn-secondary form-control" name="red-units" id="red-unit-select">
+                        <!-- <option value="none">None</option> -->
+                    </select>
+                    <div class="m-2" id="red-unit-desc">
+                    </div>
+                </fieldset>
+                <fieldset class="form-group m-1">
+                    <label for="redpoints">Red Points</label>
+                    <output id="red-points-disp" class="form-control" name="redpoints">0</output>
+                </fieldset>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-info">View</button>
+            <button class="btn btn-warning">Clear</button>
+        </div>
+    </div>
+    <div id="blue-card" class="card border border-primary rounded m-2">
+        <h5 class="card-header bg-primary">Blue Team</h5>
+        <div class="card-body">
+            <form>
+                <fieldset class="form-group m-1">
+                    <label for="blue-ga">Grand Alliance</label>
+                    <select class="btn btn-secondary form-control" name="blue-ga" id="blue-ga-select">
+                        <option value="Order">Order</option>
+                        <option value="Chaos">Chaos</option>
+                        <option value="Death">Death</option>
+                        <option value="Destruction">Destruction</option>
+                    </select>
+                </fieldset>
+                <fieldset class="form-group m-1">
+                    <label for="blue-faction">Faction</label>
+                    <select class="btn btn-secondary form-control" name="blue-faction" id="blue-faction-select">
+                        <!-- <option value="none">None</option> -->
+                    </select>
+                </fieldset>
+                <fieldset class="form-group m-1">
+                    <label for="blue-units">Unit</label>
+                    <select class="btn btn-secondary form-control" name="blue-units" id="blue-unit-select">
+                        <!-- <option value="none">None</option> -->
+                    </select>
+                    <div class="m-2" id="blue-unit-desc">
+                    </div>
+                </fieldset>
+                <fieldset class="form-group m-1">
+                    <label for="bluepoints">Blue Points</label>
+                    <output id="blue-points-disp" class="form-control" name="bluepoints">0</output>
+                </fieldset>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-info">View</button>
+            <button class="btn btn-warning">Clear</button>
+        </div>
+    </div>
+    <div class="card border border-inf rounded m-2">
+        <h5 class="card-header">Results</h5>
+        <div class="card-body bg-light">
+            <table class="table">
+                <thead>
+                Victories (%)
+                <tr>
+                    <th scope="col">Red</th>
+                    <th scope="col">Blue</th>
+                    <th scope="col">Ties</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="red-victory-percent">0</td>
+                    <td id="blue-victory-percent">0</td>
+                    <td id="tie-percent">0</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Statistics</th>
+                    <th scope="col">Red</th>
+                    <th scope="col">Blue</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Rounds Moved</th>
+                    <td id="red-rounds-moved">0</td>
+                    <td id="blue-rounds-moved">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Rounds Ran</th>
+                    <td id="red-rounds-ran">0</td>
+                    <td id="blue-rounds-ran">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Rounds Charged</th>
+                    <td id="red-rounds-charged">0</td>
+                    <td id="blue-rounds-charged">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Total Movement</th>
+                    <td id="red-total-movement">0</td>
+                    <td id="blue-total-movem">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Average Movement</th scope="row">
+                    <td id="red-avg-movement">0</td>
+                    <td id="blue-avg-movement">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Total Run</th scope="row">
+                    <td id="red-total-run">0</td>
+                    <td id="blue-total-run">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Average Run</th scope="row">
+                    <td id="red-avg-run">0</td>
+                    <td id="blue-avg-run">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Charge Distance</th scope="row">
+                    <td id="red-charge-distance">0</td>
+                    <td id="blue-charge-distance">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Average Charge</th scope="row">
+                    <td id="red-avg-charge">0</td>
+                    <td id="blue-avg-charge">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Saves Made</th scope="row">
+                    <td id="red-saves-made">0</td>
+                    <td id="blue-saves-made">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Saves Failed</th scope="row">
+                    <td id="red-saves-failed">0</td>
+                    <td id="blue-saves-failed">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Enemy Models Slain</th scope="row">
+                    <td id="red-enemy-models">0</td>
+                    <td id="blue-enemy-models">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Wounds Inflicted</th scope="row">
+                    <td id="red-wounds-inflicted">0</td>
+                    <td id="blue-wounds-inflicted">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Models Slain</th scope="row">
+                    <td id="red-casualties">0</td>
+                    <td id="blue-casualties">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Wounds Taken</th scope="row">
+                    <td id="red-wounds-taken">0</td>
+                    <td id="blue-wounds-taken">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Models Fled</t scope="row">
+                    <td id="red-models-fled">0</td>
+                    <td id="blue-models-fled">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button id="start-button" class="btn btn-success">Start</button>
+            <button id="step-button" class="btn btn-success">Step</button>
+            <button id="save-button" class="btn btn-secondary">Save</button>
+            <button id="load-button" class="btn btn-secondary">Load</button>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <canvas id="mapViewer" width="480" height="360">
+    </canvas>
+</div>
+
+<div class="col-sm-12">
+    <div class="card border-info mb-3">
+        <h5 class="card-header">Settings</h5>
+        <div class="card-body">
+            <label for="rounds">Rounds:</label>
+            <input type="number" id="number-of-rounds" name="rounds" min="1" max="7" value="5">
+            <label for="iterations">Iterations:</label>
+            <input type="number" id="number-of-iterations" name="iterations" min="1" max="1000" value="1">
+            <input id="verbose-flag" type="checkbox" name="verbose">
+            <label for="verbose">Verbose</label>
+            <input id="savemaps-flag" type="checkbox" name="savemaps">
+            <label for="savemaps">Save Battle Maps</label>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="dist/AosSim_debug.js"></script>
+
+<script type="text/javascript" src="src/app.js"></script>
+
 </body>
 </html>

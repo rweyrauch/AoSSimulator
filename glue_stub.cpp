@@ -17,6 +17,11 @@ void JSInterface::Initialize()
     }
 }
 
+void JSInterface::SetVerbosity(Verbosity verbosity)
+{
+    ::SetVerbosity(verbosity);
+}
+
 int JSInterface::GrandAllianceStringToKeyword(const char* allianceName)
 {
     return ::GrandAllianceStringToKeyword(std::string(allianceName));
@@ -55,10 +60,15 @@ int JSInterface::GetNumberOfAvailableUnits()
 void JSInterface::GetUnitInfo(int which, JSUnitInfo& info)
 {
     const auto& name = g_unitNames[which];
+    GetUnitInfoByName(name.c_str(), info);
+}
+
+void JSInterface::GetUnitInfoByName(const char* name, JSUnitInfo& info)
+{
     auto factory = UnitFactory::LookupUnit(std::string(name));
     if (factory)
     {
-        info.name = name.c_str();
+        info.name = name;
         info.grandAlliance = factory->m_grandAlliance;
         info.numberOfParameters = (int)factory->m_parameters.size();
         info.parameters = factory->m_parameters.data();

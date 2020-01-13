@@ -16,11 +16,12 @@ struct JSUnitInfo
 {
 public:
     const char* name;
-    const Parameter* parameters;
     int numberOfParameters;
+    void getParameter(int which, Parameter& param) { param = this->parameters[which]; }
     int grandAlliance;
     int numberOfFactions;
     int getFaction(int which) { return this->factions[which]; }
+    const Parameter* parameters;
     const int* factions;
 };
 
@@ -28,6 +29,7 @@ class JSInterface
 {
 public:
     static void Initialize();
+    static void SetVerbosity(Verbosity verbosity);
     static int GrandAllianceStringToKeyword(const char* allianceName);
     static int FactionStringToKeyword(const char* factionName);
     static const char* FactionKeywordToString(int faction);
@@ -36,6 +38,7 @@ public:
     static Unit* CreateUnit(const char* name, const Parameter* parameters, int numParams);
     static int GetNumberOfAvailableUnits();
     static void GetUnitInfo(int which, JSUnitInfo& info);
+    static void GetUnitInfoByName(const char* name, JSUnitInfo& info);
     static const char* UnitParameterValueToString(const char* name, const Parameter& parameter);
     static int UnitEnumStringToInt(const char* name, const char* enumString);
 };
