@@ -110,7 +110,7 @@ void VanguardRaptorsLongstrike::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("VanguardRaptorsLongstrike", factoryMethod);
+        s_registered = UnitFactory::Register("Vanguard Raptors with Longstrike Crossbows", factoryMethod);
     }
 }
 

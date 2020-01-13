@@ -68,7 +68,8 @@ interface JSUnitInfo {
     [Const] attribute Parameter parameters;
     attribute long numberOfParameters;
     attribute long grandAlliance;
-    attribute long faction;
+    attribute long numberOfFactions;
+    long getFaction(long which);
 };
 
 interface JSInterface {

@@ -19,7 +19,9 @@ public:
     const Parameter* parameters;
     int numberOfParameters;
     int grandAlliance;
-    int faction;
+    int numberOfFactions;
+    int getFaction(int which) { return this->factions[which]; }
+    const int* factions;
 };
 
 class JSInterface 

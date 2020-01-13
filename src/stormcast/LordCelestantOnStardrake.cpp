@@ -104,7 +104,7 @@ void LordCelestantOnStardrake::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant-on-Stardrake", factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Celestant on Stardrake", factoryMethod);
     }
 }
 

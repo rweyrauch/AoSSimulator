@@ -92,7 +92,7 @@ void VanguardRaptorsHurricane::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("VanguardRaptorsHurricane", factoryMethod);
+        s_registered = UnitFactory::Register("Vanguard Raptors with Hurricane Crossbows", factoryMethod);
     }
 }
 

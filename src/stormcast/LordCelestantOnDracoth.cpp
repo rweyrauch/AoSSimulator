@@ -94,7 +94,7 @@ void LordCelestantOnDracoth::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant-on-Dracoth", factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Celestant on Dracoth", factoryMethod);
     }
 }
 

@@ -59,10 +59,11 @@ void JSInterface::GetUnitInfo(int which, JSUnitInfo& info)
     if (factory)
     {
         info.name = name.c_str();
-        info.faction = factory->m_faction;
         info.grandAlliance = factory->m_grandAlliance;
         info.numberOfParameters = (int)factory->m_parameters.size();
         info.parameters = factory->m_parameters.data();
+        info.numberOfFactions = (int)factory->m_factions.size();
+        info.factions = (const int*)factory->m_factions.data();
     }
 }
 
