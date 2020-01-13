@@ -333,13 +333,13 @@ AosSim().then(AosSim => {
         if (g_red) {
             let redPointsDisp = document.getElementById("red-points-disp");
             if (redPointsDisp) {
-                redPointsDisp.value = g_red.points.toString();
+                redPointsDisp.value = g_red.points().toString();
             }
         }
         if (g_blue) {
             let bluePointsDisp = document.getElementById("blue-points-disp");
             if (bluePointsDisp) {
-                bluePointsDisp.value = g_blue.points.toString();
+                bluePointsDisp.value = g_blue.points().toString();
             }
         }
     }
