@@ -53,3 +53,10 @@ CTestTestfile.cmake
 # CLion
 cmake-build-debug
 cmake-build-release
+
+# Emscripten generated files
+WebIDLGrammar.pkl
+aossim_glue.cpp
+aossim_glue.js
+web/dist
+web/node_modules
