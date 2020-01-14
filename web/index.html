@@ -38,22 +38,22 @@
             <form>
                 <fieldset class="form-group m-1">
                     <label for="red-ga">Grand Alliance</label>
-                    <select class="btn btn-secondary form-control" name="red-ga" id="red-ga-select">
+                    <select class="btn-danger btn-sm form-control" name="red-ga" id="red-ga-select">
                         <option value="Order">Order</option>
                         <option value="Chaos">Chaos</option>
                         <option value="Death">Death</option>
                         <option value="Destruction">Destruction</option>
                     </select>
                 </fieldset>
-                <fieldset class="form-group m-1">
+                 <fieldset class="form-group m-1">
                     <label for="red-faction">Faction</label>
-                    <select class="btn btn-secondary form-control" name="red-faction" id="red-faction-select">
+                    <select class="btn-danger btn-sm form-control" name="red-faction" id="red-faction-select">
                         <!-- <option value="none">None</option> -->
                     </select>
                 </fieldset>
                 <fieldset class="form-group m-1">
                     <label for="red-units">Unit</label>
-                    <select class="btn btn-secondary form-control" name="red-units" id="red-unit-select">
+                    <select class="btn-danger btn-sm form-control" name="red-units" id="red-unit-select">
                         <!-- <option value="none">None</option> -->
                     </select>
                     <div class="m-2" id="red-unit-desc">
@@ -76,7 +76,7 @@
             <form>
                 <fieldset class="form-group m-1">
                     <label for="blue-ga">Grand Alliance</label>
-                    <select class="btn btn-secondary form-control" name="blue-ga" id="blue-ga-select">
+                    <select class="btn-primary btn-sm form-control" name="blue-ga" id="blue-ga-select">
                         <option value="Order">Order</option>
                         <option value="Chaos">Chaos</option>
                         <option value="Death">Death</option>
@@ -85,13 +85,13 @@
                 </fieldset>
                 <fieldset class="form-group m-1">
                     <label for="blue-faction">Faction</label>
-                    <select class="btn btn-secondary form-control" name="blue-faction" id="blue-faction-select">
+                    <select class="btn-primary btn-sm form-control" name="blue-faction" id="blue-faction-select">
                         <!-- <option value="none">None</option> -->
                     </select>
                 </fieldset>
                 <fieldset class="form-group m-1">
                     <label for="blue-units">Unit</label>
-                    <select class="btn btn-secondary form-control" name="blue-units" id="blue-unit-select">
+                    <select class="btn-primary btn-sm form-control" name="blue-units" id="blue-unit-select">
                         <!-- <option value="none">None</option> -->
                     </select>
                     <div class="m-2" id="blue-unit-desc">
@@ -139,6 +139,31 @@
                 </thead>
                 <tbody>
                 <tr>
+                    <th scope="row">Enemy Models Slain</th>
+                    <td id="red-enemy-models">0</td>
+                    <td id="blue-enemy-models">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Wounds Inflicted</th>
+                    <td id="red-wounds-inflicted">0</td>
+                    <td id="blue-wounds-inflicted">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Models Slain</th>
+                    <td id="red-casualties">0</td>
+                    <td id="blue-casualties">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Wounds Taken</th>
+                    <td id="red-wounds-taken">0</td>
+                    <td id="blue-wounds-taken">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Models Fled</th>
+                    <td id="red-models-fled">0</td>
+                    <td id="blue-models-fled">0</td>
+                </tr>
+                <tr>
                     <th scope="row">Rounds Moved</th>
                     <td id="red-rounds-moved">0</td>
                     <td id="blue-rounds-moved">0</td>
@@ -159,64 +184,39 @@
                     <td id="blue-total-movem">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Average Movement</th scope="row">
+                    <th scope="row">Average Movement</th>
                     <td id="red-avg-movement">0</td>
                     <td id="blue-avg-movement">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Total Run</th scope="row">
+                    <th scope="row">Total Run</th>
                     <td id="red-total-run">0</td>
                     <td id="blue-total-run">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Average Run</th scope="row">
+                    <th scope="row">Average Run</th>
                     <td id="red-avg-run">0</td>
                     <td id="blue-avg-run">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Charge Distance</th scope="row">
+                    <th scope="row">Charge Distance</th>
                     <td id="red-charge-distance">0</td>
                     <td id="blue-charge-distance">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Average Charge</th scope="row">
+                    <th scope="row">Average Charge</th>
                     <td id="red-avg-charge">0</td>
                     <td id="blue-avg-charge">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Saves Made</th scope="row">
+                    <th scope="row">Saves Made</th>
                     <td id="red-saves-made">0</td>
                     <td id="blue-saves-made">0</td>
                 </tr>
                 <tr>
-                    <th scope="row">Saves Failed</th scope="row">
+                    <th scope="row">Saves Failed</th>
                     <td id="red-saves-failed">0</td>
                     <td id="blue-saves-failed">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Enemy Models Slain</th scope="row">
-                    <td id="red-enemy-models">0</td>
-                    <td id="blue-enemy-models">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Wounds Inflicted</th scope="row">
-                    <td id="red-wounds-inflicted">0</td>
-                    <td id="blue-wounds-inflicted">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Models Slain</th scope="row">
-                    <td id="red-casualties">0</td>
-                    <td id="blue-casualties">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Wounds Taken</th scope="row">
-                    <td id="red-wounds-taken">0</td>
-                    <td id="blue-wounds-taken">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Models Fled</t scope="row">
-                    <td id="red-models-fled">0</td>
-                    <td id="blue-models-fled">0</td>
                 </tr>
                 </tbody>
             </table>
@@ -259,6 +259,7 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="dist/AosSim_debug.js"></script>
 
+<script type="text/javascript" src="dist/AosSim_debug.js"></script>
 <script type="text/javascript" src="src/app.js"></script>
 
 </body>

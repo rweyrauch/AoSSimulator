@@ -541,7 +541,6 @@ AosSim().then(AosSim => {
         updateStats(blueStats, "blue");
     }
 
-
     console.log("App is starting....");
 
     sim.Initialize(sim.Debug);
