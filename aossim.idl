@@ -40,11 +40,27 @@ interface Wounds {
     attribute long mortal;
 };
 
+interface Model {
+    float x();
+    float y();
+
+    boolean slain();
+    boolean fled();
+};
+
 interface Unit {
     void Unit();
 
     long points();
+    long remainingModels();
+    float basesizeInches();
+    float x();
+    float y();
+
     void restore();
+
+    long numModels();
+    [Const] Model getModel(long which);
 };
 
 interface UnitStatistics {

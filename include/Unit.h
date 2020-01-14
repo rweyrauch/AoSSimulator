@@ -71,6 +71,9 @@ public:
      */
     void addModel(Model* model);
 
+    int numModels() const { return (int)m_models.size(); }
+    const Model* getModel(int which) const { return m_models.at(which).get(); }
+
     /*!
      * Restore a unit to its initial condition, as it was at the start of the battle.
      */
@@ -107,6 +110,8 @@ public:
     bool setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation);
 
     const Math::Point3 &position() const { return m_position; };
+    float x() const { return m_position.x; }
+    float y() const { return m_position.y; }
 
     float distanceTo(const Unit *unit) const;
 

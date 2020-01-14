@@ -501,7 +501,7 @@ AosSim().then(AosSim => {
 
         runSimulation();
 
-        //AosSim.Board.Instance().render(document.getElementById("mapViewer") as HTMLCanvasElement);
+        render(document.getElementById("mapViewer"));
     }
 
     function updateStats(stats, team) {
@@ -553,6 +553,105 @@ AosSim().then(AosSim => {
         var blueStats = new AosSim.UnitStatistics();
         g_battle.getStatistics(AosSim.Blue, blueStats);
         updateStats(blueStats, "blue");
+    }
+
+    function render(canvas) {
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.lineWidth = 1.0;
+
+        if (g_red) {
+            const baseSize = g_red.basesizeInches();
+            const radiusInches = baseSize * 0.5;
+            console.log("Red base size(in): " + radiusInches);
+
+            ctx.fillStyle = "red";
+            for (var i = 0; i < g_red.numModels(); i++) {
+                const model = g_red.getModel(i);
+
+                ctx.beginPath();
+                ctx.arc(model.x() * 10.0, model.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+                if (model.slain()) {
+                    ctx.stroke();
+                } else {
+                    ctx.fill();
+                }
+            }
+
+            const posx = g_red.x();
+            const posy = g_red.y();
+            ctx.fillStyle = "darkred";
+            ctx.beginPath();
+            ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+            ctx.fill();
+        }
+        ctx.restore();
+
+        // Draw blue team units.
+        ctx.save();
+        ctx.lineWidth = 1.0;
+
+        if (g_blue) {
+            const baseSize = g_blue.basesizeInches();
+            const radiusInches = baseSize * 0.5;
+            console.log("Blue base size(in): " + radiusInches);
+
+            ctx.fillStyle = "blue";
+            for (var i = 0; i < g_blue.numModels(); i++) {
+                const model = g_blue.getModel(i);
+
+                ctx.beginPath();
+                ctx.arc(model.x() * 10.0, model.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+                if (model.slain()) {
+                    ctx.stroke();
+                } else {
+                    ctx.fill();
+                }
+            }
+
+            const posx = g_blue.x();
+            const posy = g_blue.y();
+            ctx.fillStyle = "darkblue";
+            ctx.beginPath();
+            ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+            ctx.fill();
+
+        }
+        ctx.restore();
+
+        if (g_red) {
+            const baseSize = g_red.basesizeInches();
+            const radiusInches = baseSize * 0.5;
+
+            // label with the number of remaining models
+            ctx.save();
+            ctx.fillStyle = "white";
+            ctx.font = '12px sans';
+            const text = g_red.remainingModels().toString();
+            ctx.fillText(text, (g_red.x() - 2.0 * radiusInches) * 10, (g_red.y() - radiusInches) * 10);
+            ctx.restore();
+        }
+
+        if (g_blue) {
+            const baseSize = g_blue.basesizeInches();
+            const radiusInches = baseSize * 0.5;
+
+            // label with the number of remaining models
+            ctx.save();
+            ctx.fillStyle = "white";
+            ctx.font = '12px sans';
+            const text = g_blue.remainingModels().toString();
+            ctx.fillText(text, (g_blue.x() + radiusInches) * 10, (g_blue.y() - radiusInches) * 10);
+            ctx.restore();
+        }
+
     }
 
     console.log("App is starting....");
