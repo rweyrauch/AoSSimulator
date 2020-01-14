@@ -254,13 +254,8 @@ AosSim().then(AosSim => {
                 let select = document.createElement("select");
                 select.id = controlId;
                 for (let i = pmin; i <= pmax; i += pincr) {
-                    let param = new AosSim.Parameter();
-                    param.paramType = ptype;
-                    param.name = pname;
-                    param.intValue = i;
-
                     let option = document.createElement("option");
-                    option.text = sim.UnitParameterValueToString(unitName, param);
+                    option.text = sim.UnitParameterValueToString(unitName, pname, i);
                     select.appendChild(option);
                 }
                 select.classList.add("form-control");

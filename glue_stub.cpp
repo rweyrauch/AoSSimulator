@@ -1,3 +1,11 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2020 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+#include <iostream>
 #include "include/AgeOfSigmarSim.h"
 #include "include/AgeOfSigmarSimJS.h"
 #include "include/ManoAMano.h"
@@ -77,14 +85,18 @@ void JSInterface::GetUnitInfoByName(const char* name, JSUnitInfo& info)
     }
 }
 
-const char* JSInterface::UnitParameterValueToString(const char* name, const Parameter& parameter)
+const char* JSInterface::UnitParameterValueToString(const char* unitName, const char* paramName, int value)
 {
-    auto factory = UnitFactory::LookupUnit(std::string(name));
+    auto factory = UnitFactory::LookupUnit(std::string(unitName));
     if (factory)
     {
         // TODO: review this - who owns the returned char*?
-        auto value = factory->m_paramToString(parameter);
-        return strdup(value.c_str());
+        Parameter parameter;
+        parameter.name = paramName;
+        parameter.intValue = value;
+        auto strValue = factory->m_paramToString(parameter);
+        std::cout << "Unit: " << unitName << "  Param Name: " << paramName << "  Value: " << value << "  AsString: " << strValue << std::endl;
+        return strdup(strValue.c_str());
     }
     return nullptr;
 }

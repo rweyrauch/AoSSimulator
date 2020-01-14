@@ -39,7 +39,7 @@ public:
     static int GetNumberOfAvailableUnits();
     static void GetUnitInfo(int which, JSUnitInfo& info);
     static void GetUnitInfoByName(const char* name, JSUnitInfo& info);
-    static const char* UnitParameterValueToString(const char* name, const Parameter& parameter);
+    static const char* UnitParameterValueToString(const char* unitName, const char* paramName, int value);
     static int UnitEnumStringToInt(const char* name, const char* enumString);
 };
 

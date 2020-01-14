@@ -118,6 +118,6 @@ interface JSInterface {
     static long GetNumberOfAvailableUnits();
     static void GetUnitInfo(long which, [Ref] JSUnitInfo info);
     static void GetUnitInfoByName([Const] DOMString name, [Ref] JSUnitInfo info);
-    [Const] static DOMString UnitParameterValueToString([Const] DOMString name, [Ref] Parameter parameter);
+    [Const] static DOMString UnitParameterValueToString([Const] DOMString unitName, [Const] DOMString paramName, long paramValue);
     static long UnitEnumStringToInt([Const] DOMString name, [Const] DOMString enumString);
 };
