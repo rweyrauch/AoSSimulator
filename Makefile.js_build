@@ -326,6 +326,7 @@ OBJECTS += \
         src/tzeentch/TzaangorEnlightened.o \
         src/tzeentch/TzaangorEnlightenedOnDisks.o \
         src/tzeentch/Tzaangors.o \
+        src/tzeentch/TzaangorShaman.o \
         src/tzeentch/FlamersOfTzeentch.o \
         src/tzeentch/ExaltedFlamersOfTzeentch.o \
         src/tzeentch/TzaangorSkyfires.o \
@@ -338,6 +339,10 @@ OBJECTS += \
         src/tzeentch/GauntSummoner.o \
         src/tzeentch/TheChangeling.o \
         src/tzeentch/OgroidThaumaturge.o \
+        src/tzeentch/Fateskimmer.o \
+        src/tzeentch/Curseling.o \
+        src/tzeentch/Vortemis.o \
+        src/tzeentch/Fatemaster.o \
         src/ironjawz/Ironjawz.o \
         src/ironjawz/OrrukArdboys.o \
         src/ironjawz/OrrukBrutes.o \

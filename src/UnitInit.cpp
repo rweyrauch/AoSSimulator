@@ -71,6 +71,7 @@
 #include "tzeentch/FlamersOfTzeentch.h"
 #include "tzeentch/ExaltedFlamersOfTzeentch.h"
 #include "tzeentch/TzaangorSkyfires.h"
+#include "tzeentch/TzaangorShaman.h"
 #include "tzeentch/ScreamersOfTzeentch.h"
 #include "tzeentch/LordOfChange.h"
 #include "tzeentch/KairosFateweaver.h"
@@ -79,6 +80,10 @@
 #include "tzeentch/GauntSummoner.h"
 #include "tzeentch/OgroidThaumaturge.h"
 #include "tzeentch/TheChangeling.h"
+#include "tzeentch/Curseling.h"
+#include "tzeentch/Fateskimmer.h"
+#include "tzeentch/Vortemis.h"
+#include "tzeentch/Fatemaster.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -226,6 +231,11 @@ void Initialize(Verbosity verbosity)
     Tzeentch::GauntSummonerOfTzeentch::Init();
     Tzeentch::TheChangeling::Init();
     Tzeentch::OgroidThaumaturge::Init();
+    Tzeentch::TzaangorShaman::Init();
+    Tzeentch::CurselingEyeOfTzeentch::Init();
+    Tzeentch::Fateskimmer::Init();
+    Tzeentch::VortemisTheAllSeeing::Init();
+    Tzeentch::Fatemaster::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

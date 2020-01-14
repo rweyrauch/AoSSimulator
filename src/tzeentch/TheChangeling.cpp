@@ -58,7 +58,7 @@ void TheChangeling::Init()
 
 TheChangeling::TheChangeling() :
     Unit("The Changeling", 6, WOUNDS, 7, 5, false),
-    m_staff(Weapon::Type::Missile, "The Trickster's Staff", 2, 3, 3, 3, -1, RAND_D3)
+    m_staff(Weapon::Type::Melee, "The Trickster's Staff", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_CHANGELING};
     m_weapons = {&m_staff};

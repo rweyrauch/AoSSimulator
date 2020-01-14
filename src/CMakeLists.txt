@@ -339,6 +339,11 @@ add_library(
         tzeentch/GauntSummoner.cpp
         tzeentch/TheChangeling.cpp
         tzeentch/OgroidThaumaturge.cpp
+        tzeentch/TzaangorShaman.cpp
+        tzeentch/Fateskimmer.cpp
+        tzeentch/Curseling.cpp
+        tzeentch/Vortemis.cpp
+        tzeentch/Fatemaster.cpp
 
         ironjawz/Ironjawz.cpp
         ironjawz/OrrukArdboys.cpp
