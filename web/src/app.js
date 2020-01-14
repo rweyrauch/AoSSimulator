@@ -188,103 +188,106 @@ AosSim().then(AosSim => {
         var factory = new AosSim.JSUnitInfo();
         sim.GetUnitInfoByName(unitName, factory);
 
-            console.log("Found factory for unit " + unitName);
+        console.log("Found factory for unit " + unitName);
 
-            // Remove previous contents (if any)
-            while (container.firstChild) {
-                container.removeChild(container.firstChild);
+        // Remove previous contents (if any)
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+
+        console.log("\tNumber of parameters: " + factory.numberOfParameters);
+
+        var params = new AosSim.Parameter();
+
+        for (let idx = 0; idx < factory.numberOfParameters; idx++) {
+
+            factory.getParameter(idx, params);
+
+            const pname = params.name;
+            const ptype = params.paramType;
+            const pvalue = params.intValue;
+            const pmin = params.minValue;
+            const pmax = params.maxValue;
+            const pincr = params.increment;
+
+            console.log("\t Parameter[" + idx + "].name = " + pname + "  .type = " + ptype);
+
+            const controlId = pname.trim().replace(' ', '-').toLowerCase();
+
+            if (ptype === AosSim.Integer) {
+
+                let group = document.createElement("fieldset");
+                group.classList.add("form-group");
+
+                // Create Label and Input:number HTML elements
+                let label = document.createElement("label");
+                label.textContent = pname;
+                label.htmlFor = controlId;
+                group.appendChild(label);
+
+                let input = document.createElement("input");
+                input.type = "number";
+                input.name = pname;
+                input.id = controlId;
+                input.value = pvalue.toString();
+                input.max = pmax.toString();
+                input.min = pmin.toString();
+                input.step = pincr.toString();
+                input.classList.add("form-control");
+
+                //input.maxLength = 10;
+                group.appendChild(input);
+
+                container.appendChild(group);
             }
+            else if (ptype === AosSim.Enum) {
 
-            let defaultParams = factory.parameters;
-            if (defaultParams) {
-                console.log("\tNumber of parameters: " + factory.numberOfParameters);
+                let group = document.createElement("fieldset");
+                group.classList.add("form-group");
 
-                for (let idx = 0; idx < factory.numberOfParameters; idx++) {
+                // Create Label and Select HTML elements
+                let label = document.createElement("label");
+                label.textContent = pname;
+                label.htmlFor = controlId;
+                group.appendChild(label);
 
-                    const pname = factory.parameters[idx].name;
-                    const ptype = factory.parameters[idx].type;
-                    const pvalue = factory.parameters[idx].intValue;
-                    const pmin = factory.parameters[idx].minValue;
-                    const pmax = factory.parameters[idx].maxValue;
-                    const pincr = factory.parameters[idx].increment;
+                let select = document.createElement("select");
+                select.id = controlId;
+                for (let i = pmin; i <= pmax; i += pincr) {
+                    let param = new AosSim.Parameter();
+                    param.paramType = ptype;
+                    param.name = pname;
+                    param.intValue = i;
 
-                    const controlId = pname.trim().replace(' ', '-').toLowerCase();
-
-                    if (ptype === AosSim.Integer) {
-
-                        let group = document.createElement("fieldset");
-                        group.classList.add("form-group");
-
-                        // Create Label and Input:number HTML elements
-                        let label = document.createElement("label");
-                        label.textContent = pname;
-                        label.htmlFor = controlId;
-                        group.appendChild(label);
-
-                        let input = document.createElement("input");
-                        input.type = "number";
-                        input.name = pname;
-                        input.id = controlId;
-                        input.value = pvalue.toString();
-                        input.max = pmax.toString();
-                        input.min = pmin.toString();
-                        input.step = pincr.toString();
-                        input.classList.add("form-control");
-
-                        //input.maxLength = 10;
-                        group.appendChild(input);
-
-                        container.appendChild(group);
-                    }
-                    else if (ptype === AosSim.Enum) {
-
-                        let group = document.createElement("fieldset");
-                        group.classList.add("form-group");
-
-                        // Create Label and Select HTML elements
-                        let label = document.createElement("label");
-                        label.textContent = pname;
-                        label.htmlFor = controlId;
-                        group.appendChild(label);
-
-                        let select = document.createElement("select");
-                        select.id = controlId;
-                        for (let i = pmin; i <= pmax; i += pincr) {
-                            let param = new Parameter();
-                            param.paramType = ptype;
-                            param.name = pname;
-                            param.intValue = i;
-
-                            let option = document.createElement("option");
-                            option.text = sim.UnitParameterValueToString(unitName, param);
-                            select.appendChild(option);
-                        }
-                        select.classList.add("form-control");
-                        group.appendChild(select);
-
-                        container.appendChild(group);
-                    }
-                    else if (ptype === AosSim.Boolean) {
-                        let group = document.createElement("fieldset");
-                        group.classList.add("form-check");
-
-                        let input = document.createElement("input");
-                        input.type = "checkbox";
-                        input.name = pname;
-                        input.id = controlId;
-                        input.checked = (pvalue !== 0);
-                        input.classList.add("form-check-input");
-                        group.appendChild(input);
-
-                        let label = document.createElement("label");
-                        label.textContent = pname;
-                        label.htmlFor = controlId;
-                        label.classList.add("form-check-label");
-                        group.appendChild(label);
-
-                        container.appendChild(group);
-                    }
+                    let option = document.createElement("option");
+                    option.text = sim.UnitParameterValueToString(unitName, param);
+                    select.appendChild(option);
                 }
+                select.classList.add("form-control");
+                group.appendChild(select);
+
+                container.appendChild(group);
+            }
+            else if (ptype === AosSim.Boolean) {
+                let group = document.createElement("fieldset");
+                group.classList.add("form-check");
+
+                let input = document.createElement("input");
+                input.type = "checkbox";
+                input.name = pname;
+                input.id = controlId;
+                input.checked = (pvalue !== 0);
+                input.classList.add("form-check-input");
+                group.appendChild(input);
+
+                let label = document.createElement("label");
+                label.textContent = pname;
+                label.htmlFor = controlId;
+                label.classList.add("form-check-label");
+                group.appendChild(label);
+
+                container.appendChild(group);
+            }
         }
     }
 
@@ -298,7 +301,7 @@ AosSim().then(AosSim => {
 
         // extract parameters from UI
         for (let ip of unitUI.children) {
-            let param = new Parameter();
+            let param = new AosSim.Parameter();
             if (ip instanceof HTMLInputElement) {
                 const input = ip;
                 param.name = input.name;
