@@ -389,6 +389,40 @@ AosSim().then(AosSim => {
         refreshPoints();
     }
 
+    function createChart(redVictories, blueVictories, ties) {
+        var ctx = document.getElementById("results-chart").getContext('2d');
+        if (ctx) {
+
+            var data = {
+              datasets: [{
+                  data: [redVictories, blueVictories, ties],
+                  backgroundColor: [
+                      '#dc3545', '#007bff', '#ffc107'
+                  ]
+              }],
+              labels: [
+                  'Red', 'Blue', 'Ties'
+              ],
+             };
+
+            var options = {
+                title: {
+                    display: true,
+                    position: 'bottom',
+                    text: 'Victories',
+                    fontSize: 18,
+                    fontColor: '#000'
+                }
+            };
+
+            var chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+        }
+    }
+
     let g_verboseLevel = AosSim.Normal;
     let g_numRounds = 5;
     let g_saveMaps = false;
@@ -405,7 +439,7 @@ AosSim().then(AosSim => {
 
         g_battle.combatants(g_red, g_blue);
 
-        console.log("Red Points: " + g_red.points + "  Blue Points: " + g_blue.points);
+        console.log("Red Points: " + g_red.points() + "  Blue Points: " + g_blue.points());
 
         let redVictories = 0;
         let blueVictories = 0;
@@ -444,27 +478,7 @@ AosSim().then(AosSim => {
             }
         }
 
-        const redPercent = redVictories * 100.0 / g_numIterations;
-        const bluePercent = blueVictories * 100.0 / g_numIterations;
-        const tiesPercent = ties * 100.0 / g_numIterations;
-
-        console.log("Victor Breakdown (%):\n");
-        console.log("\tRed: " + redPercent);
-        console.log("\tBlue: " + bluePercent);
-        console.log("\tTies: " + tiesPercent);
-
-        let redPercentDisp = document.getElementById("red-victory-percent");
-        if (redPercentDisp) {
-            redPercentDisp.innerHTML = Math.round(redPercent).toString();
-        }
-        let bluePercentDisp = document.getElementById("blue-victory-percent");
-        if (bluePercentDisp) {
-            bluePercentDisp.innerHTML = Math.round(bluePercent).toString();
-        }
-        let tiesPercentDisp = document.getElementById("tie-percent");
-        if (tiesPercentDisp) {
-            tiesPercentDisp.innerHTML = Math.round(tiesPercent).toString();
-        }
+        createChart(redVictories, blueVictories, ties);
 
         fillInStatistics();
     }
