@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Stabbas::Create,
     Stabbas::ValueToString,
     Stabbas::EnumStringToInt,
+    Stabbas::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Stabbas::MIN_UNIT_SIZE,
@@ -112,11 +113,7 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -257,6 +254,16 @@ int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
         }
     }
     return modifier;
+}
+
+int Stabbas::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace GloomspiteGitz

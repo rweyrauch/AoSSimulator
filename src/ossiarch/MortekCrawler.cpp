@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     MortekCrawler::Create,
     MortekCrawler::ValueToString,
     MortekCrawler::EnumStringToInt,
+    MortekCrawler::ComputePoints,
     {
     },
     DEATH,

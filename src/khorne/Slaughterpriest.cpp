@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Slaughterpriest::Create,
     Slaughterpriest::ValueToString,
     Slaughterpriest::EnumStringToInt,
+    Slaughterpriest::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", Slaughterpriest::BloodbathedAxe, Slaughterpriest::BloodbathedAxe,

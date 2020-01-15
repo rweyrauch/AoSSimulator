@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     Skragrott::Create,
     Skragrott::ValueToString,
     Skragrott::EnumStringToInt,
+    Skragrott::ComputePoints,
     {
         {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
     },

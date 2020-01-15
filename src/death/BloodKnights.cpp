@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     BloodKnights::Create,
     nullptr,
     nullptr,
+    BloodKnights::ComputePoints,
     {
         {
             ParamType::Integer, "Models", BloodKnights::MIN_UNIT_SIZE, BloodKnights::MIN_UNIT_SIZE, BloodKnights::MAX_UNIT_SIZE,
@@ -63,11 +64,7 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -118,6 +115,16 @@ int BloodKnights::toSaveModifier(const Weapon *weapon) const
     }
 
     return modifier;
+}
+
+int BloodKnights::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Death

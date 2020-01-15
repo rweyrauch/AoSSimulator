@@ -36,6 +36,7 @@ static FactoryMethod factoryMethod = {
     KairosFateweaver::Create,
     KairosFateweaver::ValueToString,
     KairosFateweaver::EnumStringToInt,
+    KairosFateweaver::ComputePoints,
     {
     },
     CHAOS,

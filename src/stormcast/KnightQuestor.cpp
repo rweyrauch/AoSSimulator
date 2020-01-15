@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     KnightQuestor::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    KnightQuestor::ComputePoints,
     {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },

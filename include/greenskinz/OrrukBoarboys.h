@@ -36,6 +36,7 @@ public:
     static void Init();
     static std::string ValueToString(const Parameter& parameter);
     static int EnumStringToInt(const std::string& enumString);
+    static int ComputePoints(int numModels);
 
     OrrukBoarboys();
     ~OrrukBoarboys() override = default;

@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     InfernalEnrapturess::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    InfernalEnrapturess::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

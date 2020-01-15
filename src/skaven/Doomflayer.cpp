@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Doomflayer::Create,
     nullptr,
     nullptr,
+    Doomflayer::ComputePoints,
     {
     },
     CHAOS,

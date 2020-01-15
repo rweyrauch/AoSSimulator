@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     BattlemageOnGriffon::Create,
     BattlemageOnGriffon::ValueToString,
     BattlemageOnGriffon::EnumStringToInt,
+    BattlemageOnGriffon::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

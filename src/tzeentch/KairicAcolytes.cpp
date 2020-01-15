@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     KairicAcolytes::Create,
     KairicAcolytes::ValueToString,
     KairicAcolytes::EnumStringToInt,
+    KairicAcolytes::ComputePoints,
     {
         {
             ParamType::Integer, "Models", KairicAcolytes::MIN_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE,
@@ -96,11 +97,7 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -196,6 +193,16 @@ Rerolls KairicAcolytes::toHitRerolls(const Weapon *weapon, const Unit *target) c
         return RerollFailed;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int KairicAcolytes::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

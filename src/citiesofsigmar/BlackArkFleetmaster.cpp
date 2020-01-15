@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     BlackArkFleetmaster::Create,
     BlackArkFleetmaster::ValueToString,
     BlackArkFleetmaster::EnumStringToInt,
+    BlackArkFleetmaster::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

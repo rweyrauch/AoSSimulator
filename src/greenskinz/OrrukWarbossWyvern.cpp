@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     OrrukWarbossOnWyvern::Create,
     nullptr,
     nullptr,
+    OrrukWarbossOnWyvern::ComputePoints,
     {
         {ParamType::Boolean, "Two Boss Choppas", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },

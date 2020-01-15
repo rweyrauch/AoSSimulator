@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     TzaangorEnlightened::Create,
     nullptr,
     nullptr,
+    TzaangorEnlightened::ComputePoints,
     {
         {ParamType::Integer, "Models", TzaangorEnlightened::MIN_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE,
          TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
@@ -59,11 +60,7 @@ bool TzaangorEnlightened::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -116,6 +113,16 @@ Rerolls TzaangorEnlightened::toWoundRerolls(const Weapon *weapon, const Unit *ta
     if (enemyHasFought) return RerollFailed;
 
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int TzaangorEnlightened::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

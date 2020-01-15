@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     AuricRuneson::Create,
     Fyreslayer::ValueToString,
     Fyreslayer::EnumStringToInt,
+    AuricRuneson::ComputePoints,
     {
         {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },

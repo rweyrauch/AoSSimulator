@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     AkhelianLeviadon::Create,
     nullptr,
     nullptr,
+    AkhelianLeviadon::ComputePoints,
     {
     },
     ORDER,

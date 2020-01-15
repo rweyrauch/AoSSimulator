@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Fateskimmer::Create,
     Fateskimmer::ValueToString,
     Fateskimmer::EnumStringToInt,
+    Fateskimmer::ComputePoints,
     {
     },
     CHAOS,

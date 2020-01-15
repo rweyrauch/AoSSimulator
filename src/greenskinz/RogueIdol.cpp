@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     RogueIdol::Create,
     nullptr,
     nullptr,
+    RogueIdol::ComputePoints,
     {
     },
     DESTRUCTION,

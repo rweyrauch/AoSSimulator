@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     TreelordAncient::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    TreelordAncient::ComputePoints,
     {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },

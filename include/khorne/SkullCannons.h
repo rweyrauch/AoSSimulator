@@ -26,6 +26,7 @@ public:
     static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * MAX_UNIT_SIZE;
 
     static Unit* Create(const ParameterList& parameters);
+    static int ComputePoints(int numModels);
     static void Init();
 
     SkullCannons();

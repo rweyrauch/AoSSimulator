@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     DarkRiders::Create,
     DarkRiders::ValueToString,
     DarkRiders::EnumStringToInt,
+    DarkRiders::ComputePoints,
     {
         {
             ParamType::Integer, "Models", DarkRiders::MIN_UNIT_SIZE, DarkRiders::MIN_UNIT_SIZE,
@@ -108,11 +109,7 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -139,6 +136,16 @@ Wounds DarkRiders::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         return {2, 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int DarkRiders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace CitiesOfSigmar

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     AethericNavigator::Create,
     KharadronBase::ValueToString,
     KharadronBase::EnumStringToInt,
+    AethericNavigator::ComputePoints,
     {
         {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
     },

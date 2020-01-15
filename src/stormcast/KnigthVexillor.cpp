@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     KnightVexillor::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    KnightVexillor::ComputePoints,
     {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },

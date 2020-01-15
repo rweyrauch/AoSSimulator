@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     VulkiteBerzerkers::Create,
     VulkiteBerzerkers::ValueToString,
     VulkiteBerzerkers::EnumStringToInt,
+    VulkiteBerzerkers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", VulkiteBerzerkers::MIN_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE,
@@ -82,11 +83,7 @@ bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool horn
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -144,6 +141,16 @@ Rerolls VulkiteBerzerkers::toHitRerolls(const Weapon *weapon, const Unit *target
         return RerollFailed;
     }
     return Fyreslayer::toHitRerolls(weapon, target);
+}
+
+int VulkiteBerzerkers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Fyreslayers

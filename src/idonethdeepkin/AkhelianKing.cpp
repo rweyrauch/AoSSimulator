@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     AkhelianKing::Create,
     AkhelianKing::ValueToString,
     AkhelianKing::EnumStringToInt,
+    AkhelianKing::ComputePoints,
     {
         {ParamType::Enum, "Weapon", AkhelianKing::BladedPolearm, AkhelianKing::BladedPolearm, AkhelianKing::Greatsword, 1},
     },

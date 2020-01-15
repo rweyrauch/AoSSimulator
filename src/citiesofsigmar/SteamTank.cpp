@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SteamTank::Create,
     SteamTank::ValueToString,
     SteamTank::EnumStringToInt,
+    SteamTank::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

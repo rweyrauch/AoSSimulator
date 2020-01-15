@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Orruks::Create,
     Orruks::ValueToString,
     Orruks::EnumStringToInt,
+    Orruks::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Orruks::MIN_UNIT_SIZE,
@@ -108,11 +109,7 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -284,6 +281,16 @@ int Orruks::toHitModifier(const Weapon *weapon, const Unit *target) const
         }
     }
     return modifier;
+}
+
+int Orruks::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Greenskinz

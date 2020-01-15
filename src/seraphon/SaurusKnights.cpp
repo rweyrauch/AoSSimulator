@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SaurusKnights::Create,
     SaurusKnights::ValueToString,
     SaurusKnights::EnumStringToInt,
+    SaurusKnights::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SaurusKnights::MIN_UNIT_SIZE, SaurusKnights::MIN_UNIT_SIZE,
@@ -88,11 +89,7 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -160,6 +157,16 @@ int SaurusKnights::toSaveModifier(const Weapon *weapon) const
     }
 
     return modifier;
+}
+
+int SaurusKnights::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Seraphon

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     OrrukBoarboys::Create,
     OrrukBoarboys::ValueToString,
     OrrukBoarboys::EnumStringToInt,
+    OrrukBoarboys::ComputePoints,
     {
         {
             ParamType::Integer, "Models", OrrukBoarboys::MIN_UNIT_SIZE,
@@ -86,11 +87,7 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -189,6 +186,16 @@ Rerolls OrrukBoarboys::toSaveRerolls(const Weapon *weapon) const
         return RerollFailed;
     }
     return Unit::toSaveRerolls(weapon);
+}
+
+int OrrukBoarboys::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Greenskinz

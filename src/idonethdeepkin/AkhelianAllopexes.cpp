@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     AkhelianAllopexes::Create,
     AkhelianAllopexes::ValueToString,
     AkhelianAllopexes::EnumStringToInt,
+    AkhelianAllopexes::ComputePoints,
     {
         {
             ParamType::Integer, "Models", AkhelianAllopexes::MIN_UNIT_SIZE, AkhelianAllopexes::MIN_UNIT_SIZE,
@@ -66,11 +67,7 @@ bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -125,6 +122,16 @@ int AkhelianAllopexes::EnumStringToInt(const std::string &enumString)
         return NetLauncher;
     }
     return 0;
+}
+
+int AkhelianAllopexes::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace IdonethDeepkin

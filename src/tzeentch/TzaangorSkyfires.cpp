@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     TzaangorSkyfires::Create,
     nullptr,
     nullptr,
+    TzaangorSkyfires::ComputePoints,
     {
         {ParamType::Integer, "Models", TzaangorSkyfires::MIN_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE,
          TzaangorSkyfires::MAX_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE},
@@ -65,11 +66,7 @@ bool TzaangorSkyfires::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -133,6 +130,16 @@ Wounds TzaangorSkyfires::weaponDamage(const Weapon *weapon, const Unit *target, 
         return { 0, dice.rollD3() };
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int TzaangorSkyfires::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

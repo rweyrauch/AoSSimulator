@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SpiderRiders::Create,
     nullptr,
     nullptr,
+    SpiderRiders::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SpiderRiders::MIN_UNIT_SIZE,
@@ -70,11 +71,7 @@ bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -127,6 +124,16 @@ Wounds SpiderRiders::weaponDamage(const Weapon *weapon, const Unit *target, int 
         return {weapon->damage(), 1};
     }
     return GloomspiteGitzBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int SpiderRiders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace GloomspiteGitz

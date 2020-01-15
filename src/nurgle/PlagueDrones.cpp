@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     PlagueDrones::Create,
     PlagueDrones::ValueToString,
     PlagueDrones::EnumStringToInt,
+    PlagueDrones::ComputePoints,
     {
         {
             ParamType::Integer, "Models", PlagueDrones::MIN_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE,
@@ -86,11 +87,7 @@ bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBeare
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -188,6 +185,16 @@ int PlagueDrones::EnumStringToInt(const std::string &enumString)
     if (enumString == "Prehensile Proboscis") { return PrehensileProboscis; }
     else if (enumString == "Foul Mouthparts") { return FoulMouthparts; }
     return 0;
+}
+
+int PlagueDrones::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nurgle

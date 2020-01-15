@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     HelblasterVolleyGun::Create,
     HelblasterVolleyGun::ValueToString,
     HelblasterVolleyGun::EnumStringToInt,
+    HelblasterVolleyGun::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

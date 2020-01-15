@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Tempestors::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Tempestors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Tempestors::MIN_UNIT_SIZE, Tempestors::MIN_UNIT_SIZE,
@@ -57,11 +58,7 @@ bool Tempestors::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -128,5 +125,15 @@ int Tempestors::targetHitModifier(const Weapon *weapon, const Unit *attacker) co
             modifier -= 1;
     }
     return modifier;
+}
+
+int Tempestors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 } //namespace StormcastEternals

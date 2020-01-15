@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Bullgors::Create,
     Bullgors::ValueToString,
     Bullgors::EnumStringToInt,
+    Bullgors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Bullgors::MIN_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE,
@@ -85,11 +86,7 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -178,6 +175,16 @@ Wounds Bullgors::weaponDamage(const Weapon *weapon, const Unit *target, int hitR
         return {weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Bullgors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

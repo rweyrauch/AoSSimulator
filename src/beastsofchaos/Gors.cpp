@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Gors::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Gors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Gors::MIN_UNIT_SIZE, Gors::MIN_UNIT_SIZE,
@@ -63,11 +64,7 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -126,6 +123,16 @@ int Gors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const 
         attacks += 1;
     }
     return attacks;
+}
+
+int Gors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

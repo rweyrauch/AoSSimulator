@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Skarbrand::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    Skarbrand::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

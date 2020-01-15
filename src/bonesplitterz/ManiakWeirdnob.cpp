@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ManiakWeirdnob::Create,
     Bonesplitterz::ValueToString,
     Bonesplitterz::EnumStringToInt,
+    ManiakWeirdnob::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Dreadspears::Create,
     Dreadspears::ValueToString,
     Dreadspears::EnumStringToInt,
+    Dreadspears::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Dreadspears::MIN_UNIT_SIZE, Dreadspears::MIN_UNIT_SIZE,
@@ -96,16 +97,12 @@ bool Dreadspears::configure(int numModels, bool standardBearer, bool hornblower)
 
     for (auto i = 1; i < numModels; i++)
     {
-            auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_spear);
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -147,6 +144,16 @@ int Dreadspears::weaponRend(const Weapon *weapon, const Unit *target, int hitRol
         return -1;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int Dreadspears::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

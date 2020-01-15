@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     PutridBlightkings::Create,
     nullptr,
     nullptr,
+    PutridBlightkings::ComputePoints,
     {
         {
             ParamType::Integer, "Models", PutridBlightkings::MIN_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE,
@@ -59,11 +60,7 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -123,6 +120,16 @@ int PutridBlightkings::chargeModifier() const
         modifier += 1;
     }
     return modifier;
+}
+
+int PutridBlightkings::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nurgle

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     BlackGuard::Create,
     BlackGuard::ValueToString,
     BlackGuard::EnumStringToInt,
+    BlackGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", BlackGuard::MIN_UNIT_SIZE, BlackGuard::MIN_UNIT_SIZE,
@@ -102,11 +103,7 @@ bool BlackGuard::configure(int numModels, bool standardBearer, bool drummer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -139,6 +136,16 @@ int BlackGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
     auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 18.0f);
     if (unit && unit->hasKeyword(DARKLING_COVENS)) mod++;
     return mod;
+}
+
+int BlackGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace CitiesOfSigmar

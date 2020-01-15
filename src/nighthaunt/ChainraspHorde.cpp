@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ChainraspHorde::Create,
     nullptr,
     nullptr,
+    ChainraspHorde::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ChainraspHorde::MIN_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE,
@@ -55,11 +56,7 @@ bool ChainraspHorde::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -95,6 +92,16 @@ Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) c
     }
 
     return Nighthaunt::toHitRerolls(weapon, unit);
+}
+
+int ChainraspHorde::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nighthaunt

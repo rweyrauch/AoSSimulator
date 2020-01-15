@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Ironbreakers::Create,
     Ironbreakers::ValueToString,
     Ironbreakers::EnumStringToInt,
+    Ironbreakers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Ironbreakers::MIN_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE,
@@ -85,11 +86,7 @@ bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -224,6 +221,16 @@ int Ironbreakers::braveryModifier() const
     auto mod = Unit::braveryModifier();
     if (m_standardBearer) mod++;
     return mod;
+}
+
+int Ironbreakers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

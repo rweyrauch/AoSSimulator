@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     KnightHeraldor::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    KnightHeraldor::ComputePoints,
     {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },

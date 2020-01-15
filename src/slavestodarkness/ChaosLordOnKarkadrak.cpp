@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     ChaosLordOnKarkadrak::Create,
     nullptr,
     nullptr,
+    ChaosLordOnKarkadrak::ComputePoints,
     {
     },
     CHAOS,

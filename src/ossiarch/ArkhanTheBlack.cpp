@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     ArkhanTheBlack::Create,
     ArkhanTheBlack::ValueToString,
     ArkhanTheBlack::EnumStringToInt,
+    ArkhanTheBlack::ComputePoints,
     {
     },
     DEATH,

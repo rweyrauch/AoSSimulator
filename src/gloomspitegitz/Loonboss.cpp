@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Loonboss::Create,
     nullptr,
     nullptr,
+    Loonboss::ComputePoints,
     {
     },
     DESTRUCTION,

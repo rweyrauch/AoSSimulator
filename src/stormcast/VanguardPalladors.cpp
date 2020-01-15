@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     VanguardPalladors::Create,
     VanguardPalladors::ValueToString,
     VanguardPalladors::EnumStringToInt,
+    VanguardPalladors::ComputePoints,
     {
         {ParamType::Integer, "Models", VanguardPalladors::MIN_UNIT_SIZE, VanguardPalladors::MIN_UNIT_SIZE,
          VanguardPalladors::MAX_UNIT_SIZE, VanguardPalladors::MIN_UNIT_SIZE},
@@ -85,11 +86,7 @@ bool VanguardPalladors::configure(int numModels, WeaponOption weapons)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -177,6 +174,16 @@ Wounds VanguardPalladors::weaponDamage(const Weapon *weapon, const Unit *target,
         return {0, 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int VanguardPalladors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

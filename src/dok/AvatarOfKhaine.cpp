@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     AvatarOfKhaine::Create,
     nullptr,
     nullptr,
+    AvatarOfKhaine::ComputePoints,
     {
     },
     ORDER,

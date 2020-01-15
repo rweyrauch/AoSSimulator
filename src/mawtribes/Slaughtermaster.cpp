@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Slaughtermaster::Create,
     nullptr,
     nullptr,
+    Slaughtermaster::ComputePoints,
     {
     },
     DESTRUCTION,

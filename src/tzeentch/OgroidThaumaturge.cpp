@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     OgroidThaumaturge::Create,
     OgroidThaumaturge::ValueToString,
     OgroidThaumaturge::EnumStringToInt,
+    OgroidThaumaturge::ComputePoints,
     {
     },
     CHAOS,

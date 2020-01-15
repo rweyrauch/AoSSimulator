@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     IsharannTidecaster::Create,
     nullptr,
     nullptr,
+    IsharannTidecaster::ComputePoints,
     {
     },
     ORDER,

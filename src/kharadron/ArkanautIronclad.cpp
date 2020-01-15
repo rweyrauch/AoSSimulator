@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     ArkanautIronclad::Create,
     ArkanautIronclad::ValueToString,
     ArkanautIronclad::EnumStringToInt,
+    ArkanautIronclad::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", ArkanautIronclad::GreatSkyCannon, ArkanautIronclad::GreatSkyCannon,

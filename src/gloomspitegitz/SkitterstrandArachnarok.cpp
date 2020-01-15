@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     SkitterstrandArachnarok::Create,
     nullptr,
     nullptr,
+    SkitterstrandArachnarok::ComputePoints,
     {
     },
     DESTRUCTION,

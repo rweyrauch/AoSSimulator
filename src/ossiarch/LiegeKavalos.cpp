@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     LiegeKavalos::Create,
     LiegeKavalos::ValueToString,
     LiegeKavalos::EnumStringToInt,
+    LiegeKavalos::ComputePoints,
     {
     },
     DEATH,

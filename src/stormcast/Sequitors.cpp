@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Sequitors::Create,
     Sequitors::ValueToString,
     Sequitors::EnumStringToInt,
+    Sequitors::ComputePoints,
     {
         {ParamType::Integer, "Models", Sequitors::MIN_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
         {
@@ -119,11 +120,7 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -261,6 +258,16 @@ void Sequitors::onStartShooting(PlayerId player)
             }
         }
     }
+}
+
+int Sequitors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

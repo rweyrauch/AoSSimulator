@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     LordCelestantOnDracoth::Create,
     LordCelestantOnDracoth::ValueToString,
     LordCelestantOnDracoth::EnumStringToInt,
+    LordCelestantOnDracoth::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::StormstrikeGlaive, 1

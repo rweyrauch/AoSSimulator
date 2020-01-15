@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     CryptInfernalCourtier::Create,
     FleshEaterCourts::ValueToString,
     FleshEaterCourts::EnumStringToInt,
+    CryptInfernalCourtier::ComputePoints,
     {
         {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
         {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Assassin::Create,
     Assassin::ValueToString,
     Assassin::EnumStringToInt,
+    Assassin::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

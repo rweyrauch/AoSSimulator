@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Jabberslythe::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Jabberslythe::ComputePoints,
     {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },

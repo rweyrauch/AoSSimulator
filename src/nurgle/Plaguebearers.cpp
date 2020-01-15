@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Plaguebearers::Create,
     nullptr,
     nullptr,
+    Plaguebearers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Plaguebearers::MIN_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE,
@@ -60,11 +61,7 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -124,6 +121,16 @@ int Plaguebearers::targetHitModifier(const Weapon *weapon, const Unit *attacker)
         modifier -= 1;
     }
     return modifier;
+}
+
+int Plaguebearers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nurgle

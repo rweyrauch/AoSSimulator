@@ -36,6 +36,7 @@ static FactoryMethod factoryMethod = {
     LordOfChange::Create,
     LordOfChange::ValueToString,
     LordOfChange::EnumStringToInt,
+    LordOfChange::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", LordOfChange::BalefulSword, LordOfChange::BalefulSword,

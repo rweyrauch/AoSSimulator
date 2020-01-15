@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     NomadPrince::Create,
     NomadPrince::ValueToString,
     NomadPrince::EnumStringToInt,
+    NomadPrince::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

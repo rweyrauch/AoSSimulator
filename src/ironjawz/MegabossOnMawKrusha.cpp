@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     MegabossOnMawKrusha::Create,
     MegabossOnMawKrusha::ValueToString,
     MegabossOnMawKrusha::EnumStringToInt,
+    MegabossOnMawKrusha::ComputePoints,
     {
         {
             ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa, MegabossOnMawKrusha::HackaAndChoppa,

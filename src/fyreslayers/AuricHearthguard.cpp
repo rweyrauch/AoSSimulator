@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     AuricHearthguard::Create,
     Fyreslayer::ValueToString,
     Fyreslayer::EnumStringToInt,
+    AuricHearthguard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", AuricHearthguard::MIN_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE,
@@ -61,11 +62,7 @@ bool AuricHearthguard::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -103,6 +100,16 @@ Wounds AuricHearthguard::weaponDamage(const Weapon *weapon, const Unit *target, 
         return {weapon->damage()+1, 0};
     }
     return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int AuricHearthguard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Fyreslayers

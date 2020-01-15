@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     HelstormRocketBattery::Create,
     HelstormRocketBattery::ValueToString,
     HelstormRocketBattery::EnumStringToInt,
+    HelstormRocketBattery::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

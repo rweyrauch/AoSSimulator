@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Swordmasters::Create,
     nullptr,
     nullptr,
+    Swordmasters::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Swordmasters::MIN_UNIT_SIZE, Swordmasters::MIN_UNIT_SIZE,
@@ -59,11 +60,7 @@ bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -106,6 +103,16 @@ Rerolls Swordmasters::toSaveRerolls(const Weapon *weapon) const
         return RerollFailed;
     }
     return Unit::toSaveRerolls(weapon);
+}
+
+int Swordmasters::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace EldritchCouncil

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     VanguardRaptorsHurricane::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    VanguardRaptorsHurricane::ComputePoints,
     {
         {
             ParamType::Integer, "Models", VanguardRaptorsHurricane::MIN_UNIT_SIZE, VanguardRaptorsHurricane::MIN_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool VanguardRaptorsHurricane::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -104,6 +101,16 @@ int VanguardRaptorsHurricane::extraAttacks(const Model *attackingModel, const We
         return 3;
     }
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
+}
+
+int VanguardRaptorsHurricane::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

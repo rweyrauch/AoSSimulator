@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     SavageOrrukArrowboys::Create,
     Bonesplitterz::ValueToString,
     Bonesplitterz::EnumStringToInt,
+    SavageOrrukArrowboys::ComputePoints,
     {
         {ParamType::Integer, "Models", SavageOrrukArrowboys::MIN_UNIT_SIZE, SavageOrrukArrowboys::MIN_UNIT_SIZE, SavageOrrukArrowboys::MAX_UNIT_SIZE, SavageOrrukArrowboys::MIN_UNIT_SIZE},
         {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
@@ -89,11 +90,7 @@ bool SavageOrrukArrowboys::configure(int numModels, bool skullThumper, bool tote
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -116,6 +113,16 @@ int SavageOrrukArrowboys::weaponRend(const Weapon *weapon, const Unit *target, i
         return -1;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int SavageOrrukArrowboys::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Bonesplitterz

@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     Skullreapers::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    Skullreapers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Skullreapers::MIN_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE,
@@ -63,11 +64,7 @@ bool Skullreapers::configure(int numModels, bool iconBearer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -117,6 +114,16 @@ Wounds Skullreapers::weaponDamage(const Weapon *weapon, const Unit *target, int 
         return wounds;
     }
     return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Skullreapers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Khorne

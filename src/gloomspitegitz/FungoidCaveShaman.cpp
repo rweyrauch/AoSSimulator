@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     FungoidCaveShaman::Create,
     FungoidCaveShaman::ValueToString,
     FungoidCaveShaman::EnumStringToInt,
+    FungoidCaveShaman::ComputePoints,
     {
         {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
     },

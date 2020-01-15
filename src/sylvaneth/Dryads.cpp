@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     Dryads::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    Dryads::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Dryads::MIN_UNIT_SIZE, Dryads::MIN_UNIT_SIZE,
@@ -59,11 +60,7 @@ bool Dryads::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -115,6 +112,16 @@ int Dryads::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
     }
 
     return modifier;
+}
+
+int Dryads::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Sylvaneth

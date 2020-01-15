@@ -27,6 +27,7 @@ public:
     static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
 
     MadcapShaman();
     ~MadcapShaman() override = default;

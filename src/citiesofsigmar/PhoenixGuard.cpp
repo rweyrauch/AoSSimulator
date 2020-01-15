@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     PhoenixGuard::Create,
     PhoenixGuard::ValueToString,
     PhoenixGuard::EnumStringToInt,
+    PhoenixGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", PhoenixGuard::MIN_UNIT_SIZE, PhoenixGuard::MIN_UNIT_SIZE,
@@ -101,11 +102,7 @@ bool PhoenixGuard::configure(int numModels, bool standardBearer, bool drummer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -147,6 +144,16 @@ Wounds PhoenixGuard::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
     return totalWounds;
+}
+
+int PhoenixGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

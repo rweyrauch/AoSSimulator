@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     LoonbossOnGiantCaveSquig::Create,
     LoonbossOnGiantCaveSquig::ValueToString,
     LoonbossOnGiantCaveSquig::EnumStringToInt,
+    LoonbossOnGiantCaveSquig::ComputePoints,
     {
     },
     DESTRUCTION,

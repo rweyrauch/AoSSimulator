@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Longbeards::Create,
     Longbeards::ValueToString,
     Longbeards::EnumStringToInt,
+    Longbeards::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
@@ -81,11 +82,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool standardBe
     }
 
     m_weaponOption = weapons;
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -175,6 +172,16 @@ int Longbeards::braveryModifier() const
     auto mod = Unit::braveryModifier();
     if (m_standardBearer) mod++;
     return mod;
+}
+
+int Longbeards::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

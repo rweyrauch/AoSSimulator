@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ManglerSquigs::Create,
     nullptr,
     nullptr,
+    ManglerSquigs::ComputePoints,
     {
     },
     DESTRUCTION,

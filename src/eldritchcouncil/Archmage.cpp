@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Archmage::Create,
     nullptr,
     nullptr,
+    Archmage::ComputePoints,
     {
         {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },

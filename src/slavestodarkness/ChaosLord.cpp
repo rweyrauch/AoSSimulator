@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosLord::Create,
     ChaosLord::ValueToString,
     ChaosLord::EnumStringToInt,
+    ChaosLord::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", ChaosLord::Reaperblade, ChaosLord::Reaperblade,

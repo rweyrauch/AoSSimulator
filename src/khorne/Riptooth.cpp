@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Riptooth::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    Riptooth::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     KnightIncantor::Create,
     KnightIncantor::ValueToString,
     KnightIncantor::EnumStringToInt,
+    KnightIncantor::ComputePoints,
     {
         {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
         {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},

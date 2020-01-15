@@ -23,6 +23,7 @@ public:
     static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 
     LoonbossWithGiantCaveSquig();

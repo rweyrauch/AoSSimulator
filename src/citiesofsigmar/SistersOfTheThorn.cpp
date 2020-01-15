@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SistersOfTheThorn::Create,
     SistersOfTheThorn::ValueToString,
     SistersOfTheThorn::EnumStringToInt,
+    SistersOfTheThorn::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SistersOfTheThorn::MIN_UNIT_SIZE, SistersOfTheThorn::MIN_UNIT_SIZE,
@@ -107,11 +108,7 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -135,6 +132,16 @@ int SistersOfTheThorn::braveryModifier() const
     auto mod = Unit::braveryModifier();
     if (m_standardBearer) mod++;
     return mod;
+}
+
+int SistersOfTheThorn::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

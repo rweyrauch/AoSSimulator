@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     VortemisTheAllSeeing::Create,
     VortemisTheAllSeeing::ValueToString,
     VortemisTheAllSeeing::EnumStringToInt,
+    VortemisTheAllSeeing::ComputePoints,
     {
     },
     CHAOS,

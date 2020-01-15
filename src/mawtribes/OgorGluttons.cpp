@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     OgorGluttons::Create,
     OgorGluttons::ValueToString,
     OgorGluttons::EnumStringToInt,
+    OgorGluttons::ComputePoints,
     {
         {
             ParamType::Integer, "Models", OgorGluttons::MIN_UNIT_SIZE, OgorGluttons::MIN_UNIT_SIZE,
@@ -113,11 +114,7 @@ bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBeare
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -160,6 +157,16 @@ Wounds OgorGluttons::computeReturnedDamage(const Weapon *weapon, int saveRoll) c
         return {0, 1};
     }
     return Unit::computeReturnedDamage(weapon, saveRoll);
+}
+
+int OgorGluttons::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace OgorMawtribes

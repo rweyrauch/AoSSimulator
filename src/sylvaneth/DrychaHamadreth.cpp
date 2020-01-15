@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     DrychaHamadreth::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    DrychaHamadreth::ComputePoints,
     {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },

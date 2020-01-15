@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Battlemage::Create,
     Battlemage::ValueToString,
     Battlemage::EnumStringToInt,
+    Battlemage::ComputePoints,
     {
         {ParamType::Enum, "Realm", Azyr, Aqshy, Ulgu},
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},

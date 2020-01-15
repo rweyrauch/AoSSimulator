@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosLordOnDaemonicMount::Create,
     nullptr,
     nullptr,
+    ChaosLordOnDaemonicMount::ComputePoints,
     {
     },
     CHAOS,

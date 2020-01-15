@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     DrakeswornTemplar::Create,
     DrakeswornTemplar::ValueToString,
     DrakeswornTemplar::EnumStringToInt,
+    DrakeswornTemplar::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", DrakeswornTemplar::TempestAxe, DrakeswornTemplar::TempestAxe, DrakeswornTemplar::Stormlance, 1

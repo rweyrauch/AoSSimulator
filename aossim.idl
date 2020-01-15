@@ -136,4 +136,5 @@ interface JSInterface {
     static void GetUnitInfoByName([Const] DOMString name, [Ref] JSUnitInfo info);
     [Const] static DOMString UnitParameterValueToString([Const] DOMString unitName, [Const] DOMString paramName, long paramValue);
     static long UnitEnumStringToInt([Const] DOMString name, [Const] DOMString enumString);
+    static long GetUnitPoints([Const] DOMString name, long numModels);
 };

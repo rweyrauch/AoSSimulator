@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Protectors::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Protectors::ComputePoints,
     {
         {ParamType::Integer, "Models", Protectors::MIN_UNIT_SIZE, Protectors::MIN_UNIT_SIZE, Protectors::MAX_UNIT_SIZE, Protectors::MIN_UNIT_SIZE},
         {ParamType::Integer, "Starsoul Maces", 2, 0, (Protectors::MAX_UNIT_SIZE / 5) * 2, 1},
@@ -72,11 +73,7 @@ bool Protectors::configure(int numModels, int numStarsoulMaces)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -144,6 +141,16 @@ int Protectors::targetHitModifier(const Weapon *weapon, const Unit *attacker) co
         modifier -= 1;
     }
     return modifier;
+}
+
+int Protectors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

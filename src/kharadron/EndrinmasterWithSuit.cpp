@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     EndrinmasterWithDirigibleSuit::Create,
     KharadronBase::ValueToString,
     KharadronBase::EnumStringToInt,
+    EndrinmasterWithDirigibleSuit::ComputePoints,
     {
         {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
     },

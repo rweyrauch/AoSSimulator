@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     DarkoathWarqueen::Create,
     nullptr,
     nullptr,
+    DarkoathWarqueen::ComputePoints,
     {
     },
     CHAOS,

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Volturnos::Create,
     nullptr,
     nullptr,
+    Volturnos::ComputePoints,
     {
     },
     ORDER,

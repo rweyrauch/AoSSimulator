@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Wardokk::Create,
     Bonesplitterz::ValueToString,
     Bonesplitterz::EnumStringToInt,
+    Wardokk::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },

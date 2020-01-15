@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     LoonbossOnManglerSquigs::Create,
     nullptr,
     nullptr,
+    LoonbossOnManglerSquigs::ComputePoints,
     {
     },
     DESTRUCTION,

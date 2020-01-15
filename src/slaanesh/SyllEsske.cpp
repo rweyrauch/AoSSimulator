@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     SyllEsske::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    SyllEsske::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

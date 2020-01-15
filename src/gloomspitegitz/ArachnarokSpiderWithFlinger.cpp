@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ArachnarokSpiderWithFlinger::Create,
     nullptr,
     nullptr,
+    ArachnarokSpiderWithFlinger::ComputePoints,
     {
     },
     DESTRUCTION,

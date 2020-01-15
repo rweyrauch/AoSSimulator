@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     FreeguildHandgunners::Create,
     FreeguildHandgunners::ValueToString,
     FreeguildHandgunners::EnumStringToInt,
+    FreeguildHandgunners::ComputePoints,
     {
         {
             ParamType::Integer, "Models", FreeguildHandgunners::MIN_UNIT_SIZE, FreeguildHandgunners::MIN_UNIT_SIZE,
@@ -150,11 +151,7 @@ bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool pi
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -189,6 +186,16 @@ int FreeguildHandgunners::toHitModifier(const Weapon *weapon, const Unit *target
     if ((remainingModels() >= 10) && !m_moved && units.empty()) mod++;
 
     return mod;
+}
+
+int FreeguildHandgunners::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

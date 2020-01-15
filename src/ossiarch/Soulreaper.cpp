@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     MortisanSoulreaper::Create,
     MortisanSoulreaper::ValueToString,
     MortisanSoulreaper::EnumStringToInt,
+    MortisanSoulreaper::ComputePoints,
     {},
     DEATH,
     { OSSIARCH_BONEREAPERS }

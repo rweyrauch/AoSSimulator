@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     LordVeritant::Create,
     LordVeritant::ValueToString,
     LordVeritant::EnumStringToInt,
+    LordVeritant::ComputePoints,
     {
         {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},

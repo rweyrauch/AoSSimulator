@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     GladeGuard::Create,
     nullptr,
     nullptr,
+    GladeGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", GladeGuard::MIN_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE,
@@ -64,11 +65,7 @@ bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -151,6 +148,16 @@ void GladeGuard::onStartShooting(PlayerId player)
             m_longbowLord.setRend(-3);
         }
     }
+}
+
+int GladeGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Wanderers

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     DragonOgorShaggoth::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    DragonOgorShaggoth::ComputePoints,
     {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },

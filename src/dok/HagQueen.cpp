@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     HagQueen::Create,
     nullptr,
     nullptr,
+    HagQueen::ComputePoints,
     {
     },
     ORDER,

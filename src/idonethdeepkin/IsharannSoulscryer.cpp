@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     IsharannSoulscryer::Create,
     nullptr,
     nullptr,
+    IsharannSoulscryer::ComputePoints,
     {
     },
     ORDER,

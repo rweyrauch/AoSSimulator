@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     HeraldOfKhorneOnBloodThrone::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    HeraldOfKhorneOnBloodThrone::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

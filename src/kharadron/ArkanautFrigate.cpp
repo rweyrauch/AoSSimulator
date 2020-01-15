@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ArkanautFrigate::Create,
     ArkanautFrigate::ValueToString,
     ArkanautFrigate::EnumStringToInt,
+    ArkanautFrigate::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", ArkanautFrigate::HeavySkyCannon, ArkanautFrigate::HeavySkyCannon,

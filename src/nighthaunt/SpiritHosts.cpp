@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SpiritHosts::Create,
     nullptr,
     nullptr,
+    SpiritHosts::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SpiritHosts::MIN_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE,
@@ -49,11 +50,7 @@ bool SpiritHosts::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -88,6 +85,16 @@ Wounds SpiritHosts::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return {0, 1};
     }
     return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int SpiritHosts::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Nighthaunt

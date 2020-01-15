@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     TheContortedEpitome::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    TheContortedEpitome::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

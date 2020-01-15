@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     UngorRaiders::Create,
     UngorRaiders::ValueToString,
     UngorRaiders::EnumStringToInt,
+    UngorRaiders::ComputePoints,
     {
         {
             ParamType::Integer, "Models", UngorRaiders::MIN_UNIT_SIZE, UngorRaiders::MIN_UNIT_SIZE,
@@ -65,11 +66,7 @@ bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -126,6 +123,16 @@ Rerolls UngorRaiders::toHitRerolls(const Weapon *weapon, const Unit *target) con
         }
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int UngorRaiders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

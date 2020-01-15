@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     IronskullsBoyz::Create,
     Ironjawz::ValueToString,
     Ironjawz::EnumStringToInt,
+    IronskullsBoyz::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },

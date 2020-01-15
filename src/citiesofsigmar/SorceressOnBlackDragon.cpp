@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SorceressOnBlackDragon::Create,
     SorceressOnBlackDragon::ValueToString,
     SorceressOnBlackDragon::EnumStringToInt,
+    SorceressOnBlackDragon::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

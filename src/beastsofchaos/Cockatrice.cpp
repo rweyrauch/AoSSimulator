@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Cockatrice::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Cockatrice::ComputePoints,
     {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },

@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     DankholdTroggboss::Create,
     nullptr,
     nullptr,
+    DankholdTroggboss::ComputePoints,
     {
     },
     DESTRUCTION,

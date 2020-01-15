@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     GraveGuard::Create,
     GraveGuard::ValueToString,
     GraveGuard::EnumStringToInt,
+    GraveGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", GraveGuard::MIN_UNIT_SIZE, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
@@ -81,11 +82,7 @@ bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, boo
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -155,6 +152,16 @@ Wounds GraveGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         return {weapon->damage() + weapon->damage(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int GraveGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Death

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     KnightZephyros::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    KnightZephyros::ComputePoints,
     {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },

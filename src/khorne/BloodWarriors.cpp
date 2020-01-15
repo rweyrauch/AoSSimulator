@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     BloodWarriors::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    BloodWarriors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE,
@@ -80,11 +81,7 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -150,6 +147,16 @@ Wounds BloodWarriors::computeReturnedDamage(const Weapon *weapon, int saveRoll) 
         wounds += {0, 1};
     }
     return wounds;
+}
+
+int BloodWarriors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Khorne

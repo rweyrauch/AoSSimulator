@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     Furies::Create,
     nullptr,
     nullptr,
+    Furies::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Furies::MIN_UNIT_SIZE, Furies::MIN_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool Furies::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -77,6 +74,16 @@ Furies::Furies() :
 {
     m_keywords = { CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES };
     m_weapons = {&m_daggerAndClaws};
+}
+
+int Furies::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

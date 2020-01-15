@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ArchKavalosZandtos::Create,
     ArchKavalosZandtos::ValueToString,
     ArchKavalosZandtos::EnumStringToInt,
+    ArchKavalosZandtos::ComputePoints,
     {
     },
     DEATH,

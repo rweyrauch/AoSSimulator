@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     VanguardHunters::Create,
     VanguardHunters::ValueToString,
     VanguardHunters::EnumStringToInt,
+    VanguardHunters::ComputePoints,
     {
         {ParamType::Integer, "Models", VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
         {
@@ -86,11 +87,7 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -149,6 +146,16 @@ int VanguardHunters::EnumStringToInt(const std::string &enumString)
         return ShockHandaxe;
     }
     return StormcastEternal::EnumStringToInt(enumString);
+}
+
+int VanguardHunters::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

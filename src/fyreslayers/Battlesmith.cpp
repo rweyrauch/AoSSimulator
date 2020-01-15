@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Battlesmith::Create,
     Fyreslayer::ValueToString,
     Fyreslayer::EnumStringToInt,
+    Battlesmith::ComputePoints,
     {
         {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },

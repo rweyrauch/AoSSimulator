@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ScreamersOfTzeentch::Create,
     nullptr,
     nullptr,
+    ScreamersOfTzeentch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ScreamersOfTzeentch::MIN_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE,
@@ -50,11 +51,7 @@ bool ScreamersOfTzeentch::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -89,6 +86,16 @@ Wounds ScreamersOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *targe
         return { dice.rollD3(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int ScreamersOfTzeentch::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

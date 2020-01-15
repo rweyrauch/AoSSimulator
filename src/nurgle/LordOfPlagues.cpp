@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     LordOfPlagues::Create,
     nullptr,
     nullptr,
+    LordOfPlagues::ComputePoints,
     {
     },
     CHAOS,

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Doomseeker::Create,
     Fyreslayer::ValueToString,
     Fyreslayer::EnumStringToInt,
+    Doomseeker::ComputePoints,
     {
         {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },

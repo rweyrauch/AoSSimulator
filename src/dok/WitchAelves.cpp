@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     WitchAelves::Create,
     nullptr,
     nullptr,
+    WitchAelves::ComputePoints,
     {
         {
             ParamType::Integer, "Models", WitchAelves::MIN_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE,
@@ -68,11 +69,7 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
         addModel(witch);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -143,6 +140,16 @@ Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon, int saveRoll) co
         wounds += {0, 1};
     }
     return wounds;
+}
+
+int WitchAelves::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace DaughtersOfKhaine

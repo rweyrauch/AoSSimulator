@@ -32,6 +32,7 @@ public:
     static Unit* Create(const ParameterList& parameters);
     static void Init();
     static std::string ValueToString(const Parameter& parameter);
+    static int ComputePoints(int numModels);
     static int EnumStringToInt(const std::string& enumString);
 
     SavageOrruks();

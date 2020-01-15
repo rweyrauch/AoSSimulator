@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     GarreksReavers::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    GarreksReavers::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

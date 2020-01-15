@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Fulminators::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Fulminators::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Fulminators::MIN_UNIT_SIZE, Fulminators::MIN_UNIT_SIZE,
@@ -54,11 +55,7 @@ bool Fulminators::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -128,5 +125,15 @@ int Fulminators::toSaveModifier(const Weapon *weapon) const
         modifier += 1;
     }
     return modifier;
+}
+
+int Fulminators::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 } //namespace StormcastEternals

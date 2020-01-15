@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Aetherwings::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Aetherwings::ComputePoints,
     {
         {ParamType::Integer, "Models", Aetherwings::MIN_UNIT_SIZE, Aetherwings::MIN_UNIT_SIZE, Aetherwings::MAX_UNIT_SIZE, Aetherwings::MIN_UNIT_SIZE},
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
@@ -53,11 +54,7 @@ bool Aetherwings::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -85,6 +82,16 @@ void Aetherwings::Init()
     {
         s_registered = UnitFactory::Register("Aetherwings", factoryMethod);
     }
+}
+
+int Aetherwings::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

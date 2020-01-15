@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WardenKing::Create,
     Dispossessed::ValueToString,
     Dispossessed::EnumStringToInt,
+    WardenKing::ComputePoints,
     {
         {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },

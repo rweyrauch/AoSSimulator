@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosSorcerer::Create,
     nullptr,
     nullptr,
+    ChaosSorcerer::ComputePoints,
     {
     },
     CHAOS,

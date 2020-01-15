@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     SkeletonWarriors::Create,
     SkeletonWarriors::ValueToString,
     SkeletonWarriors::EnumStringToInt,
+    SkeletonWarriors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
@@ -83,11 +84,7 @@ bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool stan
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -178,6 +175,16 @@ int SkeletonWarriors::toHitModifier(const Weapon *weapon, const Unit *target) co
     }
 
     return modifier;
+}
+
+int SkeletonWarriors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Death

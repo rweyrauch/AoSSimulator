@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Necromancer::Create,
     nullptr,
     nullptr,
+    Necromancer::ComputePoints,
     {
     },
     DEATH,

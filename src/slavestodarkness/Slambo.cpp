@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     Slambo::Create,
     nullptr,
     nullptr,
+    Slambo::ComputePoints,
     {
     },
     CHAOS,

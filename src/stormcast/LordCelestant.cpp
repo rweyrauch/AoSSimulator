@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     LordCelestant::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    LordCelestant::ComputePoints,
     {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },

@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     IronGolems::Create,
     nullptr,
     nullptr,
+    IronGolems::ComputePoints,
     {
         {
             ParamType::Integer, "Models", IronGolems::MIN_UNIT_SIZE, IronGolems::MIN_UNIT_SIZE,
@@ -91,11 +92,7 @@ bool IronGolems::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -124,6 +121,16 @@ void IronGolems::onWounded()
         }
     }
 
+}
+
+int IronGolems::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

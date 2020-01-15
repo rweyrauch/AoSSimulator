@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosChosen::Create,
     nullptr,
     nullptr,
+    ChaosChosen::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ChaosChosen::MIN_UNIT_SIZE, ChaosChosen::MIN_UNIT_SIZE,
@@ -99,11 +100,7 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -166,6 +163,16 @@ Wounds ChaosChosen::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return { weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int ChaosChosen::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

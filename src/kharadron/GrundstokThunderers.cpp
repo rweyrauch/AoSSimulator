@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     GrundstokThunderers::Create,
     GrundstokThunderers::ValueToString,
     GrundstokThunderers::EnumStringToInt,
+    GrundstokThunderers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", GrundstokThunderers::MIN_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE,
@@ -149,13 +150,19 @@ bool GrundstokThunderers::configure(int numModels, int numMortars, int numCannon
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int GrundstokThunderers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //KharadronOverlords

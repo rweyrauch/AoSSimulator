@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     LordAquilor::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    LordAquilor::ComputePoints,
     {
         {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},

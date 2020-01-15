@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     Evocators::Create,
     Evocators::ValueToString,
     Evocators::EnumStringToInt,
+    Evocators::ComputePoints,
     {
         {ParamType::Integer, "Models", Evocators::MIN_UNIT_SIZE, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
         {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
@@ -93,11 +94,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     if (invigoration != LoreOfInvigoration::None)
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -178,6 +175,16 @@ int Evocators::EnumStringToInt(const std::string &enumString)
         return (int) invigoration;
     }
     return StormcastEternal::EnumStringToInt(enumString);
+}
+
+int Evocators::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

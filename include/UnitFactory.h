@@ -18,6 +18,7 @@ class Unit;
 typedef Unit* (*CreateMethod)(const std::vector<Parameter>& parameters);
 typedef std::string (*ParamValueToString)(const Parameter& parameter);
 typedef int (*EnumStringToInt)(const std::string& enumString);
+typedef int (*ComputePoints)(int numModels);
 
 struct FactoryMethod
 {
@@ -25,6 +26,7 @@ public:
     CreateMethod m_create;
     ParamValueToString m_paramToString;
     EnumStringToInt m_enumStringToInt;
+    ComputePoints m_computePoints;
     std::vector<Parameter> m_parameters;
     Keyword m_grandAlliance;
     std::vector<Keyword> m_factions;

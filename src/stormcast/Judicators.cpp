@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Judicators::Create,
     Judicators::ValueToString,
     Judicators::EnumStringToInt,
+    Judicators::ComputePoints,
     {
         {ParamType::Integer, "Models", Judicators::MIN_UNIT_SIZE, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
         {
@@ -109,11 +110,7 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -230,6 +227,16 @@ void Judicators::onStartShooting(PlayerId player)
         }
     }
 
+}
+
+int Judicators::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

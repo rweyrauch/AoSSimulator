@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Seekers::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    Seekers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Seekers::MIN_UNIT_SIZE, Seekers::MIN_UNIT_SIZE,
@@ -71,11 +72,7 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -145,6 +142,16 @@ int Seekers::runModifier() const
     // Quicksilver Speed
     Dice dice;
     return dice.rollD6();
+}
+
+int Seekers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Slaanesh

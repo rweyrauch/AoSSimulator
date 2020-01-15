@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     VorgarothAndSkalok::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    VorgarothAndSkalok::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

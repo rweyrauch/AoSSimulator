@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     GrimwrathBerzerker::Create,
     Fyreslayer::ValueToString,
     Fyreslayer::EnumStringToInt,
+    GrimwrathBerzerker::ComputePoints,
     {
         {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
     },

@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     AetherKhemist::Create,
     KharadronBase::ValueToString,
     KharadronBase::EnumStringToInt,
+    AetherKhemist::ComputePoints,
     {
         {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
     },

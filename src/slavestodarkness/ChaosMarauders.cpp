@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosMarauders::Create,
     ChaosMarauders::ValueToString,
     ChaosMarauders::EnumStringToInt,
+    ChaosMarauders::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ChaosMarauders::MIN_UNIT_SIZE, ChaosMarauders::MIN_UNIT_SIZE,
@@ -128,11 +129,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
         m_save = 5;
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -230,6 +227,16 @@ int ChaosMarauders::weaponRend(const Weapon* weapon, const Unit* target, int hit
     auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     if (remainingModels() >= 20) rend--;
     return rend;
+}
+
+int ChaosMarauders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

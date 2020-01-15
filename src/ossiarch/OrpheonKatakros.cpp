@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     OrpheonKatakros::Create,
     OrpheonKatakros::ValueToString,
     OrpheonKatakros::EnumStringToInt,
+    OrpheonKatakros::ComputePoints,
     {},
     DEATH,
     { OSSIARCH_BONEREAPERS }

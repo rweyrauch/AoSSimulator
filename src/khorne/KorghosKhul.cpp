@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     KorghosKhul::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    KorghosKhul::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

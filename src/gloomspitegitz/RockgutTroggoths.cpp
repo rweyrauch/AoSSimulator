@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     RockgutTroggoths::Create,
     nullptr,
     nullptr,
+    RockgutTroggoths::ComputePoints,
     {
         {
             ParamType::Integer, "Models", RockgutTroggoths::MIN_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE,
@@ -52,11 +53,7 @@ bool RockgutTroggoths::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -161,6 +158,16 @@ void RockgutTroggoths::onStartShooting(PlayerId player)
     }
 
     GloomspiteGitzBase::onStartShooting(player);
+}
+
+int RockgutTroggoths::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace GloomspiteGitz

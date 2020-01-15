@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     FlamersOfTzeentch::Create,
     nullptr,
     nullptr,
+    FlamersOfTzeentch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", FlamersOfTzeentch::MIN_UNIT_SIZE, FlamersOfTzeentch::MIN_UNIT_SIZE,
@@ -58,11 +59,7 @@ bool FlamersOfTzeentch::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -125,6 +122,16 @@ int FlamersOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) c
         }
     }
     return mod;
+}
+
+int FlamersOfTzeentch::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

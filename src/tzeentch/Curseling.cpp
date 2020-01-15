@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     CurselingEyeOfTzeentch::Create,
     CurselingEyeOfTzeentch::ValueToString,
     CurselingEyeOfTzeentch::EnumStringToInt,
+    CurselingEyeOfTzeentch::ComputePoints,
     {
     },
     CHAOS,

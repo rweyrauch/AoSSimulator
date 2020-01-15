@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     GutterRunners::Create,
     nullptr,
     nullptr,
+    GutterRunners::ComputePoints,
     {
         {
             ParamType::Integer, "Models", GutterRunners::MIN_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE,
@@ -55,11 +56,7 @@ bool GutterRunners::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -94,6 +91,17 @@ int GutterRunners::generateHits(int unmodifiedHitRoll, const Weapon *weapon, con
         return weapon->attacks()+1;
     }
     return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int GutterRunners::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
+
 }
 
 } // namespace Skaven

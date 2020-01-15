@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Unforged::Create,
     Dispossessed::ValueToString,
     Dispossessed::EnumStringToInt,
+    Unforged::ComputePoints,
     {
         {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },

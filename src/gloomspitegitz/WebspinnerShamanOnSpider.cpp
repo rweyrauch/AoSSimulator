@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     WebspinnerShamanOnArachnarokSpider::Create,
     WebspinnerShamanOnArachnarokSpider::ValueToString,
     WebspinnerShamanOnArachnarokSpider::EnumStringToInt,
+    WebspinnerShamanOnArachnarokSpider::ComputePoints,
     {
         {ParamType::Enum, "Lore of the Spiderfangs", (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
     },

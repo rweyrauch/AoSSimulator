@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     DreadscytheHarridans::Create,
     nullptr,
     nullptr,
+    DreadscytheHarridans::ComputePoints,
     {
         {
             ParamType::Integer, "Models", DreadscytheHarridans::MIN_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE,
@@ -55,11 +56,7 @@ bool DreadscytheHarridans::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -107,6 +104,16 @@ int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *at
     }
 
     return modifier;
+}
+
+int DreadscytheHarridans::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nighthaunt

@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     LordArcanumOnDracoline::Create,
     LordArcanumOnDracoline::ValueToString,
     LordArcanumOnDracoline::EnumStringToInt,
+    LordArcanumOnDracoline::ComputePoints,
     {
         {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
         {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     SaurusGuard::Create,
     nullptr,
     nullptr,
+    SaurusGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SaurusGuard::MIN_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE,
@@ -65,11 +66,7 @@ bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -137,6 +134,16 @@ int SaurusGuard::toSaveModifier(const Weapon *weapon) const
     }
 
     return modifier;
+}
+
+int SaurusGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Seraphon

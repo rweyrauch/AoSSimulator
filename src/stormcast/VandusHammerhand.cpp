@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     VandusHammerhand::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    VandusHammerhand::ComputePoints,
     {
     },
     ORDER,

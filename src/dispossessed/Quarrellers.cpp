@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Quarrellers::Create,
     Quarrellers::ValueToString,
     Quarrellers::EnumStringToInt,
+    Quarrellers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Quarrellers::MIN_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE,
@@ -66,11 +67,7 @@ bool Quarrellers::configure(int numModels, bool duardinBucklers, StandardOptions
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -181,6 +178,16 @@ void Quarrellers::computeBattleshockEffect(int roll, int &numFled, int &numAdded
     {
         numFled = (numFled + 1)/ 2;
     }
+}
+
+int Quarrellers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Dispossessed

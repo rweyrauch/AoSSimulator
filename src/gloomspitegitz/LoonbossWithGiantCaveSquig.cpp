@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     LoonbossWithGiantCaveSquig::Create,
     nullptr,
     nullptr,
+    LoonbossWithGiantCaveSquig::ComputePoints,
     {
     },
     DESTRUCTION,

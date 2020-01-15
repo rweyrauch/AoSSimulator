@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     Branchwych::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    Branchwych::ComputePoints,
     {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Ungors::Create,
     Ungors::ValueToString,
     Ungors::EnumStringToInt,
+    Ungors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Ungors::MIN_UNIT_SIZE, Ungors::MIN_UNIT_SIZE,
@@ -83,11 +84,7 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -161,6 +158,16 @@ int Ungors::toSaveModifier(const Weapon *weapon) const
         modifier += 1;
     }
     return modifier;
+}
+
+int Ungors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

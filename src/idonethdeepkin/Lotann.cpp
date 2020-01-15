@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     Lotann::Create,
     nullptr,
     nullptr,
+    Lotann::ComputePoints,
     {
     },
     ORDER,

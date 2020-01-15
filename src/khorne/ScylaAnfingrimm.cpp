@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ScylaAnfingrimm::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    ScylaAnfingrimm::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

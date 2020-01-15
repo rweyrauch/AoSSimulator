@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     NeaveBlacktalon::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    NeaveBlacktalon::ComputePoints,
     {
     },
     ORDER,

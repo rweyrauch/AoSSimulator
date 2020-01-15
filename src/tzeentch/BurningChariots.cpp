@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     BurningChariotsOfTzeentch::Create,
     nullptr,
     nullptr,
+    BurningChariotsOfTzeentch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", BurningChariotsOfTzeentch::MIN_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE,
@@ -56,11 +57,7 @@ bool BurningChariotsOfTzeentch::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -120,6 +117,16 @@ Wounds BurningChariotsOfTzeentch::weaponDamage(const Weapon *weapon, const Unit 
         return { dice.rollD3(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int BurningChariotsOfTzeentch::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 

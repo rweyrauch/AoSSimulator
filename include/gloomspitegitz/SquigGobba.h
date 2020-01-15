@@ -24,6 +24,7 @@ public:
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
 
     SquigGobba();
     ~SquigGobba() override = default;

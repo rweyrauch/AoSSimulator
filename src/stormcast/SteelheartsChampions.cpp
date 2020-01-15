@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SteelheartsChampions::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    SteelheartsChampions::ComputePoints,
     {
     },
     ORDER,

@@ -22,7 +22,7 @@ public:
     static const int POINTS_PER_UNIT = 150;
 
     static Unit *Create(const ParameterList &parameters);
-
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 
     OrrukMegaboss();

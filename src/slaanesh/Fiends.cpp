@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     Fiends::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    Fiends::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Fiends::MIN_UNIT_SIZE, Fiends::MIN_UNIT_SIZE,
@@ -61,11 +62,7 @@ bool Fiends::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -135,6 +132,16 @@ Wounds Fiends::weaponDamage(const Weapon *weapon, const Unit *target, int hitRol
     }
 
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Fiends::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Slaanesh

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WildRiders::Create,
     WildRiders::ValueToString,
     WildRiders::EnumStringToInt,
+    WildRiders::ComputePoints,
     {
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
@@ -100,11 +101,7 @@ bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -149,6 +146,16 @@ int WildRiders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll
         return -2;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int WildRiders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

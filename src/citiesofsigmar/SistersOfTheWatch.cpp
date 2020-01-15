@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     SistersOfTheWatch::Create,
     SistersOfTheWatch::ValueToString,
     SistersOfTheWatch::EnumStringToInt,
+    SistersOfTheWatch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SistersOfTheWatch::MIN_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE,
@@ -98,11 +99,7 @@ bool SistersOfTheWatch::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -129,6 +126,16 @@ Wounds SistersOfTheWatch::weaponDamage(const Weapon *weapon, const Unit *target,
         return { weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int SistersOfTheWatch::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

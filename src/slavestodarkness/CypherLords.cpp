@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     CypherLords::Create,
     nullptr,
     nullptr,
+    CypherLords::ComputePoints,
     {
         {
             ParamType::Integer, "Models", CypherLords::MIN_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE,
@@ -84,11 +85,7 @@ bool CypherLords::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -119,6 +116,16 @@ void CypherLords::onWounded()
             m_hasLuminate = false;
         }
     }
+}
+
+int CypherLords::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     OrrukBrutes::Create,
     OrrukBrutes::ValueToString,
     OrrukBrutes::EnumStringToInt,
+    OrrukBrutes::ComputePoints,
     {
         {ParamType::Integer, "Models", OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
         {
@@ -93,11 +94,7 @@ bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChop
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -189,6 +186,16 @@ Rerolls OrrukBrutes::toHitRerolls(const Weapon *weapon, const Unit *target) cons
         return RerollFailed;
     }
     return Ironjawz::toHitRerolls(weapon, target);
+}
+
+int OrrukBrutes::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Ironjawz

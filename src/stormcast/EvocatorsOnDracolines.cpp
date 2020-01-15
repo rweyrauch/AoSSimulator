@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     EvocatorsOnCelestialDracolines::Create,
     EvocatorsOnCelestialDracolines::ValueToString,
     EvocatorsOnCelestialDracolines::EnumStringToInt,
+    EvocatorsOnCelestialDracolines::ComputePoints,
     {
         {ParamType::Integer, "Models", EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
          EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE},
@@ -99,11 +100,7 @@ bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves
     if (invigoration != LoreOfInvigoration::None)
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -205,6 +202,16 @@ Wounds EvocatorsOnCelestialDracolines::onEndCombat(PlayerId player)
     }
 
     return wounds;
+}
+
+int EvocatorsOnCelestialDracolines::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

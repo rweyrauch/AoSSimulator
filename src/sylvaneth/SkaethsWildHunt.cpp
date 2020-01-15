@@ -7,6 +7,7 @@ static FactoryMethod factoryMethod = {
     SkaethsWildHunt::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    SkaethsWildHunt::ComputePoints,
     {
     },
     ORDER,

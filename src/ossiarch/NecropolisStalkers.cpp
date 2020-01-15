@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     NecropolisStalkers::Create,
     NecropolisStalkers::ValueToString,
     NecropolisStalkers::EnumStringToInt,
+    NecropolisStalkers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", NecropolisStalkers::MIN_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE,
@@ -98,11 +99,7 @@ bool NecropolisStalkers::configure(int numModels, int numFalchions)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -146,6 +143,16 @@ int NecropolisStalkers::weaponRend(const Weapon *weapon, const Unit *target, int
     auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     if (m_activeAspect == Precision) rend--;
     return rend;
+}
+
+int NecropolisStalkers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace OssiarchBonereapers

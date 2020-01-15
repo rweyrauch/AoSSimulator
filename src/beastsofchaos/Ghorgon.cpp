@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Ghorgon::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Ghorgon::ComputePoints,
     {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Desolators::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Desolators::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Desolators::MIN_UNIT_SIZE, Desolators::MIN_UNIT_SIZE,
@@ -54,11 +55,7 @@ bool Desolators::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -124,6 +121,16 @@ int Desolators::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
             attacks += 1;
     }
     return attacks;
+}
+
+int Desolators::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace StormcastEternals

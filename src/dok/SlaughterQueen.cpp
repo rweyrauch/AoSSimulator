@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     SlaughterQueen::Create,
     nullptr,
     nullptr,
+    SlaughterQueen::ComputePoints,
     {
     },
     ORDER,

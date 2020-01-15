@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Magister::Create,
     Magister::ValueToString,
     Magister::EnumStringToInt,
+    Magister::ComputePoints,
     {
     },
     CHAOS,

@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     Gorgers::Create,
     nullptr,
     nullptr,
+    Gorgers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Gorgers::MIN_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE,
@@ -74,13 +75,19 @@ bool Gorgers::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int Gorgers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace OgorMawtribes

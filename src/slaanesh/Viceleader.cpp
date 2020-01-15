@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ViceleaderHeraldOfSlaanesh::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    ViceleaderHeraldOfSlaanesh::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

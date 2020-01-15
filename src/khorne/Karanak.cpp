@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Karanak::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    Karanak::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

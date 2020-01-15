@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     SquiqHoppers::Create,
     nullptr,
     nullptr,
+    SquiqHoppers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SquiqHoppers::MIN_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool SquiqHoppers::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -91,6 +88,16 @@ void SquiqHoppers::Init()
     {
         s_registered = UnitFactory::Register("Squiq Hoppers", factoryMethod);
     }
+}
+
+int SquiqHoppers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace GloomspiteGitz

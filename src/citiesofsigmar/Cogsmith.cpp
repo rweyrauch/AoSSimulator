@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Cogsmith::Create,
     Cogsmith::ValueToString,
     Cogsmith::EnumStringToInt,
+    Cogsmith::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", Cogsmith::GrudgeRaker, Cogsmith::GrudgeRaker,

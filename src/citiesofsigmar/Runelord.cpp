@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Runelord::Create,
     CitizenOfSigmar::ValueToString,
     CitizenOfSigmar::EnumStringToInt,
+    Runelord::ComputePoints,
     {
     },
     ORDER,

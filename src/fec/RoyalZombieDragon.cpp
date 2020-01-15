@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     RoyalZombieDragon::Create,
     FleshEaterCourts::ValueToString,
     FleshEaterCourts::EnumStringToInt,
+    RoyalZombieDragon::ComputePoints,
     {
         {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
         {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},

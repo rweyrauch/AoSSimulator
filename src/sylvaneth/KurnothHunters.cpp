@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     KurnothHunters::Create,
     KurnothHunters::ValueToString,
     KurnothHunters::EnumStringToInt,
+    KurnothHunters::ComputePoints,
     {
         {
             ParamType::Integer, "Models", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE,
@@ -95,11 +96,7 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -194,6 +191,16 @@ Wounds KurnothHunters::onEndCombat(PlayerId player)
         wounds += trampleWounds;
     }
     return wounds;
+}
+
+int KurnothHunters::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Sylvaneth

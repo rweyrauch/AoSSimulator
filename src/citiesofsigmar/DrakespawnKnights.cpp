@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     DrakespawnKnights::Create,
     DrakespawnKnights::ValueToString,
     DrakespawnKnights::EnumStringToInt,
+    DrakespawnKnights::ComputePoints,
     {
         {
             ParamType::Integer, "Models", DrakespawnKnights::MIN_UNIT_SIZE, DrakespawnKnights::MIN_UNIT_SIZE,
@@ -104,11 +105,7 @@ bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornb
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -153,6 +150,16 @@ int DrakespawnKnights::weaponRend(const Weapon *weapon, const Unit *target, int 
         return -2;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int DrakespawnKnights::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

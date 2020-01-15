@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Bloodmaster::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    Bloodmaster::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Gyrocopters::Create,
     Gyrocopters::ValueToString,
     Gyrocopters::EnumStringToInt,
+    Gyrocopters::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Gyrocopters::MIN_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE,
@@ -122,13 +123,19 @@ bool Gyrocopters::configure(int numModels, WeaponOption weapons)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int Gyrocopters::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

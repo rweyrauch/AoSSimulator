@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     TheChangeling::Create,
     TheChangeling::ValueToString,
     TheChangeling::EnumStringToInt,
+    TheChangeling::ComputePoints,
     {
     },
     CHAOS,

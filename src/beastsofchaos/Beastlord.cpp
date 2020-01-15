@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Beastlord::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Beastlord::ComputePoints,
     {
         {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
     },

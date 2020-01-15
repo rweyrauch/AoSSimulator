@@ -27,7 +27,7 @@ public:
     static const int POINTS_MAX_UNIT_SIZE = 540;
 
     static Unit* Create(const ParameterList& parameters);
-
+    static int ComputePoints(int numModels);
     static void Init();
 
     HorrorsOfTzeentch();

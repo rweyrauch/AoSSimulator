@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     SavageBigBoss::Create,
     Bonesplitterz::ValueToString,
     Bonesplitterz::EnumStringToInt,
+    SavageBigBoss::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },

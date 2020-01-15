@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     CelestialHurricanum::Create,
     CelestialHurricanum::ValueToString,
     CelestialHurricanum::EnumStringToInt,
+    CelestialHurricanum::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
         {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},

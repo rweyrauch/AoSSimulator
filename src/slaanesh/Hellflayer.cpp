@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Hellflayer::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    Hellflayer::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

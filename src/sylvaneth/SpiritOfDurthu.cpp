@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     SpiritOfDurthu::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    SpiritOfDurthu::ComputePoints,
     {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },

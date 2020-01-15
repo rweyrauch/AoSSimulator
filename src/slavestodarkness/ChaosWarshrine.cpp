@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosWarshrine::Create,
     nullptr,
     nullptr,
+    ChaosWarshrine::ComputePoints,
     {
     },
     CHAOS,

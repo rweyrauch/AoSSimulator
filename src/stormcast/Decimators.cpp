@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Decimators::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Decimators::ComputePoints,
     {
         {ParamType::Integer, "Models", Decimators::MIN_UNIT_SIZE, Decimators::MIN_UNIT_SIZE, Decimators::MAX_UNIT_SIZE, Decimators::MIN_UNIT_SIZE},
         {ParamType::Integer, "Starsoul Maces", 2, 0, (Decimators::MAX_UNIT_SIZE / 5) * 2, 1},
@@ -73,11 +74,7 @@ bool Decimators::configure(int numModels, int numStarsoulMaces)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -150,6 +147,16 @@ Wounds Decimators::onEndCombat(PlayerId player)
         ip->buffModifier(Bravery, -2, {Phase::Battleshock, m_battleRound+1, player});
     }
     return wounds;
+}
+
+int Decimators::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ExaltedDeathbringer::Create,
     ExaltedDeathbringer::ValueToString,
     ExaltedDeathbringer::EnumStringToInt,
+    ExaltedDeathbringer::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", ExaltedDeathbringer::RuinousAxeAndSkullgouger, ExaltedDeathbringer::RuinousAxeAndSkullgouger,

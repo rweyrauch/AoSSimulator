@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     BloodwrackMedusa::Create,
     nullptr,
     nullptr,
+    BloodwrackMedusa::ComputePoints,
     {
     },
     ORDER,

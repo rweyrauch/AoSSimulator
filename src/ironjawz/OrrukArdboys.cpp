@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     OrrukArdboys::Create,
     OrrukArdboys::ValueToString,
     OrrukArdboys::EnumStringToInt,
+    OrrukArdboys::ComputePoints,
     {
         {ParamType::Integer, "Models", OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
         {ParamType::Integer, "Shields", 0, 0, OrrukArdboys::MAX_UNIT_SIZE / 5 * 2, 1},
@@ -70,11 +71,7 @@ bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, Standa
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -179,6 +176,16 @@ int OrrukArdboys::EnumStringToInt(const std::string &enumString)
         return GlyphBearer;
     }
     return Ironjawz::EnumStringToInt(enumString);
+}
+
+int OrrukArdboys::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Ironjawz

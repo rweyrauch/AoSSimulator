@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     SavageBoarboys::Create,
     SavageBoarboys::ValueToString,
     SavageBoarboys::EnumStringToInt,
+    SavageBoarboys::ComputePoints,
     {
         {ParamType::Integer, "Models", SavageBoarboys::MIN_UNIT_SIZE, SavageBoarboys::MIN_UNIT_SIZE, SavageBoarboys::MAX_UNIT_SIZE, SavageBoarboys::MIN_UNIT_SIZE},
         {ParamType::Enum, "Weapons", SavageBoarboys::Chompa, SavageBoarboys::Chompa, SavageBoarboys::SavageStikka, 1},
@@ -107,11 +108,7 @@ bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullTh
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -154,6 +151,16 @@ int SavageBoarboys::toWoundModifier(const Weapon *weapon, const Unit *target) co
         mod++;
     }
     return mod;
+}
+
+int SavageBoarboys::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Bonesplitterz

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Hexwraiths::Create,
     nullptr,
     nullptr,
+    Hexwraiths::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Hexwraiths::MIN_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE,
@@ -57,11 +58,7 @@ bool Hexwraiths::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -96,6 +93,16 @@ Wounds Hexwraiths::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         return {0, 1};
     }
     return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Hexwraiths::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Nighthaunt

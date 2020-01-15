@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WightKingWithBalefulTombBlade::Create,
     nullptr,
     nullptr,
+    WightKingWithBalefulTombBlade::ComputePoints,
     {
         {ParamType::Boolean, "Steed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
     },

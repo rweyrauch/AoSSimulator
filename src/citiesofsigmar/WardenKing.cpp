@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WardenKing::Create,
     CitizenOfSigmar::ValueToString,
     CitizenOfSigmar::EnumStringToInt,
+    WardenKing::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

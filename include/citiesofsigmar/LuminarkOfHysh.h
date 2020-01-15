@@ -25,11 +25,9 @@ public:
     static const int POINTS_PER_UNIT_WITH_BATTLEMAGE = 270;
 
     static Unit* Create(const ParameterList& parameters);
-
     static std::string ValueToString(const Parameter &parameter);
-
     static int EnumStringToInt(const std::string &enumString);
-
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 
     LuminarkOfHysh();

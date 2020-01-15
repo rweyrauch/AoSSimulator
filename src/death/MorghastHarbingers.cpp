@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     MorghastHarbingers::Create,
     MorghastHarbingers::ValueToString,
     MorghastHarbingers::EnumStringToInt,
+    MorghastHarbingers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MAX_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -111,6 +108,16 @@ void MorghastHarbingers::Init()
     {
         s_registered = UnitFactory::Register("Morghast Harbingers", factoryMethod);
     }
+}
+
+int MorghastHarbingers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Death

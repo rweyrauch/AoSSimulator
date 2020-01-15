@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     DrakespawnChariots::Create,
     DrakespawnChariots::ValueToString,
     DrakespawnChariots::EnumStringToInt,
+    DrakespawnChariots::ComputePoints,
     {
         {
             ParamType::Integer, "Models", DrakespawnChariots::MIN_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE,
@@ -92,13 +93,19 @@ bool DrakespawnChariots::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int DrakespawnChariots::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

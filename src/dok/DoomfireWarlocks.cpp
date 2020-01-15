@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     DoomfireWarlocks::Create,
     nullptr,
     nullptr,
+    DoomfireWarlocks::ComputePoints,
     {
         {
             ParamType::Integer, "Models", DoomfireWarlocks::MIN_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE,
@@ -70,11 +71,7 @@ bool DoomfireWarlocks::configure(int numModels, bool crossbows)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -100,6 +97,16 @@ void DoomfireWarlocks::Init()
     {
         s_registered = UnitFactory::Register("Doomfire Warlocks", factoryMethod);
     }
+}
+
+int DoomfireWarlocks::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace DaughtersOfKhaine

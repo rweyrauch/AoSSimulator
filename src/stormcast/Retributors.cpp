@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Retributors::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Retributors::ComputePoints,
     {
         {ParamType::Integer, "Models", Retributors::MIN_UNIT_SIZE, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE, Retributors::MIN_UNIT_SIZE},
         {ParamType::Integer, "Starsoul Maces", 2, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2, 1},
@@ -72,11 +73,7 @@ bool Retributors::configure(int numModels, int numStarsoulMaces)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -145,6 +142,16 @@ void Retributors::onStartCombat(PlayerId player)
             }
         }
     }
+}
+
+int Retributors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

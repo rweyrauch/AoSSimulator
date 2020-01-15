@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     PusgoyleBlightlords::Create,
     nullptr,
     nullptr,
+    PusgoyleBlightlords::ComputePoints,
     {
         {
             ParamType::Integer, "Models", PusgoyleBlightlords::MIN_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE,
@@ -65,11 +66,7 @@ bool PusgoyleBlightlords::configure(int numModels, int numTocsins)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -145,6 +142,16 @@ void PusgoyleBlightlords::onStartHero(PlayerId player)
         }
     }
     Unit::onStartHero(player);
+}
+
+int PusgoyleBlightlords::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nurgle

@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ExaltedChariot::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    ExaltedChariot::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

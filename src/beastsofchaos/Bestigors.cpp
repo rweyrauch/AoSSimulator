@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Bestigors::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Bestigors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Bestigors::MIN_UNIT_SIZE, Bestigors::MIN_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -138,6 +135,17 @@ int Bestigors::runModifier() const
         modifier += 1;
     }
     return modifier;
+}
+
+int Bestigors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+
+    return points;
 }
 
 } // namespace BeastsOfChaos

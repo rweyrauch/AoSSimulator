@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WarpfireThrower::Create,
     nullptr,
     nullptr,
+    WarpfireThrower::ComputePoints,
     {
     },
     CHAOS,

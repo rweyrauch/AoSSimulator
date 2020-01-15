@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     TheFarstriders::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    TheFarstriders::ComputePoints,
     {
     },
     ORDER,

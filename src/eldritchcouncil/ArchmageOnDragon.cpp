@@ -34,6 +34,7 @@ static FactoryMethod factoryMethod = {
     ArchmageOnDragon::Create,
     nullptr,
     nullptr,
+    ArchmageOnDragon::ComputePoints,
     {
         {ParamType::Boolean, "Arcane Tome", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Boolean, "Talisman of Arcane Power", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},

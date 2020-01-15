@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Irondrakes::Create,
     Irondrakes::ValueToString,
     Irondrakes::EnumStringToInt,
+    Irondrakes::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
@@ -93,11 +94,7 @@ bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool 
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -240,6 +237,16 @@ int Irondrakes::rollRunDistance() const
         return 4;
     }
     return Unit::rollRunDistance();
+}
+
+int Irondrakes::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Dispossessed

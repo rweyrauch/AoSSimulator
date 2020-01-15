@@ -27,11 +27,9 @@ public:
     static const int POINTS_MAX_UNIT_SIZE = 210;
 
     static Unit* Create(const ParameterList& parameters);
-
     static std::string ValueToString(const Parameter &parameter);
-
     static int EnumStringToInt(const std::string &enumString);
-
+    static int ComputePoints(int numModels);
     static void Init();
 
     Gyrobombers();

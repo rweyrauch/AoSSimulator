@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     AleguzzlerGargant::Create,
     nullptr,
     nullptr,
+    AleguzzlerGargant::ComputePoints,
     {
     },
     DESTRUCTION,

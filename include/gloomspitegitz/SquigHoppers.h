@@ -27,6 +27,7 @@ public:
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
+    static int ComputePoints(int numModels);
 
     SquiqHoppers();
     ~SquiqHoppers() override = default;

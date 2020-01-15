@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     DreadlordOnBlackDragon::Create,
     DreadlordOnBlackDragon::ValueToString,
     DreadlordOnBlackDragon::EnumStringToInt,
+    DreadlordOnBlackDragon::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", DreadlordOnBlackDragon::LanceAndShield, DreadlordOnBlackDragon::ExileBladeAndShield,

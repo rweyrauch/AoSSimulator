@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     BeastsOfNurgle::Create,
     nullptr,
     nullptr,
+    BeastsOfNurgle::ComputePoints,
     {
         {
             ParamType::Integer, "Models", BeastsOfNurgle::MIN_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE,
@@ -56,11 +57,7 @@ bool BeastsOfNurgle::configure(int numModels)
     m_runAndCharge = true;
     m_retreatAndCharge = true;
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -118,6 +115,16 @@ Wounds BeastsOfNurgle::weaponDamage(const Weapon *weapon, const Unit *target, in
     }
 
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int BeastsOfNurgle::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Nurgle

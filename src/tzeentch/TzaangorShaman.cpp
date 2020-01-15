@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     TzaangorShaman::Create,
     TzaangorShaman::ValueToString,
     TzaangorShaman::EnumStringToInt,
+    TzaangorShaman::ComputePoints,
     {
     },
     CHAOS,

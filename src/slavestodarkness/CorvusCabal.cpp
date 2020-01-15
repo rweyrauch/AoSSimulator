@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     CorvusCabal::Create,
     nullptr,
     nullptr,
+    CorvusCabal::ComputePoints,
     {
         {
             ParamType::Integer, "Models", CorvusCabal::MIN_UNIT_SIZE, CorvusCabal::MIN_UNIT_SIZE,
@@ -85,11 +86,7 @@ bool CorvusCabal::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -116,6 +113,16 @@ void CorvusCabal::onWounded()
             break;
         }
     }
+}
+
+int CorvusCabal::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

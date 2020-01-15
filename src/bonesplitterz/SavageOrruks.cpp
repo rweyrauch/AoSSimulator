@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     SavageOrruks::Create,
     SavageOrruks::ValueToString,
     SavageOrruks::EnumStringToInt,
+    SavageOrruks::ComputePoints,
     {
         {ParamType::Integer, "Models", SavageOrruks::MIN_UNIT_SIZE, SavageOrruks::MIN_UNIT_SIZE, SavageOrruks::MAX_UNIT_SIZE, SavageOrruks::MIN_UNIT_SIZE},
         {ParamType::Enum, "Weapons", SavageOrruks::Chompa, SavageOrruks::Chompa, SavageOrruks::SavageStikka, 1},
@@ -104,11 +105,7 @@ bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThum
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -138,6 +135,16 @@ int SavageOrruks::extraAttacks(const Model *attackingModel, const Weapon *weapon
         return 1;
     }
     return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+int SavageOrruks::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Bonesplitterz

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     OrrukWarboss::Create,
     OrrukWarboss::ValueToString,
     OrrukWarboss::EnumStringToInt,
+    OrrukWarboss::ComputePoints,
     {
         {ParamType::Enum, "Weapon", OrrukWarboss::BossChoppaAndShield, OrrukWarboss::BossChoppaAndShield, OrrukWarboss::GreatWaaaghBanner, 1},
         {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},

@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     GrundstokGunhauler::Create,
     GrundstokGunhauler::ValueToString,
     GrundstokGunhauler::EnumStringToInt,
+    GrundstokGunhauler::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", GrundstokGunhauler::SkyCannon, GrundstokGunhauler::SkyCannon,

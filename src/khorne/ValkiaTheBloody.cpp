@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ValkiaTheBloody::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    ValkiaTheBloody::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

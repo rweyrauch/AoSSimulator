@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Archaon::Create,
     nullptr,
     nullptr,
+    Archaon::ComputePoints,
     {
     },
     CHAOS,

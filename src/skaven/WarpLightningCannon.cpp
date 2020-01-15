@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     WarpLightningCannon::Create,
     nullptr,
     nullptr,
+    WarpLightningCannon::ComputePoints,
     {
     },
     CHAOS,

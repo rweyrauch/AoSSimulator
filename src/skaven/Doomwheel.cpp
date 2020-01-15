@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Doomwheel::Create,
     nullptr,
     nullptr,
+    Doomwheel::ComputePoints,
     {
     },
     CHAOS,

@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     BladebringerOnExaltedChariot::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    BladebringerOnExaltedChariot::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WightKingWithBlackAxe::Create,
     nullptr,
     nullptr,
+    WightKingWithBlackAxe::ComputePoints,
     {
     },
     DEATH,

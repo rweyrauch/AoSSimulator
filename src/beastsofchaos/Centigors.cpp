@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Centigors::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Centigors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Centigors::MIN_UNIT_SIZE, Centigors::MIN_UNIT_SIZE,
@@ -65,11 +66,7 @@ bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -153,6 +150,16 @@ Rerolls Centigors::toWoundRerolls(const Weapon *weapon, const Unit *target) cons
         return RerollFailed;
     }
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int Centigors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

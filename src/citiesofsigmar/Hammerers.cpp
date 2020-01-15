@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Hammerers::Create,
     CitizenOfSigmar::ValueToString,
     CitizenOfSigmar::EnumStringToInt,
+    Hammerers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool Hammerers::configure(int numModels, bool standardBearer, bool musician)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -129,6 +126,16 @@ int Hammerers::braveryModifier() const
     auto mod = Unit::braveryModifier();
     if (m_standardBearer) mod++;
     return mod;
+}
+
+int Hammerers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

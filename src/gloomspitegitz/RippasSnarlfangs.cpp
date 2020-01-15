@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     RippasSnarlfangs::Create,
     nullptr,
     nullptr,
+    RippasSnarlfangs::ComputePoints,
     {
     },
     DESTRUCTION,

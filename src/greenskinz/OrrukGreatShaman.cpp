@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     OrrukGreatShaman::Create,
     nullptr,
     nullptr,
+    OrrukGreatShaman::ComputePoints,
     {
         {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
     },

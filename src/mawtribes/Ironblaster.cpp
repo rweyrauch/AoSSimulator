@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Ironblaster::Create,
     Ironblaster::ValueToString,
     Ironblaster::EnumStringToInt,
+    Ironblaster::ComputePoints,
     {
     },
     DESTRUCTION,

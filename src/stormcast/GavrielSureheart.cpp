@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     GavrielSureheart::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    GavrielSureheart::ComputePoints,
     {
     },
     ORDER,

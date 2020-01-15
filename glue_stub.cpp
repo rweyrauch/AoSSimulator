@@ -112,4 +112,15 @@ int JSInterface::UnitEnumStringToInt(const char* name, const char* enumString)
     return 0;
 }
 
+int JSInterface::GetUnitPoints(const char* name, int numModels)
+{
+    auto factory = UnitFactory::LookupUnit(std::string(name));
+    if (factory)
+    {
+        auto points = factory->m_computePoints(numModels);
+        return points;
+    }
+    return 0;
+}
+
 #include "aossim_glue.cpp"

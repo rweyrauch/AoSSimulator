@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     StormsiresCursebreakers::Create,
     StormsiresCursebreakers::ValueToString,
     StormsiresCursebreakers::EnumStringToInt,
+    StormsiresCursebreakers::ComputePoints,
     {
         {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
     },

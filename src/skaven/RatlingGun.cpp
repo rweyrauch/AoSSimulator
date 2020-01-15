@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     RatlingGun::Create,
     nullptr,
     nullptr,
+    RatlingGun::ComputePoints,
     {
     },
     CHAOS,

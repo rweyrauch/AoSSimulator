@@ -26,6 +26,7 @@ public:
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();
+    static int ComputePoints(int numModels);
 
     SavageBoarboyManiaks();
     ~SavageBoarboyManiaks() override = default;

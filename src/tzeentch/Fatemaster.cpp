@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Fatemaster::Create,
     Fatemaster::ValueToString,
     Fatemaster::EnumStringToInt,
+    Fatemaster::ComputePoints,
     {
     },
     CHAOS,

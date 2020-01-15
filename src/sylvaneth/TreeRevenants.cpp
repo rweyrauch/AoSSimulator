@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     TreeRevenants::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    TreeRevenants::ComputePoints,
     {
         {
             ParamType::Integer, "Models", TreeRevenants::MIN_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE,
@@ -72,11 +73,7 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     if (m_gladeBanners)
     {
@@ -162,6 +159,16 @@ Rerolls TreeRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) co
 Rerolls TreeRevenants::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int TreeRevenants::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Sylvaneth

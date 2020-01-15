@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     TheUnmade::Create,
     nullptr,
     nullptr,
+    TheUnmade::ComputePoints,
     {
         {
             ParamType::Integer, "Models", TheUnmade::MIN_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE,
@@ -82,13 +83,19 @@ bool TheUnmade::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int TheUnmade::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

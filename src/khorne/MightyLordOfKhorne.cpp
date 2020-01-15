@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     MightyLordOfKhorne::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    MightyLordOfKhorne::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

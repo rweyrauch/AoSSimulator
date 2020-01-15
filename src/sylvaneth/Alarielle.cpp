@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     Alarielle::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    Alarielle::ComputePoints,
     {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },

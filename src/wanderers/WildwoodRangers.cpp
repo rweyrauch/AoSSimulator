@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WildwoodRangers::Create,
     nullptr,
     nullptr,
+    WildwoodRangers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", WildwoodRangers::MIN_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE,
@@ -59,11 +60,7 @@ bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblo
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -122,6 +119,16 @@ int WildwoodRangers::braveryModifier() const
         // if (Board::Instance()->unitInCover(this)) { modifier += 1; }
     }
     return modifier;
+}
+
+int WildwoodRangers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Wanderers

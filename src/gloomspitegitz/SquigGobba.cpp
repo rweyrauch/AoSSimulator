@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     SquigGobba::Create,
     nullptr,
     nullptr,
+    SquigGobba::ComputePoints,
     {
     },
     DESTRUCTION,

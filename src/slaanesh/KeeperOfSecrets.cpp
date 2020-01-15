@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     KeeperOfSecrets::Create,
     KeeperOfSecrets::ValueToString,
     KeeperOfSecrets::EnumStringToInt,
+    KeeperOfSecrets::ComputePoints,
     {
         {ParamType::Enum, "Weapon", KeeperOfSecrets::RitualKnife, KeeperOfSecrets::RitualKnife, KeeperOfSecrets::ShiningAegis, 1},
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},

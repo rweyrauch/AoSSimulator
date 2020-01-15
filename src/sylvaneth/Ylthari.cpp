@@ -7,6 +7,7 @@ static FactoryMethod factoryMethod = {
     Ylthari::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    Ylthari::ComputePoints,
     {
     },
     ORDER,

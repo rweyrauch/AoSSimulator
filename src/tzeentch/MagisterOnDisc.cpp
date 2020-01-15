@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     MagisterOnDiscOfTzeentch::Create,
     MagisterOnDiscOfTzeentch::ValueToString,
     MagisterOnDiscOfTzeentch::EnumStringToInt,
+    MagisterOnDiscOfTzeentch::ComputePoints,
     {
     },
     CHAOS,

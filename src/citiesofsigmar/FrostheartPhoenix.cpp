@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     FrostheartPhoenix::Create,
     FrostheartPhoenix::ValueToString,
     FrostheartPhoenix::EnumStringToInt,
+    FrostheartPhoenix::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
         {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},

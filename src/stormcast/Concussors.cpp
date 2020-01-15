@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Concussors::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    Concussors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Concussors::MIN_UNIT_SIZE, Concussors::MIN_UNIT_SIZE,
@@ -54,11 +55,7 @@ bool Concussors::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -117,6 +114,16 @@ Rerolls Concussors::toSaveRerolls(const Weapon *weapon) const
 {
     // Sigmarite Shields
     return RerollOnes;
+}
+
+int Concussors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace StormcastEternals

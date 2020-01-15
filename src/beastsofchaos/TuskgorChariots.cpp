@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     TuskgorChariots::Create,
     TuskgorChariots::ValueToString,
     TuskgorChariots::EnumStringToInt,
+    TuskgorChariots::ComputePoints,
     {
         {
             ParamType::Integer, "Models", TuskgorChariots::MIN_UNIT_SIZE, TuskgorChariots::MIN_UNIT_SIZE,
@@ -54,11 +55,7 @@ bool TuskgorChariots::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -133,6 +130,16 @@ Rerolls TuskgorChariots::chargeRerolls() const
 {
     // Tuskgor Charge
     return RerollFailed;
+}
+
+int TuskgorChariots::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

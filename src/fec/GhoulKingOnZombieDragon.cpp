@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     AbhorrantGhoulKingOnZombieDragon::Create,
     FleshEaterCourts::ValueToString,
     FleshEaterCourts::EnumStringToInt,
+    AbhorrantGhoulKingOnZombieDragon::ComputePoints,
     {
         {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
         {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},

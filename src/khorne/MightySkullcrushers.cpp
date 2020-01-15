@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     MightySkullcrushers::Create,
     MightySkullcrushers::ValueToString,
     MightySkullcrushers::EnumStringToInt,
+    MightySkullcrushers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", MightySkullcrushers::MIN_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE,
@@ -86,11 +87,7 @@ bool MightySkullcrushers::configure(int numModels, WeaponOption weapons, bool st
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -191,6 +188,16 @@ void MightySkullcrushers::onCharged()
         m_meleeTarget->applyDamage(wounds);
     }
     KhorneBase::onCharged();
+}
+
+int MightySkullcrushers::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Khorne

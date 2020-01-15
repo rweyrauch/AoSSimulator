@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Kharibdyss::Create,
     Kharibdyss::ValueToString,
     Kharibdyss::EnumStringToInt,
+    Kharibdyss::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

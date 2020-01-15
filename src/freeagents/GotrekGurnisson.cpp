@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     GotrekGurnisson::Create,
     nullptr,
     nullptr,
+    GotrekGurnisson::ComputePoints,
     {
     },
     ORDER,

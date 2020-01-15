@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Zombies::Create,
     nullptr,
     nullptr,
+    Zombies::ComputePoints,
     {
         {ParamType::Integer, "Models", Zombies::MIN_UNIT_SIZE, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
         {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
@@ -55,11 +56,7 @@ bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -131,6 +128,16 @@ int Zombies::toWoundModifier(const Weapon *weapon, const Unit *target) const
     }
 
     return modifier;
+}
+
+int Zombies::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Death

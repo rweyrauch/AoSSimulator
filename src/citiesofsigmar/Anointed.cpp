@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Anointed::Create,
     Anointed::ValueToString,
     Anointed::EnumStringToInt,
+    Anointed::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

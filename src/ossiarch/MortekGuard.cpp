@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     MortekGuard::Create,
     MortekGuard::ValueToString,
     MortekGuard::EnumStringToInt,
+    MortekGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", MortekGuard::MIN_UNIT_SIZE, MortekGuard::MIN_UNIT_SIZE,
@@ -146,11 +147,7 @@ bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblad
 
     m_necrophoros = necrophoros;
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -173,6 +170,16 @@ int MortekGuard::chargeModifier() const
     auto mod = Unit::chargeModifier();
     if (m_necrophoros) mod++;
     return mod;
+}
+
+int MortekGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace OssiarchBonereapers

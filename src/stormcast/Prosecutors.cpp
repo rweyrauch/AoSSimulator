@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Prosecutors::Create,
     Prosecutors::ValueToString,
     Prosecutors::EnumStringToInt,
+    Prosecutors::ComputePoints,
     {
         {ParamType::Integer, "Models", Prosecutors::MIN_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE, Prosecutors::MAX_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE},
         {ParamType::Enum, "Weapons", Prosecutors::StormcallJavelinAndShield, Prosecutors::StormcallJavelinAndShield, Prosecutors::CelestialHammerAndShield, 1},
@@ -182,11 +183,7 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -343,6 +340,16 @@ int Prosecutors::extraAttacks(const Model *attackingModel, const Weapon *weapon,
         return target->numModelsWithin(attackingModel, weapon->range());
     }
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
+}
+
+int Prosecutors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace StormcastEternals

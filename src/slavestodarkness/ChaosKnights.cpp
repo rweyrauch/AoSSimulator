@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ChaosKnights::Create,
     ChaosKnights::ValueToString,
     ChaosKnights::EnumStringToInt,
+    ChaosKnights::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ChaosKnights::MIN_UNIT_SIZE, ChaosKnights::MIN_UNIT_SIZE,
@@ -141,11 +142,7 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -277,6 +274,16 @@ int ChaosKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRo
         return weapon->rend()-2;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int ChaosKnights::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //SlavesToDarkness

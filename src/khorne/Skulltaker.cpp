@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Skulltaker::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    Skulltaker::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

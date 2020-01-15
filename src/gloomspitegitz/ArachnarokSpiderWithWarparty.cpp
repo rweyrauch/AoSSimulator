@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ArachnarokSpiderWithSpiderfangWarparty::Create,
     nullptr,
     nullptr,
+    ArachnarokSpiderWithSpiderfangWarparty::ComputePoints,
     {
     },
     DESTRUCTION,

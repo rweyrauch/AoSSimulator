@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     BloodthirsterOfInsensateRage::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    BloodthirsterOfInsensateRage::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

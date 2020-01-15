@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     TheMasque::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    TheMasque::ComputePoints,
     {
         {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
     },

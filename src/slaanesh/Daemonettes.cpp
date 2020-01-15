@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Daemonettes::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    Daemonettes::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Daemonettes::MIN_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE,
@@ -67,11 +68,7 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, b
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -133,6 +130,16 @@ Rerolls Daemonettes::chargeRerolls() const
         return RerollFailed;
     }
     return Unit::chargeRerolls();
+}
+
+int Daemonettes::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Slaanesh

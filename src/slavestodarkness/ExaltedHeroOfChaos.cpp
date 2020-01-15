@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     ExaltedHeroOfChaos::Create,
     nullptr,
     nullptr,
+    ExaltedHeroOfChaos::ComputePoints,
     {
     },
     CHAOS,

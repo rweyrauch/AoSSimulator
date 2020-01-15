@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Butcher::Create,
     Butcher::ValueToString,
     Butcher::EnumStringToInt,
+    Butcher::ComputePoints,
     {
         {ParamType::Enum, "Weapon", Butcher::Cleaver, Butcher::Tenderiser, Butcher::Cleaver, 1},
     },

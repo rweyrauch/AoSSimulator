@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     OrrukWarchanter::Create,
     Ironjawz::ValueToString,
     Ironjawz::EnumStringToInt,
+    OrrukWarchanter::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },

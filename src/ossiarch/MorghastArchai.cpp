@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     MorghastArchai::Create,
     MorghastArchai::ValueToString,
     MorghastArchai::EnumStringToInt,
+    MorghastArchai::ComputePoints,
     {
         {
             ParamType::Integer, "Models", MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MAX_UNIT_SIZE,
@@ -62,11 +63,7 @@ bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -126,6 +123,16 @@ Wounds MorghastArchai::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
     return totalWounds;
+}
+
+int MorghastArchai::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace OssiarchBonereapers

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Bleakswords::Create,
     Bleakswords::ValueToString,
     Bleakswords::EnumStringToInt,
+    Bleakswords::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Bleakswords::MIN_UNIT_SIZE, Bleakswords::MIN_UNIT_SIZE,
@@ -101,11 +102,7 @@ bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -147,6 +144,16 @@ int Bleakswords::toHitModifier(const Weapon *weapon, const Unit *target) const
     // Ranks of Cold Steel
     if (remainingModels() >= 10) mod++;
     return mod;
+}
+
+int Bleakswords::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace CitiesOfSigmar

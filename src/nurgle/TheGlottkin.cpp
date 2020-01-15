@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     TheGlottkin::Create,
     nullptr,
     nullptr,
+    TheGlottkin::ComputePoints,
     {
     },
     CHAOS,

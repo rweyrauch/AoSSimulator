@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Chainghasts::Create,
     nullptr,
     nullptr,
+    Chainghasts::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Chainghasts::MIN_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE,
@@ -52,11 +53,7 @@ bool Chainghasts::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -93,6 +90,16 @@ int Chainghasts::extraAttacks(const Model *attackingModel, const Weapon *weapon,
         attacks += (int)units.size();
     }
     return attacks;
+}
+
+int Chainghasts::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Nighthaunt

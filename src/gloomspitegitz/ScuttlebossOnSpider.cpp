@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     ScuttlebossOnGiganticSpider::Create,
     nullptr,
     nullptr,
+    ScuttlebossOnGiganticSpider::ComputePoints,
     {
     },
     DESTRUCTION,

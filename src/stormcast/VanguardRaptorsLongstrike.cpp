@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     VanguardRaptorsLongstrike::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    VanguardRaptorsLongstrike::ComputePoints,
     {
         {
             ParamType::Integer, "Models", VanguardRaptorsLongstrike::MIN_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
@@ -63,11 +64,7 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -122,6 +119,16 @@ Wounds VanguardRaptorsLongstrike::weaponDamage(const Weapon *weapon, const Unit 
         return {0, 2};
     }
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int VanguardRaptorsLongstrike::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace StormcastEternals

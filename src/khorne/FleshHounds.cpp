@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     FleshHounds::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    FleshHounds::ComputePoints,
     {
         {
             ParamType::Integer, "Models", FleshHounds::MIN_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE,
@@ -64,11 +65,7 @@ bool FleshHounds::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -96,6 +93,16 @@ void FleshHounds::Init()
     {
         s_registered = UnitFactory::Register("Flesh Hounds", factoryMethod);
     }
+}
+
+int FleshHounds::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Khorne

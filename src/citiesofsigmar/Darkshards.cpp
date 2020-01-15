@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Darkshards::Create,
     Darkshards::ValueToString,
     Darkshards::EnumStringToInt,
+    Darkshards::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Darkshards::MIN_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE,
@@ -104,11 +105,7 @@ bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -140,6 +137,16 @@ int Darkshards::toHitModifier(const Weapon *weapon, const Unit *target) const
     // Storm of Iron-tipped Bolts
     if ((remainingModels() >= 10) && (weapon->name() == m_crossbow.name())) mod++;
     return mod;
+}
+
+int Darkshards::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace CitiesOfSigmar

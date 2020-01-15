@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ColossalSquig::Create,
     nullptr,
     nullptr,
+    ColossalSquig::ComputePoints,
     {
     },
     DESTRUCTION,

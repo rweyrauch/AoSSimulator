@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     Executioners::Create,
     Executioners::ValueToString,
     Executioners::EnumStringToInt,
+    Executioners::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Executioners::MIN_UNIT_SIZE, Executioners::MIN_UNIT_SIZE,
@@ -103,11 +104,7 @@ bool Executioners::configure(int numModels, bool standardBearer, bool drummer)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -141,6 +138,16 @@ Wounds Executioners::weaponDamage(const Weapon *weapon, const Unit *target, int 
         return { 0, 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Executioners::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Razorgors::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    Razorgors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Razorgors::MIN_UNIT_SIZE, Razorgors::MIN_UNIT_SIZE,
@@ -50,11 +51,7 @@ bool Razorgors::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -93,6 +90,16 @@ Wounds Razorgors::weaponDamage(const Weapon *weapon, const Unit *target, int hit
         damage.mortal += 1;
     }
     return damage;
+}
+
+int Razorgors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

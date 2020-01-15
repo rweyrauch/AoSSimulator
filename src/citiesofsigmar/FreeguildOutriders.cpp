@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     FreeguildOutriders::Create,
     FreeguildOutriders::ValueToString,
     FreeguildOutriders::EnumStringToInt,
+    FreeguildOutriders::ComputePoints,
     {
         {
             ParamType::Integer, "Models", FreeguildOutriders::MIN_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE,
@@ -154,11 +155,7 @@ bool FreeguildOutriders::configure(int numModels, bool trumpeter, WeaponOption s
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -187,6 +184,16 @@ int FreeguildOutriders::extraAttacks(const Model *attackingModel, const Weapon *
         extras++;
     }
     return extras;
+}
+
+int FreeguildOutriders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

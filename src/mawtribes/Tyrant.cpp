@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Tyrant::Create,
     Tyrant::ValueToString,
     Tyrant::EnumStringToInt,
+    Tyrant::ComputePoints,
     {
         {ParamType::Enum, "Big Name", Tyrant::Fateseeker, Tyrant::Deathcheater, Tyrant::Wallcrusher, 1},
     },

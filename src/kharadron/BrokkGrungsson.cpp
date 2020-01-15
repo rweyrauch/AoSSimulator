@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     BrokkGrungsson::Create,
     KharadronBase::ValueToString,
     KharadronBase::EnumStringToInt,
+    BrokkGrungsson::ComputePoints,
     {
         {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
     },

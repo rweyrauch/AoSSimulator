@@ -26,7 +26,7 @@ public:
     static const int POINTS_MAX_UNIT_SIZE = 360;
 
     static Unit* Create(const ParameterList& parameters);
-
+    static int ComputePoints(int numModels);
     static void Init();
 
     CryptGhouls();

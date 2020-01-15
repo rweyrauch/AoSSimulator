@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Stormfiends::Create,
     Stormfiends::ValueToString,
     Stormfiends::EnumStringToInt,
+    Stormfiends::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Stormfiends::MIN_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE,
@@ -114,6 +115,8 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
         addModel(model);
     }
 
+    m_points = ComputePoints(numModels);
+
     return true;
 }
 
@@ -208,6 +211,16 @@ int Stormfiends::EnumStringToInt(const std::string &enumString)
         return ShockGauntlets;
     }
     return 0;
+}
+
+int Stormfiends::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Skaven

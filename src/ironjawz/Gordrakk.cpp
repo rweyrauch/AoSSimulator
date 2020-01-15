@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     GordrakkTheFistOfGork::Create,
     Ironjawz::ValueToString,
     Ironjawz::EnumStringToInt,
+    GordrakkTheFistOfGork::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
     },

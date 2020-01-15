@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     AspiringDeathbringer::Create,
     AspiringDeathbringer::ValueToString,
     AspiringDeathbringer::EnumStringToInt,
+    AspiringDeathbringer::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", AspiringDeathbringer::BloodaxeAndWrathhammer, AspiringDeathbringer::BloodaxeAndWrathhammer,

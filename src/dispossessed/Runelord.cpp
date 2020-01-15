@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Runelord::Create,
     Dispossessed::ValueToString,
     Dispossessed::EnumStringToInt,
+    Runelord::ComputePoints,
     {
         {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
     },

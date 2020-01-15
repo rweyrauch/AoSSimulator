@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     FreeguildGeneralOnGriffon::Create,
     FreeguildGeneralOnGriffon::ValueToString,
     FreeguildGeneralOnGriffon::EnumStringToInt,
+    FreeguildGeneralOnGriffon::ComputePoints,
     {
         {
             ParamType::Enum, "Weapon", FreeguildGeneralOnGriffon::Lance, FreeguildGeneralOnGriffon::RuneSword,

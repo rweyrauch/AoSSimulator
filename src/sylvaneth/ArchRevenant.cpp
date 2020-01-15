@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ArchRevenant::Create,
     SylvanethBase::ValueToString,
     SylvanethBase::EnumStringToInt,
+    ArchRevenant::ComputePoints,
     {
         {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
     },

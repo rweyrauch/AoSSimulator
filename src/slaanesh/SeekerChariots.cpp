@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     SeekerChariots::Create,
     SlaaneshBase::ValueToString,
     SlaaneshBase::EnumStringToInt,
+    SeekerChariots::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SeekerChariots::MIN_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE,
@@ -58,11 +59,7 @@ bool SeekerChariots::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -103,6 +100,16 @@ void SeekerChariots::onCharged()
             ip->applyDamage({0, dice.rollD3()});
         }
     }
+}
+
+int SeekerChariots::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // Slannesh

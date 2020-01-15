@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     LordOrdinator::Create,
     LordOrdinator::ValueToString,
     LordOrdinator::EnumStringToInt,
+    LordOrdinator::ComputePoints,
     {
         {ParamType::Enum, "Weapon", LordOrdinator::AstralHammers, LordOrdinator::AstralHammers, LordOrdinator::AstralGrandhammer, 1},
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},

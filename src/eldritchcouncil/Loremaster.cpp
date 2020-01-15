@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Loremaster::Create,
     nullptr,
     nullptr,
+    Loremaster::ComputePoints,
     {
     },
     ORDER,

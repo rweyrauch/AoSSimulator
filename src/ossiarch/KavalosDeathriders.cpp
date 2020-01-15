@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     KavalosDeathriders::Create,
     KavalosDeathriders::ValueToString,
     KavalosDeathriders::EnumStringToInt,
+    KavalosDeathriders::ComputePoints,
     {
         {
             ParamType::Integer, "Models", KavalosDeathriders::MIN_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE,
@@ -127,11 +128,7 @@ bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necr
 
     m_necrophoros = necrophoros;
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -155,6 +152,16 @@ int KavalosDeathriders::chargeModifier() const
     auto mod = Unit::chargeModifier();
     if (m_necrophoros) mod++;
     return mod;
+}
+
+int KavalosDeathriders::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace OssiarchBonereapers

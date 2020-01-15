@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     SavageBigStabbas::Create,
     Bonesplitterz::ValueToString,
     Bonesplitterz::EnumStringToInt,
+    SavageBigStabbas::ComputePoints,
     {
         {ParamType::Integer, "Models", SavageBigStabbas::MIN_UNIT_SIZE, SavageBigStabbas::MIN_UNIT_SIZE, SavageBigStabbas::MAX_UNIT_SIZE, SavageBigStabbas::MIN_UNIT_SIZE},
         {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
@@ -81,11 +82,7 @@ bool SavageBigStabbas::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -99,6 +96,16 @@ Wounds SavageBigStabbas::weaponDamage(const Weapon *weapon, const Unit *target, 
         return {dice.rollSpecial(RAND_D6), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int SavageBigStabbas::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Bonesplitterz

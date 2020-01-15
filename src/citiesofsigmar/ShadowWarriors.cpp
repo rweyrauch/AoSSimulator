@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     ShadowWarriors::Create,
     ShadowWarriors::ValueToString,
     ShadowWarriors::EnumStringToInt,
+    ShadowWarriors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ShadowWarriors::MIN_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE,
@@ -97,13 +98,19 @@ bool ShadowWarriors::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int ShadowWarriors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

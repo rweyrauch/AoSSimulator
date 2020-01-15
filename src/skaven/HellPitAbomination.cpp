@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     HellPitAbomination::Create,
     nullptr,
     nullptr,
+    HellPitAbomination::ComputePoints,
     {
     },
     CHAOS,

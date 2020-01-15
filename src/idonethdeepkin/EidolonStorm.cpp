@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     EidolonOfMathlannAspectOfTheStorm::Create,
     nullptr,
     nullptr,
+    EidolonOfMathlannAspectOfTheStorm::ComputePoints,
     {
     },
     ORDER,

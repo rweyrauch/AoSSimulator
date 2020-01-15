@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     FlamespyrePhoenix::Create,
     FlamespyrePhoenix::ValueToString,
     FlamespyrePhoenix::EnumStringToInt,
+    FlamespyrePhoenix::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
         {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},

@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     ZarbagsGitz::Create,
     nullptr,
     nullptr,
+    ZarbagsGitz::ComputePoints,
     {
     },
     DESTRUCTION,

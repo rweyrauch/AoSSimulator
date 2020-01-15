@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WarHydra::Create,
     WarHydra::ValueToString,
     WarHydra::EnumStringToInt,
+    WarHydra::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

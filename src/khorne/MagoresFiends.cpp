@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     MagoresFiends::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    MagoresFiends::ComputePoints,
     {
         {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
     },

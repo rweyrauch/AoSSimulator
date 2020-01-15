@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     FreeguildGuard::Create,
     FreeguildGuard::ValueToString,
     FreeguildGuard::EnumStringToInt,
+    FreeguildGuard::ComputePoints,
     {
         {
             ParamType::Integer, "Models", FreeguildGuard::MIN_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE,
@@ -159,11 +160,7 @@ bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer,
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -211,6 +208,16 @@ int FreeguildGuard::toSaveModifier(const Weapon *weapon) const
     if (weapon->name() == m_sword.name()) mod++;
 
     return mod;
+}
+
+int FreeguildGuard::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     ScourgerunnerChariots::Create,
     ScourgerunnerChariots::ValueToString,
     ScourgerunnerChariots::EnumStringToInt,
+    ScourgerunnerChariots::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ScourgerunnerChariots::MIN_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE,
@@ -104,11 +105,7 @@ bool ScourgerunnerChariots::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -122,6 +119,16 @@ Wounds ScourgerunnerChariots::weaponDamage(const Weapon *weapon, const Unit *tar
         return { 0, dice.rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int ScourgerunnerChariots::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace CitiesOfSigmar

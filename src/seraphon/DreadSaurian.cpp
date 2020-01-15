@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     DreadSaurian::Create,
     nullptr,
     nullptr,
+    DreadSaurian::ComputePoints,
     {
     },
     ORDER,

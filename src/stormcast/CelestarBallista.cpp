@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     CelestarBallista::Create,
     StormcastEternal::ValueToString,
     StormcastEternal::EnumStringToInt,
+    CelestarBallista::ComputePoints,
     {
         {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
     },

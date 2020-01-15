@@ -14,6 +14,7 @@ static FactoryMethod factoryMethod = {
     GothizzarHarvester::Create,
     GothizzarHarvester::ValueToString,
     GothizzarHarvester::EnumStringToInt,
+    GothizzarHarvester::ComputePoints,
     {
         {ParamType::Enum, "Weapon", GothizzarHarvester::Sickles, GothizzarHarvester::Sickles, GothizzarHarvester::Bludgeons, 1},
     },

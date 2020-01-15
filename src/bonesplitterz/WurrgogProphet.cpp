@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     WurrgogProphet::Create,
     Bonesplitterz::ValueToString,
     Bonesplitterz::EnumStringToInt,
+    WurrgogProphet::ComputePoints,
     {
         {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
     },

@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     FreeguildGeneral::Create,
     FreeguildGeneral::ValueToString,
     FreeguildGeneral::EnumStringToInt,
+    FreeguildGeneral::ComputePoints,
     {
         {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
     },

@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ExaltedFlamersOfTzeentch::Create,
     nullptr,
     nullptr,
+    ExaltedFlamersOfTzeentch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE,
@@ -52,11 +53,7 @@ bool ExaltedFlamersOfTzeentch::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -106,6 +103,16 @@ Wounds ExaltedFlamersOfTzeentch::computeReturnedDamage(const Weapon *weapon, int
     wounds.mortal += mortalSaves.rollsGE(5);
 
     return wounds;
+}
+
+int ExaltedFlamersOfTzeentch::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

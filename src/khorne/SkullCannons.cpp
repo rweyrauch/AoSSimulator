@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     SkullCannons::Create,
     KhorneBase::ValueToString,
     KhorneBase::EnumStringToInt,
+    SkullCannons::ComputePoints,
     {
         {
             ParamType::Integer, "Models", SkullCannons::MIN_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE,
@@ -55,11 +56,7 @@ bool SkullCannons::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -109,6 +106,16 @@ int SkullCannons::toHitModifier(const Weapon *weapon, const Unit *target) const
         modifier += 1;
     }
     return modifier;
+}
+
+int SkullCannons::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace Khorne

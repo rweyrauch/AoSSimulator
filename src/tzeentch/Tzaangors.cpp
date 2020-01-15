@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     Tzaangors::Create,
     Tzaangors::ValueToString,
     Tzaangors::EnumStringToInt,
+    Tzaangors::ComputePoints,
     {
         {
             ParamType::Integer, "Models", Tzaangors::MIN_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE,
@@ -101,11 +102,7 @@ bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblad
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -217,6 +214,16 @@ int Tzaangors::extraAttacks(const Model *attackingModel, const Weapon *weapon, c
     if (remainingModels() >= 9) attacks++;
 
     return attacks;
+}
+
+int Tzaangors::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } //namespace Tzeentch

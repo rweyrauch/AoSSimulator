@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     ChaosSpawn::Create,
     BeastsOfChaosBase::ValueToString,
     BeastsOfChaosBase::EnumStringToInt,
+    ChaosSpawn::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ChaosSpawn::MIN_UNIT_SIZE, ChaosSpawn::MIN_UNIT_SIZE,
@@ -50,11 +51,7 @@ bool ChaosSpawn::configure(int numModels)
         addModel(model);
     }
 
-    m_points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        m_points = POINTS_MAX_UNIT_SIZE;
-    }
+    m_points = ComputePoints(numModels);
 
     return true;
 }
@@ -82,6 +79,16 @@ void ChaosSpawn::Init()
     {
         s_registered = UnitFactory::Register("Chaos Spawn", factoryMethod);
     }
+}
+
+int ChaosSpawn::ComputePoints(int numModels)
+{
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 } // namespace BeastsOfChaos

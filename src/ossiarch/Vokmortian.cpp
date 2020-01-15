@@ -15,6 +15,7 @@ static FactoryMethod factoryMethod = {
     Vokmortian::Create,
     Vokmortian::ValueToString,
     Vokmortian::EnumStringToInt,
+    Vokmortian::ComputePoints,
     {},
     DEATH,
     { OSSIARCH_BONEREAPERS }

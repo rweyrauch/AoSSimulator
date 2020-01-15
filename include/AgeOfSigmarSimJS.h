@@ -41,6 +41,7 @@ public:
     static void GetUnitInfoByName(const char* name, JSUnitInfo& info);
     static const char* UnitParameterValueToString(const char* unitName, const char* paramName, int value);
     static int UnitEnumStringToInt(const char* name, const char* enumString);
+    static int GetUnitPoints(const char* name, int numModels);
 };
 
 

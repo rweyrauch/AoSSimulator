@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     GauntSummonerOfTzeentch::Create,
     GauntSummonerOfTzeentch::ValueToString,
     GauntSummonerOfTzeentch::EnumStringToInt,
+    GauntSummonerOfTzeentch::ComputePoints,
     {
     },
     CHAOS,
