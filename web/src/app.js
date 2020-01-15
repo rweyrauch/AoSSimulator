@@ -25,7 +25,7 @@ AosSim().then(AosSim => {
     let g_red = null;
     let g_blue = null;
 
-    function populateFactions(alliance, selector, unitSelector, unitRoot) {
+    function populateFactions(alliance, selector, unitSelector, unitRoot, team) {
         selector.options.length = 0;
         let factionKeywords = new Array();
 
@@ -55,11 +55,9 @@ AosSim().then(AosSim => {
             populateUnits(factionName, unitSelector);
             let unitName = unitSelector.selectedOptions[0].text;
             if (unitRoot) {
-                createConfigUI(unitName, unitRoot);
-                return createUnit(unitName, unitRoot);
+                createConfigUI(unitName, unitRoot, team);
             }
         }
-        return null;
     }
 
     function populateUnits(faction, selector) {
@@ -98,13 +96,8 @@ AosSim().then(AosSim => {
         const redUnitSelect = document.getElementById("red-unit-select");
         const redUnitRoot = document.getElementById("red-unit-desc");
         if (redFactionSelect && redUnitSelect) {
-            g_red = populateFactions(alliance, redFactionSelect, redUnitSelect, redUnitRoot);
-            let unitName = redUnitSelect.selectedOptions[0].text;
-            if (redUnitRoot) {
-                createConfigUI(unitName, redUnitRoot);
-                g_red = createUnit(unitName, redUnitRoot);
-            }
-            refreshPoints();
+            populateFactions(alliance, redFactionSelect, redUnitSelect, redUnitRoot, "red");
+            //refreshPoints();
         }
     }
 
@@ -118,13 +111,8 @@ AosSim().then(AosSim => {
         const blueUnitSelect = document.getElementById("blue-unit-select");
         const blueUnitRoot = document.getElementById("blue-unit-desc");
         if (blueFactionSelect && blueUnitSelect) {
-            populateFactions(alliance, blueFactionSelect, blueUnitSelect, blueUnitRoot);
-            let unitName = blueUnitSelect.selectedOptions[0].text;
-            if (blueUnitRoot) {
-                createConfigUI(unitName, blueUnitRoot);
-                g_blue = createUnit(unitName, blueUnitRoot);
-            }
-            refreshPoints();
+            populateFactions(alliance, blueFactionSelect, blueUnitSelect, blueUnitRoot, "blue");
+            //refreshPoints();
         }
     }
 
@@ -138,10 +126,9 @@ AosSim().then(AosSim => {
             let unitName = redUnitSelect.selectedOptions[0].text;
             const redUnitRoot = document.getElementById("red-unit-desc");
             if (redUnitRoot) {
-                createConfigUI(unitName, redUnitRoot);
-                g_red = createUnit(unitName, redUnitRoot);
+                createConfigUI(unitName, redUnitRoot, "red");
             }
-            refreshPoints();
+            //refreshPoints();
         } else {
             console.log("Red unit selector not found.");
         }
@@ -157,12 +144,22 @@ AosSim().then(AosSim => {
             let unitName = blueUnitSelect.selectedOptions[0].text;
             const blueUnitRoot = document.getElementById("blue-unit-desc");
             if (blueUnitRoot) {
-                createConfigUI(unitName, blueUnitRoot);
-                g_blue = createUnit(unitName, blueUnitRoot);
+                createConfigUI(unitName, blueUnitRoot, "blue");
             }
-            refreshPoints();
+            //refreshPoints();
         } else {
             console.log("Blue unit selector not found.");
+        }
+    }
+
+    function on_model_count_changed(event) {
+        console.log("Got model count changed event. " + event.target.id + "  Value: " + event.target.value);
+
+        if (event.target.id.startsWith('red-')) {
+            refreshPoints('red', event.target.value);
+        }
+        else if (event.target.id.startsWith('blue-')) {
+            refreshPoints('blue', event.target.value);
         }
     }
 
@@ -173,9 +170,8 @@ AosSim().then(AosSim => {
         console.log("Constructing UI for unit " + unitName);
         let unitRoot = document.getElementById("red-unit-desc");
         if (unitRoot) {
-            createConfigUI(unitName, unitRoot);
-            g_red = createUnit(unitName, unitRoot);
-            refreshPoints();
+            createConfigUI(unitName, unitRoot, "red");
+            //refreshPoints();
         }
     }
 
@@ -186,17 +182,16 @@ AosSim().then(AosSim => {
         console.log("Constructing UI for unit " + unitName);
         let unitRoot = document.getElementById("blue-unit-desc");
         if (unitRoot) {
-            createConfigUI(unitName, unitRoot);
-            g_blue = createUnit(unitName, unitRoot);
-            refreshPoints();
+            createConfigUI(unitName, unitRoot, "blue");
+            //refreshPoints('');
         }
     }
 
-    function createConfigUI(unitName, container) {
+    function createConfigUI(unitName, container, team) {
         var factory = new AosSim.JSUnitInfo();
         sim.GetUnitInfoByName(unitName, factory);
 
-        console.log("Found factory for unit " + unitName);
+        console.log("Found factory for unit " + unitName + " on team " + team);
 
         // Remove previous contents (if any)
         while (container.firstChild) {
@@ -220,7 +215,7 @@ AosSim().then(AosSim => {
 
             console.log("\t Parameter[" + idx + "].name = " + pname + "  .type = " + ptype);
 
-            const controlId = pname.trim().replace(' ', '-').toLowerCase();
+            const controlId = (team + "-" + pname).trim().replace(' ', '-').toLowerCase();
 
             if (ptype === AosSim.Integer) {
 
@@ -242,7 +237,7 @@ AosSim().then(AosSim => {
                 input.min = pmin.toString();
                 input.step = pincr.toString();
                 input.classList.add("form-control");
-
+                input.addEventListener("change", on_model_count_changed);
                 //input.maxLength = 10;
                 group.appendChild(input);
 
@@ -309,6 +304,7 @@ AosSim().then(AosSim => {
                     if (iip instanceof HTMLInputElement) {
                         let param = new AosSim.Parameter();
                         const input = iip;
+                        console.log(input);
                         param.name = input.name;
                         if (input.type === "number") {
                             param.intValue = +input.value;
@@ -321,7 +317,11 @@ AosSim().then(AosSim => {
                             param.maxValue = 1;
                             param.increment = 1;
                         }
+                        console.log("Name: " + param.name + "  should be: " + input.name);
                         parameters.push(param);
+                        for (p of parameters) {
+                            console.log(p);
+                        }                                        
                     }
                     else if (iip instanceof HTMLSelectElement) {
                         let param = new AosSim.Parameter();
@@ -337,28 +337,19 @@ AosSim().then(AosSim => {
         }
 
         console.log("Creating unit using parameters: " + parameters.length);
-
         return sim.CreateUnit(unitName, parameters, parameters.length);
     }
 
-    function refreshPoints() {
+    function refreshPoints(team, numModels) {
 
-        if (g_red) {
-            let redPointsDisp = document.getElementById("red-points-disp");
-            if (redPointsDisp) {
-                redPointsDisp.value = g_red.points().toString();
+        const unitSelect = document.getElementById(team+'-unit-select');
+        if (unitSelect) {
+            const unitName = unitSelect.selectedOptions[0].text;
+            let pointsDisp = document.getElementById(team+'-points-disp');
+            if (pointsDisp) {
+                pointsDisp.value = sim.GetUnitPoints(unitName, numModels);
             }
         }
-        if (g_blue) {
-            let bluePointsDisp = document.getElementById("blue-points-disp");
-            if (bluePointsDisp) {
-                bluePointsDisp.value = g_blue.points().toString();
-            }
-        }
-    }
-
-    function clicked_on_card() {
-        console.log("Clicked on a card.");
     }
 
     function plumbCallbacks() {
@@ -367,41 +358,35 @@ AosSim().then(AosSim => {
         if (startButton) startButton.addEventListener("click", on_start_clicked);
 
         const redGASelect = document.getElementById("red-ga-select");
-        if (redGASelect) redGASelect.addEventListener("input", on_red_alliance_selected);
+        if (redGASelect) redGASelect.addEventListener("change", on_red_alliance_selected);
         const blueGASelect = document.getElementById("blue-ga-select");
-        if (blueGASelect) blueGASelect.addEventListener("input", on_blue_alliance_selected);
+        if (blueGASelect) blueGASelect.addEventListener("change", on_blue_alliance_selected);
 
         const redFactionSelect = document.getElementById("red-faction-select");
-        if (redFactionSelect) redFactionSelect.addEventListener("input", on_red_faction_selected);
+        if (redFactionSelect) redFactionSelect.addEventListener("change", on_red_faction_selected);
 
         const blueFactionSelect = document.getElementById("blue-faction-select");
-        if (blueFactionSelect) blueFactionSelect.addEventListener("input", on_blue_faction_selected);
+        if (blueFactionSelect) blueFactionSelect.addEventListener("change", on_blue_faction_selected);
 
         const redUnitSelect = document.getElementById("red-unit-select");
-        if (redUnitSelect) redUnitSelect.addEventListener("input", on_red_unit_select);
+        if (redUnitSelect) redUnitSelect.addEventListener("change", on_red_unit_select);
 
         const blueUnitSelect = document.getElementById("blue-unit-select");
-        if (blueUnitSelect) blueUnitSelect.addEventListener("input", on_blue_unit_select);
-
-        const redCard = document.getElementById("red-card");
-        if (redCard) redCard.addEventListener("click", clicked_on_card);
-
-        const blueCard = document.getElementById("blue-card");
-        if (blueCard) blueCard.addEventListener("click", clicked_on_card);
+        if (blueUnitSelect) blueUnitSelect.addEventListener("change", on_blue_unit_select);
 
         // set up initial state
         if (redFactionSelect && redUnitSelect) {
             const redGA = redGASelect.selectedOptions[redGASelect.selectedIndex].text;
             let redUnitRoot = document.getElementById("red-unit-desc");
-            g_red = populateFactions(redGA, redFactionSelect, redUnitSelect, redUnitRoot);
+            populateFactions(redGA, redFactionSelect, redUnitSelect, redUnitRoot, "red");
         }
         if (blueFactionSelect && blueUnitSelect) {
             const blueGA = blueGASelect.selectedOptions[blueGASelect.selectedIndex].text;
             let blueUnitRoot = document.getElementById("blue-unit-desc");
-            g_blue = populateFactions(blueGA, blueFactionSelect, blueUnitSelect, blueUnitRoot);
+            populateFactions(blueGA, blueFactionSelect, blueUnitSelect, blueUnitRoot, "blue");
         }
 
-        refreshPoints();
+        //refreshPoints();
     }
 
     function createChart(redVictories, blueVictories, ties) {
@@ -504,6 +489,19 @@ AosSim().then(AosSim => {
         const saveCheckbox = document.getElementById("savemaps-flag");
         g_saveMaps = saveCheckbox.checked;
 
+        const redUnitSelect = document.getElementById("red-unit-select");
+        const redUnitRoot = document.getElementById("red-unit-desc");
+        if (redUnitSelect && redUnitRoot) {
+            const unitName = redUnitSelect.selectedOptions[0].text;
+            g_red = createUnit(unitName, redUnitRoot);
+        }
+
+        const blueUnitSelect = document.getElementById("blue-unit-select");
+        const blueUnitRoot = document.getElementById("blue-unit-desc");
+        if (blueUnitSelect && blueUnitRoot) {
+            const unitName = blueUnitSelect.selectedOptions[0].text;
+            g_blue = createUnit(unitName, blueUnitRoot);
+        }
 
         refreshPoints();
 
