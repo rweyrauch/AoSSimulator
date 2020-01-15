@@ -17,6 +17,14 @@ AosSim().then(AosSim => {
 
     const sim = AosSim.JSInterface.prototype;
 
+    let g_verboseLevel = AosSim.Normal;
+    let g_numRounds = 5;
+    let g_saveMaps = false;
+    let g_numIterations = 5;
+    let g_battle = null;
+    let g_red = null;
+    let g_blue = null;
+
     function populateFactions(alliance, selector, unitSelector, unitRoot) {
         selector.options.length = 0;
         let factionKeywords = new Array();
@@ -94,7 +102,7 @@ AosSim().then(AosSim => {
             let unitName = redUnitSelect.selectedOptions[0].text;
             if (redUnitRoot) {
                 createConfigUI(unitName, redUnitRoot);
-                g_blue = createUnit(unitName, redUnitRoot);
+                g_red = createUnit(unitName, redUnitRoot);
             }
             refreshPoints();
         }
@@ -295,33 +303,40 @@ AosSim().then(AosSim => {
         let parameters = [];
 
         // extract parameters from UI
-        for (let ip of unitUI.children) {
-            let param = new AosSim.Parameter();
-            if (ip instanceof HTMLInputElement) {
-                const input = ip;
-                param.name = input.name;
-                if (input.type === "number") {
-                    param.intValue = +input.value;
-                    param.minValue = +input.min;
-                    param.maxValue = +input.max;
-                    param.increment = +input.step;
-                } else if (input.type === "checkbox") {
-                    param.intValue = input.checked ? 1 : 0;
-                    param.minValue = 0;
-                    param.maxValue = 1;
-                    param.increment = 1;
+        for (let ip of unitUI.childNodes) {
+            if (ip instanceof HTMLFieldSetElement) {
+                for (let iip of ip.childNodes) {
+                    if (iip instanceof HTMLInputElement) {
+                        let param = new AosSim.Parameter();
+                        const input = iip;
+                        param.name = input.name;
+                        if (input.type === "number") {
+                            param.intValue = +input.value;
+                            param.minValue = +input.min;
+                            param.maxValue = +input.max;
+                            param.increment = +input.step;
+                        } else if (input.type === "checkbox") {
+                            param.intValue = input.checked ? 1 : 0;
+                            param.minValue = 0;
+                            param.maxValue = 1;
+                            param.increment = 1;
+                        }
+                        parameters.push(param);
+                    }
+                    else if (iip instanceof HTMLSelectElement) {
+                        let param = new AosSim.Parameter();
+                        const select = iip;
+                        param.name = select.name;
+                        param.intValue = select.selectedIndex;
+                        param.minValue = 0;
+                        param.maxValue = select.children.length - 1;
+                        parameters.push(param);
+                    }
                 }
-                parameters.push(param);
-            }
-            else if (ip instanceof HTMLSelectElement) {
-                const select = ip;
-                param.name = select.name;
-                param.intValue = select.selectedIndex;
-                param.minValue = 0;
-                param.maxValue = select.children.length - 1;
-                parameters.push(param);
             }
         }
+
+        console.log("Creating unit using parameters: " + parameters.length);
 
         return sim.CreateUnit(unitName, parameters, parameters.length);
     }
@@ -423,14 +438,6 @@ AosSim().then(AosSim => {
         }
     }
 
-    let g_verboseLevel = AosSim.Normal;
-    let g_numRounds = 5;
-    let g_saveMaps = false;
-    let g_numIterations = 5;
-    let g_battle = null;
-    let g_red = null;
-    let g_blue = null;
-
     function runSimulation() {
 
         if (!g_battle || !g_red || !g_blue) {
@@ -497,6 +504,7 @@ AosSim().then(AosSim => {
         const saveCheckbox = document.getElementById("savemaps-flag");
         g_saveMaps = saveCheckbox.checked;
 
+
         refreshPoints();
 
         runSimulation();
@@ -555,6 +563,57 @@ AosSim().then(AosSim => {
         updateStats(blueStats, "blue");
     }
 
+    function renderUnit(ctx, unit, modelColor, unitColor) {
+        if (!ctx || !unit) {
+            return;
+        }
+
+        ctx.save();
+        ctx.lineWidth = 1.0;
+
+        const baseSize = unit.basesizeInches();
+        const radiusInches = baseSize * 0.5;
+
+        ctx.fillStyle = modelColor;
+        for (var i = 0; i < unit.numModels(); i++) {
+            const model = unit.getModel(i);
+
+            ctx.beginPath();
+            ctx.arc(model.x() * 10.0, model.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+            if (model.slain()) {
+                ctx.stroke();
+            } else {
+                ctx.fill();
+            }
+        }
+
+        const posx = unit.x();
+        const posy = unit.y();
+        ctx.fillStyle = unitColor;
+        ctx.beginPath();
+        ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    function renderUnitLabel(ctx, unit, textColor) {
+        if (!ctx || !unit) {
+            return;
+        }
+
+        const baseSize = unit.basesizeInches();
+        const radiusInches = baseSize * 0.5;
+
+        // label with the number of remaining models
+        ctx.save();
+        ctx.fillStyle = textColor;
+        ctx.font = '12px sans';
+        const text = unit.remainingModels().toString();
+        ctx.fillText(text, (unit.x() - 2.0 * radiusInches) * 10, (unit.y() - radiusInches) * 10);
+        ctx.restore();
+    }
+
     function render(canvas) {
         if (!canvas) return;
 
@@ -564,94 +623,21 @@ AosSim().then(AosSim => {
         ctx.fillStyle = "green";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.save();
-        ctx.lineWidth = 1.0;
-
         if (g_red) {
-            const baseSize = g_red.basesizeInches();
-            const radiusInches = baseSize * 0.5;
-            console.log("Red base size(in): " + radiusInches);
-
-            ctx.fillStyle = "red";
-            for (var i = 0; i < g_red.numModels(); i++) {
-                const model = g_red.getModel(i);
-
-                ctx.beginPath();
-                ctx.arc(model.x() * 10.0, model.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
-                if (model.slain()) {
-                    ctx.stroke();
-                } else {
-                    ctx.fill();
-                }
-            }
-
-            const posx = g_red.x();
-            const posy = g_red.y();
-            ctx.fillStyle = "darkred";
-            ctx.beginPath();
-            ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
-            ctx.fill();
-        }
-        ctx.restore();
-
-        // Draw blue team units.
-        ctx.save();
-        ctx.lineWidth = 1.0;
-
-        if (g_blue) {
-            const baseSize = g_blue.basesizeInches();
-            const radiusInches = baseSize * 0.5;
-            console.log("Blue base size(in): " + radiusInches);
-
-            ctx.fillStyle = "blue";
-            for (var i = 0; i < g_blue.numModels(); i++) {
-                const model = g_blue.getModel(i);
-
-                ctx.beginPath();
-                ctx.arc(model.x() * 10.0, model.y() * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
-                if (model.slain()) {
-                    ctx.stroke();
-                } else {
-                    ctx.fill();
-                }
-            }
-
-            const posx = g_blue.x();
-            const posy = g_blue.y();
-            ctx.fillStyle = "darkblue";
-            ctx.beginPath();
-            ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
-            ctx.fill();
-
-        }
-        ctx.restore();
-
-        if (g_red) {
-            const baseSize = g_red.basesizeInches();
-            const radiusInches = baseSize * 0.5;
-
-            // label with the number of remaining models
-            ctx.save();
-            ctx.fillStyle = "white";
-            ctx.font = '12px sans';
-            const text = g_red.remainingModels().toString();
-            ctx.fillText(text, (g_red.x() - 2.0 * radiusInches) * 10, (g_red.y() - radiusInches) * 10);
-            ctx.restore();
+            renderUnit(ctx, g_red, "red", "darkred");
         }
 
         if (g_blue) {
-            const baseSize = g_blue.basesizeInches();
-            const radiusInches = baseSize * 0.5;
-
-            // label with the number of remaining models
-            ctx.save();
-            ctx.fillStyle = "white";
-            ctx.font = '12px sans';
-            const text = g_blue.remainingModels().toString();
-            ctx.fillText(text, (g_blue.x() + radiusInches) * 10, (g_blue.y() - radiusInches) * 10);
-            ctx.restore();
+            renderUnit(ctx, g_blue, "blue", "darkblue");
         }
 
+        if (g_red) {
+            renderUnitLabel(ctx, g_red, "white");
+        }
+
+        if (g_blue) {
+            renderUnitLabel(ctx, g_blue, "white");
+        }
     }
 
     console.log("App is starting....");

@@ -95,7 +95,7 @@ const char* JSInterface::UnitParameterValueToString(const char* unitName, const 
         parameter.name = paramName;
         parameter.intValue = value;
         auto strValue = factory->m_paramToString(parameter);
-        std::cout << "Unit: " << unitName << "  Param Name: " << paramName << "  Value: " << value << "  AsString: " << strValue << std::endl;
+        //std::cout << "Unit: " << unitName << "  Param Name: " << paramName << "  Value: " << value << "  AsString: " << strValue << std::endl;
         return strdup(strValue.c_str());
     }
     return nullptr;
