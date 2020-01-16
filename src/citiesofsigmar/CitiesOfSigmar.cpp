@@ -96,6 +96,14 @@ int CitizenOfSigmar::EnumStringToInt(const std::string &enumString)
 
 void CitizenOfSigmar::setCity(CitizenOfSigmar::City city)
 {
+    removeKeyword(HAMMERHAL);
+    removeKeyword(LIVING_CITY);
+    removeKeyword(GREYWATER_FASTNESS);
+    removeKeyword(PHOENICIUM);
+    removeKeyword(ANVILGARD);
+    removeKeyword(HALLOWHEART);
+    removeKeyword(TEMPESTS_EYE);
+
     m_city = city;
     switch (city)
     {

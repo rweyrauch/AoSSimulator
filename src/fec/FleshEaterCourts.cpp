@@ -210,6 +210,11 @@ int FleshEaterCourts::EnumStringToInt(const std::string &enumString)
 
 void FleshEaterCourts::setGrandCourt(FleshEaterCourts::GrandCourt court)
 {
+    removeKeyword(MORGAUNT);
+    removeKeyword(HOLLOWMOURNE);
+    removeKeyword(BLISTERSKIN);
+    removeKeyword(GRISTLEGORE);
+
     m_grandCourt = court;
     switch (m_grandCourt)
     {

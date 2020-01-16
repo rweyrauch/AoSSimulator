@@ -43,6 +43,11 @@ void Init()
 
 void Fyreslayer::setLodge(Fyreslayer::Lodge lodge)
 {
+    removeKeyword(VOSTARG);
+    removeKeyword(GREYFYRD);
+    removeKeyword(HERMDAR);
+    removeKeyword(LOFNIR);
+
     m_lodge = lodge;
     switch (m_lodge)
     {

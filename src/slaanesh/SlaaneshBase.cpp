@@ -30,6 +30,10 @@ namespace Slaanesh
 
 void SlaaneshBase::setHost(Host host)
 {
+    removeKeyword(INVADERS);
+    removeKeyword(PRETENDERS);
+    removeKeyword(GODSEEKERS);
+
     m_host = host;
     switch (m_host)
     {

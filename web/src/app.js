@@ -255,6 +255,7 @@ AosSim().then(AosSim => {
                 group.appendChild(label);
 
                 let select = document.createElement("select");
+                select.name = pname;
                 select.id = controlId;
                 for (let i = pmin; i <= pmax; i += pincr) {
                     let option = document.createElement("option");
@@ -302,31 +303,26 @@ AosSim().then(AosSim => {
             if (ip instanceof HTMLFieldSetElement) {
                 for (let iip of ip.childNodes) {
                     if (iip instanceof HTMLInputElement) {
-                        let param = new AosSim.Parameter();
                         const input = iip;
-                        console.log(input);
-                        param.name = input.name;
                         if (input.type === "number") {
+                            let param = new AosSim.JSInputParameter(AosSim.Integer, input.name);
                             param.intValue = +input.value;
                             param.minValue = +input.min;
                             param.maxValue = +input.max;
                             param.increment = +input.step;
+                            parameters.push(param);
                         } else if (input.type === "checkbox") {
+                            let param = new AosSim.JSInputParameter(AosSim.Boolean, input.name);
                             param.intValue = input.checked ? 1 : 0;
                             param.minValue = 0;
                             param.maxValue = 1;
                             param.increment = 1;
+                            parameters.push(param);
                         }
-                        console.log("Name: " + param.name + "  should be: " + input.name);
-                        parameters.push(param);
-                        for (p of parameters) {
-                            console.log(p);
-                        }                                        
                     }
                     else if (iip instanceof HTMLSelectElement) {
-                        let param = new AosSim.Parameter();
                         const select = iip;
-                        param.name = select.name;
+                        let param = new AosSim.JSInputParameter(AosSim.Enum, select.name);
                         param.intValue = select.selectedIndex;
                         param.minValue = 0;
                         param.maxValue = select.children.length - 1;
@@ -337,7 +333,20 @@ AosSim().then(AosSim => {
         }
 
         console.log("Creating unit using parameters: " + parameters.length);
-        return sim.CreateUnit(unitName, parameters, parameters.length);
+        for (var p of parameters) {
+            console.log("\tType: " + p.paramType + "  Name: " + p.name + "  Value: " + p.intValue);
+        }
+
+        var unit = sim.CreateUnit(unitName, parameters, parameters.length);
+
+        console.log("Unit points: " + unit.points() +  "  Models: " + unit.remainingModels());
+
+        // Cleanup parameters
+        for (var p of parameters) {
+            AosSim.destroy(p);
+        }
+
+        return unit;
     }
 
     function refreshPoints(team, numModels) {

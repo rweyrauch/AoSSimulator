@@ -62,7 +62,7 @@ public:
     PlayerId owningPlayer() const { return m_owningPlayer; }
 
     bool addKeyword(Keyword word);
-
+    void removeKeyword(Keyword word);
     bool hasKeyword(Keyword word) const;
 
     /*!

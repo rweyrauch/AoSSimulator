@@ -31,6 +31,14 @@ namespace Sylvaneth
 
 void SylvanethBase::setGlade(Glade glade)
 {
+    removeKeyword(OAKENBROW);
+    removeKeyword(GNARLROOT);
+    removeKeyword(HEARTWOOD);
+    removeKeyword(IRONBARK);
+    removeKeyword(WINTERLEAF);
+    removeKeyword(DREADWOOD);
+    removeKeyword(HARVESTBOON);
+
     m_glade = glade;
     switch (m_glade)
     {

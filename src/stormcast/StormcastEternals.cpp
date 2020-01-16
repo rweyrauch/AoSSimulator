@@ -114,6 +114,15 @@ Rerolls StormcastEternal::battleshockRerolls() const
 
 void StormcastEternal::setStormhost(Stormhost host)
 {
+    removeKeyword(HAMMERS_OF_SIGMAR);
+    removeKeyword(HALLOWED_KNIGHTS);
+    removeKeyword(CELESTIAL_VINDICATORS);
+    removeKeyword(ANVILS_OF_THE_HELDENHAMMER);
+    removeKeyword(KNIGHTS_EXCELSIOR);
+    removeKeyword(CELESTIAL_WARBRINGERS);
+    removeKeyword(TEMPEST_LORDS);
+    removeKeyword(ASTRAL_TEMPLARS);
+
     m_stormHost = host;
     switch (m_stormHost)
     {

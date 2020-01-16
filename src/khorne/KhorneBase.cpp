@@ -47,6 +47,11 @@ namespace Khorne
 
 void KhorneBase::setSlaughterHost(SlaughterHost host)
 {
+    removeKeyword(REAPERS_OF_VENGEANCE);
+    removeKeyword(BLOODLORDS);
+    removeKeyword(GORETIDE);
+    removeKeyword(SKULLFIEND_TRIBE);
+
     m_slaughterHost = host;
     switch (m_slaughterHost)
     {

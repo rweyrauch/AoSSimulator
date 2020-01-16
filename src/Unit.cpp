@@ -293,6 +293,15 @@ bool Unit::addKeyword(Keyword word)
     return true;
 }
 
+void Unit::removeKeyword(Keyword word)
+{
+    auto kw = std::find(m_keywords.begin(), m_keywords.end(), word);
+    if (kw != m_keywords.end())
+    {
+        m_keywords.erase(kw);
+    }
+}
+
 int Unit::braveryModifier() const
 {
     int modifier = remainingModels() / 10;

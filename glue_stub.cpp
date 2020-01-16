@@ -7,12 +7,59 @@
  */
 #include <iostream>
 #include "include/AgeOfSigmarSim.h"
-#include "include/AgeOfSigmarSimJS.h"
 #include "include/ManoAMano.h"
 #include "include/Unit.h"
 #include "include/UnitFactory.h"
 
 static std::vector<std::string> g_unitNames;
+
+struct JSUnitInfo
+{
+public:
+    const char* name;
+    int numberOfParameters;
+    void getParameter(int which, Parameter& param) { param = this->parameters[which]; }
+    int grandAlliance;
+    int numberOfFactions;
+    int getFaction(int which) { return this->factions[which]; }
+    const Parameter* parameters;
+    const int* factions;
+};
+
+class JSInputParameter
+{
+public:
+    JSInputParameter(ParamType type, const char* n) : paramType(type), name(nullptr) {
+        name = strdup(n);
+    }
+
+    ParamType paramType = Integer;
+    char* name = nullptr;
+    int intValue = 0;
+    int minValue = 0;
+    int maxValue = 0;
+    int increment = 1;
+};
+
+class JSInterface
+{
+public:
+    static void Initialize();
+    static void SetVerbosity(Verbosity verbosity);
+    static int GrandAllianceStringToKeyword(const char* allianceName);
+    static int FactionStringToKeyword(const char* factionName);
+    static const char* FactionKeywordToString(int faction);
+    static const char* GrandAllianceKeywordToString(int ga);
+
+    static Unit* CreateUnit(const char* name, JSInputParameter** parameters, int numParams);
+    static int GetNumberOfAvailableUnits();
+    static void GetUnitInfo(int which, JSUnitInfo& info);
+    static void GetUnitInfoByName(const char* name, JSUnitInfo& info);
+    static const char* UnitParameterValueToString(const char* unitName, const char* paramName, int value);
+    static int UnitEnumStringToInt(const char* name, const char* enumString);
+    static int GetUnitPoints(const char* name, int numModels);
+};
+
 
 void JSInterface::Initialize()
 {
@@ -54,9 +101,23 @@ const char* JSInterface::FactionKeywordToString(int faction)
     return str.c_str();
 }
 
-Unit* JSInterface::CreateUnit(const char* name, const Parameter* parameters, int numParams)
+Unit* JSInterface::CreateUnit(const char* name, JSInputParameter** parameters, int numParams)
 {
-    const std::vector<Parameter> paramList(parameters, parameters+numParams);
+    Parameter param;
+    std::vector<Parameter> paramList;
+
+    fprintf(stderr, "Creating unit: %s  Params: %d\n", name, numParams);
+    for (auto i = 0; i < numParams; i++)
+    {
+        fprintf(stderr, "Param %d  Type: %d  Name: %s\n", i, parameters[i]->paramType, parameters[i]->name);
+        param.paramType = parameters[i]->paramType;
+        param.name = strdup(parameters[i]->name);
+        param.intValue = parameters[i]->intValue;
+        param.minValue = parameters[i]->minValue;
+        param.maxValue = parameters[i]->maxValue;
+        param.increment = parameters[i]->increment;
+        paramList.push_back(param);
+    }
     return UnitFactory::Create(std::string(name), paramList);
 }
 

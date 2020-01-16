@@ -25,6 +25,10 @@ namespace Bonesplitterz
 
 void Bonesplitterz::setWarclan(Warclan warclan)
 {
+    removeKeyword(BONEGRINZ);
+    removeKeyword(DRAKKFOOT);
+    removeKeyword(ICEBONE);
+
     m_warclan = warclan;
     switch (warclan)
     {

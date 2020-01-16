@@ -69,6 +69,8 @@ Player units are specified using the following format:
 Use the --list and --verbose options to see a list of supported unit and their parameters.  Supported
 units include the following:
 
+    % AoSManoAMano --list --verbose 0
+
     Beasts of Chaos:
         Bestigors
         Bullgors
@@ -303,6 +305,25 @@ result are only logged to the console.
         
 ![alt text](images/gtkmanoscreen.png)
 
+## Web Application
+
+The battle simulator has been ported to JavaScript/WASM using the Emscripten toolchain and a single page application
+created with a simple JavaScript application.
+
+### Building for the Web
+
+Install emscripten tool chain from (https://emscripten.org/index.html).
+
+Use npm to setup JS environment.
+
+   % cd web
+   % npm install
+   
+Basic instructions:
+
+   % emmake make -f Makefile.js_build
+   % npm start
+       
 ## Future Plans
 
 1. Windows, Android and iOS ports.
@@ -313,7 +334,7 @@ result are only logged to the console.
 6. More statistics and data collection.
 7. Expand to allow multiple units for each player.
 8. Import rosters from the various roster generation tools like BattleScribe or Warscroll Builder.
-9. ????
+9. JavaScript port.
 
 
     

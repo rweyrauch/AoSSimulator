@@ -49,6 +49,10 @@ int Ironjawz::runModifier() const
 
 void Ironjawz::setWarclan(Ironjawz::Warclan warclan)
 {
+    removeKeyword(IRONSUNZ);
+    removeKeyword(BLOODTOOFS);
+    removeKeyword(CHOPPAS);
+
     m_warclan = warclan;
     switch (warclan)
     {

@@ -826,7 +826,6 @@ enum Keyword
     MANEATERS,
 
     // Ossiarch Bonereapers
-    MORTIS_PRAETORIANS,
     HEKATOS,
     LIEGE,
     VOKMORTIAN,
@@ -843,6 +842,14 @@ enum Keyword
     MORTISAN_BONESHAPER,
     MORTEK_CRAWLER,
     GOTHIZZAR_HARVESTER,
+
+    // Ossiarch BoneReaper Legions
+    MORTIS_PRAETORIANS,
+    PETRIFEX_ELITE,
+    STALLIARCH_LORDS,
+    IVORY_HOST,
+    NULL_MYRIAD,
+    CREMATORIANS,
 
     // Kharadron Overlords
     SKYFARERS,
