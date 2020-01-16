@@ -122,16 +122,6 @@ interface JSUnitInfo {
     long getFaction(long which);
 };
 
-interface JSInputParameter {
-    void JSInputParameter(ParamType type, [Const] DOMString name);
-    attribute ParamType paramType;
-    attribute DOMString name;
-    attribute long intValue;
-    attribute long minValue;
-    attribute long maxValue;
-    attribute long increment;
-};
-
 interface JSInterface {
     static void Initialize();
     static void SetVerbosity(Verbosity verbosity);
@@ -140,7 +130,9 @@ interface JSInterface {
     [Const] static DOMString GrandAllianceKeywordToString(long ga);
     [Const] static DOMString FactionKeywordToString(long faction);
 
-    static Unit CreateUnit(DOMString name, JSInputParameter[] parameters, long numParameters);
+    static Unit CreateUnit(DOMString name);
+    static long AddUnitParameter([Ref] Parameter parameter);
+    static void ClearUnitParameters();
     static long GetNumberOfAvailableUnits();
     static void GetUnitInfo(long which, [Ref] JSUnitInfo info);
     static void GetUnitInfoByName([Const] DOMString name, [Ref] JSUnitInfo info);

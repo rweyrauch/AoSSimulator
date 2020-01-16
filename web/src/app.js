@@ -296,7 +296,7 @@ AosSim().then(AosSim => {
 
         if (!unitUI) return null;
 
-        let parameters = [];
+        sim.ClearUnitParameters();
 
         // extract parameters from UI
         for (let ip of unitUI.childNodes) {
@@ -305,46 +305,42 @@ AosSim().then(AosSim => {
                     if (iip instanceof HTMLInputElement) {
                         const input = iip;
                         if (input.type === "number") {
-                            let param = new AosSim.JSInputParameter(AosSim.Integer, input.name);
+                            let param = new AosSim.Parameter();
+                            param.paramType = AosSim.Integer;
+                            param.name = input.name;
                             param.intValue = +input.value;
                             param.minValue = +input.min;
                             param.maxValue = +input.max;
                             param.increment = +input.step;
-                            parameters.push(param);
+                            sim.AddUnitParameter(param);
                         } else if (input.type === "checkbox") {
-                            let param = new AosSim.JSInputParameter(AosSim.Boolean, input.name);
+                            let param = new AosSim.Parameter();
+                            param.paramType = AosSim.Boolean;
+                            param.name = input.name;
                             param.intValue = input.checked ? 1 : 0;
                             param.minValue = 0;
                             param.maxValue = 1;
                             param.increment = 1;
-                            parameters.push(param);
+                            sim.AddUnitParameter(param);
                         }
                     }
                     else if (iip instanceof HTMLSelectElement) {
                         const select = iip;
-                        let param = new AosSim.JSInputParameter(AosSim.Enum, select.name);
+                        let param = new AosSim.Parameter();
+                        param.paramType = AosSim.Enum;
+                        param.name = select.name;
                         param.intValue = select.selectedIndex;
                         param.minValue = 0;
                         param.maxValue = select.children.length - 1;
-                        parameters.push(param);
+                        sim.AddUnitParameter(param);
                     }
                 }
             }
         }
 
-        console.log("Creating unit using parameters: " + parameters.length);
-        for (var p of parameters) {
-            console.log("\tType: " + p.paramType + "  Name: " + p.name + "  Value: " + p.intValue);
-        }
-
-        var unit = sim.CreateUnit(unitName, parameters, parameters.length);
+        var unit = sim.CreateUnit(unitName);
 
         console.log("Unit points: " + unit.points() +  "  Models: " + unit.remainingModels());
-
-        // Cleanup parameters
-        for (var p of parameters) {
-            AosSim.destroy(p);
-        }
 
         return unit;
     }

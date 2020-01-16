@@ -51,7 +51,9 @@ public:
     static const char* FactionKeywordToString(int faction);
     static const char* GrandAllianceKeywordToString(int ga);
 
-    static Unit* CreateUnit(const char* name, JSInputParameter** parameters, int numParams);
+    static Unit* CreateUnit(const char* name);
+    static int AddUnitParameter(Parameter& parameter);
+    static void ClearUnitParameters();
     static int GetNumberOfAvailableUnits();
     static void GetUnitInfo(int which, JSUnitInfo& info);
     static void GetUnitInfoByName(const char* name, JSUnitInfo& info);
@@ -101,24 +103,25 @@ const char* JSInterface::FactionKeywordToString(int faction)
     return str.c_str();
 }
 
-Unit* JSInterface::CreateUnit(const char* name, JSInputParameter** parameters, int numParams)
-{
-    Parameter param;
-    std::vector<Parameter> paramList;
+static  std::vector<Parameter> g_paramList;
 
-    fprintf(stderr, "Creating unit: %s  Params: %d\n", name, numParams);
-    for (auto i = 0; i < numParams; i++)
-    {
-        fprintf(stderr, "Param %d  Type: %d  Name: %s\n", i, parameters[i]->paramType, parameters[i]->name);
-        param.paramType = parameters[i]->paramType;
-        param.name = strdup(parameters[i]->name);
-        param.intValue = parameters[i]->intValue;
-        param.minValue = parameters[i]->minValue;
-        param.maxValue = parameters[i]->maxValue;
-        param.increment = parameters[i]->increment;
-        paramList.push_back(param);
-    }
-    return UnitFactory::Create(std::string(name), paramList);
+Unit* JSInterface::CreateUnit(const char* name)
+{
+    return UnitFactory::Create(std::string(name), g_paramList);
+}
+
+int JSInterface::AddUnitParameter(Parameter& parameter)
+{
+    fprintf(stderr, "Param:  Type: %d  Name: %s  Value: %d\n", parameter.paramType, parameter.name, parameter.intValue);
+    Parameter param = parameter;
+    param.name = strdup(parameter.name);
+    g_paramList.push_back(param);
+    return (int)g_paramList.size();
+}
+
+void JSInterface::ClearUnitParameters()
+{
+    g_paramList.clear();
 }
 
 int JSInterface::GetNumberOfAvailableUnits()

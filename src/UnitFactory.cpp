@@ -48,6 +48,12 @@ Unit *UnitFactory::Create(const std::string &name, const std::vector<Parameter> 
         return nullptr;
     }
 
+    //fprintf(stderr, "Unit: %s  Num Params: %d\n", name.c_str(), (int)parameters.size());
+    //for (auto ip : parameters)
+    //{
+    //    fprintf(stderr, "\tType: %d  Name: %s  Value: %d\n", ip.paramType, ip.name, ip.intValue);
+    //}
+
     LogUnitDescriptor(&registeredPair->second, name, parameters);
 
     return registeredPair->second.m_create(parameters);
