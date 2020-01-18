@@ -60,6 +60,8 @@ bool Dryads::configure(int numModels)
         addModel(model);
     }
 
+    m_ranks = std::max(1, (numModels / MIN_UNIT_SIZE) / 2);
+
     m_points = ComputePoints(numModels);
 
     return true;
@@ -122,6 +124,28 @@ int Dryads::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+void Dryads::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    // Enrapturing Song
+    // For now always select the unit the Dryads are targeting in combat.
+    m_enrapturedUnit = m_meleeTarget;
+}
+
+int Dryads::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Enrapturing Song
+    if (m_enrapturedUnit && (target == m_enrapturedUnit))
+    {
+        mod++;
+    }
+
+    return mod;
 }
 
 } // namespace Sylvaneth

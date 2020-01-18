@@ -38,13 +38,16 @@ public:
 protected:
 
     int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-
     int toSaveModifier(const Weapon *weapon) const override;
+    void onStartCombat(PlayerId player) override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
     Weapon m_wrackingTalons,
         m_wrackingTalonsNymph;
+
+    Unit* m_enrapturedUnit = nullptr;
 
     static bool s_registered;
 };
