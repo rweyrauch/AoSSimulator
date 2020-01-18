@@ -17,8 +17,8 @@ class Roster;
 class ManoAMano
 {
 public:
-    static const int BoardWidth = 36;
-    static const int BoardDepth = 48;
+    static const int BoardWidth = 48;
+    static const int BoardDepth = 36;
 
     explicit ManoAMano(int numRounds, Realm realm = Azyr);
     ~ManoAMano();
@@ -37,6 +37,14 @@ public:
     void getStatistics(PlayerId which, UnitStatistics& stats);
 
     PlayerId getVictor() const;
+
+    float getInitialRedX() const { return m_initialPos[0].x; }
+    float getInitialRedY() const { return m_initialPos[0].y; }
+    float getInitialBlueX() const { return m_initialPos[1].x; }
+    float getInitialBlueY() const { return m_initialPos[1].y; }
+
+    float getBoardWidth() const { return BoardWidth; }
+    float getBoardDepth() const { return BoardDepth; }
 
 protected:
 

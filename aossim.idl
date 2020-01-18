@@ -100,6 +100,12 @@ interface ManoAMano {
     long currentRound();
     void getStatistics(PlayerId which, [Ref] UnitStatistics stats);
     PlayerId getVictor();
+    float getInitialRedX();
+    float getInitialRedY();
+    float getInitialBlueX();
+    float getInitialBlueY();
+    float getBoardWidth();
+    float getBoardDepth();
 };
 
 interface Parameter {

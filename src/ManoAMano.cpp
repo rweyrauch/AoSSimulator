@@ -41,14 +41,14 @@ void ManoAMano::combatants(Unit *red, Unit *blue)
     // |                       |
     // +-----------------------+
 
-    float redX = board->width() / 20.0f;
+    float redX = board->width() / 10.0f;
     float redY = board->depth() / 2.0f;
 
     // left center
     m_initialPos[0] = Math::Point3(redX, redY, 0.0f);
     red->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
 
-    float blueX = board->width() - (board->width() / 20.0f);
+    float blueX = board->width() - (board->width() / 10.0f);
     float blueY = board->depth() / 2.0f;
 
     // right center

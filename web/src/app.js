@@ -567,7 +567,7 @@ AosSim().then(AosSim => {
         updateStats(blueStats, "blue");
     }
 
-    function renderUnit(ctx, unit, modelColor, unitColor) {
+    function renderUnit(ctx, unit, modelColor, unitColor, initX, initY) {
         if (!ctx || !unit) {
             return;
         }
@@ -579,6 +579,7 @@ AosSim().then(AosSim => {
         const radiusInches = baseSize * 0.5;
 
         ctx.fillStyle = modelColor;
+        ctx.strokeStyle = modelColor;
         for (var i = 0; i < unit.numModels(); i++) {
             const model = unit.getModel(i);
 
@@ -596,6 +597,10 @@ AosSim().then(AosSim => {
         ctx.fillStyle = unitColor;
         ctx.beginPath();
         ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(initX * 10.0, initY * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
         ctx.fill();
 
         ctx.restore();
@@ -621,6 +626,9 @@ AosSim().then(AosSim => {
     function render(canvas) {
         if (!canvas) return;
 
+        //console.log("Canvas Size: " + canvas.width + ", " + canvas.height +
+        //    "  X: " + g_battle.getInitialRedX() +"  Y: " + g_battle.getInitialRedY());
+
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
@@ -628,11 +636,11 @@ AosSim().then(AosSim => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         if (g_red) {
-            renderUnit(ctx, g_red, "red", "darkred");
+            renderUnit(ctx, g_red, "red", "darkred", g_battle.getInitialRedX(), g_battle.getInitialRedY());
         }
 
         if (g_blue) {
-            renderUnit(ctx, g_blue, "blue", "darkblue");
+            renderUnit(ctx, g_blue, "blue", "darkblue", g_battle.getInitialBlueX(), g_battle.getInitialBlueY());
         }
 
         if (g_red) {
