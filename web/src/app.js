@@ -97,7 +97,6 @@ AosSim().then(AosSim => {
         const redUnitRoot = document.getElementById("red-unit-desc");
         if (redFactionSelect && redUnitSelect) {
             populateFactions(alliance, redFactionSelect, redUnitSelect, redUnitRoot, "red");
-            //refreshPoints();
         }
     }
 
@@ -112,7 +111,6 @@ AosSim().then(AosSim => {
         const blueUnitRoot = document.getElementById("blue-unit-desc");
         if (blueFactionSelect && blueUnitSelect) {
             populateFactions(alliance, blueFactionSelect, blueUnitSelect, blueUnitRoot, "blue");
-            //refreshPoints();
         }
     }
 
@@ -128,7 +126,6 @@ AosSim().then(AosSim => {
             if (redUnitRoot) {
                 createConfigUI(unitName, redUnitRoot, "red");
             }
-            //refreshPoints();
         } else {
             console.log("Red unit selector not found.");
         }
@@ -146,7 +143,6 @@ AosSim().then(AosSim => {
             if (blueUnitRoot) {
                 createConfigUI(unitName, blueUnitRoot, "blue");
             }
-            //refreshPoints();
         } else {
             console.log("Blue unit selector not found.");
         }
@@ -171,7 +167,6 @@ AosSim().then(AosSim => {
         let unitRoot = document.getElementById("red-unit-desc");
         if (unitRoot) {
             createConfigUI(unitName, unitRoot, "red");
-            //refreshPoints();
         }
     }
 
@@ -183,7 +178,6 @@ AosSim().then(AosSim => {
         let unitRoot = document.getElementById("blue-unit-desc");
         if (unitRoot) {
             createConfigUI(unitName, unitRoot, "blue");
-            //refreshPoints('');
         }
     }
 
@@ -201,6 +195,8 @@ AosSim().then(AosSim => {
         console.log("\tNumber of parameters: " + factory.numberOfParameters);
 
         var params = new AosSim.Parameter();
+
+        var defaultModelCount = 0;
 
         for (let idx = 0; idx < factory.numberOfParameters; idx++) {
 
@@ -237,7 +233,12 @@ AosSim().then(AosSim => {
                 input.min = pmin.toString();
                 input.step = pincr.toString();
                 input.classList.add("form-control");
-                input.addEventListener("change", on_model_count_changed);
+
+                if (pname.includes('Model')) {
+                    input.addEventListener("change", on_model_count_changed);
+                    defaultModelCount = pvalue;
+                }
+
                 //input.maxLength = 10;
                 group.appendChild(input);
 
@@ -288,6 +289,8 @@ AosSim().then(AosSim => {
                 container.appendChild(group);
             }
         }
+
+        refreshPoints(team, defaultModelCount);
     }
 
     function createUnit(unitName, unitUI) {
@@ -390,8 +393,6 @@ AosSim().then(AosSim => {
             let blueUnitRoot = document.getElementById("blue-unit-desc");
             populateFactions(blueGA, blueFactionSelect, blueUnitSelect, blueUnitRoot, "blue");
         }
-
-        //refreshPoints();
     }
 
     function createChart(redVictories, blueVictories, ties) {
