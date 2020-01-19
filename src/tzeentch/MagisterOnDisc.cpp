@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     MagisterOnDiscOfTzeentch::Create,
-    MagisterOnDiscOfTzeentch::ValueToString,
-    MagisterOnDiscOfTzeentch::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     MagisterOnDiscOfTzeentch::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *MagisterOnDiscOfTzeentch::Create(const ParameterList &parameters)
 {
     auto unit = new MagisterOnDiscOfTzeentch();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *MagisterOnDiscOfTzeentch::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string MagisterOnDiscOfTzeentch::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int MagisterOnDiscOfTzeentch::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void MagisterOnDiscOfTzeentch::Init()
@@ -58,7 +52,7 @@ void MagisterOnDiscOfTzeentch::Init()
 }
 
 MagisterOnDiscOfTzeentch::MagisterOnDiscOfTzeentch() :
-    Unit("Magister on Disc of Tzeentch", 16, WOUNDS, 7, 5, true),
+    TzeentchBase("Magister on Disc of Tzeentch", 16, WOUNDS, 7, 5, true),
     m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
     m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1),
     m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3)

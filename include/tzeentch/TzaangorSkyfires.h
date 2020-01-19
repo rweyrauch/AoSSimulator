@@ -9,13 +9,13 @@
 #ifndef TZAANGORSKYFIRES_H
 #define TZAANGORSKYFIRES_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class TzaangorSkyfires : public Unit
+class TzaangorSkyfires : public TzeentchBase
 {
 public:
 

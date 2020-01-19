@@ -569,6 +569,8 @@ void Unit::movement(PlayerId player)
 
     if (m_ran)
         onRan();
+
+    onEndMovement(player);
 }
 
 int Unit::rollBattleshock() const

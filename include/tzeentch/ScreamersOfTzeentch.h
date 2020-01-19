@@ -9,13 +9,13 @@
 #ifndef SCREAMERS_H
 #define SCREAMERS_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class ScreamersOfTzeentch : public Unit
+class ScreamersOfTzeentch : public TzeentchBase
 {
 public:
 
@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 3;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int POINTS_PER_BLOCK = 80;
+    static const int POINTS_MAX_UNIT_SIZE = 320;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

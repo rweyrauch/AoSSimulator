@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     TheChangeling::Create,
-    TheChangeling::ValueToString,
-    TheChangeling::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     TheChangeling::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *TheChangeling::Create(const ParameterList &parameters)
 {
     auto unit = new TheChangeling();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *TheChangeling::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string TheChangeling::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int TheChangeling::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void TheChangeling::Init()
@@ -58,7 +52,7 @@ void TheChangeling::Init()
 }
 
 TheChangeling::TheChangeling() :
-    Unit("The Changeling", 6, WOUNDS, 7, 5, false),
+    TzeentchBase("The Changeling", 6, WOUNDS, 7, 5, false),
     m_staff(Weapon::Type::Melee, "The Trickster's Staff", 2, 3, 3, 3, -1, RAND_D3)
 {
     m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_CHANGELING};

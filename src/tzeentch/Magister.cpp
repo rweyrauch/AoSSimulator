@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     Magister::Create,
-    Magister::ValueToString,
-    Magister::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     Magister::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *Magister::Create(const ParameterList &parameters)
 {
     auto unit = new Magister();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *Magister::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string Magister::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int Magister::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void Magister::Init()
@@ -58,7 +52,7 @@ void Magister::Init()
 }
 
 Magister::Magister() :
-    Unit("Magister", 6, WOUNDS, 7, 5, false),
+    TzeentchBase("Magister", 6, WOUNDS, 7, 5, false),
     m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
     m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1)
 {

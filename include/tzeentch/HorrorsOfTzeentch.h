@@ -9,13 +9,13 @@
 #ifndef HORRORS_H
 #define HORRORS_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class HorrorsOfTzeentch : public Unit
+class HorrorsOfTzeentch : public TzeentchBase
 {
 public:
 
@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int POINTS_PER_BLOCK = 200;
+    static const int POINTS_MAX_UNIT_SIZE = 600;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

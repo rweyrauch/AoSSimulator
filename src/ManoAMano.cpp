@@ -334,7 +334,7 @@ void ManoAMano::runCombatPhase()
     // Think.
     m_rosters[(int) m_attackingPlayer]->doCombatPhase();
 
-    assert(attackingUnit()->meleeTarget() == defendingUnit());
+    //assert(attackingUnit()->meleeTarget() == defendingUnit());
 
     int numSlain = 0;
     auto totalDamage = attackingUnit()->fight(m_attackingPlayer, numSlain);

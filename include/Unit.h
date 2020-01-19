@@ -368,6 +368,8 @@ protected:
 
     virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
 
+    virtual void onEndMovement(PlayerId player) {}
+
     virtual void onFlee(int numFled) {}
 
     virtual int rollRunDistance() const;

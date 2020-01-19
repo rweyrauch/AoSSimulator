@@ -9,23 +9,21 @@
 #ifndef MAGISTER_H
 #define MAGISTER_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class Magister : public Unit
+class Magister : public TzeentchBase
 {
 public:
 
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int POINTS_PER_UNIT = 100;
 
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 

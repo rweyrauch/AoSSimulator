@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     VortemisTheAllSeeing::Create,
-    VortemisTheAllSeeing::ValueToString,
-    VortemisTheAllSeeing::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     VortemisTheAllSeeing::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *VortemisTheAllSeeing::Create(const ParameterList &parameters)
 {
     auto unit = new VortemisTheAllSeeing();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *VortemisTheAllSeeing::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string VortemisTheAllSeeing::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int VortemisTheAllSeeing::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void VortemisTheAllSeeing::Init()
@@ -58,7 +52,7 @@ void VortemisTheAllSeeing::Init()
 }
 
 VortemisTheAllSeeing::VortemisTheAllSeeing() :
-    Unit("Vortemis the All-seeing", 6, WOUNDS, 7, 5, false),
+    TzeentchBase("Vortemis the All-seeing", 6, WOUNDS, 7, 5, false),
     m_staffMissile(Weapon::Type::Missile, "Tzeenchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
     m_staff(Weapon::Type::Melee, "Tzeenchian Runestaff", 1, 1, 4, 4, 0, 1)
 {

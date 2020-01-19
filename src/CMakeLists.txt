@@ -323,6 +323,7 @@ add_library(
         skaven/Doomwheel.cpp
         skaven/Doomflayer.cpp
 
+        tzeentch/TzeentchBase.cpp
         tzeentch/KairicAcolytes.cpp
         tzeentch/HorrorsOfTzeentch.cpp
         tzeentch/TzaangorEnlightened.cpp

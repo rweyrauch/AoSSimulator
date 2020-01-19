@@ -42,6 +42,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", LordOfChange::BalefulSword, LordOfChange::BalefulSword,
             LordOfChange::CurvedBeakAndTalons, 1
         },
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -52,8 +53,10 @@ bool LordOfChange::s_registered = false;
 Unit *LordOfChange::Create(const ParameterList &parameters)
 {
     auto unit = new LordOfChange();
-
     auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, BalefulSword);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(weapon);
     if (!ok)
@@ -72,7 +75,7 @@ std::string LordOfChange::ValueToString(const Parameter &parameter)
         else if (parameter.intValue == BalefulSword) return "Baleful Sword";
         else if (parameter.intValue == CurvedBeakAndTalons) return "Curved Beak and Talons";
     }
-    return ParameterValueToString(parameter);
+    return TzeentchBase::ValueToString(parameter);
 }
 
 int LordOfChange::EnumStringToInt(const std::string &enumString)
@@ -80,7 +83,7 @@ int LordOfChange::EnumStringToInt(const std::string &enumString)
     if (enumString == "Rod of Sorcery") return RodOfSorcery;
     else if (enumString == "Baleful Sword") return BalefulSword;
     else if (enumString == "Curved Beak and Talons") return CurvedBeakAndTalons;
-    return 0;
+    return TzeentchBase::EnumStringToInt(enumString);
 }
 
 void LordOfChange::Init()
@@ -92,7 +95,7 @@ void LordOfChange::Init()
 }
 
 LordOfChange::LordOfChange() :
-    Unit("Lord of Change", 12, WOUNDS, 10, 4, true),
+    TzeentchBase("Lord of Change", 12, WOUNDS, 10, 4, true),
     m_rodOfSorcery(Weapon::Type::Missile, "Rod of Sorcery", 18, RAND_2D6,3, 3, -1, 1),
     m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 3, 4, 3, 1, 0, 2),
     m_sword(Weapon::Type::Melee, "Baleful Sword", 1, 2, 4, 2, -2, 3),

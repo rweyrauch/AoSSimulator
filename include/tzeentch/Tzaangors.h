@@ -9,13 +9,13 @@
 #ifndef TZAANGORS_H
 #define TZAANGORS_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class Tzaangors : public Unit
+class Tzaangors : public TzeentchBase
 {
 public:
 
@@ -24,7 +24,7 @@ public:
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
     static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int POINTS_MAX_UNIT_SIZE = 540;
 
     enum WeaponOptions
     {

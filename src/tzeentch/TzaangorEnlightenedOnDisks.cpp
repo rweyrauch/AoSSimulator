@@ -15,12 +15,13 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     TzaangorEnlightenedOnDisks::Create,
-    nullptr,
-    nullptr,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     TzaangorEnlightenedOnDisks::ComputePoints,
     {
         {ParamType::Integer, "Models", TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE,
          TzaangorEnlightenedOnDisks::MAX_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE},
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH, BEASTS_OF_CHAOS }
@@ -29,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool TzaangorEnlightenedOnDisks::s_registered = false;
 
 TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks() :
-    Unit("Tzaangor Enlightened on Disks", 16, WOUNDS, 6, 5, true),
+    TzeentchBase("Tzaangor Enlightened on Disks", 16, WOUNDS, 6, 5, true),
     m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
     m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
     m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
@@ -72,6 +73,9 @@ Unit *TzaangorEnlightenedOnDisks::Create(const ParameterList &parameters)
 {
     auto *unit = new TzaangorEnlightenedOnDisks();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(numModels);
     if (!ok)

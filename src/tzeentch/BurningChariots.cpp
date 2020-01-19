@@ -14,14 +14,15 @@ namespace Tzeentch
 {
 static FactoryMethod factoryMethod = {
     BurningChariotsOfTzeentch::Create,
-    nullptr,
-    nullptr,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     BurningChariotsOfTzeentch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", BurningChariotsOfTzeentch::MIN_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE,
             BurningChariotsOfTzeentch::MAX_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool BurningChariotsOfTzeentch::s_registered = false;
 
 BurningChariotsOfTzeentch::BurningChariotsOfTzeentch() :
-    Unit("Burning Chariots of Tzeentch", 14, WOUNDS, 10, 5, true),
+    TzeentchBase("Burning Chariots of Tzeentch", 14, WOUNDS, 10, 5, true),
     m_warpflame(Weapon::Type::Missile, "Billowing Warpflame", 18, 6, 4, 3, -1, RAND_D3),
     m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 6, 4, 3, 0, 1),
     m_jabs(Weapon::Type::Melee, "Blue Horrors' Jabs", 1, 3, 5, 5, 0, 1),
@@ -66,6 +67,9 @@ Unit *BurningChariotsOfTzeentch::Create(const ParameterList &parameters)
 {
     auto unit = new BurningChariotsOfTzeentch();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -34,10 +34,11 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 
 static FactoryMethod factoryMethod = {
     KairosFateweaver::Create,
-    KairosFateweaver::ValueToString,
-    KairosFateweaver::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     KairosFateweaver::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -49,6 +50,9 @@ Unit *KairosFateweaver::Create(const ParameterList &parameters)
 {
     auto unit = new KairosFateweaver();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -56,16 +60,6 @@ Unit *KairosFateweaver::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string KairosFateweaver::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int KairosFateweaver::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void KairosFateweaver::Init()
@@ -77,7 +71,7 @@ void KairosFateweaver::Init()
 }
 
 KairosFateweaver::KairosFateweaver() :
-    Unit("Kairos Fateweaver", 12, WOUNDS, 10, 4, true),
+    TzeentchBase("Kairos Fateweaver", 12, WOUNDS, 10, 4, true),
     m_staff(Weapon::Type::Melee, "Staff of Tomorrow", 3, 3, 3, 1, -1, 2),
     m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2)
 {

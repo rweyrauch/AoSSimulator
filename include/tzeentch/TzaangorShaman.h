@@ -9,13 +9,13 @@
 #ifndef TZAANGORSHAMAN_H
 #define TZAANGORSHAMAN_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class TzaangorShaman : public Unit
+class TzaangorShaman : public TzeentchBase
 {
 public:
 
@@ -24,8 +24,6 @@ public:
     static const int POINTS_PER_UNIT = 150;
 
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 

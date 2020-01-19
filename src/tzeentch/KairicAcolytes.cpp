@@ -29,6 +29,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Cursed Glaives", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
         {ParamType::Integer, "Scrolls Of Dark Arts", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
         {ParamType::Integer, "Vulcharcs", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -37,7 +38,7 @@ static FactoryMethod factoryMethod = {
 bool KairicAcolytes::s_registered = false;
 
 KairicAcolytes::KairicAcolytes() :
-    Unit("Kairic Acolytes", 6, WOUNDS, 5, 5, false),
+    TzeentchBase("Kairic Acolytes", 6, WOUNDS, 5, 5, false),
     m_sorcerousBolt(Weapon::Type::Missile, "Sorcerous Bolt", 18, 1, 4, 3, 0, 1),
     m_cursedBlade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 3, 0, 1),
     m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 3, -1, 2),
@@ -128,6 +129,9 @@ Unit *KairicAcolytes::Create(const ParameterList &parameters)
     int numScrollsOfDarkArts = GetIntParam("Scrolls Of Dark Arts", parameters, 0);
     int numVulcharcs = GetIntParam("Vulcharcs", parameters, 0);
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure(numModels, weapons, numCursedGlaives, numScrollsOfDarkArts, numVulcharcs);
     if (!ok)
     {
@@ -155,7 +159,7 @@ std::string KairicAcolytes::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return TzeentchBase::ValueToString(parameter);
 }
 
 int KairicAcolytes::EnumStringToInt(const std::string &enumString)
@@ -172,7 +176,7 @@ int KairicAcolytes::EnumStringToInt(const std::string &enumString)
     {
         return CursedBladeAndShield;
     }
-    return 0;
+    return TzeentchBase::EnumStringToInt(enumString);
 }
 
 int KairicAcolytes::castingModifier() const

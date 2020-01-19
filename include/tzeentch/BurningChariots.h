@@ -9,13 +9,13 @@
 #ifndef BURNINGCHARIOTS_H
 #define BURNINGCHARIOTS_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class BurningChariotsOfTzeentch : public Unit
+class BurningChariotsOfTzeentch : public TzeentchBase
 {
 public:
 

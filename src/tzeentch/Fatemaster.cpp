@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     Fatemaster::Create,
-    Fatemaster::ValueToString,
-    Fatemaster::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     Fatemaster::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *Fatemaster::Create(const ParameterList &parameters)
 {
     auto unit = new Fatemaster();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *Fatemaster::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string Fatemaster::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int Fatemaster::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void Fatemaster::Init()
@@ -58,7 +52,7 @@ void Fatemaster::Init()
 }
 
 Fatemaster::Fatemaster() :
-    Unit("Fatemaster", 16, WOUNDS, 8, 4, true),
+    TzeentchBase("Fatemaster", 16, WOUNDS, 8, 4, true),
     m_glaive(Weapon::Type::Melee, "Fireglaive of Tzeentch", 2, 3, 3, 4, 0, RAND_D3),
     m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3)
 {

@@ -37,6 +37,7 @@ protected:
 
     void onStartHero(PlayerId player) override;
     void onStartCombat(PlayerId player) override;
+    void onEndMovement(PlayerId player) override;
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     void onWounded() override;
     int getDamageTableIndex() const;
@@ -48,6 +49,8 @@ private:
     Weapon m_spearOfKurnoth,
         m_talonOfDwindling,
         m_beetleGreatAntlers;
+
+    bool m_usedSoulAmphorae = false;
 
     static bool s_registered;
 };
@@ -61,8 +64,8 @@ private:
 // Sweeping Blows                   Yes
 // Living Battering Ram             Yes
 // Soul Amphorae                    Partial
-// Metamorphosis                    No
-// Ghyran's Wrath                   No
+// Metamorphosis                    Partial
+// Ghyran's Wrath                   Partial
 //
 
 } // namespace Sylvaneth

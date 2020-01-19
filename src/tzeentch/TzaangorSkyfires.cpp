@@ -15,12 +15,13 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     TzaangorSkyfires::Create,
-    nullptr,
-    nullptr,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     TzaangorSkyfires::ComputePoints,
     {
         {ParamType::Integer, "Models", TzaangorSkyfires::MIN_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE,
          TzaangorSkyfires::MAX_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE},
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH, BEASTS_OF_CHAOS }
@@ -29,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool TzaangorSkyfires::s_registered = false;
 
 TzaangorSkyfires::TzaangorSkyfires() :
-    Unit("Tzaangor Skyfires", 16, WOUNDS, 6, 5, true),
+    TzeentchBase("Tzaangor Skyfires", 16, WOUNDS, 6, 5, true),
     m_arrowOfFate(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 4, 3, -1, RAND_D3),
     m_arrowOfFateAviarch(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 3, 3, -1, RAND_D3),
     m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 2, 5, 5, 0, 1),
@@ -75,6 +76,9 @@ Unit *TzaangorSkyfires::Create(const ParameterList &parameters)
 {
     auto *unit = new TzaangorSkyfires();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(numModels);
     if (!ok)

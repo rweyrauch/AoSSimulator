@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     CurselingEyeOfTzeentch::Create,
-    CurselingEyeOfTzeentch::ValueToString,
-    CurselingEyeOfTzeentch::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     CurselingEyeOfTzeentch::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *CurselingEyeOfTzeentch::Create(const ParameterList &parameters)
 {
     auto unit = new CurselingEyeOfTzeentch();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *CurselingEyeOfTzeentch::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string CurselingEyeOfTzeentch::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int CurselingEyeOfTzeentch::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void CurselingEyeOfTzeentch::Init()
@@ -58,7 +52,7 @@ void CurselingEyeOfTzeentch::Init()
 }
 
 CurselingEyeOfTzeentch::CurselingEyeOfTzeentch() :
-    Unit("Curseling Eye of Tzeentch", 5, WOUNDS, 7, 4, false),
+    TzeentchBase("Curseling Eye of Tzeentch", 5, WOUNDS, 7, 4, false),
     m_sword(Weapon::Type::Melee, "Blazing Sword", 1, 3, 3, 4, -1, 1),
     m_flail(Weapon::Type::Melee, "Threshing Flail", 1, 3, 4, 3, 0, 1),
     m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 2, 1, 5, 4, 0, RAND_D3)

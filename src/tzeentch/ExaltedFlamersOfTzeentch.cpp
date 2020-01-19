@@ -14,14 +14,15 @@ namespace Tzeentch
 {
 static FactoryMethod factoryMethod = {
     ExaltedFlamersOfTzeentch::Create,
-    nullptr,
-    nullptr,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     ExaltedFlamersOfTzeentch::ComputePoints,
     {
         {
             ParamType::Integer, "Models", ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE,
             ExaltedFlamersOfTzeentch::MAX_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool ExaltedFlamersOfTzeentch::s_registered = false;
 
 ExaltedFlamersOfTzeentch::ExaltedFlamersOfTzeentch() :
-    Unit("Exalted Flamers of Tzeentch", 9, WOUNDS, 10, 5, true),
+    TzeentchBase("Exalted Flamers of Tzeentch", 9, WOUNDS, 10, 5, true),
     m_warpflame(Weapon::Type::Missile, "Billowing Warpflame", 18, 6, 4, 3, -1, RAND_D3),
     m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 2, 4, 5, 3, 0, 1)
 {
@@ -62,6 +63,9 @@ Unit *ExaltedFlamersOfTzeentch::Create(const ParameterList &parameters)
 {
     auto unit = new ExaltedFlamersOfTzeentch();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -15,12 +15,13 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     TzaangorEnlightened::Create,
-    nullptr,
-    nullptr,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     TzaangorEnlightened::ComputePoints,
     {
         {ParamType::Integer, "Models", TzaangorEnlightened::MIN_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE,
          TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH, BEASTS_OF_CHAOS }
@@ -29,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool TzaangorEnlightened::s_registered = false;
 
 TzaangorEnlightened::TzaangorEnlightened() :
-    Unit("Tzaangor Enlightened", 6, WOUNDS, 6, 5, false),
+    TzeentchBase("Tzaangor Enlightened", 6, WOUNDS, 6, 5, false),
     m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
     m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
     m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1)
@@ -69,6 +70,9 @@ Unit *TzaangorEnlightened::Create(const ParameterList &parameters)
 {
     auto *unit = new TzaangorEnlightened();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     OgroidThaumaturge::Create,
-    OgroidThaumaturge::ValueToString,
-    OgroidThaumaturge::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     OgroidThaumaturge::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *OgroidThaumaturge::Create(const ParameterList &parameters)
 {
     auto unit = new OgroidThaumaturge();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *OgroidThaumaturge::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string OgroidThaumaturge::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int OgroidThaumaturge::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void OgroidThaumaturge::Init()
@@ -58,7 +52,7 @@ void OgroidThaumaturge::Init()
 }
 
 OgroidThaumaturge::OgroidThaumaturge() :
-    Unit("OgroidT haumaturge", 6, WOUNDS, 8, 5, false),
+    TzeentchBase("OgroidT haumaturge", 6, WOUNDS, 8, 5, false),
     m_staff(Weapon::Type::Melee, "Thaumaturge Staff", 2, 3, 3, 3, -1, RAND_D3),
     m_horns(Weapon::Type::Melee, "Great Horns", 1, 2, 3, 3, -2, 3),
     m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 4, 4, 3, 0, 1)

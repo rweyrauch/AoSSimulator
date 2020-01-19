@@ -9,13 +9,13 @@
 #ifndef TZAANGORENLIGHTENED_H
 #define TZAANGORENLIGHTENED_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class TzaangorEnlightened : public Unit
+class TzaangorEnlightened : public TzeentchBase
 {
 public:
 

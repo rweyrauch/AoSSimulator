@@ -71,9 +71,9 @@ bool Alarielle::configure()
     model->addMeleeWeapon(&m_beetleGreatAntlers);
     addModel(model);
 
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateMetamorphosis(this)));
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateMetamorphosis(this)));
 
     m_points = POINTS_PER_UNIT;
 
@@ -205,6 +205,27 @@ void Alarielle::onStartCombat(PlayerId player)
             buffReroll(ToWoundMelee, RerollOnes, {Combat, m_battleRound+1, owningPlayer()});
 
             // TODO: buffer all units wholly within 14" of Alarielle
+        }
+    }
+}
+
+void Alarielle::onEndMovement(PlayerId player)
+{
+    Unit::onEndMovement(player);
+
+    if (owningPlayer() == player && !m_usedSoulAmphorae)
+    {
+        // Summon a unit and add to roster.
+        auto factory = UnitFactory::LookupUnit("Kurnoth Hunters");
+        if (factory)
+        {
+            auto unit = UnitFactory::Create("Kurnoth Hunters", factory->m_parameters);
+            if (m_roster && unit)
+            {
+                unit->setPosition(position(), m_orientation);
+                m_roster->addUnit(unit);
+            }
+            m_usedSoulAmphorae = true;
         }
     }
 }

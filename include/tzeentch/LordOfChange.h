@@ -9,13 +9,13 @@
 #ifndef LORDOFCHANGE_H
 #define LORDOFCHANGE_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class LordOfChange : public Unit
+class LordOfChange : public TzeentchBase
 {
 public:
 

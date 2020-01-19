@@ -9,13 +9,13 @@
 #ifndef FLAMERSOFTZEENTCH_H
 #define FLAMERSOFTZEENTCH_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class FlamersOfTzeentch : public Unit
+class FlamersOfTzeentch : public TzeentchBase
 {
 public:
 
@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 560;
+    static const int POINTS_PER_BLOCK = 120;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

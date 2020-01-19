@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 400;
 
     static Unit *Create(const ParameterList &parameters);
     static std::string ValueToString(const Parameter &parameter);

@@ -14,8 +14,8 @@ namespace Tzeentch
 {
 static FactoryMethod factoryMethod = {
     HorrorsOfTzeentch::Create,
-    nullptr,
-    nullptr,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     HorrorsOfTzeentch::ComputePoints,
     {
         {
@@ -24,6 +24,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -32,7 +33,7 @@ static FactoryMethod factoryMethod = {
 bool HorrorsOfTzeentch::s_registered = false;
 
 HorrorsOfTzeentch::HorrorsOfTzeentch() :
-    Unit("Horrors of Tzeentch", 5, WOUNDS, 10, 6, false),
+    TzeentchBase("Horrors of Tzeentch", 5, WOUNDS, 10, 6, false),
     m_magicalFlamesPink(Weapon::Type::Missile, "Magical Flames (Pink)", 12, 3, 5, 4, 0, 1),
     m_magicalFlamesBlue(Weapon::Type::Missile, "Magical Flames (Blue)", 12, 2, 5, 4, 0, 1),
     m_magicalFlamesBrimstone(Weapon::Type::Missile, "Magical Flames (Brimstone)", 12, 1, 5, 4, 0, 1),
@@ -88,6 +89,9 @@ Unit *HorrorsOfTzeentch::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
+
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
 
     bool ok = unit->configure(numModels, iconBearer, hornblower);
     if (!ok)

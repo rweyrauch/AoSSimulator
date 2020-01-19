@@ -9,23 +9,21 @@
 #ifndef FATEWEAVER_H
 #define FATEWEAVER_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class KairosFateweaver : public Unit
+class KairosFateweaver : public TzeentchBase
 {
 public:
 
     static const int BASESIZE = 100;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 380;
+    static const int POINTS_PER_UNIT = 400;
 
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 

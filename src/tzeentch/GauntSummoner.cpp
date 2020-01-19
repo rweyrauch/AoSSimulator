@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     GauntSummonerOfTzeentch::Create,
-    GauntSummonerOfTzeentch::ValueToString,
-    GauntSummonerOfTzeentch::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     GauntSummonerOfTzeentch::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH, SLAVES_TO_DARKNESS }
@@ -30,6 +31,9 @@ Unit *GauntSummonerOfTzeentch::Create(const ParameterList &parameters)
 {
     auto unit = new GauntSummonerOfTzeentch();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *GauntSummonerOfTzeentch::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string GauntSummonerOfTzeentch::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int GauntSummonerOfTzeentch::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void GauntSummonerOfTzeentch::Init()
@@ -58,7 +52,7 @@ void GauntSummonerOfTzeentch::Init()
 }
 
 GauntSummonerOfTzeentch::GauntSummonerOfTzeentch() :
-    Unit("Gaunt Summoner of Tzeentch", 5, WOUNDS, 8, 6, false),
+    TzeentchBase("Gaunt Summoner of Tzeentch", 5, WOUNDS, 8, 6, false),
     m_staff(Weapon::Type::Missile, "Changestaff", 18, 1, 3, 4, 0, RAND_D3),
     m_blade(Weapon::Type::Melee, "Warptongue Blade", 1, 1, 3, 4, 0, 1)
 {

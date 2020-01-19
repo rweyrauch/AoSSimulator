@@ -45,6 +45,7 @@ OBJECTS += \
         src/spells/NikkitNikkit.o \
         src/spells/LoreOfTheStorm.o \
         src/spells/GloomspiteSpells.o \
+        src/spells/SylvanethSpells.o \
         src/stormcast/CelestantPrime.o \
         src/stormcast/Aetherwings.o \
         src/stormcast/StormcastEternals.o \
@@ -321,6 +322,7 @@ OBJECTS += \
         src/skaven/WarpLightningCannon.o \
         src/skaven/Doomwheel.o \
         src/skaven/Doomflayer.o \
+        src/tzeentch/TzeentchBase.o \
         src/tzeentch/KairicAcolytes.o \
         src/tzeentch/HorrorsOfTzeentch.o \
         src/tzeentch/TzaangorEnlightened.o \

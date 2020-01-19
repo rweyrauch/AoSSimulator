@@ -9,13 +9,13 @@
 #ifndef VORTEMIS_H
 #define VORTEMIS_H
 
-#include <Unit.h>
+#include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
 namespace Tzeentch
 {
 
-class VortemisTheAllSeeing : public Unit
+class VortemisTheAllSeeing : public TzeentchBase
 {
 public:
 
@@ -24,8 +24,6 @@ public:
     static const int POINTS_PER_UNIT = 140;
 
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 

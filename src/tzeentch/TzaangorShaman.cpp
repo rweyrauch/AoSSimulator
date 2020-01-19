@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     TzaangorShaman::Create,
-    TzaangorShaman::ValueToString,
-    TzaangorShaman::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     TzaangorShaman::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH, BEASTS_OF_CHAOS }
@@ -30,6 +31,9 @@ Unit *TzaangorShaman::Create(const ParameterList &parameters)
 {
     auto unit = new TzaangorShaman();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *TzaangorShaman::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string TzaangorShaman::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int TzaangorShaman::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void TzaangorShaman::Init()
@@ -58,7 +52,7 @@ void TzaangorShaman::Init()
 }
 
 TzaangorShaman::TzaangorShaman() :
-    Unit("Tzaangor Shaman", 16, WOUNDS, 6, 5, true),
+    TzeentchBase("Tzaangor Shaman", 16, WOUNDS, 6, 5, true),
     m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
     m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
     m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3)

@@ -15,10 +15,11 @@ namespace Tzeentch
 
 static FactoryMethod factoryMethod = {
     Fateskimmer::Create,
-    Fateskimmer::ValueToString,
-    Fateskimmer::EnumStringToInt,
+    TzeentchBase::ValueToString,
+    TzeentchBase::EnumStringToInt,
     Fateskimmer::ComputePoints,
     {
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH }
@@ -30,6 +31,9 @@ Unit *Fateskimmer::Create(const ParameterList &parameters)
 {
     auto unit = new Fateskimmer();
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -37,16 +41,6 @@ Unit *Fateskimmer::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-}
-
-std::string Fateskimmer::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
-
-int Fateskimmer::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
 }
 
 void Fateskimmer::Init()
@@ -58,7 +52,7 @@ void Fateskimmer::Init()
 }
 
 Fateskimmer::Fateskimmer() :
-    Unit("Fateskimmer", 16, WOUNDS, 10, 5, true),
+    TzeentchBase("Fateskimmer", 16, WOUNDS, 10, 5, true),
     m_magicalFlames(Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1,1),
     m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
     m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),

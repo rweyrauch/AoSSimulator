@@ -30,6 +30,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Integer, "Mutants", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE, 1},
         {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
         {ParamType::Boolean, "Brayhorns", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
+        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
     },
     CHAOS,
     { TZEENTCH, BEASTS_OF_CHAOS }
@@ -38,7 +39,7 @@ static FactoryMethod factoryMethod = {
 bool Tzaangors::s_registered = false;
 
 Tzaangors::Tzaangors() :
-    Unit("Tzaangors", 6, WOUNDS, 5, 5, false),
+    TzeentchBase("Tzaangors", 6, WOUNDS, 5, 5, false),
     m_savageBlade(Weapon::Type::Melee, "Savage Blade", 1, 2, 4, 4, 0, 1),
     m_savageBladeTwistbray(Weapon::Type::Melee, "Savage Blade", 1, 2, 3, 4, 0, 1),
     m_savageGreatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
@@ -117,6 +118,9 @@ Unit *Tzaangors::Create(const ParameterList &parameters)
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool brayhorns = GetBoolParam("Brayhorns", parameters, false);
 
+    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+    unit->setChangeCoven(coven);
+
     bool ok = unit->configure(numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
     if (!ok)
     {
@@ -148,7 +152,7 @@ std::string Tzaangors::ValueToString(const Parameter &parameter)
         }
     }
 
-    return ParameterValueToString(parameter);
+    return TzeentchBase::ValueToString(parameter);
 }
 
 int Tzaangors::EnumStringToInt(const std::string &enumString)
@@ -161,7 +165,7 @@ int Tzaangors::EnumStringToInt(const std::string &enumString)
     {
         return PairedSavageBlades;
     }
-    return 0;
+    return TzeentchBase::EnumStringToInt(enumString);
 }
 
 Wounds Tzaangors::applyWoundSave(const Wounds &wounds)
