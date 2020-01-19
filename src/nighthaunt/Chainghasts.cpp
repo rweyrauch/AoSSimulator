@@ -86,7 +86,7 @@ int Chainghasts::extraAttacks(const Model *attackingModel, const Weapon *weapon,
     // Sweeping Blows
     if (weapon->name() == m_ghastflails.name())
     {
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 2.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0f);
         attacks += (int)units.size();
     }
     return attacks;

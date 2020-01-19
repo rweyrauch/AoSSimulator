@@ -149,7 +149,7 @@ void ColossalSquig::onCharged()
 {
     Dice dice;
     // Crazed Charge
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1);
     for (auto ip : units)
     {
         if (dice.rollD6() == 6)

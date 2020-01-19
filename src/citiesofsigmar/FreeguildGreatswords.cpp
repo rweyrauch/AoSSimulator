@@ -141,7 +141,7 @@ int FreeguildGreatswords::toHitModifier(const Weapon *weapon, const Unit *target
 {
     auto mod = Unit::toHitModifier(weapon, target);
     // Oathsworn Honour Guard
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 18.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0f);
     if (unit && unit->hasKeyword(FREEGUILD)) mod++;
     return mod;
 }

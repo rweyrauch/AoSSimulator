@@ -86,7 +86,7 @@ void BladebringerOnSeekerChariot::onCharged()
 
     // Multilating Blades
     Dice dice;
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
         if (dice.rollD6() >= 2)

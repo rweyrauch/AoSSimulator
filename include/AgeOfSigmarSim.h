@@ -338,6 +338,7 @@ enum Keyword
     YLTHARI,
     YLTHARIS_GUARDIANS,
     THORNWYCH,
+    OUTCASTS,
 
     // Sylvaneth Glades
     OAKENBROW,

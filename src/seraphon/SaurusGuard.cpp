@@ -100,7 +100,7 @@ int SaurusGuard::braveryModifier() const
     int modifier = Unit::braveryModifier();
 
     // Sworn Gardians
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 8.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(HERO) && ip->hasKeyword(SERAPHON))
@@ -117,7 +117,7 @@ int SaurusGuard::toSaveModifier(const Weapon *weapon) const
     int modifier = Unit::toSaveModifier(weapon);
 
     // Sworn Gardians
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 8.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(HERO) && ip->hasKeyword(SERAPHON))

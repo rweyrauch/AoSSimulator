@@ -76,9 +76,9 @@ void InfernalEnrapturess::Init()
 
 void InfernalEnrapturess::onStartShooting(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
-        auto enemyRoster = Board::Instance()->getPlayerRoster(GetEnemyId(m_owningPlayer));
+        auto enemyRoster = Board::Instance()->getPlayerRoster(GetEnemyId(owningPlayer()));
 
         Unit* nearestUnit = enemyRoster ? enemyRoster->nearestUnit(this) : nullptr;
         if (nearestUnit)

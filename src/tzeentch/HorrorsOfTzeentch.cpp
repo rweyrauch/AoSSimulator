@@ -146,7 +146,7 @@ int HorrorsOfTzeentch::castingModifier() const
     int modifier = Unit::castingModifier();
 
     // Locus of Conjuration
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 9.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(TZEENTCH) && ip->hasKeyword(DAEMON) && ip->hasKeyword(HERO))

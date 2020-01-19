@@ -23,7 +23,7 @@ namespace Nighthaunt
 Wounds Nighthaunt::applyWoundSave(const Wounds &wounds)
 {
     // Deathless Spirits
-    auto hero = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 12.0f);
+    auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
     if (hero && hero->hasKeyword(NIGHTHAUNT))
     {
         Dice dice;

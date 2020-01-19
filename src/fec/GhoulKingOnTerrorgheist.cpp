@@ -117,7 +117,7 @@ Wounds AbhorrantGhoulKingOnTerrorgheist::weaponDamage(const Weapon *weapon, cons
 void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player)
 {
     // Royal Blood
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
@@ -161,7 +161,7 @@ void AbhorrantGhoulKingOnTerrorgheist::onSlain()
 
     Dice dice;
     // Infested
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
     for (auto ip : units)
     {
         Wounds wounds = {0, dice.rollD3()};

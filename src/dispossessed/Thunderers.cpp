@@ -194,7 +194,7 @@ int Thunderers::toHitModifier(const Weapon *weapon, const Unit *target) const
     auto modifier = Unit::toHitModifier(weapon, target);
 
     // Precision Fire
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     if ((remainingModels() >= 20) && units.empty())
     {
         modifier += 1;

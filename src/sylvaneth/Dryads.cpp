@@ -107,7 +107,7 @@ int Dryads::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
     int modifier = Unit::targetHitModifier(weapon, attacker);
 
     // Blessing of the Forest
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, AWAKENED_WYLDWOOD, 6.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0f);
     if (unit != nullptr)
     {
         modifier -= 1;

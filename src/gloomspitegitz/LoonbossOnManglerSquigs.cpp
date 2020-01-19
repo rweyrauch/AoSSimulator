@@ -153,7 +153,7 @@ void LoonbossOnManglerSquigs::onSlain()
 
 void LoonbossOnManglerSquigs::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Redcap Mushrooms
         m_toHitRerolls = NoRerolls;

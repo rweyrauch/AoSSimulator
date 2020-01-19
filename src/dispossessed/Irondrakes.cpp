@@ -144,7 +144,7 @@ void Irondrakes::onStartShooting(PlayerId player)
     // Cinderblast Bomb
     if (m_hasCinderblastBomb)
     {
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6);
         if (!units.empty())
         {
             Dice dice;
@@ -174,7 +174,7 @@ int Irondrakes::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
     if (weapon->name() == m_drakegun.name() && !m_moved)
     {
         // Blaze Away
-        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) > 3.0f)
         {
             return 1;

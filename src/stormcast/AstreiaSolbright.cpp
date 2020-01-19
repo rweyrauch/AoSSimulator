@@ -139,7 +139,7 @@ Wounds AstreiaSolbright::onEndCombat(PlayerId player)
     auto wounds = StormcastEternal::onEndCombat(player);
 
     // Supernatural Roar
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
         ip->buffModifier(Bravery, -1, {Phase::Combat, m_battleRound+1, player});

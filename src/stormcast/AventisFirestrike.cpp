@@ -132,7 +132,7 @@ void AventisFirestrike::onCharged()
 
     // Meteoric Strike
     Dice dice;
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
         if (dice.rollD6() >= 2)
@@ -147,7 +147,7 @@ void AventisFirestrike::onStartHero(PlayerId player)
     StormcastEternal::onStartHero(player);
 
     // Thunderhead Crown
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         heal(1);
     }

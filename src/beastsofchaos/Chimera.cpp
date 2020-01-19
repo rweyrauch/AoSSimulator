@@ -135,7 +135,7 @@ void Chimera::onStartShooting(PlayerId player)
 {
     Unit::onStartShooting(player);
 
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Fiery Breath
         if (m_shootingTarget)

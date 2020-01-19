@@ -141,7 +141,7 @@ Wounds Decimators::onEndCombat(PlayerId player)
     auto wounds = StormcastEternal::onEndCombat(player);
 
     // Grim Harvestors
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
     for (auto ip : units)
     {
         ip->buffModifier(Bravery, -2, {Phase::Battleshock, m_battleRound+1, player});

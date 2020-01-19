@@ -123,7 +123,7 @@ Wounds AkhelianKing::weaponDamage(const Weapon *weapon, const Unit *target, int 
 void AkhelianKing::onCharged()
 {
     // Deepmare Horn
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     if (!units.empty())
     {
         Dice dice;

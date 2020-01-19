@@ -82,7 +82,7 @@ void AbhorrantArchregent::Init()
 void AbhorrantArchregent::onStartHero(PlayerId player)
 {
     // Imperial Blood
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {

@@ -119,7 +119,7 @@ void DragonOgors::Init()
 Rerolls DragonOgors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Storm Rage
-    auto shaggoth = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, DRAGON_OGOR, 12.0f);
+    auto shaggoth = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), DRAGON_OGOR, 12.0f);
     if (shaggoth)
     {
         return RerollOnes;

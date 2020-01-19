@@ -107,7 +107,7 @@ int CryptGhouls::extraAttacks(const Model *attackingModel, const Weapon *weapon,
 Rerolls CryptGhouls::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Royal Approval
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT, 18.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
     if (unit != nullptr)
     {
         return RerollOnes;

@@ -110,6 +110,7 @@ void ManoAMano::start()
     m_rosters[(int) m_defendingPlayer]->beginRound(m_round);
 
     m_cpAvailable[(int) m_attackingPlayer]++;
+    m_rosters[(int) m_attackingPlayer]->setCommandPoints(m_cpAvailable[(int) m_attackingPlayer]);
 
     m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
     m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
@@ -185,6 +186,7 @@ void ManoAMano::next()
                 std::swap(m_attackingPlayer, m_defendingPlayer);
 
                 m_cpAvailable[(int) m_attackingPlayer]++;
+                m_rosters[(int) m_attackingPlayer]->setCommandPoints(m_cpAvailable[(int) m_attackingPlayer]);
 
                 m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
                 m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
@@ -221,6 +223,7 @@ void ManoAMano::next()
                     m_rosters[(int) m_defendingPlayer]->beginRound(m_round);
 
                     m_cpAvailable[(int) m_attackingPlayer]++;
+                    m_rosters[(int) m_attackingPlayer]->setCommandPoints(m_cpAvailable[(int) m_attackingPlayer]);
 
                     m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
                     m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);

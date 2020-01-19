@@ -78,7 +78,7 @@ int OrrukGreatShaman::castingModifier() const
     auto modifier = Unit::castingModifier();
 
     // Waaagh! Energy
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 8.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
     int totalOrruks = 0;
     for (auto ip : units)
     {

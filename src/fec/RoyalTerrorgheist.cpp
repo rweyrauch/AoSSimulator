@@ -108,9 +108,9 @@ Wounds RoyalTerrorgheist::weaponDamage(const Weapon *weapon, const Unit *target,
 void RoyalTerrorgheist::onStartHero(PlayerId player)
 {
     // Royal Menagerie
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
-        auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT, 6.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 6.0f);
         if (unit != nullptr)
         {
             if (remainingWounds() < WOUNDS && remainingWounds() > 0)
@@ -156,7 +156,7 @@ void RoyalTerrorgheist::onSlain()
 
     Dice dice;
     // Infested
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
     for (auto ip : units)
     {
         Wounds wounds = {0, dice.rollD3()};

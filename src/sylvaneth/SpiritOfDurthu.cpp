@@ -10,6 +10,7 @@
 #include <sylvaneth/SpiritOfDurthu.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace Sylvaneth
 {
@@ -126,6 +127,35 @@ Wounds SpiritOfDurthu::weaponDamage(const Weapon *weapon, const Unit *target, in
         return {0, dice.rollD6()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void SpiritOfDurthu::onStartCombat(PlayerId id)
+{
+    Unit::onStartCombat(id);
+
+    // Groundshaking Stomp
+    if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0f)
+    {
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            // TODO: Make m_meleeTarget fight last
+        }
+    }
+}
+
+int SpiritOfDurthu::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Wrathful Guardian
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 8.0f);
+    if (unit != nullptr)
+    {
+        attacks += 2;
+    }
+
+    return attacks;
 }
 
 } // namespace Sylvaneth

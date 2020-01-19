@@ -72,10 +72,10 @@ void KnightAzyros::Init()
 
 void KnightAzyros::onStartHero(PlayerId player)
 {
-    if ((player == m_owningPlayer) && !m_usedLightOfSigmar)
+    if ((player == owningPlayer()) && !m_usedLightOfSigmar)
     {
         // The Light of Sigmar - use the first chance is can
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 8.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
         if (!units.empty())
         {
             Dice dice;

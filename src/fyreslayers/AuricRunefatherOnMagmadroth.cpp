@@ -121,7 +121,7 @@ int AuricRunefatherOnMagmadroth::getDamageTableIndex() const
 void AuricRunefatherOnMagmadroth::onStartShooting(PlayerId player)
 {
     Fyreslayer::onStartShooting(player);
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Roaring Fyrestream
         if (m_shootingTarget)
@@ -153,7 +153,7 @@ Wounds AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player)
     auto wounds = Fyreslayer::onEndCombat(player);
 
     // Lashing Tail
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
         Dice dice;

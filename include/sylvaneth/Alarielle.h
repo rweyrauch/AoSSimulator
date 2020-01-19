@@ -36,6 +36,7 @@ public:
 protected:
 
     void onStartHero(PlayerId player) override;
+    void onStartCombat(PlayerId player) override;
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     void onWounded() override;
     int getDamageTableIndex() const;

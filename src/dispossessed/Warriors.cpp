@@ -142,7 +142,7 @@ void Warriors::onStartCombat(PlayerId player)
 {
     Dispossessed::onStartCombat(player);
 
-    m_opponentsCombat = (player != m_owningPlayer);
+    m_opponentsCombat = (player != owningPlayer());
 }
 
 std::string Warriors::ValueToString(const Parameter &parameter)

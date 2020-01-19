@@ -145,7 +145,7 @@ Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds)
 
     int saveValue = 6;
 
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 10.0f); // TODO: must have both HERO and FYRESLAYER keywords
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 10.0f); // TODO: must have both HERO and FYRESLAYER keywords
     if (unit)
     {
         saveValue -= 2;

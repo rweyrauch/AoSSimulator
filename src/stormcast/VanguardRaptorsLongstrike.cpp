@@ -71,7 +71,7 @@ bool VanguardRaptorsLongstrike::configure(int numModels)
 
 void VanguardRaptorsLongstrike::onStartShooting(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Longshot
         if (!m_moved)

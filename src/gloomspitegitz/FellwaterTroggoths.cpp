@@ -84,7 +84,7 @@ void FellwaterTroggoths::Init()
 
 void FellwaterTroggoths::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {

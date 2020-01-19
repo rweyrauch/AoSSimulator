@@ -54,7 +54,7 @@ Rerolls FleshEaterCourts::toHitRerolls(const Weapon *weapon, const Unit *target)
         // Morgaunt Court - Blood Loyalty
         if (hasKeyword(MORGAUNT) && hasKeyword(COURTIER))
         {
-            auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
             for (auto ip : units)
             {
                 if (ip->hasKeyword(MORGAUNT) && ip->hasKeyword(SERFS))
@@ -145,7 +145,7 @@ Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds)
 {
     Dice dice;
     // Deathless Courtiers
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(FLESH_EATER_COURTS) && ip->hasKeyword(HERO))

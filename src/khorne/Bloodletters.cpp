@@ -126,7 +126,7 @@ int Bloodletters::extraAttacks(const Model *attackingModel, const Weapon *weapon
 Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Locus of Fury
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(DAEMON) && ip->hasKeyword(KHORNE) && ip->hasKeyword(HERO))

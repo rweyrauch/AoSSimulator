@@ -12,6 +12,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <Think.h>
+#include <Roster.h>
 
 const float MAX_CHARGE_DISTANCE = 12.0f;
 const float MIN_CHARGE_DISTANCE = 3.0;
@@ -451,7 +452,7 @@ void Unit::hero(PlayerId player)
 
     onStartHero(player);
 
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Use command ability.
         useCommandAbility();
@@ -962,10 +963,10 @@ void Unit::castSpell()
         {
             if (sip == nullptr) continue;
 
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), sip->range());
             if (sip->targetFriendly())
             {
-                units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, sip->range());
+                units = Board::Instance()->getUnitsWithin(this, owningPlayer(), sip->range());
                 units.push_back(this);
             }
 
@@ -988,7 +989,7 @@ void Unit::castSpell()
 
 void Unit::useCommandAbility()
 {
-    int cpAvailable = 0; // GetOwningPlayersCP();
+    int cpAvailable = getCommandPoints();
     if (cpAvailable)
     {
         // Select _best_ command ability to use (if any)
@@ -1011,10 +1012,10 @@ void Unit::makePrayer()
         {
             if (sip == nullptr) continue;
 
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), sip->range());
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), sip->range());
             if (sip->targetFriendly())
             {
-                units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, sip->range());
+                units = Board::Instance()->getUnitsWithin(this, owningPlayer(), sip->range());
                 units.push_back(this);
             }
 
@@ -1426,6 +1427,26 @@ int Unit::rollCasting() const
     Dice dice;
     return dice.roll2D6();
 }
+
+PlayerId Unit::owningPlayer() const
+{
+    if (m_roster)
+        return m_roster->getOwningPlayer();
+    return None;
+}
+
+int Unit::getCommandPoints() const
+{
+    if (m_roster)
+        return m_roster->getCommandPoints();
+    return 0;
+}
+
+void Unit::setRoster(Roster *roster)
+{
+    m_roster = roster;
+}
+
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :

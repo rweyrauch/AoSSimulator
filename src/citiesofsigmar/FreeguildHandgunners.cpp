@@ -182,7 +182,7 @@ int FreeguildHandgunners::toHitModifier(const Weapon *weapon, const Unit *target
     auto mod = Unit::toHitModifier(weapon, target);
 
     // Steady Aim
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     if ((remainingModels() >= 10) && !m_moved && units.empty()) mod++;
 
     return mod;

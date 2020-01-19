@@ -30,6 +30,7 @@ add_library(
         spells/NikkitNikkit.cpp
         spells/LoreOfTheStorm.cpp
         spells/GloomspiteSpells.cpp
+        spells/SylvanethSpells.cpp
 
         stormcast/CelestantPrime.cpp
         stormcast/Aetherwings.cpp

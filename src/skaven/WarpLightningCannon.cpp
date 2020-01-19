@@ -89,7 +89,7 @@ int WarpLightningCannon::generateMortalWounds(const Unit *unit)
             if (moreMoreWarpLightning)
             {
                 bool foundEngineer = false;
-                auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 3.0f);
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
                 for (auto ip : units)
                 {
                     if (ip->hasKeyword(WARLOCK) && ip->hasKeyword(ENGINEER))

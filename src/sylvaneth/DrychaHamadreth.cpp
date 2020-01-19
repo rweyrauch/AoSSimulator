@@ -52,7 +52,7 @@ DrychaHamadreth::DrychaHamadreth() :
     m_swarmOfSquirmlings(Weapon::Type::Missile, "Swarm of Squirmlings", 2, 10, 3, 4, 0, 1),
     m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -2, 2)
 {
-    m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
+    m_keywords = {ORDER, SYLVANETH, OUTCASTS, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
     m_weapons = {&m_colonyOfFlitterfuries, &m_swarmOfSquirmlings, &m_slashingTalons};
 
     m_totalUnbinds = 1;

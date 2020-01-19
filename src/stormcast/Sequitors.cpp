@@ -240,11 +240,11 @@ void Sequitors::onStartShooting(PlayerId player)
 {
     Unit::onStartShooting(player);
 
-    if ((player == m_owningPlayer) && m_haveRedemptionCache)
+    if ((player == owningPlayer()) && m_haveRedemptionCache)
     {
         Dice dice;
         // Redemption Cache
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(CHAOS) || ip->hasKeyword(DEATH))

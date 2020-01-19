@@ -96,7 +96,7 @@ void NamartiReavers::Init()
 void NamartiReavers::onStartShooting(PlayerId player)
 {
     auto board = Board::Instance();
-    auto otherRoster = board->getPlayerRoster(GetEnemyId(m_owningPlayer));
+    auto otherRoster = board->getPlayerRoster(GetEnemyId(owningPlayer()));
 
     // Fluid Firing Style
     auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;

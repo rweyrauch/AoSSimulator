@@ -102,7 +102,7 @@ int Quarrellers::extraAttacks(const Model *attackingModel, const Weapon *weapon,
     if (weapon->name() == m_duardinCrossbow.name() && remainingModels() >= 20)
     {
         // Volley Fire
-        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) > 3.0f)
         {
             return 1;

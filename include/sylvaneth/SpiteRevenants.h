@@ -51,7 +51,6 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Whispers in the Dark             No
 // Unbridled Malice                 No
 //
 

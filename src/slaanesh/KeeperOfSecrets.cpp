@@ -141,7 +141,7 @@ Wounds KeeperOfSecrets::onEndCombat(PlayerId player)
     auto target = m_meleeTarget;
     if (target == nullptr)
     {
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         if (!units.empty())
         {
             target = units.front();
@@ -203,7 +203,7 @@ void KeeperOfSecrets::onStartCombat(PlayerId player)
     Unit::onStartCombat(player);
 
     // Dark Temptations
-    auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(m_owningPlayer), HERO, 3.0f);
+    auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
     if (hero != nullptr)
     {
         // Heros _always_ refuse right now and take D3

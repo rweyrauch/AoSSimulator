@@ -130,7 +130,7 @@ Rerolls DreadSaurian::toWoundRerolls(const Weapon *weapon, const Unit *target) c
 
 void DreadSaurian::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {

@@ -83,7 +83,7 @@ Rerolls SylvanethBase::toHitRerolls(const Weapon *weapon, const Unit *unit) cons
     // Shield the Arcane
     else if (hasKeyword(GNARLROOT))
     {
-        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(GNARLROOT) && ip->hasKeyword(WIZARD))

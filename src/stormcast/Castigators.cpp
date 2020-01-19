@@ -109,7 +109,7 @@ int Castigators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
 
 void Castigators::onStartShooting(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Aetheric Channelling
         if (m_shootingTarget)

@@ -102,7 +102,7 @@ int TheGlottkin::move() const
 
 void TheGlottkin::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
@@ -143,7 +143,7 @@ void TheGlottkin::onCharged()
     if (m_charged)
     {
         Dice dice;
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         for (auto ip : units)
         {
             int roll = dice.rollD6();

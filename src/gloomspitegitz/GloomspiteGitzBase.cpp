@@ -63,7 +63,7 @@ void GloomspiteGitzBase::onStartHero(PlayerId player)
 {
     Unit::onStartHero(player);
 
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (m_movedMoon)
         {
@@ -73,19 +73,19 @@ void GloomspiteGitzBase::onStartHero(PlayerId player)
             switch (moonLocation)
             {
                 case BadMoon::Location::All:
-                    units = Board::Instance()->getAllUnits(GetEnemyId(m_owningPlayer));
+                    units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
                     break;
                 case BadMoon::Location::Northeast:
-                    units = Board::Instance()->getUnitWithin(Board::Northeast, GetEnemyId(m_owningPlayer));
+                    units = Board::Instance()->getUnitWithin(Board::Northeast, GetEnemyId(owningPlayer()));
                     break;
                 case BadMoon::Location::Northwest:
-                    units = Board::Instance()->getUnitWithin(Board::Northwest, GetEnemyId(m_owningPlayer));
+                    units = Board::Instance()->getUnitWithin(Board::Northwest, GetEnemyId(owningPlayer()));
                     break;
                 case BadMoon::Location::Southeast:
-                    units = Board::Instance()->getUnitWithin(Board::Southeast, GetEnemyId(m_owningPlayer));
+                    units = Board::Instance()->getUnitWithin(Board::Southeast, GetEnemyId(owningPlayer()));
                     break;
                 case BadMoon::Location::Southwest:
-                    units = Board::Instance()->getUnitWithin(Board::Southwest, GetEnemyId(m_owningPlayer));
+                    units = Board::Instance()->getUnitWithin(Board::Southwest, GetEnemyId(owningPlayer()));
                     break;
                 default:
                     // No affect

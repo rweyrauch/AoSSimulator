@@ -120,7 +120,7 @@ int Tempestors::targetHitModifier(const Weapon *weapon, const Unit *attacker) co
     // Disruptive Fire
     if (weapon->isMissile())
     {
-        auto unit = Board::Instance()->getUnitWithKeyword(attacker, m_owningPlayer, TEMPESTORS, 12);
+        auto unit = Board::Instance()->getUnitWithKeyword(attacker, owningPlayer(), TEMPESTORS, 12);
         if (unit != nullptr)
             modifier -= 1;
     }

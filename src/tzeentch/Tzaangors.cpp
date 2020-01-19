@@ -193,7 +193,7 @@ int Tzaangors::toWoundModifier(const Weapon *weapon, const Unit *target) const
     int modifier = Unit::toWoundModifier(weapon, target);
 
     // Destined Mayhem
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(ARCANITE) && ip->hasKeyword(HERO))

@@ -34,10 +34,12 @@ public:
 
 protected:
 
+    void onStartCombat(PlayerId id) override;
     void onStartHero(PlayerId id) override;
     void onWounded() override;
     int getDamageTableIndex() const;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -56,7 +58,7 @@ private:
 // Impale                           Yes
 // Spirit Paths                     No
 // Champions of the Everqueen's Will No
-// Wrathful Guardian                No
+// Wrathful Guardian                Yes
 //
 
 } // namespace Sylvaneth

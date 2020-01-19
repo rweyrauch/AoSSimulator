@@ -82,7 +82,7 @@ void AbhorrantGhoulKing::Init()
 void AbhorrantGhoulKing::onStartHero(PlayerId player)
 {
     // Royal Blood
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {

@@ -152,7 +152,7 @@ void VorgarothAndSkalok::onCharged()
 {
     Dice dice;
     // Crushing Bulk
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
         int roll = dice.rollD6();

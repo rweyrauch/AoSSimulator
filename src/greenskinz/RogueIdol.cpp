@@ -153,7 +153,7 @@ Wounds RogueIdol::onEndCombat(PlayerId player)
     Dice dice;
 
     // Rubble and Ruin
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
         int roll = dice.rollD6();

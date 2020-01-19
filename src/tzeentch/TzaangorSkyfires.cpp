@@ -96,7 +96,7 @@ void TzaangorSkyfires::Init()
 Rerolls TzaangorSkyfires::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Guided by the Future
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     bool enemyHasFought = false;
     for (auto ip : units)
     {
@@ -110,7 +110,7 @@ Rerolls TzaangorSkyfires::toHitRerolls(const Weapon *weapon, const Unit *target)
 Rerolls TzaangorSkyfires::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Guided by the Future
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     bool enemyHasFought = false;
     for (auto ip : units)
     {

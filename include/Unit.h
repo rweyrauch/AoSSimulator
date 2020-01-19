@@ -22,6 +22,8 @@
 #include <Prayer.h>
 #include <CommandAbility.h>
 
+class Roster;
+
 class Unit
 {
 public:
@@ -56,10 +58,9 @@ public:
 
     int numPrayers() const { return m_totalPrayers; }
 
-
-    void setOwningPlayer(PlayerId player) { m_owningPlayer = player; }
-
-    PlayerId owningPlayer() const { return m_owningPlayer; }
+    PlayerId owningPlayer() const;
+    void setRoster(Roster* roster);
+    Roster* getRoster() const { return m_roster; }
 
     bool addKeyword(Keyword word);
     void removeKeyword(Keyword word);
@@ -212,6 +213,8 @@ protected:
     void doPileIn();
 
     void timeoutBuffs(Phase phase, PlayerId player);
+
+    int getCommandPoints() const;
 
 protected:
 
@@ -397,7 +400,7 @@ protected:
     bool m_ignoreRend = false;
     bool m_isGeneral = false;
 
-    PlayerId m_owningPlayer = PlayerId::None;
+    Roster* m_roster = nullptr;
 
     int m_totalSpells = 0;
     int m_totalUnbinds = 0;

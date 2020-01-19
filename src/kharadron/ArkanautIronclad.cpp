@@ -170,7 +170,7 @@ void ArkanautIronclad::onStartShooting(PlayerId player)
 
     if (m_weaponOption == GreatSkyCannon)
     {
-        auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (nearestUnit)
         {
             const auto preferShell = (nearestUnit->save() < 4);
@@ -194,7 +194,7 @@ void ArkanautIronclad::onStartHero(PlayerId player)
     Unit::onStartHero(player);
 
     // Aetheric Navigator/Endrinrigger
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         m_models.front()->applyHealing(1);
     }
@@ -211,7 +211,7 @@ void ArkanautIronclad::onStartCombat(PlayerId player)
     Unit::onStartCombat(player);
 
     // Bomb Racks
-    auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+    auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
     if (nearestUnit && (distanceTo(nearestUnit) <= 1.0f))
     {
         Dice dice;

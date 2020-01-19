@@ -11,7 +11,9 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include <spells/SylvanethSpells.h>
 #include <Board.h>
+#include <Roster.h>
 
 namespace Sylvaneth
 {
@@ -71,6 +73,7 @@ bool Alarielle::configure()
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateMetamorphosis(this)));
 
     m_points = POINTS_PER_UNIT;
 
@@ -94,7 +97,7 @@ int Alarielle::toHitModifier(const Weapon *weapon, const Unit *unit) const
 
 void Alarielle::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         Dice dice;
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
@@ -108,7 +111,7 @@ void Alarielle::onStartHero(PlayerId player)
         }
 
         // Lifebloom
-        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 30.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 30.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(SYLVANETH))
@@ -165,7 +168,7 @@ void Alarielle::onCharged()
 {
     Dice dice;
     // Living Battering Ram
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
         if (dice.rollD6() >= 4)
@@ -187,6 +190,23 @@ Wounds Alarielle::weaponDamage(const Weapon *weapon, const Unit *target, int hit
         return {weapon->damage(), dice.rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void Alarielle::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    // Ghyran's Wrath
+    if (getCommandPoints() > 0)
+    {
+        if (m_roster && m_roster->useCommandPoint())
+        {
+            // Buff Alarielle
+            buffReroll(ToWoundMelee, RerollOnes, {Combat, m_battleRound+1, owningPlayer()});
+
+            // TODO: buffer all units wholly within 14" of Alarielle
+        }
+    }
 }
 
 } // namespace Sylvaneth

@@ -92,7 +92,7 @@ int GryphHounds::extraAttacks(const Model *attackingModel, const Weapon *weapon,
     int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
 
     // Loyal Companion
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 6);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6);
     for (auto ip : units)
     {
         if (ip->hasKeyword(LORD_CASTELLANT) || (ip->hasKeyword(LORD_VERITANT)))

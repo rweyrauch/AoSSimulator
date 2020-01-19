@@ -111,7 +111,7 @@ int FlamersOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) c
     // Guided by Billowing Flames
     if (weapon->name() == m_warpflame.name())
     {
-        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 9.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(EXALTED_FLAMERS))

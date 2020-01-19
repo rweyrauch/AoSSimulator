@@ -68,7 +68,7 @@ void DankholdTroggboss::Init()
 
 void DankholdTroggboss::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
@@ -103,7 +103,7 @@ void DankholdTroggboss::onStartCombat(PlayerId player)
     }
 
     // Squiggly-beast Followers
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
         int roll = dice.rollD6();

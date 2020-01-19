@@ -44,7 +44,7 @@ KurnothHunters::KurnothHunters() :
     m_greatswordHuntmaster(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 2, 3, -1, 2),
     m_scythe(Weapon::Type::Melee, "Kurnoth Scythe", 2, 3, 3, 3, -2, RAND_D3),
     m_scytheHuntmaster(Weapon::Type::Melee, "Kurnoth Scythe", 2, 3, 2, 3, -2, RAND_D3),
-    m_viciousClaws(Weapon::Type::Melee, "Quiverling's Vicious Claws", 1, 3, 4, 4, 0, 1)
+    m_viciousClaws(Weapon::Type::Melee, "Vicious Claws", 1, 3, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, KURNOTH_HUNTERS};
     m_weapons = {&m_greatbow, &m_greatbowHuntmaster, &m_greatsword, &m_greatswordHuntmaster, &m_scythe, &m_scytheHuntmaster, &m_viciousClaws};
@@ -179,7 +179,7 @@ Wounds KurnothHunters::onEndCombat(PlayerId player)
     auto wounds = Unit::onEndCombat(player);
 
     // Trample Underfoot
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     if (!units.empty())
     {
         auto unit = units.front();

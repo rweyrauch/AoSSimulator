@@ -106,7 +106,7 @@ Wounds MagoresFiends::computeReturnedDamage(const Weapon *weapon, int saveRoll) 
 Rerolls MagoresFiends::chargeRerolls() const
 {
     // Blood Scent
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, RIPTOOTH, 3.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), RIPTOOTH, 3.0f);
     if (unit)
     {
         return RerollFailed;

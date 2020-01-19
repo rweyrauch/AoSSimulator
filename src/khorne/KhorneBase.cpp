@@ -111,7 +111,7 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     {
         if (hasKeyword(MORTAL))
         {
-            auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(m_owningPlayer), HERO, 12.0f);
+            auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0f);
             if (unit)
             {
                 return RerollOnes;
@@ -122,7 +122,7 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     // Locus of Fury
     if (hasKeyword(DAEMON))
     {
-        auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(GREATER_DAEMON))

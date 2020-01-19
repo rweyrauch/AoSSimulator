@@ -109,7 +109,7 @@ int GarreksReavers::extraAttacks(const Model *attackingModel, const Weapon *weap
     int attacks = KhorneBase::extraAttacks(nullptr, weapon, target);
 
     // Frenzied Devotion
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 16.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(KHORNE) && ip->hasKeyword(TOTEM))

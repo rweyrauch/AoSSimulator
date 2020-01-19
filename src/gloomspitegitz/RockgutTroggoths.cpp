@@ -82,7 +82,7 @@ void RockgutTroggoths::Init()
 
 void RockgutTroggoths::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {

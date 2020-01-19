@@ -51,7 +51,7 @@ Treelord::Treelord() :
     m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 4, 3, 3, -1, RAND_D6),
     m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1)
 {
-    m_keywords = {ORDER, SYLVANETH, MONSTER, TREELORD};
+    m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, TREELORD};
     m_weapons = {&m_strangleroots, &m_sweepingBlows, &m_massiveImpalingTalons};
 }
 

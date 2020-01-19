@@ -135,7 +135,7 @@ int HellPitAbomination::generateMortalWounds(const Unit *unit)
 
 void HellPitAbomination::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Regenerating Monstrosity
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)

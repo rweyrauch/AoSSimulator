@@ -125,7 +125,7 @@ int AuricRunesonOnMagmadroth::getDamageTableIndex() const
 void AuricRunesonOnMagmadroth::onStartShooting(PlayerId player)
 {
     Fyreslayer::onStartShooting(player);
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Roaring Fyrestream
         if (m_shootingTarget)
@@ -156,7 +156,7 @@ Wounds AuricRunesonOnMagmadroth::onEndCombat(PlayerId player)
     auto wounds = Fyreslayer::onEndCombat(player);
 
     // Lashing Tail
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
         Dice dice;
@@ -187,7 +187,7 @@ Wounds AuricRunesonOnMagmadroth::computeReturnedDamage(const Weapon *weapon, int
 Rerolls AuricRunesonOnMagmadroth::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Vying for Glory
-    if (Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, AURIC_RUNESON, 6.0f))
+    if (Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AURIC_RUNESON, 6.0f))
     {
         return RerollFailed;
     }

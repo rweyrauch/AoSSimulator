@@ -109,7 +109,7 @@ int SistersOfTheWatch::extraAttacks(const Model *attackingModel, const Weapon *w
     if (weapon->name() == m_bow.name())
     {
         // Quicksilver Shot
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
         if (units.empty())
         {
             return 1;

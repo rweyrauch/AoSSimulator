@@ -224,7 +224,7 @@ int Orruks::braveryModifier() const
     auto modifier = Unit::braveryModifier();
     if (m_standardBearer == OrrukBanner)
     {
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
         if (!units.empty())
         {
             modifier += 2;
@@ -273,7 +273,7 @@ int Orruks::toHitModifier(const Weapon *weapon, const Unit *target) const
     {
         if (!m_moved)
         {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
             if (units.empty())
             {
                 modifier += 1;

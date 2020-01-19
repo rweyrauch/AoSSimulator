@@ -100,7 +100,7 @@ int GladeGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
     // Peerless Archery
     if (weapon->isMissile() && remainingModels() >= 20)
     {
-        auto closestUnit = Board::Instance()->getNearestUnit(this, m_owningPlayer);
+        auto closestUnit = Board::Instance()->getNearestUnit(this, owningPlayer());
         if ((closestUnit == nullptr) || (distanceTo(closestUnit) > 3))
         {
             modifier += 1;

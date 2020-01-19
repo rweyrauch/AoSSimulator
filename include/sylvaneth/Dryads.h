@@ -57,7 +57,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Blessing of the Forest           Yes
-// Enrapturing Song                 No
+// Enrapturing Song                 Yes
 // Impenetrable Thicket             Yes
 //
 

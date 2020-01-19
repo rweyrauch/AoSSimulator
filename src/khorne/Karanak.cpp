@@ -97,7 +97,7 @@ void Karanak::onBeginTurn(int battleRound)
     {
         // Select a quarry for Karanak
         // TODO: Select a _good_ unit to be Karanak's quarry
-        m_pQuarry = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        m_pQuarry = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
     }
 
     KhorneBase::onBeginTurn(battleRound);

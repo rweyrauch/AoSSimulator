@@ -92,8 +92,8 @@ void OssiarchBonereaperBase::setLegion(OssiarchBonereaperBase::Legion legion)
 Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds)
 {
     // Deathless Warriors
-    auto hekatos = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HEKATOS, 6.0f);
-    auto hero = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, HERO, 16.0f);
+    auto hekatos = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HEKATOS, 6.0f);
+    auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 16.0f);
 
     Wounds totalWounds = wounds;
 

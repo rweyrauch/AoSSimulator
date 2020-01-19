@@ -17,10 +17,12 @@ class Roster
 public:
     explicit Roster(PlayerId id) : m_id(id) {}
 
+    PlayerId getOwningPlayer() const { return m_id; }
+
     void addUnit(Unit* unit)
     {
         if (unit == nullptr) return;
-        unit->setOwningPlayer(m_id);
+        unit->setRoster(this);
         m_units.push_back(unit);
     }
 
@@ -42,9 +44,15 @@ public:
 
     int totalPoints() const;
 
+    void setCommandPoints(int cp) { m_cp = cp; }
+    int getCommandPoints() const { return m_cp; }
+    bool useCommandPoint();
+
 private:
     const PlayerId m_id;
     std::vector<Unit*> m_units;
+
+    int m_cp = 0;
 };
 
 

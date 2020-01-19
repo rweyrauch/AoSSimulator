@@ -124,11 +124,11 @@ void LordExorcist::onStartShooting(PlayerId player)
 {
     StormcastEternal::onStartShooting(player);
 
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Redemptor Casket
         Dice dice;
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 6.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(DAEMON) || ip->hasKeyword(NIGHTHAUNT))

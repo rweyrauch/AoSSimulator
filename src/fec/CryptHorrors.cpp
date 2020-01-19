@@ -95,7 +95,7 @@ void CryptHorrors::Init()
 Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Chosen of the King
-    auto unit = Board::Instance()->getUnitWithKeyword(this, m_owningPlayer, ABHORRANT, 18.0f);
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
     if (unit != nullptr)
     {
         return RerollFailed;
@@ -105,7 +105,7 @@ Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) con
 
 void CryptHorrors::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Noble Blood
         int woundsHealed = heal(remainingModels());

@@ -73,7 +73,7 @@ int SkarrBloodwrath::extraAttacks(const Model *attackingModel, const Weapon *wea
 {
     int attacks = KhorneBase::extraAttacks(attackingModel, weapon, target);
     // Slaughterstorm
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     int totalModels = 0;
     for (auto ip : units)
     {

@@ -113,3 +113,14 @@ void Roster::endRound(int battleRound)
         u->endRound(battleRound);
     }
 }
+
+bool Roster::useCommandPoint()
+{
+    int cp = getCommandPoints();
+    if (cp > 0)
+    {
+        setCommandPoints(cp-1);
+        return true;
+    }
+    return false;
+}

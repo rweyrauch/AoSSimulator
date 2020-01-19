@@ -104,7 +104,7 @@ void LoonbossOnGiantCaveSquig::Init()
 
 void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player)
 {
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Redcap Mushrooms
         m_toHitRerolls = NoRerolls;

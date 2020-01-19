@@ -136,7 +136,7 @@ int FreeguildCrossbowmen::extraAttacks(const Model *attackingModel, const Weapon
 {
     auto extras = Unit::extraAttacks(attackingModel, weapon, target);
     // Reload, Fire!
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 3.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     if (!m_moved && units.empty())
     {
         extras++;

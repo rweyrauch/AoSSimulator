@@ -84,7 +84,7 @@ void BladegheistRevenants::Init()
 Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 {
     // Fearful Frenzy
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 12.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(SPIRIT_TORMENTS) || ip->hasKeyword(CHAINGHASTS))

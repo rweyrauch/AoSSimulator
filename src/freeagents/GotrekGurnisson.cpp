@@ -118,7 +118,7 @@ Wounds GotrekGurnisson::onEndCombat(PlayerId player)
     Unit* meleeTarget = m_meleeTarget;
     if (!meleeTarget)
     {
-        meleeTarget = Board::Instance()->getNearestUnit(this, GetEnemyId(m_owningPlayer));
+        meleeTarget = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
     }
 
     Wounds wounds = {0, 0};

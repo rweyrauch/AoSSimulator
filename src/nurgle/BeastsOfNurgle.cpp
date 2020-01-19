@@ -105,7 +105,7 @@ Wounds BeastsOfNurgle::applyWoundSave(const Wounds &wounds)
 Wounds BeastsOfNurgle::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Locus of Virulence
-    auto units = Board::Instance()->getUnitsWithin(this, m_owningPlayer, 7.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0f);
     for (auto ip : units)
     {
         if (ip->hasKeyword(DAEMON) && ip->hasKeyword(NURGLE) && ip->hasKeyword(HERO))

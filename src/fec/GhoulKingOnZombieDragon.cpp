@@ -111,7 +111,7 @@ Wounds AbhorrantGhoulKingOnZombieDragon::weaponDamage(const Weapon *weapon, cons
 void AbhorrantGhoulKingOnZombieDragon::onStartHero(PlayerId player)
 {
     // Royal Blood
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {

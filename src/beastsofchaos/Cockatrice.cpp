@@ -90,7 +90,7 @@ void Cockatrice::onStartShooting(PlayerId player)
 {
     Unit::onStartShooting(player);
 
-    if (player == m_owningPlayer)
+    if (player == owningPlayer())
     {
         // Petrifying Gaze
         if (m_shootingTarget)

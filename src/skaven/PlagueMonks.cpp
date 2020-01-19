@@ -172,7 +172,7 @@ int PlagueMonks::extraAttacks(const Model *attackingModel, const Weapon *weapon,
 
 void PlagueMonks::onStartHero(PlayerId player)
 {
-    if (m_owningPlayer == player)
+    if (owningPlayer() == player)
     {
         // Book of Woes
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(player));

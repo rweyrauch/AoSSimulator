@@ -122,7 +122,7 @@ void GordrakkTheFistOfGork::onCharged()
     Unit::onCharged();
 
     // Massively Destructive Bulk
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     if (!units.empty())
     {
         auto unit = units.front();

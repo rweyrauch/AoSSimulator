@@ -316,13 +316,13 @@ Install emscripten tool chain from (https://emscripten.org/index.html).
 
 Use npm to setup JS environment.
 
-   % cd web
-   % npm install
+    % cd web
+    % npm install
    
 Basic instructions:
 
-   % emmake make -f Makefile.js_build
-   % npm start
+    % emmake make -f Makefile.js_build
+    % npm start
        
 ## Future Plans
 

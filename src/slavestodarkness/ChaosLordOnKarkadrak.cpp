@@ -78,7 +78,7 @@ void ChaosLordOnKarkadrak::onCharged()
     if (m_charged)
     {
         Dice dice;
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         for (auto unit : units)
         {
             if (dice.rollD6() >= 2)

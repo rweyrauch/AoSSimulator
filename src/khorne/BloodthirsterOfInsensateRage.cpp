@@ -135,7 +135,7 @@ Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Un
 
         // These mortal wounds are applied to all enemy units within 8".
         // Skip the target unit as the weaponDamage function will handle it.
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(m_owningPlayer), 8.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
         for (auto ip : units)
         {
             if (ip != target)
