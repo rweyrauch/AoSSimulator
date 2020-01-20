@@ -10,6 +10,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <script src="https://kit.fontawesome.com/324895d590.js" crossorigin="anonymous"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/app.css">
 
@@ -34,7 +36,7 @@
 
 <div class="card-group">
     <div id="red-card" class="card border-danger rounded m-2">
-        <h5 class="card-header bg-danger">Red Team</h5>
+        <h5 class="card-header bg-danger">Red Team <i class="fas fa-user"></i></h5>
         <div class="card-body">
             <form>
                 <fieldset class="form-group m-1">
@@ -67,12 +69,12 @@
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-info">View</button>
-            <button class="btn btn-warning">Clear</button>
+            <button class="btn btn-info">View <i class="fas fa-eye"></i></button>
+            <button class="btn btn-warning">Clear <i class="fas fa-redo"></i></button>
         </div>
     </div>
     <div id="blue-card" class="card border border-primary rounded m-2">
-        <h5 class="card-header bg-primary">Blue Team</h5>
+        <h5 class="card-header bg-primary">Blue Team <i class="fas fa-user"></i></h5>
         <div class="card-body">
             <form>
                 <fieldset class="form-group m-1">
@@ -105,8 +107,8 @@
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-info">View</button>
-            <button class="btn btn-warning">Clear</button>
+            <button class="btn btn-info">View <i class="fas fa-eye"></i></button>
+            <button class="btn btn-warning">Clear <i class="fas fa-redo"></i></button>
         </div>
     </div>
     <div class="card border border-inf rounded m-2">
@@ -115,103 +117,223 @@
             <canvas id="results-chart" style="height: 200px; width: 100%;">
             </canvas>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Statistics</th>
-                    <th scope="col">Red</th>
-                    <th scope="col">Blue</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">Enemy Models Slain</th>
-                    <td id="red-enemy-models">0</td>
-                    <td id="blue-enemy-models">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Wounds Inflicted</th>
-                    <td id="red-wounds-inflicted">0</td>
-                    <td id="blue-wounds-inflicted">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Models Slain</th>
-                    <td id="red-casualties">0</td>
-                    <td id="blue-casualties">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Wounds Taken</th>
-                    <td id="red-wounds-taken">0</td>
-                    <td id="blue-wounds-taken">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Models Fled</th>
-                    <td id="red-models-fled">0</td>
-                    <td id="blue-models-fled">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Rounds Moved</th>
-                    <td id="red-rounds-moved">0</td>
-                    <td id="blue-rounds-moved">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Rounds Ran</th>
-                    <td id="red-rounds-ran">0</td>
-                    <td id="blue-rounds-ran">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Rounds Charged</th>
-                    <td id="red-rounds-charged">0</td>
-                    <td id="blue-rounds-charged">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Total Movement</th>
-                    <td id="red-total-movement">0</td>
-                    <td id="blue-total-movem">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Average Movement</th>
-                    <td id="red-avg-movement">0</td>
-                    <td id="blue-avg-movement">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Total Run</th>
-                    <td id="red-total-run">0</td>
-                    <td id="blue-total-run">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Average Run</th>
-                    <td id="red-avg-run">0</td>
-                    <td id="blue-avg-run">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Charge Distance</th>
-                    <td id="red-charge-distance">0</td>
-                    <td id="blue-charge-distance">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Average Charge</th>
-                    <td id="red-avg-charge">0</td>
-                    <td id="blue-avg-charge">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Saves Made</th>
-                    <td id="red-saves-made">0</td>
-                    <td id="blue-saves-made">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Saves Failed</th>
-                    <td id="red-saves-failed">0</td>
-                    <td id="blue-saves-failed">0</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="list-group filter-wrap">
+                <article class="list-group-item">
+                    <header class="filter-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" class="">
+                            <i class="icon-action fas fa-chevron-down"></i>
+                            <h6 class="title">Combat</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse show" id="collapse1" style="">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Statistic</th>
+                                <th scope="col">Red</th>
+                                <th scope="col">Blue</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Enemy Models Slain</th>
+                                <td id="red-enemy-models">0</td>
+                                <td id="blue-enemy-models">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wounds Inflicted</th>
+                                <td id="red-wounds-inflicted">0</td>
+                                <td id="blue-wounds-inflicted">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Models Slain</th>
+                                <td id="red-casualties">0</td>
+                                <td id="blue-casualties">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wounds Taken</th>
+                                <td id="red-wounds-taken">0</td>
+                                <td id="blue-wounds-taken">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Models Fled</th>
+                                <td id="red-models-fled">0</td>
+                                <td id="blue-models-fled">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Saves Made</th>
+                                <td id="red-saves-made">0</td>
+                                <td id="blue-saves-made">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Saves Failed</th>
+                                <td id="red-saves-failed">0</td>
+                                <td id="blue-saves-failed">0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                <article class="list-group-item">
+                    <header class="filter-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse2">
+                            <i class="icon-action fas fa-chevron-down"></i>
+                            <h6 class="title">Movement</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse show" id="collapse2">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Statistic</th>
+                                <th scope="col">Red</th>
+                                <th scope="col">Blue</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Rounds Moved</th>
+                                <td id="red-rounds-moved">0</td>
+                                <td id="blue-rounds-moved">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Rounds Ran</th>
+                                <td id="red-rounds-ran">0</td>
+                                <td id="blue-rounds-ran">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Rounds Charged</th>
+                                <td id="red-rounds-charged">0</td>
+                                <td id="blue-rounds-charged">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Movement</th>
+                                <td id="red-total-movement">0</td>
+                                <td id="blue-total-movem">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Average Movement</th>
+                                <td id="red-avg-movement">0</td>
+                                <td id="blue-avg-movement">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Run</th>
+                                <td id="red-total-run">0</td>
+                                <td id="blue-total-run">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Average Run</th>
+                                <td id="red-avg-run">0</td>
+                                <td id="blue-avg-run">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Charge Distance</th>
+                                <td id="red-charge-distance">0</td>
+                                <td id="blue-charge-distance">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Average Charge</th>
+                                <td id="red-avg-charge">0</td>
+                                <td id="blue-avg-charge">0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                <article class="list-group-item">
+                    <header class="filter-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse3">
+                            <i class="icon-action fas fa-chevron-down"></i>
+                            <h6 class="title">Shooting</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse" id="collapse3">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Statistic</th>
+                                <th scope="col">Red</th>
+                                <th scope="col">Blue</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Enemy Models Slain</th>
+                                <td id="red-enemy-models-missile">0</td>
+                                <td id="blue-enemy-model-missiles">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wounds Inflicted</th>
+                                <td id="red-wounds-inflicted-missile">0</td>
+                                <td id="blue-wounds-inflicted-missile">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Models Slain</th>
+                                <td id="red-casualties-missile">0</td>
+                                <td id="blue-casualties-missile">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wounds Taken</th>
+                                <td id="red-wounds-taken-missile">0</td>
+                                <td id="blue-wounds-taken-missile">0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                <article class="list-group-item">
+                    <header class="filter-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse4">
+                            <i class="icon-action fas fa-chevron-down"></i>
+                            <h6 class="title">Hero</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse" id="collapse4">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Statistic</th>
+                                <th scope="col">Red</th>
+                                <th scope="col">Blue</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Spells Cast</th>
+                                <td id="red-spells-cast">0</td>
+                                <td id="blue-spells-cast">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Spells Unbound</th>
+                                <td id="red-spells-unbound">0</td>
+                                <td id="blue-spells-unbound">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Spells Failed</th>
+                                <td id="red-spells-failed">0</td>
+                                <td id="blue-spells-failed">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Prayers Made</th>
+                                <td id="red-prayers-made">0</td>
+                                <td id="blue-prayers-made">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Prayers Failed</th>
+                                <td id="red-prayers-failed">0</td>
+                                <td id="blue-prayers-failed">0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+         </div>
         <div class="card-footer">
-            <button id="start-button" class="btn btn-success">Start</button>
-            <button id="step-button" class="btn btn-success">Step</button>
-            <button id="save-button" class="btn btn-secondary">Save</button>
-            <button id="load-button" class="btn btn-secondary">Load</button>
+            <button id="start-button" class="btn btn-lg btn-success">Start <i class="fas fa-dice"></i></button>
+            <button id="step-button" class="btn btn-outline-success">Step <i class="fas fa-step-forward"></i></button>
+            <button id="save-button" class="btn btn-outline-secondary">Save <i class="fas fa-save"></i></button>
+            <button id="load-button" class="btn btn-outline-secondary">Load <i class="far fa-save"></i></button>
         </div>
     </div>
 </div>

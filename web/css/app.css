@@ -10,3 +10,15 @@ body {
 #mapViewer {
     border: 1px solid grey;
 }
+
+.icon-action {
+    margin-top: 5px;
+    float: right;
+    font-size: 80%;
+}
+
+.icon {
+    margin-top: 5px;
+    float: right;
+    font-size: 80%;
+}
