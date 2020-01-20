@@ -50,6 +50,7 @@ public:
     WoundingHits rollToWound(int numHits, int modifier, Rerolls rerolls) const;
 
     const std::string& name() const { return m_name; }
+    const char* name_c() const { return m_name.c_str(); }
     int range() const { return m_range; }
     void setRange(int r) { m_range = r; }
     int attacks() const { return m_attacks; }

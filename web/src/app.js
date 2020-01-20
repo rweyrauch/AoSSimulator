@@ -362,8 +362,7 @@ AosSim().then(AosSim => {
 
     function plumbCallbacks() {
 
-        const startButton = document.getElementById("start-button");
-        if (startButton) startButton.addEventListener("click", on_start_clicked);
+        $('#start-button').click(on_start_clicked);
 
         const redGASelect = document.getElementById("red-ga-select");
         if (redGASelect) redGASelect.addEventListener("change", on_red_alliance_selected);
@@ -393,6 +392,43 @@ AosSim().then(AosSim => {
             let blueUnitRoot = document.getElementById("blue-unit-desc");
             populateFactions(blueGA, blueFactionSelect, blueUnitSelect, blueUnitRoot, "blue");
         }
+
+        $('#view-unit').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var team = button.data('which') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + team)
+            modal.find('.modal-body input').val(team)
+
+            const unitSelect = document.getElementById(team + "-unit-select");
+            const unitRoot = document.getElementById(team + "-unit-desc");
+            if (unitSelect && unitRoot) {
+                const unitName = unitSelect.selectedOptions[0].text;
+                if (team === "red") {
+                    g_red = createUnit(unitName, unitRoot);
+                }
+                else if (team === "blue") {
+                    g_blue = createUnit(unitName, unitRoot);
+                }
+            }
+
+            // TODO: Create unit view forms outputs.
+            let unit = g_blue;
+            if (team === "red") {
+                unit = g_red;
+            }
+
+            if (unit) {
+                console.log("Red Wounds: " + unit.wounds() + "  Move: " + unit.move() + "  Weapons: " + unit.getNumWeapons());
+                for (var i = 0; i < unit.getNumWeapons(); i++) {
+                    const weapon = unit.getWeapon(i);
+                    console.log("\t" + weapon.name_c() + "  Range: " + weapon.attacks() + "  Hit: " + weapon.toHit() + 
+                        " toWound: " + weapon.toWound() + "  Strength: " + weapon.strength().toFixed(2));
+                }
+            }
+          })
     }
 
     function createChart(redVictories, blueVictories, ties) {

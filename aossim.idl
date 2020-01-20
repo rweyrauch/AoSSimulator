@@ -48,8 +48,27 @@ interface Model {
     boolean fled();
 };
 
+interface Weapon {
+    void Weapon();
+
+    [Const] DOMString name_c();
+    long range();
+    long attacks();
+    long toHit();
+    long toWound();
+    long rend();
+    long damage();
+    boolean isMissile();
+    float strength();
+};
+
 interface Unit {
     void Unit();
+
+    long wounds();
+    long move();
+    long bravery();
+    long save();
 
     long points();
     long remainingModels();
@@ -61,6 +80,9 @@ interface Unit {
 
     long numModels();
     [Const] Model getModel(long which);
+
+    long getNumWeapons();
+    [Const] Weapon getWeapon(long which);
 };
 
 interface UnitStatistics {

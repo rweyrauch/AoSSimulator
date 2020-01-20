@@ -34,50 +34,50 @@
     </div>
 </nav>
 
-<div class="card-group">
-    <div id="red-card" class="card border-danger rounded m-2">
+<div class="card-deck">
+    <div id="red-card" class="card border-danger rounded">
         <h5 class="card-header bg-danger">Red Team <i class="fas fa-user"></i></h5>
         <div class="card-body">
-            <form>
-                <fieldset class="form-group m-1">
-                    <label for="red-ga">Grand Alliance</label>
+            <form class="form-horizontal">
+                <div class="form-group m-1">
+                    <label for="red-ga" class="control-label">Grand Alliance</label>
                     <select class="btn-danger btn-sm form-control" name="red-ga" id="red-ga-select">
                         <option value="Order">Order</option>
                         <option value="Chaos">Chaos</option>
                         <option value="Death">Death</option>
                         <option value="Destruction">Destruction</option>
                     </select>
-                </fieldset>
-                 <fieldset class="form-group m-1">
+                 </div>
+                 <div class="form-group m-1">
                     <label for="red-faction">Faction</label>
                     <select class="btn-danger btn-sm form-control" name="red-faction" id="red-faction-select">
                         <!-- <option value="none">None</option> -->
                     </select>
-                </fieldset>
-                <fieldset class="form-group m-1">
+                </div>
+                <div class="form-group m-1">
                     <label for="red-units">Unit</label>
                     <select class="btn-danger btn-sm form-control" name="red-units" id="red-unit-select">
                         <!-- <option value="none">None</option> -->
                     </select>
                     <div class="m-2" id="red-unit-desc">
                     </div>
-                </fieldset>
-                <fieldset class="form-group m-1">
+                </div>
+                <div class="form-group m-1">
                     <label for="redpoints">Red Points</label>
                     <output id="red-points-disp" class="form-control" name="redpoints">0</output>
-                </fieldset>
+                </div>
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-info">View <i class="fas fa-eye"></i></button>
+            <button class="btn btn-info" data-toggle="modal" data-target="#view-unit" data-which="red">View <i class="fas fa-eye"></i></button>
             <button class="btn btn-warning">Clear <i class="fas fa-redo"></i></button>
         </div>
     </div>
-    <div id="blue-card" class="card border border-primary rounded m-2">
+    <div id="blue-card" class="card border border-primary rounded">
         <h5 class="card-header bg-primary">Blue Team <i class="fas fa-user"></i></h5>
         <div class="card-body">
             <form>
-                <fieldset class="form-group m-1">
+                <div class="form-group m-1">
                     <label for="blue-ga">Grand Alliance</label>
                     <select class="btn-primary btn-sm form-control" name="blue-ga" id="blue-ga-select">
                         <option value="Order">Order</option>
@@ -85,33 +85,33 @@
                         <option value="Death">Death</option>
                         <option value="Destruction">Destruction</option>
                     </select>
-                </fieldset>
-                <fieldset class="form-group m-1">
+                </div>
+                <div class="form-group m-1">
                     <label for="blue-faction">Faction</label>
                     <select class="btn-primary btn-sm form-control" name="blue-faction" id="blue-faction-select">
                         <!-- <option value="none">None</option> -->
                     </select>
-                </fieldset>
-                <fieldset class="form-group m-1">
+                </div>
+                <div class="form-group m-1">
                     <label for="blue-units">Unit</label>
                     <select class="btn-primary btn-sm form-control" name="blue-units" id="blue-unit-select">
                         <!-- <option value="none">None</option> -->
                     </select>
                     <div class="m-2" id="blue-unit-desc">
                     </div>
-                </fieldset>
-                <fieldset class="form-group m-1">
+                </div>
+                <div class="form-group m-1">
                     <label for="bluepoints">Blue Points</label>
                     <output id="blue-points-disp" class="form-control" name="bluepoints">0</output>
-                </fieldset>
+                </div>
             </form>
         </div>
         <div class="card-footer">
-            <button class="btn btn-info">View <i class="fas fa-eye"></i></button>
+            <button class="btn btn-info" data-toggle="modal" data-target="#view-unit" data-which="blue">View <i class="fas fa-eye"></i></button>
             <button class="btn btn-warning">Clear <i class="fas fa-redo"></i></button>
         </div>
     </div>
-    <div class="card border border-inf rounded m-2">
+    <div class="card border border-inf rounded">
         <h5 class="card-header">Results</h5>
         <div class="card-body bg-light">
             <canvas id="results-chart" style="height: 200px; width: 100%;">
@@ -120,7 +120,7 @@
             <div class="list-group filter-wrap">
                 <article class="list-group-item">
                     <header class="filter-header">
-                        <a href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" class="">
+                        <a href="#" data-toggle="collapse" data-target="#collapse1" class="">
                             <i class="icon-action fas fa-chevron-down"></i>
                             <h6 class="title">Combat</h6>
                         </a>
@@ -181,7 +181,7 @@
                             <h6 class="title">Movement</h6>
                         </a>
                     </header>
-                    <div class="filter-content collapse show" id="collapse2">
+                    <div class="filter-content collapse" id="collapse2">
                         <table class="table">
                             <thead>
                             <tr>
@@ -359,6 +359,27 @@
     </div>
 </div>
 
+<!-- Unit Viewwer Model -->
+<div class="modal fade" id="view-unit" tabindex="-1" role="dialog" aria-labelledby="view-unit-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="view-unit-title">View Unit</h5>
+        </div>
+        <div class="modal-body" id="view-unit-body">
+            <div>
+                Name: <span></span>
+                Wounds: <span></span>
+                Move: <span></span>
+                Bravery: <span></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

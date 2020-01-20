@@ -175,6 +175,9 @@ public:
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor);
 
+    int getNumWeapons() const { return (int)m_weapons.size(); }
+    const Weapon* getWeapon(int which) const { return m_weapons[which]; }
+
     const UnitStatistics &getStatistics() const { return m_statistics; }
 
     bool isGeneral() const { return m_isGeneral; }
