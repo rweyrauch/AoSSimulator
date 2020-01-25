@@ -72,6 +72,8 @@ interface Unit {
 
     long points();
     long remainingModels();
+    long remainingWounds();
+    long remainingPoints();
     float basesizeInches();
     float x();
     float y();

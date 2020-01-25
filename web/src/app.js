@@ -558,6 +558,10 @@ AosSim().then(AosSim => {
         var woundsInflicted = new AosSim.Wounds();
         stats.totalWoundsInflicted(woundsInflicted);
         stats.totalWoundsTaken(woundsTaken);
+        var unit = g_red;
+        if (team === "blue") {
+            unit = g_blue;
+        }
 
         let elem = document.getElementById(`${team}-rounds-moved`);
         if (elem) elem.innerHTML = stats.numberOfRoundsMoved().toString();
@@ -591,6 +595,8 @@ AosSim().then(AosSim => {
         if (elem) elem.innerHTML = stats.totalModelsFled().toString();
         elem = document.getElementById(`${team}-casualties`);
         if (elem) elem.innerHTML = stats.totalModelsSlain().toString();
+        elem = document.getElementById(`${team}-points-remaining`);
+        if (elem) elem.innerHTML = unit.remainingPoints().toString();
     }
 
     function fillInStatistics() {
@@ -631,9 +637,9 @@ AosSim().then(AosSim => {
         const posx = unit.x();
         const posy = unit.y();
         ctx.fillStyle = unitColor;
-        ctx.beginPath();
-        ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
-        ctx.fill();
+        //ctx.beginPath();
+        //ctx.arc(posx * 10.0, posy * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
+        //ctx.fill();
 
         ctx.beginPath();
         ctx.arc(initX * 10.0, initY * 10.0, radiusInches * 10.0, 0.0, 2.0 * Math.PI);
