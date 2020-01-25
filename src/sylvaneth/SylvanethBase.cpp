@@ -124,6 +124,53 @@ int SylvanethBase::EnumStringToInt(const std::string &enumString)
     return 0;
 }
 
+int SylvanethBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Winter's Bite
+    if ((unmodifiedHitRoll == 6) && hasKeyword(WINTERLEAF))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+Rerolls SylvanethBase::battleshockRerolls() const
+{
+    // Stubborn and Taciturn
+    if (hasKeyword(IRONBARK))
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        for (auto ip : units)
+        {
+            if (ip->hasKeyword(HERO) && ip->hasKeyword(IRONBARK))
+            {
+                return RerollFailed;
+            }
+        }
+    }
+    return Unit::battleshockRerolls();
+}
+
+int SylvanethBase::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+
+    // Courage for Kurnoth
+    if (hasKeyword(HEARTWOOD))
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        for (auto ip : units)
+        {
+            if (ip->hasKeyword(HERO) && ip->hasKeyword(HEARTWOOD))
+            {
+                mod++;
+                break;
+            }
+        }
+    }
+    return mod;
+}
+
 void Init()
 {
     Alarielle::Init();

@@ -45,6 +45,9 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    Rerolls battleshockRerolls() const override;
+    int braveryModifier() const override;
 
 protected:
 

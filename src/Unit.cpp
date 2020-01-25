@@ -927,8 +927,8 @@ void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) co
 
 int Unit::remainingPoints() const
 {
-    auto pointsPerModel = (float)m_points / m_models.size();
-    auto points = (int)roundf(pointsPerModel * remainingModels());
+    auto pointsPerWound = (float)m_points / (m_models.size() * wounds());
+    auto points = (int)roundf(pointsPerWound * remainingWounds());
     return points;
 }
 

@@ -12,5 +12,6 @@
 #include <Spell.h>
 
 Spell* CreateMetamorphosis(Unit* caster);
+Spell* CreateUnleashSpites(Unit* caster);
 
 #endif //SYLVANETHSPELLS_H

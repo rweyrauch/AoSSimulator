@@ -33,6 +33,9 @@ public:
     float y() const { return m_position.y; }
     float z() const { return m_position.z; }
 
+    void setOrientation(const Math::Vector3& dir) { m_orientation = dir; }
+    const Math::Vector3& orientation() const { return m_orientation; }
+
     void addMeleeWeapon(const Weapon* weapon);
     void addMissileWeapon(const Weapon* weapon);
 
@@ -68,7 +71,8 @@ public:
 private:
 
     int m_baseSize_mm = 0;
-    Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
+    Math::Point3 m_position = {0, 0, 0 };
+    Math::Vector3 m_orientation = { 1, 0, 0 };
     int m_initialWounds = 0;
     int m_woundsRemaining = 0;
     bool m_slain = false;

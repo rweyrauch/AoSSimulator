@@ -430,6 +430,8 @@ add_library(
         slavestodarkness/ExaltedHeroOfChaos.cpp
         slavestodarkness/ChaosLordOnDaemonicMount.cpp
         slavestodarkness/ChaosLord.cpp
+        slavestodarkness/ChaosChariots.cpp
+        slavestodarkness/GorebeastChariots.cpp
 
         freeagents/GotrekGurnisson.cpp
 

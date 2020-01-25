@@ -110,6 +110,8 @@
 #include "slavestodarkness/ExaltedHeroOfChaos.h"
 #include "slavestodarkness/ChaosLordOnDaemonicMount.h"
 #include "slavestodarkness/ChaosLord.h"
+#include "slavestodarkness/ChaosChariots.h"
+#include "slavestodarkness/GorebeastChariots.h"
 
 #include "freeagents/GotrekGurnisson.h"
 
@@ -241,6 +243,8 @@ void Initialize(Verbosity verbosity)
     SlavesToDarkness::ExaltedHeroOfChaos::Init();
     SlavesToDarkness::ChaosLordOnDaemonicMount::Init();
     SlavesToDarkness::ChaosLord::Init();
+    SlavesToDarkness::ChaosChariots::Init();
+    SlavesToDarkness::GorebeastChariots::Init();
 
     FreeAgent::GotrekGurnisson::Init();
 

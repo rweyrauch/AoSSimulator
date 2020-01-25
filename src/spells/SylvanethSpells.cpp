@@ -12,7 +12,7 @@
 class Metamorphosis : public DamageSpell
 {
 public:
-    Metamorphosis(Unit* caster);
+    explicit Metamorphosis(Unit* caster);
 
 protected:
     int getDamage(int castingRoll) const override;
@@ -34,4 +34,26 @@ int Metamorphosis::getDamage(int castingRoll) const
 Spell* CreateMetamorphosis(Unit* caster)
 {
     return new Metamorphosis(caster);
+}
+
+class UnleashSpites : public AreaOfEffectSpell
+{
+public:
+    explicit UnleashSpites(Unit* caster) :
+        AreaOfEffectSpell(caster, "Unleash Spites", 5, 0.0f, 9.0f, 1, 0) {}
+
+protected:
+    int getDamage(int castingRoll) const override
+    {
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(castingRoll, result);
+        return result.rollsGE(6);
+    }
+};
+
+
+Spell* CreateUnleashSpites(Unit* caster)
+{
+    return new UnleashSpites(caster);
 }
