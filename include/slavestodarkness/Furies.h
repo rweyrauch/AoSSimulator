@@ -9,13 +9,13 @@
 #ifndef FURIES_H
 #define FURIES_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class Furies : public Unit
+class Furies : public SlavesToDarknessBase
 {
 public:
 

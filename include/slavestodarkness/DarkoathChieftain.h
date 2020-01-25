@@ -9,13 +9,13 @@
 #ifndef DARKOATHCHIEFTAIN_H
 #define DARKOATHCHIEFTAIN_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class DarkoathChieftain : public Unit
+class DarkoathChieftain : public SlavesToDarknessBase
 {
 public:
 

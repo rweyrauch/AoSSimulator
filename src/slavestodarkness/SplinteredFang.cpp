@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", SplinteredFang::MIN_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE,
             SplinteredFang::MAX_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *SplinteredFang::Create(const ParameterList &parameters)
 {
     auto unit = new SplinteredFang();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void SplinteredFang::Init()
 }
 
 SplinteredFang::SplinteredFang() :
-    Unit("Splintered Fang", 6, WOUNDS, 5, 5, false),
+    SlavesToDarknessBase("Splintered Fang", 6, WOUNDS, 5, 5, false),
     m_poisonedWeapons(Weapon::Type::Melee, "Poisoned Weapons", 1, 1, 4, 4, 0, 1),
     m_poisonedWeaponsLeader(Weapon::Type::Melee, "Poisoned Weapons (Trueblood)", 1, 2, 4, 4, 0, 1)
 {

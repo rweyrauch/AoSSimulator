@@ -26,6 +26,7 @@
 #include "mawtribes/MawtribesBase.h"
 #include "ossiarch/OssiarchBonereaperBase.h"
 #include "kharadron/KharadronBase.h"
+#include "slavestodarkness/SlavesToDarkness.h"
 
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
@@ -86,32 +87,6 @@
 
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
-
-#include "slavestodarkness/ChaosChosen.h"
-#include "slavestodarkness/ChaosKnights.h"
-#include "slavestodarkness/ChaosMarauders.h"
-#include "slavestodarkness/ChaosWarriors.h"
-#include "slavestodarkness/CorvusCabal.h"
-#include "slavestodarkness/CypherLords.h"
-#include "slavestodarkness/Furies.h"
-#include "slavestodarkness/IronGolems.h"
-#include "slavestodarkness/Raptoryx.h"
-#include "slavestodarkness/Slambo.h"
-#include "slavestodarkness/SplinteredFang.h"
-#include "slavestodarkness/TheUnmade.h"
-#include "slavestodarkness/UntamedBeasts.h"
-#include "slavestodarkness/ChaosLordOnKarkadrak.h"
-#include "slavestodarkness/ChaosLordOnManticore.h"
-#include "slavestodarkness/ChaosWarshrine.h"
-#include "slavestodarkness/ChaosSorcererOnManticore.h"
-#include "slavestodarkness/ChaosSorcerer.h"
-#include "slavestodarkness/DarkoathChieftain.h"
-#include "slavestodarkness/DarkoathWarqueen.h"
-#include "slavestodarkness/ExaltedHeroOfChaos.h"
-#include "slavestodarkness/ChaosLordOnDaemonicMount.h"
-#include "slavestodarkness/ChaosLord.h"
-#include "slavestodarkness/ChaosChariots.h"
-#include "slavestodarkness/GorebeastChariots.h"
 
 #include "freeagents/GotrekGurnisson.h"
 
@@ -219,32 +194,6 @@ void Initialize(Verbosity verbosity)
 
     Everchosen::Archaon::Init();
     Everchosen::Varanguard::Init();
-
-    SlavesToDarkness::ChaosChosen::Init();
-    SlavesToDarkness::ChaosKnights::Init();
-    SlavesToDarkness::ChaosMarauders::Init();
-    SlavesToDarkness::ChaosWarriors::Init();
-    SlavesToDarkness::CorvusCabal::Init();
-    SlavesToDarkness::CypherLords::Init();
-    SlavesToDarkness::Furies::Init();
-    SlavesToDarkness::IronGolems::Init();
-    SlavesToDarkness::Raptoryx::Init();
-    SlavesToDarkness::Slambo::Init();
-    SlavesToDarkness::SplinteredFang::Init();
-    SlavesToDarkness::TheUnmade::Init();
-    SlavesToDarkness::UntamedBeasts::Init();
-    SlavesToDarkness::ChaosLordOnKarkadrak::Init();
-    SlavesToDarkness::ChaosLordOnManticore::Init();
-    SlavesToDarkness::ChaosWarshrine::Init();
-    SlavesToDarkness::ChaosSorcererOnManticore::Init();
-    SlavesToDarkness::ChaosSorcerer::Init();
-    SlavesToDarkness::DarkoathChieftain::Init();
-    SlavesToDarkness::DarkoathWarqueen::Init();
-    SlavesToDarkness::ExaltedHeroOfChaos::Init();
-    SlavesToDarkness::ChaosLordOnDaemonicMount::Init();
-    SlavesToDarkness::ChaosLord::Init();
-    SlavesToDarkness::ChaosChariots::Init();
-    SlavesToDarkness::GorebeastChariots::Init();
 
     FreeAgent::GotrekGurnisson::Init();
 

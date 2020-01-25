@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", ChaosLordOnManticore::BladeAndShield, ChaosLordOnManticore::BladeAndLance,
             ChaosLordOnManticore::FlailAndDaggerfist, 1
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -51,6 +52,9 @@ Unit *ChaosLordOnManticore::Create(const ParameterList &parameters)
 
     auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, BladeAndShield);
 
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
+
     bool ok = unit->configure(weapon);
     if (!ok)
     {
@@ -69,7 +73,7 @@ void ChaosLordOnManticore::Init()
 }
 
 ChaosLordOnManticore::ChaosLordOnManticore() :
-    Unit("Chaos Lord On Manticore", 12, WOUNDS, 8, 4, true),
+    SlavesToDarknessBase("Chaos Lord On Manticore", 12, WOUNDS, 8, 4, true),
     m_blade(Weapon::Type::Melee, "Daemon Blade", 1, 3, 3, 3, -1, RAND_D3),
     m_lance(Weapon::Type::Melee, "Chaos Lance", 2, 3, 3, 3, 0, 2),
     m_flail(Weapon::Type::Melee, "Chaos Flail", 2, 6, 3, 3, 0, 1),

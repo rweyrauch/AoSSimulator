@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     ChaosSorcererOnManticore::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -45,6 +46,9 @@ Unit *ChaosSorcererOnManticore::Create(const ParameterList &parameters)
 {
     auto unit = new ChaosSorcererOnManticore();
 
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -63,7 +67,7 @@ void ChaosSorcererOnManticore::Init()
 }
 
 ChaosSorcererOnManticore::ChaosSorcererOnManticore() :
-    Unit("Chaos Sorcerer On Manticore", 12, WOUNDS, 8, 4, true),
+    SlavesToDarknessBase("Chaos Sorcerer On Manticore", 12, WOUNDS, 8, 4, true),
     m_staff(Weapon::Type::Melee, "Sorcerous Reaping Staff", 2, 3, 3, 3, -1, RAND_D3),
     m_fangsAndClaws(Weapon::Type::Melee, "Honed Fangs and Claws", 1, 5, 3, 1, -1, 2),
     m_tail(Weapon::Type::Melee, "Shredding Tail", 3, 5, 4, 4, 0, 1)

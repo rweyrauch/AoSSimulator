@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     DarkoathChieftain::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -26,6 +27,9 @@ bool DarkoathChieftain::s_registered = false;
 Unit *DarkoathChieftain::Create(const ParameterList &parameters)
 {
     auto unit = new DarkoathChieftain();
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void DarkoathChieftain::Init()
 }
 
 DarkoathChieftain::DarkoathChieftain() :
-    Unit("Darkoath Chieftain", 6, WOUNDS, 8, 5, false),
+    SlavesToDarknessBase("Darkoath Chieftain", 6, WOUNDS, 8, 5, false),
     m_axe(Weapon::Type::Melee, "Warlord Axe", 1, 1, 3, 3, 0, 1),
     m_broadsword(Weapon::Type::Melee, "Cursed Broadsword", 1, 3, 4, 3, -1, 2)
 {

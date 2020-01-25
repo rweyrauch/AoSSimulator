@@ -752,6 +752,12 @@ enum Keyword
     MANTICORE,
     VARANGUARD,
 
+    // Slaves to Darkness Damned Legion
+    RAVAGERS,
+    CABALISTS,
+    DESPOILERS,
+    HOST_OF_THE_EVERCHOSEN,
+
     // Free Agents (no faction)
     GOTREK_GURNISSON,
 

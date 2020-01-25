@@ -30,6 +30,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -45,6 +46,9 @@ Unit *ChaosKnights::Create(const ParameterList &parameters)
     auto doomWeapon = (WeaponOption)GetEnumParam("Doom Knight Weapon", parameters, EnsorcelledWeapon);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels, weapons, doomWeapon, standardBearer, hornblower);
     if (!ok)
@@ -64,7 +68,7 @@ void ChaosKnights::Init()
 }
 
 ChaosKnights::ChaosKnights() :
-    Unit("Chaos Knights", 10, WOUNDS, 7, 4, false),
+    SlavesToDarknessBase("Chaos Knights", 10, WOUNDS, 7, 4, false),
     m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 3, -1, 1),
     m_lance(Weapon::Type::Melee, "Cursed Lance", 2, 2, 4, 3, 0, 1),
     m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 4, 3, 3, -1, 1),

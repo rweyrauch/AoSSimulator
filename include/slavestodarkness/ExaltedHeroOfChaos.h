@@ -9,13 +9,13 @@
 #ifndef EXALTEDHERO_H
 #define EXALTEDHERO_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class ExaltedHeroOfChaos : public Unit
+class ExaltedHeroOfChaos : public SlavesToDarknessBase
 {
 public:
 

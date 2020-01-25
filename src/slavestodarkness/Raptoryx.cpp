@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", Raptoryx::MIN_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE,
             Raptoryx::MAX_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *Raptoryx::Create(const ParameterList &parameters)
 {
     auto unit = new Raptoryx();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void Raptoryx::Init()
 }
 
 Raptoryx::Raptoryx() :
-    Unit("Raptoryx", 10, WOUNDS, 6, NoSave, true),
+    SlavesToDarknessBase("Raptoryx", 10, WOUNDS, 6, NoSave, true),
     m_beakAndTalons(Weapon::Type::Melee, "Razor-sharp Beak and Talons", 1, 2, 3, 3, 0, 1)
 {
     m_keywords = { CHAOS, SLAVES_TO_DARKNESS, RAPTORYX };

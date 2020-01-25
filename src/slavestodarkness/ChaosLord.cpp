@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapon", ChaosLord::Reaperblade, ChaosLord::Reaperblade,
             ChaosLord::DaemonboundWarFlail, 1
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -32,6 +33,9 @@ Unit *ChaosLord::Create(const ParameterList &parameters)
     auto unit = new ChaosLord();
 
     auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, Reaperblade);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(weapon);
     if (!ok)
@@ -51,7 +55,7 @@ void ChaosLord::Init()
 }
 
 ChaosLord::ChaosLord() :
-    Unit("Chaos Lord", 5, WOUNDS, 8, 4, false),
+    SlavesToDarknessBase("Chaos Lord", 5, WOUNDS, 8, 4, false),
     m_blade(Weapon::Type::Melee, "Reaperblade", 2, 3, 3, 3, -2, 2),
     m_steel(Weapon::Type::Melee, "Daemonbound Steel", 1, 3, 3, 3, -1, 1),
     m_flail(Weapon::Type::Melee, "Daemonbound War-flail", 2, 6, 4, 4, -2, 1)

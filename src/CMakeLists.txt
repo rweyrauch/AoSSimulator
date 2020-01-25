@@ -406,6 +406,7 @@ add_library(
         everchosen/Archaon.cpp
         everchosen/Varanguard.cpp
 
+        slavestodarkness/SlavesToDarkness.cpp
         slavestodarkness/ChaosChosen.cpp
         slavestodarkness/ChaosKnights.cpp
         slavestodarkness/ChaosMarauders.cpp

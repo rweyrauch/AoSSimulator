@@ -9,13 +9,13 @@
 #ifndef UNTAMEDBEASTS_H
 #define UNTAMEDBEASTS_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class UntamedBeasts : public Unit
+class UntamedBeasts : public SlavesToDarknessBase
 {
 public:
 

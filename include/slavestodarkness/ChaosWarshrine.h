@@ -9,13 +9,13 @@
 #ifndef CHAOSWARSHRINE_H
 #define CHAOSWARSHRINE_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class ChaosWarshrine : public Unit
+class ChaosWarshrine : public SlavesToDarknessBase
 {
 public:
 

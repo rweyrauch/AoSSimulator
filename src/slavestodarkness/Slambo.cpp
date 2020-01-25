@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     Slambo::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -26,6 +27,10 @@ bool Slambo::s_registered = false;
 Unit *Slambo::Create(const ParameterList &parameters)
 {
     auto unit = new Slambo();
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -44,7 +49,7 @@ void Slambo::Init()
 }
 
 Slambo::Slambo() :
-    Unit("Slambo", 5, WOUNDS, 8, 4, false),
+    SlavesToDarknessBase("Slambo", 5, WOUNDS, 8, 4, false),
     m_hurledAxe(Weapon::Type::Missile, "Hurled Chaos Axe", 8, 1, 3, 3, -1, RAND_D3),
     m_chaosAxes(Weapon::Type::Melee, "Chaos Axes", 1, RAND_D6, 4, 3, -1, 1)
 {

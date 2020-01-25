@@ -26,6 +26,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -40,6 +41,10 @@ Unit *ChaosMarauders::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, AxeAndShield);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool drummer = GetBoolParam("Drummer", parameters, false);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
+
     bool ok = unit->configure(numModels, weapons, iconBearer, drummer);
     if (!ok)
     {
@@ -58,7 +63,7 @@ void ChaosMarauders::Init()
 }
 
 ChaosMarauders::ChaosMarauders() :
-    Unit("Chaos Marauders", 6, WOUNDS, 5, 6, false),
+    SlavesToDarknessBase("Chaos Marauders", 6, WOUNDS, 5, 6, false),
     m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
     m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, 0, 1),
     m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1),

@@ -9,13 +9,13 @@
 #ifndef CORVUSCABAL_H
 #define CORVUSCABAL_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class CorvusCabal : public Unit
+class CorvusCabal : public SlavesToDarknessBase
 {
 public:
 

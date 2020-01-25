@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", IronGolems::MIN_UNIT_SIZE, IronGolems::MIN_UNIT_SIZE,
             IronGolems::MAX_UNIT_SIZE, IronGolems::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *IronGolems::Create(const ParameterList &parameters)
 {
     auto unit = new IronGolems();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void IronGolems::Init()
 }
 
 IronGolems::IronGolems() :
-    Unit("Iron Golems", 5, WOUNDS, 6, 4, false),
+    SlavesToDarknessBase("Iron Golems", 5, WOUNDS, 6, 4, false),
     m_bolas(Weapon::Type::Missile, "Bolas", 8, 1, 4, 4, 0, 1),
     m_legionWeapons(Weapon::Type::Melee, "Legion Weapons", 1, 1, 4, 4, 0, 1),
     m_legionWeaponsDominar(Weapon::Type::Melee, "Legion Weapons (Dominar)", 1, 2, 4, 4, 0, 1)

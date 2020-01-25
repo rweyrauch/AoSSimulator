@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", TheUnmade::MIN_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE,
             TheUnmade::MAX_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *TheUnmade::Create(const ParameterList &parameters)
 {
     auto unit = new TheUnmade();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void TheUnmade::Init()
 }
 
 TheUnmade::TheUnmade() :
-    Unit("The Unmade", 6, WOUNDS, 5, 6, false),
+    SlavesToDarknessBase("The Unmade", 6, WOUNDS, 5, 6, false),
     m_maimingWeapons(Weapon::Type::Melee, "Maiming Weapons", 1, 1, 4, 4, 0, 1),
     m_maimingWeaponsLeader(Weapon::Type::Melee, "Maiming Weapons (Joyous One)", 1, 2, 4, 4, 0, 1),
     m_nigthmareSickles(Weapon::Type::Melee, "Nightmare Sickles", 1, 3, 4, 3, -1, 2)

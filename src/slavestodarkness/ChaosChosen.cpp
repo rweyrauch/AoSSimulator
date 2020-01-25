@@ -22,6 +22,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -35,6 +36,9 @@ Unit *ChaosChosen::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool drummer = GetBoolParam("Drummer", parameters, false);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels, iconBearer, drummer);
     if (!ok)
@@ -54,7 +58,7 @@ void ChaosChosen::Init()
 }
 
 ChaosChosen::ChaosChosen() :
-    Unit("Chaos Chosen", 6, WOUNDS, 7, 4, false),
+    SlavesToDarknessBase("Chaos Chosen", 6, WOUNDS, 7, 4, false),
     m_greataxe(Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1),
     m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1)
 {

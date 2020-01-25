@@ -9,13 +9,13 @@
 #ifndef SPLINTEREDFANG_H
 #define SPLINTEREDFANG_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class SplinteredFang : public Unit
+class SplinteredFang : public SlavesToDarknessBase
 {
 public:
 

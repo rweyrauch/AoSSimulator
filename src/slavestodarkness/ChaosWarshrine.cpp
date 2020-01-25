@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     ChaosWarshrine::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -45,6 +46,9 @@ Unit *ChaosWarshrine::Create(const ParameterList &parameters)
 {
     auto unit = new ChaosWarshrine();
 
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -63,7 +67,7 @@ void ChaosWarshrine::Init()
 }
 
 ChaosWarshrine::ChaosWarshrine() :
-    Unit("Chaos Warshrine", 8, WOUNDS, 7, 4, false),
+    SlavesToDarknessBase("Chaos Warshrine", 8, WOUNDS, 7, 4, false),
     m_blade(Weapon::Type::Melee, "Sacrificial Blade", 1, 4, 3, 3, -1, 2),
     m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2)
 {

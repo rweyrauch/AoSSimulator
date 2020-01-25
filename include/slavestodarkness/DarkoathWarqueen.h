@@ -9,13 +9,13 @@
 #ifndef DARKOATHWARQUEEN_H
 #define DARKOATHWARQUEEN_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class DarkoathWarqueen : public Unit
+class DarkoathWarqueen : public SlavesToDarknessBase
 {
 public:
 

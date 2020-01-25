@@ -9,13 +9,13 @@
 #ifndef SLAMBO_H
 #define SLAMBO_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class Slambo : public Unit
+class Slambo : public SlavesToDarknessBase
 {
 public:
 

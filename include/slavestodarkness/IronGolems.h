@@ -9,13 +9,13 @@
 #ifndef IRONGOLEMS_H
 #define IRONGOLEMS_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class IronGolems : public Unit
+class IronGolems : public SlavesToDarknessBase
 {
 public:
 

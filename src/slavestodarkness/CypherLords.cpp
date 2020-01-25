@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", CypherLords::MIN_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE,
             CypherLords::MAX_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *CypherLords::Create(const ParameterList &parameters)
 {
     auto unit = new CypherLords();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void CypherLords::Init()
 }
 
 CypherLords::CypherLords() :
-    Unit("Cypher Lords", 6, WOUNDS, 5, 6, false),
+    SlavesToDarknessBase("Cypher Lords", 6, WOUNDS, 5, 6, false),
     m_throwingStars(Weapon::Type::Missile, "Throwing Stars and Chakrams", 8, 1, 4, 5, 0, 1),
     m_exoticBlades(Weapon::Type::Melee, "Exotic Blades", 1, 1, 4, 4, 0, 1)
 {

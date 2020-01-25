@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", Furies::MIN_UNIT_SIZE, Furies::MIN_UNIT_SIZE,
             Furies::MAX_UNIT_SIZE, Furies::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *Furies::Create(const ParameterList &parameters)
 {
     auto unit = new Furies();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -69,7 +73,7 @@ bool Furies::configure(int numModels)
 }
 
 Furies::Furies() :
-    Unit("Furies", 12, WOUNDS, 10, NoSave, true),
+    SlavesToDarknessBase("Furies", 12, WOUNDS, 10, NoSave, true),
     m_daggerAndClaws(Weapon::Type::Melee, "Razor-sharp Dagger and Claws", 1, 2, 4, 3, -1, 1)
 {
     m_keywords = { CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES };

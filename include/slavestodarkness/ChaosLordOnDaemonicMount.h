@@ -9,13 +9,13 @@
 #ifndef LORDONMOUNT_H
 #define LORDONMOUNT_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class ChaosLordOnDaemonicMount : public Unit
+class ChaosLordOnDaemonicMount : public SlavesToDarknessBase
 {
 public:
 

@@ -9,13 +9,13 @@
 #ifndef CYPHERLORDS_H
 #define CYPHERLORDS_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class CypherLords : public Unit
+class CypherLords : public SlavesToDarknessBase
 {
 public:
 

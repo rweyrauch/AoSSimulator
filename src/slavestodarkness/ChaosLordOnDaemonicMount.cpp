@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     ChaosLordOnDaemonicMount::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -26,6 +27,9 @@ bool ChaosLordOnDaemonicMount::s_registered = false;
 Unit *ChaosLordOnDaemonicMount::Create(const ParameterList &parameters)
 {
     auto unit = new ChaosLordOnDaemonicMount();
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void ChaosLordOnDaemonicMount::Init()
 }
 
 ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount() :
-    Unit("Chaos Lord On Daemonic Mount", 10, WOUNDS, 8, 4, false),
+    SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, WOUNDS, 8, 4, false),
     m_hammer(Weapon::Type::Melee, "Cursed Warhammer", 1, 4, 3, 3, -1, 2),
     m_hooves(Weapon::Type::Melee, "Mighty Hooves", 1, 3, 4, 3, 0, 1)
 {

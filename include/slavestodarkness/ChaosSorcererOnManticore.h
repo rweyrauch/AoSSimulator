@@ -9,13 +9,13 @@
 #ifndef SORCERERONMANTICORE_H
 #define SORCERERONMANTICORE_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class ChaosSorcererOnManticore : public Unit
+class ChaosSorcererOnManticore : public SlavesToDarknessBase
 {
 public:
 

@@ -9,13 +9,13 @@
 #ifndef LORDONMANTICORE_H
 #define LORDONMANTICORE_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class ChaosLordOnManticore : public Unit
+class ChaosLordOnManticore : public SlavesToDarknessBase
 {
 public:
 

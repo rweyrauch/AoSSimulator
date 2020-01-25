@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", UntamedBeasts::MIN_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE,
             UntamedBeasts::MAX_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *UntamedBeasts::Create(const ParameterList &parameters)
 {
     auto unit = new UntamedBeasts();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void UntamedBeasts::Init()
 }
 
 UntamedBeasts::UntamedBeasts() :
-    Unit("Untamed Beasts", 6, WOUNDS, 5, 6, false),
+    SlavesToDarknessBase("Untamed Beasts", 6, WOUNDS, 5, 6, false),
     m_harpoonFirstFang(Weapon::Type::Missile, "Jagged Harpoon", 8, 1, 4, 3, -1, 2),
     m_huntingWeapons(Weapon::Type::Melee, "Hunting Weapons", 1, 1, 4, 4, 0, 1),
     m_huntingWeaponsHeartEater(Weapon::Type::Melee, "Hunting Weapons (Heart-eater)", 1, 2, 4, 4, 0, 1)

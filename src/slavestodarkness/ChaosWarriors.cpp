@@ -26,6 +26,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -40,6 +41,9 @@ Unit *ChaosWarriors::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, PairedHandWeapons);
     bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels, weapons, standardBearer, hornblower);
     if (!ok)
@@ -59,7 +63,7 @@ void ChaosWarriors::Init()
 }
 
 ChaosWarriors::ChaosWarriors() :
-    Unit("Chaos Warriors", 5, WOUNDS, 7, 4, false),
+    SlavesToDarknessBase("Chaos Warriors", 5, WOUNDS, 7, 4, false),
     m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 3, 0, 1),
     m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 3, 4, 0, 1),
     m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 4, 3, -1, 1),

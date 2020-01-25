@@ -9,13 +9,13 @@
 #ifndef THEUNMADE_H
 #define THEUNMADE_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class TheUnmade : public Unit
+class TheUnmade : public SlavesToDarknessBase
 {
 public:
 

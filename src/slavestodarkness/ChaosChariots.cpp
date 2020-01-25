@@ -24,6 +24,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", ChaosChariots::GreatBladeAndWhip, ChaosChariots::GreatBladeAndWhip,
             ChaosChariots::WarFlailAndWhip, 1
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -36,6 +37,9 @@ Unit *ChaosChariots::Create(const ParameterList &parameters)
     auto unit = new ChaosChariots();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, GreatBladeAndWhip);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -55,7 +59,7 @@ void ChaosChariots::Init()
 }
 
 ChaosChariots::ChaosChariots() :
-    Unit("Chaos Chariots", 12, WOUNDS, 6, 4, false),
+    SlavesToDarknessBase("Chaos Chariots", 12, WOUNDS, 6, 4, false),
     m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 2, 2, 3, 3, -1, 2),
     m_flail(Weapon::Type::Melee, "Chaos War-flail", 2, RAND_D6, 4, 3, 0, 1),
     m_whip(Weapon::Type::Melee, "Lashing Whip", 2, 2, 4, 4, 0, 1),

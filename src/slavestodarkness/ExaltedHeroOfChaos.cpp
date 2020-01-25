@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     ExaltedHeroOfChaos::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -26,6 +27,9 @@ bool ExaltedHeroOfChaos::s_registered = false;
 Unit *ExaltedHeroOfChaos::Create(const ParameterList &parameters)
 {
     auto unit = new ExaltedHeroOfChaos();
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void ExaltedHeroOfChaos::Init()
 }
 
 ExaltedHeroOfChaos::ExaltedHeroOfChaos() :
-    Unit("Exalted Hero of Chaos", 5, WOUNDS, 8, 4, false),
+    SlavesToDarknessBase("Exalted Hero of Chaos", 5, WOUNDS, 8, 4, false),
     m_blades(Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1)
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS };

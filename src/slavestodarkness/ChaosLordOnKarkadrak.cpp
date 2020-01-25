@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     nullptr,
     ChaosLordOnKarkadrak::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -27,6 +28,9 @@ bool ChaosLordOnKarkadrak::s_registered = false;
 Unit *ChaosLordOnKarkadrak::Create(const ParameterList &parameters)
 {
     auto unit = new ChaosLordOnKarkadrak();
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)
@@ -46,7 +50,7 @@ void ChaosLordOnKarkadrak::Init()
 }
 
 ChaosLordOnKarkadrak::ChaosLordOnKarkadrak() :
-    Unit("Chaos Lord On Karkadrak", 9, WOUNDS, 8, 3, false),
+    SlavesToDarknessBase("Chaos Lord On Karkadrak", 9, WOUNDS, 8, 3, false),
     m_battleAxe(Weapon::Type::Melee, "Hexed Battle-axe", 1, 5, 3, 3, 0, 2),
     m_blade(Weapon::Type::Melee, "Daemonbound Blade", 1, 3, 3, 3, -1, RAND_D3),
     m_hornsAndClaws(Weapon::Type::Melee, "Tearing Horn and Claws", 1, 3, 4, 3, -1, 2),

@@ -26,6 +26,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -40,6 +41,9 @@ Unit *ChaosMarauderHorsemen::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, AxeAndShield);
     bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
     bool hornblower = GetBoolParam("Hornblower", parameters, false);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels, weapons, iconBearer, hornblower);
     if (!ok)
@@ -59,7 +63,7 @@ void ChaosMarauderHorsemen::Init()
 }
 
 ChaosMarauderHorsemen::ChaosMarauderHorsemen() :
-    Unit("Chaos Marauder Horsemen", 12, WOUNDS, 5, 6, false),
+    SlavesToDarknessBase("Chaos Marauder Horsemen", 12, WOUNDS, 5, 6, false),
     m_javelinMissile(Weapon::Type::Missile, "Marauder Javelin", 12, 1, 4, 3, -1, 1),
     m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
     m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, -1, 1),

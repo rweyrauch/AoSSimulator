@@ -9,13 +9,13 @@
 #ifndef CHAOSMARAUDERS_H
 #define CHAOSMARAUDERS_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class ChaosMarauders : public Unit
+class ChaosMarauders : public SlavesToDarknessBase
 {
 public:
 

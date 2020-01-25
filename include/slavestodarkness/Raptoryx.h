@@ -9,13 +9,13 @@
 #ifndef RAPTORYX_H
 #define RAPTORYX_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness
 {
 
-class Raptoryx : public Unit
+class Raptoryx : public SlavesToDarknessBase
 {
 public:
 

@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", CorvusCabal::MIN_UNIT_SIZE, CorvusCabal::MIN_UNIT_SIZE,
             CorvusCabal::MAX_UNIT_SIZE, CorvusCabal::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS }
@@ -31,6 +32,9 @@ Unit *CorvusCabal::Create(const ParameterList &parameters)
 {
     auto unit = new CorvusCabal();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -50,7 +54,7 @@ void CorvusCabal::Init()
 }
 
 CorvusCabal::CorvusCabal() :
-    Unit("Corvus Cabal", 8, WOUNDS, 5, 6, true),
+    SlavesToDarknessBase("Corvus Cabal", 8, WOUNDS, 5, 6, true),
     m_ravenDarts(Weapon::Type::Missile, "Raven Darts", 8, 1, 4, 5, 0, 1),
     m_corvusWeapons(Weapon::Type::Melee, "Corvus Weapons", 1, 1, 4, 4, 0, 1),
     m_corvusWeaponsLeader(Weapon::Type::Melee, "Corvus Weapons (Shadow Piercer)", 1, 2, 4, 4, 0, 1)
