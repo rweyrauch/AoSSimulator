@@ -9,13 +9,13 @@
 #ifndef BEASTSOFNURGLE_H
 #define BEASTSOFNURGLE_H
 
-#include <Unit.h>
+#include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
 namespace Nurgle
 {
 
-class BeastsOfNurgle : public Unit
+class BeastsOfNurgle : public NurgleBase
 {
 public:
 

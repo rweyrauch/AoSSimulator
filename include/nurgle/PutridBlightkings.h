@@ -9,13 +9,13 @@
 #ifndef PUTRIDBLIGHTKINGS_H
 #define PUTRIDBLIGHTKINGS_H
 
-#include <Unit.h>
+#include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
 namespace Nurgle
 {
 
-class PutridBlightkings : public Unit
+class PutridBlightkings : public NurgleBase
 {
 public:
 

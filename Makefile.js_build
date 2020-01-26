@@ -262,6 +262,7 @@ OBJECTS += \
         src/slaanesh/InfernalEnrapturess.o \
         src/slaanesh/SyllEsske.o \
         src/slaanesh/ContortedEpitome.o \
+        src/nurgle/Nurgle.o \
         src/nurgle/Plaguebearers.o \
         src/nurgle/LordOfPlagues.o \
         src/nurgle/PutridBlightkings.o \
@@ -377,7 +378,7 @@ OBJECTS += \
         src/greenskinz/OrrukWarboss.o \
         src/greenskinz/OrrukWarbossWyvern.o \
         src/greenskinz/RogueIdol.o \
-        src/seraphon/SeraphonBase.o \
+        src/seraphon/Seraphon.o \
         src/seraphon/DreadSaurian.o \
         src/seraphon/SaurusGuard.o \
         src/seraphon/SaurusKnights.o \

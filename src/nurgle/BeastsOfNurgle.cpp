@@ -14,8 +14,8 @@ namespace Nurgle
 {
 static FactoryMethod factoryMethod = {
     BeastsOfNurgle::Create,
-    nullptr,
-    nullptr,
+    NurgleBase::ValueToString,
+    NurgleBase::EnumStringToInt,
     BeastsOfNurgle::ComputePoints,
     {
         {
@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool BeastsOfNurgle::s_registered = false;
 
 BeastsOfNurgle::BeastsOfNurgle() :
-    Unit("Beasts of Nurgle", 5, WOUNDS, 10, 5, false),
+    NurgleBase("Beasts of Nurgle", 5, WOUNDS, 10, 5, false),
     m_clawsAndTentacles(Weapon::Type::Melee, "Claws and Tentacles", 1, RAND_D6, 4, 3, 0, 1),
     m_slobberingTongue(Weapon::Type::Melee, "Slobbering Tongue", 2, 1, 3, 3, 0, RAND_D3)
 {

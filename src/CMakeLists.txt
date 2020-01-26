@@ -257,6 +257,7 @@ add_library(
         slaanesh/SyllEsske.cpp
         slaanesh/ContortedEpitome.cpp
 
+        nurgle/Nurgle.cpp
         nurgle/Plaguebearers.cpp
         nurgle/LordOfPlagues.cpp
         nurgle/PutridBlightkings.cpp

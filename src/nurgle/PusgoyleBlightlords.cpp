@@ -14,8 +14,8 @@ namespace Nurgle
 {
 static FactoryMethod factoryMethod = {
     PusgoyleBlightlords::Create,
-    nullptr,
-    nullptr,
+    NurgleBase::ValueToString,
+    NurgleBase::EnumStringToInt,
     PusgoyleBlightlords::ComputePoints,
     {
         {
@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool PusgoyleBlightlords::s_registered = false;
 
 PusgoyleBlightlords::PusgoyleBlightlords() :
-    Unit("Pusgoyle Blightlords", 8, WOUNDS, 10, 4, true),
+    NurgleBase("Pusgoyle Blightlords", 8, WOUNDS, 10, 4, true),
     m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1),
     m_dolorousTocsin(Weapon::Type::Melee, "Dolorous Tocsin", 1, 1, 4, 3, -2, 2),
     m_mouthparts(Weapon::Type::Melee, "Foul Mouthparts", 1, 2, 3, 3, 0, 1),

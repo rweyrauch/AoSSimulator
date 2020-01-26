@@ -9,13 +9,13 @@
 #ifndef PUSGOYLEBLIGHTLORDS_H
 #define PUSGOYLEBLIGHTLORDS_H
 
-#include <Unit.h>
+#include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
 namespace Nurgle
 {
 
-class PusgoyleBlightlords : public Unit
+class PusgoyleBlightlords : public NurgleBase
 {
 public:
 

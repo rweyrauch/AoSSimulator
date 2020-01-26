@@ -30,14 +30,7 @@
 #include "idonethdeepkin/IdonethDeepkin.h"
 #include "bonesplitterz/Bonesplitterz.h"
 #include "seraphon/Seraphon.h"
-
-#include "nurgle/LordOfPlagues.h"
-#include "nurgle/Plaguebearers.h"
-#include "nurgle/PutridBlightkings.h"
-#include "nurgle/BeastsOfNurgle.h"
-#include "nurgle/TheGlottkin.h"
-#include "nurgle/PlagueDrones.h"
-#include "nurgle/PusgoyleBlightlords.h"
+#include "nurgle/Nurgle.h"
 
 #include "death/BlackKnights.h"
 #include "death/BloodKnights.h"
@@ -108,14 +101,7 @@ void Initialize(Verbosity verbosity)
     IdonethDeepkin::Init();
     Bonesplitterz::Init();
     Seraphon::Init();
-
-    Nurgle::LordOfPlagues::Init();
-    Nurgle::Plaguebearers::Init();
-    Nurgle::PutridBlightkings::Init();
-    Nurgle::BeastsOfNurgle::Init();
-    Nurgle::TheGlottkin::Init();
-    Nurgle::PlagueDrones::Init();
-    Nurgle::PusgoyleBlightlords::Init();
+    Nurgle::Init();
 
     Death::BlackKnights::Init();
     Death::BloodKnights::Init();

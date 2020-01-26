@@ -9,13 +9,13 @@
 #ifndef LORDOFPLAGUES_H
 #define LORDOFPLAGUES_H
 
-#include <Unit.h>
+#include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
 namespace Nurgle
 {
 
-class LordOfPlagues : public Unit
+class LordOfPlagues : public NurgleBase
 {
 public:
 

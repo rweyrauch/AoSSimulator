@@ -9,13 +9,13 @@
 #ifndef PLAGUEDRONES_H
 #define PLAGUEDRONES_H
 
-#include <Unit.h>
+#include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
 namespace Nurgle
 {
 
-class PlagueDrones : public Unit
+class PlagueDrones : public NurgleBase
 {
 public:
 

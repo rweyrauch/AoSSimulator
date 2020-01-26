@@ -9,13 +9,13 @@
 #ifndef THEGLOTTKIN_H
 #define THEGLOTTKIN_H
 
-#include <Unit.h>
+#include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
 namespace Nurgle
 {
 
-class TheGlottkin : public Unit
+class TheGlottkin : public NurgleBase
 {
 public:
 

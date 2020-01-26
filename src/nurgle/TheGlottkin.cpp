@@ -15,8 +15,8 @@ namespace Nurgle
 {
 static FactoryMethod factoryMethod = {
     TheGlottkin::Create,
-    nullptr,
-    nullptr,
+    NurgleBase::ValueToString,
+    NurgleBase::EnumStringToInt,
     TheGlottkin::ComputePoints,
     {
     },
@@ -45,7 +45,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool TheGlottkin::s_registered = false;
 
 TheGlottkin::TheGlottkin() :
-    Unit("The Glottkin", 8, WOUNDS, 9, 4, false),
+    NurgleBase("The Glottkin", 8, WOUNDS, 9, 4, false),
     m_pestilentTorrent(Weapon::Type::Missile, "Pestilent Torrent", 12, 1, 3, 4, -2, RAND_2D6),
     m_flailingTentacle(Weapon::Type::Melee, "Ghurk's Flailing Tentacle", 3, 6, 4, 2, -2, 2),
     m_lampreyMaw(Weapon::Type::Melee, "Ghurk's Lamprey Maw", 2, 1, 3, 2, -1, RAND_D3),

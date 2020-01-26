@@ -32,7 +32,7 @@ static FactoryMethod factoryMethod = {
 bool PlagueDrones::s_registered = false;
 
 PlagueDrones::PlagueDrones() :
-    Unit("Plague Drones", 8, WOUNDS, 10, 5, true),
+    NurgleBase("Plague Drones", 8, WOUNDS, 10, 5, true),
     m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
     m_plagueswordPlaguebringer(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1),
     m_deathsHead(Weapon::Type::Missile, "Death's Head", 14, 1, 4, 3, 0, 1),
@@ -177,14 +177,14 @@ std::string PlagueDrones::ValueToString(const Parameter &parameter)
         if (parameter.intValue == PrehensileProboscis) { return "Prehensile Proboscis"; }
         else if (parameter.intValue == FoulMouthparts) { return "Foul Mouthparts"; }
     }
-    return ParameterValueToString(parameter);
+    return NurgleBase::ValueToString(parameter);
 }
 
 int PlagueDrones::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Prehensile Proboscis") { return PrehensileProboscis; }
     else if (enumString == "Foul Mouthparts") { return FoulMouthparts; }
-    return 0;
+    return NurgleBase::EnumStringToInt(enumString);
 }
 
 int PlagueDrones::ComputePoints(int numModels)

@@ -13,8 +13,8 @@ namespace Nurgle
 {
 static FactoryMethod factoryMethod = {
     Plaguebearers::Create,
-    nullptr,
-    nullptr,
+    NurgleBase::ValueToString,
+    NurgleBase::EnumStringToInt,
     Plaguebearers::ComputePoints,
     {
         {
@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool Plaguebearers::s_registered = false;
 
 Plaguebearers::Plaguebearers() :
-    Unit("Plaguebearers", 4, WOUNDS, 10, 5, false),
+    NurgleBase("Plaguebearers", 4, WOUNDS, 10, 5, false),
     m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
     m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1)
 {

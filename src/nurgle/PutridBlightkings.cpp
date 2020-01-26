@@ -13,8 +13,8 @@ namespace Nurgle
 {
 static FactoryMethod factoryMethod = {
     PutridBlightkings::Create,
-    nullptr,
-    nullptr,
+    NurgleBase::ValueToString,
+    NurgleBase::EnumStringToInt,
     PutridBlightkings::ComputePoints,
     {
         {
@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool PutridBlightkings::s_registered = false;
 
 PutridBlightkings::PutridBlightkings() :
-    Unit("Putrid Blightkings", 4, WOUNDS, 8, 4, false),
+    NurgleBase("Putrid Blightkings", 4, WOUNDS, 8, 4, false),
     m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS};
