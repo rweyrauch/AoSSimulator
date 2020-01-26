@@ -12,8 +12,8 @@ namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     CypherLords::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     CypherLords::ComputePoints,
     {
         {

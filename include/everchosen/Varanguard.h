@@ -9,13 +9,13 @@
 #ifndef VARANGUARD_H
 #define VARANGUARD_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace Everchosen
+namespace SlavesToDarkness
 {
 
-class Varanguard : public Unit
+class Varanguard : public SlavesToDarknessBase
 {
 public:
 
@@ -72,6 +72,6 @@ private:
 // Warpsteel Shields                No
 //
 
-} // namespace Everchosen
+} // namespace SlavesToDarkness
 
 #endif //VARANGUARD_H

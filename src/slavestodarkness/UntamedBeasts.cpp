@@ -12,8 +12,8 @@ namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     UntamedBeasts::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     UntamedBeasts::ComputePoints,
     {
         {

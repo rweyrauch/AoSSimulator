@@ -27,6 +27,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -44,6 +45,9 @@ Unit *ChaosMarauders::Create(const ParameterList &parameters)
 
     auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
     unit->setDamnedLegion(legion);
+
+    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
+    unit->setMarkOfChaos(mark);
 
     bool ok = unit->configure(numModels, weapons, iconBearer, drummer);
     if (!ok)
@@ -152,7 +156,7 @@ std::string ChaosMarauders::ValueToString(const Parameter &parameter)
             return "Barbarian Flail";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int ChaosMarauders::EnumStringToInt(const std::string &enumString)
@@ -165,7 +169,7 @@ int ChaosMarauders::EnumStringToInt(const std::string &enumString)
     {
         return Flail;
     }
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 void ChaosMarauders::onWounded()

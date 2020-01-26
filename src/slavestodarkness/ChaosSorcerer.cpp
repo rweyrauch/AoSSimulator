@@ -12,11 +12,12 @@ namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     ChaosSorcerer::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     ChaosSorcerer::ComputePoints,
     {
         {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -31,6 +32,9 @@ Unit *ChaosSorcerer::Create(const ParameterList &parameters)
     auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
     unit->setDamnedLegion(legion);
 
+    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
+    unit->setMarkOfChaos(mark);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -44,12 +48,12 @@ void ChaosSorcerer::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chaos Sorcerer", factoryMethod);
+        s_registered = UnitFactory::Register("Chaos Sorcerer Lord", factoryMethod);
     }
 }
 
 ChaosSorcerer::ChaosSorcerer() :
-    SlavesToDarknessBase("Chaos Sorcerer", 5, WOUNDS, 7, 4, false),
+    SlavesToDarknessBase("Chaos Sorcerer Lord", 5, WOUNDS, 7, 4, false),
     m_staff(Weapon::Type::Melee, "Sorcerous Staff", 2, 1, 4, 3, -1, RAND_D3),
     m_blade(Weapon::Type::Melee, "Chaos Runeblade", 1, 2, 3, 3, 0, 1)
 {

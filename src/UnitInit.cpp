@@ -136,6 +136,7 @@ void Initialize(Verbosity verbosity)
     OssiarchBonereapers::Init();
     KharadronOverlords::Init();
     Tzeentch::Init();
+    SlavesToDarkness::Init();
 
     IdonethDeepkin::NamartiThralls::Init();
     IdonethDeepkin::NamartiReavers::Init();
@@ -192,8 +193,8 @@ void Initialize(Verbosity verbosity)
     Seraphon::SaurusWarriors::Init();
     Seraphon::Skinks::Init();
 
-    Everchosen::Archaon::Init();
-    Everchosen::Varanguard::Init();
+    SlavesToDarkness::Archaon::Init();
+    SlavesToDarkness::Varanguard::Init();
 
     FreeAgent::GotrekGurnisson::Init();
 

@@ -25,6 +25,7 @@ static FactoryMethod factoryMethod = {
             ChaosChariots::WarFlailAndWhip, 1
         },
         {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -40,6 +41,9 @@ Unit *ChaosChariots::Create(const ParameterList &parameters)
 
     auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
     unit->setDamnedLegion(legion);
+
+    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
+    unit->setMarkOfChaos(mark);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -123,7 +127,7 @@ std::string ChaosChariots::ValueToString(const Parameter &parameter)
             return "Chaos War-flail and Whip";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int ChaosChariots::EnumStringToInt(const std::string &enumString)
@@ -136,7 +140,7 @@ int ChaosChariots::EnumStringToInt(const std::string &enumString)
     {
         return WarFlailAndWhip;
     }
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 int ChaosChariots::ComputePoints(int numModels)

@@ -12,8 +12,8 @@ namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     Slambo::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     Slambo::ComputePoints,
     {
         {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},

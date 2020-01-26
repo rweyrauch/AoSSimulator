@@ -46,6 +46,14 @@ std::string SlavesToDarknessBase::ValueToString(const Parameter &parameter)
         else if (parameter.intValue == Despoilers) return "Despoilers";
         else if (parameter.intValue == HostOfTheEverchosen) return "Host of the Everchosen";
     }
+    else if (std::string(parameter.name) == "Mark of Chaos")
+    {
+        if (parameter.intValue == Undivided) return "Undivided";
+        if (parameter.intValue == Nurgle) return "Nurgle";
+        if (parameter.intValue == Khorne) return "Khorne";
+        if (parameter.intValue == Slaanesh) return "Slaanesh";
+        if (parameter.intValue == Tzeentch) return "Tzeentch";
+    }
     return ParameterValueToString(parameter);
 }
 
@@ -55,7 +63,11 @@ int SlavesToDarknessBase::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Cabalists") return Cabalists;
     else if (enumString == "Despoilers") return Despoilers;
     else if (enumString == "Host of the Everchosen") return HostOfTheEverchosen;
-
+    else if (enumString == "Undivided") return Undivided;
+    else if (enumString == "Nurgle") return Nurgle;
+    else if (enumString == "Khorne") return Khorne;
+    else if (enumString == "Slaanesh") return Slaanesh;
+    else if (enumString == "Tzeentch") return Tzeentch;
     return 0;
 }
 
@@ -83,6 +95,31 @@ void SlavesToDarknessBase::setDamnedLegion(DamnedLegion legion)
             break;
         default:
             break;
+    }
+}
+
+void SlavesToDarknessBase::setMarkOfChaos(MarkOfChaos mark)
+{
+    removeKeyword(UNDIVIDED);
+    removeKeyword(NURGLE);
+    removeKeyword(KHORNE);
+    removeKeyword(SLAANESH);
+    removeKeyword(TZEENTCH);
+
+    m_markOfChaos = mark;
+
+    switch (mark)
+    {
+        case Undivided:
+            addKeyword(UNDIVIDED); break;
+        case Nurgle:
+            addKeyword(NURGLE); break;
+        case Khorne:
+            addKeyword(KHORNE); break;
+        case Slaanesh:
+            addKeyword(SLAANESH); break;
+        case Tzeentch:
+            addKeyword(TZEENTCH); break;
     }
 }
 

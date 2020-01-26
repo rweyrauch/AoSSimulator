@@ -8,7 +8,7 @@
 #include <UnitFactory.h>
 #include "everchosen/Varanguard.h"
 
-namespace Everchosen
+namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     Varanguard::Create,
@@ -24,6 +24,8 @@ static FactoryMethod factoryMethod = {
             ParamType::Enum, "Weapons", Varanguard::DaemonforgedBlade, Varanguard::EnsorcelledWeapon,
             Varanguard::DaemonforgedBlade, 1
         },
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, SLAANESH, TZEENTCH, NURGLE }
@@ -36,6 +38,12 @@ Unit *Varanguard::Create(const ParameterList &parameters)
     auto unit = new Varanguard();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, DaemonforgedBlade);
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
+
+    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
+    unit->setMarkOfChaos(mark);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -57,7 +65,7 @@ std::string Varanguard::ValueToString(const Parameter &parameter)
             case DaemonforgedBlade: return "Daemonforged Blade";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int Varanguard::EnumStringToInt(const std::string &enumString)
@@ -66,7 +74,7 @@ int Varanguard::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Fellspear") return Fellspear;
     else if (enumString == "Daemonforged Blade") return DaemonforgedBlade;
 
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 void Varanguard::Init()
@@ -78,7 +86,7 @@ void Varanguard::Init()
 }
 
 Varanguard::Varanguard() :
-    Unit("Varanguard", 10, WOUNDS, 9, 3, false),
+    SlavesToDarknessBase("Varanguard", 10, WOUNDS, 9, 3, false),
     m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 6, 3, 3, -1, 1),
     m_fellspear(Weapon::Type::Melee, "Fellspear", 2, 3, 3, 4, -1, 2),
     m_blade(Weapon::Type::Melee, "Daemonforged Blade", 1, 3, 3, 3, -1, RAND_D3),
@@ -165,4 +173,4 @@ int Varanguard::ComputePoints(int numModels)
     return points;
 }
 
-} //namespace Everchosen
+} //namespace SlavesToDarkness

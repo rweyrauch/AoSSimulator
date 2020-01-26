@@ -26,6 +26,14 @@ public:
         HostOfTheEverchosen
     };
 
+    enum MarkOfChaos {
+        Undivided,
+        Nurgle,
+        Khorne,
+        Slaanesh,
+        Tzeentch
+    };
+
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
 
@@ -33,6 +41,7 @@ public:
     ~SlavesToDarknessBase() override = default;
 
     void setDamnedLegion(DamnedLegion legion);
+    void setMarkOfChaos(MarkOfChaos mark);
 
 protected:
 
@@ -42,6 +51,7 @@ protected:
 private:
 
     DamnedLegion m_legion = Ravagers;
+    MarkOfChaos m_markOfChaos = Undivided;
 };
 
 void Init();

@@ -12,8 +12,8 @@ namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     SplinteredFang::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     SplinteredFang::ComputePoints,
     {
         {

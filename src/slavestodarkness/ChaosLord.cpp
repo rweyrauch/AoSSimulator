@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ChaosLord::DaemonboundWarFlail, 1
         },
         {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -36,6 +37,9 @@ Unit *ChaosLord::Create(const ParameterList &parameters)
 
     auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
     unit->setDamnedLegion(legion);
+
+    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
+    unit->setMarkOfChaos(mark);
 
     bool ok = unit->configure(weapon);
     if (!ok)
@@ -103,7 +107,7 @@ std::string ChaosLord::ValueToString(const Parameter &parameter)
             case DaemonboundWarFlail: return "Daemonbound War-flail";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int ChaosLord::EnumStringToInt(const std::string &enumString)
@@ -112,7 +116,7 @@ int ChaosLord::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Daemonbound Steel") return DaemonboundSteel;
     else if (enumString == "Daemonbound War-flail") return DaemonboundWarFlail;
 
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 } //namespace SlavesToDarkness

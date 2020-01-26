@@ -10,14 +10,15 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 
-namespace Everchosen
+namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     Archaon::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     Archaon::ComputePoints,
     {
+        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
     },
     CHAOS,
     { EVERCHOSEN, SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, NURGLE, SLAANESH }
@@ -43,7 +44,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool Archaon::s_registered = false;
 
 Archaon::Archaon() :
-    Unit("Archaon", 14, WOUNDS, 10, 3, true),
+    SlavesToDarknessBase("Archaon", 14, WOUNDS, 10, 3, true),
     m_slayerOfKings(Weapon::Type::Melee, "The Slayer of Kings", 1, 4, 2, 3, -2, 3),
     m_dorgharsClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 2, 2, 3, -2, RAND_D6),
     m_dorgharsTails(Weapon::Type::Melee, "Lashing Tails", 3, RAND_2D6, 4, 3, 0, 1),
@@ -80,6 +81,9 @@ int Archaon::move() const
 Unit *Archaon::Create(const ParameterList &parameters)
 {
     auto unit = new Archaon();
+
+    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+    unit->setDamnedLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)
@@ -153,4 +157,4 @@ void Archaon::onStartCombat(PlayerId player)
     m_slayerOfKingsSixesThisCombat = 0;
 }
 
-} // namespace Everchosen
+} // namespace SlavesToDarkness

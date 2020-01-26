@@ -9,13 +9,13 @@
 #ifndef ARCHAON_H
 #define ARCHAON_H
 
-#include <Unit.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace Everchosen
+namespace SlavesToDarkness
 {
 
-class Archaon : public Unit
+class Archaon : public SlavesToDarknessBase
 {
 public:
     static const int BASESIZE = 130;
@@ -73,6 +73,6 @@ private:
 // All-seeing Dominion              No
 //
 
-} // namespace Everchosen
+} // namespace SlavesToDarkness
 
 #endif //ARCHAON_H

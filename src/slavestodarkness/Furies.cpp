@@ -12,8 +12,8 @@ namespace SlavesToDarkness
 {
 static FactoryMethod factoryMethod = {
     Furies::Create,
-    nullptr,
-    nullptr,
+    SlavesToDarknessBase::ValueToString,
+    SlavesToDarknessBase::EnumStringToInt,
     Furies::ComputePoints,
     {
         {

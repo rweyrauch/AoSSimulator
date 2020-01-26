@@ -423,6 +423,7 @@ OBJECTS += \
         src/slavestodarkness/ChaosLord.o \
         src/slavestodarkness/ChaosChariots.o \
         src/slavestodarkness/GorebeastChariots.o \
+        src/slavestodarkness/SlavesToDarkness.o \
         src/freeagents/GotrekGurnisson.o \
         src/citiesofsigmar/Anointed.o \
         src/citiesofsigmar/Assassin.o \

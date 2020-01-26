@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             ChaosLordOnManticore::FlailAndDaggerfist, 1
         },
         {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
     },
     CHAOS,
     { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
@@ -54,6 +55,9 @@ Unit *ChaosLordOnManticore::Create(const ParameterList &parameters)
 
     auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
     unit->setDamnedLegion(legion);
+
+    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
+    unit->setMarkOfChaos(mark);
 
     bool ok = unit->configure(weapon);
     if (!ok)
@@ -162,7 +166,7 @@ std::string ChaosLordOnManticore::ValueToString(const Parameter &parameter)
             case FlailAndDaggerfist: return "Chaos Flail and Daggerfist";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int ChaosLordOnManticore::EnumStringToInt(const std::string &enumString)
@@ -174,7 +178,7 @@ int ChaosLordOnManticore::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Daemon Blade and Daggerfist") return BladeAndDaggerfist;
     else if (enumString == "Chaos Flail and Daggerfist") return FlailAndDaggerfist;
 
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 Wounds ChaosLordOnManticore::applyWoundSave(const Wounds &wounds)
