@@ -26,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool WightKingWithBalefulTombBlade::s_registered = false;
 
 WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade() :
-    Unit("Wight King with Baleful Tomb Blade", 4, WOUNDS, 10, 3, false),
+    LegionOfNagashBase("Wight King with Baleful Tomb Blade", 4, WOUNDS, 10, 3, false),
     m_balefulTombBlade(Weapon::Type::Melee, "Baleful Tomb Blade", 1, 4, 3, 3, -1, 1),
     m_steedsHoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1)
 {

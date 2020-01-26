@@ -270,6 +270,7 @@ OBJECTS += \
         src/nurgle/TheGlottkin.o \
         src/nurgle/PlagueDrones.o \
         src/nurgle/PusgoyleBlightlords.o \
+        src/death/LegionOfNagash.o \
         src/death/BlackKnights.o \
         src/death/BloodKnights.o \
         src/death/DireWolves.o \

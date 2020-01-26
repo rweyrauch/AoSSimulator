@@ -9,13 +9,13 @@
 #ifndef BLACKKNIGHTS_H
 #define BLACKKNIGHTS_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
 
-class BlackKnights : public Unit
+class BlackKnights : public LegionOfNagashBase
 {
 public:
 

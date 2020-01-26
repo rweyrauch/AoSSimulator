@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool BlackKnights::s_registered = false;
 
 BlackKnights::BlackKnights() :
-    Unit("Black Knights", 12, WOUNDS, 10, 5, false),
+    LegionOfNagashBase("Black Knights", 12, WOUNDS, 10, 5, false),
     m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
     m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 1, 3, 3, 4, 0, 1),
     m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1)

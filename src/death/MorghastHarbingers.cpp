@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool MorghastHarbingers::s_registered = false;
 
 MorghastHarbingers::MorghastHarbingers() :
-    Unit("Morghast Harbingers", 9, WOUNDS, 10, 4, true),
+    LegionOfNagashBase("Morghast Harbingers", 9, WOUNDS, 10, 4, true),
     m_spiritHalberd(Weapon::Type::Melee, "Spirit Halberd", 2, 3, 3, 3, -2, 3),
     m_spiritSwords(Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2)
 {

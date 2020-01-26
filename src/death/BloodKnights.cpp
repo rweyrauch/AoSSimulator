@@ -31,7 +31,7 @@ static FactoryMethod factoryMethod = {
 bool BloodKnights::s_registered = false;
 
 BloodKnights::BloodKnights() :
-    Unit("Blood Knights", 10, WOUNDS, 10, 4, false),
+    LegionOfNagashBase("Blood Knights", 10, WOUNDS, 10, 4, false),
     m_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1),
     m_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade", 1, 4, 3, 3, -1, 1),
     m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1)

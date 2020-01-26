@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool Necromancer::s_registered = false;
 
 Necromancer::Necromancer() :
-    Unit("Necromancer", 5, WOUNDS, 10, 6, false),
+    LegionOfNagashBase("Necromancer", 5, WOUNDS, 10, 6, false),
     m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3)
 {
     m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};

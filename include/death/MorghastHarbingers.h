@@ -9,13 +9,13 @@
 #ifndef MORGHASTHARBINGERS_H
 #define MORGHASTHARBINGERS_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
 
-class MorghastHarbingers : public Unit
+class MorghastHarbingers : public LegionOfNagashBase
 {
 public:
 

@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool GraveGuard::s_registered = false;
 
 GraveGuard::GraveGuard() :
-    Unit("Grave Guard", 4, WOUNDS, 10, 5, false),
+    LegionOfNagashBase("Grave Guard", 4, WOUNDS, 10, 5, false),
     m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 4, -1, 1),
     m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 4, -1, 1),
     m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 3, -1, 1),

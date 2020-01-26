@@ -25,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool WightKingWithBlackAxe::s_registered = false;
 
 WightKingWithBlackAxe::WightKingWithBlackAxe() :
-    Unit("Wight King with Black Axe", 4, WOUNDS, 10, 4, false),
+    LegionOfNagashBase("Wight King with Black Axe", 4, WOUNDS, 10, 4, false),
     m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1)
 {
     m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};

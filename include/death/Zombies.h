@@ -9,12 +9,12 @@
 #ifndef ZOMBIES_H
 #define ZOMBIES_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
-class Zombies : public Unit
+class Zombies : public LegionOfNagashBase
 {
 public:
 

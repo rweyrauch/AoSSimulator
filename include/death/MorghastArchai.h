@@ -9,13 +9,13 @@
 #ifndef MORGHASTARCHAI_H
 #define MORGHASTARCHAI_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
 
-class MorghastArchai : public Unit
+class MorghastArchai : public LegionOfNagashBase
 {
 public:
 

@@ -9,13 +9,13 @@
 #ifndef WIGHTKINGBLADE_H
 #define WIGHTKINGBLADE_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
 
-class WightKingWithBalefulTombBlade : public Unit
+class WightKingWithBalefulTombBlade : public LegionOfNagashBase
 {
 public:
     static const int BASESIZE = 32;

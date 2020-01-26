@@ -9,12 +9,12 @@
 #ifndef DIREWOLVES_H
 #define DIREWOLVES_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
-class DireWolves : public Unit
+class DireWolves : public LegionOfNagashBase
 {
 public:
 

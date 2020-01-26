@@ -9,13 +9,13 @@
 #ifndef NECROMANCER_H
 #define NECROMANCER_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
 
-class Necromancer : public Unit
+class Necromancer : public LegionOfNagashBase
 {
 public:
     static const int BASESIZE = 32;

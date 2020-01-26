@@ -9,13 +9,13 @@
 #ifndef SKELETONWARRIORS_H
 #define SKELETONWARRIORS_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
 
-class SkeletonWarriors : public Unit
+class SkeletonWarriors : public LegionOfNagashBase
 {
 public:
 

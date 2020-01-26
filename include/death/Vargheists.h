@@ -9,12 +9,12 @@
 #ifndef VARGHEISTS_H
 #define VARGHEISTS_H
 
-#include <Unit.h>
+#include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
 namespace Death
 {
-class Vargheists : public Unit
+class Vargheists : public LegionOfNagashBase
 {
 public:
 

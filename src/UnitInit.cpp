@@ -31,19 +31,7 @@
 #include "bonesplitterz/Bonesplitterz.h"
 #include "seraphon/Seraphon.h"
 #include "nurgle/Nurgle.h"
-
-#include "death/BlackKnights.h"
-#include "death/BloodKnights.h"
-#include "death/DireWolves.h"
-#include "death/GraveGuard.h"
-#include "death/SkeletonWarriors.h"
-#include "death/Vargheists.h"
-#include "death/Zombies.h"
-#include "death/WightKingTombBlade.h"
-#include "death/WightKingBlackAxe.h"
-#include "death/Necromancer.h"
-#include "death/MorghastArchai.h"
-#include "death/MorghastHarbingers.h"
+#include "death/LegionOfNagash.h"
 
 #include "tzeentch/TzeentchBase.h"
 
@@ -102,19 +90,7 @@ void Initialize(Verbosity verbosity)
     Bonesplitterz::Init();
     Seraphon::Init();
     Nurgle::Init();
-
-    Death::BlackKnights::Init();
-    Death::BloodKnights::Init();
-    Death::DireWolves::Init();
-    Death::GraveGuard::Init();
-    Death::SkeletonWarriors::Init();
-    Death::Vargheists::Init();
-    Death::Zombies::Init();
-    Death::WightKingWithBlackAxe::Init();
-    Death::WightKingWithBalefulTombBlade::Init();
-    Death::Necromancer::Init();
-    Death::MorghastArchai::Init();
-    Death::MorghastHarbingers::Init();
+    Death::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

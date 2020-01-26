@@ -29,7 +29,7 @@ static FactoryMethod factoryMethod = {
 bool Zombies::s_registered = false;
 
 Zombies::Zombies() :
-    Unit("Zombies", 4, WOUNDS, 10, NoSave, false),
+    LegionOfNagashBase("Zombies", 4, WOUNDS, 10, NoSave, false),
     m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1)
 {
     m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};

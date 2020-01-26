@@ -30,7 +30,7 @@ static FactoryMethod factoryMethod = {
 bool DireWolves::s_registered = false;
 
 DireWolves::DireWolves() :
-    Unit("Dire Wolves", 10, WOUNDS, 10, 5, false),
+    LegionOfNagashBase("Dire Wolves", 10, WOUNDS, 10, 5, false),
     m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
     m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1)
 {

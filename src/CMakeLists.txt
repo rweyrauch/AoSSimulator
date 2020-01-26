@@ -266,6 +266,7 @@ add_library(
         nurgle/PlagueDrones.cpp
         nurgle/PusgoyleBlightlords.cpp
 
+        death/LegionOfNagash.cpp
         death/BlackKnights.cpp
         death/BloodKnights.cpp
         death/DireWolves.cpp
