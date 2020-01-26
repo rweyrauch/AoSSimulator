@@ -9,13 +9,13 @@
 #ifndef SKINKS_H
 #define SKINKS_H
 
-#include <Unit.h>
+#include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
 namespace Seraphon
 {
 
-class Skinks : public Unit
+class Skinks : public SeraphonBase
 {
 public:
 

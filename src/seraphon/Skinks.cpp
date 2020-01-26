@@ -34,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool Skinks::s_registered = false;
 
 Skinks::Skinks() :
-    Unit("Skinks", 8, WOUNDS, 10, 6, false),
+    SeraphonBase("Skinks", 8, WOUNDS, 10, 6, false),
     m_javelinMissile(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
     m_boltspitterMissile(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
     m_javelin(Weapon::Type::Melee, "Meteoric Javelin", 1, 1, 6, 5, 0, 1),
@@ -143,7 +143,7 @@ std::string Skinks::ValueToString(const Parameter &parameter)
         else if (parameter.intValue == BoltspittersAndBucklers) { return "Boltspitters and Bucklers"; }
         else if (parameter.intValue == ClubsAndBucklers) { return "ClubsAndBucklers"; }
     }
-    return ParameterValueToString(parameter);
+    return SeraphonBase::ValueToString(parameter);
 }
 
 int Skinks::EnumStringToInt(const std::string &enumString)
@@ -152,7 +152,7 @@ int Skinks::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Boltspitters and Clubs") { return BoltspittersAndClubs; }
     else if (enumString == "Boltspitters and Bucklers") { return BoltspittersAndBucklers; }
     else if (enumString == "Clubs and Bucklers") { return ClubsAndBucklers; }
-    return 0;
+    return SeraphonBase::EnumStringToInt(enumString);
 }
 
 int Skinks::toSaveModifier(const Weapon *weapon) const

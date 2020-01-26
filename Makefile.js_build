@@ -377,6 +377,7 @@ OBJECTS += \
         src/greenskinz/OrrukWarboss.o \
         src/greenskinz/OrrukWarbossWyvern.o \
         src/greenskinz/RogueIdol.o \
+        src/seraphon/SeraphonBase.o \
         src/seraphon/DreadSaurian.o \
         src/seraphon/SaurusGuard.o \
         src/seraphon/SaurusKnights.o \

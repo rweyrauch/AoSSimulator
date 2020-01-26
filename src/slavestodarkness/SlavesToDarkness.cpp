@@ -34,6 +34,9 @@
 #include "slavestodarkness/ChaosChariots.h"
 #include "slavestodarkness/GorebeastChariots.h"
 
+#include "everchosen/Archaon.h"
+#include "everchosen/Varanguard.h"
+
 namespace SlavesToDarkness
 {
 
@@ -125,6 +128,9 @@ void SlavesToDarknessBase::setMarkOfChaos(MarkOfChaos mark)
 
 void Init()
 {
+    Archaon::Init();
+    Varanguard::Init();
+
     ChaosChosen::Init();
     ChaosKnights::Init();
     ChaosMarauders::Init();

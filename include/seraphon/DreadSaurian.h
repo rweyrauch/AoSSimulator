@@ -9,13 +9,13 @@
 #ifndef DREADSAURIAN_H
 #define DREADSAURIAN_H
 
-#include <Unit.h>
+#include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
 namespace Seraphon
 {
 
-class DreadSaurian : public Unit
+class DreadSaurian : public SeraphonBase
 {
 public:
 

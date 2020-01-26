@@ -12,8 +12,8 @@ namespace Seraphon
 {
 static FactoryMethod factoryMethod = {
     DreadSaurian::Create,
-    nullptr,
-    nullptr,
+    SeraphonBase::ValueToString,
+    SeraphonBase::EnumStringToInt,
     DreadSaurian::ComputePoints,
     {
     },
@@ -42,7 +42,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     };
 
 DreadSaurian::DreadSaurian() :
-    Unit("Dread Saurian", 10, WOUNDS, 10, 3, false),
+    SeraphonBase("Dread Saurian", 10, WOUNDS, 10, 3, false),
     m_gargantuanJaws(Weapon::Type::Melee, "Gargantuan Jaws", 2, 3, 3, 3, -2, 6),
     m_rakingClaws(Weapon::Type::Melee, "Raking Claws", 2, 10, 3, 3, -1, 1),
     m_armouredTail(Weapon::Type::Melee, "Armoured Tail", 1, 1, 4, 3, -1, RAND_D6)

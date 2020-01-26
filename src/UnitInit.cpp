@@ -28,6 +28,8 @@
 #include "kharadron/KharadronBase.h"
 #include "slavestodarkness/SlavesToDarkness.h"
 #include "idonethdeepkin/IdonethDeepkin.h"
+#include "bonesplitterz/Bonesplitterz.h"
+#include "seraphon/Seraphon.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -65,27 +67,7 @@
 #include "greenskinz/OrrukWarboss.h"
 #include "greenskinz/OrrukWarbossWyvern.h"
 
-#include "seraphon/DreadSaurian.h"
-#include "seraphon/SaurusGuard.h"
-#include "seraphon/SaurusKnights.h"
-#include "seraphon/SaurusWarriors.h"
-#include "seraphon/Skinks.h"
-
-#include "everchosen/Archaon.h"
-#include "everchosen/Varanguard.h"
-
 #include "freeagents/GotrekGurnisson.h"
-
-#include "bonesplitterz/BoarboyManiaks.h"
-#include "bonesplitterz/ManiakWeirdnob.h"
-#include "bonesplitterz/OrrukArrowBoys.h"
-#include "bonesplitterz/OrrukMorboys.h"
-#include "bonesplitterz/SavageBigBoss.h"
-#include "bonesplitterz/SavageBigStabbas.h"
-#include "bonesplitterz/SavageBoarboys.h"
-#include "bonesplitterz/SavageOrruks.h"
-#include "bonesplitterz/Wardokk.h"
-#include "bonesplitterz/WurrgogProphet.h"
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
@@ -124,6 +106,8 @@ void Initialize(Verbosity verbosity)
     Tzeentch::Init();
     SlavesToDarkness::Init();
     IdonethDeepkin::Init();
+    Bonesplitterz::Init();
+    Seraphon::Init();
 
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();
@@ -159,25 +143,5 @@ void Initialize(Verbosity verbosity)
     Greenskinz::OrrukWarbossOnWyvern::Init();
     Greenskinz::RogueIdol::Init();
 
-    Seraphon::DreadSaurian::Init();
-    Seraphon::SaurusGuard::Init();
-    Seraphon::SaurusKnights::Init();
-    Seraphon::SaurusWarriors::Init();
-    Seraphon::Skinks::Init();
-
-    SlavesToDarkness::Archaon::Init();
-    SlavesToDarkness::Varanguard::Init();
-
     FreeAgent::GotrekGurnisson::Init();
-
-    Bonesplitterz::SavageBoarboyManiaks::Init();
-    Bonesplitterz::ManiakWeirdnob::Init();
-    Bonesplitterz::SavageOrrukArrowboys::Init();
-    Bonesplitterz::SavageOrrukMorboys::Init();
-    Bonesplitterz::SavageBigBoss::Init();
-    Bonesplitterz::SavageBigStabbas::Init();
-    Bonesplitterz::SavageBoarboys::Init();
-    Bonesplitterz::SavageOrruks::Init();
-    Bonesplitterz::Wardokk::Init();
-    Bonesplitterz::WurrgogProphet::Init();
 }

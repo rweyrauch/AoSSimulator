@@ -383,6 +383,7 @@ add_library(
         greenskinz/OrrukWarbossWyvern.cpp
         greenskinz/RogueIdol.cpp
 
+        seraphon/Seraphon.cpp
         seraphon/DreadSaurian.cpp
         seraphon/SaurusGuard.cpp
         seraphon/SaurusKnights.cpp

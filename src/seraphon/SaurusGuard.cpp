@@ -14,8 +14,8 @@ namespace Seraphon
 {
 static FactoryMethod factoryMethod = {
     SaurusGuard::Create,
-    nullptr,
-    nullptr,
+    SeraphonBase::ValueToString,
+    SeraphonBase::EnumStringToInt,
     SaurusGuard::ComputePoints,
     {
         {
@@ -32,7 +32,7 @@ static FactoryMethod factoryMethod = {
 bool SaurusGuard::s_registered = false;
 
 SaurusGuard::SaurusGuard() :
-    Unit("Saurus Guard", 5, WOUNDS, 10, 4, false),
+    SeraphonBase("Saurus Guard", 5, WOUNDS, 10, 4, false),
     m_celestitePolearm(Weapon::Type::Melee, "Celestite Polearm", 1, 2, 3, 3, -1, 1),
     m_celestitePolearmAlpha(Weapon::Type::Melee, "Celestite Polearm", 1, 3, 3, 3, -1, 1),
     m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1)

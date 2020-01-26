@@ -9,13 +9,13 @@
 #ifndef SAURUSGUARD_H
 #define SAURUSGUARD_H
 
-#include <Unit.h>
+#include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
 namespace Seraphon
 {
 
-class SaurusGuard : public Unit
+class SaurusGuard : public SeraphonBase
 {
 public:
 

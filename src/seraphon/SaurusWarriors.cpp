@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool SaurusWarriors::s_registered = false;
 
 SaurusWarriors::SaurusWarriors() :
-    Unit("Saurus Warriors", 5, WOUNDS, 10, 5, false),
+    SeraphonBase("Saurus Warriors", 5, WOUNDS, 10, 5, false),
     m_celestiteClub(Weapon::Type::Melee, "Celestite Club", 1, 1, 4, 3, 0, 1),
     m_celestiteClubAlpha(Weapon::Type::Melee, "Celestite Club", 1, 2, 4, 3, 0, 1),
     m_celestiteSpear(Weapon::Type::Melee, "Celestite Spear", 2, 1, 4, 4, 0, 1),
@@ -115,14 +115,14 @@ std::string SaurusWarriors::ValueToString(const Parameter &parameter)
         if (parameter.intValue == CelestiteClub) { return "Celestite Club"; }
         else if (parameter.intValue == CelestiteSpear) { return "Celestite Spear"; }
     }
-    return ParameterValueToString(parameter);
+    return SeraphonBase::ValueToString(parameter);
 }
 
 int SaurusWarriors::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Celestite Club") { return CelestiteClub; }
     else if (enumString == "Celestite Spear") { return CelestiteSpear; }
-    return 0;
+    return SeraphonBase::EnumStringToInt(enumString);
 }
 
 void SaurusWarriors::Init()

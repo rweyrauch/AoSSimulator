@@ -35,7 +35,7 @@ static FactoryMethod factoryMethod = {
 bool SaurusKnights::s_registered = false;
 
 SaurusKnights::SaurusKnights() :
-    Unit("Saurus Knights", 7, WOUNDS, 10, 5, false),
+    SeraphonBase("Saurus Knights", 7, WOUNDS, 10, 5, false),
     m_celestiteBlade(Weapon::Type::Melee, "Celestite Blade", 1, 1, 3, 3, 0, 1),
     m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade", 1, 2, 3, 3, 0, 1),
     m_celestiteLance(Weapon::Type::Melee, "Celestite Lance", 1, 1, 4, 3, 0, 1),
@@ -118,14 +118,14 @@ std::string SaurusKnights::ValueToString(const Parameter &parameter)
         if (parameter.intValue == CelestiteBlade) { return "Celestite Blade"; }
         else if (parameter.intValue == CelestiteLance) { return "Celestite Lance"; }
     }
-    return ParameterValueToString(parameter);
+    return SeraphonBase::ValueToString(parameter);
 }
 
 int SaurusKnights::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Celestite Blade") { return CelestiteBlade; }
     else if (enumString == "Celestite Lance") { return CelestiteLance; }
-    return 0;
+    return SeraphonBase::EnumStringToInt(enumString);
 }
 
 void SaurusKnights::Init()
