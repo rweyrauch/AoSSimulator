@@ -9,13 +9,13 @@
 #ifndef SOULSCRYER_H
 #define SOULSCRYER_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class IsharannSoulscryer : public Unit
+class IsharannSoulscryer : public IdonethDeepkinBase
 {
 public:
 

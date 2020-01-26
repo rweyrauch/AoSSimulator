@@ -16,15 +16,16 @@ namespace IdonethDeepkin
 
 static FactoryMethod factoryMethod = {
     NamartiReavers::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     NamartiReavers::ComputePoints,
     {
         {
             ParamType::Integer, "Models", NamartiReavers::MIN_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE,
             NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1}
+        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1},
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -33,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool NamartiReavers::s_registered = false;
 
 NamartiReavers::NamartiReavers() :
-    Unit("Namarti Reavers", 8, WOUNDS, 6, 5, false),
+    IdonethDeepkinBase("Namarti Reavers", 8, WOUNDS, 6, 5, false),
     m_keeningBlade(Weapon::Type::Melee, "Keening Blade", 1, 2, 3, 4, 0, 1),
     m_whisperbowAimedFire(Weapon::Type::Missile, "Whisperbow: Aimed Fire", 18, 1, 4, 4, 0, 1),
     m_whisperbowStormFire(Weapon::Type::Missile, "Whisperbow: Storm Fire", 9, 3, 4, 4, 0, 1)
@@ -75,6 +76,9 @@ Unit *NamartiReavers::Create(const ParameterList &parameters)
     auto unit = new NamartiReavers();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure(numModels, numIconBearers);
     if (!ok)

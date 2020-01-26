@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     EidolonOfMathlannAspectOfTheStorm::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     EidolonOfMathlannAspectOfTheStorm::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,6 +27,9 @@ bool EidolonOfMathlannAspectOfTheStorm::s_registered = false;
 Unit *EidolonOfMathlannAspectOfTheStorm::Create(const ParameterList &parameters)
 {
     auto unit = new EidolonOfMathlannAspectOfTheStorm();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void EidolonOfMathlannAspectOfTheStorm::Init()
 }
 
 EidolonOfMathlannAspectOfTheStorm::EidolonOfMathlannAspectOfTheStorm() :
-    Unit("Eidolon of Mathlann Aspect of the Storm", 12, WOUNDS, 10, 3, true),
+    IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Storm", 12, WOUNDS, 10, 3, true),
     m_spear(Weapon::Type::Melee, "Fuathtar, Spear of Repressed Fury", 2, 4, 3, 2, -2, 2),
     m_crulhook(Weapon::Type::Melee, "Crulhook", 1, 4, 2, 3, -1, 1),
     m_stormshoal(Weapon::Type::Melee, "Stormshoal", 3, RAND_2D6, 4, 4, 0, 1)

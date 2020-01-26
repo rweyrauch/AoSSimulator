@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     AkhelianLeviadon::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     AkhelianLeviadon::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -24,7 +25,7 @@ static FactoryMethod factoryMethod = {
 bool AkhelianLeviadon::s_registered = false;
 
 AkhelianLeviadon::AkhelianLeviadon() :
-    Unit("Akhelian Leviadon", 12, WOUNDS, 7, 3, true),
+    IdonethDeepkinBase("Akhelian Leviadon", 12, WOUNDS, 7, 3, true),
     m_harpoonLauncher(Weapon::Type::Missile, "Harpoon Launchers", 24, 6, 3, 3, 0, 1),
     m_crushingJaws(Weapon::Type::Melee, "Leviadon's Crushing Jaws", 1, 1, 2, 2, -2, RAND_D6),
     m_scythedFins(Weapon::Type::Melee, "Leviadon's Massive Scythed Fins", 2, 4, 3, 3, -1, 3),
@@ -54,6 +55,9 @@ bool AkhelianLeviadon::configure()
 Unit *AkhelianLeviadon::Create(const ParameterList &parameters)
 {
     auto unit = new AkhelianLeviadon();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)

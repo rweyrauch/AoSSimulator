@@ -9,13 +9,13 @@
 #ifndef ISHLAENGUARD_H
 #define ISHLAENGUARD_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class AkhelianIshlaenGuard : public Unit
+class AkhelianIshlaenGuard : public IdonethDeepkinBase
 {
 public:
 

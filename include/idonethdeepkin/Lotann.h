@@ -9,13 +9,13 @@
 #ifndef LOTANN_H
 #define LOTANN_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class Lotann : public Unit
+class Lotann : public IdonethDeepkinBase
 {
 public:
 

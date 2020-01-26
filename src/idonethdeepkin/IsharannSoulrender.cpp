@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     IsharannSoulrender::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     IsharannSoulrender::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,6 +27,9 @@ bool IsharannSoulrender::s_registered = false;
 Unit *IsharannSoulrender::Create(const ParameterList &parameters)
 {
     auto unit = new IsharannSoulrender();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void IsharannSoulrender::Init()
 }
 
 IsharannSoulrender::IsharannSoulrender() :
-    Unit("Isharann Soulrender", 6, WOUNDS, 8, 4, false),
+    IdonethDeepkinBase("Isharann Soulrender", 6, WOUNDS, 8, 4, false),
     m_talunhook(Weapon::Type::Melee, "Talunhook", 2, 2, 3, 3, -1, 2),
     m_bill(Weapon::Type::Melee, "Rakerdart's Serrated Bill", 3, RAND_D3, 3, 3, -1, 1)
 {

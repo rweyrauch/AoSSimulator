@@ -190,6 +190,7 @@ add_library(
         dok/AvatarOfKhaine.cpp
         dok/BloodwrackMedusa.cpp
 
+        idonethdeepkin/IdonethDeepkin.cpp
         idonethdeepkin/NamartiThralls.cpp
         idonethdeepkin/NamartiReavers.cpp
         idonethdeepkin/IshlaenGuard.cpp

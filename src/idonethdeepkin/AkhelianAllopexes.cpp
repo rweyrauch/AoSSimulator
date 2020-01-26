@@ -25,6 +25,7 @@ static FactoryMethod factoryMethod = {
             AkhelianAllopexes::MAX_UNIT_SIZE, AkhelianAllopexes::MIN_UNIT_SIZE
         },
         {ParamType::Enum, "Weapons", AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::NetLauncher, 1},
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -32,7 +33,7 @@ static FactoryMethod factoryMethod = {
 
 
 AkhelianAllopexes::AkhelianAllopexes() :
-    Unit("Akhelian Alloplexes", 12, WOUNDS, 6, 4, true),
+    IdonethDeepkinBase("Akhelian Alloplexes", 12, WOUNDS, 6, 4, true),
     m_harpoonLauncher(Weapon::Type::Missile, "Razorshell Harpoon Launcher", 24, 3, 3, 3, 0, 1),
     m_netLauncher(Weapon::Type::Missile, "Retarius Net Launcher", 18, 1, 3, 3, 0, 3),
     m_hooksAndBlades(Weapon::Type::Melee, "Barbed Hooks and Blades", 1, 5, 3, 4, 0, 1),
@@ -78,6 +79,9 @@ Unit *AkhelianAllopexes::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, HarpoonLauncher);
 
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
+
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
     {
@@ -108,7 +112,7 @@ std::string AkhelianAllopexes::ValueToString(const Parameter &parameter)
             return "Retarius Net Launcher";
         }
     }
-    return ParameterValueToString(parameter);
+    return IdonethDeepkinBase::ValueToString(parameter);
 }
 
 int AkhelianAllopexes::EnumStringToInt(const std::string &enumString)
@@ -121,7 +125,7 @@ int AkhelianAllopexes::EnumStringToInt(const std::string &enumString)
     {
         return NetLauncher;
     }
-    return 0;
+    return IdonethDeepkinBase::EnumStringToInt(enumString);
 }
 
 int AkhelianAllopexes::ComputePoints(int numModels)

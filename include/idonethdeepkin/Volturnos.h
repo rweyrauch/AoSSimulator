@@ -9,13 +9,13 @@
 #ifndef VOLTURNOS_H
 #define VOLTURNOS_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class Volturnos : public Unit
+class Volturnos : public IdonethDeepkinBase
 {
 public:
 

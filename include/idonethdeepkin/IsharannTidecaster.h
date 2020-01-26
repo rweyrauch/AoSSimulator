@@ -9,13 +9,13 @@
 #ifndef TIDECASTER_H
 #define TIDECASTER_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class IsharannTidecaster : public Unit
+class IsharannTidecaster : public IdonethDeepkinBase
 {
 public:
 

@@ -15,15 +15,16 @@ namespace IdonethDeepkin
 
 static FactoryMethod factoryMethod = {
     NamartiThralls::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     NamartiThralls::ComputePoints,
     {
         {
             ParamType::Integer, "Models", NamartiThralls::MIN_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE,
             NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE
         },
-        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1}
+        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1},
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -33,7 +34,7 @@ static FactoryMethod factoryMethod = {
 bool NamartiThralls::s_registered = false;
 
 NamartiThralls::NamartiThralls() :
-    Unit("Namarti Thralls", 6, WOUNDS, 6, 5, false),
+    IdonethDeepkinBase("Namarti Thralls", 6, WOUNDS, 6, 5, false),
     m_lanmariBlade(Weapon::Type::Melee, "Lanmari Blade", 1, 2, 3, 3, -1, 1)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS};
@@ -72,6 +73,9 @@ Unit *NamartiThralls::Create(const ParameterList &parameters)
     auto unit = new NamartiThralls();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure(numModels, numIconBearers);
     if (!ok)

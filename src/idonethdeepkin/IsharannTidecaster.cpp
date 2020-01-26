@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     IsharannTidecaster::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     IsharannTidecaster::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,6 +27,9 @@ bool IsharannTidecaster::s_registered = false;
 Unit *IsharannTidecaster::Create(const ParameterList &parameters)
 {
     auto unit = new IsharannTidecaster();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void IsharannTidecaster::Init()
 }
 
 IsharannTidecaster::IsharannTidecaster() :
-    Unit("Isharann Tidecaster", 6, WOUNDS, 7, 6, false),
+    IdonethDeepkinBase("Isharann Tidecaster", 6, WOUNDS, 7, 6, false),
     m_staff(Weapon::Type::Melee, "Pelagic Staff", 1, 2, 3, 3, 0, RAND_D3)
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};

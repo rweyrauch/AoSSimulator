@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     EidolonOfMathlannAspectOfTheSea::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     EidolonOfMathlannAspectOfTheSea::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,6 +27,9 @@ bool EidolonOfMathlannAspectOfTheSea::s_registered = false;
 Unit *EidolonOfMathlannAspectOfTheSea::Create(const ParameterList &parameters)
 {
     auto unit = new EidolonOfMathlannAspectOfTheSea();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void EidolonOfMathlannAspectOfTheSea::Init()
 }
 
 EidolonOfMathlannAspectOfTheSea::EidolonOfMathlannAspectOfTheSea() :
-    Unit("Eidolon of Mathlann Aspect of the Sea", 10, WOUNDS, 10, 3, true),
+    IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Sea", 10, WOUNDS, 10, 3, true),
     m_abyssalEnergy(Weapon::Type::Missile, "Blasts of Abyssal Energy", 15, RAND_D3, 3, 3, -2, 2),
     m_trident(Weapon::Type::Melee, "Psi-trident", 2, 3, 3, 3, -2, 2),
     m_sceptre(Weapon::Type::Melee, "Deep-sea Sceptre", 1, 3, 3, 3, -1, 1),

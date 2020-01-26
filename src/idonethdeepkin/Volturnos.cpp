@@ -13,10 +13,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     Volturnos::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     Volturnos::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -25,7 +26,7 @@ static FactoryMethod factoryMethod = {
 bool Volturnos::s_registered = false;
 
 Volturnos::Volturnos() :
-    Unit("Volturnos", 14, WOUNDS, 8, 3, true),
+    IdonethDeepkinBase("Volturnos", 14, WOUNDS, 8, 3, true),
     m_theAstraSolus(Weapon::Type::Melee, "The Astra Solus", 1, 5, 3, 3, -1, RAND_D3),
     m_deepmareJawsTalons(Weapon::Type::Melee, "Deepmare's Fanged Jaw and Talons", 2, 3, 3, 3, -1, 1),
     m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2)
@@ -50,6 +51,9 @@ bool Volturnos::configure()
 Unit *Volturnos::Create(const ParameterList &parameters)
 {
     auto unit = new Volturnos();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)

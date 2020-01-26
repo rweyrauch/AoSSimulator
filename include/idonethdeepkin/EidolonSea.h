@@ -9,13 +9,13 @@
 #ifndef EIDOLONSEA_H
 #define EIDOLONSEA_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class EidolonOfMathlannAspectOfTheSea : public Unit
+class EidolonOfMathlannAspectOfTheSea : public IdonethDeepkinBase
 {
 public:
 

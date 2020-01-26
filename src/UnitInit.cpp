@@ -27,21 +27,7 @@
 #include "ossiarch/OssiarchBonereaperBase.h"
 #include "kharadron/KharadronBase.h"
 #include "slavestodarkness/SlavesToDarkness.h"
-
-#include "idonethdeepkin/NamartiThralls.h"
-#include "idonethdeepkin/NamartiReavers.h"
-#include "idonethdeepkin/IshlaenGuard.h"
-#include "idonethdeepkin/MorrsarrGuard.h"
-#include "idonethdeepkin/AkhelianLeviadon.h"
-#include "idonethdeepkin/AkhelianKing.h"
-#include "idonethdeepkin/AkhelianAllopexes.h"
-#include "idonethdeepkin/EidolonSea.h"
-#include "idonethdeepkin/EidolonStorm.h"
-#include "idonethdeepkin/Volturnos.h"
-#include "idonethdeepkin/Lotann.h"
-#include "idonethdeepkin/IsharannSoulscryer.h"
-#include "idonethdeepkin/IsharannSoulrender.h"
-#include "idonethdeepkin/IsharannTidecaster.h"
+#include "idonethdeepkin/IdonethDeepkin.h"
 
 #include "nurgle/LordOfPlagues.h"
 #include "nurgle/Plaguebearers.h"
@@ -137,21 +123,7 @@ void Initialize(Verbosity verbosity)
     KharadronOverlords::Init();
     Tzeentch::Init();
     SlavesToDarkness::Init();
-
-    IdonethDeepkin::NamartiThralls::Init();
-    IdonethDeepkin::NamartiReavers::Init();
-    IdonethDeepkin::AkhelianMorrsarrGuard::Init();
-    IdonethDeepkin::AkhelianIshlaenGuard::Init();
-    IdonethDeepkin::AkhelianLeviadon::Init();
-    IdonethDeepkin::AkhelianKing::Init();
-    IdonethDeepkin::AkhelianAllopexes::Init();
-    IdonethDeepkin::Volturnos::Init();
-    IdonethDeepkin::EidolonOfMathlannAspectOfTheSea::Init();
-    IdonethDeepkin::EidolonOfMathlannAspectOfTheStorm::Init();
-    IdonethDeepkin::Lotann::Init();
-    IdonethDeepkin::IsharannSoulscryer::Init();
-    IdonethDeepkin::IsharannSoulrender::Init();
-    IdonethDeepkin::IsharannTidecaster::Init();
+    IdonethDeepkin::Init();
 
     Nurgle::LordOfPlagues::Init();
     Nurgle::Plaguebearers::Init();

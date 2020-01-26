@@ -9,13 +9,13 @@
 #ifndef NAMARTIREAVERS_H
 #define NAMARTIREAVERS_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class NamartiReavers : public Unit
+class NamartiReavers : public IdonethDeepkinBase
 {
 public:
 

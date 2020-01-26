@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     IsharannSoulscryer::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     IsharannSoulscryer::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,6 +27,9 @@ bool IsharannSoulscryer::s_registered = false;
 Unit *IsharannSoulscryer::Create(const ParameterList &parameters)
 {
     auto unit = new IsharannSoulscryer();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void IsharannSoulscryer::Init()
 }
 
 IsharannSoulscryer::IsharannSoulscryer() :
-    Unit("Isharann Soulscryer", 6, WOUNDS, 7, 6, false),
+    IdonethDeepkinBase("Isharann Soulscryer", 6, WOUNDS, 7, 6, false),
     m_shoal(Weapon::Type::Missile, "Scryfish Shoal", 18, 8, 5, 5, 0, 1),
     m_claw(Weapon::Type::Melee, "Finger-claw", 1, 3, 3, 4, 0, 1)
 {

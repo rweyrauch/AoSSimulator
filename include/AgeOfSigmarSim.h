@@ -424,6 +424,14 @@ enum Keyword
     SOUL_WARDEN,
     LOTANN,
 
+    // Idoneth Deepkin Enclave
+    IONRACH,
+    DHOMHAIN,
+    FUETHAN,
+    MORPHANN,
+    NAUTILAR,
+    BRIOMDAR,
+
     // Nighthaunt
     GRIMGHAST_REAPERS,
     CHAINRASP_HORDE,

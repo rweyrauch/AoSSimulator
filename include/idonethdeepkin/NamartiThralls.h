@@ -9,13 +9,13 @@
 #ifndef NAMARTITHRALLS_H
 #define NAMARTITHRALLS_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class NamartiThralls : public Unit
+class NamartiThralls : public IdonethDeepkinBase
 {
 public:
 

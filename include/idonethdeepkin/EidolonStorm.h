@@ -9,13 +9,13 @@
 #ifndef EIDOLONSTORM_H
 #define EIDOLONSTORM_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class EidolonOfMathlannAspectOfTheStorm : public Unit
+class EidolonOfMathlannAspectOfTheStorm : public IdonethDeepkinBase
 {
 public:
 

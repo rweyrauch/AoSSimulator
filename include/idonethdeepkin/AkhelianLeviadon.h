@@ -9,13 +9,13 @@
 #ifndef LEVIADON_H
 #define LEVIADON_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class AkhelianLeviadon : public Unit
+class AkhelianLeviadon : public IdonethDeepkinBase
 {
 public:
 

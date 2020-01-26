@@ -9,13 +9,13 @@
 #ifndef MORRSARRGUARD_H
 #define MORRSARRGUARD_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class AkhelianMorrsarrGuard : public Unit
+class AkhelianMorrsarrGuard : public IdonethDeepkinBase
 {
 public:
 

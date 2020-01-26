@@ -9,13 +9,13 @@
 #ifndef AKHELIANKING_H
 #define AKHELIANKING_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class AkhelianKing : public Unit
+class AkhelianKing : public IdonethDeepkinBase
 {
 public:
 

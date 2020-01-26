@@ -12,10 +12,11 @@ namespace IdonethDeepkin
 {
 static FactoryMethod factoryMethod = {
     Lotann::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     Lotann::ComputePoints,
     {
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,6 +27,9 @@ bool Lotann::s_registered = false;
 Unit *Lotann::Create(const ParameterList &parameters)
 {
     auto unit = new Lotann();
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure();
     if (!ok)
@@ -45,7 +49,7 @@ void Lotann::Init()
 }
 
 Lotann::Lotann() :
-    Unit("Lotann", 6, WOUNDS, 7, 6, false),
+    IdonethDeepkinBase("Lotann", 6, WOUNDS, 7, 6, false),
     m_quill(Weapon::Type::Melee, "Bone Quill", 1, 1, 3, 5, 0, 1),
     m_cudgel(Weapon::Type::Melee, "Ochtar's Cudgel", 3, 1, 4, 3, -1, 2),
     m_blade(Weapon::Type::Melee, "Ochtar's Blade", 3, 1, 3, 4, -1, 1),

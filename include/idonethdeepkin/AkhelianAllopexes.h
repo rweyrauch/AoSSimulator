@@ -9,13 +9,13 @@
 #ifndef ALLOPEXES_H
 #define ALLOPEXES_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class AkhelianAllopexes : public Unit
+class AkhelianAllopexes : public IdonethDeepkinBase
 {
 public:
 

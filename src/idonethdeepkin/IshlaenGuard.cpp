@@ -16,8 +16,8 @@ bool AkhelianIshlaenGuard::s_registered = false;
 
 static FactoryMethod factoryMethod = {
     AkhelianIshlaenGuard::Create,
-    nullptr,
-    nullptr,
+    IdonethDeepkinBase::ValueToString,
+    IdonethDeepkinBase::EnumStringToInt,
     AkhelianIshlaenGuard::ComputePoints,
     {
         {
@@ -26,6 +26,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -33,7 +34,7 @@ static FactoryMethod factoryMethod = {
 
 
 AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
-    Unit("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true),
+    IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true),
     m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
     m_helsabrePrince(Weapon::Type::Melee, "Helsabre", 1, 4, 3, 3, 0, 1),
     m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
@@ -79,6 +80,9 @@ Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
     bool musicians = GetBoolParam("Musicians", parameters, true);
+
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
 
     bool ok = unit->configure(numModels, standardBearers, musicians);
     if (!ok)

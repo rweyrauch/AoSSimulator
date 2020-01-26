@@ -199,6 +199,7 @@ OBJECTS += \
         src/dok/SlaughterQueen.o \
         src/dok/AvatarOfKhaine.o \
         src/dok/BloodwrackMedusa.o \
+        src/idonethdeepkin/IdonethDeepkin.o \
         src/idonethdeepkin/NamartiThralls.o \
         src/idonethdeepkin/NamartiReavers.o \
         src/idonethdeepkin/IshlaenGuard.o \

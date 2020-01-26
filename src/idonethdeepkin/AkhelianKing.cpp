@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     AkhelianKing::ComputePoints,
     {
         {ParamType::Enum, "Weapon", AkhelianKing::BladedPolearm, AkhelianKing::BladedPolearm, AkhelianKing::Greatsword, 1},
+        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
     },
     ORDER,
     { IDONETH_DEEPKIN }
@@ -26,7 +27,7 @@ static FactoryMethod factoryMethod = {
 bool AkhelianKing::s_registered = false;
 
 AkhelianKing::AkhelianKing() :
-    Unit("Akhelian King", 14, WOUNDS, 8, 3, true),
+    IdonethDeepkinBase("Akhelian King", 14, WOUNDS, 8, 3, true),
     m_bladedPolearm(Weapon::Type::Melee, "Bladed Polearm", 2, 3, 3, 3, -2, RAND_D3),
     m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 4, 3, 3, -1, RAND_D3),
     m_falchion(Weapon::Type::Melee, "Falchion", 1, 3, 3, 4, 0, 1),
@@ -64,6 +65,9 @@ Unit *AkhelianKing::Create(const ParameterList &parameters)
     auto unit = new AkhelianKing();
     WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BladedPolearm);
 
+    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
+    unit->setEnclave(enclave);
+
     bool ok = unit->configure(weapon);
     if (!ok)
     {
@@ -94,7 +98,7 @@ std::string AkhelianKing::ValueToString(const Parameter &parameter)
             return "Greatsword";
         }
     }
-    return ParameterValueToString(parameter);
+    return IdonethDeepkinBase::ValueToString(parameter);
 }
 
 int AkhelianKing::EnumStringToInt(const std::string &enumString)
@@ -107,7 +111,7 @@ int AkhelianKing::EnumStringToInt(const std::string &enumString)
     {
         return Greatsword;
     }
-    return 0;
+    return IdonethDeepkinBase::EnumStringToInt(enumString);
 }
 
 Wounds AkhelianKing::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

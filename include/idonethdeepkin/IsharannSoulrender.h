@@ -9,13 +9,13 @@
 #ifndef SOULRENDER_H
 #define SOULRENDER_H
 
-#include <Unit.h>
+#include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin
 {
 
-class IsharannSoulrender : public Unit
+class IsharannSoulrender : public IdonethDeepkinBase
 {
 public:
 
