@@ -396,6 +396,8 @@ add_library(
         seraphon/SaurusOldbloodCarnosaur.cpp
         seraphon/SaurusVeteranCarnosaur.cpp
         seraphon/Troglodon.cpp
+        seraphon/Razordons.cpp
+        seraphon/Salamanders.cpp
 
         fyreslayers/AuricHearthguard.cpp
         fyreslayers/HearthguardBerzerkers.cpp
