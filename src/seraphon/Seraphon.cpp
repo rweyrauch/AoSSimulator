@@ -12,6 +12,11 @@
 #include "seraphon/SaurusKnights.h"
 #include "seraphon/SaurusWarriors.h"
 #include "seraphon/Skinks.h"
+#include "seraphon/SaurusOldblood.h"
+#include "seraphon/SaurusSunblood.h"
+#include "seraphon/SaurusOldbloodCarnosaur.h"
+#include "seraphon/SaurusVeteranCarnosaur.h"
+#include "seraphon/Troglodon.h"
 
 namespace Seraphon
 {
@@ -33,6 +38,11 @@ void Init()
     SaurusKnights::Init();
     SaurusWarriors::Init();
     Skinks::Init();
+    SaurusOldblood::Init();
+    SaurusSunblood::Init();
+    SaurusOldbloodOnCarnosaur::Init();
+    SaurusScarVeteranOnCarnosaur::Init();
+    Troglodon::Init();
 }
 
 } //namespace Seraphon

@@ -385,6 +385,11 @@ OBJECTS += \
         src/seraphon/SaurusKnights.o \
         src/seraphon/SaurusWarriors.o \
         src/seraphon/Skinks.o \
+        src/seraphon/SaurusOldblood.o \
+        src/seraphon/SaurusSunblood.o \
+        src/seraphon/SaurusOldbloodCarnosaur.o \
+        src/seraphon/SaurusVeteranCarnosaur.o \
+        src/seraphon/Troglodon.o \
         src/fyreslayers/AuricHearthguard.o \
         src/fyreslayers/HearthguardBerzerkers.o \
         src/fyreslayers/VulkiteBerzerkers.o \
