@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef TROGLODON_H
-#define TROGLODON_H
+#ifndef STEGADON_H
+#define STEGADON_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -15,22 +15,30 @@
 namespace Seraphon
 {
 
-class Troglodon : public SeraphonBase
+class Stegadon : public SeraphonBase
 {
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 140;
+    static const int WOUNDS = 10;
+    static const int POINTS_PER_UNIT = 0;
+
+    enum WeaponOption
+    {
+        SkystreakBow,
+        SunfireThrowers
+    };
 
     static Unit* Create(const ParameterList& parameters);
+    static std::string ValueToString(const Parameter& parameter);
+    static int EnumStringToInt(const std::string& enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
     static void Init();
 
-    Troglodon();
-    ~Troglodon() override = default;
+    Stegadon();
+    ~Stegadon() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
 
     int move() const override;
 
@@ -41,10 +49,11 @@ protected:
 
 private:
 
-    Weapon m_spittle,
-        m_bite,
-        m_forelimbs,
-        m_rod;
+    Weapon m_javelins,
+        m_bow,
+        m_throwers,
+        m_horns,
+        m_stomps;
 
     static bool s_registered;
 };
@@ -53,11 +62,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Divining Rod                     No
-// Primal Roar                      No
-// Drawn to the Screams             No
+// Unstoppable Stampede             No
+// Steadfast Majesty                No
+// Gout of Sunfire                  No
+// Skink Alpha                      No
 //
 
 } // namespace Seraphon
 
-#endif //TROGLODON_H
+#endif //STEGADON_H

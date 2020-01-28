@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SALAMANDERS_H
-#define SALAMANDERS_H
+#ifndef BASTILADON_H
+#define BASTILADON_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -15,32 +15,30 @@
 namespace Seraphon
 {
 
-class Salamanders : public SeraphonBase
+class Bastiladon : public SeraphonBase
 {
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 50;
-    static const int POINTS_MAX_UNIT_SIZE = 120;
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 280;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
     static void Init();
 
-    Salamanders();
-    ~Salamanders() override = default;
+    Bastiladon();
+    ~Bastiladon() override = default;
 
-    bool configure(int numModels);
+    bool configure();
 
 protected:
 
 private:
 
-    Weapon m_streamOfFire,
-        m_bite;
+    Weapon m_beam,
+        m_javelins,
+        m_tail;
 
     static bool s_registered;
 };
@@ -49,10 +47,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Goaded to Fury                   No
-// It Burns!
+// Impervious Defence               No
+// Light of the Heavens             No
+// Tide of Snakes                   No
 //
 
 } // namespace Seraphon
 
-#endif //SALAMANDERS_H
+#endif //BASTILADON_H

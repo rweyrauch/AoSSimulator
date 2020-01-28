@@ -17,6 +17,13 @@
 #include "seraphon/SaurusOldbloodCarnosaur.h"
 #include "seraphon/SaurusVeteranCarnosaur.h"
 #include "seraphon/Troglodon.h"
+#include "seraphon/Bastiladon.h"
+#include "seraphon/Salamanders.h"
+#include "seraphon/Razordons.h"
+#include "seraphon/Kroxigor.h"
+#include "seraphon/RipperdactylRiders.h"
+#include "seraphon/TerradonRiders.h"
+#include "seraphon/Stegadon.h"
 
 namespace Seraphon
 {
@@ -42,7 +49,14 @@ void Init()
     SaurusSunblood::Init();
     SaurusOldbloodOnCarnosaur::Init();
     SaurusScarVeteranOnCarnosaur::Init();
+    Salamanders::Init();
+    Razordons::Init();
     Troglodon::Init();
+    Bastiladon::Init();
+    Kroxigor::Init();
+    RipperdactylRiders::Init();
+    TerradonRiders::Init();
+    Stegadon::Init();
 }
 
 } //namespace Seraphon

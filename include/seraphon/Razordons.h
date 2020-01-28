@@ -23,8 +23,8 @@ public:
     static const int WOUNDS = 3;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 0;
-    static const int POINTS_MAX_UNIT_SIZE = 0;
+    static const int POINTS_PER_BLOCK = 50;
+    static const int POINTS_MAX_UNIT_SIZE = 120;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
@@ -49,6 +49,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Piercing Barbs                   No
+// Instinctive Defense              No
+// Goaded to Anger                  No
 //
 
 } // namespace Seraphon

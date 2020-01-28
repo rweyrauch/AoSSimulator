@@ -398,6 +398,11 @@ add_library(
         seraphon/Troglodon.cpp
         seraphon/Razordons.cpp
         seraphon/Salamanders.cpp
+        seraphon/Bastiladon.cpp
+        seraphon/Kroxigor.cpp
+        seraphon/RipperdactylRiders.cpp
+        seraphon/TerradonRiders.cpp
+        seraphon/Stegadon.cpp
 
         fyreslayers/AuricHearthguard.cpp
         fyreslayers/HearthguardBerzerkers.cpp
