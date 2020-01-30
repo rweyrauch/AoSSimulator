@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     SaurusOldblood::EnumStringToInt,
     SaurusOldblood::ComputePoints,
     {
-        {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::SuntoothMaul, SaurusOldblood::CelestiteGreatblade, 0}
+        {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::SuntoothMaul, SaurusOldblood::CelestiteGreatblade, 1}
     },
     ORDER,
     { SERAPHON }

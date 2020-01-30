@@ -37,6 +37,8 @@ public:
 
 protected:
 
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_maul,
@@ -50,7 +52,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Energy Transference              No
+// Energy Transference              Yes
 // Sweeping Blows                   No
 // Jaws like a Steel Trap           No
 //

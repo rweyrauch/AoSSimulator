@@ -47,6 +47,7 @@ protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int toSaveModifier(const Weapon *weapon) const override;
+    int runModifier() const override { if (m_wardrum) return 7; return 0; }
 
 private:
 
@@ -69,7 +70,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   No
-// Wardrum                          No
+// Wardrum                          Yes
 // Stardrake Shields                Yes
 // Blazing Lances                   Yes
 //

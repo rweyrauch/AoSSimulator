@@ -265,6 +265,8 @@ add_library(
         nurgle/TheGlottkin.cpp
         nurgle/PlagueDrones.cpp
         nurgle/PusgoyleBlightlords.cpp
+        nurgle/Rotigus.cpp
+        nurgle/GreatUncleanOne.cpp
 
         death/LegionOfNagash.cpp
         death/BlackKnights.cpp
@@ -403,6 +405,8 @@ add_library(
         seraphon/RipperdactylRiders.cpp
         seraphon/TerradonRiders.cpp
         seraphon/Stegadon.cpp
+        seraphon/EngineOfTheGods.cpp
+        seraphon/SaurusVeteranColdOne.cpp
 
         fyreslayers/AuricHearthguard.cpp
         fyreslayers/HearthguardBerzerkers.cpp

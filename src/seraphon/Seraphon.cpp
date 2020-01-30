@@ -24,6 +24,8 @@
 #include "seraphon/RipperdactylRiders.h"
 #include "seraphon/TerradonRiders.h"
 #include "seraphon/Stegadon.h"
+#include "seraphon/EngineOfTheGods.h"
+#include "seraphon/SaurusVeteranColdOne.h"
 
 namespace Seraphon
 {
@@ -57,6 +59,8 @@ void Init()
     RipperdactylRiders::Init();
     TerradonRiders::Init();
     Stegadon::Init();
+    EngineOfTheGods::Init();
+    SaurusScarVeteranOnColdOne::Init();
 }
 
 } //namespace Seraphon

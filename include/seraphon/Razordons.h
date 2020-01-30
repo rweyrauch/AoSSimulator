@@ -37,6 +37,8 @@ public:
 
 protected:
 
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_spikes,
@@ -49,7 +51,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Piercing Barbs                   No
+// Piercing Barbs                   Yes
 // Instinctive Defense              No
 // Goaded to Anger                  No
 //

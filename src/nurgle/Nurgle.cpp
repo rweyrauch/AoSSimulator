@@ -14,6 +14,8 @@
 #include "nurgle/TheGlottkin.h"
 #include "nurgle/PlagueDrones.h"
 #include "nurgle/PusgoyleBlightlords.h"
+#include "nurgle/Rotigus.h"
+#include "nurgle/GreatUncleanOne.h"
 
 namespace Nurgle
 {
@@ -37,6 +39,8 @@ void Init()
     Nurgle::TheGlottkin::Init();
     Nurgle::PlagueDrones::Init();
     Nurgle::PusgoyleBlightlords::Init();
+    Nurgle::Rotigus::Init();
+    Nurgle::GreatUncleanOne::Init();
 }
 
 } //namespace Nurgle

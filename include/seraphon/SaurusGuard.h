@@ -39,6 +39,7 @@ protected:
 
     int braveryModifier() const override;
     int toSaveModifier(const Weapon *weapon) const override;
+    int runModifier() const override { if (m_wardrum) return 5; return 0; }
 
 private:
 
@@ -57,7 +58,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   No
-// Wardrum                          No
+// Wardrum                          Yes
 // Stardrake Shields                Yes
 // Sworn Guardians                  Yes
 //

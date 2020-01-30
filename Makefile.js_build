@@ -270,6 +270,8 @@ OBJECTS += \
         src/nurgle/TheGlottkin.o \
         src/nurgle/PlagueDrones.o \
         src/nurgle/PusgoyleBlightlords.o \
+        src/nurgle/Rotigus.o \
+        src/nurgle/GreatUncleanOne.o \
         src/death/LegionOfNagash.o \
         src/death/BlackKnights.o \
         src/death/BloodKnights.o \
@@ -397,6 +399,8 @@ OBJECTS += \
         src/seraphon/RipperdactylRiders.o \
         src/seraphon/TerradonRiders.o \
         src/seraphon/Stegadon.o \
+        src/seraphon/EngineOfTheGods.o \
+        src/seraphon/SaurusVeteranColdOne.o \
         src/fyreslayers/AuricHearthguard.o \
         src/fyreslayers/HearthguardBerzerkers.o \
         src/fyreslayers/VulkiteBerzerkers.o \

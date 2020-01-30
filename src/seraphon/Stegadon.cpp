@@ -102,6 +102,11 @@ void Stegadon::Init()
 
 std::string Stegadon::ValueToString(const Parameter &parameter)
 {
+    if (std::string(parameter.name) == "Weapon")
+    {
+        if (parameter.intValue == SkystreakBow) return "Skystreak Bow";
+        else if (parameter.intValue == SunfireThrowers) return "Sunfire Throwers";
+    }
     return SeraphonBase::ValueToString(parameter);
 }
 
@@ -127,7 +132,18 @@ int Stegadon::getDamageTableIndex() const
 
 int Stegadon::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Skystreak Bow") return SkystreakBow;
+    else if (enumString == "Sunfire Throwers") return SunfireThrowers;
+
     return SeraphonBase::EnumStringToInt(enumString);
+}
+
+int Stegadon::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    // Unstoppable Stampede
+    auto mod = Unit::toWoundModifier(weapon, target);
+    if (m_charged) mod++;
+    return mod;
 }
 
 } //namespace Seraphon

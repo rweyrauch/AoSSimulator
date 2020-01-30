@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef STEGADON_H
-#define STEGADON_H
+#ifndef ENGINEOFTHEGODS_H
+#define ENGINEOFTHEGODS_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace Seraphon
 {
 
-class Stegadon : public SeraphonBase
+class EngineOfTheGods : public SeraphonBase
 {
 public:
 
@@ -23,22 +23,14 @@ public:
     static const int WOUNDS = 10;
     static const int POINTS_PER_UNIT = 0;
 
-    enum WeaponOption
-    {
-        SkystreakBow,
-        SunfireThrowers
-    };
-
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
     static void Init();
 
-    Stegadon();
-    ~Stegadon() override = default;
+    EngineOfTheGods();
+    ~EngineOfTheGods() override = default;
 
-    bool configure(WeaponOption option);
+    bool configure();
 
     int move() const override;
 
@@ -52,8 +44,6 @@ protected:
 private:
 
     Weapon m_javelins,
-        m_bow,
-        m_throwers,
         m_horns,
         m_stomps;
 
@@ -66,10 +56,9 @@ private:
 // -------------------------------------------
 // Unstoppable Stampede             Yes
 // Steadfast Majesty                No
-// Gout of Sunfire                  No
-// Skink Alpha                      No
+// Cosmic Engine                    No
 //
 
 } // namespace Seraphon
 
-#endif //STEGADON_H
+#endif //ENGINEOFTHEGODS_H

@@ -106,4 +106,15 @@ int Kroxigor::ComputePoints(int numModels)
     return points;
 }
 
+Rerolls Kroxigor::toWoundRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Energy Transference
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKINKS, 3.0f);
+    if (unit)
+    {
+        return RerollOnes;
+    }
+    return Unit::toWoundRerolls(weapon, target);
+}
+
 } //namespace Seraphon
