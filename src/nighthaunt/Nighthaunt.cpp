@@ -16,6 +16,17 @@
 #include "nighthaunt/SpiritHosts.h"
 #include "nighthaunt/Hexwraiths.h"
 #include "nighthaunt/Chainghasts.h"
+#include "nighthaunt/GuardianOfSouls.h"
+#include "nighthaunt/KnightOfShrouds.h"
+#include "nighthaunt/KnightOfShroudsOnSteed.h"
+#include "nighthaunt/KurdossValentian.h"
+#include "nighthaunt/ReikenorGrimhailer.h"
+#include "nighthaunt/SpiritTorment.h"
+#include "nighthaunt/DreadbladeHarrow.h"
+#include "nighthaunt/LadyOlynder.h"
+#include "nighthaunt/LordExecutioner.h"
+#include "nighthaunt/TombBanshee.h"
+
 
 namespace Nighthaunt
 {
@@ -67,6 +78,16 @@ void Init()
     Hexwraiths::Init();
     SpiritHosts::Init();
     Chainghasts::Init();
+    GuardianOfSouls::Init();
+    KnightOfShrouds::Init();
+    KnightOfShroudsOnEtherealSteed::Init();
+    KurdossValentian::Init();
+    ReikenorTheGrimhailer::Init();
+    SpiritTorment::Init();
+    DreadbladeHarrow::Init();
+    LadyOlynder::Init();
+    LordExecutioner::Init();
+    TombBanshee::Init();
 }
 
 } // namespace Nighthaunt

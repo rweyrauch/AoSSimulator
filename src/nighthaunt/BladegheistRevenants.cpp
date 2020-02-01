@@ -87,7 +87,7 @@ Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *uni
     auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
     for (auto ip : units)
     {
-        if (ip->hasKeyword(SPIRIT_TORMENTS) || ip->hasKeyword(CHAINGHASTS))
+        if (ip->hasKeyword(SPIRIT_TORMENT) || ip->hasKeyword(CHAINGHASTS))
         {
             return RerollFailed;
         }

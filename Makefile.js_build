@@ -223,6 +223,17 @@ OBJECTS += \
         src/nighthaunt/Hexwraiths.o \
         src/nighthaunt/SpiritHosts.o \
         src/nighthaunt/Chainghasts.o \
+        src/nighthaunt/GuardianOfSouls.o \
+        src/nighthaunt/KnightOfShrouds.o \
+        src/nighthaunt/KnightOfShroudsOnSteed.o \
+        src/nighthaunt/KurdossValentian.o \
+        src/nighthaunt/ReikenorGrimhailer.o \
+        src/nighthaunt/SpiritTorment.o \
+        src/nighthaunt/DreadbladeHarrow.o \
+        src/nighthaunt/LordExecutioner.o \
+        src/nighthaunt/TombBanshee.o \
+        src/nighthaunt/LadyOlynder.o \
+        src/nighthaunt/BlackCoach.o \
         src/beastsofchaos/BeastsOfChaosBase.o \
         src/beastsofchaos/Ghorgon.o \
         src/beastsofchaos/Gors.o \

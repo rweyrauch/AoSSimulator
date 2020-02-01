@@ -215,6 +215,17 @@ add_library(
         nighthaunt/Hexwraiths.cpp
         nighthaunt/SpiritHosts.cpp
         nighthaunt/Chainghasts.cpp
+        nighthaunt/GuardianOfSouls.cpp
+        nighthaunt/KnightOfShrouds.cpp
+        nighthaunt/KnightOfShroudsOnSteed.cpp
+        nighthaunt/KurdossValentian.cpp
+        nighthaunt/ReikenorGrimhailer.cpp
+        nighthaunt/SpiritTorment.cpp
+        nighthaunt/DreadbladeHarrow.cpp
+        nighthaunt/LordExecutioner.cpp
+        nighthaunt/TombBanshee.cpp
+        nighthaunt/LadyOlynder.cpp
+        nighthaunt/BlackCoach.cpp
 
         beastsofchaos/BeastsOfChaosBase.cpp
         beastsofchaos/Ghorgon.cpp

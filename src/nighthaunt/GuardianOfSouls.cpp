@@ -1,0 +1,69 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+#include <UnitFactory.h>
+#include "nighthaunt/GuardianOfSouls.h"
+
+namespace Nighthaunt
+{
+
+static FactoryMethod factoryMethod = {
+    GuardianOfSouls::Create,
+    nullptr,
+    nullptr,
+    GuardianOfSouls::ComputePoints,
+    {
+    },
+    DEATH,
+    { NIGHTHAUNT }
+};
+
+bool GuardianOfSouls::s_registered = false;
+
+Unit *GuardianOfSouls::Create(const ParameterList &parameters)
+{
+    auto unit = new GuardianOfSouls();
+
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void GuardianOfSouls::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Guardian of Souls with Nightmare Lantern", factoryMethod);
+    }
+}
+
+GuardianOfSouls::GuardianOfSouls() :
+    Nighthaunt("Guardian of Souls with Nightmare Lantern", 6, WOUNDS, 10, 4, true),
+    m_blade(Weapon::Type::Melee, "Chill Blade", 1, 3, 3, 3, -1, 1),
+    m_maul(Weapon::Type::Melee, "Maul of Judgement", 1, 2, 3, 3, 0, 2)
+{
+    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, GUARDIAN_OF_SOULS};
+    m_weapons = {&m_blade, &m_maul};
+}
+
+bool GuardianOfSouls::configure()
+{
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_blade);
+    model->addMeleeWeapon(&m_maul);
+    addModel(model);
+
+    m_points = ComputePoints(1);
+
+    return true;
+}
+
+} // namespace Nighthaunt
