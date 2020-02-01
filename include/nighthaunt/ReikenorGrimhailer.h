@@ -34,6 +34,9 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_fellreaper,
@@ -48,8 +51,8 @@ private:
 // -------------------------------------------
 // Ethereal                         Yes
 // Corpse Candles                   No
-// Frightful Touch                  No
-// Reaped Like Corn                 No
+// Frightful Touch                  Yes
+// Reaped Like Corn                 Yes
 // Wraithstorm                      No
 //
 

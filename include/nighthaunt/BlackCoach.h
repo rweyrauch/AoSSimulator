@@ -38,8 +38,16 @@ protected:
 
     void onWounded() override;
     int getDamageTableIndex() const;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onBeginRound(int battleRound) override;
+    void onStartHero(PlayerId player) override;
+    void onCharged() override;
+    void onRestore() override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
 private:
+
+    int m_powerLevel = 0;
 
     Weapon m_graspMissile,
         m_scythe,
@@ -55,14 +63,14 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Frightful Touch                  No
-// Evocation of Death               No
-//     Nimbus of Power              No
-//     Unholy Vigour                No
-//     Spectral Scythes             No
-//     Insubstantial Form           No
-//     Witch-fire                   No
-// Reaped Like Corn                 No
+// Frightful Touch                  Yes
+// Evocation of Death               Yes
+//     Nimbus of Power              Yes
+//     Unholy Vigour                Yes
+//     Spectral Scythes             Yes
+//     Insubstantial Form           Yes
+//     Witch-fire                   Yes
+// Reaped Like Corn                 Yes
 //
 
 

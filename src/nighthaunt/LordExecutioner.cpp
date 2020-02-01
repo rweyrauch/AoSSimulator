@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "nighthaunt/LordExecutioner.h"
 
 namespace Nighthaunt
@@ -63,6 +64,45 @@ bool LordExecutioner::configure()
     m_points = ComputePoints(1);
 
     return true;
+}
+
+Wounds LordExecutioner::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Beheading Strike
+    if ((woundRoll == 6) && (weapon->name() == m_greataxe.name()))
+    {
+        return {weapon->damage()+2, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void LordExecutioner::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    // Staring Death in the Face
+    auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+    if (unit)
+    {
+        unit->buffModifier(ToHitMelee, -1, {Phase::Battleshock, m_battleRound, player});
+    }
+
+}
+
+Wounds LordExecutioner::applyWoundSave(const Wounds &wounds)
+{
+    auto unsavedWounds = Nighthaunt::applyWoundSave(wounds);
+
+    // Disembodied Skulls
+    Dice dice;
+    if (unsavedWounds.mortal)
+    {
+        Dice::RollResult result;
+        dice.rollD6(unsavedWounds.mortal, result);
+        unsavedWounds.mortal -= result.rollsGE(5);
+        unsavedWounds.mortal = std::max(0, unsavedWounds.mortal);
+    }
+    return unsavedWounds;
 }
 
 } // namespace Nighthaunt

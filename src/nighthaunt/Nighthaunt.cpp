@@ -26,6 +26,7 @@
 #include "nighthaunt/LadyOlynder.h"
 #include "nighthaunt/LordExecutioner.h"
 #include "nighthaunt/TombBanshee.h"
+#include "nighthaunt/BlackCoach.h"
 
 
 namespace Nighthaunt
@@ -88,6 +89,7 @@ void Init()
     LadyOlynder::Init();
     LordExecutioner::Init();
     TombBanshee::Init();
+    BlackCoach::Init();
 }
 
 } // namespace Nighthaunt

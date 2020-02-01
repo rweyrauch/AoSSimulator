@@ -34,6 +34,10 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartCombat(PlayerId player) override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
 private:
 
     Weapon m_greataxe;
@@ -46,9 +50,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Beheading Strike                 No
-// Staring Death in the Face        No
-// Disembodied Skulls               No
+// Beheading Strike                 Yes
+// Staring Death in the Face        Yes
+// Disembodied Skulls               Yes
 //
 
 

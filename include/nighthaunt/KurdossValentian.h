@@ -34,6 +34,9 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_sceptre,
@@ -47,10 +50,10 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Frightful Touch                  No
+// Frightful Touch                  Yes
 // If I Cannot Rule, ...            No
-// Soul-crushing Smite              No
-// Suffer No Rival                  No
+// Soul-crushing Smite              Yes
+// Suffer No Rival                  Yes
 //
 
 

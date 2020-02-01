@@ -34,6 +34,9 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartShooting(PlayerId player) override;
+
 private:
 
     Weapon m_dagger;
@@ -46,8 +49,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Frightful Touch                  No
-// Ghostly Howl                     No
+// Frightful Touch                  Yes
+// Ghostly Howl                     Yes
 //
 
 

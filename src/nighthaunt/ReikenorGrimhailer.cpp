@@ -66,4 +66,26 @@ bool ReikenorTheGrimhailer::configure()
     return true;
 }
 
+Wounds ReikenorTheGrimhailer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Frightful Touch
+    if ((hitRoll == 6) && (weapon->name() == m_fellreaper.name()))
+    {
+        return {0, 2};
+    }
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+Rerolls ReikenorTheGrimhailer::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Reaped Like Corn
+    if ((target->remainingModels() >= 5) && (weapon->name() == m_fellreaper.name()))
+    {
+        return RerollFailed;
+    }
+
+    return Unit::toHitRerolls(weapon, target);
+}
+
 } // namespace Nighthaunt

@@ -34,7 +34,14 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartHero(PlayerId player) override;
+    void onStartShooting(PlayerId player) override;
+    void onRestore() override;
+
 private:
+
+    bool m_graveSandsOfTimeUsed = false;
 
     Weapon m_staff,
         m_claws;
@@ -47,11 +54,11 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Frightful Touch                  No
-// Grave-sands of Time              No
-// Lifting the Veil                 No
+// Frightful Touch                  Yes
+// Grave-sands of Time              Yes
+// Lifting the Veil                 Yes
 // Mortarch of Grief                No
-// Wail of the Damned               No
+// Wail of the Damned               Yes
 // No Rest For the Wicked           No
 //
 

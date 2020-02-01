@@ -66,4 +66,30 @@ bool KurdossValentian::configure()
     return true;
 }
 
+Wounds KurdossValentian::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Frightful Touch
+    if ((hitRoll == 6) && (weapon->name() == m_claws.name()))
+    {
+        return {0, 1};
+    }
+
+    // Soul-crushing Smite
+    if ((woundRoll == 6) && (weapon->name() == m_sceptre.name()))
+    {
+        Dice dice;
+        return { dice.rollD6(), 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+Rerolls KurdossValentian::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if (target->isGeneral() && (weapon->name() == m_sceptre.name()))
+    {
+        return RerollFailed;
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
 } // namespace Nighthaunt
