@@ -56,7 +56,7 @@ Unit *Varanguard::Create(const ParameterList &parameters)
 
 std::string Varanguard::ValueToString(const Parameter &parameter)
 {
-    if (std::string(parameter.name) == "Weapon")
+    if (std::string(parameter.name) == "Weapons")
     {
         switch (parameter.intValue)
         {

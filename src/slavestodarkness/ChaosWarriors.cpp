@@ -185,7 +185,7 @@ std::string ChaosWarriors::ValueToString(const Parameter &parameter)
             return "Paired Hand Weapons";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int ChaosWarriors::EnumStringToInt(const std::string &enumString)
@@ -206,7 +206,7 @@ int ChaosWarriors::EnumStringToInt(const std::string &enumString)
     {
         return PairedHandWeapons;
     }
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 void ChaosWarriors::onWounded()

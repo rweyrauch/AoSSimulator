@@ -127,7 +127,7 @@ std::string GorebeastChariots::ValueToString(const Parameter &parameter)
             return "Chaos War-flail and Whip";
         }
     }
-    return ParameterValueToString(parameter);
+    return SlavesToDarknessBase::ValueToString(parameter);
 }
 
 int GorebeastChariots::EnumStringToInt(const std::string &enumString)
@@ -140,7 +140,7 @@ int GorebeastChariots::EnumStringToInt(const std::string &enumString)
     {
         return WarFlailAndWhip;
     }
-    return 0;
+    return SlavesToDarknessBase::EnumStringToInt(enumString);
 }
 
 int GorebeastChariots::ComputePoints(int numModels)
