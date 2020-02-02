@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "bonesplitterz/ManiakWeirdnob.h"
 
 namespace Bonesplitterz
@@ -55,6 +56,9 @@ ManiakWeirdnob::ManiakWeirdnob() :
 {
     m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
     m_weapons = {&m_bonebeastStaff, &m_tusksAndHooves};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool ManiakWeirdnob::configure()
@@ -64,6 +68,9 @@ bool ManiakWeirdnob::configure()
     model->addMeleeWeapon(&m_tusksAndHooves);
 
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "nighthaunt/LadyOlynder.h"
 
 namespace Nighthaunt
@@ -53,6 +54,9 @@ LadyOlynder::LadyOlynder() :
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
     m_weapons = {&m_staff, &m_claws};
+
+    m_totalSpells = 2;
+    m_totalUnbinds = 2;
 }
 
 bool LadyOlynder::configure()
@@ -61,6 +65,9 @@ bool LadyOlynder::configure()
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_claws);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = ComputePoints(1);
 

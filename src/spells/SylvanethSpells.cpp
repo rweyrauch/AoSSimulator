@@ -57,3 +57,43 @@ Spell* CreateUnleashSpites(Unit* caster)
 {
     return new UnleashSpites(caster);
 }
+
+Spell* CreatePrimalTerror(Unit* caster)
+{
+    return nullptr;
+}
+
+Spell* CreateTheReaping(Unit* caster)
+{
+    return nullptr;
+}
+
+Spell *CreateThroneOfVines(Unit *caster)
+{
+    return nullptr;
+}
+
+Spell *CreateRegrowth(Unit *caster)
+{
+    return new HealSpell(caster, "Regrowth", 5, 18.0f, RAND_D6);
+}
+
+Spell *CreateTheDwellersBelow(Unit *caster)
+{
+    return nullptr;
+}
+
+Spell *CreateDeadlyHarvest(Unit *caster)
+{
+    return new AreaOfEffectSpell(caster, "Deadly Harvest", 6, 0.0f, 3.0f, RAND_D3, 0);
+}
+
+Spell *CreateVerdurousHarmony(Unit *caster)
+{
+    return nullptr;
+}
+
+Spell *CreateTreesong(Unit *caster)
+{
+    return nullptr;
+}

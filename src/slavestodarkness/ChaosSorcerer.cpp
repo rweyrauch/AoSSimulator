@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "slavestodarkness/ChaosSorcerer.h"
 
 namespace SlavesToDarkness
@@ -59,6 +60,9 @@ ChaosSorcerer::ChaosSorcerer() :
 {
     m_keywords = { CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, WIZARD, CHAOS_SORCERER_LORD };
     m_weapons = {&m_staff, &m_blade};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool ChaosSorcerer::configure()
@@ -67,6 +71,9 @@ bool ChaosSorcerer::configure()
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_blade);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

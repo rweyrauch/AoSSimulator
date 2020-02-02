@@ -1,4 +1,6 @@
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
+#include <spells/SylvanethSpells.h>
 #include "sylvaneth/Ylthari.h"
 
 namespace Sylvaneth
@@ -46,6 +48,9 @@ Ylthari::Ylthari() :
 {
     m_keywords = {ORDER, SYLVANETH, OAKENBROW, HERO, WIZARD, THORNWYCH, YLTHARI};
     m_weapons = {&m_briarStaff, &m_thorns, &m_snappingMandibles};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Ylthari::configure()
@@ -55,6 +60,10 @@ bool Ylthari::configure()
     model->addMeleeWeapon(&m_thorns);
     model->addMeleeWeapon(&m_snappingMandibles);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateTheReaping(this)));
 
     m_points = POINTS_PER_UNIT;
 

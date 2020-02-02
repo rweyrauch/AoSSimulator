@@ -99,6 +99,9 @@ bool LuminarkOfHysh::configure(bool battlemage)
     {
         addKeyword(WIZARD);
         addKeyword(HERO);
+
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     auto model = new Model(BASESIZE, WOUNDS);

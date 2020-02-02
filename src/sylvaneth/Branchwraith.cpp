@@ -11,6 +11,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include <spells/MysticShield.h>
 
 namespace Sylvaneth
 {
@@ -34,6 +35,9 @@ Branchwraith::Branchwraith() :
 {
     m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, HERO, WIZARD, BRANCHWRAITH};
     m_weapons = {&m_piercingTalons};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Branchwraith::configure()
@@ -41,6 +45,9 @@ bool Branchwraith::configure()
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_piercingTalons);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

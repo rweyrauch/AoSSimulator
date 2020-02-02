@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/SorceressOnBlackDragon.h"
 
 namespace CitiesOfSigmar
@@ -89,6 +90,9 @@ SorceressOnBlackDragon::SorceressOnBlackDragon() :
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, MONSTER, HERO, WIZARD, SORCERESS};
     m_weapons = {&m_noxiousBreath, &m_rod, &m_sword, &m_lash, &m_jaws, &m_claws};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool SorceressOnBlackDragon::configure()
@@ -103,6 +107,9 @@ bool SorceressOnBlackDragon::configure()
     model->addMeleeWeapon(&m_claws);
 
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

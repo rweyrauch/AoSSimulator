@@ -11,6 +11,8 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include <spells/MysticShield.h>
+#include <spells/SylvanethSpells.h>
 
 namespace Sylvaneth
 {
@@ -35,6 +37,9 @@ Branchwych::Branchwych() :
 {
     m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
     m_weapons = {&m_greenwoodScythe, &m_bittergrubsMandibles};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Branchwych::configure()
@@ -43,6 +48,10 @@ bool Branchwych::configure()
     model->addMeleeWeapon(&m_greenwoodScythe);
     model->addMeleeWeapon(&m_bittergrubsMandibles);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateUnleashSpites(this)));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

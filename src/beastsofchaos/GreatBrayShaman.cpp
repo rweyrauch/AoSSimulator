@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/GreatBrayShaman.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 
 namespace BeastsOfChaos
 {
@@ -32,6 +33,9 @@ GreatBrayShaman::GreatBrayShaman() :
 {
     m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, WIZARD, GREAT_BRAY_SHAMAN};
     m_weapons = { &m_fetishStaff };
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool GreatBrayShaman::configure()
@@ -39,6 +43,9 @@ bool GreatBrayShaman::configure()
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_fetishStaff);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

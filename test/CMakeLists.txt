@@ -40,6 +40,7 @@ add_executable(
         battletest.cpp
         manoamanotest.cpp
         spelltest.cpp
+        paramtest.cpp
 )
 
 target_link_libraries(

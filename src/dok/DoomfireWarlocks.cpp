@@ -9,6 +9,7 @@
 #include <dok/DoomfireWarlocks.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <spells/MysticShield.h>
 
 namespace DaughtersOfKhaine
 {
@@ -41,6 +42,9 @@ DoomfireWarlocks::DoomfireWarlocks() :
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WIZARD, DOOMFIRE_WARLOCKS};
     m_weapons = {&m_crossBow, &m_scimitar, &m_crossBowMaster, &m_scimitarMaster, &m_steedsBite};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool DoomfireWarlocks::configure(int numModels, bool crossbows)
@@ -70,6 +74,9 @@ bool DoomfireWarlocks::configure(int numModels, bool crossbows)
         }
         addModel(model);
     }
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = ComputePoints(numModels);
 

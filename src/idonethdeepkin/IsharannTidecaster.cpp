@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "idonethdeepkin/IsharannTidecaster.h"
 
 namespace IdonethDeepkin
@@ -54,6 +55,9 @@ IsharannTidecaster::IsharannTidecaster() :
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};
     m_weapons = {&m_staff};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool IsharannTidecaster::configure()
@@ -62,6 +66,9 @@ bool IsharannTidecaster::configure()
     model->addMeleeWeapon(&m_staff);
 
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/Sorceress.h"
 
 namespace CitiesOfSigmar
@@ -65,6 +66,9 @@ Sorceress::Sorceress() :
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, HERO, WIZARD, SORCERESS};
     m_weapons = {&m_witchstaff};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool Sorceress::configure()
@@ -72,6 +76,9 @@ bool Sorceress::configure()
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_witchstaff);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

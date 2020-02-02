@@ -11,6 +11,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include <spells/SylvanethSpells.h>
 
 namespace Sylvaneth
 {
@@ -68,6 +69,7 @@ bool DrychaHamadreth::configure()
     model->addMeleeWeapon(&m_thornedSlendervines);
     addModel(model);
 
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimalTerror(this)));
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -7,6 +7,7 @@
  */
 #include <dok/BloodwrackMedusa.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 
 namespace DaughtersOfKhaine
 {
@@ -32,6 +33,9 @@ BloodwrackMedusa::BloodwrackMedusa() :
 {
     m_keywords = {ORDER, MELUSAI, DAUGHTERS_OF_KHAINE, HERO, WIZARD, BLOODWRACK_MEDUSA};
     m_weapons = {&m_bloodwrackStare, &m_whisperclaw, &m_tailOfSerpents, &m_bloodwrackSpear};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool BloodwrackMedusa::configure()
@@ -42,6 +46,9 @@ bool BloodwrackMedusa::configure()
     model->addMeleeWeapon(&m_tailOfSerpents);
     model->addMeleeWeapon(&m_bloodwrackSpear);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

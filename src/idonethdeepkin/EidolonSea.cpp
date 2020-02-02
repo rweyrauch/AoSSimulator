@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "idonethdeepkin/EidolonSea.h"
 
 namespace IdonethDeepkin
@@ -57,6 +58,9 @@ EidolonOfMathlannAspectOfTheSea::EidolonOfMathlannAspectOfTheSea() :
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, WIZARD, ASPECT_OF_THE_SEA};
     m_weapons = {&m_abyssalEnergy, &m_trident, &m_sceptre, &m_stormshoal};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool EidolonOfMathlannAspectOfTheSea::configure()
@@ -68,6 +72,9 @@ bool EidolonOfMathlannAspectOfTheSea::configure()
     model->addMeleeWeapon(&m_stormshoal);
 
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

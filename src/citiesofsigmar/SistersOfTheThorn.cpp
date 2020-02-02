@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/SistersOfTheThorn.h"
 
 namespace CitiesOfSigmar
@@ -78,6 +79,9 @@ SistersOfTheThorn::SistersOfTheThorn() :
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WIZARD, SISTERS_OF_THE_THORN};
     m_weapons = {&m_javelin, &m_staff, &m_antlersAndHooves, &m_staffMaiden};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornblower)
@@ -107,6 +111,9 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
         model->addMeleeWeapon(&m_antlersAndHooves);
         addModel(model);
     }
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = ComputePoints(numModels);
 

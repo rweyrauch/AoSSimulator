@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "nighthaunt/GuardianOfSouls.h"
 
 namespace Nighthaunt
@@ -52,6 +53,9 @@ GuardianOfSouls::GuardianOfSouls() :
 {
     m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, GUARDIAN_OF_SOULS};
     m_weapons = {&m_blade, &m_maul};
+
+    m_totalSpells = 1;
+    m_totalUnbinds = 1;
 }
 
 bool GuardianOfSouls::configure()
@@ -60,6 +64,9 @@ bool GuardianOfSouls::configure()
     model->addMeleeWeapon(&m_blade);
     model->addMeleeWeapon(&m_maul);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = ComputePoints(1);
 

@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/DragonOgorShaggoth.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 
 namespace BeastsOfChaos
 {
@@ -34,6 +35,9 @@ DragonOgorShaggoth::DragonOgorShaggoth() :
 {
     m_keywords = {CHAOS, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGOR, MONSTER, HERO, WIZARD, SHAGGOTH};
     m_weapons = { &m_stormWroughtAxe, &m_sweepingTail, &m_talonedForelimbs };
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
 }
 
 bool DragonOgorShaggoth::configure()
@@ -43,6 +47,9 @@ bool DragonOgorShaggoth::configure()
     model->addMeleeWeapon(&m_sweepingTail);
     model->addMeleeWeapon(&m_talonedForelimbs);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 
