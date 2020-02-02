@@ -8,6 +8,7 @@
 
 #include <death/LegionOfNagash.h>
 
+#include "death/Nagash.h"
 #include "death/BlackKnights.h"
 #include "death/BloodKnights.h"
 #include "death/DireWolves.h"
@@ -20,6 +21,7 @@
 #include "death/Necromancer.h"
 #include "death/MorghastArchai.h"
 #include "death/MorghastHarbingers.h"
+#include "death/ArkhanTheBlack.h"
 
 namespace Death
 {
@@ -36,6 +38,7 @@ int LegionOfNagashBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
+    Nagash::Init();
     BlackKnights::Init();
     BloodKnights::Init();
     DireWolves::Init();
@@ -48,6 +51,7 @@ void Init()
     Necromancer::Init();
     MorghastArchai::Init();
     MorghastHarbingers::Init();
+    ArkhanTheBlack::Init();
 }
 
 } //namespace Seraphon

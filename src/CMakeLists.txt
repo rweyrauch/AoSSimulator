@@ -280,6 +280,7 @@ add_library(
         nurgle/GreatUncleanOne.cpp
 
         death/LegionOfNagash.cpp
+        death/ArkhanTheBlack.cpp
         death/BlackKnights.cpp
         death/BloodKnights.cpp
         death/DireWolves.cpp
@@ -292,6 +293,7 @@ add_library(
         death/Necromancer.cpp
         death/MorghastArchai.cpp
         death/MorghastHarbingers.cpp
+        death/Nagash.cpp
 
         fec/FleshEaterCourts.cpp
         fec/CryptHorrors.cpp

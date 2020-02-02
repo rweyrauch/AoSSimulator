@@ -563,6 +563,7 @@ enum Keyword
     MORGHAST_ARCHAI,
     MORGHAST_HARBINGERS,
     ARKHAN,
+    NAGASH,
 
     // Flesh-eater Court
     MORDANT,
