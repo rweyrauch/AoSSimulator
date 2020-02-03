@@ -14,6 +14,7 @@
 #include <TerrainFeature.h>
 #include "MathUtils.h"
 
+class Model;
 class Roster;
 class Unit;
 
@@ -78,6 +79,11 @@ public:
     bool isVisible(const Unit* from, const Unit* target);
 
     void render(const std::string& filename) const;
+
+    bool castRay(const Math::Ray& ray, Math::RayHit& result) const;
+    bool castRay(const Math::Ray2& ray, Math::RayHit& result) const;
+
+    bool moveModel(Model& model, const Math::Point3& toPoint) const;
 
 protected:
     Board() = default;

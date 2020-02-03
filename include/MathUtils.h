@@ -105,6 +105,136 @@ inline float Trunc(float val)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// Point 2
+//
+///////////////////////////////////////////////////////////////////////////////
+
+class  Point2
+{
+public:
+
+    Point2() = default;
+    Point2(const Point2& p) = default;
+    Point2(float x_, float y_) :
+        x(x_),
+        y(y_) {}
+
+    Point2& operator = (const Point2& v) = default;
+
+    Point2& operator += (const Point2& v)
+    {
+        x += v.x;
+        y += v.y;
+        return *this;
+    }
+
+    Point2& operator -= (const Point2& v)
+    {
+        x -= v.x;
+        y -= v.y;
+        return *this;
+    }
+
+    Point2& operator *= (float scale)
+    {
+        x *= scale;
+        y *= scale;
+        return *this;
+    }
+
+    Point2 operator + (const Point2& v) const
+    {
+        return Point2(x + v.x, y + v.y);
+    }
+
+    Point2 operator - (const Point2& v) const
+    {
+        return Point2(x - v.x, y - v.y);
+    }
+
+    Point2 operator * (float scale) const
+    {
+        return Point2(x * scale, y * scale);
+    }
+
+    friend Point2 operator * (float scale, const Point2& v)
+    {
+        return Point2(v.x * scale, v.y * scale);
+    }
+
+    bool operator == (const Point2& v) const
+    {
+        return ((x == v.x) && (y == v.y));
+    }
+
+    bool operator != (const Point2& v) const
+    {
+        return !(*this == v);
+    }
+
+    bool equal(const Point2& v, float e = EPSILON) const
+    {
+        return (Equal(x, v.x, e) &&
+                Equal(y, v.y, e));
+    }
+
+    float distanceSquare(const Point2& v) const
+    {
+        return (Sqr(x - v.x) + Sqr(y - v.y));
+    }
+
+    float distance(const Point2& v) const
+    {
+        return sqrtf(distanceSquare(v));
+    }
+
+    void set(const Point2& v)
+    {
+        this->x = v.x;
+        this->y = v.y;
+    }
+
+    void set(float x, float y)
+    {
+        this->x = x;
+        this->y = y;
+    }
+
+    float& at(int index)
+    {
+        switch (index)
+        {
+            case 0: return x;
+            case 1: return y;
+        };
+#ifndef __EMSCRIPTEN__
+        throw std::out_of_range("Invalid index.");
+#else
+        return x;
+#endif
+    }
+    const float& at(int index) const
+    {
+        switch (index)
+        {
+            case 0: return x;
+            case 1: return y;
+        };
+#ifndef __EMSCRIPTEN__
+        throw std::out_of_range("Invalid index.");
+#else
+        return x;
+#endif
+    }
+
+public:
+
+    float x = 0.0f, y = 0.0f;
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // Point 3
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -115,6 +245,10 @@ public:
 
     Point3() = default;
     Point3(const Point3& p) = default;
+    Point3(const Point2& p) :
+        x(p.x),
+        y(p.y),
+        z(0.0f) {}
 
     Point3(float x_, float y_, float z_) :
         x(x_),
@@ -240,6 +374,168 @@ public:
 public:
 
     float x = 0.0f, y = 0.0f, z = 0.0f;
+
+};
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Vector 2
+//
+///////////////////////////////////////////////////////////////////////////////
+
+class Vector2
+{
+public:
+
+    Vector2() {}
+
+    Vector2(const Vector2& v) :
+        x(v.x),
+        y(v.y)
+    {}
+    Vector2(const Point2& p) :
+        x(p.x),
+        y(p.y)
+    {}
+
+    Vector2(float x_, float y_) :
+        x(x_),
+        y(y_)
+    {}
+
+    Vector2(const Point2& origin, const Point2& end) :
+        x(end.x - origin.x),
+        y(end.y - origin.y)
+    {}
+
+    inline Vector2& operator = (const Vector2& v)
+    {
+        x = v.x;
+        y = v.y;
+        return *this;
+    }
+
+    inline Vector2& operator += (const Vector2& v)
+    {
+        x += v.x;
+        y += v.y;
+        return *this;
+    }
+
+    inline Vector2& operator -= (const Vector2& v)
+    {
+        x -= v.x;
+        y -= v.y;
+        return *this;
+    }
+
+    inline Vector2& operator *= (float scale)
+    {
+        x *= scale;
+        y *= scale;
+        return *this;
+    }
+
+    inline Vector2& operator /= (float scale)
+    {
+        x /= scale;
+        y /= scale;
+        return *this;
+    }
+
+    inline Vector2 operator - () const
+    {
+        return Vector2(-x, -y);
+    }
+
+    inline Vector2 operator + () const
+    {
+        return Vector2(+x, +y);
+    }
+
+    inline Vector2 operator + (const Vector2& v) const
+    {
+        return Vector2(x + v.x, y + v.y);
+    }
+
+    inline Vector2 operator - (const Vector2& v) const
+    {
+        return Vector2(x - v.x, y - v.y);
+    }
+
+    inline Vector2 operator * (float scale) const
+    {
+        return Vector2(x * scale, y * scale);
+    }
+
+    inline Vector2 operator / (float scale) const
+    {
+        return Vector2(x / scale, y / scale);
+    }
+
+    friend Vector2 operator * (float scale, const Vector2& v)
+    {
+        return Vector2(v.x * scale, v.y * scale);
+    }
+
+    inline bool operator == (const Vector2& v) const
+    {
+        return ((x == v.x) && (y == v.y));
+    }
+
+    inline bool operator != (const Vector2& v) const
+    {
+        return !(*this == v);
+    }
+
+    inline bool equal(const Vector2& v, float e = EPSILON) const
+    {
+        return (Equal(x, v.x, e) &&
+                Equal(y, v.y, e));
+    }
+
+    float normalize();
+
+    inline float length() const
+    {
+        return sqrtf(x * x + y * y);
+    }
+
+    inline float lengthSquare() const
+    {
+        return (x * x + y * y);
+    }
+
+    inline float dot(const Vector2& v) const
+    {
+        return (x * v.x + y * v.y);
+    }
+
+    inline float distanceSquare(const Vector2& v) const
+    {
+        return (Sqr(x - v.x) + Sqr(y - v.y));
+    }
+
+    inline float distance(const Vector2& v) const
+    {
+        return sqrtf(distanceSquare(v));
+    }
+
+    inline void set(const Vector2& v)
+    {
+        x = v.x;
+        y = v.y;
+    }
+
+    inline void set(float x, float y)
+    {
+        this->x = x;
+        this->y = y;
+    }
+
+public:
+
+    float x, y;
 
 };
 
@@ -457,6 +753,73 @@ enum EContainment
     CONT_NONE,          // Not contained
     CONT_PARTIAL,       // Partially contained
     CONT_ALL            // Entirely contained
+};
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Circle
+//
+///////////////////////////////////////////////////////////////////////////////
+
+class Circle
+{
+
+public:
+    Circle() :
+        m_center(),
+        m_radius(0.0f)
+    {}
+    Circle(const Point2& center, float r) :
+        m_center(center),
+        m_radius(r)
+    {}
+    const Point2& center() const
+    {
+        return m_center;
+    }
+    inline Point2& center()
+    {
+        return m_center;
+    }
+    inline const float& radius() const
+    {
+        return m_radius;
+    }
+    inline float& radius()
+    {
+        return m_radius;
+    }
+
+    // Get point at angle t (radians) on circle
+    Point2 pointAt(float t) const
+    {
+        // Parametric form of an circle:
+        // t   : angle from 0..2pi
+        // X(t) = centerX + radius * cos(t)
+        // Y(t) = centerY + radius * sin(t)
+
+        Point2 point;
+        point.x = m_center.x + m_radius * cosf(t);
+        point.y = m_center.y + m_radius * sinf(t);
+
+        return point;
+    }
+
+    float area() const
+    {
+        const auto a = static_cast<float>(M_PI) * m_radius * m_radius;
+        return a;
+    }
+
+    float circumference() const
+    {
+        const float c = static_cast<float>(2) * static_cast<float>(M_PI) * m_radius;
+        return c;
+    }
+
+private:
+    Point2 m_center;
+    float  m_radius;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -685,6 +1048,54 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// Ray2 (parametric line)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+class Ray2
+{
+public:
+
+    Ray2() = default;
+
+    Ray2(const Point2& origin, const Vector2& dir) :
+        m_origin(origin),
+        m_dir(dir)
+    {}
+
+    Ray2(const Point2& origin, const Point2& end) :
+        m_origin(origin),
+        m_dir(origin, end)
+    {
+        m_dir.normalize();
+    }
+
+    Point2 point_at(float t) const
+    {
+        Point2 point(m_origin);
+        point.x += m_dir.x * t;
+        point.y += m_dir.y * t;
+        return point;
+    }
+
+    const Point2& get_origin() const
+    {
+        return m_origin;
+    }
+
+    const Vector2& get_direction() const
+    {
+        return m_dir;
+    }
+
+public:
+
+    Point2 m_origin = {0.0f, 0.0f};
+    Vector2 m_dir = {0.0f, 0.0f};
+};
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // Ray (parametric line)
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -698,7 +1109,9 @@ public:
     Ray(const Point3& origin, const Vector3& dir) :
         m_origin(origin),
         m_dir(dir)
-    {}
+    {
+        m_dir.normalize();
+    }
 
     Ray(const Point3& origin, const Point3& end) :
         m_origin(origin),
@@ -777,6 +1190,7 @@ struct TriangleFast
     float   m_cnu, m_cnv;
 };
 
+extern bool Intersect(const Ray2& ray, const Circle& sphere, RayHit& h0, RayHit& h1);
 extern bool Intersect(const Ray& ray, const Sphere& sphere, RayHit& h0, RayHit& h1);
 extern bool Intersect(const Ray& ray, const Box3& box, float& t0, float& t1);
 extern bool Intersect(const Ray& ray, const Plane& plane, RayHit& h0);

@@ -477,3 +477,21 @@ bool Board::isVisible(const Unit *from, const Unit *target)
 
     return true;
 }
+
+bool Board::castRay(const Math::Ray &ray, Math::RayHit &result) const
+{
+    result.m_t = 0.0f;
+    return false;
+}
+
+bool Board::castRay(const Math::Ray2 &ray, Math::RayHit &result) const
+{
+    result.m_t = 0.0f;
+    return false;
+}
+
+bool Board::moveModel(Model &model, const Math::Point3& toPoint) const
+{
+
+    return false;
+}

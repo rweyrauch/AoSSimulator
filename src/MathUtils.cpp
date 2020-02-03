@@ -11,6 +11,27 @@
 namespace Math
 {
 
+float Vector2::normalize()
+{
+    const float dsqr = lengthSquare();
+
+    if (Abs(dsqr - 1.0f) < EPSILON)
+    {
+        return 1.0f;
+    }
+    else if (dsqr < EPSILON * EPSILON)
+    {
+        set(0.0f, 0.0f);
+        return  0.0f;
+    }
+
+    const float d = 1.0f / sqrtf(dsqr);
+    x *= d;
+    y *= d;
+
+    return d;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Vector 3
@@ -886,6 +907,39 @@ bool Intersect(const Plane& plane, const Box3& box, IntersectInfo& hitInfo)
 bool Intersect(const Plane& plane, const OrientedBox& box, IntersectInfo& hitInfo)
 {
     return false;
+}
+
+bool Intersect(const Ray2 &ray, const Circle &circle, RayHit &h0, RayHit &h1)
+{
+    // Ray direction is always normalized.
+    const auto delta = Vector2(ray.get_origin() - circle.center());
+    const auto dirD = ray.get_direction().dot(delta);
+    const auto d = Sqr(dirD) - (ray.get_direction().lengthSquare() * (delta.lengthSquare() - Sqr(circle.radius())));
+    if (d < 0)
+    {
+        return false;
+    }
+    else if (d > 0)
+    {
+        h0.m_t = (-dirD + sqrtf(d)) / ray.get_direction().lengthSquare();
+        h0.m_point = ray.point_at(h0.m_t);
+        auto diff = h0.m_point - Point3(circle.center());
+        h0.m_norm = Vector3(diff.x, diff.y, diff.z);
+
+        h1.m_t = (-dirD - sqrtf(d)) / ray.get_direction().lengthSquare();
+        h1.m_point = ray.point_at(h1.m_t);
+        diff = h1.m_point - Point3(circle.center());
+        h1.m_norm = Vector3(diff.x, diff.y, diff.z);
+    }
+    else if (d == 0)
+    {
+        // Tangent to circle
+        h0.m_t = -dirD / ray.get_direction().lengthSquare();
+        h0.m_point = ray.point_at(h0.m_t);
+        auto diff = h0.m_point - Point3(circle.center());
+        h0.m_norm = Vector3(diff.x, diff.y, diff.z);
+    }
+    return true;
 }
 
 } // namespace rgl
