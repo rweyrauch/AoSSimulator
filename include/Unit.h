@@ -166,6 +166,7 @@ public:
     bool canRunAndCharge() const;
     bool canRetreatAndShoot() const;
     bool canRetreatAndCharge() const;
+    bool canRecastArcaneBoldAndMysticShield() const { return m_canRecastArcaneBoldAndMysticShield; }
 
     int slay(int numModels);
 
@@ -424,6 +425,7 @@ protected:
     bool m_canMove = true;
     bool m_hasFought = false;
 
+    bool m_canRecastArcaneBoldAndMysticShield = false;
     int m_spellsCast = 0;
     int m_spellsUnbound = 0;
     int m_prayersAttempted = 0;

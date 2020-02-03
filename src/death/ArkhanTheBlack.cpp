@@ -56,6 +56,7 @@ ArkhanTheBlack::ArkhanTheBlack() :
 
     m_totalSpells = 5;
     m_totalUnbinds = 5;
+    m_canRecastArcaneBoldAndMysticShield = true;
 }
 
 Unit *ArkhanTheBlack::Create(const ParameterList &parameters)

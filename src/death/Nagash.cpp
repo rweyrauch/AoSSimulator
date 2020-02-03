@@ -56,6 +56,7 @@ Nagash::Nagash() :
 
     m_totalSpells = 8;
     m_totalUnbinds = 8;
+    m_canRecastArcaneBoldAndMysticShield = true;
 }
 
 Unit *Nagash::Create(const ParameterList &parameters)
