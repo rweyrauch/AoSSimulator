@@ -466,6 +466,9 @@ add_library(
         slavestodarkness/ChaosLord.cpp
         slavestodarkness/ChaosChariots.cpp
         slavestodarkness/GorebeastChariots.cpp
+        slavestodarkness/SpireTyrants.cpp
+        slavestodarkness/MindstealerSphiranx.cpp
+        slavestodarkness/FormoroidCrusher.cpp
 
         freeagents/GotrekGurnisson.cpp
 
@@ -567,6 +570,7 @@ add_library(
         kharadron/GrundstokThunderers.cpp
         kharadron/KharadronBase.cpp
         kharadron/Skywardens.cpp
+
 )
 
 target_include_directories(

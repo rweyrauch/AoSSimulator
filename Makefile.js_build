@@ -457,6 +457,9 @@ OBJECTS += \
         src/slavestodarkness/ChaosChariots.o \
         src/slavestodarkness/GorebeastChariots.o \
         src/slavestodarkness/SlavesToDarkness.o \
+        src/slavestodarkness/SpireTyrants.o \
+        src/slavestodarkness/MindstealerSphiranx.o \
+        src/slavestodarkness/FormoroidCrusher.o \
         src/freeagents/GotrekGurnisson.o \
         src/citiesofsigmar/Anointed.o \
         src/citiesofsigmar/Assassin.o \

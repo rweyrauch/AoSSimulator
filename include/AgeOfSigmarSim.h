@@ -802,6 +802,9 @@ enum Keyword
     EYE_OF_THE_GODS,
     MANTICORE,
     VARANGUARD,
+    MINDSTEALER_SPHIRANX,
+    FOMOROID_CRUSHER,
+    SPIRE_TYRANTS,
 
     // Slaves to Darkness Damned Legion
     RAVAGERS,
