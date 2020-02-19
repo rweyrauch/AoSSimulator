@@ -16,6 +16,8 @@
 #include "nurgle/PusgoyleBlightlords.h"
 #include "nurgle/Rotigus.h"
 #include "nurgle/GreatUncleanOne.h"
+#include "nurgle/FeculaFlyblown.h"
+#include "nurgle/TheWurmspat.h"
 
 namespace Nurgle
 {
@@ -32,15 +34,17 @@ int NurgleBase::EnumStringToInt(const std::string &enumString)
 
 void Init()
 {
-    Nurgle::LordOfPlagues::Init();
-    Nurgle::Plaguebearers::Init();
-    Nurgle::PutridBlightkings::Init();
-    Nurgle::BeastsOfNurgle::Init();
-    Nurgle::TheGlottkin::Init();
-    Nurgle::PlagueDrones::Init();
-    Nurgle::PusgoyleBlightlords::Init();
-    Nurgle::Rotigus::Init();
-    Nurgle::GreatUncleanOne::Init();
+    LordOfPlagues::Init();
+    Plaguebearers::Init();
+    PutridBlightkings::Init();
+    BeastsOfNurgle::Init();
+    TheGlottkin::Init();
+    PlagueDrones::Init();
+    PusgoyleBlightlords::Init();
+    Rotigus::Init();
+    GreatUncleanOne::Init();
+    FeculaFlyblown::Init();
+    TheWurmspat::Init();
 }
 
 } //namespace Nurgle

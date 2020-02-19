@@ -283,6 +283,8 @@ OBJECTS += \
         src/nurgle/PusgoyleBlightlords.o \
         src/nurgle/Rotigus.o \
         src/nurgle/GreatUncleanOne.o \
+        src/nurgle/FeculaFlyblown.o \
+        src/nurgle/TheWurmspat.o \
         src/death/LegionOfNagash.o \
         src/death/Nagash.o \
         src/death/ArkhanTheBlack.o \

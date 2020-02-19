@@ -33,6 +33,9 @@
 #include "slavestodarkness/ChaosLord.h"
 #include "slavestodarkness/ChaosChariots.h"
 #include "slavestodarkness/GorebeastChariots.h"
+#include "slavestodarkness/SpireTyrants.h"
+#include "slavestodarkness/MindstealerSphiranx.h"
+#include "slavestodarkness/FomoroidCrusher.h"
 
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
@@ -156,6 +159,9 @@ void Init()
     ChaosLord::Init();
     ChaosChariots::Init();
     GorebeastChariots::Init();
+    SpireTyrants::Init();
+    FomoroidCrusher::Init();
+    MindstealerSphiranx::Init();
 }
 
 } //namespace SlavesToDarkness

@@ -197,6 +197,7 @@ enum Keyword
     ORRUK,
     DRAGON,
     MONSTERS_OF_CHAOS,
+    SORCERER,
 
     // Stormcast
     SACROSANCT,
@@ -544,6 +545,9 @@ enum Keyword
     HARBINGER_OF_DECAY,
     LORD_OF_BLIGHTS,
     GUTROT_SPUME,
+    FECULA_FLYBLOWN,
+    THE_WURMSPAT,
+    BLESSED_SONS,
 
     // Death
     BLACK_KNIGHTS,

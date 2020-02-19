@@ -278,6 +278,8 @@ add_library(
         nurgle/PusgoyleBlightlords.cpp
         nurgle/Rotigus.cpp
         nurgle/GreatUncleanOne.cpp
+        nurgle/FeculaFlyblown.cpp
+        nurgle/TheWurmspat.cpp
 
         death/LegionOfNagash.cpp
         death/ArkhanTheBlack.cpp
