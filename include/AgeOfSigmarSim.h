@@ -809,6 +809,7 @@ enum Keyword
     MINDSTEALER_SPHIRANX,
     FOMOROID_CRUSHER,
     SPIRE_TYRANTS,
+    OGROID_MYRMIDON,
 
     // Slaves to Darkness Damned Legion
     RAVAGERS,

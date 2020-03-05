@@ -14,8 +14,8 @@ namespace OgorMawtribes
 {
 static FactoryMethod factoryMethod = {
     Slaughtermaster::Create,
-    nullptr,
-    nullptr,
+    MawtribesBase::ValueToString,
+    MawtribesBase::EnumStringToInt,
     Slaughtermaster::ComputePoints,
     {
     },
@@ -74,7 +74,7 @@ bool Slaughtermaster::configure()
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     //m_knownSpells.push_back(std::make_unique<Rockchomper>(this));
 
-    m_points = POINTS_PER_UNIT;
+    m_points = Slaughtermaster::ComputePoints(1);
 
     return true;
 }

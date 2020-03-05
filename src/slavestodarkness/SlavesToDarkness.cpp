@@ -36,6 +36,7 @@
 #include "slavestodarkness/SpireTyrants.h"
 #include "slavestodarkness/MindstealerSphiranx.h"
 #include "slavestodarkness/FomoroidCrusher.h"
+#include "slavestodarkness/OgroidMyrmidon.h"
 
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
@@ -162,6 +163,7 @@ void Init()
     SpireTyrants::Init();
     FomoroidCrusher::Init();
     MindstealerSphiranx::Init();
+    OgroidMyrmidon::Init();
 }
 
 } //namespace SlavesToDarkness

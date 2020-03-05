@@ -527,6 +527,16 @@ OBJECTS += \
         src/mawtribes/Butcher.o \
         src/mawtribes/Gorgers.o \
         src/mawtribes/Ironguts.o \
+        src/mawtribes/Scraplauncher.o \
+        src/mawtribes/Gnoblars.o \
+        src/mawtribes/Firebelly.o \
+        src/mawtribes/Maneaters.o \
+        src/mawtribes/FrostlordStonehorn.o \
+        src/mawtribes/FrostlordThundertusk.o \
+        src/mawtribes/HuskardStonehorn.o \
+        src/mawtribes/HuskardThundertusk.o \
+        src/mawtribes/StonehornBeastriders.o \
+        src/mawtribes/ThundertuskBeastriders.o \
         src/ossiarch/OssiarchBonereaperBase.o \
         src/ossiarch/MortekGuard.o \
         src/ossiarch/NecropolisStalkers.o \

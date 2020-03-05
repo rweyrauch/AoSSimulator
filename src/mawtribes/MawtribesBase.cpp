@@ -16,6 +16,16 @@
 #include "mawtribes/Slaughtermaster.h"
 #include "mawtribes/Gorgers.h"
 #include "mawtribes/Ironguts.h"
+#include "mawtribes/Scraplauncher.h"
+#include "mawtribes/Gnoblars.h"
+#include "mawtribes/Firebelly.h"
+#include "mawtribes/Maneaters.h"
+#include "mawtribes/FrostlordStonehorn.h"
+#include "mawtribes/FrostlordThundertusk.h"
+#include "mawtribes/HuskardStonehorn.h"
+#include "mawtribes/HuskardThundertusk.h"
+#include "mawtribes/StonehornBeastriders.h"
+#include "mawtribes/ThundertuskBeastriders.h"
 
 namespace OgorMawtribes
 {
@@ -33,13 +43,23 @@ int MawtribesBase::EnumStringToInt(const std::string &enumString)
 void Init()
 {
     Butcher::Init();
-    Tyrant::Init();
-    Ironblaster::Init();
-    Leadbelchers::Init();
-    OgorGluttons::Init();
-    Slaughtermaster::Init();
+    Firebelly::Init();
+    Gnoblars::Init();
     Gorgers::Init();
+    Ironblaster::Init();
     Ironguts::Init();
+    Leadbelchers::Init();
+    Maneaters::Init();
+    OgorGluttons::Init();
+    GnoblarScraplauncher::Init();
+    Slaughtermaster::Init();
+    Tyrant::Init();
+    FrostlordOnStonehorn::Init();
+    FrostlordOnThundertusk::Init();
+    HuskardOnStonehorn::Init();
+    HuskardOnThundertusk::Init();
+    StonehornBeastriders::Init();
+    ThundertuskBeastriders::Init();
 }
 
 } // namespace OgorMawtribes

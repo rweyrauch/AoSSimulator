@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef <FILENAME>_H
-#define <FILENAME>_H
+#ifndef SCRAPLAUNCHER_H
+#define SCRAPLAUNCHER_H
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -15,28 +15,32 @@
 namespace OgorMawtribes
 {
 
-class <UnitName> : public MawtribesBase
+class GnoblarScraplauncher : public MawtribesBase
 {
 public:
 
     static const int BASESIZE = 0;
-    static const int WOUNDS = 0;
-    static const int POINTS_PER_UNIT = 0;
+    static const int WOUNDS = 9;
+    static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
     static void Init();
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
 
-    <UnitName>();
-    ~<UnitName>() override = default;
+    GnoblarScraplauncher();
+    ~GnoblarScraplauncher() override = default;
 
     bool configure();
 
 protected:
 
 private:
+
+    Weapon m_scrap,
+        m_scrapperWeapons,
+        m_horns;
 
     static bool s_registered;
 };
@@ -45,8 +49,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Deadly Rain of Scrap             No
+// Rhinox Charge                    No
 //
 
 } // namespace OgorMawtribes
 
-#endif //<FILENAME>_H
+#endif //SCRAPLAUNCHER_H

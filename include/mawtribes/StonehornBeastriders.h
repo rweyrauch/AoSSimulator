@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef <FILENAME>_H
-#define <FILENAME>_H
+#ifndef STONEHORNBEASTRIDERS_H
+#define STONEHORNBEASTRIDERS_H
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -15,28 +15,38 @@
 namespace OgorMawtribes
 {
 
-class <UnitName> : public MawtribesBase
+class StonehornBeastriders : public MawtribesBase
 {
 public:
 
     static const int BASESIZE = 0;
-    static const int WOUNDS = 0;
-    static const int POINTS_PER_UNIT = 0;
+    static const int WOUNDS = 12;
+    static const int POINTS_PER_UNIT = 300;
 
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
     static void Init();
 
-    <UnitName>();
-    ~<UnitName>() override = default;
+    StonehornBeastriders();
+    ~StonehornBeastriders() override = default;
 
     bool configure();
+    int move() const override;
 
 protected:
 
+    int getDamageTableIndex() const;
+    void onWounded() override;
+
 private:
+
+    Weapon m_harpoon,
+        m_chaintrap,
+        m_kicks,
+        m_horns,
+        m_hooves;
 
     static bool s_registered;
 };
@@ -45,8 +55,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Earth-shattering Charge          No
+// Stone Skeleton                   No
+// Blood Vulture                    No
 //
 
 } // namespace OgorMawtribes
 
-#endif //<FILENAME>_H
+#endif //STONEHORNBEASTRIDERS_H

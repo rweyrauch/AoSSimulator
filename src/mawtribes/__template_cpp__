@@ -14,10 +14,11 @@ static FactoryMethod factoryMethod = {
     <UnitName>::Create,
     <UnitName>::ValueToString,
     <UnitName>::EnumStringToInt,
+    <UnitName>::ComputePoints,
     {
     },
     DESTRUCTION,
-    OGOR_MAWTRIBES
+    {OGOR_MAWTRIBES}
 };
 
 bool <UnitName>::s_registered = false;
@@ -62,11 +63,6 @@ void <UnitName>::Init()
 bool <UnitName>::configure()
 {
     return false;
-}
-
-void <UnitName>::visitWeapons(std::function<void(const Weapon &)> &visitor)
-{
-
 }
 
 } // namespace OgorMawtribes

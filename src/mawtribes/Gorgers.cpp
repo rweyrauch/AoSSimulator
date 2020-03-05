@@ -12,8 +12,8 @@ namespace OgorMawtribes
 {
 static FactoryMethod factoryMethod = {
     Gorgers::Create,
-    nullptr,
-    nullptr,
+    MawtribesBase::ValueToString,
+    MawtribesBase::EnumStringToInt,
     Gorgers::ComputePoints,
     {
         {

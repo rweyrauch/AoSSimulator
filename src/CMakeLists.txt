@@ -471,6 +471,7 @@ add_library(
         slavestodarkness/SpireTyrants.cpp
         slavestodarkness/MindstealerSphiranx.cpp
         slavestodarkness/FormoroidCrusher.cpp
+        slavestodarkness/OgroidMyrmidon.cpp
 
         freeagents/GotrekGurnisson.cpp
 
@@ -539,6 +540,16 @@ add_library(
         mawtribes/Butcher.cpp
         mawtribes/Gorgers.cpp
         mawtribes/Ironguts.cpp
+        mawtribes/Scraplauncher.cpp
+        mawtribes/Gnoblars.cpp
+        mawtribes/Firebelly.cpp
+        mawtribes/Maneaters.cpp
+        mawtribes/FrostlordStonehorn.cpp
+        mawtribes/FrostlordThundertusk.cpp
+        mawtribes/HuskardStonehorn.cpp
+        mawtribes/HuskardThundertusk.cpp
+        mawtribes/StonehornBeastriders.cpp
+        mawtribes/ThundertuskBeastriders.cpp
 
         ossiarch/OssiarchBonereaperBase.cpp
         ossiarch/MortekGuard.cpp
