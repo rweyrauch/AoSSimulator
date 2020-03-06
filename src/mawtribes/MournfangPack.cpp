@@ -91,7 +91,30 @@ bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hor
     skalg->addMeleeWeapon(&m_tusks);
     addModel(skalg);
 
-    for (auto i = 1; i < numModels; i++)
+    if (m_hornblower)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Hornblower");
+        if (weaponOption == CullingClubOrPreyHackerAndIronfist)
+            model->addMeleeWeapon(&m_clubOrHacker);
+        else if (weaponOption == GargantHacker)
+            model->addMeleeWeapon(&m_gargantHacker);
+        model->addMeleeWeapon(&m_tusks);
+        addModel(model);
+    }
+    if (m_bannerBearer)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->setName("Banner Bearer");
+        if (weaponOption == CullingClubOrPreyHackerAndIronfist)
+            model->addMeleeWeapon(&m_clubOrHacker);
+        else if (weaponOption == GargantHacker)
+            model->addMeleeWeapon(&m_gargantHacker);
+        model->addMeleeWeapon(&m_tusks);
+        addModel(model);
+    }
+    int currentModelCount = (int) m_models.size();
+    for (auto i = currentModelCount; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
         if (weaponOption == CullingClubOrPreyHackerAndIronfist)
@@ -133,6 +156,78 @@ int MournfangPack::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Gargant Hacker") return GargantHacker;
 
     return MawtribesBase::EnumStringToInt(enumString);
+}
+
+Wounds MournfangPack::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Mournfang Charge
+    if (m_charged && (weapon->name() == m_tusks.name()))
+    {
+        return {weapon->damage()+1, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+Wounds MournfangPack::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    // Ironfist
+    if ((saveRoll == 6) && (m_option == CullingClubOrPreyHackerAndIronfist))
+    {
+        return {0, 1};
+    }
+    return Unit::computeReturnedDamage(weapon, saveRoll);
+}
+
+int MournfangPack::chargeModifier() const
+{
+    auto modifier = Unit::chargeModifier();
+    if (m_hornblower) modifier += 1;
+    return modifier;
+}
+
+void MournfangPack::onWounded()
+{
+    MawtribesBase::onWounded();
+
+    // Check for special models
+    for (const auto& ip : m_models)
+    {
+        if (ip->slain() && (ip->getName() == "Hornblower"))
+        {
+            m_hornblower = false;
+        }
+        if (ip->slain() && (ip->getName() == "Banner Bearer"))
+        {
+            m_bannerBearer = false;
+        }
+    }
+}
+
+void MournfangPack::onRestore()
+{
+    MawtribesBase::onRestore();
+
+    // Check for special models
+    for (const auto& ip : m_models)
+    {
+        if (ip->getName() == "Hornblower")
+        {
+            m_hornblower = true;
+        }
+        if (ip->getName() == "Banner Bearer")
+        {
+            m_bannerBearer = true;
+        }
+    }
+}
+
+int MournfangPack::braveryModifier() const
+{
+    auto mod = MawtribesBase::braveryModifier();
+
+    if (m_bannerBearer) mod++;
+
+    return mod;
 }
 
 } // namespace OgorMawtribes

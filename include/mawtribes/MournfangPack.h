@@ -45,6 +45,13 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    void onWounded() override;
+    void onRestore() override;
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+
 private:
 
     WeaponOption m_option = CullingClubOrPreyHackerAndIronfist;
@@ -63,10 +70,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Hornblower                       No
-// Banner Bearer                    No
-// Ironfist                         No
-// Mournfang Charge                 No
+// Hornblower                       Yes
+// Banner Bearer                    Yes
+// Ironfist                         Yes
+// Mournfang Charge                 Yes
 //
 
 } // namespace OgorMawtribes

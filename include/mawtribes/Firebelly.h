@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    void onStartShooting(PlayerId player) override;
+
 private:
 
     Weapon m_fireBreath,
@@ -46,7 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Fire Breath                      No
+// Fire Breath                      Yes
 // Cascading Fire-cloak             No
 //
 

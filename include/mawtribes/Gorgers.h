@@ -37,6 +37,8 @@ public:
 
 protected:
 
+    // Instatiable Hunger
+    Rerolls chargeRerolls() const override { return RerollFailed; }
 
 private:
 
@@ -51,7 +53,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Ambushing Hunters                No
-// Insatiable Hunger                No
+// Insatiable Hunger                Yes
 
 } // namespace OgorMawtribes
 

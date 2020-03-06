@@ -81,4 +81,22 @@ bool Firebelly::configure()
     return true;
 }
 
+void Firebelly::onStartShooting(PlayerId player)
+{
+    MawtribesBase::onStartShooting(player);
+
+    // Fire Breath
+    if (player == owningPlayer() && m_shootingTarget)
+    {
+        if (distanceTo(m_shootingTarget) <= m_fireBreath.range())
+        {
+            Dice dice;
+            if (dice.rollD6() >= 4)
+            {
+                m_shootingTarget->applyDamage({0, dice.rollD3()});
+            }
+        }
+    }
+}
+
 } // namespace OgorMawtribes
