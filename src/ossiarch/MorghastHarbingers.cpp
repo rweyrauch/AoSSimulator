@@ -23,6 +23,7 @@ static FactoryMethod factoryMethod = {
         {
             ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1
         },
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -73,6 +74,9 @@ Unit *MorghastHarbingers::Create(const ParameterList &parameters)
     auto unit = new MorghastHarbingers();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, SpiritHalberd);
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)

@@ -17,6 +17,7 @@ static FactoryMethod factoryMethod = {
     GothizzarHarvester::ComputePoints,
     {
         {ParamType::Enum, "Weapon", GothizzarHarvester::Sickles, GothizzarHarvester::Sickles, GothizzarHarvester::Bludgeons, 1},
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -47,6 +48,9 @@ Unit *GothizzarHarvester::Create(const ParameterList &parameters)
     auto unit = new GothizzarHarvester();
 
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, GothizzarHarvester::Sickles);
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure(option);
     if (!ok)

@@ -31,6 +31,8 @@
 #include "mawtribes/IcebrowHunter.h"
 #include "mawtribes/IcefallYhetees.h"
 #include "mawtribes/MournfangPack.h"
+#include "mawtribes/Hrothgorn.h"
+#include "mawtribes/HrothgornsMantrappers.h"
 
 namespace OgorMawtribes
 {
@@ -183,6 +185,8 @@ void Init()
     FrostSabres::Init();
     Gnoblars::Init();
     Gorgers::Init();
+    Hrothgorn::Init();
+    HrothgornsMantrappers::Init();
     IcebrowHunter::Init();
     IcefallYhetees::Init();
     Ironblaster::Init();

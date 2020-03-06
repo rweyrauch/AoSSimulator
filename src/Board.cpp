@@ -17,6 +17,7 @@
 #include <Roster.h>
 #include "jps.hh"
 #include <sstream>
+#include <cfloat>
 
 Board *Board::s_pInstance = nullptr;
 
@@ -35,8 +36,8 @@ void Board::moveObjective(int id, float x, float y)
     auto obj = std::find_if(m_objectives.begin(), m_objectives.end(), matchId);
     if (obj != m_objectives.end())
     {
-        (*obj)->m_x = x;
-        (*obj)->m_y = y;
+        (*obj)->m_pos.x = x;
+        (*obj)->m_pos.y = y;
     }
 }
 
@@ -492,6 +493,25 @@ bool Board::castRay(const Math::Ray2 &ray, Math::RayHit &result) const
 
 bool Board::moveModel(Model &model, const Math::Point3& toPoint) const
 {
-
     return false;
+}
+
+const Objective *Board::getNearestObjective(const Unit *unit)
+{
+    if (unit == nullptr || m_objectives.empty())
+    {
+        return nullptr;
+    }
+    Objective *nearestObjective = m_objectives.front();
+    float minDistance = FLT_MAX;
+    for (auto o : m_objectives)
+    {
+        float dist = unit->distanceTo(o->m_pos);
+        if (dist < minDistance)
+        {
+            minDistance = dist;
+            nearestObjective = o;
+        }
+    }
+    return nearestObjective;
 }

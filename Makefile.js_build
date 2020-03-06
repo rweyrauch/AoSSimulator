@@ -542,6 +542,8 @@ OBJECTS += \
         src/mawtribes/IcebrowHunter.o \
         src/mawtribes/IcefallYhetees.o \
         src/mawtribes/MournfangPack.o \
+        src/mawtribes/Hrothgorn.o \
+        src/mawtribes/HrothgornsMantrappers.o \
         src/ossiarch/OssiarchBonereaperBase.o \
         src/ossiarch/MortekGuard.o \
         src/ossiarch/NecropolisStalkers.o \

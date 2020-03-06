@@ -7,6 +7,7 @@
  */
 #include <kharadron/ArkanautCompany.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace KharadronOverlords
 {
@@ -165,6 +166,31 @@ int ArkanautCompany::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int ArkanautCompany::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Glory-seekers
+    auto obj = Board::Instance()->getNearestObjective(this);
+    if (obj && (distanceTo(obj->m_pos) <= 9.0f))
+    {
+        mod++;
+    }
+    return mod;
+}
+
+Rerolls ArkanautCompany::battleshockRerolls() const
+{
+    // Glory-seekers
+    auto obj = Board::Instance()->getNearestObjective(this);
+    if (obj && (distanceTo(obj->m_pos) <= 9.0f))
+    {
+        return RerollFailed;
+    }
+
+    return Unit::battleshockRerolls();
 }
 
 } //KharadronOverlords

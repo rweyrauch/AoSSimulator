@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     MortekCrawler::EnumStringToInt,
     MortekCrawler::ComputePoints,
     {
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -44,6 +45,9 @@ bool MortekCrawler::s_registered = false;
 Unit *MortekCrawler::Create(const ParameterList &parameters)
 {
     auto unit = new MortekCrawler();
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)

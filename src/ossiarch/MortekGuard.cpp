@@ -23,6 +23,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Enum, "Weapons", MortekGuard::NadiriteBladeAndShield, MortekGuard::NadiriteBladeAndShield, MortekGuard::NadirateSpearAndShield, 1},
         {ParamType::Integer, "Soulcleaver Greatblade", 1, 0, MortekGuard::MAX_UNIT_SIZE/3, 1},
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -38,6 +39,9 @@ Unit *MortekGuard::Create(const ParameterList &parameters)
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
     bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
     int numGreatblades = GetIntParam("Soulcleaver Greatblade", parameters, 1);
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure(numModels, weapons, numGreatblades, necrophoros);
     if (!ok)

@@ -897,6 +897,8 @@ enum Keyword
     SLAUGHTERMASTER,
     FIREBELLY,
     MANEATERS,
+    HROTHGORN,
+    HROTHGORNS_MANTRAPPERS,
 
     // Mawtribes
     MEATFIST,

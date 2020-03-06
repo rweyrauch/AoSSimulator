@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             NecropolisStalkers::MAX_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE
         },
         {ParamType::Integer, "Dread Falchions", 1, 0, NecropolisStalkers::MAX_UNIT_SIZE/3, 1},
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -34,6 +35,9 @@ Unit *NecropolisStalkers::Create(const ParameterList &parameters)
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     int numFalchions = GetIntParam("Dread Falchions", parameters, 1);
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure(numModels, numFalchions);
     if (!ok)

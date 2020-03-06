@@ -115,6 +115,7 @@ public:
     float y() const { return m_position.y; }
 
     float distanceTo(const Unit *unit) const;
+    float distanceTo(const Math::Point3& point) const;
 
     float distanceBetween(const Model *model, const Unit *unit) const;
 
@@ -365,13 +366,11 @@ protected:
     virtual void onCharged() {}
 
     virtual void onStartHero(PlayerId player) {}
-
+    virtual void onStartMovement(PlayerId player) {}
     virtual void onStartShooting(PlayerId player) {}
-
     virtual void onStartCombat(PlayerId player) {}
 
     virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
-
     virtual void onEndMovement(PlayerId player) {}
 
     virtual void onFlee(int numFled) {}

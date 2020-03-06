@@ -554,6 +554,8 @@ add_library(
         mawtribes/IcebrowHunter.cpp
         mawtribes/IcefallYhetees.cpp
         mawtribes/MournfangPack.cpp
+        mawtribes/Hrothgorn.cpp
+        mawtribes/HrothgornsMantrappers.cpp
 
         ossiarch/OssiarchBonereaperBase.cpp
         ossiarch/MortekGuard.cpp

@@ -22,6 +22,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
         {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -36,6 +37,9 @@ Unit *KavalosDeathriders::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
     bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure(numModels, weapons, necrophoros);
     if (!ok)

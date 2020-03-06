@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     LiegeKavalos::EnumStringToInt,
     LiegeKavalos::ComputePoints,
     {
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -26,6 +27,9 @@ bool LiegeKavalos::s_registered = false;
 Unit *LiegeKavalos::Create(const ParameterList &parameters)
 {
     auto unit = new LiegeKavalos();
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)

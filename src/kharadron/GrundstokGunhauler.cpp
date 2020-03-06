@@ -7,6 +7,7 @@
  */
 #include <kharadron/GrundstokGunhauler.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace KharadronOverlords
 {
@@ -106,6 +107,54 @@ bool GrundstokGunhauler::configure(WeaponOption option)
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int GrundstokGunhauler::moveModifier() const
+{
+    auto mod = Unit::moveModifier();
+
+    if (m_aheadFull) mod += 6;
+    m_aheadFull = false;
+
+    return mod;
+}
+
+void GrundstokGunhauler::onStartCombat(PlayerId player)
+{
+    Unit::onStartCombat(player);
+
+    // Bomb Racks
+    auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    if (unit && (distanceTo(unit) <= 1.0f))
+    {
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            unit->applyDamage({0, dice.rollD3()});
+        }
+    }
+}
+
+Wounds GrundstokGunhauler::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Drill Cannon
+    if ((hitRoll >= 5) && (weapon->name() == m_drillCannon.name()))
+    {
+        return { 0, 3};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void GrundstokGunhauler::onStartMovement(PlayerId player)
+{
+    Unit::onStartMovement(player);
+
+    if (!m_usedAheadFull)
+    {
+        // Go ahead and use the extra movement immediately.
+        m_aheadFull = true;
+        m_usedAheadFull = true;
+    }
 }
 
 } //KharadronOverlords

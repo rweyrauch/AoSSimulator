@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     ArchKavalosZandtos::EnumStringToInt,
     ArchKavalosZandtos::ComputePoints,
     {
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -26,6 +27,9 @@ bool ArchKavalosZandtos::s_registered = false;
 Unit *ArchKavalosZandtos::Create(const ParameterList &parameters)
 {
     auto unit = new ArchKavalosZandtos();
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure();
     if (!ok)

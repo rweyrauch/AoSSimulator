@@ -21,7 +21,7 @@ class Unit;
 struct Objective
 {
     int m_id;
-    float m_x, m_y;
+    Math::Point3 m_pos;
 };
 
 class Board
@@ -48,6 +48,7 @@ public:
 
     int getNumObjectives() const { return (int)m_objectives.size(); }
     const Objective* getObjective(int which) const { return m_objectives.at((size_t)which); }
+    const Objective* getNearestObjective(const Unit* unit);
 
     Roster* getPlayerRoster(PlayerId which) { return m_rosters[(int)which]; }
 

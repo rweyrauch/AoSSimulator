@@ -415,6 +415,14 @@ float Unit::distanceTo(const Unit* unit) const
     return std::max(0.0f, dist - (basesizeInches() + unit->basesizeInches())/2.0f);
 }
 
+float Unit::distanceTo(const Math::Point3& point) const
+{
+    const auto pos = position();
+
+    float dist = pos.distance(point);
+    return std::max(0.0f, dist - basesizeInches()/2.0f);
+}
+
 float Unit::distanceBetween(const Model* model, const Unit* unit) const
 {
     if (model == nullptr || unit == nullptr || unit->remainingModels() == 0)
@@ -472,6 +480,8 @@ void Unit::hero(PlayerId player)
 void Unit::movement(PlayerId player)
 {
     timeoutBuffs(Phase::Movement, player);
+
+    onStartMovement(player);
 
     auto board = Board::Instance();
 

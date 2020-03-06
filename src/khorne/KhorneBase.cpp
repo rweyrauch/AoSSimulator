@@ -93,7 +93,7 @@ Rerolls KhorneBase::toWoundRerolls(const Weapon *weapon, const Unit *target) con
                 const auto obj = Board::Instance()->getObjective(i);
                 if (obj)
                 {
-                    if (position().distance(Math::Point3(obj->m_x, obj->m_y, 0.0f)) <= 12.0f)
+                    if (position().distance(obj->m_pos) <= 12.0f)
                     {
                         return RerollOnes;
                     }

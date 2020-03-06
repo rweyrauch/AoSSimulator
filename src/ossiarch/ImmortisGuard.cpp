@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", ImmortisGuard::MIN_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE,
             ImmortisGuard::MAX_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
     },
     DEATH,
     { OSSIARCH_BONEREAPERS }
@@ -32,6 +33,9 @@ Unit *ImmortisGuard::Create(const ParameterList &parameters)
     auto unit = new ImmortisGuard();
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
+    unit->setLegion(legion);
 
     bool ok = unit->configure(numModels);
     if (!ok)

@@ -47,6 +47,9 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    Rerolls battleshockRerolls() const override;
+
 private:
 
     Weapon m_privateerPistol,
@@ -65,7 +68,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Glory-seekers                    No
+// Glory-seekers                    Yes
 //
 
 } // namespace KharadronOverlords

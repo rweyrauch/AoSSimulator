@@ -43,7 +43,15 @@ public:
 
 protected:
 
+    int moveModifier() const override;
+    void onStartCombat(PlayerId player) override;
+    void onStartMovement(PlayerId player) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
+
+    bool m_usedAheadFull = false;
+    mutable bool m_aheadFull = false;
 
     Weapon m_cannonShrapnel,
         m_cannonShell,
@@ -58,12 +66,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ahead Full                       No
+// Ahead Full                       Yes
 // Escort Vessel                    No
-// Bomb Racks                       No
+// Bomb Racks                       Yes
 // Disengage                        No
 // Fly High                         No
-// Drill Cannon                     No
+// Drill Cannon                     Yes
 // Sky Cannon                       No
 //
 
