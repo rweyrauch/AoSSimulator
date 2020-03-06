@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", Gnoblars::MIN_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE,
             Gnoblars::MAX_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -32,6 +33,9 @@ Unit *Gnoblars::Create(const ParameterList &parameters)
     auto unit = new Gnoblars();
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(numModels);
     if (!ok)

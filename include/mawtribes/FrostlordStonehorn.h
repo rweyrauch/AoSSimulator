@@ -19,7 +19,7 @@ class FrostlordOnStonehorn : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 13;
     static const int POINTS_PER_UNIT = 400;
 
@@ -39,6 +39,8 @@ protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds applyWoundSave(const Wounds& wounds) override;
 
 private:
 
@@ -54,8 +56,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Earth-shattering Charge          No
-// Stone Skeleton                   No
+// Earth-shattering Charge          Yes
+// Stone Skeleton                   Yes
 // Bellowing Voice                  No
 //
 

@@ -22,6 +22,7 @@ static FactoryMethod factoryMethod = {
         },
         {ParamType::Boolean, "Rune Maw Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -36,6 +37,9 @@ Unit *Ironguts::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     bool mawBearer = GetBoolParam("Rune Maw Bearer", parameters, true);
     bool bellower = GetBoolParam("Bellower", parameters, true);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(numModels, mawBearer, bellower);
     if (!ok)

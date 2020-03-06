@@ -462,6 +462,7 @@ OBJECTS += \
         src/slavestodarkness/SpireTyrants.o \
         src/slavestodarkness/MindstealerSphiranx.o \
         src/slavestodarkness/FormoroidCrusher.o \
+        src/slavestodarkness/OgroidMyrmidon.o \
         src/freeagents/GotrekGurnisson.o \
         src/citiesofsigmar/Anointed.o \
         src/citiesofsigmar/Assassin.o \
@@ -537,6 +538,10 @@ OBJECTS += \
         src/mawtribes/HuskardThundertusk.o \
         src/mawtribes/StonehornBeastriders.o \
         src/mawtribes/ThundertuskBeastriders.o \
+        src/mawtribes/FrostSabres.o \
+        src/mawtribes/IcebrowHunter.o \
+        src/mawtribes/IcefallYhetees.o \
+        src/mawtribes/MournfangPack.o \
         src/ossiarch/OssiarchBonereaperBase.o \
         src/ossiarch/MortekGuard.o \
         src/ossiarch/NecropolisStalkers.o \

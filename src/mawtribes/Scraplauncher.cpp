@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     GnoblarScraplauncher::EnumStringToInt,
     GnoblarScraplauncher::ComputePoints,
     {
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -26,6 +27,9 @@ bool GnoblarScraplauncher::s_registered = false;
 Unit *GnoblarScraplauncher::Create(const ParameterList &parameters)
 {
     auto unit = new GnoblarScraplauncher();
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure();
     if (!ok)
@@ -77,6 +81,34 @@ bool GnoblarScraplauncher::configure()
     m_points = GnoblarScraplauncher::ComputePoints(1);
 
     return true;
+}
+
+int GnoblarScraplauncher::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Deadly Rain of Scrap
+    if ((weapon->name() == m_scrap.name()) && (target->remainingModels() >= 10))
+    {
+        mod++;
+    }
+
+    return mod;
+}
+
+Wounds GnoblarScraplauncher::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Deadly Rain of Scrap
+    if ((weapon->name() == m_scrap.name()) && (target->remainingModels() >= 10))
+    {
+        return {RAND_D6, 0};
+    }
+    // Rhinox Charge
+    else if ((weapon->name() == m_horns.name()) && m_charged)
+    {
+        return {weapon->damage()+1, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace OgorMawtribes

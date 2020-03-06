@@ -16,6 +16,8 @@ static FactoryMethod factoryMethod = {
     ThundertuskBeastriders::EnumStringToInt,
     ThundertuskBeastriders::ComputePoints,
     {
+        {ParamType::Enum, "Weapon", ThundertuskBeastriders::Chaintrap, ThundertuskBeastriders::Chaintrap, ThundertuskBeastriders::BloodVulture, 1},
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     {OGOR_MAWTRIBES}
@@ -45,7 +47,12 @@ Unit *ThundertuskBeastriders::Create(const ParameterList &parameters)
 {
     auto unit = new ThundertuskBeastriders();
 
-    bool ok = unit->configure();
+    auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, Chaintrap);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
+
+    bool ok = unit->configure(weapon);
     if (!ok)
     {
         delete unit;
@@ -56,11 +63,19 @@ Unit *ThundertuskBeastriders::Create(const ParameterList &parameters)
 
 std::string ThundertuskBeastriders::ValueToString(const Parameter &parameter)
 {
+    if (std::string(parameter.name) == "Weapon")
+    {
+        if (parameter.intValue == Chaintrap) return "Chaintrap";
+        else if (parameter.intValue == BloodVulture) return "Blood Vulture";
+    }
     return MawtribesBase::ValueToString(parameter);
 }
 
 int ThundertuskBeastriders::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Chaintrap") return Chaintrap;
+    else if (enumString == "Blood Vulture") return BloodVulture;
+
     return MawtribesBase::EnumStringToInt(enumString);
 }
 
@@ -76,6 +91,7 @@ ThundertuskBeastriders::ThundertuskBeastriders() :
     MawtribesBase("Thundertusk Beastriders", 8, WOUNDS, 7, 4, false),
     m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
     m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
+    m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
     m_ice(Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0),
     m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 6, 4, 4, 0, 1),
     m_tusks(Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3)
@@ -84,12 +100,17 @@ ThundertuskBeastriders::ThundertuskBeastriders() :
     m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
 }
 
-bool ThundertuskBeastriders::configure()
+bool ThundertuskBeastriders::configure(WeaponOption option)
 {
     auto model = new Model(BASESIZE, wounds());
 
+    m_option = option;
+
     model->addMissileWeapon(&m_harpoon);
-    model->addMissileWeapon(&m_chaintrap);
+    if (option == Chaintrap)
+        model->addMissileWeapon(&m_chaintrap);
+    else if (option == BloodVulture)
+        model->addMissileWeapon(&m_vulture);
     model->addMissileWeapon(&m_ice);
     model->addMeleeWeapon(&m_kicks);
     model->addMeleeWeapon(&m_tusks);
@@ -125,6 +146,45 @@ void ThundertuskBeastriders::onWounded()
     m_tusks.setToWound(g_damageTable[damageIndex].m_tusksToWound);
 
     MawtribesBase::onWounded();
+}
+
+int ThundertuskBeastriders::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = Unit::targetHitModifier(weapon, attacker);
+    // Numbing Chill
+    if (!weapon->isMissile()) mod--;
+
+    return mod;
+}
+
+void ThundertuskBeastriders::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+
+    if (player == owningPlayer())
+    {
+        if (m_meleeTarget)
+        {
+            Dice dice;
+            Dice::RollResult result;
+            dice.rollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
+            int toWound = 6;
+            if (m_meleeTarget->remainingModels() >= 20) toWound -= 2;
+            else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;
+
+            Wounds wounds = { 0, result.rollsGE(toWound) };
+            m_meleeTarget->applyDamage(wounds);
+
+            if (m_option == BloodVulture)
+            {
+                if (dice.rollD6() >= 2)
+                {
+                    m_meleeTarget->applyDamage({0, 1});
+                }
+            }
+        }
+    }
 }
 
 } // namespace OgorMawtribes

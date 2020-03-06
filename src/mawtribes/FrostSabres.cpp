@@ -6,19 +6,19 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
-#include "mawtribes/Gorgers.h"
+#include "mawtribes/FrostSabres.h"
 
 namespace OgorMawtribes
 {
 static FactoryMethod factoryMethod = {
-    Gorgers::Create,
+    FrostSabres::Create,
     MawtribesBase::ValueToString,
     MawtribesBase::EnumStringToInt,
-    Gorgers::ComputePoints,
+    FrostSabres::ComputePoints,
     {
         {
-            ParamType::Integer, "Models", Gorgers::MIN_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE,
-            Gorgers::MAX_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE
+            ParamType::Integer, "Models", FrostSabres::MIN_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE,
+            FrostSabres::MAX_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE
         },
         {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
@@ -26,11 +26,11 @@ static FactoryMethod factoryMethod = {
     { OGOR_MAWTRIBES }
 };
 
-bool Gorgers::s_registered = false;
+bool FrostSabres::s_registered = false;
 
-Unit *Gorgers::Create(const ParameterList &parameters)
+Unit *FrostSabres::Create(const ParameterList &parameters)
 {
-    auto unit = new Gorgers();
+    auto unit = new FrostSabres();
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
@@ -46,25 +46,23 @@ Unit *Gorgers::Create(const ParameterList &parameters)
     return unit;
 }
 
-
-void Gorgers::Init()
+void FrostSabres::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Gorgers", factoryMethod);
+        s_registered = UnitFactory::Register("Frost Sabres", factoryMethod);
     }
 }
 
-Gorgers::Gorgers() :
-    MawtribesBase("Gorgers", 6, WOUNDS, 8, 6, false),
-    m_claws(Weapon::Type::Melee, "Long Claws", 1, 4, 3, 3, 0, 2),
-    m_jaw(Weapon::Type::Melee, "Distensible Jaw", 1, 1, 3, 3, -1, RAND_D3)
+FrostSabres::FrostSabres() :
+    MawtribesBase("Frost Sabres", 9, WOUNDS, 5, 6, false),
+    m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 3, -1, 1)
 {
-    m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, GORGERS};
-    m_weapons = {&m_claws, &m_jaw};
+    m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, FROST_SABRES};
+    m_weapons = {&m_fangs};
 }
 
-bool Gorgers::configure(int numModels)
+bool FrostSabres::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -74,8 +72,7 @@ bool Gorgers::configure(int numModels)
     for (auto i = 0; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        model->addMeleeWeapon(&m_claws);
-        model->addMeleeWeapon(&m_jaw);
+        model->addMeleeWeapon(&m_fangs);
         addModel(model);
     }
 
@@ -84,7 +81,7 @@ bool Gorgers::configure(int numModels)
     return true;
 }
 
-int Gorgers::ComputePoints(int numModels)
+int FrostSabres::ComputePoints(int numModels)
 {
     auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)

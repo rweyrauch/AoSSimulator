@@ -20,6 +20,7 @@ static FactoryMethod factoryMethod = {
             ParamType::Integer, "Models", Leadbelchers::MIN_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE,
             Leadbelchers::MAX_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE
         },
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -32,6 +33,9 @@ Unit *Leadbelchers::Create(const ParameterList &parameters)
     auto unit = new Leadbelchers();
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -76,6 +80,12 @@ bool Leadbelchers::configure(int numModels)
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
+    }
+
+    // Gunmasters
+    if (hasKeyword(UNDERGUTS))
+    {
+        m_gun.setRange(m_gun.range()+6.0f);
     }
 
     auto boss = new Model(BASESIZE, WOUNDS);

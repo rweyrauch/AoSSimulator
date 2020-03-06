@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     MawtribesBase::EnumStringToInt,
     Firebelly::ComputePoints,
     {
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -28,6 +29,9 @@ bool Firebelly::s_registered = false;
 Unit *Firebelly::Create(const ParameterList &parameters)
 {
     auto unit = new Firebelly();
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure();
     if (!ok)

@@ -27,7 +27,7 @@ public:
         Stubborn
     };
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 50;
     static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
@@ -47,6 +47,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    bool battleshockRequired() const override;
+
 private:
 
     Ability m_ability;
@@ -62,11 +65,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Been There, Done That            No
-//   Brawlers                       No
-//   Crack Shots                    No
-//   Striders                       No
-//   Stubborn                       No
+// Been There, Done That            Yes
+//   Brawlers                       Yes
+//   Crack Shots                    Yes
+//   Striders                       Yes
+//   Stubborn                       Yes
 
 } // namespace OgorMawtribes
 

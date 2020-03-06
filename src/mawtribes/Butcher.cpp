@@ -19,6 +19,7 @@ static FactoryMethod factoryMethod = {
     Butcher::ComputePoints,
     {
         {ParamType::Enum, "Weapon", Butcher::Cleaver, Butcher::Tenderiser, Butcher::Cleaver, 1},
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -31,6 +32,9 @@ Unit *Butcher::Create(const ParameterList &parameters)
     auto unit = new Butcher();
 
     auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, Cleaver);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(weapon);
     if (!ok)
@@ -83,6 +87,12 @@ bool Butcher::configure(WeaponOption weaponOption)
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     //m_knownSpells.push_back(std::make_unique<VoraciousMaw>(this));
 
+    if (hasKeyword(BLOODGULLET))
+    {
+        m_totalSpells++;
+        m_totalUnbinds++;
+    }
+
     m_points = POINTS_PER_UNIT;
 
     return true;
@@ -95,7 +105,7 @@ std::string Butcher::ValueToString(const Parameter &parameter)
         if (parameter.intValue == Tenderiser) return "Tenderiser";
         else if (parameter.intValue == Cleaver) return "Cleaver";
     }
-    return ParameterValueToString(parameter);
+    return MawtribesBase::ValueToString(parameter);
 }
 
 int Butcher::EnumStringToInt(const std::string &enumString)
@@ -103,7 +113,7 @@ int Butcher::EnumStringToInt(const std::string &enumString)
     if (enumString == "Tenderiser") return Tenderiser;
     else if (enumString == "Cleaver") return Cleaver;
 
-    return 0;
+    return MawtribesBase::EnumStringToInt(enumString);
 }
 
 } // namespace OgorMawtribes

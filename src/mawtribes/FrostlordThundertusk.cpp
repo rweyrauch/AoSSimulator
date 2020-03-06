@@ -16,6 +16,7 @@ static FactoryMethod factoryMethod = {
     FrostlordOnThundertusk::EnumStringToInt,
     FrostlordOnThundertusk::ComputePoints,
     {
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     {OGOR_MAWTRIBES}
@@ -44,6 +45,9 @@ bool FrostlordOnThundertusk::s_registered = false;
 Unit *FrostlordOnThundertusk::Create(const ParameterList &parameters)
 {
     auto unit = new FrostlordOnThundertusk();
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure();
     if (!ok)
@@ -123,6 +127,36 @@ void FrostlordOnThundertusk::onWounded()
     m_tusks.setToWound(g_damageTable[damageIndex].m_tusksToWound);
 
     MawtribesBase::onWounded();
+}
+
+int FrostlordOnThundertusk::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = Unit::targetHitModifier(weapon, attacker);
+    // Numbing Chill
+    if (!weapon->isMissile()) mod--;
+
+    return mod;
+}
+
+void FrostlordOnThundertusk::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    if (player == owningPlayer())
+    {
+        if (m_meleeTarget)
+        {
+            Dice dice;
+            Dice::RollResult result;
+            dice.rollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
+            int toWound = 6;
+            if (m_meleeTarget->remainingModels() >= 20) toWound -= 2;
+            else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;
+
+            Wounds wounds = { 0, result.rollsGE(toWound) };
+            m_meleeTarget->applyDamage(wounds);
+        }
+    }
 }
 
 } // namespace OgorMawtribes

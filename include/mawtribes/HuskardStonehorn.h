@@ -19,7 +19,14 @@ class HuskardOnStonehorn : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    enum WeaponOption
+    {
+        HarpoonLauncher,
+        Chaintrap,
+        BloodVulture
+    };
+
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 320;
 
@@ -32,18 +39,24 @@ public:
     HuskardOnStonehorn();
     ~HuskardOnStonehorn() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
     int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds applyWoundSave(const Wounds& wounds) override;
+    void onStartShooting(PlayerId player) override;
 
 private:
 
+    WeaponOption m_option = HarpoonLauncher;
+
     Weapon m_harpoon,
         m_chaintrap,
+        m_vulture,
         m_kicks,
         m_horns,
         m_hooves;
@@ -55,9 +68,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Earth-shattering Charge          No
-// Stone Skeleton                   No
-// Blood Vulture                    No
+// Earth-shattering Charge          Yes
+// Stone Skeleton                   Yes
+// Blood Vulture                    Yes
 // Line-breakers                    No
 //
 

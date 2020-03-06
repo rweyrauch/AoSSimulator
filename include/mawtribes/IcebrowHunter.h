@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SCRAPLAUNCHER_H
-#define SCRAPLAUNCHER_H
+#ifndef ICEBROWHUNTER_H
+#define ICEBROWHUNTER_H
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -15,35 +15,33 @@
 namespace OgorMawtribes
 {
 
-class GnoblarScraplauncher : public MawtribesBase
+class IcebrowHunter : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 9;
+    static const int BASESIZE = 50;
+    static const int WOUNDS = 7;
     static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
+    static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static void Init();
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
 
-    GnoblarScraplauncher();
-    ~GnoblarScraplauncher() override = default;
+    IcebrowHunter();
+    ~IcebrowHunter() override = default;
 
     bool configure();
 
 protected:
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
 private:
 
-    Weapon m_scrap,
-        m_scrapperWeapons,
-        m_horns;
+    Weapon m_spear,
+        m_crossbow,
+        m_club,
+        m_bite;
 
     static bool s_registered;
 };
@@ -52,10 +50,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deadly Rain of Scrap             Yes
-// Rhinox Charge                    Yes
+// Icy Breath                       No
+// Masters of Ambush                No
+// Mighty Throw                     No
+// Lead the Skal                    No
 //
 
 } // namespace OgorMawtribes
 
-#endif //SCRAPLAUNCHER_H
+#endif //ICEBROWHUNTER_H

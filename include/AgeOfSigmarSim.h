@@ -898,6 +898,14 @@ enum Keyword
     FIREBELLY,
     MANEATERS,
 
+    // Mawtribes
+    MEATFIST,
+    BLOODGULLET,
+    UNDERGUTS,
+    BOULDERHEAD,
+    THUNDERBELLIES,
+    WINTERBITE,
+
     // Ossiarch Bonereapers
     HEKATOS,
     LIEGE,

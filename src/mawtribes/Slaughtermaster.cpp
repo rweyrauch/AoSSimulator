@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     MawtribesBase::EnumStringToInt,
     Slaughtermaster::ComputePoints,
     {
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -28,6 +29,9 @@ bool Slaughtermaster::s_registered = false;
 Unit *Slaughtermaster::Create(const ParameterList &parameters)
 {
     auto unit = new Slaughtermaster();
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure();
     if (!ok)
@@ -73,6 +77,12 @@ bool Slaughtermaster::configure()
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
     m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     //m_knownSpells.push_back(std::make_unique<Rockchomper>(this));
+
+    if (hasKeyword(BLOODGULLET))
+    {
+        m_totalSpells++;
+        m_totalUnbinds++;
+    }
 
     m_points = Slaughtermaster::ComputePoints(1);
 

@@ -21,6 +21,7 @@ static FactoryMethod factoryMethod = {
             Maneaters::MAX_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE
         },
         {ParamType::Enum, "Ability", Maneaters::Brawlers, Maneaters::Brawlers, Maneaters::Stubborn, 1},
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -34,6 +35,9 @@ Unit *Maneaters::Create(const ParameterList &parameters)
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto ability = (Ability)GetEnumParam("Ability", parameters, Brawlers);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(numModels, ability);
     if (!ok)
@@ -93,6 +97,9 @@ bool Maneaters::configure(int numModels, Ability ability)
 
     m_ability = ability;
 
+    if (m_ability == Striders)
+        m_runAndCharge = true;
+
     for (auto i = 0; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
@@ -115,6 +122,25 @@ int Maneaters::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+Rerolls Maneaters::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if ((m_ability == Brawlers) && !weapon->isMissile())
+    {
+        return RerollOnes;
+    }
+    else if ((m_ability == CrackShots) && weapon->isMissile())
+    {
+        return RerollOnes;
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
+bool Maneaters::battleshockRequired() const
+{
+    if (m_ability == Stubborn) return false;
+    return Unit::battleshockRequired();
 }
 
 } // namespace OgorMawtribes

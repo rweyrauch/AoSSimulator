@@ -18,6 +18,7 @@ static FactoryMethod factoryMethod = {
     Tyrant::ComputePoints,
     {
         {ParamType::Enum, "Big Name", Tyrant::Fateseeker, Tyrant::Deathcheater, Tyrant::Wallcrusher, 1},
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -30,6 +31,9 @@ Unit *Tyrant::Create(const ParameterList &parameters)
     auto unit = new Tyrant();
 
     auto bigName = (BigName)GetEnumParam("Big Name", parameters, Fateseeker);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(bigName);
     if (!ok)

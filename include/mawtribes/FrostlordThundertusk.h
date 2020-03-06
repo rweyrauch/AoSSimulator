@@ -19,7 +19,7 @@ class FrostlordOnThundertusk : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 13;
     static const int POINTS_PER_UNIT = 390;
 
@@ -39,6 +39,8 @@ protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    void onStartShooting(PlayerId player) override;
 
 private:
 
@@ -54,8 +56,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blasts of Frost-wreathed Ice     No
-// Numbing Chill                    No
+// Blasts of Frost-wreathed Ice     Yes
+// Numbing Chill                    Yes
 // Bellowing Voice                  No
 //
 

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FIREBELLY_H
-#define FIREBELLY_H
+#ifndef ICEFALLYHETEES_H
+#define ICEFALLYHETEES_H
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -15,29 +15,31 @@
 namespace OgorMawtribes
 {
 
-class Firebelly : public MawtribesBase
+class IcefallYhetees : public MawtribesBase
 {
 public:
 
     static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int WOUNDS = 4;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 110;
+    static const int POINTS_MAX_UNIT_SIZE = 440;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
-    Firebelly();
-    ~Firebelly() override = default;
+    IcefallYhetees();
+    ~IcefallYhetees() override = default;
 
-    bool configure();
+    bool configure(int numModels);
 
 protected:
 
 private:
 
-    Weapon m_fireBreath,
-        m_hammer;
+    Weapon m_clawsAndClubs;
 
     static bool s_registered;
 };
@@ -46,10 +48,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Fire Breath                      No
-// Cascading Fire-cloak             No
+// Aura of Frost                    No
+// Bounding Leaps                   No
+// Invigorated by the Blizzard      No
 //
 
 } // namespace OgorMawtribes
 
-#endif //FIREBELLY_H
+#endif //ICEFALLYHETEES_H

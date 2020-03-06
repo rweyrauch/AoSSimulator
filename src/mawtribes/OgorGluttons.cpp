@@ -25,6 +25,7 @@ static FactoryMethod factoryMethod = {
         {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Lookout Gnoblar", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
     DESTRUCTION,
     { OGOR_MAWTRIBES }
@@ -42,6 +43,9 @@ Unit *OgorGluttons::Create(const ParameterList &parameters)
     bool lookout = GetBoolParam("Lookout Gnoblar", parameters, true);
     bool bellower = GetBoolParam("Bellower", parameters, true);
     auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, ClubOrBladeAndIronfist);
+
+    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
+    unit->setMawtribe(tribe);
 
     bool ok = unit->configure(numModels, weapons, skullBearer, bannerBearer, lookout, bellower);
     if (!ok)

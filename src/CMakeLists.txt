@@ -550,6 +550,10 @@ add_library(
         mawtribes/HuskardThundertusk.cpp
         mawtribes/StonehornBeastriders.cpp
         mawtribes/ThundertuskBeastriders.cpp
+        mawtribes/FrostSabres.cpp
+        mawtribes/IcebrowHunter.cpp
+        mawtribes/IcefallYhetees.cpp
+        mawtribes/MournfangPack.cpp
 
         ossiarch/OssiarchBonereaperBase.cpp
         ossiarch/MortekGuard.cpp

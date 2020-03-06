@@ -19,7 +19,13 @@ class ThundertuskBeastriders : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 0;
+    enum WeaponOption
+    {
+        Chaintrap,
+        BloodVulture
+    };
+
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 300;
 
@@ -32,18 +38,23 @@ public:
     ThundertuskBeastriders();
     ~ThundertuskBeastriders() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
     int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    void onStartShooting(PlayerId player) override;
 
 private:
 
+    WeaponOption m_option = Chaintrap;
+
     Weapon m_harpoon,
         m_chaintrap,
+        m_vulture,
         m_ice,
         m_kicks,
         m_tusks;
@@ -55,9 +66,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blasts of Frost-wreathed Ice     No
-// Numbing Chill                    No
-// Blood Vulture                    No
+// Blasts of Frost-wreathed Ice     Yes
+// Numbing Chill                    Yes
+// Blood Vulture                    Yes
 //
 
 } // namespace OgorMawtribes

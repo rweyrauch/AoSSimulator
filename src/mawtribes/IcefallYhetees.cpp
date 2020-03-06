@@ -6,19 +6,19 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
-#include "mawtribes/Gorgers.h"
+#include "mawtribes/IcefallYhetees.h"
 
 namespace OgorMawtribes
 {
 static FactoryMethod factoryMethod = {
-    Gorgers::Create,
+    IcefallYhetees::Create,
     MawtribesBase::ValueToString,
     MawtribesBase::EnumStringToInt,
-    Gorgers::ComputePoints,
+    IcefallYhetees::ComputePoints,
     {
         {
-            ParamType::Integer, "Models", Gorgers::MIN_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE,
-            Gorgers::MAX_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE
+            ParamType::Integer, "Models", IcefallYhetees::MIN_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE,
+            IcefallYhetees::MAX_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE
         },
         {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
     },
@@ -26,11 +26,11 @@ static FactoryMethod factoryMethod = {
     { OGOR_MAWTRIBES }
 };
 
-bool Gorgers::s_registered = false;
+bool IcefallYhetees::s_registered = false;
 
-Unit *Gorgers::Create(const ParameterList &parameters)
+Unit *IcefallYhetees::Create(const ParameterList &parameters)
 {
-    auto unit = new Gorgers();
+    auto unit = new IcefallYhetees();
 
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
@@ -46,25 +46,23 @@ Unit *Gorgers::Create(const ParameterList &parameters)
     return unit;
 }
 
-
-void Gorgers::Init()
+void IcefallYhetees::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Gorgers", factoryMethod);
+        s_registered = UnitFactory::Register("Icefall Yhetees", factoryMethod);
     }
 }
 
-Gorgers::Gorgers() :
-    MawtribesBase("Gorgers", 6, WOUNDS, 8, 6, false),
-    m_claws(Weapon::Type::Melee, "Long Claws", 1, 4, 3, 3, 0, 2),
-    m_jaw(Weapon::Type::Melee, "Distensible Jaw", 1, 1, 3, 3, -1, RAND_D3)
+IcefallYhetees::IcefallYhetees() :
+    MawtribesBase("Icefall Yhetees", 9, WOUNDS, 6, 6, false),
+    m_clawsAndClubs(Weapon::Type::Melee, "Claws and Ice-encrusted Clubs", 1, 3, 4, 3, -1, 2)
 {
-    m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, GORGERS};
-    m_weapons = {&m_claws, &m_jaw};
+    m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, ICEFALL_YHETESS};
+    m_weapons = {&m_clawsAndClubs};
 }
 
-bool Gorgers::configure(int numModels)
+bool IcefallYhetees::configure(int numModels)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
@@ -74,8 +72,7 @@ bool Gorgers::configure(int numModels)
     for (auto i = 0; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        model->addMeleeWeapon(&m_claws);
-        model->addMeleeWeapon(&m_jaw);
+        model->addMeleeWeapon(&m_clawsAndClubs);
         addModel(model);
     }
 
@@ -84,7 +81,7 @@ bool Gorgers::configure(int numModels)
     return true;
 }
 
-int Gorgers::ComputePoints(int numModels)
+int IcefallYhetees::ComputePoints(int numModels)
 {
     auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
     if (numModels == MAX_UNIT_SIZE)
