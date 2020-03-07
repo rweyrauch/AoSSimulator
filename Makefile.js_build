@@ -416,6 +416,16 @@ OBJECTS += \
         src/seraphon/Stegadon.o \
         src/seraphon/EngineOfTheGods.o \
         src/seraphon/SaurusVeteranColdOne.o \
+        src/seraphon/ChameleonSkinks.o \
+        src/seraphon/RipperdactylChief.o \
+        src/seraphon/TerradonChief.o \
+        src/seraphon/SaurusAstrolithBearer.o \
+        src/seraphon/SaurusEternityWarden.o \
+        src/seraphon/SkinkPriest.o \
+        src/seraphon/SkinkStarpriest.o \
+        src/seraphon/SkinkStarseer.o \
+        src/seraphon/LordKroak.o \
+        src/seraphon/SlannStarmaster.o \
         src/fyreslayers/AuricHearthguard.o \
         src/fyreslayers/HearthguardBerzerkers.o \
         src/fyreslayers/VulkiteBerzerkers.o \

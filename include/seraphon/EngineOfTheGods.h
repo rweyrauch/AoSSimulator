@@ -20,7 +20,7 @@ class EngineOfTheGods : public SeraphonBase
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 10;
+    static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 0;
 
     static Unit* Create(const ParameterList& parameters);
@@ -39,12 +39,11 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-
 private:
 
     Weapon m_javelins,
         m_horns,
+        m_jaws,
         m_stomps;
 
     static bool s_registered;
@@ -54,7 +53,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unstoppable Stampede             Yes
+// Armoured Crest                   No
+// Unstoppable Stampede             No
 // Steadfast Majesty                No
 // Cosmic Engine                    No
 //

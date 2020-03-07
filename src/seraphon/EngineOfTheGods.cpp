@@ -26,31 +26,32 @@ static FactoryMethod factoryMethod = {
 struct TableEntry
 {
     int m_move;
-    int m_cosmicEngine;
+    int m_hornDamage;
     int m_stompAttacks;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, EngineOfTheGods::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, EngineOfTheGods::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {8, 3, RAND_3D6},
-        {7, 3,  RAND_2D6},
-        {6, 2,  RAND_2D6},
-        {5, 2,  RAND_D6},
-        {4, 1,  RAND_D6}
+        {8, 4, 5},
+        {7, 3,  4},
+        {6, 2,  3},
+        {5, 2,  3},
+        {4, 1,  1}
     };
 
 bool EngineOfTheGods::s_registered = false;
 
 EngineOfTheGods::EngineOfTheGods() :
-    SeraphonBase("Engine of the Gods", 8, WOUNDS, 10, 4, false),
+    SeraphonBase("Engine of the Gods", 8, WOUNDS, 6, 4, false),
     m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
-    m_horns(Weapon::Type::Melee, "Massive Horns", 2, 4, 3, 3, -1, 2),
-    m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, RAND_3D6, 4, 4, 0, 1)
+    m_horns(Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4),
+    m_jaws(Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2),
+    m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, STEGADON, SKINK, MONSTER, HERO, PRIEST, SKINK_PRIEST, ENGINE_OF_THE_GODS};
-    m_weapons = {&m_javelins, &m_horns, &m_stomps};
+    m_keywords = {ORDER, SERAPHON, STEGADON, SKINK, MONSTER, HERO, ENGINE_OF_THE_GODS};
+    m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
 }
 
 bool EngineOfTheGods::configure()
@@ -58,6 +59,7 @@ bool EngineOfTheGods::configure()
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_javelins);
     model->addMeleeWeapon(&m_horns);
+    model->addMeleeWeapon(&m_jaws);
     model->addMeleeWeapon(&m_stomps);
     addModel(model);
 
@@ -109,14 +111,6 @@ int EngineOfTheGods::getDamageTableIndex() const
         }
     }
     return 0;
-}
-
-int EngineOfTheGods::toWoundModifier(const Weapon *weapon, const Unit *target) const
-{
-    // Unstoppable Stampede
-    auto mod = Unit::toWoundModifier(weapon, target);
-    if (m_charged) mod++;
-    return mod;
 }
 
 } //namespace Seraphon

@@ -41,7 +41,7 @@ public:
     TerradonRiders();
     ~TerradonRiders() override = default;
 
-    bool configure(int numModels, WeaponOption option, bool masterOfTheSkies);
+    bool configure(int numModels, WeaponOption option);
 
 protected:
 
@@ -51,8 +51,7 @@ private:
         m_javelinLeader,
         m_bolas,
         m_bolasLeader,
-        m_beak,
-        m_skyblade;
+        m_jaws;
 
     static bool s_registered;
 };
@@ -62,9 +61,6 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Deadly Cargo                     No
-// Sunleech Bolas                   No
-// Swooping Dive                    No
-// Skyblade                         No
 //
 
 } // namespace Seraphon

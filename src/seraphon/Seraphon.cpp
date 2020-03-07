@@ -26,6 +26,16 @@
 #include "seraphon/Stegadon.h"
 #include "seraphon/EngineOfTheGods.h"
 #include "seraphon/SaurusVeteranColdOne.h"
+#include "seraphon/ChameleonSkinks.h"
+#include "seraphon/RipperdactylChief.h"
+#include "seraphon/TerradonChief.h"
+#include "seraphon/SaurusEternityWarden.h"
+#include "seraphon/SaurusAstrolithBearer.h"
+#include "seraphon/LordKroak.h"
+#include "seraphon/SkinkStarseer.h"
+#include "seraphon/SkinkStarpriest.h"
+#include "seraphon/SkinkPriest.h"
+#include "seraphon/SlannStarmaster.h"
 
 namespace Seraphon
 {
@@ -61,6 +71,16 @@ void Init()
     Stegadon::Init();
     EngineOfTheGods::Init();
     SaurusScarVeteranOnColdOne::Init();
+    ChameleonSkinks::Init();
+    TerradonChief::Init();
+    RipperdactylChief::Init();
+    SaurusAstrolithBearer::Init();
+    SaurusEternityWarden::Init();
+    LordKroak::Init();
+    SkinkStarseer::Init();
+    SkinkPriest::Init();
+    SkinkStarpriest::Init();
+    SlannStarmaster::Init();
 }
 
 } //namespace Seraphon

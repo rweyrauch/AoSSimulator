@@ -53,7 +53,6 @@ private:
     Weapon m_warblade,
         m_warspear,
         m_greatblade,
-        m_jawsAndShield,
         m_forelimbs,
         m_jaws;
 
@@ -64,10 +63,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Pinned Down                      No
 // Blood Frenzy                     No
-// Bloodroar                        No
-// Stardrake Shield                 No
+// Celestite Warspear               No
+// Cold Ferocity                    No
+// Pinned Down                      No
+// Terror                           No
 // Saurian Savagery                 No
 //
 

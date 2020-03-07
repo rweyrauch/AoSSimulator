@@ -42,7 +42,7 @@ protected:
 private:
 
     Weapon m_spittle,
-        m_bite,
+        m_jaws,
         m_forelimbs,
         m_rod;
 
@@ -53,9 +53,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Divining Rod                     No
-// Primal Roar                      No
+// Oracle of the Slann              No
+// Regeneration                     No
+// Terror                           No
+// Venemous Spittle                 No
 // Drawn to the Screams             No
+// Comet's Call                     No
 //
 
 } // namespace Seraphon

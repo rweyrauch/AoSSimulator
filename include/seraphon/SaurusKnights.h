@@ -29,7 +29,7 @@ public:
     enum WeaponOption
     {
         CelestiteBlade,
-        CelestiteLance
+        CelestiteWarspear
     };
 
     static Unit* Create(const ParameterList& parameters);
@@ -46,8 +46,6 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    int runModifier() const override { if (m_wardrum) return 7; return 0; }
 
 private:
 
@@ -57,10 +55,10 @@ private:
 
     Weapon m_celestiteBlade,
         m_celestiteBladeAlpha,
-        m_celestiteLance,
-        m_celestiteLanceAlpha,
-        m_jawsAndShield,
-        m_coldOneBite;
+        m_celestiteSpear,
+        m_celestiteSpearAlpha,
+        m_jaws,
+        m_coldOneJaws;
 
     static bool s_registered;
 };
@@ -70,9 +68,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   No
-// Wardrum                          Yes
-// Stardrake Shields                Yes
-// Blazing Lances                   Yes
+// Wardrum                          No
+// Celestite Warspear               Yes
 //
 
 } // namespace Seraphon

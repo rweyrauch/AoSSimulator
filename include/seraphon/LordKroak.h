@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SAURUSOLDBLOOD_H
-#define SAURUSOLDBLOOD_H
+#ifndef LORDKROAK_H
+#define LORDKROAK_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -15,42 +15,28 @@
 namespace Seraphon
 {
 
-class SaurusOldblood : public SeraphonBase
+class LordKroak : public SeraphonBase
 {
 public:
 
     static const int BASESIZE = 32;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
-
-    enum WeaponOption
-    {
-        CelestiteMaul,
-        CelestiteWarblade,
-        CelestiteWarspear,
-        CelestiteGreatblade
-    };
+    static const int POINTS_PER_UNIT = 0;
 
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
     static void Init();
 
-    SaurusOldblood();
-    ~SaurusOldblood() override = default;
+    LordKroak();
+    ~LordKroak() override = default;
 
-    bool configure(WeaponOption option);
+    bool configure();
 
 protected:
 
 private:
 
-    Weapon m_maul,
-        m_warblade,
-        m_warspear,
-        m_greatblade,
-        m_jaws;
+    Weapon m_barrier;
 
     static bool s_registered;
 };
@@ -59,10 +45,16 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Wrath of the Seraphon            No
-// Cold Ferocity                    No
+// Arcane Vassal                    No
+// Azyrite Force Barrier            No
+// Dead for Innumerable Ages        No
+// Impeccable Foresight             No
+// Masters of Order                 No
+// Celestial Deliverance            No
+// Comet's Call                     No
+// Gift from the Heavens            No
 //
 
 } // namespace Seraphon
 
-#endif //SAURUSOLDBLOOD_H
+#endif //LORDKROAK_H

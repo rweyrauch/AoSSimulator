@@ -31,12 +31,12 @@ static FactoryMethod factoryMethod = {
 bool Kroxigor::s_registered = false;
 
 Kroxigor::Kroxigor() :
-    SeraphonBase("Kroxigor", 8, WOUNDS, 10, 4, false),
-    m_maul(Weapon::Type::Melee, "Drakebite Maul", 2, 4, 4, 3, 0, 2),
-    m_hammer(Weapon::Type::Melee, "Moon Hammer", 2, 1, 4, 3, -1, 2),
+    SeraphonBase("Kroxigor", 8, WOUNDS, 7, 4, false),
+    m_maul(Weapon::Type::Melee, "Drakebite Maul", 2, 4, 4, 3, -1, 2),
+    m_hammer(Weapon::Type::Melee, "Moon Hammer", 2, 0, 4, 3, -1, 2),
     m_jaws(Weapon::Type::Melee, "Vice-like Jaws", 1, 1, 4, 3, -1, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_GUARD};
+    m_keywords = {ORDER, SERAPHON, KROXIGOR};
     m_weapons = {&m_maul, &m_hammer, &m_jaws};
 }
 
@@ -104,17 +104,6 @@ int Kroxigor::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
-}
-
-Rerolls Kroxigor::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Energy Transference
-    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKINKS, 3.0f);
-    if (unit)
-    {
-        return RerollOnes;
-    }
-    return Unit::toWoundRerolls(weapon, target);
 }
 
 } //namespace Seraphon

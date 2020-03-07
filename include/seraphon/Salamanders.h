@@ -20,9 +20,11 @@ class Salamanders : public SeraphonBase
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
+    static const int BASESIZE_SALAMANDER = 32;
+    static const int WOUNDS = 1;
+    static const int WOUNDS_SALAMANDER = 3;
+    static const int MIN_UNIT_SIZE = 4;
+    static const int MAX_UNIT_SIZE = 4;
     static const int POINTS_PER_BLOCK = 50;
     static const int POINTS_MAX_UNIT_SIZE = 120;
 
@@ -40,7 +42,8 @@ protected:
 private:
 
     Weapon m_streamOfFire,
-        m_bite;
+        m_jaws,
+        m_goad;
 
     static bool s_registered;
 };
@@ -49,8 +52,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Goaded to Fury                   No
-// It Burns!
+// It Burns!                        No
 //
 
 } // namespace Seraphon

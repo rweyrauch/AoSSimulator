@@ -27,7 +27,7 @@ struct TableEntry
 {
     int m_move;
     int m_forelimbToHit;
-    int m_jawsAttacks;
+    int m_jawsDamage;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
@@ -35,22 +35,22 @@ static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SaurusOldbloodOnC
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 3, 5},
-        {10,  4,  4},
+        {9,  4,  4},
         {8,  4,  3},
-        {8,  5,  2},
+        {7,  5,  2},
         {6,  5,  1}
     };
 
 bool SaurusOldbloodOnCarnosaur::s_registered = false;
 
 SaurusOldbloodOnCarnosaur::SaurusOldbloodOnCarnosaur() :
-    SeraphonBase("Saurus Oldblood on Carnosaur", 10, WOUNDS, 10, 4, false),
+    SeraphonBase("Saurus Oldblood on Carnosaur", 10, WOUNDS, 8, 4, false),
     m_gauntlet(Weapon::Type::Missile, "Sunbolt Gauntlet", 18, RAND_D6, 3, 4, -1, 1),
-    m_spear(Weapon::Type::Melee, "Sunstone Spear", 2, 3, 3, 3, -1, RAND_D3),
-    m_forelimbs(Weapon::Type::Melee, "Carnosaur's Clawed Forelimbs", 2, 2,3, 3, 0, 2),
-    m_jaws(Weapon::Type::Melee, "Carnosaur's Massive Jaws", 2, 5, 4, 3, -1, 3)
+    m_spear(Weapon::Type::Melee, "Sunstone Spear", 2, 3, 3, 3, -1, 3),
+    m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2,3, 3, 0, 2),
+    m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SAURUS_OLDBLOOD};
+    m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
     m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
 }
 
@@ -97,7 +97,7 @@ void SaurusOldbloodOnCarnosaur::Init()
 void SaurusOldbloodOnCarnosaur::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_jaws.setAttacks(g_damageTable[damageIndex].m_jawsAttacks);
+    m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
     m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
 }
 

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKINKS_H
-#define SKINKS_H
+#ifndef CHAMELEONSKINKS_H
+#define CHAMELEONSKINKS_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -15,7 +15,7 @@
 namespace Seraphon
 {
 
-class Skinks : public SeraphonBase
+class ChameleonSkinks : public SeraphonBase
 {
 public:
 
@@ -26,39 +26,21 @@ public:
     static const int POINTS_PER_BLOCK = 70;
     static const int POINTS_MAX_UNIT_SIZE = 280;
 
-    enum WeaponOption
-    {
-        JavelinsDaggersAndBucklers,
-        BoltspittersAndClubs,
-        BoltspittersDaggersAndBucklers,
-        ClubsAndBucklers
-    };
-
     static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
     static int ComputePoints(int numModels);
     static void Init();
 
-    Skinks();
-    ~Skinks() override = default;
+    ChameleonSkinks();
+    ~ChameleonSkinks() override = default;
 
-    bool configure(int numModels, WeaponOption weapons);
+    bool configure(int numModels);
 
 protected:
 
-    int toSaveModifier(const Weapon *weapon) const override;
-
 private:
 
-    WeaponOption m_weaponOption = BoltspittersDaggersAndBucklers;
-
-    Weapon m_javelin,
-        m_boltspitter,
-        m_dagger,
-        m_daggerAlpha,
-        m_club,
-        m_clubAlpha;
+    Weapon m_dartpipe,
+        m_dagger;
 
     static bool s_registered;
 };
@@ -67,10 +49,11 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Star-buckler                     Yes
-// Swarming Cohort                  No
+// Chameleon Ambush                 No
+// Perfect Mimicry                  No
+// Star-venom                       No
 //
 
 } // namespace Seraphon
 
-#endif //SKINKS_H
+#endif //CAMELEONSKINKS_H

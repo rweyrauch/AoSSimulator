@@ -20,9 +20,11 @@ class Razordons : public SeraphonBase
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
+    static const int BASESIZE_RAZORDON = 32;
+    static const int WOUNDS = 1;
+    static const int WOUNDS_RAZORDON = 3;
+    static const int MIN_UNIT_SIZE = 4;
+    static const int MAX_UNIT_SIZE = 4;
     static const int POINTS_PER_BLOCK = 50;
     static const int POINTS_MAX_UNIT_SIZE = 120;
 
@@ -42,7 +44,8 @@ protected:
 private:
 
     Weapon m_spikes,
-        m_biteAndTail;
+        m_tail,
+        m_goad;
 
     static bool s_registered;
 };
@@ -53,7 +56,6 @@ private:
 // -------------------------------------------
 // Piercing Barbs                   Yes
 // Instinctive Defense              No
-// Goaded to Anger                  No
 //
 
 } // namespace Seraphon

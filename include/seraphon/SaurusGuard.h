@@ -20,7 +20,7 @@ class SaurusGuard : public SeraphonBase
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
+    static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
     static const int POINTS_PER_BLOCK = 80;
@@ -37,10 +37,6 @@ public:
 
 protected:
 
-    int braveryModifier() const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    int runModifier() const override { if (m_wardrum) return 5; return 0; }
-
 private:
 
     bool m_iconBearer = false;
@@ -48,7 +44,7 @@ private:
 
     Weapon m_celestitePolearm,
         m_celestitePolearmAlpha,
-        m_jawsAndShield;
+        m_jaws;
 
     static bool s_registered;
 };
@@ -58,9 +54,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   No
-// Wardrum                          Yes
-// Stardrake Shields                Yes
-// Sworn Guardians                  Yes
+// Wardrum                          No
+// Selfless Protectors              No
 //
 
 } // namespace Seraphon

@@ -32,12 +32,13 @@ static FactoryMethod factoryMethod = {
 bool Salamanders::s_registered = false;
 
 Salamanders::Salamanders() :
-    SeraphonBase("Salamanders", 8, WOUNDS, 10, 5, false),
-    m_streamOfFire(Weapon::Type::Missile, "Stream of Fire", 8, 1, 3, 3, -2, RAND_D6),
-    m_bite(Weapon::Type::Melee, "Corrosive Bite", 1, 3, 3, 3, -1, 1)
+    SeraphonBase("Salamanders", 8, WOUNDS, 5, 4, false),
+    m_streamOfFire(Weapon::Type::Missile, "Stream of Fire", 12, 4, 3, 3, -2, RAND_D3),
+    m_jaws(Weapon::Type::Melee, "Burning Jaws", 1, 3, 3, 3, -2, RAND_D3),
+    m_goad(Weapon::Type::Melee, "Celestite Goad", 1, 1,4, 5, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SALAMANDERS};
-    m_weapons = {&m_streamOfFire, &m_bite};
+    m_keywords = {ORDER, SERAPHON, SKINK, SALAMANDER, HUNTING_PACK};
+    m_weapons = {&m_streamOfFire, &m_jaws, &m_goad};
 }
 
 bool Salamanders::configure(int numModels)
@@ -46,11 +47,16 @@ bool Salamanders::configure(int numModels)
     {
         return false;
     }
-    for (auto i = 0; i < numModels; i++)
+
+    auto salamander = new Model(BASESIZE_SALAMANDER, WOUNDS_SALAMANDER);
+    salamander->addMissileWeapon(&m_streamOfFire);
+    salamander->addMeleeWeapon(&m_jaws);
+    addModel(salamander);
+
+    for (auto i = 1; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        model->addMissileWeapon(&m_streamOfFire);
-        model->addMeleeWeapon(&m_bite);
+        model->addMeleeWeapon(&m_goad);
         addModel(model);
     }
 

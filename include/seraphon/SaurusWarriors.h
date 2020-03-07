@@ -46,9 +46,6 @@ public:
 protected:
 
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    int runModifier() const override { if (m_wardrum) return 5; return 0; }
 
 private:
 
@@ -60,7 +57,7 @@ private:
         m_celestiteClubAlpha,
         m_celestiteSpear,
         m_celestiteSpearAlpha,
-        m_jawsAndShield;
+        m_jaws;
 
     static bool s_registered;
 };
@@ -70,8 +67,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   No
-// Wardrum                          Yes
-// Stardrake Shields                Yes
+// Wardrum                          No
 // Ordered Cohort                   Yes
 //
 

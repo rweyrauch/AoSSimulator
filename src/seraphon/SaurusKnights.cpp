@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
         },
         {
             ParamType::Enum, "Weapons", SaurusKnights::CelestiteBlade, SaurusKnights::CelestiteBlade,
-            SaurusKnights::CelestiteLance, 1
+            SaurusKnights::CelestiteWarspear, 1
         },
         {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
         {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
@@ -35,16 +35,16 @@ static FactoryMethod factoryMethod = {
 bool SaurusKnights::s_registered = false;
 
 SaurusKnights::SaurusKnights() :
-    SeraphonBase("Saurus Knights", 7, WOUNDS, 10, 5, false),
-    m_celestiteBlade(Weapon::Type::Melee, "Celestite Blade", 1, 1, 3, 3, 0, 1),
-    m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade", 1, 2, 3, 3, 0, 1),
-    m_celestiteLance(Weapon::Type::Melee, "Celestite Lance", 1, 1, 4, 3, 0, 1),
-    m_celestiteLanceAlpha(Weapon::Type::Melee, "Celestite Lance", 1, 2, 4, 3, 0, 1),
-    m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1),
-    m_coldOneBite(Weapon::Type::Melee, "Cold One's Vicious Bite", 1, 2, 3, 4, 0, 1)
+    SeraphonBase("Saurus Knights", 8, WOUNDS, 8, 4, false),
+    m_celestiteBlade(Weapon::Type::Melee, "Celestite Blade", 1, 2, 3, 3, 0, 1),
+    m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade", 1, 3, 3, 3, 0, 1),
+    m_celestiteSpear(Weapon::Type::Melee, "Celestite Warspear", 1, 2, 4, 3, 0, 1),
+    m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Warspear", 1, 3, 4, 3, 0, 1),
+    m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1),
+    m_coldOneJaws(Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_KNIGHTS};
-    m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteLance, &m_celestiteLanceAlpha, &m_jawsAndShield, &m_coldOneBite};
+    m_keywords = {ORDER, SERAPHON, SAURUS, COLD_ONE, SAURUS_KNIGHTS};
+    m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws, &m_coldOneJaws};
 }
 
 bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons, bool iconBearer, bool wardrum)
@@ -64,12 +64,12 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
     {
         alpha->addMeleeWeapon(&m_celestiteBladeAlpha);
     }
-    else if (m_weaponOption == CelestiteLance)
+    else if (m_weaponOption == CelestiteWarspear)
     {
-        alpha->addMeleeWeapon(&m_celestiteLanceAlpha);
+        alpha->addMeleeWeapon(&m_celestiteSpearAlpha);
     }
-    alpha->addMeleeWeapon(&m_jawsAndShield);
-    alpha->addMeleeWeapon(&m_coldOneBite);
+    alpha->addMeleeWeapon(&m_jaws);
+    alpha->addMeleeWeapon(&m_coldOneJaws);
     addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
@@ -80,12 +80,12 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
         {
             model->addMeleeWeapon(&m_celestiteBlade);
         }
-        else if (m_weaponOption == CelestiteLance)
+        else if (m_weaponOption == CelestiteWarspear)
         {
-            model->addMeleeWeapon(&m_celestiteLance);
+            model->addMeleeWeapon(&m_celestiteSpear);
         }
-        model->addMeleeWeapon(&m_jawsAndShield);
-        model->addMeleeWeapon(&m_coldOneBite);
+        model->addMeleeWeapon(&m_jaws);
+        model->addMeleeWeapon(&m_coldOneJaws);
         addModel(model);
     }
 
@@ -116,7 +116,7 @@ std::string SaurusKnights::ValueToString(const Parameter &parameter)
     if (std::string(parameter.name) == "Weapons")
     {
         if (parameter.intValue == CelestiteBlade) { return "Celestite Blade"; }
-        else if (parameter.intValue == CelestiteLance) { return "Celestite Lance"; }
+        else if (parameter.intValue == CelestiteWarspear) { return "Celestite Warspear"; }
     }
     return SeraphonBase::ValueToString(parameter);
 }
@@ -124,7 +124,7 @@ std::string SaurusKnights::ValueToString(const Parameter &parameter)
 int SaurusKnights::EnumStringToInt(const std::string &enumString)
 {
     if (enumString == "Celestite Blade") { return CelestiteBlade; }
-    else if (enumString == "Celestite Lance") { return CelestiteLance; }
+    else if (enumString == "Celestite Warspear") { return CelestiteWarspear; }
     return SeraphonBase::EnumStringToInt(enumString);
 }
 
@@ -138,25 +138,12 @@ void SaurusKnights::Init()
 
 Wounds SaurusKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
-    // Blazing Lances
-    if ((hitRoll >= 6) && m_charged && (weapon->name() == m_celestiteLance.name()))
+    // Celestite Warspear
+    if ((hitRoll >= 6) && m_charged && (weapon->name() == m_celestiteSpear.name()))
     {
         return {weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-int SaurusKnights::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = Unit::toSaveModifier(weapon);
-
-    // Stardrake Shields - ignore rend of -1 by cancelling it out.
-    if (weapon->rend() == -1)
-    {
-        modifier = -weapon->rend();
-    }
-
-    return modifier;
 }
 
 int SaurusKnights::ComputePoints(int numModels)

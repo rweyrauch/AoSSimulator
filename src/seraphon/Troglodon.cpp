@@ -27,7 +27,7 @@ struct TableEntry
 {
     int m_move;
     int m_spittleRange;
-    int m_biteToWound;
+    int m_jawsToWound;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
@@ -44,21 +44,21 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
 bool Troglodon::s_registered = false;
 
 Troglodon::Troglodon() :
-    SeraphonBase("Troglodon", 10, WOUNDS, 10, 4, false),
+    SeraphonBase("Skink Oracle on Troglodon", 10, WOUNDS, 6, 4, false),
     m_spittle(Weapon::Type::Missile, "Noxious Spittle", 18, RAND_D3, 3, 3, 0, 2),
-    m_bite(Weapon::Type::Melee, "Venomous Bite", 2, 6, 4, 2, 0, 2),
-    m_forelimbs(Weapon::Type::Melee, "Troglodon's Clawed Forelimbs", 2, 2,4, 3, 0, 2),
-    m_rod(Weapon::Type::Melee, "Skink Oracle's Divining Rod", 1, 1, 4, 5, 0, 1)
+    m_jaws(Weapon::Type::Melee, "Venomous Jaws", 2, 3, 4, 2, 0, 2),
+    m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2,4, 3, 0, 2),
+    m_rod(Weapon::Type::Melee, "Divining Rod", 1, 2, 4, 4, -1, RAND_D3)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINK, MONSTER, TROGLODON};
-    m_weapons = {&m_spittle, &m_bite, &m_forelimbs, &m_rod};
+    m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
+    m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
 }
 
 bool Troglodon::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_spittle);
-    model->addMeleeWeapon(&m_bite);
+    model->addMeleeWeapon(&m_jaws);
     model->addMeleeWeapon(&m_forelimbs);
     model->addMeleeWeapon(&m_rod);
     addModel(model);
@@ -98,7 +98,7 @@ void Troglodon::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_spittle.setRange(g_damageTable[damageIndex].m_spittleRange);
-    m_bite.setToWound(g_damageTable[damageIndex].m_biteToWound);
+    m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
 }
 
 int Troglodon::getDamageTableIndex() const

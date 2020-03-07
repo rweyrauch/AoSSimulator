@@ -38,7 +38,7 @@ public:
     Stegadon();
     ~Stegadon() override = default;
 
-    bool configure(WeaponOption option);
+    bool configure(WeaponOption option, bool skinkChief);
 
     int move() const override;
 
@@ -47,14 +47,14 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-
 private:
 
     Weapon m_javelins,
         m_bow,
         m_throwers,
+        m_warspear,
         m_horns,
+        m_jaws,
         m_stomps;
 
     static bool s_registered;
@@ -64,10 +64,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unstoppable Stampede             Yes
-// Steadfast Majesty                No
+// Armoured Crest                   No
 // Gout of Sunfire                  No
-// Skink Alpha                      No
+// Steadfast Majesty                No
+// Unstoppable Stampede             No
+// Skink Chief                      No
+// Coordinated Strike               No
 //
 
 } // namespace Seraphon

@@ -37,8 +37,8 @@ protected:
 private:
 
     Weapon m_warpick,
-        m_jawsAndShield,
-        m_bite;
+        m_jaws,
+        m_coldOneJaws;
 
     static bool s_registered;
 };
@@ -47,10 +47,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Fury of the Seraphon             No
-// Stardrake Shield                 No
-// Savage Charge                    No
-//
+// Cold Ferocity                    No
+// Saurian Savagery                 No
 
 } // namespace Seraphon
 

@@ -42,8 +42,7 @@ private:
 
     Weapon m_spear,
         m_spearAlpha,
-        m_claws,
-        m_beak;
+        m_jaws;
 
     static bool s_registered;
 };
@@ -52,8 +51,6 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Swooping Dive                    No
-// Star-bucklers                    No
 // Voracious Appetite               No
 // Toad Rage                        No
 //

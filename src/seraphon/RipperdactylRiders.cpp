@@ -30,14 +30,13 @@ static FactoryMethod factoryMethod = {
 bool RipperdactylRiders::s_registered = false;
 
 RipperdactylRiders::RipperdactylRiders() :
-    SeraphonBase("Ripperdactyl Riders", 14, WOUNDS, 10, 5, true),
-    m_spear(Weapon::Type::Melee, "Moonstone War-spear", 2, 1, 4, 4, 0, 1),
-    m_spearAlpha(Weapon::Type::Melee, "Moonstone War-spear", 2, 2, 4, 4, 0, 1),
-    m_claws(Weapon::Type::Melee, "Ripperdactyl's Slashing Claws", 1, 3, 3, 3, 0, 1),
-    m_beak(Weapon::Type::Melee, "Ripperdactyl's Vicious Beak", 1, 1, 4, 3, 0, 1)
+    SeraphonBase("Ripperdactyl Riders", 12, WOUNDS, 5, 5, true),
+    m_spear(Weapon::Type::Melee, "Moonstone Warspear", 1, 1, 4, 4, 0, 1),
+    m_spearAlpha(Weapon::Type::Melee, "Moonstone Warspear", 1, 2, 4, 4, 0, 1),
+    m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 3, 4, 3, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINK, RIPPERDACTYL_RIDERS};
-    m_weapons = {&m_spear, &m_spearAlpha, &m_claws, &m_beak};
+    m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, RIPPERDACTYL_RIDERS};
+    m_weapons = {&m_spear, &m_spearAlpha, &m_jaws};
 }
 
 bool RipperdactylRiders::configure(int numModels)
@@ -50,8 +49,7 @@ bool RipperdactylRiders::configure(int numModels)
     // Add the Alpha
     auto alpha = new Model(BASESIZE, WOUNDS);
     alpha->addMeleeWeapon(&m_spearAlpha);
-    alpha->addMeleeWeapon(&m_claws);
-    alpha->addMeleeWeapon(&m_beak);
+    alpha->addMeleeWeapon(&m_jaws);
     addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
@@ -59,8 +57,7 @@ bool RipperdactylRiders::configure(int numModels)
     {
         auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_spear);
-        model->addMeleeWeapon(&m_claws);
-        model->addMeleeWeapon(&m_beak);
+        model->addMeleeWeapon(&m_jaws);
         addModel(model);
     }
 

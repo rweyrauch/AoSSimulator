@@ -53,11 +53,12 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Pinned Down                      No
-// Blood Frenzy                     No
-// Bloodroar                        No
 // Blazing Sunbolts                 No
-// Ancient Warlord                  No
+// Blood Frenzy                     No
+// Cold Ferocity                    No
+// Pinned Down                      No
+// Terror                           No
+// Wrath of the Seraphon            No
 //
 
 } // namespace Seraphon

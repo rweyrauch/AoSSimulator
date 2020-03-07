@@ -27,7 +27,7 @@ struct TableEntry
 {
     int m_move;
     int m_forelimbToHit;
-    int m_jawsAttacks;
+    int m_jawsDamage;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
@@ -35,25 +35,24 @@ static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SaurusScarVeteran
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 3, 5},
-        {10,  4,  4},
+        {9,  4,  4},
         {8,  4,  3},
-        {8,  5,  2},
+        {7,  5,  2},
         {6,  5,  1}
     };
 
 bool SaurusScarVeteranOnCarnosaur::s_registered = false;
 
 SaurusScarVeteranOnCarnosaur::SaurusScarVeteranOnCarnosaur() :
-    SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, WOUNDS, 10, 4, false),
+    SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, WOUNDS, 8, 4, false),
     m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 6, 3, 3, 0, 1),
-    m_warspear(Weapon::Type::Melee, "Celestite War-spear", 2, 6, 4, 3, -1, 1),
+    m_warspear(Weapon::Type::Melee, "Celestite Warspear", 2, 6, 3, 3, 0, 1),
     m_greatblade(Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2),
-    m_jawsAndShield(Weapon::Type::Melee, "Fearsome Jaws and Stardrake Shield", 1, 1, 4, 3, 0, 1),
-    m_forelimbs(Weapon::Type::Melee, "Carnosaur's Clawed Forelimbs", 2, 2,3, 3, 0, 2),
-    m_jaws(Weapon::Type::Melee, "Carnosaur's Massive Jaws", 2, 5, 4, 3, -1, RAND_D3)
+    m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2,3, 3, 0, 2),
+    m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SAURUS_OLDBLOOD};
-    m_weapons = {&m_warblade, &m_warspear, &m_greatblade, &m_jawsAndShield, &m_forelimbs, &m_jaws};
+    m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SCAR_VETERAN};
+    m_weapons = {&m_warblade, &m_warspear, &m_greatblade, &m_forelimbs, &m_jaws};
 }
 
 bool SaurusScarVeteranOnCarnosaur::configure(WeaponOption option)
@@ -63,7 +62,7 @@ bool SaurusScarVeteranOnCarnosaur::configure(WeaponOption option)
     else if (option == CelestiteWarspear) model->addMeleeWeapon(&m_warspear);
     else if (option == CelestiteGreatblade) model->addMeleeWeapon(&m_greatblade);
     model->addMeleeWeapon(&m_forelimbs);
-    model->addMeleeWeapon(&m_jawsAndShield);
+    model->addMeleeWeapon(&m_jaws);
     addModel(model);
 
     m_points = ComputePoints(1);
@@ -120,7 +119,7 @@ void SaurusScarVeteranOnCarnosaur::Init()
 void SaurusScarVeteranOnCarnosaur::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_jaws.setAttacks(g_damageTable[damageIndex].m_jawsAttacks);
+    m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
     m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
 }
 

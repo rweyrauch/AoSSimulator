@@ -19,6 +19,8 @@ static FactoryMethod factoryMethod = {
     Stegadon::ComputePoints,
     {
         {ParamType::Enum, "Weapon", Stegadon::SkystreakBow, Stegadon::SkystreakBow, Stegadon::SunfireThrowers, 1},
+        {ParamType::Boolean, "Skink Chief", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+
     },
     ORDER,
     { SERAPHON }
@@ -27,36 +29,38 @@ static FactoryMethod factoryMethod = {
 struct TableEntry
 {
     int m_move;
-    int m_hornRend;
+    int m_hornDamage;
     int m_stompAttacks;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, Stegadon::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 9, Stegadon::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {8, -3, RAND_3D6},
-        {7,  -2,  RAND_2D6},
-        {6,  -2,  RAND_2D6},
-        {5,  -1,  RAND_D6},
-        {4,  -1,  RAND_D6}
+        {8, 4, 5},
+        {7,  3,  4},
+        {6,  2,  3},
+        {5,  2,  2},
+        {4,  1,  1}
     };
 
 bool Stegadon::s_registered = false;
 
 Stegadon::Stegadon() :
-    SeraphonBase("Stegadon", 8, WOUNDS, 10, 4, false),
+    SeraphonBase("Stegadon", 8, WOUNDS, 5, 4, false),
     m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
-    m_bow(Weapon::Type::Missile, "Skystreak Bow", 25, 3, 4, 3, -1, RAND_D3),
-    m_throwers(Weapon::Type::Missile, "Sunfire Throwers", 8, 1, 3, 3, 0, 1),
-    m_horns(Weapon::Type::Melee, "Massive Horns", 2, 3, 3, 3, -3, 2),
-    m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, RAND_3D6, 4, 3, 0, 1)
+    m_bow(Weapon::Type::Missile, "Skystreak Bow", 24, 3, 3, 3, -1, 3),
+    m_throwers(Weapon::Type::Missile, "Sunfire Throwers", 8, 1, 0, 0, 0, 0),
+    m_warspear(Weapon::Type::Melee, "Meteoric Warspear", 1, 3, 3, 3, -1, 1),
+    m_horns(Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4),
+    m_jaws(Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2),
+    m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINK, MONSTER, STEGADON};
-    m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_horns, &m_stomps};
+    m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, STEGADON};
+    m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
 }
 
-bool Stegadon::configure(WeaponOption option)
+bool Stegadon::configure(WeaponOption option, bool skinkChief)
 {
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_javelins);
@@ -82,8 +86,9 @@ Unit *Stegadon::Create(const ParameterList &parameters)
 {
     auto unit = new Stegadon();
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, SkystreakBow);
+    bool chief = GetBoolParam("Skink Chief", parameters, false);
 
-    bool ok = unit->configure(option);
+    bool ok = unit->configure(option, chief);
     if (!ok)
     {
         delete unit;
@@ -114,7 +119,7 @@ void Stegadon::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
-    m_horns.setRend(g_damageTable[damageIndex].m_hornRend);
+    m_horns.setDamage(g_damageTable[damageIndex].m_hornDamage);
 }
 
 int Stegadon::getDamageTableIndex() const
@@ -136,14 +141,6 @@ int Stegadon::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Sunfire Throwers") return SunfireThrowers;
 
     return SeraphonBase::EnumStringToInt(enumString);
-}
-
-int Stegadon::toWoundModifier(const Weapon *weapon, const Unit *target) const
-{
-    // Unstoppable Stampede
-    auto mod = Unit::toWoundModifier(weapon, target);
-    if (m_charged) mod++;
-    return mod;
 }
 
 } //namespace Seraphon

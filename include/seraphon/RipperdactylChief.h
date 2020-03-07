@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BASTILADON_H
-#define BASTILADON_H
+#ifndef RIPPERDACTYLCHIEF_H
+#define RIPPERDACTYLCHIEF_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -15,36 +15,30 @@
 namespace Seraphon
 {
 
-class Bastiladon : public SeraphonBase
+class RipperdactylChief : public SeraphonBase
 {
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 280;
+    static const int WOUNDS = 4;
+    static const int POINTS_PER_UNIT = 0;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
     static void Init();
 
-    Bastiladon();
-    ~Bastiladon() override = default;
+    RipperdactylChief();
+    ~RipperdactylChief() override = default;
 
     bool configure();
 
-    int save() const override;
-
 protected:
 
-    void onWounded() override;
-    int getDamageTableIndex() const;
 
 private:
 
-    Weapon m_beam,
-        m_javelins,
-        m_ark,
-        m_tail;
+    Weapon m_skyblade,
+        m_jaws;
 
     static bool s_registered;
 };
@@ -53,10 +47,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Light of the Heavens             No
-// Tide of Snakes                   No
+// Voracious Appetite               No
+// Ripperdactyl Assault             No
 //
 
 } // namespace Seraphon
 
-#endif //BASTILADON_H
+#endif //RIPPERDACTYLCHIEF_H

@@ -422,6 +422,16 @@ add_library(
         seraphon/Stegadon.cpp
         seraphon/EngineOfTheGods.cpp
         seraphon/SaurusVeteranColdOne.cpp
+        seraphon/ChameleonSkinks.cpp
+        seraphon/RipperdactylChief.cpp
+        seraphon/TerradonChief.cpp
+        seraphon/SaurusAstrolithBearer.cpp
+        seraphon/SaurusEternityWarden.cpp
+        seraphon/SkinkPriest.cpp
+        seraphon/SkinkStarpriest.cpp
+        seraphon/SkinkStarseer.cpp
+        seraphon/LordKroak.cpp
+        seraphon/SlannStarmaster.cpp
 
         fyreslayers/AuricHearthguard.cpp
         fyreslayers/HearthguardBerzerkers.cpp

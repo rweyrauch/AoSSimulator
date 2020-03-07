@@ -30,12 +30,13 @@ static FactoryMethod factoryMethod = {
 bool Razordons::s_registered = false;
 
 Razordons::Razordons() :
-    SeraphonBase("Razordons", 8, WOUNDS, 10, 4, false),
-    m_spikes(Weapon::Type::Missile, "Volley of Spikes", 12, RAND_2D6, 3, 4, 0, 1),
-    m_biteAndTail(Weapon::Type::Melee, "Fierce Bite and Spiked Tail", 1, 3, 4, 3, 0, 1)
+    SeraphonBase("Razordons", 8, WOUNDS, 5, 4, false),
+    m_spikes(Weapon::Type::Missile, "Volley of Spikes", 18, RAND_2D6, 3, 4, 0, 1),
+    m_tail(Weapon::Type::Melee, "Spiked Tail", 1, 3, 3, 3, -2, 2),
+    m_goad(Weapon::Type::Melee, "Celestite Goad", 1, 1,4, 5, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, RAZORDONS};
-    m_weapons = {&m_spikes, &m_biteAndTail};
+    m_keywords = {ORDER, SERAPHON, SKINK, RAZORDON, HUNTING_PACK};
+    m_weapons = {&m_spikes, &m_tail, &m_goad};
 }
 
 bool Razordons::configure(int numModels)
@@ -44,11 +45,16 @@ bool Razordons::configure(int numModels)
     {
         return false;
     }
-    for (auto i = 0; i < numModels; i++)
+
+    auto razordon = new Model(BASESIZE_RAZORDON, WOUNDS_RAZORDON);
+    razordon->addMissileWeapon(&m_spikes);
+    razordon->addMeleeWeapon(&m_tail);
+    addModel(razordon);
+
+    for (auto i = 1; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
-        model->addMissileWeapon(&m_spikes);
-        model->addMeleeWeapon(&m_biteAndTail);
+        model->addMeleeWeapon(&m_goad);
         addModel(model);
     }
 

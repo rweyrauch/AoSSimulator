@@ -42,7 +42,7 @@ public:
 
     virtual int bravery() const { return m_bravery; }
 
-    int save() const { return m_save; }
+    virtual int save() const { return m_save; }
 
     bool fly() const { return m_fly; }
 

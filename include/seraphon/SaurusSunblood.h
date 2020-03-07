@@ -37,7 +37,7 @@ protected:
 private:
 
     Weapon m_celestiteWarmace,
-        m_jawsAndShield;
+        m_jaws;
 
     static bool s_registered;
 };

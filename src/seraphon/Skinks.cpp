@@ -23,7 +23,7 @@ static FactoryMethod factoryMethod = {
             Skinks::MAX_UNIT_SIZE, Skinks::MIN_UNIT_SIZE
         },
         {
-            ParamType::Enum, "Weapons", Skinks::BoltspittersAndBucklers, Skinks::JavelinsAndBucklers,
+            ParamType::Enum, "Weapons", Skinks::BoltspittersDaggersAndBucklers, Skinks::JavelinsDaggersAndBucklers,
             Skinks::ClubsAndBucklers, 1
         },
     },
@@ -34,18 +34,16 @@ static FactoryMethod factoryMethod = {
 bool Skinks::s_registered = false;
 
 Skinks::Skinks() :
-    SeraphonBase("Skinks", 8, WOUNDS, 10, 6, false),
-    m_javelinMissile(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
-    m_boltspitterMissile(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
-    m_javelin(Weapon::Type::Melee, "Meteoric Javelin", 1, 1, 6, 5, 0, 1),
-    m_javelinAlpha(Weapon::Type::Melee, "Meteoric Javelin", 1, 2, 6, 5, 0, 1),
-    m_boltspitter(Weapon::Type::Melee, "Boltspitter", 1, 1, 5, 6, 0, 1),
-    m_boltspitterAlpha(Weapon::Type::Melee, "Boltspitter", 1, 2, 5, 6, 0, 1),
-    m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 5, 4, 0, 1),
-    m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 5, 4, 0, 1)
+    SeraphonBase("Skinks", 8, WOUNDS, 5, 6, false),
+    m_javelin(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
+    m_boltspitter(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
+    m_dagger(Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1),
+    m_daggerAlpha(Weapon::Type::Melee, "Celestite Dagger", 1, 2, 5, 5, 0, 1),
+    m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 4, 0, 1),
+    m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 4, 4, 0, 1)
 {
     m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
-    m_weapons = {&m_javelinMissile, &m_boltspitterMissile, &m_javelin, &m_javelinAlpha, &m_boltspitter, &m_boltspitterAlpha, &m_club, &m_clubAlpha};
+    m_weapons = {&m_javelin, &m_boltspitter, &m_dagger, &m_daggerAlpha, &m_club, &m_clubAlpha};
 }
 
 bool Skinks::configure(int numModels, WeaponOption weapons)
@@ -61,18 +59,17 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     auto alpha = new Model(BASESIZE, WOUNDS);
     switch (m_weaponOption)
     {
-        case JavelinsAndBucklers:
-            alpha->addMissileWeapon(&m_javelinMissile);
-            alpha->addMeleeWeapon(&m_javelinAlpha);
+        case JavelinsDaggersAndBucklers:
+            alpha->addMissileWeapon(&m_javelin);
+            alpha->addMeleeWeapon(&m_daggerAlpha);
             break;
-        case BoltspittersAndBucklers:
-            alpha->addMissileWeapon(&m_boltspitterMissile);
-            alpha->addMeleeWeapon(&m_boltspitterAlpha);
+        case BoltspittersDaggersAndBucklers:
+            alpha->addMissileWeapon(&m_boltspitter);
+            alpha->addMeleeWeapon(&m_daggerAlpha);
             break;
         case BoltspittersAndClubs:
-            alpha->addMissileWeapon(&m_boltspitterMissile);
+            alpha->addMissileWeapon(&m_boltspitter);
             alpha->addMeleeWeapon(&m_clubAlpha);
-            alpha->addMeleeWeapon(&m_boltspitterAlpha);
             break;
         case ClubsAndBucklers:
             alpha->addMeleeWeapon(&m_clubAlpha);
@@ -86,18 +83,17 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
         auto model = new Model(BASESIZE, WOUNDS);
         switch (m_weaponOption)
         {
-            case JavelinsAndBucklers:
-                model->addMissileWeapon(&m_javelinMissile);
-                model->addMeleeWeapon(&m_javelin);
+            case JavelinsDaggersAndBucklers:
+                model->addMissileWeapon(&m_javelin);
+                model->addMeleeWeapon(&m_dagger);
                 break;
-            case BoltspittersAndBucklers:
-                model->addMissileWeapon(&m_boltspitterMissile);
-                model->addMeleeWeapon(&m_boltspitter);
+            case BoltspittersDaggersAndBucklers:
+                model->addMissileWeapon(&m_boltspitter);
+                model->addMeleeWeapon(&m_dagger);
                 break;
             case BoltspittersAndClubs:
-                model->addMissileWeapon(&m_boltspitterMissile);
+                model->addMissileWeapon(&m_boltspitter);
                 model->addMeleeWeapon(&m_club);
-                model->addMeleeWeapon(&m_boltspitter);
                 break;
             case ClubsAndBucklers:
                 model->addMeleeWeapon(&m_club);
@@ -115,7 +111,7 @@ Unit *Skinks::Create(const ParameterList &parameters)
 {
     auto unit = new Skinks();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BoltspittersAndBucklers);
+    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BoltspittersDaggersAndBucklers);
 
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
@@ -138,20 +134,20 @@ std::string Skinks::ValueToString(const Parameter &parameter)
 {
     if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.intValue == JavelinsAndBucklers) { return "Javelins and Bucklers"; }
+        if (parameter.intValue == JavelinsDaggersAndBucklers) { return "Javelins, Daggers and Bucklers"; }
         else if (parameter.intValue == BoltspittersAndClubs) { return "Boltspitters and Clubs"; }
-        else if (parameter.intValue == BoltspittersAndBucklers) { return "Boltspitters and Bucklers"; }
-        else if (parameter.intValue == ClubsAndBucklers) { return "ClubsAndBucklers"; }
+        else if (parameter.intValue == BoltspittersDaggersAndBucklers) { return "Boltspitters, Daggers and Bucklers"; }
+        else if (parameter.intValue == ClubsAndBucklers) { return "Moonstone Clubs and Bucklers"; }
     }
     return SeraphonBase::ValueToString(parameter);
 }
 
 int Skinks::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Javelins and Bucklers") { return JavelinsAndBucklers; }
+    if (enumString == "Javelins, Daggers and Bucklers") { return JavelinsDaggersAndBucklers; }
     else if (enumString == "Boltspitters and Clubs") { return BoltspittersAndClubs; }
-    else if (enumString == "Boltspitters and Bucklers") { return BoltspittersAndBucklers; }
-    else if (enumString == "Clubs and Bucklers") { return ClubsAndBucklers; }
+    else if (enumString == "Boltspitters, Daggers and Bucklers") { return BoltspittersDaggersAndBucklers; }
+    else if (enumString == "Moonstone Clubs and Bucklers") { return ClubsAndBucklers; }
     return SeraphonBase::EnumStringToInt(enumString);
 }
 
@@ -159,7 +155,7 @@ int Skinks::toSaveModifier(const Weapon *weapon) const
 {
     int modifier = Unit::toSaveModifier(weapon);
 
-    if (m_weaponOption != BoltspittersAndBucklers)
+    if (m_weaponOption != BoltspittersAndClubs)
     {
         // Star-bucklers - ignore rend of -1 by cancelling it out.
         if (weapon->rend() == -1)
@@ -168,21 +164,6 @@ int Skinks::toSaveModifier(const Weapon *weapon) const
         }
     }
 
-    return modifier;
-}
-
-int Skinks::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Unit::toHitModifier(weapon, target);
-
-    // Celestial Cohort
-    if (weapon->isMissile())
-    {
-        if (remainingModels() >= 30)
-            modifier += 2;
-        else if (remainingModels() >= 20)
-            modifier += 1;
-    }
     return modifier;
 }
 

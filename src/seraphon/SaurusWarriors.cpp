@@ -35,15 +35,15 @@ static FactoryMethod factoryMethod = {
 bool SaurusWarriors::s_registered = false;
 
 SaurusWarriors::SaurusWarriors() :
-    SeraphonBase("Saurus Warriors", 5, WOUNDS, 10, 5, false),
-    m_celestiteClub(Weapon::Type::Melee, "Celestite Club", 1, 1, 4, 3, 0, 1),
-    m_celestiteClubAlpha(Weapon::Type::Melee, "Celestite Club", 1, 2, 4, 3, 0, 1),
-    m_celestiteSpear(Weapon::Type::Melee, "Celestite Spear", 2, 1, 4, 4, 0, 1),
-    m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Spear", 2, 2, 4, 4, 0, 1),
-    m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1)
+    SeraphonBase("Saurus Warriors", 5, WOUNDS, 8, 4, false),
+    m_celestiteClub(Weapon::Type::Melee, "Celestite Club", 1, 1, 4, 3, -1, 1),
+    m_celestiteClubAlpha(Weapon::Type::Melee, "Celestite Club", 1, 2, 4, 3, -1, 1),
+    m_celestiteSpear(Weapon::Type::Melee, "Celestite Spear", 2, 1, 4, 3, 0, 1),
+    m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Spear", 2, 2, 4, 3, 0, 1),
+    m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_WARRIORS};
-    m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jawsAndShield};
+    m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_WARRIORS};
+    m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws};
 }
 
 bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapons, bool iconBearer, bool wardrum)
@@ -67,7 +67,7 @@ bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapo
     {
         alpha->addMeleeWeapon(&m_celestiteSpearAlpha);
     }
-    alpha->addMeleeWeapon(&m_jawsAndShield);
+    alpha->addMeleeWeapon(&m_jaws);
     addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
@@ -82,7 +82,7 @@ bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapo
         {
             model->addMeleeWeapon(&m_celestiteSpear);
         }
-        model->addMeleeWeapon(&m_jawsAndShield);
+        model->addMeleeWeapon(&m_jaws);
         addModel(model);
     }
 
@@ -133,36 +133,14 @@ void SaurusWarriors::Init()
     }
 }
 
-int SaurusWarriors::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Unit::toHitModifier(weapon, target);
-    // Ordered Cohort
-    if (remainingModels() >= 20)
-        modifier += 1;
-    return modifier;
-}
-
 int SaurusWarriors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     // Ordered Cohort
-    if (((weapon->name() == m_celestiteSpear.name()) || (weapon->name() == m_celestiteClub.name())) && (remainingModels() >= 30))
+    if (((weapon->name() == m_celestiteSpear.name()) || (weapon->name() == m_celestiteClub.name())) && (remainingModels() >= 15))
     {
         return 1;
     }
     return 0;
-}
-
-int SaurusWarriors::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = Unit::toSaveModifier(weapon);
-
-    // Stardrake Shields - ignore rend of -1 by cancelling it out.
-    if (weapon->rend() == -1)
-    {
-        modifier = -weapon->rend();
-    }
-
-    return modifier;
 }
 
 int SaurusWarriors::ComputePoints(int numModels)

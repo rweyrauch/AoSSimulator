@@ -26,21 +26,21 @@ static FactoryMethod factoryMethod = {
 bool SaurusScarVeteranOnColdOne::s_registered = false;
 
 SaurusScarVeteranOnColdOne::SaurusScarVeteranOnColdOne() :
-    SeraphonBase("Saurus Scar-Veteran on Cold One", 10, WOUNDS, 10, 4, false),
-    m_warpick(Weapon::Type::Melee, "Celestite War-pick", 1, 3, 3, 3, -1, 1),
-    m_jawsAndShield(Weapon::Type::Melee, "Fearsome Jaws and Stardrake Shield", 1, 1, 4, 3, 0, 1),
-    m_bite(Weapon::Type::Melee, "Cold One's Vicious Bite", 1, 2, 3, 4, 0, 1)
+    SeraphonBase("Saurus Scar-Veteran on Cold One", 8, WOUNDS, 8, 4, false),
+    m_warpick(Weapon::Type::Melee, "Celestite Warpick", 1, 3, 3, 3, -1, 1),
+    m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1),
+    m_coldOneJaws(Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, HERO, SAURUS_SCAR_VETERAN_ON_COLD_ONE};
-    m_weapons = {&m_warpick, &m_jawsAndShield, &m_bite};
+    m_keywords = {ORDER, SERAPHON, SAURUS, HERO, COLD_ONE, SCAR_VETERAN};
+    m_weapons = {&m_warpick, &m_jaws, &m_coldOneJaws};
 }
 
 bool SaurusScarVeteranOnColdOne::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_warpick);
-    model->addMeleeWeapon(&m_bite);
-    model->addMeleeWeapon(&m_jawsAndShield);
+    model->addMeleeWeapon(&m_jaws);
+    model->addMeleeWeapon(&m_coldOneJaws);
     addModel(model);
 
     m_points = ComputePoints(1);

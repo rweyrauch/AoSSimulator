@@ -6,37 +6,37 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <seraphon/SaurusSunblood.h>
+#include <seraphon/SaurusEternityWarden.h>
 #include <UnitFactory.h>
 #include <Board.h>
 
 namespace Seraphon
 {
 static FactoryMethod factoryMethod = {
-    SaurusSunblood::Create,
+    SaurusEternityWarden::Create,
     SeraphonBase::ValueToString,
     SeraphonBase::EnumStringToInt,
-    SaurusSunblood::ComputePoints,
+    SaurusEternityWarden::ComputePoints,
     {},
     ORDER,
     { SERAPHON }
 };
 
-bool SaurusSunblood::s_registered = false;
+bool SaurusEternityWarden::s_registered = false;
 
-SaurusSunblood::SaurusSunblood() :
-    SeraphonBase("Saurus Sunblood", 5, WOUNDS, 8, 3, false),
-    m_celestiteWarmace(Weapon::Type::Melee, "Celestite Warmace", 1, 6, 3, 3, -1, 1),
+SaurusEternityWarden::SaurusEternityWarden() :
+    SeraphonBase("Saurus Eternity Warden", 5, WOUNDS, 8, 3, false),
+    m_mace(Weapon::Type::Melee, "Star-stone Mace", 1, 3, 3, 3, -1, 1),
     m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1)
 {
-    m_keywords = {ORDER, SERAPHON, SAURUS, HERO, SUNBLOOD};
-    m_weapons = {&m_celestiteWarmace, &m_jaws};
+    m_keywords = {ORDER, SERAPHON, SAURUS, HERO, ETERNITY_WARDEN};
+    m_weapons = {&m_mace, &m_jaws};
 }
 
-bool SaurusSunblood::configure()
+bool SaurusEternityWarden::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
-    model->addMeleeWeapon(&m_celestiteWarmace);
+    model->addMeleeWeapon(&m_mace);
     model->addMeleeWeapon(&m_jaws);
     addModel(model);
 
@@ -45,9 +45,9 @@ bool SaurusSunblood::configure()
     return true;
 }
 
-Unit *SaurusSunblood::Create(const ParameterList &parameters)
+Unit *SaurusEternityWarden::Create(const ParameterList &parameters)
 {
-    auto unit = new SaurusSunblood();
+    auto unit = new SaurusEternityWarden();
 
     bool ok = unit->configure();
     if (!ok)
@@ -58,11 +58,11 @@ Unit *SaurusSunblood::Create(const ParameterList &parameters)
     return unit;
 }
 
-void SaurusSunblood::Init()
+void SaurusEternityWarden::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Sunblood", factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Eternity Warden", factoryMethod);
     }
 }
 

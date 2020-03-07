@@ -32,13 +32,13 @@ static FactoryMethod factoryMethod = {
 bool SaurusGuard::s_registered = false;
 
 SaurusGuard::SaurusGuard() :
-    SeraphonBase("Saurus Guard", 5, WOUNDS, 10, 4, false),
+    SeraphonBase("Saurus Guard", 5, WOUNDS, 8, 4, false),
     m_celestitePolearm(Weapon::Type::Melee, "Celestite Polearm", 1, 2, 3, 3, -1, 1),
     m_celestitePolearmAlpha(Weapon::Type::Melee, "Celestite Polearm", 1, 3, 3, 3, -1, 1),
-    m_jawsAndShield(Weapon::Type::Melee, "Powerful Jaws and Stardrake Shield", 1, 1, 5, 4, 0, 1)
+    m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, SAURUS_GUARD};
-    m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jawsAndShield};
+    m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_GUARD};
+    m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jaws};
 }
 
 bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
@@ -54,7 +54,7 @@ bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
     // Add the Alpha
     auto alpha = new Model(BASESIZE, WOUNDS);
     alpha->addMeleeWeapon(&m_celestitePolearmAlpha);
-    alpha->addMeleeWeapon(&m_jawsAndShield);
+    alpha->addMeleeWeapon(&m_jaws);
     addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
@@ -62,7 +62,7 @@ bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
     {
         auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_celestitePolearm);
-        model->addMeleeWeapon(&m_jawsAndShield);
+        model->addMeleeWeapon(&m_jaws);
         addModel(model);
     }
 
@@ -93,47 +93,6 @@ void SaurusGuard::Init()
     {
         s_registered = UnitFactory::Register("Saurus Guard", factoryMethod);
     }
-}
-
-int SaurusGuard::braveryModifier() const
-{
-    int modifier = Unit::braveryModifier();
-
-    // Sworn Gardians
-    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(HERO) && ip->hasKeyword(SERAPHON))
-        {
-            modifier += 2;
-            break;
-        }
-    }
-    return modifier;
-}
-
-int SaurusGuard::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = Unit::toSaveModifier(weapon);
-
-    // Sworn Gardians
-    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(HERO) && ip->hasKeyword(SERAPHON))
-        {
-            modifier += 1;
-            break;
-        }
-    }
-
-    // Stardrake Shields - ignore rend of -1 by cancelling it out.
-    if (weapon->rend() == -1)
-    {
-        modifier = -weapon->rend();
-    }
-
-    return modifier;
 }
 
 int SaurusGuard::ComputePoints(int numModels)

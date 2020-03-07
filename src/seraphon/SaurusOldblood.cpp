@@ -18,7 +18,7 @@ static FactoryMethod factoryMethod = {
     SaurusOldblood::EnumStringToInt,
     SaurusOldblood::ComputePoints,
     {
-        {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::SuntoothMaul, SaurusOldblood::CelestiteGreatblade, 1}
+        {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::CelestiteMaul, SaurusOldblood::CelestiteGreatblade, 1}
     },
     ORDER,
     { SERAPHON }
@@ -27,21 +27,21 @@ static FactoryMethod factoryMethod = {
 bool SaurusOldblood::s_registered = false;
 
 SaurusOldblood::SaurusOldblood() :
-    SeraphonBase("Saurus Oldblood", 5, WOUNDS, 10, 4, false),
-    m_maul(Weapon::Type::Melee, "Suntooth Maul", 1, 2, 3, 4, -1, RAND_D3),
-    m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 4, 3, 3, 0, 1),
-    m_warspear(Weapon::Type::Melee, "Celestite War-spear", 2, 4, 4, 3, -1, 1),
-    m_greatblade(Weapon::Type::Melee, "Celestite Greatblade", 1, 2, 4, 3, -1, 2),
-    m_jawsAndShield(Weapon::Type::Melee, "Fearsome Jaws and Stardrake Shield", 1, 1, 4, 3, 0, 1)
+    SeraphonBase("Saurus Oldblood", 5, WOUNDS, 8, 3, false),
+    m_maul(Weapon::Type::Melee, "Celestite Maul", 1, 3, 4, 3, -1, RAND_D3),
+    m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1),
+    m_warspear(Weapon::Type::Melee, "Celestite Warspear", 2, 4, 3, 3, 0, 1),
+    m_greatblade(Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2),
+    m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SAURUS, HERO, SAURUS_OLDBLOOD};
-    m_weapons = {&m_maul, &m_warblade, &m_warspear, &m_greatblade, &m_jawsAndShield};
+    m_keywords = {ORDER, SERAPHON, SAURUS, HERO, OLDBLOOD};
+    m_weapons = {&m_maul, &m_warblade, &m_warspear, &m_greatblade, &m_jaws};
 }
 
 bool SaurusOldblood::configure(WeaponOption option)
 {
     auto model = new Model(BASESIZE, WOUNDS);
-    if (option == SuntoothMaul)
+    if (option == CelestiteMaul)
     {
         model->addMeleeWeapon(&m_maul);
     }
@@ -57,7 +57,7 @@ bool SaurusOldblood::configure(WeaponOption option)
     {
         model->addMeleeWeapon(&m_greatblade);
     }
-    model->addMeleeWeapon(&m_jawsAndShield);
+    model->addMeleeWeapon(&m_jaws);
     addModel(model);
 
     m_points = ComputePoints(1);
@@ -91,7 +91,7 @@ std::string SaurusOldblood::ValueToString(const Parameter &parameter)
 {
     if (std::string(parameter.name) == "Weapon")
     {
-        if (parameter.intValue == SuntoothMaul) return "Suntooth Maul";
+        if (parameter.intValue == CelestiteMaul) return "Celestite Maul";
         else if (parameter.intValue == CelestiteWarblade) return "Celestite Warblade";
         else if (parameter.intValue == CelestiteWarspear) return "Celestite War-spear";
         else if (parameter.intValue == CelestiteGreatblade) return "Celestite Greatblade";
@@ -101,7 +101,7 @@ std::string SaurusOldblood::ValueToString(const Parameter &parameter)
 
 int SaurusOldblood::EnumStringToInt(const std::string &enumString)
 {
-    if (enumString == "Suntooth Maul") return SuntoothMaul;
+    if (enumString == "Celestite Maul") return CelestiteMaul;
     else if (enumString == "Celestite Warblade") return CelestiteWarblade;
     else if (enumString == "Celestite War-spear") return CelestiteWarspear;
     else if (enumString == "Celestite Greatblade") return CelestiteGreatblade;

@@ -23,7 +23,6 @@ static FactoryMethod factoryMethod = {
             TerradonRiders::MAX_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE
         },
         {ParamType::Enum, "Weapons", TerradonRiders::StarstrikeJavelins, TerradonRiders::StarstrikeJavelins, TerradonRiders::SunleechBolas, 1},
-        {ParamType::Boolean, "Master of the Skies", SIM_FALSE, SIM_FALSE, SIM_TRUE, 0}
     },
     ORDER,
     { SERAPHON }
@@ -32,47 +31,36 @@ static FactoryMethod factoryMethod = {
 bool TerradonRiders::s_registered = false;
 
 TerradonRiders::TerradonRiders() :
-    SeraphonBase("Terradon Riders", 14, WOUNDS, 10, 5, true),
-    m_javelin(Weapon::Type::Missile, "Starstrike Javelin", 10, 2, 4, 3, 0, 1),
-    m_javelinLeader(Weapon::Type::Missile, "Starstrike Javelin", 10, 2, 3, 3, 0, 1),
-    m_bolas(Weapon::Type::Missile, "Sunleech Bolas", 5, 1, 4, 4, 0, 1),
-    m_bolasLeader(Weapon::Type::Missile, "Sunleech Bolas", 5, 1, 3, 4, 0, 1),
-    m_beak(Weapon::Type::Melee, "Terradon's Razor-sharp Beak", 1, 4, 4, 4, 0, 1),
-    m_skyblade(Weapon::Type::Melee, "Skyblade", 1, 3, 3, 4, 0, 1)
+    SeraphonBase("Terradon Riders", 16, WOUNDS, 5, 6, true),
+    m_javelin(Weapon::Type::Missile, "Starstrike Javelin", 12, 2, 4, 3, 0, 1),
+    m_javelinLeader(Weapon::Type::Missile, "Starstrike Javelin", 12, 3, 4, 3, 0, 1),
+    m_bolas(Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1),
+    m_bolasLeader(Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1),
+    m_jaws(Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINK, TERRADON_RIDERS};
-    m_weapons = {&m_javelin, &m_javelinLeader, &m_bolas, &m_bolasLeader, &m_beak, &m_skyblade};
+    m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, TERRADON_RIDERS};
+    m_weapons = {&m_javelin, &m_javelinLeader, &m_bolas, &m_bolasLeader, &m_jaws};
 }
 
-bool TerradonRiders::configure(int numModels, WeaponOption option, bool masterOfTheSkies)
+bool TerradonRiders::configure(int numModels, WeaponOption option)
 {
     if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
     {
         return false;
     }
 
-    if (masterOfTheSkies)
+    // Add the Alpha
+    auto alpha = new Model(BASESIZE, WOUNDS);
+    if (option == StarstrikeJavelins)
     {
-        auto master = new Model(BASESIZE, WOUNDS);
-        master->addMeleeWeapon(&m_skyblade);
-        master->addMeleeWeapon(&m_beak);
-        addModel(master);
+        alpha->addMissileWeapon(&m_javelinLeader);
     }
-    else
+    else if (option == SunleechBolas)
     {
-        // Add the Alpha
-        auto alpha = new Model(BASESIZE, WOUNDS);
-        if (option == StarstrikeJavelins)
-        {
-            alpha->addMissileWeapon(&m_javelinLeader);
-        }
-        else if (option == SunleechBolas)
-        {
-            alpha->addMissileWeapon(&m_bolasLeader);
-        }
-        alpha->addMeleeWeapon(&m_beak);
-        addModel(alpha);
+        alpha->addMissileWeapon(&m_bolasLeader);
     }
+    alpha->addMeleeWeapon(&m_jaws);
+    addModel(alpha);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
@@ -86,7 +74,7 @@ bool TerradonRiders::configure(int numModels, WeaponOption option, bool masterOf
         {
             model->addMissileWeapon(&m_bolas);
         }
-        model->addMeleeWeapon(&m_beak);
+        model->addMeleeWeapon(&m_jaws);
         addModel(model);
     }
 
@@ -100,9 +88,8 @@ Unit *TerradonRiders::Create(const ParameterList &parameters)
     auto unit = new TerradonRiders();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto option = (WeaponOption)GetEnumParam("Weapons", parameters, StarstrikeJavelins);
-    bool master = GetBoolParam("Master of the Skies", parameters, false);
 
-    bool ok = unit->configure(numModels, option, master);
+    bool ok = unit->configure(numModels, option);
     if (!ok)
     {
         delete unit;
