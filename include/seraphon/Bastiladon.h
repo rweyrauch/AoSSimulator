@@ -39,6 +39,8 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_beam,
@@ -53,8 +55,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Light of the Heavens             No
-// Tide of Snakes                   No
+// Light of the Heavens             Yes
+// Tide of Snakes                   Yes
 //
 
 } // namespace Seraphon

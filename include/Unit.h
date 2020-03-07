@@ -215,6 +215,7 @@ protected:
     void castSpell();
     void makePrayer();
     const Model* nearestModel(const Model* model, const Unit* targetUnit) const;
+    int getModelsWithin(const Model* model, const Unit* targetUnit, float distance) const;
     void doPileIn();
 
     void timeoutBuffs(Phase phase, PlayerId player);

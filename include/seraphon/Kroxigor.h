@@ -37,6 +37,10 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_maul,
@@ -50,9 +54,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Battle Synergy                   No
-// Sweeping Blows                   No
-// Jaws like a Steel Trap           No
+// Battle Synergy                   Yes
+// Sweeping Blows                   Yes
+// Jaws like a Steel Trap           Yes
 //
 
 } // namespace Seraphon

@@ -1459,6 +1459,23 @@ void Unit::setRoster(Roster *roster)
     m_roster = roster;
 }
 
+int Unit::getModelsWithin(const Model* model, const Unit* targetUnit, float distance) const
+{
+    if (!targetUnit || targetUnit->m_models.empty()) { return 0; }
+
+    int count = 0;
+    for (const auto& m : targetUnit->m_models)
+    {
+        if (m->slain() || m->fled()) continue;
+
+        const auto dist = Model::distanceBetween(m.get(), model);
+        if (dist < distance)
+        {
+            count++;
+        }
+    }
+    return count;
+}
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :

@@ -39,6 +39,9 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    void onCharged() override;
+    void onStartShooting(PlayerId player) override;
+
 private:
 
     Weapon m_javelins,
@@ -54,9 +57,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Armoured Crest                   No
-// Unstoppable Stampede             No
+// Unstoppable Stampede             Yes
 // Steadfast Majesty                No
-// Cosmic Engine                    No
+// Cosmic Engine                    Partial
 //
 
 } // namespace Seraphon

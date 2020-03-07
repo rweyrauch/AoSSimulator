@@ -143,4 +143,20 @@ int Stegadon::EnumStringToInt(const std::string &enumString)
     return SeraphonBase::EnumStringToInt(enumString);
 }
 
+void Stegadon::onCharged()
+{
+    Unit::onCharged();
+
+    // Unstoppable Stampede
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+    for (auto unit : units)
+    {
+        if (dice.rollD6() >= 3)
+        {
+            unit->applyDamage({0, dice.rollD3()});
+        }
+    }
+}
+
 } //namespace Seraphon

@@ -90,4 +90,14 @@ int ChameleonSkinks::ComputePoints(int numModels)
     return points;
 }
 
+Wounds ChameleonSkinks::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Star-venom
+    if ((hitRoll == 6) && (weapon->name() == m_dartpipe.name()))
+    {
+        return { 0, 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace Seraphon

@@ -106,4 +106,34 @@ int Kroxigor::ComputePoints(int numModels)
     return points;
 }
 
+int Kroxigor::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Battle Synergy
+    auto skinks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKINK, 6.0f);
+    if (skinks) mod++;
+
+    return mod;
+}
+
+int Kroxigor::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    if ((weapon->name() == m_hammer.name()))
+    {
+        return getModelsWithin(attackingModel, target, 2.0f);
+    }
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+Wounds Kroxigor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Jaws Like a Steel Trap
+    if ((hitRoll == 6) && (weapon->name() == m_jaws.name()))
+    {
+        return { weapon->damage(), 1 };
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace Seraphon

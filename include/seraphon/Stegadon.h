@@ -46,6 +46,7 @@ protected:
 
     void onWounded() override;
     int getDamageTableIndex() const;
+    void onCharged() override;
 
 private:
 
@@ -67,7 +68,7 @@ private:
 // Armoured Crest                   No
 // Gout of Sunfire                  No
 // Steadfast Majesty                No
-// Unstoppable Stampede             No
+// Unstoppable Stampede             Yes
 // Skink Chief                      No
 // Coordinated Strike               No
 //

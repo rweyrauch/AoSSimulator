@@ -114,4 +114,20 @@ int Bastiladon::save() const
     return g_damageTable[getDamageTableIndex()].m_save;
 }
 
+Wounds Bastiladon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Light of the Heavens
+    if ((target->hasKeyword(DAEMON) && target->hasKeyword(CHAOS) && (weapon->name() == m_beam.name())))
+    {
+        return { weapon->damage()+1, 0};
+    }
+
+    // Tide of Snakes
+    if ((hitRoll == 6) && (weapon->name() == m_ark.name()))
+    {
+        return {0, 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace Seraphon
