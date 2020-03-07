@@ -19,9 +19,9 @@ class EngineOfTheGods : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 260;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }

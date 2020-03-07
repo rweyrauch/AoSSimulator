@@ -19,9 +19,10 @@ class Stegadon : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT_WITH_CHIEF = 270;
 
     enum WeaponOption
     {
@@ -49,6 +50,8 @@ protected:
     void onCharged() override;
 
 private:
+
+    bool m_skinkChief = false;
 
     Weapon m_javelins,
         m_bow,

@@ -127,7 +127,7 @@ Wounds Bastiladon::weaponDamage(const Weapon *weapon, const Unit *target, int hi
     {
         return {0, 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Seraphon

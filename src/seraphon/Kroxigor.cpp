@@ -108,7 +108,7 @@ int Kroxigor::ComputePoints(int numModels)
 
 int Kroxigor::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    auto mod = Unit::toHitModifier(weapon, target);
+    auto mod = SeraphonBase::toHitModifier(weapon, target);
 
     // Battle Synergy
     auto skinks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKINK, 6.0f);
@@ -123,7 +123,7 @@ int Kroxigor::extraAttacks(const Model *attackingModel, const Weapon *weapon, co
     {
         return getModelsWithin(attackingModel, target, 2.0f);
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return SeraphonBase::extraAttacks(attackingModel, weapon, target);
 }
 
 Wounds Kroxigor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -133,7 +133,7 @@ Wounds Kroxigor::weaponDamage(const Weapon *weapon, const Unit *target, int hitR
     {
         return { weapon->damage(), 1 };
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Seraphon

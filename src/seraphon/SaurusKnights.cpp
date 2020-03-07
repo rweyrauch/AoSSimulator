@@ -143,7 +143,7 @@ Wounds SaurusKnights::weaponDamage(const Weapon *weapon, const Unit *target, int
     {
         return {weapon->damage(), 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int SaurusKnights::ComputePoints(int numModels)
@@ -154,6 +154,13 @@ int SaurusKnights::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+Rerolls SaurusKnights::chargeRerolls() const
+{
+    if (m_wardrum) return RerollFailed;
+
+    return SeraphonBase::chargeRerolls();
 }
 
 } //namespace Seraphon

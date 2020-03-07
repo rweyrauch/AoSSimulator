@@ -116,7 +116,7 @@ Rerolls DreadSaurian::toHitRerolls(const Weapon *weapon, const Unit *target) con
     if (target->hasKeyword(MONSTER))
         return RerollOnes;
 
-    return Unit::toHitRerolls(weapon, target);
+    return SeraphonBase::toHitRerolls(weapon, target);
 }
 
 Rerolls DreadSaurian::toWoundRerolls(const Weapon *weapon, const Unit *target) const
@@ -125,7 +125,7 @@ Rerolls DreadSaurian::toWoundRerolls(const Weapon *weapon, const Unit *target) c
     if (target->hasKeyword(MONSTER))
         return RerollOnes;
 
-    return Unit::toWoundRerolls(weapon, target);
+    return SeraphonBase::toWoundRerolls(weapon, target);
 }
 
 void DreadSaurian::onStartHero(PlayerId player)

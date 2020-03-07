@@ -102,7 +102,7 @@ int Razordons::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll,
     {
         return -1;
     }
-    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    return SeraphonBase::weaponRend(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Seraphon

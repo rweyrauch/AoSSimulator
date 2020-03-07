@@ -153,15 +153,12 @@ int Skinks::EnumStringToInt(const std::string &enumString)
 
 int Skinks::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = Unit::toSaveModifier(weapon);
+    int modifier = SeraphonBase::toSaveModifier(weapon);
 
     if (m_weaponOption != BoltspittersAndClubs)
     {
-        // Star-bucklers - ignore rend of -1 by cancelling it out.
-        if (weapon->rend() == -1)
-        {
-            modifier = -weapon->rend();
-        }
+        // Star-bucklers
+        modifier++;
     }
 
     return modifier;
@@ -175,6 +172,16 @@ int Skinks::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int Skinks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
+
+    // Swarming Cohort
+    if (remainingModels() >= 15) extra++;
+
+    return extra;
 }
 
 } //namespace Seraphon

@@ -97,7 +97,7 @@ Wounds ChameleonSkinks::weaponDamage(const Weapon *weapon, const Unit *target, i
     {
         return { 0, 1};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace Seraphon

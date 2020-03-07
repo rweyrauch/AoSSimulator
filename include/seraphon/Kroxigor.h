@@ -19,12 +19,12 @@ class Kroxigor : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 50;
     static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 150;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int POINTS_PER_BLOCK = 140;
+    static const int POINTS_MAX_UNIT_SIZE = 560;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

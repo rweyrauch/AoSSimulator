@@ -115,7 +115,7 @@ int EngineOfTheGods::getDamageTableIndex() const
 
 void EngineOfTheGods::onCharged()
 {
-    Unit::onCharged();
+    SeraphonBase::onCharged();
 
     // Unstoppable Stampede
     Dice dice;
@@ -131,7 +131,7 @@ void EngineOfTheGods::onCharged()
 
 void EngineOfTheGods::onStartShooting(PlayerId player)
 {
-    Unit::onStartShooting(player);
+    SeraphonBase::onStartShooting(player);
 
     if (player != owningPlayer()) return;
 

@@ -19,12 +19,12 @@ class TerradonRiders : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 50;
     static const int WOUNDS = 3;
     static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 9;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 360;
 
     enum WeaponOption
     {

@@ -19,9 +19,9 @@ class SkinkPriest : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 25;
     static const int WOUNDS = 4;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 70;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }

@@ -19,9 +19,9 @@ class SlannStarmaster : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
+    static const int BASESIZE = 50;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 260;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }

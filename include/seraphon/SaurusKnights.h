@@ -46,6 +46,7 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Rerolls chargeRerolls() const override;
 
 private:
 
@@ -68,7 +69,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   No
-// Wardrum                          No
+// Wardrum                          Yes
 // Celestite Warspear               Yes
 //
 

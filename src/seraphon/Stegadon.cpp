@@ -62,6 +62,8 @@ Stegadon::Stegadon() :
 
 bool Stegadon::configure(WeaponOption option, bool skinkChief)
 {
+    m_skinkChief = skinkChief;
+
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_javelins);
     if (option == SkystreakBow)
@@ -69,10 +71,18 @@ bool Stegadon::configure(WeaponOption option, bool skinkChief)
     else if (option == SunfireThrowers)
         model->addMissileWeapon(&m_throwers);
     model->addMeleeWeapon(&m_horns);
+    model->addMeleeWeapon(&m_jaws);
     model->addMeleeWeapon(&m_stomps);
+
+    if (m_skinkChief)
+    {
+        model->addMeleeWeapon(&m_warspear);
+        addKeyword(HERO);
+    }
     addModel(model);
 
-    m_points = ComputePoints(1);
+    m_points = POINTS_PER_UNIT;
+    if (m_skinkChief) m_points = POINTS_PER_UNIT_WITH_CHIEF;
 
     return true;
 }
@@ -145,7 +155,7 @@ int Stegadon::EnumStringToInt(const std::string &enumString)
 
 void Stegadon::onCharged()
 {
-    Unit::onCharged();
+    SeraphonBase::onCharged();
 
     // Unstoppable Stampede
     Dice dice;

@@ -19,8 +19,8 @@ class Salamanders : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int BASESIZE_SALAMANDER = 32;
+    static const int BASESIZE = 25;
+    static const int BASESIZE_SALAMANDER = 60; // x35 oval
     static const int WOUNDS = 1;
     static const int WOUNDS_SALAMANDER = 3;
     static const int MIN_UNIT_SIZE = 4;

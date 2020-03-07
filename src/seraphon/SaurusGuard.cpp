@@ -105,4 +105,11 @@ int SaurusGuard::ComputePoints(int numModels)
     return points;
 }
 
+Rerolls SaurusGuard::chargeRerolls() const
+{
+    if (m_wardrum) return RerollFailed;
+
+    return SeraphonBase::chargeRerolls();
+}
+
 } //namespace Seraphon
