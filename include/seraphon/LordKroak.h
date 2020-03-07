@@ -34,6 +34,9 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
 private:
 
     Weapon m_barrier;
@@ -46,8 +49,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Vassal                    No
-// Azyrite Force Barrier            No
-// Dead for Innumerable Ages        No
+// Azyrite Force Barrier            Yes
+// Dead for Innumerable Ages        Yes
 // Impeccable Foresight             No
 // Masters of Order                 No
 // Celestial Deliverance            No

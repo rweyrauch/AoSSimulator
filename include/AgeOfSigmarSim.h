@@ -1020,6 +1020,19 @@ struct Wounds
         mortal += w.mortal;
         return *this;
     }
+    Wounds& operator -= (const Wounds& w)
+    {
+        normal -= w.normal;
+        mortal -= w.mortal;
+        return *this;
+    }
+
+    Wounds& clamp()
+    {
+        normal = std::max(0, normal);
+        mortal = std::max(0, mortal);
+        return *this;
+    }
 };
 
 
