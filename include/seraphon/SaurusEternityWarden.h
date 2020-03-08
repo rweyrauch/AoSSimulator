@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
 private:
 
     Weapon m_mace,
@@ -46,7 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cold Ferocity                    No
+// Cold Ferocity                    Yes
 // Selfless Protectors              No
 // Prime Guardian                   No
 //

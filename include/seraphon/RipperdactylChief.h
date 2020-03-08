@@ -34,6 +34,7 @@ public:
 
 protected:
 
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
 private:
 
@@ -47,7 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Voracious Appetite               No
+// Voracious Appetite               Yes
 // Ripperdactyl Assault             No
 //
 

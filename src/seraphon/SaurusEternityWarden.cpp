@@ -66,4 +66,14 @@ void SaurusEternityWarden::Init()
     }
 }
 
+int SaurusEternityWarden::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Cold Ferocity
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_mace.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } //namespace Seraphon

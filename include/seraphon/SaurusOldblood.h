@@ -44,6 +44,8 @@ public:
 
 protected:
 
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
 private:
 
     Weapon m_maul,
@@ -60,7 +62,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Wrath of the Seraphon            No
-// Cold Ferocity                    No
+// Cold Ferocity                    Yes
 //
 
 } // namespace Seraphon

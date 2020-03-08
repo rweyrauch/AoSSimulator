@@ -38,6 +38,8 @@ protected:
 
     void onWounded() override;
     int getDamageTableIndex() const;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -55,8 +57,8 @@ private:
 // -------------------------------------------
 // Blazing Sunbolts                 No
 // Blood Frenzy                     No
-// Cold Ferocity                    No
-// Pinned Down                      No
+// Cold Ferocity                    Yes
+// Pinned Down                      Yes
 // Terror                           No
 // Wrath of the Seraphon            No
 //

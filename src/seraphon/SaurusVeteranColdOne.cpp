@@ -69,4 +69,14 @@ void SaurusScarVeteranOnColdOne::Init()
     }
 }
 
+int SaurusScarVeteranOnColdOne::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Cold Ferocity
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_warpick.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } //namespace Seraphon

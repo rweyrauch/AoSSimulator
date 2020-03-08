@@ -37,8 +37,13 @@ public:
 
 protected:
 
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    void onRestore() override { m_usedToad = false; }
 
 private:
+
+    mutable bool m_usedToad = false;
 
     Weapon m_spear,
         m_spearAlpha,
@@ -51,8 +56,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Voracious Appetite               No
-// Toad Rage                        No
+// Voracious Appetite               Yes
+// Toad Rage                        Yes
 //
 
 } // namespace Seraphon

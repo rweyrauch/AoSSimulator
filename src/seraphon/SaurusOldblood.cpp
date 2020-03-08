@@ -108,4 +108,18 @@ int SaurusOldblood::EnumStringToInt(const std::string &enumString)
     return SeraphonBase::EnumStringToInt(enumString);
 }
 
+int SaurusOldblood::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Cold Ferocity
+    if ((unmodifiedHitRoll == 6) &&
+        ((weapon->name() == m_warblade.name()) ||
+         (weapon->name() == m_warspear.name()) ||
+         (weapon->name() == m_greatblade.name()) ||
+         (weapon->name() == m_maul.name())))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } //namespace Seraphon

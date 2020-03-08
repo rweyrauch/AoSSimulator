@@ -68,4 +68,14 @@ void RipperdactylChief::Init()
     }
 }
 
+int RipperdactylChief::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Voracious Appetite
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_jaws.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } //namespace Seraphon

@@ -136,4 +136,40 @@ int SaurusScarVeteranOnCarnosaur::getDamageTableIndex() const
     return 0;
 }
 
+int SaurusScarVeteranOnCarnosaur::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Cold Ferocity
+    if ((unmodifiedHitRoll == 6) &&
+        ((weapon->name() == m_warblade.name()) ||
+         (weapon->name() == m_warspear.name()) ||
+         (weapon->name() == m_greatblade.name())))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int SaurusScarVeteranOnCarnosaur::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Pinned Down
+    if ((weapon->name() == m_jaws.name()) && (target->wounds() >= 7))
+    {
+        mod++;
+    }
+
+    return mod;
+}
+
+Wounds SaurusScarVeteranOnCarnosaur::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Celestite Warspear
+    if (m_charged && (weapon->name() == m_warspear.name()))
+    {
+        return {weapon->damage()+1, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace Seraphon

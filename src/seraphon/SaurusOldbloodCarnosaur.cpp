@@ -114,4 +114,27 @@ int SaurusOldbloodOnCarnosaur::getDamageTableIndex() const
     return 0;
 }
 
+int SaurusOldbloodOnCarnosaur::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Cold Ferocity
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_spear.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int SaurusOldbloodOnCarnosaur::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Pinned Down
+    if ((weapon->name() == m_jaws.name()) && (target->wounds() >= 7))
+    {
+        mod++;
+    }
+
+    return mod;
+}
+
 } //namespace Seraphon

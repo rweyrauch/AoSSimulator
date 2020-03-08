@@ -47,6 +47,9 @@ protected:
 
     void onWounded() override;
     int getDamageTableIndex() const;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -64,9 +67,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Blood Frenzy                     No
-// Celestite Warspear               No
-// Cold Ferocity                    No
-// Pinned Down                      No
+// Celestite Warspear               Yes
+// Cold Ferocity                    Yes
+// Pinned Down                      Yes
 // Terror                           No
 // Saurian Savagery                 No
 //

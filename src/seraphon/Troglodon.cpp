@@ -114,4 +114,29 @@ int Troglodon::getDamageTableIndex() const
     return 0;
 }
 
+void Troglodon::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (player == owningPlayer())
+    {
+        // Regeneration
+        Dice dice;
+        if (dice.rollD6() >= 2)
+        {
+            heal(dice.rollD3());
+        }
+    }
+}
+
+Wounds Troglodon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Venomous Spittle
+    if ((woundRoll == 6) && ((weapon->name() == m_spittle.name()) || (weapon->name() == m_jaws.name())))
+    {
+        return {weapon->damage(), 1};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } //namespace Seraphon

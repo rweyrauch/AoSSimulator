@@ -98,4 +98,25 @@ int RipperdactylRiders::ComputePoints(int numModels)
     return points;
 }
 
+int RipperdactylRiders::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Voracious Appetite
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_jaws.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+Rerolls RipperdactylRiders::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    if (!m_usedToad && (weapon->name() == m_jaws.name()))
+    {
+        m_usedToad = true;
+        return RerollFailed;
+    }
+
+    return Unit::toHitRerolls(weapon, target);
+}
+
 } //namespace Seraphon

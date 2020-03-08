@@ -39,6 +39,9 @@ protected:
     void onWounded() override;
     int getDamageTableIndex() const;
 
+    void onStartHero(PlayerId player) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_spittle,
@@ -54,9 +57,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Oracle of the Slann              No
-// Regeneration                     No
+// Regeneration                     Yes
 // Terror                           No
-// Venemous Spittle                 No
+// Venomous Spittle                 Yes
 // Drawn to the Screams             No
 // Comet's Call                     No
 //
