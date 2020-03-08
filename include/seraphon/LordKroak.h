@@ -36,6 +36,7 @@ protected:
 
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartHero(PlayerId player) override;
 
 private:
 
@@ -51,7 +52,7 @@ private:
 // Arcane Vassal                    No
 // Azyrite Force Barrier            Yes
 // Dead for Innumerable Ages        Yes
-// Impeccable Foresight             No
+// Impeccable Foresight             Yes
 // Masters of Order                 No
 // Celestial Deliverance            No
 // Comet's Call                     No

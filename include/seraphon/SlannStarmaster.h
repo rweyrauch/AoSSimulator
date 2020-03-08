@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    void onStartHero(PlayerId player) override;
+
 private:
 
     Weapon m_lightning;
@@ -46,7 +48,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Vassal                    No
-// Foresight                        No
+// Foresight                        Yes
 // Masters of Order                 No
 // Comet's Call                     No
 // Gift from the Heavens            No

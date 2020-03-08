@@ -9,6 +9,7 @@
 #include <seraphon/SkinkStarseer.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <Roster.h>
 
 namespace Seraphon
 {
@@ -63,6 +64,20 @@ void SkinkStarseer::Init()
     if (!s_registered)
     {
         s_registered = UnitFactory::Register("Skink Starseer", factoryMethod);
+    }
+}
+
+void SkinkStarseer::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Cosmic Herald
+    if (owningPlayer() == player)
+    {
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(1, result);
+        m_roster->addCommandPoints(result.rollsGE(4));
     }
 }
 

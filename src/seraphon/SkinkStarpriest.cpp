@@ -9,6 +9,7 @@
 #include <seraphon/SkinkStarpriest.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <Roster.h>
 
 namespace Seraphon
 {
@@ -63,6 +64,20 @@ void SkinkStarpriest::Init()
     if (!s_registered)
     {
         s_registered = UnitFactory::Register("Skink Starpriest", factoryMethod);
+    }
+}
+
+void SkinkStarpriest::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Astral Herald
+    if (owningPlayer() == player)
+    {
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(1, result);
+        m_roster->addCommandPoints(result.rollsGE(5));
     }
 }
 

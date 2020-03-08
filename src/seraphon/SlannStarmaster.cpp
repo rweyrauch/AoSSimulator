@@ -9,6 +9,7 @@
 #include <seraphon/SlannStarmaster.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <Roster.h>
 
 namespace Seraphon
 {
@@ -61,6 +62,20 @@ void SlannStarmaster::Init()
     if (!s_registered)
     {
         s_registered = UnitFactory::Register("Slann Starmaster", factoryMethod);
+    }
+}
+
+void SlannStarmaster::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Foresight
+    if (owningPlayer() == player)
+    {
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(2, result);
+        m_roster->addCommandPoints(result.rollsGE(4));
     }
 }
 

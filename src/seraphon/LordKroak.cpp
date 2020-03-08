@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <spells/MysticShield.h>
+#include <Roster.h>
 
 namespace Seraphon
 {
@@ -100,6 +101,20 @@ Wounds LordKroak::applyWoundSave(const Wounds &wounds)
     Wounds negatedWounds = {resultNormal.rollsGE(4), resultNormal.rollsGE(4)};
     totalWounds -= negatedWounds;
     return totalWounds.clamp();
+}
+
+void LordKroak::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Impeccable Foresight
+    if (owningPlayer() == player)
+    {
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(3, result);
+        m_roster->addCommandPoints(result.rollsGE(4));
+    }
 }
 
 } //namespace Seraphon

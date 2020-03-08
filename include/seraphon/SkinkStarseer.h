@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    void onStartHero(PlayerId player) override;
+
 private:
 
     Weapon m_astralBolt,
@@ -46,7 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cosmic Herald                    No
+// Cosmic Herald                    Yes
 // Astromancer's Staff              No
 // Control Fate                     No
 //

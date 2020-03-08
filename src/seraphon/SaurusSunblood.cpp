@@ -66,4 +66,14 @@ void SaurusSunblood::Init()
     }
 }
 
+int SaurusSunblood::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Primal Rage
+    if (unmodifiedHitRoll == 6)
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } //namespace Seraphon

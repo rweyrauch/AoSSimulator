@@ -45,6 +45,7 @@ public:
     int totalPoints() const;
 
     void setCommandPoints(int cp) { m_cp = cp; }
+    void addCommandPoints(int cp) { m_cp += cp; }
     int getCommandPoints() const { return m_cp; }
     bool useCommandPoint();
 

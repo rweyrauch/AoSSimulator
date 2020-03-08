@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    void onStartHero(PlayerId player) override;
+
 private:
 
     Weapon m_venombolt,
@@ -46,7 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Astral Herald                    No
+// Astral Herald                    Yes
 // Serpent Staff                    No
 // Blazing Starlight                No
 //

@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
 private:
 
     Weapon m_celestiteWarmace,
@@ -46,8 +48,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aeon Shield                      No
-// Ferocious Rage                   No
+// Primal Rage                      Yes
 // Scent of Weakness                No
 //
 
