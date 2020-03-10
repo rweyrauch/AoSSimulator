@@ -12,21 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    TerradonRiders::Create,
-    TerradonRiders::ValueToString,
-    TerradonRiders::EnumStringToInt,
-    TerradonRiders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", TerradonRiders::MIN_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE,
-            TerradonRiders::MAX_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", TerradonRiders::StarstrikeJavelins, TerradonRiders::StarstrikeJavelins, TerradonRiders::SunleechBolas, 1},
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool TerradonRiders::s_registered = false;
 
@@ -102,7 +87,23 @@ void TerradonRiders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Terradon Riders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            TerradonRiders::Create,
+            TerradonRiders::ValueToString,
+            TerradonRiders::EnumStringToInt,
+            TerradonRiders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", TerradonRiders::MIN_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE,
+                    TerradonRiders::MAX_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", TerradonRiders::StarstrikeJavelins, TerradonRiders::StarstrikeJavelins, TerradonRiders::SunleechBolas, 1},
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Terradon Riders", *factoryMethod);
     }
 }
 

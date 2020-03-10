@@ -11,23 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    Centigors::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    Centigors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Centigors::MIN_UNIT_SIZE, Centigors::MIN_UNIT_SIZE,
-            Centigors::MAX_UNIT_SIZE, Centigors::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool Centigors::s_registered = false;
 
@@ -94,7 +77,22 @@ void Centigors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Centigors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Centigors", *factoryMethod);
     }
 }
 

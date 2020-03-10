@@ -13,18 +13,6 @@
 namespace BeastsOfChaos
 {
 
-static FactoryMethod factoryMethod = {
-    Ghorgon::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    Ghorgon::ComputePoints,
-    {
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
-
 bool Ghorgon::s_registered = false;
 
 struct TableEntry
@@ -92,7 +80,19 @@ void Ghorgon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ghorgon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Ghorgon", *factoryMethod);
     }
 }
 

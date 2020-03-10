@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusOldbloodOnCarnosaur::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SaurusOldbloodOnCarnosaur::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 struct TableEntry
 {
@@ -91,7 +81,18 @@ void SaurusOldbloodOnCarnosaur::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Oldblood on Carnosaur", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusOldbloodOnCarnosaur::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SaurusOldbloodOnCarnosaur::ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Oldblood on Carnosaur", *factoryMethod);
     }
 }
 

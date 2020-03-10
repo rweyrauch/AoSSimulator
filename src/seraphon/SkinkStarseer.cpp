@@ -13,15 +13,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SkinkStarseer::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SkinkStarseer::ComputePoints,
-    {},
-    ORDER,
-    { SERAPHON }
-};
 
 bool SkinkStarseer::s_registered = false;
 
@@ -63,7 +54,17 @@ void SkinkStarseer::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Skink Starseer", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SkinkStarseer::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SkinkStarseer::ComputePoints,
+            {},
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Skink Starseer", *factoryMethod);
     }
 }
 

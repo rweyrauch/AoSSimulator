@@ -12,20 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    ChameleonSkinks::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    ChameleonSkinks::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChameleonSkinks::MIN_UNIT_SIZE, ChameleonSkinks::MIN_UNIT_SIZE,
-            ChameleonSkinks::MAX_UNIT_SIZE, ChameleonSkinks::MIN_UNIT_SIZE
-        },
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool ChameleonSkinks::s_registered = false;
 
@@ -76,7 +62,19 @@ void ChameleonSkinks::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chameleon Skinks", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Chameleon Skinks", *factoryMethod);
     }
 }
 

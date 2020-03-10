@@ -13,18 +13,6 @@
 namespace BeastsOfChaos
 {
 
-static FactoryMethod factoryMethod = {
-    Chimera::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    Chimera::ComputePoints,
-    {
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
-
 bool Chimera::s_registered = false;
 
 struct TableEntry
@@ -94,7 +82,19 @@ void Chimera::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chimera", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Chimera", *factoryMethod);
     }
 }
 

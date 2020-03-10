@@ -12,33 +12,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    DragonOgors::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    DragonOgors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DragonOgors::MIN_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE,
-            DragonOgors::MAX_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Integer, "Paired Ancient Weapons", DragonOgors::MIN_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE,
-            DragonOgors::MAX_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Integer, "Draconic War-glaive", DragonOgors::MIN_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE,
-            DragonOgors::MAX_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Integer, "Draconic Crusher", DragonOgors::MIN_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE,
-            DragonOgors::MAX_UNIT_SIZE, DragonOgors::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool DragonOgors::s_registered = false;
 
@@ -112,7 +85,23 @@ void DragonOgors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Dragon Ogors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Paired Ancient Weapons", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Draconic War-glaive", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Draconic Crusher", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Dragon Ogors", *factoryMethod);
     }
 }
 

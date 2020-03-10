@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Bastiladon::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    Bastiladon::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 struct TableEntry
 {
@@ -85,7 +75,17 @@ void Bastiladon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Bastiladon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+        s_registered = UnitFactory::Register("Bastiladon", *factoryMethod);
     }
 }
 

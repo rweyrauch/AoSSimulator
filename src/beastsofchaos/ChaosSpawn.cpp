@@ -11,21 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    ChaosSpawn::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    ChaosSpawn::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChaosSpawn::MIN_UNIT_SIZE, ChaosSpawn::MIN_UNIT_SIZE,
-            ChaosSpawn::MAX_UNIT_SIZE, ChaosSpawn::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool ChaosSpawn::s_registered = false;
 
@@ -77,7 +62,20 @@ void ChaosSpawn::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chaos Spawn", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
+
+        s_registered = UnitFactory::Register("Chaos Spawn", *factoryMethod);
     }
 }
 

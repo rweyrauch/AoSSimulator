@@ -11,27 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    Bullgors::Create,
-    Bullgors::ValueToString,
-    Bullgors::EnumStringToInt,
-    Bullgors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Bullgors::MIN_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE,
-            Bullgors::MAX_UNIT_SIZE, Bullgors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Bullgors::BullgorAxe, Bullgors::BullgorAxe,
-            Bullgors::BullgorGreatAxe, 1
-        },
-        {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool Bullgors::s_registered = false;
 
@@ -115,7 +94,23 @@ void Bullgors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Bullgors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", BullgorAxe, BullgorAxe, BullgorGreatAxe, 1},
+                {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Bullgors", *factoryMethod);
     }
 }
 

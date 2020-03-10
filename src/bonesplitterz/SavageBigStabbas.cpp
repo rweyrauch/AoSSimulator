@@ -10,18 +10,6 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    SavageBigStabbas::Create,
-    Bonesplitterz::ValueToString,
-    Bonesplitterz::EnumStringToInt,
-    SavageBigStabbas::ComputePoints,
-    {
-        {ParamType::Integer, "Models", SavageBigStabbas::MIN_UNIT_SIZE, SavageBigStabbas::MIN_UNIT_SIZE, SavageBigStabbas::MAX_UNIT_SIZE, SavageBigStabbas::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
 
 bool SavageBigStabbas::s_registered = false;
 
@@ -46,7 +34,20 @@ void SavageBigStabbas::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Savage Big Stabbas", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Bonesplitterz::ValueToString,
+            Bonesplitterz::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            { BONESPLITTERZ }
+        };
+
+        s_registered = UnitFactory::Register("Savage Big Stabbas", *factoryMethod);
     }
 }
 

@@ -11,27 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    Ungors::Create,
-    Ungors::ValueToString,
-    Ungors::EnumStringToInt,
-    Ungors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Ungors::MIN_UNIT_SIZE, Ungors::MIN_UNIT_SIZE,
-            Ungors::MAX_UNIT_SIZE, Ungors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Ungors::UngorBlade, Ungors::UngorBlade,
-            Ungors::GnarledShortspear, 1
-        },
-        {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool Ungors::s_registered = false;
 
@@ -113,7 +92,23 @@ void Ungors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ungors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", UngorBlade, UngorBlade, GnarledShortspear, 1},
+                {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Ungors", *factoryMethod);
     }
 }
 

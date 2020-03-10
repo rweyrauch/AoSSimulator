@@ -12,21 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Kroxigor::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    Kroxigor::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Kroxigor::MIN_UNIT_SIZE, Kroxigor::MIN_UNIT_SIZE,
-            Kroxigor::MAX_UNIT_SIZE, Kroxigor::MIN_UNIT_SIZE
-        },
-        {ParamType::Integer, "Moon Hammers", 1, 0, Kroxigor::MAX_UNIT_SIZE/3, 1},
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool Kroxigor::s_registered = false;
 
@@ -91,7 +76,19 @@ void Kroxigor::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Kroxigor", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Moon Hammers", 1, 0, Kroxigor::MAX_UNIT_SIZE/3, 1},
+            },
+            ORDER,
+            { SERAPHON }
+        };
+        s_registered = UnitFactory::Register("Kroxigor", *factoryMethod);
     }
 }
 

@@ -13,15 +13,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SlannStarmaster::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SlannStarmaster::ComputePoints,
-    {},
-    ORDER,
-    { SERAPHON }
-};
 
 bool SlannStarmaster::s_registered = false;
 
@@ -61,7 +52,17 @@ void SlannStarmaster::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Slann Starmaster", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SlannStarmaster::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SlannStarmaster::ComputePoints,
+            {},
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Slann Starmaster", *factoryMethod);
     }
 }
 

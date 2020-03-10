@@ -11,17 +11,6 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    Wardokk::Create,
-    Bonesplitterz::ValueToString,
-    Bonesplitterz::EnumStringToInt,
-    Wardokk::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
 
 bool Wardokk::s_registered = false;
 
@@ -45,7 +34,19 @@ void Wardokk::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Wardokk", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Bonesplitterz::ValueToString,
+            Bonesplitterz::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            { BONESPLITTERZ }
+        };
+
+        s_registered = UnitFactory::Register("Wardokk", *factoryMethod);
     }
 }
 

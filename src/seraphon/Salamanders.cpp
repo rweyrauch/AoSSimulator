@@ -12,22 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Salamanders::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    Salamanders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Salamanders::MIN_UNIT_SIZE, Salamanders::MIN_UNIT_SIZE,
-            Salamanders::MAX_UNIT_SIZE, Salamanders::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool Salamanders::s_registered = false;
 
@@ -83,7 +67,24 @@ void Salamanders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Salamanders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Salamanders::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            Salamanders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Salamanders::MIN_UNIT_SIZE, Salamanders::MIN_UNIT_SIZE,
+                    Salamanders::MAX_UNIT_SIZE, Salamanders::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Salamanders", *factoryMethod);
     }
 }
 

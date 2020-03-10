@@ -12,19 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Stegadon::Create,
-    Stegadon::ValueToString,
-    Stegadon::EnumStringToInt,
-    Stegadon::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", Stegadon::SkystreakBow, Stegadon::SkystreakBow, Stegadon::SunfireThrowers, 1},
-        {ParamType::Boolean, "Skink Chief", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 struct TableEntry
 {
@@ -112,7 +99,21 @@ void Stegadon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Stegadon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Stegadon::Create,
+            Stegadon::ValueToString,
+            Stegadon::EnumStringToInt,
+            Stegadon::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", Stegadon::SkystreakBow, Stegadon::SkystreakBow, Stegadon::SunfireThrowers, 1},
+                {ParamType::Boolean, "Skink Chief", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Stegadon", *factoryMethod);
     }
 }
 

@@ -11,21 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    TuskgorChariots::Create,
-    TuskgorChariots::ValueToString,
-    TuskgorChariots::EnumStringToInt,
-    TuskgorChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", TuskgorChariots::MIN_UNIT_SIZE, TuskgorChariots::MIN_UNIT_SIZE,
-            TuskgorChariots::MAX_UNIT_SIZE, TuskgorChariots::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool TuskgorChariots::s_registered = false;
 
@@ -81,7 +66,20 @@ void TuskgorChariots::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Tuskgor Chariots", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Tuskgor Chariots", *factoryMethod);
     }
 }
 

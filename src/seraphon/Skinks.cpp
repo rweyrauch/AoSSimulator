@@ -12,24 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Skinks::Create,
-    Skinks::ValueToString,
-    Skinks::EnumStringToInt,
-    Skinks::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Skinks::MIN_UNIT_SIZE, Skinks::MIN_UNIT_SIZE,
-            Skinks::MAX_UNIT_SIZE, Skinks::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Skinks::BoltspittersDaggersAndBucklers, Skinks::JavelinsDaggersAndBucklers,
-            Skinks::ClubsAndBucklers, 1
-        },
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool Skinks::s_registered = false;
 
@@ -126,7 +108,26 @@ void Skinks::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Skinks", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Skinks::Create,
+            Skinks::ValueToString,
+            Skinks::EnumStringToInt,
+            Skinks::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Skinks::MIN_UNIT_SIZE, Skinks::MIN_UNIT_SIZE,
+                    Skinks::MAX_UNIT_SIZE, Skinks::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Skinks::BoltspittersDaggersAndBucklers, Skinks::JavelinsDaggersAndBucklers,
+                    Skinks::ClubsAndBucklers, 1
+                },
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Skinks", *factoryMethod);
     }
 }
 

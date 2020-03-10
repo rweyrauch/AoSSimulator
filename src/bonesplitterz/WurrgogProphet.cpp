@@ -11,17 +11,7 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    WurrgogProphet::Create,
-    Bonesplitterz::ValueToString,
-    Bonesplitterz::EnumStringToInt,
-    WurrgogProphet::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
+
 
 bool WurrgogProphet::s_registered = false;
 
@@ -45,7 +35,18 @@ void WurrgogProphet::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Wurrgog Prophet", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Bonesplitterz::ValueToString,
+            Bonesplitterz::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            {BONESPLITTERZ}
+        };
+        s_registered = UnitFactory::Register("Wurrgog Prophet", *factoryMethod);
     }
 }
 

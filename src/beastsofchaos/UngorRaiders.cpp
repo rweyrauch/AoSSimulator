@@ -11,23 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    UngorRaiders::Create,
-    UngorRaiders::ValueToString,
-    UngorRaiders::EnumStringToInt,
-    UngorRaiders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", UngorRaiders::MIN_UNIT_SIZE, UngorRaiders::MIN_UNIT_SIZE,
-            UngorRaiders::MAX_UNIT_SIZE, UngorRaiders::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool UngorRaiders::s_registered = false;
 
@@ -94,7 +77,22 @@ void UngorRaiders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ungor Raiders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Ungor Raiders", *factoryMethod);
     }
 }
 

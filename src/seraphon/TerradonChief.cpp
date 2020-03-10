@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    TerradonChief::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    TerradonChief::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool TerradonChief::s_registered = false;
 
@@ -64,7 +54,18 @@ void TerradonChief::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Terradon Chief", factoryMethod);
+        static auto factoryMethod = new FactoryMethod {
+            TerradonChief::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            TerradonChief::ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Terradon Chief", *factoryMethod);
     }
 }
 

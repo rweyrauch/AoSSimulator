@@ -12,18 +12,6 @@
 namespace BeastsOfChaos
 {
 
-static FactoryMethod factoryMethod = {
-    Cygor::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    Cygor::ComputePoints,
-    {
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
-
 bool Cygor::s_registered = false;
 
 struct TableEntry
@@ -91,7 +79,19 @@ void Cygor::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Cygor", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Cygor", *factoryMethod);
     }
 }
 

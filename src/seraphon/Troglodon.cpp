@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Troglodon::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    Troglodon::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 struct TableEntry
 {
@@ -91,7 +81,18 @@ void Troglodon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Troglodon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Troglodon::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            Troglodon::ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Troglodon", *factoryMethod);
     }
 }
 

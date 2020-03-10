@@ -12,18 +12,6 @@
 namespace BeastsOfChaos
 {
 
-static FactoryMethod factoryMethod = {
-    Jabberslythe::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    Jabberslythe::ComputePoints,
-    {
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
-
 bool Jabberslythe::s_registered = false;
 
 Jabberslythe::Jabberslythe() :
@@ -69,7 +57,19 @@ void Jabberslythe::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Jabberslythe", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Jabberslythe", *factoryMethod);
     }
 }
 

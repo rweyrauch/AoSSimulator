@@ -10,17 +10,6 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    SavageBigBoss::Create,
-    Bonesplitterz::ValueToString,
-    Bonesplitterz::EnumStringToInt,
-    SavageBigBoss::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
 
 bool SavageBigBoss::s_registered = false;
 
@@ -44,7 +33,19 @@ void SavageBigBoss::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Savage Big Boss", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Bonesplitterz::ValueToString,
+            Bonesplitterz::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            { BONESPLITTERZ }
+        };
+
+        s_registered = UnitFactory::Register("Savage Big Boss", *factoryMethod);
     }
 }
 

@@ -12,20 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    Razordons::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    Razordons::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Razordons::MIN_UNIT_SIZE, Razordons::MIN_UNIT_SIZE,
-            Razordons::MAX_UNIT_SIZE, Razordons::MIN_UNIT_SIZE
-        },
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool Razordons::s_registered = false;
 
@@ -81,7 +67,22 @@ void Razordons::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Razordons", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Razordons::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            Razordons::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Razordons::MIN_UNIT_SIZE, Razordons::MIN_UNIT_SIZE,
+                    Razordons::MAX_UNIT_SIZE, Razordons::MIN_UNIT_SIZE
+                },
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Razordons", *factoryMethod);
     }
 }
 

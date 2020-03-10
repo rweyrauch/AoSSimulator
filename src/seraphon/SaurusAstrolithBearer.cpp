@@ -12,15 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusAstrolithBearer::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SaurusAstrolithBearer::ComputePoints,
-    {},
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusAstrolithBearer::s_registered = false;
 
@@ -62,7 +53,17 @@ void SaurusAstrolithBearer::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Astrolith Bearer", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusAstrolithBearer::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SaurusAstrolithBearer::ComputePoints,
+            {},
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Astrolith Bearer", *factoryMethod);
     }
 }
 

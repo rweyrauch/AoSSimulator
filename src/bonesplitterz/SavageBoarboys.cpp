@@ -10,21 +10,6 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    SavageBoarboys::Create,
-    SavageBoarboys::ValueToString,
-    SavageBoarboys::EnumStringToInt,
-    SavageBoarboys::ComputePoints,
-    {
-        {ParamType::Integer, "Models", SavageBoarboys::MIN_UNIT_SIZE, SavageBoarboys::MIN_UNIT_SIZE, SavageBoarboys::MAX_UNIT_SIZE, SavageBoarboys::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Weapons", SavageBoarboys::Chompa, SavageBoarboys::Chompa, SavageBoarboys::SavageStikka, 1},
-        {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
 
 bool SavageBoarboys::s_registered = false;
 
@@ -52,7 +37,23 @@ void SavageBoarboys::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Savage Boarboys", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", Chompa, Chompa, SavageStikka, 1},
+                {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            { BONESPLITTERZ }
+        };
+
+        s_registered = UnitFactory::Register("Savage Boarboys", *factoryMethod);
     }
 }
 

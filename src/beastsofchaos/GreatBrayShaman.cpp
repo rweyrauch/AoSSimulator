@@ -13,18 +13,6 @@
 namespace BeastsOfChaos
 {
 
-static FactoryMethod factoryMethod = {
-    GreatBrayShaman::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    GreatBrayShaman::ComputePoints,
-    {
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
-
 bool GreatBrayShaman::s_registered = false;
 
 GreatBrayShaman::GreatBrayShaman() :
@@ -72,7 +60,19 @@ void GreatBrayShaman::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Great Bray-shaman", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Great Bray-shaman", *factoryMethod);
     }
 }
 

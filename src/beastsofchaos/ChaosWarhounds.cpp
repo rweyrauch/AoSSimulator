@@ -11,21 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    ChaosWarhounds::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    ChaosWarhounds::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChaosWarhounds::MIN_UNIT_SIZE, ChaosWarhounds::MIN_UNIT_SIZE,
-            ChaosWarhounds::MAX_UNIT_SIZE, ChaosWarhounds::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool ChaosWarhounds::s_registered = false;
 
@@ -77,7 +62,20 @@ void ChaosWarhounds::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chaos Warhounds", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Chaos Warhounds", *factoryMethod);
     }
 }
 

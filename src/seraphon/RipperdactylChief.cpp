@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    RipperdactylChief::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    RipperdactylChief::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool RipperdactylChief::s_registered = false;
 
@@ -64,7 +54,18 @@ void RipperdactylChief::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ripperdactyl Chief", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            RipperdactylChief::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            RipperdactylChief::ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Ripperdactyl Chief", *factoryMethod);
     }
 }
 

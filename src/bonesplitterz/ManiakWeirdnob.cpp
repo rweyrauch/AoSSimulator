@@ -11,17 +11,6 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    ManiakWeirdnob::Create,
-    Bonesplitterz::ValueToString,
-    Bonesplitterz::EnumStringToInt,
-    ManiakWeirdnob::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
 
 bool ManiakWeirdnob::s_registered = false;
 
@@ -45,7 +34,19 @@ void ManiakWeirdnob::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Maniak Weirdnob", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Bonesplitterz::ValueToString,
+            Bonesplitterz::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            { BONESPLITTERZ }
+        };
+
+        s_registered = UnitFactory::Register("Maniak Weirdnob", *factoryMethod);
     }
 }
 

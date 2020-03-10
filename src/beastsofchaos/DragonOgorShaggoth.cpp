@@ -13,18 +13,6 @@
 namespace BeastsOfChaos
 {
 
-static FactoryMethod factoryMethod = {
-    DragonOgorShaggoth::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    DragonOgorShaggoth::ComputePoints,
-    {
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
-
 bool DragonOgorShaggoth::s_registered = false;
 
 DragonOgorShaggoth::DragonOgorShaggoth() :
@@ -76,7 +64,19 @@ void DragonOgorShaggoth::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Dragon Ogor Shaggoth", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Dragon Ogor Shaggoth", *factoryMethod);
     }
 }
 

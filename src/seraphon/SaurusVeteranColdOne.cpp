@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusScarVeteranOnColdOne::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SaurusScarVeteranOnColdOne::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusScarVeteranOnColdOne::s_registered = false;
 
@@ -65,7 +55,18 @@ void SaurusScarVeteranOnColdOne::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Scar-Veteran on Cold One", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusScarVeteranOnColdOne::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SaurusScarVeteranOnColdOne::ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Scar-Veteran on Cold One", *factoryMethod);
     }
 }
 

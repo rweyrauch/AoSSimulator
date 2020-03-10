@@ -12,16 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    EngineOfTheGods::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    EngineOfTheGods::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 struct TableEntry
 {
@@ -91,7 +81,18 @@ void EngineOfTheGods::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Engine of the Gods", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Engine of the Gods", *factoryMethod);
     }
 }
 

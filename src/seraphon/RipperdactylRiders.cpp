@@ -12,20 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    RipperdactylRiders::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    RipperdactylRiders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", RipperdactylRiders::MIN_UNIT_SIZE, RipperdactylRiders::MIN_UNIT_SIZE,
-            RipperdactylRiders::MAX_UNIT_SIZE, RipperdactylRiders::MIN_UNIT_SIZE
-        },
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool RipperdactylRiders::s_registered = false;
 
@@ -84,7 +70,22 @@ void RipperdactylRiders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ripperdactyl Riders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            RipperdactylRiders::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            RipperdactylRiders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", RipperdactylRiders::MIN_UNIT_SIZE, RipperdactylRiders::MIN_UNIT_SIZE,
+                    RipperdactylRiders::MAX_UNIT_SIZE, RipperdactylRiders::MIN_UNIT_SIZE
+                },
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Ripperdactyl Riders", *factoryMethod);
     }
 }
 

@@ -10,16 +10,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    DreadSaurian::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    DreadSaurian::ComputePoints,
-    {
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool DreadSaurian::s_registered = false;
 
@@ -87,7 +77,18 @@ void DreadSaurian::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Dread Saurian", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Dread Saurian", *factoryMethod);
     }
 }
 

@@ -12,15 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusEternityWarden::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SaurusEternityWarden::ComputePoints,
-    {},
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusEternityWarden::s_registered = false;
 
@@ -62,7 +53,17 @@ void SaurusEternityWarden::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Eternity Warden", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusEternityWarden::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SaurusEternityWarden::ComputePoints,
+            {},
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Eternity Warden", *factoryMethod);
     }
 }
 

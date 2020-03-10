@@ -11,21 +11,6 @@
 
 namespace BeastsOfChaos
 {
-static FactoryMethod factoryMethod = {
-    Razorgors::Create,
-    BeastsOfChaosBase::ValueToString,
-    BeastsOfChaosBase::EnumStringToInt,
-    Razorgors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Razorgors::MIN_UNIT_SIZE, Razorgors::MIN_UNIT_SIZE,
-            Razorgors::MAX_UNIT_SIZE, Razorgors::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-    },
-    CHAOS,
-    { BEASTS_OF_CHAOS }
-};
 
 bool Razorgors::s_registered = false;
 
@@ -77,7 +62,20 @@ void Razorgors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Razorgors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            BeastsOfChaosBase::ValueToString,
+            BeastsOfChaosBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
+            },
+            CHAOS,
+            { BEASTS_OF_CHAOS }
+        };
+
+        s_registered = UnitFactory::Register("Razorgors", *factoryMethod);
     }
 }
 

@@ -12,22 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusGuard::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SaurusGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SaurusGuard::MIN_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE,
-            SaurusGuard::MAX_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusGuard::s_registered = false;
 
@@ -91,7 +75,24 @@ void SaurusGuard::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Guard", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusGuard::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SaurusGuard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SaurusGuard::MIN_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE,
+                    SaurusGuard::MAX_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Guard", *factoryMethod);
     }
 }
 

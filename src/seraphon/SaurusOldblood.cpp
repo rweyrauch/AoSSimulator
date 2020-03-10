@@ -12,17 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusOldblood::Create,
-    SaurusOldblood::ValueToString,
-    SaurusOldblood::EnumStringToInt,
-    SaurusOldblood::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::CelestiteMaul, SaurusOldblood::CelestiteGreatblade, 1}
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusOldblood::s_registered = false;
 
@@ -83,7 +72,19 @@ void SaurusOldblood::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Oldblood", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusOldblood::Create,
+            SaurusOldblood::ValueToString,
+            SaurusOldblood::EnumStringToInt,
+            SaurusOldblood::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::CelestiteMaul, SaurusOldblood::CelestiteGreatblade, 1}
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Oldblood", *factoryMethod);
     }
 }
 

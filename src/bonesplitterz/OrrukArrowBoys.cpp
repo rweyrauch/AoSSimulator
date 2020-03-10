@@ -10,20 +10,6 @@
 
 namespace Bonesplitterz
 {
-static FactoryMethod factoryMethod = {
-    SavageOrrukArrowboys::Create,
-    Bonesplitterz::ValueToString,
-    Bonesplitterz::EnumStringToInt,
-    SavageOrrukArrowboys::ComputePoints,
-    {
-        {ParamType::Integer, "Models", SavageOrrukArrowboys::MIN_UNIT_SIZE, SavageOrrukArrowboys::MIN_UNIT_SIZE, SavageOrrukArrowboys::MAX_UNIT_SIZE, SavageOrrukArrowboys::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
-    },
-    DESTRUCTION,
-    { BONESPLITTERZ }
-};
 
 bool SavageOrrukArrowboys::s_registered = false;
 
@@ -50,7 +36,21 @@ void SavageOrrukArrowboys::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Savage Orruk Arrowboys", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Bonesplitterz::ValueToString,
+            Bonesplitterz::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz, Bonesplitterz::Icebone, 1},
+            },
+            DESTRUCTION,
+            { BONESPLITTERZ }
+        };
+        s_registered = UnitFactory::Register("Savage Orruk Arrowboys", *factoryMethod);
     }
 }
 

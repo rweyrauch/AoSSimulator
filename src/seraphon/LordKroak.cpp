@@ -14,15 +14,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    LordKroak::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    LordKroak::ComputePoints,
-    {},
-    ORDER,
-    { SERAPHON }
-};
 
 bool LordKroak::s_registered = false;
 
@@ -70,7 +61,17 @@ void LordKroak::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord Kroak", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            ComputePoints,
+            {},
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Lord Kroak", *factoryMethod);
     }
 }
 

@@ -11,26 +11,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusWarriors::Create,
-    SaurusWarriors::ValueToString,
-    SaurusWarriors::EnumStringToInt,
-    SaurusWarriors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SaurusWarriors::MIN_UNIT_SIZE, SaurusWarriors::MIN_UNIT_SIZE,
-            SaurusWarriors::MAX_UNIT_SIZE, SaurusWarriors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", SaurusWarriors::CelestiteClub, SaurusWarriors::CelestiteClub,
-            SaurusWarriors::CelestiteSpear, 1
-        },
-        {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
-    },
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusWarriors::s_registered = false;
 
@@ -129,7 +109,28 @@ void SaurusWarriors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Warriors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusWarriors::Create,
+            SaurusWarriors::ValueToString,
+            SaurusWarriors::EnumStringToInt,
+            SaurusWarriors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SaurusWarriors::MIN_UNIT_SIZE, SaurusWarriors::MIN_UNIT_SIZE,
+                    SaurusWarriors::MAX_UNIT_SIZE, SaurusWarriors::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", SaurusWarriors::CelestiteClub, SaurusWarriors::CelestiteClub,
+                    SaurusWarriors::CelestiteSpear, 1
+                },
+                {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+            },
+            ORDER,
+            { SERAPHON }
+        };
+
+        s_registered = UnitFactory::Register("Saurus Warriors", *factoryMethod);
     }
 }
 

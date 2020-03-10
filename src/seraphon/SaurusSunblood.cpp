@@ -12,15 +12,6 @@
 
 namespace Seraphon
 {
-static FactoryMethod factoryMethod = {
-    SaurusSunblood::Create,
-    SeraphonBase::ValueToString,
-    SeraphonBase::EnumStringToInt,
-    SaurusSunblood::ComputePoints,
-    {},
-    ORDER,
-    { SERAPHON }
-};
 
 bool SaurusSunblood::s_registered = false;
 
@@ -62,7 +53,16 @@ void SaurusSunblood::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Saurus Sunblood", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SaurusSunblood::Create,
+            SeraphonBase::ValueToString,
+            SeraphonBase::EnumStringToInt,
+            SaurusSunblood::ComputePoints,
+            {},
+            ORDER,
+            { SERAPHON }
+        };
+        s_registered = UnitFactory::Register("Saurus Sunblood", *factoryMethod);
     }
 }
 
