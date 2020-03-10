@@ -178,12 +178,12 @@ Wounds Tzaangors::applyWoundSave(const Wounds &wounds)
         if (roll == 6)
             return {0, 0};
     }
-    return Unit::applyWoundSave(wounds);
+    return TzeentchBase::applyWoundSave(wounds);
 }
 
 int Tzaangors::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toHitModifier(weapon, target);
+    int modifier = TzeentchBase::toHitModifier(weapon, target);
 
     // Paired Savage Blades
     if ((m_weaponOption == PairedSavageBlades) && (weapon->name() == m_savageBlade.name()))
@@ -194,7 +194,7 @@ int Tzaangors::toHitModifier(const Weapon *weapon, const Unit *target) const
 
 int Tzaangors::toWoundModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toWoundModifier(weapon, target);
+    int modifier = TzeentchBase::toWoundModifier(weapon, target);
 
     // Destined Mayhem
     auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
@@ -212,7 +212,7 @@ int Tzaangors::toWoundModifier(const Weapon *weapon, const Unit *target) const
 
 int Tzaangors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int attacks = Unit::extraAttacks(nullptr, weapon, target);
+    int attacks = TzeentchBase::extraAttacks(nullptr, weapon, target);
 
     // Savagery Unleashed
     if (remainingModels() >= 9) attacks++;

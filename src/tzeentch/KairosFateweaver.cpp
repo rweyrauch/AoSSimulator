@@ -105,7 +105,7 @@ int KairosFateweaver::move() const
 
 void KairosFateweaver::onWounded()
 {
-    Unit::onWounded();
+    TzeentchBase::onWounded();
 
     const int damageIndex = getDamageTableIndex();
     m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);

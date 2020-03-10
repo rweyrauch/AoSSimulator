@@ -108,7 +108,7 @@ Rerolls TzaangorSkyfires::toHitRerolls(const Weapon *weapon, const Unit *target)
     }
     if (!enemyHasFought) return RerollFailed;
 
-    return Unit::toHitRerolls(weapon, target);
+    return TzeentchBase::toHitRerolls(weapon, target);
 }
 
 Rerolls TzaangorSkyfires::toWoundRerolls(const Weapon *weapon, const Unit *target) const
@@ -122,7 +122,7 @@ Rerolls TzaangorSkyfires::toWoundRerolls(const Weapon *weapon, const Unit *targe
     }
     if (!enemyHasFought) return RerollFailed;
 
-    return Unit::toWoundRerolls(weapon, target);
+    return TzeentchBase::toWoundRerolls(weapon, target);
 }
 
 Wounds TzaangorSkyfires::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -133,7 +133,7 @@ Wounds TzaangorSkyfires::weaponDamage(const Weapon *weapon, const Unit *target, 
         Dice dice;
         return { 0, dice.rollD3() };
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int TzaangorSkyfires::ComputePoints(int numModels)

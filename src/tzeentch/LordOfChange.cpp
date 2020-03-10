@@ -138,7 +138,7 @@ int LordOfChange::move() const
 
 void LordOfChange::onWounded()
 {
-    Unit::onWounded();
+    TzeentchBase::onWounded();
 
     const int damageIndex = getDamageTableIndex();
     m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);

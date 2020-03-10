@@ -50,6 +50,17 @@ protected:
 
 void Init();
 
+//
+// TODO: abilities
+// Abilities                    Implemented
+// -------------------------------------------
+// Locus of Fury                    Yes
+// Devour the Craven                No
+// Skull Hunters                    Yes
+// Tireless Conquerors              Yes
+// Slay the Mighty                  Yes
+//
+
 } // namespace Khorne
 
 #endif // KHORNEBASE_H

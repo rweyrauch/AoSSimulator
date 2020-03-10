@@ -7,6 +7,7 @@
  */
 
 #include <tzeentch/TzeentchBase.h>
+#include <Board.h>
 #include "tzeentch/KairicAcolytes.h"
 #include "tzeentch/HorrorsOfTzeentch.h"
 #include "tzeentch/TzaangorEnlightened.h"
@@ -93,6 +94,48 @@ void TzeentchBase::setChangeCoven(ChangeCoven coven)
         default:
             break;
     }
+}
+
+int TzeentchBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Twiters of Materiality
+    if (hasKeyword(ETERNAL_CONFLAGRATION) &&
+        (weapon->name().find("Warpflame") || weapon->name().find("Magical Flames")))
+    {
+        return weapon->rend()-1;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int TzeentchBase::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod =  Unit::toHitModifier(weapon, target);
+    // Arrows of Tzeentch
+    if (hasKeyword(PYROFANE_CULT) && hasKeyword(KAIRIC_ACOLYTES) && (weapon->name() == "Sorcerous Bolt"))
+    {
+        mod++;
+    }
+    return mod;
+}
+
+int TzeentchBase::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = Unit::targetHitModifier(weapon, attacker);
+
+    // Locus of Change
+    if (!weapon->isMissile() && hasKeyword(DAEMON))
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        for (auto unit : units)
+        {
+            if (unit->hasKeyword(HERO) && unit->hasKeyword(DAEMON))
+            {
+                mod--;
+                break;
+            }
+        }
+    }
+    return mod;
 }
 
 void Init()

@@ -112,7 +112,7 @@ void HorrorsOfTzeentch::Init()
 
 void  HorrorsOfTzeentch::computeBattleshockEffect(int roll, int& numFled, int& numAdded) const
 {
-    Unit::computeBattleshockEffect(roll, numFled, numAdded);
+    TzeentchBase::computeBattleshockEffect(roll, numFled, numAdded);
     if (m_iconBearer)
     {
         // Icon Bearer
@@ -138,7 +138,7 @@ void HorrorsOfTzeentch::restoreModels(int numModels)
 
 int HorrorsOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = Unit::toHitModifier(weapon, target);
+    int modifier = TzeentchBase::toHitModifier(weapon, target);
     // Flickering Flames
     if (remainingModels() >= 20)
         modifier += 1;
@@ -147,7 +147,7 @@ int HorrorsOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) c
 
 int HorrorsOfTzeentch::castingModifier() const
 {
-    int modifier = Unit::castingModifier();
+    int modifier = TzeentchBase::castingModifier();
 
     // Locus of Conjuration
     auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);

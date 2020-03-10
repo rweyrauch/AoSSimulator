@@ -89,7 +89,7 @@ Wounds ScreamersOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *targe
         Dice dice;
         return { dice.rollD3(), 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int ScreamersOfTzeentch::ComputePoints(int numModels)

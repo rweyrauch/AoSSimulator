@@ -43,6 +43,12 @@ protected:
     TzeentchBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {}
 
+protected:
+
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
 private:
 
     ChangeCoven m_coven = None;
@@ -54,6 +60,13 @@ void Init();
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
+// Locus of Change                  Yes
+// Twisters of Materiality          Yes
+// Ranks of Mischievous Mirages     No
+// Thieves of all Things Arcane     No
+// The Change-gift                  No
+// Arrows of Tzeentch               Partial
+// Scions of the Exiled             No
 //
 
 } // Tzeentch

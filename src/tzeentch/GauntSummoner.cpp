@@ -86,7 +86,7 @@ Wounds GauntSummonerOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *t
         Dice dice;
         return { 0, dice.rollD6() };
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // Tzeentch

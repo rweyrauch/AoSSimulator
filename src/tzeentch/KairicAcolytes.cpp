@@ -109,7 +109,7 @@ Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds)
     if (m_weaponOption == CursedBladeAndShield)
     {
     }
-    return Unit::applyWoundSave(wounds);
+    return TzeentchBase::applyWoundSave(wounds);
 }
 
 void KairicAcolytes::Init()
@@ -181,7 +181,7 @@ int KairicAcolytes::EnumStringToInt(const std::string &enumString)
 
 int KairicAcolytes::castingModifier() const
 {
-    int modifier = Unit::castingModifier();
+    int modifier = TzeentchBase::castingModifier();
 
     // Scroll of Dark Arts
     if (m_numScrollsOfDarkArts) modifier++;
@@ -196,7 +196,7 @@ Rerolls KairicAcolytes::toHitRerolls(const Weapon *weapon, const Unit *target) c
     {
         return RerollFailed;
     }
-    return Unit::toHitRerolls(weapon, target);
+    return TzeentchBase::toHitRerolls(weapon, target);
 }
 
 int KairicAcolytes::ComputePoints(int numModels)

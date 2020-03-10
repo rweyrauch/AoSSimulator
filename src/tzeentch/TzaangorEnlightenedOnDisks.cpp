@@ -105,7 +105,7 @@ Rerolls TzaangorEnlightenedOnDisks::toHitRerolls(const Weapon *weapon, const Uni
     }
     if (enemyHasFought) return RerollFailed;
 
-    return Unit::toHitRerolls(weapon, target);
+    return TzeentchBase::toHitRerolls(weapon, target);
 }
 
 Rerolls TzaangorEnlightenedOnDisks::toWoundRerolls(const Weapon *weapon, const Unit *target) const
@@ -119,7 +119,7 @@ Rerolls TzaangorEnlightenedOnDisks::toWoundRerolls(const Weapon *weapon, const U
     }
     if (enemyHasFought) return RerollFailed;
 
-    return Unit::toWoundRerolls(weapon, target);
+    return TzeentchBase::toWoundRerolls(weapon, target);
 }
 
 int TzaangorEnlightenedOnDisks::ComputePoints(int numModels)

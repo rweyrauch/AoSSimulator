@@ -90,7 +90,7 @@ void BurningChariotsOfTzeentch::Init()
 
 Wounds BurningChariotsOfTzeentch::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
 {
-    auto wounds = Unit::computeReturnedDamage(weapon, saveRoll);
+    auto wounds = TzeentchBase::computeReturnedDamage(weapon, saveRoll);
 
     Dice dice;
 
@@ -104,7 +104,7 @@ Wounds BurningChariotsOfTzeentch::computeReturnedDamage(const Weapon *weapon, in
 
 int BurningChariotsOfTzeentch::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    auto mod = Unit::toHitModifier(weapon, target);
+    auto mod = TzeentchBase::toHitModifier(weapon, target);
 
     // Capricious Warpflame
     if (target->remainingModels() >= 20) mod += 2;
@@ -120,7 +120,7 @@ Wounds BurningChariotsOfTzeentch::weaponDamage(const Weapon *weapon, const Unit 
         Dice dice;
         return { dice.rollD3(), 0};
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 int BurningChariotsOfTzeentch::ComputePoints(int numModels)
