@@ -13,18 +13,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordRelictor::Create,
-    LordRelictor::ValueToString,
-    LordRelictor::EnumStringToInt,
-    LordRelictor::ComputePoints,
-    {
-        {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordRelictor::s_registered = false;
 
@@ -74,7 +62,20 @@ void LordRelictor::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Relictor", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Relictor", *factoryMethod);
     }
 }
 

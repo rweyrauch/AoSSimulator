@@ -12,21 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordCelestantOnDracoth::Create,
-    LordCelestantOnDracoth::ValueToString,
-    LordCelestantOnDracoth::EnumStringToInt,
-    LordCelestantOnDracoth::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::TempestosHammer, LordCelestantOnDracoth::StormstrikeGlaive, 1
-        },
-        {ParamType::Boolean, "Sigmarite Thundershield", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordCelestantOnDracoth::s_registered = false;
 
@@ -95,7 +80,20 @@ void LordCelestantOnDracoth::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant on Dracoth", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", TempestosHammer, TempestosHammer, StormstrikeGlaive, 1},
+                {ParamType::Boolean, "Sigmarite Thundershield", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+        s_registered = UnitFactory::Register("Lord-Celestant on Dracoth", *factoryMethod);
     }
 }
 

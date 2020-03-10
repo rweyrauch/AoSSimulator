@@ -110,16 +110,16 @@ int main(int argc, char* argv[])
 
     // parse red string
     std::string redUnit = result["red"].as<std::string>();
-    Unit* pRed = parseUnitDescription(redUnit);
+    auto pRed = std::shared_ptr<Unit>(parseUnitDescription(redUnit));
     if (pRed == nullptr)
     {
         std::cout << "Failed to parse player 1 (red) unit description." << std::endl;
         return EXIT_FAILURE;
     }
 
-    // TODO: parse blue string
+    // parse blue string
     std::string blueUnit = result["blue"].as<std::string>();
-    Unit* pBlue = parseUnitDescription(blueUnit);
+    auto pBlue = std::shared_ptr<Unit>(parseUnitDescription(blueUnit));
     if (pBlue == nullptr)
     {
         std::cout << "Failed to parse player 2 (blue) unit description." << std::endl;
@@ -193,9 +193,6 @@ int main(int argc, char* argv[])
               << "\tRed: " << (float)redVictories * 100.0f/numIterations << std::endl
               << "\tBlue: " << (float)blueVictories * 100.0f/numIterations << std::endl
               << "\tTies: " << (float)ties * 100.0f/numIterations << std::endl;
-
-    delete pRed;
-    delete pBlue;
 
     return EXIT_SUCCESS;
 }

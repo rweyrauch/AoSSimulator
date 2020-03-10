@@ -15,19 +15,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    KnightIncantor::Create,
-    KnightIncantor::ValueToString,
-    KnightIncantor::EnumStringToInt,
-    KnightIncantor::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool KnightIncantor::s_registered = false;
 
@@ -88,7 +75,21 @@ void KnightIncantor::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Knight-Incantor", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Knight-Incantor", *factoryMethod);
     }
 }
 

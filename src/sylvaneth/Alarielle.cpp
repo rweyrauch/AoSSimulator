@@ -215,9 +215,9 @@ void Alarielle::onEndMovement(PlayerId player)
         auto factory = UnitFactory::LookupUnit("Kurnoth Hunters");
         if (factory)
         {
-            auto unit = UnitFactory::Create("Kurnoth Hunters", factory->m_parameters);
-            if (m_roster && unit)
+            if (m_roster)
             {
+                auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Kurnoth Hunters", factory->m_parameters));
                 unit->setPosition(position(), m_orientation);
                 m_roster->addUnit(unit);
             }

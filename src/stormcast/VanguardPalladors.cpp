@@ -13,23 +13,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    VanguardPalladors::Create,
-    VanguardPalladors::ValueToString,
-    VanguardPalladors::EnumStringToInt,
-    VanguardPalladors::ComputePoints,
-    {
-        {ParamType::Integer, "Models", VanguardPalladors::MIN_UNIT_SIZE, VanguardPalladors::MIN_UNIT_SIZE,
-         VanguardPalladors::MAX_UNIT_SIZE, VanguardPalladors::MIN_UNIT_SIZE},
-        {
-            ParamType::Enum, "Weapons", VanguardPalladors::StarstrikeJavelin, VanguardPalladors::ShockHandaxe, VanguardPalladors::StarstrikeJavelin, 1
-        },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool VanguardPalladors::s_registered = false;
 
 VanguardPalladors::VanguardPalladors() :
@@ -113,7 +96,21 @@ void VanguardPalladors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Vanguard-Palladors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", StarstrikeJavelin, ShockHandaxe, StarstrikeJavelin, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Vanguard-Palladors", *factoryMethod);
     }
 }
 

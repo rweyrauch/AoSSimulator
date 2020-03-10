@@ -58,12 +58,10 @@ int main(int argc, char* argv[])
     {
         ManoAMano battle(numRounds);
 
-        Unit *pRed = GenerateRandomUnit();
-        Unit *pBlue = GenerateRandomUnit();
+        auto pRed = std::shared_ptr<Unit>(GenerateRandomUnit());
+        auto pBlue = std::shared_ptr<Unit>(GenerateRandomUnit());
         if (pRed == nullptr || pBlue == nullptr)
         {
-            delete pRed;
-            delete pBlue;
             continue;
         }
 
@@ -88,9 +86,6 @@ int main(int argc, char* argv[])
             std::cout << "Team Blue, " << pBlue->name() << ", was victorious." << std::endl;
         else
             std::cout << "Tie! " << std::endl;
-
-        delete pRed;
-        delete pBlue;
     }
 
     return EXIT_SUCCESS;

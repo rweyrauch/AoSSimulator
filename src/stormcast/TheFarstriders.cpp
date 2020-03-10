@@ -11,17 +11,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    TheFarstriders::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    TheFarstriders::ComputePoints,
-    {
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool TheFarstriders::s_registered = false;
 
 TheFarstriders::TheFarstriders() :
@@ -77,7 +66,18 @@ void TheFarstriders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("The Farstriders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("The Farstriders", *factoryMethod);
     }
 }
 

@@ -12,16 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    GavrielSureheart::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    GavrielSureheart::ComputePoints,
-    {
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool GavrielSureheart::s_registered = false;
 
@@ -63,7 +53,18 @@ void GavrielSureheart::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Gavriel Sureheart", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Gavriel Sureheart", *factoryMethod);
     }
 }
 

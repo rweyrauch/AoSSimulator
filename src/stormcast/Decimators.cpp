@@ -13,20 +13,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Decimators::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    Decimators::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Decimators::MIN_UNIT_SIZE, Decimators::MIN_UNIT_SIZE, Decimators::MAX_UNIT_SIZE, Decimators::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Starsoul Maces", 2, 0, (Decimators::MAX_UNIT_SIZE / 5) * 2, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool Decimators::s_registered = false;
 
 Decimators::Decimators() :
@@ -122,7 +108,21 @@ void Decimators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Decimators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Starsoul Maces", 2, 0, (MAX_UNIT_SIZE / 5) * 2, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Decimators", *factoryMethod);
     }
 }
 

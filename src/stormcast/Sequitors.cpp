@@ -13,25 +13,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Sequitors::Create,
-    Sequitors::ValueToString,
-    Sequitors::EnumStringToInt,
-    Sequitors::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Sequitors::MIN_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE, Sequitors::MAX_UNIT_SIZE, Sequitors::MIN_UNIT_SIZE},
-        {
-            ParamType::Enum, "Weapons", Sequitors::StormsmiteMaul, Sequitors::StormsmiteMaul,
-            Sequitors::TempestBlade, 1
-        },
-        {ParamType::Integer, "Greatmaces", 2, 0, Sequitors::MAX_UNIT_SIZE / 5 * 2, 1},
-        {ParamType::Boolean, "Prime Greatmace", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Redemption Cache", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Sequitors::s_registered = false;
 
@@ -203,7 +184,24 @@ void Sequitors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Sequitors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", StormsmiteMaul, StormsmiteMaul, TempestBlade, 1},
+                {ParamType::Integer, "Greatmaces", 2, 0, MAX_UNIT_SIZE / 5 * 2, 1},
+                {ParamType::Boolean, "Prime Greatmace", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Redemption Cache", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Sequitors", *factoryMethod);
     }
 }
 

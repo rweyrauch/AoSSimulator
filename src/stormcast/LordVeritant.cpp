@@ -14,18 +14,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordVeritant::Create,
-    LordVeritant::ValueToString,
-    LordVeritant::EnumStringToInt,
-    LordVeritant::ComputePoints,
-    {
-        {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordVeritant::s_registered = false;
 
@@ -77,7 +65,20 @@ void LordVeritant::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Veritant", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Veritant", *factoryMethod);
     }
 }
 

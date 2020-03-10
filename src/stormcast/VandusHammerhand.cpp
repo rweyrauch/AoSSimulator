@@ -12,16 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    VandusHammerhand::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    VandusHammerhand::ComputePoints,
-    {
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool VandusHammerhand::s_registered = false;
 
@@ -65,7 +55,18 @@ void VandusHammerhand::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Vandus Hammerhand", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Vandus Hammerhand", *factoryMethod);
     }
 }
 

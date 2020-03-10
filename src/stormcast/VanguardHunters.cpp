@@ -12,22 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    VanguardHunters::Create,
-    VanguardHunters::ValueToString,
-    VanguardHunters::EnumStringToInt,
-    VanguardHunters::ComputePoints,
-    {
-        {ParamType::Integer, "Models", VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE, VanguardHunters::MAX_UNIT_SIZE, VanguardHunters::MIN_UNIT_SIZE},
-        {
-            ParamType::Enum, "Weapons", VanguardHunters::StormSabre, VanguardHunters::ShockHandaxe, VanguardHunters::StormSabre, 1
-        },
-        {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool VanguardHunters::s_registered = false;
 
@@ -115,7 +99,22 @@ void VanguardHunters::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Vanguard-Hunters", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", StormSabre, ShockHandaxe, StormSabre, 1},
+                {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Vanguard-Hunters", *factoryMethod);
     }
 }
 

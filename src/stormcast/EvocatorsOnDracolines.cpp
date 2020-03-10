@@ -15,23 +15,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    EvocatorsOnCelestialDracolines::Create,
-    EvocatorsOnCelestialDracolines::ValueToString,
-    EvocatorsOnCelestialDracolines::EnumStringToInt,
-    EvocatorsOnCelestialDracolines::ComputePoints,
-    {
-        {ParamType::Integer, "Models", EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE,
-         EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE, EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Integer, "Grandstaves", 2, 0, EvocatorsOnCelestialDracolines::MAX_UNIT_SIZE/EvocatorsOnCelestialDracolines::MIN_UNIT_SIZE*2, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool EvocatorsOnCelestialDracolines::s_registered = false;
 
 EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines() :
@@ -160,7 +143,23 @@ void EvocatorsOnCelestialDracolines::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Evocators on Celestial Dracolines", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Integer, "Grandstaves", 2, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE*2, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Evocators on Celestial Dracolines", *factoryMethod);
     }
 }
 

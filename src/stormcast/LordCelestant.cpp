@@ -12,17 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordCelestant::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    LordCelestant::ComputePoints,
-    {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordCelestant::s_registered = false;
 
@@ -67,7 +56,19 @@ void LordCelestant::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Celestant", *factoryMethod);
     }
 }
 

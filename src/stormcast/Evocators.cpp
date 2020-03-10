@@ -14,22 +14,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    Evocators::Create,
-    Evocators::ValueToString,
-    Evocators::EnumStringToInt,
-    Evocators::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Evocators::MIN_UNIT_SIZE, Evocators::MIN_UNIT_SIZE, Evocators::MAX_UNIT_SIZE, Evocators::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Integer, "Grandstaves", 2, 0, Evocators::MAX_UNIT_SIZE, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool Evocators::s_registered = false;
 
 Evocators::Evocators() :
@@ -154,7 +138,23 @@ void Evocators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Evocators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Prime Grandstave", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Integer, "Grandstaves", 2, 0, MAX_UNIT_SIZE, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Evocators", *factoryMethod);
     }
 }
 

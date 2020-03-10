@@ -13,17 +13,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    KnightAzyros::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    KnightAzyros::ComputePoints,
-    {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool KnightAzyros::s_registered = false;
 
@@ -66,7 +55,19 @@ void KnightAzyros::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Knight-Azyros", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Knight-Azyros", *factoryMethod);
     }
 }
 

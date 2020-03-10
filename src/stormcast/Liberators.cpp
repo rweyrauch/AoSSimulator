@@ -13,29 +13,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    Liberators::Create,
-    Liberators::ValueToString,
-    Liberators::EnumStringToInt,
-    Liberators::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Liberators::MIN_UNIT_SIZE, Liberators::MIN_UNIT_SIZE,
-            Liberators::MAX_UNIT_SIZE, Liberators::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Liberators::Warhammer, Liberators::Warhammer,
-            Liberators::Warblade, 1
-        },
-        {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Integer, "Grandhammers", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "Grandblades", 0, 0, Liberators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool Liberators::s_registered = false;
 
 Liberators::Liberators() :
@@ -176,7 +153,24 @@ void Liberators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Liberators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", Warhammer, Warhammer,Warblade, 1},
+                {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Integer, "Grandhammers", 0, 0, MAX_UNIT_SIZE / 5, 1},
+                {ParamType::Integer, "Grandblades", 0, 0, MAX_UNIT_SIZE / 5, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Liberators", *factoryMethod);
     }
 }
 

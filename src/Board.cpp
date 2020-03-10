@@ -198,14 +198,14 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
         {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
             {
-                if (*ip == unit)
+                if (ip->get() == unit)
                 {
                     continue;
                 }
-                float dist = unit->distanceTo(*ip);
+                float dist = unit->distanceTo(ip->get());
                 if (dist <= distance)
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -213,14 +213,14 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
         {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
             {
-                if (*ip == unit)
+                if (ip->get() == unit)
                 {
                     continue;
                 }
-                float dist = unit->distanceTo(*ip);
+                float dist = unit->distanceTo(ip->get());
                 if (dist <= distance)
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -231,14 +231,14 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
         {
             for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip)
             {
-                if (*ip == unit)
+                if (ip->get() == unit)
                 {
                     continue;
                 }
-                float dist = unit->distanceTo(*ip);
+                float dist = unit->distanceTo(ip->get());
                 if (dist <= distance)
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -322,7 +322,7 @@ std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId from
             {
                 if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -332,7 +332,7 @@ std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId from
             {
                 if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -345,7 +345,7 @@ std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId from
             {
                 if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -362,14 +362,14 @@ std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer)
         {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
             {
-                units.push_back(*ip);
+                units.push_back(ip->get());
             }
         }
         if (m_rosters[1] != nullptr)
         {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
             {
-                units.push_back(*ip);
+                units.push_back(ip->get());
             }
         }
     }
@@ -379,7 +379,7 @@ std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer)
         {
             for (auto ip = m_rosters[(int) fromPlayer]->unitBegin(); ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip)
             {
-                units.push_back(*ip);
+                units.push_back(ip->get());
             }
         }
     }
@@ -434,7 +434,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
                 float dist = point.distance((*ip)->position());
                 if (dist <= distance)
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -445,7 +445,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
                 float dist = point.distance((*ip)->position());
                 if (dist <= distance)
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -459,7 +459,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
                 float dist = point.distance((*ip)->position());
                 if (dist <= distance)
                 {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }

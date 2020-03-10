@@ -15,18 +15,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    CelestarBallista::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    CelestarBallista::ComputePoints,
-    {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool CelestarBallista::s_registered = false;
 
 CelestarBallista::CelestarBallista() :
@@ -80,7 +68,19 @@ void CelestarBallista::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Celestar Ballista", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Celestar Ballista", *factoryMethod);
     }
 }
 

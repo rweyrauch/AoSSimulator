@@ -14,18 +14,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    StormsiresCursebreakers::Create,
-    StormsiresCursebreakers::ValueToString,
-    StormsiresCursebreakers::EnumStringToInt,
-    StormsiresCursebreakers::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool StormsiresCursebreakers::s_registered = false;
 
 StormsiresCursebreakers::StormsiresCursebreakers() :
@@ -109,7 +97,19 @@ void StormsiresCursebreakers::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Stormsire's Cursebreakers", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Stormsire's Cursebreakers", *factoryMethod);
     }
 }
 

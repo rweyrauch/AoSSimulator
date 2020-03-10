@@ -12,16 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    NeaveBlacktalon::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    NeaveBlacktalon::ComputePoints,
-    {
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool NeaveBlacktalon::s_registered = false;
 
@@ -68,7 +58,18 @@ void NeaveBlacktalon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Neave Blacktalon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Neave Blacktalon", *factoryMethod);
     }
 }
 

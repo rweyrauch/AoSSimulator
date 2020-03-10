@@ -12,17 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    KnightVexillor::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    KnightVexillor::ComputePoints,
-    {
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool KnightVexillor::s_registered = false;
 
@@ -65,7 +54,19 @@ void KnightVexillor::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Knight-Vexillor", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Knight-Vexillor", *factoryMethod);
     }
 }
 

@@ -79,19 +79,19 @@ TEST(Spells, PrimeElectrids)
 
 TEST(Spells, Unbind)
 {
-    auto caster = std::make_unique<StormcastEternals::KnightIncantor>();
+    auto caster = std::make_shared<StormcastEternals::KnightIncantor>();
     caster->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
     caster->setPosition(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto red = new Roster(PlayerId::Red);
-    red->addUnit(caster.get());
+    red->addUnit(caster);
 
-    auto target = std::make_unique<StormcastEternals::KnightIncantor>();
+    auto target = std::make_shared<StormcastEternals::KnightIncantor>();
     target->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
     target->setPosition(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
     auto blue = new Roster(PlayerId::Blue);
-    blue->addUnit(target.get());
+    blue->addUnit(target);
 
     Board::Instance()->addRosters(red, blue);
 

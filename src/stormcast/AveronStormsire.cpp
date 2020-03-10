@@ -15,18 +15,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    AveronStormsire::Create,
-    AveronStormsire::ValueToString,
-    AveronStormsire::EnumStringToInt,
-    AveronStormsire::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool AveronStormsire::s_registered = false;
 
@@ -87,7 +75,20 @@ void AveronStormsire::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Averon Stormsire", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Averon Stormsire", *factoryMethod);
     }
 }
 

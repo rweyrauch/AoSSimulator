@@ -11,17 +11,6 @@
 namespace StormcastEternals
 {
 
-static FactoryMethod factoryMethod = {
-    SteelheartsChampions::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    SteelheartsChampions::ComputePoints,
-    {
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 bool SteelheartsChampions::s_registered = false;
 
 SteelheartsChampions::SteelheartsChampions() :
@@ -101,7 +90,18 @@ void SteelheartsChampions::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Steelheart's Champions", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Steelheart's Champions", *factoryMethod);
     }
 }
 

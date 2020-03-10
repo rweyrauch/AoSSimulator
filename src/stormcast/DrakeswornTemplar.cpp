@@ -14,22 +14,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    DrakeswornTemplar::Create,
-    DrakeswornTemplar::ValueToString,
-    DrakeswornTemplar::EnumStringToInt,
-    DrakeswornTemplar::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", DrakeswornTemplar::TempestAxe, DrakeswornTemplar::TempestAxe, DrakeswornTemplar::Stormlance, 1
-        },
-        {ParamType::Boolean, "Skybolt Bow", SIM_TRUE, SIM_FALSE, SIM_FALSE, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
-
 struct TableEntry
 {
     int m_move;
@@ -112,7 +96,21 @@ void DrakeswornTemplar::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Drakesworn Templar", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", TempestAxe, TempestAxe, Stormlance, 1},
+                {ParamType::Boolean, "Skybolt Bow", SIM_TRUE, SIM_FALSE, SIM_FALSE, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Drakesworn Templar", *factoryMethod);
     }
 }
 
@@ -205,7 +203,7 @@ Wounds DrakeswornTemplar::onEndCombat(PlayerId player)
         // find all enemy units within 3"
         for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
         {
-            auto dist = distanceTo(*ip);
+            auto dist = distanceTo(ip->get());
             if (dist <= 3.0)
             {
                 auto roll = dice.rollD6();

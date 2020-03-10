@@ -19,7 +19,7 @@ public:
 
     PlayerId getOwningPlayer() const { return m_id; }
 
-    void addUnit(Unit* unit)
+    void addUnit(std::shared_ptr<Unit> unit)
     {
         if (unit == nullptr) return;
         unit->setRoster(this);
@@ -39,8 +39,8 @@ public:
 
     Unit* nearestUnit(const Unit* unit) const;
 
-    std::vector<Unit*>::iterator unitBegin() { return m_units.begin(); }
-    std::vector<Unit*>::iterator unitEnd() { return m_units.end(); }
+    std::vector<std::shared_ptr<Unit>>::iterator unitBegin() { return m_units.begin(); }
+    std::vector<std::shared_ptr<Unit>>::iterator unitEnd() { return m_units.end(); }
 
     int totalPoints() const;
 
@@ -51,7 +51,7 @@ public:
 
 private:
     const PlayerId m_id;
-    std::vector<Unit*> m_units;
+    std::vector<std::shared_ptr<Unit>> m_units;
 
     int m_cp = 0;
 };

@@ -11,21 +11,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Concussors::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    Concussors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Concussors::MIN_UNIT_SIZE, Concussors::MIN_UNIT_SIZE,
-            Concussors::MAX_UNIT_SIZE, Concussors::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Concussors::s_registered = false;
 
@@ -81,7 +66,20 @@ void Concussors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Concussors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Concussors", *factoryMethod);
     }
 }
 

@@ -11,21 +11,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Fulminators::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    Fulminators::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Fulminators::MIN_UNIT_SIZE, Fulminators::MIN_UNIT_SIZE,
-            Fulminators::MAX_UNIT_SIZE, Fulminators::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Fulminators::s_registered = false;
 
@@ -81,7 +66,20 @@ void Fulminators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Fulminators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Fulminators", *factoryMethod);
     }
 }
 

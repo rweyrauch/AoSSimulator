@@ -11,21 +11,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Desolators::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    Desolators::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Desolators::MIN_UNIT_SIZE, Desolators::MIN_UNIT_SIZE,
-            Desolators::MAX_UNIT_SIZE, Desolators::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Desolators::s_registered = false;
 
@@ -81,7 +66,20 @@ void Desolators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Desolators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Desolators", *factoryMethod);
     }
 }
 

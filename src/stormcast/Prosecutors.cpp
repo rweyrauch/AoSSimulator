@@ -12,24 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Prosecutors::Create,
-    Prosecutors::ValueToString,
-    Prosecutors::EnumStringToInt,
-    Prosecutors::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Prosecutors::MIN_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE, Prosecutors::MAX_UNIT_SIZE, Prosecutors::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Weapons", Prosecutors::StormcallJavelinAndShield, Prosecutors::StormcallJavelinAndShield, Prosecutors::CelestialHammerAndShield, 1},
-        {ParamType::Enum, "Prime Grand Weapon", Prosecutors::None, Prosecutors::None, Prosecutors::Grandhammer, 1},
-        {ParamType::Integer, "Stormsurge Tridents", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandaxes", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandblades", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Integer, "Grandhammers", 0, 0, Prosecutors::MAX_UNIT_SIZE/3, 1 },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Prosecutors::s_registered = false;
 
@@ -309,7 +291,25 @@ void Prosecutors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Prosecutors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", StormcallJavelinAndShield, StormcallJavelinAndShield, CelestialHammerAndShield, 1},
+                {ParamType::Enum, "Prime Grand Weapon", None, None, Grandhammer, 1},
+                {ParamType::Integer, "Stormsurge Tridents", 0, 0, MAX_UNIT_SIZE/3, 1 },
+                {ParamType::Integer, "Grandaxes", 0, 0, MAX_UNIT_SIZE/3, 1 },
+                {ParamType::Integer, "Grandblades", 0, 0, MAX_UNIT_SIZE/3, 1 },
+                {ParamType::Integer, "Grandhammers", 0, 0, MAX_UNIT_SIZE/3, 1 },
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+        s_registered = UnitFactory::Register("Prosecutors", *factoryMethod);
     }
 }
 

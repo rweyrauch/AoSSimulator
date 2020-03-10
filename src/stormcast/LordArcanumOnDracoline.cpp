@@ -14,19 +14,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordArcanumOnDracoline::Create,
-    LordArcanumOnDracoline::ValueToString,
-    LordArcanumOnDracoline::EnumStringToInt,
-    LordArcanumOnDracoline::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordArcanumOnDracoline::s_registered = false;
 
@@ -89,7 +76,21 @@ void LordArcanumOnDracoline::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Arcanum on Celestial Dracoline", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Arcanum on Celestial Dracoline", *factoryMethod);
     }
 }
 

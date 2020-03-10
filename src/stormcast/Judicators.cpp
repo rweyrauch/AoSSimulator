@@ -12,24 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Judicators::Create,
-    Judicators::ValueToString,
-    Judicators::EnumStringToInt,
-    Judicators::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Judicators::MIN_UNIT_SIZE, Judicators::MIN_UNIT_SIZE, Judicators::MAX_UNIT_SIZE, Judicators::MIN_UNIT_SIZE},
-        {
-            ParamType::Enum, "Weapons", Judicators::SkyboltBow, Judicators::SkyboltBow,
-            Judicators::BoltstormCrossbow, 1
-        },
-        {ParamType::Integer, "Shockbolt Bows", 1, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Integer, "Thunderbolt Crossbows", 0, 0, Judicators::MAX_UNIT_SIZE / 5, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Judicators::s_registered = false;
 
@@ -159,7 +141,23 @@ void Judicators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Judicators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", SkyboltBow, SkyboltBow,BoltstormCrossbow, 1},
+                {ParamType::Integer, "Shockbolt Bows", 1, 0, MAX_UNIT_SIZE / 5, 1},
+                {ParamType::Integer, "Thunderbolt Crossbows", 0, 0, MAX_UNIT_SIZE / 5, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Judicators", *factoryMethod);
     }
 }
 

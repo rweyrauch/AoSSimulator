@@ -15,18 +15,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    AstreiaSolbright::Create,
-    AstreiaSolbright::ValueToString,
-    AstreiaSolbright::EnumStringToInt,
-    AstreiaSolbright::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
-        {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool AstreiaSolbright::s_registered = false;
 
@@ -88,7 +76,20 @@ void AstreiaSolbright::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Astreia Solblight", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
+                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Astreia Solblight", *factoryMethod);
     }
 }
 

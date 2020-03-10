@@ -12,18 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordOrdinator::Create,
-    LordOrdinator::ValueToString,
-    LordOrdinator::EnumStringToInt,
-    LordOrdinator::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", LordOrdinator::AstralHammers, LordOrdinator::AstralHammers, LordOrdinator::AstralGrandhammer, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordOrdinator::s_registered = false;
 
@@ -77,7 +65,20 @@ void LordOrdinator::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Ordinator", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", AstralHammers, AstralHammers, AstralGrandhammer, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Ordinator", *factoryMethod);
     }
 }
 

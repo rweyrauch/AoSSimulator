@@ -66,15 +66,15 @@ void Roster::beginTurn(int battleRound, PlayerId playerWithTurn)
 
 Unit *Roster::nearestUnit(const Unit *unit) const
 {
-    Unit *nearestUnit = m_units.front();
+    auto nearestUnit = m_units.front().get();
     float minDistance = FLT_MAX;
     for (auto u : m_units)
     {
-        float dist = unit->distanceTo(u);
+        float dist = unit->distanceTo(u.get());
         if (dist < minDistance)
         {
             minDistance = dist;
-            nearestUnit = u;
+            nearestUnit = u.get();
         }
     }
     return nearestUnit;

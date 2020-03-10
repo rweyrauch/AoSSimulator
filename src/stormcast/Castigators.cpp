@@ -12,18 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Castigators::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    Castigators::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Castigators::MIN_UNIT_SIZE, Castigators::MIN_UNIT_SIZE, Castigators::MAX_UNIT_SIZE, Castigators::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Castigators::s_registered = false;
 
@@ -86,7 +74,20 @@ void Castigators::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Castigators", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Castigators", *factoryMethod);
     }
 }
 

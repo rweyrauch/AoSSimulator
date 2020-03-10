@@ -12,19 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    Retributors::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    Retributors::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Retributors::MIN_UNIT_SIZE, Retributors::MIN_UNIT_SIZE, Retributors::MAX_UNIT_SIZE, Retributors::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Starsoul Maces", 2, 0, (Retributors::MAX_UNIT_SIZE / 5) * 2, 1},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool Retributors::s_registered = false;
 
@@ -111,7 +98,21 @@ void Retributors::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Retributors", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Starsoul Maces", 2, 0, (MAX_UNIT_SIZE / 5) * 2, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Retributors", *factoryMethod);
     }
 }
 

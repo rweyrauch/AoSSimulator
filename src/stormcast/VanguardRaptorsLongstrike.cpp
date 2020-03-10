@@ -12,21 +12,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    VanguardRaptorsLongstrike::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    VanguardRaptorsLongstrike::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", VanguardRaptorsLongstrike::MIN_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE,
-            VanguardRaptorsLongstrike::MAX_UNIT_SIZE, VanguardRaptorsLongstrike::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool VanguardRaptorsLongstrike::s_registered = false;
 
@@ -107,7 +92,20 @@ void VanguardRaptorsLongstrike::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Vanguard Raptors with Longstrike Crossbows", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Vanguard Raptors with Longstrike Crossbows", *factoryMethod);
     }
 }
 

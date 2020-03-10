@@ -13,18 +13,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordAquilor::Create,
-    StormcastEternal::ValueToString,
-    StormcastEternal::EnumStringToInt,
-    LordAquilor::ComputePoints,
-    {
-        {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 bool LordAquilor::s_registered = false;
 
@@ -76,7 +64,20 @@ void LordAquilor::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Aquilor", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            StormcastEternal::ValueToString,
+            StormcastEternal::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Aquilor", *factoryMethod);
     }
 }
 

@@ -14,20 +14,6 @@
 
 namespace StormcastEternals
 {
-static FactoryMethod factoryMethod = {
-    LordCelestantOnStardrake::Create,
-    LordCelestantOnStardrake::ValueToString,
-    LordCelestantOnStardrake::EnumStringToInt,
-    LordCelestantOnStardrake::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", LordCelestantOnStardrake::CelestineHammer, LordCelestantOnStardrake::CelestineHammer, LordCelestantOnStardrake::StormboundBlade, 1
-        },
-        {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-    },
-    ORDER,
-    { STORMCAST_ETERNAL }
-};
 
 struct TableEntry
 {
@@ -100,7 +86,20 @@ void LordCelestantOnStardrake::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lord-Celestant on Stardrake", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", CelestineHammer, CelestineHammer, StormboundBlade, 1},
+                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
+            },
+            ORDER,
+            { STORMCAST_ETERNAL }
+        };
+
+        s_registered = UnitFactory::Register("Lord-Celestant on Stardrake", *factoryMethod);
     }
 }
 
@@ -230,7 +229,7 @@ Wounds LordCelestantOnStardrake::onEndCombat(PlayerId player)
         // find all enemy units within 3"
         for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
         {
-            auto dist = distanceTo(*ip);
+            auto dist = distanceTo(ip->get());
             if (dist <= 3.0)
             {
                 auto roll = dice.rollD6();
