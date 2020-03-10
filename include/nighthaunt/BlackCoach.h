@@ -30,8 +30,6 @@ public:
     BlackCoach();
     ~BlackCoach() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:

@@ -29,14 +29,12 @@ public:
     ArachnarokSpiderWithSpiderfangWarparty();
     ~ArachnarokSpiderWithSpiderfangWarparty() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
 
     void onWounded() override;
-
+    void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Rerolls runRerolls() const override
     {

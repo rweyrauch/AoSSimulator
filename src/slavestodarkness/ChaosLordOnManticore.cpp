@@ -127,9 +127,10 @@ bool ChaosLordOnManticore::configure(WeaponOption weapon)
     return true;
 }
 
-int ChaosLordOnManticore::move() const
+void ChaosLordOnManticore::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void ChaosLordOnManticore::onWounded()
@@ -137,6 +138,7 @@ void ChaosLordOnManticore::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_fangsAndClaws.setToWound(g_damageTable[damageIndex].m_fangsToWound);
     m_tail.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ChaosLordOnManticore::getDamageTableIndex() const

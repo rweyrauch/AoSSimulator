@@ -31,7 +31,6 @@ public:
     ~Alarielle() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
@@ -40,6 +39,7 @@ protected:
     void onEndMovement(PlayerId player) override;
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
     void onCharged() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

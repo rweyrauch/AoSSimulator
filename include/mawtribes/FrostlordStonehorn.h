@@ -33,12 +33,12 @@ public:
     ~FrostlordOnStonehorn() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Wounds applyWoundSave(const Wounds& wounds) override;
 

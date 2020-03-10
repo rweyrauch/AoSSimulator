@@ -40,7 +40,6 @@ public:
     ~DrakeswornTemplar() override = default;
 
     bool configure(WeaponOption weapons, bool skyboltBow);
-    int move() const override;
 
 protected:
 
@@ -52,6 +51,7 @@ protected:
     Wounds onEndCombat(PlayerId player) override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onRestore() override;
 
 protected:
 

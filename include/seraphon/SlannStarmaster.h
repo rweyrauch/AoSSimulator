@@ -35,6 +35,7 @@ public:
 protected:
 
     void onStartHero(PlayerId player) override;
+    int castingModifier() const override;
 
 private:
 
@@ -49,7 +50,7 @@ private:
 // -------------------------------------------
 // Arcane Vassal                    No
 // Foresight                        Yes
-// Masters of Order                 No
+// Masters of Order                 Yes
 // Comet's Call                     No
 // Gift from the Heavens            No
 //

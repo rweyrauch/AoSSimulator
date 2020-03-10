@@ -31,7 +31,6 @@ public:
     ~VorgarothAndSkalok() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
@@ -42,6 +41,7 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onCharged() override;
     Wounds applyWoundSave(const Wounds &wounds) override;
+    void onRestore() override;
 
 private:
 

@@ -1437,7 +1437,7 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor)
 int Unit::rollCasting() const
 {
     Dice dice;
-    return dice.roll2D6();
+    return dice.roll2D6() + castingModifier();
 }
 
 PlayerId Unit::owningPlayer() const

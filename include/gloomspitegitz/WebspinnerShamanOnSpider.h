@@ -32,14 +32,12 @@ public:
     WebspinnerShamanOnArachnarokSpider();
     ~WebspinnerShamanOnArachnarokSpider() override = default;
 
-    int move() const override;
-
     bool configure(LoreOfTheSpiderFangs lore);
 
 protected:
 
     void onWounded() override;
-
+    void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:

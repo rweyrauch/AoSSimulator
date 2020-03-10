@@ -128,14 +128,17 @@ bool CelestialHurricanum::configure(bool battlemage)
     return true;
 }
 
-int CelestialHurricanum::move() const
+void CelestialHurricanum::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void CelestialHurricanum::onWounded()
 {
     Unit::onWounded();
+
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int CelestialHurricanum::getDamageTableIndex() const

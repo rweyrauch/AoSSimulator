@@ -37,14 +37,13 @@ public:
 
     ~MegabossOnMawKrusha() override = default;
 
-    int move() const override;
-
     bool configure(WeaponOption weapons);
 
 protected:
 
     void onWounded() override;
     void onCharged() override;
+    void onRestore() override;
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;

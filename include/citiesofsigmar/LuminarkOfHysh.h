@@ -33,13 +33,12 @@ public:
     LuminarkOfHysh();
     ~LuminarkOfHysh() override = default;
 
-    int move() const override;
-
     bool configure(bool battlemage);
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int castingModifier() const override;
 
 private:

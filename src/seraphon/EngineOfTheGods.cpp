@@ -68,9 +68,10 @@ bool EngineOfTheGods::configure()
     return true;
 }
 
-int EngineOfTheGods::move() const
+void EngineOfTheGods::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *EngineOfTheGods::Create(const ParameterList &parameters)
@@ -98,6 +99,7 @@ void EngineOfTheGods::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int EngineOfTheGods::getDamageTableIndex() const

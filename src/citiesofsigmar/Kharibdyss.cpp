@@ -102,9 +102,10 @@ bool Kharibdyss::configure()
     return true;
 }
 
-int Kharibdyss::move() const
+void Kharibdyss::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void Kharibdyss::onWounded()
@@ -112,6 +113,7 @@ void Kharibdyss::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_tentacles.setAttacks(g_damageTable[damageIndex].m_tentacleAttacks);
     m_tail.setToWound(g_damageTable[damageIndex].m_tailToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

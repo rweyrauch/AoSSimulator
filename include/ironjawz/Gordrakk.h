@@ -29,14 +29,13 @@ public:
 
     ~GordrakkTheFistOfGork() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
 
     void onWounded() override;
     void onCharged() override;
+    void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;

@@ -94,6 +94,7 @@ void Bastiladon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_beam.setAttacks(g_damageTable[damageIndex].m_engineAttacs);
     m_ark.setAttacks(g_damageTable[damageIndex].m_arkAttacks);
+    m_save = g_damageTable[getDamageTableIndex()].m_save;
 }
 
 int Bastiladon::getDamageTableIndex() const
@@ -107,11 +108,6 @@ int Bastiladon::getDamageTableIndex() const
         }
     }
     return 0;
-}
-
-int Bastiladon::save() const
-{
-    return g_damageTable[getDamageTableIndex()].m_save;
 }
 
 Wounds Bastiladon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
@@ -128,6 +124,14 @@ Wounds Bastiladon::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         return {0, 1};
     }
     return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void Bastiladon::onRestore()
+{
+    Unit::onRestore();
+
+    // Reset table attributes
+    onWounded();
 }
 
 } //namespace Seraphon

@@ -81,9 +81,10 @@ bool WebspinnerShamanOnArachnarokSpider::configure(LoreOfTheSpiderFangs lore)
     return true;
 }
 
-int WebspinnerShamanOnArachnarokSpider::move() const
+void WebspinnerShamanOnArachnarokSpider::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-driven attributes
+    onWounded();
 }
 
 void WebspinnerShamanOnArachnarokSpider::onWounded()
@@ -91,6 +92,7 @@ void WebspinnerShamanOnArachnarokSpider::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
     m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int WebspinnerShamanOnArachnarokSpider::getDamageTableIndex() const

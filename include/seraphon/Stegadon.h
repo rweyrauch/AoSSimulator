@@ -41,11 +41,10 @@ public:
 
     bool configure(WeaponOption option, bool skinkChief);
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
     void onCharged() override;
 
@@ -72,7 +71,7 @@ private:
 // Gout of Sunfire                  No
 // Steadfast Majesty                No
 // Unstoppable Stampede             Yes
-// Skink Chief                      No
+// Skink Chief                      Yes
 // Coordinated Strike               No
 //
 

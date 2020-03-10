@@ -125,9 +125,10 @@ bool HuskardOnStonehorn::configure(WeaponOption option)
     return true;
 }
 
-int HuskardOnStonehorn::move() const
+void HuskardOnStonehorn::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 int HuskardOnStonehorn::getDamageTableIndex() const
@@ -148,6 +149,7 @@ void HuskardOnStonehorn::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_horns.setAttacks(g_damageTable[damageIndex].m_hornsAttacks);
     m_hooves.setToWound(g_damageTable[damageIndex].m_hoovesToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     MawtribesBase::onWounded();
 }

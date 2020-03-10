@@ -80,11 +80,6 @@ bool Alarielle::configure()
     return true;
 }
 
-int Alarielle::move() const
-{
-    return g_damageTable[getDamageTableIndex()].m_move;
-}
-
 int Alarielle::toHitModifier(const Weapon *weapon, const Unit *unit) const
 {
     // Sweeping Blows
@@ -125,6 +120,7 @@ void Alarielle::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_spearOfKurnoth.setRange(g_damageTable[damageIndex].m_spearKurnothRange);
     m_beetleGreatAntlers.setDamage(g_damageTable[damageIndex].m_greatAntlerDamage);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int Alarielle::getDamageTableIndex() const
@@ -228,6 +224,12 @@ void Alarielle::onEndMovement(PlayerId player)
             m_usedSoulAmphorae = true;
         }
     }
+}
+
+void Alarielle::onRestore()
+{
+    // Restore table-driven attributes
+    onWounded();
 }
 
 } // namespace Sylvaneth

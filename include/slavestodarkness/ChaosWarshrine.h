@@ -32,11 +32,10 @@ public:
 
     bool configure();
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
 private:

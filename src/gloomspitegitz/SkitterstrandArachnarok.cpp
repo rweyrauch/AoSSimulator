@@ -65,9 +65,10 @@ bool SkitterstrandArachnarok::configure()
     return true;
 }
 
-int SkitterstrandArachnarok::move() const
+void SkitterstrandArachnarok::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-driven attributes
+    onWounded();
 }
 
 void SkitterstrandArachnarok::onWounded()
@@ -75,6 +76,7 @@ void SkitterstrandArachnarok::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
     m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int SkitterstrandArachnarok::getDamageTableIndex() const

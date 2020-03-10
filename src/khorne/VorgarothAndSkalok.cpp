@@ -102,6 +102,7 @@ void VorgarothAndSkalok::onWounded()
     m_evisceratingClaws.setRend(g_damageTable[damageIndex].m_clawsRend);
     m_cavernousJaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
     m_brassPlatedTail.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     KhorneBase::onWounded();
 }
@@ -119,9 +120,10 @@ int VorgarothAndSkalok::getDamageTableIndex() const
     return 0;
 }
 
-int VorgarothAndSkalok::move() const
+void VorgarothAndSkalok::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-drive attributes
+    onWounded();
 }
 
 Rerolls VorgarothAndSkalok::toWoundRerolls(const Weapon *weapon, const Unit *target) const

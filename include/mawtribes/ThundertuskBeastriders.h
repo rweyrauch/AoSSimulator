@@ -39,12 +39,12 @@ public:
     ~ThundertuskBeastriders() override = default;
 
     bool configure(WeaponOption option);
-    int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    void onRestore() override;
     int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
     void onStartShooting(PlayerId player) override;
 

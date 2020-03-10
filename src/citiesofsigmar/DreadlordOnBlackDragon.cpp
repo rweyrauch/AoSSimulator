@@ -175,9 +175,10 @@ bool DreadlordOnBlackDragon::configure(WeaponOption weapon)
     return true;
 }
 
-int DreadlordOnBlackDragon::move() const
+void DreadlordOnBlackDragon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void DreadlordOnBlackDragon::onWounded()
@@ -185,6 +186,7 @@ void DreadlordOnBlackDragon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
     m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

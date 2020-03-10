@@ -32,14 +32,13 @@ public:
 
     bool configure(bool pairedChoppas);
 
-    int move() const override;
-
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    void onRestore() override;
 
 private:
 

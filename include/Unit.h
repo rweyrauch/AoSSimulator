@@ -38,11 +38,11 @@ public:
 
     int wounds() const { return m_wounds; }
 
-    virtual int move() const { return m_move; }
+    int move() const { return m_move; }
 
-    virtual int bravery() const { return m_bravery; }
+    int bravery() const { return m_bravery; }
 
-    virtual int save() const { return m_save; }
+    int save() const { return m_save; }
 
     bool fly() const { return m_fly; }
 
@@ -200,7 +200,6 @@ public:
     int numOfWoundedModels() const;
 
     virtual int rollCasting() const;
-    virtual int castingModifier() const;
 
 protected:
 
@@ -336,6 +335,7 @@ protected:
 
     virtual void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const;
 
+    virtual int castingModifier() const;
     virtual int unbindingModifier() const;
 
     virtual void restoreModels(int numModels) { }
@@ -350,6 +350,7 @@ protected:
 
     virtual Rerolls chargeRerolls() const;
 
+
     virtual void onRestore() {}
 
     virtual void onBeginRound(int battleRound) {}
@@ -359,22 +360,22 @@ protected:
 
     virtual void onSlain() {}
     virtual void onModelSlain() {}
-
     virtual void onWounded() {}
-
     virtual void onRan() {}
-
+    virtual void onFlee(int numFled) {}
     virtual void onCharged() {}
 
     virtual void onStartHero(PlayerId player) {}
-    virtual void onStartMovement(PlayerId player) {}
-    virtual void onStartShooting(PlayerId player) {}
-    virtual void onStartCombat(PlayerId player) {}
+    virtual void onEndHero(PlayerId player) {}
 
-    virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
+    virtual void onStartMovement(PlayerId player) {}
     virtual void onEndMovement(PlayerId player) {}
 
-    virtual void onFlee(int numFled) {}
+    virtual void onStartShooting(PlayerId player) {}
+    virtual Wounds onEndShooting(PlayerId player) { return {0, 0}; }
+
+    virtual void onStartCombat(PlayerId player) {}
+    virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
 
     virtual int rollRunDistance() const;
 

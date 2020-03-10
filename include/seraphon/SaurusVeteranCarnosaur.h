@@ -41,11 +41,10 @@ public:
 
     bool configure(WeaponOption option);
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;

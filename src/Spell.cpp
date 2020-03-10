@@ -45,7 +45,7 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
     Spell::Result result = Failed;
 
     int mortalWounds = 0;
-    const int castingRoll = m_caster->rollCasting() + m_caster->castingModifier();
+    const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -105,7 +105,7 @@ Spell::Result AreaOfEffectSpell::cast(float x, float y, int round)
     Spell::Result result = Failed;
 
     int mortalWounds = 0;
-    const int castingRoll = dice.roll2D6();
+    const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -198,7 +198,7 @@ Spell::Result HealSpell::cast(Unit *target, int round)
     Spell::Result result = Failed;
 
     int wounds = 0;
-    const int castingRoll = dice.roll2D6();
+    const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -260,7 +260,7 @@ Spell::Result BuffModifierSpell::cast(Unit *target, int round)
     Dice dice;
     Spell::Result result = Failed;
 
-    const int castingRoll = dice.roll2D6();
+    const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -321,7 +321,7 @@ Spell::Result BuffRerollSpell::cast(Unit *target, int round)
     Dice dice;
     Spell::Result result = Failed;
 
-    const int castingRoll = dice.roll2D6();
+    const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);

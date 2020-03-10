@@ -32,13 +32,12 @@ public:
     Kharibdyss();
     ~Kharibdyss() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
 
 private:
 

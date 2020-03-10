@@ -41,11 +41,10 @@ public:
 
     bool configure(WeaponOption option);
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
     void onStartShooting(PlayerId player) override;
     int chargeModifier() const override;

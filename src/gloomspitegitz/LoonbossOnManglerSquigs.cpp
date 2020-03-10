@@ -85,9 +85,10 @@ int LoonbossOnManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *uni
 }
 
 
-int LoonbossOnManglerSquigs::move() const
+void LoonbossOnManglerSquigs::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-driven attributes
+    onWounded();
 }
 
 
@@ -96,6 +97,7 @@ void LoonbossOnManglerSquigs::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_hugeFangFilledGob.setToHit(g_damageTable[damageIndex].m_gobsToHig);
     m_ballsAndChains.setAttacks(g_damageTable[damageIndex].m_ballsAndChainsAttack);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int LoonbossOnManglerSquigs::getDamageTableIndex() const

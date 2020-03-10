@@ -24,9 +24,9 @@ public:
     static const int WOUNDS = 1;
     static const int WOUNDS_RAZORDON = 3;
     static const int MIN_UNIT_SIZE = 4;
-    static const int MAX_UNIT_SIZE = 4;
+    static const int MAX_UNIT_SIZE = 12;
     static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 120;
+    static const int POINTS_MAX_UNIT_SIZE = 240;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

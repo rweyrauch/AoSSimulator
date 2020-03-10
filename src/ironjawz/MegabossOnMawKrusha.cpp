@@ -108,15 +108,17 @@ void MegabossOnMawKrusha::Init()
     }
 }
 
-int MegabossOnMawKrusha::move() const
+void MegabossOnMawKrusha::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void MegabossOnMawKrusha::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int MegabossOnMawKrusha::getDamageTableIndex() const

@@ -128,13 +128,16 @@ bool LuminarkOfHysh::configure(bool battlemage)
     return true;
 }
 
-int LuminarkOfHysh::move() const
+void LuminarkOfHysh::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void LuminarkOfHysh::onWounded()
 {
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+
     Unit::onWounded();
 }
 

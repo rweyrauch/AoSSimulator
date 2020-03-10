@@ -54,9 +54,10 @@ ManglerSquigs::ManglerSquigs() :
     m_weapons = {&m_hugeFangFilledGob, &m_ballsAndChains, &m_grotsBashinStikk};
 }
 
-int ManglerSquigs::move() const
+void ManglerSquigs::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-driven attributes
+    onWounded();
 }
 
 bool ManglerSquigs::configure()
@@ -90,6 +91,7 @@ void ManglerSquigs::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_hugeFangFilledGob.setToHit(g_damageTable[damageIndex].m_gobsToHit);
     m_ballsAndChains.setAttacks(g_damageTable[damageIndex].m_ballsAndChainsAttack);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ManglerSquigs::getDamageTableIndex() const

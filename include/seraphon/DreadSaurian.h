@@ -31,11 +31,11 @@ public:
     ~DreadSaurian() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
     void onStartHero(PlayerId player) override;

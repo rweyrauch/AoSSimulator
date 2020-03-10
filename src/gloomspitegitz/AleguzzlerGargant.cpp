@@ -67,9 +67,11 @@ bool AleguzzlerGargant::configure()
     return true;
 }
 
-int AleguzzlerGargant::move() const
+void AleguzzlerGargant::onWounded()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+    m_eadbutt.setDamage(g_damageTable[getDamageTableIndex()].m_eadbuttDamage);
+    m_massiveClub.setAttacks(g_damageTable[getDamageTableIndex()].m_clubAttacks);
 }
 
 Unit *AleguzzlerGargant::Create(const ParameterList &parameters)
@@ -104,6 +106,14 @@ int AleguzzlerGargant::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+void AleguzzlerGargant::onRestore()
+{
+    Unit::onRestore();
+
+    // Reset table-driven attributes
+    onWounded();
 }
 
 } // namespace GloomspiteGitz

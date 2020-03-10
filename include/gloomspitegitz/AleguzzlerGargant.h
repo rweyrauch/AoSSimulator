@@ -29,13 +29,13 @@ public:
     AleguzzlerGargant();
     ~AleguzzlerGargant() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
 
     int getDamageTableIndex() const;
+    void onWounded() override;
+    void onRestore() override;
 
 private:
 

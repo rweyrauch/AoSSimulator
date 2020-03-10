@@ -30,13 +30,13 @@ public:
     ~WrathOfKhorneBloodthirster() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
+    void onRestore() override;
 
 private:
 

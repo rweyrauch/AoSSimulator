@@ -54,9 +54,10 @@ ColossalSquig::ColossalSquig() :
     m_weapons = {&m_puffSpores, &m_enormousJaws, &m_tramplingFeet};
 }
 
-int ColossalSquig::move() const
+void ColossalSquig::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 bool ColossalSquig::configure()
@@ -77,6 +78,7 @@ void ColossalSquig::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_enormousJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
     m_tramplingFeet.setAttacks(g_damageTable[damageIndex].m_tramplingAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 void ColossalSquig::onSlain()

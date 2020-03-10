@@ -37,6 +37,7 @@ protected:
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Wounds applyWoundSave(const Wounds &wounds) override;
     void onStartHero(PlayerId player) override;
+    int castingModifier() const override;
 
 private:
 
@@ -53,7 +54,7 @@ private:
 // Azyrite Force Barrier            Yes
 // Dead for Innumerable Ages        Yes
 // Impeccable Foresight             Yes
-// Masters of Order                 No
+// Masters of Order                 Yes
 // Celestial Deliverance            No
 // Comet's Call                     No
 // Gift from the Heavens            No

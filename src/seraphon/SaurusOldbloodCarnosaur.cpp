@@ -68,9 +68,10 @@ bool SaurusOldbloodOnCarnosaur::configure()
     return true;
 }
 
-int SaurusOldbloodOnCarnosaur::move() const
+void SaurusOldbloodOnCarnosaur::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *SaurusOldbloodOnCarnosaur::Create(const ParameterList &parameters)
@@ -99,6 +100,7 @@ void SaurusOldbloodOnCarnosaur::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
     m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int SaurusOldbloodOnCarnosaur::getDamageTableIndex() const

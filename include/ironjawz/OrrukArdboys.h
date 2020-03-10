@@ -44,13 +44,12 @@ public:
 
     bool configure(int numModels, int numShields, bool drummer, StandardOption standard);
 
-    int bravery() const override;
-
 protected:
 
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
     int chargeModifier() const override;
     Wounds applyWoundSave(const Wounds &wounds) override;
+    int braveryModifier() const override;
 
 protected:
 

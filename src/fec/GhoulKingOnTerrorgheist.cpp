@@ -148,11 +148,13 @@ void AbhorrantGhoulKingOnTerrorgheist::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_skeletalClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
-int AbhorrantGhoulKingOnTerrorgheist::move() const
+void AbhorrantGhoulKingOnTerrorgheist::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void AbhorrantGhoulKingOnTerrorgheist::onSlain()

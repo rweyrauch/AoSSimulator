@@ -39,8 +39,6 @@ public:
     FreeguildGeneralOnGriffon();
     ~FreeguildGeneralOnGriffon() override = default;
 
-    int move() const override;
-
     bool configure(WeaponOption weapon, bool hasShield);
 
 protected:
@@ -50,6 +48,7 @@ protected:
     int runModifier() const override;
     int chargeModifier() const override;
     void onWounded() override;
+    void onRestore() override;
 
 private:
 

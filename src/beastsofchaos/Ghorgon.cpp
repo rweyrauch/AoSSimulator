@@ -45,7 +45,7 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {3, 1, 4}
     };
 
-BeastsOfChaos::Ghorgon::Ghorgon() :
+Ghorgon::Ghorgon() :
     BeastsOfChaosBase("Ghorgon", 8, WOUNDS, 7, 5, false),
     m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
     m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6)
@@ -54,7 +54,7 @@ BeastsOfChaos::Ghorgon::Ghorgon() :
     m_weapons = { &m_butcheringBlades, &m_hugeSlaveringMaw };
 }
 
-bool BeastsOfChaos::Ghorgon::configure()
+bool Ghorgon::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMeleeWeapon(&m_butcheringBlades);
@@ -66,12 +66,13 @@ bool BeastsOfChaos::Ghorgon::configure()
     return true;
 }
 
-int BeastsOfChaos::Ghorgon::move() const
+void Ghorgon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-driven attributes
+    onWounded();
 }
 
-Unit *BeastsOfChaos::Ghorgon::Create(const ParameterList &parameters)
+Unit *Ghorgon::Create(const ParameterList &parameters)
 {
     auto unit = new Ghorgon();
 
@@ -87,7 +88,7 @@ Unit *BeastsOfChaos::Ghorgon::Create(const ParameterList &parameters)
     return unit;
 }
 
-void BeastsOfChaos::Ghorgon::Init()
+void Ghorgon::Init()
 {
     if (!s_registered)
     {
@@ -95,17 +96,18 @@ void BeastsOfChaos::Ghorgon::Init()
     }
 }
 
-void BeastsOfChaos::Ghorgon::onWounded()
+void Ghorgon::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
 
     m_butcheringBlades.setAttacks(g_damageTable[damageIndex].m_bladesAttacks);
     m_hugeSlaveringMaw.setDamage(g_damageTable[damageIndex].m_greatMawToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }
 
-int BeastsOfChaos::Ghorgon::getDamageTableIndex() const
+int Ghorgon::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
     for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)

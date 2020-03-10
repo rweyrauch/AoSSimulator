@@ -31,13 +31,13 @@ public:
     ~KairosFateweaver() override = default;
 
     bool configure();
-    int move() const override;
 
     int rollCasting() const override;
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
 private:

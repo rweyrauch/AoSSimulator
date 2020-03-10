@@ -115,9 +115,10 @@ bool SteamTank::configure(bool commander)
     return true;
 }
 
-int SteamTank::move() const
+void SteamTank::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void SteamTank::onWounded()
@@ -125,8 +126,7 @@ void SteamTank::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_steamCannon.setRange(g_damageTable[damageIndex].m_canonRange);
     m_steamGun.setToWound(g_damageTable[damageIndex].m_gunToWound);
-
-    // TODO: change range of model's Steam Cannon
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

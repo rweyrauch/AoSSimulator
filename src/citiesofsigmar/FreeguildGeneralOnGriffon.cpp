@@ -148,9 +148,10 @@ int FreeguildGeneralOnGriffon::chargeModifier() const
     return mod;
 }
 
-int FreeguildGeneralOnGriffon::move() const
+void FreeguildGeneralOnGriffon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void FreeguildGeneralOnGriffon::onWounded()
@@ -158,6 +159,7 @@ void FreeguildGeneralOnGriffon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
     m_beak.setDamage(g_damageTable[damageIndex].m_beakDamage);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

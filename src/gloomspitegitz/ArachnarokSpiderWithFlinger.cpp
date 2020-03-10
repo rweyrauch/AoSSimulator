@@ -71,9 +71,12 @@ bool ArachnarokSpiderWithFlinger::configure()
     return true;
 }
 
-int ArachnarokSpiderWithFlinger::move() const
+void ArachnarokSpiderWithFlinger::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    Unit::onRestore();
+
+    // Reset table-driven attributes
+    onWounded();
 }
 
 void ArachnarokSpiderWithFlinger::onWounded()
@@ -81,6 +84,7 @@ void ArachnarokSpiderWithFlinger::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
     m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ArachnarokSpiderWithFlinger::getDamageTableIndex() const

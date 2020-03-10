@@ -29,8 +29,6 @@ public:
     BloodthirsterOfUnfetteredFury();
     ~BloodthirsterOfUnfetteredFury() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
@@ -38,6 +36,7 @@ protected:
     int getDamageTableIndex() const;
     void onWounded() override;
     void onStartHero(PlayerId player) override;
+    void onRestore() override;
 
 private:
 

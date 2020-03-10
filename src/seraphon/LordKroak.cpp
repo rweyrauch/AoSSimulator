@@ -117,4 +117,12 @@ void LordKroak::onStartHero(PlayerId player)
     }
 }
 
+int LordKroak::castingModifier() const
+{
+    auto mod = SeraphonBase::castingModifier();
+    // Masters of Order
+    mod++;
+    return mod;
+}
+
 } //namespace Seraphon

@@ -79,11 +79,6 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
     return true;
 }
 
-int LordCelestantOnStardrake::move() const
-{
-    return g_damageTable[getDamageTableIndex()].m_move;
-}
-
 Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters)
 {
     auto unit = new LordCelestantOnStardrake();
@@ -130,6 +125,13 @@ void LordCelestantOnStardrake::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_greatClaws.setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+}
+
+void LordCelestantOnStardrake::onRestore()
+{
+    // Restore table-driven attributes
+    onWounded();
 }
 
 int LordCelestantOnStardrake::getDamageTableIndex() const

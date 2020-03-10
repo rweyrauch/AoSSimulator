@@ -108,6 +108,7 @@ void ShalaxiHelbane::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_soulpiercer.setToWound(g_damageTable[damageIndex].m_soulpiercerWound);
     m_impalingClaws.setDamage(g_damageTable[damageIndex].m_clawDamage);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
     Unit::onWounded();
 }
 
@@ -124,9 +125,10 @@ int ShalaxiHelbane::getDamageTableIndex() const
     return 0;
 }
 
-int ShalaxiHelbane::move() const
+void ShalaxiHelbane::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds)

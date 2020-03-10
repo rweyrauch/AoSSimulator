@@ -116,9 +116,10 @@ bool SorceressOnBlackDragon::configure()
     return true;
 }
 
-int SorceressOnBlackDragon::move() const
+void SorceressOnBlackDragon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void SorceressOnBlackDragon::onWounded()
@@ -126,6 +127,7 @@ void SorceressOnBlackDragon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
     m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

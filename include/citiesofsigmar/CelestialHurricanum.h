@@ -33,13 +33,12 @@ public:
     CelestialHurricanum();
     ~CelestialHurricanum() override = default;
 
-    int move() const override;
-
     bool configure(bool battlemage);
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     void onStartShooting(PlayerId player) override;
     int castingModifier() const override;
 

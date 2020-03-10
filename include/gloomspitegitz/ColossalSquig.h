@@ -29,8 +29,6 @@ public:
     ColossalSquig();
     ~ColossalSquig() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
@@ -38,6 +36,7 @@ protected:
     void onWounded() override;
     void onSlain() override;
     void onCharged() override;
+    void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
 

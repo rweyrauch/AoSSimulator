@@ -95,9 +95,10 @@ void TheGlottkin::Init()
     }
 }
 
-int TheGlottkin::move() const
+void TheGlottkin::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void TheGlottkin::onStartHero(PlayerId player)
@@ -122,6 +123,7 @@ void TheGlottkin::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_pestilentTorrent.setDamage(g_damageTable[damageIndex].m_torrentDamage);
     m_flailingTentacle.setAttacks(g_damageTable[damageIndex].m_tentacleAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int TheGlottkin::getDamageTableIndex() const

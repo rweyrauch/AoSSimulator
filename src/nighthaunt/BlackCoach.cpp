@@ -91,17 +91,13 @@ bool BlackCoach::configure()
     return true;
 }
 
-int BlackCoach::move() const
-{
-    return g_damageTable[getDamageTableIndex()].m_move;
-}
-
 void BlackCoach::onWounded()
 {
     Unit::onWounded();
 
     const int damageIndex = getDamageTableIndex();
     m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+    m_move = g_damageTable[damageIndex].m_move;
 }
 
 int BlackCoach::getDamageTableIndex() const
@@ -208,6 +204,9 @@ void BlackCoach::onRestore()
     m_powerLevel = 0;
     m_runAndCharge = false;
     m_retreatAndCharge = false;
+
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Rerolls BlackCoach::toHitRerolls(const Weapon *weapon, const Unit *target) const

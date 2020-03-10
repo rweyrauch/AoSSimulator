@@ -33,13 +33,12 @@ public:
     SteamTank();
     ~SteamTank() override = default;
 
-    int move() const override;
-
     bool configure(bool commander);
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
 
 private:
 

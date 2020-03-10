@@ -143,11 +143,13 @@ void AbhorrantGhoulKingOnZombieDragon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_pestilentialBreath.setToWound(g_damageTable[damageIndex].m_breathToWound);
     m_swordlikeClaws.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
-int AbhorrantGhoulKingOnZombieDragon::move() const
+void AbhorrantGhoulKingOnZombieDragon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 } // namespace FleshEasterCourt

@@ -73,9 +73,10 @@ bool Archaon::configure()
     return true;
 }
 
-int Archaon::move() const
+void Archaon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *Archaon::Create(const ParameterList &parameters)
@@ -106,6 +107,7 @@ void Archaon::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_dorgharsHeads.setAttacks(g_damageTable[damageIndex].m_headsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int Archaon::getDamageTableIndex() const

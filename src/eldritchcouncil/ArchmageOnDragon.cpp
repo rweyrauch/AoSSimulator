@@ -119,9 +119,10 @@ void ArchmageOnDragon::Init()
     }
 }
 
-int ArchmageOnDragon::move() const
+void ArchmageOnDragon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void ArchmageOnDragon::onWounded()
@@ -129,6 +130,7 @@ void ArchmageOnDragon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_dragonClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
     m_dragonJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ArchmageOnDragon::getDamageTableIndex() const

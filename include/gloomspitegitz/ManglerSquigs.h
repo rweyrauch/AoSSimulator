@@ -29,8 +29,6 @@ public:
     ManglerSquigs();
     ~ManglerSquigs() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
@@ -38,7 +36,7 @@ protected:
     int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
     void onWounded() override;
     void onSlain() override;
-
+    void onRestore() override;
     int getDamageTableIndex() const;
 
 private:

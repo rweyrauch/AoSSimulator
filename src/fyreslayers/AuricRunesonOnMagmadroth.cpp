@@ -74,9 +74,10 @@ bool AuricRunesonOnMagmadroth::configure()
     return true;
 }
 
-int AuricRunesonOnMagmadroth::move() const
+void AuricRunesonOnMagmadroth::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *AuricRunesonOnMagmadroth::Create(const ParameterList &parameters)
@@ -107,6 +108,7 @@ void AuricRunesonOnMagmadroth::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_clawsAndHorns.setAttacks(g_damageTable[damageIndex].m_clawsHornsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int AuricRunesonOnMagmadroth::getDamageTableIndex() const

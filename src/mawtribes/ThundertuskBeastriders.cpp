@@ -122,9 +122,10 @@ bool ThundertuskBeastriders::configure(WeaponOption option)
     return true;
 }
 
-int ThundertuskBeastriders::move() const
+void ThundertuskBeastriders::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 int ThundertuskBeastriders::getDamageTableIndex() const
@@ -144,6 +145,7 @@ void ThundertuskBeastriders::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_tusks.setToWound(g_damageTable[damageIndex].m_tusksToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     MawtribesBase::onWounded();
 }

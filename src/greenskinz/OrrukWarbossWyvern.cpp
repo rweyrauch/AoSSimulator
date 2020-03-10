@@ -109,13 +109,15 @@ void OrrukWarbossOnWyvern::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_hornsClawsAndTeeth.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
     m_barbedTail.setToWound(g_damageTable[damageIndex].m_tailToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }
 
-int OrrukWarbossOnWyvern::move() const
+void OrrukWarbossOnWyvern::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Rerolls OrrukWarbossOnWyvern::toSaveRerolls(const Weapon *weapon) const

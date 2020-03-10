@@ -103,9 +103,10 @@ bool FrostlordOnThundertusk::configure()
     return true;
 }
 
-int FrostlordOnThundertusk::move() const
+void FrostlordOnThundertusk::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 int FrostlordOnThundertusk::getDamageTableIndex() const
@@ -125,6 +126,7 @@ void FrostlordOnThundertusk::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_tusks.setToWound(g_damageTable[damageIndex].m_tusksToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     MawtribesBase::onWounded();
 }

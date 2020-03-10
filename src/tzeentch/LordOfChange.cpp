@@ -131,9 +131,10 @@ bool LordOfChange::configure(LordOfChange::WeaponOption option)
     return true;
 }
 
-int LordOfChange::move() const
+void LordOfChange::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void LordOfChange::onWounded()
@@ -142,6 +143,7 @@ void LordOfChange::onWounded()
 
     const int damageIndex = getDamageTableIndex();
     m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int LordOfChange::getDamageTableIndex() const
@@ -163,7 +165,7 @@ int LordOfChange::rollCasting() const
     Dice dice;
     auto r0 = dice.rollD6();
     auto r1 = dice.rollD6();
-    return std::max(r0, r1) * 2;
+    return std::max(r0, r1) * 2 + castingModifier();
 }
 
 } // Tzeentch

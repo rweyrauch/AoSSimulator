@@ -33,13 +33,12 @@ public:
     FlamespyrePhoenix();
     ~FlamespyrePhoenix() override = default;
 
-    int move() const override;
-
     bool configure(bool anoited);
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
 
 private:
 

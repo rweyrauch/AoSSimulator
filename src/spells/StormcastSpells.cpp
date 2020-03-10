@@ -65,7 +65,7 @@ Spell::Result PurifyingBlast::cast(Unit* /*target*/, int round)
     Dice dice;
     Spell::Result result = Failed;
 
-    const int castingRoll = dice.roll2D6();
+    const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue)
     {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);

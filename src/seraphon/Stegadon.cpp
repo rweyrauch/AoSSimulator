@@ -87,9 +87,10 @@ bool Stegadon::configure(WeaponOption option, bool skinkChief)
     return true;
 }
 
-int Stegadon::move() const
+void Stegadon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *Stegadon::Create(const ParameterList &parameters)
@@ -130,6 +131,7 @@ void Stegadon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
     m_horns.setDamage(g_damageTable[damageIndex].m_hornDamage);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int Stegadon::getDamageTableIndex() const

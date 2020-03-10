@@ -85,9 +85,10 @@ void RogueIdol::Init()
     }
 }
 
-int RogueIdol::move() const
+void RogueIdol::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 int RogueIdol::getDamageTableIndex() const
@@ -108,6 +109,7 @@ void RogueIdol::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_boulderFists.setToWound(g_damageTable[damageIndex].m_fistToWound);
     m_stompinFeet.setAttacks(g_damageTable[damageIndex].m_feetAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

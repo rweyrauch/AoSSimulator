@@ -93,15 +93,17 @@ void GordrakkTheFistOfGork::Init()
     }
 }
 
-int GordrakkTheFistOfGork::move() const
+void GordrakkTheFistOfGork::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void GordrakkTheFistOfGork::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int GordrakkTheFistOfGork::getDamageTableIndex() const

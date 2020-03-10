@@ -30,7 +30,6 @@ public:
     ~BloodthirsterOfInsensateRage() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
@@ -38,6 +37,7 @@ protected:
     void onWounded() override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onRestore() override;
 
 private:
 

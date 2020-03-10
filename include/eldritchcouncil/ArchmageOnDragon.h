@@ -31,12 +31,11 @@ public:
 
     bool configure(bool arcaneTome, bool talisman);
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
     int unbindingModifier() const override;
+    void onRestore() override;
 
     int getDamageTableIndex() const;
 

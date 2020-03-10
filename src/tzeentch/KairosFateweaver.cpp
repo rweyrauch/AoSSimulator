@@ -98,9 +98,10 @@ bool KairosFateweaver::configure()
     return true;
 }
 
-int KairosFateweaver::move() const
+void KairosFateweaver::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void KairosFateweaver::onWounded()
@@ -109,6 +110,7 @@ void KairosFateweaver::onWounded()
 
     const int damageIndex = getDamageTableIndex();
     m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int KairosFateweaver::getDamageTableIndex() const
@@ -130,7 +132,7 @@ int KairosFateweaver::rollCasting() const
     Dice dice;
     auto r0 = dice.rollD6();
     auto r1 = dice.rollD6();
-    return std::max(r0, r1) * 2;
+    return std::max(r0, r1) * 2 + castingModifier();
 }
 
 } // Tzeentch

@@ -33,13 +33,12 @@ public:
     FrostheartPhoenix();
     ~FrostheartPhoenix() override = default;
 
-    int move() const override;
-
     bool configure(bool anointed);
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
 
 private:
 

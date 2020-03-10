@@ -109,9 +109,10 @@ bool BattlemageOnGriffon::configure()
     return true;
 }
 
-int BattlemageOnGriffon::move() const
+void BattlemageOnGriffon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void BattlemageOnGriffon::onWounded()
@@ -119,8 +120,7 @@ void BattlemageOnGriffon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_twinBeaks.setDamage(g_damageTable[damageIndex].m_beaksDamage);
     m_razorClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
-
-    // TODO: set beak damage.
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

@@ -32,12 +32,11 @@ public:
 
     bool configure();
 
-    int move() const override;
-
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
+    void onRestore() override;
 
     void onSlain() override;
     Wounds applyWoundSave(const Wounds &wounds) override;

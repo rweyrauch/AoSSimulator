@@ -64,9 +64,10 @@ bool DreadSaurian::configure()
     return true;
 }
 
-int DreadSaurian::move() const
+void DreadSaurian::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *DreadSaurian::Create(const ParameterList &parameters)
@@ -95,6 +96,7 @@ void DreadSaurian::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_rakingClaws.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
     m_gargantuanJaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int DreadSaurian::getDamageTableIndex() const

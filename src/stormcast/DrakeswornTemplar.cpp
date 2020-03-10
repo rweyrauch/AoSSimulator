@@ -90,11 +90,6 @@ bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow)
     return true;
 }
 
-int DrakeswornTemplar::move() const
-{
-    return g_damageTable[getDamageTableIndex()].m_move;
-}
-
 Unit *DrakeswornTemplar::Create(const ParameterList &parameters)
 {
     auto unit = new DrakeswornTemplar();
@@ -146,6 +141,14 @@ void DrakeswornTemplar::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_greatClaws.setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+}
+
+
+void DrakeswornTemplar::onRestore()
+{
+    // Restore table-driven attributes
+    onWounded();
 }
 
 int DrakeswornTemplar::getDamageTableIndex() const

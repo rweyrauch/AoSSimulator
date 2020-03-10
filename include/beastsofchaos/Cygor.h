@@ -31,11 +31,11 @@ public:
     ~Cygor() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

@@ -100,9 +100,10 @@ bool ChaosSorcererOnManticore::configure()
     return true;
 }
 
-int ChaosSorcererOnManticore::move() const
+void ChaosSorcererOnManticore::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void ChaosSorcererOnManticore::onWounded()
@@ -110,6 +111,7 @@ void ChaosSorcererOnManticore::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_fangsAndClaws.setToWound(g_damageTable[damageIndex].m_fangsToWound);
     m_tail.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ChaosSorcererOnManticore::getDamageTableIndex() const

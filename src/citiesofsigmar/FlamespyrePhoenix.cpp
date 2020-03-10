@@ -116,15 +116,17 @@ bool FlamespyrePhoenix::configure(bool anointed)
     return true;
 }
 
-int FlamespyrePhoenix::move() const
+void FlamespyrePhoenix::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void FlamespyrePhoenix::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

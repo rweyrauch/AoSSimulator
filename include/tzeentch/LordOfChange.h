@@ -40,13 +40,13 @@ public:
     ~LordOfChange() override = default;
 
     bool configure(WeaponOption option);
-    int move() const override;
 
     int rollCasting() const override;
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
 private:

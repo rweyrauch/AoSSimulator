@@ -39,13 +39,12 @@ public:
     ~ShalaxiHelbane() override = default;
 
     bool configure(WeaponOption weapon);
-    int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
-
+    void onRestore() override;
     Wounds applyWoundSave(const Wounds& wounds) override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

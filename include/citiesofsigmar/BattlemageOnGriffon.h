@@ -33,13 +33,12 @@ public:
     BattlemageOnGriffon();
     ~BattlemageOnGriffon() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int castingModifier() const override;
 

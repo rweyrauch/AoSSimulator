@@ -91,15 +91,17 @@ bool ChaosWarshrine::configure()
     return true;
 }
 
-int ChaosWarshrine::move() const
+void ChaosWarshrine::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void ChaosWarshrine::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_fists.setAttacks(g_damageTable[damageIndex].m_fistAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ChaosWarshrine::getDamageTableIndex() const

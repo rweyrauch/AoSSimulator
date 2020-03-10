@@ -44,11 +44,10 @@ public:
 
     bool configure(WeaponOption weapon);
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
     Wounds applyWoundSave(const Wounds &wounds) override;

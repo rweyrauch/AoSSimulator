@@ -112,6 +112,7 @@ void ArkhanTheBlack::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }
@@ -129,9 +130,10 @@ int ArkhanTheBlack::getDamageTableIndex() const
     return 0;
 }
 
-int ArkhanTheBlack::move() const
+void ArkhanTheBlack::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 Wounds ArkhanTheBlack::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

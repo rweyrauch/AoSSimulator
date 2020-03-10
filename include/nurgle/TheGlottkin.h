@@ -30,14 +30,13 @@ public:
     TheGlottkin();
     ~TheGlottkin() override = default;
 
-    int move() const override;
-
     bool configure();
 
 protected:
 
     void onStartHero(PlayerId player) override;
     void onWounded() override;
+    void onRestore() override;
     void onCharged() override;
     int getDamageTableIndex() const;
 

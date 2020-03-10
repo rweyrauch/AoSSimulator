@@ -68,9 +68,10 @@ bool Troglodon::configure()
     return true;
 }
 
-int Troglodon::move() const
+void Troglodon::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *Troglodon::Create(const ParameterList &parameters)
@@ -99,6 +100,7 @@ void Troglodon::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_spittle.setRange(g_damageTable[damageIndex].m_spittleRange);
     m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int Troglodon::getDamageTableIndex() const
@@ -137,6 +139,14 @@ Wounds Troglodon::weaponDamage(const Weapon *weapon, const Unit *target, int hit
         return {weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Troglodon::castingModifier() const
+{
+    auto mod = SeraphonBase::castingModifier();
+    // Oracle of the Slann
+    mod++;
+    return mod;
 }
 
 } //namespace Seraphon

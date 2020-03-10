@@ -125,9 +125,10 @@ bool HuskardOnThundertusk::configure(WeaponOption option)
     return true;
 }
 
-int HuskardOnThundertusk::move() const
+void HuskardOnThundertusk::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 int HuskardOnThundertusk::getDamageTableIndex() const
@@ -147,6 +148,7 @@ void HuskardOnThundertusk::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_tusks.setToWound(g_damageTable[damageIndex].m_tusksToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     MawtribesBase::onWounded();
 }

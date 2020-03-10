@@ -79,4 +79,14 @@ void SlannStarmaster::onStartHero(PlayerId player)
     }
 }
 
+int SlannStarmaster::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    // Masters of Order
+    mod++;
+
+    return mod;
+}
+
 } //namespace Seraphon

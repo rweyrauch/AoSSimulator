@@ -41,13 +41,12 @@ public:
     DreadlordOnBlackDragon();
     ~DreadlordOnBlackDragon() override = default;
 
-    int move() const override;
-
     bool configure(WeaponOption weapon);
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override
     {
         if ((m_weaponOption == PairExileBlades) && (weapon->name() == m_blade.name()))

@@ -104,14 +104,15 @@ void OrrukArdboys::Init()
     }
 }
 
-int OrrukArdboys::bravery() const
+int OrrukArdboys::braveryModifier() const
 {
-    int modBrav = m_bravery;
+    auto mod = Ironjawz::braveryModifier();
+
     if (m_standardBearer == BannerBearer)
     {
-        modBrav += 2;
+        mod += 2;
     }
-    return modBrav;
+    return mod;
 }
 
 void OrrukArdboys::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const

@@ -142,9 +142,10 @@ int ArkhanTheBlack::unbindingModifier() const
     return mod;
 }
 
-int ArkhanTheBlack::move() const
+void ArkhanTheBlack::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 void ArkhanTheBlack::onWounded()
@@ -152,6 +153,7 @@ void ArkhanTheBlack::onWounded()
     Unit::onWounded();
 
     m_ebonClaws.setAttacks(g_damageTable[getDamageTableIndex()].m_clawAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 } // namespace Death

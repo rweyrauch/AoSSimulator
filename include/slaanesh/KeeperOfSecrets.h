@@ -41,13 +41,12 @@ public:
     ~KeeperOfSecrets() override = default;
 
     bool configure(WeaponOption weapon);
-    int move() const override;
 
 protected:
 
     int getDamageTableIndex() const;
     void onWounded() override;
-
+    void onRestore() override;
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;
     Wounds applyWoundSave(const Wounds& wounds) override;

@@ -31,11 +31,10 @@ public:
 
     bool configure();
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
     Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;

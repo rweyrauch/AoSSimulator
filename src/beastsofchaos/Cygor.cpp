@@ -65,9 +65,10 @@ bool Cygor::configure()
     return true;
 }
 
-int Cygor::move() const
+void Cygor::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-driven attributes
+    onWounded();
 }
 
 Unit *Cygor::Create(const ParameterList &parameters)
@@ -100,6 +101,7 @@ void Cygor::onWounded()
 
     m_desecratedBoulder.setRange(g_damageTable[damageIndex].m_boulderRange);
     m_massiveHorns.setAttacks(g_damageTable[damageIndex].m_hornAttacts);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

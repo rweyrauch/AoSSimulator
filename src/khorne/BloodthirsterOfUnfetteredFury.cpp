@@ -102,9 +102,10 @@ int BloodthirsterOfUnfetteredFury::getDamageTableIndex() const
     return 0;
 }
 
-int BloodthirsterOfUnfetteredFury::move() const
+void BloodthirsterOfUnfetteredFury::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void BloodthirsterOfUnfetteredFury::onWounded()
@@ -112,6 +113,7 @@ void BloodthirsterOfUnfetteredFury::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_lashOfKhorne.setAttacks(g_damageTable[damageIndex].m_lashAttacks);
     m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     KhorneBase::onWounded();
 }

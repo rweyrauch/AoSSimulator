@@ -102,9 +102,10 @@ bool WarHydra::configure()
     return true;
 }
 
-int WarHydra::move() const
+void WarHydra::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void WarHydra::onWounded()
@@ -112,6 +113,7 @@ void WarHydra::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_fieryBreath.setAttacks(g_damageTable[damageIndex].m_breathAttacks);
     m_fangs.setAttacks(g_damageTable[damageIndex].m_fangAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     Unit::onWounded();
 }

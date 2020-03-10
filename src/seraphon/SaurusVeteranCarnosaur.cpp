@@ -70,9 +70,10 @@ bool SaurusScarVeteranOnCarnosaur::configure(WeaponOption option)
     return true;
 }
 
-int SaurusScarVeteranOnCarnosaur::move() const
+void SaurusScarVeteranOnCarnosaur::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Reset table-drive attributes
+    onWounded();
 }
 
 Unit *SaurusScarVeteranOnCarnosaur::Create(const ParameterList &parameters)
@@ -121,6 +122,7 @@ void SaurusScarVeteranOnCarnosaur::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
     m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int SaurusScarVeteranOnCarnosaur::getDamageTableIndex() const

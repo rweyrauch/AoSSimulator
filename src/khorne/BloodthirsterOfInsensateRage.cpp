@@ -100,11 +100,6 @@ int BloodthirsterOfInsensateRage::getDamageTableIndex() const
     return 0;
 }
 
-int BloodthirsterOfInsensateRage::move() const
-{
-    return g_damageTable[getDamageTableIndex()].m_move;
-}
-
 Rerolls BloodthirsterOfInsensateRage::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
     // Rage Unbound
@@ -119,8 +114,16 @@ void BloodthirsterOfInsensateRage::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_greatAxeOfKhorne.setAttacks(g_damageTable[damageIndex].m_axeAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     KhorneBase::onWounded();
+}
+
+
+void BloodthirsterOfInsensateRage::onRestore()
+{
+    // Restore table-drive attributes
+    onWounded();
 }
 
 Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

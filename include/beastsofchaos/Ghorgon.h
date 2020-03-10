@@ -31,11 +31,11 @@ public:
     ~Ghorgon() override = default;
 
     bool configure();
-    int move() const override;
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onStartCombat(PlayerId player) override;

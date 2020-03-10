@@ -93,6 +93,7 @@ void WrathOfKhorneBloodthirster::onWounded()
     const int damageIndex = getDamageTableIndex();
     m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
     m_bloodflail.setDamage(g_damageTable[damageIndex].m_flailDamage);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 
     KhorneBase::onWounded();
 }
@@ -120,9 +121,10 @@ Rerolls WrathOfKhorneBloodthirster::toHitRerolls(const Weapon *weapon, const Uni
     return KhorneBase::toHitRerolls(weapon, target);
 }
 
-int WrathOfKhorneBloodthirster::move() const
+void WrathOfKhorneBloodthirster::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 } // namespace Khorne

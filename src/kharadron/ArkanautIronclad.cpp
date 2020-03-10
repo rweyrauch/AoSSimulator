@@ -140,15 +140,17 @@ bool ArkanautIronclad::configure(WeaponOption option)
     return true;
 }
 
-int ArkanautIronclad::move() const
+void ArkanautIronclad::onRestore()
 {
-    return g_damageTable[getDamageTableIndex()].m_move;
+    // Restore table-driven attributes
+    onWounded();
 }
 
 void ArkanautIronclad::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
     m_boardingWeapons.setAttacks(g_damageTable[damageIndex].m_boardingAttacks);
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
 
 int ArkanautIronclad::getDamageTableIndex() const

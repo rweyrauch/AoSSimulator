@@ -32,15 +32,15 @@ public:
 
     bool configure();
 
-    int move() const override;
-
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int getDamageTableIndex() const;
 
     void onStartHero(PlayerId player) override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int castingModifier() const override;
 
 private:
 
@@ -56,7 +56,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oracle of the Slann              No
+// Oracle of the Slann              Yes
 // Regeneration                     Yes
 // Terror                           No
 // Venomous Spittle                 Yes

@@ -39,7 +39,6 @@ public:
     ~LordCelestantOnStardrake() override = default;
 
     bool configure(WeaponOption weapons);
-    int move() const override;
 
 protected:
 
@@ -53,6 +52,7 @@ protected:
     void onStartShooting(PlayerId player) override;
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;
+    void onRestore() override;
 
 protected:
 
