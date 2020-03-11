@@ -27,7 +27,7 @@ public:
     static void Init();
 
     Archaon();
-    ~Archaon() override = default;
+    ~Archaon() override;
 
     bool configure();
 
@@ -41,6 +41,8 @@ protected:
     Wounds applyWoundSave(const Wounds &wounds) override;
     void onStartCombat(PlayerId player) override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartHero(PlayerId player) override;
+    int crownOfDomination(const Unit* unit);
 
 private:
 
@@ -50,6 +52,8 @@ private:
         m_dorgharsClaws,
         m_dorgharsTails,
         m_dorgharsHeads;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -61,13 +65,13 @@ private:
 // The Eye of Sheerian              No
 // The Slayer of Kings              Yes
 // The Armour of Morkar             Yes
-// The Crown of Domination          No
+// The Crown of Domination          Yes
 // Three-headed Titan               No
 //   Filth-spewer                   No
 //   Skull-gorger                   No
 //   Spell-eater                    No
 // The Everchosen                   No
-// Warlord Without Equal            No
+// Warlord Without Equal            Yes
 // By My Will                       No
 // All-seeing Dominion              No
 //

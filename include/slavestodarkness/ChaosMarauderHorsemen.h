@@ -40,7 +40,7 @@ public:
     static void Init();
 
     ChaosMarauderHorsemen();
-    ~ChaosMarauderHorsemen() override = default;
+    ~ChaosMarauderHorsemen() override;
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer);
 
@@ -52,6 +52,7 @@ protected:
     void onRestore() override;
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
     int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+    int iconBearer(const Unit* unit);
 
 protected:
 
@@ -70,6 +71,8 @@ private:
         m_javelinMaster,
         m_hooves;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -77,7 +80,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon Bearer                      No
+// Icon Bearer                      Yes
 // Hornblower                       Yes
 // Darkwood Shields                 Yes
 // Mark of Chaos                    No

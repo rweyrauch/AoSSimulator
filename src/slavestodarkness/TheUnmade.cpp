@@ -10,21 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    TheUnmade::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    TheUnmade::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", TheUnmade::MIN_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE,
-            TheUnmade::MAX_UNIT_SIZE, TheUnmade::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool TheUnmade::s_registered = false;
 
@@ -49,7 +34,20 @@ void TheUnmade::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("The Unmade", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
+
+        s_registered = UnitFactory::Register("The Unmade", *factoryMethod);
     }
 }
 
@@ -61,6 +59,13 @@ TheUnmade::TheUnmade() :
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, THE_UNMADE};
     m_weapons = {&m_maimingWeapons, &m_maimingWeaponsLeader, &m_nigthmareSickles};
+
+    s_globalBraveryMod.connect(this, &TheUnmade::frozenInFear, &m_connection);
+}
+
+TheUnmade::~TheUnmade()
+{
+    m_connection.disconnect();
 }
 
 bool TheUnmade::configure(int numModels)
@@ -100,6 +105,16 @@ int TheUnmade::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int TheUnmade::frozenInFear(const Unit *unit)
+{
+    // Frozen in Fear
+    if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //SlavesToDarkness

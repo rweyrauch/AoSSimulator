@@ -28,16 +28,20 @@ public:
     static void Init();
 
     MindstealerSphiranx();
-    ~MindstealerSphiranx() override = default;
+    ~MindstealerSphiranx() override;
 
     bool configure();
 
 protected:
 
+    int telepathicDread(const Unit* unit);
+
 private:
 
     Weapon m_claws,
         m_tail;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -46,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Telepathic Dread                 No
+// Telepathic Dread                 Yes
 // Dominate Mind                    No
 //
 

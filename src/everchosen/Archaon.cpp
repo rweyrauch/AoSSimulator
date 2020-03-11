@@ -8,21 +8,11 @@
 
 #include <everchosen/Archaon.h>
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <spells/MysticShield.h>
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    Archaon::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    Archaon::ComputePoints,
-    {
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { EVERCHOSEN, SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, NURGLE, SLAANESH }
-};
 
 struct TableEntry
 {
@@ -52,8 +42,16 @@ Archaon::Archaon() :
 {
     m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH, HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
     m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
+
+    s_globalBraveryMod.connect(this, &Archaon::crownOfDomination, &m_connection);
+
     m_totalUnbinds = 2;
     m_totalSpells = 2;
+}
+
+Archaon::~Archaon()
+{
+    m_connection.disconnect();
 }
 
 bool Archaon::configure()
@@ -99,7 +97,18 @@ void Archaon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Archaon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { EVERCHOSEN, SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, NURGLE, SLAANESH }
+        };
+        s_registered = UnitFactory::Register("Archaon", *factoryMethod);
     }
 }
 
@@ -157,6 +166,32 @@ void Archaon::onStartCombat(PlayerId player)
     Unit::onStartCombat(player);
 
     m_slayerOfKingsSixesThisCombat = 0;
+}
+
+void Archaon::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Warlord Without Equal
+    if (owningPlayer() == player)
+    {
+        if (m_roster) m_roster->addCommandPoints(1);
+    }
+}
+
+int Archaon::crownOfDomination(const Unit *unit)
+{
+    // The Crown of Domination
+    if (unit->hasKeyword(CHAOS) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0f))
+    {
+        return 2;
+    }
+    else if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0f))
+    {
+        return -2;
+    }
+
+    return 0;
 }
 
 } // namespace SlavesToDarkness

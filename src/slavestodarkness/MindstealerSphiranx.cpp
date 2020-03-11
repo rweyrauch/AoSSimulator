@@ -12,17 +12,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    MindstealerSphiranx::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    MindstealerSphiranx::ComputePoints,
-    {
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool MindstealerSphiranx::s_registered = false;
 
@@ -46,7 +35,19 @@ void MindstealerSphiranx::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Mindstealer Sphiranx", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
+
+        s_registered = UnitFactory::Register("Mindstealer Sphiranx", *factoryMethod);
     }
 }
 
@@ -56,6 +57,13 @@ MindstealerSphiranx::MindstealerSphiranx() :
     m_tail(Weapon::Type::Melee, "Lashing Tail", 1, 2, 4, 3, 0, 1)
 {
     m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, MINDSTEALER_SPHIRANX};
+
+    s_globalBraveryMod.connect(this, &MindstealerSphiranx::telepathicDread, &m_connection);
+}
+
+MindstealerSphiranx::~MindstealerSphiranx()
+{
+    m_connection.disconnect();
 }
 
 bool MindstealerSphiranx::configure()
@@ -69,6 +77,17 @@ bool MindstealerSphiranx::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int MindstealerSphiranx::telepathicDread(const Unit *unit)
+{
+    // Telepathic Dread
+    if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0f))
+    {
+        return -2;
+    }
+
+    return 0;
 }
 
 }//namespace SlavesToDarkness

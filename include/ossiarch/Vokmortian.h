@@ -30,17 +30,20 @@ public:
     static void Init();
 
     Vokmortian();
-    ~Vokmortian() override = default;
+    ~Vokmortian() override;
 
     bool configure();
 
 protected:
 
-private:
+    int grimWarning(const Unit* unit);
 
+private:
 
     Weapon m_gazeOfDeath,
         m_staff;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -50,7 +53,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Contract of Nagash               No
-// Grim Warning                     No
+// Grim Warning                     Partial
 // Mortal Touch                     No
 //
 

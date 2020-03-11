@@ -10,28 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    ChaosMarauderHorsemen::Create,
-    ChaosMarauderHorsemen::ValueToString,
-    ChaosMarauderHorsemen::EnumStringToInt,
-    ChaosMarauderHorsemen::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChaosMarauderHorsemen::MIN_UNIT_SIZE, ChaosMarauderHorsemen::MIN_UNIT_SIZE,
-            ChaosMarauderHorsemen::MAX_UNIT_SIZE, ChaosMarauderHorsemen::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", ChaosMarauderHorsemen::AxeAndShield, ChaosMarauderHorsemen::AxeAndShield,
-            ChaosMarauderHorsemen::Flail, 1
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool ChaosMarauderHorsemen::s_registered = false;
 
@@ -62,7 +40,24 @@ void ChaosMarauderHorsemen::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chaos Marauders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", AxeAndShield, AxeAndShield, Flail, 1},
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
+
+        s_registered = UnitFactory::Register("Chaos Marauders", *factoryMethod);
     }
 }
 
@@ -80,9 +75,16 @@ ChaosMarauderHorsemen::ChaosMarauderHorsemen() :
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDER_HORSEMEN};
     m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster, &m_hooves};
 
+    s_globalBraveryMod.connect(this, &ChaosMarauderHorsemen::iconBearer, &m_connection);
+
     // Feigned Flight
     m_retreatAndCharge = true;
     m_retreatAndShoot = true;
+}
+
+ChaosMarauderHorsemen::~ChaosMarauderHorsemen()
+{
+    m_connection.disconnect();
 }
 
 bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool iconBearer, bool hornblower)
@@ -286,6 +288,16 @@ int ChaosMarauderHorsemen::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int ChaosMarauderHorsemen::iconBearer(const Unit *unit)
+{
+    // Icon Bearer
+    if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //SlavesToDarkness

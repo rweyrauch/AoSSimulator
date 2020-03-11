@@ -11,17 +11,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    Vokmortian::Create,
-    Vokmortian::ValueToString,
-    Vokmortian::EnumStringToInt,
-    Vokmortian::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool Vokmortian::s_registered = false;
 
@@ -55,7 +44,19 @@ void Vokmortian::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Vokmortian", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
+
+        s_registered = UnitFactory::Register("Vokmortian", *factoryMethod);
     }
 }
 
@@ -67,8 +68,15 @@ Vokmortian::Vokmortian() :
     m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, HERO, WIZARD, VOKMORTIAN};
     m_weapons = {&m_gazeOfDeath, &m_staff};
 
+    s_globalBraveryMod.connect(this, &Vokmortian::grimWarning, &m_connection);
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
+}
+
+Vokmortian::~Vokmortian()
+{
+    m_connection.disconnect();
 }
 
 bool Vokmortian::configure()
@@ -84,6 +92,16 @@ bool Vokmortian::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Vokmortian::grimWarning(const Unit *unit)
+{
+    // Grim Warning
+    if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0f))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 } // namespace OssiarchBonereapers

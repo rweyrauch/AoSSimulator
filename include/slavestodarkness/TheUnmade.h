@@ -31,19 +31,21 @@ public:
     static void Init();
 
     TheUnmade();
-    ~TheUnmade() override = default;
+    ~TheUnmade() override;
 
     bool configure(int numModels);
 
 protected:
 
-protected:
+    int frozenInFear(const Unit* unit);
 
 private:
 
     Weapon m_maimingWeapons,
         m_maimingWeaponsLeader,
         m_nigthmareSickles;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -52,7 +54,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Frozen in Fear                   No
+// Frozen in Fear                   Partial
 //
 
 } // SlavesToDarkness
