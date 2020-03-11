@@ -13,18 +13,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    CelestialHurricanum::Create,
-    CelestialHurricanum::ValueToString,
-    CelestialHurricanum::EnumStringToInt,
-    CelestialHurricanum::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-        {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 struct TableEntry
 {
@@ -78,7 +66,20 @@ void CelestialHurricanum::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Celestial Hurricanum", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+                {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
+
+        s_registered = UnitFactory::Register("Celestial Hurricanum", *factoryMethod);
     }
 }
 
@@ -91,6 +92,15 @@ CelestialHurricanum::CelestialHurricanum() :
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, CELESTIAL_HURRICANUM};
     m_weapons = {&m_stormOfShemtek, &m_wizardStaff, &m_arcaneTools, &m_hooves};
+
+    s_globalCastMod.connect(this, &CelestialHurricanum::locusOfAzyr, &m_locusConnection);
+    s_globalToHitMod.connect(this, &CelestialHurricanum::portentsOfBattle, &m_portentsConnection);
+}
+
+CelestialHurricanum::~CelestialHurricanum()
+{
+    m_locusConnection.disconnect();
+    m_portentsConnection.disconnect();
 }
 
 bool CelestialHurricanum::configure(bool battlemage)
@@ -185,6 +195,28 @@ int CelestialHurricanum::castingModifier() const
     if (Board::Instance()->getRealm() == Azyr) mod++;
 
     return mod;
+}
+
+int CelestialHurricanum::locusOfAzyr(const Unit *caster)
+{
+    // Locus of Azyr
+    if (caster->hasKeyword(COLLEGIATE_ARCANE) && caster->hasKeyword(WIZARD) &&
+        (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0f))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int CelestialHurricanum::portentsOfBattle(const Weapon *weapon, const Unit *unit)
+{
+    // Portents of Battle
+    if (unit->hasKeyword(CITIES_OF_SIGMAR) &&
+        (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= g_damageTable[getDamageTableIndex()].m_portentsOfBattle))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 } //namespace CitiesOfSigmar

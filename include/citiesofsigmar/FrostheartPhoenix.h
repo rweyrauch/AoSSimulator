@@ -31,7 +31,7 @@ public:
     static void Init();
 
     FrostheartPhoenix();
-    ~FrostheartPhoenix() override = default;
+    ~FrostheartPhoenix() override;
 
     bool configure(bool anointed);
 
@@ -40,12 +40,16 @@ protected:
     void onWounded() override;
     void onRestore() override;
 
+    int blizzardAura(const Weapon* weapon, const Unit* target);
+
 private:
 
     int getDamageTableIndex() const;
 
     Weapon m_talons,
         m_halberd;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -55,7 +59,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Attuned to Magic                 No
-// Blizzard Aura                    No
+// Blizzard Aura                    Yes
 // Witness to Destiny               No
 // Captain of the Phoenix Guard     No
 //

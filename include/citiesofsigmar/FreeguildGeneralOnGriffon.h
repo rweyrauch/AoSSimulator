@@ -37,7 +37,7 @@ public:
     static void Init();
 
     FreeguildGeneralOnGriffon();
-    ~FreeguildGeneralOnGriffon() override = default;
+    ~FreeguildGeneralOnGriffon() override;
 
     bool configure(WeaponOption weapon, bool hasShield);
 
@@ -49,6 +49,8 @@ protected:
     int chargeModifier() const override;
     void onWounded() override;
     void onRestore() override;
+
+    int piercingBloodroar(const Unit* target);
 
 private:
 
@@ -62,6 +64,8 @@ private:
         m_claws,
         m_beak;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -72,7 +76,7 @@ private:
 // Charging Lance                   Yes
 // Freeguild Shield                 Yes
 // Skilled Rider                    Yes
-// Piercing Bloodroar               No
+// Piercing Bloodroar               Yes
 // Rousing Battle Cry               No
 //
 

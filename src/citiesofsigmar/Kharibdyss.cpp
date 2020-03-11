@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Kharibdyss::Create,
-    Kharibdyss::ValueToString,
-    Kharibdyss::EnumStringToInt,
-    Kharibdyss::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Kharibdyss::s_registered = false;
 
@@ -73,7 +62,18 @@ void Kharibdyss::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Kharibdyss", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
+        s_registered = UnitFactory::Register("Kharibdyss", *factoryMethod);
     }
 }
 
@@ -86,6 +86,13 @@ Kharibdyss::Kharibdyss() :
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, MONSTER, KHARIBDYSS};
     m_weapons = {&m_tentacles, &m_tail, &m_limbs, &m_goadsAndWhips};
+
+    s_globalBraveryMod.connect(this, &Kharibdyss::abyssalHowl, &m_connection);
+}
+
+Kharibdyss::~Kharibdyss()
+{
+    m_connection.disconnect();
 }
 
 bool Kharibdyss::configure()
@@ -128,6 +135,17 @@ int Kharibdyss::getDamageTableIndex() const
             return i;
         }
     }
+    return 0;
+}
+
+int Kharibdyss::abyssalHowl(const Unit *target)
+{
+    // Abyssal Howl
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 12.0f))
+    {
+        return -1;
+    }
+
     return 0;
 }
 

@@ -12,24 +12,6 @@
 namespace CitiesOfSigmar
 {
 
-static FactoryMethod factoryMethod = {
-    DarkRiders::Create,
-    DarkRiders::ValueToString,
-    DarkRiders::EnumStringToInt,
-    DarkRiders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DarkRiders::MIN_UNIT_SIZE, DarkRiders::MIN_UNIT_SIZE,
-            DarkRiders::MAX_UNIT_SIZE, DarkRiders::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
-
 bool DarkRiders::s_registered = false;
 
 Unit *DarkRiders::Create(const ParameterList &parameters)
@@ -66,7 +48,22 @@ void DarkRiders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Dark Riders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
+
+        s_registered = UnitFactory::Register("Dark Riders", *factoryMethod);
     }
 }
 
@@ -79,6 +76,13 @@ DarkRiders::DarkRiders() :
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, DARK_RIDERS};
     m_weapons = {&m_crossbow, &m_spear, &m_bite, &m_crossbowHerald};
+
+    s_globalBraveryMod.connect(this, &DarkRiders::sowTerrorAndConfusion, &m_connection);
+}
+
+DarkRiders::~DarkRiders()
+{
+    m_connection.disconnect();
 }
 
 bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
@@ -146,6 +150,17 @@ int DarkRiders::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int DarkRiders::sowTerrorAndConfusion(const Unit *target)
+{
+    // Sow Terror and Confusion
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 12.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } //namespace CitiesOfSigmar

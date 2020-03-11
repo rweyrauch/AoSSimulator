@@ -77,7 +77,7 @@ private:
 // Gromril Shields                  Yes
 // Forge-proven Gromril Armour      Yes
 // Musician                         Yes
-// Icon Bearer                      No
+// Standard Bearer                  Yes
 //
 
 } // namespace CitiesOfSigmar

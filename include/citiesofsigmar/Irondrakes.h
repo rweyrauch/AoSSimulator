@@ -75,13 +75,13 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Paired  Drakefire Pistols        Yes
+// Paired Drakefire Pistols         Yes
 // Grudgehammer Torpedo             Yes
 // Cinderblast Bomb                 Yes
 // Forge-proven Gromril Armour      Yes
 // Blaze Away                       Yes
 // Hornblowers                      Yes
-// Icon Bearer                      No
+// Standard Bearer                  Yes
 //
 
 } // namespace CitiesOfSigmar

@@ -30,17 +30,20 @@ public:
     static void Init();
 
     FreeguildGeneral();
-    ~FreeguildGeneral() override = default;
+    ~FreeguildGeneral() override;
 
     bool configure();
 
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int inspiringLeader(const Unit* target);
 
 private:
 
     Weapon m_zweihander;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };

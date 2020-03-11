@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildGeneral::Create,
-    FreeguildGeneral::ValueToString,
-    FreeguildGeneral::EnumStringToInt,
-    FreeguildGeneral::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildGeneral::s_registered = false;
 
@@ -55,7 +44,18 @@ void FreeguildGeneral::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Freeguild General", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
+        s_registered = UnitFactory::Register("Freeguild General", *factoryMethod);
     }
 }
 
@@ -65,6 +65,13 @@ FreeguildGeneral::FreeguildGeneral() :
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, HERO, FREEGUILD_GENERAL};
     m_weapons = {&m_zweihander};
+
+    s_globalBraveryMod.connect(this, &FreeguildGeneral::inspiringLeader, &m_connection);
+}
+
+FreeguildGeneral::~FreeguildGeneral()
+{
+    m_connection.disconnect();
 }
 
 bool FreeguildGeneral::configure()
@@ -84,6 +91,17 @@ Wounds FreeguildGeneral::weaponDamage(const Weapon *weapon, const Unit *target, 
     auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     if (hitRoll == 6) damage.mortal++;
     return damage;
+}
+
+int FreeguildGeneral::inspiringLeader(const Unit *target)
+{
+    // Inspiring Leader
+    if (target->hasKeyword(FREEGUILD) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 } // namespace CitiesOfSigmar

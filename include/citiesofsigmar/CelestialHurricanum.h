@@ -31,7 +31,7 @@ public:
     static void Init();
 
     CelestialHurricanum();
-    ~CelestialHurricanum() override = default;
+    ~CelestialHurricanum() override;
 
     bool configure(bool battlemage);
 
@@ -42,6 +42,9 @@ protected:
     void onStartShooting(PlayerId player) override;
     int castingModifier() const override;
 
+    int locusOfAzyr(const Unit* caster);
+    int portentsOfBattle(const Weapon* weapon, const Unit* unit);
+
 private:
 
     int getDamageTableIndex() const;
@@ -51,6 +54,9 @@ private:
         m_arcaneTools,
         m_hooves;
 
+    lsignal::slot m_locusConnection;
+    lsignal::slot m_portentsConnection;
+
     static bool s_registered;
 };
 
@@ -59,8 +65,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Battlemage             Yes
-// Locus of Azyr                    No
-// Portents of Battle               No
+// Locus of Azyr                    Yes
+// Portents of Battle               Yes
 // Storm of Shemtek                 Yes
 // Chain Lightning                  No
 // Comet of Casandora               No

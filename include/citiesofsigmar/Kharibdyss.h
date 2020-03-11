@@ -30,7 +30,7 @@ public:
     static void Init();
 
     Kharibdyss();
-    ~Kharibdyss() override = default;
+    ~Kharibdyss() override;
 
     bool configure();
 
@@ -38,6 +38,7 @@ protected:
 
     void onWounded() override;
     void onRestore() override;
+    int abyssalHowl(const Unit* target);
 
 private:
 
@@ -48,6 +49,8 @@ private:
         m_limbs,
         m_goadsAndWhips;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -55,7 +58,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Abyssal Howl                     No
+// Abyssal Howl                     Yes
 // Feast of Bones                   No
 // Quick With The Lash              No
 //

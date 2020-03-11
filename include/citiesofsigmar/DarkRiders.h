@@ -33,7 +33,7 @@ public:
     static void Init();
 
     DarkRiders();
-    ~DarkRiders() override = default;
+    ~DarkRiders() override;
 
     bool configure(int numModels, bool standardBearer, bool hornblower);
 
@@ -42,6 +42,7 @@ protected:
     int chargeModifier() const override;
     int braveryModifier() const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int sowTerrorAndConfusion(const Unit* target);
 
 private:
 
@@ -53,6 +54,8 @@ private:
         m_bite,
         m_crossbowHerald;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -63,7 +66,7 @@ private:
 // Standard Bearer                  Yes
 // Hornblower                       Yes
 // Murderous Charge                 Yes
-// Sow Terror and Confusion         No
+// Sow Terror and Confusion         Yes
 //
 
 } // namespace CitiesOfSigmar

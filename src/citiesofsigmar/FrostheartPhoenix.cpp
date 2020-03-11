@@ -11,18 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FrostheartPhoenix::Create,
-    FrostheartPhoenix::ValueToString,
-    FrostheartPhoenix::EnumStringToInt,
-    FrostheartPhoenix::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-        {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 struct TableEntry
 {
@@ -76,7 +64,20 @@ void FrostheartPhoenix::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Frostheart Phoenix", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+                {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
+
+        s_registered = UnitFactory::Register("Frostheart Phoenix", *factoryMethod);
     }
 }
 
@@ -87,6 +88,13 @@ FrostheartPhoenix::FrostheartPhoenix() :
 {
     m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FROSTHEART_PHOENIX};
     m_weapons = {&m_talons, &m_halberd};
+
+    s_globalToWoundMod.connect(this, &FrostheartPhoenix::blizzardAura, &m_connection);
+}
+
+FrostheartPhoenix::~FrostheartPhoenix()
+{
+    m_connection.disconnect();
 }
 
 bool FrostheartPhoenix::configure(bool anointed)
@@ -141,6 +149,18 @@ int FrostheartPhoenix::getDamageTableIndex() const
             return i;
         }
     }
+    return 0;
+}
+
+int FrostheartPhoenix::blizzardAura(const Weapon *weapon, const Unit *target)
+{
+    // Blizzard Aura
+    if (!weapon->isMissile() && (target->owningPlayer() != owningPlayer()) &&
+        (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_blizzazdAura))
+    {
+        return -1;
+    }
+
     return 0;
 }
 

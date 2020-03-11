@@ -11,22 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildGeneralOnGriffon::Create,
-    FreeguildGeneralOnGriffon::ValueToString,
-    FreeguildGeneralOnGriffon::EnumStringToInt,
-    FreeguildGeneralOnGriffon::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", FreeguildGeneralOnGriffon::Lance, FreeguildGeneralOnGriffon::RuneSword,
-            FreeguildGeneralOnGriffon::Lance, 1
-        },
-        {ParamType::Boolean, "Freeguild Shield", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildGeneralOnGriffon::s_registered = false;
 
@@ -81,7 +65,20 @@ void FreeguildGeneralOnGriffon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Freeguild General on Griffon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", Lance, RuneSword, Lance, 1},
+                {ParamType::Boolean, "Freeguild Shield", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
+        s_registered = UnitFactory::Register("Freeguild General on Griffon", *factoryMethod);
     }
 }
 
@@ -95,6 +92,13 @@ FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon() :
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, MONSTER, HERO,FREEGUILD_GENERAL};
     m_weapons = {&m_runesword, &m_greathammer, &m_lance, &m_claws, &m_beak};
+
+    s_globalBraveryMod.connect(this, &FreeguildGeneralOnGriffon::piercingBloodroar, &m_connection);
+}
+
+FreeguildGeneralOnGriffon::~FreeguildGeneralOnGriffon()
+{
+    m_connection.disconnect();
 }
 
 bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield)
@@ -174,6 +178,17 @@ int FreeguildGeneralOnGriffon::getDamageTableIndex() const
             return i;
         }
     }
+    return 0;
+}
+
+int FreeguildGeneralOnGriffon::piercingBloodroar(const Unit *target)
+{
+    // Piercing Bloodroar
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 8.0f))
+    {
+        return -1;
+    }
+
     return 0;
 }
 
