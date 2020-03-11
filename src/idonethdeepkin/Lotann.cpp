@@ -10,17 +10,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    Lotann::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    Lotann::ComputePoints,
-    {
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool Lotann::s_registered = false;
 
@@ -44,7 +33,19 @@ void Lotann::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Lotann", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Lotann", *factoryMethod);
     }
 }
 
@@ -57,6 +58,13 @@ Lotann::Lotann() :
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, SOUL_WARDEN, HERO, LOTANN};
     m_weapons = {&m_quill, &m_cudgel, &m_blade, &m_tentacles};
+
+    s_globalBraveryMod.connect(this, &Lotann::catalogueOfSouls, &m_connection);
+}
+
+Lotann::~Lotann()
+{
+    m_connection.disconnect();
 }
 
 bool Lotann::configure()
@@ -88,6 +96,17 @@ Wounds Lotann::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
     return totalWounds;
+}
+
+int Lotann::catalogueOfSouls(const Unit *target)
+{
+    // Catalogue of Souls
+    if (target->hasKeyword(IDONETH_DEEPKIN) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 12.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 } //IdonethDeepkin

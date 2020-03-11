@@ -29,16 +29,20 @@ public:
 
     AetherKhemist();
 
-    ~AetherKhemist() override = default;
+    ~AetherKhemist() override;
 
     bool configure();
 
 protected:
 
+    int atmosphericIsolation(const Weapon* weapon, const Unit* target);
+
 private:
 
     Weapon m_anatomiser,
         m_instruments;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -48,7 +52,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Aetheric Augmentation            No
-// Atmospheric Isolation            No
+// Atmospheric Isolation            Yes
 //
 
 } // namespace KharadronOverlords

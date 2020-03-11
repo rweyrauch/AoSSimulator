@@ -14,25 +14,6 @@ namespace IdonethDeepkin
 
 bool AkhelianIshlaenGuard::s_registered = false;
 
-static FactoryMethod factoryMethod = {
-    AkhelianIshlaenGuard::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    AkhelianIshlaenGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", AkhelianIshlaenGuard::MIN_UNIT_SIZE, AkhelianIshlaenGuard::MIN_UNIT_SIZE,
-            AkhelianIshlaenGuard::MAX_UNIT_SIZE, AkhelianIshlaenGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
-
-
 AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
     IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true),
     m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
@@ -97,7 +78,22 @@ void AkhelianIshlaenGuard::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Akhelian Ishlaen Guard", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Akhelian Ishlaen Guard", *factoryMethod);
     }
 }
 

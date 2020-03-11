@@ -11,17 +11,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    Volturnos::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    Volturnos::ComputePoints,
-    {
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool Volturnos::s_registered = false;
 
@@ -33,6 +22,13 @@ Volturnos::Volturnos() :
 {
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING, VOLTURNOS};
     m_weapons = {&m_theAstraSolus, &m_deepmareJawsTalons, &m_deepmareTails};
+
+    s_globalBraveryMod.connect(this, &Volturnos::crestOfTheHighKings, &m_connection);
+}
+
+Volturnos::~Volturnos()
+{
+    m_connection.disconnect();
 }
 
 bool Volturnos::configure()
@@ -68,7 +64,19 @@ void Volturnos::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Volturnos", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Volturnos", *factoryMethod);
     }
 }
 
@@ -87,6 +95,27 @@ void Volturnos::onCharged()
     }
 
     Unit::onCharged();
+}
+
+int Volturnos::crestOfTheHighKings(const Unit *target)
+{
+    // The Crest of the High Kings
+    if (target->hasKeyword(IDONETH_DEEPKIN) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0f))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+int Volturnos::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // The Astra Solus
+    if ((hitRoll >= 6) && (weapon->name() == m_theAstraSolus.name()))
+    {
+        return -5;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace IdonethDeepkin

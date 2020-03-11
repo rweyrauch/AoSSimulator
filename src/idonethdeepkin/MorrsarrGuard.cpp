@@ -12,25 +12,6 @@
 namespace IdonethDeepkin
 {
 
-static FactoryMethod factoryMethod = {
-    AkhelianMorrsarrGuard::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    AkhelianMorrsarrGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", AkhelianMorrsarrGuard::MIN_UNIT_SIZE, AkhelianMorrsarrGuard::MIN_UNIT_SIZE,
-            AkhelianMorrsarrGuard::MAX_UNIT_SIZE, AkhelianMorrsarrGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
-
-
 bool AkhelianMorrsarrGuard::s_registered = false;
 
 AkhelianMorrsarrGuard::AkhelianMorrsarrGuard() :
@@ -97,7 +78,22 @@ void AkhelianMorrsarrGuard::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Akhelian Morrsarr Guard", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Akhelian Morrsarr Guard", *factoryMethod);
     }
 }
 

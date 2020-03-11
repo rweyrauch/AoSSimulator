@@ -36,7 +36,6 @@ Unit *LordExecutioner::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-    return nullptr;
 }
 
 void LordExecutioner::Init()

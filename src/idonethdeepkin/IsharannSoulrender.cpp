@@ -10,17 +10,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    IsharannSoulrender::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    IsharannSoulrender::ComputePoints,
-    {
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool IsharannSoulrender::s_registered = false;
 
@@ -44,7 +33,19 @@ void IsharannSoulrender::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Isharann Soulrender", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Isharann Soulrender", *factoryMethod);
     }
 }
 

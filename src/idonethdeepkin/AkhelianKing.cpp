@@ -11,18 +11,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    AkhelianKing::Create,
-    AkhelianKing::ValueToString,
-    AkhelianKing::EnumStringToInt,
-    AkhelianKing::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", AkhelianKing::BladedPolearm, AkhelianKing::BladedPolearm, AkhelianKing::Greatsword, 1},
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool AkhelianKing::s_registered = false;
 
@@ -81,7 +69,20 @@ void AkhelianKing::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Akhelian King", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", BladedPolearm, BladedPolearm, Greatsword, 1},
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Akhelian King", *factoryMethod);
     }
 }
 

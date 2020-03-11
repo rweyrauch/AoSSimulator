@@ -28,13 +28,14 @@ public:
     static void Init();
 
     Lotann();
-    ~Lotann() override = default;
+    ~Lotann() override;
 
     bool configure();
 
 protected:
 
     Wounds applyWoundSave(const Wounds& wounds) override;
+    int catalogueOfSouls(const Unit* target);
 
 private:
 
@@ -43,6 +44,8 @@ private:
         m_blade,
         m_tentacles;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -50,7 +53,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Catalogue of Souls               No
+// Catalogue of Souls               Yes
 // Writhing Tentacles               Yes
 //
 

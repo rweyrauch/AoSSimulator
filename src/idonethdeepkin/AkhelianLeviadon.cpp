@@ -10,17 +10,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    AkhelianLeviadon::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    AkhelianLeviadon::ComputePoints,
-    {
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool AkhelianLeviadon::s_registered = false;
 
@@ -72,7 +61,19 @@ void AkhelianLeviadon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Akhelian Leviadon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Akhelian Leviadon", *factoryMethod);
     }
 }
 

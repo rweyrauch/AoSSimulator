@@ -11,17 +11,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    EidolonOfMathlannAspectOfTheSea::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    EidolonOfMathlannAspectOfTheSea::ComputePoints,
-    {
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool EidolonOfMathlannAspectOfTheSea::s_registered = false;
 
@@ -45,7 +34,19 @@ void EidolonOfMathlannAspectOfTheSea::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Eidolon of Mathlann Aspect of the Sea", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Eidolon of Mathlann Aspect of the Sea", *factoryMethod);
     }
 }
 
@@ -59,8 +60,15 @@ EidolonOfMathlannAspectOfTheSea::EidolonOfMathlannAspectOfTheSea() :
     m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, WIZARD, ASPECT_OF_THE_SEA};
     m_weapons = {&m_abyssalEnergy, &m_trident, &m_sceptre, &m_stormshoal};
 
+    s_globalBraveryMod.connect(this, &EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss, &m_connection);
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
+}
+
+EidolonOfMathlannAspectOfTheSea::~EidolonOfMathlannAspectOfTheSea()
+{
+    m_connection.disconnect();
 }
 
 bool EidolonOfMathlannAspectOfTheSea::configure()
@@ -79,6 +87,17 @@ bool EidolonOfMathlannAspectOfTheSea::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss(const Unit *target)
+{
+    // Tranquility of the Abyss
+    if (target->hasKeyword(IDONETH_DEEPKIN) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 9.0f))
+    {
+        return 3;
+    }
+
+    return 0;
 }
 
 } // IdonethDeepkin

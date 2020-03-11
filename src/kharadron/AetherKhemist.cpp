@@ -10,17 +10,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    AetherKhemist::Create,
-    KharadronBase::ValueToString,
-    KharadronBase::EnumStringToInt,
-    AetherKhemist::ComputePoints,
-    {
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool AetherKhemist::s_registered = false;
 
@@ -44,7 +33,19 @@ void AetherKhemist::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Aether Khemist", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            KharadronBase::ValueToString,
+            KharadronBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
+
+        s_registered = UnitFactory::Register("Aether Khemist", *factoryMethod);
     }
 }
 
@@ -55,6 +56,13 @@ AetherKhemist::AetherKhemist() :
 {
     m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHER_KHEMIST};
     m_weapons = {&m_anatomiser, &m_instruments};
+
+    s_globalToHitMod.connect(this, &AetherKhemist::atmosphericIsolation, &m_connection);
+}
+
+AetherKhemist::~AetherKhemist()
+{
+    m_connection.disconnect();
 }
 
 bool AetherKhemist::configure()
@@ -67,6 +75,17 @@ bool AetherKhemist::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int AetherKhemist::atmosphericIsolation(const Weapon *weapon, const Unit *target)
+{
+    // Atmospheric Isolation
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } //KharadronOverlords

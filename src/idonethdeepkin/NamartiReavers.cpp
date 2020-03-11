@@ -14,23 +14,6 @@
 namespace IdonethDeepkin
 {
 
-static FactoryMethod factoryMethod = {
-    NamartiReavers::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    NamartiReavers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", NamartiReavers::MIN_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE,
-            NamartiReavers::MAX_UNIT_SIZE, NamartiReavers::MIN_UNIT_SIZE
-        },
-        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiReavers::MAX_UNIT_SIZE / 10, 1},
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
-
 bool NamartiReavers::s_registered = false;
 
 NamartiReavers::NamartiReavers() :
@@ -93,7 +76,21 @@ void NamartiReavers::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Namarti Reavers", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / 10, 1},
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Namarti Reavers", *factoryMethod);
     }
 }
 

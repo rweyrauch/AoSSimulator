@@ -28,19 +28,23 @@ public:
     static void Init();
 
     Volturnos();
-    ~Volturnos() override = default;
+    ~Volturnos() override;
 
     bool configure();
 
 protected:
 
     void onCharged() override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+    int crestOfTheHighKings(const Unit* target);
 
 private:
 
     Weapon m_theAstraSolus,
         m_deepmareJawsTalons,
         m_deepmareTails;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -50,8 +54,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Deepmare Horn                    Yes
-// The Astra Solus                  No
-// The Crest of the High King       No
+// The Astra Solus                  Yes
+// The Crest of the High King       Yes
 // Cealith, the High King's Shield  No
 // First Among Akhelians            No
 // Supreme Lord of Tides            No

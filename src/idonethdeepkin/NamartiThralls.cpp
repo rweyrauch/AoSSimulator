@@ -13,24 +13,6 @@
 namespace IdonethDeepkin
 {
 
-static FactoryMethod factoryMethod = {
-    NamartiThralls::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    NamartiThralls::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", NamartiThralls::MIN_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE,
-            NamartiThralls::MAX_UNIT_SIZE, NamartiThralls::MIN_UNIT_SIZE
-        },
-        {ParamType::Integer, "Icon Bearers", 0, 0, NamartiThralls::MAX_UNIT_SIZE / 10, 1},
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
-
-
 bool NamartiThralls::s_registered = false;
 
 NamartiThralls::NamartiThralls() :
@@ -90,7 +72,21 @@ void NamartiThralls::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Namarti Thralls", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / 10, 1},
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Namarti Thralls", *factoryMethod);
     }
 }
 

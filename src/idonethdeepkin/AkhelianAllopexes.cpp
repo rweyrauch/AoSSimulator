@@ -14,24 +14,6 @@ namespace IdonethDeepkin
 
 bool AkhelianAllopexes::s_registered = false;
 
-static FactoryMethod factoryMethod = {
-    AkhelianAllopexes::Create,
-    AkhelianAllopexes::ValueToString,
-    AkhelianAllopexes::EnumStringToInt,
-    AkhelianAllopexes::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", AkhelianAllopexes::MIN_UNIT_SIZE, AkhelianAllopexes::MIN_UNIT_SIZE,
-            AkhelianAllopexes::MAX_UNIT_SIZE, AkhelianAllopexes::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::HarpoonLauncher, AkhelianAllopexes::NetLauncher, 1},
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
-
-
 AkhelianAllopexes::AkhelianAllopexes() :
     IdonethDeepkinBase("Akhelian Alloplexes", 12, WOUNDS, 6, 4, true),
     m_harpoonLauncher(Weapon::Type::Missile, "Razorshell Harpoon Launcher", 24, 3, 3, 3, 0, 1),
@@ -95,7 +77,21 @@ void AkhelianAllopexes::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Akhelian Alloplexes", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", HarpoonLauncher, HarpoonLauncher, NetLauncher, 1},
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Akhelian Alloplexes", *factoryMethod);
     }
 }
 

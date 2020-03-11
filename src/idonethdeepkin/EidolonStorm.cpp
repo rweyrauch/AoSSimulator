@@ -10,17 +10,6 @@
 
 namespace IdonethDeepkin
 {
-static FactoryMethod factoryMethod = {
-    EidolonOfMathlannAspectOfTheStorm::Create,
-    IdonethDeepkinBase::ValueToString,
-    IdonethDeepkinBase::EnumStringToInt,
-    EidolonOfMathlannAspectOfTheStorm::ComputePoints,
-    {
-        {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-    },
-    ORDER,
-    { IDONETH_DEEPKIN }
-};
 
 bool EidolonOfMathlannAspectOfTheStorm::s_registered = false;
 
@@ -44,7 +33,19 @@ void EidolonOfMathlannAspectOfTheStorm::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Eidolon of Mathlann Aspect of the Storm", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            IdonethDeepkinBase::ValueToString,
+            IdonethDeepkinBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
+            },
+            ORDER,
+            { IDONETH_DEEPKIN }
+        };
+
+        s_registered = UnitFactory::Register("Eidolon of Mathlann Aspect of the Storm", *factoryMethod);
     }
 }
 

@@ -28,12 +28,13 @@ public:
     static void Init();
 
     EidolonOfMathlannAspectOfTheSea();
-    ~EidolonOfMathlannAspectOfTheSea() override = default;
+    ~EidolonOfMathlannAspectOfTheSea() override;
 
     bool configure();
 
 protected:
 
+    int tranquilityOfTheAbyss(const Unit* target);
 
 private:
 
@@ -41,6 +42,8 @@ private:
         m_trident,
         m_sceptre,
         m_stormshoal;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -50,7 +53,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Dormant Energies                 No
-// Tranquility of the Abyss         No
+// Tranquility of the Abyss         Yes
 // Cloying Sea Mists                No
 // Tsunami of Terror                No
 //

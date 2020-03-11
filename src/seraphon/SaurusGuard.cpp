@@ -24,7 +24,7 @@ SaurusGuard::SaurusGuard() :
     m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_GUARD};
     m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jaws};
 
-    s_globalBraveryMod.connect(this, &SaurusGuard::stardrakeIcon);
+    s_globalBraveryMod.connect(this, &SaurusGuard::stardrakeIcon, &m_connection);
 }
 
 SaurusGuard::~SaurusGuard()
