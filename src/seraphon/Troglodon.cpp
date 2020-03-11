@@ -42,6 +42,13 @@ Troglodon::Troglodon() :
 {
     m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
     m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
+
+    s_globalBraveryMod.connect(this, &Troglodon::terror, &m_connection);
+}
+
+Troglodon::~Troglodon()
+{
+    m_connection.disconnect();
 }
 
 bool Troglodon::configure()
@@ -148,6 +155,16 @@ int Troglodon::castingModifier() const
     // Oracle of the Slann
     mod++;
     return mod;
+}
+
+int Troglodon::terror(const Unit *target)
+{
+    // Terror
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //namespace Seraphon

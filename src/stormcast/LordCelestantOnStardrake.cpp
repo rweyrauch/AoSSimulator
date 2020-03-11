@@ -42,6 +42,13 @@ LordCelestantOnStardrake::LordCelestantOnStardrake() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT};
     m_weapons = {&m_celestineHammer, &m_stormboundBlade, &m_greatClaws};
+
+    s_globalCastMod.connect(this, &LordCelestantOnStardrake::arcaneLineage, &m_connection);
+}
+
+LordCelestantOnStardrake::~LordCelestantOnStardrake()
+{
+    m_connection.disconnect();
 }
 
 bool LordCelestantOnStardrake::configure(WeaponOption weapons)
@@ -314,6 +321,24 @@ int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString)
         return StormboundBlade;
     }
     return StormcastEternal::EnumStringToInt(enumString);
+}
+
+int LordCelestantOnStardrake::arcaneLineage(const Unit *target)
+{
+    if (target->hasKeyword(WIZARD) && (distanceTo(target) <= 18.0f))
+    {
+        if (target->owningPlayer() != owningPlayer())
+        {
+            // Enemy
+            return -1;
+        }
+        else
+        {
+            // Friendly
+            return 1;
+        }
+    }
+    return 0;
 }
 
 } // namespace StormcastEternals

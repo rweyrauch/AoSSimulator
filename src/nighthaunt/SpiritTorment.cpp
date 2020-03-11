@@ -35,7 +35,6 @@ Unit *SpiritTorment::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-    return nullptr;
 }
 
 

@@ -28,7 +28,7 @@ public:
     static void Init();
 
     SpiritOfDurthu();
-    ~SpiritOfDurthu() override = default;
+    ~SpiritOfDurthu() override;
 
     bool configure();
 
@@ -41,11 +41,15 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+    int championOfTheEverqueensWill(const Unit* target);
+
 private:
 
     Weapon m_verdantBlast,
         m_guardianSword,
         m_massiveImpalingTalons;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -57,7 +61,7 @@ private:
 // Groundshaking Stomp              No
 // Impale                           Yes
 // Spirit Paths                     No
-// Champions of the Everqueen's Will No
+// Champions of the Everqueen's Will Yes
 // Wrathful Guardian                Yes
 //
 

@@ -23,6 +23,13 @@ SaurusGuard::SaurusGuard() :
 {
     m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_GUARD};
     m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jaws};
+
+    s_globalBraveryMod.connect(this, &SaurusGuard::stardrakeIcon);
+}
+
+SaurusGuard::~SaurusGuard()
+{
+    m_connection.disconnect();
 }
 
 bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum)
@@ -111,6 +118,17 @@ Rerolls SaurusGuard::chargeRerolls() const
     if (m_wardrum) return RerollFailed;
 
     return SeraphonBase::chargeRerolls();
+}
+
+int SaurusGuard::stardrakeIcon(const Unit *target)
+{
+    // Icon Bearer
+    if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } //namespace Seraphon

@@ -37,7 +37,7 @@ public:
     static void Init();
 
     LordOrdinator();
-    ~LordOrdinator() override = default;
+    ~LordOrdinator() override;
 
     bool configure(WeaponOption weaponOption);
 
@@ -46,6 +46,7 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;
+    int arcaneEngineer(const Weapon* weapon, const Unit* target);
 
 private:
 
@@ -56,6 +57,8 @@ private:
 
     mutable std::vector<const Unit*> m_meteoricSlam;  // Modified in weaponDamage method
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -63,7 +66,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Engineer                  No
+// Arcane Engineer                  Yes
 // Comet Strike                     Yes
 // Meteoric Slam                    Yes
 // Solemn Duty                      No

@@ -25,6 +25,13 @@ SaurusKnights::SaurusKnights() :
 {
     m_keywords = {ORDER, SERAPHON, SAURUS, COLD_ONE, SAURUS_KNIGHTS};
     m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws, &m_coldOneJaws};
+
+    s_globalBraveryMod.connect(this, &SaurusKnights::stardrakeIcon, &m_connection);
+}
+
+SaurusKnights::~SaurusKnights()
+{
+    m_connection.disconnect();
 }
 
 bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons, bool iconBearer, bool wardrum)
@@ -162,6 +169,17 @@ Rerolls SaurusKnights::chargeRerolls() const
     if (m_wardrum) return RerollFailed;
 
     return SeraphonBase::chargeRerolls();
+}
+
+int SaurusKnights::stardrakeIcon(const Unit *target)
+{
+    // Icon Bearer
+    if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } //namespace Seraphon

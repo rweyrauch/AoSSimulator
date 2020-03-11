@@ -43,6 +43,13 @@ SaurusScarVeteranOnCarnosaur::SaurusScarVeteranOnCarnosaur() :
 {
     m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SCAR_VETERAN};
     m_weapons = {&m_warblade, &m_warspear, &m_greatblade, &m_forelimbs, &m_jaws};
+
+    s_globalBraveryMod.connect(this, &SaurusScarVeteranOnCarnosaur::terror, &m_connection);
+}
+
+SaurusScarVeteranOnCarnosaur::~SaurusScarVeteranOnCarnosaur()
+{
+    m_connection.disconnect();
 }
 
 bool SaurusScarVeteranOnCarnosaur::configure(WeaponOption option)
@@ -173,6 +180,16 @@ Wounds SaurusScarVeteranOnCarnosaur::weaponDamage(const Weapon *weapon, const Un
         return {weapon->damage()+1, 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int SaurusScarVeteranOnCarnosaur::terror(const Unit *target)
+{
+    // Terror
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //namespace Seraphon

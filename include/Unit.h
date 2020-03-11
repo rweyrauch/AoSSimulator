@@ -450,10 +450,17 @@ protected:
     std::list<RerollBuff> m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
     std::list<MovementRuleBuff> m_movementRules[NUM_MOVEMENT_RULES];
 
+    static lsignal::signal<int(const Unit*)> s_globalMoveMod;
+    static lsignal::signal<int(const Unit*)> s_globalRunMod;
+    static lsignal::signal<int(const Unit*)> s_globalChargeMod;
+
     static lsignal::signal<int(const Unit*)> s_globalBraveryMod;
     static lsignal::signal<int(const Weapon*, const Unit*)> s_globalToHitMod;
     static lsignal::signal<int(const Weapon*, const Unit*)> s_globalToWoundMod;
     static lsignal::signal<int(const Weapon*, const Unit*)> s_globalSaveMod;
+
+    static lsignal::signal<int(const Unit*)> s_globalCastMod;
+    static lsignal::signal<int(const Unit*)> s_globalUnbindMod;
 
 };
 

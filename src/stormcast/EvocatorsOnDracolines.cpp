@@ -28,8 +28,15 @@ EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines() :
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
     m_weapons = {&m_tempestBladeAndStave, &m_tempestBladeAndStavePrime, &m_grandStave, &m_grandStavePrime, &m_monstrousClaws};
 
+    s_globalBraveryMod.connect(this, &EvocatorsOnCelestialDracolines::supernaturalRoar, &m_connection);
+
     m_totalUnbinds = 1;
     m_totalSpells = 1;
+}
+
+EvocatorsOnCelestialDracolines::~EvocatorsOnCelestialDracolines()
+{
+    m_connection.disconnect();
 }
 
 bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration)
@@ -189,20 +196,6 @@ int EvocatorsOnCelestialDracolines::EnumStringToInt(const std::string &enumStrin
     return StormcastEternal::EnumStringToInt(enumString);
 }
 
-Wounds EvocatorsOnCelestialDracolines::onEndCombat(PlayerId player)
-{
-    auto wounds = StormcastEternal::onEndCombat(player);
-
-    // Supernatural Roar
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
-    for (auto ip : units)
-    {
-        ip->buffModifier(Bravery, -1, {Phase::Battleshock, m_battleRound+1, player});
-    }
-
-    return wounds;
-}
-
 int EvocatorsOnCelestialDracolines::ComputePoints(int numModels)
 {
     auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
@@ -211,6 +204,17 @@ int EvocatorsOnCelestialDracolines::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int EvocatorsOnCelestialDracolines::supernaturalRoar(const Unit *target)
+{
+    // Supernatural Roar
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } // namespace StormcastEternals

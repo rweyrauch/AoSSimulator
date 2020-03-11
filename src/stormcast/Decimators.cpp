@@ -23,6 +23,13 @@ Decimators::Decimators() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, DECIMATORS};
     m_weapons = {&m_thunderaxe, &m_thunderaxePrime, &m_starsoulMace};
+
+    s_globalBraveryMod.connect(this, &Decimators::grimHarvestors, &m_connection);
+}
+
+Decimators::~Decimators()
+{
+    m_connection.disconnect();
 }
 
 bool Decimators::configure(int numModels, int numStarsoulMaces)
@@ -136,19 +143,6 @@ int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
     return StormcastEternal::extraAttacks(nullptr, weapon, target);
 }
 
-Wounds Decimators::onEndCombat(PlayerId player)
-{
-    auto wounds = StormcastEternal::onEndCombat(player);
-
-    // Grim Harvestors
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
-    for (auto ip : units)
-    {
-        ip->buffModifier(Bravery, -2, {Phase::Battleshock, m_battleRound+1, player});
-    }
-    return wounds;
-}
-
 int Decimators::ComputePoints(int numModels)
 {
     auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
@@ -157,6 +151,17 @@ int Decimators::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int Decimators::grimHarvestors(const Unit *target)
+{
+    // Grim Harvestors
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f))
+    {
+        return -2;
+    }
+
+    return 0;
 }
 
 

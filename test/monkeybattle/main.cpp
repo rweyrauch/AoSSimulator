@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 
     for (int i = 0; i < numIterations; i++)
     {
-        ManoAMano battle(numRounds);
+        auto battle = new ManoAMano(numRounds);
 
         auto pRed = std::shared_ptr<Unit>(GenerateRandomUnit());
         auto pBlue = std::shared_ptr<Unit>(GenerateRandomUnit());
@@ -69,23 +69,25 @@ int main(int argc, char* argv[])
         std::cout << "  Red: " << pRed->name() << "  NumModels: " << pRed->remainingModels() << " vs "
             << "  Blue: " << pBlue->name() << "  NumModels: " << pBlue->remainingModels() << std::endl;
 
-        battle.combatants(pRed, pBlue);
+        battle->combatants(pRed, pBlue);
 
-        battle.start();
+        battle->start();
 
-        while (!battle.done())
+        while (!battle->done())
         {
-            battle.simulate();
-            battle.next();
+            battle->simulate();
+            battle->next();
         }
 
-        auto victor = battle.getVictor();
+        auto victor = battle->getVictor();
         if (victor == PlayerId::Red)
             std::cout << "Team Red, " << pRed->name() << ", was victorious." << std::endl;
         else if (victor == PlayerId::Blue)
             std::cout << "Team Blue, " << pBlue->name() << ", was victorious." << std::endl;
         else
             std::cout << "Tie! " << std::endl;
+
+        delete battle;
     }
 
     return EXIT_SUCCESS;

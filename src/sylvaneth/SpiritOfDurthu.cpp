@@ -54,6 +54,13 @@ SpiritOfDurthu::SpiritOfDurthu() :
 {
     m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, MONSTER, HERO, SPIRIT_OF_DURTHU};
     m_weapons = {&m_verdantBlast, &m_guardianSword, &m_massiveImpalingTalons};
+
+    s_globalBraveryMod.connect(this, &SpiritOfDurthu::championOfTheEverqueensWill, &m_connection);
+}
+
+SpiritOfDurthu::~SpiritOfDurthu()
+{
+    m_connection.disconnect();
 }
 
 bool SpiritOfDurthu::configure()
@@ -84,6 +91,10 @@ void SpiritOfDurthu::onWounded()
 int SpiritOfDurthu::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
+
+    // Our Roots Run Deep
+    if (hasKeyword(OAKENBROW)) woundsInflicted += 2;
+
     for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
     {
         if (woundsInflicted < g_woundThresholds[i])
@@ -156,6 +167,17 @@ int SpiritOfDurthu::extraAttacks(const Model *attackingModel, const Weapon *weap
     }
 
     return attacks;
+}
+
+int SpiritOfDurthu::championOfTheEverqueensWill(const Unit *target)
+{
+    // Champion of the Everqueen's Will
+    if (target->hasKeyword(SYLVANETH) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 12.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 } // namespace Sylvaneth

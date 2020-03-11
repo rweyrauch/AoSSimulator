@@ -43,6 +43,13 @@ DrakeswornTemplar::DrakeswornTemplar() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, MONSTER, HERO, DRAKESWORN_TEMPLAR};
     m_weapons = {&m_skyboltBow, &m_tempestAxe, &m_arcHammer, &m_stormlance, &m_greatClaws};
+
+    s_globalCastMod.connect(this, &DrakeswornTemplar::arcaneLineage, &m_connection);
+}
+
+DrakeswornTemplar::~DrakeswornTemplar()
+{
+    m_connection.disconnect();
 }
 
 bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow)
@@ -313,4 +320,23 @@ Wounds DrakeswornTemplar::weaponDamage(const Weapon *weapon, const Unit *target,
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
+
+int DrakeswornTemplar::arcaneLineage(const Unit *target)
+{
+    if (target->hasKeyword(WIZARD) && (distanceTo(target) <= 18.0f))
+    {
+        if (target->owningPlayer() != owningPlayer())
+        {
+            // Enemy
+            return -1;
+        }
+        else
+        {
+            // Friendly
+            return 1;
+        }
+    }
+    return 0;
+}
+
 } // namespace StormcastEternals

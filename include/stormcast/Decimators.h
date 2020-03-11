@@ -31,7 +31,7 @@ public:
     static void Init();
 
     Decimators();
-    ~Decimators() override = default;
+    ~Decimators() override;
 
     bool configure(int numModels, int numStarsoulMaces);
 
@@ -40,13 +40,15 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    Wounds onEndCombat(PlayerId player) override;
+    int grimHarvestors(const Unit* target);
 
 private:
 
     Weapon m_thunderaxe,
         m_thunderaxePrime,
         m_starsoulMace;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };

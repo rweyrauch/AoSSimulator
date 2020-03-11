@@ -26,8 +26,15 @@ AstreiaSolbright::AstreiaSolbright() :
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, WIZARD, LORD_ARCANUM, ASTREIA_SOLBRIGHT};
     m_weapons = {&m_aetherstave, &m_monstrousClaws};
 
+    s_globalBraveryMod.connect(this, &AstreiaSolbright::supernaturalRoar, &m_connection);
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
+}
+
+AstreiaSolbright::~AstreiaSolbright()
+{
+    m_connection.disconnect();
 }
 
 bool AstreiaSolbright::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)
@@ -138,20 +145,6 @@ Rerolls AstreiaSolbright::chargeRerolls() const
     return RerollFailed;
 }
 
-Wounds AstreiaSolbright::onEndCombat(PlayerId player)
-{
-    auto wounds = StormcastEternal::onEndCombat(player);
-
-    // Supernatural Roar
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
-    for (auto ip : units)
-    {
-        ip->buffModifier(Bravery, -1, {Phase::Combat, m_battleRound+1, player});
-    }
-
-    return wounds;
-}
-
 void AstreiaSolbright::onStartCombat(PlayerId player)
 {
     // Spirit Flask
@@ -159,6 +152,17 @@ void AstreiaSolbright::onStartCombat(PlayerId player)
     {
         m_shatteredFlasks = DoSpiritFlasks(this);
     }
+}
+
+int AstreiaSolbright::supernaturalRoar(const Unit *target)
+{
+    // Supernatural Roar
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } // namespace StormcastEternals

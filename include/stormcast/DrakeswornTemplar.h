@@ -37,7 +37,7 @@ public:
     static void Init();
 
     DrakeswornTemplar();
-    ~DrakeswornTemplar() override = default;
+    ~DrakeswornTemplar() override;
 
     bool configure(WeaponOption weapons, bool skyboltBow);
 
@@ -52,6 +52,7 @@ protected:
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onRestore() override;
+    int arcaneLineage(const Unit* target);
 
 protected:
 
@@ -65,6 +66,8 @@ private:
         m_stormlance,
         m_greatClaws;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -72,7 +75,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Lineage                   No
+// Arcane Lineage                   Yes
 // Cavernous Jaws                   Yes
 // Sweeping Tail                    Yes
 // Arc Hammer                       Yes

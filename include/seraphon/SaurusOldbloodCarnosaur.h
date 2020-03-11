@@ -28,7 +28,7 @@ public:
     static void Init();
 
     SaurusOldbloodOnCarnosaur();
-    ~SaurusOldbloodOnCarnosaur() override = default;
+    ~SaurusOldbloodOnCarnosaur() override;
 
     bool configure();
 
@@ -40,12 +40,16 @@ protected:
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
+    int terror(const Unit* target);
+
 private:
 
     Weapon m_gauntlet,
         m_spear,
         m_forelimbs,
         m_jaws;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -58,7 +62,7 @@ private:
 // Blood Frenzy                     No
 // Cold Ferocity                    Yes
 // Pinned Down                      Yes
-// Terror                           No
+// Terror                           Yes
 // Wrath of the Seraphon            No
 //
 

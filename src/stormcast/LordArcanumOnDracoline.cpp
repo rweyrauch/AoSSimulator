@@ -25,8 +25,15 @@ LordArcanumOnDracoline::LordArcanumOnDracoline() :
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
     m_weapons = {&m_aetherstave, &m_monstrousClaws};
 
+    s_globalBraveryMod.connect(this, &LordArcanumOnDracoline::supernaturalRoar, &m_connection);
+
     m_totalSpells = 1;
     m_totalUnbinds = 1;
+}
+
+LordArcanumOnDracoline::~LordArcanumOnDracoline()
+{
+    m_connection.disconnect();
 }
 
 bool LordArcanumOnDracoline::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)
@@ -146,6 +153,17 @@ void LordArcanumOnDracoline::onStartCombat(PlayerId player)
     {
         m_shatteredFlasks = DoSpiritFlasks(this);
     }
+}
+
+int LordArcanumOnDracoline::supernaturalRoar(const Unit *target)
+{
+    // Supernatural Roar
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } // namespace StormcastEternals

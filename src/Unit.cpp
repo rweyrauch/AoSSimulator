@@ -17,10 +17,17 @@
 const float MAX_CHARGE_DISTANCE = 12.0f;
 const float MIN_CHARGE_DISTANCE = 3.0;
 
+lsignal::signal<int(const Unit*)> Unit::s_globalMoveMod;
+lsignal::signal<int(const Unit*)> Unit::s_globalRunMod;
+lsignal::signal<int(const Unit*)> Unit::s_globalChargeMod;
+
 lsignal::signal<int(const Unit*)> Unit::s_globalBraveryMod;
 lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToHitMod;
 lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToWoundMod;
 lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalSaveMod;
+
+lsignal::signal<int(const Unit*)> Unit::s_globalCastMod;
+lsignal::signal<int(const Unit*)> Unit::s_globalUnbindMod;
 
 int accumulate(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
@@ -509,11 +516,12 @@ void Unit::movement(PlayerId player)
     if (closestTarget)
     {
         Dice dice;
+        const auto globalMoveMod = s_globalMoveMod(this, accumulate);
         auto distance = distanceTo(closestTarget);
         float totalMoveDistance = 0.0f;
         if (weapon->isMissile())
         {
-            const float movement = move() + moveModifier();
+            const float movement = move() + moveModifier() + globalMoveMod;
 
             // get into range (run or not?)
             if (distance > weapon->range() + movement)
@@ -545,7 +553,7 @@ void Unit::movement(PlayerId player)
         }
         else
         {
-            const float movement = move() + moveModifier();
+            const float movement = move() + moveModifier() + globalMoveMod;
 
             if (distance <= MIN_CHARGE_DISTANCE)
             {
@@ -734,13 +742,13 @@ void Unit::battleshock(PlayerId player)
 int Unit::rollChargeDistance() const
 {
     Dice dice;
-    return dice.roll2D6() + chargeModifier();
+    return dice.roll2D6() + chargeModifier() + s_globalChargeMod(this, accumulate);
 }
 
 int Unit::rollRunDistance() const
 {
     Dice dice;
-    return dice.rollD6() + runModifier();
+    return dice.rollD6() + runModifier() + s_globalRunMod(this, accumulate);
 }
 
 int Unit::slay(int numModels)

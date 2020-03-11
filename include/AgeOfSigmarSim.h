@@ -49,6 +49,7 @@ enum Rerolls
     RerollOnesAndTwos,
     RerollSixes,
     RerollFailed,
+    RerollSuccessful
 };
 
 const int NoSave = 7;

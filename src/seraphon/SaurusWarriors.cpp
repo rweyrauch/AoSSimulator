@@ -24,6 +24,13 @@ SaurusWarriors::SaurusWarriors() :
 {
     m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_WARRIORS};
     m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws};
+
+    s_globalBraveryMod.connect(this, &SaurusWarriors::stardrakeIcon, &m_connection);
+}
+
+SaurusWarriors::~SaurusWarriors()
+{
+    m_connection.disconnect();
 }
 
 bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapons, bool iconBearer, bool wardrum)
@@ -152,6 +159,24 @@ int SaurusWarriors::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int SaurusWarriors::stardrakeIcon(const Unit *target)
+{
+    // Icon Bearer
+    if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f))
+    {
+        return -1;
+    }
+
+    return 0;
+}
+
+Rerolls SaurusWarriors::chargeRerolls() const
+{
+    if (m_wardrum) return RerollFailed;
+
+    return SeraphonBase::chargeRerolls();
 }
 
 } //namespace Seraphon

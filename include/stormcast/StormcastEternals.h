@@ -48,6 +48,7 @@ protected:
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
     int braveryModifier() const override;
     Rerolls battleshockRerolls() const override;
+    void onStartHero(PlayerId player) override;
 
 protected:
 

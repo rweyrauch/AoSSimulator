@@ -31,7 +31,7 @@ public:
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
 
     AstreiaSolbright();
-    ~AstreiaSolbright() override = default;
+    ~AstreiaSolbright() override;
 
     bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
@@ -41,8 +41,8 @@ protected:
     Rerolls chargeRerolls() const override;
 
     void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
     void onRestore() override { m_shatteredFlasks = false; }
+    int supernaturalRoar(const Unit* target);
 
 private:
 
@@ -50,6 +50,8 @@ private:
 
     Weapon m_aetherstave,
         m_monstrousClaws;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };

@@ -31,7 +31,7 @@ public:
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
 
     LordArcanumOnDracoline();
-    ~LordArcanumOnDracoline() override = default;
+    ~LordArcanumOnDracoline() override;
 
     bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
@@ -42,6 +42,7 @@ protected:
 
     void onStartCombat(PlayerId player) override;
     void onRestore() override { m_shatteredFlasks = false; }
+    int supernaturalRoar(const Unit* target);
 
 private:
 
@@ -49,6 +50,8 @@ private:
 
     Weapon m_aetherstave,
         m_monstrousClaws;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -58,7 +61,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Cycle of the Storm               No
-// Supernatural Roar                No
+// Supernatural Roar                Yes
 // Thunderous Pounce                Yes
 // Storm Lance                      Yes
 // Prime Electrids                  Yes

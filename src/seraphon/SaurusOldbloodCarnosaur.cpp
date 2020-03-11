@@ -42,6 +42,13 @@ SaurusOldbloodOnCarnosaur::SaurusOldbloodOnCarnosaur() :
 {
     m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
     m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
+
+    s_globalBraveryMod.connect(this, &SaurusOldbloodOnCarnosaur::terror, &m_connection);
+}
+
+SaurusOldbloodOnCarnosaur::~SaurusOldbloodOnCarnosaur()
+{
+    m_connection.disconnect();
 }
 
 bool SaurusOldbloodOnCarnosaur::configure()
@@ -138,6 +145,16 @@ int SaurusOldbloodOnCarnosaur::toHitModifier(const Weapon *weapon, const Unit *t
     }
 
     return mod;
+}
+
+int SaurusOldbloodOnCarnosaur::terror(const Unit *target)
+{
+    // Terror
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //namespace Seraphon

@@ -83,6 +83,10 @@ void Treelord::onWounded()
 int Treelord::getDamageTableIndex() const
 {
     auto woundsInflicted = wounds() - remainingWounds();
+
+    // Our Roots Run Deep
+    if (hasKeyword(OAKENBROW)) woundsInflicted += 2;
+
     for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
     {
         if (woundsInflicted < g_woundThresholds[i])

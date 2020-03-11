@@ -39,13 +39,15 @@ public:
     static void Init();
 
     SaurusWarriors();
-    ~SaurusWarriors() override = default;
+    ~SaurusWarriors() override;
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
 
 protected:
 
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Rerolls chargeRerolls() const override;
+    int stardrakeIcon(const Unit* target);
 
 private:
 
@@ -59,6 +61,8 @@ private:
         m_celestiteSpearAlpha,
         m_jaws;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -66,8 +70,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Stardrake Icon                   No
-// Wardrum                          No
+// Stardrake Icon                   Yes
+// Wardrum                          Yes
 // Ordered Cohort                   Yes
 //
 

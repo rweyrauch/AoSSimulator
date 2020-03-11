@@ -31,7 +31,7 @@ public:
     static void Init();
 
     SpiteRevenants();
-    ~SpiteRevenants() override = default;
+    ~SpiteRevenants() override;
 
     bool configure(int numModels);
 
@@ -39,10 +39,14 @@ protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
+    int unbridledMalice(const Unit* target);
+
 private:
 
     Weapon m_cruelTalonsAndFangs,
         m_cruelTalonsAndFangsShadestalker;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -51,7 +55,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unbridled Malice                 No
+// Unbridled Malice                 Partial
 //
 
 } // namespace Sylvaneth

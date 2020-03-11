@@ -128,16 +128,19 @@ int foo(int x) {
 int bar(int x) {
     return x+2;
 }
-int accumulate(const std::vector<int>& v) {
+int sum_acc(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
 
 TEST(Dice, SignalTest)
 {
     lsignal::signal<int(int)> worker;
-    worker.connect(bar);
-    worker.connect(foo);
+    auto bc = worker.connect(bar);
+    auto fc = worker.connect(foo);
 
     auto last = worker(2);
-    auto total = worker(2, accumulate);
+    auto total = worker(2, sum_acc);
+
+    worker.disconnect(bc);
+    worker.disconnect(fc);
 }

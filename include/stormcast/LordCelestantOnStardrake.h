@@ -36,7 +36,7 @@ public:
     static void Init();
 
     LordCelestantOnStardrake();
-    ~LordCelestantOnStardrake() override = default;
+    ~LordCelestantOnStardrake() override;
 
     bool configure(WeaponOption weapons);
 
@@ -53,6 +53,7 @@ protected:
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;
     void onRestore() override;
+    int arcaneLineage(const Unit* target);
 
 protected:
 
@@ -64,6 +65,8 @@ private:
         m_stormboundBlade,
         m_greatClaws;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -71,7 +74,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Lineage                   No
+// Arcane Lineage                   Yes
 // Cavernous Jaws                   Yes
 // Inescapable Vengeance            Yes
 // Lord of the Heavens              Yes

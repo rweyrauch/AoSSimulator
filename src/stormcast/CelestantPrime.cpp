@@ -67,6 +67,13 @@ CelestantPrime::CelestantPrime() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
     m_weapons = {&m_ghalMaraz};
+
+    s_globalBraveryMod.connect(this, &CelestantPrime::bearerOfTheWarhammer, &m_connection);
+}
+
+CelestantPrime::~CelestantPrime()
+{
+    m_connection.disconnect();
 }
 
 bool CelestantPrime::configure()
@@ -78,6 +85,17 @@ bool CelestantPrime::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int CelestantPrime::bearerOfTheWarhammer(const Unit *target)
+{
+    // Bearer of the Warhammer
+    if (target->hasKeyword(ORDER) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 

@@ -37,7 +37,7 @@ public:
     static void Init();
 
     SaurusScarVeteranOnCarnosaur();
-    ~SaurusScarVeteranOnCarnosaur() override = default;
+    ~SaurusScarVeteranOnCarnosaur() override;
 
     bool configure(WeaponOption option);
 
@@ -50,6 +50,8 @@ protected:
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+    int terror(const Unit* target);
+
 private:
 
     Weapon m_warblade,
@@ -57,6 +59,8 @@ private:
         m_greatblade,
         m_forelimbs,
         m_jaws;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -69,7 +73,7 @@ private:
 // Celestite Warspear               Yes
 // Cold Ferocity                    Yes
 // Pinned Down                      Yes
-// Terror                           No
+// Terror                           Yes
 // Saurian Savagery                 No
 //
 

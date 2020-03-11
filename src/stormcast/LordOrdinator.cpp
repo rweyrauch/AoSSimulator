@@ -22,6 +22,13 @@ LordOrdinator::LordOrdinator() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR};
     m_weapons = {&m_astralHammers, &m_astralGrandhammer};
+
+    s_globalToHitMod.connect(this, &LordOrdinator::arcaneEngineer, &m_connection);
+}
+
+LordOrdinator::~LordOrdinator()
+{
+    m_connection.disconnect();
 }
 
 bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
@@ -154,6 +161,17 @@ Wounds LordOrdinator::onEndCombat(PlayerId player)
     }
 
     return wounds;
+}
+
+int LordOrdinator::arcaneEngineer(const Weapon *weapon, const Unit *target)
+{
+    if (target->hasKeyword(ORDER) && target->hasKeyword(WAR_MACHINE) &&
+        (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 9.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 } // namespace StormcastEternals

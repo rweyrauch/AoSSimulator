@@ -28,7 +28,7 @@ public:
     static void Init();
 
     Troglodon();
-    ~Troglodon() override = default;
+    ~Troglodon() override;
 
     bool configure();
 
@@ -42,12 +42,16 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int castingModifier() const override;
 
+    int terror(const Unit* target);
+
 private:
 
     Weapon m_spittle,
         m_jaws,
         m_forelimbs,
         m_rod;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -58,7 +62,7 @@ private:
 // -------------------------------------------
 // Oracle of the Slann              Yes
 // Regeneration                     Yes
-// Terror                           No
+// Terror                           Yes
 // Venomous Spittle                 Yes
 // Drawn to the Screams             No
 // Comet's Call                     No

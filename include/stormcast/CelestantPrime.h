@@ -31,15 +31,19 @@ public:
     static int ComputePoints(int numModels)  { return POINTS_PER_UNIT; }
 
     CelestantPrime();
-    ~CelestantPrime() override = default;
+    ~CelestantPrime() override;
 
     bool configure();
 
 protected:
 
+    int bearerOfTheWarhammer(const Unit* target);
+
 private:
 
     Weapon m_ghalMaraz;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -50,7 +54,7 @@ private:
 // -------------------------------------------
 // Cometstrike Sceptre              No
 // Retribution from On High         No
-// Bearer of the Warhammer          No
+// Bearer of the Warhammer          Yes
 // Orrery of Celestial Fates        No
 //
 

@@ -39,6 +39,13 @@ SpiteRevenants::SpiteRevenants() :
 {
     m_keywords = {ORDER, SYLVANETH, OUTCASTS, SPITE_REVENANTS};
     m_weapons = {&m_cruelTalonsAndFangs, &m_cruelTalonsAndFangsShadestalker};
+
+    s_globalBraveryMod.connect(this, &SpiteRevenants::unbridledMalice, &m_connection);
+}
+
+SpiteRevenants::~SpiteRevenants()
+{
+    m_connection.disconnect();
 }
 
 bool SpiteRevenants::configure(int numModels)
@@ -107,6 +114,17 @@ int SpiteRevenants::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int SpiteRevenants::unbridledMalice(const Unit *target)
+{
+    // Unbridled Malice
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } // namespace Sylvaneth

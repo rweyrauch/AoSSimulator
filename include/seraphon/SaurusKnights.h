@@ -39,7 +39,7 @@ public:
     static void Init();
 
     SaurusKnights();
-    ~SaurusKnights() override = default;
+    ~SaurusKnights() override;
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
 
@@ -47,6 +47,7 @@ protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     Rerolls chargeRerolls() const override;
+    int stardrakeIcon(const Unit* target);
 
 private:
 
@@ -61,6 +62,8 @@ private:
         m_jaws,
         m_coldOneJaws;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -68,7 +71,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Stardrake Icon                   No
+// Stardrake Icon                   Yes
 // Wardrum                          Yes
 // Celestite Warspear               Yes
 //

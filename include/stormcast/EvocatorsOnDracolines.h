@@ -35,7 +35,7 @@ public:
 
     EvocatorsOnCelestialDracolines();
 
-    ~EvocatorsOnCelestialDracolines() override = default;
+    ~EvocatorsOnCelestialDracolines() override;
 
     bool configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration);
 
@@ -47,7 +47,7 @@ protected:
 
     Rerolls chargeRerolls() const override;
 
-    Wounds onEndCombat(PlayerId player) override;
+    int supernaturalRoar(const Unit* target);
 
 private:
 
@@ -56,6 +56,8 @@ private:
         m_grandStave,
         m_grandStavePrime,
         m_monstrousClaws;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };

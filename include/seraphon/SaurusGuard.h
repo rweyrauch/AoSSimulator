@@ -31,13 +31,15 @@ public:
     static void Init();
 
     SaurusGuard();
-    ~SaurusGuard() override = default;
+    ~SaurusGuard() override;
 
     bool configure(int numModels, bool iconBearer, bool wardrum);
 
 protected:
 
     Rerolls chargeRerolls() const override;
+
+    int stardrakeIcon(const Unit* target);
 
 private:
 
@@ -48,6 +50,8 @@ private:
         m_celestitePolearmAlpha,
         m_jaws;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -55,7 +59,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Stardrake Icon                   No
+// Stardrake Icon                   Yes
 // Wardrum                          Yes
 // Selfless Protectors              No
 //

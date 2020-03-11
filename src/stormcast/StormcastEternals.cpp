@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stormcast/StormcastEternals.h>
 #include <Board.h>
+#include <Roster.h>
 #include "stormcast/Liberators.h"
 #include "stormcast/CelestarBallista.h"
 #include "stormcast/Evocators.h"
@@ -184,6 +185,21 @@ int StormcastEternal::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Astral Templars") { return AstralTemplars; }
     else if (enumString == "None") { return None; }
     return 0;
+}
+
+void StormcastEternal::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Grand Strategists
+    if ((owningPlayer() == player) && hasKeyword(TEMPEST_LORDS))
+    {
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            m_roster->addCommandPoints(1);
+        }
+    }
 }
 
 void Init()
