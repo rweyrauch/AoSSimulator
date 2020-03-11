@@ -27,7 +27,7 @@ public:
     static void Init();
 
     DankholdTroggboss();
-    ~DankholdTroggboss() override = default;
+    ~DankholdTroggboss() override;
 
     bool configure();
 
@@ -35,10 +35,13 @@ protected:
 
     void onStartCombat(PlayerId player) override;
     void onStartHero(PlayerId player) override;
+    int reassuringPresence(const Unit* unit);
 
 private:
 
     Weapon m_boulderClub;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -49,7 +52,7 @@ private:
 // -------------------------------------------
 // Crushing Grip                    Yes
 // Magical Resistance               No
-// Reassuring Presence              No
+// Reassuring Presence              Yes
 // Regeneration                     Yes
 // Squiggly-beast Followers         Yes
 // Instinctive Leader               No

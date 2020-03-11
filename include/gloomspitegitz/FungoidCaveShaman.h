@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    void onStartHero(PlayerId playerId) override;
+
 private:
 
     Weapon m_moonSickle,

@@ -39,6 +39,7 @@ protected:
     int castingModifier() const override;
     int unbindingModifier() const override;
     Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartHero(PlayerId playerId) override;
 
 private:
 
@@ -52,7 +53,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Babbling Wand                    No
+// Babbling Wand                    Yes
 // Da Moon Onna Stikk               No
 // Loonking's Crown                 Yes
 // Nikkit! Nikkit!                  Yes

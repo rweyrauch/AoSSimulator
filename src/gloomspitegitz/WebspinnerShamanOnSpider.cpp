@@ -14,17 +14,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    WebspinnerShamanOnArachnarokSpider::Create,
-    WebspinnerShamanOnArachnarokSpider::ValueToString,
-    WebspinnerShamanOnArachnarokSpider::EnumStringToInt,
-    WebspinnerShamanOnArachnarokSpider::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Spiderfangs", (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool WebspinnerShamanOnArachnarokSpider::s_registered = false;
 
@@ -57,8 +46,17 @@ WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
     m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, MONSTER, HERO, WIZARD, WEBSPINNER_SHAMAN};
     m_weapons = {&m_spiderBows, &m_spiderGodStaff, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
 
+    s_globalCastMod.connect(this, &WebspinnerShamanOnArachnarokSpider::catchwebSpidershrine, &m_shrineConnection);
+    s_globalBraveryMod.connect(this, &WebspinnerShamanOnArachnarokSpider::prophetOfTheSpiderGod, &m_prophetConnection);
+
     m_totalUnbinds = 2;
     m_totalSpells = 2;
+}
+
+WebspinnerShamanOnArachnarokSpider::~WebspinnerShamanOnArachnarokSpider()
+{
+    m_shrineConnection.disconnect();
+    m_prophetConnection.disconnect();
 }
 
 bool WebspinnerShamanOnArachnarokSpider::configure(LoreOfTheSpiderFangs lore)
@@ -126,7 +124,19 @@ void WebspinnerShamanOnArachnarokSpider::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Webspinner Shaman on Arachnarok Spider", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Spiderfangs", (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
+
+        s_registered = UnitFactory::Register("Webspinner Shaman on Arachnarok Spider", *factoryMethod);
     }
 }
 
@@ -159,6 +169,27 @@ Wounds WebspinnerShamanOnArachnarokSpider::weaponDamage(const Weapon *weapon, co
         return {0, dice.rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int WebspinnerShamanOnArachnarokSpider::catchwebSpidershrine(const Unit *caster)
+{
+    // Catchweb Spidershrine
+    if (caster->hasKeyword(SPIDERFANG) && caster->hasKeyword(WIZARD) &&
+        (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0f))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int WebspinnerShamanOnArachnarokSpider::prophetOfTheSpiderGod(const Unit *unit)
+{
+    // Prophet of the Spider God
+    if (unit->hasKeyword(SPIDERFANG) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 24.0f))
+    {
+        return 2;
+    }
+    return 0;
 }
 
 } // namespace GloomspiteGitz

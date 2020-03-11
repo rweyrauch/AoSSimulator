@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/Skragrott.h>
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <iostream>
 #include <Board.h>
 #include <spells/MysticShield.h>
@@ -15,17 +16,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    Skragrott::Create,
-    Skragrott::ValueToString,
-    Skragrott::EnumStringToInt,
-    Skragrott::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool Skragrott::s_registered = false;
 
@@ -77,7 +67,19 @@ void Skragrott::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Skragrott", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
+
+        s_registered = UnitFactory::Register("Skragrott", *factoryMethod);
     }
 }
 
@@ -128,6 +130,21 @@ Wounds Skragrott::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
     return totalWounds;
+}
+
+void Skragrott::onStartHero(PlayerId playerId)
+{
+    GloomspiteGitzBase::onStartHero(playerId);
+
+    // Babbling Wand
+    if (isGeneral() && (owningPlayer() == playerId) && m_roster)
+    {
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            m_roster->addCommandPoints(dice.rollD3());
+        }
+    }
 }
 
 } // namespace GloomspiteGitz

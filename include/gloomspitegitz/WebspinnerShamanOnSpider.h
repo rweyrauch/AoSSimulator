@@ -30,7 +30,7 @@ public:
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
 
     WebspinnerShamanOnArachnarokSpider();
-    ~WebspinnerShamanOnArachnarokSpider() override = default;
+    ~WebspinnerShamanOnArachnarokSpider() override;
 
     bool configure(LoreOfTheSpiderFangs lore);
 
@@ -39,6 +39,8 @@ protected:
     void onWounded() override;
     void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int catchwebSpidershrine(const Unit* caster);
+    int prophetOfTheSpiderGod(const Unit* unit);
 
 private:
 
@@ -50,6 +52,9 @@ private:
         m_monstrousFangs,
         m_crookedSpears;
 
+    lsignal::slot m_shrineConnection,
+        m_prophetConnection;
+
     static bool s_registered;
 };
 
@@ -57,9 +62,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Catchweb Spidershrine            No
+// Catchweb Spidershrine            Yes
 // Spider Venom                     Yes
-// Prophet of the Spider God        No
+// Prophet of the Spider God        Yes
 // Wall Crawler                     Yes
 // Venom of the Spider God          No
 //

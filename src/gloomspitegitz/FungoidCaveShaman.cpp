@@ -8,23 +8,13 @@
 #include <algorithm>
 #include <gloomspitegitz/FungoidCaveShaman.h>
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <iostream>
 #include <Board.h>
 #include <spells/MysticShield.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    FungoidCaveShaman::Create,
-    FungoidCaveShaman::ValueToString,
-    FungoidCaveShaman::EnumStringToInt,
-    FungoidCaveShaman::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool FungoidCaveShaman::s_registered = false;
 
@@ -76,7 +66,19 @@ void FungoidCaveShaman::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
+
+        s_registered = UnitFactory::Register("Fungoid Cave-shaman", *factoryMethod);
     }
 }
 
@@ -97,6 +99,22 @@ int FungoidCaveShaman::EnumStringToInt(const std::string &enumString)
         return (int) lore;
     }
     return 0;
+}
+
+void FungoidCaveShaman::onStartHero(PlayerId playerId)
+{
+    GloomspiteGitzBase::onStartHero(playerId);
+
+    // Mouthpiece of Mork
+    if ((owningPlayer() == playerId) && m_roster)
+    {
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            m_roster->addCommandPoints(1);
+        }
+    }
+
 }
 
 } // namespace GloomspiteGitz

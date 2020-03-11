@@ -12,20 +12,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    DankholdTroggoths::Create,
-    nullptr,
-    nullptr,
-    DankholdTroggoths::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DankholdTroggoths::MIN_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE,
-            DankholdTroggoths::MAX_UNIT_SIZE, DankholdTroggoths::MIN_UNIT_SIZE
-        },
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool DankholdTroggoths::s_registered = false;
 
@@ -35,6 +21,13 @@ DankholdTroggoths::DankholdTroggoths() :
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
     m_weapons = {&m_boulderClub};
+
+    s_globalBraveryMod.connect(this, &DankholdTroggoths::reassuringPresence, &m_connection);
+}
+
+DankholdTroggoths::~DankholdTroggoths()
+{
+    m_connection.disconnect();
 }
 
 bool DankholdTroggoths::configure(int numModels)
@@ -74,7 +67,19 @@ void DankholdTroggoths::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Dankhold Troggoths", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
+
+        s_registered = UnitFactory::Register("Dankhold Troggoths", *factoryMethod);
     }
 }
 
@@ -144,6 +149,17 @@ int DankholdTroggoths::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int DankholdTroggoths::reassuringPresence(const Unit *unit)
+{
+    // Reassuring Presence
+    if (unit->hasKeyword(GLOOMSPITE_GITZ) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 18.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 } // namespace GloomspiteGitz

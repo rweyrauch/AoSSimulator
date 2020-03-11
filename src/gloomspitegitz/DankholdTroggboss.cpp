@@ -13,16 +13,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    DankholdTroggboss::Create,
-    nullptr,
-    nullptr,
-    DankholdTroggboss::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool DankholdTroggboss::s_registered = false;
 
@@ -32,6 +22,13 @@ DankholdTroggboss::DankholdTroggboss() :
 {
     m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
     m_weapons = {&m_boulderClub};
+
+    s_globalBraveryMod.connect(this, &DankholdTroggboss::reassuringPresence, &m_connection);
+}
+
+DankholdTroggboss::~DankholdTroggboss()
+{
+    m_connection.disconnect();
 }
 
 bool DankholdTroggboss::configure()
@@ -62,7 +59,18 @@ void DankholdTroggboss::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Dankhold Troggboss", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
+
+        s_registered = UnitFactory::Register("Dankhold Troggboss", *factoryMethod);
     }
 }
 
@@ -114,6 +122,17 @@ void DankholdTroggboss::onStartCombat(PlayerId player)
     }
 
     GloomspiteGitzBase::onStartCombat(player);
+}
+
+int DankholdTroggboss::reassuringPresence(const Unit *unit)
+{
+    // Reassuring Presence
+    if (unit->hasKeyword(GLOOMSPITE_GITZ) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 18.0f))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 } // namespace GloomspiteGitz
