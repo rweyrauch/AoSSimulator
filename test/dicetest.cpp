@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 #include "Dice.h"
+#include <lsignal.h>
 
 const int g_numRolls = 10000;
 
@@ -119,4 +120,24 @@ TEST(Dice, MultipleD6Rerolling)
         }
         ASSERT_EQ(total, numDice);
     }
+}
+
+int foo(int x) {
+    return x+1;
+}
+int bar(int x) {
+    return x+2;
+}
+int accumulate(const std::vector<int>& v) {
+    return std::accumulate(v.cbegin(), v.cend(), 0);
+}
+
+TEST(Dice, SignalTest)
+{
+    lsignal::signal<int(int)> worker;
+    worker.connect(bar);
+    worker.connect(foo);
+
+    auto last = worker(2);
+    auto total = worker(2, accumulate);
 }

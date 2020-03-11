@@ -17,6 +17,15 @@
 const float MAX_CHARGE_DISTANCE = 12.0f;
 const float MIN_CHARGE_DISTANCE = 3.0;
 
+lsignal::signal<int(const Unit*)> Unit::s_globalBraveryMod;
+lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToHitMod;
+lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToWoundMod;
+lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalSaveMod;
+
+int accumulate(const std::vector<int>& v) {
+    return std::accumulate(v.cbegin(), v.cend(), 0);
+}
+
 Wounds Unit::shoot(int numAttackingModels, Unit* targetUnit, int& numSlain)
 {
     if (m_ran && !canRunAndShoot())
@@ -782,7 +791,8 @@ bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* t
 {
     Dice dice;
 
-    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target);
+    const auto globalSaveMod = s_globalSaveMod(weapon, target, accumulate);
+    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target) + globalSaveMod;
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
 
@@ -835,10 +845,13 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
     }
 
     Dice dice;
+    const auto globalToHitModifier = s_globalToHitMod(weapon, target, accumulate);
+    const auto globalToWoundModifier = s_globalToWoundMod(weapon, target, accumulate);
+
     const auto rerolls = toHitRerolls(weapon, target);
     const auto woundRerolls = toWoundRerolls(weapon, target);
-    const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this);
-    const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this);
+    const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this) + globalToHitModifier;
+    const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this) + globalToWoundModifier;
 
     const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target));
     for (auto a = 0; a < totalAttacks; a++)
@@ -930,7 +943,8 @@ int Unit::rerolling(int initialRoll, Rerolls reroll, Dice& dice) const
 
 void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) const
 {
-    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier());
+    auto globalBraveryMod = s_globalBraveryMod(this, accumulate);
+    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier() + globalBraveryMod);
     numFled = std::max(0, std::min(remainingModels(), numFled));
     numRestored = 0;
 }
