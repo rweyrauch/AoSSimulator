@@ -24,6 +24,13 @@ GreatBrayShaman::GreatBrayShaman() :
 
     m_totalUnbinds = 1;
     m_totalSpells = 1;
+
+    s_globalRunMod.connect(this, &GreatBrayShaman::infuseWithBestialVigour, &m_connection);
+}
+
+GreatBrayShaman::~GreatBrayShaman()
+{
+    m_connection.disconnect();
 }
 
 bool GreatBrayShaman::configure()
@@ -74,6 +81,16 @@ void GreatBrayShaman::Init()
 
         s_registered = UnitFactory::Register("Great Bray-shaman", *factoryMethod);
     }
+}
+
+int GreatBrayShaman::infuseWithBestialVigour(const Unit *unit)
+{
+    // Infuse with Bestial Vigour
+    if (unit->hasKeyword(BRAYHERD) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0f))
+    {
+        return 3;
+    }
+    return 0;
 }
 
 } // namespace BeastsOfChaos

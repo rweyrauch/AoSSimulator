@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Skullgrinder::Create,
-    Skullgrinder::ValueToString,
-    Skullgrinder::EnumStringToInt,
-    Skullgrinder::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Skullgrinder::s_registered = false;
 
@@ -32,6 +21,13 @@ Skullgrinder::Skullgrinder() :
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKULLGRINDER};
     m_weapons = {&m_brazenAnvil};
+
+    s_globalBraveryMod.connect(this, &Skullgrinder::favouredByKhorne, &m_connection);
+}
+
+Skullgrinder::~Skullgrinder()
+{
+    m_connection.disconnect();
 }
 
 bool Skullgrinder::configure()
@@ -65,7 +61,18 @@ void Skullgrinder::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Skullgrinder", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
+        s_registered = UnitFactory::Register("Skullgrinder", *factoryMethod);
     }
 }
 
@@ -77,6 +84,17 @@ std::string Skullgrinder::ValueToString(const Parameter &parameter)
 int Skullgrinder::EnumStringToInt(const std::string &enumString)
 {
     return KhorneBase::EnumStringToInt(enumString);
+}
+
+int Skullgrinder::favouredByKhorne(const Unit *unit)
+{
+    // Favoured by Khorne
+    if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL) &&
+        (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0f))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 

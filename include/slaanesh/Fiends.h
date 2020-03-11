@@ -31,7 +31,7 @@ public:
     static void Init();
 
     Fiends();
-    ~Fiends() override = default;
+    ~Fiends() override;
 
     bool configure(int numModels);
 
@@ -40,12 +40,15 @@ protected:
     int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
     int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int disruptiveSong(const Unit* caster);
 
 private:
 
     Weapon m_deadlyPincers,
         m_deadlyPincersBlissbringer,
         m_barbedStinger;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -56,7 +59,7 @@ private:
 // -------------------------------------------
 // Crushing Grip                    Yes
 // Deadly Venom                     Yes
-// Disruptive Song                  No
+// Disruptive Song                  Yes
 // Soporific Musk                   Yes
 
 } // Slannesh

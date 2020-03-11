@@ -14,22 +14,6 @@
 namespace Slaanesh
 {
 
-static FactoryMethod factoryMethod = {
-    Fiends::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    Fiends::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Fiends::MIN_UNIT_SIZE, Fiends::MIN_UNIT_SIZE,
-            Fiends::MAX_UNIT_SIZE, Fiends::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
-
 bool Fiends::s_registered = false;
 
 Fiends::Fiends() :
@@ -40,6 +24,13 @@ Fiends::Fiends() :
 {
     m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, FIENDS};
     m_weapons = {&m_deadlyPincers, &m_deadlyPincersBlissbringer, &m_barbedStinger};
+
+    s_globalCastMod.connect(this, &Fiends::disruptiveSong, &m_connection);
+}
+
+Fiends::~Fiends()
+{
+    m_connection.disconnect();
 }
 
 bool Fiends::configure(int numModels)
@@ -85,7 +76,19 @@ void Fiends::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Fiends", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
+        s_registered = UnitFactory::Register("Fiends", *factoryMethod);
     }
 }
 
@@ -142,6 +145,17 @@ int Fiends::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int Fiends::disruptiveSong(const Unit *caster)
+{
+    // Disruptive Song
+    if (caster->hasKeyword(WIZARD) && (caster->owningPlayer() != owningPlayer()) && (distanceTo(caster) <= 12.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } // namespace Slaanesh

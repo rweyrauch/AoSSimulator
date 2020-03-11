@@ -12,16 +12,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    HellPitAbomination::Create,
-    nullptr,
-    nullptr,
-    HellPitAbomination::ComputePoints,
-    {
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 struct TableEntry
 {
@@ -51,6 +41,13 @@ HellPitAbomination::HellPitAbomination() :
 {
     m_keywords = {CHAOS, SKAVENTIDE, CLANS_MOULDER, FIGHTING_BEAST, MONSTER, HELL_PIT_ABOMINATION};
     m_weapons = {&m_gnashingTeath, &m_flailingFists, &m_avalancheOfFlesh};
+
+    s_globalBraveryMod.connect(this, &HellPitAbomination::terrifying, &m_connection);
+}
+
+HellPitAbomination::~HellPitAbomination()
+{
+    m_connection.disconnect();
 }
 
 bool HellPitAbomination::configure()
@@ -96,7 +93,18 @@ void HellPitAbomination::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Hell Pit Abomination", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+
+        s_registered = UnitFactory::Register("Hell Pit Abomination", *factoryMethod);
     }
 }
 
@@ -179,6 +187,16 @@ void HellPitAbomination::onSlain()
         }
         m_beenSlain = true;
     }
+}
+
+int HellPitAbomination::terrifying(const Unit *unit)
+{
+    // Terrifying
+    if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //namespace Skaven

@@ -27,7 +27,7 @@ public:
     static void Init();
 
     HellPitAbomination();
-    ~HellPitAbomination() override = default;
+    ~HellPitAbomination() override;
 
     bool configure();
 
@@ -36,6 +36,7 @@ protected:
     void onStartHero(PlayerId player) override;
     int generateMortalWounds(const Unit *unit) override;
     void onSlain() override;
+    int terrifying(const Unit* unit);
 
     int getDamageTableIndex() const;
 
@@ -49,6 +50,8 @@ private:
         m_flailingFists,
         m_avalancheOfFlesh;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -58,7 +61,7 @@ private:
 // -------------------------------------------
 // Avalanche of Flesh               Yes
 // Regenerating Monstrosity         Yes
-// Terrifying                       No
+// Terrifying                       Yes
 // Warpstone Spikes                 No
 // Too Horrible to Die              Yes
 //

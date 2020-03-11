@@ -28,15 +28,19 @@ public:
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
 
     GreatBrayShaman();
-    ~GreatBrayShaman() override = default;
+    ~GreatBrayShaman() override;
 
     bool configure();
 
 protected:
 
+    int infuseWithBestialVigour(const Unit* unit);
+
 private:
 
     Weapon m_fetishStaff;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -45,7 +49,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Infuse with Bestial Vigour       No
+// Infuse with Bestial Vigour       Yes
 // Devolve                          No
 //
 

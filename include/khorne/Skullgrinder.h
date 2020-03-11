@@ -29,15 +29,19 @@ public:
     static void Init();
 
     Skullgrinder();
-    ~Skullgrinder() override = default;
+    ~Skullgrinder() override;
 
     bool configure();
 
 protected:
 
+    int favouredByKhorne(const Unit* unit);
+
 private:
 
     Weapon m_brazenAnvil;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -47,7 +51,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Fire Anvil                       No
-// Favoured by Khorne               No
+// Favoured by Khorne               Yes
 //
 
 } // namespace Khorne

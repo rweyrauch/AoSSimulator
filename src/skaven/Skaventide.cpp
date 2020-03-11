@@ -51,7 +51,7 @@ int Skaventide::braveryModifier() const
 {
     int modifier = Unit::braveryModifier();
 
-    // Strength in Numbers
+    // Strength in Numbers (add an additional +1 for each 10 models)
     modifier += remainingModels() / 10;
 
     return modifier;
