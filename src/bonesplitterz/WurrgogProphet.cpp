@@ -6,12 +6,12 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <spells/MysticShield.h>
 #include "bonesplitterz/WurrgogProphet.h"
 
 namespace Bonesplitterz
 {
-
 
 bool WurrgogProphet::s_registered = false;
 
@@ -85,6 +85,21 @@ int WurrgogProphet::targetHitModifier(const Weapon *weapon, const Unit *attacker
         mod -= 1;
     }
     return mod;
+}
+
+void WurrgogProphet::onStartHero(PlayerId playerId)
+{
+    Unit::onStartHero(playerId);
+
+    if (owningPlayer() == playerId)
+    {
+        // Prophet of Da Waaagh!
+        Dice dice;
+        if (dice.rollD6() >= 4)
+        {
+            m_roster->addCommandPoints(1);
+        }
+    }
 }
 
 } // namespace Bonesplitterz

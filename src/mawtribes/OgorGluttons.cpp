@@ -10,26 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    OgorGluttons::Create,
-    OgorGluttons::ValueToString,
-    OgorGluttons::EnumStringToInt,
-    OgorGluttons::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", OgorGluttons::MIN_UNIT_SIZE, OgorGluttons::MIN_UNIT_SIZE,
-            OgorGluttons::MAX_UNIT_SIZE, OgorGluttons::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", OgorGluttons::ClubOrBladeAndIronfist, OgorGluttons::ClubOrBladeAndIronfist, OgorGluttons::PairedClubOrBlade, 1},
-        {ParamType::Boolean, "Beast Skull Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Lookout Gnoblar", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool OgorGluttons::s_registered = false;
 
@@ -78,7 +58,24 @@ void OgorGluttons::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ogor Gluttons", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", ClubOrBladeAndIronfist, ClubOrBladeAndIronfist, PairedClubOrBlade, 1},
+                {ParamType::Boolean, "Beast Skull Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Lookout Gnoblar", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
+        s_registered = UnitFactory::Register("Ogor Gluttons", *factoryMethod);
     }
 }
 
@@ -90,6 +87,13 @@ OgorGluttons::OgorGluttons() :
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, OGOR_GLUTTONS};
     m_weapons = {&m_clubOrBlade, &m_bite, &m_clubOrBladeCrusher};
+
+    s_globalBraveryMod.connect(this, &OgorGluttons::bellower, &m_connection);
+}
+
+OgorGluttons::~OgorGluttons()
+{
+    m_connection.disconnect();
 }
 
 bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar, bool bellower)
@@ -171,6 +175,17 @@ int OgorGluttons::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int OgorGluttons::bellower(const Unit *target)
+{
+    // Bellower
+    if (m_bellower && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f))
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
 } // namespace OgorMawtribes

@@ -11,23 +11,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    OrrukArdboys::Create,
-    OrrukArdboys::ValueToString,
-    OrrukArdboys::EnumStringToInt,
-    OrrukArdboys::ComputePoints,
-    {
-        {ParamType::Integer, "Models", OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE, OrrukArdboys::MAX_UNIT_SIZE, OrrukArdboys::MIN_UNIT_SIZE},
-        {ParamType::Integer, "Shields", 0, 0, OrrukArdboys::MAX_UNIT_SIZE / 5 * 2, 1},
-        {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {
-            ParamType::Enum, "Standard", OrrukArdboys::None, OrrukArdboys::None, OrrukArdboys::GlyphBearer, 1
-        },
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool OrrukArdboys::s_registered = false;
 
@@ -38,6 +21,13 @@ OrrukArdboys::OrrukArdboys() :
 {
     m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, ARDBOYS};
     m_weapons = {&m_choppa, &m_bossChoppa};
+
+    s_globalBraveryMod.connect(this, &OrrukArdboys::glyphBearer, &m_connection);
+}
+
+OrrukArdboys::~OrrukArdboys()
+{
+    m_connection.disconnect();
 }
 
 bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, StandardOption standard)
@@ -100,7 +90,23 @@ void OrrukArdboys::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Orruk Ardboys", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Shields", 0, 0, MAX_UNIT_SIZE / 5 * 2, 1},
+                {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Standard", None, None, GlyphBearer, 1},
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
+
+        s_registered = UnitFactory::Register("Orruk Ardboys", *factoryMethod);
     }
 }
 
@@ -187,6 +193,16 @@ int OrrukArdboys::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int OrrukArdboys::glyphBearer(const Unit *target)
+{
+    // Gorkamorka Glyph Bearer
+    if ((m_standardBearer == GlyphBearer) && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } // namespace Ironjawz

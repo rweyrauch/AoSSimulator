@@ -39,7 +39,7 @@ public:
     static void Init();
 
     OgorGluttons();
-    ~OgorGluttons() override = default;
+    ~OgorGluttons() override;
 
     bool configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar, bool bellower);
 
@@ -49,6 +49,7 @@ protected:
     Rerolls chargeRerolls() const override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    int bellower(const Unit* target);
 
 private:
 
@@ -63,6 +64,8 @@ private:
         m_bite,
         m_clubOrBladeCrusher;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -70,7 +73,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bellower                         No
+// Bellower                         Yes
 // Beast Skull Bearer               Yes
 // Tribal Banner Bearer             Yes
 // Lookout Gnoblar                  No

@@ -40,7 +40,7 @@ public:
     static void Init();
 
     OrrukArdboys();
-    ~OrrukArdboys() override = default;
+    ~OrrukArdboys() override;
 
     bool configure(int numModels, int numShields, bool drummer, StandardOption standard);
 
@@ -50,6 +50,7 @@ protected:
     int chargeModifier() const override;
     Wounds applyWoundSave(const Wounds &wounds) override;
     int braveryModifier() const override;
+    int glyphBearer(const Unit* target);
 
 protected:
 
@@ -60,6 +61,8 @@ protected:
     StandardOption m_standardBearer = None;
     int m_numShields = 0;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -69,7 +72,7 @@ protected:
 // -------------------------------------------
 // Drummer                          Yes
 // Banner                           Yes
-// Glyph Bearer                     No
+// Glyph Bearer                     Yes
 // Orruk-forged Shields             Yes
 //
 

@@ -31,11 +31,13 @@ public:
     static void Init();
 
     Ironguts();
-    ~Ironguts() override = default;
+    ~Ironguts() override;
 
     bool configure(int numModels, bool runeMawBearer, bool bellower);
 
 protected:
+
+    int bellower(const Unit* target);
 
 private:
 
@@ -46,6 +48,8 @@ private:
         m_bite,
         m_bashingWeaponGutlord;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -53,7 +57,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bellower                         No
+// Bellower                         Yes
 // Rune Maw Bearer                  No
 // Down to the Ironguts             No
 //

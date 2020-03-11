@@ -33,6 +33,7 @@ public:
 protected:
 
     int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    void onStartHero(PlayerId playerId) override;
 
 private:
 
@@ -47,7 +48,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Beast Mask                       Yes
-// Prophet of Da Waaagh!            No
+// Prophet of Da Waaagh!            Yes
 // Fists of Gork                    No
 //
 

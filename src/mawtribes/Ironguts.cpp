@@ -10,23 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Ironguts::Create,
-    Ironguts::ValueToString,
-    Ironguts::EnumStringToInt,
-    Ironguts::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Ironguts::MIN_UNIT_SIZE, Ironguts::MIN_UNIT_SIZE,
-            Ironguts::MAX_UNIT_SIZE, Ironguts::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Rune Maw Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Ironguts::s_registered = false;
 
@@ -54,7 +37,22 @@ void Ironguts::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ironguts", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Rune Maw Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
+
+        s_registered = UnitFactory::Register("Ironguts", *factoryMethod);
     }
 }
 
@@ -66,6 +64,13 @@ Ironguts::Ironguts() :
 {
     m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, IRONGUTS};
     m_weapons = {&m_bashingWeapon, &m_bite, &m_bashingWeaponGutlord};
+
+    s_globalBraveryMod.connect(this, &Ironguts::bellower, &m_connection);
+}
+
+Ironguts::~Ironguts()
+{
+    m_connection.disconnect();
 }
 
 bool Ironguts::configure(int numModels, bool runeMawBearer, bool bellower)
@@ -104,6 +109,16 @@ int Ironguts::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int Ironguts::bellower(const Unit *target)
+{
+    // Bellower
+    if (m_bellower && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } // namespace OgorMawtribes
