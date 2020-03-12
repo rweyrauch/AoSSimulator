@@ -36,6 +36,10 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
+
 private:
 
     Weapon m_jezzail,
@@ -48,8 +52,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Warpstone Snipers
-// Pavise
+// Warpstone Snipers                Yes
+// Pavise                           Yes
 //
 
 } // namespace Skaven

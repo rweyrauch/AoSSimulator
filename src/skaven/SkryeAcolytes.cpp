@@ -64,6 +64,9 @@ SkryeAcolytes::SkryeAcolytes() :
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, SKRYRE_ACOLYTES};
     m_weapons = {&m_globe, &m_knife};
+
+    // Quick-quick Volley!
+    m_runAndShoot = true;
 }
 
 bool SkryeAcolytes::configure(int numModels)
@@ -84,4 +87,17 @@ bool SkryeAcolytes::configure(int numModels)
 
     return true;
 }
+
+int SkryeAcolytes::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Skaventide::toHitModifier(weapon, target);
+
+    // Gas Clouds
+    if ((weapon->name() == m_globe.name()) && (target->remainingModels() >= 10))
+    {
+        mod++;
+    }
+    return mod;
+}
+
 } //namespace Skaven

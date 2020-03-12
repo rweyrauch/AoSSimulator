@@ -85,4 +85,37 @@ bool WarplockJezzails::configure(int numModels)
     return true;
 }
 
+Wounds WarplockJezzails::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Warpstone Snipers
+    if ((hitRoll == 6) && (weapon->name() == m_jezzail.name()))
+    {
+        return {0, 2};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+Rerolls WarplockJezzails::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Pavise
+    if (!m_moved && (weapon->name() == m_jezzail.name()))
+    {
+        return RerollFailed;
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
+int WarplockJezzails::toSaveModifier(const Weapon *weapon) const
+{
+    auto mod = Unit::toSaveModifier(weapon);
+
+    // Pavise
+    if (weapon->isMissile())
+    {
+        mod += 2;
+    }
+
+    return mod;
+}
+
 } //namespace Skaven

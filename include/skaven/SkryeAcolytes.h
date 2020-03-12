@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_globe,
@@ -48,8 +50,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Quick-quick Volley!
-// Gas Clouds
+// Quick-quick Volley!              Yes
+// Gas Clouds                       Yes
 //
 
 } // namespace Skaven
