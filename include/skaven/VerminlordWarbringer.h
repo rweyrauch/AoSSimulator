@@ -30,17 +30,28 @@ public:
 
     VerminlordWarbringer();
 
-    ~VerminlordWarbringer() override = default;
+    ~VerminlordWarbringer() override;
 
     bool configure();
 
 protected:
+
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int terrifying(const Unit* target);
+    int getDamageTableIndex() const;
 
 private:
 
     Weapon m_tails,
         m_glaive,
         m_fist;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -49,10 +60,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Amidst the Seething Tide
-// Fist of Verminus Supremacy
-// Protection of the Horned Rat
-// Terrifying
+// Amidst the Seething Tide         Yes
+// Fist of Verminus Supremacy       Yes
+// Protection of the Horned Rat     Yes
+// Terrifying                       Yes
 // Dreaded Death Frenzy
 // Tyrand of Battle
 //

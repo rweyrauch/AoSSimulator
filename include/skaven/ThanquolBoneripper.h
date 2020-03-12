@@ -33,6 +33,12 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int getDamageTableIndex() const;
+
 private:
 
     Weapon m_projectors,
@@ -47,7 +53,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Protection of the Horned Rat     No
+// Protection of the Horned Rat     Yes
 // Staff of the Horned Rat          No
 // Warp-amulet                      No
 // Warpfire Braziers                No

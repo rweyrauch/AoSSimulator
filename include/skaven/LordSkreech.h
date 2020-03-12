@@ -30,17 +30,26 @@ public:
 
     LordSkreechVerminking();
 
-    ~LordSkreechVerminking() override = default;
+    ~LordSkreechVerminking() override;
 
     bool configure();
 
 protected:
+
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int terrifying(const Unit* target);
+    int getDamageTableIndex() const;
 
 private:
 
     Weapon m_tails,
         m_glaive,
         m_plaguereaper;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -49,8 +58,8 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Protection of the Horned Rat     No
-// Terrifying                       No
+// Protection of the Horned Rat     Yes
+// Terrifying                       Yes
 // The Thirteen-headed One          No
 // THe Rat King                     No
 //

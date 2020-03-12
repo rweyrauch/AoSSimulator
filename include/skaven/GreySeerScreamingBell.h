@@ -36,6 +36,12 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int getDamageTableIndex() const;
+
 private:
 
     Weapon m_staff,
@@ -50,7 +56,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Altar of the Horned Rat
-// Protection of the Horned Rat
+// Protection of the Horned Rat     Yes
 // Pushed into Battle
 // Peal of Doom
 // Cracks Call

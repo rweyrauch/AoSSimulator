@@ -11,6 +11,26 @@
 
 namespace Skaven
 {
+
+struct TableEntry
+{
+    int m_move;
+    int m_tailAttacks;
+    int m_reaperAttacks;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, LordSkreechVerminking::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {12, 4, 8},
+        {10, 3, 7},
+        {8, 2, 6},
+        {6,  1, 5},
+        {4,  0, 4}
+    };
+
+
 bool LordSkreechVerminking::s_registered = false;
 
 Unit *LordSkreechVerminking::Create(const ParameterList &parameters)
@@ -55,8 +75,15 @@ LordSkreechVerminking::LordSkreechVerminking() :
                   LORD_SKREECH_VERMINKING};
     m_weapons = {&m_tails, &m_glaive, &m_plaguereaper};
 
+    s_globalBraveryMod.connect(this, &LordSkreechVerminking::terrifying, &m_connection);
+
     m_totalSpells = 2;
     m_totalUnbinds = 2;
+}
+
+LordSkreechVerminking::~LordSkreechVerminking()
+{
+    m_connection.disconnect();
 }
 
 bool LordSkreechVerminking::configure()
@@ -70,6 +97,63 @@ bool LordSkreechVerminking::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds LordSkreechVerminking::applyWoundSave(const Wounds &wounds)
+{
+    auto totalWounds = Skaventide::applyWoundSave(wounds);
+
+    // Protection of the Horned Rat
+    Dice dice;
+    Dice::RollResult resultNormal, resultMortal;
+
+    dice.rollD6(wounds.normal, resultNormal);
+    dice.rollD6(wounds.mortal, resultMortal);
+
+    Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
+    totalWounds -= negatedWounds;
+    return totalWounds.clamp();
+}
+
+int LordSkreechVerminking::terrifying(const Unit *target)
+{
+    // Terrifying
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
+}
+
+void LordSkreechVerminking::onWounded()
+{
+    Unit::onWounded();
+
+    const int damageIndex = getDamageTableIndex();
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+    m_tails.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
+    m_plaguereaper.setAttacks(g_damageTable[damageIndex].m_reaperAttacks);
+}
+
+void LordSkreechVerminking::onRestore()
+{
+    Unit::onRestore();
+
+    // Restore table-driven attributes
+    onWounded();
+}
+
+int LordSkreechVerminking::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } //namespace Skaven

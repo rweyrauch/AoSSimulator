@@ -30,17 +30,28 @@ public:
 
     VerminlordDeceiver();
 
-    ~VerminlordDeceiver() override = default;
+    ~VerminlordDeceiver() override;
 
     bool configure();
 
 protected:
+
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int terrifying(const Unit* target);
+    int getDamageTableIndex() const;
 
 private:
 
     Weapon m_doomstar,
         m_tails,
         m_warpstiletto;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -49,10 +60,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Doomstar
-// Protection of the Horned Rat
-// Shrouded In Darkness
-// Terrifying
+// Doomstar                         Yes
+// Protection of the Horned Rat     Yes
+// Shrouded In Darkness             Yes
+// Terrifying                       Yes
 // Dreaded Skitterleap
 // Lord of Assassins
 //

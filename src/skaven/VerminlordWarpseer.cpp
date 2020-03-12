@@ -8,9 +8,30 @@
 
 #include <skaven/VerminlordWarpseer.h>
 #include <UnitFactory.h>
+#include <Roster.h>
+#include <Board.h>
 
 namespace Skaven
 {
+struct TableEntry
+{
+    int m_move;
+    int m_tailAttacks;
+    int m_glaiveToWound;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, VerminlordWarpseer::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {12, 4, 2},
+        {10, 3, 2},
+        {8, 2, 3},
+        {6,  1, 3},
+        {4,  0, 4}
+    };
+
+
 bool VerminlordWarpseer::s_registered = false;
 
 Unit *VerminlordWarpseer::Create(const ParameterList &parameters)
@@ -54,8 +75,15 @@ VerminlordWarpseer::VerminlordWarpseer() :
                   VERMINLORD_WARPSEER};
     m_weapons = {&m_tails, &m_glaive};
 
+    s_globalBraveryMod.connect(this, &VerminlordWarpseer::terrifying, &m_connection);
+
     m_totalSpells = 2;
     m_totalUnbinds = 2;
+}
+
+VerminlordWarpseer::~VerminlordWarpseer()
+{
+    m_connection.disconnect();
 }
 
 bool VerminlordWarpseer::configure()
@@ -69,4 +97,104 @@ bool VerminlordWarpseer::configure()
 
     return true;
 }
+
+Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds)
+{
+    auto totalWounds = Skaventide::applyWoundSave(wounds);
+
+    // Protection of the Horned Rat
+    Dice dice;
+    Dice::RollResult resultNormal, resultMortal;
+
+    dice.rollD6(wounds.normal, resultNormal);
+    dice.rollD6(wounds.mortal, resultMortal);
+
+    Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
+    totalWounds -= negatedWounds;
+    return totalWounds.clamp();
+}
+
+int VerminlordWarpseer::terrifying(const Unit *target)
+{
+    // Terrifying
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
+}
+
+void VerminlordWarpseer::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if ((player == owningPlayer()) && (remainingModels() >= 0) && m_roster)
+    {
+        Dice dice;
+        auto roll = dice.rollD6();
+        if (roll == 6) m_roster->addCommandPoints(dice.rollD3());
+        else if (roll >= 3) m_roster->addCommandPoints(1);
+    }
+}
+
+Rerolls VerminlordWarpseer::toSaveRerolls(const Weapon *weapon) const
+{
+    if (!m_usedOrb)
+    {
+        // Scry-orb
+        return RerollFailed;
+    }
+
+    return Skaventide::toSaveRerolls(weapon);
+}
+
+void VerminlordWarpseer::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    if (!m_usedOrb)
+    {
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && distanceTo(unit) <= 13.0f)
+        {
+            Dice dice;
+            unit->applyDamage({0, dice.rollD6()});
+            m_usedOrb = true;
+        }
+    }
+}
+
+void VerminlordWarpseer::onRestore()
+{
+    Unit::onRestore();
+
+    m_usedOrb = false;
+
+    // Restore table-driven attributes
+    onWounded();
+}
+
+void VerminlordWarpseer::onWounded()
+{
+    Unit::onWounded();
+
+    const int damageIndex = getDamageTableIndex();
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+    m_tails.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
+    m_glaive.setToWound(g_damageTable[damageIndex].m_glaiveToWound);
+}
+
+int VerminlordWarpseer::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+
 } //namespace Skaven

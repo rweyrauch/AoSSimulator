@@ -11,6 +11,25 @@
 
 namespace Skaven
 {
+struct TableEntry
+{
+    int m_move;
+    int m_blowsAttacks;
+    int m_staffCastBuff;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, ThanquolOnBoneripper::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {10, 6, 2},
+        {9, 5, 2},
+        {8, 4, 1},
+        {7,  3, 1},
+        {6,  2, 0}
+    };
+
+
 bool ThanquolOnBoneripper::s_registered = false;
 
 Unit *ThanquolOnBoneripper::Create(const ParameterList &parameters)
@@ -76,6 +95,52 @@ bool ThanquolOnBoneripper::configure(int numProjectors)
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds ThanquolOnBoneripper::applyWoundSave(const Wounds &wounds)
+{
+    auto totalWounds = Skaventide::applyWoundSave(wounds);
+
+    // Protection of the Horned Rat
+    Dice dice;
+    Dice::RollResult resultNormal, resultMortal;
+
+    dice.rollD6(wounds.normal, resultNormal);
+    dice.rollD6(wounds.mortal, resultMortal);
+
+    Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
+    totalWounds -= negatedWounds;
+    return totalWounds.clamp();
+}
+
+void ThanquolOnBoneripper::onWounded()
+{
+    Unit::onWounded();
+
+    const int damageIndex = getDamageTableIndex();
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+    m_blows.setAttacks(g_damageTable[damageIndex].m_blowsAttacks);
+}
+
+void ThanquolOnBoneripper::onRestore()
+{
+    Unit::onRestore();
+
+    // Restore table-driven attributes
+    onWounded();
+}
+
+int ThanquolOnBoneripper::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } //namespace Skaven

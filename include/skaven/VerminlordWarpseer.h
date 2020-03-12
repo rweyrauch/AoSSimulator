@@ -30,16 +30,30 @@ public:
 
     VerminlordWarpseer();
 
-    ~VerminlordWarpseer() override = default;
+    ~VerminlordWarpseer() override;
 
     bool configure();
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartHero(PlayerId player) override;
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    void onStartShooting(PlayerId player) override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int terrifying(const Unit* target);
+    int getDamageTableIndex() const;
+
 private:
 
     Weapon m_tails,
         m_glaive;
+
+    bool m_usedOrb = false;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -48,10 +62,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// The Great Manipulators
-// Protection of the Horned Rat
+// The Great Manipulators           Yes
+// Protection of the Horned Rat     Yes
 // Scry-orb
-// Terrifying
+// Terrifying                       Yes
 // Dreaded Warpgale
 // Forth-forth, Children of the Horned Rat!
 //

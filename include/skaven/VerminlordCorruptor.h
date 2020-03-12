@@ -30,16 +30,27 @@ public:
 
     VerminlordCorruptor();
 
-    ~VerminlordCorruptor() override = default;
+    ~VerminlordCorruptor() override;
 
     bool configure();
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds onEndCombat(PlayerId player) override;
+    void onWounded() override;
+    void onRestore() override;
+
+    int terrifying(const Unit* target);
+    int getDamageTableIndex() const;
+
 private:
 
     Weapon m_tails,
         m_plaguereapers;
+
+    lsignal::slot m_connection;
 
     static bool s_registered;
 };
@@ -48,10 +59,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Plaguereapers
-// Plaguemaster
-// Protection of the Horned Rat
-// Terrifying
+// Plaguereapers                    Yes
+// Plaguemaster                     Yes
+// Protection of the Horned Rat     Yes
+// Terrifying                       Yes
 // Dreaded Plague
 // Lord of Pestilence
 //

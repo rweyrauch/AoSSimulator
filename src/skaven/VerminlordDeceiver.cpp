@@ -11,6 +11,25 @@
 
 namespace Skaven
 {
+struct TableEntry
+{
+    int m_move;
+    int m_tailAttacks;
+    int m_stilettoToWound;
+};
+
+const size_t NUM_TABLE_ENTRIES = 5;
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, VerminlordDeceiver::WOUNDS};
+static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    {
+        {12, 4, 2},
+        {10, 3, 3},
+        {8, 2, 3},
+        {6,  1, 4},
+        {4,  0, 4}
+    };
+
+
 bool VerminlordDeceiver::s_registered = false;
 
 Unit *VerminlordDeceiver::Create(const ParameterList &parameters)
@@ -55,8 +74,15 @@ VerminlordDeceiver::VerminlordDeceiver() :
         VERMINLORD_DECEIVER};
     m_weapons = {&m_doomstar, &m_tails, &m_warpstiletto};
 
+    s_globalBraveryMod.connect(this, &VerminlordDeceiver::terrifying, &m_connection);
+
     m_totalSpells = 2;
     m_totalUnbinds = 2;
+}
+
+VerminlordDeceiver::~VerminlordDeceiver()
+{
+    m_connection.disconnect();
 }
 
 bool VerminlordDeceiver::configure()
@@ -70,6 +96,84 @@ bool VerminlordDeceiver::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds VerminlordDeceiver::applyWoundSave(const Wounds &wounds)
+{
+    auto totalWounds = Skaventide::applyWoundSave(wounds);
+
+    // Protection of the Horned Rat
+    Dice dice;
+    Dice::RollResult resultNormal, resultMortal;
+
+    dice.rollD6(wounds.normal, resultNormal);
+    dice.rollD6(wounds.mortal, resultMortal);
+
+    Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
+    totalWounds -= negatedWounds;
+    return totalWounds.clamp();
+}
+
+int VerminlordDeceiver::terrifying(const Unit *target)
+{
+    // Terrifying
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
+}
+
+Wounds VerminlordDeceiver::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Doomstar
+    if ((weapon->name() == m_doomstar.name()) && (target->remainingModels() >= 10))
+    {
+        Dice dice;
+        return {dice.rollD6(), 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int VerminlordDeceiver::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = Unit::targetHitModifier(weapon, attacker);
+
+    // Shrouded in Darkness
+    if (weapon->isMissile()) mod -= 2;
+
+    return mod;
+}
+
+void VerminlordDeceiver::onWounded()
+{
+    Unit::onWounded();
+
+    const int damageIndex = getDamageTableIndex();
+    m_move = g_damageTable[getDamageTableIndex()].m_move;
+    m_tails.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
+    m_warpstiletto.setToWound(g_damageTable[damageIndex].m_stilettoToWound);
+}
+
+void VerminlordDeceiver::onRestore()
+{
+    Unit::onRestore();
+
+    // Restore table-driven attributes
+    onWounded();
+}
+
+int VerminlordDeceiver::getDamageTableIndex() const
+{
+    auto woundsInflicted = wounds() - remainingWounds();
+    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
+    {
+        if (woundsInflicted < g_woundThresholds[i])
+        {
+            return i;
+        }
+    }
+    return 0;
 }
 
 } //namespace Skaven
