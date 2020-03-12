@@ -11,16 +11,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    RatlingGun::Create,
-    nullptr,
-    nullptr,
-    RatlingGun::ComputePoints,
-    {
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool RatlingGun::s_registered = false;
 
@@ -62,7 +52,17 @@ void RatlingGun::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Ratling Gun", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Ratling Gun", *factoryMethod);
     }
 }
 

@@ -13,29 +13,6 @@
 namespace Skaven
 {
 
-static FactoryMethod factoryMethod = {
-    PlagueMonks::Create,
-    PlagueMonks::ValueToString,
-    PlagueMonks::EnumStringToInt,
-    PlagueMonks::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", PlagueMonks::MIN_UNIT_SIZE, PlagueMonks::MIN_UNIT_SIZE,
-            PlagueMonks::MAX_UNIT_SIZE, PlagueMonks::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", PlagueMonks::PairedFoetidBlades, PlagueMonks::PairedFoetidBlades,
-            PlagueMonks::FoetidBladeAndWoeStave, 1
-        },
-        {ParamType::Integer, "Contagion Banners", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Icons Of Pestilence", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Doom Gongs", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Bale Chimes", 0, 0, PlagueMonks::MAX_UNIT_SIZE/PlagueMonks::MIN_UNIT_SIZE, 1}
-    },
-    CHAOS,
-    { SKAVEN }
-};
-
 bool PlagueMonks::s_registered = false;
 
 PlagueMonks::PlagueMonks() :
@@ -117,7 +94,23 @@ void PlagueMonks::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Plague Monks", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", PairedFoetidBlades, PairedFoetidBlades, FoetidBladeAndWoeStave, 1},
+                {ParamType::Integer, "Contagion Banners", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Icons Of Pestilence", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Doom Gongs", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Bale Chimes", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1}
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Plague Monks", *factoryMethod);
     }
 }
 

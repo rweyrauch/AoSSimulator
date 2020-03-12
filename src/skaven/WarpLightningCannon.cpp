@@ -12,16 +12,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    WarpLightningCannon::Create,
-    nullptr,
-    nullptr,
-    WarpLightningCannon::ComputePoints,
-    {
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool WarpLightningCannon::s_registered = false;
 
@@ -63,7 +53,17 @@ void WarpLightningCannon::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Warp Lightning Cannon", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Warp Lightning Cannon", *factoryMethod);
     }
 }
 

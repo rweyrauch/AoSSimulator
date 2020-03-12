@@ -11,27 +11,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    Clanrats::Create,
-    Clanrats::ValueToString,
-    Clanrats::EnumStringToInt,
-    Clanrats::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Clanrats::MIN_UNIT_SIZE, Clanrats::MIN_UNIT_SIZE,
-            Clanrats::MAX_UNIT_SIZE, Clanrats::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Clanrats::RustySpear, Clanrats::RustySpear,
-            Clanrats::RustyBlade, 1
-        },
-        {ParamType::Boolean, "Clanshields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Integer, "Standard Bearers", 0, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Bell Ringers", 0, 0, Clanrats::MAX_UNIT_SIZE/Clanrats::MIN_UNIT_SIZE, 1}
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool Clanrats::s_registered = false;
 
@@ -118,7 +97,22 @@ void Clanrats::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Clanrats", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", RustySpear, RustySpear, RustyBlade, 1},
+                {ParamType::Boolean, "Clanshields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Integer, "Standard Bearers", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Bell Ringers", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1}
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Clanrats", *factoryMethod);
     }
 }
 

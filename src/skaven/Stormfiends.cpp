@@ -12,33 +12,6 @@
 namespace Skaven
 {
 
-static FactoryMethod factoryMethod = {
-    Stormfiends::Create,
-    Stormfiends::ValueToString,
-    Stormfiends::EnumStringToInt,
-    Stormfiends::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Stormfiends::MIN_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE,
-            Stormfiends::MAX_UNIT_SIZE, Stormfiends::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapon A", Stormfiends::WarpfireProjectors, Stormfiends::WarpfireProjectors,
-            Stormfiends::Windlaunchers, 1
-        },
-        {
-            ParamType::Enum, "Weapon B", Stormfiends::Grinderfists, Stormfiends::Grinderfists,
-            Stormfiends::RatlingCannons, 1
-        },
-        {
-            ParamType::Enum, "Weapon C", Stormfiends::DoomflayerGauntlets, Stormfiends::DoomflayerGauntlets,
-            Stormfiends::ShockGauntlets, 1
-        },
-    },
-    CHAOS,
-    { SKAVEN }
-};
-
 bool Stormfiends::s_registered = false;
 
 Stormfiends::Stormfiends() :
@@ -141,7 +114,22 @@ void Stormfiends::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Stormfiends", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapon A", WarpfireProjectors, WarpfireProjectors, Windlaunchers, 1},
+                {ParamType::Enum, "Weapon B", Grinderfists, Grinderfists, RatlingCannons, 1},
+                {ParamType::Enum, "Weapon C", DoomflayerGauntlets, DoomflayerGauntlets, ShockGauntlets, 1
+                },
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Stormfiends", *factoryMethod);
     }
 }
 

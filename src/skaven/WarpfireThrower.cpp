@@ -11,16 +11,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    WarpfireThrower::Create,
-    nullptr,
-    nullptr,
-    WarpfireThrower::ComputePoints,
-    {
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool WarpfireThrower::s_registered = false;
 
@@ -62,7 +52,17 @@ void WarpfireThrower::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Warpfire Thrower", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Warpfire Thrower", *factoryMethod);
     }
 }
 

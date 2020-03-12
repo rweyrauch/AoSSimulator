@@ -12,21 +12,6 @@
 namespace Skaven
 {
 
-static FactoryMethod factoryMethod = {
-    GutterRunners::Create,
-    nullptr,
-    nullptr,
-    GutterRunners::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GutterRunners::MIN_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE,
-            GutterRunners::MAX_UNIT_SIZE, GutterRunners::MIN_UNIT_SIZE
-        },
-    },
-    CHAOS,
-    { SKAVEN }
-};
-
 bool GutterRunners::s_registered = false;
 
 GutterRunners::GutterRunners() :
@@ -79,7 +64,18 @@ void GutterRunners::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Gutter Runners", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Gutter Runners", *factoryMethod);
     }
 }
 

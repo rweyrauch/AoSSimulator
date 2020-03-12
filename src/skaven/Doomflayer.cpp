@@ -11,16 +11,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    Doomflayer::Create,
-    nullptr,
-    nullptr,
-    Doomflayer::ComputePoints,
-    {
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool Doomflayer::s_registered = false;
 
@@ -62,7 +52,17 @@ void Doomflayer::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Doom-flayer", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Doom-flayer", *factoryMethod);
     }
 }
 

@@ -11,16 +11,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    Doomwheel::Create,
-    nullptr,
-    nullptr,
-    Doomwheel::ComputePoints,
-    {
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool Doomwheel::s_registered = false;
 
@@ -64,7 +54,17 @@ void Doomwheel::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Doomwheel", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Doomwheel", *factoryMethod);
     }
 }
 

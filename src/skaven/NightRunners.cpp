@@ -11,20 +11,6 @@
 
 namespace Skaven
 {
-static FactoryMethod factoryMethod = {
-    NightRunners::Create,
-    nullptr,
-    nullptr,
-    NightRunners::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", NightRunners::MIN_UNIT_SIZE, NightRunners::MIN_UNIT_SIZE,
-            NightRunners::MAX_UNIT_SIZE, NightRunners::MIN_UNIT_SIZE
-        },
-    },
-    CHAOS,
-    { SKAVEN }
-};
 
 bool NightRunners::s_registered = false;
 
@@ -84,7 +70,18 @@ void NightRunners::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Night Runners", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            Skaventide::ValueToString,
+            Skaventide::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+            },
+            CHAOS,
+            { SKAVEN }
+        };
+        s_registered = UnitFactory::Register("Night Runners", *factoryMethod);
     }
 }
 

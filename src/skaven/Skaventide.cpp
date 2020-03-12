@@ -9,18 +9,43 @@
 #include <skaven/Skaventide.h>
 #include <UnitFactory.h>
 
+#include "skaven/ArchWarlock.h"
 #include "skaven/Clanrats.h"
+#include "skaven/Clawlord.h"
+#include "skaven/Deathmaster.h"
+#include "skaven/Doomflayer.h"
+#include "skaven/Doomwheel.h"
+#include "skaven/GiantRats.h"
+#include "skaven/GreySeer.h"
+#include "skaven/GreySeerScreamingBell.h"
 #include "skaven/GutterRunners.h"
-#include "skaven/PlagueMonks.h"
+#include "skaven/HellPitAbomination.h"
+#include "skaven/LordSkreech.h"
+#include "skaven/MasterMoulder.h"
 #include "skaven/NightRunners.h"
+#include "skaven/Packmasters.h"
+#include "skaven/PlagueCenserBearers.h"
+#include "skaven/Plagueclaw.h"
+#include "skaven/PlagueMonks.h"
+#include "skaven/PlaguePriestFurnace.h"
+#include "skaven/PlaguePriest.h"
+#include "skaven/RatlingGun.h"
+#include "skaven/RatOgors.h"
+#include "skaven/RatSwarms.h"
+#include "skaven/SkryeAcolytes.h"
 #include "skaven/Stormfiends.h"
 #include "skaven/Stormvermin.h"
-#include "skaven/HellPitAbomination.h"
-#include "skaven/RatlingGun.h"
+#include "skaven/ThanquolBoneripper.h"
+#include "skaven/VerminlordCorruptor.h"
+#include "skaven/VerminlordDeceiver.h"
+#include "skaven/VerminlordWarbringer.h"
+#include "skaven/VerminlordWarpseer.h"
+#include "skaven/WarlockBombardier.h"
+#include "skaven/WarlockEngineer.h"
 #include "skaven/WarpfireThrower.h"
+#include "skaven/WarpGrinder.h"
 #include "skaven/WarpLightningCannon.h"
-#include "skaven/Doomwheel.h"
-#include "skaven/Doomflayer.h"
+#include "skaven/WarplockJezzails.h"
 
 namespace Skaven
 {
@@ -57,20 +82,55 @@ int Skaventide::braveryModifier() const
     return modifier;
 }
 
+std::string Skaventide::ValueToString(const Parameter &parameter)
+{
+    return "";
+}
+
+int Skaventide::EnumStringToInt(const std::string &enumString)
+{
+    return 0;
+}
+
 void Init()
 {
+    ArchWarlock::Init();
     Clanrats::Init();
+    Clawlord::Init();
+    Deathmaster::Init();
+    Doomflayer::Init();
+    Doomwheel::Init();
+    GiantRats::Init();
+    GreySeer::Init();
+    GreySeerOnScreamingBell::Init();
     GutterRunners::Init();
+    HellPitAbomination::Init();
+    LordSkreechVerminking::Init();
+    MasterMoulder::Init();
     NightRunners::Init();
+    Packmasters::Init();
+    PlagueCenserBearers::Init();
+    Plagueclaw::Init();
     PlagueMonks::Init();
+    PlaguePriestOnPlagueFurnace::Init();
+    PlaguePriest::Init();
+    RatlingGun::Init();
+    RatOgors::Init();
+    RatSwarms::Init();
+    SkryeAcolytes::Init();
     Stormfiends::Init();
     Stormvermin::Init();
-    HellPitAbomination::Init();
-    RatlingGun::Init();
+    ThanquolOnBoneripper::Init();
+    VerminlordCorruptor::Init();
+    VerminlordDeceiver::Init();
+    VerminlordWarbringer::Init();
+    VerminlordWarpseer::Init();
+    WarlockBombardier::Init();
+    WarlockEngineer::Init();
     WarpfireThrower::Init();
+    WarpGrinder::Init();
     WarpLightningCannon::Init();
-    Doomwheel::Init();
-    Doomflayer::Init();
+    WarplockJezzails::Init();
 }
 
 } // namespace Skaven

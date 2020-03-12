@@ -21,6 +21,9 @@ public:
     Skaventide() = default;
     ~Skaventide() override = default;
 
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
+
 protected:
     Skaventide(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {}
