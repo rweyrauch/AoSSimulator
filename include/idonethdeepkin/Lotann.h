@@ -50,7 +50,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Catalogue of Souls               Yes

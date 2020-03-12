@@ -47,7 +47,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Rabid Fury                       Yes

@@ -49,7 +49,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deadly Rain of Scrap             Yes

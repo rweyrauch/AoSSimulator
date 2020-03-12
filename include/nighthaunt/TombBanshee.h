@@ -45,7 +45,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes

@@ -46,7 +46,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Slaughter and Ruin               Yes

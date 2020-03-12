@@ -63,7 +63,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blasts of Frost-wreathed Ice     Yes

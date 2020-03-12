@@ -60,7 +60,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Biovoltaic Blast                 Yes

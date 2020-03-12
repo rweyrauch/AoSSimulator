@@ -69,7 +69,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Brace of Drakefire Pistols       Yes

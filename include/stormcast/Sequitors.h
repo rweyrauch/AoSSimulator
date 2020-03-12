@@ -75,7 +75,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Greatmace Blast                  Yes

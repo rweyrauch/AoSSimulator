@@ -53,7 +53,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Guardians of the Kindreds        Yes

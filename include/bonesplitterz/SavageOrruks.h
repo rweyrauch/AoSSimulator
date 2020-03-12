@@ -89,7 +89,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Spirit of Gorkamorka             Yes

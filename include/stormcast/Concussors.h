@@ -51,7 +51,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blast to Ashes                   Yes

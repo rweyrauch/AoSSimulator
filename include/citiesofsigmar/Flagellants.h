@@ -53,7 +53,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Glorious Martyrs                 Yes

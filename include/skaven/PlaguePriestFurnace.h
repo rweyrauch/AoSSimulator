@@ -65,9 +65,9 @@ private:
 // -------------------------------------------
 // Altar of the Horned Rat          Yes
 // Great Plague Censer              Yes
-// Noxious Prayers
-//   Filth-filth!
-//   Rabid-rabid!
+// Noxious Prayers                  Partial
+//   Filth-filth!                   Yes
+//   Rabid-rabid!                   Yes
 // Poisonous Fumes                  Yes
 // Protection of the Horned Rat     Yes
 // Pushed into Battle               Partial

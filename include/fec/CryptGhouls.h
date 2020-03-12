@@ -48,7 +48,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Boundless Ferocity               Yes

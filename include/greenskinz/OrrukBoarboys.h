@@ -66,7 +66,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Glyph Bearer                     Yes

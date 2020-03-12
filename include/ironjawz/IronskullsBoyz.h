@@ -46,7 +46,6 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Dead 'Ard                        Yes

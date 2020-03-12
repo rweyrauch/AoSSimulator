@@ -53,7 +53,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blessing of the Forest           Yes

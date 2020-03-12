@@ -52,7 +52,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Thunderous Blasts of Hot Metal   Yes

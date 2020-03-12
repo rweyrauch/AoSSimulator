@@ -72,7 +72,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Paired Drakefire Pistols         Yes

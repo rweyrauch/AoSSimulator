@@ -56,7 +56,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Lightning Arc          Yes

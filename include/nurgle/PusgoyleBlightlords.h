@@ -54,7 +54,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Disgustingly Resilient           Yes

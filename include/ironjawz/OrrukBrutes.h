@@ -63,7 +63,6 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Duff Up da Big Thing             Yes

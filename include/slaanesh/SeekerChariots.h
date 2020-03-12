@@ -49,7 +49,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Impossibly Swift                 Yes

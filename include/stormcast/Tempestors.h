@@ -52,7 +52,6 @@ private:
     static bool s_registered;
 };
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Disruptive Fire                  Yes

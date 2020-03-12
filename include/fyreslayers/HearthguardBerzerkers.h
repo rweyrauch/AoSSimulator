@@ -59,7 +59,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Duty Unto Death                  Yes

@@ -64,7 +64,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Earth-shattering Charge          Yes

@@ -47,7 +47,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Petrifying Gaze                  Yes

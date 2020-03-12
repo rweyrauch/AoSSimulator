@@ -60,7 +60,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Backstabbing Mob                 Yes

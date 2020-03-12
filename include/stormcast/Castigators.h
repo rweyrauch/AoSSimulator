@@ -56,7 +56,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Burst of Celestial Energy        Yes

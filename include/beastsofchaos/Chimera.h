@@ -52,7 +52,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Draconic Head's Fiery Breath     Yes

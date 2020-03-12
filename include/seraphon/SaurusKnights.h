@@ -68,7 +68,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   Yes

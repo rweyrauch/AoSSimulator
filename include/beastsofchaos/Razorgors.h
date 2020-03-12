@@ -48,7 +48,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Uncontrollable Stampede          Yes

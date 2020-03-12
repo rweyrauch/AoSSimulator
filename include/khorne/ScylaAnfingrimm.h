@@ -44,7 +44,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Brass Collar of Khorne           Yes

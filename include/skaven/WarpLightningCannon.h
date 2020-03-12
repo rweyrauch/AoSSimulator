@@ -44,7 +44,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Warp Lightning Blast             Yes

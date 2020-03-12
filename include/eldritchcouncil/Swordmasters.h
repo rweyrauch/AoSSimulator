@@ -52,7 +52,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // A Blur of Blades                 Yes
