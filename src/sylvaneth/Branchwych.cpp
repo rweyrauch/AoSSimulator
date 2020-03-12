@@ -84,12 +84,13 @@ void Branchwych::Init()
 
 int Branchwych::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
     // Quick-tempered
     if ((weapon->name() == m_greenwoodScythe.name()) && (attackingModel->woundsRemaining() < wounds()))
     {
-        return 2;
+        extra += 2;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 int Branchwych::toHitModifier(const Weapon *weapon, const Unit *target) const

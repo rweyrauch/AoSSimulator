@@ -116,11 +116,12 @@ int Kroxigor::toHitModifier(const Weapon *weapon, const Unit *target) const
 
 int Kroxigor::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
     if ((weapon->name() == m_hammer.name()))
     {
-        return getModelsWithin(attackingModel, target, 2.0f);
+        extra += getModelsWithin(attackingModel, target, 2.0f);
     }
-    return SeraphonBase::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 Wounds Kroxigor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

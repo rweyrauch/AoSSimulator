@@ -143,12 +143,14 @@ void SaurusWarriors::Init()
 
 int SaurusWarriors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
+
     // Ordered Cohort
     if (((weapon->name() == m_celestiteSpear.name()) || (weapon->name() == m_celestiteClub.name())) && (remainingModels() >= 15))
     {
-        return 1;
+        extra++;
     }
-    return 0;
+    return extra;
 }
 
 int SaurusWarriors::ComputePoints(int numModels)

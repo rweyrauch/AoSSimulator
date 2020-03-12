@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_blade;
@@ -47,7 +49,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cornered Fury                    No
+// Cornered Fury                    Yes
 // Gnash-gnaw on the Bones!         No
 //
 

@@ -109,12 +109,13 @@ Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const
 
 int Judicators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = StormcastEternal::extraAttacks(nullptr, weapon, target);
     // Rapid Fire
     if (!m_ran && (weapon->name() == m_boltstormCrossbow.name()))
     {
-        return 1;
+        extra++;
     }
-    return StormcastEternal::extraAttacks(nullptr, weapon, target);
+    return extra;
 }
 
 Unit *Judicators::Create(const ParameterList &parameters)

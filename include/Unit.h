@@ -145,6 +145,7 @@ public:
 
     int remainingModels() const;
 
+    int initialWounds() const;
     int remainingWounds() const;
 
     int remainingPoints() const;
@@ -232,7 +233,7 @@ protected:
      * @param weapon Attacking weapon
      * @return Number of additional attacks (not including the normal attack).
      */
-    virtual int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const { return 0; }
+    virtual int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const;
 
     /*!
      * Some weapons/units generate extra hits based on the hit

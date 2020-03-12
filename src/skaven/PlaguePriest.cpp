@@ -8,6 +8,7 @@
 
 #include <skaven/PlaguePriest.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Skaven
 {
@@ -64,6 +65,72 @@ bool PlaguePriest::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds PlaguePriest::onEndCombat(PlayerId player)
+{
+    Dice dice;
+
+    Wounds wounds = Unit::onEndCombat(player);
+
+    // Poisonous Fumes
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+    for (auto unit : units)
+    {
+        if (!unit->hasKeyword(CLANS_PESTILENS))
+        {
+            int mortalWounds = 0;
+            int roll = dice.rollD6();
+            if (roll == 6) mortalWounds = dice.rollD3();
+            else if (roll >= 4) mortalWounds = 1;
+
+            unit->applyDamage({0, mortalWounds});
+            wounds.mortal += mortalWounds;
+        }
+    }
+    return wounds;
+}
+
+int PlaguePriest::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
+
+    // Frenzied Assault
+    if (m_charged) extra++;
+
+    return extra;
+}
+
+void PlaguePriest::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (player == owningPlayer())
+    {
+        // Plague Prayers
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 13.0f);
+        if (!units.empty())
+        {
+            Dice dice;
+            Dice::RollResult result;
+
+            auto prayerRoll = dice.rollD6();
+            if (prayerRoll == 1)
+            {
+                // Failed - take one mortal wound.
+                applyDamage({0, 1});
+            }
+            else if (prayerRoll >= 3)
+            {
+                // TODO: Implement area-of-effect Pestilence-pestilence!
+
+                // Disease-disease!
+                auto numModels = units.front()->remainingModels();
+                dice.rollD6(numModels, result);
+                units.front()->applyDamage({0, result.rollsGE(6)});
+            }
+        }
+    }
 }
 
 } //namespace Skaven

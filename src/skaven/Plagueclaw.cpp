@@ -66,4 +66,27 @@ bool Plagueclaw::configure()
     return true;
 }
 
+int Plagueclaw::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Skaventide::toHitModifier(weapon, target);
+
+    // Barrage of Disease
+    if (target->remainingModels() >= 10) mod++;
+
+    return mod;
+}
+
+Wounds Plagueclaw::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    auto wounds = Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+    // Barrage of Disease
+    if (target->remainingModels() >= 10)
+    {
+        Dice dice;
+        wounds.normal += dice.roll2D6();
+    }
+    return wounds;
+}
+
 } //namespace Skaven

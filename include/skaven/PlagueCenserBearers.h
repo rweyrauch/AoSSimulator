@@ -36,6 +36,11 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    Rerolls battleshockRerolls() const override;
+    Wounds onEndCombat(PlayerId player) override;
+
 private:
 
     Weapon m_censer;
@@ -47,9 +52,9 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Frenzied Assault
-// Plague Disciples
-// Poisonous Fumes
+// Frenzied Assault                 Yes
+// Plague Disciples                 Yes
+// Poisonous Fumes                  Yes
 //
 
 } // namespace Skaven

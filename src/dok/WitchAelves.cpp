@@ -102,8 +102,7 @@ void WitchAelves::Init()
 int WitchAelves::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
     int attacks = DaughterOfKhaine::extraAttacks(nullptr, weapon, target);
-    if (m_pairedKnives)
-    { attacks += 1; }
+    if (m_pairedKnives) attacks++;
     return attacks;
 }
 

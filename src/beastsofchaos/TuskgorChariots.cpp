@@ -116,12 +116,13 @@ Rerolls TuskgorChariots::toHitRerolls(const Weapon *weapon, const Unit *unit) co
 
 int TuskgorChariots::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
     // Tuskgor Charge
     if (m_charged)
     {
-        return (weapon->attacks()+1);
+        extra++;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 Rerolls TuskgorChariots::chargeRerolls() const

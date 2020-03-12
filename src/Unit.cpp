@@ -1208,6 +1208,21 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
     }
 }
 
+int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    int extra = 0;
+
+    BuffableAttribute which = AttacksMelee;
+    if (weapon->isMissile())
+        which = AttacksMissile;
+
+    for (auto bi : m_attributeModifiers[which])
+    {
+        extra += bi.modifier;
+    }
+    return extra;
+}
+
 int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
     int modifier = 0;
@@ -1497,6 +1512,16 @@ int Unit::getModelsWithin(const Model* model, const Unit* targetUnit, float dist
         }
     }
     return count;
+}
+
+int Unit::initialWounds() const
+{
+    int wounds = 0;
+    for (const auto& m : m_models)
+    {
+        wounds += m->initialWounds();
+    }
+    return wounds;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

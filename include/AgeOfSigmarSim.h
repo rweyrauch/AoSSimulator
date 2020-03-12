@@ -81,6 +81,8 @@ enum BuffableAttribute
     TargetToWoundMelee,
     TargetToWoundMissile,
     TargetToSave,
+    AttacksMelee,
+    AttacksMissile,
 
     NUM_BUFFABLE_ATTRIBUTES
 };

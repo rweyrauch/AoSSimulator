@@ -78,12 +78,14 @@ void Cockatrice::Init()
 
 int Cockatrice::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
     // Maddened Ferocity
     if (m_charged && (weapon->name() == m_swordlikeTalons.name()))
     {
-        return 4;
+        extra += 4;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 void Cockatrice::onStartShooting(PlayerId player)

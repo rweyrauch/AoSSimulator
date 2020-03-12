@@ -94,12 +94,13 @@ bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemB
 
 int SavageOrrukMorboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
     // Spirit of Gorkamorka
     if (remainingModels() >= 15)
     {
-        return 1;
+        extra++;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 int SavageOrrukMorboys::ComputePoints(int numModels)

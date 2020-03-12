@@ -36,6 +36,10 @@ public:
 
 protected:
 
+    Wounds onEndCombat(PlayerId player) override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    void onStartHero(PlayerId player) override;
+
 private:
 
     Weapon m_staff,
@@ -49,10 +53,10 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Plaque Prayers
-//   Disease-disease!
+//   Disease-disease!               Yes
 //   Pestilence-pestilence!
-// Frenzied Assault
-// Poisonous Fumes
+// Frenzied Assault                 Yes
+// Poisonous Fumes                  Yes
 //
 
 } // namespace Skaven

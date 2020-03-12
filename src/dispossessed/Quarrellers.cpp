@@ -99,16 +99,17 @@ void Quarrellers::Init()
 
 int Quarrellers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Dispossessed::extraAttacks(nullptr, weapon, target);
     if (weapon->name() == m_duardinCrossbow.name() && remainingModels() >= 20)
     {
         // Volley Fire
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) > 3.0f)
         {
-            return 1;
+            extra++;
         }
     }
-    return Dispossessed::extraAttacks(nullptr, weapon, target);
+    return extra;
 }
 
 Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const

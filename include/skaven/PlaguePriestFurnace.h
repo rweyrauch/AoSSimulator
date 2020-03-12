@@ -29,12 +29,23 @@ public:
     static void Init();
 
     PlaguePriestOnPlagueFurnace();
-
-    ~PlaguePriestOnPlagueFurnace() override = default;
+    ~PlaguePriestOnPlagueFurnace() override;
 
     bool configure();
 
 protected:
+
+    void onWounded() override;
+    void onRestore() override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds onEndCombat(PlayerId player) override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartHero(PlayerId player) override;
+
+    int getDamageTableIndex() const;
+
+    int altarOfTheHornedRat(const Unit* unit);
 
 private:
 
@@ -43,6 +54,8 @@ private:
         m_blades,
         m_spikes;
 
+    lsignal::slot m_connection;
+
     static bool s_registered;
 };
 
@@ -50,14 +63,14 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Altar of the Horned Rat
-// Great Plague Censer
+// Altar of the Horned Rat          Yes
+// Great Plague Censer              Yes
 // Noxious Prayers
 //   Filth-filth!
 //   Rabid-rabid!
-// Poisonous Fumes
-// Protection of the Horned Rat
-// Pushed into Battle
+// Poisonous Fumes                  Yes
+// Protection of the Horned Rat     Yes
+// Pushed into Battle               Partial
 //
 
 } // namespace Skaven

@@ -98,12 +98,13 @@ bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totem
 
 int SavageBoarboyManiaks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
     // Maniak Fury
     if (weapon->name() == m_chompas.name() && remainingModels() >= 5)
     {
-        return 1;
+        extra++;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 int SavageBoarboyManiaks::toHitModifier(const Weapon *weapon, const Unit *target) const

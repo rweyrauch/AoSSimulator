@@ -82,7 +82,7 @@ int LordKroak::extraAttacks(const Model *attackingModel, const Weapon *weapon, c
     // Azyrite Force Barrier
     if (target)
     {
-        extra = target->numModelsWithin(attackingModel, 3.0f);
+        extra += target->numModelsWithin(attackingModel, 3.0f);
     }
 
     return extra;

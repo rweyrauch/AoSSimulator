@@ -135,12 +135,13 @@ void Decimators::Init()
 
 int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = StormcastEternal::extraAttacks(nullptr, weapon, target);
     if (weapon->name() == m_thunderaxe.name())
     {
         // count the number of models in the unit w/in 2 in of this model
-        return target->numModelsWithin(attackingModel, weapon->range());
+        extra += target->numModelsWithin(attackingModel, weapon->range());
     }
-    return StormcastEternal::extraAttacks(nullptr, weapon, target);
+    return extra;
 }
 
 int Decimators::ComputePoints(int numModels)

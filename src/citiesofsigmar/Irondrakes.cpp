@@ -174,16 +174,17 @@ Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hi
 
 int Irondrakes::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = CitizenOfSigmar::extraAttacks(nullptr, weapon, target);
     if (weapon->name() == m_drakegun.name() && !m_moved)
     {
         // Blaze Away
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) > 3.0f)
         {
-            return 1;
+            extra++;
         }
     }
-    return CitizenOfSigmar::extraAttacks(nullptr, weapon, target);
+    return extra;
 }
 
 std::string Irondrakes::ValueToString(const Parameter &parameter)

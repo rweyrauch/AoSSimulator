@@ -97,12 +97,13 @@ bool SavageOrrukArrowboys::configure(int numModels, bool skullThumper, bool tote
 
 int SavageOrrukArrowboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
     // Loadsa Arrows
     if (weapon->name() == m_stingaBow.name() && remainingModels() >= 15)
     {
-        return 1;
+        extra++;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 int SavageOrrukArrowboys::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

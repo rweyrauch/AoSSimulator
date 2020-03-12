@@ -106,16 +106,18 @@ bool SistersOfTheWatch::configure(int numModels)
 
 int SistersOfTheWatch::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+
     if (weapon->name() == m_bow.name())
     {
         // Quicksilver Shot
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
         if (units.empty())
         {
-            return 1;
+            extras++;
         }
     }
-    return 0;
+    return extras;
 }
 
 Wounds SistersOfTheWatch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const

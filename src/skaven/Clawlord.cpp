@@ -63,4 +63,14 @@ bool Clawlord::configure()
 
     return true;
 }
+
+int Clawlord::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
+
+    // Cornered Fury
+    extra += (initialWounds() - remainingWounds());
+
+    return extra;
+}
 } //namespace Skaven

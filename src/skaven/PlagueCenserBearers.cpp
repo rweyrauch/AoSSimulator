@@ -8,6 +8,7 @@
 
 #include <skaven/PlagueCenserBearers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Skaven
 {
@@ -82,4 +83,57 @@ bool PlagueCenserBearers::configure(int numModels)
 
     return true;
 }
+
+int PlagueCenserBearers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
+
+    // Frenzied Assault
+    if (m_charged) extra++;
+
+    return extra;
+}
+
+Rerolls PlagueCenserBearers::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Plaque Disciples
+    auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0f);
+    if (monks) return RerollFailed;
+
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Rerolls PlagueCenserBearers::battleshockRerolls() const
+{
+    // Plaque Disciples
+    auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0f);
+    if (monks) return RerollFailed;
+
+    return Unit::battleshockRerolls();
+}
+
+Wounds PlagueCenserBearers::onEndCombat(PlayerId player)
+{
+    Dice dice;
+
+    Wounds wounds = Unit::onEndCombat(player);
+
+    // Poisonous Fumes
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+    for (auto unit : units)
+    {
+        if (!unit->hasKeyword(CLANS_PESTILENS))
+        {
+            int mortalWounds = 0;
+            int roll = dice.rollD6();
+            if (roll == 6) mortalWounds = dice.rollD3();
+            else if (roll >= 4) mortalWounds = 1;
+
+            unit->applyDamage({0, mortalWounds});
+            wounds.mortal += mortalWounds;
+        }
+    }
+    return wounds;
+}
+
 } //namespace Skaven

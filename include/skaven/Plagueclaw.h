@@ -36,6 +36,9 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_catapult,
@@ -48,7 +51,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Barrage of Disease
+// Barrage of Disease               Yes
 // Hideous Death
 //
 

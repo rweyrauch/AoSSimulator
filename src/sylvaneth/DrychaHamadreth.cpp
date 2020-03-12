@@ -153,16 +153,17 @@ void DrychaHamadreth::onBeginRound(int battleRound)
 
 int DrychaHamadreth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
     // Mecurial Aspect
     if (weapon->name() == m_colonyOfFlitterfuries.name() && m_enraged)
     {
-        return 10;
+        extra += 10;
     }
     else if (weapon->name() == m_swarmOfSquirmlings.name() && !m_enraged)
     {
-        return 10;
+        extra += 10;
     }
-    return Unit::extraAttacks(attackingModel, weapon, target);
+    return extra;
 }
 
 } // namespace Sylvaneth
