@@ -23,7 +23,7 @@ public:
     explicit ManoAMano(int numRounds, Realm realm = Azyr);
     ~ManoAMano();
 
-    void combatants(std::shared_ptr<Unit> red, std::shared_ptr<Unit> blue);
+    void combatants(Unit* red, Unit* blue);
 
     void start();
     void simulate();

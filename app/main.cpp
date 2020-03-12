@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 
     // parse red string
     std::string redUnit = result["red"].as<std::string>();
-    auto pRed = std::shared_ptr<Unit>(parseUnitDescription(redUnit));
+    auto pRed = parseUnitDescription(redUnit);
     if (pRed == nullptr)
     {
         std::cout << "Failed to parse player 1 (red) unit description." << std::endl;
@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
 
     // parse blue string
     std::string blueUnit = result["blue"].as<std::string>();
-    auto pBlue = std::shared_ptr<Unit>(parseUnitDescription(blueUnit));
+    auto pBlue = parseUnitDescription(blueUnit);
     if (pBlue == nullptr)
     {
         std::cout << "Failed to parse player 2 (blue) unit description." << std::endl;

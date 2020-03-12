@@ -22,8 +22,8 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
 
     auto board = Board::Instance();
 
-    auto libs = std::make_shared<StormcastEternals::Liberators>();
-    auto reavers = std::make_shared<Khorne::Bloodreavers>();
+    auto libs = new StormcastEternals::Liberators();
+    auto reavers = new Khorne::Bloodreavers();
 
     bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
@@ -65,8 +65,8 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
 
     auto board = Board::Instance();
 
-    auto libs = std::make_shared<StormcastEternals::Liberators>();
-    auto reavers = std::make_shared<Khorne::Bloodreavers>();
+    auto libs = new StormcastEternals::Liberators();
+    auto reavers = new Khorne::Bloodreavers();
 
     bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
@@ -114,8 +114,8 @@ TEST(ManoAMano, StatsSequitersVsReavers)
 
     ManoAMano battle(5);
 
-    auto seqs = std::make_shared<StormcastEternals::Sequitors>();
-    auto reavers = std::make_shared<Khorne::Bloodreavers>();
+    auto seqs = new StormcastEternals::Sequitors();
+    auto reavers = new Khorne::Bloodreavers();
 
     bool ok = seqs->configure(10, StormcastEternals::Sequitors::TempestBlade, 2, true, false);
     ASSERT_TRUE(ok);
@@ -162,8 +162,8 @@ TEST(ManoAMano, StatsLiberatorsVsStabbas)
 
     ManoAMano battle(5);
 
-    auto libs = std::make_shared<StormcastEternals::Liberators>();
-    auto grots = std::make_shared<GloomspiteGitz::Stabbas>();
+    auto libs = new StormcastEternals::Liberators();
+    auto grots = new GloomspiteGitz::Stabbas();
 
     bool ok = libs->configure(StormcastEternals::Liberators::MAX_UNIT_SIZE, StormcastEternals::Liberators::Warhammer, false, 0, 0);
     ASSERT_TRUE(ok);
@@ -210,8 +210,8 @@ TEST(ManoAMano, StatsSequitorVsStabbas)
 
     ManoAMano battle(5);
 
-    auto seqs = std::make_shared<StormcastEternals::Sequitors>();
-    auto grots = std::make_shared<GloomspiteGitz::Stabbas>();
+    auto seqs = new StormcastEternals::Sequitors();
+    auto grots = new GloomspiteGitz::Stabbas();
 
     bool ok = seqs->configure(15, StormcastEternals::Sequitors::TempestBlade, 6, true, false);
     ASSERT_TRUE(ok);

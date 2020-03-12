@@ -20,7 +20,7 @@ ManoAMano::ManoAMano(int numRounds, Realm realm) :
     board->setRealm(realm);
 }
 
-void ManoAMano::combatants(std::shared_ptr<Unit> red, std::shared_ptr<Unit> blue)
+void ManoAMano::combatants(Unit* red, Unit* blue)
 {
     auto board = Board::Instance();
 
@@ -450,13 +450,13 @@ void ManoAMano::logStatistics() const
 Unit* ManoAMano::redUnit()
 {
     auto red = m_rosters[0]->unitBegin();
-    return red->get();
+    return *red;
 }
 
 Unit* ManoAMano::blueUnit()
 {
     auto blue = m_rosters[1]->unitBegin();
-    return blue->get();
+    return *blue;
 }
 
 Unit *ManoAMano::attackingUnit()
@@ -488,13 +488,13 @@ Unit *ManoAMano::defendingUnit()
 const Unit *ManoAMano::redUnit() const
 {
     const auto red = m_rosters[0]->unitBegin();
-    return red->get();
+    return *red;
 }
 
 const Unit *ManoAMano::blueUnit() const
 {
     const auto blue = m_rosters[1]->unitBegin();
-    return blue->get();
+    return *blue;
 }
 
 void ManoAMano::getStatistics(PlayerId which, UnitStatistics &stats)

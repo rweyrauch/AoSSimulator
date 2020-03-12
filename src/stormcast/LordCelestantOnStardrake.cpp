@@ -236,7 +236,7 @@ Wounds LordCelestantOnStardrake::onEndCombat(PlayerId player)
         // find all enemy units within 3"
         for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
         {
-            auto dist = distanceTo(ip->get());
+            auto dist = distanceTo(*ip);
             if (dist <= 3.0)
             {
                 auto roll = dice.rollD6();

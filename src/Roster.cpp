@@ -66,15 +66,15 @@ void Roster::beginTurn(int battleRound, PlayerId playerWithTurn)
 
 Unit *Roster::nearestUnit(const Unit *unit) const
 {
-    auto nearestUnit = m_units.front().get();
+    auto nearestUnit = m_units.front();
     float minDistance = FLT_MAX;
     for (auto u : m_units)
     {
-        float dist = unit->distanceTo(u.get());
+        float dist = unit->distanceTo(u);
         if (dist < minDistance)
         {
             minDistance = dist;
-            nearestUnit = u.get();
+            nearestUnit = u;
         }
     }
     return nearestUnit;
@@ -123,4 +123,12 @@ bool Roster::useCommandPoint()
         return true;
     }
     return false;
+}
+
+Roster::~Roster()
+{
+    for (auto ip : m_units)
+    {
+        delete ip;
+    }
 }

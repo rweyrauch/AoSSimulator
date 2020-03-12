@@ -79,14 +79,14 @@ TEST(Spells, PrimeElectrids)
 
 TEST(Spells, Unbind)
 {
-    auto caster = std::make_shared<StormcastEternals::KnightIncantor>();
+    auto caster = new StormcastEternals::KnightIncantor();
     caster->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
     caster->setPosition(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto red = new Roster(PlayerId::Red);
     red->addUnit(caster);
 
-    auto target = std::make_shared<StormcastEternals::KnightIncantor>();
+    auto target = new StormcastEternals::KnightIncantor();
     target->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
     target->setPosition(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
@@ -95,11 +95,11 @@ TEST(Spells, Unbind)
 
     Board::Instance()->addRosters(red, blue);
 
-    auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster.get()));
+    auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster));
 
     for (auto i = 0; i < 10; i++)
     {
-       auto ok = spell->cast(target.get(), 1);
+       auto ok = spell->cast(target, 1);
 
         if (ok == Spell::Success)
         {
@@ -114,7 +114,7 @@ TEST(Spells, Unbind)
 
     // Move target out of range
     target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
-    auto ok = spell->cast(target.get(), 1);
+    auto ok = spell->cast(target, 1);
     ASSERT_EQ(ok, Spell::Failed);
 
     delete blue; delete red;

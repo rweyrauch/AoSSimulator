@@ -4,6 +4,7 @@
 #
 
 PYTHON=$(ENV) python
+# BUILD := release
 BUILD := debug
 ACTIVE = AosSim
 
@@ -329,19 +330,44 @@ OBJECTS += \
         src/dispossessed/Unforged.o \
         src/dispossessed/Runelord.o \
         src/dispossessed/WardenKing.o \
-        src/skaven/Skaventide.o \
+        src/skaven/ArchWarlock.o \
         src/skaven/Clanrats.o \
+        src/skaven/Clawlord.o \
+        src/skaven/Deathmaster.o \
+        src/skaven/Doomflayer.o \
+        src/skaven/Doomwheel.o \
+        src/skaven/GiantRats.o \
+        src/skaven/GreySeer.o \
+        src/skaven/GreySeerScreamingBell.o \
         src/skaven/GutterRunners.o \
+        src/skaven/HellPitAbomination.o \
+        src/skaven/LordSkreech.o \
+        src/skaven/MasterMoulder.o \
         src/skaven/NightRunners.o \
+        src/skaven/Packmasters.o \
+        src/skaven/PlagueCenserBearers.o \
+        src/skaven/Plagueclaw.o \
         src/skaven/PlagueMonks.o \
+        src/skaven/PlaguePriest.o \
+        src/skaven/PlaguePriestFurnace.o \
+        src/skaven/RatlingGun.o \
+        src/skaven/RatOgors.o \
+        src/skaven/RatSwarms.o \
+        src/skaven/Skaventide.o \
+        src/skaven/SkryeAcolytes.o \
         src/skaven/Stormfiends.o \
         src/skaven/Stormvermin.o \
-        src/skaven/HellPitAbomination.o \
-        src/skaven/RatlingGun.o \
+        src/skaven/ThanquolBoneripper.o \
+        src/skaven/VerminlordCorruptor.o \
+        src/skaven/VerminlordDeceiver.o \
+        src/skaven/VerminlordWarbringer.o \
+        src/skaven/VerminlordWarpseer.o \
+        src/skaven/WarlockBombardier.o \
+        src/skaven/WarlockEngineer.o \
         src/skaven/WarpfireThrower.o \
+        src/skaven/WarpGrinder.o \
         src/skaven/WarpLightningCannon.o \
-        src/skaven/Doomwheel.o \
-        src/skaven/Doomflayer.o \
+        src/skaven/WarplockJezzails.o \
         src/tzeentch/TzeentchBase.o \
         src/tzeentch/KairicAcolytes.o \
         src/tzeentch/HorrorsOfTzeentch.o \

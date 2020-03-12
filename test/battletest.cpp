@@ -20,10 +20,10 @@ TEST(Battle, BallistaVsAlarielle)
 {
     Battle battle;
 
-    auto ballista0 = std::make_shared<StormcastEternals::CelestarBallista>();
-    auto ballista1 = std::make_shared<StormcastEternals::CelestarBallista>();
-    auto ballista2 = std::make_shared<StormcastEternals::CelestarBallista>();
-    auto lordOrdinator = std::make_shared<StormcastEternals::LordOrdinator>();
+    auto ballista0 = new StormcastEternals::CelestarBallista();
+    auto ballista1 = new StormcastEternals::CelestarBallista();
+    auto ballista2 = new StormcastEternals::CelestarBallista();
+    auto lordOrdinator = new StormcastEternals::LordOrdinator();
 
     bool ok = lordOrdinator->configure(StormcastEternals::LordOrdinator::AstralHammers);
     ASSERT_TRUE(ok);
@@ -45,13 +45,13 @@ TEST(Battle, BallistaVsAlarielle)
     //ballista1->buffToHitMissile(1);
     //ballista2->buffToHitMissile(1);
 
-    auto alarielle = std::make_shared<Sylvaneth::Alarielle>();
+    auto alarielle = new Sylvaneth::Alarielle();
     ok = alarielle->configure();
     ASSERT_TRUE(ok);
 
-    ballista0->setShootingTarget(alarielle.get());
-    ballista1->setShootingTarget(alarielle.get());
-    ballista2->setShootingTarget(alarielle.get());
+    ballista0->setShootingTarget(alarielle);
+    ballista1->setShootingTarget(alarielle);
+    ballista2->setShootingTarget(alarielle);
 
     Roster roster1(PlayerId::Red), roster2(PlayerId::Blue);
     roster1.addUnit(ballista0);

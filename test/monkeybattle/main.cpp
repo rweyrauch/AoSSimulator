@@ -58,10 +58,12 @@ int main(int argc, char* argv[])
     {
         auto battle = new ManoAMano(numRounds);
 
-        auto pRed = std::shared_ptr<Unit>(GenerateRandomUnit());
-        auto pBlue = std::shared_ptr<Unit>(GenerateRandomUnit());
+        auto pRed = GenerateRandomUnit();
+        auto pBlue = GenerateRandomUnit();
         if (pRed == nullptr || pBlue == nullptr)
         {
+            delete pRed;
+            delete pBlue;
             continue;
         }
 
