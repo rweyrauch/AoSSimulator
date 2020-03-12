@@ -16,8 +16,9 @@ bool ThanquolOnBoneripper::s_registered = false;
 Unit *ThanquolOnBoneripper::Create(const ParameterList &parameters)
 {
     auto unit = new ThanquolOnBoneripper();
+    int numProjectors = 0;
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(numProjectors);
     if (!ok)
     {
         delete unit;
@@ -59,9 +60,22 @@ ThanquolOnBoneripper::ThanquolOnBoneripper() :
     m_totalUnbinds = 2;
 }
 
-bool ThanquolOnBoneripper::configure()
+bool ThanquolOnBoneripper::configure(int numProjectors)
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+
+    for (auto i = 0; i < numProjectors; i++)
+        model->addMissileWeapon(&m_projectors);
+    for (auto i = numProjectors-1; i < 4; i++)
+        model->addMeleeWeapon(&m_braziers);
+
+    model->addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_blows);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 } //namespace Skaven

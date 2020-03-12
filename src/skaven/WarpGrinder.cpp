@@ -55,6 +55,12 @@ WarpGrinder::WarpGrinder() :
 
 bool WarpGrinder::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_warpGrinder);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 } //namespace Skaven

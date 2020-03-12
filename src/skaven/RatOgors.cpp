@@ -16,9 +16,10 @@ bool RatOgors::s_registered = false;
 Unit *RatOgors::Create(const ParameterList &parameters)
 {
     auto unit = new RatOgors();
-    int numModels = 0;
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numGuns = GetIntParam("Warpfire Guns", parameters, MIN_UNIT_SIZE/2);
 
-    bool ok = unit->configure(numModels);
+    bool ok = unit->configure(numModels, numGuns);
     if (!ok)
     {
         delete unit;
@@ -29,7 +30,12 @@ Unit *RatOgors::Create(const ParameterList &parameters)
 
 int RatOgors::ComputePoints(int numModels)
 {
-    return 0;
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 void RatOgors::Init()
@@ -42,6 +48,8 @@ void RatOgors::Init()
             Skaventide::EnumStringToInt,
             ComputePoints,
             {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Warpfire Guns", MIN_UNIT_SIZE/2, MIN_UNIT_SIZE/2, MAX_UNIT_SIZE/2, MIN_UNIT_SIZE/2},
             },
             CHAOS,
             { SKAVEN }
@@ -60,8 +68,34 @@ RatOgors::RatOgors() :
     m_weapons = {&m_gun, &m_clawsBladesAndFangs};
 }
 
-bool RatOgors::configure(int numModels)
+bool RatOgors::configure(int numModels, int numGuns)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+    const int maxGuns = numModels/2;
+    if (numGuns > maxGuns)
+    {
+        return false;
+    }
+
+    for (auto i = 0; i < numGuns; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_gun);
+        model->addMeleeWeapon(&m_clawsBladesAndFangs);
+        addModel(model);
+    }
+    for (auto i = numGuns; i < numModels; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_clawsBladesAndFangs);
+        addModel(model);
+    }
+    m_points = ComputePoints(numModels);
+
+    return true;
 }
+
 } //namespace Skaven

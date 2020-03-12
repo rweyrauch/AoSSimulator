@@ -16,9 +16,9 @@ bool GiantRats::s_registered = false;
 Unit *GiantRats::Create(const ParameterList &parameters)
 {
     auto unit = new GiantRats();
-    int models = 0;
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    bool ok = unit->configure(models);
+    bool ok = unit->configure(numModels);
     if (!ok)
     {
         delete unit;
@@ -29,7 +29,12 @@ Unit *GiantRats::Create(const ParameterList &parameters)
 
 int GiantRats::ComputePoints(int numModels)
 {
-    return 0;
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 void GiantRats::Init()
@@ -42,6 +47,7 @@ void GiantRats::Init()
             Skaventide::EnumStringToInt,
             ComputePoints,
             {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             CHAOS,
             { SKAVEN }
@@ -61,6 +67,20 @@ GiantRats::GiantRats() :
 
 bool GiantRats::configure(int numModels)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_teeth);
+        addModel(model);
+    }
+    m_points = ComputePoints(numModels);
+
+    return true;
 }
+
 } //namespace Skaven

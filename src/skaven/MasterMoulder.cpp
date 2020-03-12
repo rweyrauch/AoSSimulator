@@ -17,7 +17,9 @@ Unit *MasterMoulder::Create(const ParameterList &parameters)
 {
     auto unit = new MasterMoulder();
 
-    bool ok = unit->configure();
+    WeaponOption option = Lash;
+
+    bool ok = unit->configure(option);
     if (!ok)
     {
         delete unit;
@@ -54,8 +56,18 @@ MasterMoulder::MasterMoulder() :
     m_weapons = {&m_lash, &m_catcher};
 }
 
-bool MasterMoulder::configure()
+bool MasterMoulder::configure(WeaponOption option)
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    if (option == Lash)
+        model->addMeleeWeapon(&m_lash);
+    else if (option == ThingsCatcher)
+        model->addMeleeWeapon(&m_catcher);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
 } //namespace Skaven

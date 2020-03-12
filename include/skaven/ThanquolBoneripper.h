@@ -29,7 +29,7 @@ public:
     ThanquolOnBoneripper();
     ~ThanquolOnBoneripper() override = default;
 
-    bool configure();
+    bool configure(int numProjectors);
 
 protected:
 

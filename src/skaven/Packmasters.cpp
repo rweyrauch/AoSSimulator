@@ -16,9 +16,10 @@ bool Packmasters::s_registered = false;
 Unit *Packmasters::Create(const ParameterList &parameters)
 {
     auto unit = new Packmasters();
-    int numModels = 0;
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    int numCatchers = GetIntParam("Thing-catchers", parameters, MIN_UNIT_SIZE/3);
 
-    bool ok = unit->configure(numModels);
+    bool ok = unit->configure(numModels, numCatchers);
     if (!ok)
     {
         delete unit;
@@ -29,7 +30,12 @@ Unit *Packmasters::Create(const ParameterList &parameters)
 
 int Packmasters::ComputePoints(int numModels)
 {
-    return 0;
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 void Packmasters::Init()
@@ -42,6 +48,8 @@ void Packmasters::Init()
             Skaventide::EnumStringToInt,
             ComputePoints,
             {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Thing-catchers", MIN_UNIT_SIZE/3, MIN_UNIT_SIZE/3, MAX_UNIT_SIZE/3, MIN_UNIT_SIZE/3},
             },
             CHAOS,
             { SKAVEN }
@@ -61,8 +69,35 @@ Packmasters::Packmasters() :
     m_weapons = {&m_whip, &m_blade, &m_catcher};
 }
 
-bool Packmasters::configure(int numModels)
+bool Packmasters::configure(int numModels, int numCatchers)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+    const int maxCatchers = numModels/3;
+    if (numCatchers > maxCatchers)
+    {
+        return false;
+    }
+
+    for (auto i = 0; i < numCatchers; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_whip);
+        model->addMeleeWeapon(&m_catcher);
+        addModel(model);
+    }
+    for (auto i = numCatchers; i < numModels; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_whip);
+        model->addMeleeWeapon(&m_blade);
+        addModel(model);
+    }
+    m_points = ComputePoints(numModels);
+
+    return true;
 }
+
 } //namespace Skaven

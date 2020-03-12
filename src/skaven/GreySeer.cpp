@@ -58,6 +58,13 @@ GreySeer::GreySeer() :
 
 bool GreySeer::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_staff);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
 } //namespace Skaven

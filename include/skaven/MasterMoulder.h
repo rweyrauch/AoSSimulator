@@ -18,6 +18,13 @@ namespace Skaven
 class MasterMoulder : public Skaventide
 {
 public:
+
+    enum WeaponOption
+    {
+        Lash,
+        ThingsCatcher
+    };
+
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
     static const int POINTS_PER_UNIT = 100;
@@ -32,7 +39,7 @@ public:
 
     ~MasterMoulder() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
 
 protected:
 

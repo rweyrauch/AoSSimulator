@@ -61,7 +61,15 @@ VerminlordDeceiver::VerminlordDeceiver() :
 
 bool VerminlordDeceiver::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_doomstar);
+    model->addMissileWeapon(&m_tails);
+    model->addMeleeWeapon(&m_warpstiletto);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 
 } //namespace Skaven

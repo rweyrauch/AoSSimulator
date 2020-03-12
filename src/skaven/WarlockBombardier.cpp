@@ -60,6 +60,13 @@ WarlockBombardier::WarlockBombardier() :
 
 bool WarlockBombardier::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_doomrocket);
+    model->addMeleeWeapon(&m_pole);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 } //namespace Skaven

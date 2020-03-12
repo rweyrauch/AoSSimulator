@@ -16,7 +16,7 @@ bool WarplockJezzails::s_registered = false;
 Unit *WarplockJezzails::Create(const ParameterList &parameters)
 {
     auto unit = new WarplockJezzails();
-    int numModels = 0;
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -29,7 +29,12 @@ Unit *WarplockJezzails::Create(const ParameterList &parameters)
 
 int WarplockJezzails::ComputePoints(int numModels)
 {
-    return 0;
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 void WarplockJezzails::Init()
@@ -42,6 +47,7 @@ void WarplockJezzails::Init()
             Skaventide::EnumStringToInt,
             ComputePoints,
             {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             CHAOS,
             { SKAVEN }
@@ -62,6 +68,21 @@ WarplockJezzails::WarplockJezzails() :
 
 bool WarplockJezzails::configure(int numModels)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMissileWeapon(&m_jezzail);
+        model->addMeleeWeapon(&m_knives);
+        addModel(model);
+    }
+    m_points = ComputePoints(numModels);
+
+    return true;
 }
+
 } //namespace Skaven

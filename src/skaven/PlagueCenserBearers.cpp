@@ -16,7 +16,7 @@ bool PlagueCenserBearers::s_registered = false;
 Unit *PlagueCenserBearers::Create(const ParameterList &parameters)
 {
     auto unit = new PlagueCenserBearers();
-    int numModels = 0;
+    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
     bool ok = unit->configure(numModels);
     if (!ok)
@@ -29,7 +29,12 @@ Unit *PlagueCenserBearers::Create(const ParameterList &parameters)
 
 int PlagueCenserBearers::ComputePoints(int numModels)
 {
-    return 0;
+    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+    if (numModels == MAX_UNIT_SIZE)
+    {
+        points = POINTS_MAX_UNIT_SIZE;
+    }
+    return points;
 }
 
 void PlagueCenserBearers::Init()
@@ -42,6 +47,7 @@ void PlagueCenserBearers::Init()
             Skaventide::EnumStringToInt,
             ComputePoints,
             {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             CHAOS,
             { SKAVEN }
@@ -61,6 +67,19 @@ PlagueCenserBearers::PlagueCenserBearers() :
 
 bool PlagueCenserBearers::configure(int numModels)
 {
-    return false;
+    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
+    {
+        return false;
+    }
+
+    for (auto i = 0; i < numModels; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_censer);
+        addModel(model);
+    }
+    m_points = ComputePoints(numModels);
+
+    return true;
 }
 } //namespace Skaven

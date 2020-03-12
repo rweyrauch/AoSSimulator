@@ -56,6 +56,14 @@ Plagueclaw::Plagueclaw() :
 
 bool Plagueclaw::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_catapult);
+    model->addMeleeWeapon(&m_knives);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
 } //namespace Skaven

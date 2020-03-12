@@ -56,6 +56,14 @@ PlaguePriest::PlaguePriest() :
 
 bool PlaguePriest::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_censer);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
 } //namespace Skaven

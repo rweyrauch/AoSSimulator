@@ -18,21 +18,28 @@ namespace Skaven
 class Deathmaster : public Skaventide
 {
 public:
+
+    enum WeaponOption
+    {
+        WeepingBlades,
+        FightingClaws
+    };
+
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
     static const int POINTS_PER_UNIT = 100;
 
     static Unit *Create(const ParameterList &parameters);
-
+    static std::string ValueToString(const Parameter &parameter);
+    static int EnumStringToInt(const std::string &enumString);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
-
     static void Init();
 
     Deathmaster();
 
     ~Deathmaster() override = default;
 
-    bool configure();
+    bool configure(WeaponOption option);
 
 protected:
 

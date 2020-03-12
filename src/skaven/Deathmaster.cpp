@@ -16,8 +16,9 @@ bool Deathmaster::s_registered = false;
 Unit *Deathmaster::Create(const ParameterList &parameters)
 {
     auto unit = new Deathmaster();
+    WeaponOption option = WeepingBlades;
 
-    bool ok = unit->configure();
+    bool ok = unit->configure(option);
     if (!ok)
     {
         delete unit;
@@ -32,8 +33,8 @@ void Deathmaster::Init()
     {
         static auto factoryMethod = new FactoryMethod{
             Create,
-            Skaventide::ValueToString,
-            Skaventide::EnumStringToInt,
+            ValueToString,
+            EnumStringToInt,
             ComputePoints,
             {
             },
@@ -55,8 +56,29 @@ Deathmaster::Deathmaster() :
     m_weapons = {&m_stars, &m_blades, &m_claws};
 }
 
-bool Deathmaster::configure()
+bool Deathmaster::configure(WeaponOption option)
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_stars);
+    if (option == WeepingBlades)
+        model->addMeleeWeapon(&m_blades);
+    else if (option == FightingClaws)
+        model->addMeleeWeapon(&m_claws);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
+std::string Deathmaster::ValueToString(const Parameter &parameter)
+{
+    return Skaventide::ValueToString(parameter);
+}
+
+int Deathmaster::EnumStringToInt(const std::string &enumString)
+{
+    return Skaventide::EnumStringToInt(enumString);
+}
+
 } //namespace Skaven

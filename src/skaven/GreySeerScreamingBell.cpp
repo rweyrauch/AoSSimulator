@@ -61,6 +61,15 @@ GreySeerOnScreamingBell::GreySeerOnScreamingBell() :
 
 bool GreySeerOnScreamingBell::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_staff);
+    model->addMeleeWeapon(&m_clawsAndFangs);
+    model->addMeleeWeapon(&m_spikes);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
 } //namespace Skaven

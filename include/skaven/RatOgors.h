@@ -32,7 +32,7 @@ public:
     RatOgors();
     ~RatOgors() override = default;
 
-    bool configure(int numModels);
+    bool configure(int numModels, int numGuns);
 
 protected:
 

@@ -60,6 +60,13 @@ WarlockEngineer::WarlockEngineer() :
 
 bool WarlockEngineer::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_pistol);
+    model->addMeleeWeapon(&m_blade);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
 } //namespace Skaven

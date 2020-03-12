@@ -173,7 +173,6 @@ int Clanrats::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
-
 }
 
 } // namespace Skaven

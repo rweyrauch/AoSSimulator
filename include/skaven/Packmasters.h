@@ -32,7 +32,7 @@ public:
     Packmasters();
     ~Packmasters() override = default;
 
-    bool configure(int numModels);
+    bool configure(int numModels, int numCatchers);
 
 protected:
 

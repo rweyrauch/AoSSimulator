@@ -61,6 +61,15 @@ LordSkreechVerminking::LordSkreechVerminking() :
 
 bool LordSkreechVerminking::configure()
 {
-    return false;
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMissileWeapon(&m_tails);
+    model->addMeleeWeapon(&m_glaive);
+    model->addMeleeWeapon(&m_plaguereaper);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
 }
+
 } //namespace Skaven
