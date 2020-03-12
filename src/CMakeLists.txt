@@ -331,42 +331,31 @@ add_library(
 
         skaven/ArchWarlock.cpp
         skaven/Clanrats.cpp
-        skaven/Clanrats.o
         skaven/Clawlord.cpp
         skaven/Deathmaster.cpp
         skaven/Doomflayer.cpp
-        skaven/Doomflayer.o
         skaven/Doomwheel.cpp
-        skaven/Doomwheel.o
         skaven/GiantRats.cpp
         skaven/GreySeer.cpp
         skaven/GreySeerScreamingBell.cpp
         skaven/GutterRunners.cpp
-        skaven/GutterRunners.o
         skaven/HellPitAbomination.cpp
-        skaven/HellPitAbomination.o
         skaven/LordSkreech.cpp
         skaven/MasterMoulder.cpp
         skaven/NightRunners.cpp
-        skaven/NightRunners.o
         skaven/Packmasters.cpp
         skaven/PlagueCenserBearers.cpp
         skaven/Plagueclaw.cpp
         skaven/PlagueMonks.cpp
-        skaven/PlagueMonks.o
         skaven/PlaguePriest.cpp
         skaven/PlaguePriestFurnace.cpp
         skaven/RatlingGun.cpp
-        skaven/RatlingGun.o
         skaven/RatOgors.cpp
         skaven/RatSwarms.cpp
         skaven/Skaventide.cpp
-        skaven/Skaventide.o
         skaven/SkryeAcolytes.cpp
         skaven/Stormfiends.cpp
-        skaven/Stormfiends.o
         skaven/Stormvermin.cpp
-        skaven/Stormvermin.o
         skaven/ThanquolBoneripper.cpp
         skaven/VerminlordCorruptor.cpp
         skaven/VerminlordDeceiver.cpp
@@ -375,10 +364,8 @@ add_library(
         skaven/WarlockBombardier.cpp
         skaven/WarlockEngineer.cpp
         skaven/WarpfireThrower.cpp
-        skaven/WarpfireThrower.o
         skaven/WarpGrinder.cpp
         skaven/WarpLightningCannon.cpp
-        skaven/WarpLightningCannon.o
         skaven/WarplockJezzails.cpp
 
         tzeentch/TzeentchBase.cpp

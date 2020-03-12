@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
 private:
 
     Weapon m_gun,
@@ -48,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rabid Fury
+// Rabid Fury                       Yes
 //
 
 } // namespace Skaven

@@ -72,15 +72,35 @@ bool GiantRats::configure(int numModels)
         return false;
     }
 
+
     for (auto i = 0; i < numModels; i++)
     {
         auto model = new Model(BASESIZE, WOUNDS);
         model->addMeleeWeapon(&m_teeth);
         addModel(model);
     }
+
+    setTeethRange();
+
     m_points = ComputePoints(numModels);
 
     return true;
+}
+
+void GiantRats::setTeethRange()
+{
+    if (remainingModels() >= 20)
+    {
+        m_teeth.setRange(3.0f);
+    }
+    else if (remainingModels()  >= 10)
+    {
+        m_teeth.setRange(2.0f);
+    }
+    else
+    {
+        m_teeth.setRange(1.0f);
+    }
 }
 
 } //namespace Skaven

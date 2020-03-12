@@ -36,6 +36,11 @@ public:
 
 protected:
 
+    void onWounded() override { setTeethRange(); }
+    void onRestore() override { setTeethRange(); }
+
+    void setTeethRange();
+
 private:
 
     Weapon m_teeth;
@@ -47,7 +52,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Wave of Rats
+// Wave of Rats                     Yes
 //
 
 } // namespace Skaven

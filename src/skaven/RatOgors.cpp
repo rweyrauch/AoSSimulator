@@ -98,4 +98,14 @@ bool RatOgors::configure(int numModels, int numGuns)
     return true;
 }
 
+int RatOgors::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Rabid Fury
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_clawsBladesAndFangs.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } //namespace Skaven
