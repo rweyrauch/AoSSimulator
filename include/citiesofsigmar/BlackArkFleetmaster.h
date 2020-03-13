@@ -55,12 +55,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Murderous Swashbuckler           Yes
 // Sea Dragon Cloak                 Yes
-// At Them, You Curs!               No
+// At Them, You Curs!               TODO
 //
 
 } // namespace CitiesOfSigmar

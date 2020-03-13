@@ -48,13 +48,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Squigs Go Wild                   No
+// Squigs Go Wild                   TODO
 // Tough as Old Boots               Yes
 // Netters                          Yes
-// Loonsmasha Fanatic               No
+// Loonsmasha Fanatic               TODO
 //
 
 } // namespace GloomspiteGitz

@@ -50,13 +50,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cycle of the Storm               No
+// Cycle of the Storm               TODO
 // Spirit Flask                     Yes
 // Thunderclap                      Yes
-// Aetheric Manipulation            No
+// Aetheric Manipulation            TODO
 // Prime Electrids                  Yes
 
 } // namespace StormcastEternals

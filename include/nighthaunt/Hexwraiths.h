@@ -49,12 +49,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
 // Frightful Touch                  Yes
-// Spectral Hunters                 No
+// Spectral Hunters                 TODO
 
 
 } // namespace Nighthaunt

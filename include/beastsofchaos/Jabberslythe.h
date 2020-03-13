@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Madness                  No
-// Spurting Bile Blood              No
+// Aura of Madness                  TODO
+// Spurting Bile Blood              TODO
 //
 
 } // namespace BeastsOfChaos

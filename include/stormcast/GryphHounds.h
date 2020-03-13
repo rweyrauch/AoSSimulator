@@ -49,12 +49,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Loyal Companion                  Yes
-// Darting Attacks                  No
-// Warning Cry                      No
+// Darting Attacks                  TODO
+// Warning Cry                      TODO
 //
 
 } // namespace StormcastEternals

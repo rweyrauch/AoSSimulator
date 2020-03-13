@@ -61,10 +61,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Astral Compass                   No
+// Astral Compass                   TODO
 // Tireless Hunters                 Yes
 //
 

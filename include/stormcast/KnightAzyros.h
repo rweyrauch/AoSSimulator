@@ -46,10 +46,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Illuminator of the Lost          No
+// Illuminator of the Lost          TODO
 // The Light of Sigmar              Yes
 //
 

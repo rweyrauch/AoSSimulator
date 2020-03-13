@@ -62,7 +62,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Beastskewer Glaive               Yes
@@ -71,10 +70,10 @@ private:
 //        Brawlerguts               Yes
 //        Fateseeker                Yes
 //        Longstrider               Yes
-//        Giantbreaker              No
-//        Wallcrusher               No
+//        Giantbreaker              TODO
+//        Wallcrusher               TODO
 // Thundermace                      Yes
-// Bully of the First Degree        No
+// Bully of the First Degree        TODO
 //
 
 } // namespace OgorMawtribes

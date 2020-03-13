@@ -65,13 +65,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Earth-shattering Charge          Yes
 // Stone Skeleton                   Yes
 // Blood Vulture                    Yes
-// Line-breakers                    No
+// Line-breakers                    TODO
 //
 
 } // namespace OgorMawtribes

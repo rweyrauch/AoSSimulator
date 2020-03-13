@@ -50,10 +50,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Skarbrand's Rage                 No
+// Skarbrand's Rage                 TODO
 // Roar of Total Rage               Yes
 // Total Carnage                    Yes
 // Inescapable Wrath                Yes

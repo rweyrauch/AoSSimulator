@@ -53,16 +53,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Comet Trail                      No
-// Cycle of the Storm               No
+// Comet Trail                      TODO
+// Cycle of the Storm               TODO
 // Meteoric Strike                  Yes
 // Spirit Flask                     Yes
 // Lightning Orb                    Yes
 // Prime Electrids                  Yes
-// Swift of Wing                    No
+// Swift of Wing                    TODO
 
 } // namespace StormcastEternals
 

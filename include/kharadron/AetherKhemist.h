@@ -48,10 +48,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aetheric Augmentation            No
+// Aetheric Augmentation            TODO
 // Atmospheric Isolation            Yes
 //
 

@@ -48,12 +48,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
 // Reaped Like Core                 Yes
-// For Whom the Bell Tolls          No
+// For Whom the Bell Tolls          TODO
 //
 
 } // namespace Nighthaunt

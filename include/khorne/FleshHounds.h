@@ -49,10 +49,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Collars of Khorne                No
+// Collars of Khorne                TODO
 // Unflagging Hunters               Yes
 //
 

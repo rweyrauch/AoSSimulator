@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Infuse with Bestial Vigour       Yes
-// Devolve                          No
+// Devolve                          TODO
 //
 
 } // namespace BeastsOfChaos

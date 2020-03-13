@@ -64,13 +64,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Destructive Bulk                 Yes
 // Rip-toof Fist                    Yes
 // Strength from Victory            Yes
-// Go on Ladz, Get Stuck In         No
+// Go on Ladz, Get Stuck In         TODO
 //
 
 } // namespace Ironjawz

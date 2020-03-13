@@ -50,11 +50,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deathstrike                      No
-// Storm-shield                     No
+// Deathstrike                      TODO
+// Storm-shield                     TODO
 // Starsoul Mace                    Yes
 //
 

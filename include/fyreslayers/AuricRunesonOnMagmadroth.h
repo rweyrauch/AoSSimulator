@@ -57,7 +57,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Roaring Fyrestream               Yes
@@ -65,7 +64,7 @@ private:
 // Volcanic Blood                   Yes
 // Vying for Glory                  Yes
 // Wyrmslayer Javelins              Yes
-// Molten Battering Ram             No
+// Molten Battering Ram             TODO
 //
 
 } // namespace Fyreslayers

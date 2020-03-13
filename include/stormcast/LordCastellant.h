@@ -42,11 +42,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Faithful Gryph-hound             No
-// Warding Lantern                  No
+// Faithful Gryph-hound             TODO
+// Warding Lantern                  TODO
 //
 
 } // namespace StormcastEternals

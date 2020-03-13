@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Phantasmal Discorporation        No
+// Phantasmal Discorporation        TODO
 // Dreadblade                       Yes
 // Curse of Loyalty                 Yes
 //

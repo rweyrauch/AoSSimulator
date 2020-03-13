@@ -72,7 +72,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Lineage                   Yes
@@ -80,9 +79,9 @@ private:
 // Sweeping Tail                    Yes
 // Arc Hammer                       Yes
 // Lord of the Heavens              Yes
-// Skybolt Bow                      No
+// Skybolt Bow                      TODO
 // Stormlance                       Yes
-// Tempest Axe                      No
+// Tempest Axe                      TODO
 //
 
 } // namespace StormcastEternals

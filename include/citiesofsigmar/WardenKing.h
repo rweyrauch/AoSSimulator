@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oath Stone                       No
-// Ancestral Grudge                 No
+// Oath Stone                       TODO
+// Ancestral Grudge                 TODO
 //
 
 } // namespace CitiesOfSigmar

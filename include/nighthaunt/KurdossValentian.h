@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
 // Frightful Touch                  Yes
-// If I Cannot Rule, ...            No
+// If I Cannot Rule, ...            TODO
 // Soul-crushing Smite              Yes
 // Suffer No Rival                  Yes
 //

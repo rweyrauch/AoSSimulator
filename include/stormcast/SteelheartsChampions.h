@@ -50,12 +50,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Severin Steelheart               Yes
 // Lay Low the Tyrants              Yes
-// Heroic Guard                     No
+// Heroic Guard                     TODO
 // Sigmarite Shields                Yes
 //
 

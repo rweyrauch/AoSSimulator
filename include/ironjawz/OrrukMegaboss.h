@@ -46,10 +46,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Go on Ladz, Get Stuck In!        No
+// Go on Ladz, Get Stuck In!        TODO
 // Strength from Victory            Yes
 // Rip-toof Fist                    Yes
 //

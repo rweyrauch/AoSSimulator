@@ -49,11 +49,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Rapid Fire                       Yes
-// Suppressing Fire                 No
+// Suppressing Fire                 TODO
 //
 
 } // namespace StormcastEternals

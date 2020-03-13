@@ -48,11 +48,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Another Link in the Chain        No
+// Another Link in the Chain        TODO
 // Sweeping Blows                   Yes
 
 

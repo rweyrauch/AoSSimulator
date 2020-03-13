@@ -49,10 +49,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ambushing Hunters                No
+// Ambushing Hunters                TODO
 // Insatiable Hunger                Yes
 
 } // namespace OgorMawtribes

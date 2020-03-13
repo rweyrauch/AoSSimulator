@@ -49,11 +49,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Disgustingly Resilient           Yes
-// Acidic Slime Trail               No
+// Acidic Slime Trail               TODO
 // Locus of Virulence               Yes
 // Attention Seekers                Yes
 //

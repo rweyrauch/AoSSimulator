@@ -45,13 +45,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Faithful Gryph-hound             No
+// Faithful Gryph-hound             TODO
 // Lantern of Abjuration            Yes
 // Sanction                         Yes
-// Bound in Service                 No
+// Bound in Service                 TODO
 //
 
 } // namespace StormcastEternals

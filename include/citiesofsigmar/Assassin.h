@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deathshead Poison                Yes
-// Hidden Murderer                  No
+// Hidden Murderer                  TODO
 //
 
 } // namespace CitiesOfSigmar

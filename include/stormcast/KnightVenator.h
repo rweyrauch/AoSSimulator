@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Strike                 Yes
-// Star-fated Arrow                 No
+// Star-fated Arrow                 TODO
 //
 
 } // namespace StormcastEternals

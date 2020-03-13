@@ -59,13 +59,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ker-splat!                       Yes
 // Redcap Mushrooms                 Yes
 // Watch Out!                       Yes
-// Bit Da Moon!                     No
+// Bit Da Moon!                     TODO
 //
 
 } // namespace GloomspiteGitz

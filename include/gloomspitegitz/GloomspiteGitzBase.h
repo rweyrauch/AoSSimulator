@@ -42,12 +42,11 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Fangz of the Bad Moon            Yes
-// Bad Moon Magic                   Partial
-// Loonatic Inspiration             No
+// Bad Moon Magic                   Partial/TODO
+// Loonatic Inspiration             TODO
 // Lunar Squigs                     Yes
 // Moonclan Fungus Brew             Yes
 // Spiderfang Venom                 Yes

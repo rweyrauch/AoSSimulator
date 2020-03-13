@@ -55,12 +55,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Abyssal Howl                     Yes
-// Feast of Bones                   No
-// Quick With The Lash              No
+// Feast of Bones                   TODO
+// Quick With The Lash              TODO
 //
 
 } // namespace CitiesOfSigmar

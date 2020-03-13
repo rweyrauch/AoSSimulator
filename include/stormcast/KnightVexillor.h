@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon of War                      No
-// Meteoric Standard                No
-// Pennant of the Stormbringer      No
+// Icon of War                      TODO
+// Meteoric Standard                TODO
+// Pennant of the Stormbringer      TODO
 //
 
 } // namespace StormcastEternals

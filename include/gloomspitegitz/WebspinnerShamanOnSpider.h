@@ -59,14 +59,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Catchweb Spidershrine            Yes
 // Spider Venom                     Yes
 // Prophet of the Spider God        Yes
 // Wall Crawler                     Yes
-// Venom of the Spider God          No
+// Venom of the Spider God          TODO
 //
 
 } // namespace GloomspiteGitz

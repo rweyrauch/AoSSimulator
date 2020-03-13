@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Harrying Bird of Prey            No
-// Lord of the Deepwood Host        No
+// Harrying Bird of Prey            TODO
+// Lord of the Deepwood Host        TODO
 //
 
 } // namespace CitiesOfSigmar

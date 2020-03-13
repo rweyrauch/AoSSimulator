@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Dual Axes                        Yes
 // Hatred of Heroes                 Yes
-// Grisly Trophy                    No
+// Grisly Trophy                    TODO
 //
 
 } // namespace BeastsOfChaos

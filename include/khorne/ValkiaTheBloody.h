@@ -44,13 +44,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// The Gaze of Khorne               No
+// The Gaze of Khorne               TODO
 // The Spear Slaupnir               Yes
 // Daemonshield                     Yes
-// On Bloodstained Wings            No
+// On Bloodstained Wings            TODO
 //
 
 } // namespace Khorne

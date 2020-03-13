@@ -61,15 +61,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Battlemage             Yes
 // Locus of Azyr                    Yes
 // Portents of Battle               Yes
 // Storm of Shemtek                 Yes
-// Chain Lightning                  No
-// Comet of Casandora               No
+// Chain Lightning                  TODO
+// Comet of Casandora               TODO
 //
 
 } // namespace CitiesOfSigmar

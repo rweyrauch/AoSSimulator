@@ -45,10 +45,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Watchful Guardians               No
+// Watchful Guardians               TODO
 // Swooping Hunters                 Yes
 //
 

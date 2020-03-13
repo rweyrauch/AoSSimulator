@@ -54,13 +54,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Amber Battlemage                 Yes
 // Two-headed                       Yes
-// Amber Spear                      No
-// Wildform                         No
+// Amber Spear                      TODO
+// Wildform                         TODO
 //
 
 } // namespace CitiesOfSigmar

@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Rage Unbound                     Yes
-// Outrageous Carnage               Partial
-// Bloodthirsty Charge              No
+// Outrageous Carnage               Partial/TODO
+// Bloodthirsty Charge              TODO
 //
 
 } // namespace Khorne

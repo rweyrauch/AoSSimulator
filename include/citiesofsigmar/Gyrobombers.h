@@ -49,10 +49,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Grudgebuster Bombs               No
+// Grudgebuster Bombs               TODO
 //
 
 } // namespace CitiesOfSigmar

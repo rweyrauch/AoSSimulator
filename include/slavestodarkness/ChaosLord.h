@@ -55,12 +55,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Daemonbound                      No
-// Spurred by the Gods              No
-// Mark of Chaos                    No
+// Daemonbound                      Yes
+// Spurred by the Gods              TODO
+// Mark of Chaos                    TODO
 //
 
 } // SlavesToDarkness

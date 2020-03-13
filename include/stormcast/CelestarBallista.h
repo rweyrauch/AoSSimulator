@@ -48,10 +48,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bastions of Death                No
+// Bastions of Death                TODO
 // Chained Lightning                Yes
 // Versatile Weapon                 Yes
 //

@@ -53,18 +53,17 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Comet Trail                      No
-// Cycle of the Storm               No
+// Comet Trail                      TODO
+// Cycle of the Storm               TODO
 // Meteoric Strike                  Yes
 // Spirit Flask                     Yes
 // Thunderhead Crown                Yes
-// Righteous Indignation            No
+// Righteous Indignation            TODO
 // Pyroelectric Blast               Yes
 // Prime Electrids                  Yes
-// Fiery Orator                     No
+// Fiery Orator                     TODO
 
 } // namespace StormcastEternals
 

@@ -71,7 +71,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Lineage                   Yes
@@ -81,7 +80,7 @@ private:
 // Sigmarite Thundershield          Yes
 // Stormbound Blade                 Yes
 // Sweeping Tail                    Yes
-// Lord of the Celestial Host       No
+// Lord of the Celestial Host       TODO
 //
 
 } // namespace StormcastEternals

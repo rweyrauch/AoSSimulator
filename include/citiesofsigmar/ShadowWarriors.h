@@ -50,11 +50,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// One with the Shadows             No
-// Strike Unseen                    No
+// One with the Shadows             TODO
+// Strike Unseen                    TODO
 //
 
 } // namespace CitiesOfSigmar

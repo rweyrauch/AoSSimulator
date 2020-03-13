@@ -50,13 +50,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Aethereal Strike                 Yes
-// Ride the Winds Aetheric          No
-// Astral Compass                   No
-// Lord of the Azyrite Hurricane    No
+// Ride the Winds Aetheric          TODO
+// Astral Compass                   TODO
+// Lord of the Azyrite Hurricane    TODO
 
 } // namespace StormcastEternals
 

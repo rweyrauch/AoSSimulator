@@ -70,13 +70,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Bellower                         Yes
 // Beast Skull Bearer               Yes
 // Tribal Banner Bearer             Yes
-// Lookout Gnoblar                  No
+// Lookout Gnoblar                  TODO
 // Paired Clubs or Blades           Yes
 // Ironfist                         Yes
 

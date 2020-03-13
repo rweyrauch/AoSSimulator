@@ -50,10 +50,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Voidstorm Scroll                 No
+// Voidstorm Scroll                 TODO
 // Spirit Flask                     Yes
 // Spirit Storm                     Yes
 //

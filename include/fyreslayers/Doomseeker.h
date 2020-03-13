@@ -45,10 +45,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oathbound                        No
+// Oathbound                        TODO
 // Runic Power                      Yes
 //
 

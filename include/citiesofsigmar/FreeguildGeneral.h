@@ -49,12 +49,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Decapitating Strike              Yes
-// Inspiring Leader                 No
-// Hold the Line                    No
+// Inspiring Leader                 TODO
+// Hold the Line                    TODO
 //
 
 } // namespace CitiesOfSigmar

@@ -56,11 +56,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Steam Gun                        No
-// Guild Bombs                      No
+// Steam Gun                        TODO
+// Guild Bombs                      TODO
 //
 
 } // namespace CitiesOfSigmar

@@ -52,12 +52,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Quick with the Lash              No
+// Quick with the Lash              TODO
 // Sever One Head, Another
-//    Takes Its Place               No
+//    Takes Its Place               TODO
 //
 
 } // namespace CitiesOfSigmar

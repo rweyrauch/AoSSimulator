@@ -65,11 +65,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Gromril Shields                  Yes
-// Old Grumblers                    No
+// Old Grumblers                    TODO
 // Standard Bearer                  Yes
 // Musician                         Yes
 //

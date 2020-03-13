@@ -48,10 +48,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ambush From Beyond               No
+// Ambush From Beyond               TODO
 // Spider Venom                     Yes
 // Wall Crawler                     Yes
 //

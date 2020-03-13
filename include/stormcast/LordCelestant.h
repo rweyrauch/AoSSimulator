@@ -52,12 +52,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Inescapable Vengeance            Yes
 // Sigmarite Warcloak               Yes
-// Furious Retribution              No
+// Furious Retribution              TODO
 //
 
 } // namespace StormcastEternals

@@ -63,13 +63,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Engineer                  Yes
 // Comet Strike                     Yes
 // Meteoric Slam                    Yes
-// Solemn Duty                      No
+// Solemn Duty                      TODO
 //
 
 } // namespace StormcastEternals

@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Spider Venom                     Yes
 // Wall Crawler                     Yes
-// Ride'Em All Down!                No
+// Ride'Em All Down!                TODO
 //
 
 } // namespace GloomspiteGitz

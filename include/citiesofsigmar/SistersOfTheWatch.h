@@ -52,11 +52,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Eldritch Arrows                  Yes
-// Loose Until the Last             No
+// Loose Until the Last             TODO
 // Quicksilver Shot                 Yes
 //
 

@@ -47,15 +47,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Crushing Grip                    Yes
-// Magical Resistance               No
+// Magical Resistance               TODO
 // Reassuring Presence              Yes
 // Regeneration                     Yes
 // Squiggly-beast Followers         Yes
-// Instinctive Leader               No
+// Instinctive Leader               TODO
 //
 
 } // namespace GloomspiteGitz

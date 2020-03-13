@@ -46,14 +46,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Corpse Candles                   No
+// Corpse Candles                   TODO
 // Frightful Touch                  Yes
 // Reaped Like Corn                 Yes
-// Wraithstorm                      No
+// Wraithstorm                      TODO
 //
 
 

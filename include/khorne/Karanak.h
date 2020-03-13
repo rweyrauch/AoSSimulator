@@ -52,13 +52,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brass Collar of Bloody Vengeance No
+// Brass Collar of Bloody Vengeance TODO
 // Prey of the Blood God            Yes
 // Unflagging Hunter                Yes
-// Call of the Hunt                 No
+// Call of the Hunt                 TODO
 //
 
 } // namespace Khorne

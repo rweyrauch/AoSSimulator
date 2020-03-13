@@ -45,10 +45,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Looncap Mushrooms                No
+// Looncap Mushrooms                TODO
 //
 
 } // namespace GloomspiteGitz

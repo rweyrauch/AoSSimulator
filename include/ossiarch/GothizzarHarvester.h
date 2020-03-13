@@ -59,10 +59,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bone Harvest                     No
+// Bone Harvest                     TODO
 // Soulcrusher Bludgeons            Yes
 // Soulcleaver Sickles              Yes
 //

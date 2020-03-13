@@ -50,11 +50,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Crushing Grip                    Yes
-// Magical Resistance               No
+// Magical Resistance               TODO
 // Reassuring Presence              Yes
 // Regeneration                     Yes
 // Squiggly-beast Followers         Yes

@@ -84,14 +84,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Lance of Spite                   Yes
-// Noxious Breath                   No
+// Noxious Breath                   TODO
 // Paired Exile Blades              Yes
 // Tyrant Shield                    Yes
-// Do Not Disappoint Me             No
+// Do Not Disappoint Me             TODO
 //
 
 } // namespace CitiesOfSigmar

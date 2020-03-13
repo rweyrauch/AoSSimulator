@@ -44,10 +44,9 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Boing! Boing! Boing!             No
+// Boing! Boing! Boing!             TODO
 //
 
 } // namespace GloomspiteGitz

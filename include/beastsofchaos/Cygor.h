@@ -48,10 +48,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Soul-eater                       No
+// Soul-eater                       TODO
 // Ghostsight                       Yes
 //
 

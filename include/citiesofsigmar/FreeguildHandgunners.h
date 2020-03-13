@@ -66,14 +66,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Piper                            Yes
-// Stand and Shoot                  No
+// Stand and Shoot                  TODO
 // Steady Aim                       Yes
-// Cradk Shot                       No
+// Crack Shot                       TODO
 //
 
 } // namespace CitiesOfSigmar

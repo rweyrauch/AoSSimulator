@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood Sacrifice                  No
-// Word of Pain                     No
-// Command Underlings               No
+// Blood Sacrifice                  TODO
+// Word of Pain                     TODO
+// Command Underlings               TODO
 //
 
 } // namespace CitiesOfSigmar

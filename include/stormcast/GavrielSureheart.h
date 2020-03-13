@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Inescapable Vengeance            Yes
 // Sigmarite Thundershield          Yes
-// Once More, For Sigmar, Charge!   No
+// Once More, For Sigmar, Charge!   TODO
 //
 
 } // namespace StormcastEternals

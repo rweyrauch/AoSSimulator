@@ -49,11 +49,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Burning Skulls                   Yes
-// Grind their Bones, Seize their Skulls    No
+// Grind their Bones, Seize their Skulls    TODO
 // Decapitating Blow                Yes
 //
 

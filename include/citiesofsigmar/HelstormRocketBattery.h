@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rocket Salvo                     No
-// Calculated Trajectory            No
+// Rocket Salvo                     TODO
+// Calculated Trajectory            TODO
 //
 
 } // namespace CitiesOfSigmar

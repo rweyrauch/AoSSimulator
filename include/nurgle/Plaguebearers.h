@@ -54,12 +54,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Disgustingly Resilient           Yes
 // Cloud of Flies                   Yes
-// Locus of Fecundity               No
+// Locus of Fecundity               TODO
 //
 
 } // Nurgle

@@ -57,16 +57,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cycle of the Storm               No
+// Cycle of the Storm               TODO
 // Spirit Flask                     Yes
 // Supernatural Roar                Yes
 // Thunderous Pounce                Yes
 // Lightning Pulse                  Yes
 // Prime Electrids                  Yes
-// Soul Energy of the First Host    No
+// Soul Energy of the First Host    TODO
 
 } // namespace StormcastEternals
 

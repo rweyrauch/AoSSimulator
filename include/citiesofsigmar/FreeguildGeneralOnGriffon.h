@@ -70,14 +70,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Charging Lance                   Yes
 // Freeguild Shield                 Yes
 // Skilled Rider                    Yes
 // Piercing Bloodroar               Yes
-// Rousing Battle Cry               No
+// Rousing Battle Cry               TODO
 //
 
 } // namespace CitiesOfSigmar

@@ -51,10 +51,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Horrific Predator                No
+// Horrific Predator                TODO
 // Taker of Heads                   Yes
 //
 

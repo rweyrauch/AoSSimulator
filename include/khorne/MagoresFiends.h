@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Redhand                          Yes
 // Gorefists                        Yes
-// No Respite                       No
+// No Respite                       TODO
 // Blood Scent                      Yes
 //
 

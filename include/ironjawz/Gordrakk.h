@@ -55,14 +55,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Massively Destructive Bulk       Yes
 // Kunnin                           Yes
 // Smasha                           Yes
 // Strength from Victory            Yes
-// Voice of Gork                    No
+// Voice of Gork                    TODO
 //
 
 } // namespace Ironjawz

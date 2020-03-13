@@ -56,12 +56,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Drummer                          Yes
-// Emboldened                       No
+// Emboldened                       TODO
 // Witness to Destiny               Yes
 //
 

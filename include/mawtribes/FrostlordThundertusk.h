@@ -53,12 +53,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blasts of Frost-wreathed Ice     Yes
 // Numbing Chill                    Yes
-// Bellowing Voice                  No
+// Bellowing Voice                  TODO
 //
 
 } // namespace OgorMawtribes

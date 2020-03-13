@@ -54,10 +54,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Virulent Discharge               No
+// Virulent Discharge               TODO
 // Blighted Weapons                 Yes
 //
 

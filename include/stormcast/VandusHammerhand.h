@@ -46,14 +46,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Heldensen                        Yes
 // Intolerable Damage               Yes
-// Storm Breath                     No
-// Lord of the Hammerhands          No
-// Vengeful Determination           No
+// Storm Breath                     TODO
+// Lord of the Hammerhands          TODO
+// Vengeful Determination           TODO
 //
 
 } // namespace StormcastEternals

@@ -46,13 +46,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Lightning-fast Strikes           Yes
 // Tireless Hunter                  Yes
 // Nemesis                          Yes
-// Windrider                        No
+// Windrider                        TODO
 //
 
 } // namespace StormcastEternals

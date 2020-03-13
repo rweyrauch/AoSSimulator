@@ -46,13 +46,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Cloak of Skulls                  Yes
 // Decapitating Strike              Yes
 // Heroes' Bane                     Yes
-// Heads Must Roll                  No
+// Heads Must Roll                  TODO
 //
 
 } // namespace Khorne

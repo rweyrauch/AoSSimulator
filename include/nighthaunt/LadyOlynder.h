@@ -50,16 +50,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
 // Frightful Touch                  Yes
 // Grave-sands of Time              Yes
 // Lifting the Veil                 Yes
-// Mortarch of Grief                No
+// Mortarch of Grief                TODO
 // Wail of the Damned               Yes
-// No Rest For the Wicked           No
+// No Rest For the Wicked           TODO
 //
 
 

@@ -57,11 +57,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Free Arm                         Yes
-// Master Engineer                  No
+// Master Engineer                  TODO
 //
 
 } // namespace CitiesOfSigmar

@@ -51,10 +51,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Flinger                          No
+// Flinger                          TODO
 // Spider Venom                     Yes
 // Wall Crawler                     Yes
 //

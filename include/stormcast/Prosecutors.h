@@ -82,11 +82,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Cleaving Blow                    Yes
-// Heralds of Righteousness         No
+// Heralds of Righteousness         TODO
 // Paired Celestial Hammers         Yes
 // Sigmarite Shields                Yes
 // Stormcall Javelins               Yes

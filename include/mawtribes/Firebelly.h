@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Fire Breath                      Yes
-// Cascading Fire-cloak             No
+// Cascading Fire-cloak             TODO
 //
 
 } // namespace OgorMawtribes

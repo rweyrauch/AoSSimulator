@@ -66,17 +66,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lightning Hammer                 No
+// Lightning Hammer                 TODO
 // Intolerable Damage               Yes
 // Sigmarite Thundershield          Yes
 // Stormstrike Glaive               Yes
-// Storm Breath                     No
+// Storm Breath                     TODO
 // Tempestos Hammer                 Yes
-// Thunderaxe                       No
-// Lord of the Host                 No
+// Thunderaxe                       TODO
+// Lord of the Host                 TODO
 //
 
 } // namespace StormcastEternals

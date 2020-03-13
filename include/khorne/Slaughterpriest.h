@@ -52,12 +52,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Scorn of Sorcery                 Yes
 // Blood Boil                       Yes
-// Blood Bind                       No
+// Blood Bind                       TODO
 //
 
 } // namespace Khorne

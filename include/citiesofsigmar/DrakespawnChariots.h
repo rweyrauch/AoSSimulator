@@ -50,10 +50,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Scythed Runners                  No
+// Scythed Runners                  TODO
 //
 
 } // namespace CitiesOfSigmar

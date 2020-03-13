@@ -53,15 +53,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Aethereal Strike                 Yes
-// Ride the Winds Aetheric          No
+// Ride the Winds Aetheric          TODO
 // Spirit Flask                     Yes
 // Healing Light                    Yes
 // Prime Electrids                  Yes
-// Soul Energy                      No
+// Soul Energy                      TODO
 
 } // namespace StormcastEternals
 

@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Drawn in for the Kill            No
+// Drawn in for the Kill            TODO
 // The Land Rebels                  Yes*
-// Rejoice in the Slaughter         No
+// Rejoice in the Slaughter         TODO
 //
 
 } // namespace Khorne

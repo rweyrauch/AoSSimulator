@@ -65,7 +65,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Quadrarch Aspects                Yes (random)
@@ -73,7 +72,7 @@ private:
 //      Blade-parry Aspect          Yes
 //      Destroyer Aspect            Yes
 //      Precision Aspect            Yes
-// Hunt and Kill                    No
+// Hunt and Kill                    TODO
 
 } // namespace OssiarchBonereapers
 

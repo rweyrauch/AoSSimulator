@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Wanton Slaughter                 No
-// Rotten Corpse Mulch              No
+// Wanton Slaughter                 TODO
+// Rotten Corpse Mulch              TODO
 // Plagueridden Great Weapon        Yes
 //
 

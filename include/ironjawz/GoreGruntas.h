@@ -55,10 +55,9 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Gore-grunta Charge               No
+// Gore-grunta Charge               TODO
 //
 
 } // namespace Ironjawz

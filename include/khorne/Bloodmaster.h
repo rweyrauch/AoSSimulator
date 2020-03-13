@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Decapitating Strike              Yes
-// The Blood Must Flow              No
+// The Blood Must Flow              TODO
 //
 
 } // namespace Khorne

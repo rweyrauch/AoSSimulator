@@ -42,11 +42,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Onwards to Glory                 No
-// Thunderblast                     No
+// Onwards to Glory                 TODO
+// Thunderblast                     TODO
 //
 
 } // namespace StormcastEternals

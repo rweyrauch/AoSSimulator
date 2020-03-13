@@ -50,11 +50,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Headshot                         Yes
-// Hunting Call                     No
+// Hunting Call                     TODO
 // Longshot                         Yes
 //
 

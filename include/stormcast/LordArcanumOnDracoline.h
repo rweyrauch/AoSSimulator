@@ -57,15 +57,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cycle of the Storm               No
+// Cycle of the Storm               TODO
 // Supernatural Roar                Yes
 // Thunderous Pounce                Yes
 // Storm Lance                      Yes
 // Prime Electrids                  Yes
-// Pack Alpha                       No
+// Pack Alpha                       TODO
 // Spirit Flask                     Yes
 
 } // namespace StormcastEternals

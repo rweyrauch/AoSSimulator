@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blessing of the Ur-Phoenix       Yes
 // Witness to Destiny               Yes
-// Captain of the Phoenix Guard     No
+// Captain of the Phoenix Guard     TODO
 //
 
 } // namespace CitiesOfSigmar

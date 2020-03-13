@@ -60,12 +60,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Aetherial Strike                 Yes
 // Lunar Blade                      Yes
-// Ride the Wind Aetheric           No
+// Ride the Wind Aetheric           TODO
 //
 
 } // namespace StormcastEternals

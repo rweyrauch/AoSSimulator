@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Skewering Strike                 Yes
-// Muster Royal Guard               No
+// Muster Royal Guard               TODO
 //
 
 } // namespace FleshEaterCourt

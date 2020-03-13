@@ -63,12 +63,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Necrophoros                      Yes
 // Nadirite Weapons                 Yes
-// Deathrider Wedge                 No
+// Deathrider Wedge                 TODO
 //
 
 } // namespace OssiarchBonereapers

@@ -47,10 +47,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Pestilential Breath              No
+// Pestilential Breath              TODO
 //
 
 } // namespace FleshEaterCourt

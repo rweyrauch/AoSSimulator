@@ -47,10 +47,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Fire Anvil                       No
+// Fire Anvil                       TODO
 // Favoured by Khorne               Yes
 //
 

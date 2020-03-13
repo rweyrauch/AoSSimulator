@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Bloodgreed                       Yes
-// Slaughterer's Call               No
+// Slaughterer's Call               TODO
 //
 
 } // namespace BeastsOfChaos

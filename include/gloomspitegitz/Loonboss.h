@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Dead Tricksy                     Yes
-// I'm Da Boss, Now Stab 'Em Good   No
+// I'm Da Boss, Now Stab 'Em Good   TODO
 //
 
 } // namespace GloomspiteGitz

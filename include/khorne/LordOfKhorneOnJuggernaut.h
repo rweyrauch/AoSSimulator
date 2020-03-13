@@ -45,13 +45,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brass-clad Shield                No
+// Brass-clad Shield                TODO
 // Slaugtherous Charge              Yes
 // Daemonic Axe                     Yes
-// Blood Stampede                   No
+// Blood Stampede                   TODO
 //
 
 } // namespace Khorne

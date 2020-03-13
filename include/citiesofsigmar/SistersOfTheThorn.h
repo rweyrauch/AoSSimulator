@@ -57,12 +57,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Hornblower                       Yes
-// Armour of Thorns                 No
+// Armour of Thorns                 TODO
 //
 
 } // namespace CitiesOfSigmar

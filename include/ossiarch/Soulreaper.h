@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deathly Touch                    Yes
 // Soulreaper                       Yes
-// Soul-blast                       No
+// Soul-blast                       TODO
 //
 
 } // namespace OssiarchBonereapers

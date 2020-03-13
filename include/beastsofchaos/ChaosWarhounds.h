@@ -45,10 +45,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Outrunners of Chaos              No
+// Outrunners of Chaos              TODO
 //
 
 } // namespace BeastsOfChaos

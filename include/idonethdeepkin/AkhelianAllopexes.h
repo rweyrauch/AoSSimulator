@@ -57,10 +57,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodthirty Predators            No
+// Bloodthirty Predators            TODO
 //
 
 } // namespace IdonethDeepkin

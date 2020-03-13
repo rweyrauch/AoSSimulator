@@ -48,11 +48,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Jaws of Death                    Yes
-// Void Drum                        No
+// Void Drum                        TODO
 //
 
 } // namespace IdonethDeepkin

@@ -49,11 +49,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Screeching Horde                 Yes
-// Trappers                         No
+// Trappers                         TODO
 //
 
 } // namespace OgorMawtribes

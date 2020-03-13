@@ -68,13 +68,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Disgustingly Resilient           Yes
-// Locus of Contagion               No
+// Locus of Contagion               TODO
 // Icon Bearer                      Yes
-// Bell Toller                      No
+// Bell Toller                      TODO
 //
 
 } // Nurgle

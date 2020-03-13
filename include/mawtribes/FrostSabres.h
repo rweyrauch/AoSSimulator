@@ -45,10 +45,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Their Master's Voice             No
+// Their Master's Voice             TODO
 //
 
 } // namespace OgorMawtribes

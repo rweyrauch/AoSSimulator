@@ -54,10 +54,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Vile Invaders                    No
+// Vile Invaders                    TODO
 // Braying Anger                    Yes
 //
 

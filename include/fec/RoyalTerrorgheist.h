@@ -52,10 +52,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Death Shriek                     No
+// Death Shriek                     TODO
 // Gaping Maw                       Yes
 // Infested                         Yes
 // Royal Menagerie                  Yes

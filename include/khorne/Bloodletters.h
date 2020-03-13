@@ -55,12 +55,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Hornblower                       No
+// Hornblower                       TODO
 // Icon Bearer                      Yes
-// Standard Bearer                  No
+// Standard Bearer                  TODO
 // Decapitating Blow                Yes
 // Locus of Fury                    Yes
 // Murderous Tide                   Yes

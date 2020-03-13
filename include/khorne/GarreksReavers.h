@@ -48,13 +48,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Gorebeard                        Yes
 // Frenzied Devotion                Yes
 // Reaver Blades                    Yes
-// Grisly Trophies                  No
+// Grisly Trophies                  TODO
 //
 
 } // namespace Khorne

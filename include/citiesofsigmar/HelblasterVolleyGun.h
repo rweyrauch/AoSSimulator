@@ -48,12 +48,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Point Blank                      No
-// Helblaster Volley                No
-// Working Like Clockwork           No
+// Point Blank                      TODO
+// Helblaster Volley                TODO
+// Working Like Clockwork           TODO
 //
 
 } // namespace CitiesOfSigmar

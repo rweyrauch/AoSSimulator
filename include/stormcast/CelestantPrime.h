@@ -49,13 +49,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cometstrike Sceptre              No
-// Retribution from On High         No
+// Cometstrike Sceptre              TODO
+// Retribution from On High         TODO
 // Bearer of the Warhammer          Yes
-// Orrery of Celestial Fates        No
+// Orrery of Celestial Fates        TODO
 //
 
 } // namespace StormcastEternals

@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Astral Compass                   No
-// Star Falcon                      No
-// Tireless Hunters                 No
+// Astral Compass                   TODO
+// Star Falcon                      TODO
+// Tireless Hunters                 TODO
 //
 
 } // namespace StormcastEternals

@@ -50,12 +50,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Trial of Skulls                  Yes
 // Daemonforged Weapons             Yes
-// Murderous to the Last            No
+// Murderous to the Last            TODO
 //
 
 } // namespace Khorne

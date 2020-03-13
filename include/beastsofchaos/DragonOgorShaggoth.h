@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Beneath the Tempest              No
-// Summon Lightning                 No
+// Beneath the Tempest              TODO
+// Summon Lightning                 TODO
 //
 
 } // namespace BeastsOfChaos

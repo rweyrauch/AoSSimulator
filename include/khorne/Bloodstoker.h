@@ -42,10 +42,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Whipped to Fury                  No
+// Whipped to Fury                  TODO
 //
 
 } // namespace Khorne

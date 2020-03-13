@@ -53,11 +53,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
-// No Respite                       No
+// No Respite                       TODO
 // Goreaxes                         Yes
 // Gorefists                        Yes
 

@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Nagash's Bidding                 No
-// Captured Soul Energy             No
+// Nagash's Bidding                 TODO
+// Captured Soul Energy             TODO
 //
 
 

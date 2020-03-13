@@ -64,12 +64,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Necrophoros                      Yes
 // Nadirite Weapons                 Yes
-// Shieldwall                       No
+// Shieldwall                       TODO
 //
 
 } // namespace OssiarchBonereapers

@@ -47,10 +47,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Sweeping Blows                   No
+// Sweeping Blows                   TODO
 //
 
 } // namespace IdonethDeepkin

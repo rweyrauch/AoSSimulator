@@ -64,11 +64,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Trumpeter                        Yes
-// Hail of Bullets                  No
+// Hail of Bullets                  TODO
 // Reckless Riders                  Yes
 //
 

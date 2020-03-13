@@ -53,12 +53,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Earth-shattering Charge          Yes
 // Stone Skeleton                   Yes
-// Bellowing Voice                  No
+// Bellowing Voice                  TODO
 //
 
 } // namespace OgorMawtribes

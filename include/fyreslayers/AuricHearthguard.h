@@ -49,11 +49,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Molten Rockbolts                 Partial
-// Sworn Protectors                 No
+// Molten Rockbolts                 Partial/TODO
+// Sworn Protectors                 TODO
 //
 
 } // namespace Fyreslayers

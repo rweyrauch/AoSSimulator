@@ -60,11 +60,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Redcap Mushrooms                 Yes
-// Let's Get Bouncing               No
+// Let's Get Bouncing               TODO
 //
 
 } // namespace GloomspiteGitz

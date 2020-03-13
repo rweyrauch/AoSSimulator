@@ -50,14 +50,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Babbling Wand                    Yes
-// Da Moon Onna Stikk               No
+// Da Moon Onna Stikk               TODO
 // Loonking's Crown                 Yes
 // Nikkit! Nikkit!                  Yes
-// The Loonking's Entreaty          No
+// The Loonking's Entreaty          TODO
 //
 
 } // namespace GloomspiteGitz
