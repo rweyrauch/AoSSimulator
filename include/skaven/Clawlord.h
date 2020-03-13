@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Cornered Fury                    Yes
-// Gnash-gnaw on the Bones!         No
+// Gnash-gnaw on the Bones!         TODO
 //
 
 } // namespace Skaven

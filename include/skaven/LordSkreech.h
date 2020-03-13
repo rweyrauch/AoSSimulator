@@ -55,13 +55,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Protection of the Horned Rat     Yes
 // Terrifying                       Yes
-// The Thirteen-headed One          No
-// THe Rat King                     No
+// The Thirteen-headed One          TODO
+// THe Rat King                     TODO
 //
 
 } // namespace Skaven

@@ -49,12 +49,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Plaque Prayers
 //   Disease-disease!               Yes
-//   Pestilence-pestilence!
+//   Pestilence-pestilence!         TODO
 // Frenzied Assault                 Yes
 // Poisonous Fumes                  Yes
 //

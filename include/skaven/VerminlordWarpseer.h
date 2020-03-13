@@ -59,15 +59,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // The Great Manipulators           Yes
 // Protection of the Horned Rat     Yes
-// Scry-orb
+// Scry-orb                         TODO
 // Terrifying                       Yes
-// Dreaded Warpgale
-// Forth-forth, Children of the Horned Rat!
+// Dreaded Warpgale                 TODO
+// Forth-forth, Children of the Horned Rat! TODO
 //
 
 } // namespace Skaven

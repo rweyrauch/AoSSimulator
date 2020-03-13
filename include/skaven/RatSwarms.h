@@ -44,10 +44,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Endless Tide of Rats
+// Endless Tide of Rats             TODO
 //
 
 } // namespace Skaven

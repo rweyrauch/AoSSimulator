@@ -60,17 +60,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Altar of the Horned Rat          Yes
 // Great Plague Censer              Yes
-// Noxious Prayers                  Partial
+// Noxious Prayers                  Partial/TODO
 //   Filth-filth!                   Yes
 //   Rabid-rabid!                   Yes
 // Poisonous Fumes                  Yes
 // Protection of the Horned Rat     Yes
-// Pushed into Battle               Partial
+// Pushed into Battle               Partial/TODO
 //
 
 } // namespace Skaven

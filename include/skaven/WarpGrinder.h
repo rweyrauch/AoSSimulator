@@ -44,10 +44,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Tunnel Skulkers
+// Tunnel Skulkers                  TODO
 //
 
 } // namespace Skaven

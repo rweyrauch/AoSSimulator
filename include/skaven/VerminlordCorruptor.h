@@ -56,15 +56,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Plaguereapers                    Yes
 // Plaguemaster                     Yes
 // Protection of the Horned Rat     Yes
 // Terrifying                       Yes
-// Dreaded Plague
-// Lord of Pestilence
+// Dreaded Plague                   TODO
+// Lord of Pestilence               TODO
 //
 
 } // namespace Skaven

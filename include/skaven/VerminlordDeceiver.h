@@ -57,15 +57,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Doomstar                         Yes
 // Protection of the Horned Rat     Yes
 // Shrouded In Darkness             Yes
 // Terrifying                       Yes
-// Dreaded Skitterleap
-// Lord of Assassins
+// Dreaded Skitterleap              TODO
+// Lord of Assassins                TODO
 //
 
 } // namespace Skaven

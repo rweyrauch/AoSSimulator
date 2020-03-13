@@ -50,6 +50,7 @@ protected:
     int chargeModifier() const override;
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -66,13 +67,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Contagion Banner                 No
+// Contagion Banner                 TODO
 // Icon of Pestilence               Yes
 // Doom Gong                        Yes
-// Bale-chime                       No
+// Bale-chime                       Yes
 // Pair of Foetid Blades            Yes
 // Frenzied Assault                 Yes
 // Book of Woes                     Yes

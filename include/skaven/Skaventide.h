@@ -36,19 +36,18 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lead From the Back               No
-// Scurry Away                      No
+// Lead From the Back               TODO
+// Scurry Away                      TODO
 // Overwhelming Mass                Yes
 // Strength in Numbers              Yes
-// Skilled Manipulators             No
-// Prized Creations                 No
-// Masters of Murder                No
-// Mighty Warlords                  No
-// Warpstone Sparks                 No
-// Echoes of the Great Plagues      No
+// Skilled Manipulators             TODO
+// Prized Creations                 TODO
+// Masters of Murder                TODO
+// Mighty Warlords                  TODO
+// Warpstone Sparks                 TODO
+// Echoes of the Great Plagues      TODO
 //
 
 void Init();

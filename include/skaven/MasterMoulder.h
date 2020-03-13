@@ -52,12 +52,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Master Moulder
-// Crack the Whip
-// Unleash More-more Beasts!
+// Master Moulder                   TODO
+// Crack the Whip                   TODO
+// Unleash More-more Beasts!        TODO
 //
 
 } // namespace Skaven

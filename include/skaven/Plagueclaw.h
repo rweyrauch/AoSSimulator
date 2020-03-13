@@ -48,11 +48,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Barrage of Disease               Yes
-// Hideous Death
+// Hideous Death                    TODO
 //
 
 } // namespace Skaven

@@ -36,12 +36,13 @@ public:
     static void Init();
 
     Deathmaster();
-
     ~Deathmaster() override = default;
 
     bool configure(WeaponOption option);
 
 protected:
+
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
 private:
 
@@ -53,12 +54,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Hidden Killer
-// Running Death
-// Throwing Stars
+// Hidden Killer                    TODO
+// Running Death                    Yes
+// Throwing Stars                   Yes
 //
 
 } // namespace Skaven

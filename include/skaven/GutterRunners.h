@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Running Death                    Yes
-// Sneaky Infiltrators              No
+// Sneaky Infiltrators              TODO
 // Throwing Stars                   Yes
 
 } // namespace Skaven

@@ -57,15 +57,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Amidst the Seething Tide         Yes
 // Fist of Verminus Supremacy       Yes
 // Protection of the Horned Rat     Yes
 // Terrifying                       Yes
-// Dreaded Death Frenzy
-// Tyrand of Battle
+// Dreaded Death Frenzy             TODO
+// Tyrand of Battle                 TODO
 //
 
 } // namespace Skaven

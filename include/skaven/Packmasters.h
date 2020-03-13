@@ -46,10 +46,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Crack the Whip
+// Crack the Whip                   TODO
 //
 
 } // namespace Skaven

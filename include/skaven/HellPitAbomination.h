@@ -56,13 +56,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Avalanche of Flesh               Yes
 // Regenerating Monstrosity         Yes
 // Terrifying                       Yes
-// Warpstone Spikes                 No
+// Warpstone Spikes                 TODO
 // Too Horrible to Die              Yes
 //
 

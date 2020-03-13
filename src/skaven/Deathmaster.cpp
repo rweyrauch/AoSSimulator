@@ -54,6 +54,9 @@ Deathmaster::Deathmaster() :
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, HERO, DEATHMASTER};
     m_weapons = {&m_stars, &m_blades, &m_claws};
+
+    // Running Death
+    m_runAndShoot = true;
 }
 
 bool Deathmaster::configure(WeaponOption option)
@@ -79,6 +82,16 @@ std::string Deathmaster::ValueToString(const Parameter &parameter)
 int Deathmaster::EnumStringToInt(const std::string &enumString)
 {
     return Skaventide::EnumStringToInt(enumString);
+}
+
+int Deathmaster::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Throwing Stars
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_stars.name()))
+    {
+        return 2;
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 } //namespace Skaven

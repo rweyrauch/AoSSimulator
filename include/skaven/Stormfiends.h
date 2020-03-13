@@ -54,6 +54,9 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
 private:
 
     WeaponOption_1 m_weapons1 = WarpfireProjectors;
@@ -72,15 +75,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Doomfire Gauntlets               No
-// Grinderfist Tunnellers           No
-// Shock Gauntlets                  No
-// Warpfire Projectors              No
-// Warpstone-laced Armour           No
-// Windlaunchers                    No
+// Doomflayer Gauntlets             Yes
+// Grinderfist Tunnellers           TODO
+// Shock Gauntlets                  Yes
+// Warpfire Projectors              TODO
+// Warpstone-laced Armour           Yes
+// Windlaunchers                    Yes
 //
 
 } // namespace Skaven

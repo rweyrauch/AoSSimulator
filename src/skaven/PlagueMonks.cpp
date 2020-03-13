@@ -225,4 +225,14 @@ int PlagueMonks::ComputePoints(int numModels)
     return points;
 }
 
+int PlagueMonks::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Bale-chime
+    if ((m_numBaleChimes > 0) && (hitRoll == 6) && !weapon->isMissile())
+    {
+        return weapon->rend()-1;
+    }
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace Skaven

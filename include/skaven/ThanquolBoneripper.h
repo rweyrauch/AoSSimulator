@@ -50,17 +50,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Protection of the Horned Rat     Yes
-// Staff of the Horned Rat          No
-// Warp-amulet                      No
-// Warpfire Braziers                No
-// Warpfire Projectors              No
-// Warpstone Addiction              No
-// Madness                          No
-// Power Behind the Throne          No
+// Staff of the Horned Rat          TODO
+// Warp-amulet                      TODO
+// Warpfire Braziers                TODO
+// Warpfire Projectors              TODO
+// Warpstone Addiction              TODO
+// Madness                          TODO
+// Power Behind the Throne          TODO
 
 } // namespace Skaven
 

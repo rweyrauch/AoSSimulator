@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Warpstone Tokens
-// Wither
+// Warpstone Tokens                 TODO
+// Wither                           TODO
 //
 
 } // namespace Skaven

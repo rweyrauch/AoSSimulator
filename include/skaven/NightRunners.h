@@ -48,11 +48,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Running Death                    Yes
-// Slinking Advance                 No
+// Slinking Advance                 TODO
 // Throwing Weapons                 Yes
 //
 

@@ -211,4 +211,28 @@ int Stormfiends::ComputePoints(int numModels)
     return points;
 }
 
+int Stormfiends::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Skaventide::toHitModifier(weapon, target);
+
+    // Doomflayer Gauntlets
+    if (m_charged && (weapon->name() == m_doomfireGauntlets.name())) mod++;
+
+    // Windlaunchers
+    if ((weapon->name() == m_windlaunchers.name()) && (target->remainingModels() >= 10)) mod++;
+
+    return mod;
+}
+
+int Stormfiends::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+{
+    // Shock Gauntlets
+    if ((unmodifiedHitRoll == 6) && (weapon->name() == m_shockGauntlets.name()))
+    {
+        Dice dice;
+        return dice.rollD6();
+    }
+    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
 } // namespace Skaven
