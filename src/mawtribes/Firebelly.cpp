@@ -90,10 +90,9 @@ void Firebelly::onStartShooting(PlayerId player)
     {
         if (distanceTo(m_shootingTarget) <= m_fireBreath.range())
         {
-            Dice dice;
-            if (dice.rollD6() >= 4)
+            if (Dice::rollD6() >= 4)
             {
-                m_shootingTarget->applyDamage({0, dice.rollD3()});
+                m_shootingTarget->applyDamage({0, Dice::rollD3()});
             }
         }
     }

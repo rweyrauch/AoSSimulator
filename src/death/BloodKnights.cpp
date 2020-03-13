@@ -98,8 +98,7 @@ Wounds BloodKnights::weaponDamage(const Weapon *weapon, const Unit *target, int 
     // Martial Fury
     if (m_charged && weapon->name() == m_templarLanceOrBlade.name())
     {
-        Dice dice;
-        return {weapon->damage() + dice.rollD3(), 0};
+        return {weapon->damage() + Dice::rollD3(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

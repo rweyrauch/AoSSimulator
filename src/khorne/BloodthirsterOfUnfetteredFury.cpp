@@ -121,11 +121,10 @@ void BloodthirsterOfUnfetteredFury::onWounded()
 void BloodthirsterOfUnfetteredFury::onStartHero(PlayerId player)
 {
     // The Land Rebels
-    Dice dice;
     auto enemyUnits = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
     for (auto ip : enemyUnits)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll == 6)
         {
             ip->applyDamage({0, 1});

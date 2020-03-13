@@ -143,14 +143,13 @@ void AkhelianMorrsarrGuard::onStartCombat(PlayerId player)
     // Biovoltaic Blast
     if (m_meleeTarget && !m_usedBiovoltaicBlast)
     {
-        Dice dice;
         Dice::RollResult roll;
-        dice.rollD6(m_meleeTarget->remainingModels(), roll);
+        Dice::rollD6(m_meleeTarget->remainingModels(), roll);
         int totalMortalWounds = 0;
         int num6s = roll.numUnmodified6s();
         for (int i = 0; i < roll.numUnmodified6s(); i++)
         {
-            totalMortalWounds += dice.rollD3();
+            totalMortalWounds += Dice::rollD3();
         }
         int num3plus = roll.rollsGE(3);
         totalMortalWounds += (num3plus - num6s);

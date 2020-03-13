@@ -166,15 +166,14 @@ void MightySkullcrushers::onCharged()
     // Murderous Charge
     if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f))
     {
-        Dice dice;
         Dice::RollResult rolls;
-        dice.rollD6(remainingModels(), rolls);
+        Dice::rollD6(remainingModels(), rolls);
         Wounds wounds = {0, 0};
         if (remainingModels() >= 6)
         {
             for (int i = 0; i < rolls.rollsGE(2); i++)
             {
-                wounds.mortal += dice.rollD3();
+                wounds.mortal += Dice::rollD3();
             }
         }
         else

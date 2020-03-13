@@ -127,10 +127,9 @@ void GrundstokGunhauler::onStartCombat(PlayerId player)
     auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
     if (unit && (distanceTo(unit) <= 1.0f))
     {
-        Dice dice;
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
-            unit->applyDamage({0, dice.rollD3()});
+            unit->applyDamage({0, Dice::rollD3()});
         }
     }
 }

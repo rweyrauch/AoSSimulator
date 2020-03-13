@@ -96,12 +96,10 @@ void PusgoyleBlightlords::Init()
 
 Wounds PusgoyleBlightlords::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Disgustingly Resilient
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(5);
@@ -117,15 +115,13 @@ int PusgoyleBlightlords::generateHits(int unmodifiedHitRoll, const Weapon *weapo
     // Blighted Weapon
     if ((unmodifiedHitRoll == 6) && (weapon->name() == m_blightedWeapon.name()))
     {
-        Dice dice;
-        return dice.rollD6();
+        return Dice::rollD6();
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
 void PusgoyleBlightlords::onStartHero(PlayerId player)
 {
-    Dice dice;
     // Virulent Discharge
     auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
     for (auto ip : units)
@@ -133,12 +129,12 @@ void PusgoyleBlightlords::onStartHero(PlayerId player)
         if (ip->hasKeyword(NURGLE))
         {
             // Heal D3
-            ip->heal(dice.rollD3());
+            ip->heal(Dice::rollD3());
         }
         else
         {
             // Inflict D3 mortal wounds
-            ip->applyDamage({0, dice.rollD3()});
+            ip->applyDamage({0, Dice::rollD3()});
         }
     }
     Unit::onStartHero(player);

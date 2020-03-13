@@ -130,12 +130,10 @@ int PhoenixGuard::braveryModifier() const
 
 Wounds PhoenixGuard::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Witness to Destiny
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(4);

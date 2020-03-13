@@ -35,7 +35,6 @@ Spell::Result MysticShield::cast(Unit *target, int round)
         return Failed;
     }
 
-    Dice dice;
     Spell::Result result = Failed;
 
     const int castingRoll = m_caster->rollCasting();

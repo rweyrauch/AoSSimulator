@@ -38,10 +38,9 @@ Wounds Nighthaunt::applyWoundSave(const Wounds &wounds)
     auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
     if (hero && hero->hasKeyword(NIGHTHAUNT))
     {
-        Dice dice;
         Dice::RollResult woundSaves, mortalSaves;
-        dice.rollD6(wounds.normal, woundSaves);
-        dice.rollD6(wounds.mortal, mortalSaves);
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);

@@ -49,8 +49,7 @@ bool BadMoon::move(int round)
     {
         if (m_location != Location::Set)
         {
-            Dice dice;
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll == 6)
             {
                 // advance two positions

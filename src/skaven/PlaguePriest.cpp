@@ -69,8 +69,6 @@ bool PlaguePriest::configure()
 
 Wounds PlaguePriest::onEndCombat(PlayerId player)
 {
-    Dice dice;
-
     Wounds wounds = Unit::onEndCombat(player);
 
     // Poisonous Fumes
@@ -80,8 +78,8 @@ Wounds PlaguePriest::onEndCombat(PlayerId player)
         if (!unit->hasKeyword(CLANS_PESTILENS))
         {
             int mortalWounds = 0;
-            int roll = dice.rollD6();
-            if (roll == 6) mortalWounds = dice.rollD3();
+            int roll = Dice::rollD6();
+            if (roll == 6) mortalWounds = Dice::rollD3();
             else if (roll >= 4) mortalWounds = 1;
 
             unit->applyDamage({0, mortalWounds});
@@ -111,10 +109,9 @@ void PlaguePriest::onStartHero(PlayerId player)
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 13.0f);
         if (!units.empty())
         {
-            Dice dice;
             Dice::RollResult result;
 
-            auto prayerRoll = dice.rollD6();
+            auto prayerRoll = Dice::rollD6();
             if (prayerRoll == 1)
             {
                 // Failed - take one mortal wound.
@@ -126,7 +123,7 @@ void PlaguePriest::onStartHero(PlayerId player)
 
                 // Disease-disease!
                 auto numModels = units.front()->remainingModels();
-                dice.rollD6(numModels, result);
+                Dice::rollD6(numModels, result);
                 units.front()->applyDamage({0, result.rollsGE(6)});
             }
         }

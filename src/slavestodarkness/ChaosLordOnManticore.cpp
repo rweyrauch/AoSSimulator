@@ -186,10 +186,9 @@ int ChaosLordOnManticore::EnumStringToInt(const std::string &enumString)
 Wounds ChaosLordOnManticore::applyWoundSave(const Wounds &wounds)
 {
     auto savedWounds = Unit::applyWoundSave(wounds);
-    Dice dice;
     Dice::RollResult result;
     // Chaos Runeshield
-    dice.rollD6(savedWounds.mortal, result);
+    Dice::rollD6(savedWounds.mortal, result);
     savedWounds.mortal -= result.rollsGE(5);
     return savedWounds;
 }

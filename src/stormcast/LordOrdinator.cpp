@@ -153,8 +153,7 @@ Wounds LordOrdinator::onEndCombat(PlayerId player)
         // the only unit the LO hit was the target unit
         if (m_meteoricSlam.front() == m_meleeTarget)
         {
-            Dice dice;
-            Wounds slamWounds = {0, dice.rollD3()};
+            Wounds slamWounds = {0, Dice::rollD3()};
             m_meleeTarget->applyDamage(slamWounds);
             wounds += slamWounds;
         }

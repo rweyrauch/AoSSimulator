@@ -40,8 +40,6 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
         return Failed;
     }
 
-    Dice dice;
-
     Spell::Result result = Failed;
 
     int mortalWounds = 0;
@@ -51,7 +49,7 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/)
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound)
         {
-            mortalWounds = dice.rollSpecial(getDamage(castingRoll));
+            mortalWounds = Dice::rollSpecial(getDamage(castingRoll));
             target->applyDamage({0, mortalWounds});
             SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                 m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
@@ -100,8 +98,6 @@ Spell::Result AreaOfEffectSpell::cast(float x, float y, int round)
         return Failed;
     }
 
-    Dice dice;
-
     Spell::Result result = Failed;
 
     int mortalWounds = 0;
@@ -117,13 +113,13 @@ Spell::Result AreaOfEffectSpell::cast(float x, float y, int round)
                 bool unitAffected = true;
                 if (m_affectedRoll != 0)
                 {
-                    int roll = dice.rollD6();
+                    int roll = Dice::rollD6();
                     unitAffected = (roll >= m_affectedRoll);
                 }
 
                 if (unitAffected)
                 {
-                    mortalWounds = dice.rollSpecial(getDamage(castingRoll));
+                    mortalWounds = Dice::rollSpecial(getDamage(castingRoll));
                     target->applyDamage({0, mortalWounds});
                     secondaryEffect(target, round);
                     SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
@@ -193,8 +189,6 @@ Spell::Result HealSpell::cast(Unit *target, int round)
         return Failed;
     }
 
-    Dice dice;
-
     Spell::Result result = Failed;
 
     int wounds = 0;
@@ -204,7 +198,7 @@ Spell::Result HealSpell::cast(Unit *target, int round)
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound)
         {
-            wounds = dice.rollSpecial(getHealing(castingRoll));
+            wounds = Dice::rollSpecial(getHealing(castingRoll));
             target->heal(wounds);
             SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
                    m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, wounds, target->name().c_str());
@@ -257,7 +251,6 @@ Spell::Result BuffModifierSpell::cast(Unit *target, int round)
         return Failed;
     }
 
-    Dice dice;
     Spell::Result result = Failed;
 
     const int castingRoll = m_caster->rollCasting();
@@ -318,7 +311,6 @@ Spell::Result BuffRerollSpell::cast(Unit *target, int round)
         return Failed;
     }
 
-    Dice dice;
     Spell::Result result = Failed;
 
     const int castingRoll = m_caster->rollCasting();

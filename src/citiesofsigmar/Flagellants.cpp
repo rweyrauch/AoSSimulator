@@ -139,11 +139,9 @@ int Flagellants::toWoundModifier(const Weapon *weapon, const Unit *target) const
 
 void Flagellants::onFlee(int numFled)
 {
-    Dice dice;
-
     // Reckless Abandon
     Dice::RollResult rolls;
-    dice.rollD6(numFled, rolls);
+    Dice::rollD6(numFled, rolls);
     int numMortalWounds = rolls.rollsGE(4);
     if (numMortalWounds)
     {

@@ -138,10 +138,9 @@ Wounds HearthguardBerzerkers::weaponDamage(const Weapon *weapon, const Unit *tar
 Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds)
 {
     // Duty Unto Death
-    Dice dice;
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     int saveValue = 6;
 

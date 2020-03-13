@@ -133,8 +133,7 @@ Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Un
     {
         const int damageIndex = getDamageTableIndex();
 
-        Dice dice;
-        Wounds wounds = {0, dice.rollSpecial(g_damageTable[damageIndex].m_outrageousCarnage) };
+        Wounds wounds = {0, Dice::rollSpecial(g_damageTable[damageIndex].m_outrageousCarnage) };
 
         // These mortal wounds are applied to all enemy units within 8".
         // Skip the target unit as the weaponDamage function will handle it.

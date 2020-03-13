@@ -73,9 +73,8 @@ void SlannStarmaster::onStartHero(PlayerId player)
     // Foresight
     if (owningPlayer() == player)
     {
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(2, result);
+        Dice::rollD6(2, result);
         m_roster->addCommandPoints(result.rollsGE(4));
     }
 }

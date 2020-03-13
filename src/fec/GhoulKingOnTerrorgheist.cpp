@@ -121,8 +121,7 @@ void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
-            int woundsHealed = dice.rollD3();
+            int woundsHealed = Dice::rollD3();
             for (auto &m : m_models)
             {
                 m->applyHealing(woundsHealed);
@@ -161,12 +160,11 @@ void AbhorrantGhoulKingOnTerrorgheist::onSlain()
 {
     FleshEaterCourts::onSlain();
 
-    Dice dice;
     // Infested
     auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
     for (auto ip : units)
     {
-        Wounds wounds = {0, dice.rollD3()};
+        Wounds wounds = {0, Dice::rollD3()};
         ip->applyDamage(wounds);
     }
 }

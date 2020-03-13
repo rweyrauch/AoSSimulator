@@ -98,11 +98,10 @@ void BoingrotBounderz::onCharged()
         auto dist = distanceTo(m_meleeTarget);
         if (dist <= 1)
         {
-            Dice dice;
             int numEnemyModels = m_meleeTarget->remainingModels();
 
             Dice::RollResult rolls;
-            dice.rollD6(numEnemyModels, rolls);
+            Dice::rollD6(numEnemyModels, rolls);
             int numMortalWounds = rolls.rollsGE(4);
 
             m_meleeTarget->applyDamage({0, numMortalWounds});

@@ -74,7 +74,6 @@ void MawtribesBase::onCharged()
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 1.0f))
         {
-            Dice dice;
             Dice::RollResult result;
             int numDice = m_unmodifiedChargeRoll;
 
@@ -84,7 +83,7 @@ void MawtribesBase::onCharged()
             int threshold = 6;
             if ((remainingModels() >= 8) || hasKeyword(MONSTER)) threshold -= 2;
 
-            dice.rollD6(numDice, result);
+            Dice::rollD6(numDice, result);
 
             unit->applyDamage({0, result.rollsGE(threshold)});
         }
@@ -98,14 +97,13 @@ void MawtribesBase::onStartHero(PlayerId player)
     // Grasp of the Everwinter
     if ((player == owningPlayer()) && hasKeyword(BEASTCLAW_RAIDERS))
     {
-        Dice dice;
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
         for (auto unit : units)
         {
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll < m_battleRound)
             {
-                unit->applyDamage({0, dice.rollD3()});
+                unit->applyDamage({0, Dice::rollD3()});
             }
         }
     }
@@ -113,8 +111,7 @@ void MawtribesBase::onStartHero(PlayerId player)
 
 int MawtribesBase::rollChargeDistance() const
 {
-    Dice dice;
-    m_unmodifiedChargeRoll = dice.roll2D6();
+    m_unmodifiedChargeRoll = Dice::roll2D6();
     return m_unmodifiedChargeRoll + chargeModifier();
 }
 

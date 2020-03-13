@@ -14,11 +14,9 @@ const int g_numRolls = 10000;
 
 TEST(Dice, D6)
 {
-    Dice dice;
-
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = dice.rollD6();
+        auto r = Dice::rollD6();
         ASSERT_GE(r, 1);
         ASSERT_LE(r, 6);
     }
@@ -26,11 +24,9 @@ TEST(Dice, D6)
 
 TEST(Dice, D3)
 {
-    Dice dice;
-
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = dice.rollD3();
+        auto r = Dice::rollD3();
         ASSERT_GE(r, 1);
         ASSERT_LE(r, 3);
     }
@@ -38,11 +34,9 @@ TEST(Dice, D3)
 
 TEST(Dice, TwoD6)
 {
-    Dice dice;
-
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = dice.roll2D6();
+        auto r = Dice::roll2D6();
         ASSERT_GE(r, 2);
         ASSERT_LE(r, 12);
     }
@@ -50,11 +44,9 @@ TEST(Dice, TwoD6)
 
 TEST(Dice, ThreeD6)
 {
-    Dice dice;
-
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = dice.roll3D6();
+        auto r = Dice::roll3D6();
         ASSERT_GE(r, 3);
         ASSERT_LE(r, 18);
     }
@@ -66,13 +58,11 @@ TEST(Dice, MultipleD6)
     std::mt19937 gen;
     std::uniform_int_distribution<int> dist(2, 100);
 
-    Dice dice;
-
     for (auto i = 0; i < g_numRolls; i++)
     {
         auto numDice = (int)dist(gen);
 
-        auto rv = dice.rollD6(numDice);
+        auto rv = Dice::rollD6(numDice);
         ASSERT_EQ(rv.size(), numDice);
         for (auto r : rv)
         {
@@ -81,7 +71,7 @@ TEST(Dice, MultipleD6)
         }
 
         Dice::RollResult rr;
-        dice.rollD6(numDice, rr);
+        Dice::rollD6(numDice, rr);
         int total = 0;
         for (int v : rr.distribution)
         {
@@ -97,13 +87,11 @@ TEST(Dice, MultipleD6Rerolling)
     std::mt19937 gen;
     std::uniform_int_distribution<int> dist(2, 100);
 
-    Dice dice;
-
     for (auto i = 0; i < g_numRolls; i++)
     {
         auto numDice = (int)dist(gen);
 
-        auto rv = dice.rollD6(numDice, 1);
+        auto rv = Dice::rollD6(numDice, 1);
         ASSERT_EQ(rv.size(), numDice);
         for (auto r : rv)
         {
@@ -112,7 +100,7 @@ TEST(Dice, MultipleD6Rerolling)
         }
 
         Dice::RollResult rr;
-        dice.rollD6(numDice, 1, rr);
+        Dice::rollD6(numDice, 1, rr);
         int total = 0;
         for (int v : rr.distribution)
         {

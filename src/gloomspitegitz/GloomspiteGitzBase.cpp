@@ -105,8 +105,7 @@ void GloomspiteGitzBase::onStartHero(PlayerId player)
             }
             if (target)
             {
-                Dice dice;
-                int mortal = dice.rollD3();
+                int mortal = Dice::rollD3();
                 target->applyDamage({0, mortal});
 
                 SimLog(Verbosity::Narrative, "Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",

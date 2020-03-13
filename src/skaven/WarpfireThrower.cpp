@@ -72,25 +72,23 @@ int WarpfireThrower::generateMortalWounds(const Unit *unit)
 
     if (m_shootingTarget)
     {
-        Dice dice;
-
-        bool moreMoreWarpfire = ((dice.rollD6() >= 2) || remainingWounds() <= 1);
+        bool moreMoreWarpfire = ((Dice::rollD6() >= 2) || remainingWounds() <= 1);
 
         // Warpfire
         if (distanceTo(m_shootingTarget) <= m_warpfireThrower.range())
         {
             int numTargetModels = m_shootingTarget->remainingModels();
             Dice::RollResult rollResult;
-            dice.rollD6(numTargetModels, rollResult);
+            Dice::rollD6(numTargetModels, rollResult);
             mortalWounds += rollResult.rollsGE(4);
 
             // More-more Warpfire!
             if (moreMoreWarpfire)
             {
-                dice.rollD6(numTargetModels, rollResult);
+                Dice::rollD6(numTargetModels, rollResult);
                 mortalWounds += rollResult.rollsGE(4);
 
-                int roll = dice.rollD6();
+                int roll = Dice::rollD6();
                 if (roll <= 2)
                 {
                     // this model is slain

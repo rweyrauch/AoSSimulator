@@ -103,11 +103,10 @@ Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds)
     auto totalWounds = Skaventide::applyWoundSave(wounds);
 
     // Protection of the Horned Rat
-    Dice dice;
     Dice::RollResult resultNormal, resultMortal;
 
-    dice.rollD6(wounds.normal, resultNormal);
-    dice.rollD6(wounds.mortal, resultMortal);
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
 
     Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
     totalWounds -= negatedWounds;
@@ -130,9 +129,8 @@ void VerminlordWarpseer::onStartHero(PlayerId player)
 
     if ((player == owningPlayer()) && (remainingModels() >= 0) && m_roster)
     {
-        Dice dice;
-        auto roll = dice.rollD6();
-        if (roll == 6) m_roster->addCommandPoints(dice.rollD3());
+        auto roll = Dice::rollD6();
+        if (roll == 6) m_roster->addCommandPoints(Dice::rollD3());
         else if (roll >= 3) m_roster->addCommandPoints(1);
     }
 }
@@ -157,8 +155,7 @@ void VerminlordWarpseer::onStartShooting(PlayerId player)
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) <= 13.0f)
         {
-            Dice dice;
-            unit->applyDamage({0, dice.rollD6()});
+            unit->applyDamage({0, Dice::rollD6()});
             m_usedOrb = true;
         }
     }

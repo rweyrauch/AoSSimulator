@@ -183,9 +183,8 @@ Wounds KurnothHunters::onEndCombat(PlayerId player)
     if (!units.empty())
     {
         auto unit = units.front();
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(unit->remainingModels(), result);
+        Dice::rollD6(unit->remainingModels(), result);
         Wounds trampleWounds = {0, result.rollsGE(4)};
         unit->applyDamage(trampleWounds);
         wounds += trampleWounds;

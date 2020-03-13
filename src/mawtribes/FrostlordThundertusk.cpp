@@ -148,9 +148,8 @@ void FrostlordOnThundertusk::onStartShooting(PlayerId player)
     {
         if (m_meleeTarget)
         {
-            Dice dice;
             Dice::RollResult result;
-            dice.rollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
+            Dice::rollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
             int toWound = 6;
             if (m_meleeTarget->remainingModels() >= 20) toWound -= 2;
             else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;

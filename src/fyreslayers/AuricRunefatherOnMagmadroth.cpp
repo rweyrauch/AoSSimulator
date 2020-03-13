@@ -131,17 +131,16 @@ void AuricRunefatherOnMagmadroth::onStartShooting(PlayerId player)
             float dist = distanceTo(m_shootingTarget);
             if (dist <= m_fyrestream.range())
             {
-                Dice dice;
-                int rs = dice.rollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
+                int rs = Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
                 if (rs <= m_shootingTarget->remainingModels())
                 {
                     if (dist < 6.0f)
                     {
-                        m_shootingTarget->applyDamage({0, dice.rollD6()});
+                        m_shootingTarget->applyDamage({0, Dice::rollD6()});
                     }
                     else
                     {
-                        m_shootingTarget->applyDamage({0, dice.rollD3()});
+                        m_shootingTarget->applyDamage({0, Dice::rollD3()});
                     }
                 }
             }
@@ -158,10 +157,9 @@ Wounds AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player)
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
-        Dice dice;
-        if (dice.rollD6() < ip->remainingModels())
+        if (Dice::rollD6() < ip->remainingModels())
         {
-            Wounds tailWounds ={0, dice.rollD3()};
+            Wounds tailWounds ={0, Dice::rollD3()};
             ip->applyDamage(tailWounds);
             wounds += tailWounds;
         }
@@ -174,8 +172,7 @@ Wounds AuricRunefatherOnMagmadroth::computeReturnedDamage(const Weapon *weapon, 
     if (!weapon->isMissile())
     {
         // Volcanic Blood
-        Dice dice;
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
             return {0, 1};
         }

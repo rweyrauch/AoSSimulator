@@ -87,9 +87,8 @@ int Doomflayer::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
         // Decide to overcharge
         if (moreMore())
         {
-            Dice dice;
-            auto roll1 = dice.rollD6();
-            auto roll2 = dice.rollD6();
+            auto roll1 = Dice::rollD6();
+            auto roll2 = Dice::rollD6();
             if ((roll1 == roll2) || (roll1+roll2 == 7))
             {
                 m_moreMoreFailed = true;

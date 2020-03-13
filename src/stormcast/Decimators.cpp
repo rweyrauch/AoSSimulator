@@ -78,15 +78,14 @@ Wounds Decimators::weaponDamage(const Weapon *weapon, const Unit *target, int hi
     if (weapon->name() == m_starsoulMace.name())
     {
         int mortalWounds = 0;
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 6)
         {
-            mortalWounds = dice.rollD3() + 1;
+            mortalWounds = Dice::rollD3() + 1;
         }
         else if (roll >= 2)
         {
-            mortalWounds = dice.rollD3();
+            mortalWounds = Dice::rollD3();
         }
         return {0, mortalWounds};
     }

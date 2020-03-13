@@ -41,7 +41,6 @@ Weapon::Weapon(const Weapon &w) :
 
 Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
 {
-    Dice dice;
     Dice::RollResult rollResult;
 
     const int totalAttacks = numAttacks(extraAttacks);
@@ -51,24 +50,24 @@ Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
     int numHits = 0;
     if (rerolls == RerollOnes)
     {
-        dice.rollD6(totalAttacks, 1, rollResult);
+        Dice::rollD6(totalAttacks, 1, rollResult);
         numHits = rollResult.rollsGE(toHit);
     }
     else if (rerolls == RerollOnesAndTwos)
     {
-        dice.rollD6(totalAttacks, 2, rollResult);
+        Dice::rollD6(totalAttacks, 2, rollResult);
         numHits = rollResult.rollsGE(toHit);
     }
     else if (rerolls == RerollFailed)
     {
-        dice.rollD6(totalAttacks, rollResult);
+        Dice::rollD6(totalAttacks, rollResult);
         numHits = rollResult.rollsGE(toHit);
         int numFails = totalAttacks - numHits;
         if (numFails > 0)
         {
             rollResult.clearLT(toHit);
             Dice::RollResult rerollResult;
-            dice.rollD6(numFails, rerollResult);
+            Dice::rollD6(numFails, rerollResult);
             auto numRerolledHits = rerollResult.rollsGE(toHit);
             numHits += numRerolledHits;
             // merge roll results from rerolls into a single result.
@@ -77,7 +76,7 @@ Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
     }
     else
     {
-        dice.rollD6(totalAttacks, rollResult);
+        Dice::rollD6(totalAttacks, rollResult);
         numHits = rollResult.rollsGE(toHit);
     }
     return {numHits, rollResult};
@@ -85,7 +84,6 @@ Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const
 
 WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const
 {
-    Dice dice;
     Dice::RollResult rollResult;
 
     int totalHits = numHits;
@@ -103,24 +101,24 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
 
     if (rerolls == RerollOnes)
     {
-        dice.rollD6(totalHits, 1, rollResult);
+        Dice::rollD6(totalHits, 1, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
     }
     else if (rerolls == RerollOnesAndTwos)
     {
-        dice.rollD6(totalHits, 2, rollResult);
+        Dice::rollD6(totalHits, 2, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
     }
     else if (rerolls == RerollFailed)
     {
-        dice.rollD6(totalHits, rollResult);
+        Dice::rollD6(totalHits, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
         int numFails = totalHits - numWoundingHits;
         if (numFails > 0)
         {
             rollResult.clearLT(toWound);
             Dice::RollResult rerollResult;
-            dice.rollD6(numFails, rerollResult);
+            Dice::rollD6(numFails, rerollResult);
             auto numRerolledHits = rerollResult.rollsGE(toWound);
             numWoundingHits += numRerolledHits;
             // merge roll results from rerolls into a single result.
@@ -129,7 +127,7 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
     }
     else
     {
-        dice.rollD6(totalHits, rollResult);
+        Dice::rollD6(totalHits, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
     }
 
@@ -138,20 +136,17 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
 
 int Weapon::numAttacks(int extraAttacks) const
 {
-    Dice dice;
-    return dice.rollSpecial(m_attacks) + extraAttacks;
+    return Dice::rollSpecial(m_attacks) + extraAttacks;
 }
 
 int Weapon::damage() const
 {
-    Dice dice;
-    return dice.rollSpecial(m_damage);
+    return Dice::rollSpecial(m_damage);
 }
 
 int Weapon::numTotalHits() const
 {
-    Dice dice;
-    return dice.rollSpecial(m_hitsPerAttack);
+    return Dice::rollSpecial(m_hitsPerAttack);
 }
 
 float Weapon::strength() const

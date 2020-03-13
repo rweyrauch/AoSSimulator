@@ -127,11 +127,10 @@ void LordArcanumOnTauralon::onCharged()
     StormcastEternal::onCharged();
 
     // Meteoric Strike
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 2)
         {
             ip->applyDamage({0, 1});

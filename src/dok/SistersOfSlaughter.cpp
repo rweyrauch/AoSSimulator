@@ -113,9 +113,8 @@ int SistersOfSlaughter::rollBattleshock() const
 {
     if (m_standardBearers)
     {
-        Dice dice;
-        int r1 = dice.rollD6();
-        int r2 = dice.rollD6();
+        int r1 = Dice::rollD6();
+        int r2 = Dice::rollD6();
         return std::min(r1, r2);
     }
     return DaughterOfKhaine::rollBattleshock();

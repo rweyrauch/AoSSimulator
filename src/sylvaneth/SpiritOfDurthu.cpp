@@ -134,8 +134,7 @@ Wounds SpiritOfDurthu::weaponDamage(const Weapon *weapon, const Unit *target, in
     // Impale
     if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name()))
     {
-        Dice dice;
-        return {0, dice.rollD6()};
+        return {0, Dice::rollD6()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
@@ -147,8 +146,7 @@ void SpiritOfDurthu::onStartCombat(PlayerId id)
     // Groundshaking Stomp
     if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0f)
     {
-        Dice dice;
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
             // TODO: Make m_meleeTarget fight last
         }

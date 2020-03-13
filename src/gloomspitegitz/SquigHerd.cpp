@@ -124,11 +124,9 @@ bool SquiqHerd::hasHerder() const
 
 void SquiqHerd::onFlee(int numFled)
 {
-    Dice dice;
-
     // Squigs Go Wild
     Dice::RollResult rolls;
-    dice.rollD6(numFled, rolls);
+    Dice::rollD6(numFled, rolls);
     int numMortalWounds = rolls.rollsGE(4);
     if (numMortalWounds)
     {

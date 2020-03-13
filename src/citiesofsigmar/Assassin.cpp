@@ -83,8 +83,7 @@ Wounds Assassin::weaponDamage(const Weapon *weapon, const Unit *target, int hitR
     // Deathshead Poison
     if ((woundRoll == 6) && (weapon->name() == m_blades.name()))
     {
-        Dice dice;
-        return { 0,  dice.rollD3() };
+        return { 0,  Dice::rollD3() };
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

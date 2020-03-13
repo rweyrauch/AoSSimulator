@@ -25,9 +25,8 @@ Metamorphosis::Metamorphosis(Unit *caster) :
 
 int Metamorphosis::getDamage(int castingRoll) const
 {
-   Dice dice;
    Dice::RollResult result;
-   dice.rollD6(castingRoll, result);
+   Dice::rollD6(castingRoll, result);
    return result.rollsGE(4);
 }
 
@@ -45,9 +44,8 @@ public:
 protected:
     int getDamage(int castingRoll) const override
     {
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(castingRoll, result);
+        Dice::rollD6(castingRoll, result);
         return result.rollsGE(6);
     }
 };

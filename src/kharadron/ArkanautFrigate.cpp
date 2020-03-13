@@ -207,13 +207,12 @@ void ArkanautFrigate::onStartCombat(PlayerId player)
     auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
     if (nearestUnit && (distanceTo(nearestUnit) <= 1.0f))
     {
-        Dice dice;
-        auto roll = dice.rollD6();
+        auto roll = Dice::rollD6();
         roll += g_damageTable[getDamageTableIndex()].m_bombRacks;
 
         if (roll >= 4)
         {
-            int wounds = dice.rollD3();
+            int wounds = Dice::rollD3();
             nearestUnit->applyDamage({0, wounds});
         }
     }

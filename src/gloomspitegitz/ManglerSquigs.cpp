@@ -131,17 +131,15 @@ void ManglerSquigs::Init()
 
 void ManglerSquigs::onSlain()
 {
-    Dice dice;
-
     // Watch Out!
     // get all units within 6" (friend and foe)
     auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 4)
         {
-            int mortalWounds = dice.rollD3();
+            int mortalWounds = Dice::rollD3();
             ip->applyDamage({0, mortalWounds});
         }
     }

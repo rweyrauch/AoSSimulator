@@ -15,18 +15,19 @@
 class Dice
 {
 public:
-    Dice();
+    Dice() = delete;
+    ~Dice() = delete;
 
-    int rollD6();
-    int roll2D6();
-    int roll3D6();
-    int roll4D6();
-    int rollD3();
-    int rollD4();
-    int rollSpecial(int number);
+    static int rollD6();
+    static int roll2D6();
+    static int roll3D6();
+    static int roll4D6();
+    static int rollD3();
+    static int rollD4();
+    static int rollSpecial(int number);
 
-    std::vector<int> rollD6(int number);
-    std::vector<int> rollD6(int number, int rerolling);
+    static std::vector<int> rollD6(int number);
+    static std::vector<int> rollD6(int number, int rerolling);
 
     struct RollResult
     {
@@ -72,10 +73,11 @@ public:
         }
     };
 
-    void rollD6(int number, RollResult& result);
-    void rollD6(int number, int rerolling, RollResult& result);
+    static void rollD6(int number, RollResult& result);
+    static void rollD6(int number, int rerolling, RollResult& result);
 
 private:
+
     // Only create/initialize the random number generator once.
     static std::random_device s_rd;
     static std::mt19937 s_gen;

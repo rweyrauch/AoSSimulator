@@ -89,8 +89,7 @@ Wounds WarlockBombardier::onEndShooting(PlayerId player)
 
     if (m_moreMoreFailed)
     {
-        Dice dice;
-        Wounds overloadWounds = {0, dice.rollD6()};
+        Wounds overloadWounds = {0, Dice::rollD6()};
         applyDamage(overloadWounds);
         wounds += overloadWounds;
         m_moreMoreFailed = false;

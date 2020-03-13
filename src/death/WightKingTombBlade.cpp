@@ -80,8 +80,7 @@ Wounds WightKingWithBalefulTombBlade::weaponDamage(const Weapon *weapon, const U
     // Beheading Strike
     if ((hitRoll >= 6) && (weapon->name() == m_balefulTombBlade.name()))
     {
-        Dice dice;
-        return {dice.rollD3(), 0};
+        return {Dice::rollD3(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

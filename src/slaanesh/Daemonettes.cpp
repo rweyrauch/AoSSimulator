@@ -106,8 +106,7 @@ void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded
         // Icon Bearer
         if (roll == 1)
         {
-            Dice dice;
-            numAdded = dice.rollD6();
+            numAdded = Dice::rollD6();
         }
     }
 }

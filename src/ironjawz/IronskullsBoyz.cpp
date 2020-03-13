@@ -83,9 +83,8 @@ void IronskullsBoyz::Init()
 Wounds IronskullsBoyz::applyWoundSave(const Wounds &wounds)
 {
     // Dead 'Ard
-    Dice dice;
     Dice::RollResult result;
-    dice.rollD6(wounds.normal, result);
+    Dice::rollD6(wounds.normal, result);
     Wounds modWounds = wounds;
     modWounds.normal -= result.numUnmodified6s();
     return modWounds;

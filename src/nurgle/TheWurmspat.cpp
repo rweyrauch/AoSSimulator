@@ -73,9 +73,8 @@ int TheWurmspat::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
     // Blighted Weapons
     if (unmodifiedHitRoll == 6)
     {
-        Dice dice;
         // each 6 inflicts D6 hits
-        return dice.rollD6();
+        return Dice::rollD6();
     }
 
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);

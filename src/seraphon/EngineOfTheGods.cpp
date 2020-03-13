@@ -121,13 +121,12 @@ void EngineOfTheGods::onCharged()
     SeraphonBase::onCharged();
 
     // Unstoppable Stampede
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto unit : units)
     {
-        if (dice.rollD6() >= 3)
+        if (Dice::rollD6() >= 3)
         {
-            unit->applyDamage({0, dice.rollD3()});
+            unit->applyDamage({0, Dice::rollD3()});
         }
     }
 }
@@ -141,15 +140,14 @@ void EngineOfTheGods::onStartShooting(PlayerId player)
     // Cosmic Engine
     auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SLANN, 12.0f);
 
-    Dice dice;
-    int roll = dice.roll2D6();
+    int roll = Dice::roll2D6();
     if (unit)
     {
-        roll = dice.roll3D6();
+        roll = Dice::roll3D6();
     }
     if (roll <= 3)
     {
-        applyDamage({0, dice.rollD3()});
+        applyDamage({0, Dice::rollD3()});
     }
     else if (roll <= 8)
     {
@@ -158,10 +156,10 @@ void EngineOfTheGods::onStartShooting(PlayerId player)
         {
             if (u->hasKeyword(SERAPHON))
             {
-                u->heal(dice.rollD3());
+                u->heal(Dice::rollD3());
             }
         }
-        heal(dice.rollD3());
+        heal(Dice::rollD3());
     }
     else if (roll <= 12)
     {
@@ -171,14 +169,14 @@ void EngineOfTheGods::onStartShooting(PlayerId player)
             units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 24.0f);
             if (!units.empty())
             {
-                units.front()->applyDamage({0, dice.rollD3()});
+                units.front()->applyDamage({0, Dice::rollD3()});
             }
         }
         else
         {
             for (auto u : units)
             {
-                u->applyDamage({0, dice.rollD3()});
+                u->applyDamage({0, Dice::rollD3()});
             }
         }
     }

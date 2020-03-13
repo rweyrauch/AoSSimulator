@@ -231,11 +231,9 @@ Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds)
 {
     if (m_hasShields)
     {
-        Dice dice;
-
         // Chaos Runeshield
         Dice::RollResult mortalSaves;
-        dice.rollD6(wounds.mortal, mortalSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.mortal -= mortalSaves.rollsGE(5);

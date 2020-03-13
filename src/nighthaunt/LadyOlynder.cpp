@@ -93,11 +93,10 @@ void LadyOlynder::onStartShooting(PlayerId player)
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0f);
     for (auto unit : units)
     {
-        Dice dice;
-        auto roll = dice.roll2D6();
+        auto roll = Dice::roll2D6();
         if (roll > unit->bravery())
         {
-            unit->applyDamage({0, dice.rollD3()});
+            unit->applyDamage({0, Dice::rollD3()});
         }
     }
 }
@@ -110,30 +109,28 @@ void LadyOlynder::onStartHero(PlayerId player)
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0f);
     if (!units.empty())
     {
-        Dice dice;
-        const auto roll = dice.rollD6();
+        const auto roll = Dice::rollD6();
         if (roll >=2)
         {
             const auto numSlain = units[0]->applyDamage({0, roll});
             if (numSlain)
             {
-                heal(dice.rollD3());
+                heal(Dice::rollD3());
             }
         }
     }
 
     if (!m_graveSandsOfTimeUsed)
     {
-        Dice dice;
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0f);
         if (unit)
         {
-            unit->applyDamage({0, dice.rollD6()});
+            unit->applyDamage({0, Dice::rollD6()});
             m_graveSandsOfTimeUsed = true;
         }
         else if (remainingWounds() < wounds())
         {
-            heal(dice.rollD6());
+            heal(Dice::rollD6());
             m_graveSandsOfTimeUsed = true;
         }
     }

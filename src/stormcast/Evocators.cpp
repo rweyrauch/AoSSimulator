@@ -99,13 +99,12 @@ int Evocators::generateMortalWounds(const Unit *unit)
     auto mortalWounds = StormcastEternal::generateMortalWounds(unit);
 
     // Celestial Lightning Arc
-    Dice dice;
-    int roll = dice.rollD6();
+    int roll = Dice::rollD6();
     if (roll >= 4)
     {
         mortalWounds++;
     }
-    roll = dice.rollD6();
+    roll = Dice::rollD6();
     if (roll >= 4)
     {
         mortalWounds++;

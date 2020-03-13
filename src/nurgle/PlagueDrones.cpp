@@ -119,12 +119,10 @@ void PlagueDrones::Init()
 
 Wounds PlagueDrones::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Disgustingly Resilient
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(5);
@@ -143,8 +141,7 @@ void PlagueDrones::computeBattleshockEffect(int roll, int &numFled, int &numAdde
         // Icon Bearer
         if (roll == 1)
         {
-            Dice dice;
-            numAdded = dice.rollD6();
+            numAdded = Dice::rollD6();
         }
     }
 }

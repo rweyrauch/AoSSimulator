@@ -152,7 +152,6 @@ int Unit::applyBattleshock()
     if (!battleshockRequired()) return 0;
     if (m_modelsSlain <= 0) return 0;
 
-    Dice dice;
     auto roll = rollBattleshock();
     int numFled, numRestored;
     computeBattleshockEffect(roll, numFled, numRestored);
@@ -515,7 +514,6 @@ void Unit::movement(PlayerId player)
 
     if (closestTarget)
     {
-        Dice dice;
         const auto globalMoveMod = s_globalMoveMod(this, accumulate);
         auto distance = distanceTo(closestTarget);
         float totalMoveDistance = 0.0f;
@@ -602,8 +600,7 @@ void Unit::movement(PlayerId player)
 
 int Unit::rollBattleshock() const
 {
-    Dice dice;
-    return dice.rollD6();
+    return Dice::rollD6();
 }
 
 Wounds Unit::shoot(int& numSlain)
@@ -685,7 +682,6 @@ void Unit::charge(PlayerId player)
 
     if (closestTarget)
     {
-        Dice dice;
         auto distance = distanceTo(closestTarget);
 
         if ((distance <= MAX_CHARGE_DISTANCE) && (distance >= MIN_CHARGE_DISTANCE))
@@ -741,15 +737,13 @@ void Unit::battleshock(PlayerId player)
 
 int Unit::rollChargeDistance() const
 {
-    Dice dice;
-    m_unmodifiedChargeRoll = dice.roll2D6();
+    m_unmodifiedChargeRoll = Dice::roll2D6();
     return m_unmodifiedChargeRoll + chargeModifier() + s_globalChargeMod(this, accumulate);
 }
 
 int Unit::rollRunDistance() const
 {
-    Dice dice;
-    return dice.rollD6() + runModifier() + s_globalRunMod(this, accumulate);
+    return Dice::rollD6() + runModifier() + s_globalRunMod(this, accumulate);
 }
 
 int Unit::slay(int numModels)
@@ -798,28 +792,26 @@ int Unit::heal(int numWounds)
 
 bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* target, int& saveRoll)
 {
-    Dice dice;
-
     const auto globalSaveMod = s_globalSaveMod(weapon, target, accumulate);
     auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target) + globalSaveMod;
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
 
-    saveRoll = dice.rollD6();
+    saveRoll = Dice::rollD6();
     if (saveRoll < toSave)
     {
         auto reroll = toSaveRerolls(weapon);
         if (reroll == RerollFailed)
         {
-            saveRoll = dice.rollD6();
+            saveRoll = Dice::rollD6();
         }
         else if (reroll == RerollOnes && woundRoll == 1)
         {
-            saveRoll = dice.rollD6();
+            saveRoll = Dice::rollD6();
         }
         else if (reroll == RerollOnesAndTwos && (woundRoll == 1 || woundRoll == 2))
         {
-            saveRoll = dice.rollD6();
+            saveRoll = Dice::rollD6();
         }
     }
 
@@ -853,7 +845,6 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
         return;
     }
 
-    Dice dice;
     const auto globalToHitModifier = s_globalToHitMod(weapon, target, accumulate);
     const auto globalToWoundModifier = s_globalToWoundMod(weapon, target, accumulate);
 
@@ -868,12 +859,12 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
         m_currentRecord.m_attacksMade++;
 
         // roll to hit
-        auto hitRoll = dice.rollD6();
+        auto hitRoll = Dice::rollD6();
         auto modifiedHitRoll = hitRoll + totalHitModifiers;
         // TODO: clarify re-rolling - after or before modifiers?
         if (modifiedHitRoll < weapon->toHit())
         {
-            hitRoll = rerolling(hitRoll, rerolls, dice);
+            hitRoll = rerolling(hitRoll, rerolls);
             modifiedHitRoll = hitRoll + totalHitModifiers;
         }
 
@@ -884,11 +875,11 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
             for (auto h = 0; h < numHits; h++)
             {
                 // roll to wound
-                auto woundRoll = dice.rollD6();
+                auto woundRoll = Dice::rollD6();
                 auto modifiedWoundRoll = woundRoll + totalWoundModifiers;
                 if (modifiedWoundRoll < weapon->toWound())
                 {
-                    woundRoll = rerolling(woundRoll, woundRerolls, dice);
+                    woundRoll = rerolling(woundRoll, woundRerolls);
                     modifiedWoundRoll = woundRoll + totalWoundModifiers;
                 }
 
@@ -932,20 +923,20 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
     }
 }
 
-int Unit::rerolling(int initialRoll, Rerolls reroll, Dice& dice) const
+int Unit::rerolling(int initialRoll, Rerolls reroll) const
 {
     int roll = initialRoll;
     if (reroll == RerollFailed)
     {
-        roll = dice.rollD6();
+        roll = Dice::rollD6();
     }
     else if ((reroll == RerollOnes) && (initialRoll == 1))
     {
-        roll = dice.rollD6();
+        roll = Dice::rollD6();
     }
     else if ((reroll == RerollOnesAndTwos) && ((initialRoll == 1) || (initialRoll == 2)))
     {
-        roll = dice.rollD6();
+        roll = Dice::rollD6();
     }
     return roll;
 }
@@ -970,8 +961,7 @@ bool Unit::unbind(const Unit* caster, int castRoll)
     bool unbound = false;
     if (m_spellsUnbound < m_totalUnbinds)
     {
-        Dice dice;
-        int unbindRoll = dice.roll2D6() + unbindingModifier();
+        int unbindRoll = Dice::roll2D6() + unbindingModifier();
         if (unbindRoll > castRoll)
         {
             SimLog(Verbosity::Narrative, "%s unbound a spell cast by %s (%d) with a unbind roll of %d.\n",
@@ -1474,8 +1464,7 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor)
 
 int Unit::rollCasting() const
 {
-    Dice dice;
-    return dice.roll2D6() + castingModifier();
+    return Dice::roll2D6() + castingModifier();
 }
 
 PlayerId Unit::owningPlayer() const

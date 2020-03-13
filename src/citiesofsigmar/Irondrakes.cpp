@@ -150,11 +150,10 @@ void Irondrakes::onStartShooting(PlayerId player)
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6);
         if (!units.empty())
         {
-            Dice dice;
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll >= 2)
             {
-                units.front()->applyDamage({0, dice.rollD3()});
+                units.front()->applyDamage({0, Dice::rollD3()});
             }
             m_hasCinderblastBomb = false;
         }
@@ -166,8 +165,7 @@ Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hi
     // Grudgehammer Torpedo
     if (weapon->name() == m_grudgehammerTorpedo.name() && target->hasKeyword(MONSTER))
     {
-        Dice dice;
-        return {dice.rollD6(), 0};
+        return {Dice::rollD6(), 0};
     }
     return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

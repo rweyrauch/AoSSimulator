@@ -86,8 +86,7 @@ void AbhorrantGhoulKing::onStartHero(PlayerId player)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
-            int woundsHealed = dice.rollD3();
+            int woundsHealed = Dice::rollD3();
             for (auto &m : m_models)
             {
                 m->applyHealing(woundsHealed);

@@ -151,8 +151,7 @@ Wounds VanguardPalladors::onEndCombat(PlayerId player)
     // Lunar Blade
     if (distanceTo(m_meleeTarget) <= 1.0f)
     {
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 2)
         {
             Wounds bladeWounds = {0, 1};

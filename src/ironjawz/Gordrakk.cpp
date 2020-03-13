@@ -128,9 +128,8 @@ void GordrakkTheFistOfGork::onCharged()
     if (!units.empty())
     {
         auto unit = units.front();
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
+        Dice::rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
         Wounds bulkWounds = {0, result.rollsGE(5)};
         unit->applyDamage(bulkWounds);
     }
@@ -142,16 +141,14 @@ Wounds GordrakkTheFistOfGork::weaponDamage(const Weapon *weapon, const Unit *tar
     {
         if (target->hasKeyword(WIZARD))
         {
-            Dice dice;
-            return {0, dice.rollD3()};
+            return {0, Dice::rollD3()};
         }
     }
     else if ((woundRoll >= 4) && (weapon->name() == m_smasha.name()))
     {
         if (target->hasKeyword(HERO) && !target->hasKeyword(WIZARD))
         {
-            Dice dice;
-            return {0, dice.rollD3()};
+            return {0, Dice::rollD3()};
         }
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);

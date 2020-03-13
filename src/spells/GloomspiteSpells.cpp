@@ -139,8 +139,6 @@ Spell::Result TheGreatGreenSpite::cast(Unit *target, int round)
         return Failed;
     }
 
-    Dice dice;
-
     Spell::Result result = Failed;
 
     int damage = 1;
@@ -156,7 +154,7 @@ Spell::Result TheGreatGreenSpite::cast(Unit *target, int round)
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound)
         {
-            mortalWounds = dice.rollSpecial(damage);
+            mortalWounds = Dice::rollSpecial(damage);
             target->applyDamage({0, mortalWounds});
             SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                    m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());

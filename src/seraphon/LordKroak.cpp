@@ -93,11 +93,10 @@ Wounds LordKroak::applyWoundSave(const Wounds &wounds)
     auto totalWounds = SeraphonBase::applyWoundSave(wounds);
 
     // Dead for Innumerable Ages
-    Dice dice;
     Dice::RollResult resultNormal, resultMortal;
 
-    dice.rollD6(wounds.normal, resultNormal);
-    dice.rollD6(wounds.mortal, resultMortal);
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
 
     Wounds negatedWounds = {resultNormal.rollsGE(4), resultNormal.rollsGE(4)};
     totalWounds -= negatedWounds;
@@ -111,9 +110,8 @@ void LordKroak::onStartHero(PlayerId player)
     // Impeccable Foresight
     if (owningPlayer() == player)
     {
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(3, result);
+        Dice::rollD6(3, result);
         m_roster->addCommandPoints(result.rollsGE(4));
     }
 }

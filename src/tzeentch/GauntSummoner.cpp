@@ -83,8 +83,7 @@ Wounds GauntSummonerOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *t
     // Warptongue Blade
     if ((woundRoll == 6) && (weapon->name() == m_blade.name()))
     {
-        Dice dice;
-        return { 0, dice.rollD6() };
+        return { 0, Dice::rollD6() };
     }
     return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

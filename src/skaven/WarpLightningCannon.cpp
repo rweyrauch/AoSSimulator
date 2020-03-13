@@ -73,16 +73,14 @@ int WarpLightningCannon::generateMortalWounds(const Unit *unit)
 
     if (m_shootingTarget)
     {
-        Dice dice;
-
-        bool moreMoreWarpLightning = ((dice.rollD6() >= 2) || remainingWounds() <= 2);
+        bool moreMoreWarpLightning = ((Dice::rollD6() >= 2) || remainingWounds() <= 2);
 
         // Warp Lightning Blast
         if (distanceTo(m_shootingTarget) <= m_warpLightningBlast.range())
         {
-            int power = dice.rollD6();
+            int power = Dice::rollD6();
             Dice::RollResult rollResult;
-            dice.rollD6(6, rollResult);
+            Dice::rollD6(6, rollResult);
             mortalWounds += rollResult.rollsGE(power);
 
             // More-more Warp Lightning!
@@ -102,14 +100,14 @@ int WarpLightningCannon::generateMortalWounds(const Unit *unit)
                 if (foundEngineer)
                 {
                     Dice::RollResult rollResultMore;
-                    dice.rollD6(6, rollResultMore);
+                    Dice::rollD6(6, rollResultMore);
                     mortalWounds += rollResultMore.rollsGE(power);
 
                     int mortalWoundsSelf = 0;
                     int numUnmodifiedOnes = rollResult.numUnmodified1s() + rollResultMore.numUnmodified1s();
                     for (auto i = 0; i < numUnmodifiedOnes; i++)
                     {
-                        mortalWoundsSelf += dice.rollD3();
+                        mortalWoundsSelf += Dice::rollD3();
                     }
                     applyDamage({0, mortalWoundsSelf});
                 }

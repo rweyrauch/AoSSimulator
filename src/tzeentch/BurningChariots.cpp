@@ -92,11 +92,9 @@ Wounds BurningChariotsOfTzeentch::computeReturnedDamage(const Weapon *weapon, in
 {
     auto wounds = TzeentchBase::computeReturnedDamage(weapon, saveRoll);
 
-    Dice dice;
-
     // Touched by Fire
     Dice::RollResult mortalSaves;
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
     wounds.mortal += mortalSaves.rollsGE(5);
 
     return wounds;
@@ -117,8 +115,7 @@ Wounds BurningChariotsOfTzeentch::weaponDamage(const Weapon *weapon, const Unit 
 {
     // Sky-sharks
     if (target->hasKeyword(MONSTER)) {
-        Dice dice;
-        return { dice.rollD3(), 0};
+        return { Dice::rollD3(), 0};
     }
     return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

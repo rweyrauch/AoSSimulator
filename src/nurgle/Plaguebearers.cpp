@@ -92,12 +92,10 @@ void Plaguebearers::Init()
 
 Wounds Plaguebearers::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Disgustingly Resilient
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(5);

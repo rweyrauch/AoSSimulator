@@ -125,8 +125,7 @@ Wounds Ghorgon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRo
     // Ravenous Bloodgreed
     if (hitRoll == 6)
     {
-        Dice dice;
-        return { weapon->damage(), dice.rollD3() };
+        return { weapon->damage(), Dice::rollD3() };
     }
 
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
@@ -142,8 +141,7 @@ void Ghorgon::onStartCombat(PlayerId player)
     // Swallowed Whole
     if (m_meleeTarget)
     {
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= m_meleeTarget->wounds())
         {
             m_meleeTarget->slay(1);

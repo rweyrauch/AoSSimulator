@@ -171,11 +171,10 @@ void PlagueMonks::onStartHero(PlayerId player)
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(player));
         if (distanceTo(unit) <= 13.0f && !unit->hasKeyword(CLANS_PESTILENS))
         {
-            Dice dice;
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll == 6)
             {
-                unit->applyDamage({0, dice.rollD3()});
+                unit->applyDamage({0, Dice::rollD3()});
             }
             else if (roll >= 4)
             {

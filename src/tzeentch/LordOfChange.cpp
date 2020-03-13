@@ -162,9 +162,8 @@ int LordOfChange::getDamageTableIndex() const
 int LordOfChange::rollCasting() const
 {
     // Mastery of Magic
-    Dice dice;
-    auto r0 = dice.rollD6();
-    auto r1 = dice.rollD6();
+    auto r0 = Dice::rollD6();
+    auto r1 = Dice::rollD6();
     return std::max(r0, r1) * 2 + castingModifier();
 }
 

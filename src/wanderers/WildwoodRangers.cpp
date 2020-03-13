@@ -94,8 +94,7 @@ Wounds WildwoodRangers::weaponDamage(const Weapon *weapon, const Unit *target, i
     // Guardians of the Kindreds
     if (target->hasKeyword(MONSTER))
     {
-        Dice dice;
-        return {dice.rollD3(), 0};
+        return {Dice::rollD3(), 0};
     }
     return Wanderer::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

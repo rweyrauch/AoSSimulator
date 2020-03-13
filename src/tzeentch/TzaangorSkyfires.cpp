@@ -130,8 +130,7 @@ Wounds TzaangorSkyfires::weaponDamage(const Weapon *weapon, const Unit *target, 
     // Judgement from Afar
     if ((hitRoll == 6) && (weapon->name() == m_arrowOfFate.name()))
     {
-        Dice dice;
-        return { 0, dice.rollD3() };
+        return { 0, Dice::rollD3() };
     }
     return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

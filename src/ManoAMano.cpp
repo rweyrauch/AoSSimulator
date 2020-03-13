@@ -70,8 +70,6 @@ void ManoAMano::combatants(Unit* red, Unit* blue)
 
 void ManoAMano::start()
 {
-    Dice dice;
-
     redUnit()->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
     blueUnit()->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
 
@@ -79,8 +77,8 @@ void ManoAMano::start()
     int blueRoll = 0;
     while (redRoll == blueRoll)
     {
-        redRoll = dice.rollD6();
-        blueRoll = dice.rollD6();
+        redRoll = Dice::rollD6();
+        blueRoll = Dice::rollD6();
     }
     PlayerId firstUnit = PlayerId::None;
     if (redRoll > blueRoll)
@@ -245,10 +243,9 @@ bool ManoAMano::done()
 
 void ManoAMano::runInitiativePhase()
 {
-    Dice dice;
     // Roll D6 for each player, highest goes first.
-    auto p1 = dice.rollD6();
-    auto p2 = dice.rollD6();
+    auto p1 = Dice::rollD6();
+    auto p2 = Dice::rollD6();
     if (p1 == p2)
     {
         // Ties go to the player that went first in the previous round.

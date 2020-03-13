@@ -82,18 +82,17 @@ void BladebringerOnExaltedChariot::onCharged()
     Unit::onCharged();
 
     // Excess of Blades
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 5)
         {
-            ip->applyDamage({0, dice.rollD6()});
+            ip->applyDamage({0, Dice::rollD6()});
         }
-        else if (dice.rollD6() >= 2)
+        else if (Dice::rollD6() >= 2)
         {
-            ip->applyDamage({0, dice.rollD3()});
+            ip->applyDamage({0, Dice::rollD3()});
         }
     }
 }

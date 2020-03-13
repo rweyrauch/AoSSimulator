@@ -107,11 +107,10 @@ Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds)
     auto totalWounds = Skaventide::applyWoundSave(wounds);
 
     // Protection of the Horned Rat
-    Dice dice;
     Dice::RollResult resultNormal, resultMortal;
 
-    dice.rollD6(wounds.normal, resultNormal);
-    dice.rollD6(wounds.mortal, resultMortal);
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
 
     Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
     totalWounds -= negatedWounds;
@@ -157,8 +156,7 @@ int GreySeerOnScreamingBell::extraAttacks(const Model *attackingModel, const Wea
     // Pushed into Battle
     if ((weapon->name() == m_spikes.name()) && m_charged)
     {
-        Dice dice;
-        extra += dice.rollD6();
+        extra += Dice::rollD6();
     }
     return extra;
 }
@@ -182,21 +180,20 @@ void GreySeerOnScreamingBell::onStartHero(PlayerId player)
     // Peal of Doom
     if (owningPlayer() == player)
     {
-        Dice dice;
-        int roll = dice.roll2D6();
+        int roll = Dice::roll2D6();
         if (roll == 2)
         {
             // Magical Backlash
             auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
             for (auto unit : units)
             {
-                unit->applyDamage({0, dice.rollD3()});
+                unit->applyDamage({0, Dice::rollD3()});
             }
         }
         else if (roll <= 4)
         {
             // Unholy Clamour
-            buffModifier(BuffableAttribute::MoveDistance, dice.rollD6(), {Phase::Hero, m_battleRound+1, owningPlayer()});
+            buffModifier(BuffableAttribute::MoveDistance, Dice::rollD6(), {Phase::Hero, m_battleRound+1, owningPlayer()});
         }
         else if (roll <= 6)
         {
@@ -204,7 +201,7 @@ void GreySeerOnScreamingBell::onStartHero(PlayerId player)
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_pealRange);
             for (auto unit : units)
             {
-                if (dice.rollD6() >= 4)
+                if (Dice::rollD6() >= 4)
                 {
                     unit->applyDamage({0,1});
                 }
@@ -225,9 +222,9 @@ void GreySeerOnScreamingBell::onStartHero(PlayerId player)
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_pealRange);
             for (auto unit : units)
             {
-                if (dice.rollD6() >= 4)
+                if (Dice::rollD6() >= 4)
                 {
-                    unit->applyDamage({0,dice.rollD3()});
+                    unit->applyDamage({0,Dice::rollD3()});
                 }
             }
         }
@@ -249,7 +246,7 @@ void GreySeerOnScreamingBell::onStartHero(PlayerId player)
                 "Verminlord Corruptor",
             };
 
-            const int which = dice.rollD6()-1;
+            const int which = Dice::rollD6()-1;
 
             auto factory = UnitFactory::LookupUnit(VerminlordUnitNames[which]);
             if (factory)

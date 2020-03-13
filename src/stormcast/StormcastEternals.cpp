@@ -194,8 +194,7 @@ void StormcastEternal::onStartHero(PlayerId player)
     // Grand Strategists
     if ((owningPlayer() == player) && hasKeyword(TEMPEST_LORDS))
     {
-        Dice dice;
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
             m_roster->addCommandPoints(1);
         }
@@ -292,7 +291,6 @@ bool DoSpiritFlasks(Unit* owner)
 
     if (numFlasks)
     {
-        Dice dice;
         for (auto ip : units)
         {
             int damage = 1;
@@ -301,7 +299,7 @@ bool DoSpiritFlasks(Unit* owner)
             int mortalsTarget = 0;
             for (auto i = 0; i < numFlasks; i++)
             {
-                mortalsTarget += dice.rollSpecial(damage);
+                mortalsTarget += Dice::rollSpecial(damage);
             }
 
             auto numSlain = ip->applyDamage({0, mortalsTarget});

@@ -94,11 +94,10 @@ void Alarielle::onStartHero(PlayerId player)
 {
     if (player == owningPlayer())
     {
-        Dice dice;
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
             // Lifebloom - heal herself D3
-            int woundsHealed = dice.rollD3();
+            int woundsHealed = Dice::rollD3();
             for (auto &m : m_models)
             {
                 m->applyHealing(woundsHealed);
@@ -110,7 +109,7 @@ void Alarielle::onStartHero(PlayerId player)
         for (auto ip : units)
         {
             if (ip->hasKeyword(SYLVANETH))
-                ip->heal(dice.rollD3());
+                ip->heal(Dice::rollD3());
         }
     }
 }
@@ -162,15 +161,14 @@ void Alarielle::Init()
 
 void Alarielle::onCharged()
 {
-    Dice dice;
     // Living Battering Ram
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
             Wounds wounds = {0, 0};
-            wounds.mortal = dice.rollD3();
+            wounds.mortal = Dice::rollD3();
             ip->applyDamage(wounds);
         }
     }
@@ -182,8 +180,7 @@ Wounds Alarielle::weaponDamage(const Weapon *weapon, const Unit *target, int hit
     // Talon of the Dwindling
     if (weapon->name() == m_talonOfDwindling.name() && hitRoll == 6)
     {
-        Dice dice;
-        return {weapon->damage(), dice.rollD3()};
+        return {weapon->damage(), Dice::rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

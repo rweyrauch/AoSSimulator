@@ -94,11 +94,9 @@ Wounds FlamersOfTzeentch::computeReturnedDamage(const Weapon *weapon, int saveRo
 {
     auto wounds = TzeentchBase::computeReturnedDamage(weapon, saveRoll);
 
-    Dice dice;
-
     // Touched by Fire
     Dice::RollResult mortalSaves;
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
     wounds.mortal += mortalSaves.rollsGE(5);
 
     return wounds;

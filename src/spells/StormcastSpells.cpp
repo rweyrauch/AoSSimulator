@@ -62,7 +62,6 @@ PurifyingBlast::PurifyingBlast(Unit *caster) :
 
 Spell::Result PurifyingBlast::cast(Unit* /*target*/, int round)
 {
-    Dice dice;
     Spell::Result result = Failed;
 
     const int castingRoll = m_caster->rollCasting();
@@ -74,7 +73,7 @@ Spell::Result PurifyingBlast::cast(Unit* /*target*/, int round)
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
             for (auto ip : units)
             {
-                int roll = dice.rollD6();
+                int roll = Dice::rollD6();
                 int total = roll + ip->bravery();
                 if (ip->hasKeyword(DEATH) || ip->hasKeyword(DAEMON))
                 {
@@ -82,7 +81,7 @@ Spell::Result PurifyingBlast::cast(Unit* /*target*/, int round)
                 }
                 if (total < 10)
                 {
-                    Wounds wounds = {0, dice.rollD3()};
+                    Wounds wounds = {0, Dice::rollD3()};
                     int numSlain = ip->applyDamage(wounds);
                     if (numSlain > 0)
                     {

@@ -85,13 +85,12 @@ void ChaosLordOnKarkadrak::onCharged()
     // Brutish Rampage
     if (m_charged)
     {
-        Dice dice;
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         for (auto unit : units)
         {
-            if (dice.rollD6() >= 2)
+            if (Dice::rollD6() >= 2)
             {
-                unit->applyDamage({0, dice.rollD3()});
+                unit->applyDamage({0, Dice::rollD3()});
             }
         }
     }
@@ -111,10 +110,9 @@ Wounds ChaosLordOnKarkadrak::weaponDamage(const Weapon *weapon, const Unit *targ
 Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds)
 {
     auto savedWounds = Unit::applyWoundSave(wounds);
-    Dice dice;
     Dice::RollResult result;
     // Rune-etched Plating
-    dice.rollD6(savedWounds.mortal, result);
+    Dice::rollD6(savedWounds.mortal, result);
     savedWounds.mortal -= result.rollsGE(5);
     return savedWounds;
 }

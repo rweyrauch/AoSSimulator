@@ -71,8 +71,7 @@ Wounds TombBanshee::weaponDamage(const Weapon *weapon, const Unit *target, int h
     // Frightful Touch
     if ((hitRoll == 6) && (weapon->name() == m_dagger.name()))
     {
-        Dice dice;
-        return {0, dice.rollD3()};
+        return {0, Dice::rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
@@ -87,8 +86,7 @@ void TombBanshee::onStartShooting(PlayerId player)
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0f);
         if (!units.empty())
         {
-            Dice dice;
-            const auto roll = dice.roll2D6();
+            const auto roll = Dice::roll2D6();
             if (roll > units[0]->bravery())
             {
                 units[0]->applyDamage({0, units[0]->bravery()-roll});

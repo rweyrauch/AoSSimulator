@@ -133,14 +133,12 @@ void ShalaxiHelbane::onRestore()
 
 Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     if (m_weapon == ShiningAegis)
     {
         // Shining Aegis
         Dice::RollResult woundSaves, mortalSaves;
-        dice.rollD6(wounds.normal, woundSaves);
-        dice.rollD6(wounds.mortal, mortalSaves);
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(6);

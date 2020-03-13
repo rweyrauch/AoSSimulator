@@ -128,15 +128,14 @@ void Retributors::onStartCombat(PlayerId player)
             if (ip->preferredWeapon()->name() == m_starsoulMace.name())
             {
                 int mortalWounds = 0;
-                Dice dice;
-                int roll = dice.rollD6();
+                int roll = Dice::rollD6();
                 if (roll >= 6)
                 {
-                    mortalWounds = dice.rollD3() + 1;
+                    mortalWounds = Dice::rollD3() + 1;
                 }
                 else if (roll >= 2)
                 {
-                    mortalWounds = dice.rollD3();
+                    mortalWounds = Dice::rollD3();
                 }
 
                 m_meleeTarget->applyDamage({0, mortalWounds});

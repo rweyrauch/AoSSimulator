@@ -212,7 +212,7 @@ protected:
     void attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fromModel,
         Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered);
 
-    int rerolling(int initialRoll, Rerolls reroll, Dice& dice) const;
+    int rerolling(int initialRoll, Rerolls reroll) const;
 
     void useCommandAbility();
     void castSpell();

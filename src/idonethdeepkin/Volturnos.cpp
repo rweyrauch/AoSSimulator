@@ -86,11 +86,10 @@ void Volturnos::onCharged()
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     if (!units.empty())
     {
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 2)
         {
-            units.front()->applyDamage({0, dice.rollD3()});
+            units.front()->applyDamage({0, Dice::rollD3()});
         }
     }
 

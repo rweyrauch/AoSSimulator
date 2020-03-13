@@ -93,8 +93,7 @@ Wounds SavageBigStabbas::weaponDamage(const Weapon *weapon, const Unit *target, 
     // The Bigger They Are
     if (target->hasKeyword(MONSTER))
     {
-        Dice dice;
-        return {dice.rollSpecial(RAND_D6), 0};
+        return {Dice::rollSpecial(RAND_D6), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

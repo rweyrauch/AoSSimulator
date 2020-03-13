@@ -165,8 +165,7 @@ Wounds WebspinnerShamanOnArachnarokSpider::weaponDamage(const Weapon *weapon, co
     int threshold = inLightOfTheBadMoon() ? 5 : 6;
     if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name()))
     {
-        Dice dice;
-        return {0, dice.rollD3()};
+        return {0, Dice::rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

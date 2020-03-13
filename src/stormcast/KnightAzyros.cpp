@@ -79,17 +79,15 @@ void KnightAzyros::onStartHero(PlayerId player)
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
         if (!units.empty())
         {
-            Dice dice;
-
             for (auto ip : units)
             {
                 if (ip->hasKeyword(CHAOS))
                 {
-                    ip->applyDamage({0, dice.rollD6()});
+                    ip->applyDamage({0, Dice::rollD6()});
                 }
                 else
                 {
-                    ip->applyDamage({0, dice.rollD3()});
+                    ip->applyDamage({0, Dice::rollD3()});
                 }
             }
             m_usedLightOfSigmar = true;

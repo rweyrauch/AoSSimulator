@@ -134,8 +134,7 @@ Wounds LordArcanumOnDracoline::weaponDamage(const Weapon *weapon, const Unit *ta
     // Thunderous Pounce
     if (m_charged && weapon->name() == m_monstrousClaws.name())
     {
-        Dice dice;
-        return {dice.rollD3(), 0};
+        return {Dice::rollD3(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

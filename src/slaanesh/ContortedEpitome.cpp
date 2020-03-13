@@ -77,11 +77,9 @@ void TheContortedEpitome::Init()
 
 Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Swallow Energy
     Dice::RollResult mortalSaves;
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.mortal -= mortalSaves.rollsGE(2);

@@ -94,8 +94,7 @@ void WurrgogProphet::onStartHero(PlayerId playerId)
     if (owningPlayer() == playerId)
     {
         // Prophet of Da Waaagh!
-        Dice dice;
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
             m_roster->addCommandPoints(1);
         }

@@ -113,8 +113,7 @@ void NecropolisStalkers::onStartCombat(PlayerId player)
     Unit::onStartCombat(player);
 
     // Select active aspect (randomly for now)
-    Dice dice;
-    m_activeAspect = (Aspect)dice.rollD4();
+    m_activeAspect = (Aspect)Dice::rollD4();
 }
 
 Rerolls NecropolisStalkers::toHitRerolls(const Weapon *weapon, const Unit *target) const

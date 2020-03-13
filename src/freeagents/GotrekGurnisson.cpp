@@ -70,18 +70,17 @@ Wounds GotrekGurnisson::applyWoundSave(const Wounds &wounds)
     appliedWounds.normal = std::min(1, wounds.normal);
     appliedWounds.mortal = std::min(1, wounds.mortal);
 
-    Dice dice;
     // Should Plate of Edassa
     if (appliedWounds.normal > 0)
     {
-        if (dice.rollD6() >= 3)
+        if (Dice::rollD6() >= 3)
         {
             appliedWounds.normal = 0;
         }
     }
     if (appliedWounds.mortal > 0)
     {
-        if (dice.rollD6() >= 3)
+        if (Dice::rollD6() >= 3)
         {
             appliedWounds.mortal = 0;
         }
@@ -107,8 +106,7 @@ Wounds GotrekGurnisson::weaponDamage(const Weapon *weapon, const Unit *target, i
     // Krag Blackhammer's Master Rune
     if (hitRoll >= 6)
     {
-        Dice dice;
-        wounds.mortal += dice.rollD6();
+        wounds.mortal += Dice::rollD6();
     }
     return wounds;
 }

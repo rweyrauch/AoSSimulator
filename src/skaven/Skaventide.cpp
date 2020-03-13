@@ -84,8 +84,7 @@ int Skaventide::braveryModifier() const
 
 bool Skaventide::moreMore() const
 {
-    Dice dice;
-    return (dice.rollD6() >= 3);
+    return (Dice::rollD6() >= 3);
 }
 
 std::string Skaventide::ValueToString(const Parameter &parameter)

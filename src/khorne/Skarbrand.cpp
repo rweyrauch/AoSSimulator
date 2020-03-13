@@ -126,8 +126,7 @@ int Skarbrand::generateMortalWounds(const Unit *unit)
 
         m_attackedInPreviousRound = true;
 
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= g_damageTable[index].m_totalCarnage)
         {
             int mortals = 8;
@@ -151,9 +150,8 @@ void Skarbrand::onStartShooting(PlayerId player)
     {
         if (distanceTo(m_shootingTarget) <= 8.0f)
         {
-            Dice dice;
             Dice::RollResult results;
-            dice.rollD6(g_damageTable[getDamageTableIndex()].m_roarOfTotalRage, results);
+            Dice::rollD6(g_damageTable[getDamageTableIndex()].m_roarOfTotalRage, results);
             if (results.rollsGE(4))
             {
                 Wounds wounds = {0, results.rollsGE(4)};

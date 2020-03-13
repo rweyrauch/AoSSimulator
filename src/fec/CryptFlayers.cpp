@@ -107,8 +107,7 @@ Wounds CryptFlayers::weaponDamage(const Weapon *weapon, const Unit *target, int 
     // Death Scream
     if (weapon->name() == m_deathScream.name())
     {
-        Dice dice;
-        int roll = dice.roll2D6();
+        int roll = Dice::roll2D6();
         if (distanceTo(target) > 3.0f)
             roll -= 2;
         if (roll > target->bravery())

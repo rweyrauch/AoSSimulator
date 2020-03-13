@@ -122,10 +122,9 @@ void Battle::addPlayers(Player *player1, Player *player2)
 
 void Battle::runInitiativePhase()
 {
-    Dice dice;
     // Roll D6 for each player, highest goes first.
-    auto p1 = dice.rollD6();
-    auto p2 = dice.rollD6();
+    auto p1 = Dice::rollD6();
+    auto p2 = Dice::rollD6();
     if (p1 == p2)
     {
         // Ties go to the player that went first in the previous round.

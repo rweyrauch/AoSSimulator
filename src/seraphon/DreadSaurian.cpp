@@ -136,16 +136,15 @@ void DreadSaurian::onCharged()
     SeraphonBase::onCharged();
 
     // Obliterating Charge
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto unit : units)
     {
-        if (dice.rollD6() >= 2)
+        if (Dice::rollD6() >= 2)
         {
             if (unit->hasKeyword(MONSTER))
-                unit->applyDamage({0, dice.rollD3()});
+                unit->applyDamage({0, Dice::rollD3()});
             else
-                unit->applyDamage({0, dice.rollD6()});
+                unit->applyDamage({0, Dice::rollD6()});
         }
     }
 }
@@ -155,14 +154,13 @@ void DreadSaurian::onSlain()
     Unit::onSlain();
 
     // Death Throes
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto unit : units)
     {
         if (!unit->hasKeyword(MONSTER))
         {
-            if (dice.rollD6() >= 4)
-                unit->applyDamage({0, dice.rollD3()});
+            if (Dice::rollD6() >= 4)
+                unit->applyDamage({0, Dice::rollD3()});
         }
     }
 }

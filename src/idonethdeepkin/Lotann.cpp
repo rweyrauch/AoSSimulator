@@ -84,10 +84,9 @@ bool Lotann::configure()
 
 Wounds Lotann::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
     Dice::RollResult normalSaves, mortalSaves;
-    dice.rollD6(wounds.normal, normalSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, normalSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= normalSaves.rollsGE(5);

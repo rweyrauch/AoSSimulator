@@ -176,9 +176,8 @@ void ChaosChariots::onCharged()
     auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
     if (unit && (distanceTo(unit) <= 1.0f))
     {
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(m_unmodifiedChargeRoll, result);
+        Dice::rollD6(m_unmodifiedChargeRoll, result);
         unit->applyDamage({0, result.rollsGE(5)});
     }
 }

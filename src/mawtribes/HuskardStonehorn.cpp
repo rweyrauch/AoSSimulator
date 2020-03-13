@@ -166,12 +166,10 @@ Wounds HuskardOnStonehorn::weaponDamage(const Weapon *weapon, const Unit *target
 
 Wounds HuskardOnStonehorn::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Stone Skeleton
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(5);
@@ -190,10 +188,9 @@ void HuskardOnStonehorn::onStartShooting(PlayerId player)
     {
         if (m_meleeTarget)
         {
-            Dice dice;
             if (m_option == BloodVulture)
             {
-                if (dice.rollD6() >= 2)
+                if (Dice::rollD6() >= 2)
                 {
                     m_meleeTarget->applyDamage({0, 1});
                 }

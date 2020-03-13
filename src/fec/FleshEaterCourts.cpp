@@ -143,7 +143,6 @@ int FleshEaterCourts::chargeModifier() const
 
 Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
     // Deathless Courtiers
     auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
     for (auto ip : units)
@@ -151,8 +150,8 @@ Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds)
         if (ip->hasKeyword(FLESH_EATER_COURTS) && ip->hasKeyword(HERO))
         {
             Dice::RollResult woundSaves, mortalSaves;
-            dice.rollD6(wounds.normal, woundSaves);
-            dice.rollD6(wounds.mortal, mortalSaves);
+            Dice::rollD6(wounds.normal, woundSaves);
+            Dice::rollD6(wounds.mortal, mortalSaves);
 
             Wounds totalWounds = wounds;
             totalWounds.normal -= woundSaves.rollsGE(6);

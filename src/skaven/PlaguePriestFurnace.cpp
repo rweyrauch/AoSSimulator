@@ -133,16 +133,13 @@ Wounds PlaguePriestOnPlagueFurnace::weaponDamage(const Weapon *weapon, const Uni
     // Great Plague Censor
     if ((weapon->name() == m_censer.name()) && (hitRoll >= 2))
     {
-        Dice dice;
-        return {0, dice.rollD3() + g_damageTable[getDamageTableIndex()].m_censerDamage};
+        return {0, Dice::rollD3() + g_damageTable[getDamageTableIndex()].m_censerDamage};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 Wounds PlaguePriestOnPlagueFurnace::onEndCombat(PlayerId player)
 {
-    Dice dice;
-
     Wounds wounds = Unit::onEndCombat(player);
 
     // Poisonous Fumes
@@ -152,8 +149,8 @@ Wounds PlaguePriestOnPlagueFurnace::onEndCombat(PlayerId player)
         if (!unit->hasKeyword(CLANS_PESTILENS))
         {
             int mortalWounds = 0;
-            int roll = dice.rollD6();
-            if (roll == 6) mortalWounds = dice.rollD3();
+            int roll = Dice::rollD6();
+            if (roll == 6) mortalWounds = Dice::rollD3();
             else if (roll >= 4) mortalWounds = 1;
 
             unit->applyDamage({0, mortalWounds});
@@ -182,8 +179,7 @@ int PlaguePriestOnPlagueFurnace::extraAttacks(const Model *attackingModel, const
     // Pushed into Battle
     if ((weapon->name() == m_spikes.name()) && m_charged)
     {
-        Dice dice;
-        extra += dice.rollD6();
+        extra += Dice::rollD6();
     }
     return extra;
 }
@@ -193,11 +189,10 @@ Wounds PlaguePriestOnPlagueFurnace::applyWoundSave(const Wounds &wounds)
     auto totalWounds = Skaventide::applyWoundSave(wounds);
 
     // Protection of the Horned Rat
-    Dice dice;
     Dice::RollResult resultNormal, resultMortal;
 
-    dice.rollD6(wounds.normal, resultNormal);
-    dice.rollD6(wounds.mortal, resultMortal);
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
 
     Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
     totalWounds -= negatedWounds;
@@ -219,10 +214,9 @@ void PlaguePriestOnPlagueFurnace::onStartHero(PlayerId player)
             unit = this;
         }
 
-        Dice dice;
         Dice::RollResult result;
 
-        auto prayerRoll = dice.rollD6();
+        auto prayerRoll = Dice::rollD6();
         if (prayerRoll == 1)
         {
             // Failed - take one mortal wound.
@@ -231,7 +225,7 @@ void PlaguePriestOnPlagueFurnace::onStartHero(PlayerId player)
         else if (prayerRoll >= 3)
         {
             // Success - select prayer (randomly)
-            if (dice.rollD6() >= 4)
+            if (Dice::rollD6() >= 4)
             {
                 // Filth-filth!
                 unit->buffReroll(BuffableAttribute::ToWoundMelee, RerollFailed, {Phase::Hero, m_battleRound+1, owningPlayer()});

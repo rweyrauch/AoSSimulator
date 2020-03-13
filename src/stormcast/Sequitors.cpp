@@ -151,9 +151,8 @@ int Sequitors::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const U
         if ((weapon->name() == m_stormsmiteGreatmace.name()) &&
             (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT)))
         {
-            Dice dice;
             // each 6 inflicts d3 hits instead of 1
-            return dice.rollD3();
+            return Dice::rollD3();
         }
     }
     return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
@@ -240,14 +239,13 @@ void Sequitors::onStartShooting(PlayerId player)
 
     if ((player == owningPlayer()) && m_haveRedemptionCache)
     {
-        Dice dice;
         // Redemption Cache
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(CHAOS) || ip->hasKeyword(DEATH))
             {
-                int roll = dice.rollD6();
+                int roll = Dice::rollD6();
                 if (roll >= 4)
                 {
                     ip->applyDamage({0, 1});

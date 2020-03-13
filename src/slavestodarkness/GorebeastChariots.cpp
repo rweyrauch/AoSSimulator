@@ -179,13 +179,12 @@ void GorebeastChariots::onCharged()
     Unit::onCharged();
 
     // Crashing Charge
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto unit : units)
     {
-        if (dice.rollD6() >= 2)
+        if (Dice::rollD6() >= 2)
         {
-            unit->applyDamage({0, dice.rollD3()});
+            unit->applyDamage({0, Dice::rollD3()});
         }
     }
 }

@@ -114,8 +114,6 @@ Rerolls PlagueCenserBearers::battleshockRerolls() const
 
 Wounds PlagueCenserBearers::onEndCombat(PlayerId player)
 {
-    Dice dice;
-
     Wounds wounds = Unit::onEndCombat(player);
 
     // Poisonous Fumes
@@ -125,8 +123,8 @@ Wounds PlagueCenserBearers::onEndCombat(PlayerId player)
         if (!unit->hasKeyword(CLANS_PESTILENS))
         {
             int mortalWounds = 0;
-            int roll = dice.rollD6();
-            if (roll == 6) mortalWounds = dice.rollD3();
+            int roll = Dice::rollD6();
+            if (roll == 6) mortalWounds = Dice::rollD3();
             else if (roll >= 4) mortalWounds = 1;
 
             unit->applyDamage({0, mortalWounds});

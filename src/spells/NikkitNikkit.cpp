@@ -17,6 +17,5 @@ int NikkitNikkit::getDamage(int castingRoll) const
     {
         // TODO: negates artefact on target
     }
-    Dice dice;
-    return dice.rollD3();
+    return Dice::rollD3();
 }

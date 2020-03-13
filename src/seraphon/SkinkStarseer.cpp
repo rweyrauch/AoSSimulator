@@ -75,9 +75,8 @@ void SkinkStarseer::onStartHero(PlayerId player)
     // Cosmic Herald
     if (owningPlayer() == player)
     {
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(1, result);
+        Dice::rollD6(1, result);
         m_roster->addCommandPoints(result.rollsGE(4));
     }
 }

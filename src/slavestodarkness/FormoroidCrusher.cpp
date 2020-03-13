@@ -78,9 +78,8 @@ void FomoroidCrusher::onCharged()
     // Rampage
     if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f))
     {
-        Dice dice;
         Dice::RollResult rolls;
-        dice.rollD6(m_lastChargeDistance, rolls);
+        Dice::rollD6(m_lastChargeDistance, rolls);
 
         Wounds wounds = {0, rolls.rollsGE(6)};
         m_meleeTarget->applyDamage(wounds);

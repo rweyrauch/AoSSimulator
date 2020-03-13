@@ -86,8 +86,7 @@ Wounds ScreamersOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *targe
 {
     // Sky-sharks
     if (target->hasKeyword(MONSTER)) {
-        Dice dice;
-        return { dice.rollD3(), 0};
+        return { Dice::rollD3(), 0};
     }
     return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

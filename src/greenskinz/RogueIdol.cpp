@@ -116,16 +116,14 @@ void RogueIdol::onWounded()
 
 void RogueIdol::onSlain()
 {
-    Dice dice;
-
     // Avalanche!
     auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 4)
         {
-            ip->applyDamage({0, dice.rollD3()});
+            ip->applyDamage({0, Dice::rollD3()});
         }
     }
 
@@ -140,9 +138,8 @@ Wounds RogueIdol::applyWoundSave(const Wounds &wounds)
     modifiedWounds.normal = (wounds.normal + 1)/2;
     if (wounds.mortal > 0)
     {
-        Dice dice;
         Dice::RollResult rolls;
-        dice.rollD6(wounds.mortal, rolls);
+        Dice::rollD6(wounds.mortal, rolls);
         modifiedWounds.mortal = rolls.rollsGE(4);
     }
     return modifiedWounds;
@@ -152,13 +149,11 @@ Wounds RogueIdol::onEndCombat(PlayerId player)
 {
     auto wounds = Unit::onEndCombat(player);
 
-    Dice dice;
-
     // Rubble and Ruin
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 4)
         {
             Wounds rubbleRuins = {0,0};

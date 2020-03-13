@@ -123,8 +123,7 @@ Wounds ArachnarokSpiderWithSpiderfangWarparty::weaponDamage(const Weapon *weapon
     int threshold = inLightOfTheBadMoon() ? 5 : 6;
     if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name()))
     {
-        Dice dice;
-        return {0, dice.rollD3()};
+        return {0, Dice::rollD3()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
@@ -132,14 +131,13 @@ Wounds ArachnarokSpiderWithSpiderfangWarparty::weaponDamage(const Weapon *weapon
 void ArachnarokSpiderWithSpiderfangWarparty::onCharged()
 {
     // Voracious Predator
-    Dice dice;
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 2)
         {
-            ip->applyDamage({0, dice.rollD3()});
+            ip->applyDamage({0, Dice::rollD3()});
         }
     }
     Unit::onCharged();

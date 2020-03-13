@@ -131,10 +131,9 @@ void Troglodon::onStartHero(PlayerId player)
     if (player == owningPlayer())
     {
         // Regeneration
-        Dice dice;
-        if (dice.rollD6() >= 2)
+        if (Dice::rollD6() >= 2)
         {
-            heal(dice.rollD3());
+            heal(Dice::rollD3());
         }
     }
 }

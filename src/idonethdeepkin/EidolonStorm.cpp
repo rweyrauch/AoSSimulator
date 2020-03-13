@@ -102,8 +102,7 @@ void EidolonOfMathlannAspectOfTheStorm::onCharged()
     // Crashing Upon the Foe
     if (m_charged)
     {
-        Dice dice;
-        heal(dice.rollD3());
+        heal(Dice::rollD3());
     }
 }
 

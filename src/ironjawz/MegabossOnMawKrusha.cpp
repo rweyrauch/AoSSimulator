@@ -143,9 +143,8 @@ void MegabossOnMawKrusha::onCharged()
     if (!units.empty())
     {
         auto unit = units.front();
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
+        Dice::rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
         Wounds bulkWounds = {0, result.rollsGE(5)};
         unit->applyDamage(bulkWounds);
     }

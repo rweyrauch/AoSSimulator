@@ -115,19 +115,18 @@ int HellPitAbomination::generateMortalWounds(const Unit *unit)
     // Avalanche of Flesh
     if (distanceTo(unit) <= 3.0f)
     {
-        Dice dice;
         // TODO: check distance for each model in target unit
         int numRolls = unit->remainingModels();
         for (auto i = 0; i < numRolls; i++)
         {
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll >= g_damageTable[getDamageTableIndex()].m_avalancheOfFlesh)
             {
                 mortalWounds++;
             }
             else if (m_charged) // re-roll if charged
             {
-                roll = dice.rollD6();
+                roll = Dice::rollD6();
                 if (roll >= g_damageTable[getDamageTableIndex()].m_avalancheOfFlesh)
                 {
                     mortalWounds++;
@@ -148,8 +147,7 @@ void HellPitAbomination::onStartHero(PlayerId player)
         // Regenerating Monstrosity
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
-            int woundsHealed = dice.rollD3();
+            int woundsHealed = Dice::rollD3();
             for (auto &m : m_models)
             {
                 m->applyHealing(woundsHealed);
@@ -165,13 +163,12 @@ void HellPitAbomination::onSlain()
     // Too Horrible to Die
     if (!m_beenSlain)
     {
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
 
         if (roll >= 5)
         {
             // It's Alive!
-            roll = dice.rollD6();
+            roll = Dice::rollD6();
             m_models.front()->restore();
             m_models.front()->applyWound(WOUNDS - roll);
         }
@@ -181,7 +178,7 @@ void HellPitAbomination::onSlain()
             auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
             for (auto ip : units)
             {
-                roll = dice.rollD3();
+                roll = Dice::rollD3();
                 ip->applyDamage({0, roll});
             }
         }

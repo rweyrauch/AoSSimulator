@@ -94,8 +94,7 @@ Wounds ColossalSquig::weaponDamage(const Weapon *weapon, const Unit *target, int
     // Swallowed Whole
     if ((hitRoll == 6) && (weapon->name() == m_enormousJaws.name()))
     {
-        Dice dice;
-        Wounds wounds = {0, dice.rollD3()};
+        Wounds wounds = {0, Dice::rollD3()};
         return wounds;
     }
     return GloomspiteGitzBase::weaponDamage(weapon, target, hitRoll, woundRoll);
@@ -149,12 +148,11 @@ int ColossalSquig::targetHitModifier(const Weapon *weapon, const Unit *attacker)
 
 void ColossalSquig::onCharged()
 {
-    Dice dice;
     // Crazed Charge
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1);
     for (auto ip : units)
     {
-        if (dice.rollD6() == 6)
+        if (Dice::rollD6() == 6)
         {
             ip->applyDamage({0, 1});
         }

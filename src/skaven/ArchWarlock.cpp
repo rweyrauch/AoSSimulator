@@ -82,8 +82,7 @@ Wounds ArchWarlock::onEndCombat(PlayerId player)
 
     if (m_moreMoreFailed)
     {
-        Dice dice;
-        Wounds overloadWounds = {0, dice.rollD6()};
+        Wounds overloadWounds = {0, Dice::rollD6()};
         applyDamage(overloadWounds);
         wounds += overloadWounds;
         m_moreMoreFailed = false;
@@ -130,8 +129,7 @@ void ArchWarlock::onStartShooting(PlayerId player)
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) < 8.0f)
         {
-            Dice dice;
-            if (dice.rollD6() >= 2) unit->applyDamage({0, dice.rollD3()});
+            if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
             m_usedGauntlet = true;
         }
     }

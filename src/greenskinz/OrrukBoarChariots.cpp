@@ -92,13 +92,12 @@ int OrrukBoarChariots::toWoundModifier(const Weapon *weapon, const Unit *target)
 void OrrukBoarChariots::onCharged()
 {
     // Scythed Wheels
-    Dice dice;
-    int roll = dice.rollD6();
+    int roll = Dice::rollD6();
     if (roll >= 4)
     {
         if (m_meleeTarget)
         {
-            m_meleeTarget->applyDamage({0, dice.rollD3()});
+            m_meleeTarget->applyDamage({0, Dice::rollD3()});
         }
     }
     Unit::onCharged();

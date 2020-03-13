@@ -176,12 +176,11 @@ void DrakeswornTemplar::onStartCombat(PlayerId player)
     // Cavernous Jaws
     if (m_meleeTarget)
     {
-        Dice dice;
         auto numBites = g_damageTable[getDamageTableIndex()].m_cavernousJawsBits;
         int numToSlay = 0;
         for (auto i = 0; i < numBites; i++)
         {
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll > m_meleeTarget->wounds())
             {
                 numToSlay++;
@@ -206,18 +205,17 @@ Wounds DrakeswornTemplar::onEndCombat(PlayerId player)
         }
         auto otherRoster = board->getPlayerRoster(otherPlayer);
 
-        Dice dice;
         // find all enemy units within 3"
         for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
         {
             auto dist = distanceTo(*ip);
             if (dist <= 3.0)
             {
-                auto roll = dice.rollD6();
+                auto roll = Dice::rollD6();
                 if (roll < (*ip)->remainingModels())
                 {
                     // inflict D3 mortal wounds
-                    roll = dice.rollD3();
+                    roll = Dice::rollD3();
                     Wounds mortalWounds = {0, roll};
                     (*ip)->applyDamage(mortalWounds);
 
@@ -246,7 +244,6 @@ void DrakeswornTemplar::onStartShooting(PlayerId player)
         }
     }
 
-    Dice dice;
     if (preferRainOfStars)
     {
         auto board = Board::Instance();
@@ -257,15 +254,15 @@ void DrakeswornTemplar::onStartShooting(PlayerId player)
             otherPlayer = PlayerId::Blue;
         }
         auto otherRoster = board->getPlayerRoster(otherPlayer);
-        auto numUnits = dice.rollD6();
+        auto numUnits = Dice::rollD6();
 
         int unitsAffected = 0;
         for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip)
         {
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll >= 4)
             {
-                Wounds wounds = {0, dice.rollD3()};
+                Wounds wounds = {0, Dice::rollD3()};
                 (*ip)->applyDamage(wounds);
             }
             unitsAffected++;
@@ -278,7 +275,7 @@ void DrakeswornTemplar::onStartShooting(PlayerId player)
     {
         auto numModels = m_shootingTarget->remainingModels();
         Dice::RollResult rolls;
-        dice.rollD6(numModels, rolls);
+        Dice::rollD6(numModels, rolls);
         int mortalWounds = rolls.numUnmodified6s();
         Wounds wounds = {0, mortalWounds};
         m_shootingTarget->applyDamage(wounds);
@@ -315,8 +312,7 @@ Wounds DrakeswornTemplar::weaponDamage(const Weapon *weapon, const Unit *target,
 {
     if ((hitRoll == 6) && (weapon->name() == m_stormlance.name()) && (target->hasKeyword(MONSTER)))
     {
-        Dice dice;
-        return {0, dice.rollD6()};
+        return {0, Dice::rollD6()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

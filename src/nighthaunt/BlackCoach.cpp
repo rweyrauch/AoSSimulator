@@ -135,9 +135,8 @@ void BlackCoach::onBeginRound(int battleRound)
     Unit::onBeginRound(battleRound);
 
     // Evocation of Death
-    Dice dice;
     Dice::RollResult result;
-    dice.rollD6(3, result);
+    Dice::rollD6(3, result);
     m_powerLevel += result.rollsGE(4);
 
     // Insubstantial Form
@@ -160,19 +159,17 @@ void BlackCoach::onStartHero(PlayerId player)
     if ((player == owningPlayer()) && (m_powerLevel >= 1))
     {
         // Nimbus of Power
-        Dice dice;
-        heal(dice.rollD3());
+        heal(Dice::rollD3());
     }
 
     if ((player == owningPlayer()) && (m_powerLevel >= 5))
     {
-        Dice dice;
         // Witch-fire
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
         for (auto unit : units) {
-            if (dice.rollD6() >= 4)
+            if (Dice::rollD6() >= 4)
             {
-                unit->applyDamage({0, dice.rollD3()});
+                unit->applyDamage({0, Dice::rollD3()});
             }
         }
     }
@@ -188,10 +185,9 @@ void BlackCoach::onCharged()
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         if (!units.empty())
         {
-            Dice dice;
-            if (dice.rollD6() >= 2)
+            if (Dice::rollD6() >= 2)
             {
-                units[0]->applyDamage({0, dice.rollD3()});
+                units[0]->applyDamage({0, Dice::rollD3()});
             }
         }
     }

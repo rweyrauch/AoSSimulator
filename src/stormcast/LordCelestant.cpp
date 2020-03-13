@@ -84,10 +84,9 @@ void LordCelestant::onStartShooting(PlayerId player)
             if (dist <= 16)
             {
                 // Sigmarite Warcloak
-                Dice dice;
-                int numStrikes = dice.rollD6();
+                int numStrikes = Dice::rollD6();
                 Dice::RollResult rolls;
-                dice.rollD6(numStrikes, rolls);
+                Dice::rollD6(numStrikes, rolls);
                 int mortalWounds = rolls.rollsGE(4);
                 m_shootingTarget->applyDamage({0, mortalWounds});
             }

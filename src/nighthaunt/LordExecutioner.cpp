@@ -93,11 +93,10 @@ Wounds LordExecutioner::applyWoundSave(const Wounds &wounds)
     auto unsavedWounds = Nighthaunt::applyWoundSave(wounds);
 
     // Disembodied Skulls
-    Dice dice;
     if (unsavedWounds.mortal)
     {
         Dice::RollResult result;
-        dice.rollD6(unsavedWounds.mortal, result);
+        Dice::rollD6(unsavedWounds.mortal, result);
         unsavedWounds.mortal -= result.rollsGE(5);
         unsavedWounds.mortal = std::max(0, unsavedWounds.mortal);
     }

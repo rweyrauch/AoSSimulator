@@ -196,8 +196,7 @@ int Judicators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const 
     // Chained Lightning
     if (weapon->name() == m_shockboltBow.name())
     {
-        Dice dice;
-        return dice.rollD6();
+        return Dice::rollD6();
     }
     return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
 }
@@ -213,14 +212,13 @@ void Judicators::onStartShooting(PlayerId player)
             // Thunderbolt Crossbow
             if (ip->hasWeapon(m_thunderboldCrossbow.name()))
             {
-                Dice dice;
-                int roll = dice.rollD6();
+                int roll = Dice::rollD6();
                 if (m_shootingTarget->hasKeyword(MONSTER))
                     roll--;
 
                 if (roll <= m_shootingTarget->remainingModels())
                 {
-                    m_shootingTarget->applyDamage({0, dice.rollD3()});
+                    m_shootingTarget->applyDamage({0, Dice::rollD3()});
                 }
             }
         }

@@ -76,9 +76,8 @@ int Doomwheel::extraAttacks(const Model *attackingModel, const Weapon *weapon, c
         // Decide to overcharge
         if (moreMore())
         {
-            Dice dice;
-            auto roll1 = dice.rollD6();
-            auto roll2 = dice.rollD6();
+            auto roll1 = Dice::rollD6();
+            auto roll2 = Dice::rollD6();
             if (roll1 == roll2)
             {
                 m_moreMoreFailed = true;
@@ -106,8 +105,7 @@ Wounds Doomwheel::onEndShooting(PlayerId player)
 
     if (m_moreMoreFailed)
     {
-        Dice dice;
-        Wounds overchargeWounds = {0, dice.roll2D6()};
+        Wounds overchargeWounds = {0, Dice::roll2D6()};
         applyDamage(overchargeWounds);
         wounds += overchargeWounds;
         m_moreMoreFailed = false;

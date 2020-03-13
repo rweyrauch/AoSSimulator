@@ -141,9 +141,8 @@ Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds)
     // Orruk-forged Shields
     if (m_numShields > 0)
     {
-        Dice dice;
         Dice::RollResult result;
-        dice.rollD6(wounds.normal, result);
+        Dice::rollD6(wounds.normal, result);
         Wounds modWounds = wounds;
         modWounds.normal -= result.numUnmodified6s();
         return modWounds;

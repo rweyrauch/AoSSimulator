@@ -77,8 +77,7 @@ int VandusHammerhand::extraAttacks(const Model *attackingModel, const Weapon *we
     // Heldensen
     if (m_charged && weapon->name() == m_heldensen.name())
     {
-        Dice dice;
-        attacks += dice.rollD3();
+        attacks += Dice::rollD3();
     }
     return attacks;
 }
@@ -88,9 +87,8 @@ Wounds VandusHammerhand::weaponDamage(const Weapon *weapon, const Unit *target, 
     // Intolerable Damage
     if ((woundRoll == 6) && (weapon->name() == m_clawsAndFangs.name()))
     {
-        Dice dice;
         // D6 instead of 1
-        return { dice.rollD6(), 0 };
+        return { Dice::rollD6(), 0 };
     }
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

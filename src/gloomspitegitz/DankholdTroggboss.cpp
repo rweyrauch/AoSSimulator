@@ -80,12 +80,11 @@ void DankholdTroggboss::onStartHero(PlayerId player)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
             // Regeneration - heal D3
             // Troggoth Renewal
-            if (dice.rollD6() >= 4 || (inLightOfTheBadMoon() && (dice.rollD6() >= 4)))
+            if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4)))
             {
-                int woundsHealed = dice.rollD3();
+                int woundsHealed = Dice::rollD3();
                 if (inLightOfTheBadMoon())
                     woundsHealed *= 2;
                 for (auto &m : m_models)
@@ -99,11 +98,10 @@ void DankholdTroggboss::onStartHero(PlayerId player)
 
 void DankholdTroggboss::onStartCombat(PlayerId player)
 {
-    Dice dice;
     if (m_meleeTarget)
     {
         // Crushing Grip
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= m_meleeTarget->wounds())
         {
             m_meleeTarget->slay(1);
@@ -114,7 +112,7 @@ void DankholdTroggboss::onStartCombat(PlayerId player)
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= ip->remainingModels())
         {
             ip->applyDamage({0, 1});

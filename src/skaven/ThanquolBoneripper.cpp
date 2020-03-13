@@ -102,11 +102,10 @@ Wounds ThanquolOnBoneripper::applyWoundSave(const Wounds &wounds)
     auto totalWounds = Skaventide::applyWoundSave(wounds);
 
     // Protection of the Horned Rat
-    Dice dice;
     Dice::RollResult resultNormal, resultMortal;
 
-    dice.rollD6(wounds.normal, resultNormal);
-    dice.rollD6(wounds.mortal, resultMortal);
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
 
     Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
     totalWounds -= negatedWounds;

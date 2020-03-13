@@ -173,8 +173,7 @@ Wounds Tzaangors::applyWoundSave(const Wounds &wounds)
     // Arcanite Shield
     if (m_weaponOption == SavageBladeAndShield)
     {
-        Dice dice;
-        auto roll = dice.rollD6();
+        auto roll = Dice::rollD6();
         if (roll == 6)
             return {0, 0};
     }

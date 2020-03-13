@@ -110,8 +110,7 @@ void Seekers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) co
         // Icon Bearer
         if (roll == 1)
         {
-            Dice dice;
-            numAdded = dice.rollD3();
+            numAdded = Dice::rollD3();
         }
     }
 }
@@ -140,8 +139,7 @@ Rerolls Seekers::chargeRerolls() const
 int Seekers::runModifier() const
 {
     // Quicksilver Speed
-    Dice dice;
-    return dice.rollD6();
+    return Dice::rollD6();
 }
 
 int Seekers::ComputePoints(int numModels)

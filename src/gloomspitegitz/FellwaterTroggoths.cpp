@@ -88,12 +88,11 @@ void FellwaterTroggoths::onStartHero(PlayerId player)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
             // Regeneration - heal D3
             // Troggoth Renewal
-            if (dice.rollD6() >= 4 || (inLightOfTheBadMoon() && (dice.rollD6() >= 4)))
+            if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4)))
             {
-                int woundsHealed = dice.rollD3();
+                int woundsHealed = Dice::rollD3();
                 if (inLightOfTheBadMoon())
                     woundsHealed *= 2;
 

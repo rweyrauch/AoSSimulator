@@ -128,13 +128,12 @@ void LordExorcist::onStartShooting(PlayerId player)
     if (player == owningPlayer())
     {
         // Redemptor Casket
-        Dice dice;
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
         for (auto ip : units)
         {
             if (ip->hasKeyword(DAEMON) || ip->hasKeyword(NIGHTHAUNT))
             {
-                int roll = dice.rollD6();
+                int roll = Dice::rollD6();
                 if (roll >= 4)
                 {
                     ip->applyDamage({0, 1});

@@ -99,11 +99,9 @@ Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds)
 
     if (hasKeyword(HEKATOS) || hekatos || hero)
     {
-        Dice dice;
-
         Dice::RollResult woundSaves, mortalSaves;
-        dice.rollD6(wounds.normal, woundSaves);
-        dice.rollD6(wounds.mortal, mortalSaves);
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
 
         totalWounds.normal -= woundSaves.rollsGE(6);
         totalWounds.normal = std::max(totalWounds.normal, 0);

@@ -14,8 +14,6 @@ std::mt19937 Dice::s_gen(s_rd());
 std::uniform_int_distribution<int> Dice::s_d6(1, 6);
 std::uniform_int_distribution<int> Dice::s_d4(1, 4);
 
-Dice::Dice() = default;
-
 int Dice::rollD6()
 {
     return s_d6(s_gen);

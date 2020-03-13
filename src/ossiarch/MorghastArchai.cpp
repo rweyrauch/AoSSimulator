@@ -116,11 +116,9 @@ void MorghastArchai::Init()
 
 Wounds MorghastArchai::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Ebon-wrought Armour
     Dice::RollResult mortalSaves;
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.mortal -= mortalSaves.rollsGE(5);

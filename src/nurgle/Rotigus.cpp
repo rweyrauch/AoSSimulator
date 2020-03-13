@@ -119,14 +119,13 @@ void Rotigus::onCharged()
     // Mountain of Loathsome Flesh
     if (m_charged)
     {
-        Dice dice;
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         for (auto ip : units)
         {
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll >= 4)
             {
-                ip->applyDamage({dice.rollD3(), 0});
+                ip->applyDamage({Dice::rollD3(), 0});
             }
         }
     }

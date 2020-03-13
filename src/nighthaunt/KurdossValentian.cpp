@@ -77,8 +77,7 @@ Wounds KurdossValentian::weaponDamage(const Weapon *weapon, const Unit *target, 
     // Soul-crushing Smite
     if ((woundRoll == 6) && (weapon->name() == m_sceptre.name()))
     {
-        Dice dice;
-        return { dice.rollD6(), 0};
+        return { Dice::rollD6(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }

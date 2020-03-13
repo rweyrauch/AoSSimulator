@@ -83,8 +83,7 @@ Wounds Plagueclaw::weaponDamage(const Weapon *weapon, const Unit *target, int hi
     // Barrage of Disease
     if (target->remainingModels() >= 10)
     {
-        Dice dice;
-        wounds.normal += dice.roll2D6();
+        wounds.normal += Dice::roll2D6();
     }
     return wounds;
 }

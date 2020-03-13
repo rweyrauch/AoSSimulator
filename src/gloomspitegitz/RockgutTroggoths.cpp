@@ -86,12 +86,11 @@ void RockgutTroggoths::onStartHero(PlayerId player)
     {
         if (remainingWounds() < WOUNDS && remainingWounds() > 0)
         {
-            Dice dice;
             // Regeneration - heal D3
             // Troggoth Renewal
-            if (dice.rollD6() >= 4 || (inLightOfTheBadMoon() && (dice.rollD6() >= 4)))
+            if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4)))
             {
-                int woundsHealed = dice.rollD3();
+                int woundsHealed = Dice::rollD3();
                 if (inLightOfTheBadMoon())
                     woundsHealed *= 2;
 
@@ -115,12 +114,10 @@ void RockgutTroggoths::onStartHero(PlayerId player)
 
 Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Stony Skin
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(5);
@@ -148,11 +145,10 @@ void RockgutTroggoths::onStartShooting(PlayerId player)
         float rangeTo = distanceTo(nearestUnit);
         if (rangeTo < 12)
         {
-            Dice dice;
-            int roll = dice.rollD6();
+            int roll = Dice::rollD6();
             if (roll <= nearestUnit->remainingModels())
             {
-                nearestUnit->applyDamage({0, dice.rollD3()});
+                nearestUnit->applyDamage({0, Dice::rollD3()});
             }
         }
     }

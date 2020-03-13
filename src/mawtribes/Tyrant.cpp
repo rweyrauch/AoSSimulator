@@ -115,16 +115,14 @@ Wounds Tyrant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRol
     {
         if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))
         {
-            Dice dice;
-            return {dice.rollD6(), 0};
+            return {Dice::rollD6(), 0};
         }
     }
     if ((hitRoll == 6) && (weapon->name() == m_thundermace.name()))
     {
         if (target->remainingModels() > 3)
         {
-            Dice dice;
-            return {weapon->damage(), dice.rollD3()};
+            return {weapon->damage(), Dice::rollD3()};
         }
         else
         {

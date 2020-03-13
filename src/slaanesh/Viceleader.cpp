@@ -78,12 +78,10 @@ void ViceleaderHeraldOfSlaanesh::Init()
 
 Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     // Lightning Reflexes
     Dice::RollResult woundSaves, mortalSaves;
-    dice.rollD6(wounds.normal, woundSaves);
-    dice.rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
 
     Wounds totalWounds = wounds;
     totalWounds.normal -= woundSaves.rollsGE(5);

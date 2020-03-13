@@ -99,10 +99,9 @@ void Cockatrice::onStartShooting(PlayerId player)
         {
             if (distanceTo(m_shootingTarget) <= m_petrifyingGaze.range())
             {
-                Dice dice;
-                if (dice.rollD6() >= 4)
+                if (Dice::rollD6() >= 4)
                 {
-                    Wounds gazeDamage = {0, dice.rollD6()};
+                    Wounds gazeDamage = {0, Dice::rollD6()};
                     m_shootingTarget->applyDamage(gazeDamage);
                 }
             }

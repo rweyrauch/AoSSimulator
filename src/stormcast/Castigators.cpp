@@ -100,8 +100,7 @@ int Castigators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
         {
             if (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT))
             {
-                Dice dice;
-                return dice.rollD3();
+                return Dice::rollD3();
             }
         }
     }

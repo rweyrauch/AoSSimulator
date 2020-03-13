@@ -108,13 +108,11 @@ void FungoidCaveShaman::onStartHero(PlayerId playerId)
     // Mouthpiece of Mork
     if ((owningPlayer() == playerId) && m_roster)
     {
-        Dice dice;
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
             m_roster->addCommandPoints(1);
         }
     }
-
 }
 
 } // namespace GloomspiteGitz

@@ -154,11 +154,10 @@ Wounds KeeperOfSecrets::onEndCombat(PlayerId player)
     if ((m_weapon == RitualKnife) && target)
     {
         Wounds knifeWounds = { 0, 0 };
-        Dice dice;
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll == 6)
         {
-            knifeWounds = {0, dice.rollD3()};
+            knifeWounds = {0, Dice::rollD3()};
         }
         else if (roll >= 2)
         {
@@ -172,22 +171,19 @@ Wounds KeeperOfSecrets::onEndCombat(PlayerId player)
     if ((m_weapon == SinistrousHand) && m_currentRecord.m_enemyModelsSlain)
     {
         // TODO: keep track of heroes slain to heal D6
-        Dice dice;
-        heal(dice.rollD3());
+        heal(Dice::rollD3());
     }
     return wounds;
 }
 
 Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds)
 {
-    Dice dice;
-
     if (m_weapon == ShiningAegis)
     {
         // Shining Aegis
         Dice::RollResult woundSaves, mortalSaves;
-        dice.rollD6(wounds.normal, woundSaves);
-        dice.rollD6(wounds.mortal, mortalSaves);
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(6);
@@ -210,8 +206,7 @@ void KeeperOfSecrets::onStartCombat(PlayerId player)
     {
         // Heros _always_ refuse right now and take D3
         // TODO: give hero the choice
-        Dice dice;
-        hero->applyDamage({0, dice.rollD3()});
+        hero->applyDamage({0, Dice::rollD3()});
     }
 }
 

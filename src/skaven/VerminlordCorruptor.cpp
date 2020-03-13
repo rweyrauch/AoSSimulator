@@ -103,11 +103,10 @@ Wounds VerminlordCorruptor::applyWoundSave(const Wounds &wounds)
     auto totalWounds = Skaventide::applyWoundSave(wounds);
 
     // Protection of the Horned Rat
-    Dice dice;
     Dice::RollResult resultNormal, resultMortal;
 
-    dice.rollD6(wounds.normal, resultNormal);
-    dice.rollD6(wounds.mortal, resultMortal);
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
 
     Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
     totalWounds -= negatedWounds;
@@ -138,14 +137,13 @@ Wounds VerminlordCorruptor::onEndCombat(PlayerId player)
 {
     auto wounds = Unit::onEndCombat(player);
 
-    Dice dice;
     // Plaguemaster
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto unit : units)
     {
-        if (dice.rollD6() >= 4)
+        if (Dice::rollD6() >= 4)
         {
-            Wounds plague = {0, dice.rollD3()};
+            Wounds plague = {0, Dice::rollD3()};
             unit->applyDamage(plague);
             wounds += plague;
         }

@@ -229,8 +229,7 @@ int Stormfiends::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
     // Shock Gauntlets
     if ((unmodifiedHitRoll == 6) && (weapon->name() == m_shockGauntlets.name()))
     {
-        Dice dice;
-        return dice.rollD6();
+        return Dice::rollD6();
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }

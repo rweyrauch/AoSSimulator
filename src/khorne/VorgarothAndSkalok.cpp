@@ -144,23 +144,21 @@ Wounds VorgarothAndSkalok::weaponDamage(const Weapon *weapon, const Unit *target
     // Monstrous Trophies
     if ((hitRoll == 6) && (weapon->name() == m_skullCleaverAxeOfKhorne.name()))
     {
-        Dice dice;
-        return {weapon->damage(), dice.rollD3()};
+        return {weapon->damage(), Dice::rollD3()};
     }
     return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 void VorgarothAndSkalok::onCharged()
 {
-    Dice dice;
     // Crushing Bulk
     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
     for (auto ip : units)
     {
-        int roll = dice.rollD6();
+        int roll = Dice::rollD6();
         if (roll >= 3)
         {
-            ip->applyDamage({0, dice.rollD3()});
+            ip->applyDamage({0, Dice::rollD3()});
         }
     }
     KhorneBase::onCharged();
