@@ -171,4 +171,10 @@ int Bloodletters::ComputePoints(int numModels)
     return points;
 }
 
+Rerolls Bloodletters::chargeRerolls() const
+{
+    if (m_standarBearer) return RerollFailed;
+    return Unit::chargeRerolls();
+}
+
 } // namespace Khorne

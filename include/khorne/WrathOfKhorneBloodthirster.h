@@ -37,11 +37,13 @@ protected:
     void onWounded() override;
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
     void onRestore() override;
-
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int unbindingModifier() const override { return 2; }
 private:
 
     Weapon m_bloodflail,
-        m_mightyAxeOfKhorne;
+        m_mightyAxeOfKhorne,
+        m_breath;
 
     static bool s_registered;
 };
@@ -49,9 +51,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Hellfire Breath                  TODO
+// Hellfire Breath                  Yes
 // Relentless Hunter                Yes
-// Rune-crown of Khorne             TODO
+// Rune-crown of Khorne             Yes
 // Lord of the Blood Hunt           TODO
 //
 

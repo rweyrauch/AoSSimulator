@@ -97,5 +97,27 @@ int Skullgrinder::favouredByKhorne(const Unit *unit)
     return 0;
 }
 
+Wounds Skullgrinder::onEndCombat(PlayerId player)
+{
+    auto wounds = Unit::onEndCombat(player);
+
+    // Fiery Anvil
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(HERO) || unit->hasKeyword(MONSTER))
+        {
+            if (Dice::rollD6() >= 2)
+            {
+                Wounds anvilWounds = {0, Dice::rollD3()};
+                unit->applyDamage(anvilWounds);
+                wounds += anvilWounds;
+                break;
+            }
+        }
+    }
+    return wounds;
+}
+
 
 } // namespace Khorne

@@ -30,18 +30,23 @@ public:
     static void Init();
 
     Wrathmongers();
-    ~Wrathmongers() override = default;
+    ~Wrathmongers() override;
 
     bool configure(int numModels);
 
 protected:
 
     int toHitModifier(const Weapon* weapon, const Unit* target) const override;
+    void onModelSlain() override;
+
+    int crimsonHaze(const Model* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 
     Weapon m_wrathflails,
         m_wrathflailsMaster;
+
+    lsignal::slot m_hazeSlot;
 
     static bool s_registered;
 };
@@ -50,8 +55,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Furious Assault                  Yes
-// Crimson Haze                     TODO
-// Bloodfury                        TODO
+// Crimson Haze                     Partial/TODO
+// Bloodfury                        Yes
 //
 
 } // namespace Khorne

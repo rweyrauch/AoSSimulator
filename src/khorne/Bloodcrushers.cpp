@@ -146,4 +146,25 @@ int Bloodcrushers::ComputePoints(int numModels)
     return points;
 }
 
+void Bloodcrushers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
+{
+    KhorneBase::computeBattleshockEffect(roll, numFled, numAdded);
+    if (m_iconBearer)
+    {
+        // Icon Bearer
+        numAdded = 1;
+    }
+}
+
+void Bloodcrushers::restoreModels(int numModels)
+{
+    // Icon Bearer
+    for (auto i = 0; i < numModels; i++)
+    {
+        auto model = new Model(BASESIZE, WOUNDS);
+        model->addMeleeWeapon(&m_hellblade);
+        addModel(model);
+    }
+}
+
 } // namespace Khorne

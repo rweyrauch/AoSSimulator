@@ -41,6 +41,7 @@ protected:
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
     void restoreModels(int numModels) override;
+    Rerolls chargeRerolls() const override;
 
 private:
 
@@ -59,7 +60,7 @@ private:
 // -------------------------------------------
 // Hornblower                       TODO
 // Icon Bearer                      Yes
-// Standard Bearer                  TODO
+// Standard Bearer                  Yes
 // Decapitating Blow                Yes
 // Locus of Fury                    Yes
 // Murderous Tide                   Yes

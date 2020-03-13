@@ -42,6 +42,11 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
 private:
 
     WeaponOption m_weaponOption = RuinousAxeAndSkullgouger;
@@ -56,10 +61,10 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blooded Lieutenant               TODO
+// Blooded Lieutenant               Yes
 // Runemarked Shield                TODO
-// Skullgouger                      TODO
-// Brutal Impalement                TODO
+// Skullgouger                      Yes
+// Brutal Impalement                Yes
 // Brutal Command                   TODO
 //
 

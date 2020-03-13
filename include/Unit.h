@@ -461,6 +461,8 @@ protected:
     static lsignal::signal<int(const Weapon*, const Unit*)> s_globalToWoundMod;
     static lsignal::signal<int(const Weapon*, const Unit*)> s_globalSaveMod;
 
+    static lsignal::signal<int(const Model *, const Weapon *, const Unit *)> s_globalAttackMod;
+
     static lsignal::signal<int(const Unit*)> s_globalCastMod;
     static lsignal::signal<int(const Unit*)> s_globalUnbindMod;
 

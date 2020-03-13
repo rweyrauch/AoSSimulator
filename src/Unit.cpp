@@ -26,6 +26,8 @@ lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToHitMod;
 lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToWoundMod;
 lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalSaveMod;
 
+lsignal::signal<int(const Model *, const Weapon *, const Unit *)> Unit::s_globalAttackMod;
+
 lsignal::signal<int(const Unit*)> Unit::s_globalCastMod;
 lsignal::signal<int(const Unit*)> Unit::s_globalUnbindMod;
 
@@ -847,13 +849,14 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
 
     const auto globalToHitModifier = s_globalToHitMod(weapon, target, accumulate);
     const auto globalToWoundModifier = s_globalToWoundMod(weapon, target, accumulate);
+    const auto globalAttacksModifier = s_globalAttackMod(fromModel, weapon, target, accumulate);
 
     const auto rerolls = toHitRerolls(weapon, target);
     const auto woundRerolls = toWoundRerolls(weapon, target);
     const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this) + globalToHitModifier;
     const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this) + globalToWoundModifier;
 
-    const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target));
+    const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target)) + globalAttacksModifier;
     for (auto a = 0; a < totalAttacks; a++)
     {
         m_currentRecord.m_attacksMade++;

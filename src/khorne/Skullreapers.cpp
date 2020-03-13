@@ -7,6 +7,7 @@
  */
 #include <khorne/Skullreapers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Khorne
 {
@@ -124,6 +125,24 @@ int Skullreapers::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+void Skullreapers::onModelSlain()
+{
+    Unit::onModelSlain();
+
+    // Murderous to the Last
+    // TODO: if (slain by melee weapon)
+    {
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && distanceTo(unit) <= 1.0f)
+        {
+            if (Dice::rollD6() >= 5)
+            {
+                unit->applyDamage({0, Dice::rollD3()});
+            }
+        }
+    }
 }
 
 } //namespace Khorne

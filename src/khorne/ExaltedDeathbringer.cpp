@@ -127,5 +127,68 @@ int ExaltedDeathbringer::EnumStringToInt(const std::string &enumString)
     return KhorneBase::EnumStringToInt(enumString);
 }
 
+int ExaltedDeathbringer::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Blooded Lieutenant
+    if (!isGeneral())
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        for (auto unit : units)
+        {
+            if (unit->isGeneral())
+            {
+                extra += 2;
+                break;
+            }
+        }
+    }
+
+    return extra;
+}
+
+Wounds ExaltedDeathbringer::applyWoundSave(const Wounds &wounds)
+{
+    if (m_weaponOption == BloodbiteAxeAndRunemarkedShield)
+    {
+        auto totalWounds = KhorneBase::applyWoundSave(wounds);
+
+        // TODO: Save only applies to wounds from spells!
+        /*
+        // Runemarked Shield
+        Dice::RollResult resultNormal, resultMortal;
+
+        Dice::rollD6(wounds.normal, resultNormal);
+        Dice::rollD6(wounds.mortal, resultMortal);
+
+        Wounds negatedWounds = {resultNormal.rollsGE(2), resultNormal.rollsGE(2)};
+        totalWounds -= negatedWounds;
+        */
+        return totalWounds.clamp();
+    }
+    return Unit::applyWoundSave(wounds);
+}
+
+Wounds ExaltedDeathbringer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Brutal Impalement
+    if ((woundRoll == 6) && (weapon->name() == m_impalingSpear.name()))
+    {
+        return {weapon->damage(), Dice::rollD3()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+Wounds ExaltedDeathbringer::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
+{
+    // Skullgouger
+    if ((saveRoll == 6) && (m_weaponOption == RuinousAxeAndSkullgouger))
+    {
+        return {0, Dice::rollD3()};
+    }
+    return Unit::computeReturnedDamage(weapon, saveRoll);
+}
+
 
 } // namespace Khorne

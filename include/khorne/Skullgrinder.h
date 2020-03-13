@@ -35,6 +35,8 @@ public:
 
 protected:
 
+    Wounds onEndCombat(PlayerId player) override;
+
     int favouredByKhorne(const Unit* unit);
 
 private:
@@ -49,7 +51,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Fire Anvil                       TODO
+// Fiery Anvil                      Yes
 // Favoured by Khorne               Yes
 //
 

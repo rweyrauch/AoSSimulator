@@ -38,6 +38,8 @@ protected:
 
     Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    bool battleshockRequired() const override { return false; }
+    void onModelSlain() override;
 
 private:
 
@@ -54,7 +56,7 @@ private:
 // -------------------------------------------
 // Trial of Skulls                  Yes
 // Daemonforged Weapons             Yes
-// Murderous to the Last            TODO
+// Murderous to the Last            Yes
 //
 
 } // namespace Khorne

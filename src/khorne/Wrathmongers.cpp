@@ -7,6 +7,7 @@
  */
 #include <khorne/Wrathmongers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Khorne
 {
@@ -36,6 +37,13 @@ Wrathmongers::Wrathmongers() :
 {
     m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, WRATHMONGERS};
     m_weapons = {&m_wrathflails, &m_wrathflailsMaster};
+
+    s_globalAttackMod.connect(this, &Wrathmongers::crimsonHaze, &m_hazeSlot);
+}
+
+Wrathmongers::~Wrathmongers()
+{
+    m_hazeSlot.disconnect();
 }
 
 bool Wrathmongers::configure(int numModels)
@@ -106,6 +114,40 @@ int Wrathmongers::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int Wrathmongers::crimsonHaze(const Model* attacker, const Weapon *weapon, const Unit *target)
+{
+    // Crimson Haze
+    if (Model::distanceBetween(attacker, m_models.front().get()) <= 8.0f)
+    {
+        // TODO: Does not apply for attacking WRATHMONGER models
+        return 1;
+    }
+    return 0;
+}
+
+void Wrathmongers::onModelSlain()
+{
+    Unit::onModelSlain();
+
+    // Bloodfury
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+    auto mod = 0;
+    if (units.size() >= 2) mod = 1;
+
+    for (auto unit : units)
+    {
+        int roll = Dice::rollD6() + mod;
+        if (roll >= 2 && roll <= 5)
+        {
+            unit->applyDamage({0, 1});
+        }
+        else if (roll >= 6)
+        {
+            unit->applyDamage({0, Dice::rollD3()});
+        }
+    }
 }
 
 } //namespace Khorne

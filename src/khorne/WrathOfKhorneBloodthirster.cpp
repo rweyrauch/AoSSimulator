@@ -46,16 +46,20 @@ bool WrathOfKhorneBloodthirster::s_registered = false;
 WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
     KhorneBase("Wrath of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
     m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
-    m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3)
+    m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3),
+    m_breath(Weapon::Type::Missile, "Hellfire Breath", 8, 1, 0, 0, 0, 0)
 {
     m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
-    m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne};
+    m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne, &m_breath};
+
+    m_totalUnbinds = 1;
 }
 
 bool WrathOfKhorneBloodthirster::configure()
 {
     auto model = new Model(BASESIZE, WOUNDS);
     model->addMissileWeapon(&m_bloodflail);
+    model->addMissileWeapon(&m_breath);
     model->addMeleeWeapon(&m_mightyAxeOfKhorne);
     addModel(model);
 
@@ -125,6 +129,19 @@ void WrathOfKhorneBloodthirster::onRestore()
 {
     // Restore table-driven attributes
     onWounded();
+}
+
+Wounds WrathOfKhorneBloodthirster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Hellfire Breath
+    if (weapon->name() == m_breath.name())
+    {
+        if (Dice::rollD6() >= 2)
+        {
+            return {0, Dice::rollD3()};
+        }
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace Khorne
