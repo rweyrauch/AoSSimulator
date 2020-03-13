@@ -53,7 +53,7 @@ private:
 // -------------------------------------------
 // More-more Stormcage!             Yes
 // Warpfire Gauntlet                Yes
-// Warp Lightning Storm             TODO
+// Warp Lightning Storm             Yes
 //
 
 } // namespace Skaven

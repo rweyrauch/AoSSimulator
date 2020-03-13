@@ -51,7 +51,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // More-more Warp-energy!           Yes
-// Warp Lightning                   TODO
+// Warp Lightning                   Yes
 //
 
 } // namespace Skaven

@@ -9,6 +9,8 @@
 #include <skaven/ArchWarlock.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/SkavenSpells.h>
+#include <spells/MysticShield.h>
 
 namespace Skaven
 {
@@ -64,6 +66,10 @@ bool ArchWarlock::configure()
     model->addMeleeWeapon(&m_halberd);
     model->addMeleeWeapon(&m_claw);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateWarpLightningStorm(this)));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

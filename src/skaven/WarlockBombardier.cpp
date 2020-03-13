@@ -8,6 +8,8 @@
 
 #include <skaven/WarlockBombardier.h>
 #include <UnitFactory.h>
+#include <spells/SkavenSpells.h>
+#include <spells/MysticShield.h>
 
 namespace Skaven
 {
@@ -64,6 +66,10 @@ bool WarlockBombardier::configure()
     model->addMissileWeapon(&m_doomrocket);
     model->addMeleeWeapon(&m_pole);
     addModel(model);
+
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateWarpLightning(this)));
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
     m_points = POINTS_PER_UNIT;
 

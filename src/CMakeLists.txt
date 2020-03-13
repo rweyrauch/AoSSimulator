@@ -31,6 +31,7 @@ add_library(
         spells/LoreOfTheStorm.cpp
         spells/GloomspiteSpells.cpp
         spells/SylvanethSpells.cpp
+        spells/SkavenSpells.cpp
 
         stormcast/CelestantPrime.cpp
         stormcast/Aetherwings.cpp
