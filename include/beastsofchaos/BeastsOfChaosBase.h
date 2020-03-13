@@ -45,22 +45,21 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brayherd Ambush                  No
-// Creatures of the Storm           No
-// Bloodgorge                       No
-// Primordial Call                  No
-// Bestial Might                    No
-// Booming Roar                     No
-// Dominator                        No
-// Shadowbeasts                     No
-// Nomadic Leader                   No
-// Savage Encirclement              No
-// Gift of Morghur                  No
-// Propagator of Devolution         No
-// Unravelling Aura                 No
+// Brayherd Ambush                  TODO
+// Creatures of the Storm           TODO
+// Bloodgorge                       TODO
+// Primordial Call                  TODO
+// Bestial Might                    TODO
+// Booming Roar                     TODO
+// Dominator                        TODO
+// Shadowbeasts                     TODO
+// Nomadic Leader                   TODO
+// Savage Encirclement              TODO
+// Gift of Morghur                  TODO
+// Propagator of Devolution         TODO
+// Unravelling Aura                 TODO
 //
 
 void Init();

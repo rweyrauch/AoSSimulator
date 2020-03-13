@@ -58,17 +58,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deadly Combination               Yes
-// Mortarch of the Necropolis       No
+// Mortarch of the Necropolis       TODO
 // Nadirite Weapons                 Yes
-// Endless Duty                     No
-// Supreme Lord of the ...          No
-// Aviarch Spymaster                No
-// Gnosis Scrollbearer              No
-// Prime Necrophoros                No
+// Endless Duty                     TODO
+// Supreme Lord of the ...          TODO
+// Aviarch Spymaster                TODO
+// Gnosis Scrollbearer              TODO
+// Prime Necrophoros                TODO
 //
 
 } // namespace OssiarchBonereapers

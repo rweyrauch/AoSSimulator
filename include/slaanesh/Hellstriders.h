@@ -66,13 +66,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Standard Banner                  Yes
 // Icon Banner                      Yes
-// Hornblower                       No
-// Soul Hunters                     No
+// Hornblower                       TODO
+// Soul Hunters                     TODO
 //
 } // Slannesh
 

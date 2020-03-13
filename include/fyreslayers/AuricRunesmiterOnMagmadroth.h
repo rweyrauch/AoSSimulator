@@ -54,14 +54,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Roaring Fyrestream               Yes
 // Lashing Tail                     Yes
 // Volcanic Blood                   Yes
-// Grand Ritual of Awakening        No
-// Runic Empowerment                No
+// Grand Ritual of Awakening        TODO
+// Runic Empowerment                TODO
 //
 
 } // namespace Fyreslayers

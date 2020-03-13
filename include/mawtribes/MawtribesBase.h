@@ -56,19 +56,18 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Trampling Charge                 Yes
 // Grasp of the Everwinter          Yes
-// Might Make Right                 No
+// Might Make Right                 TODO
 // Ravenous Brutes                  Yes
 // Fleshy Stampede (Meatfist)       Yes
-// Heralds of the Gulping God (Bloodgullet) No
+// Heralds of the Gulping God (Bloodgullet) TODO
 // Gunmasters (Underguts)           Yes
-// Fearsome Breed (Boulderhead)     No
-// Swift Outflank (Thunderbellies)  No
-// Ghosts in the Blizzard (Winterbite)  No
+// Fearsome Breed (Boulderhead)     TODO
+// Swift Outflank (Thunderbellies)  TODO
+// Ghosts in the Blizzard (Winterbite)  TODO
 //
 
 void Init();

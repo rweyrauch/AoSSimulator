@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Collar of Khorne                 Yes
-// Reality-splitting Axe            No
-// Gorelord                         No
+// Reality-splitting Axe            TODO
+// Gorelord                         TODO
 //
 
 } // namespace Khorne

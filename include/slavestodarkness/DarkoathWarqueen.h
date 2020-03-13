@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Infernal Runeshield              No
-// Savage Duellist                  No
-// The Will of the Gods             No
+// Infernal Runeshield              TODO
+// Savage Duellist                  TODO
+// The Will of the Gods             TODO
 //
 
 } // SlavesToDarkness

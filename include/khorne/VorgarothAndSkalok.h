@@ -55,15 +55,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Monstrous Trophies               Yes
 // Crushing Bulk                    Yes
-// Eternal Hunt                     No
-// Fettered Servitude               No
-// Fuelled by Death                 No
-// Wings of Fury                    No
+// Eternal Hunt                     TODO
+// Fettered Servitude               TODO
+// Fuelled by Death                 TODO
+// Wings of Fury                    TODO
 //
 
 } // namespace Khorne

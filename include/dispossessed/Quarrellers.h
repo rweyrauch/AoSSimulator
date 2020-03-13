@@ -65,11 +65,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Volley Fire                      Yes
-// Runic Icon                       No
+// Runic Icon                       TODO
 // Clan Banner                      Yes
 // Duardin Bucklers                 Yes
 // Drummers                         Yes

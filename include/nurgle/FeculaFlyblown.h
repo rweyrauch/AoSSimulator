@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blessed with Vitality            No
-// Retchling                        No
-// Stream of Corruption             No
+// Blessed with Vitality            TODO
+// Retchling                        TODO
+// Stream of Corruption             TODO
 //
 
 } // Nurgle

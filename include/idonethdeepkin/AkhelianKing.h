@@ -57,14 +57,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deepmare Horn                    Yes
-// Akhelian Paragon                 No
-// Storm of Blows                   No
+// Akhelian Paragon                 TODO
+// Storm of Blows                   TODO
 // Wave Rider                       Yes
-// Lord of Tides                    No
+// Lord of Tides                    TODO
 //
 
 } // namespace IdonethDeepkin

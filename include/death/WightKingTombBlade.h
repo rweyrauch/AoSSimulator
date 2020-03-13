@@ -48,12 +48,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Beheading Strike                 Yes
-// Deathly Invocation               No
-// Lord of Bones                    No
+// Deathly Invocation               TODO
+// Lord of Bones                    TODO
 //
 
 } // namespace Death

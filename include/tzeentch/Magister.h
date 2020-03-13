@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Magic-touched                    No
-// Bolt of Change                   No
+// Magic-touched                    TODO
+// Bolt of Change                   TODO
 //
 
 } // namespace Tzeentch

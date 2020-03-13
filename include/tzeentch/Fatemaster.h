@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Hovering Disc of Tzeentch        No
-// Soulbound Shield                 No
-// Lord of Fate                     No
+// Hovering Disc of Tzeentch        TODO
+// Soulbound Shield                 TODO
+// Lord of Fate                     TODO
 //
 
 } // namespace Tzeentch

@@ -59,21 +59,20 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// The Eye of Sheerian              No
+// The Eye of Sheerian              TODO
 // The Slayer of Kings              Yes
 // The Armour of Morkar             Yes
 // The Crown of Domination          Yes
-// Three-headed Titan               No
-//   Filth-spewer                   No
-//   Skull-gorger                   No
-//   Spell-eater                    No
-// The Everchosen                   No
+// Three-headed Titan               TODO
+//   Filth-spewer                   TODO
+//   Skull-gorger                   TODO
+//   Spell-eater                    TODO
+// The Everchosen                   TODO
 // Warlord Without Equal            Yes
-// By My Will                       No
-// All-seeing Dominion              No
+// By My Will                       TODO
+// All-seeing Dominion              TODO
 //
 
 } // namespace SlavesToDarkness

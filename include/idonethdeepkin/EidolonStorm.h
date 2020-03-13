@@ -48,12 +48,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Crashing Upon the Foe            Yes
-// Drench with Hate                 No
-// Pulled Into the Depths           No
+// Drench with Hate                 TODO
+// Pulled Into the Depths           TODO
 //
 
 } // namespace IdonethDeepkin

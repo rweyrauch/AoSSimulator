@@ -59,10 +59,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Heralds of the Accursed One      No
+// Heralds of the Accursed One      TODO
 // Ebon-wrought Armour              Yes
 //
 

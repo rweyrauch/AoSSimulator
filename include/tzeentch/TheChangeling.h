@@ -42,11 +42,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Puckish Misdirection             No
-// Arch-deceiver                    No
+// Puckish Misdirection             TODO
+// Arch-deceiver                    TODO
 //
 
 } // namespace Tzeentch

@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Nightmare Lantern                No
-// Spectral Lure                    No
+// Nightmare Lantern                TODO
+// Spectral Lure                    TODO
 //
 
 

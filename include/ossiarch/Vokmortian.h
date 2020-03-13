@@ -49,12 +49,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Contract of Nagash               No
-// Grim Warning                     Partial
-// Mortal Touch                     No
+// Contract of Nagash               TODO
+// Grim Warning                     Partial/TODO
+// Mortal Touch                     TODO
 //
 
 } // namespace OssiarchBonereapers

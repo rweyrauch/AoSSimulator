@@ -58,13 +58,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Drill Launcher                   Yes
-// Endrincraft                      No
-// Grapnel Launcher                 No
-// Hitchers                         No
+// Endrincraft                      TODO
+// Grapnel Launcher                 TODO
+// Hitchers                         TODO
 // Skyhook                          Yes
 //
 

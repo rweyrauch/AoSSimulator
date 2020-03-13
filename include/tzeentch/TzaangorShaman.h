@@ -44,13 +44,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Sorcerous Elixir                 No
-// Visions of the Future            No
-// Visions of the Past              No
-// Boon of Mutation                 No
+// Sorcerous Elixir                 TODO
+// Visions of the Future            TODO
+// Visions of the Past              TODO
+// Boon of Mutation                 TODO
 //
 
 } // namespace Tzeentch

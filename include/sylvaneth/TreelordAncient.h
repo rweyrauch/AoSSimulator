@@ -49,15 +49,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Groundshaking Stomp              No
-// Spirit Paths                     No
+// Groundshaking Stomp              TODO
+// Spirit Paths                     TODO
 // Impale                           Yes
-// Silent Communication             No
-// Awakening the Wood               No
-// Heed the Spirit-song             No
+// Silent Communication             TODO
+// Awakening the Wood               TODO
+// Heed the Spirit-song             TODO
 //
 
 } // namespace Sylvaneth

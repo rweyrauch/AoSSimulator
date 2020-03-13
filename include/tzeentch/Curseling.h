@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Disrupter of the Arcane          No
-// Vessel of Chaos                  No
-// Glean Magic                      No
+// Disrupter of the Arcane          TODO
+// Vessel of Chaos                  TODO
+// Glean Magic                      TODO
 //
 
 } // namespace Tzeentch

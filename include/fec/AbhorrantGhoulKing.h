@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Royal Blood                      Yes
-// Black Hunger                     No
-// Summon Men-at-arms               No
+// Black Hunger                     TODO
+// Summon Men-at-arms               TODO
 //
 
 } // namespace FleshEaterCourt

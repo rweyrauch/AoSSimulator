@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Berserk Charge                   No
-// Deathblow                        No
-// Last Gasp of Glory               No
+// Berserk Charge                   TODO
+// Deathblow                        TODO
+// Last Gasp of Glory               TODO
 //
 
 } // SlavesToDarkness

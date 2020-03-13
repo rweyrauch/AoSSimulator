@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Touched by the Spider God        No
-// Speed of the Spider God          No
+// Touched by the Spider God        TODO
+// Speed of the Spider God          TODO
 //
 
 } // namespace GloomspiteGitz

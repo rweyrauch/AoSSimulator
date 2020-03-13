@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Vying for Glory                  No
-// Wyrmslayer Javelins              No
-// Dauntless Assault                No
+// Vying for Glory                  TODO
+// Wyrmslayer Javelins              TODO
+// Dauntless Assault                TODO
 //
 
 } // namespace Fyreslayers

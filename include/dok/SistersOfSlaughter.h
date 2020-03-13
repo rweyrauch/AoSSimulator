@@ -58,10 +58,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Dance of Death                   No
+// Dance of Death                   TODO
 // Bladed Bucklers                  Yes
 //
 

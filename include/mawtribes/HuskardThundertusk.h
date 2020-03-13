@@ -64,15 +64,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blasts of Frost-wreathed Ice     Yes
 // Numbing Chill                    Yes
 // Blood Vulture                    Yes
-// Blizzard Speaker                 No
-//   Winter's Endurance             No
-//   Winter's Strength              No
+// Blizzard Speaker                 TODO
+//   Winter's Endurance             TODO
+//   Winter's Strength              TODO
 //
 
 } // namespace OgorMawtribes

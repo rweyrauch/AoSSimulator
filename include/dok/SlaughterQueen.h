@@ -44,15 +44,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rune of Khaine                   No
-// Wrath of Khaine                  No
-// Touch of Death                   No
-// Dance of Doom                    No
-// Pact of Blood                    No
-// Orgy of Slaughter                No
+// Rune of Khaine                   TODO
+// Wrath of Khaine                  TODO
+// Touch of Death                   TODO
+// Dance of Doom                    TODO
+// Pact of Blood                    TODO
+// Orgy of Slaughter                TODO
 //
 
 } // namespace DaughtersOfKhaine

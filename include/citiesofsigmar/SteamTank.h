@@ -55,14 +55,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bouncing Cannon Ball             No
-// I'll Fix It                      No
-// More Pressure!                   No
-// Steel Behemoth                   No
-// Target Sighted                   No
+// Bouncing Cannon Ball             TODO
+// I'll Fix It                      TODO
+// More Pressure!                   TODO
+// Steel Behemoth                   TODO
+// Target Sighted                   TODO
 //
 
 } // namespace CitiesOfSigmar

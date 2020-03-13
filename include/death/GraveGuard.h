@@ -64,11 +64,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
+// Standard Bearer                  TODO
+// Hornblower                       TODO
 // Cursed Weapons                   Yes
 // Crypt Shields                    Yes
 //

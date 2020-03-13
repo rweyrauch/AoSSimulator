@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Holy Seeker                      No
-// Volcano's Call                   No
+// Holy Seeker                      TODO
+// Volcano's Call                   TODO
 //
 
 } // namespace Fyreslayers

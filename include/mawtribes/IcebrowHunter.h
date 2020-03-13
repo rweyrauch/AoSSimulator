@@ -47,13 +47,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icy Breath                       No
-// Masters of Ambush                No
-// Mighty Throw                     No
-// Lead the Skal                    No
+// Icy Breath                       TODO
+// Masters of Ambush                TODO
+// Mighty Throw                     TODO
+// Lead the Skal                    TODO
 //
 
 } // namespace OgorMawtribes

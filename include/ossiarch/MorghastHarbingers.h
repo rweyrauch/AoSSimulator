@@ -57,11 +57,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Heralds of the Accursed One      No
-// Harbinger of Death               No
+// Heralds of the Accursed One      TODO
+// Harbinger of Death               TODO
 //
 
 } //namespace OssiarchBonereapers

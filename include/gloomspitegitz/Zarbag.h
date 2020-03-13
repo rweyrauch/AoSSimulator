@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Sniffer Spite                    No
-// Face of Da Bad Moon              No
+// Sniffer Spite                    TODO
+// Face of Da Bad Moon              TODO
 //
 
 } // namespace GloomspiteGitz

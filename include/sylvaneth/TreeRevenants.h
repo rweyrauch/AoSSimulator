@@ -66,12 +66,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Glade Banner                     Yes
-// Waypipes                         No
-// Martial Memories                 No
+// Waypipes                         TODO
+// Martial Memories                 TODO
 //
 
 } // namespace Sylvaneth

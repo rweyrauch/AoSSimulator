@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Stare Down                       No
-// Weapon-breaker                   No
-// Lodge Leader                     No
+// Stare Down                       TODO
+// Weapon-breaker                   TODO
+// Lodge Leader                     TODO
 //
 
 } // namespace Fyreslayers

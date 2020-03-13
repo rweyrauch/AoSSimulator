@@ -43,13 +43,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rune of Khaine                   No
-// Wrath of Khaine                  No
-// Touch of Death                   No
-// Witchbrew                        No
+// Rune of Khaine                   TODO
+// Wrath of Khaine                  TODO
+// Touch of Death                   TODO
+// Witchbrew                        TODO
 //
 
 } // namespace DaughtersOfKhaine

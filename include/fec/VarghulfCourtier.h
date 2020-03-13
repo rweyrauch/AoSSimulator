@@ -42,13 +42,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Feed on Dark Magic               No
-// King;s Champion                  No
-// Victory Feast                    No
-// Muster Royal Household           No
+// Feed on Dark Magic               TODO
+// King;s Champion                  TODO
+// Victory Feast                    TODO
+// Muster Royal Household           TODO
 //
 
 } // namespace FleshEaterCourt

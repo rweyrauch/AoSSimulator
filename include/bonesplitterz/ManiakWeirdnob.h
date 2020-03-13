@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Tusker Charge                    No
-// Weird Squig                      No
-// Bone Spirit                      No
+// Tusker Charge                    TODO
+// Weird Squig                      TODO
+// Bone Spirit                      TODO
 //
 
 } // namespace Bonesplitterz

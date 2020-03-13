@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Shivering Gnoblars               No
-// Hidden Trap                      No
-// Here You Go Boss!                No
+// Shivering Gnoblars               TODO
+// Hidden Trap                      TODO
+// Here You Go Boss!                TODO
 //
 
 } // namespace OgorMawtribes

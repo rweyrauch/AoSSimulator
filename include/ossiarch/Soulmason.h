@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mortek Throne                    No
-// Soul-guide                       No
+// Mortek Throne                    TODO
+// Soul-guide                       TODO
 //
 
 } // namespace OssiarchBonereapers

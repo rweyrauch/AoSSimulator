@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deflect Shots                    Yes
-// Hand of Glory                    No
+// Hand of Glory                    TODO
 //
 
 } // namespace EldritchCouncil

@@ -49,11 +49,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Doomfire Coven                   No
-// Doomfire                         No
+// Doomfire Coven                   TODO
+// Doomfire                         TODO
 //
 
 } // namespace DaughtersOfKhaine

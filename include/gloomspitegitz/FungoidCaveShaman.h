@@ -47,13 +47,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mouthpiece of Mork               No
-// Deffcap Mushroom                 No
-// Spore Squig                      No
-// Spore Maws                       No
+// Mouthpiece of Mork               TODO
+// Deffcap Mushroom                 TODO
+// Spore Squig                      TODO
+// Spore Maws                       TODO
 //
 
 } // namespace GloomspiteGitz

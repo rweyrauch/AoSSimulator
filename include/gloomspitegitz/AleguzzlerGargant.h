@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Drunken Stagger                  No
-// Stuff 'Em In Me Bag              No
-// Timber!                          No
+// Drunken Stagger                  TODO
+// Stuff 'Em In Me Bag              TODO
+// Timber!                          TODO
 //
 
 } // namespace GloomspiteGitz

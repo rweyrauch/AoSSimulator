@@ -52,17 +52,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Alakanash, the Staff of Power    No
-// Invocation of Nagash             No
+// Alakanash, the Staff of Power    TODO
+// Invocation of Nagash             TODO
 // Frightful Touch                  Yes
-// Morikhane                        No
+// Morikhane                        TODO
 // The Nine Books of Nagash         Yes
-// Hand of Dust                     No
-// Soul Stealer                     No
-// Supreme Lord of the Undead       No
+// Hand of Dust                     TODO
+// Soul Stealer                     TODO
+// Supreme Lord of the Undead       TODO
 //
 
 } // namespace Death

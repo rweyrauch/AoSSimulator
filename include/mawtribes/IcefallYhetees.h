@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Frost                    No
-// Bounding Leaps                   No
-// Invigorated by the Blizzard      No
+// Aura of Frost                    TODO
+// Bounding Leaps                   TODO
+// Invigorated by the Blizzard      TODO
 //
 
 } // namespace OgorMawtribes

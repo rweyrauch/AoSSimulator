@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Magic-touched                    No
-// Sorcerous Insight                No
+// Magic-touched                    TODO
+// Sorcerous Insight                TODO
 //
 
 } // namespace Tzeentch

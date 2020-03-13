@@ -47,13 +47,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Hellfire Breath                  No
+// Hellfire Breath                  TODO
 // Relentless Hunter                Yes
-// Rune-crown of Khorne             No
-// Lord of the Blood Hunt           No
+// Rune-crown of Khorne             TODO
+// Lord of the Blood Hunt           TODO
 //
 
 } // namespace Khorne

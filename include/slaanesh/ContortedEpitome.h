@@ -45,13 +45,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Gift of Power                    No
+// Gift of Power                    TODO
 // Swallow Energy                   Yes
-// Horrible Fascination             No
-// Overwhelming Acquiescence        No
+// Horrible Fascination             TODO
+// Overwhelming Acquiescence        TODO
 //
 
 } // Slannesh

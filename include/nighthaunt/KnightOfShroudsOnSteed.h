@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Stolen Hours                     No
-// Lord of Gheists                  No
+// Stolen Hours                     TODO
+// Lord of Gheists                  TODO
 //
 
 

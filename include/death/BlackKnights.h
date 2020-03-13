@@ -55,11 +55,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
+// Standard Bearer                  TODO
+// Hornblower                       TODO
 // Deathly Charge                   Yes
 // Crypt Shields                    Yes
 //

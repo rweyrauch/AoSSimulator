@@ -50,7 +50,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Stubborn to the End              Yes
@@ -60,7 +59,7 @@ private:
 //      Monstrous Cheaters          Yes
 //      Cowardly Hordes             Yes
 //      Shoddy Craftsmanship        Yes
-//      Sneaky Ambushers            No
+//      Sneaky Ambushers            TODO
 //
 
 void Init();

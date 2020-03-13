@@ -30,15 +30,14 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Dread                    No
+// Aura of Dread                    TODO
 // Deathless Spirits                Yes
-// From the Underworlds They Come   No
-// Feed on Terror                   No
-// Wave of Terror                   No
-// Spectral Summons                 No
+// From the Underworlds They Come   TODO
+// Feed on Terror                   TODO
+// Wave of Terror                   TODO
+// Spectral Summons                 TODO
 //
 
 void Init();

@@ -51,11 +51,10 @@ protected:
 void Init();
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Locus of Fury                    Yes
-// Devour the Craven                No
+// Devour the Craven                TODO
 // Skull Hunters                    Yes
 // Tireless Conquerors              Yes
 // Slay the Mighty                  Yes

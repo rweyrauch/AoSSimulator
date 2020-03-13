@@ -48,12 +48,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Groundshaking Stomp              No
-// Impale                           No
-// Spirit Path                      No
+// Groundshaking Stomp              TODO
+// Impale                           TODO
+// Spirit Path                      TODO
 //
 
 } // namespace Sylvaneth

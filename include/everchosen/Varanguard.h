@@ -61,15 +61,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mark of Chaos                    No
+// Mark of Chaos                    TODO
 // Daemonbound                      Yes
-// Favoured of the Everchosen       No
+// Favoured of the Everchosen       TODO
 // Impaling Charge                  Yes
-// Relentless Killers               No
-// Warpsteel Shields                No
+// Relentless Killers               TODO
+// Warpsteel Shields                TODO
 //
 
 } // namespace SlavesToDarkness

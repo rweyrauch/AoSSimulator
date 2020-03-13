@@ -51,11 +51,10 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deathless Warriors               Yes
-// Ranks Unbroken by Dissent        No
+// Ranks Unbroken by Dissent        TODO
 //
 
 void Init();

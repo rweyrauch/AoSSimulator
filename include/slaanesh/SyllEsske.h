@@ -43,13 +43,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deadly Symbiosis                 No
+// Deadly Symbiosis                 TODO
 // Lithe and Swift                  Yes
-// Subvert                          No
-// Regal Authority                  No
+// Subvert                          TODO
+// Regal Authority                  TODO
 //
 
 } // Slannesh

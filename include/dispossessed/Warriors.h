@@ -75,12 +75,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Resolute in Defence              Yes
 // Duardin Shields                  Yes
-// Runic Icon                       No
+// Runic Icon                       TODO
 // Clan Banner                      Yes
 // Hornblowers                      Yes
 //

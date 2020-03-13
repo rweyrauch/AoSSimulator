@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Imperial Blood                   Yes
-// Ferocious Hunger                 No
-// Summon Imperial Guard            No
+// Ferocious Hunger                 TODO
+// Summon Imperial Guard            TODO
 //
 
 } // namespace FleshEaterCourt

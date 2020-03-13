@@ -47,17 +47,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    Yes
-// Protection of the Dark Gods      No
-// Favour of the Ruinous Powers     No
-//   Favour of Khorne               No
-//   Favour of Tzeentch             No
-//   Favour of Nurgle               No
-//   Favour of Slaanesh             No
-//   Favour of Chaos                No
+// Protection of the Dark Gods      TODO
+// Favour of the Ruinous Powers     TODO
+//   Favour of Khorne               TODO
+//   Favour of Tzeentch             TODO
+//   Favour of Nurgle               TODO
+//   Favour of Slaanesh             TODO
+//   Favour of Chaos                TODO
 //
 
 } // SlavesToDarkness

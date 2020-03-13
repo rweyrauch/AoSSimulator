@@ -41,11 +41,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Loathsome Sorcery                No
-// Rage of Khorne                   No
+// Loathsome Sorcery                TODO
+// Rage of Khorne                   TODO
 //
 
 } // namespace Khorne

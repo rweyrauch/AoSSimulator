@@ -45,13 +45,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Tome                      No
-// Sky-shark                        No
-// Wake of Fire                     No
-// Tzeentch's Firestorm             No
+// Arcane Tome                      TODO
+// Sky-shark                        TODO
+// Wake of Fire                     TODO
+// Tzeentch's Firestorm             TODO
 //
 
 } // namespace Tzeentch

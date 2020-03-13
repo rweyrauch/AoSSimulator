@@ -51,12 +51,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Dread Catapult                   No
-// Cauldron of Torment              No
-// Cursed Stele                     No
+// Dread Catapult                   TODO
+// Cauldron of Torment              TODO
+// Cursed Stele                     TODO
 //
 
 } // namespace OssiarchBonereapers

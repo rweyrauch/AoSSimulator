@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Aethersight                      Yes
-// Aetherstorm                      No
-// Read the Winds                   No
+// Aetherstorm                      TODO
+// Read the Winds                   TODO
 //
 
 } // namespace KharadronOverlords

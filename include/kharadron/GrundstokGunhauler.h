@@ -63,16 +63,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ahead Full                       Yes
-// Escort Vessel                    No
+// Escort Vessel                    TODO
 // Bomb Racks                       Yes
-// Disengage                        No
-// Fly High                         No
+// Disengage                        TODO
+// Fly High                         TODO
 // Drill Cannon                     Yes
-// Sky Cannon                       No
+// Sky Cannon                       TODO
 //
 
 } // namespace KharadronOverlords

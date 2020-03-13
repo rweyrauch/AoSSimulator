@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Warptongue Blade                 Yes
-// Book of Profane Secrets          No
-// Infernal Flames                  No
+// Book of Profane Secrets          TODO
+// Infernal Flames                  TODO
 //
 
 } // namespace Tzeentch

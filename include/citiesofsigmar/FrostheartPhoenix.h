@@ -55,13 +55,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Attuned to Magic                 No
+// Attuned to Magic                 TODO
 // Blizzard Aura                    Yes
-// Witness to Destiny               No
-// Captain of the Phoenix Guard     No
+// Witness to Destiny               TODO
+// Captain of the Phoenix Guard     TODO
 //
 
 } // namespace CitiesOfSigmar

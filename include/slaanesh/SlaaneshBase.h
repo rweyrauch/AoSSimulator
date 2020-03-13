@@ -47,10 +47,9 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Locus of Diversion               No
+// Locus of Diversion               TODO
 // Euphoric Killers                 Yes
 // Heir to the Throne               Yes
 // Thundering Cavalcade             Yes

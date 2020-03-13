@@ -54,15 +54,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Protection               No
-// Locus of Hysh                    No
-// Searing Beam of Light            No
+// Aura of Protection               TODO
+// Locus of Hysh                    TODO
+// Searing Beam of Light            TODO
 // White Battlemage                 Yes
-// Burning Gaze                     No
-// Pha's Protection                 No
+// Burning Gaze                     TODO
+// Pha's Protection                 TODO
 //
 
 } // namespace CitiesOfSigmar

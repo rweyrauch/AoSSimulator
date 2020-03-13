@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unstoppable Charge               No
-// Endless Duty                     No
+// Unstoppable Charge               TODO
+// Endless Duty                     TODO
 //
 
 } // namespace OssiarchBonereapers

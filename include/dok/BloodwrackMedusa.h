@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodwrack Stare                 No
-// Enfeebling Foe                   No
+// Bloodwrack Stare                 TODO
+// Enfeebling Foe                   TODO
 //
 
 } // namespace DaughtersOfKhaine

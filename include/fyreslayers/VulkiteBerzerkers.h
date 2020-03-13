@@ -65,10 +65,10 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Horn of Grimnir                  No
-// Berserk Fury                     No
+// Horn of Grimnir                  TODO
+// Berserk Fury                     TODO
 // Fyresteel Handaxes               Yes
-// Bladed Slingshield               No
+// Bladed Slingshield               TODO
 //
 
 } // namespace Fyreslayers

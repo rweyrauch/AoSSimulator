@@ -51,14 +51,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Attuned to Magic                 No
-// Phoenix Reborn                   No
-// Wake of Fire                     No
-// Witness to Destiny               No
-// Captain of the Phoenix Guard     No
+// Attuned to Magic                 TODO
+// Phoenix Reborn                   TODO
+// Wake of Fire                     TODO
+// Witness to Destiny               TODO
+// Captain of the Phoenix Guard     TODO
 //
 
 } // namespace CitiesOfSigmar

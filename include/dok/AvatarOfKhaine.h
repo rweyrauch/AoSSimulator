@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Animated                         No
-// Idol of Worship                  No
+// Animated                         TODO
+// Idol of Worship                  TODO
 //
 
 } // namespace DaughtersOfKhaine

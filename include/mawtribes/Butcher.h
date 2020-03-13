@@ -52,11 +52,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodgruel                       No
-// Voracious Maw                    No
+// Bloodgruel                       TODO
+// Voracious Maw                    TODO
 //
 
 } // namespace OgorMawtribes

@@ -67,14 +67,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcanite Shields                 No
-// Gestalt Sorcery                  No
+// Arcanite Shields                 TODO
+// Gestalt Sorcery                  TODO
 // Paired Cursed Blades             Yes
 // Scroll of Dark Arts              Yes
-// Vulcharc                         No
+// Vulcharc                         TODO
 //
 
 } // Tzeentch

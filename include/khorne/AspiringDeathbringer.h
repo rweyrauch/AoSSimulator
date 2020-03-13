@@ -55,11 +55,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bane of Cowards                  No
-// Slaughter Incarnate              No
+// Bane of Cowards                  TODO
+// Slaughter Incarnate              TODO
 //
 
 } // namespace Khorne

@@ -54,12 +54,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Bellower                         Yes
-// Rune Maw Bearer                  No
-// Down to the Ironguts             No
+// Rune Maw Bearer                  TODO
+// Down to the Ironguts             TODO
 //
 
 } // namespace OgorMawtribes

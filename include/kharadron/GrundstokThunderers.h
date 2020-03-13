@@ -55,13 +55,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Honour Bearer                    No
-// Chocking Fug                     No
-// Drive Them Back!                 No
-// Pin THem, Shred Them, Finish Them    No
+// Honour Bearer                    TODO
+// Chocking Fug                     TODO
+// Drive Them Back!                 TODO
+// Pin THem, Shred Them, Finish Them    TODO
 //
 
 } // namespace KharadronOverlords

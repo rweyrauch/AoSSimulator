@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Undead Minions                   No
-// Deathly Invocation               No
-// Vanhel's Danse Macabre           No
+// Undead Minions                   TODO
+// Deathly Invocation               TODO
+// Vanhel's Danse Macabre           TODO
 //
 
 } // namespace Death

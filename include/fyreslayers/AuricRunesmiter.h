@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Magmic Tunnelling                No
-// Runic Empowerment                No
+// Magmic Tunnelling                TODO
+// Runic Empowerment                TODO
 //
 
 } // namespace Fyreslayers

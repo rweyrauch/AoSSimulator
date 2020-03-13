@@ -67,7 +67,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Brace of Drakefire Pistols       Yes
@@ -75,7 +74,7 @@ private:
 // Gromril Shields                  Yes
 // Forge-proven Gromril Armour      Yes
 // Musician                         Yes
-// Icon Bearer                      No
+// Icon Bearer                      TODO
 //
 
 } // namespace Dispossessed

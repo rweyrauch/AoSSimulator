@@ -58,15 +58,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Drill Launcher                   Yes
-// Grapnel Launcher                 No
-// Hitchers                         No
+// Grapnel Launcher                 TODO
+// Hitchers                         TODO
 // Skyhook                          Yes
-// Skymines                         No
-// Timed Charges                    No
+// Skymines                         TODO
+// Timed Charges                    TODO
 //
 
 } // namespace KharadronOverlords

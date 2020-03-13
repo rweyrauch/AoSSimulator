@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unstoppable Berzerker            No
-// Battle-fury                      No
-// Dead, But Not Defeated           No
+// Unstoppable Berzerker            TODO
+// Battle-fury                      TODO
+// Dead, But Not Defeated           TODO
 //
 
 } // namespace Fyreslayers

@@ -47,15 +47,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // If You Want A Job Done...        Yes
-// Protect the Admiral!             No
-// Master of the Skies              No
-// On My Mark, Fire!                No
-// Repel Boarders!                  No
-// Up And At Them!                  No
+// Protect the Admiral!             TODO
+// Master of the Skies              TODO
+// On My Mark, Fire!                TODO
+// Repel Boarders!                  TODO
+// Up And At Them!                  TODO
 //
 
 } // namespace KharadronOverlords

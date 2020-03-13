@@ -50,12 +50,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deadly Combination               Yes
-// Soulbound Protectors             No
-// Crushing Assault                 No
+// Soulbound Protectors             TODO
+// Crushing Assault                 TODO
 //
 
 } // namespace OssiarchBonereapers

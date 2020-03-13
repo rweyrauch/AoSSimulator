@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Endrinmaster                     No
-// Hitcher                          No
-// By Grungni, I Have My Eye On You!    No
+// Endrinmaster                     TODO
+// Hitcher                          TODO
+// By Grungni, I Have My Eye On You!    TODO
 //
 
 } // namespace KharadronOverlords

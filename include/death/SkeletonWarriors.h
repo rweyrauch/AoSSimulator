@@ -64,11 +64,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
+// Standard Bearer                  TODO
+// Hornblower                       TODO
 // Skeleton Legion                  Yes
 // Crypt Shields                    Yes
 //

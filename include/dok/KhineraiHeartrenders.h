@@ -50,12 +50,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Descend to Battle                No
-// Fight and Flight                 No
-// Death From Above                 No
+// Descend to Battle                TODO
+// Fight and Flight                 TODO
+// Death From Above                 TODO
 // Heartpiercer Shield              Yes
 //
 

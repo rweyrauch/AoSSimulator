@@ -48,14 +48,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blubber and Bile                 No
-// Corpulent Mass                   No
+// Blubber and Bile                 TODO
+// Corpulent Mass                   TODO
 // Mountain of Loathsome Flesh      Yes
-// Streams of Brackish Filth        No
-// Deluge of Nurgle                 No
+// Streams of Brackish Filth        TODO
+// Deluge of Nurgle                 TODO
 //
 
 } // Nurgle

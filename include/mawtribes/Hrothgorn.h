@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Masters of Ambush                No
-// Thrafnir                         No
+// Masters of Ambush                TODO
+// Thrafnir                         TODO
 //
 
 } // namespace OgorMawtribes

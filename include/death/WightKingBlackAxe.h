@@ -44,13 +44,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Black Axe                        No
+// Black Axe                        TODO
 // Barrow Armour                    Yes
-// Deathly Invocation               No
-// Lord of Bones                    No
+// Deathly Invocation               TODO
+// Lord of Bones                    TODO
 //
 
 } // namespace Death

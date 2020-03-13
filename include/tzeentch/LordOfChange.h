@@ -60,14 +60,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Master of Magic                  Yes
-// Spell-eater                      No
-// Spell-thief                      No
-// Infernal Gateway                 No
-// Beacon of Sorcery                No
+// Spell-eater                      TODO
+// Spell-thief                      TODO
+// Infernal Gateway                 TODO
+// Beacon of Sorcery                TODO
 //
 
 } // namespace Tzeentch

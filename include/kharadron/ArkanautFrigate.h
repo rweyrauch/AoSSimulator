@@ -66,14 +66,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Garrison                         No
+// Garrison                         TODO
 // Aetheric Navigator/Endrinrigger  Yes
 // Bomb Racks                       Yes
-// Disengage                        No
-// Fly High                         No
+// Disengage                        TODO
+// Fly High                         TODO
 // Heavy Skyhook                    Yes
 // Heavy Sky Cannon                 Yes
 //

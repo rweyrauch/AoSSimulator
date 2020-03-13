@@ -53,15 +53,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Death Shriek                     No
+// Death Shriek                     TODO
 // Gaping Maw                       Yes
 // Infested                         Yes
 // Royal Blood                      Yes
-// Unholy Vitality                  No
-// Summon Royal Guard               No
+// Unholy Vitality                  TODO
+// Summon Royal Guard               TODO
 //
 
 } // namespace FleshEaterCourt

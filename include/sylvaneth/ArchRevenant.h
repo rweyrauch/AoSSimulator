@@ -54,13 +54,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Crescent Shield                  Yes
-// Champion of Kurnoth              No
-// Ultimate Sacrifice               No
-// Call to Battle                   No
+// Champion of Kurnoth              TODO
+// Ultimate Sacrifice               TODO
+// Call to Battle                   TODO
 //
 
 } // namespace Sylvaneth

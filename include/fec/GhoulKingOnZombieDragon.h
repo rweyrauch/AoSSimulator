@@ -51,13 +51,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Pestilential Breath              No
+// Pestilential Breath              TODO
 // Royal Blood                      Yes
-// Malefic Hunger                   No
-// Summon Courtier                  No
+// Malefic Hunger                   TODO
+// Summon Courtier                  TODO
 //
 
 } // namespace FleshEaterCourt

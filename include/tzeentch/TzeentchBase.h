@@ -57,16 +57,15 @@ private:
 void Init();
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Locus of Change                  Yes
 // Twisters of Materiality          Yes
-// Ranks of Mischievous Mirages     No
-// Thieves of all Things Arcane     No
-// The Change-gift                  No
+// Ranks of Mischievous Mirages     TODO
+// Thieves of all Things Arcane     TODO
+// The Change-gift                  TODO
 // Arrows of Tzeentch               Partial
-// Scions of the Exiled             No
+// Scions of the Exiled             TODO
 //
 
 } // Tzeentch

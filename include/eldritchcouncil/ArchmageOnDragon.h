@@ -53,12 +53,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Talisman of Arcane Power         Yes
-// Dragonfire                       No
-// Drain Magic                      No
+// Dragonfire                       TODO
+// Drain Magic                      TODO
 //
 
 } // namespace EldritchCouncil

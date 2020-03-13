@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Soulscent                        No
-// Acquiescence                     No
+// Soulscent                        TODO
+// Acquiescence                     TODO
 //
 
 } // Slannesh

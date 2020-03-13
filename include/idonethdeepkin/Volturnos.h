@@ -50,15 +50,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deepmare Horn                    Yes
 // The Astra Solus                  Yes
 // The Crest of the High King       Yes
-// Cealith, the High King's Shield  No
-// First Among Akhelians            No
-// Supreme Lord of Tides            No
+// Cealith, the High King's Shield  TODO
+// First Among Akhelians            TODO
+// Supreme Lord of Tides            TODO
 //
 
 } // namespace IdonethDeepkin

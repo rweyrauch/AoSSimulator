@@ -57,11 +57,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Paired Sacrificial Knives        Yes
-// Frenzied Fervour                 No
+// Frenzied Fervour                 TODO
 // Bladed Bucklers                  Yes
 //
 

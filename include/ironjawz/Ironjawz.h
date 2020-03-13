@@ -49,13 +49,13 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mighty Destroyers                No
-// Smashing and Bashing             No
+// Mighty Destroyers                TODO
+// Smashing and Bashing             TODO
 // Eager for Battle                 Yes
-// Mad as Hell                      No
+// Mad as Hell                      TODO
+//
 
 void Init();
 

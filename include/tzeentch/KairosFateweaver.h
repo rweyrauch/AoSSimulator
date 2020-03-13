@@ -49,13 +49,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Master of Magic                  Yes
-// Spell-eater                      No
-// Oracle of Eternity               No
-// Gift of Change                   No
+// Spell-eater                      TODO
+// Oracle of Eternity               TODO
+// Gift of Change                   TODO
 //
 
 } // namespace Tzeentch

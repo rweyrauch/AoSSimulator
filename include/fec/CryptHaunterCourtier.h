@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Noble Blood                      No
-// Chosen of the King               No
-// Muster King's Chosen             No
+// Noble Blood                      TODO
+// Chosen of the King               TODO
+// Muster King's Chosen             TODO
 //
 
 } // namespace FleshEaterCourt

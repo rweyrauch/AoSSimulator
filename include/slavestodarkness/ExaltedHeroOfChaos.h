@@ -42,14 +42,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    Yes
-// Dark Blessings                   No
-// Glory-hungry Bladesman           No
-// Thrice-damned Dagger             No
-// Trail of Red Ruin                No
+// Dark Blessings                   TODO
+// Glory-hungry Bladesman           TODO
+// Thrice-damned Dagger             TODO
+// Trail of Red Ruin                TODO
 //
 
 } // SlavesToDarkness

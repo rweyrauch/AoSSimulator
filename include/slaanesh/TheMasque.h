@@ -42,13 +42,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Staff of Masks                   No
-// The Endless Dance                No
+// Staff of Masks                   TODO
+// The Endless Dance                TODO
 // Lithe and Swift                  Yes
-// Inhuman Reflexes                 No
+// Inhuman Reflexes                 TODO
 //
 
 } // Slannesh

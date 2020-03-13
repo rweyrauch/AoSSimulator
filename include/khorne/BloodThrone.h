@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// The Blood Throne                 No
-// Gorefeast                        No
+// The Blood Throne                 TODO
+// Gorefeast                        TODO
 // Decapitating Blow                Yes
 //
 

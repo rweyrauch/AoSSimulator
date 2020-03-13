@@ -46,10 +46,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood-maddened Frenzy            No
+// Blood-maddened Frenzy            TODO
 //
 
 } //namespace Death

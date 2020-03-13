@@ -49,13 +49,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Dormant Energies                 No
+// Dormant Energies                 TODO
 // Tranquility of the Abyss         Yes
-// Cloying Sea Mists                No
-// Tsunami of Terror                No
+// Cloying Sea Mists                TODO
+// Tsunami of Terror                TODO
 //
 
 } // namespace IdonethDeepkin

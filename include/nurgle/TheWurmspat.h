@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Virulent Discharge               No
-// Blighted Weapons                 No
-// Festing Bodyguards               No
+// Virulent Discharge               TODO
+// Blighted Weapons                 TODO
+// Festing Bodyguards               TODO
 //
 
 } // Nurgle

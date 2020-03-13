@@ -53,15 +53,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Roaring Fyrestream               Yes
 // Lashing Tail                     Yes
 // Volcanic Blood                   Yes
-// Stare Down                       No
-// Weapon-breaker                   No
-// Steadfast Advance                No
+// Stare Down                       TODO
+// Weapon-breaker                   TODO
+// Steadfast Advance                TODO
 //
 
 } // namespace Fyreslayers

@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Vigour and Wrath                 No
-// The Reaping                      No
+// Vigour and Wrath                 TODO
+// The Reaping                      TODO
 //
 
 } // namespace Sylvaneth

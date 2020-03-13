@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Boneshaper                       No
-// Shard-storm                      No
+// Boneshaper                       TODO
+// Shard-storm                      TODO
 //
 
 } // namespace OssiarchBonereapers

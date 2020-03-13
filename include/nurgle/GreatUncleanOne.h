@@ -65,15 +65,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blubber and Bile                 No
-// Corpulent Mass                   No
+// Blubber and Bile                 TODO
+// Corpulent Mass                   TODO
 // Mountain of Loathsome Flesh      Yes
-// Putrid Offerings                 No
-// Reverberating Summons            No
-// Plague Wind                      No
+// Putrid Offerings                 TODO
+// Reverberating Summons            TODO
+// Plague Wind                      TODO
 //
 
 } // Nurgle

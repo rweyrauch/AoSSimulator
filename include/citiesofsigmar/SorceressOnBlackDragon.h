@@ -54,14 +54,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood Sacrifice                  No
-// Noxious Breath                   No
-// Bladewind                        No
-// Command Underlings               No
-// Inspire Hatred                   No
+// Blood Sacrifice                  TODO
+// Noxious Breath                   TODO
+// Bladewind                        TODO
+// Command Underlings               TODO
+// Inspire Hatred                   TODO
 //
 
 } // namespace CitiesOfSigmar

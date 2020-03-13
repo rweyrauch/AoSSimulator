@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Brutal Rage                      No
-// Mighty Bulk                      No
-// Choking Tendrils                 No
+// Brutal Rage                      TODO
+// Mighty Bulk                      TODO
+// Choking Tendrils                 TODO
 //
 
 } // namespace Tzeentch

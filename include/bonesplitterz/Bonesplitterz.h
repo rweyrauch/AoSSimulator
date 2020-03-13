@@ -46,14 +46,13 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Tireless Trackers                No
-// Warpaint                         No
-// Monster Hunters                  No
-// Spirit of the Beast              No
-// Bonesplitterz Waaagh!            No
+// Tireless Trackers                TODO
+// Warpaint                         TODO
+// Monster Hunters                  TODO
+// Spirit of the Beast              TODO
+// Bonesplitterz Waaagh!            TODO
 //
 
 void Init();

@@ -46,13 +46,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Runes of Spellbreaking           Yes
 // Rune Lord
-//    Ancestral Shield              No
-//    Forgefire                     No
+//    Ancestral Shield              TODO
+//    Forgefire                     TODO
 //
 
 } // namespace Dispossessed

@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Madcap Mushroom                  No
-// Night Shroud                     No
+// Madcap Mushroom                  TODO
+// Night Shroud                     TODO
 //
 
 } // namespace GloomspiteGitz

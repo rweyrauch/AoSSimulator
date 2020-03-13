@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Runic Axes                       Yes
-// Epic Deathblow                   No
+// Epic Deathblow                   TODO
 // Nemesis                          Yes
 // The Bigger They Are...           Yes
 //

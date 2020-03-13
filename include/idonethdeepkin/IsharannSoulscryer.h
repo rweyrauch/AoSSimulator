@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Find of Ways                     No
-// Seeker of Souls                  No
+// Find of Ways                     TODO
+// Seeker of Souls                  TODO
 //
 
 } // namespace IdonethDeepkin

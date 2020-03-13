@@ -51,13 +51,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Noise Maker                      No
+// Standard Bearer                  TODO
+// Noise Maker                      TODO
 // Dragged Down and Torn Apart      Yes
-// The Newly Dead                   No
+// The Newly Dead                   TODO
 // Vigour Mortis                    Yes
 //
 

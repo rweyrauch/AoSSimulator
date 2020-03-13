@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Talisman of Arcane Power         No
-// Elemental Shield                 No
+// Talisman of Arcane Power         TODO
+// Elemental Shield                 TODO
 //
 
 } // namespace EldritchCouncil

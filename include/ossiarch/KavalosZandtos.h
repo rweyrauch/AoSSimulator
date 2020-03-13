@@ -49,14 +49,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // The Dark Lance                   Yes
 // Hatred of the Living             Yes
-// Unstoppable Charge               No
-// Endless Duty                     No
-// Still Their Breath               No
+// Unstoppable Charge               TODO
+// Endless Duty                     TODO
+// Still Their Breath               TODO
 //
 
 } // namespace OssiarchBonereapers

@@ -51,14 +51,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Mountain of Loathsome Flesh      Yes
 // Blessing of Nurgle               Yes
-// Horrific Opponent                No
-// Fleshy Abundance                 No
-// Lords of Nurgle                  No
+// Horrific Opponent                TODO
+// Fleshy Abundance                 TODO
+// Lords of Nurgle                  TODO
 //
 
 } // Nurgle

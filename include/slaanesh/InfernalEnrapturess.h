@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Discordant Disruption            No
-// Harmonic Alignment               No
+// Discordant Disruption            TODO
+// Harmonic Alignment               TODO
 // Versatile Instrument             Yes
 //
 

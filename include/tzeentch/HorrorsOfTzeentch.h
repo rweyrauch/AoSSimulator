@@ -59,17 +59,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
-// Hornblower                       No
+// Hornblower                       TODO
 // Flickering Flames                Yes
 // Locus of Conjuration             Yes
-// Ectoplasmic Elasticity           No
-// Split and Split Again            No
-// Petty Vengeance                  No
-// Channelled Pink Fire             No
+// Ectoplasmic Elasticity           TODO
+// Split and Split Again            TODO
+// Petty Vengeance                  TODO
+// Channelled Pink Fire             TODO
 //
 
 } // Tzeentch

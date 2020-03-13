@@ -54,14 +54,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blooded Lieutenant               No
-// Runemarked Shield                No
-// Skullgouger                      No
-// Brutal Impalement                No
-// Brutal Command                   No
+// Blooded Lieutenant               TODO
+// Runemarked Shield                TODO
+// Skullgouger                      TODO
+// Brutal Impalement                TODO
+// Brutal Command                   TODO
 //
 
 } // namespace Khorne

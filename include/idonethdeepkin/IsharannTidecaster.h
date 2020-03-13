@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Spirit Guardians                 No
-// The Wide Ethersea                No
-// Riptide                          No
+// Spirit Guardians                 TODO
+// The Wide Ethersea                TODO
+// Riptide                          TODO
 //
 
 } // namespace IdonethDeepkin

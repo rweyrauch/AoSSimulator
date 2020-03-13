@@ -42,12 +42,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Stolen Hours                     No
-// Spectral Overseer                No
+// Stolen Hours                     TODO
+// Spectral Overseer                TODO
 //
 
 

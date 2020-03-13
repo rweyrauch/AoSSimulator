@@ -46,13 +46,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Custom-built Dirigible Suit      No
-// Endrinharness                    No
-// Hitcher                          No
-// First Rule of Grungsson          No
+// Custom-built Dirigible Suit      TODO
+// Endrinharness                    TODO
+// Hitcher                          TODO
+// First Rule of Grungsson          TODO
 //
 
 } // namespace KharadronOverlords

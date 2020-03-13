@@ -42,11 +42,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon of Grimnir                  No
-// None Shall Defile the Icon       No
+// Icon of Grimnir                  TODO
+// None Shall Defile the Icon       TODO
 //
 
 } // namespace Fyreslayers

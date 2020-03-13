@@ -57,20 +57,19 @@ private:
 void Init();
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Aura of Chaos
-//    Aura of Khorne                No
-//    Aura of Tzeentch              No
-//    Aura of Nurgle                No
-//    Aura of Slaanesh              No
-//    Aura of Chaos Undivided       No
-// Eye of the Gods                  No
-// Ravagers                         No
-// Cabalists                        No
-// Despoilers                       No
-// Host of the Everchosen           No
+//    Aura of Khorne                TODO
+//    Aura of Tzeentch              TODO
+//    Aura of Nurgle                TODO
+//    Aura of Slaanesh              TODO
+//    Aura of Chaos Undivided       TODO
+// Eye of the Gods                  TODO
+// Ravagers                         TODO
+// Cabalists                        TODO
+// Despoilers                       TODO
+// Host of the Everchosen           TODO
 
 } // SlavesToDarkness
 

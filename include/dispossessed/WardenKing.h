@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ancestor Shield                  Yes
-// Oath Stone                       No
-// Ancestral Grudge                 No
+// Oath Stone                       TODO
+// Ancestral Grudge                 TODO
 //
 
 } // namespace Dispossessed

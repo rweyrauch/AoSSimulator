@@ -42,11 +42,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Trophy Hunter                    No
-// Muster Serfs                     No
+// Trophy Hunter                    TODO
+// Muster Serfs                     TODO
 //
 
 } // namespace FleshEaterCourt

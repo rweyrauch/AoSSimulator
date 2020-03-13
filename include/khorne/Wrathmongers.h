@@ -47,12 +47,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Furious Assault                  Yes
-// Crimson Haze                     No
-// Bloodfury                        No
+// Crimson Haze                     TODO
+// Bloodfury                        TODO
 //
 
 } // namespace Khorne

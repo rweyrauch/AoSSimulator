@@ -54,12 +54,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  No
-// Hornblower                       No
-// The Hunger                       No
+// Standard Bearer                  TODO
+// Hornblower                       TODO
+// The Hunger                       TODO
 // Martial Fury                     Yes
 // Bloodshields                     Yes
 //

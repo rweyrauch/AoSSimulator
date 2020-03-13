@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Slaughterstorm                   Yes
-// The Slaughterborn                No
-// Murderous Paragon                No
+// The Slaughterborn                TODO
+// Murderous Paragon                TODO
 //
 
 } // namespace Khorne

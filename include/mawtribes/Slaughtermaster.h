@@ -44,16 +44,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodgruel                       No
-// Great Cauldron                   No
-//    Bad Meat                      No
-//    Troggoth Guts                 No
-//    Spinemarrow                   No
-//    Bonecrusher                   No
-// Rockchomper                      No
+// Bloodgruel                       TODO
+// Great Cauldron                   TODO
+//    Bad Meat                      TODO
+//    Troggoth Guts                 TODO
+//    Spinemarrow                   TODO
+//    Bonecrusher                   TODO
+// Rockchomper                      TODO
 //
 
 } // namespace OgorMawtribes

@@ -52,11 +52,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Hornblower                       No
-// Icon Bearer                      No
+// Hornblower                       TODO
+// Icon Bearer                      TODO
 // Decapitating Blow                Yes
 // Murderous Charge                 Yes
 //

@@ -60,16 +60,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Cloak of Constriction            No
+// Cloak of Constriction            TODO
 // Delicate Precision               Yes
-// Irresistible Challenge           No
-// Living Whip                      No
+// Irresistible Challenge           TODO
+// Living Whip                      TODO
 // Shining Aegis                    Yes
-// The Killing Stroke               No
-// Refine Senses                    No
+// The Killing Stroke               TODO
+// Refine Senses                    TODO
 //
 
 } // Slannesh

@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Excess of Blades                 Yes
-// Pungent Soulscent                No
-// Acquiescence                     No
+// Pungent Soulscent                TODO
+// Acquiescence                     TODO
 //
 
 } // Slannesh

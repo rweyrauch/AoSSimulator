@@ -53,15 +53,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Feaster of Souls                 No
+// Feaster of Souls                 TODO
 // Frightful Touch                  Yes
-// Staff of Spirits                 No
-// Mortarch of Sacrament            No
-// Curse of Years                   No
-// First of the Mortarchs           No
+// Staff of Spirits                 TODO
+// Mortarch of Sacrament            TODO
+// Curse of Years                   TODO
+// First of the Mortarchs           TODO
 //
 
 } // namespace OssiarchBonereapers

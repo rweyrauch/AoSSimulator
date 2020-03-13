@@ -46,18 +46,17 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Magic of the Realms              No
-// Chain Lightning                  No
-// Fireball                         No
-// Mystifying Miasma                No
-// Pall of Doom                     No
-// Pha's Protection                 No
-// Shield of Thorns                 No
-// Transmutation of Lead            No
-// Wildform                         No
+// Magic of the Realms              TODO
+// Chain Lightning                  TODO
+// Fireball                         TODO
+// Mystifying Miasma                TODO
+// Pall of Doom                     TODO
+// Pha's Protection                 TODO
+// Shield of Thorns                 TODO
+// Transmutation of Lead            TODO
+// Wildform                         TODO
 //
 
 } // namespace CitiesOfSigmar

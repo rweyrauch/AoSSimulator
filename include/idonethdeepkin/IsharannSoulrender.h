@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lurelight                        No
-// Hangman's Knot                   No
+// Lurelight                        TODO
+// Hangman's Knot                   TODO
 //
 
 } // namespace IdonethDeepkin
