@@ -40,7 +40,7 @@ public:
     static void Init();
 
     ChaosKnights();
-    ~ChaosKnights() override = default;
+    ~ChaosKnights() override;
 
     bool configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower);
 
@@ -54,6 +54,8 @@ protected:
     void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+
+    int terrifyingChampions(const Unit* unit);
 
 protected:
 
@@ -69,6 +71,8 @@ private:
         m_flailLeader,
         m_hooves;
 
+    lsignal::slot m_terrifyingSlot;
+
     static bool s_registered;
 };
 
@@ -80,7 +84,7 @@ private:
 // Chaos Runeshields                Yes
 // Mark of Chaos                    Yes
 // Impaling Charge                  Yes
-// Terrifying Champions             TODO
+// Terrifying Champions             Yes
 //
 
 } // SlavesToDarkness

@@ -426,6 +426,7 @@ protected:
     int m_modelsSlain = 0;
     bool m_ran = false;
     bool m_charged = false;
+    mutable int m_unmodifiedChargeRoll = 0;
     bool m_moved = false;
     bool m_canMove = true;
     bool m_hasFought = false;

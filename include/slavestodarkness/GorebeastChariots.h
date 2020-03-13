@@ -45,6 +45,10 @@ public:
 
 protected:
 
+    void onCharged() override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_greatBlade,
@@ -62,8 +66,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    Yes
-// Crashing Charge                  TODO
-// Explosive Brutality              TODO
+// Crashing Charge                  Yes
+// Explosive Brutality              Yes
 //
 
 } // SlavesToDarkness

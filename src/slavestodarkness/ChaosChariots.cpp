@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "slavestodarkness/ChaosChariots.h"
 
 namespace SlavesToDarkness
@@ -157,7 +158,29 @@ void ChaosChariots::onRestore()
 {
     Unit::onRestore();
 
-    m_hasRunAndCharged = false;
+    m_runAndCharge = true;
+}
+
+void ChaosChariots::onCharged()
+{
+    Unit::onCharged();
+
+    // Don't Spare the Lash
+    if (m_ran && m_charged)
+    {
+        // Can only run and charge once per battle
+        m_runAndCharge = false;
+    }
+
+    // Swift Death
+    auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    if (unit && (distanceTo(unit) <= 1.0f))
+    {
+        Dice dice;
+        Dice::RollResult result;
+        dice.rollD6(m_unmodifiedChargeRoll, result);
+        unit->applyDamage({0, result.rollsGE(5)});
+    }
 }
 
 } //SlavesToDarkness

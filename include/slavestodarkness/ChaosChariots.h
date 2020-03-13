@@ -46,6 +46,7 @@ public:
 protected:
 
     void onRestore() override;
+    void onCharged() override;
 
 private:
 
@@ -57,8 +58,6 @@ private:
         m_whipExalted,
         m_hooves;
 
-    bool m_hasRunAndCharged = false;
-
     static bool s_registered;
 };
 
@@ -66,8 +65,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    Yes
-// Don't Spare the Lash             TODO
-// Swift Death                      TODO
+// Don't Spare the Lash             Yes
+// Swift Death                      Yes
 //
 
 } // SlavesToDarkness

@@ -742,7 +742,8 @@ void Unit::battleshock(PlayerId player)
 int Unit::rollChargeDistance() const
 {
     Dice dice;
-    return dice.roll2D6() + chargeModifier() + s_globalChargeMod(this, accumulate);
+    m_unmodifiedChargeRoll = dice.roll2D6();
+    return m_unmodifiedChargeRoll + chargeModifier() + s_globalChargeMod(this, accumulate);
 }
 
 int Unit::rollRunDistance() const

@@ -10,32 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    ChaosKnights::Create,
-    ChaosKnights::ValueToString,
-    ChaosKnights::EnumStringToInt,
-    ChaosKnights::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChaosKnights::MIN_UNIT_SIZE, ChaosKnights::MIN_UNIT_SIZE,
-            ChaosKnights::MAX_UNIT_SIZE, ChaosKnights::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", ChaosKnights::EnsorcelledWeapon, ChaosKnights::EnsorcelledWeapon,
-            ChaosKnights::CursedLance, 1
-        },
-        {
-            ParamType::Enum, "Doom Knight Weapon", ChaosKnights::EnsorcelledWeapon, ChaosKnights::EnsorcelledWeapon,
-            ChaosKnights::CursedFlail, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool ChaosKnights::s_registered = false;
 
@@ -67,7 +41,25 @@ void ChaosKnights::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Chaos Knights", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", EnsorcelledWeapon, EnsorcelledWeapon, CursedLance, 1},
+                {ParamType::Enum, "Doom Knight Weapon", EnsorcelledWeapon, EnsorcelledWeapon, CursedFlail, 1},
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
+
+        s_registered = UnitFactory::Register("Chaos Knights", *factoryMethod);
     }
 }
 
@@ -82,6 +74,13 @@ ChaosKnights::ChaosKnights() :
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_KNIGHTS};
     m_weapons = {&m_ensorcelledWeapon, &m_lance, &m_ensorcelledWeaponLeader, &m_lanceLeader, &m_flailLeader, &m_hooves};
+
+    s_globalBraveryMod.connect(this, &ChaosKnights::terrifyingChampions, &m_terrifyingSlot);
+}
+
+ChaosKnights::~ChaosKnights()
+{
+    m_terrifyingSlot.disconnect();
 }
 
 bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower)
@@ -292,6 +291,16 @@ int ChaosKnights::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int ChaosKnights::terrifyingChampions(const Unit *unit)
+{
+    // Terrifying Champions
+    if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //SlavesToDarkness

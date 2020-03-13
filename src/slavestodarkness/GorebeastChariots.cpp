@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "slavestodarkness/GorebeastChariots.h"
 
 namespace SlavesToDarkness
@@ -151,6 +152,42 @@ int GorebeastChariots::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int GorebeastChariots::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Explosive Brutality
+    if (m_charged && (m_unmodifiedChargeRoll >= 8)) mod++;
+
+    return mod;
+}
+
+int GorebeastChariots::toWoundModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toWoundModifier(weapon, target);
+
+    // Explosive Brutality
+    if (m_charged && (m_unmodifiedChargeRoll >= 8)) mod++;
+
+    return mod;
+}
+
+void GorebeastChariots::onCharged()
+{
+    Unit::onCharged();
+
+    // Crashing Charge
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+    for (auto unit : units)
+    {
+        if (dice.rollD6() >= 2)
+        {
+            unit->applyDamage({0, dice.rollD3()});
+        }
+    }
 }
 
 } //SlavesToDarkness

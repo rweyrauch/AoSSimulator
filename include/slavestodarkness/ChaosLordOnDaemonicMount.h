@@ -46,14 +46,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Chaos Runeshield                 Yes
-// Cursed Warhammer                 No
-// Fuelled by Carnage               No
-// The Knights of Chaos             No
-// Mark of Chaos                    No
+// Cursed Warhammer                 Yes
+// Fuelled by Carnage               TODO
+// The Knights of Chaos             TODO
+// Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness
