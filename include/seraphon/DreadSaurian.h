@@ -20,7 +20,7 @@ class DreadSaurian : public SeraphonBase
 public:
 
     static const int BASESIZE = 280; // x210 oval
-    static const int WOUNDS = 16;
+    static const int WOUNDS = 35;
     static const int POINTS_PER_UNIT = 420;
 
     static Unit* Create(const ParameterList& parameters);
@@ -28,7 +28,7 @@ public:
     static void Init();
 
     DreadSaurian();
-    ~DreadSaurian() override = default;
+    ~DreadSaurian() override;
 
     bool configure();
 
@@ -36,12 +36,11 @@ protected:
 
     void onWounded() override;
     void onRestore() override;
+    void onCharged() override;
+    void onSlain() override;
+
     int getDamageTableIndex() const;
-
-    void onStartHero(PlayerId player) override;
-
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+    int terror(const Unit* target);
 
 private:
 
@@ -49,17 +48,19 @@ private:
         m_rakingClaws,
         m_armouredTail;
 
+    lsignal::slot m_terrorSlot;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Devourer of Beasts               Yes
-// Roar of Ruin                     No
-// Arcane Glyphs                    Yes
-// Primal Presence                  No
+// Arcane Glyphs                    TODO
+// Obliterating Charge              Yes
+// Death Throes                     Yes
+// Terror                           Yes
+// Roar of Ruin                     TODO
 //
 
 } // namespace Seraphon

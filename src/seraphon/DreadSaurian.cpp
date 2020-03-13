@@ -7,6 +7,7 @@
  */
 #include <seraphon/DreadSaurian.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Seraphon
 {
@@ -17,28 +18,35 @@ struct TableEntry
 {
     int m_move;
     int m_jawsDamage;
-    int m_clawsAttacks;
+    int m_clawsToHit;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 7, 10, 13, DreadSaurian::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {12, 18, 24, 30, DreadSaurian::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {10, 6, 10},
-        {9,  5,  8},
-        {8,  4,  6},
+        {10, 6, 2},
+        {9,  5,  3},
+        {8,  4,  3},
         {7,  3,  4},
-        {6,  2,  2}
+        {6,  2,  5}
     };
 
 DreadSaurian::DreadSaurian() :
-    SeraphonBase("Dread Saurian", 10, WOUNDS, 10, 3, false),
-    m_gargantuanJaws(Weapon::Type::Melee, "Gargantuan Jaws", 2, 3, 3, 3, -2, 6),
-    m_rakingClaws(Weapon::Type::Melee, "Raking Claws", 2, 10, 3, 3, -1, 1),
-    m_armouredTail(Weapon::Type::Melee, "Armoured Tail", 1, 1, 4, 3, -1, RAND_D6)
+    SeraphonBase("Dread Saurian", 10, WOUNDS, 8, 4, false),
+    m_gargantuanJaws(Weapon::Type::Melee, "Gargantuan Jaws", 2, 3, 4, 3, -2, 6),
+    m_rakingClaws(Weapon::Type::Melee, "Raking Claws", 2, 6, 2, 3, -1, 2),
+    m_armouredTail(Weapon::Type::Melee, "Armoured Tail", 2, 1, 4, 3, -1, RAND_D6)
 {
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, MONSTER, DREAD_SAURIAN};
+    m_keywords = {ORDER, SERAPHON, MONSTER, TOTEM, DREAD_SAURIAN};
     m_weapons = {&m_gargantuanJaws, &m_rakingClaws, &m_armouredTail};
+
+    s_globalBraveryMod.connect(this, &DreadSaurian::terror, &m_terrorSlot);
+}
+
+DreadSaurian::~DreadSaurian()
+{
+    m_terrorSlot.disconnect();
 }
 
 bool DreadSaurian::configure()
@@ -95,7 +103,7 @@ void DreadSaurian::Init()
 void DreadSaurian::onWounded()
 {
     const int damageIndex = getDamageTableIndex();
-    m_rakingClaws.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
+    m_rakingClaws.setToHit(g_damageTable[damageIndex].m_clawsToHit);
     m_gargantuanJaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
     m_move = g_damageTable[getDamageTableIndex()].m_move;
 }
@@ -113,37 +121,48 @@ int DreadSaurian::getDamageTableIndex() const
     return 0;
 }
 
-Rerolls DreadSaurian::toHitRerolls(const Weapon *weapon, const Unit *target) const
+int DreadSaurian::terror(const Unit *target)
 {
-    // Devourer of Beasts
-    if (target->hasKeyword(MONSTER))
-        return RerollOnes;
-
-    return SeraphonBase::toHitRerolls(weapon, target);
-}
-
-Rerolls DreadSaurian::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Devourer of Beasts
-    if (target->hasKeyword(MONSTER))
-        return RerollOnes;
-
-    return SeraphonBase::toWoundRerolls(weapon, target);
-}
-
-void DreadSaurian::onStartHero(PlayerId player)
-{
-    if (player == owningPlayer())
+    // Terror
+    if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))
     {
-        if (remainingWounds() < WOUNDS && remainingWounds() > 0)
+        return -1;
+    }
+    return 0;
+}
+
+void DreadSaurian::onCharged()
+{
+    SeraphonBase::onCharged();
+
+    // Obliterating Charge
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+    for (auto unit : units)
+    {
+        if (dice.rollD6() >= 2)
         {
-            Dice dice;
-            // Arcane Glyph
-            int woundsHealed = dice.rollD3();
-            for (auto &m : m_models)
-            {
-                m->applyHealing(woundsHealed);
-            }
+            if (unit->hasKeyword(MONSTER))
+                unit->applyDamage({0, dice.rollD3()});
+            else
+                unit->applyDamage({0, dice.rollD6()});
+        }
+    }
+}
+
+void DreadSaurian::onSlain()
+{
+    Unit::onSlain();
+
+    // Death Throes
+    Dice dice;
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+    for (auto unit : units)
+    {
+        if (!unit->hasKeyword(MONSTER))
+        {
+            if (dice.rollD6() >= 4)
+                unit->applyDamage({0, dice.rollD3()});
         }
     }
 }
