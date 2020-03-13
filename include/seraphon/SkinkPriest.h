@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Star-stone Staff                 No
-// Herald of the Old Ones           No
+// Star-stone Staff                 TODO
+// Herald of the Old Ones           TODO
 //
 
 } // namespace Seraphon

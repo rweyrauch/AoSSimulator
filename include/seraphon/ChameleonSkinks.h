@@ -48,11 +48,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Chameleon Ambush                 No
-// Perfect Mimicry                  No
+// Chameleon Ambush                 TODO
+// Perfect Mimicry                  TODO
 // Star-venom                       Yes
 //
 

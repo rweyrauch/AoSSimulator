@@ -64,15 +64,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Armoured Crest                   No
-// Gout of Sunfire                  No
-// Steadfast Majesty                No
+// Armoured Crest                   TODO
+// Gout of Sunfire                  TODO
+// Steadfast Majesty                TODO
 // Unstoppable Stampede             Yes
 // Skink Chief                      Yes
-// Coordinated Strike               No
+// Coordinated Strike               TODO
 //
 
 } // namespace Seraphon

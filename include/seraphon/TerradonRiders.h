@@ -57,10 +57,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Deadly Cargo                     No
+// Deadly Cargo                     TODO
 //
 
 } // namespace Seraphon

@@ -47,17 +47,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Vassal                    No
+// Arcane Vassal                    TODO
 // Azyrite Force Barrier            Yes
 // Dead for Innumerable Ages        Yes
 // Impeccable Foresight             Yes
 // Masters of Order                 Yes
-// Celestial Deliverance            No
-// Comet's Call                     No
-// Gift from the Heavens            No
+// Celestial Deliverance            TODO
+// Comet's Call                     TODO
+// Gift from the Heavens            TODO
 //
 
 } // namespace Seraphon

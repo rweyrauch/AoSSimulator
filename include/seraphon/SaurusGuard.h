@@ -56,12 +56,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Stardrake Icon                   Yes
 // Wardrum                          Yes
-// Selfless Protectors              No
+// Selfless Protectors              TODO
 //
 
 } // namespace Seraphon

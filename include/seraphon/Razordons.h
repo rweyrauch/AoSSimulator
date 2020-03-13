@@ -51,11 +51,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Piercing Barbs                   Yes
-// Instinctive Defense              No
+// Instinctive Defense              TODO
 //
 
 } // namespace Seraphon

@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Cold Ferocity                    Yes
-// Selfless Protectors              No
-// Prime Guardian                   No
+// Selfless Protectors              TODO
+// Prime Guardian                   TODO
 //
 
 } // namespace Seraphon

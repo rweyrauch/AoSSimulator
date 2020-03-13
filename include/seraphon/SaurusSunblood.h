@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Primal Rage                      Yes
-// Scent of Weakness                No
+// Scent of Weakness                TODO
 //
 
 } // namespace Seraphon

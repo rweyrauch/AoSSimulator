@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Voracious Appetite               Yes
-// Ripperdactyl Assault             No
+// Ripperdactyl Assault             TODO
 //
 
 } // namespace Seraphon

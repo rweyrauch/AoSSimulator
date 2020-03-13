@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Cosmic Herald                    Yes
-// Astromancer's Staff              No
-// Control Fate                     No
+// Astromancer's Staff              TODO
+// Control Fate                     TODO
 //
 
 } // namespace Seraphon

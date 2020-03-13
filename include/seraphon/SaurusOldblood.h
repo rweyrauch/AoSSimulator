@@ -58,10 +58,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Wrath of the Seraphon            No
+// Wrath of the Seraphon            TODO
 // Cold Ferocity                    Yes
 //
 

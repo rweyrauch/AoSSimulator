@@ -45,14 +45,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Vassal                    No
+// Arcane Vassal                    TODO
 // Foresight                        Yes
 // Masters of Order                 Yes
-// Comet's Call                     No
-// Gift from the Heavens            No
+// Comet's Call                     TODO
+// Gift from the Heavens            TODO
 //
 
 } // namespace Seraphon

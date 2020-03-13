@@ -55,15 +55,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blazing Sunbolts                 No
-// Blood Frenzy                     No
+// Blazing Sunbolts                 TODO
+// Blood Frenzy                     TODO
 // Cold Ferocity                    Yes
 // Pinned Down                      Yes
 // Terror                           Yes
-// Wrath of the Seraphon            No
+// Wrath of the Seraphon            TODO
 //
 
 } // namespace Seraphon

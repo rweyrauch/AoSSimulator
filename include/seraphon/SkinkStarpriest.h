@@ -45,12 +45,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Astral Herald                    Yes
-// Serpent Staff                    No
-// Blazing Starlight                No
+// Serpent Staff                    TODO
+// Blazing Starlight                TODO
 //
 
 } // namespace Seraphon

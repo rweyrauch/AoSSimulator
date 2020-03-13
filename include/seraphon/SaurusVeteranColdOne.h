@@ -46,11 +46,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Cold Ferocity                    Yes
-// Saurian Savagery                 No
+// Saurian Savagery                 TODO
 
 } // namespace Seraphon
 

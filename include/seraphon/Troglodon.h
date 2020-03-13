@@ -57,15 +57,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Oracle of the Slann              Yes
 // Regeneration                     Yes
 // Terror                           Yes
 // Venomous Spittle                 Yes
-// Drawn to the Screams             No
-// Comet's Call                     No
+// Drawn to the Screams             TODO
+// Comet's Call                     TODO
 //
 
 } // namespace Seraphon

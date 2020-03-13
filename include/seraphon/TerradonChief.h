@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Lead from on High                No
-// Coordinated Attack               No
+// Lead from on High                TODO
+// Coordinated Attack               TODO
 //
 
 } // namespace Seraphon

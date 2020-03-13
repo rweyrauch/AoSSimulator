@@ -52,13 +52,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Armoured Crest                   No
+// Armoured Crest                   TODO
 // Unstoppable Stampede             Yes
-// Steadfast Majesty                No
-// Cosmic Engine                    Partial
+// Steadfast Majesty                TODO
+// Cosmic Engine                    Partial/TODO
 //
 
 } // namespace Seraphon

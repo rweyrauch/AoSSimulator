@@ -49,10 +49,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// It Burns!                        No
+// It Burns!                        TODO
 //
 
 } // namespace Seraphon

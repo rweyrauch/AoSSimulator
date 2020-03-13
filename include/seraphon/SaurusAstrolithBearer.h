@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Celestial Conduit                No
-// Revivifying Energies             No
+// Celestial Conduit                TODO
+// Revivifying Energies             TODO
 //
 
 } // namespace Seraphon

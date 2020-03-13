@@ -66,15 +66,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood Frenzy                     No
+// Blood Frenzy                     TODO
 // Celestite Warspear               Yes
 // Cold Ferocity                    Yes
 // Pinned Down                      Yes
 // Terror                           Yes
-// Saurian Savagery                 No
+// Saurian Savagery                 TODO
 //
 
 } // namespace Seraphon
