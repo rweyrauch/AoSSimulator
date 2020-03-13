@@ -322,7 +322,7 @@ void Unit::removeKeyword(Keyword word)
 
 int Unit::braveryModifier() const
 {
-    int modifier = remainingModels() / 10;
+    int modifier = remainingModels() / 10 + s_globalBraveryMod(this, accumulate);
     for (auto bi : m_attributeModifiers[Bravery])
     {
         modifier += bi.modifier;
@@ -516,12 +516,11 @@ void Unit::movement(PlayerId player)
 
     if (closestTarget)
     {
-        const auto globalMoveMod = s_globalMoveMod(this, accumulate);
         auto distance = distanceTo(closestTarget);
         float totalMoveDistance = 0.0f;
         if (weapon->isMissile())
         {
-            const float movement = move() + moveModifier() + globalMoveMod;
+            const float movement = move() + moveModifier();
 
             // get into range (run or not?)
             if (distance > weapon->range() + movement)
@@ -553,7 +552,7 @@ void Unit::movement(PlayerId player)
         }
         else
         {
-            const float movement = move() + moveModifier() + globalMoveMod;
+            const float movement = move() + moveModifier();
 
             if (distance <= MIN_CHARGE_DISTANCE)
             {
@@ -740,12 +739,12 @@ void Unit::battleshock(PlayerId player)
 int Unit::rollChargeDistance() const
 {
     m_unmodifiedChargeRoll = Dice::roll2D6();
-    return m_unmodifiedChargeRoll + chargeModifier() + s_globalChargeMod(this, accumulate);
+    return m_unmodifiedChargeRoll + chargeModifier();
 }
 
 int Unit::rollRunDistance() const
 {
-    return Dice::rollD6() + runModifier() + s_globalRunMod(this, accumulate);
+    return Dice::rollD6() + runModifier();
 }
 
 int Unit::slay(int numModels)
@@ -847,16 +846,12 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
         return;
     }
 
-    const auto globalToHitModifier = s_globalToHitMod(weapon, target, accumulate);
-    const auto globalToWoundModifier = s_globalToWoundMod(weapon, target, accumulate);
-    const auto globalAttacksModifier = s_globalAttackMod(fromModel, weapon, target, accumulate);
-
     const auto rerolls = toHitRerolls(weapon, target);
     const auto woundRerolls = toWoundRerolls(weapon, target);
-    const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this) + globalToHitModifier;
-    const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this) + globalToWoundModifier;
+    const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this);
+    const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this);
 
-    const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target)) + globalAttacksModifier;
+    const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target));
     for (auto a = 0; a < totalAttacks; a++)
     {
         m_currentRecord.m_attacksMade++;
@@ -946,8 +941,7 @@ int Unit::rerolling(int initialRoll, Rerolls reroll) const
 
 void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) const
 {
-    auto globalBraveryMod = s_globalBraveryMod(this, accumulate);
-    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier() + globalBraveryMod);
+    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier());
     numFled = std::max(0, std::min(remainingModels(), numFled));
     numRestored = 0;
 }
@@ -1204,7 +1198,7 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
 
 int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int extra = 0;
+    int extra = s_globalAttackMod(attackingModel, weapon, target, accumulate);
 
     BuffableAttribute which = AttacksMelee;
     if (weapon->isMissile())
@@ -1219,7 +1213,7 @@ int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const 
 
 int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = 0;
+    int modifier = s_globalToHitMod(weapon, target, accumulate);
 
     BuffableAttribute which = ToHitMelee;
     if (weapon->isMissile())
@@ -1234,7 +1228,7 @@ int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 
 int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = 0;
+    int modifier = s_globalToWoundMod(weapon, target, accumulate);
 
     BuffableAttribute which = ToWoundMelee;
     if (weapon->isMissile())
@@ -1295,7 +1289,7 @@ Rerolls Unit::battleshockRerolls() const
 
 int Unit::castingModifier() const
 {
-    int modifier = 0;
+    int modifier = s_globalCastMod(this, accumulate);
     for (auto bi : m_attributeModifiers[CastingRoll])
     {
         modifier += bi.modifier;
@@ -1305,7 +1299,7 @@ int Unit::castingModifier() const
 
 int Unit::unbindingModifier() const
 {
-    int modifier = 0;
+    int modifier = s_globalCastMod(this, accumulate);
     for (auto bi : m_attributeModifiers[UnbindingRoll])
     {
         modifier += bi.modifier;
@@ -1315,7 +1309,7 @@ int Unit::unbindingModifier() const
 
 int Unit::moveModifier() const
 {
-    int modifier = 0;
+    int modifier = s_globalMoveMod(this, accumulate);
     for (auto bi : m_attributeModifiers[MoveDistance])
     {
         modifier += bi.modifier;
@@ -1325,7 +1319,7 @@ int Unit::moveModifier() const
 
 int Unit::runModifier() const
 {
-    int modifier = 0;
+    int modifier = s_globalRunMod(this, accumulate);
     for (auto bi : m_attributeModifiers[RunDistance])
     {
         modifier += bi.modifier;
@@ -1335,7 +1329,7 @@ int Unit::runModifier() const
 
 int Unit::chargeModifier() const
 {
-    int modifier = 0;
+    int modifier = s_globalChargeMod(this, accumulate);
     for (auto bi : m_attributeModifiers[ChargeDistance])
     {
         modifier += bi.modifier;

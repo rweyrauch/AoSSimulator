@@ -81,7 +81,7 @@ void SorceressOnBlackDragon::Init()
 
 SorceressOnBlackDragon::SorceressOnBlackDragon() :
     CitizenOfSigmar("Sorceress on Black Dragon", 14, WOUNDS, 7, 5, true),
-    m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, 0, 0),
+    m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, -7, 0),
     m_rod(Weapon::Type::Melee, "Witch Rod", 1, 1, 4, 3, -1, RAND_D3),
     m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 3, 4, 4, 0, 1),
     m_lash(Weapon::Type::Melee, "Witch Lash", 2, 1, 3, 4, 0, 1),
@@ -143,6 +143,18 @@ int SorceressOnBlackDragon::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+Wounds SorceressOnBlackDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Noxious Breath
+    if ((weapon->name() == m_noxiousBreath.name()))
+    {
+        Dice::RollResult result;
+        Dice::rollD6(target->remainingModels(), result);
+        return {0, result.rollsGE(6)};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } // namespace CitiesOfSigmar

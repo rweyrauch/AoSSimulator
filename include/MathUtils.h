@@ -325,7 +325,8 @@ public:
 
     float distance(const Point3& v) const
     {
-        return sqrtf(distanceSquare(v));
+        const auto distSqr = distanceSquare(v);
+        return (distSqr > 0.0f) ? sqrtf(distanceSquare(v)) : 0.0f;
     }
 
     void set(const Point3& v)

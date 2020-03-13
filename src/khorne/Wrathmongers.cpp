@@ -119,7 +119,7 @@ int Wrathmongers::ComputePoints(int numModels)
 int Wrathmongers::crimsonHaze(const Model* attacker, const Weapon *weapon, const Unit *target)
 {
     // Crimson Haze
-    if (Model::distanceBetween(attacker, m_models.front().get()) <= 8.0f)
+    if (distanceTo(target) <= 8.0f)
     {
         // TODO: Does not apply for attacking WRATHMONGER models
         return 1;

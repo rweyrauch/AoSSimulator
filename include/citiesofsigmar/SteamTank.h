@@ -39,6 +39,11 @@ protected:
 
     void onWounded() override;
     void onRestore() override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    void onCharged() override;
+    void onStartHero(PlayerId player) override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int moveModifier() const override;
 
 private:
 
@@ -51,16 +56,19 @@ private:
         m_crushingWheels,
         m_sword;
 
+    bool m_commander = false;
+    bool m_overpressured = false;
+
     static bool s_registered;
 };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bouncing Cannon Ball             TODO
-// I'll Fix It                      TODO
-// More Pressure!                   TODO
-// Steel Behemoth                   TODO
+// Bouncing Cannon Ball             Yes
+// I'll Fix It                      Yes
+// More Pressure!                   Partial/TODO
+// Steel Behemoth                   Yes
 // Target Sighted                   TODO
 //
 

@@ -31,7 +31,7 @@ public:
     static void Init();
 
     LuminarkOfHysh();
-    ~LuminarkOfHysh() override = default;
+    ~LuminarkOfHysh() override;
 
     bool configure(bool battlemage);
 
@@ -40,6 +40,8 @@ protected:
     void onWounded() override;
     void onRestore() override;
     int castingModifier() const override;
+
+    int locusOfHysh(const Unit* caster);
 
 private:
 
@@ -50,6 +52,8 @@ private:
         m_arcaneTools,
         m_hooves;
 
+    lsignal::slot m_locusSlot;
+
     static bool s_registered;
 };
 
@@ -57,7 +61,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Aura of Protection               TODO
-// Locus of Hysh                    TODO
+// Locus of Hysh                    Yes
 // Searing Beam of Light            TODO
 // White Battlemage                 Yes
 // Burning Gaze                     TODO

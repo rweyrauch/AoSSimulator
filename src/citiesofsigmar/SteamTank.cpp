@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/SteamTank.h"
 
 namespace CitiesOfSigmar
@@ -111,6 +112,7 @@ bool SteamTank::configure(bool commander)
         m_points += POINTS_FOR_COMMANDER;
     }
     addModel(model);
+    m_commander = commander;
 
     return true;
 }
@@ -142,6 +144,70 @@ int SteamTank::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int SteamTank::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Bouncing Cannon Balls
+    if ((weapon->name() == m_steamCannon.name()) && (target->remainingModels() >= 10)) mod++;
+
+    return mod;
+}
+
+void SteamTank::onCharged()
+{
+    Unit::onCharged();
+
+    // Steel Behemoth
+    auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    if (unit && distanceTo(unit) <= 1.0f)
+    {
+        if (Dice::rollD6() >= 2)
+        {
+            unit->applyDamage({0, Dice::rollD3()});
+        }
+    }
+}
+
+void SteamTank::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (owningPlayer() == player)
+    {
+        m_overpressured = false;
+
+        // Apply 'More Pressure!' or 'I'll Fix It'
+        if ((remainingWounds() < initialWounds()) && m_commander)
+        {
+            // Damaged - try to heal
+            heal(Dice::rollD3());
+        }
+        else
+        {
+           // TODO: decide to overpressure
+        }
+    }
+}
+
+int SteamTank::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    if (m_overpressured) extra += 2;
+
+    return extra;
+}
+
+int SteamTank::moveModifier() const
+{
+    auto mod = Unit::moveModifier();
+
+    if (m_overpressured) mod += 2;
+
+    return mod;
 }
 
 } // namespace CitiesOfSigmar

@@ -91,6 +91,13 @@ LuminarkOfHysh::LuminarkOfHysh() :
 {
     m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, LUMINARK_OF_HYSH};
     m_weapons = {&m_beamOfLight, &m_wizardsStaff, &m_arcaneTools, &m_hooves};
+
+    s_globalUnbindMod.connect(this, &LuminarkOfHysh::locusOfHysh, &m_locusSlot);
+}
+
+LuminarkOfHysh::~LuminarkOfHysh()
+{
+    m_locusSlot.disconnect();
 }
 
 bool LuminarkOfHysh::configure(bool battlemage)
@@ -162,6 +169,16 @@ int LuminarkOfHysh::castingModifier() const
     if (Board::Instance()->getRealm() == Hysh) mod++;
 
     return mod;
+}
+
+int LuminarkOfHysh::locusOfHysh(const Unit *caster)
+{
+    if (caster->hasKeyword(COLLEGIATE_ARCANE) && caster->hasKeyword(WIZARD) &&
+        ((caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0f)))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 } // namespace CitiesOfSigmar
