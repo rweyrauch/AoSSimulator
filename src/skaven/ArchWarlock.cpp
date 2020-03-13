@@ -8,6 +8,7 @@
 
 #include <skaven/ArchWarlock.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Skaven
 {
@@ -67,6 +68,67 @@ bool ArchWarlock::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds ArchWarlock::onEndCombat(PlayerId player)
+{
+    auto wounds = Unit::onEndCombat(player);
+
+    if (m_moreMoreFailed)
+    {
+        Dice dice;
+        Wounds overloadWounds = {0, dice.rollD6()};
+        applyDamage(overloadWounds);
+        wounds += overloadWounds;
+        m_moreMoreFailed = false;
+    }
+    return wounds;
+}
+
+Wounds ArchWarlock::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // More-more Stormcage!
+    if (weapon->name() == m_halberd.name())
+    {
+        // Decide to overcharge (without using the hitRoll)
+        if (moreMore())
+        {
+            if (hitRoll == 1)
+            {
+                m_moreMoreFailed = true;
+                return {0, 0};
+            }
+
+            m_moreMoreFailed = false;
+            return {RAND_D6, 0};
+        }
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void ArchWarlock::onRestore()
+{
+    Unit::onRestore();
+
+    m_moreMoreFailed = false;
+    m_usedGauntlet = false;
+}
+
+void ArchWarlock::onStartShooting(PlayerId player)
+{
+    Unit::onStartShooting(player);
+
+    // Warpfire Gauntlet
+    if ((owningPlayer() == player) && !m_usedGauntlet)
+    {
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && distanceTo(unit) < 8.0f)
+        {
+            Dice dice;
+            if (dice.rollD6() >= 2) unit->applyDamage({0, dice.rollD3()});
+            m_usedGauntlet = true;
+        }
+    }
 }
 
 } //namespace Skaven

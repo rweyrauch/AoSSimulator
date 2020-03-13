@@ -16,7 +16,7 @@ bool Doomflayer::s_registered = false;
 
 Doomflayer::Doomflayer() :
     Skaventide("Doom-flayer", RAND_2D6, WOUNDS, 4, 5, false),
-    m_whirlingBlades(Weapon::Type::Melee, "Whirling Blades", 1, RAND_D6, 3, 3, -1, 1),
+    m_whirlingBlades(Weapon::Type::Melee, "Whirling Blades", 1, 0, 3, 3, -1, 1),
     m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, DOOM_FLAYER};
@@ -77,6 +77,50 @@ int Doomflayer::toHitModifier(const Weapon *weapon, const Unit *target) const
     }
 
     return modifier;
+}
+
+int Doomflayer::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // More-more Whirling Death
+    if (weapon->name() == m_whirlingBlades.name())
+    {
+        // Decide to overcharge
+        if (moreMore())
+        {
+            Dice dice;
+            auto roll1 = dice.rollD6();
+            auto roll2 = dice.rollD6();
+            if ((roll1 == roll2) || (roll1+roll2 == 7))
+            {
+                m_moreMoreFailed = true;
+            }
+            return (roll1+roll2);
+        }
+
+        m_moreMoreFailed = false;
+        return RAND_D6;
+    }
+
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+void Doomflayer::onRestore()
+{
+    Unit::onRestore();
+
+    m_moreMoreFailed = false;
+}
+
+Wounds Doomflayer::onEndCombat(PlayerId player)
+{
+    auto wounds = Unit::onEndCombat(player);
+
+    if (m_moreMoreFailed)
+    {
+        slay(1);
+        m_moreMoreFailed = false;
+    }
+    return wounds;
 }
 
 

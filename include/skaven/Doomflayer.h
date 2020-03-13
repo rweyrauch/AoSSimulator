@@ -34,21 +34,25 @@ public:
 protected:
 
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    void onRestore() override;
+    Wounds onEndCombat(PlayerId player) override;
 
 private:
 
     Weapon m_whirlingBlades,
         m_rustyKnives;
 
+    mutable bool m_moreMoreFailed = false;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Whirling Death                   Yes
-// More-more Whirling Death!        No
+// More-more Whirling Death!        Yes
 //
 
 } // namespace Skaven

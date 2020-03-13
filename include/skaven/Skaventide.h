@@ -31,6 +31,8 @@ protected:
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
     int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
     int braveryModifier() const override;
+
+    bool moreMore() const;
 };
 
 //

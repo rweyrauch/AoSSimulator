@@ -23,33 +23,35 @@ public:
     static const int POINTS_PER_UNIT = 120;
 
     static Unit *Create(const ParameterList &parameters);
-
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
-
     static void Init();
 
     WarlockBombardier();
-
     ~WarlockBombardier() override = default;
 
     bool configure();
 
 protected:
 
+    void onRestore() override;
+    Wounds onEndShooting(PlayerId player) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_doomrocket,
-        m_pole;
+           m_pole;
+
+    mutable bool m_moreMoreFailed = false;
 
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// More-more Doomrocket!
-// Warp Lightning
+// More-more Doomrocket!            Yes
+// Warp Lightning                   TODO
 //
 
 } // namespace Skaven

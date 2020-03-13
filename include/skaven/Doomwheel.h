@@ -33,22 +33,27 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    void onRestore() override;
+    Wounds onEndShooting(PlayerId player) override;
+
 private:
 
     Weapon m_warpBolts,
         m_grindingWheel,
         m_teethAndKnives;
 
+    mutable bool m_moreMoreFailed = false;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rolling Doom                     No
-// More-more Speed!                 No
-// More-more Warp Bolts!            No
+// Rolling Doom                     TODO
+// More-more Speed!                 TODO
+// More-more Warp Bolts!            Yes
 //
 
 } // namespace Skaven

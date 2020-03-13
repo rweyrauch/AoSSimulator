@@ -16,7 +16,7 @@ bool Doomwheel::s_registered = false;
 
 Doomwheel::Doomwheel() :
     Skaventide("Doomwheel", RAND_4D6, WOUNDS, 7, 4, false),
-    m_warpBolts(Weapon::Type::Missile, "Warp Bolts", 13, RAND_D6, 3, 3, -1, RAND_D3),
+    m_warpBolts(Weapon::Type::Missile, "Warp Bolts", 13, 0, 3, 3, -1, RAND_D3),
     m_grindingWheel(Weapon::Type::Melee, "Grinding Wheel", 1, RAND_D6, 3, 3, -1, 1),
     m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, 6, 5, 5, 0, 1)
 {
@@ -66,6 +66,53 @@ void Doomwheel::Init()
         };
         s_registered = UnitFactory::Register("Doomwheel", *factoryMethod);
     }
+}
+
+int Doomwheel::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // More-more Warplead!
+    if (weapon->name() == m_warpBolts.name())
+    {
+        // Decide to overcharge
+        if (moreMore())
+        {
+            Dice dice;
+            auto roll1 = dice.rollD6();
+            auto roll2 = dice.rollD6();
+            if (roll1 == roll2)
+            {
+                m_moreMoreFailed = true;
+            }
+            return (roll1+roll2);
+        }
+
+        m_moreMoreFailed = false;
+        return RAND_D6;
+    }
+
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+void Doomwheel::onRestore()
+{
+    Unit::onRestore();
+
+    m_moreMoreFailed = false;
+}
+
+Wounds Doomwheel::onEndShooting(PlayerId player)
+{
+    auto wounds = Unit::onEndCombat(player);
+
+    if (m_moreMoreFailed)
+    {
+        Dice dice;
+        Wounds overchargeWounds = {0, dice.roll2D6()};
+        applyDamage(overchargeWounds);
+        wounds += overchargeWounds;
+        m_moreMoreFailed = false;
+    }
+    return wounds;
 }
 
 

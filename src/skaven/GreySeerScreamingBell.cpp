@@ -8,6 +8,8 @@
 
 #include <skaven/GreySeerScreamingBell.h>
 #include <UnitFactory.h>
+#include <Board.h>
+#include <Roster.h>
 
 namespace Skaven
 {
@@ -74,8 +76,17 @@ GreySeerOnScreamingBell::GreySeerOnScreamingBell() :
         GREY_SEER};
     m_weapons = {&m_staff, &m_clawsAndFangs, &m_spikes};
 
+    s_globalBraveryMod.connect(this, &GreySeerOnScreamingBell::altarOfTheHornedRat, &m_connection);
+    s_globalToHitMod.connect(this, &GreySeerOnScreamingBell::wallOfUnholySound, &m_unholySoundConnection);
+
     m_totalSpells = 2;
     m_totalUnbinds = 2;
+}
+
+GreySeerOnScreamingBell::~GreySeerOnScreamingBell()
+{
+    m_connection.disconnect();
+    m_unholySoundConnection.disconnect();
 }
 
 bool GreySeerOnScreamingBell::configure()
@@ -120,6 +131,8 @@ void GreySeerOnScreamingBell::onRestore()
 {
     Unit::onRestore();
 
+    m_unholySoundActive = false;
+
     // Restore table-driven attributes
     onWounded();
 }
@@ -133,6 +146,132 @@ int GreySeerOnScreamingBell::getDamageTableIndex() const
         {
             return i;
         }
+    }
+    return 0;
+}
+
+int GreySeerOnScreamingBell::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Pushed into Battle
+    if ((weapon->name() == m_spikes.name()) && m_charged)
+    {
+        Dice dice;
+        extra += dice.rollD6();
+    }
+    return extra;
+}
+
+int GreySeerOnScreamingBell::altarOfTheHornedRat(const Unit *unit)
+{
+    if (unit->hasKeyword(SKAVENTIDE) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 13.0f))
+    {
+        // Make unit battleshock immune
+        return 13;
+    }
+    return 0;
+}
+
+void GreySeerOnScreamingBell::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    m_unholySoundActive = false;
+
+    // Peal of Doom
+    if (owningPlayer() == player)
+    {
+        Dice dice;
+        int roll = dice.roll2D6();
+        if (roll == 2)
+        {
+            // Magical Backlash
+            auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+            for (auto unit : units)
+            {
+                unit->applyDamage({0, dice.rollD3()});
+            }
+        }
+        else if (roll <= 4)
+        {
+            // Unholy Clamour
+            buffModifier(BuffableAttribute::MoveDistance, dice.rollD6(), {Phase::Hero, m_battleRound+1, owningPlayer()});
+        }
+        else if (roll <= 6)
+        {
+            // Deafening Peals
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_pealRange);
+            for (auto unit : units)
+            {
+                if (dice.rollD6() >= 4)
+                {
+                    unit->applyDamage({0,1});
+                }
+            }
+        }
+        else if (roll == 7)
+        {
+            // Avalanche of Energy
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), g_damageTable[getDamageTableIndex()].m_pealRange);
+            for (auto unit : units)
+            {
+                unit->buffModifier(BuffableAttribute::CastingRoll, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+            }
+        }
+        else if (roll <= 9)
+        {
+            // Apocalyptic Doom
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_pealRange);
+            for (auto unit : units)
+            {
+                if (dice.rollD6() >= 4)
+                {
+                    unit->applyDamage({0,dice.rollD3()});
+                }
+            }
+        }
+        else if (roll <= 11)
+        {
+            // Wall of Unholy Sound
+            m_unholySoundActive = true;
+        }
+        else // roll == 12
+        {
+            // A Stirring Beyond
+            // Summon any unit with the VERMINLORD keyword
+            static const std::string VerminlordUnitNames[6] = {
+                "Lord Skreech Verminking",
+                "Verminlord Corruptor",
+                "Verminlord Deceiver",
+                "Verminlord Warbringer",
+                "Verminlord Warpseer",
+                "Verminlord Corruptor",
+            };
+
+            const int which = dice.rollD6()-1;
+
+            auto factory = UnitFactory::LookupUnit(VerminlordUnitNames[which]);
+            if (factory)
+            {
+                if (m_roster)
+                {
+                    auto unit = UnitFactory::Create(VerminlordUnitNames[which], factory->m_parameters);
+                    unit->setPosition(position(), m_orientation);
+                    m_roster->addUnit(unit);
+                }
+            }
+        }
+    }
+}
+
+int GreySeerOnScreamingBell::wallOfUnholySound(const Weapon *weapon, const Unit *unit)
+{
+    // Wall of Unholy Sound
+    if (m_unholySoundActive && (unit->owningPlayer() != owningPlayer()) &&
+        (distanceTo(unit) <= g_damageTable[getDamageTableIndex()].m_pealRange))
+    {
+        return -1;
     }
     return 0;
 }

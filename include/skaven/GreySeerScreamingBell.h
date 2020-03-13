@@ -30,7 +30,7 @@ public:
 
     GreySeerOnScreamingBell();
 
-    ~GreySeerOnScreamingBell() override = default;
+    ~GreySeerOnScreamingBell() override;
 
     bool configure();
 
@@ -39,8 +39,12 @@ protected:
     Wounds applyWoundSave(const Wounds &wounds) override;
     void onWounded() override;
     void onRestore() override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    void onStartHero(PlayerId player) override;
 
     int getDamageTableIndex() const;
+    int altarOfTheHornedRat(const Unit* unit);
+    int wallOfUnholySound(const Weapon* weapon, const Unit* unit);
 
 private:
 
@@ -48,18 +52,28 @@ private:
         m_clawsAndFangs,
         m_spikes;
 
+    lsignal::slot m_connection;
+    lsignal::slot m_unholySoundConnection;
+    bool m_unholySoundActive = false;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Altar of the Horned Rat
+// Altar of the Horned Rat          Yes
 // Protection of the Horned Rat     Yes
-// Pushed into Battle
+// Pushed into Battle               Partial/TODO
 // Peal of Doom
-// Cracks Call
+//    Magical Backlash              Yes
+//    Unholy Clamour                Yes
+//    Deafening Peals               Yes
+//    Avalanche of Energy           Yes
+//    Apocalyptic Doom              Yes
+//    Wall of Unholy Sound          Yes
+//    A Stirring Beyond the Veil    Partial
+// Cracks Call                      TODO
 //
 
 } // namespace Skaven

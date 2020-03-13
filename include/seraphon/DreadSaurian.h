@@ -21,7 +21,7 @@ public:
 
     static const int BASESIZE = 280; // x210 oval
     static const int WOUNDS = 35;
-    static const int POINTS_PER_UNIT = 420;
+    static const int POINTS_PER_UNIT = 510;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };

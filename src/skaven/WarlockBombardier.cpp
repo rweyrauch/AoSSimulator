@@ -69,4 +69,48 @@ bool WarlockBombardier::configure()
 
     return true;
 }
+
+void WarlockBombardier::onRestore()
+{
+    Unit::onRestore();
+
+    m_moreMoreFailed = false;
+}
+
+Wounds WarlockBombardier::onEndShooting(PlayerId player)
+{
+    auto wounds = Unit::onEndCombat(player);
+
+    if (m_moreMoreFailed)
+    {
+        Dice dice;
+        Wounds overloadWounds = {0, dice.rollD6()};
+        applyDamage(overloadWounds);
+        wounds += overloadWounds;
+        m_moreMoreFailed = false;
+    }
+    return wounds;
+}
+
+Wounds WarlockBombardier::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // More-more Doomrocket!
+    if (weapon->name() == m_doomrocket.name())
+    {
+        // Decide to overcharge (without using the hitRoll)
+        if (moreMore())
+        {
+            if (hitRoll == 1)
+            {
+                m_moreMoreFailed = true;
+                return {0, 0};
+            }
+
+            m_moreMoreFailed = false;
+            return {RAND_2D6, 0};
+        }
+    }
+
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
 } //namespace Skaven

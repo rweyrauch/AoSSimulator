@@ -32,21 +32,28 @@ public:
 
 protected:
 
+    void onRestore() override;
+    Wounds onEndCombat(PlayerId player) override;
+    void onStartShooting(PlayerId player) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_halberd,
-        m_claw;
+           m_claw;
+
+    mutable bool m_moreMoreFailed = false;
+    bool m_usedGauntlet = false;
 
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// More-more Stormcage!             No
-// Warpfire Gauntlet                No
-// Warp Lightning Storm             No
+// More-more Stormcage!             Yes
+// Warpfire Gauntlet                Yes
+// Warp Lightning Storm             TODO
 //
 
 } // namespace Skaven

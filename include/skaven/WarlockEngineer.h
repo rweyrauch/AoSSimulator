@@ -23,33 +23,35 @@ public:
     static const int POINTS_PER_UNIT = 120;
 
     static Unit *Create(const ParameterList &parameters);
-
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
-
     static void Init();
 
     WarlockEngineer();
-
     ~WarlockEngineer() override = default;
 
     bool configure();
 
 protected:
 
+    void onRestore() override;
+    Wounds onEndCombat(PlayerId player) override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_pistol,
-        m_blade;
+           m_blade;
+
+    mutable bool m_moreMoreFailed = false;
 
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// More-more Warp-energy!
-// Warp Lightning
+// More-more Warp-energy!           Yes
+// Warp Lightning                   TODO
 //
 
 } // namespace Skaven

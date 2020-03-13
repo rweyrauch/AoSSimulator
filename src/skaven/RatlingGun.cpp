@@ -16,7 +16,7 @@ bool RatlingGun::s_registered = false;
 
 RatlingGun::RatlingGun() :
     Skaventide("Ratling Gun", 6, WOUNDS, 4, 6, false),
-    m_ratlingGun(Weapon::Type::Missile, "Ratling Gun", 12, RAND_2D6, 4, 4, -1, 1),
+    m_ratlingGun(Weapon::Type::Missile, "Ratling Gun", 12, 0, 4, 4, -1, 1),
     m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1)
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, RATLING_GUN};
@@ -64,6 +64,50 @@ void RatlingGun::Init()
         };
         s_registered = UnitFactory::Register("Ratling Gun", *factoryMethod);
     }
+}
+
+int RatlingGun::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    // More-more Warplead!
+    if (weapon->name() == m_ratlingGun.name())
+    {
+        // Decide to overcharge
+        if (moreMore())
+        {
+            Dice dice;
+            auto roll1 = dice.rollD6();
+            auto roll2 = dice.rollD6();
+            if (roll1 == roll2)
+            {
+                m_moreMoreFailed = true;
+            }
+            return (roll1+roll2) * 2;
+        }
+
+        m_moreMoreFailed = false;
+        return RAND_2D6;
+    }
+
+    return Unit::extraAttacks(attackingModel, weapon, target);
+}
+
+void RatlingGun::onRestore()
+{
+    Unit::onRestore();
+
+    m_moreMoreFailed = false;
+}
+
+Wounds RatlingGun::onEndShooting(PlayerId player)
+{
+    auto wounds = Unit::onEndCombat(player);
+
+    if (m_moreMoreFailed)
+    {
+        slay(1);
+        m_moreMoreFailed = false;
+    }
+    return wounds;
 }
 
 } // namespace Skaven

@@ -33,19 +33,24 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    void onRestore() override;
+    Wounds onEndShooting(PlayerId player) override;
+
 private:
 
     Weapon m_ratlingGun,
         m_rustyKnives;
 
+    mutable bool m_moreMoreFailed = false;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// More-more Warplead!              No
+// More-more Warplead!              Yes
 //
 
 } // namespace Skaven
