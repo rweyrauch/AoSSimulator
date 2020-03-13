@@ -50,7 +50,6 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 //

@@ -62,7 +62,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Horn of Grimnir                  TODO
