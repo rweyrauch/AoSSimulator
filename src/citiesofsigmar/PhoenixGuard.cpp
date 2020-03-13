@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/PhoenixGuard.h"
 
 namespace CitiesOfSigmar
@@ -152,6 +153,17 @@ int PhoenixGuard::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+bool PhoenixGuard::battleshockRequired() const
+{
+    // Emboldened
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(PHOENIX_TEMPLE) && unit->hasKeyword(HERO)) return false;
+    }
+    return Unit::battleshockRequired();
 }
 
 } // namespace CitiesOfSigmar

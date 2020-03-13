@@ -43,6 +43,7 @@ public:
 protected:
 
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    void onStartHero(PlayerId player) override;
 
 private:
 
@@ -60,7 +61,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Free Arm                         Yes
-// Master Engineer                  TODO
+// Master Engineer                  Yes
 //
 
 } // namespace CitiesOfSigmar

@@ -43,6 +43,7 @@ protected:
     int chargeModifier() const override;
     int braveryModifier() const override;
     Wounds applyWoundSave(const Wounds &wounds) override;
+    bool battleshockRequired() const override;
 
 private:
 
@@ -60,7 +61,7 @@ private:
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Drummer                          Yes
-// Emboldened                       TODO
+// Emboldened                       Yes
 // Witness to Destiny               Yes
 //
 

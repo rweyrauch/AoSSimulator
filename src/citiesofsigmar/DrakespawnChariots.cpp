@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/DrakespawnChariots.h"
 
 namespace CitiesOfSigmar
@@ -106,6 +107,24 @@ int DrakespawnChariots::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+void DrakespawnChariots::onCharged()
+{
+    Unit::onCharged();
+
+    // Scythed Runners
+    for (int i = 0; i < remainingModels(); i++)
+    {
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && distanceTo(unit) <= 1.0f)
+        {
+            if (Dice::rollD6() >= 2)
+            {
+                unit->applyDamage({0, Dice::rollD3()});
+            }
+        }
+    }
 }
 
 } // namespace CitiesOfSigmar

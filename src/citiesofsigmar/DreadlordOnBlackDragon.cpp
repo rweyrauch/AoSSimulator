@@ -129,7 +129,7 @@ void DreadlordOnBlackDragon::Init()
 DreadlordOnBlackDragon::DreadlordOnBlackDragon() :
     CitizenOfSigmar("Dreadlord on Black Dragon", 12, WOUNDS, 8, 4, true),
     m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 4, 4, 0, 1),
-    m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, 0, 0),
+    m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, 7, 0),
     m_blade(Weapon::Type::Melee, "Exile Blade", 1, 6, 3, 4, 0, 1),
     m_lance(Weapon::Type::Melee, "Lance of Spite", 2, 3, 3, 3, -1, 1),
     m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 3, 3, 4, 2, -2, RAND_D6),
@@ -211,6 +211,15 @@ Wounds DreadlordOnBlackDragon::weaponDamage(const Weapon *weapon, const Unit *ta
     {
         return {2, 0};
     }
+
+    // Noxious Breath
+    if ((weapon->name() == m_noxiousBreath.name()))
+    {
+        Dice::RollResult result;
+        Dice::rollD6(target->remainingModels(), result);
+        return {0, result.rollsGE(6)};
+    }
+
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 

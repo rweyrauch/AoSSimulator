@@ -64,6 +64,7 @@ protected:
 
         return mod;
     }
+
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
 
@@ -87,7 +88,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Lance of Spite                   Yes
-// Noxious Breath                   TODO
+// Noxious Breath                   Yes
 // Paired Exile Blades              Yes
 // Tyrant Shield                    Yes
 // Do Not Disappoint Me             TODO

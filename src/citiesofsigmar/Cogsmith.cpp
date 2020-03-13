@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/Cogsmith.h"
 
 namespace CitiesOfSigmar
@@ -127,6 +128,26 @@ int Cogsmith::toHitModifier(const Weapon *weapon, const Unit *target) const
     else if ((m_weaponOption == CogAxe) && (weapon->name() == m_cogAxe.name())) mod++;
 
     return mod;
+}
+
+void Cogsmith::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (owningPlayer() == player)
+    {
+        // Master Engineer
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+        for (auto unit : units)
+        {
+            if (unit->hasKeyword(IRONWELD_ARSENAL) && unit->hasKeyword(WAR_MACHINE) && (unit->remainingWounds() < unit->wounds()))
+            {
+                // Heal one unit
+                unit->heal(Dice::rollD3());
+                break;
+            }
+        }
+    }
 }
 
 } //namespace CitiesOfSigmar

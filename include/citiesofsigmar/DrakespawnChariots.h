@@ -39,6 +39,7 @@ public:
 
 protected:
 
+    void onCharged() override;
 
 private:
 
@@ -52,7 +53,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Scythed Runners                  TODO
+// Scythed Runners                  Yes
 //
 
 } // namespace CitiesOfSigmar
