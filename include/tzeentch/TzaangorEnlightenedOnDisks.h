@@ -51,10 +51,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Babbling Stream of Secrets       No
+// Babbling Stream of Secrets       TODO
 // Guided by the Past               Yes
 //
 

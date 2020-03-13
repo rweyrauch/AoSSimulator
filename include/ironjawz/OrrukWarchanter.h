@@ -42,11 +42,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Rhythm of Destruction            No
-// Violent Fury                     No
+// Rhythm of Destruction            TODO
+// Violent Fury                     TODO
 
 } // namespace Ironjawz
 

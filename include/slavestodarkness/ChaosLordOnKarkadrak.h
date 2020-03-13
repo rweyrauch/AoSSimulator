@@ -49,14 +49,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Brutish Rampage                  Yes
 // Daemonbound                      Yes
-// Fuelled by Carnage               No
+// Fuelled by Carnage               TODO
 // Rune-etched Plating              Yes
-// The Knights of Chaos             No
+// The Knights of Chaos             TODO
 //
 
 } // SlavesToDarkness

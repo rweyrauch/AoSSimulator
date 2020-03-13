@@ -52,13 +52,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Agonising Venom                  No
+// Agonising Venom                  TODO
 // Boss Shield                      Yes
 // Choppa Boss                      Yes
-// Waaagh!                          No
+// Waaagh!                          TODO
 //
 
 } // namespace Greenskinz

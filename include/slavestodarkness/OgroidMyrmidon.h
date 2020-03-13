@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Fury                      Yes
-// Berserk Rage                     No
-// Pit Marshall                     No
+// Berserk Rage                     TODO
+// Pit Marshall                     TODO
 //
 
 } // SlavesToDarkness

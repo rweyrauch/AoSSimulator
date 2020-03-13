@@ -40,11 +40,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Let Me at 'Em                    No
-// Savage Attack                    No
+// Let Me at 'Em                    TODO
+// Savage Attack                    TODO
 //
 
 } // namespace Bonesplitterz

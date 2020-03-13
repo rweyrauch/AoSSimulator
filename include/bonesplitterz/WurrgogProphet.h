@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Beast Mask                       Yes
 // Prophet of Da Waaagh!            Yes
-// Fists of Gork                    No
+// Fists of Gork                    TODO
 //
 
 } // namespace Bonesplitterz

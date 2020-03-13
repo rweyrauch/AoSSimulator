@@ -53,10 +53,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Snake Charmer                    No
+// Snake Charmer                    TODO
 // One Cut, One Kill                Yes
 //
 

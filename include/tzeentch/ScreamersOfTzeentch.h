@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Sky-sharks                       Yes
-// Slashing Fins                    No
+// Slashing Fins                    TODO
 //
 
 } // Tzeentch

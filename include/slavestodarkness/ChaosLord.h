@@ -59,7 +59,7 @@ private:
 // -------------------------------------------
 // Daemonbound                      Yes
 // Spurred by the Gods              TODO
-// Mark of Chaos                    TODO
+// Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness

@@ -67,11 +67,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Tanglethorn Thicket              No
-// Envoys of the Everqueen          No
+// Tanglethorn Thicket              TODO
+// Envoys of the Everqueen          TODO
 // Trample Underfoot                Yes
 // Sundering Strike                 Yes
 //

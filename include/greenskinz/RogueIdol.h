@@ -52,12 +52,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Avalanche!                       Yes
 // Da Big' Un                       Yes
-// Livin' Idol                      No
+// Livin' Idol                      TODO
 // Rubble and Ruin                  Yes
 // Spirit of the Waaagh!            Yes
 //

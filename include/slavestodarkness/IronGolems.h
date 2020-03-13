@@ -54,10 +54,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Iron Resilience                  No
+// Iron Resilience                  TODO
 // Signifier                        Yes
 //
 

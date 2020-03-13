@@ -31,7 +31,7 @@ public:
     static void Init();
 
     ChaosChosen();
-    ~ChaosChosen() override = default;
+    ~ChaosChosen() override;
 
     bool configure(int numModels, bool iconBearer, bool drummer);
 
@@ -43,6 +43,8 @@ protected:
     void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+    int iconBearer(const Unit* unit);
+
 protected:
 
     bool m_iconBearer = false;
@@ -53,17 +55,18 @@ private:
     Weapon m_greataxe,
         m_greataxeChampion;
 
+    lsignal::slot m_braverySlot;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon Bearer                      No
+// Icon Bearer                      Yes
 // Drummer                          Yes
-// Mark of Chaos                    No
-// Slaughter-leaders                No
+// Mark of Chaos                    Yes
+// Slaughter-leaders                TODO
 // Soul Splitter                    Yes
 //
 

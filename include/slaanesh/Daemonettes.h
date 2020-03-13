@@ -56,12 +56,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearers                     Yes
 // Banner Bearers                   Yes
-// Hornblower                       No
+// Hornblower                       TODO
 // Lithe and Swift                  Yes
 //
 

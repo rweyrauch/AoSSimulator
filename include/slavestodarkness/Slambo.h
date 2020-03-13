@@ -43,11 +43,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Legendary Killer                 No
-// Glory-seeking Axeman             No
+// Legendary Killer                 TODO
+// Glory-seeking Axeman             TODO
 //
 
 } // SlavesToDarkness

@@ -45,10 +45,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Sneaky Little Devils             No
+// Sneaky Little Devils             TODO
 //
 
 } // SlavesToDarkness

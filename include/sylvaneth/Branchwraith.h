@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Blessing of the Forest           Yes
-// Roused to Wrath                  No
+// Roused to Wrath                  TODO
 //
 
 } // namespace Sylvaneth

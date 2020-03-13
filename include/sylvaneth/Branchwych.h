@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Fury of the Forest               Yes
 // Quick Tempered                   Yes
-// Unleash Spites                   No
+// Unleash Spites                   TODO
 //
 
 } // namespace Sylvaneth

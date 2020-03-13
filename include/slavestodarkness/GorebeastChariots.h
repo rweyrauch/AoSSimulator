@@ -59,12 +59,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mark of Chaos                    No
-// Crashing Charge                  No
-// Explosive Brutality              No
+// Mark of Chaos                    Yes
+// Crashing Charge                  TODO
+// Explosive Brutality              TODO
 //
 
 } // SlavesToDarkness

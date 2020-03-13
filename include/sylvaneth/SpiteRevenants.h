@@ -52,10 +52,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unbridled Malice                 Partial
+// Unbridled Malice                 Partial/TODO
 //
 
 } // namespace Sylvaneth

@@ -50,13 +50,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oracular Visions                 No
-// Wind of Chaos                    No
+// Oracular Visions                 TODO
+// Wind of Chaos                    TODO
 // Territorial Predator             Yes
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness

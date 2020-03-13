@@ -52,12 +52,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Capricious Warpflame             Yes
 // Touched by Fire                  Yes
-// Wake of Fire                     No
+// Wake of Fire                     TODO
 // Sky-sharks                       Yes
 //
 

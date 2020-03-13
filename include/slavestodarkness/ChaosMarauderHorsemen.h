@@ -77,13 +77,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
 // Hornblower                       Yes
 // Darkwood Shields                 Yes
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 // Barbarian Hordes                 Yes
 // Feigned Flight                   Yes
 //

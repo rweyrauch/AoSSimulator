@@ -153,4 +153,11 @@ int ChaosChariots::ComputePoints(int numModels)
     return points;
 }
 
+void ChaosChariots::onRestore()
+{
+    Unit::onRestore();
+
+    m_hasRunAndCharged = false;
+}
+
 } //SlavesToDarkness

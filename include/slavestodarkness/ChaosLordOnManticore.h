@@ -70,7 +70,6 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Chaos Runeshield                 Yes
@@ -78,8 +77,8 @@ private:
 // Chaos Lance                      Yes
 // Daggerfist                       Yes
 // Territorial Predator             Yes
-// Iron-willed Overlord             No
-// Mark of Chaos                    No
+// Iron-willed Overlord             TODO
+// Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness

@@ -46,10 +46,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Da Final Fling                   No
+// Da Final Fling                   TODO
 // The Bigger They Are              Yes
 // Savagely Enthusiastic            Yes
 //

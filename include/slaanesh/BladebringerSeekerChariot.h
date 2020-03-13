@@ -46,12 +46,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Impossibly Swift                 Yes
 // Multilating Blades               Yes
-// Acquiescence                     No
+// Acquiescence                     TODO
 //
 
 } // Slannesh

@@ -69,10 +69,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ornate Totems                    No
+// Ornate Totems                    TODO
 // Brayhorns                        Yes
 // Arcanite Shield                  Yes
 // Destined Mayhem                  Yes

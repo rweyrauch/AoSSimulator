@@ -68,6 +68,13 @@ ChaosChosen::ChaosChosen() :
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
     m_weapons = {&m_greataxe, &m_greataxeChampion};
+
+    s_globalBraveryMod.connect(this, &ChaosChosen::iconBearer, &m_braverySlot);
+}
+
+ChaosChosen::~ChaosChosen()
+{
+    m_braverySlot.disconnect();
 }
 
 bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
@@ -181,6 +188,16 @@ int ChaosChosen::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int ChaosChosen::iconBearer(const Unit *unit)
+{
+    // Icon Bearer
+    if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } //SlavesToDarkness

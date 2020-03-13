@@ -58,14 +58,13 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearers                     Yes
 // Banner Bearers                   Yes
-// Hornblowers                      No
+// Hornblowers                      TODO
 // Quicksilver Speed                Yes
-// Soul Hunters                     No
+// Soul Hunters                     TODO
 
 } // Slannesh
 

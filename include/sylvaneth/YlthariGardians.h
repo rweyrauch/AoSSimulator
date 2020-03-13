@@ -49,10 +49,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Martial Memories                 No
+// Martial Memories                 TODO
 // Vigour and Wrath                 Yes
 //
 

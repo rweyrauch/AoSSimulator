@@ -60,13 +60,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Choppa Boss                      Yes
-// Great Waaagh! Banner             No
+// Great Waaagh! Banner             TODO
 // Boss Shield                      Yes
-// Waaagh!                          No
+// Waaagh!                          TODO
 //
 
 } // namespace Greenskinz

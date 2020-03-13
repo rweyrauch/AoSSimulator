@@ -72,15 +72,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
 // Drummer                          Yes
 // Darkwood Shields                 Yes
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 // Barbarian Hordes                 Yes
-// Boundless Ferocity               No
+// Boundless Ferocity               TODO
 //
 
 } // SlavesToDarkness

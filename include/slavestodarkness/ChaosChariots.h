@@ -45,6 +45,8 @@ public:
 
 protected:
 
+    void onRestore() override;
+
 private:
 
     Weapon m_greatBlade,
@@ -55,16 +57,17 @@ private:
         m_whipExalted,
         m_hooves;
 
+    bool m_hasRunAndCharged = false;
+
     static bool s_registered;
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mark of Chaos                    No
-// Don't Spare the Lash             No
-// Swift Death                      No
+// Mark of Chaos                    Yes
+// Don't Spare the Lash             TODO
+// Swift Death                      TODO
 //
 
 } // SlavesToDarkness

@@ -55,12 +55,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Groundshaking Stomp              No
+// Groundshaking Stomp              TODO
 // Impale                           Yes
-// Spirit Paths                     No
+// Spirit Paths                     TODO
 // Champions of the Everqueen's Will Yes
 // Wrathful Guardian                Yes
 //

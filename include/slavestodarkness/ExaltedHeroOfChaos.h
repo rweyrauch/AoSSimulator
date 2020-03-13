@@ -45,7 +45,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 // Dark Blessings                   No
 // Glory-hungry Bladesman           No
 // Thrice-damned Dagger             No

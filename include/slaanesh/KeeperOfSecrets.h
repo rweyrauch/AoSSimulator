@@ -65,17 +65,16 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Ritual Knife                     Yes
-// Dark Temptations                 Partial
+// Dark Temptations                 Partial/TODO
 // Delicate Precision               Yes
-// Living Whip                      No
+// Living Whip                      TODO
 // Shining Aegis                    Yes
-// Sinistrous Hand                  Partial
-// Cacophonic Choir                 No
-// Excess of Violence               No
+// Sinistrous Hand                  Partial/TODO
+// Cacophonic Choir                 TODO
+// Excess of Violence               TODO
 //
 
 } // Slannesh

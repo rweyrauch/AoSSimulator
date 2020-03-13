@@ -44,12 +44,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Lightning Reflexes               Yes
 // Lithe and Swift                  Yes
-// Acquiescence                     No
+// Acquiescence                     TODO
 //
 
 } // Slannesh

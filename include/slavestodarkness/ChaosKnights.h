@@ -73,15 +73,14 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Hornblower                       Yes
 // Chaos Runeshields                Yes
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 // Impaling Charge                  Yes
-// Terrifying Champions             No
+// Terrifying Champions             TODO
 //
 
 } // SlavesToDarkness

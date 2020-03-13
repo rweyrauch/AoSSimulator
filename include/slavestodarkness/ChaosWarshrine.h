@@ -50,7 +50,7 @@ private:
 // TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 // Protection of the Dark Gods      No
 // Favour of the Ruinous Powers     No
 //   Favour of Khorne               No

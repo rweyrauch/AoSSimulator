@@ -48,11 +48,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Rampage                          Yes
-// Insurmountable Strength          No
+// Insurmountable Strength          TODO
 //
 
 } // SlavesToDarkness

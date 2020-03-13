@@ -36,11 +36,10 @@ protected:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Defiant Hunters                  Yes
-// Realm Wanderers                  No
+// Realm Wanderers                  TODO
 // Melt Away                        Yes
 //
 

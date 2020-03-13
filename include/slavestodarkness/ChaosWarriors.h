@@ -76,13 +76,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Hornblower                       Yes
 // Chaos Runeshields                Yes
-// Mark of Chaos                    No
+// Mark of Chaos                    Yes
 // Pair of Chaos Hand Weapons       Yes
 // Legions of Chaos                 Yes
 //

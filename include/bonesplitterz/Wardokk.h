@@ -41,10 +41,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Ritual Dance                     No
+// Ritual Dance                     TODO
 //     Grimdokk
 //     Glyphdokk
 //     Weirddokk

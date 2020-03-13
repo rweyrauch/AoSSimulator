@@ -51,10 +51,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Frozen in Fear                   Partial
+// Frozen in Fear                   Partial/TODO
 //
 
 } // SlavesToDarkness

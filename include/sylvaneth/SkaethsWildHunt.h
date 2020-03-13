@@ -44,11 +44,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Fleet of Foot                    Yes
-// Might of Kurnoth                 No
+// Might of Kurnoth                 TODO
 //
 
 } // namespace Sylvaneth

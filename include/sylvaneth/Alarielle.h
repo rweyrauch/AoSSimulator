@@ -56,16 +56,15 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Talon of the Dwindling           Yes
 // Lifebloom                        Yes
 // Sweeping Blows                   Yes
 // Living Battering Ram             Yes
-// Soul Amphorae                    Partial
-// Metamorphosis                    Partial
-// Ghyran's Wrath                   Partial
+// Soul Amphorae                    Partial/TODO
+// Metamorphosis                    Partial/TODO
+// Ghyran's Wrath                   Partial/TODO
 //
 
 } // namespace Sylvaneth

@@ -54,11 +54,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Luminate                         Yes
-// Shattered Gloom Globe            No
+// Shattered Gloom Globe            TODO
 //
 
 } // SlavesToDarkness

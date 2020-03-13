@@ -45,11 +45,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Waaagh! Energy                   Yes
-// Gaze of Mork                     No
+// Gaze of Mork                     TODO
 
 } // namespace Greenskinz
 

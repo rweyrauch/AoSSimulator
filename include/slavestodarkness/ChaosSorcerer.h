@@ -43,12 +43,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Oracular Visions                 No
-// Deamonic Power                   No
-// Mark of Chaos                    No
+// Oracular Visions                 TODO
+// Deamonic Power                   TODO
+// Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness

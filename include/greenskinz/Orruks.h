@@ -79,12 +79,11 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Drummer                          Yes
 // Orruk Banner                     Yes
-// Skull Icon                       No
+// Skull Icon                       TODO
 // Choppas                          Yes
 // Mob Rule                         Yes
 // Waaagh! Shield                   Yes

@@ -68,13 +68,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Thumper                          Yes
 // Totem Bearer                     Yes
 // Spirit of Gorkamorka             Yes
-// Power of the Beast Spirit        No
+// Power of the Beast Spirit        TODO
 //
 
 } // namespace Bonesplitterz

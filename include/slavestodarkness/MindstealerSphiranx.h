@@ -47,11 +47,10 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Telepathic Dread                 Yes
-// Dominate Mind                    No
+// Dominate Mind                    TODO
 //
 
 } // SlavesToDarkness

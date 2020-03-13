@@ -54,13 +54,12 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
 // Deadly Infestation               Yes
 // Mercurial Aspect                 Yes
-// Song of Spite                    No
-// Primal Terror                    No
+// Song of Spite                    TODO
+// Primal Terror                    TODO
 //
 
 } // namespace Sylvaneth

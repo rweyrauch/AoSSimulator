@@ -47,10 +47,9 @@ private:
 };
 
 //
-// TODO: abilities
 // Abilities                    Implemented
 // -------------------------------------------
-// Unleash the Beast                No
+// Unleash the Beast                TODO
 //
 
 } // SlavesToDarkness
