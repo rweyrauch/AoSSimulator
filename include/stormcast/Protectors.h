@@ -52,8 +52,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Deathstrike                      TODO
-// Storm-shield                     TODO
+// Deathstrike                      Yes
+// Storm-shield                     Partial/TODO
 // Starsoul Mace                    Yes
 //
 

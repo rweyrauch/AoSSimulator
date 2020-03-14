@@ -47,6 +47,7 @@ OBJECTS += \
         src/spells/LoreOfTheStorm.o \
         src/spells/GloomspiteSpells.o \
         src/spells/SylvanethSpells.o \
+        src/spells/SkavenSpells.o \
         src/stormcast/CelestantPrime.o \
         src/stormcast/Aetherwings.o \
         src/stormcast/StormcastEternals.o \

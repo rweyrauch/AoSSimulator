@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Roster.h>
 #include "tzeentch/GauntSummoner.h"
 
 namespace Tzeentch
@@ -86,6 +87,49 @@ Wounds GauntSummonerOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *t
         return { 0, Dice::rollD6() };
     }
     return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+void GauntSummonerOfTzeentch::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (owningPlayer() == player)
+    {
+        // Book of Profane Secrets
+        if (!m_usedBookOfSecrets)
+        {
+            // Summon chaos daemon
+            static const std::string SummonedUnitNames[6] = {
+                "Horrors of Tzeentch",
+                "Bloodletters",
+                "Plaguebearers",
+                "Daemonettes",
+                "Furies",
+                "Horrors of Tzeentch"
+            };
+
+            const int which = Dice::rollD6()-1;
+
+            auto factory = UnitFactory::LookupUnit(SummonedUnitNames[which]);
+            if (factory)
+            {
+                if (m_roster)
+                {
+                    auto unit = UnitFactory::Create(SummonedUnitNames[which], factory->m_parameters);
+                    unit->setPosition(position(), m_orientation);
+                    m_roster->addUnit(unit);
+                }
+            }
+            m_usedBookOfSecrets = true;
+        }
+    }
+}
+
+void GauntSummonerOfTzeentch::onRestore()
+{
+    Unit::onRestore();
+
+    m_usedBookOfSecrets = false;
 }
 
 } // Tzeentch

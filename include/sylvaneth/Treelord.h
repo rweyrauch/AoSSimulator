@@ -36,6 +36,8 @@ protected:
 
     void onStartHero(PlayerId id) override;
     void onWounded() override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     int getDamageTableIndex() const;
 
 private:
@@ -51,7 +53,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Groundshaking Stomp              TODO
-// Impale                           TODO
+// Impale                           Yes
 // Spirit Path                      TODO
 //
 

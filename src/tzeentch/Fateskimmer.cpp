@@ -82,4 +82,14 @@ bool Fateskimmer::configure()
     return true;
 }
 
+Wounds Fateskimmer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Sky-sharks
+    if (target->hasKeyword(MONSTER) && (weapon->name() == m_bite.name()))
+    {
+        return {Dice::rollD3(), 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } // Tzeentch

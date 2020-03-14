@@ -41,6 +41,7 @@ protected:
     void restoreModels(int numModels) override;
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
     int castingModifier() const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 
@@ -58,14 +59,14 @@ private:
     static bool s_registered;
 };
 
-//
+//Pink Horrors
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
 // Hornblower                       TODO
 // Flickering Flames                Yes
 // Locus of Conjuration             Yes
-// Ectoplasmic Elasticity           TODO
+// Ectoplasmic Elasticity           Partial/TODO
 // Split and Split Again            TODO
 // Petty Vengeance                  TODO
 // Channelled Pink Fire             TODO

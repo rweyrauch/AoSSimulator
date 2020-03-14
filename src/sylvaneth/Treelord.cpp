@@ -121,4 +121,14 @@ void Treelord::Init()
     }
 }
 
+Wounds Treelord::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Impale
+    if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name()))
+    {
+        return {0, Dice::rollD6()};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace Sylvaneth

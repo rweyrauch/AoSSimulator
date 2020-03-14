@@ -35,11 +35,15 @@ public:
 protected:
 
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    void onStartHero(PlayerId player) override;
+    void onRestore() override;
 
 private:
 
     Weapon m_staff,
         m_blade;
+
+    bool m_usedBookOfSecrets = false;
 
     static bool s_registered;
 };
@@ -48,7 +52,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Warptongue Blade                 Yes
-// Book of Profane Secrets          TODO
+// Book of Profane Secrets          Yes
 // Infernal Flames                  TODO
 //
 

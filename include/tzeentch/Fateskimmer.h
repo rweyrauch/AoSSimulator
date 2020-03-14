@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_magicalFlames,
@@ -48,7 +50,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcane Tome                      TODO
-// Sky-shark                        TODO
+// Sky-shark                        Yes
 // Wake of Fire                     TODO
 // Tzeentch's Firestorm             TODO
 //

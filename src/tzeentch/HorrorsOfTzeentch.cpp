@@ -171,4 +171,20 @@ int HorrorsOfTzeentch::ComputePoints(int numModels)
     return points;
 }
 
+Wounds HorrorsOfTzeentch::applyWoundSave(const Wounds &wounds)
+{
+    auto totalWounds = TzeentchBase::applyWoundSave(wounds);
+
+    // Ectoplasmic Elasticity
+    // TODO: only applies when the unit has Pink Horrors
+    Dice::RollResult resultNormal, resultMortal;
+
+    Dice::rollD6(wounds.normal, resultNormal);
+    Dice::rollD6(wounds.mortal, resultMortal);
+
+    Wounds negatedWounds = {resultNormal.rollsGE(6), resultNormal.rollsGE(6)};
+    totalWounds -= negatedWounds;
+    return totalWounds.clamp();
+}
+
 } //namespace Tzeentch
