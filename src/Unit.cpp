@@ -892,6 +892,9 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
 
+                        // modify damage
+                        dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
+
                         SimLog(Verbosity::Narrative, "Weapon, %s, inflicted wounds (%d, %d) on %s\n",
                             weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
 

@@ -49,6 +49,15 @@ protected:
 
 protected:
 
+    int moveModifier() const override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+    int braveryModifier() const override;
+    Wounds targetAttackDamageModifier(const Wounds& wounds, const Unit *attacker, int hitRoll, int woundRoll) const override;
+    int woundModifier() const override;
+
+protected:
+
     WayOfTheSeraphon m_way = Coalesced;
     Constellation m_constellation = ThunderLizard;
 
@@ -63,16 +72,16 @@ protected:
 //   The Hunter's Steed             TODO
 //   The Sage's Staff               TODO
 // Cold Blooded                     TODO
-// Predatory Fighters               TODO
+// Predatory Fighters               Yes
 // Primeval Domain                  TODO
-// Scaly Skin                       TODO
-// Unfeeling                        TODO
+// Scaly Skin                       Yes
+// Unfeeling                        Yes
 // Celestial Conjuration            TODO
 // Lords of Space and Time          TODO
 // Appear on Command                TODO
-// First to Battle                  TODO
-// Savagery Incarnate               TODO
-// Mighty Beasts of War             TODO
+// First to Battle                  Yes
+// Savagery Incarnate               Yes
+// Mighty Beasts of War             Yes
 //
 
 void Init();

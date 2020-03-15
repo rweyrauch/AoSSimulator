@@ -104,6 +104,77 @@ void SeraphonBase::setWayOfTheSeraphon(SeraphonBase::WayOfTheSeraphon way, Const
     m_constellation = constellation;
 }
 
+int SeraphonBase::moveModifier() const
+{
+    auto mod = Unit::moveModifier();
+
+    // First to Battle
+    if ((m_battleRound == 1) && (hasKeyword(SKINK) && (hasKeyword(FANGS_OF_SOTEK))))
+    {
+        mod += 3;
+    }
+
+    return mod;
+}
+
+int SeraphonBase::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Savagery Incarnate
+    if (m_charged && hasKeyword(KOATLS_CLAW) && hasKeyword(SAURUS)) mod++;
+
+    return mod;
+}
+
+int SeraphonBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Predatory Fighters
+    if (hasKeyword(COALESCED) && (weapon->name().find("Jaws") != std::string::npos))
+    {
+        extra++;
+    }
+
+    return extra;
+}
+
+int SeraphonBase::braveryModifier() const
+{
+    auto mod = Unit::braveryModifier();
+
+    // Unfeeling
+    if (hasKeyword(STARBORNE))
+    {
+        // All Starborne units have a bravery of 10.
+        mod += (10-bravery());
+    }
+    return mod;
+}
+
+Wounds SeraphonBase::targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll, int woundRoll) const
+{
+    Wounds modifedWounds = Unit::targetAttackDamageModifier(wounds, attacker, hitRoll, woundRoll);
+
+    // Scaly Skin
+    if (hasKeyword(COALESCED))
+    {
+        if (modifedWounds.normal > 1) modifedWounds.normal--;
+    }
+    return modifedWounds;
+}
+
+int SeraphonBase::woundModifier() const
+{
+    auto mod = Unit::woundModifier();
+
+    // Mighty Beasts of War
+    if (hasKeyword(MONSTER) && hasKeyword(THUNDER_LIZARD)) mod += 2;
+
+    return mod;
+}
+
 void Init()
 {
     DreadSaurian::Init();

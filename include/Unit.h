@@ -39,7 +39,7 @@ public:
     //
     const std::string &name() const { return m_name; }
 
-    int wounds() const { return m_wounds; }
+    int wounds() const { return m_wounds + woundModifier(); }
 
     int move() const { return m_move; }
 
@@ -303,6 +303,16 @@ protected:
     virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return {weapon->damage(), 0}; }
 
     /*!
+     * Modifier to apply to damage for a single attack.
+     * @param wounds Attack damage
+     * @param attacker Attacking unit
+     * @param hitRoll Unmodified roll to-hit
+     * @param woundRoll Unmodified roll to-wound
+     * @return Modified wounds
+     */
+    virtual Wounds targetAttackDamageModifier(const Wounds& wounds, const Unit *attacker, int hitRoll, int woundRoll) const { return wounds; }
+
+    /*!
      * Compute the weapon rend against the given target with the hit and wound rolls.
      * @param weapon Attacking with weapon.
      * @param target Unit being attacked.
@@ -343,6 +353,8 @@ protected:
     virtual int unbindingModifier() const;
 
     virtual void restoreModels(int numModels) { }
+
+    virtual int woundModifier() const { return 0; }
 
     virtual int moveModifier() const;
 
