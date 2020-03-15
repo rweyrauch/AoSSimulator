@@ -49,6 +49,10 @@ Unit *ChameleonSkinks::Create(const ParameterList &parameters)
     auto unit = new ChameleonSkinks();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(numModels);
     if (!ok)
     {
@@ -69,6 +73,8 @@ void ChameleonSkinks::Init()
             ComputePoints,
             {
                 {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

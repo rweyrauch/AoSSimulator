@@ -89,6 +89,10 @@ Unit *SaurusKnights::Create(const ParameterList &parameters)
     bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
     bool wardrum = GetBoolParam("Wardrum", parameters, false);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(numModels, weapons, iconBearer, wardrum);
     if (!ok)
     {
@@ -120,21 +124,17 @@ void SaurusKnights::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            SaurusKnights::Create,
-            SaurusKnights::ValueToString,
-            SaurusKnights::EnumStringToInt,
-            SaurusKnights::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SaurusKnights::MIN_UNIT_SIZE, SaurusKnights::MIN_UNIT_SIZE,
-                    SaurusKnights::MAX_UNIT_SIZE, SaurusKnights::MIN_UNIT_SIZE
-                },
-                {
-                    ParamType::Enum, "Weapons", SaurusKnights::CelestiteBlade, SaurusKnights::CelestiteBlade,
-                    SaurusKnights::CelestiteWarspear, 1
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", CelestiteBlade, CelestiteBlade, CelestiteWarspear, 1},
                 {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

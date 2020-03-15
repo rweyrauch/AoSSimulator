@@ -59,6 +59,10 @@ Unit *SaurusOldblood::Create(const ParameterList &parameters)
     auto unit = new SaurusOldblood();
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, CelestiteWarblade);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(option);
     if (!ok)
     {
@@ -73,12 +77,14 @@ void SaurusOldblood::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            SaurusOldblood::Create,
-            SaurusOldblood::ValueToString,
-            SaurusOldblood::EnumStringToInt,
-            SaurusOldblood::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
-                {ParamType::Enum, "Weapon", SaurusOldblood::CelestiteWarblade, SaurusOldblood::CelestiteMaul, SaurusOldblood::CelestiteGreatblade, 1}
+                {ParamType::Enum, "Weapon", CelestiteWarblade, CelestiteMaul, CelestiteGreatblade, 1},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

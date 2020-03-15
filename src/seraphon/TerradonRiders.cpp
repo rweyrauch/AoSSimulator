@@ -74,6 +74,10 @@ Unit *TerradonRiders::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     auto option = (WeaponOption)GetEnumParam("Weapons", parameters, StarstrikeJavelins);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(numModels, option);
     if (!ok)
     {
@@ -88,16 +92,15 @@ void TerradonRiders::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            TerradonRiders::Create,
-            TerradonRiders::ValueToString,
-            TerradonRiders::EnumStringToInt,
-            TerradonRiders::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", TerradonRiders::MIN_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE,
-                    TerradonRiders::MAX_UNIT_SIZE, TerradonRiders::MIN_UNIT_SIZE
-                },
-                {ParamType::Enum, "Weapons", TerradonRiders::StarstrikeJavelins, TerradonRiders::StarstrikeJavelins, TerradonRiders::SunleechBolas, 1},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", StarstrikeJavelins, StarstrikeJavelins, SunleechBolas, 1},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

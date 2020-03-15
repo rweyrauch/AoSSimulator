@@ -42,12 +42,66 @@ namespace Seraphon
 
 std::string SeraphonBase::ValueToString(const Parameter &parameter)
 {
+    if (std::string(parameter.name) == "Way of the Seraphon")
+    {
+        if (parameter.intValue == Starborne) return "Starborne";
+        else if (parameter.intValue == Coalesced) return "Coalesced";
+    }
+    else if (std::string(parameter.name) == "Constellation")
+    {
+        if (parameter.intValue == KoatlsClaw) return "Koatl's Claw";
+        else if (parameter.intValue == ThunderLizard) return "ThunderLizard";
+        else if (parameter.intValue == DracothionsTail) return "Dracothion's Tail";
+        else if (parameter.intValue == FangsOfSotek) return "Fangs of Sotek";
+        else if (parameter.intValue == None) return "None";
+    }
     return ParameterValueToString(parameter);
 }
 
 int SeraphonBase::EnumStringToInt(const std::string &enumString)
 {
+    if (enumString == "Starborne") return Starborne;
+    else if (enumString == "Coalesced") return Coalesced;
+    else if (enumString == "Koatl's Claw") return KoatlsClaw;
+    else if (enumString == "ThunderLizard") return ThunderLizard;
+    else if (enumString == "Dracothion's Tail") return DracothionsTail;
+    else if (enumString == "Fangs of Sotek") return FangsOfSotek;
+    else if (enumString == "None") return None;
+
     return 0;
+}
+
+void SeraphonBase::setWayOfTheSeraphon(SeraphonBase::WayOfTheSeraphon way, Constellation constellation)
+{
+    // TODO: validate the combination of way and constellation and warn caller
+    if (way == Starborne)
+    {
+        if (constellation == KoatlsClaw || constellation == ThunderLizard)
+            constellation = None;
+    }
+    else if (way == Coalesced)
+    {
+        if (constellation == DracothionsTail || constellation == FangsOfSotek)
+            constellation = None;
+    }
+
+    removeKeyword(COALESCED);
+    removeKeyword(STARBORNE);
+    removeKeyword(KOATLS_CLAW);
+    removeKeyword(THUNDER_LIZARD);
+    removeKeyword(DRACOTHIONS_TAIL);
+    removeKeyword(FANGS_OF_SOTEK);
+
+    if (way == Coalesced) addKeyword(COALESCED);
+    else if (way == Starborne) addKeyword(STARBORNE);
+
+    if (constellation == KoatlsClaw) addKeyword(KOATLS_CLAW);
+    else if (constellation == ThunderLizard) addKeyword(THUNDER_LIZARD);
+    else if (constellation == DracothionsTail) addKeyword(DRACOTHIONS_TAIL);
+    else if (constellation == FangsOfSotek) addKeyword(FANGS_OF_SOTEK);
+
+    m_way = way;
+    m_constellation = constellation;
 }
 
 void Init()

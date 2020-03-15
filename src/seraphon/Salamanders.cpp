@@ -54,6 +54,10 @@ Unit *Salamanders::Create(const ParameterList &parameters)
     auto unit = new Salamanders();
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(numModels);
     if (!ok)
     {
@@ -68,17 +72,16 @@ void Salamanders::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            Salamanders::Create,
+            Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
-            Salamanders::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Salamanders::MIN_UNIT_SIZE, Salamanders::MIN_UNIT_SIZE,
-                    Salamanders::MAX_UNIT_SIZE, Salamanders::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

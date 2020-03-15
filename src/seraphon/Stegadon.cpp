@@ -86,6 +86,10 @@ Unit *Stegadon::Create(const ParameterList &parameters)
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, SkystreakBow);
     bool chief = GetBoolParam("Skink Chief", parameters, false);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(option, chief);
     if (!ok)
     {
@@ -100,14 +104,15 @@ void Stegadon::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            Stegadon::Create,
-            Stegadon::ValueToString,
-            Stegadon::EnumStringToInt,
-            Stegadon::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
-                {ParamType::Enum, "Weapon", Stegadon::SkystreakBow, Stegadon::SkystreakBow, Stegadon::SunfireThrowers, 1},
+                {ParamType::Enum, "Weapon", SkystreakBow, SkystreakBow, SunfireThrowers, 1},
                 {ParamType::Boolean, "Skink Chief", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

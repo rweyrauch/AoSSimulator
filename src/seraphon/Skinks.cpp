@@ -95,6 +95,10 @@ Unit *Skinks::Create(const ParameterList &parameters)
     int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
     WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BoltspittersDaggersAndBucklers);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(numModels, weapons);
     if (!ok)
     {
@@ -109,19 +113,15 @@ void Skinks::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            Skinks::Create,
-            Skinks::ValueToString,
-            Skinks::EnumStringToInt,
-            Skinks::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Skinks::MIN_UNIT_SIZE, Skinks::MIN_UNIT_SIZE,
-                    Skinks::MAX_UNIT_SIZE, Skinks::MIN_UNIT_SIZE
-                },
-                {
-                    ParamType::Enum, "Weapons", Skinks::BoltspittersDaggersAndBucklers, Skinks::JavelinsDaggersAndBucklers,
-                    Skinks::ClubsAndBucklers, 1
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", BoltspittersDaggersAndBucklers, JavelinsDaggersAndBucklers, ClubsAndBucklers, 1},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

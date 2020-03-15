@@ -78,6 +78,10 @@ Unit *SaurusScarVeteranOnCarnosaur::Create(const ParameterList &parameters)
     auto unit = new SaurusScarVeteranOnCarnosaur();
     auto option = (WeaponOption)GetEnumParam("Weapon", parameters, CelestiteWarblade);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(option);
     if (!ok)
     {
@@ -111,11 +115,14 @@ void SaurusScarVeteranOnCarnosaur::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            SaurusScarVeteranOnCarnosaur::Create,
-            SaurusScarVeteranOnCarnosaur::ValueToString,
-            SaurusScarVeteranOnCarnosaur::EnumStringToInt,
-            SaurusScarVeteranOnCarnosaur::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
+                {ParamType::Enum, "Weapon", CelestiteWarblade, CelestiteWarblade, CelestiteGreatblade, 1},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

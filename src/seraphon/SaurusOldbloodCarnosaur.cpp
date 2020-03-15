@@ -75,6 +75,10 @@ Unit *SaurusOldbloodOnCarnosaur::Create(const ParameterList &parameters)
 {
     auto unit = new SaurusOldbloodOnCarnosaur();
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -94,6 +98,8 @@ void SaurusOldbloodOnCarnosaur::Init()
             SeraphonBase::EnumStringToInt,
             SaurusOldbloodOnCarnosaur::ComputePoints,
             {
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

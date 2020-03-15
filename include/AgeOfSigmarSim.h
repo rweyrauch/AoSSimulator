@@ -788,6 +788,16 @@ enum Keyword
     LORD_KROAK,
     ORACLE,
 
+    // Ways of the Seraphon
+    STARBORNE,
+    COALESCED,
+
+    // Seraphon Constellations
+    KOATLS_CLAW,
+    THUNDER_LIZARD,
+    DRACOTHIONS_TAIL,
+    FANGS_OF_SOTEK,
+
     // Fyreslayers
     MAGMADROTH,
     VULKITE_BERZERKERS,

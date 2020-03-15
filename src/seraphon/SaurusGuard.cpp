@@ -69,6 +69,10 @@ Unit *SaurusGuard::Create(const ParameterList &parameters)
     bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
     bool wardrum = GetBoolParam("Wardrum", parameters, false);
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure(numModels, iconBearer, wardrum);
     if (!ok)
     {
@@ -83,17 +87,16 @@ void SaurusGuard::Init()
     if (!s_registered)
     {
         static auto factoryMethod = new FactoryMethod{
-            SaurusGuard::Create,
+            Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
-            SaurusGuard::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SaurusGuard::MIN_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE,
-                    SaurusGuard::MAX_UNIT_SIZE, SaurusGuard::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Stardrake Icon", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+                {ParamType::Boolean, "Wardrum", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }

@@ -68,6 +68,10 @@ Unit *EngineOfTheGods::Create(const ParameterList &parameters)
 {
     auto unit = new EngineOfTheGods();
 
+    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
+    unit->setWayOfTheSeraphon(way, constellation);
+
     bool ok = unit->configure();
     if (!ok)
     {
@@ -87,6 +91,8 @@ void EngineOfTheGods::Init()
             SeraphonBase::EnumStringToInt,
             ComputePoints,
             {
+                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
+                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
             },
             ORDER,
             { SERAPHON }
