@@ -12,23 +12,6 @@
 
 namespace DaughtersOfKhaine
 {
-
-static FactoryMethod factoryMethod = {
-    BloodSisters::Create,
-    nullptr,
-    nullptr,
-    BloodSisters::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BloodSisters::MIN_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE,
-            BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE
-        },
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
-
 bool BloodSisters::s_registered = false;
 
 BloodSisters::BloodSisters() :
@@ -85,7 +68,21 @@ void BloodSisters::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Blood Sisters", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            BloodSisters::Create,
+            nullptr,
+            nullptr,
+            BloodSisters::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BloodSisters::MIN_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE,
+                    BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE
+                },
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Blood Sisters", *factoryMethod);
     }
 }
 

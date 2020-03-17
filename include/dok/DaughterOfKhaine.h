@@ -31,11 +31,26 @@ protected:
     Rerolls toSaveRerolls(const Weapon* weapon) const override;
     Rerolls runRerolls() const override;
     Rerolls chargeRerolls() const override;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
-    // TODO: implement Fanatical Faith, 6+ invulnerability save
-
-    // TODO: implement the Unquenchable Fervour battleshock immunity.
 };
+
+//
+// Abilities                    Implemented
+// -------------------------------------------
+// Fanatical Faith                  Yes
+// Blood Rites                      Yes
+//    Quickening Bloodlust          Yes
+//    Headlong Fury                 Yes
+//    Zealot's Rage                 Yes
+//    Slaughter's Strength          Yes
+//    Unquenchable Fervour          Yes
+// Daughters of the First Temple    Yes
+// Bladed Killers                   Yes
+// Disciples of Slaughter           TODO
+// Concealment and Stealth          Yes
+//
 
 void Init();
 

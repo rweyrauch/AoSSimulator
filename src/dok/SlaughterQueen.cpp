@@ -10,17 +10,6 @@
 
 namespace DaughtersOfKhaine
 {
-static FactoryMethod factoryMethod = {
-    SlaughterQueen::Create,
-    nullptr,
-    nullptr,
-    SlaughterQueen::ComputePoints,
-    {
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool SlaughterQueen::s_registered = false;
 
 SlaughterQueen::SlaughterQueen() :
@@ -61,7 +50,17 @@ void SlaughterQueen::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Slaughter Queen", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            SlaughterQueen::Create,
+            nullptr,
+            nullptr,
+            SlaughterQueen::ComputePoints,
+            {
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Slaughter Queen", *factoryMethod);
     }
 }
 

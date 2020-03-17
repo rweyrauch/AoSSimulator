@@ -398,6 +398,11 @@ enum Keyword
     SLAUGHTER_QUEEN,
     AVATAR_OF_KHAINE,
     BLOODWRACK_MEDUSA,
+    BLOODWRACK_SHRINE,
+    CAULDRON_OF_BLOOD,
+    MORATHI,
+    HIGH_ORACLE_OF_KHAINE,
+    THE_SHADOW_QUEEN,
 
     // Daughters of Khaine Temples
     HAGG_NAR,

@@ -12,22 +12,6 @@
 
 namespace DaughtersOfKhaine
 {
-
-static FactoryMethod factoryMethod = {
-    KhineraiLifetakers::Create,
-    nullptr,
-    nullptr,
-    KhineraiLifetakers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", KhineraiLifetakers::MIN_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE,
-            KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE
-        },
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool KhineraiLifetakers::s_registered = false;
 
 KhineraiLifetakers::KhineraiLifetakers() :
@@ -80,7 +64,21 @@ void KhineraiLifetakers::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Khinerai Lifetakers", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            KhineraiLifetakers::Create,
+            nullptr,
+            nullptr,
+            KhineraiLifetakers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", KhineraiLifetakers::MIN_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE,
+                    KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE
+                },
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Khinerai Lifetakers", *factoryMethod);
     }
 }
 

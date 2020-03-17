@@ -10,17 +10,6 @@
 
 namespace DaughtersOfKhaine
 {
-static FactoryMethod factoryMethod = {
-    HagQueen::Create,
-    nullptr,
-    nullptr,
-    HagQueen::ComputePoints,
-    {
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool HagQueen::s_registered = false;
 
 HagQueen::HagQueen() :
@@ -59,7 +48,17 @@ void HagQueen::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Hag Queen", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            HagQueen::Create,
+            nullptr,
+            nullptr,
+            HagQueen::ComputePoints,
+            {
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Hag Queen", *factoryMethod);
     }
 }
 

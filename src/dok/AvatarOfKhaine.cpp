@@ -10,17 +10,6 @@
 
 namespace DaughtersOfKhaine
 {
-static FactoryMethod factoryMethod = {
-    AvatarOfKhaine::Create,
-    nullptr,
-    nullptr,
-    AvatarOfKhaine::ComputePoints,
-    {
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool AvatarOfKhaine::s_registered = false;
 
 AvatarOfKhaine::AvatarOfKhaine() :
@@ -30,6 +19,13 @@ AvatarOfKhaine::AvatarOfKhaine() :
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, TOTEM, AVATAR_OF_KHAINE};
     m_weapons = {&m_torrentOfBurningBlood, &m_sword};
+
+    s_globalBraveryMod.connect(this, &AvatarOfKhaine::idolOfWorship, &m_idolSlot);
+}
+
+AvatarOfKhaine::~AvatarOfKhaine()
+{
+    m_idolSlot.disconnect();
 }
 
 bool AvatarOfKhaine::configure()
@@ -61,8 +57,26 @@ void AvatarOfKhaine::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Avatar of Khaine", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            AvatarOfKhaine::Create,
+            nullptr,
+            nullptr,
+            AvatarOfKhaine::ComputePoints,
+            {
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Avatar of Khaine", *factoryMethod);
     }
+}
+
+int AvatarOfKhaine::idolOfWorship(const Unit *unit)
+{
+    // Idol of Worship
+    if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
+
+    return 0;
 }
 
 } //namespace DaughtersOfKhaine

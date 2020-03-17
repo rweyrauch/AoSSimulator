@@ -190,6 +190,11 @@ add_library(
         dok/SlaughterQueen.cpp
         dok/AvatarOfKhaine.cpp
         dok/BloodwrackMedusa.cpp
+        dok/BloodwrackShrine.cpp
+        dok/HagQueenCauldronOfBlood.cpp
+        dok/MorathiHighOracle.cpp
+        dok/MorathiShadowQueen.cpp
+        dok/SlaughterQueenCauldronOfBlood.cpp
 
         idonethdeepkin/IdonethDeepkin.cpp
         idonethdeepkin/NamartiThralls.cpp

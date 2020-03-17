@@ -13,23 +13,6 @@
 
 namespace DaughtersOfKhaine
 {
-
-static FactoryMethod factoryMethod = {
-    DoomfireWarlocks::Create,
-    nullptr,
-    nullptr,
-    DoomfireWarlocks::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DoomfireWarlocks::MIN_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE,
-            DoomfireWarlocks::MAX_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Crossbows", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool DoomfireWarlocks::s_registered = false;
 
 DoomfireWarlocks::DoomfireWarlocks() :
@@ -102,7 +85,22 @@ void DoomfireWarlocks::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Doomfire Warlocks", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            DoomfireWarlocks::Create,
+            nullptr,
+            nullptr,
+            DoomfireWarlocks::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", DoomfireWarlocks::MIN_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE,
+                    DoomfireWarlocks::MAX_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Crossbows", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Doomfire Warlocks", *factoryMethod);
     }
 }
 

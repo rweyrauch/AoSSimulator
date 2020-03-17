@@ -201,6 +201,11 @@ OBJECTS += \
         src/dok/SlaughterQueen.o \
         src/dok/AvatarOfKhaine.o \
         src/dok/BloodwrackMedusa.o \
+        src/dok/BloodwrackShrine.o \
+        src/dok/HagQueenCauldronOfBlood.o \
+        src/dok/MorathiHighOracle.o \
+        src/dok/MorathiShadowQueen.o \
+        src/dok/SlaughterQueenCauldronOfBlood.o \
         src/idonethdeepkin/IdonethDeepkin.o \
         src/idonethdeepkin/NamartiThralls.o \
         src/idonethdeepkin/NamartiReavers.o \

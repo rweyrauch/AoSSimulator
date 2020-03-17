@@ -11,17 +11,6 @@
 
 namespace DaughtersOfKhaine
 {
-static FactoryMethod factoryMethod = {
-    BloodwrackMedusa::Create,
-    nullptr,
-    nullptr,
-    BloodwrackMedusa::ComputePoints,
-    {
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool BloodwrackMedusa::s_registered = false;
 
 BloodwrackMedusa::BloodwrackMedusa() :
@@ -72,7 +61,17 @@ void BloodwrackMedusa::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Bloodwrack Medusa", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            BloodwrackMedusa::Create,
+            nullptr,
+            nullptr,
+            BloodwrackMedusa::ComputePoints,
+            {
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Bloodwrack Medusa", *factoryMethod);
     }
 }
 

@@ -18,6 +18,11 @@
 #include "dok/SlaughterQueen.h"
 #include "dok/AvatarOfKhaine.h"
 #include "dok/BloodwrackMedusa.h"
+#include "dok/BloodwrackShrine.h"
+#include "dok/HagQueenCauldronOfBlood.h"
+#include "dok/MorathiHighOracle.h"
+#include "dok/MorathiShadowQueen.h"
+#include "dok/SlaughterQueenCauldronOfBlood.h"
 
 namespace DaughtersOfKhaine
 {
@@ -93,18 +98,49 @@ Rerolls DaughterOfKhaine::chargeRerolls() const
     return Unit::chargeRerolls();
 }
 
+int DaughterOfKhaine::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = Unit::targetHitModifier(weapon, attacker);
+
+    // Concealment and Stealth
+    if (hasKeyword(KHAILEBRON) && weapon->isMissile()) mod--;
+
+    return mod;
+}
+
+Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds)
+{
+    // Fanatical Faith
+    Dice::RollResult mortalSaves, normalSaves;
+    Dice::rollD6(wounds.mortal, mortalSaves);
+    Dice::rollD6(wounds.normal, normalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= normalSaves.rollsGE(6);
+    totalWounds.normal = std::max(totalWounds.normal, 0);
+    totalWounds.mortal -= mortalSaves.rollsGE(6);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
+}
+
 void Init()
 {
     AvatarOfKhaine::Init();
     BloodSisters::Init();
     BloodStalkers::Init();
     BloodwrackMedusa::Init();
+    BloodwrackShrine::Init();
     DoomfireWarlocks::Init();
     HagQueen::Init();
+    HagQueenOnCauldronOfBlood::Init();
     KhineraiHeartrenders::Init();
     KhineraiLifetakers::Init();
+    MorathiHighOracleOfKhaine::Init();
+    MorathiTheShadowQueen::Init();
     SistersOfSlaughter::Init();
     SlaughterQueen::Init();
+    SlaughterQueenOnCauldronOfBlood::Init();
     WitchAelves::Init();
 }
 

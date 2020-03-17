@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef AVATAROFKHAINE_H
-#define AVATAROFKHAINE_H
+#ifndef MORATHIORACLE_H
+#define MORATHIORACLE_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -15,33 +15,30 @@
 namespace DaughtersOfKhaine
 {
 
-class AvatarOfKhaine : public DaughterOfKhaine
+class MorathiHighOracleOfKhaine : public DaughterOfKhaine
 {
 public:
 
     static const int BASESIZE = 40;
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 140;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 0;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 
-    AvatarOfKhaine();
-    ~AvatarOfKhaine() override;
+    MorathiHighOracleOfKhaine();
+    ~MorathiHighOracleOfKhaine() override = default;
 
     bool configure();
 
 protected:
 
-    int idolOfWorship(const Unit*);
 
 private:
 
-    Weapon m_torrentOfBurningBlood,
-        m_sword;
-
-    lsignal::slot m_idolSlot;
+    Weapon m_heartrender,
+        m_wings;
 
     static bool s_registered;
 };
@@ -49,10 +46,15 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Animated                         TODO
-// Idol of Worship                  Yes
+// Monstrous Transformation         TODO
+// The Truth Revealed               TODO
+// The Iron Heart of Khaine         TODO
+// Sorceress Supreme                TODO
+// Enchanting Beauty                TODO
+// Arnzipal's Black Horror          TODO
+// Worship Through Bloodshed        TODO
 //
 
 } // namespace DaughtersOfKhaine
 
-#endif //AVATAROFKHAINE_H
+#endif //MORATHIORACLE_H

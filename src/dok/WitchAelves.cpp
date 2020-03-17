@@ -12,25 +12,6 @@
 
 namespace DaughtersOfKhaine
 {
-
-static FactoryMethod factoryMethod = {
-    WitchAelves::Create,
-    nullptr,
-    nullptr,
-    WitchAelves::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", WitchAelves::MIN_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE,
-            WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Paired Knives", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool WitchAelves::s_registered = false;
 
 WitchAelves::WitchAelves() :
@@ -95,7 +76,24 @@ void WitchAelves::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Witch Aelves", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            WitchAelves::Create,
+            nullptr,
+            nullptr,
+            WitchAelves::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", WitchAelves::MIN_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE,
+                    WitchAelves::MAX_UNIT_SIZE, WitchAelves::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Paired Knives", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Witch Aelves", *factoryMethod);
     }
 }
 

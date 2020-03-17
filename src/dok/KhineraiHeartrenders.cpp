@@ -12,22 +12,6 @@
 
 namespace DaughtersOfKhaine
 {
-
-static FactoryMethod factoryMethod = {
-    KhineraiHeartrenders::Create,
-    nullptr,
-    nullptr,
-    KhineraiHeartrenders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", KhineraiHeartrenders::MIN_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE,
-            KhineraiHeartrenders::MAX_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE
-        },
-    },
-    ORDER,
-    { DAUGHTERS_OF_KHAINE }
-};
-
 bool KhineraiHeartrenders::s_registered = false;
 
 KhineraiHeartrenders::KhineraiHeartrenders() :
@@ -84,7 +68,21 @@ void KhineraiHeartrenders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Khinerai Lifetakers", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            KhineraiHeartrenders::Create,
+            nullptr,
+            nullptr,
+            KhineraiHeartrenders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", KhineraiHeartrenders::MIN_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE,
+                    KhineraiHeartrenders::MAX_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE
+                },
+            },
+            ORDER,
+            { DAUGHTERS_OF_KHAINE }
+        };
+        s_registered = UnitFactory::Register("Khinerai Lifetakers", *factoryMethod);
     }
 }
 
