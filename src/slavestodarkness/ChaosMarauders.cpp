@@ -259,4 +259,17 @@ int ChaosMarauders::iconBearer(const Unit *unit)
     return 0;
 }
 
+int ChaosMarauders::rollChargeDistance() const
+{
+    // Boundless Ferocity
+    auto roll1 = Dice::rollD6();
+    auto roll2 = Dice::rollD6();
+    if (roll1 < roll2) roll1 = 6;
+    else if (roll2 < roll1) roll2 = 6;
+    else roll1 = 6;
+
+    m_unmodifiedChargeRoll = roll1 + roll2;
+    return m_unmodifiedChargeRoll + chargeModifier();
+}
+
 } //SlavesToDarkness

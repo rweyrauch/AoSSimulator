@@ -36,6 +36,8 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -48,8 +50,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Rocket Salvo                     TODO
-// Calculated Trajectory            TODO
+// Rocket Salvo                     Yes
+// Calculated Trajectory            Yes
 //
 
 } // namespace CitiesOfSigmar

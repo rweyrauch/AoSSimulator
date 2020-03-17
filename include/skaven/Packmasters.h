@@ -30,11 +30,14 @@ public:
     static void Init();
 
     Packmasters();
-    ~Packmasters() override = default;
+    ~Packmasters() override;
 
     bool configure(int numModels, int numCatchers);
 
 protected:
+
+    int crackTheWhip(const Unit* attacker, const Weapon* weapon, const Unit* target);
+    int crackTheWhipBravery(const Unit* unit);
 
 private:
 
@@ -42,13 +45,15 @@ private:
         m_blade,
         m_catcher;
 
+    lsignal::slot m_whipSlot, m_whipBraverySlot;
+
     static bool s_registered;
 };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Crack the Whip                   TODO
+// Crack the Whip                   Yes
 //
 
 } // namespace Skaven

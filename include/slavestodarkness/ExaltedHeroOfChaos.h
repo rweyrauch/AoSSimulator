@@ -34,6 +34,9 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_blades;
@@ -45,8 +48,8 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    Yes
-// Dark Blessings                   TODO
-// Glory-hungry Bladesman           TODO
+// Dark Blessings                   Yes
+// Glory-hungry Bladesman           Yes
 // Thrice-damned Dagger             TODO
 // Trail of Red Ruin                TODO
 //

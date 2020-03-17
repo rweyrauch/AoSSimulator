@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "citiesofsigmar/Battlemage.h"
 
 namespace CitiesOfSigmar
@@ -86,6 +87,16 @@ bool Battlemage::configure(Realm realm)
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Battlemage::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    // Magic of the Realms
+    if (m_realm == Board::Instance()->getRealm()) mod++;
+
+    return mod;
 }
 
 }//namespace CitiesOfSigmar

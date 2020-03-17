@@ -69,4 +69,14 @@ bool DarkoathChieftain::configure()
     return true;
 }
 
+int DarkoathChieftain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Berserk Charge
+    if (m_charged && (weapon->name() == m_broadsword.name())) extra += 3;
+
+    return extra;
+}
+
 } //namespace SlavesToDarkness

@@ -49,7 +49,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Unleash the Beast                TODO
+// Unleash the Beast                Partial/TODO
 //
 
 } // SlavesToDarkness

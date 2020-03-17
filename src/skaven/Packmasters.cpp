@@ -67,6 +67,15 @@ Packmasters::Packmasters() :
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, PACKMASTERS};
     m_weapons = {&m_whip, &m_blade, &m_catcher};
+
+    s_globalToHitMod.connect(this, &Packmasters::crackTheWhip, &m_whipSlot);
+    s_globalBraveryMod.connect(this, &Packmasters::crackTheWhipBravery, &m_whipBraverySlot);
+}
+
+Packmasters::~Packmasters()
+{
+    m_whipSlot.disconnect();
+    m_whipBraverySlot.disconnect();
 }
 
 bool Packmasters::configure(int numModels, int numCatchers)
@@ -98,6 +107,27 @@ bool Packmasters::configure(int numModels, int numCatchers)
     m_points = ComputePoints(numModels);
 
     return true;
+}
+
+int Packmasters::crackTheWhip(const Unit *attacker, const Weapon *weapon, const Unit *target)
+{
+    // Crack the Whip
+    if (attacker->hasKeyword(CLANS_MOULDER) && attacker->hasKeyword(PACK) && (distanceTo(attacker) <= 12.0f))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int Packmasters::crackTheWhipBravery(const Unit *unit)
+{
+    // Crack the Whip
+    if (unit->hasKeyword(CLANS_MOULDER) && unit->hasKeyword(PACK) && (distanceTo(unit) <= 12.0f))
+    {
+        // Double unit's bravery
+        return unit->bravery();
+    }
+    return 0;
 }
 
 } //namespace Skaven

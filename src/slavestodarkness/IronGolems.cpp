@@ -137,4 +137,12 @@ int IronGolems::ComputePoints(int numModels)
     return points;
 }
 
+Rerolls IronGolems::toSaveRerolls(const Weapon *weapon) const
+{
+    // Iron Resilience
+    if (!m_moved) return RerollFailed;
+
+    return Unit::toSaveRerolls(weapon);
+}
+
 } //SlavesToDarkness

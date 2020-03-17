@@ -36,6 +36,7 @@ public:
 
 protected:
 
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
 private:
 
@@ -50,7 +51,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Point Blank                      TODO
+// Point Blank                      Yes
 // Helblaster Volley                TODO
 // Working Like Clockwork           TODO
 //

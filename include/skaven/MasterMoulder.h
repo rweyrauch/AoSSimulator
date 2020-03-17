@@ -37,16 +37,23 @@ public:
 
     MasterMoulder();
 
-    ~MasterMoulder() override = default;
+    ~MasterMoulder() override;
 
     bool configure(WeaponOption option);
 
 protected:
 
+    void onStartHero(PlayerId player) override;
+
+    int crackTheWhip(const Unit* attacker, const Weapon* weapon, const Unit* target);
+    int crackTheWhipBravery(const Unit* unit);
+
 private:
 
     Weapon m_lash,
         m_catcher;
+
+    lsignal::slot m_whipSlot, m_whipBraverySlot;
 
     static bool s_registered;
 };
@@ -54,8 +61,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Master Moulder                   TODO
-// Crack the Whip                   TODO
+// Master Moulder                   Yes
+// Crack the Whip                   Yes
 // Unleash More-more Beasts!        TODO
 //
 

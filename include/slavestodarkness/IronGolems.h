@@ -39,6 +39,7 @@ protected:
 
     int braveryModifier() const override;
     void onWounded() override;
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
 protected:
 
@@ -56,7 +57,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Iron Resilience                  TODO
+// Iron Resilience                  Yes
 // Signifier                        Yes
 //
 

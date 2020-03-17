@@ -36,6 +36,7 @@ public:
 
 protected:
 
+    int castingModifier() const override;
 
 private:
 
@@ -48,7 +49,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Magic of the Realms              TODO
+// Magic of the Realms              Yes
 // Chain Lightning                  TODO
 // Fireball                         TODO
 // Mystifying Miasma                TODO

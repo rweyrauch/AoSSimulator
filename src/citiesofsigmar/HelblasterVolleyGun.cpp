@@ -85,4 +85,14 @@ bool HelblasterVolleyGun::configure()
     return true;
 }
 
+int HelblasterVolleyGun::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Point Blank
+    if (weapon->isMissile() && (distanceTo(target) <= 12.0f)) mod++;
+
+    return mod;
+}
+
 } // namespace CitiesOfSigmar

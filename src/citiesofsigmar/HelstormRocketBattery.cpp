@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/HelstormRocketBattery.h"
 
 namespace CitiesOfSigmar
@@ -79,6 +80,27 @@ bool HelstormRocketBattery::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int HelstormRocketBattery::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Rocket Salvo
+    mod++; // Always targeting the same unit with each attack
+
+    return mod;
+}
+
+Rerolls HelstormRocketBattery::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Calculated Trajectory
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return RerollOnes;
+    }
+    return Unit::toHitRerolls(weapon, target);
 }
 
 } // namespace CitiesOfSigmar

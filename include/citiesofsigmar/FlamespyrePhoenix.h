@@ -33,12 +33,14 @@ public:
     FlamespyrePhoenix();
     ~FlamespyrePhoenix() override = default;
 
-    bool configure(bool anoited);
+    bool configure(bool anointed);
 
 protected:
 
     void onWounded() override;
     void onRestore() override;
+
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 
@@ -56,7 +58,7 @@ private:
 // Attuned to Magic                 TODO
 // Phoenix Reborn                   TODO
 // Wake of Fire                     TODO
-// Witness to Destiny               TODO
+// Witness to Destiny               Yes
 // Captain of the Phoenix Guard     TODO
 //
 

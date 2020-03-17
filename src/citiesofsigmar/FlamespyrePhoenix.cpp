@@ -144,4 +144,24 @@ int FlamespyrePhoenix::getDamageTableIndex() const
     return 0;
 }
 
+Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds)
+{
+    if (hasKeyword(HERO))
+    {
+        // Witness to Destiny
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(4);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(4);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
+    }
+    return Unit::applyWoundSave(wounds);
+}
+
 } // namespace CitiesOfSigmar

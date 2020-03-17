@@ -34,6 +34,8 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_axe,
@@ -45,7 +47,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Berserk Charge                   TODO
+// Berserk Charge                   Yes
 // Deathblow                        TODO
 // Last Gasp of Glory               TODO
 //

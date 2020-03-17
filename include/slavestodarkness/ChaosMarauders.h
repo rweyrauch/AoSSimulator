@@ -52,6 +52,7 @@ protected:
     int toHitModifier(const Weapon *weapon, const Unit *target) const override;
     int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
     int iconBearer(const Unit* unit);
+    int rollChargeDistance() const override;
 
 protected:
 
@@ -79,7 +80,7 @@ private:
 // Darkwood Shields                 Yes
 // Mark of Chaos                    Yes
 // Barbarian Hordes                 Yes
-// Boundless Ferocity               TODO
+// Boundless Ferocity               Yes
 //
 
 } // SlavesToDarkness

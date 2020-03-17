@@ -61,6 +61,9 @@ UntamedBeasts::UntamedBeasts() :
 {
     m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, UNTAMED_BEASTS };
     m_weapons = {&m_harpoonFirstFang, &m_huntingWeapons, &m_huntingWeaponsHeartEater};
+
+    // Unleash the Beast
+    m_runAndCharge = true;
 }
 
 bool UntamedBeasts::configure(int numModels)

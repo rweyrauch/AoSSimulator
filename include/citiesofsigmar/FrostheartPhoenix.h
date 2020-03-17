@@ -39,6 +39,7 @@ protected:
 
     void onWounded() override;
     void onRestore() override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
     int blizzardAura(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
@@ -59,7 +60,7 @@ private:
 // -------------------------------------------
 // Attuned to Magic                 TODO
 // Blizzard Aura                    Yes
-// Witness to Destiny               TODO
+// Witness to Destiny               Yes
 // Captain of the Phoenix Guard     TODO
 //
 

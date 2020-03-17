@@ -8,6 +8,7 @@
 
 #include <skaven/MasterMoulder.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Skaven
 {
@@ -54,6 +55,15 @@ MasterMoulder::MasterMoulder() :
 {
     m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, HERO, MASTER_MOULDER};
     m_weapons = {&m_lash, &m_catcher};
+
+    s_globalToHitMod.connect(this, &MasterMoulder::crackTheWhip, &m_whipSlot);
+    s_globalBraveryMod.connect(this, &MasterMoulder::crackTheWhipBravery, &m_whipBraverySlot);
+}
+
+MasterMoulder::~MasterMoulder()
+{
+    m_whipSlot.disconnect();
+    m_whipBraverySlot.disconnect();
 }
 
 bool MasterMoulder::configure(WeaponOption option)
@@ -68,6 +78,43 @@ bool MasterMoulder::configure(WeaponOption option)
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int MasterMoulder::crackTheWhip(const Unit *attacker, const Weapon *weapon, const Unit *target)
+{
+    // Crack the Whip
+    if (attacker->hasKeyword(CLANS_MOULDER) && attacker->hasKeyword(PACK) && (distanceTo(attacker) <= 12.0f))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int MasterMoulder::crackTheWhipBravery(const Unit *unit)
+{
+    // Crack the Whip
+    if (unit->hasKeyword(CLANS_MOULDER) && unit->hasKeyword(PACK) && (distanceTo(unit) <= 12.0f))
+    {
+        // Double unit's bravery
+        return unit->bravery();
+    }
+    return 0;
+}
+
+void MasterMoulder::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Master Moulder
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(CLANS_MOULDER) && unit->hasKeyword(PACK) && (unit->remainingWounds() < unit->initialWounds()))
+        {
+            unit->heal(Dice::rollD3());
+            break;
+        }
+    }
 }
 
 } //namespace Skaven

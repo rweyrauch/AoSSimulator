@@ -71,4 +71,27 @@ bool ExaltedHeroOfChaos::configure()
     return true;
 }
 
+Wounds ExaltedHeroOfChaos::applyWoundSave(const Wounds &wounds)
+{
+    // Dark Blessings
+    Dice::RollResult mortalSaves;
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+    return totalWounds;
+}
+
+int ExaltedHeroOfChaos::toHitModifier(const Weapon *weapon, const Unit *target) const
+{
+    auto mod = Unit::toHitModifier(weapon, target);
+
+    // Glory-hungry Bladesman
+    if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) mod++;
+
+    return mod;
+}
+
 } //namespace SlavesToDarkness

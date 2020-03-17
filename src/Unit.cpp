@@ -24,7 +24,7 @@ lsignal::signal<int(const Unit*)> Unit::s_globalChargeMod;
 lsignal::signal<int(const Unit*)> Unit::s_globalBraveryMod;
 lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> Unit::s_globalToHitMod;
 lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> Unit::s_globalToWoundMod;
-lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> Unit::s_globalSaveMod;
+lsignal::signal<int(const Unit*, const Weapon*)> Unit::s_globalSaveMod;
 
 lsignal::signal<int(const Unit*, const Model *, const Weapon *, const Unit *)> Unit::s_globalAttackMod;
 
@@ -798,8 +798,7 @@ int Unit::heal(int numWounds)
 
 bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* target, int& saveRoll)
 {
-    const auto globalSaveMod = s_globalSaveMod(this, weapon, target, accumulate);
-    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target) + globalSaveMod;
+    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target);
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
 
@@ -1281,7 +1280,7 @@ Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 
 int Unit::toSaveModifier(const Weapon *weapon) const
 {
-    int modifier = 0;
+    int modifier = s_globalSaveMod(this, weapon, accumulate);
     for (auto bi : m_attributeModifiers[ToSave])
     {
         modifier += bi.modifier;
