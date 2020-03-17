@@ -262,7 +262,7 @@ void GreySeerOnScreamingBell::onStartHero(PlayerId player)
     }
 }
 
-int GreySeerOnScreamingBell::wallOfUnholySound(const Weapon *weapon, const Unit *unit)
+int GreySeerOnScreamingBell::wallOfUnholySound(const Unit* attacker, const Weapon *weapon, const Unit *unit)
 {
     // Wall of Unholy Sound
     if (m_unholySoundActive && (unit->owningPlayer() != owningPlayer()) &&

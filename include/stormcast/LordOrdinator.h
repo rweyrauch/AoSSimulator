@@ -46,7 +46,7 @@ protected:
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
     void onStartCombat(PlayerId player) override;
     Wounds onEndCombat(PlayerId player) override;
-    int arcaneEngineer(const Weapon* weapon, const Unit* target);
+    int arcaneEngineer(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 

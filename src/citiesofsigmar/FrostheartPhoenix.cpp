@@ -152,7 +152,7 @@ int FrostheartPhoenix::getDamageTableIndex() const
     return 0;
 }
 
-int FrostheartPhoenix::blizzardAura(const Weapon *weapon, const Unit *target)
+int FrostheartPhoenix::blizzardAura(const Unit* attacker, const Weapon *weapon, const Unit *target)
 {
     // Blizzard Aura
     if (!weapon->isMissile() && (target->owningPlayer() != owningPlayer()) &&

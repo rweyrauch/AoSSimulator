@@ -116,7 +116,7 @@ int Wrathmongers::ComputePoints(int numModels)
     return points;
 }
 
-int Wrathmongers::crimsonHaze(const Model* attacker, const Weapon *weapon, const Unit *target)
+int Wrathmongers::crimsonHaze(const Unit* attacker, const Model* attackingModel, const Weapon *weapon, const Unit *target)
 {
     // Crimson Haze
     if (distanceTo(target) <= 8.0f)

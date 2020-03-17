@@ -40,7 +40,7 @@ protected:
     void onWounded() override;
     void onRestore() override;
 
-    int blizzardAura(const Weapon* weapon, const Unit* target);
+    int blizzardAura(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 

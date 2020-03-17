@@ -44,7 +44,7 @@ protected:
 
     int getDamageTableIndex() const;
     int altarOfTheHornedRat(const Unit* unit);
-    int wallOfUnholySound(const Weapon* weapon, const Unit* unit);
+    int wallOfUnholySound(const Unit* attacker, const Weapon* weapon, const Unit* unit);
 
 private:
 

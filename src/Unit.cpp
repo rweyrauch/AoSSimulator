@@ -22,16 +22,21 @@ lsignal::signal<int(const Unit*)> Unit::s_globalRunMod;
 lsignal::signal<int(const Unit*)> Unit::s_globalChargeMod;
 
 lsignal::signal<int(const Unit*)> Unit::s_globalBraveryMod;
-lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToHitMod;
-lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalToWoundMod;
-lsignal::signal<int(const Weapon*, const Unit*)> Unit::s_globalSaveMod;
+lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> Unit::s_globalToHitMod;
+lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> Unit::s_globalToWoundMod;
+lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> Unit::s_globalSaveMod;
 
-lsignal::signal<int(const Model *, const Weapon *, const Unit *)> Unit::s_globalAttackMod;
+lsignal::signal<int(const Unit*, const Model *, const Weapon *, const Unit *)> Unit::s_globalAttackMod;
 
 lsignal::signal<int(const Unit*)> Unit::s_globalCastMod;
 lsignal::signal<int(const Unit*)> Unit::s_globalUnbindMod;
 
-int accumulate(const std::vector<int>& v) {
+lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> Unit::s_globalToHitReroll;
+lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> Unit::s_globalToWoundReroll;
+lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> Unit::s_globalSaveReroll;
+lsignal::signal<Rerolls(const Unit*)> Unit::s_globalBattleshockReroll;
+
+static int accumulate(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
 
@@ -793,7 +798,7 @@ int Unit::heal(int numWounds)
 
 bool Unit::makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* target, int& saveRoll)
 {
-    const auto globalSaveMod = s_globalSaveMod(weapon, target, accumulate);
+    const auto globalSaveMod = s_globalSaveMod(this, weapon, target, accumulate);
     auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target) + globalSaveMod;
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
@@ -1201,7 +1206,7 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player)
 
 int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    int extra = s_globalAttackMod(attackingModel, weapon, target, accumulate);
+    int extra = s_globalAttackMod(this, attackingModel, weapon, target, accumulate);
 
     BuffableAttribute which = AttacksMelee;
     if (weapon->isMissile())
@@ -1216,7 +1221,7 @@ int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const 
 
 int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = s_globalToHitMod(weapon, target, accumulate);
+    int modifier = s_globalToHitMod(this, weapon, target, accumulate);
 
     BuffableAttribute which = ToHitMelee;
     if (weapon->isMissile())
@@ -1231,7 +1236,7 @@ int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const
 
 int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const
 {
-    int modifier = s_globalToWoundMod(weapon, target, accumulate);
+    int modifier = s_globalToWoundMod(this, weapon, target, accumulate);
 
     BuffableAttribute which = ToWoundMelee;
     if (weapon->isMissile())
@@ -1250,6 +1255,10 @@ Rerolls Unit::toHitRerolls(const Weapon *weapon, const Unit *target) const
     if (weapon->isMissile())
         which = ToHitMissile;
 
+    auto globalRR = s_globalToHitReroll(this, weapon, target);
+    if (globalRR != NoRerolls)
+        return globalRR;
+
     if (m_rollModifiers[which].empty())
         return NoRerolls;
     return m_rollModifiers[which].front().rerolls;
@@ -1260,6 +1269,10 @@ Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const
     BuffableAttribute which = ToWoundMelee;
     if (weapon->isMissile())
         which = ToWoundMissile;
+
+    auto globalRR = s_globalToWoundReroll(this, weapon, target);
+    if (globalRR != NoRerolls)
+        return globalRR;
 
     if (m_rollModifiers[which].empty())
         return NoRerolls;
@@ -1278,6 +1291,10 @@ int Unit::toSaveModifier(const Weapon *weapon) const
 
 Rerolls Unit::toSaveRerolls(const Weapon *weapon) const
 {
+    auto globalRR = s_globalSaveReroll(this, weapon, this);
+    if (globalRR != NoRerolls)
+        return globalRR;
+
     if (m_rollModifiers[ToSave].empty())
         return NoRerolls;
     return m_rollModifiers[ToSave].front().rerolls;
@@ -1285,6 +1302,10 @@ Rerolls Unit::toSaveRerolls(const Weapon *weapon) const
 
 Rerolls Unit::battleshockRerolls() const
 {
+    auto globalRR = s_globalBattleshockReroll(this);
+    if (globalRR != NoRerolls)
+        return globalRR;
+
     if (m_rollModifiers[Bravery].empty())
         return NoRerolls;
     return m_rollModifiers[Bravery].front().rerolls;

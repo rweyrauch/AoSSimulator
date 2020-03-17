@@ -77,7 +77,7 @@ bool AetherKhemist::configure()
     return true;
 }
 
-int AetherKhemist::atmosphericIsolation(const Weapon *weapon, const Unit *target)
+int AetherKhemist::atmosphericIsolation(const Unit* attacker, const Weapon *weapon, const Unit *target)
 {
     // Atmospheric Isolation
     if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f))

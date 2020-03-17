@@ -207,7 +207,7 @@ int CelestialHurricanum::locusOfAzyr(const Unit *caster)
     return 0;
 }
 
-int CelestialHurricanum::portentsOfBattle(const Weapon *weapon, const Unit *unit)
+int CelestialHurricanum::portentsOfBattle(const Unit* attacker, const Weapon *weapon, const Unit *unit)
 {
     // Portents of Battle
     if (unit->hasKeyword(CITIES_OF_SIGMAR) &&

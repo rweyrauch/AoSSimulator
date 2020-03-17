@@ -162,7 +162,7 @@ Wounds LordOrdinator::onEndCombat(PlayerId player)
     return wounds;
 }
 
-int LordOrdinator::arcaneEngineer(const Weapon *weapon, const Unit *target)
+int LordOrdinator::arcaneEngineer(const Unit* attacker, const Weapon *weapon, const Unit *target)
 {
     if (target->hasKeyword(ORDER) && target->hasKeyword(WAR_MACHINE) &&
         (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 9.0f))

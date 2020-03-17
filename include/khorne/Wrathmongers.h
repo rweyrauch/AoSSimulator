@@ -39,7 +39,7 @@ protected:
     int toHitModifier(const Weapon* weapon, const Unit* target) const override;
     void onModelSlain() override;
 
-    int crimsonHaze(const Model* attacker, const Weapon* weapon, const Unit* target);
+    int crimsonHaze(const Unit* attacker, const Model* attackingModel, const Weapon* weapon, const Unit* target);
 
 private:
 

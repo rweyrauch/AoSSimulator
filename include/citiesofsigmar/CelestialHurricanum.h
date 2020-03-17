@@ -43,7 +43,7 @@ protected:
     int castingModifier() const override;
 
     int locusOfAzyr(const Unit* caster);
-    int portentsOfBattle(const Weapon* weapon, const Unit* unit);
+    int portentsOfBattle(const Unit* attacker, const Weapon* weapon, const Unit* unit);
 
 private:
 

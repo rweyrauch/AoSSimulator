@@ -7,6 +7,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <AgeOfSigmarSim.h>
 #include "Dice.h"
 #include <lsignal.h>
 
@@ -119,6 +120,12 @@ int bar(int x) {
 int sum_acc(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
+Rerolls rr1(int x) {
+    return RerollOnes;
+}
+Rerolls rrf(int x) {
+    return RerollFailed;
+}
 
 TEST(Dice, SignalTest)
 {
@@ -127,8 +134,27 @@ TEST(Dice, SignalTest)
     auto fc = worker.connect(foo);
 
     auto last = worker(2);
+    ASSERT_EQ(last, 3);
     auto total = worker(2, sum_acc);
+    ASSERT_EQ(total, 7);
 
     worker.disconnect(bc);
     worker.disconnect(fc);
+
+    last = worker(1);
+    ASSERT_EQ(last, 0);
+    total = worker(1, sum_acc);
+    ASSERT_EQ(total, 0);
+
+    lsignal::signal<Rerolls(int)> roller;
+    auto rrc = roller.connect(rr1);
+    auto rfc = roller.connect(rrf);
+
+    auto rr = roller(1);
+    ASSERT_EQ(rr, RerollFailed);
+
+    roller.disconnect(rfc);
+
+    auto rf = roller(2);
+    ASSERT_EQ(rf, RerollOnes);
 }

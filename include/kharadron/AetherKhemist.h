@@ -35,7 +35,7 @@ public:
 
 protected:
 
-    int atmosphericIsolation(const Weapon* weapon, const Unit* target);
+    int atmosphericIsolation(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 

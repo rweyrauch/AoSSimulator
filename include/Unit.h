@@ -469,14 +469,19 @@ protected:
     static lsignal::signal<int(const Unit*)> s_globalChargeMod;
 
     static lsignal::signal<int(const Unit*)> s_globalBraveryMod;
-    static lsignal::signal<int(const Weapon*, const Unit*)> s_globalToHitMod;
-    static lsignal::signal<int(const Weapon*, const Unit*)> s_globalToWoundMod;
-    static lsignal::signal<int(const Weapon*, const Unit*)> s_globalSaveMod;
+    static lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> s_globalToHitMod;
+    static lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> s_globalToWoundMod;
+    static lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> s_globalSaveMod;
 
-    static lsignal::signal<int(const Model *, const Weapon *, const Unit *)> s_globalAttackMod;
+    static lsignal::signal<int(const Unit*, const Model *, const Weapon *, const Unit *)> s_globalAttackMod;
 
     static lsignal::signal<int(const Unit*)> s_globalCastMod;
     static lsignal::signal<int(const Unit*)> s_globalUnbindMod;
+
+    static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalToHitReroll;
+    static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalToWoundReroll;
+    static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalSaveReroll;
+    static lsignal::signal<Rerolls(const Unit*)> s_globalBattleshockReroll;
 
 };
 
