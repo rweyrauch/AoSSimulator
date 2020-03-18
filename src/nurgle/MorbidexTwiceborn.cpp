@@ -52,6 +52,13 @@ MorbidexTwiceborn::MorbidexTwiceborn() :
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, MORBIDEX_TWICEBORN};
     m_weapons = {&m_tongues, &m_scythe, &m_claws};
+
+    s_globalToWoundMod.connect(this, &MorbidexTwiceborn::maliciousMitesWoundMod, &m_maliciousMitesSlot);
+}
+
+MorbidexTwiceborn::~MorbidexTwiceborn()
+{
+    m_maliciousMitesSlot.disconnect();
 }
 
 bool MorbidexTwiceborn::configure()
@@ -65,6 +72,12 @@ bool MorbidexTwiceborn::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon *weapon, const Unit *target)
+{
+    if (isFriendly(attacker) && attacker->hasKeyword(NURGLINGS) && (distanceTo(attacker) <= 7.0f)) return 1;
+    return 0;
 }
 
 } // namespace Nurgle

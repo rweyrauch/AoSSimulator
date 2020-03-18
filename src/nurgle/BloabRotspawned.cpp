@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "nurgle/BloabRotspawned.h"
 
 namespace Nurgle
@@ -52,6 +53,16 @@ BloabRotspawned::BloabRotspawned() :
 {
     m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, WIZARD, BLOAB_ROTSPAWNED};
     m_weapons = {&m_bile, &m_scythe, &m_claws};
+
+    m_totalUnbinds = 1;
+    m_totalSpells = 1;
+
+    s_globalCastMod.connect(this, &BloabRotspawned::windspeakerBellsCastingMod, &m_windspeakerSlot);
+}
+
+BloabRotspawned::~BloabRotspawned()
+{
+    m_windspeakerSlot.disconnect();
 }
 
 bool BloabRotspawned::configure()
@@ -62,9 +73,22 @@ bool BloabRotspawned::configure()
     model->addMeleeWeapon(&m_claws);
     addModel(model);
 
+    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int BloabRotspawned::windspeakerBellsCastingMod(const Unit *caster)
+{
+    // Windspeaker Bells
+    if (!isFriendly(caster) && caster->hasKeyword(WIZARD) && (distanceTo(caster) <= 14.0f))
+    {
+        return -1;
+    }
+    return 0;
 }
 
 } // namespace Nurgle

@@ -8,6 +8,7 @@
 
 #include <nurgle/PlagueDrones.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Nurgle
 {
@@ -42,6 +43,13 @@ PlagueDrones::PlagueDrones() :
 {
     m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUE_DRONES};
     m_weapons = {&m_plaguesword, &m_plagueswordPlaguebringer, &m_deathsHead, &m_proboscis, &m_mouthparts, &m_venemousSting};
+
+    s_globalBattleshockReroll.connect(this, &PlagueDrones::bellTollersBattleshockReroll, &m_bellTollerSlot);
+}
+
+PlagueDrones::~PlagueDrones()
+{
+    m_bellTollerSlot.disconnect();
 }
 
 bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bellTollers)
@@ -192,6 +200,36 @@ int PlagueDrones::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int PlagueDrones::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Locus of Contagion
+    if (!weapon->isMissile())
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0f);
+        for (auto unit : units)
+        {
+            if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO))
+            {
+                extra++;
+                break;
+            }
+        }
+    }
+    return extra;
+}
+
+Rerolls PlagueDrones::bellTollersBattleshockReroll(const Unit *unit)
+{
+    // Bell Tollers
+    if (m_bellTollers && !isFriendly(unit))
+    {
+        if (distanceTo(unit) <= 6.0f) return RerollOnes;
+    }
+    return RerollOnes;
 }
 
 } // namespace Nurgle

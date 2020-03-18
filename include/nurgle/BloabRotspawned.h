@@ -27,18 +27,21 @@ public:
     static void Init();
 
     BloabRotspawned();
-    ~BloabRotspawned() override = default;
+    ~BloabRotspawned() override;
 
     bool configure();
 
 protected:
 
+    int windspeakerBellsCastingMod(const Unit* caster);
 
 private:
 
     Weapon m_bile,
         m_scythe,
         m_claws;
+
+    lsignal::slot m_windspeakerSlot;
 
     static bool s_registered;
 };
@@ -47,7 +50,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Daemon-flies                     TODO
-// Windspeaker Bells                TODO
+// Windspeaker Bells                Yes
 // Miasma of Pestilence             TODO
 //
 

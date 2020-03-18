@@ -40,6 +40,7 @@ protected:
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     int runModifier() const override;
     int chargeModifier() const override;
+    void onStartHero(PlayerId player) override;
 
 protected:
 
@@ -56,7 +57,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Virulent Discharge               TODO
+// Icon Bearers                     Yes
+// Sonorus Tocsin                   Yes
+// Virulent Discharge               Yes
 // Blighted Weapons                 Yes
 //
 

@@ -28,15 +28,22 @@ public:
     static void Init();
 
     SloppityBilepiperHeraldOfNurgle();
-    ~SloppityBilepiperHeraldOfNurgle() override = default;
+    ~SloppityBilepiperHeraldOfNurgle() override;
 
     bool configure();
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
+    int diseaseOfMirthBraveryMod(const Unit* unit);
+    Rerolls jollyGutpipesChargeReroll(const Unit* unit);
+
 private:
 
     Weapon m_marotter;
+
+    lsignal::slot m_diseaseOfMirthSlot, m_jollyGutpipesSlot;
 
     static bool s_registered;
 };
@@ -44,9 +51,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disgustingly Resilient           TODO
-// Disease of Mirth                 TODO
-// Jolly Gutpipes                   TODO
+// Disgustingly Resilient           Yes
+// Disease of Mirth                 Yes
+// Jolly Gutpipes                   Yes
 //
 
 } // Nurgle

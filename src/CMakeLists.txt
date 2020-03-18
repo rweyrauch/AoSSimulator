@@ -301,6 +301,7 @@ add_library(
         nurgle/SloppityBilepiper.cpp
         nurgle/SpoilpoxScrivener.cpp
         nurgle/Nurglings.cpp
+        nurgle/SorcererOfNurgle.cpp
 
         death/LegionOfNagash.cpp
         death/ArkhanTheBlack.cpp

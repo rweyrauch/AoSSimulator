@@ -27,18 +27,21 @@ public:
     static void Init();
 
     MorbidexTwiceborn();
-    ~MorbidexTwiceborn() override = default;
+    ~MorbidexTwiceborn() override;
 
     bool configure();
 
 protected:
 
+    int maliciousMitesWoundMod(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 
     Weapon m_tongues,
         m_scythe,
         m_claws;
+
+    lsignal::slot m_maliciousMitesSlot;
 
     static bool s_registered;
 };
@@ -47,7 +50,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Lord of Nurglings                TODO
-// Malicious Mites                  TODO
+// Malicious Mites                  Yes
 // Nurgle's Rot                     TODO
 // Repugnant Regrowth               TODO
 //

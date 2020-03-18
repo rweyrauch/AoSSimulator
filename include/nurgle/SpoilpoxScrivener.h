@@ -28,17 +28,23 @@ public:
     static void Init();
 
     SpoilpoxScrivenerHeraldOfNurgle();
-    ~SpoilpoxScrivenerHeraldOfNurgle() override = default;
+    ~SpoilpoxScrivenerHeraldOfNurgle() override;
 
     bool configure();
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
+    Rerolls keepCountingChargeRerolls(const Unit* unit);
+    Rerolls keepCountingToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 
     Weapon m_sneeze,
         m_maw;
+
+    lsignal::slot m_keepCountingChargeSlot, m_keepCountingToHitSlot;
 
     static bool s_registered;
 };
@@ -46,8 +52,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disgustingly Resilient           TODO
-// Keep Counting, I'm Watching You  TODO
+// Disgustingly Resilient           Yes
+// Keep Counting, I'm Watching You  Yes
 //
 
 } // Nurgle

@@ -27,17 +27,23 @@ public:
     static void Init();
 
     HorticulousSlimux();
-    ~HorticulousSlimux() override = default;
+    ~HorticulousSlimux() override;
 
     bool configure();
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
+    Rerolls beastHandlerChargeReroll(const Unit* unit);
+    Rerolls beastHandlerToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 
     Weapon m_shears,
         m_jaws;
+
+    lsignal::slot m_beastHandlerChargeSlot, m_beastHandlerToHitSlot;
 
     static bool s_registered;
 };
@@ -45,9 +51,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disgustingly Resilient           TODO
+// Disgustingly Resilient           Yes
 // Acidic Slime Trail               TODO
-// Beast Handler                    TODO
+// Beast Handler                    Yes
 // In Death There is Life           TODO
 // Cultivating the Garden of Nurgle TODO
 //

@@ -62,6 +62,8 @@ public:
     int numPrayers() const { return m_totalPrayers; }
 
     PlayerId owningPlayer() const;
+    bool isFriendly(const Unit* unit) const;
+
     void setRoster(Roster* roster);
     Roster* getRoster() const { return m_roster; }
 
@@ -482,6 +484,9 @@ protected:
     static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalToWoundReroll;
     static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalSaveReroll;
     static lsignal::signal<Rerolls(const Unit*)> s_globalBattleshockReroll;
+
+    static lsignal::signal<Rerolls(const Unit*)> s_globalRunReroll;
+    static lsignal::signal<Rerolls(const Unit*)> s_globalChargeReroll;
 
 };
 

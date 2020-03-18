@@ -51,6 +51,15 @@ HorticulousSlimux::HorticulousSlimux() :
 {
     m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, HORTICULOUS_SLIMUX};
     m_weapons = {&m_shears, &m_jaws};
+
+    s_globalChargeReroll.connect(this, &HorticulousSlimux::beastHandlerChargeReroll, &m_beastHandlerChargeSlot);
+    s_globalToHitReroll.connect(this, &HorticulousSlimux::beastHandlerToHitRerolls, &m_beastHandlerToHitSlot);
+}
+
+HorticulousSlimux::~HorticulousSlimux()
+{
+    m_beastHandlerChargeSlot.disconnect();
+    m_beastHandlerToHitSlot.disconnect();
 }
 
 bool HorticulousSlimux::configure()
@@ -63,6 +72,38 @@ bool HorticulousSlimux::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds)
+{
+    // Disgustingly Resilient
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+    return totalWounds.clamp();
+}
+
+Rerolls HorticulousSlimux::beastHandlerChargeReroll(const Unit *unit)
+{
+    if (isFriendly(unit) && (distanceTo(unit) <= 7.0f))
+    {
+        if (unit->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
+    }
+    return NoRerolls;
+}
+
+Rerolls HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)
+{
+    if (isFriendly(attacker) && (distanceTo(attacker) <= 7.0f))
+    {
+        if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
+    }
+    return NoRerolls;
 }
 
 } // namespace Nurgle

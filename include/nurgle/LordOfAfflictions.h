@@ -28,12 +28,16 @@ public:
     static void Init();
 
     LordOfAfflictions();
-    ~LordOfAfflictions() override = default;
+    ~LordOfAfflictions() override;
 
     bool configure();
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartHero(PlayerId player) override;
+
+    Rerolls plagueVectorToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target);
 
 private:
 
@@ -42,17 +46,19 @@ private:
         m_sting,
         m_tocsin;
 
+    lsignal::slot m_plagueVectorSlot;
+
     static bool s_registered;
 };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disgustingly Resilient           TODO
-// Rotten Regeneration              TODO
-// Plague Vector                    TODO
-// Incubatch                        TODO
-// Virulent Discharge               TODO
+// Disgustingly Resilient           Yes
+// Rotten Regeneration              Yes
+// Plague Vector                    Yes
+// Incubatch                        Yes
+// Virulent Discharge               Yes
 // Spearhead of Contagion           TODO
 //
 

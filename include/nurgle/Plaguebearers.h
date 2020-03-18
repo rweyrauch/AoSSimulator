@@ -39,6 +39,7 @@ protected:
 
     Wounds applyWoundSave(const Wounds& wounds) override;
     int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
 protected:
 
@@ -58,7 +59,7 @@ private:
 // -------------------------------------------
 // Disgustingly Resilient           Yes
 // Cloud of Flies                   Yes
-// Locus of Fecundity               TODO
+// Locus of Fecundity               Yes
 //
 
 } // Nurgle

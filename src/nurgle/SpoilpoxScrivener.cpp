@@ -51,6 +51,15 @@ SpoilpoxScrivenerHeraldOfNurgle::SpoilpoxScrivenerHeraldOfNurgle() :
 {
     m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
     m_weapons = {&m_sneeze, &m_maw};
+
+    s_globalChargeReroll.connect(this, &SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls, &m_keepCountingChargeSlot);
+    s_globalToHitReroll.connect(this, &SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls, &m_keepCountingToHitSlot);
+}
+
+SpoilpoxScrivenerHeraldOfNurgle::~SpoilpoxScrivenerHeraldOfNurgle()
+{
+    m_keepCountingChargeSlot.disconnect();
+    m_keepCountingToHitSlot.disconnect();
 }
 
 bool SpoilpoxScrivenerHeraldOfNurgle::configure()
@@ -63,6 +72,34 @@ bool SpoilpoxScrivenerHeraldOfNurgle::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds)
+{
+    // Disgustingly Resilient
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+    return totalWounds.clamp();
+}
+
+Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls(const Unit *unit)
+{
+    if ((unit->hasKeyword(PLAGUEBEARER) || unit->hasKeyword(PLAGUEBEARERS)) && (distanceTo(unit) <= 7.0f)) return RerollOnes;
+
+    return NoRerolls;
+}
+
+Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target)
+{
+    if ((attacker->hasKeyword(PLAGUEBEARER) || attacker->hasKeyword(PLAGUEBEARERS)) && (distanceTo(attacker) <= 7.0f)) return RerollOnes;
+
+    return NoRerolls;
 }
 
 } // namespace Nurgle

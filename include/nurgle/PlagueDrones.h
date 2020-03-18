@@ -39,7 +39,7 @@ public:
     static void Init();
 
     PlagueDrones();
-    ~PlagueDrones() override = default;
+    ~PlagueDrones() override;
 
     bool configure(int numModels, WeaponOption weapon, bool iconBearer, bool bellTollers);
 
@@ -48,12 +48,15 @@ protected:
     Wounds applyWoundSave(const Wounds& wounds) override;
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
     void restoreModels(int numModels) override;
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
 protected:
 
     bool m_iconBearer = false;
     bool m_bellTollers = false;
     WeaponOption m_weapon = PrehensileProboscis;
+
+    Rerolls bellTollersBattleshockReroll(const Unit* unit);
 
 private:
 
@@ -64,6 +67,8 @@ private:
         m_mouthparts,
         m_venemousSting;
 
+    lsignal::slot m_bellTollerSlot;
+
     static bool s_registered;
 };
 
@@ -71,9 +76,9 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Disgustingly Resilient           Yes
-// Locus of Contagion               TODO
+// Locus of Contagion               Yes
 // Icon Bearer                      Yes
-// Bell Toller                      TODO
+// Bell Toller                      Yes
 //
 
 } // Nurgle

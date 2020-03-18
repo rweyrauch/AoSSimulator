@@ -33,6 +33,7 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 
@@ -45,7 +46,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disgustingly Resilient           TODO
+// Disgustingly Resilient           Yes
 // Nurgle's Tallyman                TODO
 //
 

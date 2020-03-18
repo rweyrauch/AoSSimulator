@@ -34,6 +34,7 @@ public:
 
 protected:
 
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
 private:
 
@@ -48,7 +49,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Munificent Bounty                TODO
-// Vermid Shield                    TODO
+// Vermid Shield                    Yes
 // Plague of Flies                  TODO
 //
 

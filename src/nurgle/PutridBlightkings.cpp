@@ -8,6 +8,7 @@
 
 #include <nurgle/PutridBlightkings.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Nurgle
 {
@@ -129,6 +130,27 @@ int PutridBlightkings::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+void PutridBlightkings::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (owningPlayer() == player)
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+
+        // Virulent Discharge
+        for (auto unit : units)
+        {
+            if (Dice::rollD6() >= 6)
+            {
+                if (unit->hasKeyword(NURGLE)) unit->heal(Dice::rollD3());
+                else unit->applyDamage({0, Dice::rollD3()});
+            }
+        }
+    }
+
 }
 
 } // namespace Nurgle

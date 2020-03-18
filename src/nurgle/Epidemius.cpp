@@ -65,4 +65,18 @@ bool EpidemiusTallymanOfNurgle::configure()
     return true;
 }
 
+Wounds EpidemiusTallymanOfNurgle::applyWoundSave(const Wounds &wounds)
+{
+    // Disgustingly Resilient
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+    return totalWounds.clamp();
+}
+
 } // namespace Nurgle

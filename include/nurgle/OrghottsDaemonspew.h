@@ -35,6 +35,8 @@ public:
 
 protected:
 
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_tongue,
@@ -48,7 +50,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Acid Ichor                       TODO
-// Fury of the Halfblood            TODO
+// Fury of the Halfblood            Yes
 // The Rotaxes                      TODO
 // Fester and Rot                   TODO
 //

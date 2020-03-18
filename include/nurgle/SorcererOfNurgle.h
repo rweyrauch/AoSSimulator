@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef POXBRINGER_H
-#define POXBRINGER_H
+#ifndef SORCEREROFNURGLE_H
+#define SORCEREROFNURGLE_H
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -15,30 +15,28 @@
 namespace Nurgle
 {
 
-class PoxbringerHeraldOfNurgle : public NurgleBase
+class SorcererOfNurgle : public NurgleBase
 {
 public:
 
     static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 110;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
     static void Init();
 
-    PoxbringerHeraldOfNurgle();
-    ~PoxbringerHeraldOfNurgle() override = default;
+    SorcererOfNurgle();
+    ~SorcererOfNurgle() override = default;
 
     bool configure();
 
 protected:
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-
 private:
 
-    Weapon m_balesword;
+    Weapon m_staff;
 
     static bool s_registered;
 };
@@ -46,11 +44,10 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disqustingly Resilient           Yes
-// In Death There is Life           TODO
-// Eruptive Infestation             TODO
+// Blessed with Vitality            TODO
+// Stream of Corruption             TODO
 //
 
-} // Nurgle
+} // SlavesToDarkness
 
-#endif //POXBRINGER_H
+#endif //SORCEREROFNURGLE_H

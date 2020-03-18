@@ -8,6 +8,7 @@
 
 #include <nurgle/Plaguebearers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Nurgle
 {
@@ -129,6 +130,17 @@ int Plaguebearers::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+Rerolls Plaguebearers::toSaveRerolls(const Weapon *weapon) const
+{
+    // Locus of Fecundity
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return RerollOnes;
+    }
+    return Unit::toSaveRerolls(weapon);
 }
 
 } // namespace Nurgle

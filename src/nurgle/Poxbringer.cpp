@@ -48,7 +48,7 @@ PoxbringerHeraldOfNurgle::PoxbringerHeraldOfNurgle() :
     NurgleBase("Poxbringer, Herald of Nurgle", 4, WOUNDS, 10, 4, false),
     m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3)
 {
-    m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, POXBRINGER, HERALD_OF_NURGLE};
+    m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, POXBRINGER, WIZARD, HERALD_OF_NURGLE};
     m_weapons = {&m_balesword};
 }
 
@@ -61,6 +61,20 @@ bool PoxbringerHeraldOfNurgle::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+Wounds PoxbringerHeraldOfNurgle::applyWoundSave(const Wounds &wounds)
+{
+    // Disgustingly Resilient
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+    return totalWounds.clamp();
 }
 
 } // namespace Nurgle

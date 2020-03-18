@@ -67,4 +67,14 @@ bool OrghottsDaemonspew::configure()
     return true;
 }
 
+int OrghottsDaemonspew::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
+{
+    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+    // Fury of the Halfblood
+    if (m_charged) extra += Dice::rollD3();
+
+    return extra;
+}
+
 } // namespace Nurgle

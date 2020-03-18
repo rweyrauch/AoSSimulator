@@ -36,6 +36,10 @@ lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> Unit::s_global
 lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> Unit::s_globalSaveReroll;
 lsignal::signal<Rerolls(const Unit*)> Unit::s_globalBattleshockReroll;
 
+lsignal::signal<Rerolls(const Unit*)> Unit::s_globalRunReroll;
+lsignal::signal<Rerolls(const Unit*)> Unit::s_globalChargeReroll;
+
+
 static int accumulate(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
@@ -1362,6 +1366,10 @@ int Unit::chargeModifier() const
 
 Rerolls Unit::runRerolls() const
 {
+    auto globalRR = s_globalRunReroll(this);
+    if (globalRR != NoRerolls)
+        return globalRR;
+
     if (m_rollModifiers[RunDistance].empty())
         return NoRerolls;
     return m_rollModifiers[RunDistance].front().rerolls;
@@ -1369,6 +1377,10 @@ Rerolls Unit::runRerolls() const
 
 Rerolls Unit::chargeRerolls() const
 {
+    auto globalRR = s_globalChargeReroll(this);
+    if (globalRR != NoRerolls)
+        return globalRR;
+
     if (m_rollModifiers[ChargeDistance].empty())
         return NoRerolls;
     return m_rollModifiers[ChargeDistance].front().rerolls;
@@ -1532,6 +1544,12 @@ int Unit::initialWounds() const
         wounds += m->initialWounds();
     }
     return wounds;
+}
+
+bool Unit::isFriendly(const Unit* unit) const
+{
+    if (unit && (owningPlayer() == unit->owningPlayer())) return true;
+    return false;
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
