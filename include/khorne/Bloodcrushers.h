@@ -30,7 +30,7 @@ public:
     static void Init();
 
     Bloodcrushers();
-    ~Bloodcrushers() override = default;
+    ~Bloodcrushers() override;
 
     bool configure(int numModels, bool iconBearer, bool hornblowers);
 
@@ -41,10 +41,14 @@ protected:
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
     void restoreModels(int numModels) override;
 
+    Rerolls hornblowerBattleshockReroll(const Unit* unit);
+
 private:
 
     bool m_iconBearer = false;
     bool m_hornblower = false;
+
+    lsignal::slot m_hornblowerSlot;
 
     Weapon m_hellblade,
         m_hellbladeHunter,
@@ -56,7 +60,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Hornblower                       TODO
+// Hornblower                       Yes
 // Icon Bearer                      Yes
 // Decapitating Blow                Yes
 // Murderous Charge                 Yes

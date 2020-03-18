@@ -28,7 +28,7 @@ public:
     static void Init();
 
     EngineOfTheGods();
-    ~EngineOfTheGods() override = default;
+    ~EngineOfTheGods() override;
 
     bool configure();
 
@@ -41,12 +41,16 @@ protected:
     void onCharged() override;
     void onStartShooting(PlayerId player) override;
 
+    Rerolls steadfastMajestyBraveryReroll(const Unit* unit);
+
 private:
 
     Weapon m_javelins,
         m_horns,
         m_jaws,
         m_stomps;
+
+    lsignal::slot m_steadfastSlot;
 
     static bool s_registered;
 };
@@ -56,7 +60,7 @@ private:
 // -------------------------------------------
 // Armoured Crest                   TODO
 // Unstoppable Stampede             Yes
-// Steadfast Majesty                TODO
+// Steadfast Majesty                Yes
 // Cosmic Engine                    Partial/TODO
 //
 

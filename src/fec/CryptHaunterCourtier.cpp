@@ -76,4 +76,23 @@ void CryptHaunterCourtier::Init()
     }
 }
 
+void CryptHaunterCourtier::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Noble Blood
+    if (owningPlayer() == player) heal(1);
+}
+
+Rerolls CryptHaunterCourtier::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    // Chosen of the King
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(ABHORRANT)) return RerollFailed;
+    }
+    return FleshEaterCourts::toHitRerolls(weapon, target);
+}
+
 } // namespace FleshEaterCourt

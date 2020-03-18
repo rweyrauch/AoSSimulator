@@ -37,7 +37,7 @@ public:
     static void Init();
 
     Stegadon();
-    ~Stegadon() override = default;
+    ~Stegadon() override;
 
     bool configure(WeaponOption option, bool skinkChief);
 
@@ -47,6 +47,8 @@ protected:
     void onRestore() override;
     int getDamageTableIndex() const;
     void onCharged() override;
+
+    Rerolls steadfastMajestyBraveryReroll(const Unit* unit);
 
 private:
 
@@ -60,6 +62,8 @@ private:
         m_jaws,
         m_stomps;
 
+    lsignal::slot m_steadfastSlot;
+
     static bool s_registered;
 };
 
@@ -68,7 +72,7 @@ private:
 // -------------------------------------------
 // Armoured Crest                   TODO
 // Gout of Sunfire                  TODO
-// Steadfast Majesty                TODO
+// Steadfast Majesty                Yes
 // Unstoppable Stampede             Yes
 // Skink Chief                      Yes
 // Coordinated Strike               TODO

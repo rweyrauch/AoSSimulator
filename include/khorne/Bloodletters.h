@@ -30,7 +30,7 @@ public:
     static void Init();
 
     Bloodletters();
-    ~Bloodletters() override = default;
+    ~Bloodletters() override;
 
     bool configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
 
@@ -43,6 +43,8 @@ protected:
     void restoreModels(int numModels) override;
     Rerolls chargeRerolls() const override;
 
+    Rerolls hornblowerBattleshockReroll(const Unit* unit);
+
 private:
 
     bool m_iconBearer = false;
@@ -52,13 +54,15 @@ private:
     Weapon m_hellblade,
         m_hellbladeReaper;
 
+    lsignal::slot m_hornblowerSlot;
+
     static bool s_registered;
 };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Hornblower                       TODO
+// Hornblower                       Yes
 // Icon Bearer                      Yes
 // Standard Bearer                  Yes
 // Decapitating Blow                Yes

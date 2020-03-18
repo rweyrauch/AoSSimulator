@@ -45,6 +45,13 @@ Stegadon::Stegadon() :
 {
     m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, STEGADON};
     m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
+
+    s_globalBattleshockReroll.connect(this, &Stegadon::steadfastMajestyBraveryReroll, &m_steadfastSlot);
+}
+
+Stegadon::~Stegadon()
+{
+    m_steadfastSlot.disconnect();
 }
 
 bool Stegadon::configure(WeaponOption option, bool skinkChief)
@@ -174,6 +181,12 @@ void Stegadon::onCharged()
             unit->applyDamage({0, Dice::rollD3()});
         }
     }
+}
+
+Rerolls Stegadon::steadfastMajestyBraveryReroll(const Unit *unit)
+{
+    if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
+    return NoRerolls;
 }
 
 } //namespace Seraphon

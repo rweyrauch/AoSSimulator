@@ -33,6 +33,9 @@ public:
 
 protected:
 
+    void onStartHero(PlayerId player) override;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
 private:
 
     Weapon m_massiveBoneClub,
@@ -44,8 +47,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Noble Blood                      TODO
-// Chosen of the King               TODO
+// Noble Blood                      Yes
+// Chosen of the King               Yes
 // Muster King's Chosen             TODO
 //
 

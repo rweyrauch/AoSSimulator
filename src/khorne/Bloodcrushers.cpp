@@ -11,24 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Bloodcrushers::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Bloodcrushers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Bloodcrushers::MIN_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE,
-            Bloodcrushers::MAX_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
-
 bool Bloodcrushers::s_registered = false;
 
 Bloodcrushers::Bloodcrushers() :
@@ -39,6 +21,13 @@ Bloodcrushers::Bloodcrushers() :
 {
     m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};
     m_weapons = {&m_hellblade,&m_hellbladeHunter, &m_brazenHooves};
+
+    s_globalBattleshockReroll.connect(this, &Bloodcrushers::hornblowerBattleshockReroll, &m_hornblowerSlot);
+}
+
+Bloodcrushers::~Bloodcrushers()
+{
+    m_hornblowerSlot.disconnect();
 }
 
 bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers)
@@ -94,7 +83,24 @@ void Bloodcrushers::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Bloodcrushers", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Bloodcrushers::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Bloodcrushers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Bloodcrushers::MIN_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE,
+                    Bloodcrushers::MAX_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
+        s_registered = UnitFactory::Register("Bloodcrushers", *factoryMethod);
     }
 }
 
@@ -165,6 +171,13 @@ void Bloodcrushers::restoreModels(int numModels)
         model->addMeleeWeapon(&m_hellblade);
         addModel(model);
     }
+}
+
+Rerolls Bloodcrushers::hornblowerBattleshockReroll(const Unit *unit)
+{
+    if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0f)) return RerollOnes;
+
+    return NoRerolls;
 }
 
 } // namespace Khorne

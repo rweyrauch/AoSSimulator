@@ -42,6 +42,13 @@ EngineOfTheGods::EngineOfTheGods() :
 {
     m_keywords = {ORDER, SERAPHON, STEGADON, SKINK, MONSTER, HERO, ENGINE_OF_THE_GODS};
     m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
+
+    s_globalBattleshockReroll.connect(this, &EngineOfTheGods::steadfastMajestyBraveryReroll, &m_steadfastSlot);
+}
+
+EngineOfTheGods::~EngineOfTheGods()
+{
+    m_steadfastSlot.disconnect();
 }
 
 bool EngineOfTheGods::configure()
@@ -194,6 +201,12 @@ void EngineOfTheGods::onStartShooting(PlayerId player)
     {
         // TODO: implement this.
     }
+}
+
+Rerolls EngineOfTheGods::steadfastMajestyBraveryReroll(const Unit *unit)
+{
+    if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
+    return NoRerolls;
 }
 
 } //namespace Seraphon

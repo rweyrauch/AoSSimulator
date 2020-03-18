@@ -42,8 +42,14 @@ Bloodletters::Bloodletters() :
 {
     m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
     m_weapons = {&m_hellblade, &m_hellbladeReaper};
+
+    s_globalBattleshockReroll.connect(this, &Bloodletters::hornblowerBattleshockReroll, &m_hornblowerSlot);
 }
 
+Bloodletters::~Bloodletters()
+{
+    m_hornblowerSlot.disconnect();
+}
 
 bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers)
 {
@@ -175,6 +181,13 @@ Rerolls Bloodletters::chargeRerolls() const
 {
     if (m_standarBearer) return RerollFailed;
     return Unit::chargeRerolls();
+}
+
+Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit)
+{
+    if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0f)) return RerollOnes;
+
+    return NoRerolls;
 }
 
 } // namespace Khorne
