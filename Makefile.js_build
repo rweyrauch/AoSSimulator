@@ -293,6 +293,20 @@ OBJECTS += \
         src/nurgle/GreatUncleanOne.o \
         src/nurgle/FeculaFlyblown.o \
         src/nurgle/TheWurmspat.o \
+        src/nurgle/BloabRotspawned.o \
+        src/nurgle/Epidemius.o \
+        src/nurgle/Festus.o \
+        src/nurgle/Gutrot.o \
+        src/nurgle/HarbingerOfDecay.o \
+        src/nurgle/HorticulousSlimux.o \
+        src/nurgle/LordOfAfflictions.o \
+        src/nurgle/LordOfBlights.o \
+        src/nurgle/MorbidexTwiceborn.o \
+        src/nurgle/OrghottsDaemonspew.o \
+        src/nurgle/Poxbringer.o \
+        src/nurgle/SloppityBilepiper.o \
+        src/nurgle/SpoilpoxScrivener.o \
+        src/nurgle/Nurglings.o \
         src/death/LegionOfNagash.o \
         src/death/Nagash.o \
         src/death/ArkhanTheBlack.o \

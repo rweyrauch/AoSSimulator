@@ -18,9 +18,9 @@ class HarbingerOfDecay : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 75; // x42 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 160;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -45,6 +45,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Soulbound Shield                 TODO
+// Rotsword                         TODO
+// Morbid Vigour                    TODO
 //
 
 } // Nurgle

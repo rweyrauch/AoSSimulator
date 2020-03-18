@@ -19,9 +19,9 @@ class SloppityBilepiperHeraldOfNurgle : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 90;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -44,6 +44,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Disgustingly Resilient           TODO
+// Disease of Mirth                 TODO
+// Jolly Gutpipes                   TODO
 //
 
 } // Nurgle

@@ -18,9 +18,9 @@ class MorbidexTwiceborn : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int BASESIZE = 100;
+    static const int WOUNDS = 12;
+    static const int POINTS_PER_UNIT = 240;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -46,6 +46,10 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Lord of Nurglings                TODO
+// Malicious Mites                  TODO
+// Nurgle's Rot                     TODO
+// Repugnant Regrowth               TODO
 //
 
 } // Nurgle

@@ -18,9 +18,9 @@ class HorticulousSlimux : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 105; // x70 oval
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 220;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -45,6 +45,11 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Disgustingly Resilient           TODO
+// Acidic Slime Trail               TODO
+// Beast Handler                    TODO
+// In Death There is Life           TODO
+// Cultivating the Garden of Nurgle TODO
 //
 
 } // Nurgle

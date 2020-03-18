@@ -51,7 +51,8 @@ private:
 // -------------------------------------------
 // Wanton Slaughter                 TODO
 // Rotten Corpse Mulch              TODO
-// Plagueridden Great Weapon        Yes
+// Plague-ridden Great Weapon       Yes
+// Grandfather's Gift               TODO
 //
 
 } // Nurgle

@@ -18,9 +18,9 @@ class EpidemiusTallymanOfNurgle : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 40;
+    static const int BASESIZE = 60;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 200;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -45,6 +45,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Disgustingly Resilient           TODO
+// Nurgle's Tallyman                TODO
 //
 
 } // Nurgle

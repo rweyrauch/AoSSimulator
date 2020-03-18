@@ -19,9 +19,9 @@ class PoxbringerHeraldOfNurgle : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 120;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -45,6 +45,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Disqustingly Resilient           TODO
+// In Death There is Life           TODO
+// Eruptive Infestation             TODO
 //
 
 } // Nurgle

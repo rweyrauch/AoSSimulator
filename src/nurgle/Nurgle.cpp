@@ -30,6 +30,7 @@
 #include "nurgle/SpoilpoxScrivener.h"
 #include "nurgle/TheGlottkin.h"
 #include "nurgle/TheWurmspat.h"
+#include "nurgle/Nurglings.h"
 
 namespace Nurgle
 {
@@ -69,6 +70,7 @@ void Init()
     PoxbringerHeraldOfNurgle::Init();
     SloppityBilepiperHeraldOfNurgle::Init();
     SpoilpoxScrivenerHeraldOfNurgle::Init();
+    Nurglings::Init();
 }
 
 } //namespace Nurgle

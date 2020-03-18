@@ -20,7 +20,7 @@ public:
 
     static const int BASESIZE = 40;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 140;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
@@ -45,6 +45,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Clutching Pseudopods             TODO
+// Towering Arrogance               TODO
+// Master of the Slime Feet         TODO
 //
 
 } // Nurgle

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPOILPOX_H
-#define SPOILPOX_H
+#ifndef NURGLINGS_H
+#define NURGLINGS_H
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -15,30 +15,31 @@
 namespace Nurgle
 {
 
-class SpoilpoxScrivenerHeraldOfNurgle : public NurgleBase
+class Nurglings : public NurgleBase
 {
 public:
 
     static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int WOUNDS = 4;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 400;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
-    SpoilpoxScrivenerHeraldOfNurgle();
-    ~SpoilpoxScrivenerHeraldOfNurgle() override = default;
+    Nurglings();
+    ~Nurglings() override = default;
 
-    bool configure();
+    bool configure(int numModels);
 
 protected:
 
-
 private:
 
-    Weapon m_sneeze,
-        m_maw;
+    Weapon m_teeth;
 
     static bool s_registered;
 };
@@ -46,10 +47,11 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disgustingly Resilient           TODO
-// Keep Counting, I'm Watching You  TODO
+// Disease-ridden Demise            TODO
+// Endless Swarm                    TODO
+// Hidden Infestation               TODO
 //
 
 } // Nurgle
 
-#endif //SPOILPOX_H
+#endif //NURGLINGS_H

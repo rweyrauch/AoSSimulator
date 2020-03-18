@@ -19,9 +19,9 @@ class OrghottsDaemonspew : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 130;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 0;
+    static const int BASESIZE = 100;
+    static const int WOUNDS = 12;
+    static const int POINTS_PER_UNIT = 240;
 
 
     static Unit* Create(const ParameterList& parameters);
@@ -47,6 +47,10 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Acid Ichor                       TODO
+// Fury of the Halfblood            TODO
+// The Rotaxes                      TODO
+// Fester and Rot                   TODO
 //
 
 } // Nurgle

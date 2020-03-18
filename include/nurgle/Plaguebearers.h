@@ -19,7 +19,7 @@ class Plaguebearers : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 25;
+    static const int BASESIZE = 32;
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
