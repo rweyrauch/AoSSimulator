@@ -153,4 +153,13 @@ int VulkiteBerzerkers::ComputePoints(int numModels)
     return points;
 }
 
+int VulkiteBerzerkers::chargeModifier() const
+{
+    auto mod = Fyreslayer::chargeModifier();
+
+    if (m_hornOfGrimnir) mod++;
+
+    return mod;
+}
+
 } //namespace Fyreslayers

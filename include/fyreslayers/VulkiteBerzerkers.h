@@ -46,6 +46,7 @@ public:
 protected:
 
     Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    int chargeModifier() const override;
 
 private:
 
@@ -64,7 +65,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Horn of Grimnir                  TODO
+// Horn of Grimnir                  Yes
 // Berserk Fury                     TODO
 // Fyresteel Handaxes               Yes
 // Bladed Slingshield               TODO

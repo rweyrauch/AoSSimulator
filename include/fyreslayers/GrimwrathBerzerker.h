@@ -33,6 +33,8 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
 private:
 
     Weapon m_throwingAxe,
@@ -44,7 +46,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Unstoppable Berzerker            TODO
+// Unstoppable Berzerker            Yes
 // Battle-fury                      TODO
 // Dead, But Not Defeated           TODO
 //

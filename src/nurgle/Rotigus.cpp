@@ -132,5 +132,45 @@ void Rotigus::onCharged()
     Unit::onCharged();
 }
 
+Wounds Rotigus::applyWoundSave(const Wounds &wounds)
+{
+    // Blubber and Bile
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+    // TODO: on 6+ attacking unit takes a mortal wound.
+
+    return totalWounds.clamp();
+}
+
+void Rotigus::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (owningPlayer() == player)
+    {
+        // Corpulent Mass
+        heal(Dice::rollD3());
+
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+
+        // Streams of Brackish Filth
+        for (auto unit : units)
+        {
+            auto roll = Dice::rollD6();
+            if (unit->fly())
+            {
+                if (roll >= 6) unit->applyDamage({0, Dice::rollD3()});
+            }
+            else if (roll >= 4) unit->applyDamage({0, Dice::rollD3()});
+        }
+    }
+}
+
 } // namespace Nurgle
 

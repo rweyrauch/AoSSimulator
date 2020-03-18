@@ -37,6 +37,8 @@ protected:
     void onWounded() override;
     void onCharged() override;
     int getDamageTableIndex() const;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+    void onStartHero(PlayerId player) override;
 
 private:
 
@@ -50,10 +52,10 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blubber and Bile                 TODO
-// Corpulent Mass                   TODO
+// Blubber and Bile                 Partial/TODO
+// Corpulent Mass                   Yes
 // Mountain of Loathsome Flesh      Yes
-// Streams of Brackish Filth        TODO
+// Streams of Brackish Filth        Yes
 // Deluge of Nurgle                 TODO
 //
 

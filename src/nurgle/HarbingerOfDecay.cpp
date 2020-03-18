@@ -65,4 +65,18 @@ bool HarbingerOfDecay::configure()
     return true;
 }
 
+Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds)
+{
+    // Soulbound Shield
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(4);
+    totalWounds.mortal -= mortalSaves.rollsGE(4);
+
+    return totalWounds.clamp();
+}
+
 } // namespace Nurgle

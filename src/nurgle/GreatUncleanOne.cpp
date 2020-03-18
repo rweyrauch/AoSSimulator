@@ -173,5 +173,32 @@ int GreatUncleanOne::EnumStringToInt(const std::string &enumString)
     return NurgleBase::EnumStringToInt(enumString);
 }
 
+Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds)
+{
+    // Blubber and Bile
+    Dice::RollResult woundSaves, mortalSaves;
+    Dice::rollD6(wounds.normal, woundSaves);
+    Dice::rollD6(wounds.mortal, mortalSaves);
+
+    Wounds totalWounds = wounds;
+    totalWounds.normal -= woundSaves.rollsGE(5);
+    totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+    // TODO: on 6+ attacking unit takes a mortal wound.
+
+    return totalWounds.clamp();
+}
+
+void GreatUncleanOne::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    if (owningPlayer() == player)
+    {
+        // Corpulent Mass
+        heal(Dice::rollD3());
+    }
+}
+
 } // namespace Nurgle
 

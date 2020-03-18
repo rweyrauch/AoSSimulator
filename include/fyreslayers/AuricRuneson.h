@@ -33,6 +33,9 @@ public:
 
 protected:
 
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     Weapon m_throwingAxe,
@@ -46,8 +49,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Vying for Glory                  TODO
-// Wyrmslayer Javelins              TODO
+// Vying for Glory                  Yes
+// Wyrmslayer Javelins              Yes
 // Dauntless Assault                TODO
 //
 

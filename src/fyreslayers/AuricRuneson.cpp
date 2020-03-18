@@ -74,4 +74,24 @@ void AuricRuneson::Init()
     }
 }
 
+Rerolls AuricRuneson::toHitRerolls(const Weapon *weapon, const Unit *target) const
+{
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(AURIC_RUNESON)) return RerollFailed;
+    }
+    return Unit::toHitRerolls(weapon, target);
+}
+
+Wounds AuricRuneson::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Wyrmslayer Javelins
+    if ((weapon->name() == m_javelin.name()) && target->hasKeyword(MONSTER))
+    {
+        return {weapon->damage()+2, 0};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
 } // namespace Fyreslayers

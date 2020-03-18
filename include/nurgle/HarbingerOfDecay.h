@@ -33,6 +33,7 @@ public:
 
 protected:
 
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
 
@@ -45,7 +46,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Soulbound Shield                 TODO
+// Soulbound Shield                 Yes
 // Rotsword                         TODO
 // Morbid Vigour                    TODO
 //
