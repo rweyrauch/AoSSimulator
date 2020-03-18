@@ -254,6 +254,7 @@ add_library(
         beastsofchaos/DragonOgors.cpp
         beastsofchaos/DragonOgorShaggoth.cpp
         beastsofchaos/Razorgors.cpp
+        beastsofchaos/ChaosGargant.cpp
 
         slaanesh/SlaaneshBase.cpp
         slaanesh/Fiends.cpp
@@ -286,6 +287,19 @@ add_library(
         nurgle/GreatUncleanOne.cpp
         nurgle/FeculaFlyblown.cpp
         nurgle/TheWurmspat.cpp
+        nurgle/BloabRotspawned.cpp
+        nurgle/Epidemius.cpp
+        nurgle/Festus.cpp
+        nurgle/Gutrot.cpp
+        nurgle/HarbingerOfDecay.cpp
+        nurgle/HorticulousSlimux.cpp
+        nurgle/LordOfAfflictions.cpp
+        nurgle/LordOfBlights.cpp
+        nurgle/MorbidexTwiceborn.cpp
+        nurgle/OrghottsDaemonspew.cpp
+        nurgle/Poxbringer.cpp
+        nurgle/SloppityBilepiper.cpp
+        nurgle/SpoilpoxScrivener.cpp
 
         death/LegionOfNagash.cpp
         death/ArkhanTheBlack.cpp

@@ -1,0 +1,68 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2020 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#include <UnitFactory.h>
+#include "nurgle/Epidemius.h"
+
+namespace Nurgle
+{
+static FactoryMethod factoryMethod = {
+    EpidemiusTallymanOfNurgle::Create,
+    NurgleBase::ValueToString,
+    NurgleBase::EnumStringToInt,
+    EpidemiusTallymanOfNurgle::ComputePoints,
+    {
+    },
+    CHAOS,
+    { NURGLE }
+};
+
+bool EpidemiusTallymanOfNurgle::s_registered = false;
+
+Unit* EpidemiusTallymanOfNurgle::Create(const ParameterList &parameters)
+{
+    auto unit = new EpidemiusTallymanOfNurgle();
+    bool ok = unit->configure();
+    if (!ok)
+    {
+        delete unit;
+        unit = nullptr;
+    }
+    return unit;
+}
+
+void EpidemiusTallymanOfNurgle::Init()
+{
+    if (!s_registered)
+    {
+        s_registered = UnitFactory::Register("Epidemius, Tallyman of Nurgle", factoryMethod);
+    }
+}
+
+EpidemiusTallymanOfNurgle::EpidemiusTallymanOfNurgle() :
+    NurgleBase("Epidemius, Tallyman of Nurgle", 4, WOUNDS, 10, 4, false),
+    m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3),
+    m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1)
+{
+    m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, EPIDEMIUS, TALLYMAN_OF_NURGLE};
+    m_weapons = {&m_balesword, &m_teeth};
+}
+
+bool EpidemiusTallymanOfNurgle::configure()
+{
+    auto model = new Model(BASESIZE, WOUNDS);
+    model->addMeleeWeapon(&m_balesword);
+    model->addMeleeWeapon(&m_teeth);
+    addModel(model);
+
+    m_points = POINTS_PER_UNIT;
+
+    return true;
+}
+
+} // namespace Nurgle

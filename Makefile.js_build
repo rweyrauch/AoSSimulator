@@ -262,6 +262,7 @@ OBJECTS += \
         src/beastsofchaos/DragonOgors.o \
         src/beastsofchaos/DragonOgorShaggoth.o \
         src/beastsofchaos/Razorgors.o \
+        src/beastsofchaos/ChaosGargant.o \
         src/slaanesh/SlaaneshBase.o \
         src/slaanesh/Fiends.o \
         src/slaanesh/Daemonettes.o \
