@@ -28,15 +28,19 @@ public:
     static int ComputePoints(int numModels)  { return POINTS_PER_UNIT; }
 
     KnightVexillor();
-    ~KnightVexillor() override = default;
+    ~KnightVexillor() override;
 
     bool configure();
 
 protected:
 
+    Rerolls iconOfWarChargeReroll(const Unit* unit);
+
 private:
 
     Weapon m_warhammer;
+
+    lsignal::slot m_iconOfWarSlot;
 
     static bool s_registered;
 };
@@ -44,7 +48,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Icon of War                      TODO
+// Icon of War                      Yes
 // Meteoric Standard                TODO
 // Pennant of the Stormbringer      TODO
 //

@@ -28,7 +28,7 @@ public:
     static void Init();
 
     KnightAzyros();
-    ~KnightAzyros() override = default;
+    ~KnightAzyros() override;
 
     bool configure();
 
@@ -36,11 +36,15 @@ protected:
 
     void onStartHero(PlayerId player) override;
 
+    Rerolls illuminatorOfTheLostReroll(const Unit* attacker, const Weapon* weapon, const Unit* target);
+
 private:
 
     bool m_usedLightOfSigmar = false;
 
     Weapon m_starblade;
+
+    lsignal::slot m_illuminatorSlot;
 
     static bool s_registered;
 };
@@ -48,7 +52,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Illuminator of the Lost          TODO
+// Illuminator of the Lost          Yes
 // The Light of Sigmar              Yes
 //
 

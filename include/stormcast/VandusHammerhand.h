@@ -28,7 +28,7 @@ public:
     static void Init();
 
     VandusHammerhand();
-    ~VandusHammerhand() override = default;
+    ~VandusHammerhand() override;
 
     bool configure();
 
@@ -37,10 +37,14 @@ protected:
     int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+    int lordOfTheHammerhandsBraveryMod(const Unit* unit);
+
 private:
 
     Weapon m_heldensen,
         m_clawsAndFangs;
+
+    lsignal::slot m_lordSlot;
 
     static bool s_registered;
 };
@@ -51,7 +55,7 @@ private:
 // Heldensen                        Yes
 // Intolerable Damage               Yes
 // Storm Breath                     TODO
-// Lord of the Hammerhands          TODO
+// Lord of the Hammerhands          Yes
 // Vengeful Determination           TODO
 //
 

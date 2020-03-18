@@ -51,7 +51,7 @@ private:
 // -------------------------------------------
 // Astral Compass                   TODO
 // Star Falcon                      TODO
-// Tireless Hunters                 TODO
+// Tireless Hunters                 Yes
 //
 
 } // namespace StormcastEternals

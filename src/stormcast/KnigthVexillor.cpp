@@ -21,6 +21,13 @@ KnightVexillor::KnightVexillor() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
     m_weapons = {&m_warhammer};
+
+    s_globalChargeReroll.connect(this, &KnightVexillor::iconOfWarChargeReroll, &m_iconOfWarSlot);
+}
+
+KnightVexillor::~KnightVexillor()
+{
+    m_iconOfWarSlot.disconnect();
 }
 
 bool KnightVexillor::configure()
@@ -68,6 +75,12 @@ void KnightVexillor::Init()
 
         s_registered = UnitFactory::Register("Knight-Vexillor", *factoryMethod);
     }
+}
+
+Rerolls KnightVexillor::iconOfWarChargeReroll(const Unit *unit)
+{
+    if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
+    return NoRerolls;
 }
 
 } // namespace StormcastEternals

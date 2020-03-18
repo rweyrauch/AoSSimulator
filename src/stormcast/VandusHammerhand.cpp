@@ -22,6 +22,13 @@ VandusHammerhand::VandusHammerhand() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT, VANDUS_HAMMERHAND};
     m_weapons = {&m_heldensen, &m_clawsAndFangs};
+
+    s_globalBraveryMod.connect(this, &VandusHammerhand::lordOfTheHammerhandsBraveryMod, &m_lordSlot);
+}
+
+VandusHammerhand::~VandusHammerhand()
+{
+    m_lordSlot.disconnect();
 }
 
 bool VandusHammerhand::configure()
@@ -91,6 +98,12 @@ Wounds VandusHammerhand::weaponDamage(const Weapon *weapon, const Unit *target, 
         return { Dice::rollD6(), 0 };
     }
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int VandusHammerhand::lordOfTheHammerhandsBraveryMod(const Unit *unit)
+{
+    if (isFriendly(unit) && unit->hasKeyword(HAMMERS_OF_SIGMAR) && (distanceTo(unit) <= 24.0f)) return 42;
+    return 0;
 }
 
 } // namespace StormcastEternals

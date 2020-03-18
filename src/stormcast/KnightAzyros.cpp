@@ -22,6 +22,13 @@ KnightAzyros::KnightAzyros() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_AZYROS};
     m_weapons = {&m_starblade};
+
+    s_globalToHitReroll.connect(this, &KnightAzyros::illuminatorOfTheLostReroll, &m_illuminatorSlot);
+}
+
+KnightAzyros::~KnightAzyros()
+{
+    m_illuminatorSlot.disconnect();
 }
 
 bool KnightAzyros::configure()
@@ -94,6 +101,12 @@ void KnightAzyros::onStartHero(PlayerId player)
         }
     }
     Unit::onStartHero(player);
+}
+
+Rerolls KnightAzyros::illuminatorOfTheLostReroll(const Unit *attacker, const Weapon *weapon, const Unit *target)
+{
+    if (isFriendly(attacker) && distanceTo(target) <= 10.0f) return RerollOnes;
+    return NoRerolls;
 }
 
 

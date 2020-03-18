@@ -68,13 +68,13 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Lightning Hammer                 TODO
+// Lightning Hammer                 Partial/TODO
 // Intolerable Damage               Yes
 // Sigmarite Thundershield          Yes
 // Stormstrike Glaive               Yes
 // Storm Breath                     TODO
 // Tempestos Hammer                 Yes
-// Thunderaxe                       TODO
+// Thunderaxe                       Yes
 // Lord of the Host                 TODO
 //
 

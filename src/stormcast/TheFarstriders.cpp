@@ -21,6 +21,9 @@ TheFarstriders::TheFarstriders() :
 {
     m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, ANGELOS, VANGUARD_HUNTERS, THE_FARSTRIDERS};
     m_weapons = {&m_boltstormPistol, &m_shockHandaxe, &m_stormSaber};
+
+    // Tireless Hunters
+    m_runAndShoot = true;
 }
 
 bool TheFarstriders::configure()

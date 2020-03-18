@@ -8,6 +8,7 @@
 
 #include <stormcast/LordCelestantOnDracoth.h>
 #include <iostream>
+#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals
@@ -130,6 +131,17 @@ int LordCelestantOnDracoth::extraAttacks(const Model *attackingModel, const Weap
     {
         attacks += Dice::rollD3();
     }
+
+    // Thunderaxe
+    if ((weapon->name() == m_thunderaxe.name()))
+    {
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);
+        for (auto unit : units)
+        {
+            if (unit->hasKeyword(STORMCAST_ETERNAL)) attacks++;
+        }
+    }
+
     return attacks;
 }
 
