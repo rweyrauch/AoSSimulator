@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "mawtribes/Slaughtermaster.h"
 
 namespace OgorMawtribes
@@ -87,6 +88,79 @@ bool Slaughtermaster::configure()
     m_points = Slaughtermaster::ComputePoints(1);
 
     return true;
+}
+
+void Slaughtermaster::onCastSpell(const Spell *spell, const Unit *target)
+{
+    Unit::onCastSpell(spell, target);
+
+    // Bloodgruel
+    const auto roll = Dice::rollD6();
+    if (roll == 1) applyDamage({0, 1});
+    else heal(1);
+}
+
+void Slaughtermaster::onUnboundSpell(const Unit *caster, int castRoll)
+{
+    Unit::onUnboundSpell(caster, castRoll);
+
+    // Bloodgruel
+    const auto roll = Dice::rollD6();
+    if (roll == 1) applyDamage({0, 1});
+    else heal(1);
+}
+
+void Slaughtermaster::onStartHero(PlayerId player)
+{
+    MawtribesBase::onStartHero(player);
+
+    // Great Cauldron
+    if (owningPlayer() == player)
+    {
+        const auto roll = Dice::rollD6();
+        switch (roll)
+        {
+            case 1:
+                // Bad Meat
+                applyDamage({0, Dice::rollD3()});
+                break;
+            case 2:
+                // Troggoth Guts
+                heal(Dice::rollD3());
+                {
+                    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+                    for (auto unit : units)
+                    {
+                        if (unit->hasKeyword(OGOR)) unit->heal(1);
+                    }
+                }
+                break;
+            case 3:
+            case 4:
+                // Spinemarrow
+                {
+                    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), OGOR, 12.0f);
+                    if (unit)
+                    {
+                        unit->buffModifier(BuffableAttribute::ToHitMelee, 1, {Hero, m_battleRound+1, owningPlayer()});
+                    }
+                }
+                break;
+            case 5:
+            case 6:
+                // Bonecrusher
+                {
+                    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+                    for (auto unit : units)
+                    {
+                        if (Dice::rollD6() >= 4) unit->applyDamage({0, Dice::rollD3()});
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 } // namespace OgorMawtribes

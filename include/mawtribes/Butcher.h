@@ -42,6 +42,9 @@ public:
 
 protected:
 
+    void onCastSpell(const Spell* spell, const Unit* target) override;
+    void onUnboundSpell(const Unit* caster, int castRoll) override;
+
 private:
 
     Weapon m_tenderizer,
@@ -54,7 +57,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodgruel                       TODO
+// Bloodgruel                       Yes
 // Voracious Maw                    TODO
 //
 

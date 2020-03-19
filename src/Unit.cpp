@@ -163,6 +163,7 @@ int Unit::applyBattleshock()
     if (!battleshockRequired()) return 0;
     if (m_modelsSlain <= 0) return 0;
 
+    // TODO: implement rerolls for battleshock.
     auto roll = rollBattleshock();
     int numFled, numRestored;
     computeBattleshockEffect(roll, numFled, numRestored);
@@ -747,12 +748,16 @@ void Unit::battleshock(PlayerId player)
 
 int Unit::rollChargeDistance() const
 {
+    // TODO: implement rerolls for charges.
+
     m_unmodifiedChargeRoll = Dice::roll2D6();
     return m_unmodifiedChargeRoll + chargeModifier();
 }
 
 int Unit::rollRunDistance() const
 {
+    // TODO: implement rerolls for run.
+
     return Dice::rollD6() + runModifier();
 }
 
@@ -975,6 +980,7 @@ bool Unit::unbind(const Unit* caster, int castRoll)
             SimLog(Verbosity::Narrative, "%s unbound a spell cast by %s (%d) with a unbind roll of %d.\n",
                 name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
             unbound = true;
+            onUnboundSpell(caster, castRoll);
         }
         else
         {
@@ -1012,6 +1018,7 @@ void Unit::castSpell()
                 if (successful)
                 {
                     SimLog(Verbosity::Narrative, "%s successfully cast %s\n", m_name.c_str(), sip->name().c_str());
+                    onCastSpell(sip.get(), ip);
                 }
                 m_spellsCast++;
                 return;

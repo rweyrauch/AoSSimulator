@@ -188,4 +188,14 @@ int OgorGluttons::bellower(const Unit *target)
     return 0;
 }
 
+Wounds OgorGluttons::applyWoundSave(const Wounds &wounds)
+{
+    if (m_lookoutGnoblar)
+    {
+        // TODO: 6+ wound save in shooting phase
+    }
+
+    return Unit::applyWoundSave(wounds);
+}
+
 } // namespace OgorMawtribes

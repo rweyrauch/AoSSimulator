@@ -37,6 +37,8 @@ public:
 
 protected:
 
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
 private:
 
     Weapon m_clawsAndClubs;
@@ -47,8 +49,8 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Frost                    TODO
-// Bounding Leaps                   TODO
+// Aura of Frost                    Yes
+// Bounding Leaps                   Yes
 // Invigorated by the Blizzard      TODO
 //
 

@@ -49,6 +49,8 @@ protected:
     Rerolls chargeRerolls() const override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
+
     int bellower(const Unit* target);
 
 private:

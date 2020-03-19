@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "mawtribes/FrostSabres.h"
 
 namespace OgorMawtribes
@@ -89,6 +90,28 @@ int FrostSabres::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int FrostSabres::chargeModifier() const
+{
+    auto mod = Unit::chargeModifier();
+
+    // Their Master's Voice
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
+    if (unit) mod += 3;
+
+    return mod;
+}
+
+int FrostSabres::braveryModifier() const
+{
+    auto mod = MawtribesBase::braveryModifier();
+
+    // Their Master's Voice
+    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
+    if (unit) mod += 2;
+
+    return mod;
 }
 
 } // namespace OgorMawtribes

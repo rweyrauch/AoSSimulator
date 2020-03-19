@@ -116,4 +116,24 @@ int Butcher::EnumStringToInt(const std::string &enumString)
     return MawtribesBase::EnumStringToInt(enumString);
 }
 
+void Butcher::onCastSpell(const Spell *spell, const Unit *target)
+{
+    Unit::onCastSpell(spell, target);
+
+    // Bloodgruel
+    const auto roll = Dice::rollD6();
+    if (roll == 1) applyDamage({0, 1});
+    else heal(1);
+}
+
+void Butcher::onUnboundSpell(const Unit *caster, int castRoll)
+{
+    Unit::onUnboundSpell(caster, castRoll);
+
+    // Bloodgruel
+    const auto roll = Dice::rollD6();
+    if (roll == 1) applyDamage({0, 1});
+    else heal(1);
+}
+
 } // namespace OgorMawtribes

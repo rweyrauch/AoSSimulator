@@ -63,7 +63,7 @@ protected:
 // Might Make Right                 TODO
 // Ravenous Brutes                  Yes
 // Fleshy Stampede (Meatfist)       Yes
-// Heralds of the Gulping God (Bloodgullet) TODO
+// Heralds of the Gulping God (Bloodgullet) Partial/TODO
 // Gunmasters (Underguts)           Yes
 // Fearsome Breed (Boulderhead)     TODO
 // Swift Outflank (Thunderbellies)  TODO

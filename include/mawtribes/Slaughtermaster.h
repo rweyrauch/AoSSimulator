@@ -34,6 +34,10 @@ public:
 
 protected:
 
+    void onCastSpell(const Spell* spell, const Unit* target) override;
+    void onUnboundSpell(const Unit* caster, int castRoll) override;
+    void onStartHero(PlayerId player) override;
+
 private:
 
     Weapon m_stumpBlades,
@@ -46,12 +50,12 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodgruel                       TODO
-// Great Cauldron                   TODO
-//    Bad Meat                      TODO
-//    Troggoth Guts                 TODO
-//    Spinemarrow                   TODO
-//    Bonecrusher                   TODO
+// Bloodgruel                       Yes
+// Great Cauldron                   Yes
+//    Bad Meat                      Yes
+//    Troggoth Guts                 Yes
+//    Spinemarrow                   Yes
+//    Bonecrusher                   Yes
 // Rockchomper                      TODO
 //
 

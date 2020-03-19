@@ -37,6 +37,9 @@ public:
 
 protected:
 
+    int chargeModifier() const override;
+    int braveryModifier() const override;
+
 private:
 
     Weapon m_fangs;
@@ -47,7 +50,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Their Master's Voice             TODO
+// Their Master's Voice             Yes
 //
 
 } // namespace OgorMawtribes

@@ -383,6 +383,9 @@ protected:
     virtual void onFlee(int numFled) {}
     virtual void onCharged() {}
 
+    virtual void onUnboundSpell(const Unit* caster, int castRoll) {}
+    virtual void onCastSpell(const Spell* spell, const Unit* target) {}
+
     virtual void onStartHero(PlayerId player) {}
     virtual void onEndHero(PlayerId player) {}
 

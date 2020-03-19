@@ -60,6 +60,9 @@ IcefallYhetees::IcefallYhetees() :
 {
     m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, ICEFALL_YHETESS};
     m_weapons = {&m_clawsAndClubs};
+
+    // Bounding Leaps
+    m_pileInMove = 6;
 }
 
 bool IcefallYhetees::configure(int numModels)
@@ -89,6 +92,16 @@ int IcefallYhetees::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+int IcefallYhetees::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = Unit::targetHitModifier(weapon, attacker);
+
+    // Aura of Frost
+    if (!weapon->isMissile()) mod--;
+
+    return mod;
 }
 
 } // namespace OgorMawtribes
