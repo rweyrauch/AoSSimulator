@@ -119,7 +119,7 @@ void Ironblaster::onStartShooting(PlayerId player)
     if (nearestUnit)
     {
         float rangeTo = distanceTo(nearestUnit);
-        if (rangeTo < m_hailShot.range())
+        if (rangeTo < (float)m_hailShot.range())
         {
             m_hailShot.activate(true);
             m_cannonBall.activate(false);

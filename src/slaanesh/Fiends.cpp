@@ -9,7 +9,6 @@
 #include <slaanesh/Fiends.h>
 #include <Weapon.h>
 #include <UnitFactory.h>
-#include <Board.h>
 
 namespace Slaanesh
 {

@@ -26,7 +26,6 @@ Unit *WarlockEngineer::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-    return nullptr;
 }
 
 void WarlockEngineer::Init()

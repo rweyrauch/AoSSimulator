@@ -10,26 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    Varanguard::Create,
-    Varanguard::ValueToString,
-    Varanguard::EnumStringToInt,
-    Varanguard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Varanguard::MIN_UNIT_SIZE, Varanguard::MIN_UNIT_SIZE,
-            Varanguard::MAX_UNIT_SIZE, Varanguard::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Varanguard::DaemonforgedBlade, Varanguard::EnsorcelledWeapon,
-            Varanguard::DaemonforgedBlade, 1
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, SLAANESH, TZEENTCH, NURGLE }
-};
 
 bool Varanguard::s_registered = false;
 
@@ -63,6 +43,8 @@ std::string Varanguard::ValueToString(const Parameter &parameter)
             case EnsorcelledWeapon: return "Ensorcelled Weapon";
             case Fellspear: return "Fellspear";
             case DaemonforgedBlade: return "Daemonforged Blade";
+            default:
+                break;
         }
     }
     return SlavesToDarknessBase::ValueToString(parameter);
@@ -81,6 +63,26 @@ void Varanguard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Varanguard::Create,
+            Varanguard::ValueToString,
+            Varanguard::EnumStringToInt,
+            Varanguard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Varanguard::MIN_UNIT_SIZE, Varanguard::MIN_UNIT_SIZE,
+                    Varanguard::MAX_UNIT_SIZE, Varanguard::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Varanguard::DaemonforgedBlade, Varanguard::EnsorcelledWeapon,
+                    Varanguard::DaemonforgedBlade, 1
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, SLAANESH, TZEENTCH, NURGLE }
+        };
         s_registered = UnitFactory::Register("Varanguard", factoryMethod);
     }
 }

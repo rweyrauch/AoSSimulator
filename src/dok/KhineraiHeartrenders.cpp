@@ -108,7 +108,6 @@ int KhineraiHeartrenders::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
-    return 0;
 }
 
 int KhineraiHeartrenders::toSaveModifier(const Weapon *weapon) const

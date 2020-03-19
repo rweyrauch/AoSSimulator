@@ -44,7 +44,7 @@ public:
 
 protected:
 
-    WeaponOption m_weapon;
+    WeaponOption m_weapon = TempestosHammer;
     bool m_sigmariteThundershield = false;
 
 protected:

@@ -9,8 +9,6 @@
 #include <citiesofsigmar/Executioners.h>
 #include <UnitFactory.h>
 
-#include "citiesofsigmar/EternalGuard.h"
-
 namespace CitiesOfSigmar
 {
 

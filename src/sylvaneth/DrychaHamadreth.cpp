@@ -140,14 +140,7 @@ Wounds DrychaHamadreth::weaponDamage(const Weapon *weapon, const Unit *target, i
 void DrychaHamadreth::onBeginRound(int battleRound)
 {
     // Mercurial Aspect
-    if (m_meleeTarget)
-    {
-        m_enraged = false;
-    }
-    else
-    {
-        m_enraged = true;
-    }
+    m_enraged = (m_meleeTarget == nullptr);
     Unit::onBeginRound(battleRound);
 }
 

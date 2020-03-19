@@ -8,7 +8,6 @@
 
 #include <seraphon/LordKroak.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include <spells/MysticShield.h>
 #include <Roster.h>
 
@@ -84,7 +83,7 @@ void LordKroak::Init()
 
 int LordKroak::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
-    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+    auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
 
     // Azyrite Force Barrier
     if (target)

@@ -17,7 +17,7 @@ struct TableEntry
 {
     int m_move;
     int m_spikesToHit;
-    int m_pealRange;
+    float m_pealRange;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;

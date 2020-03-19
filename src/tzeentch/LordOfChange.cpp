@@ -31,23 +31,6 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {7,  5, 5}
     };
 
-
-static FactoryMethod factoryMethod = {
-    LordOfChange::Create,
-    LordOfChange::ValueToString,
-    LordOfChange::EnumStringToInt,
-    LordOfChange::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", LordOfChange::BalefulSword, LordOfChange::BalefulSword,
-            LordOfChange::CurvedBeakAndTalons, 1
-        },
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool LordOfChange::s_registered = false;
 
 Unit *LordOfChange::Create(const ParameterList &parameters)
@@ -90,6 +73,21 @@ void LordOfChange::Init()
 {
     if (!s_registered)
     {
+        static const FactoryMethod factoryMethod = {
+            LordOfChange::Create,
+            LordOfChange::ValueToString,
+            LordOfChange::EnumStringToInt,
+            LordOfChange::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", LordOfChange::BalefulSword, LordOfChange::BalefulSword,
+                    LordOfChange::CurvedBeakAndTalons, 1
+                },
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Lord of Change", factoryMethod);
     }
 }

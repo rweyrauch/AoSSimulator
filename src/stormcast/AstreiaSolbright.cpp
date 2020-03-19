@@ -10,7 +10,6 @@
 #include <iostream>
 #include <spells/MysticShield.h>
 #include <spells/StormcastSpells.h>
-#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals

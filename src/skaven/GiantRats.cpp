@@ -91,15 +91,15 @@ void GiantRats::setTeethRange()
 {
     if (remainingModels() >= 20)
     {
-        m_teeth.setRange(3.0f);
+        m_teeth.setRange(3);
     }
     else if (remainingModels()  >= 10)
     {
-        m_teeth.setRange(2.0f);
+        m_teeth.setRange(2);
     }
     else
     {
-        m_teeth.setRange(1.0f);
+        m_teeth.setRange(1);
     }
 }
 

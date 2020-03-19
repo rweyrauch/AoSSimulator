@@ -66,7 +66,7 @@ void GotrekGurnisson::Init()
 Wounds GotrekGurnisson::applyWoundSave(const Wounds &wounds)
 {
     // Avatar of Grimnir
-    Wounds appliedWounds;
+    Wounds appliedWounds = {0, 0};
     appliedWounds.normal = std::min(1, wounds.normal);
     appliedWounds.mortal = std::min(1, wounds.mortal);
 

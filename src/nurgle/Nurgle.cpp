@@ -73,6 +73,7 @@ void Init()
     SpoilpoxScrivenerHeraldOfNurgle::Init();
     Nurglings::Init();
     SorcererOfNurgle::Init();
+    MorbidexTwiceborn::Init();
 }
 
 } //namespace Nurgle

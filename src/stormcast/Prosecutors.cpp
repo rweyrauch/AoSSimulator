@@ -338,7 +338,7 @@ int Prosecutors::extraAttacks(const Model *attackingModel, const Weapon *weapon,
     if (weapon->name() == m_grandaxe.name())
     {
         // count the number of models in the unit w/in 1 in of this model
-        extra += target->numModelsWithin(attackingModel, weapon->range());
+        extra += target->numModelsWithin(attackingModel, (float)weapon->range());
     }
     return extra;
 }

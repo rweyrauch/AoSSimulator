@@ -6,8 +6,6 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include "wanderers/Wanderer.h"
-
 #include "wanderers/GladeGuard.h"
 #include "wanderers/EternalGuard.h"
 #include "wanderers/WildwoodRangers.h"

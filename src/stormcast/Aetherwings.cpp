@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <stormcast/Aetherwings.h>
 #include <UnitFactory.h>
-#include <iostream>
 
 namespace StormcastEternals
 {

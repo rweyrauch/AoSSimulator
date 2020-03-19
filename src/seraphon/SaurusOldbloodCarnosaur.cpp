@@ -142,7 +142,7 @@ int SaurusOldbloodOnCarnosaur::generateHits(int unmodifiedHitRoll, const Weapon 
 
 int SaurusOldbloodOnCarnosaur::toHitModifier(const Weapon *weapon, const Unit *target) const
 {
-    auto mod = Unit::toHitModifier(weapon, target);
+    auto mod = SeraphonBase::toHitModifier(weapon, target);
 
     // Pinned Down
     if ((weapon->name() == m_jaws.name()) && (target->wounds() >= 7))

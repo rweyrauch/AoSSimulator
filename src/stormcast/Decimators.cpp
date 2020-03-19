@@ -138,7 +138,7 @@ int Decimators::extraAttacks(const Model *attackingModel, const Weapon *weapon, 
     if (weapon->name() == m_thunderaxe.name())
     {
         // count the number of models in the unit w/in 2 in of this model
-        extra += target->numModelsWithin(attackingModel, weapon->range());
+        extra += target->numModelsWithin(attackingModel, (float)weapon->range());
     }
     return extra;
 }

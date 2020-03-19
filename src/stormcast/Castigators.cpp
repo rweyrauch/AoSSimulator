@@ -115,17 +115,9 @@ void Castigators::onStartShooting(PlayerId player)
         if (m_shootingTarget)
         {
             if (m_shootingTarget->ignoreRend())
-            {
                 m_aethericChannellingPower = false;
-            }
-            else if (m_shootingTarget->save() < 4)
-            {
-                m_aethericChannellingPower = true;
-            }
             else
-            { // accuracy
-                m_aethericChannellingPower = false;
-            }
+                m_aethericChannellingPower = (m_shootingTarget->save() < 4);
         }
     }
 

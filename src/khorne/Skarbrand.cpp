@@ -118,7 +118,7 @@ Rerolls Skarbrand::chargeRerolls() const
 int Skarbrand::generateMortalWounds(const Unit *unit)
 {
     // Total Carnage
-    if (distanceTo(unit) <= m_carnage.range())
+    if (distanceTo(unit) <= (float)m_carnage.range())
     {
         int index = getDamageTableIndex();
         if (!m_attackedInPreviousRound)

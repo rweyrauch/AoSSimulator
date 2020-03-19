@@ -11,28 +11,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Warriors::Create,
-    Warriors::ValueToString,
-    Warriors::EnumStringToInt,
-    Warriors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Warriors::MIN_UNIT_SIZE, Warriors::MIN_UNIT_SIZE,
-            Warriors::MAX_UNIT_SIZE, Warriors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Warriors::DuardinAxeOrHammer, Warriors::DuardinAxeOrHammer,
-            Warriors::DoubleHandedDuardinAxe, 1
-        },
-        {ParamType::Boolean, "Duardin Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
 
 bool Warriors::s_registered = false;
 
@@ -110,6 +88,28 @@ void Warriors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Warriors::Create,
+            Warriors::ValueToString,
+            Warriors::EnumStringToInt,
+            Warriors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Warriors::MIN_UNIT_SIZE, Warriors::MIN_UNIT_SIZE,
+                    Warriors::MAX_UNIT_SIZE, Warriors::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Warriors::DuardinAxeOrHammer, Warriors::DuardinAxeOrHammer,
+                    Warriors::DoubleHandedDuardinAxe, 1
+                },
+                {ParamType::Boolean, "Duardin Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Warriors", factoryMethod);
     }
 }

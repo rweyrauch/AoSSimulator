@@ -12,27 +12,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Irondrakes::Create,
-    Irondrakes::ValueToString,
-    Irondrakes::EnumStringToInt,
-    Irondrakes::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
-            Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
-            Irondrakes::PairedDrakefirePistols, 1
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
 
 bool Irondrakes::s_registered = false;
 
@@ -120,6 +99,27 @@ void Irondrakes::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Irondrakes::Create,
+            Irondrakes::ValueToString,
+            Irondrakes::EnumStringToInt,
+            Irondrakes::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
+                    Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
+                    Irondrakes::PairedDrakefirePistols, 1
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Irondrakes", factoryMethod);
     }
 }

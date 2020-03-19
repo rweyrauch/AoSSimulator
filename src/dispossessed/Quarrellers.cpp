@@ -12,25 +12,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Quarrellers::Create,
-    Quarrellers::ValueToString,
-    Quarrellers::EnumStringToInt,
-    Quarrellers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Quarrellers::MIN_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE,
-            Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Standard", Quarrellers::None, Quarrellers::None, Quarrellers::ClanBanner, 1},
-        {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
-
 bool Quarrellers::s_registered = false;
 
 Quarrellers::Quarrellers() :
@@ -93,6 +74,24 @@ void Quarrellers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Quarrellers::Create,
+            Quarrellers::ValueToString,
+            Quarrellers::EnumStringToInt,
+            Quarrellers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Quarrellers::MIN_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE,
+                    Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Standard", Quarrellers::None, Quarrellers::None, Quarrellers::ClanBanner, 1},
+                {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Quarrellers", factoryMethod);
     }
 }

@@ -25,7 +25,7 @@ SistersOfSlaughter::SistersOfSlaughter() :
     m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHandmaiden, &m_barbedWhip, &m_barbedWhipHandmaiden};
 
     // Dance of Death
-    m_pileInMove = 6.0f;
+    m_pileInMove = 6;
 }
 
 bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers)

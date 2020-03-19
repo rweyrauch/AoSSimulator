@@ -11,17 +11,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Runelord::Create,
-    Dispossessed::ValueToString,
-    Dispossessed::EnumStringToInt,
-    Runelord::ComputePoints,
-    {
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
 
 bool Runelord::s_registered = false;
 
@@ -66,6 +55,17 @@ void Runelord::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Runelord::Create,
+            Dispossessed::ValueToString,
+            Dispossessed::EnumStringToInt,
+            Runelord::ComputePoints,
+            {
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Runelord", factoryMethod);
     }
 }

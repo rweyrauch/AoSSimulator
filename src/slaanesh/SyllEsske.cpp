@@ -9,7 +9,6 @@
 #include <slaanesh/SyllEsske.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
-#include <Board.h>
 
 namespace Slaanesh
 {

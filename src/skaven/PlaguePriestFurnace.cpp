@@ -214,8 +214,6 @@ void PlaguePriestOnPlagueFurnace::onStartHero(PlayerId player)
             unit = this;
         }
 
-        Dice::RollResult result;
-
         auto prayerRoll = Dice::rollD6();
         if (prayerRoll == 1)
         {

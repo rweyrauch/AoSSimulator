@@ -108,7 +108,7 @@ Spell *CreateLoreOfTheSpiderFangs(LoreOfTheSpiderFangs which, Unit *caster)
 class TheGreatGreenSpite : public Spell
 {
 public:
-    TheGreatGreenSpite(Unit* caster);
+    explicit TheGreatGreenSpite(Unit* caster);
 
     Result cast(Unit* target, int round) override;
     Result cast(float x, float y, int round) override { return Failed; }

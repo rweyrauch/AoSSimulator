@@ -100,7 +100,7 @@ void KnightAzyros::onStartHero(PlayerId player)
             m_usedLightOfSigmar = true;
         }
     }
-    Unit::onStartHero(player);
+    StormcastEternal::onStartHero(player);
 }
 
 Rerolls KnightAzyros::illuminatorOfTheLostReroll(const Unit *attacker, const Weapon *weapon, const Unit *target)

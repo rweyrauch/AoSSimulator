@@ -41,8 +41,8 @@ protected:
 
 private:
 
-    bool m_standardBearer;
-    bool m_noiseMaker;
+    bool m_standardBearer = false;
+    bool m_noiseMaker = false;
 
     Weapon m_zombieBite;
 

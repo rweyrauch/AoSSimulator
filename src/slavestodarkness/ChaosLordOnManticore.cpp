@@ -100,9 +100,7 @@ bool ChaosLordOnManticore::configure(WeaponOption weapon)
             model->addMeleeWeapon(&m_blade);
             model->addMeleeWeapon(&m_lance);
             break;
-        case WeaponOption::BladeAndShield:
-            model->addMeleeWeapon(&m_blade);
-            break;
+        case WeaponOption::BladeAndShield:;
         case WeaponOption::BladeAndDaggerfist:
             model->addMeleeWeapon(&m_blade);
             break;
@@ -111,8 +109,6 @@ bool ChaosLordOnManticore::configure(WeaponOption weapon)
             model->addMeleeWeapon(&m_lance);
             break;
         case WeaponOption::FlailAndShield:
-            model->addMeleeWeapon(&m_flail);
-            break;
         case WeaponOption::FlailAndDaggerfist:
             model->addMeleeWeapon(&m_flail);
             break;
@@ -166,6 +162,8 @@ std::string ChaosLordOnManticore::ValueToString(const Parameter &parameter)
             case FlailAndShield: return "Chaos Flail and Chaos Runeshield";
             case BladeAndDaggerfist: return "Daemon Blade and Daggerfist";
             case FlailAndDaggerfist: return "Chaos Flail and Daggerfist";
+            default:
+                break;
         }
     }
     return SlavesToDarknessBase::ValueToString(parameter);

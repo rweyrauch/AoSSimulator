@@ -44,8 +44,8 @@ protected:
 
 private:
 
-    bool m_hornblower,
-        m_standardBearer;
+    bool m_hornblower = false,
+        m_standardBearer = false;
 
     Weapon m_rangersDraich,
         m_wardensDraich;

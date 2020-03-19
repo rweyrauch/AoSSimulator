@@ -84,7 +84,7 @@ void InfernalEnrapturess::onStartShooting(PlayerId player)
         if (nearestUnit)
         {
             float rangeTo = distanceTo(nearestUnit);
-            if (rangeTo < m_lyreCacophonousMelody.range())
+            if (rangeTo < (float)m_lyreCacophonousMelody.range())
             {
                 m_lyreCacophonousMelody.activate(true);
                 m_lyreEuphonicBlast.activate(false);

@@ -79,7 +79,7 @@ Rerolls ArchRevenant::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     {
         return RerollOnes;
     }
-    return Unit::toHitRerolls(weapon, unit);
+    return SylvanethBase::toHitRerolls(weapon, unit);
 }
 
 Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon) const

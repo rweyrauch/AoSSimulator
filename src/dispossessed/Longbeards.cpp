@@ -11,28 +11,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Longbeards::Create,
-    Longbeards::ValueToString,
-    Longbeards::EnumStringToInt,
-    Longbeards::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
-            Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Longbeards::AncestralAxesOrHammers, Longbeards::AncestralAxesOrHammers,
-            Longbeards::AncestralGreatAxe, 1
-        },
-        {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
 
 bool Longbeards::s_registered = false;
 
@@ -110,6 +88,28 @@ void Longbeards::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Longbeards::Create,
+            Longbeards::ValueToString,
+            Longbeards::EnumStringToInt,
+            Longbeards::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
+                    Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Longbeards::AncestralAxesOrHammers, Longbeards::AncestralAxesOrHammers,
+                    Longbeards::AncestralGreatAxe, 1
+                },
+                {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Longbeards", factoryMethod);
     }
 }
@@ -182,7 +182,6 @@ int Longbeards::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
-    return 0;
 }
 
 } // namespace Dispossessed

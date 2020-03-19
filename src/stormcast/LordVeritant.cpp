@@ -9,7 +9,6 @@
 #include <stormcast/LordVeritant.h>
 #include <iostream>
 #include <stormcast/StormcastPrayers.h>
-#include <Board.h>
 #include "UnitFactory.h"
 
 namespace StormcastEternals

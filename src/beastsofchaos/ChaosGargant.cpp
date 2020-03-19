@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <beastsofchaos/ChaosGargant.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace BeastsOfChaos

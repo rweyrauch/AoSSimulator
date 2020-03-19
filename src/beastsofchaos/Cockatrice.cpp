@@ -97,7 +97,7 @@ void Cockatrice::onStartShooting(PlayerId player)
         // Petrifying Gaze
         if (m_shootingTarget)
         {
-            if (distanceTo(m_shootingTarget) <= m_petrifyingGaze.range())
+            if (distanceTo(m_shootingTarget) <= (float)m_petrifyingGaze.range())
             {
                 if (Dice::rollD6() >= 4)
                 {

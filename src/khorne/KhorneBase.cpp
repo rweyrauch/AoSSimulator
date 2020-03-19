@@ -111,8 +111,8 @@ Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
     {
         if (hasKeyword(MORTAL))
         {
-            auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0f);
-            if (unit)
+            auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0f);
+            if (hero)
             {
                 return RerollOnes;
             }

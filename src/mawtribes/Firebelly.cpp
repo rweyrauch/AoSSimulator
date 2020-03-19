@@ -88,7 +88,7 @@ void Firebelly::onStartShooting(PlayerId player)
     // Fire Breath
     if (player == owningPlayer() && m_shootingTarget)
     {
-        if (distanceTo(m_shootingTarget) <= m_fireBreath.range())
+        if (distanceTo(m_shootingTarget) <= (float)m_fireBreath.range())
         {
             if (Dice::rollD6() >= 4)
             {

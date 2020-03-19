@@ -140,7 +140,7 @@ void Chimera::onStartShooting(PlayerId player)
         // Fiery Breath
         if (m_shootingTarget)
         {
-            if (distanceTo(m_shootingTarget) <= m_fieryBreath.range())
+            if (distanceTo(m_shootingTarget) <= (float)m_fieryBreath.range())
             {
                 // Auto-hit and inflict mortal wounds.
                 Wounds breathDamage = {0, Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};

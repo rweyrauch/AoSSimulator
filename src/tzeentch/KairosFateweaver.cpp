@@ -31,19 +31,6 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {7,  5, 1}
     };
 
-
-static FactoryMethod factoryMethod = {
-    KairosFateweaver::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    KairosFateweaver::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool KairosFateweaver::s_registered = false;
 
 Unit *KairosFateweaver::Create(const ParameterList &parameters)
@@ -66,6 +53,17 @@ void KairosFateweaver::Init()
 {
     if (!s_registered)
     {
+        static const FactoryMethod factoryMethod = {
+            KairosFateweaver::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            KairosFateweaver::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Kairos Fateweaver", factoryMethod);
     }
 }

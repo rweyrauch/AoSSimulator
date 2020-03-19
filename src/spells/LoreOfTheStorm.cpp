@@ -100,7 +100,7 @@ AreaOfEffectSpell *CreateStarfall(Unit *caster)
 class Thundershock : public AreaOfEffectSpell
 {
 public:
-    Thundershock(Unit* caster) :
+    explicit Thundershock(Unit* caster) :
         AreaOfEffectSpell(caster, "Thundershock", 6, 0.0f, 6.0f, 1, 4)
     {}
 

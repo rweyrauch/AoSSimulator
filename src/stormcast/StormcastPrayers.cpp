@@ -14,7 +14,7 @@ namespace StormcastEternals
 class Sanction : public DamagePrayer
 {
 public:
-    Sanction(Unit* priest) :
+    explicit Sanction(Unit* priest) :
         DamagePrayer(priest, "Sanction", 4, 7.0f, RAND_D3) {}
 
 protected:
@@ -41,7 +41,7 @@ Prayer *CreateHealingStorm(Unit *priest)
 class LightningStorm : public DamagePrayer
 {
 public:
-    LightningStorm(Unit* priest) :
+    explicit LightningStorm(Unit* priest) :
         DamagePrayer(priest, "Lightning Storm", 3, 12.0f, RAND_D3) {}
 
 protected:

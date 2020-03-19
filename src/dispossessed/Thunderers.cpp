@@ -12,28 +12,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Thunderers::Create,
-    Thunderers::ValueToString,
-    Thunderers::EnumStringToInt,
-    Thunderers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Thunderers::MIN_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE,
-            Thunderers::MAX_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Veteran Weapon", Thunderers::DuardinHandgun, Thunderers::DuardinHandgun,
-            Thunderers::BraceOfDuardinPistols, 1
-        },
-        {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Standard", Thunderers::None, Thunderers::None, Thunderers::ClanBanner, 1},
-        {ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
 
 bool Thunderers::s_registered = false;
 
@@ -108,6 +86,28 @@ void Thunderers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Thunderers::Create,
+            Thunderers::ValueToString,
+            Thunderers::EnumStringToInt,
+            Thunderers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Thunderers::MIN_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE,
+                    Thunderers::MAX_UNIT_SIZE, Thunderers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Veteran Weapon", Thunderers::DuardinHandgun, Thunderers::DuardinHandgun,
+                    Thunderers::BraceOfDuardinPistols, 1
+                },
+                {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Standard", Thunderers::None, Thunderers::None, Thunderers::ClanBanner, 1},
+                {ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Thunderers", factoryMethod);
     }
 }

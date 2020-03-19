@@ -105,6 +105,8 @@ std::string ChaosLord::ValueToString(const Parameter &parameter)
             case Reaperblade: return "Reaperblade";
             case DaemonboundSteel: return "Daemonbound Steel";
             case DaemonboundWarFlail: return "Daemonbound War-flail";
+            default:
+                break;
         }
     }
     return SlavesToDarknessBase::ValueToString(parameter);

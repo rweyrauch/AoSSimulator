@@ -11,17 +11,6 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    Unforged::Create,
-    Dispossessed::ValueToString,
-    Dispossessed::EnumStringToInt,
-    Unforged::ComputePoints,
-    {
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
 
 bool Unforged::s_registered = false;
 
@@ -61,6 +50,17 @@ void Unforged::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Unforged::Create,
+            Dispossessed::ValueToString,
+            Dispossessed::EnumStringToInt,
+            Unforged::ComputePoints,
+            {
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Unforged", factoryMethod);
     }
 }

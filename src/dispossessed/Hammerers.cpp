@@ -13,24 +13,6 @@
 namespace Dispossessed
 {
 
-static FactoryMethod factoryMethod = {
-    Hammerers::Create,
-    Dispossessed::ValueToString,
-    Dispossessed::EnumStringToInt,
-    Hammerers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
-            Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
-
 bool Hammerers::s_registered = false;
 
 Hammerers::Hammerers() :
@@ -88,6 +70,23 @@ void Hammerers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Hammerers::Create,
+            Dispossessed::ValueToString,
+            Dispossessed::EnumStringToInt,
+            Hammerers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
+                    Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Hammerers", factoryMethod);
     }
 }

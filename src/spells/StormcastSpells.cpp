@@ -47,7 +47,7 @@ HealSpell *CreateHealingLight(Unit *caster)
 class PurifyingBlast : public Spell
 {
 public:
-    PurifyingBlast(Unit* caster);
+    explicit PurifyingBlast(Unit* caster);
 
     Result cast(Unit* target, int round) override;
     Result cast(float x, float y, int round) override  { return cast(nullptr, round); }

@@ -10,7 +10,6 @@
 #include <stormcast/EvocatorsOnDracolines.h>
 #include <iostream>
 #include <spells/Empower.h>
-#include <Board.h>
 
 namespace StormcastEternals
 {

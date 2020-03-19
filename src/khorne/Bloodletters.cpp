@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <khorne/Bloodletters.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace Khorne

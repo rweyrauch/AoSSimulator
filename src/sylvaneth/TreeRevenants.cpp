@@ -117,7 +117,7 @@ void TreeRevenants::onBeginTurn(int battleRound)
     m_missileRerollAvailable = true;
     m_battleshockRerollAvailable = true;
 
-    Unit::onBeginTurn(battleRound);
+    SylvanethBase::onBeginTurn(battleRound);
 }
 
 Rerolls TreeRevenants::runRerolls() const
@@ -127,7 +127,7 @@ Rerolls TreeRevenants::runRerolls() const
         m_moveRerollAvailable = false;
         return RerollFailed;
     }
-    return Unit::runRerolls();
+    return SylvanethBase::runRerolls();
 }
 
 Rerolls TreeRevenants::chargeRerolls() const
@@ -137,27 +137,27 @@ Rerolls TreeRevenants::chargeRerolls() const
         m_moveRerollAvailable = false;
         return RerollFailed;
     }
-    return Unit::chargeRerolls();
+    return SylvanethBase::chargeRerolls();
 }
 
 Rerolls TreeRevenants::battleshockRerolls() const
 {
-    return Unit::battleshockRerolls();
+    return SylvanethBase::battleshockRerolls();
 }
 
 Rerolls TreeRevenants::toSaveRerolls(const Weapon *weapon) const
 {
-    return Unit::toSaveRerolls(weapon);
+    return SylvanethBase::toSaveRerolls(weapon);
 }
 
 Rerolls TreeRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    return Unit::toHitRerolls(weapon, target);
+    return SylvanethBase::toHitRerolls(weapon, target);
 }
 
 Rerolls TreeRevenants::toWoundRerolls(const Weapon *weapon, const Unit *target) const
 {
-    return Unit::toWoundRerolls(weapon, target);
+    return SylvanethBase::toWoundRerolls(weapon, target);
 }
 
 int TreeRevenants::ComputePoints(int numModels)

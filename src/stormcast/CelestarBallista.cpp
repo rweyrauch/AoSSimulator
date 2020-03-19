@@ -10,7 +10,6 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
-#include <iostream>
 
 namespace StormcastEternals
 {
@@ -98,7 +97,7 @@ void CelestarBallista::onStartShooting(PlayerId player)
     if (nearestUnit)
     {
         float rangeTo = distanceTo(nearestUnit);
-        if (rangeTo < m_stormboltsRapid.range())
+        if (rangeTo < (float)m_stormboltsRapid.range())
         {
             m_stormboltsRapid.activate(true);
             m_stormboltsSingle.activate(false);

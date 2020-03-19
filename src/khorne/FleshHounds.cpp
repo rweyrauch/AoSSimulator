@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <khorne/FleshHounds.h>
 #include <UnitFactory.h>
-#include <iostream>
 
 namespace Khorne
 {
