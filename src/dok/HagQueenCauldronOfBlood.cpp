@@ -7,6 +7,7 @@
  */
 #include <dok/HagQueenCauldronOfBlood.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace DaughtersOfKhaine
 {
@@ -39,6 +40,13 @@ HagQueenOnCauldronOfBlood::HagQueenOnCauldronOfBlood() :
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, WITCH_AELVES, HAG_QUEEN, AVATAR_OF_KHAINE, CAULDRON_OF_BLOOD};
     m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_sword};
+
+    s_globalBraveryMod.connect(this, &HagQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
+}
+
+HagQueenOnCauldronOfBlood::~HagQueenOnCauldronOfBlood()
+{
+    m_idolSlot.disconnect();
 }
 
 bool HagQueenOnCauldronOfBlood::configure()
@@ -113,6 +121,26 @@ int HagQueenOnCauldronOfBlood::getDamageTableIndex() const
             return i;
         }
     }
+    return 0;
+}
+
+void HagQueenOnCauldronOfBlood::onCharged()
+{
+    Unit::onCharged();
+
+    // Bladed Impact
+    auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    if (unit && (distanceTo(unit) <= 1.0f))
+    {
+        if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
+    }
+}
+
+int HagQueenOnCauldronOfBlood::idolOfWorship(const Unit *unit)
+{
+    // Idol of Worship
+    if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
+
     return 0;
 }
 

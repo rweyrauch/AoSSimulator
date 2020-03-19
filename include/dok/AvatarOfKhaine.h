@@ -34,7 +34,7 @@ public:
 
 protected:
 
-    int idolOfWorship(const Unit*);
+    int idolOfWorship(const Unit* unit);
 
 private:
 

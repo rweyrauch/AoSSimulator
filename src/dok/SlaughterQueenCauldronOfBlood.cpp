@@ -7,6 +7,7 @@
  */
 #include <dok/SlaughterQueenCauldronOfBlood.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace DaughtersOfKhaine
 {
@@ -40,6 +41,16 @@ SlaughterQueenOnCauldronOfBlood::SlaughterQueenOnCauldronOfBlood() :
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, TOTEM, HERO, PRIEST, WITCH_AELVES, SLAUGHTER_QUEEN, AVATAR_OF_KHAINE, CAULDRON_OF_BLOOD};
     m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_deathsword, &m_sword};
+
+    // Pact of Blood
+    m_totalUnbinds = 1;
+
+    s_globalBraveryMod.connect(this, &SlaughterQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
+}
+
+SlaughterQueenOnCauldronOfBlood::~SlaughterQueenOnCauldronOfBlood()
+{
+    m_idolSlot.disconnect();
 }
 
 bool SlaughterQueenOnCauldronOfBlood::configure()
@@ -115,6 +126,26 @@ int SlaughterQueenOnCauldronOfBlood::getDamageTableIndex() const
             return i;
         }
     }
+    return 0;
+}
+
+void SlaughterQueenOnCauldronOfBlood::onCharged()
+{
+    Unit::onCharged();
+
+    // Bladed Impact
+    auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    if (unit && (distanceTo(unit) <= 1.0f))
+    {
+        if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
+    }
+}
+
+int SlaughterQueenOnCauldronOfBlood::idolOfWorship(const Unit *unit)
+{
+    // Idol of Worship
+    if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
+
     return 0;
 }
 

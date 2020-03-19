@@ -60,7 +60,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Paired Sacrificial Knives        Yes
-// Frenzied Fervour                 TODO
+// Frenzied Fervour                 Yes
 // Bladed Bucklers                  Yes
 //
 

@@ -38,8 +38,13 @@ public:
 protected:
 
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
+    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+    void onRestore() override;
 
 private:
+
+    int m_setupInRound = 0;
 
     Weapon m_barbedJavelinMissile,
         m_barbedJavelin,
@@ -54,7 +59,7 @@ private:
 // -------------------------------------------
 // Descend to Battle                TODO
 // Fight and Flight                 TODO
-// Death From Above                 TODO
+// Death From Above                 Partial/TODO
 // Heartpiercer Shield              Yes
 //
 

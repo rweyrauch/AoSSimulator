@@ -23,6 +23,9 @@ KhineraiHeartrenders::KhineraiHeartrenders() :
 {
     m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_HEARTRENDERS};
     m_weapons = {&m_barbedJavelinMissile, &m_barbedJavelin, &m_barbedJavelinShrykeMissile, &m_barbedJavelinShryke};
+
+    // Death From Above
+    m_runAndShoot = true;
 }
 
 bool KhineraiHeartrenders::configure(int numModels)
@@ -44,6 +47,8 @@ bool KhineraiHeartrenders::configure(int numModels)
         model->addMeleeWeapon(&m_barbedJavelin);
         addModel(model);
     }
+
+    m_setupInRound = 0;
 
     m_points = ComputePoints(numModels);
 
@@ -107,6 +112,30 @@ int KhineraiHeartrenders::ComputePoints(int numModels)
     }
     return points;
     return 0;
+}
+
+int KhineraiHeartrenders::toSaveModifier(const Weapon *weapon) const
+{
+    auto mod = Unit::toSaveModifier(weapon);
+
+    // Heartpiercer Shield
+    if (!weapon->isMissile()) mod++;
+
+    return mod;
+}
+
+int KhineraiHeartrenders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    // Death From Above
+    if ((m_setupInRound == m_battleRound) && weapon->isMissile() && (weapon->name() == m_barbedJavelinMissile.name())) return -2;
+    return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+void KhineraiHeartrenders::onRestore()
+{
+    Unit::onRestore();
+
+    m_setupInRound = 0;
 }
 
 } // namespace DaughtersOfKhaine

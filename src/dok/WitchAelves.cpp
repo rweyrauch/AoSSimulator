@@ -9,6 +9,7 @@
 #include <dok/WitchAelves.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 
 namespace DaughtersOfKhaine
 {
@@ -99,8 +100,20 @@ void WitchAelves::Init()
 
 int WitchAelves::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
 {
+    // Paired Sacrificial Knives
     int attacks = DaughterOfKhaine::extraAttacks(nullptr, weapon, target);
     if (m_pairedKnives) attacks++;
+
+    // Frenzied Fervour
+    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
+    for (auto unit : units)
+    {
+        if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && unit->hasKeyword(HERO))
+        {
+            attacks++;
+            break;
+        }
+    }
     return attacks;
 }
 

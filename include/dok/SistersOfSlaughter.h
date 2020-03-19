@@ -60,7 +60,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Dance of Death                   TODO
+// Dance of Death                   Yes
 // Bladed Bucklers                  Yes
 //
 

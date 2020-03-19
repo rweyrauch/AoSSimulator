@@ -40,6 +40,7 @@ protected:
     void onBeginTurn(int battleRound) override;
     void onCharged() override;
     Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+    int toSaveModifier(const Weapon *weapon) const override;
 
 private:
 

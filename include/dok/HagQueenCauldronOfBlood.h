@@ -28,7 +28,7 @@ public:
     static void Init();
 
     HagQueenOnCauldronOfBlood();
-    ~HagQueenOnCauldronOfBlood() override = default;
+    ~HagQueenOnCauldronOfBlood() override;
 
     bool configure();
 
@@ -36,6 +36,9 @@ protected:
 
     void onWounded() override;
     void onRestore() override;
+    void onCharged() override;
+
+    int idolOfWorship(const Unit* unit);
 
 private:
 
@@ -46,19 +49,21 @@ private:
         m_blade,
         m_sword;
 
+    lsignal::slot m_idolSlot;
+
     static bool s_registered;
 };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bladed Impact                    TODO
+// Bladed Impact                    Yes
 // Bloodshield                      TODO
 // Witchbrew                        TODO
 // Priestess of Khaine              TODO
 // Wrath of Khaine                  TODO
 // Animated                         TODO
-// Idol of Worship                  TODO
+// Idol of Worship                  Yes
 //
 
 } // namespace DaughtersOfKhaine

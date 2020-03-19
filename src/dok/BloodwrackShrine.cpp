@@ -8,6 +8,7 @@
 #include <dok/BloodwrackShrine.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 
 namespace DaughtersOfKhaine
 {
@@ -123,6 +124,34 @@ int BloodwrackShrine::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+void BloodwrackShrine::onCharged()
+{
+    Unit::onCharged();
+
+    // Bladed Impact
+    auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    if (unit && (distanceTo(unit) <= 1.0f))
+    {
+        if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
+    }
+}
+
+void BloodwrackShrine::onStartHero(PlayerId player)
+{
+    Unit::onStartHero(player);
+
+    // Aura of Agony
+    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 7.0f);
+    const int auraToHit = g_damageTable[getDamageTableIndex()].m_auraOfAgony;
+    for (auto unit : units)
+    {
+        if (Dice::rollD6() >= auraToHit)
+        {
+            unit->applyDamage({0, Dice::rollD3()});
+        }
+    }
 }
 
 } //namespace DaughtersOfKhaine

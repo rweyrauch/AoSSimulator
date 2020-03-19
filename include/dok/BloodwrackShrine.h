@@ -37,6 +37,9 @@ protected:
     void onWounded() override;
     void onRestore() override;
 
+    void onCharged() override;
+    void onStartHero(PlayerId player) override;
+
 private:
 
     int getDamageTableIndex() const;
@@ -53,9 +56,9 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bladed Impact                    TODO
+// Bladed Impact                    Yes
 // Bloodwrack Stare                 TODO
-// Aura of Agony                    TODO
+// Aura of Agony                    Yes
 // Enfeebling Foe                   TODO
 //
 

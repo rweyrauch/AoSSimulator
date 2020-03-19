@@ -23,6 +23,9 @@ SistersOfSlaughter::SistersOfSlaughter() :
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, SISTERS_OF_SLAUGHTER};
     m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHandmaiden, &m_barbedWhip, &m_barbedWhipHandmaiden};
+
+    // Dance of Death
+    m_pileInMove = 6.0f;
 }
 
 bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers)

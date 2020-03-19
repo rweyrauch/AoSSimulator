@@ -122,4 +122,14 @@ int KhineraiLifetakers::ComputePoints(int numModels)
     return points;
 }
 
+int KhineraiLifetakers::toSaveModifier(const Weapon *weapon) const
+{
+    auto mod = Unit::toSaveModifier(weapon);
+
+    // Heartpiercer Shield
+    if (!weapon->isMissile()) mod++;
+
+    return mod;
+}
+
 } // namespace DaughtersOfKhaine

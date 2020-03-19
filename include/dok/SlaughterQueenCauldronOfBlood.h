@@ -28,7 +28,7 @@ public:
     static void Init();
 
     SlaughterQueenOnCauldronOfBlood();
-    ~SlaughterQueenOnCauldronOfBlood() override = default;
+    ~SlaughterQueenOnCauldronOfBlood() override;
 
     bool configure();
 
@@ -36,6 +36,9 @@ protected:
 
     void onWounded() override;
     void onRestore() override;
+    void onCharged() override;
+
+    int idolOfWorship(const Unit* unit);
 
 private:
 
@@ -47,19 +50,21 @@ private:
         m_deathsword,
         m_sword;
 
+    lsignal::slot m_idolSlot;
+
     static bool s_registered;
 };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bladed Impact                    TODO
+// Bladed Impact                    Yes
 // Bloodshield                      TODO
-// Pact of Blood                    TODO
+// Pact of Blood                    Yes
 // Priestess of Khaine              TODO
 // Wrath of Khaine                  TODO
 // Animated                         TODO
-// Idol of Worship                  TODO
+// Idol of Worship                  Yes
 // Orgy of Slaughter                TODO
 //
 
