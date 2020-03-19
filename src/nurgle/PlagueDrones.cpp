@@ -12,23 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    PlagueDrones::Create,
-    PlagueDrones::ValueToString,
-    PlagueDrones::EnumStringToInt,
-    PlagueDrones::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", PlagueDrones::MIN_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE,
-            PlagueDrones::MAX_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", PlagueDrones::PrehensileProboscis, PlagueDrones::PrehensileProboscis, PlagueDrones::FoulMouthparts},
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Bell Tollers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool PlagueDrones::s_registered = false;
 
@@ -121,6 +104,23 @@ void PlagueDrones::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            PlagueDrones::Create,
+            PlagueDrones::ValueToString,
+            PlagueDrones::EnumStringToInt,
+            PlagueDrones::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", PlagueDrones::MIN_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE,
+                    PlagueDrones::MAX_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", PlagueDrones::PrehensileProboscis, PlagueDrones::PrehensileProboscis, PlagueDrones::FoulMouthparts},
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Bell Tollers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Plague Drones", factoryMethod);
     }
 }

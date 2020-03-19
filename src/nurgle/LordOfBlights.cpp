@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    LordOfBlights::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    LordOfBlights::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool LordOfBlights::s_registered = false;
 
@@ -40,6 +30,16 @@ void LordOfBlights::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LordOfBlights::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            LordOfBlights::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Lord of Blights", factoryMethod);
     }
 }

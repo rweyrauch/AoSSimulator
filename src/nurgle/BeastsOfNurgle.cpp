@@ -12,20 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    BeastsOfNurgle::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    BeastsOfNurgle::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BeastsOfNurgle::MIN_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE,
-            BeastsOfNurgle::MAX_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE
-        },
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool BeastsOfNurgle::s_registered = false;
 
@@ -80,6 +66,20 @@ void BeastsOfNurgle::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BeastsOfNurgle::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            BeastsOfNurgle::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BeastsOfNurgle::MIN_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE,
+                    BeastsOfNurgle::MAX_UNIT_SIZE, BeastsOfNurgle::MIN_UNIT_SIZE
+                },
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Beasts of Nurgle", factoryMethod);
     }
 }

@@ -10,17 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    ArchKavalosZandtos::Create,
-    ArchKavalosZandtos::ValueToString,
-    ArchKavalosZandtos::EnumStringToInt,
-    ArchKavalosZandtos::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool ArchKavalosZandtos::s_registered = false;
 
@@ -54,6 +43,17 @@ void ArchKavalosZandtos::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ArchKavalosZandtos::Create,
+            ArchKavalosZandtos::ValueToString,
+            ArchKavalosZandtos::EnumStringToInt,
+            ArchKavalosZandtos::ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Arch-Kavalos Zandtos", factoryMethod);
     }
 }

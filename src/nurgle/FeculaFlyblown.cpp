@@ -12,16 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    FeculaFlyblown::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    FeculaFlyblown::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool FeculaFlyblown::s_registered = false;
 
@@ -42,6 +32,16 @@ void Nurgle::FeculaFlyblown::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FeculaFlyblown::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            FeculaFlyblown::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Fecula Flyblown", factoryMethod);
     }
 }

@@ -10,17 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    LiegeKavalos::Create,
-    LiegeKavalos::ValueToString,
-    LiegeKavalos::EnumStringToInt,
-    LiegeKavalos::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool LiegeKavalos::s_registered = false;
 
@@ -54,6 +43,17 @@ void LiegeKavalos::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LiegeKavalos::Create,
+            LiegeKavalos::ValueToString,
+            LiegeKavalos::EnumStringToInt,
+            LiegeKavalos::ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Liege-Kavalos", factoryMethod);
     }
 }

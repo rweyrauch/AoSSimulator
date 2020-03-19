@@ -13,19 +13,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    GreatUncleanOne::Create,
-    GreatUncleanOne::ValueToString,
-    GreatUncleanOne::EnumStringToInt,
-    GreatUncleanOne::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon One", GreatUncleanOne::PlagueFlail, GreatUncleanOne::PlagueFlail, GreatUncleanOne::Bileblade},
-        {ParamType::Enum, "Weapon Two", GreatUncleanOne::MassiveBilesword, GreatUncleanOne::MassiveBilesword, GreatUncleanOne::DoomsdayBell},
-
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 struct TableEntry
 {
@@ -106,6 +93,19 @@ void GreatUncleanOne::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GreatUncleanOne::Create,
+            GreatUncleanOne::ValueToString,
+            GreatUncleanOne::EnumStringToInt,
+            GreatUncleanOne::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon One", GreatUncleanOne::PlagueFlail, GreatUncleanOne::PlagueFlail, GreatUncleanOne::Bileblade},
+                {ParamType::Enum, "Weapon Two", GreatUncleanOne::MassiveBilesword, GreatUncleanOne::MassiveBilesword, GreatUncleanOne::DoomsdayBell},
+
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Great Unclean One", factoryMethod);
     }
 }

@@ -11,26 +11,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    GorebeastChariots::Create,
-    GorebeastChariots::ValueToString,
-    GorebeastChariots::EnumStringToInt,
-    GorebeastChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GorebeastChariots::MIN_UNIT_SIZE, GorebeastChariots::MIN_UNIT_SIZE,
-            GorebeastChariots::MAX_UNIT_SIZE, GorebeastChariots::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", GorebeastChariots::GreatBladeAndWhip, GorebeastChariots::GreatBladeAndWhip,
-            GorebeastChariots::WarFlailAndWhip, 1
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool GorebeastChariots::s_registered = false;
 
@@ -59,6 +39,26 @@ void GorebeastChariots::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GorebeastChariots::Create,
+            GorebeastChariots::ValueToString,
+            GorebeastChariots::EnumStringToInt,
+            GorebeastChariots::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", GorebeastChariots::MIN_UNIT_SIZE, GorebeastChariots::MIN_UNIT_SIZE,
+                    GorebeastChariots::MAX_UNIT_SIZE, GorebeastChariots::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", GorebeastChariots::GreatBladeAndWhip, GorebeastChariots::GreatBladeAndWhip,
+                    GorebeastChariots::WarFlailAndWhip, 1
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
         s_registered = UnitFactory::Register("Gorebeast Chariots", factoryMethod);
     }
 }

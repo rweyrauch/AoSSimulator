@@ -13,20 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    TzaangorSkyfires::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    TzaangorSkyfires::ComputePoints,
-    {
-        {ParamType::Integer, "Models", TzaangorSkyfires::MIN_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE,
-         TzaangorSkyfires::MAX_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH, BEASTS_OF_CHAOS }
-};
-
 bool TzaangorSkyfires::s_registered = false;
 
 TzaangorSkyfires::TzaangorSkyfires() :
@@ -93,6 +79,19 @@ void TzaangorSkyfires::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TzaangorSkyfires::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            TzaangorSkyfires::ComputePoints,
+            {
+                {ParamType::Integer, "Models", TzaangorSkyfires::MIN_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE,
+                 TzaangorSkyfires::MAX_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE},
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH, BEASTS_OF_CHAOS }
+        };
         s_registered = UnitFactory::Register("Tzaangor Skyfires", factoryMethod);
     }
 }

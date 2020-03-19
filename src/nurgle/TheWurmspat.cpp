@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    TheWurmspat::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    TheWurmspat::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool TheWurmspat::s_registered = false;
 
@@ -41,6 +31,16 @@ void TheWurmspat::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TheWurmspat::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            TheWurmspat::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("The Wurmspat", factoryMethod);
     }
 }

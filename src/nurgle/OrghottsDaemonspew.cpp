@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    OrghottsDaemonspew::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    OrghottsDaemonspew::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool OrghottsDaemonspew::s_registered = false;
 
@@ -40,6 +30,16 @@ void OrghottsDaemonspew::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrghottsDaemonspew::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            OrghottsDaemonspew::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Orghotts Daemonspew", factoryMethod);
     }
 }

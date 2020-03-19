@@ -11,18 +11,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    ChaosLordOnKarkadrak::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    ChaosLordOnKarkadrak::ComputePoints,
-    {
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool ChaosLordOnKarkadrak::s_registered = false;
 
@@ -49,6 +37,18 @@ void ChaosLordOnKarkadrak::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ChaosLordOnKarkadrak::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            ChaosLordOnKarkadrak::ComputePoints,
+            {
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
         s_registered = UnitFactory::Register("Chaos Lord On Karkadrak", factoryMethod);
     }
 }

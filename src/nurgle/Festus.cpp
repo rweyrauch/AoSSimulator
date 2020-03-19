@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    FestusTheLeechlord::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    FestusTheLeechlord::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool FestusTheLeechlord::s_registered = false;
 
@@ -40,6 +30,16 @@ void FestusTheLeechlord::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FestusTheLeechlord::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            FestusTheLeechlord::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Festus the Leechlord", factoryMethod);
     }
 }

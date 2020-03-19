@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    HarbingerOfDecay::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    HarbingerOfDecay::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool HarbingerOfDecay::s_registered = false;
 
@@ -40,6 +30,16 @@ void HarbingerOfDecay::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HarbingerOfDecay::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            HarbingerOfDecay::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Harbinger of Decay", factoryMethod);
     }
 }

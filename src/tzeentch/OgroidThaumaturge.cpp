@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    OgroidThaumaturge::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    OgroidThaumaturge::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool OgroidThaumaturge::s_registered = false;
 
 Unit *OgroidThaumaturge::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void OgroidThaumaturge::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OgroidThaumaturge::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            OgroidThaumaturge::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Ogroid Thaumaturge", factoryMethod);
     }
 }

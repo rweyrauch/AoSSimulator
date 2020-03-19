@@ -11,17 +11,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    MortisanSoulreaper::Create,
-    MortisanSoulreaper::ValueToString,
-    MortisanSoulreaper::EnumStringToInt,
-    MortisanSoulreaper::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool MortisanSoulreaper::s_registered = false;
 
@@ -55,6 +44,17 @@ void MortisanSoulreaper::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MortisanSoulreaper::Create,
+            MortisanSoulreaper::ValueToString,
+            MortisanSoulreaper::EnumStringToInt,
+            MortisanSoulreaper::ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Mortisan Soulreaper", factoryMethod);
     }
 }

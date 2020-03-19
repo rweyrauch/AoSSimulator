@@ -12,21 +12,6 @@
 
 namespace Tzeentch
 {
-static FactoryMethod factoryMethod = {
-    BurningChariotsOfTzeentch::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    BurningChariotsOfTzeentch::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BurningChariotsOfTzeentch::MIN_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE,
-            BurningChariotsOfTzeentch::MAX_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
 
 bool BurningChariotsOfTzeentch::s_registered = false;
 
@@ -84,6 +69,21 @@ void BurningChariotsOfTzeentch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BurningChariotsOfTzeentch::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            BurningChariotsOfTzeentch::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BurningChariotsOfTzeentch::MIN_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE,
+                    BurningChariotsOfTzeentch::MAX_UNIT_SIZE, BurningChariotsOfTzeentch::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Burning Chariots of Tzeentch", factoryMethod);
     }
 }

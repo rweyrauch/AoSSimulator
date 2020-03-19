@@ -12,21 +12,6 @@
 
 namespace Tzeentch
 {
-static FactoryMethod factoryMethod = {
-    ScreamersOfTzeentch::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    ScreamersOfTzeentch::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ScreamersOfTzeentch::MIN_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE,
-            ScreamersOfTzeentch::MAX_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
 
 bool ScreamersOfTzeentch::s_registered = false;
 
@@ -78,6 +63,21 @@ void ScreamersOfTzeentch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ScreamersOfTzeentch::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            ScreamersOfTzeentch::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ScreamersOfTzeentch::MIN_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE,
+                    ScreamersOfTzeentch::MAX_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Screamers of Tzeentch", factoryMethod);
     }
 }

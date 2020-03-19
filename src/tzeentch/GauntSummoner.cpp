@@ -14,18 +14,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    GauntSummonerOfTzeentch::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    GauntSummonerOfTzeentch::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH, SLAVES_TO_DARKNESS }
-};
-
 bool GauntSummonerOfTzeentch::s_registered = false;
 
 Unit *GauntSummonerOfTzeentch::Create(const ParameterList &parameters)
@@ -48,6 +36,17 @@ void GauntSummonerOfTzeentch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GauntSummonerOfTzeentch::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            GauntSummonerOfTzeentch::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH, SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Gaunt Summoner of Tzeentch", factoryMethod);
     }
 }

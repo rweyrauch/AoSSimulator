@@ -10,21 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    CypherLords::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    CypherLords::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", CypherLords::MIN_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE,
-            CypherLords::MAX_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool CypherLords::s_registered = false;
 
@@ -49,6 +34,21 @@ void CypherLords::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            CypherLords::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            CypherLords::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", CypherLords::MIN_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE,
+                    CypherLords::MAX_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Cypher Lords", factoryMethod);
     }
 }

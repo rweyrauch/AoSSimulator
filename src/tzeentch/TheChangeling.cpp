@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    TheChangeling::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    TheChangeling::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool TheChangeling::s_registered = false;
 
 Unit *TheChangeling::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void TheChangeling::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TheChangeling::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            TheChangeling::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("The Changeling", factoryMethod);
     }
 }

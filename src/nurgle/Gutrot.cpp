@@ -11,17 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    GutrotSpume::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    GutrotSpume::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
-
 bool GutrotSpume::s_registered = false;
 
 Unit* GutrotSpume::Create(const ParameterList &parameters)
@@ -40,6 +29,16 @@ void GutrotSpume::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GutrotSpume::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            GutrotSpume::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Gutrot Spume", factoryMethod);
     }
 }

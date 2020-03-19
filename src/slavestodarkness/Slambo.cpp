@@ -10,17 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    Slambo::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    Slambo::ComputePoints,
-    {
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool Slambo::s_registered = false;
 
@@ -44,6 +33,17 @@ void Slambo::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Slambo::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            Slambo::ComputePoints,
+            {
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Slambo", factoryMethod);
     }
 }

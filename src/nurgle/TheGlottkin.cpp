@@ -13,16 +13,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    TheGlottkin::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    TheGlottkin::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 struct TableEntry
 {
@@ -91,6 +81,16 @@ void TheGlottkin::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TheGlottkin::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            TheGlottkin::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("The Glottkin", factoryMethod);
     }
 }

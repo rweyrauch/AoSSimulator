@@ -10,28 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    ChaosWarriors::Create,
-    ChaosWarriors::ValueToString,
-    ChaosWarriors::EnumStringToInt,
-    ChaosWarriors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChaosWarriors::MIN_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE,
-            ChaosWarriors::MAX_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", ChaosWarriors::HandWeaponAndShield, ChaosWarriors::HandWeaponAndShield,
-            ChaosWarriors::PairedHandWeapons, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool ChaosWarriors::s_registered = false;
 
@@ -62,6 +40,28 @@ void ChaosWarriors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ChaosWarriors::Create,
+            ChaosWarriors::ValueToString,
+            ChaosWarriors::EnumStringToInt,
+            ChaosWarriors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ChaosWarriors::MIN_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE,
+                    ChaosWarriors::MAX_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", ChaosWarriors::HandWeaponAndShield, ChaosWarriors::HandWeaponAndShield,
+                    ChaosWarriors::PairedHandWeapons, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
         s_registered = UnitFactory::Register("Chaos Warriors", factoryMethod);
     }
 }

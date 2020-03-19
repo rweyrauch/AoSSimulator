@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    MagisterOnDiscOfTzeentch::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    MagisterOnDiscOfTzeentch::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool MagisterOnDiscOfTzeentch::s_registered = false;
 
 Unit *MagisterOnDiscOfTzeentch::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void MagisterOnDiscOfTzeentch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MagisterOnDiscOfTzeentch::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            MagisterOnDiscOfTzeentch::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Magister on Disc of Tzeentch", factoryMethod);
     }
 }

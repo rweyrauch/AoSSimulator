@@ -12,28 +12,6 @@
 
 namespace Tzeentch
 {
-static FactoryMethod factoryMethod = {
-    KairicAcolytes::Create,
-    KairicAcolytes::ValueToString,
-    KairicAcolytes::EnumStringToInt,
-    KairicAcolytes::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", KairicAcolytes::MIN_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE,
-            KairicAcolytes::MAX_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", KairicAcolytes::CursedBlade, KairicAcolytes::CursedBlade,
-            KairicAcolytes::CursedBladeAndShield, 1
-        },
-        {ParamType::Integer, "Cursed Glaives", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
-        {ParamType::Integer, "Scrolls Of Dark Arts", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Vulcharcs", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
 
 bool KairicAcolytes::s_registered = false;
 
@@ -116,6 +94,28 @@ void KairicAcolytes::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            KairicAcolytes::Create,
+            KairicAcolytes::ValueToString,
+            KairicAcolytes::EnumStringToInt,
+            KairicAcolytes::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", KairicAcolytes::MIN_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE,
+                    KairicAcolytes::MAX_UNIT_SIZE, KairicAcolytes::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", KairicAcolytes::CursedBlade, KairicAcolytes::CursedBlade,
+                    KairicAcolytes::CursedBladeAndShield, 1
+                },
+                {ParamType::Integer, "Cursed Glaives", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE*3, 1},
+                {ParamType::Integer, "Scrolls Of Dark Arts", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Vulcharcs", 0, 0, KairicAcolytes::MAX_UNIT_SIZE/KairicAcolytes::MIN_UNIT_SIZE, 1},
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Kairic Acolytes", factoryMethod);
     }
 }

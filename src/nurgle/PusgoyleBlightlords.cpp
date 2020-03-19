@@ -12,21 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    PusgoyleBlightlords::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    PusgoyleBlightlords::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", PusgoyleBlightlords::MIN_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE,
-            PusgoyleBlightlords::MAX_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE
-        },
-        {ParamType::Integer, "Dolorous Tocsin", 0, 0, PusgoyleBlightlords::MAX_UNIT_SIZE/2},
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool PusgoyleBlightlords::s_registered = false;
 
@@ -90,6 +75,21 @@ void PusgoyleBlightlords::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            PusgoyleBlightlords::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            PusgoyleBlightlords::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", PusgoyleBlightlords::MIN_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE,
+                    PusgoyleBlightlords::MAX_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE
+                },
+                {ParamType::Integer, "Dolorous Tocsin", 0, 0, PusgoyleBlightlords::MAX_UNIT_SIZE/2},
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Pusgoyle Blightlords", factoryMethod);
     }
 }

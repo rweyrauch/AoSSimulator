@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    EpidemiusTallymanOfNurgle::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    EpidemiusTallymanOfNurgle::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool EpidemiusTallymanOfNurgle::s_registered = false;
 
@@ -40,6 +30,16 @@ void EpidemiusTallymanOfNurgle::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            EpidemiusTallymanOfNurgle::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            EpidemiusTallymanOfNurgle::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Epidemius, Tallyman of Nurgle", factoryMethod);
     }
 }

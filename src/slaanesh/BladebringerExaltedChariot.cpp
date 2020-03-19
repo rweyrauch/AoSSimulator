@@ -13,17 +13,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    BladebringerOnExaltedChariot::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    BladebringerOnExaltedChariot::ComputePoints,
-    {
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool BladebringerOnExaltedChariot::s_registered = false;
 
@@ -73,6 +62,17 @@ void BladebringerOnExaltedChariot::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BladebringerOnExaltedChariot::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            BladebringerOnExaltedChariot::ComputePoints,
+            {
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Bladebringer, Herald on Exalted Chariot", factoryMethod);
     }
 }

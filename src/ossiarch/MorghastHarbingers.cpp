@@ -10,24 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    MorghastHarbingers::Create,
-    MorghastHarbingers::ValueToString,
-    MorghastHarbingers::EnumStringToInt,
-    MorghastHarbingers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MAX_UNIT_SIZE,
-            MorghastHarbingers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1
-        },
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool MorghastHarbingers::s_registered = false;
 
@@ -108,6 +90,24 @@ void MorghastHarbingers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MorghastHarbingers::Create,
+            MorghastHarbingers::ValueToString,
+            MorghastHarbingers::EnumStringToInt,
+            MorghastHarbingers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MAX_UNIT_SIZE,
+                    MorghastHarbingers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1
+                },
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Morghast Harbingers", factoryMethod);
     }
 }

@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    Fateskimmer::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    Fateskimmer::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool Fateskimmer::s_registered = false;
 
 Unit *Fateskimmer::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void Fateskimmer::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Fateskimmer::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            Fateskimmer::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Fateskimmer", factoryMethod);
     }
 }

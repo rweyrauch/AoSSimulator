@@ -13,20 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    TzaangorEnlightenedOnDisks::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    TzaangorEnlightenedOnDisks::ComputePoints,
-    {
-        {ParamType::Integer, "Models", TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE,
-         TzaangorEnlightenedOnDisks::MAX_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH, BEASTS_OF_CHAOS }
-};
-
 bool TzaangorEnlightenedOnDisks::s_registered = false;
 
 TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks() :
@@ -90,6 +76,19 @@ void TzaangorEnlightenedOnDisks::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TzaangorEnlightenedOnDisks::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            TzaangorEnlightenedOnDisks::ComputePoints,
+            {
+                {ParamType::Integer, "Models", TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE,
+                 TzaangorEnlightenedOnDisks::MAX_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE},
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH, BEASTS_OF_CHAOS }
+        };
         s_registered = UnitFactory::Register("Tzaangor Enlightened on Disks", factoryMethod);
     }
 }

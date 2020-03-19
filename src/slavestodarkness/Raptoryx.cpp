@@ -10,21 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    Raptoryx::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    Raptoryx::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Raptoryx::MIN_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE,
-            Raptoryx::MAX_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool Raptoryx::s_registered = false;
 
@@ -49,6 +34,21 @@ void Raptoryx::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Raptoryx::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            Raptoryx::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Raptoryx::MIN_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE,
+                    Raptoryx::MAX_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Raptoryx", factoryMethod);
     }
 }

@@ -10,21 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    SplinteredFang::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    SplinteredFang::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SplinteredFang::MIN_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE,
-            SplinteredFang::MAX_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool SplinteredFang::s_registered = false;
 
@@ -49,6 +34,21 @@ void SplinteredFang::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SplinteredFang::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            SplinteredFang::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SplinteredFang::MIN_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE,
+                    SplinteredFang::MAX_UNIT_SIZE, SplinteredFang::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Splintered Fang", factoryMethod);
     }
 }

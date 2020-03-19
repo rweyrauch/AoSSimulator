@@ -13,23 +13,6 @@
 namespace Wanderers
 {
 
-static FactoryMethod factoryMethod = {
-    GladeGuard::Create,
-    nullptr,
-    nullptr,
-    GladeGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GladeGuard::MIN_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE,
-            GladeGuard::MAX_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Pennant Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    ORDER,
-    { WANDERER }
-};
-
 bool GladeGuard::s_registered = false;
 
 GladeGuard::GladeGuard() :
@@ -90,6 +73,22 @@ void GladeGuard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GladeGuard::Create,
+            nullptr,
+            nullptr,
+            GladeGuard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", GladeGuard::MIN_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE,
+                    GladeGuard::MAX_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Pennant Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            ORDER,
+            { WANDERER }
+        };
         s_registered = UnitFactory::Register("Glade Guard", factoryMethod);
     }
 }

@@ -13,16 +13,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    Rotigus::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    Rotigus::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 struct TableEntry
 {
@@ -90,6 +80,16 @@ void Rotigus::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Rotigus::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            Rotigus::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Rotigus", factoryMethod);
     }
 }

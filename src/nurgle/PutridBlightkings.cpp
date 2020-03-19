@@ -12,22 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    PutridBlightkings::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    PutridBlightkings::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", PutridBlightkings::MIN_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE,
-            PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Sonorous Tocsin", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool PutridBlightkings::s_registered = false;
 
@@ -86,6 +70,22 @@ void PutridBlightkings::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            PutridBlightkings::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            PutridBlightkings::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", PutridBlightkings::MIN_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE,
+                    PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Sonorous Tocsin", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Putrid Blightkings", factoryMethod);
     }
 }

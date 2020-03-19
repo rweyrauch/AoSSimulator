@@ -10,21 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    Furies::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    Furies::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Furies::MIN_UNIT_SIZE, Furies::MIN_UNIT_SIZE,
-            Furies::MAX_UNIT_SIZE, Furies::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool Furies::s_registered = false;
 
@@ -49,6 +34,21 @@ void Furies::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Furies::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            Furies::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Furies::MIN_UNIT_SIZE, Furies::MIN_UNIT_SIZE,
+                    Furies::MAX_UNIT_SIZE, Furies::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Furies", factoryMethod);
     }
 }

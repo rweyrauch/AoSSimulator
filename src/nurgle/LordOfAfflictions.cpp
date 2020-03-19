@@ -12,16 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    LordOfAfflictions::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    LordOfAfflictions::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool LordOfAfflictions::s_registered = false;
 
@@ -41,6 +31,16 @@ void LordOfAfflictions::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LordOfAfflictions::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            LordOfAfflictions::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Lord of Afflictions", factoryMethod);
     }
 }

@@ -10,21 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    ImmortisGuard::Create,
-    ImmortisGuard::ValueToString,
-    ImmortisGuard::EnumStringToInt,
-    ImmortisGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ImmortisGuard::MIN_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE,
-            ImmortisGuard::MAX_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool ImmortisGuard::s_registered = false;
 
@@ -60,6 +45,21 @@ void ImmortisGuard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ImmortisGuard::Create,
+            ImmortisGuard::ValueToString,
+            ImmortisGuard::EnumStringToInt,
+            ImmortisGuard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ImmortisGuard::MIN_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE,
+                    ImmortisGuard::MAX_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Immortis Guard", factoryMethod);
     }
 }

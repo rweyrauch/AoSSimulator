@@ -11,22 +11,6 @@
 
 namespace Wanderers
 {
-static FactoryMethod factoryMethod = {
-    WildwoodRangers::Create,
-    nullptr,
-    nullptr,
-    WildwoodRangers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", WildwoodRangers::MIN_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE,
-            WildwoodRangers::MAX_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    ORDER,
-    { WANDERER }
-};
 
 bool WildwoodRangers::s_registered = false;
 
@@ -85,6 +69,22 @@ void WildwoodRangers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            WildwoodRangers::Create,
+            nullptr,
+            nullptr,
+            WildwoodRangers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", WildwoodRangers::MIN_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE,
+                    WildwoodRangers::MAX_UNIT_SIZE, WildwoodRangers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            ORDER,
+            { WANDERER }
+        };
         s_registered = UnitFactory::Register("Wildwood Rangers", factoryMethod);
     }
 }

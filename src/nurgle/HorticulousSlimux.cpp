@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    HorticulousSlimux::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    HorticulousSlimux::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool HorticulousSlimux::s_registered = false;
 
@@ -40,6 +30,16 @@ void HorticulousSlimux::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HorticulousSlimux::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            HorticulousSlimux::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Horticulous Slimux", factoryMethod);
     }
 }

@@ -12,18 +12,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    ShalaxiHelbane::Create,
-    ShalaxiHelbane::ValueToString,
-    ShalaxiHelbane::EnumStringToInt,
-    ShalaxiHelbane::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", ShalaxiHelbane::LivingWhip, ShalaxiHelbane::LivingWhip, ShalaxiHelbane::ShiningAegis, 1},
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 struct TableEntry
 {
@@ -99,6 +87,18 @@ void ShalaxiHelbane::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ShalaxiHelbane::Create,
+            ShalaxiHelbane::ValueToString,
+            ShalaxiHelbane::EnumStringToInt,
+            ShalaxiHelbane::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", ShalaxiHelbane::LivingWhip, ShalaxiHelbane::LivingWhip, ShalaxiHelbane::ShiningAegis, 1},
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Shalaxi Helbane", factoryMethod);
     }
 }

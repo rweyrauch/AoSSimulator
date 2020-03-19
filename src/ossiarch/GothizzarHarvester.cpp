@@ -10,18 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    GothizzarHarvester::Create,
-    GothizzarHarvester::ValueToString,
-    GothizzarHarvester::EnumStringToInt,
-    GothizzarHarvester::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", GothizzarHarvester::Sickles, GothizzarHarvester::Sickles, GothizzarHarvester::Bludgeons, 1},
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 struct TableEntry
 {
@@ -82,6 +70,18 @@ void GothizzarHarvester::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GothizzarHarvester::Create,
+            GothizzarHarvester::ValueToString,
+            GothizzarHarvester::EnumStringToInt,
+            GothizzarHarvester::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", GothizzarHarvester::Sickles, GothizzarHarvester::Sickles, GothizzarHarvester::Bludgeons, 1},
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Gothizzar Harvester", factoryMethod);
     }
 }

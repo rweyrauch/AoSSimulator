@@ -10,24 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    MorghastArchai::Create,
-    MorghastArchai::ValueToString,
-    MorghastArchai::EnumStringToInt,
-    MorghastArchai::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MAX_UNIT_SIZE,
-            MorghastArchai::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", MorghastArchai::SpiritHalberd, MorghastArchai::SpiritHalberd, MorghastArchai::SpiritSwords, 1
-        },
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool MorghastArchai::s_registered = false;
 
@@ -110,6 +92,24 @@ void MorghastArchai::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MorghastArchai::Create,
+            MorghastArchai::ValueToString,
+            MorghastArchai::EnumStringToInt,
+            MorghastArchai::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MAX_UNIT_SIZE,
+                    MorghastArchai::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", MorghastArchai::SpiritHalberd, MorghastArchai::SpiritHalberd, MorghastArchai::SpiritSwords, 1
+                },
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Morghast Archai", factoryMethod);
     }
 }

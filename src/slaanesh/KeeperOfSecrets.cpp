@@ -13,18 +13,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    KeeperOfSecrets::Create,
-    KeeperOfSecrets::ValueToString,
-    KeeperOfSecrets::EnumStringToInt,
-    KeeperOfSecrets::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", KeeperOfSecrets::RitualKnife, KeeperOfSecrets::RitualKnife, KeeperOfSecrets::ShiningAegis, 1},
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 struct TableEntry
 {
@@ -104,6 +92,18 @@ void KeeperOfSecrets::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            KeeperOfSecrets::Create,
+            KeeperOfSecrets::ValueToString,
+            KeeperOfSecrets::EnumStringToInt,
+            KeeperOfSecrets::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", KeeperOfSecrets::RitualKnife, KeeperOfSecrets::RitualKnife, KeeperOfSecrets::ShiningAegis, 1},
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Keeper of Secrets", factoryMethod);
     }
 }

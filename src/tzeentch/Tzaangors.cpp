@@ -12,29 +12,6 @@
 
 namespace Tzeentch
 {
-static FactoryMethod factoryMethod = {
-    Tzaangors::Create,
-    Tzaangors::ValueToString,
-    Tzaangors::EnumStringToInt,
-    Tzaangors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Tzaangors::MIN_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE,
-            Tzaangors::MAX_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Tzaangors::PairedSavageBlades, Tzaangors::PairedSavageBlades,
-            Tzaangors::SavageBladeAndShield, 1
-        },
-        {ParamType::Integer, "Greatblades", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE*2, 1},
-        {ParamType::Integer, "Mutants", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE, 1},
-        {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
-        {ParamType::Boolean, "Brayhorns", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH, BEASTS_OF_CHAOS }
-};
 
 bool Tzaangors::s_registered = false;
 
@@ -134,6 +111,29 @@ void Tzaangors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Tzaangors::Create,
+            Tzaangors::ValueToString,
+            Tzaangors::EnumStringToInt,
+            Tzaangors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Tzaangors::MIN_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE,
+                    Tzaangors::MAX_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Tzaangors::PairedSavageBlades, Tzaangors::PairedSavageBlades,
+                    Tzaangors::SavageBladeAndShield, 1
+                },
+                {ParamType::Integer, "Greatblades", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE*2, 1},
+                {ParamType::Integer, "Mutants", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE, 1},
+                {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
+                {ParamType::Boolean, "Brayhorns", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH, BEASTS_OF_CHAOS }
+        };
         s_registered = UnitFactory::Register("Tzaangors", factoryMethod);
     }
 }

@@ -10,17 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    DarkoathWarqueen::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    DarkoathWarqueen::ComputePoints,
-    {
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
 
 bool DarkoathWarqueen::s_registered = false;
 
@@ -44,6 +33,17 @@ void DarkoathWarqueen::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DarkoathWarqueen::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            DarkoathWarqueen::ComputePoints,
+            {
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
         s_registered = UnitFactory::Register("Darkoath Warqueen", factoryMethod);
     }
 }

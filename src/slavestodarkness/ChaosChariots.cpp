@@ -11,26 +11,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    ChaosChariots::Create,
-    ChaosChariots::ValueToString,
-    ChaosChariots::EnumStringToInt,
-    ChaosChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChaosChariots::MIN_UNIT_SIZE, ChaosChariots::MIN_UNIT_SIZE,
-            ChaosChariots::MAX_UNIT_SIZE, ChaosChariots::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", ChaosChariots::GreatBladeAndWhip, ChaosChariots::GreatBladeAndWhip,
-            ChaosChariots::WarFlailAndWhip, 1
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-        {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-};
 
 bool ChaosChariots::s_registered = false;
 
@@ -59,6 +39,26 @@ void ChaosChariots::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ChaosChariots::Create,
+            ChaosChariots::ValueToString,
+            ChaosChariots::EnumStringToInt,
+            ChaosChariots::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ChaosChariots::MIN_UNIT_SIZE, ChaosChariots::MIN_UNIT_SIZE,
+                    ChaosChariots::MAX_UNIT_SIZE, ChaosChariots::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", ChaosChariots::GreatBladeAndWhip, ChaosChariots::GreatBladeAndWhip,
+                    ChaosChariots::WarFlailAndWhip, 1
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
+        };
         s_registered = UnitFactory::Register("Chaos Chariots", factoryMethod);
     }
 }

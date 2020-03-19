@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    TzaangorShaman::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    TzaangorShaman::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH, BEASTS_OF_CHAOS }
-};
-
 bool TzaangorShaman::s_registered = false;
 
 Unit *TzaangorShaman::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void TzaangorShaman::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TzaangorShaman::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            TzaangorShaman::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH, BEASTS_OF_CHAOS }
+        };
         s_registered = UnitFactory::Register("Tzaangor Shaman", factoryMethod);
     }
 }

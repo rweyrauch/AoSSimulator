@@ -13,17 +13,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    TheContortedEpitome::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    TheContortedEpitome::ComputePoints,
-    {
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool TheContortedEpitome::s_registered = false;
 
@@ -71,6 +60,17 @@ void TheContortedEpitome::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TheContortedEpitome::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            TheContortedEpitome::ComputePoints,
+            {
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("The Contorted Epitome", factoryMethod);
     }
 }

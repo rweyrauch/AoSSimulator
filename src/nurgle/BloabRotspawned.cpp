@@ -12,17 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    BloabRotspawned::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    BloabRotspawned::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
-
 bool BloabRotspawned::s_registered = false;
 
 Unit* BloabRotspawned::Create(const ParameterList &parameters)
@@ -41,6 +30,16 @@ void BloabRotspawned::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BloabRotspawned::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            BloabRotspawned::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Bloab Rotspawned", factoryMethod);
     }
 }

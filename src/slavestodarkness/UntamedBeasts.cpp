@@ -10,22 +10,6 @@
 
 namespace SlavesToDarkness
 {
-static FactoryMethod factoryMethod = {
-    UntamedBeasts::Create,
-    SlavesToDarknessBase::ValueToString,
-    SlavesToDarknessBase::EnumStringToInt,
-    UntamedBeasts::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", UntamedBeasts::MIN_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE,
-            UntamedBeasts::MAX_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-    },
-    CHAOS,
-    { SLAVES_TO_DARKNESS }
-};
-
 bool UntamedBeasts::s_registered = false;
 
 Unit *UntamedBeasts::Create(const ParameterList &parameters)
@@ -49,6 +33,22 @@ void UntamedBeasts::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            UntamedBeasts::Create,
+            SlavesToDarknessBase::ValueToString,
+            SlavesToDarknessBase::EnumStringToInt,
+            UntamedBeasts::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", UntamedBeasts::MIN_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE,
+                    UntamedBeasts::MAX_UNIT_SIZE, UntamedBeasts::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+            },
+            CHAOS,
+            { SLAVES_TO_DARKNESS }
+        };
+
         s_registered = UnitFactory::Register("Untamed Beasts", factoryMethod);
     }
 }

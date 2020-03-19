@@ -12,22 +12,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    Plaguebearers::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    Plaguebearers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Plaguebearers::MIN_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE,
-            Plaguebearers::MAX_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Piper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool Plaguebearers::s_registered = false;
 
@@ -87,6 +71,22 @@ void Plaguebearers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Plaguebearers::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            Plaguebearers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Plaguebearers::MIN_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE,
+                    Plaguebearers::MAX_UNIT_SIZE, Plaguebearers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Piper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Plaguebearers", factoryMethod);
     }
 }

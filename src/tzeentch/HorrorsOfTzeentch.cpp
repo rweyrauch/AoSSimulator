@@ -12,23 +12,6 @@
 
 namespace Tzeentch
 {
-static FactoryMethod factoryMethod = {
-    HorrorsOfTzeentch::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    HorrorsOfTzeentch::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", HorrorsOfTzeentch::MIN_UNIT_SIZE, HorrorsOfTzeentch::MIN_UNIT_SIZE,
-            HorrorsOfTzeentch::MAX_UNIT_SIZE, HorrorsOfTzeentch::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
 
 bool HorrorsOfTzeentch::s_registered = false;
 
@@ -106,6 +89,23 @@ void HorrorsOfTzeentch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HorrorsOfTzeentch::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            HorrorsOfTzeentch::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", HorrorsOfTzeentch::MIN_UNIT_SIZE, HorrorsOfTzeentch::MIN_UNIT_SIZE,
+                    HorrorsOfTzeentch::MAX_UNIT_SIZE, HorrorsOfTzeentch::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Horrors of Tzeentch", factoryMethod);
     }
 }

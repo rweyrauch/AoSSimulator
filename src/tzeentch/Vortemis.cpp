@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    VortemisTheAllSeeing::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    VortemisTheAllSeeing::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool VortemisTheAllSeeing::s_registered = false;
 
 Unit *VortemisTheAllSeeing::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void VortemisTheAllSeeing::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            VortemisTheAllSeeing::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            VortemisTheAllSeeing::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Vortemis the All-seeing", factoryMethod);
     }
 }

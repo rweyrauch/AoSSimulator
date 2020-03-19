@@ -10,17 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    OrpheonKatakros::Create,
-    OrpheonKatakros::ValueToString,
-    OrpheonKatakros::EnumStringToInt,
-    OrpheonKatakros::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool OrpheonKatakros::s_registered = false;
 
@@ -54,6 +43,17 @@ void OrpheonKatakros::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrpheonKatakros::Create,
+            OrpheonKatakros::ValueToString,
+            OrpheonKatakros::EnumStringToInt,
+            OrpheonKatakros::ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Orpheon Katakros", factoryMethod);
     }
 }

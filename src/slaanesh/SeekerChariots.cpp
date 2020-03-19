@@ -12,21 +12,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    SeekerChariots::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    SeekerChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SeekerChariots::MIN_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE,
-            SeekerChariots::MAX_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool SeekerChariots::s_registered = false;
 
@@ -82,6 +67,21 @@ void SeekerChariots::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SeekerChariots::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            SeekerChariots::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SeekerChariots::MIN_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE,
+                    SeekerChariots::MAX_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Seeker Chariots", factoryMethod);
     }
 }

@@ -10,23 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    KavalosDeathriders::Create,
-    KavalosDeathriders::ValueToString,
-    KavalosDeathriders::EnumStringToInt,
-    KavalosDeathriders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", KavalosDeathriders::MIN_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE,
-            KavalosDeathriders::MAX_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool KavalosDeathriders::s_registered = false;
 
@@ -78,6 +61,23 @@ void KavalosDeathriders::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            KavalosDeathriders::Create,
+            KavalosDeathriders::ValueToString,
+            KavalosDeathriders::EnumStringToInt,
+            KavalosDeathriders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", KavalosDeathriders::MIN_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE,
+                    KavalosDeathriders::MAX_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Kavalos Deathriders", factoryMethod);
     }
 }

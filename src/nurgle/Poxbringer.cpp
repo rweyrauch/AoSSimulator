@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    PoxbringerHeraldOfNurgle::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    PoxbringerHeraldOfNurgle::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool PoxbringerHeraldOfNurgle::s_registered = false;
 
@@ -40,6 +30,16 @@ void PoxbringerHeraldOfNurgle::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            PoxbringerHeraldOfNurgle::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            PoxbringerHeraldOfNurgle::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Poxbringer, Herald of Nurgle", factoryMethod);
     }
 }

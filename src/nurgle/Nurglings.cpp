@@ -11,20 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    Nurglings::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    Nurglings::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Nurglings::MIN_UNIT_SIZE, Nurglings::MIN_UNIT_SIZE,
-            Nurglings::MAX_UNIT_SIZE, Nurglings::MIN_UNIT_SIZE
-        },
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool Nurglings::s_registered = false;
 
@@ -73,6 +59,20 @@ void Nurglings::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Nurglings::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            Nurglings::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Nurglings::MIN_UNIT_SIZE, Nurglings::MIN_UNIT_SIZE,
+                    Nurglings::MAX_UNIT_SIZE, Nurglings::MIN_UNIT_SIZE
+                },
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Nurglings", factoryMethod);
     }
 }

@@ -13,17 +13,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    ViceleaderHeraldOfSlaanesh::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    ViceleaderHeraldOfSlaanesh::ComputePoints,
-    {
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool ViceleaderHeraldOfSlaanesh::s_registered = false;
 
@@ -72,6 +61,17 @@ void ViceleaderHeraldOfSlaanesh::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ViceleaderHeraldOfSlaanesh::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            ViceleaderHeraldOfSlaanesh::ComputePoints,
+            {
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Viceleader Herald of Slaanesh", factoryMethod);
     }
 }

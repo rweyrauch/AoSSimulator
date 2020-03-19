@@ -10,22 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    NecropolisStalkers::Create,
-    NecropolisStalkers::ValueToString,
-    NecropolisStalkers::EnumStringToInt,
-    NecropolisStalkers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", NecropolisStalkers::MIN_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE,
-            NecropolisStalkers::MAX_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE
-        },
-        {ParamType::Integer, "Dread Falchions", 1, 0, NecropolisStalkers::MAX_UNIT_SIZE/3, 1},
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 bool NecropolisStalkers::s_registered = false;
 
@@ -62,6 +46,22 @@ void NecropolisStalkers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            NecropolisStalkers::Create,
+            NecropolisStalkers::ValueToString,
+            NecropolisStalkers::EnumStringToInt,
+            NecropolisStalkers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", NecropolisStalkers::MIN_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE,
+                    NecropolisStalkers::MAX_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE
+                },
+                {ParamType::Integer, "Dread Falchions", 1, 0, NecropolisStalkers::MAX_UNIT_SIZE/3, 1},
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Necropolis Stalkers", factoryMethod);
     }
 }

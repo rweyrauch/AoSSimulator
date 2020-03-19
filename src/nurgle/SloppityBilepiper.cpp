@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    SloppityBilepiperHeraldOfNurgle::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    SloppityBilepiperHeraldOfNurgle::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool SloppityBilepiperHeraldOfNurgle::s_registered = false;
 
@@ -40,6 +30,16 @@ void SloppityBilepiperHeraldOfNurgle::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SloppityBilepiperHeraldOfNurgle::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            SloppityBilepiperHeraldOfNurgle::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Sloppity Bilepiper, Herald of Nurgle", factoryMethod);
     }
 }

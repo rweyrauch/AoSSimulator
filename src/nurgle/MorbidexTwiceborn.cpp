@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    MorbidexTwiceborn::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    MorbidexTwiceborn::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool MorbidexTwiceborn::s_registered = false;
 
@@ -40,6 +30,16 @@ void MorbidexTwiceborn::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MorbidexTwiceborn::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            MorbidexTwiceborn::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Morbidex Twiceborn", factoryMethod);
     }
 }

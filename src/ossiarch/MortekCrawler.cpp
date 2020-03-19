@@ -10,17 +10,6 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    MortekCrawler::Create,
-    MortekCrawler::ValueToString,
-    MortekCrawler::EnumStringToInt,
-    MortekCrawler::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 struct TableEntry
 {
@@ -72,6 +61,17 @@ void MortekCrawler::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MortekCrawler::Create,
+            MortekCrawler::ValueToString,
+            MortekCrawler::EnumStringToInt,
+            MortekCrawler::ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
         s_registered = UnitFactory::Register("Mortek Crawler", factoryMethod);
     }
 }

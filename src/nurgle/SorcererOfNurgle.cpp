@@ -11,16 +11,6 @@
 
 namespace Nurgle
 {
-static FactoryMethod factoryMethod = {
-    SorcererOfNurgle::Create,
-    NurgleBase::ValueToString,
-    NurgleBase::EnumStringToInt,
-    SorcererOfNurgle::ComputePoints,
-    {
-    },
-    CHAOS,
-    { NURGLE }
-};
 
 bool SorcererOfNurgle::s_registered = false;
 
@@ -41,6 +31,16 @@ void SorcererOfNurgle::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SorcererOfNurgle::Create,
+            NurgleBase::ValueToString,
+            NurgleBase::EnumStringToInt,
+            SorcererOfNurgle::ComputePoints,
+            {
+            },
+            CHAOS,
+            { NURGLE }
+        };
         s_registered = UnitFactory::Register("Sorcerer of Nurgle", factoryMethod);
     }
 }

@@ -13,17 +13,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    InfernalEnrapturess::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    InfernalEnrapturess::ComputePoints,
-    {
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool InfernalEnrapturess::s_registered = false;
 
@@ -70,6 +59,17 @@ void InfernalEnrapturess::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            InfernalEnrapturess::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            InfernalEnrapturess::ComputePoints,
+            {
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Infernal Enrapturess Herald of Slaanesh", factoryMethod);
     }
 }

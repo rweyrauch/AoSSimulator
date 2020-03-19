@@ -13,20 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    TzaangorEnlightened::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    TzaangorEnlightened::ComputePoints,
-    {
-        {ParamType::Integer, "Models", TzaangorEnlightened::MIN_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE,
-         TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH, BEASTS_OF_CHAOS }
-};
-
 bool TzaangorEnlightened::s_registered = false;
 
 TzaangorEnlightened::TzaangorEnlightened() :
@@ -87,6 +73,19 @@ void TzaangorEnlightened::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TzaangorEnlightened::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            TzaangorEnlightened::ComputePoints,
+            {
+                {ParamType::Integer, "Models", TzaangorEnlightened::MIN_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE,
+                 TzaangorEnlightened::MAX_UNIT_SIZE, TzaangorEnlightened::MIN_UNIT_SIZE},
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH, BEASTS_OF_CHAOS }
+        };
         s_registered = UnitFactory::Register("Tzaangor Enlightened", factoryMethod);
     }
 }

@@ -12,17 +12,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    TheMasque::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    TheMasque::ComputePoints,
-    {
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool TheMasque::s_registered = false;
 
@@ -68,6 +57,17 @@ void TheMasque::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TheMasque::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            TheMasque::ComputePoints,
+            {
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("The Masque", factoryMethod);
     }
 }

@@ -12,17 +12,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    Hellflayer::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    Hellflayer::ComputePoints,
-    {
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
 
 bool Hellflayer::s_registered = false;
 
@@ -66,6 +55,17 @@ void Hellflayer::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Hellflayer::Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            Hellflayer::ComputePoints,
+            {
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
         s_registered = UnitFactory::Register("Hellflayer", factoryMethod);
     }
 }

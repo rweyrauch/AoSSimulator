@@ -13,18 +13,6 @@
 namespace Tzeentch
 {
 
-static FactoryMethod factoryMethod = {
-    Fatemaster::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    Fatemaster::ComputePoints,
-    {
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
-
 bool Fatemaster::s_registered = false;
 
 Unit *Fatemaster::Create(const ParameterList &parameters)
@@ -47,6 +35,17 @@ void Fatemaster::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Fatemaster::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            Fatemaster::ComputePoints,
+            {
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Fatemaster", factoryMethod);
     }
 }

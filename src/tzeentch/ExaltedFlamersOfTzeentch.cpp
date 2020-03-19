@@ -12,21 +12,6 @@
 
 namespace Tzeentch
 {
-static FactoryMethod factoryMethod = {
-    ExaltedFlamersOfTzeentch::Create,
-    TzeentchBase::ValueToString,
-    TzeentchBase::EnumStringToInt,
-    ExaltedFlamersOfTzeentch::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE,
-            ExaltedFlamersOfTzeentch::MAX_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-    },
-    CHAOS,
-    { TZEENTCH }
-};
 
 bool ExaltedFlamersOfTzeentch::s_registered = false;
 
@@ -80,6 +65,21 @@ void ExaltedFlamersOfTzeentch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ExaltedFlamersOfTzeentch::Create,
+            TzeentchBase::ValueToString,
+            TzeentchBase::EnumStringToInt,
+            ExaltedFlamersOfTzeentch::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE,
+                    ExaltedFlamersOfTzeentch::MAX_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
+            },
+            CHAOS,
+            { TZEENTCH }
+        };
         s_registered = UnitFactory::Register("Exalted Flamers of Tzeentch", factoryMethod);
     }
 }
