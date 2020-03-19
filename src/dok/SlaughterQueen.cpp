@@ -19,6 +19,9 @@ SlaughterQueen::SlaughterQueen() :
 {
     m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, SLAUGHTER_QUEEN};
     m_weapons = {&m_bladeOfKhaine, &m_deathsword};
+
+    // Pact of Blood
+    m_totalUnbinds = 1;
 }
 
 bool SlaughterQueen::configure()

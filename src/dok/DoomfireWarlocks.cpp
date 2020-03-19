@@ -114,4 +114,24 @@ int DoomfireWarlocks::ComputePoints(int numModels)
     return points;
 }
 
+int DoomfireWarlocks::unbindingModifier() const
+{
+    auto mod = Unit::unbindingModifier();
+
+    // Doomfire Coven
+    if (remainingModels() >= 10) mod++;
+
+    return mod;
+}
+
+int DoomfireWarlocks::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    // Doomfire Coven
+    if (remainingModels() >= 10) mod++;
+
+    return mod;
+}
+
 } // namespace DaughtersOfKhaine

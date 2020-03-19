@@ -50,7 +50,7 @@ private:
 // Wrath of Khaine                  TODO
 // Touch of Death                   TODO
 // Dance of Doom                    TODO
-// Pact of Blood                    TODO
+// Pact of Blood                    Yes
 // Orgy of Slaughter                TODO
 //
 

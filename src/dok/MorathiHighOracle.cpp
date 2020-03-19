@@ -71,5 +71,38 @@ void MorathiHighOracleOfKhaine::Init()
     }
 }
 
+int MorathiHighOracleOfKhaine::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
+{
+    auto mod = DaughterOfKhaine::targetHitModifier(weapon, attacker);
+
+    // Enchanting Beauty
+    mod--;
+
+    return mod;
+}
+
+int MorathiHighOracleOfKhaine::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+    // Sorceress Supreme
+    mod++;
+    return mod;
+}
+
+int MorathiHighOracleOfKhaine::unbindingModifier() const
+{
+    auto mod = Unit::unbindingModifier();
+    // Sorceress Supreme
+    mod++;
+    return mod;
+}
+
+Wounds MorathiHighOracleOfKhaine::applyWoundSave(const Wounds &wounds)
+{
+    auto totalWounds = DaughterOfKhaine::applyWoundSave(wounds);
+
+    return totalWounds;
+}
+
 } //namespace DaughtersOfKhaine
 

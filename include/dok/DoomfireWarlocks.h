@@ -37,6 +37,9 @@ public:
 
 protected:
 
+    int castingModifier() const override;
+    int unbindingModifier() const override;
+
 private:
 
     Weapon m_crossBow,
@@ -51,7 +54,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Doomfire Coven                   TODO
+// Doomfire Coven                   Yes
 // Doomfire                         TODO
 //
 

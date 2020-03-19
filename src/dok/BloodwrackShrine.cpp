@@ -34,7 +34,7 @@ bool BloodwrackShrine::s_registered = false;
 
 BloodwrackShrine::BloodwrackShrine() :
     DaughterOfKhaine("Bloodwrack Shrine", 6, WOUNDS, 8, 5, false),
-    m_bloodwrackStare(Weapon::Type::Missile, "Bloodwrack Stare", 10, 0, 0, 0, 0, 0),
+    m_bloodwrackStare(Weapon::Type::Missile, "Bloodwrack Stare", 10, 1, 0, 0, -7, 0),
     m_whisperclaw(Weapon::Type::Melee, "Whisperclaw", 1, 4, 4, 3, 0, 1),
     m_tailOfSerpents(Weapon::Type::Melee, "Tail of Serpents", 2, RAND_D6, 4, 4, 0, 1),
     m_bloodwrackSpear(Weapon::Type::Melee, "Bloodwrack Spear", 2, 2, 3, 3, -1, RAND_D3),
@@ -152,6 +152,17 @@ void BloodwrackShrine::onStartHero(PlayerId player)
             unit->applyDamage({0, Dice::rollD3()});
         }
     }
+}
+
+Wounds BloodwrackShrine::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+{
+    if (weapon->name() == m_bloodwrackStare.name())
+    {
+        Dice::RollResult result;
+        Dice::rollD6(target->remainingModels(), result);
+        return {0, result.rollsGE(5)};
+    }
+    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
 } //namespace DaughtersOfKhaine

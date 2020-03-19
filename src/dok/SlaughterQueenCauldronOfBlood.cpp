@@ -46,11 +46,13 @@ SlaughterQueenOnCauldronOfBlood::SlaughterQueenOnCauldronOfBlood() :
     m_totalUnbinds = 1;
 
     s_globalBraveryMod.connect(this, &SlaughterQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
+    s_globalSaveMod.connect(this, &SlaughterQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);
 }
 
 SlaughterQueenOnCauldronOfBlood::~SlaughterQueenOnCauldronOfBlood()
 {
     m_idolSlot.disconnect();
+    m_bloodshieldSlot.disconnect();
 }
 
 bool SlaughterQueenOnCauldronOfBlood::configure()
@@ -146,6 +148,16 @@ int SlaughterQueenOnCauldronOfBlood::idolOfWorship(const Unit *unit)
     // Idol of Worship
     if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
 
+    return 0;
+}
+
+int SlaughterQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon *weapon)
+{
+    if (isFriendly(target) && target->hasKeyword(DAUGHTERS_OF_KHAINE) &&
+        (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_bloodshield))
+    {
+        return 1;
+    }
     return 0;
 }
 

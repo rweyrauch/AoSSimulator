@@ -40,6 +40,8 @@ protected:
     void onCharged() override;
     void onStartHero(PlayerId player) override;
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
 private:
 
     int getDamageTableIndex() const;
@@ -57,7 +59,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Bladed Impact                    Yes
-// Bloodwrack Stare                 TODO
+// Bloodwrack Stare                 Yes
 // Aura of Agony                    Yes
 // Enfeebling Foe                   TODO
 //

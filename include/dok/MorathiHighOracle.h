@@ -34,8 +34,14 @@ public:
 
 protected:
 
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+    int castingModifier() const override;
+    int unbindingModifier() const override;
+    Wounds applyWoundSave(const Wounds &wounds) override;
 
 private:
+
+    int m_woundsInTurn = 0;
 
     Weapon m_heartrender,
         m_wings;
@@ -49,8 +55,8 @@ private:
 // Monstrous Transformation         TODO
 // The Truth Revealed               TODO
 // The Iron Heart of Khaine         TODO
-// Sorceress Supreme                TODO
-// Enchanting Beauty                TODO
+// Sorceress Supreme                Yes
+// Enchanting Beauty                Yes
 // Arnzipal's Black Horror          TODO
 // Worship Through Bloodshed        TODO
 //

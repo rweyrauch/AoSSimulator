@@ -39,6 +39,7 @@ protected:
     void onCharged() override;
 
     int idolOfWorship(const Unit* unit);
+    int bloodShield(const Unit* target, const Weapon* weapon);
 
 private:
 
@@ -50,7 +51,7 @@ private:
         m_deathsword,
         m_sword;
 
-    lsignal::slot m_idolSlot;
+    lsignal::slot m_idolSlot, m_bloodshieldSlot;
 
     static bool s_registered;
 };
@@ -59,7 +60,7 @@ private:
 // Abilities                    Implemented
 // -------------------------------------------
 // Bladed Impact                    Yes
-// Bloodshield                      TODO
+// Bloodshield                      Yes
 // Pact of Blood                    Yes
 // Priestess of Khaine              TODO
 // Wrath of Khaine                  TODO

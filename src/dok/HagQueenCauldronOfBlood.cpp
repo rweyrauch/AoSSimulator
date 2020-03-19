@@ -42,11 +42,13 @@ HagQueenOnCauldronOfBlood::HagQueenOnCauldronOfBlood() :
     m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_sword};
 
     s_globalBraveryMod.connect(this, &HagQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
+    s_globalSaveMod.connect(this, &HagQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);
 }
 
 HagQueenOnCauldronOfBlood::~HagQueenOnCauldronOfBlood()
 {
     m_idolSlot.disconnect();
+    m_bloodshieldSlot.disconnect();
 }
 
 bool HagQueenOnCauldronOfBlood::configure()
@@ -141,6 +143,16 @@ int HagQueenOnCauldronOfBlood::idolOfWorship(const Unit *unit)
     // Idol of Worship
     if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
 
+    return 0;
+}
+
+int HagQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon *weapon)
+{
+    if (isFriendly(target) && target->hasKeyword(DAUGHTERS_OF_KHAINE) &&
+        (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_bloodshield))
+    {
+        return 1;
+    }
     return 0;
 }
 

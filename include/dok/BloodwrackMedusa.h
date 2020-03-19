@@ -34,6 +34,7 @@ public:
 
 protected:
 
+    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
 private:
 
@@ -48,7 +49,7 @@ private:
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bloodwrack Stare                 TODO
+// Bloodwrack Stare                 Yes
 // Enfeebling Foe                   TODO
 //
 
