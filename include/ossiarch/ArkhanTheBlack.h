@@ -39,6 +39,8 @@ protected:
     void onWounded() override;
     void onRestore() override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    int castingModifier() const override;
+    int unbindingModifier() const override;
 
 private:
 
@@ -57,7 +59,7 @@ private:
 // -------------------------------------------
 // Feaster of Souls                 TODO
 // Frightful Touch                  Yes
-// Staff of Spirits                 TODO
+// Staff of Spirits                 Partial/TODO
 // Mortarch of Sacrament            TODO
 // Curse of Years                   TODO
 // First of the Mortarchs           TODO

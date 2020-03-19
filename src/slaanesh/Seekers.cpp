@@ -13,25 +13,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    Seekers::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    Seekers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Seekers::MIN_UNIT_SIZE, Seekers::MIN_UNIT_SIZE,
-            Seekers::MAX_UNIT_SIZE, Seekers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
-
 bool Seekers::s_registered = false;
 
 Seekers::Seekers() :
@@ -45,6 +26,13 @@ Seekers::Seekers() :
 
     // Quicksilver Speed
     m_runAndCharge = true;
+
+    s_globalBattleshockReroll.connect(this, &Seekers::hornblowerBattleshockReroll, &m_hornblowerSlot);
+}
+
+Seekers::~Seekers()
+{
+    m_hornblowerSlot.disconnect();
 }
 
 bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblower)
@@ -98,7 +86,22 @@ void Seekers::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Seekers", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
+        s_registered = UnitFactory::Register("Seekers", *factoryMethod);
     }
 }
 
@@ -150,6 +153,13 @@ int Seekers::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+Rerolls Seekers::hornblowerBattleshockReroll(const Unit *unit)
+{
+    if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0f)) return RerollOnes;
+
+    return NoRerolls;
 }
 
 } // namespace Slaanesh

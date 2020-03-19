@@ -39,7 +39,7 @@ public:
     static int ComputePoints(int numModels);
 
     Hellstriders();
-    ~Hellstriders() override = default;
+    ~Hellstriders() override;
 
     bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower);
 
@@ -47,6 +47,8 @@ protected:
 
     Rerolls chargeRerolls() const override;
     int braveryModifier() const override;
+
+    Rerolls hornblowerBattleshockReroll(const Unit* unit);
 
 protected:
 
@@ -62,6 +64,8 @@ private:
         m_hellscourgeReaver,
         m_poisonedTongue;
 
+    lsignal::slot m_hornblowerSlot;
+
     static bool s_registered;
 };
 
@@ -70,7 +74,7 @@ private:
 // -------------------------------------------
 // Standard Banner                  Yes
 // Icon Banner                      Yes
-// Hornblower                       TODO
+// Hornblower                       Yes
 // Soul Hunters                     TODO
 //
 } // Slannesh

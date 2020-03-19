@@ -31,7 +31,7 @@ public:
     static void Init();
 
     Daemonettes();
-    ~Daemonettes() override = default;
+    ~Daemonettes() override;
 
     bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
@@ -40,6 +40,8 @@ protected:
     Rerolls chargeRerolls() const override;
     void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
     void restoreModels(int numModels) override;
+
+    Rerolls hornblowerBattleshockReroll(const Unit* unit);
 
 protected:
 
@@ -52,6 +54,8 @@ private:
     Weapon m_piercingClaws,
         m_piercingClawsAlluress;
 
+    lsignal::slot m_hornblowerSlot;
+
     static bool s_registered;
 };
 
@@ -60,7 +64,7 @@ private:
 // -------------------------------------------
 // Icon Bearers                     Yes
 // Banner Bearers                   Yes
-// Hornblower                       TODO
+// Hornblower                       Yes
 // Lithe and Swift                  Yes
 //
 

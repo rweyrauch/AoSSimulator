@@ -11,26 +11,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    Hellstriders::Create,
-    Hellstriders::ValueToString,
-    Hellstriders::EnumStringToInt,
-    Hellstriders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Hellstriders::MIN_UNIT_SIZE, Hellstriders::MIN_UNIT_SIZE,
-            Hellstriders::MAX_UNIT_SIZE, Hellstriders::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", Hellstriders::ClawSpear, Hellstriders::ClawSpear, Hellstriders::Hellscourge, 1},
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
-
 bool Hellstriders::s_registered = false;
 
 Hellstriders::Hellstriders() :
@@ -43,6 +23,13 @@ Hellstriders::Hellstriders() :
 {
     m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};
     m_weapons = {&m_clawSpear, &m_clawSpearReaver, &m_hellscourge, &m_hellscourgeReaver, &m_poisonedTongue};
+
+    s_globalBattleshockReroll.connect(this, &Hellstriders::hornblowerBattleshockReroll, &m_hornblowerSlot);
+}
+
+Hellstriders::~Hellstriders()
+{
+    m_hornblowerSlot.disconnect();
 }
 
 bool Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower)
@@ -102,7 +89,23 @@ void Hellstriders::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Hellstriders", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", ClawSpear, ClawSpear, Hellscourge, 1},
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
+        s_registered = UnitFactory::Register("Hellstriders", *factoryMethod);
     }
 }
 
@@ -110,14 +113,8 @@ std::string Hellstriders::ValueToString(const Parameter &parameter)
 {
     if (std::string(parameter.name) == "Weapons")
     {
-        if (parameter.intValue == ClawSpear)
-        {
-            return "Claw-spear";
-        }
-        else if (parameter.intValue == Hellscourge)
-        {
-            return "Hellscourge";
-        }
+        if (parameter.intValue == ClawSpear) return "Claw-spear";
+        else if (parameter.intValue == Hellscourge) return "Hellscourge";
     }
     return SlaaneshBase::ValueToString(parameter);
 }
@@ -156,6 +153,13 @@ int Hellstriders::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+Rerolls Hellstriders::hornblowerBattleshockReroll(const Unit *unit)
+{
+    if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0f)) return RerollOnes;
+
+    return NoRerolls;
 }
 
 } // namespace Slaanesh

@@ -31,7 +31,7 @@ public:
     static void Init();
 
     Seekers();
-    ~Seekers() override = default;
+    ~Seekers() override;
 
     bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
@@ -41,6 +41,8 @@ protected:
     void restoreModels(int numModels) override;
     Rerolls chargeRerolls() const override;
     int runModifier() const override;
+
+    Rerolls hornblowerBattleshockReroll(const Unit* unit);
 
 protected:
 
@@ -54,6 +56,8 @@ private:
         m_piercingClawsHeartseeker,
         m_poisonedTongue;
 
+    lsignal::slot m_hornblowerSlot;
+
     static bool s_registered;
 };
 
@@ -62,7 +66,7 @@ private:
 // -------------------------------------------
 // Icon Bearers                     Yes
 // Banner Bearers                   Yes
-// Hornblowers                      TODO
+// Hornblowers                      Yes
 // Quicksilver Speed                Yes
 // Soul Hunters                     TODO
 

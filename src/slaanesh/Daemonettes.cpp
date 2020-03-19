@@ -12,25 +12,6 @@
 
 namespace Slaanesh
 {
-static FactoryMethod factoryMethod = {
-    Daemonettes::Create,
-    SlaaneshBase::ValueToString,
-    SlaaneshBase::EnumStringToInt,
-    Daemonettes::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Daemonettes::MIN_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE,
-            Daemonettes::MAX_UNIT_SIZE, Daemonettes::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-    },
-    CHAOS,
-    { SLAANESH }
-};
-
 bool Daemonettes::s_registered = false;
 
 Daemonettes::Daemonettes() :
@@ -43,6 +24,13 @@ Daemonettes::Daemonettes() :
 
     // Lithe and Swift
     m_runAndCharge = true;
+
+    s_globalBattleshockReroll.connect(this, &Daemonettes::hornblowerBattleshockReroll, &m_hornblowerSlot);
+}
+
+Daemonettes::~Daemonettes()
+{
+    m_hornblowerSlot.disconnect();
 }
 
 bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower)
@@ -94,7 +82,22 @@ void Daemonettes::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Daemonettes", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            Create,
+            SlaaneshBase::ValueToString,
+            SlaaneshBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
+            },
+            CHAOS,
+            { SLAANESH }
+        };
+        s_registered = UnitFactory::Register("Daemonettes", *factoryMethod);
     }
 }
 
@@ -139,6 +142,13 @@ int Daemonettes::ComputePoints(int numModels)
         points = POINTS_MAX_UNIT_SIZE;
     }
     return points;
+}
+
+Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit)
+{
+    if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0f)) return RerollOnes;
+
+    return NoRerolls;
 }
 
 } // namespace Slaanesh

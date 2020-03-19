@@ -11,34 +11,24 @@
 
 namespace OssiarchBonereapers
 {
-static FactoryMethod factoryMethod = {
-    ArkhanTheBlack::Create,
-    ArkhanTheBlack::ValueToString,
-    ArkhanTheBlack::EnumStringToInt,
-    ArkhanTheBlack::ComputePoints,
-    {
-        {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-    },
-    DEATH,
-    { OSSIARCH_BONEREAPERS }
-};
 
 struct TableEntry
 {
     int m_move;
     int m_clawAttacks;
-    int m_staff;
+    int m_staffCast;
+    int m_staffUnbind;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ArkhanTheBlack::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, ArkhanTheBlack::WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
-        {16, 6, 4},
-        {13, 5, 3},
-        {10, 4, 1},
-        {7,  3, 1},
-        {4,  2, 0}
+        {16, 6, 2, 2},
+        {13, 5, 2, 1},
+        {10, 4, 1, 1},
+        {7,  3, 1, 0},
+        {4,  2, 0, 0}
     };
 
 bool ArkhanTheBlack::s_registered = false;
@@ -73,7 +63,18 @@ void ArkhanTheBlack::Init()
 {
     if (!s_registered)
     {
-        s_registered = UnitFactory::Register("Arkhan the Black, Mortarch of Sacrament", factoryMethod);
+        static auto factoryMethod = new FactoryMethod{
+            ArkhanTheBlack::Create,
+            ArkhanTheBlack::ValueToString,
+            ArkhanTheBlack::EnumStringToInt,
+            ArkhanTheBlack::ComputePoints,
+            {
+                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
+            },
+            DEATH,
+            { OSSIARCH_BONEREAPERS }
+        };
+        s_registered = UnitFactory::Register("Arkhan the Black, Mortarch of Sacrament", *factoryMethod);
     }
 }
 
@@ -144,6 +145,24 @@ Wounds ArkhanTheBlack::weaponDamage(const Weapon *weapon, const Unit *target, in
         return {0, 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int ArkhanTheBlack::castingModifier() const
+{
+    auto mod = Unit::castingModifier();
+
+    mod += g_damageTable[getDamageTableIndex()].m_staffCast;
+
+    return mod;
+}
+
+int ArkhanTheBlack::unbindingModifier() const
+{
+    auto mod = Unit::unbindingModifier();
+
+    mod += g_damageTable[getDamageTableIndex()].m_staffUnbind;
+
+    return mod;
 }
 
 } // namespace OssiarchBonereapers
