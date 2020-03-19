@@ -13,17 +13,6 @@
 namespace GloomspiteGitz
 {
 
-static FactoryMethod factoryMethod = {
-    ZarbagsGitz::Create,
-    nullptr,
-    nullptr,
-    ZarbagsGitz::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
-
 bool ZarbagsGitz::s_registered = false;
 
 ZarbagsGitz::ZarbagsGitz() :
@@ -92,6 +81,16 @@ void ZarbagsGitz::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ZarbagsGitz::Create,
+            nullptr,
+            nullptr,
+            ZarbagsGitz::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Zarbag's Gitz", factoryMethod);
     }
 }

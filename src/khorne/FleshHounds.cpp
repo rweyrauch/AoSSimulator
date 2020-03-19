@@ -13,21 +13,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    FleshHounds::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    FleshHounds::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FleshHounds::MIN_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE,
-            FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool FleshHounds::s_registered = false;
 
@@ -91,6 +76,21 @@ void FleshHounds::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FleshHounds::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            FleshHounds::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FleshHounds::MIN_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE,
+                    FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Flesh Hounds", factoryMethod);
     }
 }

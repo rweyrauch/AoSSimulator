@@ -11,17 +11,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    KurdossValentian::Create,
-    nullptr,
-    nullptr,
-    KurdossValentian::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool KurdossValentian::s_registered = false;
 
 Unit *KurdossValentian::Create(const ParameterList &parameters)
@@ -41,6 +30,16 @@ void KurdossValentian::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            KurdossValentian::Create,
+            nullptr,
+            nullptr,
+            KurdossValentian::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Kurdoss Valentian", factoryMethod);
     }
 }

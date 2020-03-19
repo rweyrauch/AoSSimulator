@@ -12,17 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    SorceressOnBlackDragon::Create,
-    SorceressOnBlackDragon::ValueToString,
-    SorceressOnBlackDragon::EnumStringToInt,
-    SorceressOnBlackDragon::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 struct TableEntry
 {
@@ -32,8 +21,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, SorceressOnBlackDragon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, SorceressOnBlackDragon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 1, 6},
         {12, 2, 5},
@@ -75,6 +64,17 @@ void SorceressOnBlackDragon::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SorceressOnBlackDragon::Create,
+            SorceressOnBlackDragon::ValueToString,
+            SorceressOnBlackDragon::EnumStringToInt,
+            SorceressOnBlackDragon::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Sorceress on Black Dragon", factoryMethod);
     }
 }

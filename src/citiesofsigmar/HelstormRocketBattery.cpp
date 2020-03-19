@@ -12,17 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    HelstormRocketBattery::Create,
-    HelstormRocketBattery::ValueToString,
-    HelstormRocketBattery::EnumStringToInt,
-    HelstormRocketBattery::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool HelstormRocketBattery::s_registered = false;
 
@@ -57,6 +46,17 @@ void HelstormRocketBattery::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HelstormRocketBattery::Create,
+            HelstormRocketBattery::ValueToString,
+            HelstormRocketBattery::EnumStringToInt,
+            HelstormRocketBattery::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Helstorm Rocket Battery", factoryMethod);
     }
 }

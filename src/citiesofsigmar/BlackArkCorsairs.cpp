@@ -11,27 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    BlackArkCorsairs::Create,
-    BlackArkCorsairs::ValueToString,
-    BlackArkCorsairs::EnumStringToInt,
-    BlackArkCorsairs::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BlackArkCorsairs::MIN_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE,
-            BlackArkCorsairs::MAX_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", BlackArkCorsairs::WickedCutlass, BlackArkCorsairs::RepeaterHandbow,
-            BlackArkCorsairs::WickedCutlass, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool BlackArkCorsairs::s_registered = false;
 
@@ -89,6 +68,27 @@ void BlackArkCorsairs::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BlackArkCorsairs::Create,
+            BlackArkCorsairs::ValueToString,
+            BlackArkCorsairs::EnumStringToInt,
+            BlackArkCorsairs::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BlackArkCorsairs::MIN_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE,
+                    BlackArkCorsairs::MAX_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", BlackArkCorsairs::WickedCutlass, BlackArkCorsairs::RepeaterHandbow,
+                    BlackArkCorsairs::WickedCutlass, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Black Ark Corsairs", factoryMethod);
     }
 }

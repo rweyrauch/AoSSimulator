@@ -11,19 +11,6 @@
 
 namespace Nighthaunt
 {
-
-
-static FactoryMethod factoryMethod = {
-    BlackCoach::Create,
-    nullptr,
-    nullptr,
-    BlackCoach::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool BlackCoach::s_registered = false;
 
 struct TableEntry
@@ -60,6 +47,16 @@ void BlackCoach::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BlackCoach::Create,
+            nullptr,
+            nullptr,
+            BlackCoach::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Black Coach", factoryMethod);
     }
 }

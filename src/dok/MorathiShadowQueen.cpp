@@ -19,8 +19,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, MorathiTheShadowQueen::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, MorathiTheShadowQueen::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6, 6},
         {12, 5, RAND_D6},
@@ -79,18 +79,18 @@ void MorathiTheShadowQueen::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            MorathiTheShadowQueen::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            MorathiTheShadowQueen::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
 
-        s_registered = UnitFactory::Register("Morathi, The Shadow Queen", *factoryMethod);
+        s_registered = UnitFactory::Register("Morathi, The Shadow Queen", factoryMethod);
     }
 }
 

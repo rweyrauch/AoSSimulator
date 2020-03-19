@@ -74,7 +74,7 @@ void Castigators::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             StormcastEternal::ValueToString,
             StormcastEternal::EnumStringToInt,
@@ -87,7 +87,7 @@ void Castigators::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Castigators", *factoryMethod);
+        s_registered = UnitFactory::Register("Castigators", factoryMethod);
     }
 }
 

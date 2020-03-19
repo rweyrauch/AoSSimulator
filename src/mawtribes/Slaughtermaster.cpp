@@ -13,17 +13,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Slaughtermaster::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    Slaughtermaster::ComputePoints,
-    {
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Slaughtermaster::s_registered = false;
 
@@ -48,6 +37,17 @@ void Slaughtermaster::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Slaughtermaster::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            Slaughtermaster::ComputePoints,
+            {
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Slaughtermaster", factoryMethod);
     }
 }

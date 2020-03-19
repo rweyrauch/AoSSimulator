@@ -66,7 +66,7 @@ void ChameleonSkinks::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -80,7 +80,7 @@ void ChameleonSkinks::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Chameleon Skinks", *factoryMethod);
+        s_registered = UnitFactory::Register("Chameleon Skinks", factoryMethod);
     }
 }
 

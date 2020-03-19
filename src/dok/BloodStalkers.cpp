@@ -74,22 +74,19 @@ void BloodStalkers::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            BloodStalkers::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            BloodStalkers::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", BloodStalkers::MIN_UNIT_SIZE, BloodStalkers::MIN_UNIT_SIZE,
-                    BloodStalkers::MAX_UNIT_SIZE, BloodStalkers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType ::Boolean, "Blood Wyrm", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Blood Stalkers", *factoryMethod);
+        s_registered = UnitFactory::Register("Blood Stalkers", factoryMethod);
     }
 }
 

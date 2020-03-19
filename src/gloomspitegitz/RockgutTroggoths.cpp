@@ -13,22 +13,6 @@
 
 namespace GloomspiteGitz
 {
-
-static FactoryMethod factoryMethod = {
-    RockgutTroggoths::Create,
-    nullptr,
-    nullptr,
-    RockgutTroggoths::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", RockgutTroggoths::MIN_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE,
-            RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE
-        },
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
-
 bool RockgutTroggoths::s_registered = false;
 
 RockgutTroggoths::RockgutTroggoths() :
@@ -76,6 +60,20 @@ void RockgutTroggoths::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            RockgutTroggoths::Create,
+            nullptr,
+            nullptr,
+            RockgutTroggoths::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", RockgutTroggoths::MIN_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE,
+                    RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE
+                },
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Rockgut Troggoths", factoryMethod);
     }
 }

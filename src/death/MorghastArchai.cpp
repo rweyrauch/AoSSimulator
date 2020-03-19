@@ -10,23 +10,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    MorghastArchai::Create,
-    MorghastArchai::ValueToString,
-    MorghastArchai::EnumStringToInt,
-    MorghastArchai::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MIN_UNIT_SIZE, MorghastArchai::MAX_UNIT_SIZE,
-            MorghastArchai::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", MorghastArchai::SpiritHalberd, MorghastArchai::SpiritHalberd, MorghastArchai::SpiritSwords, 1
-        },
-    },
-    DEATH,
-    { DEATHLORDS }
-};
 
 bool MorghastArchai::s_registered = false;
 
@@ -106,6 +89,18 @@ void MorghastArchai::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", SpiritHalberd, SpiritHalberd, SpiritSwords, 1},
+            },
+            DEATH,
+            { DEATHLORDS }
+        };
         s_registered = UnitFactory::Register("Morghast Archai", factoryMethod);
     }
 }

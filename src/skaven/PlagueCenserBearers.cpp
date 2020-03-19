@@ -42,7 +42,7 @@ void PlagueCenserBearers::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -54,7 +54,7 @@ void PlagueCenserBearers::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Plague Censer Bearers", *factoryMethod);
+        s_registered = UnitFactory::Register("Plague Censer Bearers", factoryMethod);
     }
 }
 

@@ -11,22 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    DreadlordOnBlackDragon::Create,
-    DreadlordOnBlackDragon::ValueToString,
-    DreadlordOnBlackDragon::EnumStringToInt,
-    DreadlordOnBlackDragon::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", DreadlordOnBlackDragon::LanceAndShield, DreadlordOnBlackDragon::ExileBladeAndShield,
-            DreadlordOnBlackDragon::PairExileBlades, 1
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
-
 struct TableEntry
 {
     int m_move;
@@ -35,8 +19,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, DreadlordOnBlackDragon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, DreadlordOnBlackDragon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 2, 6},
         {10, 3, 5},
@@ -122,6 +106,21 @@ void DreadlordOnBlackDragon::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DreadlordOnBlackDragon::Create,
+            DreadlordOnBlackDragon::ValueToString,
+            DreadlordOnBlackDragon::EnumStringToInt,
+            DreadlordOnBlackDragon::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", DreadlordOnBlackDragon::LanceAndShield, DreadlordOnBlackDragon::ExileBladeAndShield,
+                    DreadlordOnBlackDragon::PairExileBlades, 1
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Dreadlord on Black Dragon", factoryMethod);
     }
 }

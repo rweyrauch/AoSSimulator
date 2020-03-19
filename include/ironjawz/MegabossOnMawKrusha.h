@@ -52,7 +52,7 @@ private:
 
     int getDamageTableIndex() const;
 
-    WeaponOption m_weaponOption;
+    WeaponOption m_weaponOption = HackaAndChoppa;
     int m_modelsSlainAtStartOfCombat = 0;
 
     Weapon m_bellow,

@@ -44,7 +44,7 @@ void FreeguildGeneral::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -55,7 +55,7 @@ void FreeguildGeneral::Init()
             ORDER,
             { CITIES_OF_SIGMAR }
         };
-        s_registered = UnitFactory::Register("Freeguild General", *factoryMethod);
+        s_registered = UnitFactory::Register("Freeguild General", factoryMethod);
     }
 }
 

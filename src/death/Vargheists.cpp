@@ -11,20 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    Vargheists::Create,
-    nullptr,
-    nullptr,
-    Vargheists::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Vargheists::MIN_UNIT_SIZE, Vargheists::MIN_UNIT_SIZE, Vargheists::MAX_UNIT_SIZE,
-            Vargheists::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { SOULBLIGHT }
-};
 
 bool Vargheists::s_registered = false;
 
@@ -79,6 +65,17 @@ void Vargheists::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+            },
+            DEATH,
+            { SOULBLIGHT }
+        };
         s_registered = UnitFactory::Register("Vargheists", factoryMethod);
     }
 }

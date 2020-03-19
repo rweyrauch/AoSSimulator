@@ -11,27 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    MightySkullcrushers::Create,
-    MightySkullcrushers::ValueToString,
-    MightySkullcrushers::EnumStringToInt,
-    MightySkullcrushers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", MightySkullcrushers::MIN_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE,
-            MightySkullcrushers::MAX_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", MightySkullcrushers::EnsorcelledAxe, MightySkullcrushers::EnsorcelledAxe,
-            MightySkullcrushers::Bloodglaive, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool MightySkullcrushers::s_registered = false;
 
@@ -116,6 +95,27 @@ void MightySkullcrushers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MightySkullcrushers::Create,
+            MightySkullcrushers::ValueToString,
+            MightySkullcrushers::EnumStringToInt,
+            MightySkullcrushers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", MightySkullcrushers::MIN_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE,
+                    MightySkullcrushers::MAX_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", MightySkullcrushers::EnsorcelledAxe, MightySkullcrushers::EnsorcelledAxe,
+                    MightySkullcrushers::Bloodglaive, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Mighty Skullcrushers", factoryMethod);
     }
 }

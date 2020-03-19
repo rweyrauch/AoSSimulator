@@ -13,16 +13,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    LoonbossWithGiantCaveSquig::Create,
-    nullptr,
-    nullptr,
-    LoonbossWithGiantCaveSquig::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool LoonbossWithGiantCaveSquig::s_registered = false;
 
@@ -66,6 +56,16 @@ void LoonbossWithGiantCaveSquig::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LoonbossWithGiantCaveSquig::Create,
+            nullptr,
+            nullptr,
+            LoonbossWithGiantCaveSquig::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Loonboss with Giant Cave Squig", factoryMethod);
     }
 }

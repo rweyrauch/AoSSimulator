@@ -10,21 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Gnoblars::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    Gnoblars::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Gnoblars::MIN_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE,
-            Gnoblars::MAX_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Gnoblars::s_registered = false;
 
@@ -50,6 +35,21 @@ void Gnoblars::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Gnoblars::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            Gnoblars::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Gnoblars::MIN_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE,
+                    Gnoblars::MAX_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Gnoblars", factoryMethod);
     }
 }

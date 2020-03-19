@@ -13,28 +13,6 @@
 namespace CitiesOfSigmar
 {
 
-static FactoryMethod factoryMethod = {
-    Ironbreakers::Create,
-    Ironbreakers::ValueToString,
-    Ironbreakers::EnumStringToInt,
-    Ironbreakers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Ironbreakers::MIN_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE,
-            Ironbreakers::MAX_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer, Ironbreakers::IronbreakerAxeOrHammer,
-            Ironbreakers::PairedDrakefirePistols, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
-
 bool Ironbreakers::s_registered = false;
 
 Ironbreakers::Ironbreakers() :
@@ -115,6 +93,27 @@ void Ironbreakers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Ironbreakers::Create,
+            Ironbreakers::ValueToString,
+            Ironbreakers::EnumStringToInt,
+            Ironbreakers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Ironbreakers::MIN_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE,
+                    Ironbreakers::MAX_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer, Ironbreakers::IronbreakerAxeOrHammer,
+                    Ironbreakers::PairedDrakefirePistols, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Ironbreakers", factoryMethod);
     }
 }

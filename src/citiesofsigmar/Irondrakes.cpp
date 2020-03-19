@@ -12,27 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Irondrakes::Create,
-    Irondrakes::ValueToString,
-    Irondrakes::EnumStringToInt,
-    Irondrakes::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
-            Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
-            Irondrakes::PairedDrakefirePistols, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Irondrakes::s_registered = false;
 
@@ -123,6 +102,27 @@ void Irondrakes::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Irondrakes::Create,
+            Irondrakes::ValueToString,
+            Irondrakes::EnumStringToInt,
+            Irondrakes::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
+                    Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
+                    Irondrakes::PairedDrakefirePistols, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Irondrakes", factoryMethod);
     }
 }

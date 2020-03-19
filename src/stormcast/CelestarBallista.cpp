@@ -68,7 +68,7 @@ void CelestarBallista::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             StormcastEternal::ValueToString,
             StormcastEternal::EnumStringToInt,
@@ -80,7 +80,7 @@ void CelestarBallista::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Celestar Ballista", *factoryMethod);
+        s_registered = UnitFactory::Register("Celestar Ballista", factoryMethod);
     }
 }
 

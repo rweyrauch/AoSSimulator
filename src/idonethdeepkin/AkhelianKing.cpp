@@ -69,7 +69,7 @@ void AkhelianKing::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -82,7 +82,7 @@ void AkhelianKing::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Akhelian King", *factoryMethod);
+        s_registered = UnitFactory::Register("Akhelian King", factoryMethod);
     }
 }
 

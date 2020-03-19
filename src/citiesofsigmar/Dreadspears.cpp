@@ -11,23 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Dreadspears::Create,
-    Dreadspears::ValueToString,
-    Dreadspears::EnumStringToInt,
-    Dreadspears::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Dreadspears::MIN_UNIT_SIZE, Dreadspears::MIN_UNIT_SIZE,
-            Dreadspears::MAX_UNIT_SIZE, Dreadspears::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Dreadspears::s_registered = false;
 
@@ -65,6 +48,23 @@ void Dreadspears::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Dreadspears::Create,
+            Dreadspears::ValueToString,
+            Dreadspears::EnumStringToInt,
+            Dreadspears::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Dreadspears::MIN_UNIT_SIZE, Dreadspears::MIN_UNIT_SIZE,
+                    Dreadspears::MAX_UNIT_SIZE, Dreadspears::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Dreadspears", factoryMethod);
     }
 }

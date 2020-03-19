@@ -78,7 +78,7 @@ void AkhelianMorrsarrGuard::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             IdonethDeepkinBase::ValueToString,
             IdonethDeepkinBase::EnumStringToInt,
@@ -93,7 +93,7 @@ void AkhelianMorrsarrGuard::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Akhelian Morrsarr Guard", *factoryMethod);
+        s_registered = UnitFactory::Register("Akhelian Morrsarr Guard", factoryMethod);
     }
 }
 

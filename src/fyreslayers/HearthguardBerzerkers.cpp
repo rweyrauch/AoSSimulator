@@ -11,22 +11,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    HearthguardBerzerkers::Create,
-    HearthguardBerzerkers::ValueToString,
-    HearthguardBerzerkers::EnumStringToInt,
-    HearthguardBerzerkers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", HearthguardBerzerkers::MIN_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE,
-            HearthguardBerzerkers::MAX_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::FlamestrikePoleaxe, 1},
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool HearthguardBerzerkers::s_registered = false;
 
@@ -104,6 +88,22 @@ void HearthguardBerzerkers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HearthguardBerzerkers::Create,
+            HearthguardBerzerkers::ValueToString,
+            HearthguardBerzerkers::EnumStringToInt,
+            HearthguardBerzerkers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", HearthguardBerzerkers::MIN_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE,
+                    HearthguardBerzerkers::MAX_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::FlamestrikePoleaxe, 1},
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Hearthguard Berzerkers", factoryMethod);
     }
 }

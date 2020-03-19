@@ -11,17 +11,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    Doomseeker::Create,
-    Fyreslayer::ValueToString,
-    Fyreslayer::EnumStringToInt,
-    Doomseeker::ComputePoints,
-    {
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool Doomseeker::s_registered = false;
 
@@ -68,6 +57,17 @@ void Doomseeker::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Doomseeker::Create,
+            Fyreslayer::ValueToString,
+            Fyreslayer::EnumStringToInt,
+            Doomseeker::ComputePoints,
+            {
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Doomseeker", factoryMethod);
     }
 }

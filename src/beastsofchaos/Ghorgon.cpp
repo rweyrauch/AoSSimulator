@@ -23,8 +23,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Ghorgon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Ghorgon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 5, 2},
         {6, 4, 3},
@@ -80,7 +80,7 @@ void Ghorgon::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -92,7 +92,7 @@ void Ghorgon::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Ghorgon", *factoryMethod);
+        s_registered = UnitFactory::Register("Ghorgon", factoryMethod);
     }
 }
 

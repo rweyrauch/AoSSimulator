@@ -65,7 +65,7 @@ void LordKroak::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -78,7 +78,7 @@ void LordKroak::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Lord Kroak", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord Kroak", factoryMethod);
     }
 }
 

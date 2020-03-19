@@ -35,7 +35,7 @@ void MindstealerSphiranx::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SlavesToDarknessBase::ValueToString,
             SlavesToDarknessBase::EnumStringToInt,
@@ -47,7 +47,7 @@ void MindstealerSphiranx::Init()
             { SLAVES_TO_DARKNESS }
         };
 
-        s_registered = UnitFactory::Register("Mindstealer Sphiranx", *factoryMethod);
+        s_registered = UnitFactory::Register("Mindstealer Sphiranx", factoryMethod);
     }
 }
 

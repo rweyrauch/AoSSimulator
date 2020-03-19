@@ -61,7 +61,7 @@ void Skullgrinder::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -72,7 +72,7 @@ void Skullgrinder::Init()
             CHAOS,
             { KHORNE }
         };
-        s_registered = UnitFactory::Register("Skullgrinder", *factoryMethod);
+        s_registered = UnitFactory::Register("Skullgrinder", factoryMethod);
     }
 }
 

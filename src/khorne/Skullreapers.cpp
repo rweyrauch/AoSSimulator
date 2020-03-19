@@ -11,22 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Skullreapers::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Skullreapers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Skullreapers::MIN_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE,
-            Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Skullreapers::s_registered = false;
 
@@ -92,6 +76,22 @@ void Skullreapers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Skullreapers::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Skullreapers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Skullreapers::MIN_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE,
+                    Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Skullreapers", factoryMethod);
     }
 }

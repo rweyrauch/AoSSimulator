@@ -40,7 +40,7 @@ void ChaosMarauders::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -56,7 +56,7 @@ void ChaosMarauders::Init()
             CHAOS,
             { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
         };
-        s_registered = UnitFactory::Register("Chaos Marauders", *factoryMethod);
+        s_registered = UnitFactory::Register("Chaos Marauders", factoryMethod);
     }
 }
 

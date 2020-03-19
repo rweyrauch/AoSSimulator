@@ -41,8 +41,8 @@ protected:
     Rerolls chargeRerolls() const override;
     int toSaveModifier(const Weapon *weapon) const override;
 
-    bool m_standardBearers;
-    bool m_musicians;
+    bool m_standardBearers = false;
+    bool m_musicians = false;
 
 private:
 

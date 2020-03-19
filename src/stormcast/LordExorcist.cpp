@@ -75,7 +75,7 @@ void LordExorcist::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -89,7 +89,7 @@ void LordExorcist::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Lord-Exorcist", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Exorcist", factoryMethod);
     }
 }
 

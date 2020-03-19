@@ -13,18 +13,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Battlemage::Create,
-    Battlemage::ValueToString,
-    Battlemage::EnumStringToInt,
-    Battlemage::ComputePoints,
-    {
-        {ParamType::Enum, "Realm", Azyr, Aqshy, Ulgu},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Battlemage::s_registered = false;
 
@@ -60,6 +48,18 @@ void Battlemage::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Battlemage::Create,
+            Battlemage::ValueToString,
+            Battlemage::EnumStringToInt,
+            Battlemage::ComputePoints,
+            {
+                {ParamType::Enum, "Realm", Azyr, Aqshy, Ulgu},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Battlemage", factoryMethod);
     }
 }

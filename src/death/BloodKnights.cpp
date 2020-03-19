@@ -11,22 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    BloodKnights::Create,
-    nullptr,
-    nullptr,
-    BloodKnights::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BloodKnights::MIN_UNIT_SIZE, BloodKnights::MIN_UNIT_SIZE, BloodKnights::MAX_UNIT_SIZE,
-            BloodKnights::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DEATH,
-    { SOULBLIGHT }
-};
 
 bool BloodKnights::s_registered = false;
 
@@ -89,6 +73,19 @@ void BloodKnights::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DEATH,
+            { SOULBLIGHT }
+        };
         s_registered = UnitFactory::Register("Blood Knights", factoryMethod);
     }
 }

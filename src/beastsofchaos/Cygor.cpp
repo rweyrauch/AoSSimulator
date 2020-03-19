@@ -22,8 +22,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Cygor::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Cygor::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 18, 8},
         {6, 15, 7},
@@ -79,7 +79,7 @@ void Cygor::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -91,7 +91,7 @@ void Cygor::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Cygor", *factoryMethod);
+        s_registered = UnitFactory::Register("Cygor", factoryMethod);
     }
 }
 

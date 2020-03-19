@@ -12,16 +12,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    ArkhanTheBlack::Create,
-    nullptr,
-    nullptr,
-    ArkhanTheBlack::ComputePoints,
-    {
-    },
-    DEATH,
-    { DEATHLORDS }
-};
 
 struct TableEntry
 {
@@ -32,8 +22,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, ArkhanTheBlack::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, ArkhanTheBlack::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 6, 2, 2},
         {13, 5, 2, 1},
@@ -76,6 +66,16 @@ void ArkhanTheBlack::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            DEATH,
+            { DEATHLORDS }
+        };
         s_registered = UnitFactory::Register("Arkhan the Black", factoryMethod);
     }
 }

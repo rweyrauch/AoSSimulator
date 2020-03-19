@@ -74,7 +74,7 @@ void RipperdactylRiders::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -88,7 +88,7 @@ void RipperdactylRiders::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Ripperdactyl Riders", *factoryMethod);
+        s_registered = UnitFactory::Register("Ripperdactyl Riders", factoryMethod);
     }
 }
 

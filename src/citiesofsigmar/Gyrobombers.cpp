@@ -11,21 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Gyrobombers::Create,
-    Gyrobombers::ValueToString,
-    Gyrobombers::EnumStringToInt,
-    Gyrobombers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Gyrobombers::MIN_UNIT_SIZE, Gyrobombers::MIN_UNIT_SIZE,
-            Gyrobombers::MAX_UNIT_SIZE, Gyrobombers::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Gyrobombers::s_registered = false;
 
@@ -61,6 +46,21 @@ void Gyrobombers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Gyrobombers::Create,
+            Gyrobombers::ValueToString,
+            Gyrobombers::EnumStringToInt,
+            Gyrobombers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Gyrobombers::MIN_UNIT_SIZE, Gyrobombers::MIN_UNIT_SIZE,
+                    Gyrobombers::MAX_UNIT_SIZE, Gyrobombers::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Gyrobombers", factoryMethod);
     }
 }

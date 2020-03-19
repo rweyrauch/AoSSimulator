@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    HelblasterVolleyGun::Create,
-    HelblasterVolleyGun::ValueToString,
-    HelblasterVolleyGun::EnumStringToInt,
-    HelblasterVolleyGun::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool HelblasterVolleyGun::s_registered = false;
 
@@ -55,6 +44,17 @@ void HelblasterVolleyGun::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HelblasterVolleyGun::Create,
+            HelblasterVolleyGun::ValueToString,
+            HelblasterVolleyGun::EnumStringToInt,
+            HelblasterVolleyGun::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Helblaster Volley Gun", factoryMethod);
     }
 }

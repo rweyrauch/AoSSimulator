@@ -94,7 +94,7 @@ void Bullgors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -110,7 +110,7 @@ void Bullgors::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Bullgors", *factoryMethod);
+        s_registered = UnitFactory::Register("Bullgors", factoryMethod);
     }
 }
 

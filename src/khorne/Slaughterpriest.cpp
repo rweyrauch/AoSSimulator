@@ -11,25 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Slaughterpriest::Create,
-    Slaughterpriest::ValueToString,
-    Slaughterpriest::EnumStringToInt,
-    Slaughterpriest::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", Slaughterpriest::BloodbathedAxe, Slaughterpriest::BloodbathedAxe,
-            Slaughterpriest::HackbladeAndWrathHammer, 1
-        },
-        {
-            ParamType::Enum, "Blood Blessings of Khorne", (int)BloodBlessingsOfKhorne::BronzedFlesh,
-            (int)BloodBlessingsOfKhorne::None, (int)BloodBlessingsOfKhorne::SpellbaneHex, 1
-         },
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Slaughterpriest::s_registered = false;
 
@@ -93,6 +74,25 @@ void Slaughterpriest::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Slaughterpriest::Create,
+            Slaughterpriest::ValueToString,
+            Slaughterpriest::EnumStringToInt,
+            Slaughterpriest::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", Slaughterpriest::BloodbathedAxe, Slaughterpriest::BloodbathedAxe,
+                    Slaughterpriest::HackbladeAndWrathHammer, 1
+                },
+                {
+                    ParamType::Enum, "Blood Blessings of Khorne", (int)BloodBlessingsOfKhorne::BronzedFlesh,
+                    (int)BloodBlessingsOfKhorne::None, (int)BloodBlessingsOfKhorne::SpellbaneHex, 1
+                },
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Slaughterpriest", factoryMethod);
     }
 }

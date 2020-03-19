@@ -10,7 +10,6 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <iostream>
-#include <Board.h>
 #include <spells/MysticShield.h>
 
 namespace GloomspiteGitz
@@ -66,7 +65,7 @@ void FungoidCaveShaman::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -78,7 +77,7 @@ void FungoidCaveShaman::Init()
             { GLOOMSPITE_GITZ }
         };
 
-        s_registered = UnitFactory::Register("Fungoid Cave-shaman", *factoryMethod);
+        s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
     }
 }
 

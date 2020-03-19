@@ -12,8 +12,6 @@
 namespace CitiesOfSigmar
 {
 
-bool Kharibdyss::s_registered = false;
-
 struct TableEntry
 {
     int m_move;
@@ -22,8 +20,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {1, 3, 5, 7, Kharibdyss::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {1, 3, 5, 7, Kharibdyss::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {7, 6, 2},
         {6, 5, 3},
@@ -31,6 +29,8 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {5,  3, 5},
         {4,  2, 6}
     };
+
+bool Kharibdyss::s_registered = false;
 
 Unit *Kharibdyss::Create(const ParameterList &parameters)
 {
@@ -62,7 +62,7 @@ void Kharibdyss::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -73,7 +73,7 @@ void Kharibdyss::Init()
             ORDER,
             { CITIES_OF_SIGMAR }
         };
-        s_registered = UnitFactory::Register("Kharibdyss", *factoryMethod);
+        s_registered = UnitFactory::Register("Kharibdyss", factoryMethod);
     }
 }
 

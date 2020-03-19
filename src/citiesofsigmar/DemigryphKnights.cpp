@@ -11,27 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    DemigryphKnights::Create,
-    DemigryphKnights::ValueToString,
-    DemigryphKnights::EnumStringToInt,
-    DemigryphKnights::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DemigryphKnights::MIN_UNIT_SIZE, DemigryphKnights::MIN_UNIT_SIZE,
-            DemigryphKnights::MAX_UNIT_SIZE, DemigryphKnights::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", DemigryphKnights::Lance, DemigryphKnights::Halberd,
-            DemigryphKnights::Lance, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool DemigryphKnights::s_registered = false;
 
@@ -90,6 +69,27 @@ void DemigryphKnights::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DemigryphKnights::Create,
+            DemigryphKnights::ValueToString,
+            DemigryphKnights::EnumStringToInt,
+            DemigryphKnights::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", DemigryphKnights::MIN_UNIT_SIZE, DemigryphKnights::MIN_UNIT_SIZE,
+                    DemigryphKnights::MAX_UNIT_SIZE, DemigryphKnights::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", DemigryphKnights::Lance, DemigryphKnights::Halberd,
+                    DemigryphKnights::Lance, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Demigryph Knights", factoryMethod);
     }
 }

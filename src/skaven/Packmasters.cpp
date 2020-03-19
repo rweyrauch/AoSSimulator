@@ -42,7 +42,7 @@ void Packmasters::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -55,7 +55,7 @@ void Packmasters::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Packmasters", *factoryMethod);
+        s_registered = UnitFactory::Register("Packmasters", factoryMethod);
     }
 }
 

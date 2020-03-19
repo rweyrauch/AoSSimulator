@@ -10,21 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Leadbelchers::Create,
-    Leadbelchers::ValueToString,
-    Leadbelchers::EnumStringToInt,
-    Leadbelchers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Leadbelchers::MIN_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE,
-            Leadbelchers::MAX_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Leadbelchers::s_registered = false;
 
@@ -60,6 +45,21 @@ void Leadbelchers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Leadbelchers::Create,
+            Leadbelchers::ValueToString,
+            Leadbelchers::EnumStringToInt,
+            Leadbelchers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Leadbelchers::MIN_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE,
+                    Leadbelchers::MAX_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Leadbelchers", factoryMethod);
     }
 }
@@ -85,7 +85,7 @@ bool Leadbelchers::configure(int numModels)
     // Gunmasters
     if (hasKeyword(UNDERGUTS))
     {
-        m_gun.setRange(m_gun.range()+6.0f);
+        m_gun.setRange(m_gun.range()+6);
     }
 
     auto boss = new Model(BASESIZE, WOUNDS);

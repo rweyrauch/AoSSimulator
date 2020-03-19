@@ -11,18 +11,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Tyrant::Create,
-    Tyrant::ValueToString,
-    Tyrant::EnumStringToInt,
-    Tyrant::ComputePoints,
-    {
-        {ParamType::Enum, "Big Name", Tyrant::Fateseeker, Tyrant::Deathcheater, Tyrant::Wallcrusher, 1},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Tyrant::s_registered = false;
 
@@ -74,6 +62,18 @@ void Tyrant::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Tyrant::Create,
+            Tyrant::ValueToString,
+            Tyrant::EnumStringToInt,
+            Tyrant::ComputePoints,
+            {
+                {ParamType::Enum, "Big Name", Tyrant::Fateseeker, Tyrant::Deathcheater, Tyrant::Wallcrusher, 1},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Tyrant", factoryMethod);
     }
 }

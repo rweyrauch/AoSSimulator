@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    VorgarothAndSkalok::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    VorgarothAndSkalok::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 struct TableEntry
 {
@@ -92,6 +81,17 @@ void VorgarothAndSkalok::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            VorgarothAndSkalok::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            VorgarothAndSkalok::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Vorgaroth the Scarred & Skalok the Skull Host of Khorne", factoryMethod);
     }
 }

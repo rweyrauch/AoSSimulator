@@ -114,7 +114,7 @@ void SaurusScarVeteranOnCarnosaur::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -128,7 +128,7 @@ void SaurusScarVeteranOnCarnosaur::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Saurus Scar-Veteran on Carnosaur", *factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Scar-Veteran on Carnosaur", factoryMethod);
     }
 }
 

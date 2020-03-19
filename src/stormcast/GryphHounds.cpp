@@ -68,7 +68,7 @@ void GryphHounds::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             StormcastEternal::ValueToString,
             StormcastEternal::EnumStringToInt,
@@ -84,7 +84,7 @@ void GryphHounds::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Gryph-hounds", *factoryMethod);
+        s_registered = UnitFactory::Register("Gryph-hounds", factoryMethod);
     }
 }
 

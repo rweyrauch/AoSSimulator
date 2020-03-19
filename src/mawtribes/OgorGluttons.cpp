@@ -58,7 +58,7 @@ void OgorGluttons::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -75,7 +75,7 @@ void OgorGluttons::Init()
             DESTRUCTION,
             { OGOR_MAWTRIBES }
         };
-        s_registered = UnitFactory::Register("Ogor Gluttons", *factoryMethod);
+        s_registered = UnitFactory::Register("Ogor Gluttons", factoryMethod);
     }
 }
 
@@ -129,7 +129,7 @@ bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBeare
 
 int OgorGluttons::braveryModifier() const
 {
-    auto mod = Unit::braveryModifier();
+    auto mod = MawtribesBase::braveryModifier();
 
     // Tribal Banner Bearer
     if (m_bannerBearer) mod++;

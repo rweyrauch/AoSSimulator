@@ -8,24 +8,9 @@
 #include <algorithm>
 #include <gloomspitegitz/SquigHoppers.h>
 #include <UnitFactory.h>
-#include <iostream>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    SquiqHoppers::Create,
-    nullptr,
-    nullptr,
-    SquiqHoppers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SquiqHoppers::MIN_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE,
-            SquiqHoppers::MAX_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE
-        }
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool SquiqHoppers::s_registered = false;
 
@@ -86,6 +71,20 @@ void SquiqHoppers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SquiqHoppers::Create,
+            nullptr,
+            nullptr,
+            SquiqHoppers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SquiqHoppers::MIN_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE,
+                    SquiqHoppers::MAX_UNIT_SIZE, SquiqHoppers::MIN_UNIT_SIZE
+                }
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Squiq Hoppers", factoryMethod);
     }
 }

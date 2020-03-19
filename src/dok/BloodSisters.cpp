@@ -68,21 +68,18 @@ void BloodSisters::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            BloodSisters::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            BloodSisters::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", BloodSisters::MIN_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE,
-                    BloodSisters::MAX_UNIT_SIZE, BloodSisters::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Blood Sisters", *factoryMethod);
+        s_registered = UnitFactory::Register("Blood Sisters", factoryMethod);
     }
 }
 

@@ -11,28 +11,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    ArkanautCompany::Create,
-    ArkanautCompany::ValueToString,
-    ArkanautCompany::EnumStringToInt,
-    ArkanautCompany::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ArkanautCompany::MIN_UNIT_SIZE, ArkanautCompany::MIN_UNIT_SIZE,
-            ArkanautCompany::MAX_UNIT_SIZE, ArkanautCompany::MIN_UNIT_SIZE
-        },
-        { ParamType::Integer, "Volley Guns", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Light Skyhooks", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Skypikes", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
-        {
-            ParamType::Enum, "Captain Weapon", ArkanautCompany::AetherflarePistol, ArkanautCompany::AetherflarePistol,
-            ArkanautCompany::PrivateerPistol, 1
-        },
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool ArkanautCompany::s_registered = false;
 
@@ -78,6 +56,28 @@ void ArkanautCompany::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ArkanautCompany::Create,
+            ArkanautCompany::ValueToString,
+            ArkanautCompany::EnumStringToInt,
+            ArkanautCompany::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ArkanautCompany::MIN_UNIT_SIZE, ArkanautCompany::MIN_UNIT_SIZE,
+                    ArkanautCompany::MAX_UNIT_SIZE, ArkanautCompany::MIN_UNIT_SIZE
+                },
+                { ParamType::Integer, "Volley Guns", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Light Skyhooks", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Skypikes", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
+                {
+                    ParamType::Enum, "Captain Weapon", ArkanautCompany::AetherflarePistol, ArkanautCompany::AetherflarePistol,
+                    ArkanautCompany::PrivateerPistol, 1
+                },
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Arkanaut Company", factoryMethod);
     }
 }

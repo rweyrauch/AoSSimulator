@@ -10,21 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Gorgers::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    Gorgers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Gorgers::MIN_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE,
-            Gorgers::MAX_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Gorgers::s_registered = false;
 
@@ -51,6 +36,21 @@ void Gorgers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Gorgers::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            Gorgers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Gorgers::MIN_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE,
+                    Gorgers::MAX_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Gorgers", factoryMethod);
     }
 }

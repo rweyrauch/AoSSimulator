@@ -33,7 +33,7 @@ void IsharannSoulrender::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             IdonethDeepkinBase::ValueToString,
             IdonethDeepkinBase::EnumStringToInt,
@@ -45,7 +45,7 @@ void IsharannSoulrender::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Isharann Soulrender", *factoryMethod);
+        s_registered = UnitFactory::Register("Isharann Soulrender", factoryMethod);
     }
 }
 

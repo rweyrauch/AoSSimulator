@@ -9,13 +9,10 @@
 #include <gloomspitegitz/WebspinnerShamanOnSpider.h>
 #include <UnitFactory.h>
 #include <iostream>
-#include <Board.h>
 #include <spells/MysticShield.h>
 
 namespace GloomspiteGitz
 {
-
-bool WebspinnerShamanOnArachnarokSpider::s_registered = false;
 
 struct TableEntry
 {
@@ -25,8 +22,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WebspinnerShamanOnArachnarokSpider::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WebspinnerShamanOnArachnarokSpider::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 8, 2},
         {7, 7, 3},
@@ -34,6 +31,8 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {5, 5, 4},
         {4, 4, 4}
     };
+
+bool WebspinnerShamanOnArachnarokSpider::s_registered = false;
 
 WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
     GloomspiteGitzBase("Webspinner Shaman on Arachnarok Spider", 8, WOUNDS, 6, 4, true),
@@ -124,7 +123,7 @@ void WebspinnerShamanOnArachnarokSpider::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -136,7 +135,7 @@ void WebspinnerShamanOnArachnarokSpider::Init()
             { GLOOMSPITE_GITZ }
         };
 
-        s_registered = UnitFactory::Register("Webspinner Shaman on Arachnarok Spider", *factoryMethod);
+        s_registered = UnitFactory::Register("Webspinner Shaman on Arachnarok Spider", factoryMethod);
     }
 }
 

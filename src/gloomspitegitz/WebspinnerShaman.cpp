@@ -9,22 +9,10 @@
 #include <gloomspitegitz/WebspinnerShaman.h>
 #include <UnitFactory.h>
 #include <iostream>
-#include <Board.h>
 #include <spells/MysticShield.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    WebspinnerShaman::Create,
-    WebspinnerShaman::ValueToString,
-    WebspinnerShaman::EnumStringToInt,
-    WebspinnerShaman::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Spiderfangs", (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool WebspinnerShaman::s_registered = false;
 
@@ -74,6 +62,17 @@ void WebspinnerShaman::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            WebspinnerShaman::Create,
+            WebspinnerShaman::ValueToString,
+            WebspinnerShaman::EnumStringToInt,
+            WebspinnerShaman::ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Spiderfangs", (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::None, (int)LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Webspinner Shaman", factoryMethod);
     }
 }

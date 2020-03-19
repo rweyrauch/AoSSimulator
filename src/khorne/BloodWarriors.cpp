@@ -13,24 +13,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    BloodWarriors::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    BloodWarriors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE,
-            BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Paired Goreaxe", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Integer, "Goreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool BloodWarriors::s_registered = false;
 
@@ -134,6 +116,24 @@ void BloodWarriors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BloodWarriors::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            BloodWarriors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE,
+                    BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Paired Goreaxe", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Integer, "Goreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Blood Warriors", factoryMethod);
     }
 }

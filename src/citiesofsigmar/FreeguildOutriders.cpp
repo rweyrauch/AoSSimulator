@@ -12,26 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildOutriders::Create,
-    FreeguildOutriders::ValueToString,
-    FreeguildOutriders::EnumStringToInt,
-    FreeguildOutriders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FreeguildOutriders::MIN_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE,
-            FreeguildOutriders::MAX_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Sharpshooter Weapon", FreeguildOutriders::RepeaterHandgun, FreeguildOutriders::RepeaterHandgun,
-            FreeguildOutriders::BraceOfPistols, 1
-        },
-        {ParamType::Boolean, "Trumpeter", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildOutriders::s_registered = false;
 
@@ -96,6 +76,26 @@ void FreeguildOutriders::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FreeguildOutriders::Create,
+            FreeguildOutriders::ValueToString,
+            FreeguildOutriders::EnumStringToInt,
+            FreeguildOutriders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FreeguildOutriders::MIN_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE,
+                    FreeguildOutriders::MAX_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Sharpshooter Weapon", FreeguildOutriders::RepeaterHandgun, FreeguildOutriders::RepeaterHandgun,
+                    FreeguildOutriders::BraceOfPistols, 1
+                },
+                {ParamType::Boolean, "Trumpeter", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Freeguild Outriders", factoryMethod);
     }
 }

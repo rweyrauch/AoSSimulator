@@ -32,7 +32,7 @@ void WarlockBombardier::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -43,7 +43,7 @@ void WarlockBombardier::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Warlock Bombardier", *factoryMethod);
+        s_registered = UnitFactory::Register("Warlock Bombardier", factoryMethod);
     }
 }
 

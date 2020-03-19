@@ -12,23 +12,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    OrrukBoarboys::Create,
-    OrrukBoarboys::ValueToString,
-    OrrukBoarboys::EnumStringToInt,
-    OrrukBoarboys::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", OrrukBoarboys::MIN_UNIT_SIZE,
-            OrrukBoarboys::MIN_UNIT_SIZE, OrrukBoarboys::MAX_UNIT_SIZE, OrrukBoarboys::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", OrrukBoarboys::Choppa, OrrukBoarboys::Choppa, OrrukBoarboys::PigstikkaSpear, 1},
-        {ParamType::Boolean, "Glyph Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Waaagh! Horns", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 bool OrrukBoarboys::s_registered = false;
 
@@ -113,6 +96,23 @@ void OrrukBoarboys::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukBoarboys::Create,
+            OrrukBoarboys::ValueToString,
+            OrrukBoarboys::EnumStringToInt,
+            OrrukBoarboys::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", OrrukBoarboys::MIN_UNIT_SIZE,
+                    OrrukBoarboys::MIN_UNIT_SIZE, OrrukBoarboys::MAX_UNIT_SIZE, OrrukBoarboys::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", OrrukBoarboys::Choppa, OrrukBoarboys::Choppa, OrrukBoarboys::PigstikkaSpear, 1},
+                {ParamType::Boolean, "Glyph Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Waaagh! Horns", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Orruk Boarboys", factoryMethod);
     }
 }

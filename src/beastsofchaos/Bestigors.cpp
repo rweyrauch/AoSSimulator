@@ -74,7 +74,7 @@ void Bestigors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -89,7 +89,7 @@ void Bestigors::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Bestigors", *factoryMethod);
+        s_registered = UnitFactory::Register("Bestigors", factoryMethod);
     }
 }
 

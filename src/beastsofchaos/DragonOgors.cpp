@@ -85,7 +85,7 @@ void DragonOgors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -101,7 +101,7 @@ void DragonOgors::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Dragon Ogors", *factoryMethod);
+        s_registered = UnitFactory::Register("Dragon Ogors", factoryMethod);
     }
 }
 

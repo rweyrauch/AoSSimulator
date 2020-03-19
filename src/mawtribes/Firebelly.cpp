@@ -12,17 +12,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Firebelly::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    Firebelly::ComputePoints,
-    {
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Firebelly::s_registered = false;
 
@@ -47,6 +36,17 @@ void Firebelly::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Firebelly::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            Firebelly::ComputePoints,
+            {
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Firebelly", factoryMethod);
     }
 }

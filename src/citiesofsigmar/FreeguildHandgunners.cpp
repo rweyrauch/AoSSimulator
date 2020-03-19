@@ -12,27 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildHandgunners::Create,
-    FreeguildHandgunners::ValueToString,
-    FreeguildHandgunners::EnumStringToInt,
-    FreeguildHandgunners::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FreeguildHandgunners::MIN_UNIT_SIZE, FreeguildHandgunners::MIN_UNIT_SIZE,
-            FreeguildHandgunners::MAX_UNIT_SIZE, FreeguildHandgunners::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Marksman Weapon", FreeguildHandgunners::Handgun, FreeguildHandgunners::Handgun,
-            FreeguildHandgunners::RepeaterHandgun, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Piper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildHandgunners::s_registered = false;
 
@@ -98,6 +77,27 @@ void FreeguildHandgunners::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FreeguildHandgunners::Create,
+            FreeguildHandgunners::ValueToString,
+            FreeguildHandgunners::EnumStringToInt,
+            FreeguildHandgunners::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FreeguildHandgunners::MIN_UNIT_SIZE, FreeguildHandgunners::MIN_UNIT_SIZE,
+                    FreeguildHandgunners::MAX_UNIT_SIZE, FreeguildHandgunners::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Marksman Weapon", FreeguildHandgunners::Handgun, FreeguildHandgunners::Handgun,
+                    FreeguildHandgunners::RepeaterHandgun, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Piper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Freeguild Handgunners", factoryMethod);
     }
 }

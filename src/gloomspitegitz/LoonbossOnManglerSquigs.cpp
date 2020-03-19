@@ -13,16 +13,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    LoonbossOnManglerSquigs::Create,
-    nullptr,
-    nullptr,
-    LoonbossOnManglerSquigs::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool LoonbossOnManglerSquigs::s_registered = false;
 
@@ -130,6 +120,16 @@ void LoonbossOnManglerSquigs::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LoonbossOnManglerSquigs::Create,
+            nullptr,
+            nullptr,
+            LoonbossOnManglerSquigs::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Loonboss on Mangler Squigs", factoryMethod);
     }
 }

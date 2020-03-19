@@ -120,7 +120,7 @@ void SaurusWarriors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -137,7 +137,7 @@ void SaurusWarriors::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Saurus Warriors", *factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Warriors", factoryMethod);
     }
 }
 

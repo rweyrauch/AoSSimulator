@@ -17,18 +17,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    Alarielle::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    Alarielle::ComputePoints,
-    {
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
-
 bool Alarielle::s_registered = false;
 
 struct TableEntry
@@ -39,8 +27,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, Alarielle::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, Alarielle::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 30, 5},
         {14, 25, 4},
@@ -155,6 +143,17 @@ void Alarielle::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Alarielle", factoryMethod);
     }
 }

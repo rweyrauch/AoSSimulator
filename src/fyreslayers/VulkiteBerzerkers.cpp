@@ -10,26 +10,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    VulkiteBerzerkers::Create,
-    VulkiteBerzerkers::ValueToString,
-    VulkiteBerzerkers::EnumStringToInt,
-    VulkiteBerzerkers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", VulkiteBerzerkers::MIN_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE,
-            VulkiteBerzerkers::MAX_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", VulkiteBerzerkers::HandaxeAndShield, VulkiteBerzerkers::HandaxeAndShield,
-            VulkiteBerzerkers::PairedHandaxes, 1
-        },
-        {ParamType::Boolean, "Horn of Grimnir", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool VulkiteBerzerkers::s_registered = false;
 
@@ -111,6 +91,26 @@ void VulkiteBerzerkers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            VulkiteBerzerkers::Create,
+            VulkiteBerzerkers::ValueToString,
+            VulkiteBerzerkers::EnumStringToInt,
+            VulkiteBerzerkers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", VulkiteBerzerkers::MIN_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE,
+                    VulkiteBerzerkers::MAX_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", VulkiteBerzerkers::HandaxeAndShield, VulkiteBerzerkers::HandaxeAndShield,
+                    VulkiteBerzerkers::PairedHandaxes, 1
+                },
+                {ParamType::Boolean, "Horn of Grimnir", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Vulkite Berzerkers", factoryMethod);
     }
 }

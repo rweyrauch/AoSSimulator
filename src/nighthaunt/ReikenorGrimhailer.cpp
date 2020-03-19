@@ -11,18 +11,6 @@
 
 namespace Nighthaunt
 {
-
-static FactoryMethod factoryMethod = {
-    ReikenorTheGrimhailer::Create,
-    nullptr,
-    nullptr,
-    ReikenorTheGrimhailer::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool ReikenorTheGrimhailer::s_registered = false;
 
 Unit *ReikenorTheGrimhailer::Create(const ParameterList &parameters)
@@ -42,6 +30,16 @@ void ReikenorTheGrimhailer::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ReikenorTheGrimhailer::Create,
+            nullptr,
+            nullptr,
+            ReikenorTheGrimhailer::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Reikenor the Grimhailer", factoryMethod);
     }
 }

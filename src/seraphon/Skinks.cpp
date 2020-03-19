@@ -112,7 +112,7 @@ void Skinks::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -127,7 +127,7 @@ void Skinks::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Skinks", *factoryMethod);
+        s_registered = UnitFactory::Register("Skinks", factoryMethod);
     }
 }
 

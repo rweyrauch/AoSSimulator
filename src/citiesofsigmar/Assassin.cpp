@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Assassin::Create,
-    Assassin::ValueToString,
-    Assassin::EnumStringToInt,
-    Assassin::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Assassin::s_registered = false;
 
@@ -55,6 +44,17 @@ void Assassin::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Assassin::Create,
+            Assassin::ValueToString,
+            Assassin::EnumStringToInt,
+            Assassin::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Assassin", factoryMethod);
     }
 }

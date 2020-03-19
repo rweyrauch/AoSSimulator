@@ -67,7 +67,7 @@ void GreatBrayShaman::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -79,7 +79,7 @@ void GreatBrayShaman::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Great Bray-shaman", *factoryMethod);
+        s_registered = UnitFactory::Register("Great Bray-shaman", factoryMethod);
     }
 }
 

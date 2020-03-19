@@ -33,7 +33,7 @@ void AetherKhemist::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             KharadronBase::ValueToString,
             KharadronBase::EnumStringToInt,
@@ -45,7 +45,7 @@ void AetherKhemist::Init()
             { KHARADRON_OVERLORDS }
         };
 
-        s_registered = UnitFactory::Register("Aether Khemist", *factoryMethod);
+        s_registered = UnitFactory::Register("Aether Khemist", factoryMethod);
     }
 }
 

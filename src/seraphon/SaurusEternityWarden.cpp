@@ -57,7 +57,7 @@ void SaurusEternityWarden::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -70,7 +70,7 @@ void SaurusEternityWarden::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Saurus Eternity Warden", *factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Eternity Warden", factoryMethod);
     }
 }
 

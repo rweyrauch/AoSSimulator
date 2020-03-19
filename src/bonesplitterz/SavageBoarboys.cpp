@@ -37,7 +37,7 @@ void SavageBoarboys::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -53,7 +53,7 @@ void SavageBoarboys::Init()
             { BONESPLITTERZ }
         };
 
-        s_registered = UnitFactory::Register("Savage Boarboys", *factoryMethod);
+        s_registered = UnitFactory::Register("Savage Boarboys", factoryMethod);
     }
 }
 

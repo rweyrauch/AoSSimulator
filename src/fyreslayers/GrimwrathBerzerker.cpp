@@ -11,17 +11,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    GrimwrathBerzerker::Create,
-    Fyreslayer::ValueToString,
-    Fyreslayer::EnumStringToInt,
-    GrimwrathBerzerker::ComputePoints,
-    {
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool GrimwrathBerzerker::s_registered = false;
 
@@ -66,6 +55,17 @@ void GrimwrathBerzerker::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GrimwrathBerzerker::Create,
+            Fyreslayer::ValueToString,
+            Fyreslayer::EnumStringToInt,
+            GrimwrathBerzerker::ComputePoints,
+            {
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Grimwrath Berzerker", factoryMethod);
     }
 }

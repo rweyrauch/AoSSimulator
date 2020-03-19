@@ -12,17 +12,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    OrrukWarchanter::Create,
-    Ironjawz::ValueToString,
-    Ironjawz::EnumStringToInt,
-    OrrukWarchanter::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool OrrukWarchanter::s_registered = false;
 
@@ -65,6 +54,17 @@ void OrrukWarchanter::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukWarchanter::Create,
+            Ironjawz::ValueToString,
+            Ironjawz::EnumStringToInt,
+            OrrukWarchanter::ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Orruk Warchanter", factoryMethod);
     }
 }

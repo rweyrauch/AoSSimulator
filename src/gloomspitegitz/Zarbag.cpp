@@ -11,17 +11,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    Zarbag::Create,
-    Zarbag::ValueToString,
-    Zarbag::EnumStringToInt,
-    Zarbag::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool Zarbag::s_registered = false;
 
@@ -71,6 +60,17 @@ void Zarbag::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Zarbag::Create,
+            Zarbag::ValueToString,
+            Zarbag::EnumStringToInt,
+            Zarbag::ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Zarbag", factoryMethod);
     }
 }

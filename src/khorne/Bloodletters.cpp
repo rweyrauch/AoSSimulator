@@ -14,24 +14,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Bloodletters::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Bloodletters::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Bloodletters::MIN_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE,
-            Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Bloodletters::s_registered = false;
 
@@ -114,6 +96,24 @@ void Bloodletters::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Bloodletters::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Bloodletters::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Bloodletters::MIN_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE,
+                    Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Bloodletters", factoryMethod);
     }
 }

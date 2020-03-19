@@ -11,17 +11,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    Battlesmith::Create,
-    Fyreslayer::ValueToString,
-    Fyreslayer::EnumStringToInt,
-    Battlesmith::ComputePoints,
-    {
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool Battlesmith::s_registered = false;
 
@@ -66,6 +55,17 @@ void Battlesmith::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Battlesmith::Create,
+            Fyreslayer::ValueToString,
+            Fyreslayer::EnumStringToInt,
+            Battlesmith::ComputePoints,
+            {
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Battlesmith", factoryMethod);
     }
 }

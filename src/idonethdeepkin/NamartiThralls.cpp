@@ -72,7 +72,7 @@ void NamartiThralls::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             IdonethDeepkinBase::ValueToString,
             IdonethDeepkinBase::EnumStringToInt,
@@ -86,7 +86,7 @@ void NamartiThralls::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Namarti Thralls", *factoryMethod);
+        s_registered = UnitFactory::Register("Namarti Thralls", factoryMethod);
     }
 }
 

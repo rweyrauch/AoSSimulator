@@ -13,17 +13,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    ArchRevenant::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    ArchRevenant::ComputePoints,
-    {
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool ArchRevenant::s_registered = false;
 
@@ -68,6 +57,17 @@ void ArchRevenant::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ArchRevenant::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            ArchRevenant::ComputePoints,
+            {
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Arch-Revenant", factoryMethod);
     }
 }

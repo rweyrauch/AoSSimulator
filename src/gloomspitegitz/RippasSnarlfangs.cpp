@@ -11,16 +11,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    RippasSnarlfangs::Create,
-    nullptr,
-    nullptr,
-    RippasSnarlfangs::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool RippasSnarlfangs::s_registered = false;
 
@@ -41,6 +31,16 @@ void RippasSnarlfangs::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            RippasSnarlfangs::Create,
+            nullptr,
+            nullptr,
+            RippasSnarlfangs::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Rippa's Snarlfangs", factoryMethod);
     }
 }

@@ -12,19 +12,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    Zombies::Create,
-    nullptr,
-    nullptr,
-    Zombies::ComputePoints,
-    {
-        {ParamType::Integer, "Models", Zombies::MIN_UNIT_SIZE, Zombies::MIN_UNIT_SIZE, Zombies::MAX_UNIT_SIZE, Zombies::MIN_UNIT_SIZE},
-        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Noisemaker", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
-    },
-    DEATH,
-    { DEADWALKERS }
-};
 
 bool Zombies::s_registered = false;
 
@@ -81,6 +68,19 @@ void Zombies::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Noisemaker", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+            },
+            DEATH,
+            { DEADWALKERS }
+        };
         s_registered = UnitFactory::Register("Zombies", factoryMethod);
     }
 }

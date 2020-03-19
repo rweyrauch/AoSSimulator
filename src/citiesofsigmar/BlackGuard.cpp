@@ -12,23 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    BlackGuard::Create,
-    BlackGuard::ValueToString,
-    BlackGuard::EnumStringToInt,
-    BlackGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BlackGuard::MIN_UNIT_SIZE, BlackGuard::MIN_UNIT_SIZE,
-            BlackGuard::MAX_UNIT_SIZE, BlackGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool BlackGuard::s_registered = false;
 
@@ -66,6 +49,23 @@ void BlackGuard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BlackGuard::Create,
+            BlackGuard::ValueToString,
+            BlackGuard::EnumStringToInt,
+            BlackGuard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BlackGuard::MIN_UNIT_SIZE, BlackGuard::MIN_UNIT_SIZE,
+                    BlackGuard::MAX_UNIT_SIZE, BlackGuard::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Black Guard", factoryMethod);
     }
 }

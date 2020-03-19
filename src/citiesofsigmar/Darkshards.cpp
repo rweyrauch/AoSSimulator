@@ -11,23 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Darkshards::Create,
-    Darkshards::ValueToString,
-    Darkshards::EnumStringToInt,
-    Darkshards::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Darkshards::MIN_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE,
-            Darkshards::MAX_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Darkshards::s_registered = false;
 
@@ -65,6 +48,23 @@ void Darkshards::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Darkshards::Create,
+            Darkshards::ValueToString,
+            Darkshards::EnumStringToInt,
+            Darkshards::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Darkshards::MIN_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE,
+                    Darkshards::MAX_UNIT_SIZE, Darkshards::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Darkshards", factoryMethod);
     }
 }

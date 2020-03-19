@@ -10,21 +10,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    AuricHearthguard::Create,
-    Fyreslayer::ValueToString,
-    Fyreslayer::EnumStringToInt,
-    AuricHearthguard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", AuricHearthguard::MIN_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE,
-            AuricHearthguard::MAX_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool AuricHearthguard::s_registered = false;
 
@@ -88,6 +73,21 @@ void AuricHearthguard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AuricHearthguard::Create,
+            Fyreslayer::ValueToString,
+            Fyreslayer::EnumStringToInt,
+            AuricHearthguard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", AuricHearthguard::MIN_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE,
+                    AuricHearthguard::MAX_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Auric Hearthguard", factoryMethod);
     }
 }

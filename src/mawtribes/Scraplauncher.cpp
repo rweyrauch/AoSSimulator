@@ -10,17 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    GnoblarScraplauncher::Create,
-    GnoblarScraplauncher::ValueToString,
-    GnoblarScraplauncher::EnumStringToInt,
-    GnoblarScraplauncher::ComputePoints,
-    {
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool GnoblarScraplauncher::s_registered = false;
 
@@ -54,6 +43,17 @@ void GnoblarScraplauncher::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GnoblarScraplauncher::Create,
+            GnoblarScraplauncher::ValueToString,
+            GnoblarScraplauncher::EnumStringToInt,
+            GnoblarScraplauncher::ComputePoints,
+            {
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Gnoblar Scraplauncher", factoryMethod);
     }
 }

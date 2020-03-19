@@ -11,21 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    ShadowWarriors::Create,
-    ShadowWarriors::ValueToString,
-    ShadowWarriors::EnumStringToInt,
-    ShadowWarriors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ShadowWarriors::MIN_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE,
-            ShadowWarriors::MAX_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool ShadowWarriors::s_registered = false;
 
@@ -61,6 +46,21 @@ void ShadowWarriors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ShadowWarriors::Create,
+            ShadowWarriors::ValueToString,
+            ShadowWarriors::EnumStringToInt,
+            ShadowWarriors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ShadowWarriors::MIN_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE,
+                    ShadowWarriors::MAX_UNIT_SIZE, ShadowWarriors::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Shadow Warriors", factoryMethod);
     }
 }

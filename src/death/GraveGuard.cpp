@@ -11,25 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    GraveGuard::Create,
-    GraveGuard::ValueToString,
-    GraveGuard::EnumStringToInt,
-    GraveGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GraveGuard::MIN_UNIT_SIZE, GraveGuard::MIN_UNIT_SIZE, GraveGuard::MAX_UNIT_SIZE,
-            GraveGuard::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", GraveGuard::WightBlade, GraveGuard::WightBlade, GraveGuard::GreatWightBlade, 1
-        },
-        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DEATH,
-    { DEATHRATTLE }
-};
 
 bool GraveGuard::s_registered = false;
 
@@ -108,6 +89,20 @@ void GraveGuard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", WightBlade, WightBlade, GreatWightBlade, 1},
+                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DEATH,
+            { DEATHRATTLE }
+        };
         s_registered = UnitFactory::Register("Grave Guard", factoryMethod);
     }
 }

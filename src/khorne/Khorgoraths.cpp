@@ -10,22 +10,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Khorgoraths::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Khorgoraths::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Khorgoraths::MIN_UNIT_SIZE,
-            Khorgoraths::MIN_UNIT_SIZE,
-            Khorgoraths::MAX_UNIT_SIZE, Khorgoraths::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Khorgoraths::s_registered = false;
 
@@ -80,6 +64,22 @@ void Khorgoraths::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Khorgoraths::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Khorgoraths::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Khorgoraths::MIN_UNIT_SIZE,
+                    Khorgoraths::MIN_UNIT_SIZE,
+                    Khorgoraths::MAX_UNIT_SIZE, Khorgoraths::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Khorgoraths", factoryMethod);
     }
 }

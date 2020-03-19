@@ -12,17 +12,6 @@
 
 namespace EldritchCouncil
 {
-static FactoryMethod factoryMethod = {
-    Archmage::Create,
-    nullptr,
-    nullptr,
-    Archmage::ComputePoints,
-    {
-        {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    ORDER,
-    { ELDRITCH_COUNCIL }
-};
 
 bool Archmage::s_registered = false;
 
@@ -77,6 +66,17 @@ void Archmage::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            ORDER,
+            { ELDRITCH_COUNCIL }
+        };
         s_registered = UnitFactory::Register("Archmage", factoryMethod);
     }
 }

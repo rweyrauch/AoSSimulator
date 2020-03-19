@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    NomadPrince::Create,
-    NomadPrince::ValueToString,
-    NomadPrince::EnumStringToInt,
-    NomadPrince::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool NomadPrince::s_registered = false;
 
@@ -55,6 +44,17 @@ void NomadPrince::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            NomadPrince::Create,
+            NomadPrince::ValueToString,
+            NomadPrince::EnumStringToInt,
+            NomadPrince::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Nomad Prince", factoryMethod);
     }
 }

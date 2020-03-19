@@ -11,26 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildPistoliers::Create,
-    FreeguildPistoliers::ValueToString,
-    FreeguildPistoliers::EnumStringToInt,
-    FreeguildPistoliers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FreeguildPistoliers::MIN_UNIT_SIZE, FreeguildPistoliers::MIN_UNIT_SIZE,
-            FreeguildPistoliers::MAX_UNIT_SIZE, FreeguildPistoliers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Outrider Weapon", FreeguildPistoliers::RepeaterHandgun, FreeguildPistoliers::RepeaterHandgun,
-            FreeguildPistoliers::BraceOfPistols, 1
-        },
-        {ParamType::Boolean, "Trumpeter", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildPistoliers::s_registered = false;
 
@@ -87,6 +67,26 @@ void FreeguildPistoliers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FreeguildPistoliers::Create,
+            FreeguildPistoliers::ValueToString,
+            FreeguildPistoliers::EnumStringToInt,
+            FreeguildPistoliers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FreeguildPistoliers::MIN_UNIT_SIZE, FreeguildPistoliers::MIN_UNIT_SIZE,
+                    FreeguildPistoliers::MAX_UNIT_SIZE, FreeguildPistoliers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Outrider Weapon", FreeguildPistoliers::RepeaterHandgun, FreeguildPistoliers::RepeaterHandgun,
+                    FreeguildPistoliers::BraceOfPistols, 1
+                },
+                {ParamType::Boolean, "Trumpeter", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Freeguild Pistoliers", factoryMethod);
     }
 }

@@ -12,21 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    AspiringDeathbringer::Create,
-    AspiringDeathbringer::ValueToString,
-    AspiringDeathbringer::EnumStringToInt,
-    AspiringDeathbringer::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", AspiringDeathbringer::BloodaxeAndWrathhammer, AspiringDeathbringer::BloodaxeAndWrathhammer,
-            AspiringDeathbringer::GoreaxeAndSkullhammer, 1
-        },
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool AspiringDeathbringer::s_registered = false;
 
@@ -85,6 +70,21 @@ void AspiringDeathbringer::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AspiringDeathbringer::Create,
+            AspiringDeathbringer::ValueToString,
+            AspiringDeathbringer::EnumStringToInt,
+            AspiringDeathbringer::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", AspiringDeathbringer::BloodaxeAndWrathhammer, AspiringDeathbringer::BloodaxeAndWrathhammer,
+                    AspiringDeathbringer::GoreaxeAndSkullhammer, 1
+                },
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Aspiring Deathbringer", factoryMethod);
     }
 }

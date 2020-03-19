@@ -76,7 +76,7 @@ void Fiends::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SlaaneshBase::ValueToString,
             SlaaneshBase::EnumStringToInt,
@@ -88,7 +88,7 @@ void Fiends::Init()
             CHAOS,
             { SLAANESH }
         };
-        s_registered = UnitFactory::Register("Fiends", *factoryMethod);
+        s_registered = UnitFactory::Register("Fiends", factoryMethod);
     }
 }
 

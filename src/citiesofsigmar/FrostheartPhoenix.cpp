@@ -64,7 +64,7 @@ void FrostheartPhoenix::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -77,7 +77,7 @@ void FrostheartPhoenix::Init()
             { CITIES_OF_SIGMAR }
         };
 
-        s_registered = UnitFactory::Register("Frostheart Phoenix", *factoryMethod);
+        s_registered = UnitFactory::Register("Frostheart Phoenix", factoryMethod);
     }
 }
 

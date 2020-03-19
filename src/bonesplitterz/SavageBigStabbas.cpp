@@ -34,7 +34,7 @@ void SavageBigStabbas::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Bonesplitterz::ValueToString,
             Bonesplitterz::EnumStringToInt,
@@ -47,7 +47,7 @@ void SavageBigStabbas::Init()
             { BONESPLITTERZ }
         };
 
-        s_registered = UnitFactory::Register("Savage Big Stabbas", *factoryMethod);
+        s_registered = UnitFactory::Register("Savage Big Stabbas", factoryMethod);
     }
 }
 

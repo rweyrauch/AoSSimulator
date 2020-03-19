@@ -48,17 +48,17 @@ void HagQueen::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            HagQueen::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            HagQueen::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Hag Queen", *factoryMethod);
+        s_registered = UnitFactory::Register("Hag Queen", factoryMethod);
     }
 }
 

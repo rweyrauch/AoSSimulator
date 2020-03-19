@@ -10,17 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    FrostlordOnThundertusk::Create,
-    FrostlordOnThundertusk::ValueToString,
-    FrostlordOnThundertusk::EnumStringToInt,
-    FrostlordOnThundertusk::ComputePoints,
-    {
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    {OGOR_MAWTRIBES}
-};
 
 struct TableEntry
 {
@@ -72,6 +61,17 @@ void FrostlordOnThundertusk::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FrostlordOnThundertusk::Create,
+            FrostlordOnThundertusk::ValueToString,
+            FrostlordOnThundertusk::EnumStringToInt,
+            FrostlordOnThundertusk::ComputePoints,
+            {
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            {OGOR_MAWTRIBES}
+        };
         s_registered = UnitFactory::Register("Frostlord on Thundertusk", factoryMethod);
     }
 }

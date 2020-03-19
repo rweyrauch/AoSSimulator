@@ -11,16 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Runelord::Create,
-    CitizenOfSigmar::ValueToString,
-    CitizenOfSigmar::EnumStringToInt,
-    Runelord::ComputePoints,
-    {
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Runelord::s_registered = false;
 
@@ -68,6 +58,16 @@ void Runelord::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Runelord::Create,
+            CitizenOfSigmar::ValueToString,
+            CitizenOfSigmar::EnumStringToInt,
+            Runelord::ComputePoints,
+            {
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Runelord", factoryMethod);
     }
 }

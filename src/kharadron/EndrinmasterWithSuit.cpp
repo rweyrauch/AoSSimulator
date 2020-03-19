@@ -10,17 +10,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    EndrinmasterWithDirigibleSuit::Create,
-    KharadronBase::ValueToString,
-    KharadronBase::EnumStringToInt,
-    EndrinmasterWithDirigibleSuit::ComputePoints,
-    {
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool EndrinmasterWithDirigibleSuit::s_registered = false;
 
@@ -44,6 +33,17 @@ void EndrinmasterWithDirigibleSuit::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            EndrinmasterWithDirigibleSuit::Create,
+            KharadronBase::ValueToString,
+            KharadronBase::EnumStringToInt,
+            EndrinmasterWithDirigibleSuit::ComputePoints,
+            {
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Endrinmaster with Dirigible Suit", factoryMethod);
     }
 }

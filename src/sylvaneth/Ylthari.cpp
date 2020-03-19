@@ -5,16 +5,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    Ylthari::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    Ylthari::ComputePoints,
-    {
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool Ylthari::s_registered = false;
 
@@ -36,6 +26,16 @@ void Ylthari::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Ylthari::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            Ylthari::ComputePoints,
+            {
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Ylthari", factoryMethod);
     }
 }

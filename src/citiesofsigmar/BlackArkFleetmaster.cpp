@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    BlackArkFleetmaster::Create,
-    BlackArkFleetmaster::ValueToString,
-    BlackArkFleetmaster::EnumStringToInt,
-    BlackArkFleetmaster::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool BlackArkFleetmaster::s_registered = false;
 
@@ -55,6 +44,17 @@ void BlackArkFleetmaster::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BlackArkFleetmaster::Create,
+            BlackArkFleetmaster::ValueToString,
+            BlackArkFleetmaster::EnumStringToInt,
+            BlackArkFleetmaster::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Black Ark Fleetmaster", factoryMethod);
     }
 }

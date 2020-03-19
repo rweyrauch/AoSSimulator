@@ -11,23 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Bleakswords::Create,
-    Bleakswords::ValueToString,
-    Bleakswords::EnumStringToInt,
-    Bleakswords::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Bleakswords::MIN_UNIT_SIZE, Bleakswords::MIN_UNIT_SIZE,
-            Bleakswords::MAX_UNIT_SIZE, Bleakswords::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Bleakswords::s_registered = false;
 
@@ -65,6 +48,23 @@ void Bleakswords::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Bleakswords::Create,
+            Bleakswords::ValueToString,
+            Bleakswords::EnumStringToInt,
+            Bleakswords::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Bleakswords::MIN_UNIT_SIZE, Bleakswords::MIN_UNIT_SIZE,
+                    Bleakswords::MAX_UNIT_SIZE, Bleakswords::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Bleakswords", factoryMethod);
     }
 }

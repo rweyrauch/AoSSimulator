@@ -62,7 +62,7 @@ void LordRelictor::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -75,7 +75,7 @@ void LordRelictor::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Lord-Relictor", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Relictor", factoryMethod);
     }
 }
 

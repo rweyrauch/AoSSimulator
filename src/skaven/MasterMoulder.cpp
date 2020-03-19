@@ -33,7 +33,7 @@ void MasterMoulder::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -44,7 +44,7 @@ void MasterMoulder::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Master Moulder", *factoryMethod);
+        s_registered = UnitFactory::Register("Master Moulder", factoryMethod);
     }
 }
 

@@ -81,7 +81,7 @@ void LordCelestantOnDracoth::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -94,7 +94,7 @@ void LordCelestantOnDracoth::Init()
             ORDER,
             { STORMCAST_ETERNAL }
         };
-        s_registered = UnitFactory::Register("Lord-Celestant on Dracoth", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Celestant on Dracoth", factoryMethod);
     }
 }
 

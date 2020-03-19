@@ -13,16 +13,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    ColossalSquig::Create,
-    nullptr,
-    nullptr,
-    ColossalSquig::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool ColossalSquig::s_registered = false;
 
@@ -131,6 +121,16 @@ void ColossalSquig::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ColossalSquig::Create,
+            nullptr,
+            nullptr,
+            ColossalSquig::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Colossal Squig", factoryMethod);
     }
 }

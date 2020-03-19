@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    GarreksReavers::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    GarreksReavers::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool GarreksReavers::s_registered = false;
 
@@ -46,6 +35,17 @@ void GarreksReavers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GarreksReavers::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            GarreksReavers::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Garrek's Reavers", factoryMethod);
     }
 }

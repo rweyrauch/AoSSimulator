@@ -63,7 +63,7 @@ void ArkhanTheBlack::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             ArkhanTheBlack::Create,
             ArkhanTheBlack::ValueToString,
             ArkhanTheBlack::EnumStringToInt,
@@ -74,7 +74,7 @@ void ArkhanTheBlack::Init()
             DEATH,
             { OSSIARCH_BONEREAPERS }
         };
-        s_registered = UnitFactory::Register("Arkhan the Black, Mortarch of Sacrament", *factoryMethod);
+        s_registered = UnitFactory::Register("Arkhan the Black, Mortarch of Sacrament", factoryMethod);
     }
 }
 

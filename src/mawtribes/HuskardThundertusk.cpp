@@ -10,18 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    HuskardOnThundertusk::Create,
-    HuskardOnThundertusk::ValueToString,
-    HuskardOnThundertusk::EnumStringToInt,
-    HuskardOnThundertusk::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", HuskardOnThundertusk::HarpoonLauncher, HuskardOnThundertusk::HarpoonLauncher, HuskardOnThundertusk::BloodVulture, 1},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    {OGOR_MAWTRIBES}
-};
 
 struct TableEntry
 {
@@ -85,6 +73,18 @@ void HuskardOnThundertusk::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HuskardOnThundertusk::Create,
+            HuskardOnThundertusk::ValueToString,
+            HuskardOnThundertusk::EnumStringToInt,
+            HuskardOnThundertusk::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", HuskardOnThundertusk::HarpoonLauncher, HuskardOnThundertusk::HarpoonLauncher, HuskardOnThundertusk::BloodVulture, 1},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            {OGOR_MAWTRIBES}
+        };
         s_registered = UnitFactory::Register("Huskard on Thundertusk", factoryMethod);
     }
 }

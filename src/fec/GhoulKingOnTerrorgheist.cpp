@@ -12,20 +12,6 @@
 
 namespace FleshEaterCourt
 {
-static FactoryMethod factoryMethod = {
-    AbhorrantGhoulKingOnTerrorgheist::Create,
-    FleshEaterCourts::ValueToString,
-    FleshEaterCourts::EnumStringToInt,
-    AbhorrantGhoulKingOnTerrorgheist::ComputePoints,
-    {
-        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-    },
-    DEATH,
-    { FLESH_EATER_COURTS }
-};
-
-bool AbhorrantGhoulKingOnTerrorgheist::s_registered = false;
 
 struct TableEntry
 {
@@ -35,8 +21,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, AbhorrantGhoulKingOnTerrorgheist::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, AbhorrantGhoulKingOnTerrorgheist::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6, 4},
         {12, 5, 4},
@@ -44,6 +30,8 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {8,  3, 3},
         {6,  2, 2}
     };
+
+bool AbhorrantGhoulKingOnTerrorgheist::s_registered = false;
 
 AbhorrantGhoulKingOnTerrorgheist::AbhorrantGhoulKingOnTerrorgheist() :
     FleshEaterCourts("Abhorrant Ghoul King on Terrorgheist", 14, WOUNDS, 10, 4, true),
@@ -100,6 +88,18 @@ void AbhorrantGhoulKingOnTerrorgheist::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AbhorrantGhoulKingOnTerrorgheist::Create,
+            FleshEaterCourts::ValueToString,
+            FleshEaterCourts::EnumStringToInt,
+            AbhorrantGhoulKingOnTerrorgheist::ComputePoints,
+            {
+                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
+            },
+            DEATH,
+            { FLESH_EATER_COURTS }
+        };
         s_registered = UnitFactory::Register("Abhorrant Ghoul King on Terrorgheist", factoryMethod);
     }
 }

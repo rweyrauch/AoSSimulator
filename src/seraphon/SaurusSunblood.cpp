@@ -57,7 +57,7 @@ void SaurusSunblood::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -69,7 +69,7 @@ void SaurusSunblood::Init()
             ORDER,
             { SERAPHON }
         };
-        s_registered = UnitFactory::Register("Saurus Sunblood", *factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Sunblood", factoryMethod);
     }
 }
 

@@ -11,22 +11,6 @@
 
 namespace Nighthaunt
 {
-
-static FactoryMethod factoryMethod = {
-    GrimghastReapers::Create,
-    nullptr,
-    nullptr,
-    GrimghastReapers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GrimghastReapers::MIN_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE,
-            GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool GrimghastReapers::s_registered = false;
 
 GrimghastReapers::GrimghastReapers() :
@@ -80,6 +64,20 @@ void GrimghastReapers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GrimghastReapers::Create,
+            nullptr,
+            nullptr,
+            GrimghastReapers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", GrimghastReapers::MIN_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE,
+                    GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Grimghast Reapers", factoryMethod);
     }
 }

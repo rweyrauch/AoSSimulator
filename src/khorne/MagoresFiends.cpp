@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    MagoresFiends::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    MagoresFiends::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool MagoresFiends::s_registered = false;
 
@@ -46,6 +35,17 @@ void MagoresFiends::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MagoresFiends::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            MagoresFiends::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Magore's Fiends", factoryMethod);
     }
 }

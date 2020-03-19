@@ -12,21 +12,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    ChainraspHorde::Create,
-    nullptr,
-    nullptr,
-    ChainraspHorde::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ChainraspHorde::MIN_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE,
-            ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool ChainraspHorde::s_registered = false;
 
 ChainraspHorde::ChainraspHorde() :
@@ -79,6 +64,21 @@ void ChainraspHorde::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ChainraspHorde::Create,
+            nullptr,
+            nullptr,
+            ChainraspHorde::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ChainraspHorde::MIN_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE,
+                    ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
+
         s_registered = UnitFactory::Register("Chainrasp Horde", factoryMethod);
     }
 }

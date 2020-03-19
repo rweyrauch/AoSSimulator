@@ -23,8 +23,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Chimera::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Chimera::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {RAND_D6, -3, RAND_D6},
         {RAND_D3, -2, RAND_D3},
@@ -82,7 +82,7 @@ void Chimera::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -94,7 +94,7 @@ void Chimera::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Chimera", *factoryMethod);
+        s_registered = UnitFactory::Register("Chimera", factoryMethod);
     }
 }
 

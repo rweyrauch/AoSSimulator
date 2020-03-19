@@ -11,17 +11,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    AuricRuneson::Create,
-    Fyreslayer::ValueToString,
-    Fyreslayer::EnumStringToInt,
-    AuricRuneson::ComputePoints,
-    {
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 bool AuricRuneson::s_registered = false;
 
@@ -70,6 +59,17 @@ void AuricRuneson::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AuricRuneson::Create,
+            Fyreslayer::ValueToString,
+            Fyreslayer::EnumStringToInt,
+            AuricRuneson::ComputePoints,
+            {
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Auric Runeson", factoryMethod);
     }
 }

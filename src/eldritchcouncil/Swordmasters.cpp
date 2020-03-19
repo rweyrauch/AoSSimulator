@@ -11,22 +11,6 @@
 
 namespace EldritchCouncil
 {
-static FactoryMethod factoryMethod = {
-    Swordmasters::Create,
-    nullptr,
-    nullptr,
-    Swordmasters::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Swordmasters::MIN_UNIT_SIZE, Swordmasters::MIN_UNIT_SIZE,
-            Swordmasters::MAX_UNIT_SIZE, Swordmasters::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    ORDER,
-    { ELDRITCH_COUNCIL }
-};
 
 bool Swordmasters::s_registered = false;
 
@@ -85,6 +69,19 @@ void Swordmasters::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            ORDER,
+            { ELDRITCH_COUNCIL }
+        };
         s_registered = UnitFactory::Register("Swordmasters", factoryMethod);
     }
 }

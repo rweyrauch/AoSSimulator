@@ -12,18 +12,6 @@
 
 namespace Nighthaunt
 {
-
-static FactoryMethod factoryMethod = {
-    LadyOlynder::Create,
-    nullptr,
-    nullptr,
-    LadyOlynder::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool LadyOlynder::s_registered = false;
 
 Unit *LadyOlynder::Create(const ParameterList &parameters)
@@ -43,6 +31,16 @@ void LadyOlynder::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LadyOlynder::Create,
+            nullptr,
+            nullptr,
+            LadyOlynder::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Lady Olynder", factoryMethod);
     }
 }

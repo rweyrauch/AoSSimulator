@@ -14,17 +14,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    SpiritOfDurthu::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    SpiritOfDurthu::ComputePoints,
-    {
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool SpiritOfDurthu::s_registered = false;
 
@@ -36,8 +25,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SpiritOfDurthu::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SpiritOfDurthu::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 6,       2},
         {5, RAND_D6, 2},
@@ -125,6 +114,17 @@ void SpiritOfDurthu::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SpiritOfDurthu::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            SpiritOfDurthu::ComputePoints,
+            {
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Spirit of Durthu", factoryMethod);
     }
 }

@@ -11,17 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    WightKingWithBalefulTombBlade::Create,
-    nullptr,
-    nullptr,
-    WightKingWithBalefulTombBlade::ComputePoints,
-    {
-        {ParamType::Boolean, "Steed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    DEATH,
-    { DEATHRATTLE }
-};
 
 bool WightKingWithBalefulTombBlade::s_registered = false;
 
@@ -52,6 +41,17 @@ void WightKingWithBalefulTombBlade::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Boolean, "Steed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            DEATH,
+            { DEATHRATTLE }
+        };
         s_registered = UnitFactory::Register("Wight King with Baleful Tomb Blade", factoryMethod);
     }
 }

@@ -50,7 +50,7 @@ void LordSkreechVerminking::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -61,7 +61,7 @@ void LordSkreechVerminking::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Lord Skreech Verminking", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord Skreech Verminking", factoryMethod);
     }
 }
 

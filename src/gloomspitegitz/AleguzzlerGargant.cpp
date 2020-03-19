@@ -8,21 +8,10 @@
 #include <algorithm>
 #include <gloomspitegitz/AleguzzlerGargant.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    AleguzzlerGargant::Create,
-    nullptr,
-    nullptr,
-    AleguzzlerGargant::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 struct TableEntry
 {
@@ -91,6 +80,16 @@ void AleguzzlerGargant::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AleguzzlerGargant::Create,
+            nullptr,
+            nullptr,
+            AleguzzlerGargant::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Aleguzzler Gargant", factoryMethod);
     }
 }

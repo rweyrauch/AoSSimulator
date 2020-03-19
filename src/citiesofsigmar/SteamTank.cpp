@@ -12,17 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    SteamTank::Create,
-    SteamTank::ValueToString,
-    SteamTank::EnumStringToInt,
-    SteamTank::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 struct TableEntry
 {
@@ -32,8 +21,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SteamTank::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SteamTank::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {RAND_2D6, 30, 2},
         {RAND_2D6, 24, 3},
@@ -76,6 +65,17 @@ void SteamTank::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SteamTank::Create,
+            SteamTank::ValueToString,
+            SteamTank::EnumStringToInt,
+            SteamTank::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Steam Tank", factoryMethod);
     }
 }

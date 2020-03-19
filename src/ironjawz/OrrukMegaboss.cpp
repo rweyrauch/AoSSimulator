@@ -11,17 +11,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    OrrukMegaboss::Create,
-    Ironjawz::ValueToString,
-    Ironjawz::EnumStringToInt,
-    OrrukMegaboss::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool OrrukMegaboss::s_registered = false;
 
@@ -64,6 +53,17 @@ void OrrukMegaboss::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukMegaboss::Create,
+            Ironjawz::ValueToString,
+            Ironjawz::EnumStringToInt,
+            OrrukMegaboss::ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Orruk Megaboss", factoryMethod);
     }
 }

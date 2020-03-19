@@ -11,17 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Riptooth::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Riptooth::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Riptooth::s_registered = false;
 
@@ -45,6 +34,17 @@ void Riptooth::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Riptooth::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Riptooth::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Riptooth", factoryMethod);
     }
 }

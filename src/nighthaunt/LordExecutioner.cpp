@@ -12,17 +12,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    LordExecutioner::Create,
-    nullptr,
-    nullptr,
-    LordExecutioner::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool LordExecutioner::s_registered = false;
 
 Unit *LordExecutioner::Create(const ParameterList &parameters)
@@ -42,6 +31,16 @@ void LordExecutioner::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LordExecutioner::Create,
+            nullptr,
+            nullptr,
+            LordExecutioner::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Lord Executioner", factoryMethod);
     }
 }

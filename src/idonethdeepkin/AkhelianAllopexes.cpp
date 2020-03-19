@@ -77,7 +77,7 @@ void AkhelianAllopexes::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -91,7 +91,7 @@ void AkhelianAllopexes::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Akhelian Alloplexes", *factoryMethod);
+        s_registered = UnitFactory::Register("Akhelian Alloplexes", factoryMethod);
     }
 }
 

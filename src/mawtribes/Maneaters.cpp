@@ -10,22 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Maneaters::Create,
-    Maneaters::ValueToString,
-    Maneaters::EnumStringToInt,
-    Maneaters::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Maneaters::MIN_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE,
-            Maneaters::MAX_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Ability", Maneaters::Brawlers, Maneaters::Brawlers, Maneaters::Stubborn, 1},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Maneaters::s_registered = false;
 
@@ -74,6 +58,22 @@ void Maneaters::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Maneaters::Create,
+            Maneaters::ValueToString,
+            Maneaters::EnumStringToInt,
+            Maneaters::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Maneaters::MIN_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE,
+                    Maneaters::MAX_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Ability", Maneaters::Brawlers, Maneaters::Brawlers, Maneaters::Stubborn, 1},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Maneaters", factoryMethod);
     }
 }
@@ -126,13 +126,29 @@ int Maneaters::ComputePoints(int numModels)
 
 Rerolls Maneaters::toHitRerolls(const Weapon *weapon, const Unit *target) const
 {
-    if ((m_ability == Brawlers) && !weapon->isMissile())
+    if (m_ability == Brawlers)
     {
-        return RerollOnes;
+        if (!weapon->isMissile())
+        {
+            return RerollOnes;
+        }
+        else if (m_ability == CrackShots)
+        {
+            if (weapon->isMissile())
+            {
+                return RerollOnes;
+            }
+        }
     }
-    else if ((m_ability == CrackShots) && weapon->isMissile())
+    else
     {
-        return RerollOnes;
+        if (m_ability == CrackShots)
+        {
+            if (weapon->isMissile())
+            {
+                return RerollOnes;
+            }
+        }
     }
     return Unit::toHitRerolls(weapon, target);
 }

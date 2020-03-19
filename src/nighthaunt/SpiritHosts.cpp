@@ -11,20 +11,6 @@
 
 namespace Nighthaunt
 {
-static FactoryMethod factoryMethod = {
-    SpiritHosts::Create,
-    nullptr,
-    nullptr,
-    SpiritHosts::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SpiritHosts::MIN_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE,
-            SpiritHosts::MAX_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
 
 bool SpiritHosts::s_registered = false;
 
@@ -73,6 +59,20 @@ void SpiritHosts::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SpiritHosts::Create,
+            nullptr,
+            nullptr,
+            SpiritHosts::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SpiritHosts::MIN_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE,
+                    SpiritHosts::MAX_UNIT_SIZE, SpiritHosts::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Spirit Hosts", factoryMethod);
     }
 }

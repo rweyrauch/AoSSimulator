@@ -12,20 +12,6 @@
 
 namespace Nighthaunt
 {
-static FactoryMethod factoryMethod = {
-    Chainghasts::Create,
-    nullptr,
-    nullptr,
-    Chainghasts::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Chainghasts::MIN_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE,
-            Chainghasts::MAX_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
 
 bool Chainghasts::s_registered = false;
 
@@ -76,6 +62,21 @@ void Chainghasts::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Chainghasts::Create,
+            nullptr,
+            nullptr,
+            Chainghasts::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Chainghasts::MIN_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE,
+                    Chainghasts::MAX_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
+
         s_registered = UnitFactory::Register("Chainghasts", factoryMethod);
     }
 }

@@ -13,23 +13,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Executioners::Create,
-    Executioners::ValueToString,
-    Executioners::EnumStringToInt,
-    Executioners::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Executioners::MIN_UNIT_SIZE, Executioners::MIN_UNIT_SIZE,
-            Executioners::MAX_UNIT_SIZE, Executioners::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Executioners::s_registered = false;
 
@@ -67,6 +50,23 @@ void Executioners::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Executioners::Create,
+            Executioners::ValueToString,
+            Executioners::EnumStringToInt,
+            Executioners::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Executioners::MIN_UNIT_SIZE, Executioners::MIN_UNIT_SIZE,
+                    Executioners::MAX_UNIT_SIZE, Executioners::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Executioners", factoryMethod);
     }
 }

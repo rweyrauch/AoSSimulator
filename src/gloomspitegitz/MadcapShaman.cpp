@@ -9,22 +9,10 @@
 #include <gloomspitegitz/MadcapShaman.h>
 #include <UnitFactory.h>
 #include <iostream>
-#include <Board.h>
 #include <spells/MysticShield.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    MadcapShaman::Create,
-    MadcapShaman::ValueToString,
-    MadcapShaman::EnumStringToInt,
-    MadcapShaman::ComputePoints,
-    {
-        {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool MadcapShaman::s_registered = false;
 
@@ -74,6 +62,17 @@ void MadcapShaman::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MadcapShaman::Create,
+            MadcapShaman::ValueToString,
+            MadcapShaman::EnumStringToInt,
+            MadcapShaman::ComputePoints,
+            {
+                {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Madcap Shaman", factoryMethod);
     }
 }

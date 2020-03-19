@@ -11,17 +11,6 @@
 
 namespace Fyreslayers
 {
-static FactoryMethod factoryMethod = {
-    AuricRunesonOnMagmadroth::Create,
-    Fyreslayer::ValueToString,
-    Fyreslayer::EnumStringToInt,
-    AuricRunesonOnMagmadroth::ComputePoints,
-    {
-        {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-    },
-    ORDER,
-    { FYRESLAYERS }
-};
 
 struct TableEntry
 {
@@ -100,6 +89,17 @@ void AuricRunesonOnMagmadroth::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AuricRunesonOnMagmadroth::Create,
+            Fyreslayer::ValueToString,
+            Fyreslayer::EnumStringToInt,
+            AuricRunesonOnMagmadroth::ComputePoints,
+            {
+                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+            },
+            ORDER,
+            { FYRESLAYERS }
+        };
         s_registered = UnitFactory::Register("Auric Runeson on Magmadroth", factoryMethod);
     }
 }
@@ -133,7 +133,7 @@ void AuricRunesonOnMagmadroth::onStartShooting(PlayerId player)
         if (m_shootingTarget)
         {
             float dist = distanceTo(m_shootingTarget);
-            if (dist <= m_fyrestream.range())
+            if (dist <= (float)m_fyrestream.range())
             {
                 int rs = Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
                 if (rs <= m_shootingTarget->remainingModels())

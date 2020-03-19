@@ -10,16 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    HrothgornsMantrappers::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    HrothgornsMantrappers::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool HrothgornsMantrappers::s_registered = false;
 
@@ -42,6 +32,16 @@ void HrothgornsMantrappers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            HrothgornsMantrappers::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            HrothgornsMantrappers::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Hrothgorn's Mantrappers", factoryMethod);
     }
 }

@@ -12,23 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildGreatswords::Create,
-    FreeguildGreatswords::ValueToString,
-    FreeguildGreatswords::EnumStringToInt,
-    FreeguildGreatswords::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FreeguildGreatswords::MIN_UNIT_SIZE, FreeguildGreatswords::MIN_UNIT_SIZE,
-            FreeguildGreatswords::MAX_UNIT_SIZE, FreeguildGreatswords::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildGreatswords::s_registered = false;
 
@@ -66,6 +49,23 @@ void FreeguildGreatswords::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FreeguildGreatswords::Create,
+            FreeguildGreatswords::ValueToString,
+            FreeguildGreatswords::EnumStringToInt,
+            FreeguildGreatswords::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FreeguildGreatswords::MIN_UNIT_SIZE, FreeguildGreatswords::MIN_UNIT_SIZE,
+                    FreeguildGreatswords::MAX_UNIT_SIZE, FreeguildGreatswords::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Freeguild Greatswords", factoryMethod);
     }
 }

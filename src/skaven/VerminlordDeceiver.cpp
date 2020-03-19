@@ -49,7 +49,7 @@ void VerminlordDeceiver::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -60,7 +60,7 @@ void VerminlordDeceiver::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Verminlord Deceiver", *factoryMethod);
+        s_registered = UnitFactory::Register("Verminlord Deceiver", factoryMethod);
     }
 }
 

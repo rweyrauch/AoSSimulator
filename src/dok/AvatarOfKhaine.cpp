@@ -57,17 +57,17 @@ void AvatarOfKhaine::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            AvatarOfKhaine::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            AvatarOfKhaine::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Avatar of Khaine", *factoryMethod);
+        s_registered = UnitFactory::Register("Avatar of Khaine", factoryMethod);
     }
 }
 

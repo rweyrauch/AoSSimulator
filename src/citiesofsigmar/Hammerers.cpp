@@ -13,24 +13,6 @@
 namespace CitiesOfSigmar
 {
 
-static FactoryMethod factoryMethod = {
-    Hammerers::Create,
-    CitizenOfSigmar::ValueToString,
-    CitizenOfSigmar::EnumStringToInt,
-    Hammerers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
-            Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
-
 bool Hammerers::s_registered = false;
 
 Hammerers::Hammerers() :
@@ -91,6 +73,23 @@ void Hammerers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Hammerers::Create,
+            CitizenOfSigmar::ValueToString,
+            CitizenOfSigmar::EnumStringToInt,
+            Hammerers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Hammerers::MIN_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE,
+                    Hammerers::MAX_UNIT_SIZE, Hammerers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Hammerers", factoryMethod);
     }
 }

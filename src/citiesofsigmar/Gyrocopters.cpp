@@ -11,25 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Gyrocopters::Create,
-    Gyrocopters::ValueToString,
-    Gyrocopters::EnumStringToInt,
-    Gyrocopters::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Gyrocopters::MIN_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE,
-            Gyrocopters::MAX_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Gyrocopters::BrimstoneGun, Gyrocopters::BrimstoneGun,
-            Gyrocopters::SteamGun, 1
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Gyrocopters::s_registered = false;
 
@@ -85,6 +66,25 @@ void Gyrocopters::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Gyrocopters::Create,
+            Gyrocopters::ValueToString,
+            Gyrocopters::EnumStringToInt,
+            Gyrocopters::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Gyrocopters::MIN_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE,
+                    Gyrocopters::MAX_UNIT_SIZE, Gyrocopters::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Gyrocopters::BrimstoneGun, Gyrocopters::BrimstoneGun,
+                    Gyrocopters::SteamGun, 1
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Gyrocopters", factoryMethod);
     }
 }

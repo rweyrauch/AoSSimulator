@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    WardenKing::Create,
-    CitizenOfSigmar::ValueToString,
-    CitizenOfSigmar::EnumStringToInt,
-    WardenKing::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool WardenKing::s_registered = false;
 
@@ -64,6 +53,17 @@ void WardenKing::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            WardenKing::Create,
+            CitizenOfSigmar::ValueToString,
+            CitizenOfSigmar::EnumStringToInt,
+            WardenKing::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Warden King", factoryMethod);
     }
 }

@@ -12,28 +12,6 @@
 
 namespace GloomspiteGitz
 {
-
-static FactoryMethod factoryMethod = {
-    Stabbas::Create,
-    Stabbas::ValueToString,
-    Stabbas::EnumStringToInt,
-    Stabbas::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Stabbas::MIN_UNIT_SIZE,
-            Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Enum, "Boss Weapon", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-        {ParamType::Integer, "Barbed Nets", 3, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Gong Bashers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Flag Bearers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Icon Bearers", 0, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
-
 bool Stabbas::s_registered = false;
 
 Stabbas::Stabbas() :
@@ -142,6 +120,26 @@ void Stabbas::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Stabbas::Create,
+            Stabbas::ValueToString,
+            Stabbas::EnumStringToInt,
+            Stabbas::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Stabbas::MIN_UNIT_SIZE,
+                    Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+                {ParamType::Enum, "Boss Weapon", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
+                {ParamType::Integer, "Barbed Nets", 3, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Gong Bashers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Flag Bearers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Icon Bearers", 0, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Stabbas", factoryMethod);
     }
 }

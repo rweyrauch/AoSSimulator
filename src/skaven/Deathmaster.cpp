@@ -31,7 +31,7 @@ void Deathmaster::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -42,7 +42,7 @@ void Deathmaster::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Deathmaster", *factoryMethod);
+        s_registered = UnitFactory::Register("Deathmaster", factoryMethod);
     }
 }
 

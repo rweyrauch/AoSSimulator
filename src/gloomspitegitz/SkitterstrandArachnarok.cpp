@@ -13,16 +13,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    SkitterstrandArachnarok::Create,
-    nullptr,
-    nullptr,
-    SkitterstrandArachnarok::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool SkitterstrandArachnarok::s_registered = false;
 
@@ -109,6 +99,16 @@ void SkitterstrandArachnarok::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SkitterstrandArachnarok::Create,
+            nullptr,
+            nullptr,
+            SkitterstrandArachnarok::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Skitterstrand Arachnarok", factoryMethod);
     }
 }

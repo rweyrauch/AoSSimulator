@@ -62,7 +62,7 @@ void ChaosSpawn::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -75,7 +75,7 @@ void ChaosSpawn::Init()
             { BEASTS_OF_CHAOS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
         };
 
-        s_registered = UnitFactory::Register("Chaos Spawn", *factoryMethod);
+        s_registered = UnitFactory::Register("Chaos Spawn", factoryMethod);
     }
 }
 

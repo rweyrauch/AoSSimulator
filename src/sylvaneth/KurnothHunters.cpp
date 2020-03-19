@@ -14,25 +14,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    KurnothHunters::Create,
-    KurnothHunters::ValueToString,
-    KurnothHunters::EnumStringToInt,
-    KurnothHunters::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE,
-            KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords,
-            KurnothHunters::Greatbows, 1
-        },
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool KurnothHunters::s_registered = false;
 
@@ -123,6 +104,25 @@ void KurnothHunters::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            KurnothHunters::Create,
+            KurnothHunters::ValueToString,
+            KurnothHunters::EnumStringToInt,
+            KurnothHunters::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE,
+                    KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords,
+                    KurnothHunters::Greatbows, 1
+                },
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Kurnoth Hunters", factoryMethod);
     }
 }

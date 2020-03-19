@@ -90,7 +90,7 @@ void SteelheartsChampions::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             StormcastEternal::ValueToString,
             StormcastEternal::EnumStringToInt,
@@ -101,7 +101,7 @@ void SteelheartsChampions::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Steelheart's Champions", *factoryMethod);
+        s_registered = UnitFactory::Register("Steelheart's Champions", factoryMethod);
     }
 }
 

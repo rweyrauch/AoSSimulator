@@ -12,21 +12,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    MegabossOnMawKrusha::Create,
-    MegabossOnMawKrusha::ValueToString,
-    MegabossOnMawKrusha::EnumStringToInt,
-    MegabossOnMawKrusha::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa, MegabossOnMawKrusha::HackaAndChoppa,
-            MegabossOnMawKrusha::ChoppaAndRiptoofFist, 1
-        },
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool MegabossOnMawKrusha::s_registered = false;
 
@@ -104,6 +89,21 @@ void MegabossOnMawKrusha::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MegabossOnMawKrusha::Create,
+            MegabossOnMawKrusha::ValueToString,
+            MegabossOnMawKrusha::EnumStringToInt,
+            MegabossOnMawKrusha::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa, MegabossOnMawKrusha::HackaAndChoppa,
+                    MegabossOnMawKrusha::ChoppaAndRiptoofFist, 1
+                },
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Megaboss on Maw-Krusha", factoryMethod);
     }
 }

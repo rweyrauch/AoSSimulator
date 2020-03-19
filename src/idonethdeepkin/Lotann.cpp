@@ -33,7 +33,7 @@ void Lotann::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             IdonethDeepkinBase::ValueToString,
             IdonethDeepkinBase::EnumStringToInt,
@@ -45,7 +45,7 @@ void Lotann::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Lotann", *factoryMethod);
+        s_registered = UnitFactory::Register("Lotann", factoryMethod);
     }
 }
 

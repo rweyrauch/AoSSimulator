@@ -291,7 +291,7 @@ void Prosecutors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -309,7 +309,7 @@ void Prosecutors::Init()
             ORDER,
             { STORMCAST_ETERNAL }
         };
-        s_registered = UnitFactory::Register("Prosecutors", *factoryMethod);
+        s_registered = UnitFactory::Register("Prosecutors", factoryMethod);
     }
 }
 

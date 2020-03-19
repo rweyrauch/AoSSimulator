@@ -11,17 +11,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    IcebrowHunter::Create,
-    IcebrowHunter::ValueToString,
-    IcebrowHunter::EnumStringToInt,
-    IcebrowHunter::ComputePoints,
-    {
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool IcebrowHunter::s_registered = false;
 
@@ -45,6 +34,17 @@ void IcebrowHunter::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            IcebrowHunter::Create,
+            IcebrowHunter::ValueToString,
+            IcebrowHunter::EnumStringToInt,
+            IcebrowHunter::ComputePoints,
+            {
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Icebrow Hunter", factoryMethod);
     }
 }

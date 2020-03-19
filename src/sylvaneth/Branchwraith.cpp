@@ -15,17 +15,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    Branchwraith::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    Branchwraith::ComputePoints,
-    {
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool Branchwraith::s_registered = false;
 
@@ -74,6 +63,17 @@ void Branchwraith::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Branchwraith::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            Branchwraith::ComputePoints,
+            {
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Branchwraith", factoryMethod);
     }
 }

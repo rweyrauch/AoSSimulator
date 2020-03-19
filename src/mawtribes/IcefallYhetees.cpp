@@ -10,21 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    IcefallYhetees::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    IcefallYhetees::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", IcefallYhetees::MIN_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE,
-            IcefallYhetees::MAX_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool IcefallYhetees::s_registered = false;
 
@@ -50,6 +35,21 @@ void IcefallYhetees::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            IcefallYhetees::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            IcefallYhetees::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", IcefallYhetees::MIN_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE,
+                    IcefallYhetees::MAX_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Icefall Yhetees", factoryMethod);
     }
 }

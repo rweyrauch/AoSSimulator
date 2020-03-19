@@ -12,21 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    SkullCannons::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    SkullCannons::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SkullCannons::MIN_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE,
-            SkullCannons::MAX_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool SkullCannons::s_registered = false;
 
@@ -82,6 +67,21 @@ void SkullCannons::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SkullCannons::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            SkullCannons::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SkullCannons::MIN_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE,
+                    SkullCannons::MAX_UNIT_SIZE, SkullCannons::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Skull Cannons", factoryMethod);
     }
 }

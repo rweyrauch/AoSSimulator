@@ -12,17 +12,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    TombBanshee::Create,
-    nullptr,
-    nullptr,
-    TombBanshee::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool TombBanshee::s_registered = false;
 
 Unit *TombBanshee::Create(const ParameterList &parameters)
@@ -36,13 +25,22 @@ Unit *TombBanshee::Create(const ParameterList &parameters)
         unit = nullptr;
     }
     return unit;
-    return nullptr;
 }
 
 void TombBanshee::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TombBanshee::Create,
+            nullptr,
+            nullptr,
+            TombBanshee::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Tomb Banshee", factoryMethod);
     }
 }

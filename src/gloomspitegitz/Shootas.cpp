@@ -13,25 +13,6 @@
 namespace GloomspiteGitz
 {
 
-static FactoryMethod factoryMethod = {
-    Shootas::Create,
-    nullptr,
-    nullptr,
-    Shootas::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Shootas::MIN_UNIT_SIZE,
-            Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
-        },
-        {ParamType::Integer, "Barbed Nets", 0, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Gong Bashers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Flag Bearers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-        {ParamType::Integer, "Icon Bearers", 0, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
-
 bool Shootas::s_registered = false;
 
 Shootas::Shootas() :
@@ -69,6 +50,24 @@ void Shootas::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Shootas::Create,
+            nullptr,
+            nullptr,
+            Shootas::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Shootas::MIN_UNIT_SIZE,
+                    Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
+                },
+                {ParamType::Integer, "Barbed Nets", 0, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Gong Bashers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Flag Bearers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Icon Bearers", 0, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Shootas", factoryMethod);
     }
 }

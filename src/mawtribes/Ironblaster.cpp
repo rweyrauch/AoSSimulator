@@ -13,17 +13,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Ironblaster::Create,
-    Ironblaster::ValueToString,
-    Ironblaster::EnumStringToInt,
-    Ironblaster::ComputePoints,
-    {
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Ironblaster::s_registered = false;
 
@@ -57,6 +46,17 @@ void Ironblaster::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Ironblaster::Create,
+            Ironblaster::ValueToString,
+            Ironblaster::EnumStringToInt,
+            Ironblaster::ComputePoints,
+            {
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Ironblaster", factoryMethod);
     }
 }

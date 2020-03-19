@@ -35,7 +35,7 @@ void WurrgogProphet::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Bonesplitterz::ValueToString,
             Bonesplitterz::EnumStringToInt,
@@ -46,7 +46,7 @@ void WurrgogProphet::Init()
             DESTRUCTION,
             {BONESPLITTERZ}
         };
-        s_registered = UnitFactory::Register("Wurrgog Prophet", *factoryMethod);
+        s_registered = UnitFactory::Register("Wurrgog Prophet", factoryMethod);
     }
 }
 

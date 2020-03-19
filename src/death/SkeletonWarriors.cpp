@@ -12,27 +12,6 @@
 
 namespace Death
 {
-
-static FactoryMethod factoryMethod = {
-    SkeletonWarriors::Create,
-    SkeletonWarriors::ValueToString,
-    SkeletonWarriors::EnumStringToInt,
-    SkeletonWarriors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MIN_UNIT_SIZE, SkeletonWarriors::MAX_UNIT_SIZE,
-            SkeletonWarriors::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", SkeletonWarriors::AncientBlade, SkeletonWarriors::AncientBlade, SkeletonWarriors::AncientSpear, 1
-        },
-        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DEATH,
-    { DEATHRATTLE }
-};
-
 bool SkeletonWarriors::s_registered = false;
 
 SkeletonWarriors::SkeletonWarriors() :
@@ -110,6 +89,20 @@ void SkeletonWarriors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", AncientBlade, AncientBlade, AncientSpear, 1},
+                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DEATH,
+            { DEATHRATTLE }
+        };
         s_registered = UnitFactory::Register("Skeleton Warriors", factoryMethod);
     }
 }

@@ -20,8 +20,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, BloodwrackShrine::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, BloodwrackShrine::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 6, 2},
         {5, 5, 2},
@@ -82,17 +82,17 @@ void BloodwrackShrine::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            BloodwrackShrine::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            BloodwrackShrine::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Bloodwrack Shrine", *factoryMethod);
+        s_registered = UnitFactory::Register("Bloodwrack Shrine", factoryMethod);
     }
 }
 

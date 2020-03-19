@@ -58,7 +58,7 @@ void SkinkStarpriest::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -71,7 +71,7 @@ void SkinkStarpriest::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Skink Starpriest", *factoryMethod);
+        s_registered = UnitFactory::Register("Skink Starpriest", factoryMethod);
     }
 }
 

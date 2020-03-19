@@ -12,21 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    SistersOfTheWatch::Create,
-    SistersOfTheWatch::ValueToString,
-    SistersOfTheWatch::EnumStringToInt,
-    SistersOfTheWatch::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SistersOfTheWatch::MIN_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE,
-            SistersOfTheWatch::MAX_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool SistersOfTheWatch::s_registered = false;
 
@@ -62,6 +47,21 @@ void SistersOfTheWatch::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SistersOfTheWatch::Create,
+            SistersOfTheWatch::ValueToString,
+            SistersOfTheWatch::EnumStringToInt,
+            SistersOfTheWatch::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SistersOfTheWatch::MIN_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE,
+                    SistersOfTheWatch::MAX_UNIT_SIZE, SistersOfTheWatch::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Sisters of the Watch", factoryMethod);
     }
 }

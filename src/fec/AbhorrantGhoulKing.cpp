@@ -11,18 +11,6 @@
 
 namespace FleshEaterCourt
 {
-static FactoryMethod factoryMethod = {
-    AbhorrantGhoulKing::Create,
-    FleshEaterCourts::ValueToString,
-    FleshEaterCourts::EnumStringToInt,
-    AbhorrantGhoulKing::ComputePoints,
-    {
-        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-    },
-    DEATH,
-    { FLESH_EATER_COURTS }
-};
 
 bool AbhorrantGhoulKing::s_registered = false;
 
@@ -75,6 +63,18 @@ void AbhorrantGhoulKing::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            FleshEaterCourts::ValueToString,
+            FleshEaterCourts::EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
+            },
+            DEATH,
+            { FLESH_EATER_COURTS }
+        };
         s_registered = UnitFactory::Register("Abhorrant Ghoul King", factoryMethod);
     }
 }

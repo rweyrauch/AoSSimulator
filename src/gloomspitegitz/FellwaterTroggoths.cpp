@@ -14,21 +14,6 @@
 namespace GloomspiteGitz
 {
 
-static FactoryMethod factoryMethod = {
-    FellwaterTroggoths::Create,
-    nullptr,
-    nullptr,
-    FellwaterTroggoths::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FellwaterTroggoths::MIN_UNIT_SIZE, FellwaterTroggoths::MIN_UNIT_SIZE,
-            FellwaterTroggoths::MAX_UNIT_SIZE, FellwaterTroggoths::MIN_UNIT_SIZE
-        },
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
-
 bool FellwaterTroggoths::s_registered = false;
 
 FellwaterTroggoths::FellwaterTroggoths() :
@@ -78,6 +63,20 @@ void FellwaterTroggoths::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FellwaterTroggoths::Create,
+            nullptr,
+            nullptr,
+            FellwaterTroggoths::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FellwaterTroggoths::MIN_UNIT_SIZE, FellwaterTroggoths::MIN_UNIT_SIZE,
+                    FellwaterTroggoths::MAX_UNIT_SIZE, FellwaterTroggoths::MIN_UNIT_SIZE
+                },
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Fellwater Troggoths", factoryMethod);
     }
 }

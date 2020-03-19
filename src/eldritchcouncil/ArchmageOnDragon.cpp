@@ -20,8 +20,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, ArchmageOnDragon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, ArchmageOnDragon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6, 2},
         {12, 5, 3},
@@ -29,19 +29,6 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {8,  3, 4},
         {6,  2, 4}
     };
-
-static FactoryMethod factoryMethod = {
-    ArchmageOnDragon::Create,
-    nullptr,
-    nullptr,
-    ArchmageOnDragon::ComputePoints,
-    {
-        {ParamType::Boolean, "Arcane Tome", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Talisman of Arcane Power", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    ORDER,
-    { ELDRITCH_COUNCIL }
-};
 
 bool ArchmageOnDragon::s_registered = false;
 
@@ -115,6 +102,18 @@ void ArchmageOnDragon::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Boolean, "Arcane Tome", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Talisman of Arcane Power", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            ORDER,
+            { ELDRITCH_COUNCIL }
+        };
         s_registered = UnitFactory::Register("Archmage On Dragon", factoryMethod);
     }
 }

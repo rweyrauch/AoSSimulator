@@ -21,8 +21,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ChaosGargant::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ChaosGargant::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, RAND_3D6, 6},
         {6, RAND_2D6, RAND_D6},
@@ -80,7 +80,7 @@ void ChaosGargant::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             ChaosGargant::Create,
             nullptr,
             nullptr,
@@ -90,7 +90,7 @@ void ChaosGargant::Init()
             DESTRUCTION,
             { GLOOMSPITE_GITZ }
         };
-        s_registered = UnitFactory::Register("Chaos Gargant", *factoryMethod);
+        s_registered = UnitFactory::Register("Chaos Gargant", factoryMethod);
     }
 }
 

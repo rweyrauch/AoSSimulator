@@ -11,16 +11,6 @@
 
 namespace FreeAgent
 {
-static FactoryMethod factoryMethod = {
-    GotrekGurnisson::Create,
-    nullptr,
-    nullptr,
-    GotrekGurnisson::ComputePoints,
-    {
-    },
-    ORDER,
-    { FREE_AGENT }
-};
 
 bool GotrekGurnisson::s_registered = false;
 
@@ -59,6 +49,16 @@ void GotrekGurnisson::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GotrekGurnisson::Create,
+            nullptr,
+            nullptr,
+            GotrekGurnisson::ComputePoints,
+            {
+            },
+            ORDER,
+            { FREE_AGENT }
+        };
         s_registered = UnitFactory::Register("Gotrek Gurnisson", factoryMethod);
     }
 }

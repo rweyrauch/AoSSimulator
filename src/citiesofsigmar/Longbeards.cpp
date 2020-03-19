@@ -11,27 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Longbeards::Create,
-    Longbeards::ValueToString,
-    Longbeards::EnumStringToInt,
-    Longbeards::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
-            Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Longbeards::AncestralWeaponAndShield, Longbeards::AncestralWeaponAndShield,
-            Longbeards::AncestralGreatAxe, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Longbeards::s_registered = false;
 
@@ -111,6 +90,27 @@ void Longbeards::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Longbeards::Create,
+            Longbeards::ValueToString,
+            Longbeards::EnumStringToInt,
+            Longbeards::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
+                    Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Longbeards::AncestralWeaponAndShield, Longbeards::AncestralWeaponAndShield,
+                    Longbeards::AncestralGreatAxe, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Longbeards", factoryMethod);
     }
 }

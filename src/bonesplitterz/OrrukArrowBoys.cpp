@@ -36,7 +36,7 @@ void SavageOrrukArrowboys::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Bonesplitterz::ValueToString,
             Bonesplitterz::EnumStringToInt,
@@ -50,7 +50,7 @@ void SavageOrrukArrowboys::Init()
             DESTRUCTION,
             { BONESPLITTERZ }
         };
-        s_registered = UnitFactory::Register("Savage Orruk Arrowboys", *factoryMethod);
+        s_registered = UnitFactory::Register("Savage Orruk Arrowboys", factoryMethod);
     }
 }
 

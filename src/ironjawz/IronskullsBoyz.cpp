@@ -11,17 +11,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    IronskullsBoyz::Create,
-    Ironjawz::ValueToString,
-    Ironjawz::EnumStringToInt,
-    IronskullsBoyz::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool IronskullsBoyz::s_registered = false;
 
@@ -76,6 +65,17 @@ void IronskullsBoyz::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            IronskullsBoyz::Create,
+            Ironjawz::ValueToString,
+            Ironjawz::EnumStringToInt,
+            IronskullsBoyz::ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Ironskull's Boyz", factoryMethod);
     }
 }

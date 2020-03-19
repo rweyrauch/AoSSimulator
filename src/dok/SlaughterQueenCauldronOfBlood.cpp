@@ -15,12 +15,12 @@ struct TableEntry
 {
     int m_move;
     int m_knifeAttacks;
-    int m_bloodshield;
+    float m_bloodshield;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, SlaughterQueenOnCauldronOfBlood::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, SlaughterQueenOnCauldronOfBlood::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 8, 18},
         {5, 7, 14},
@@ -87,17 +87,17 @@ void SlaughterQueenOnCauldronOfBlood::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            SlaughterQueenOnCauldronOfBlood::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            SlaughterQueenOnCauldronOfBlood::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Slaughter Queen on Cauldron of Blood", *factoryMethod);
+        s_registered = UnitFactory::Register("Slaughter Queen on Cauldron of Blood", factoryMethod);
     }
 }
 

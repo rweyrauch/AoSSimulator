@@ -11,16 +11,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    SquigGobba::Create,
-    nullptr,
-    nullptr,
-    SquigGobba::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool SquigGobba::s_registered = false;
 
@@ -65,6 +55,16 @@ void SquigGobba::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SquigGobba::Create,
+            nullptr,
+            nullptr,
+            SquigGobba::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Squig Gobba", factoryMethod);
     }
 }

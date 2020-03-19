@@ -153,7 +153,7 @@ void Liberators::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -170,7 +170,7 @@ void Liberators::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Liberators", *factoryMethod);
+        s_registered = UnitFactory::Register("Liberators", factoryMethod);
     }
 }
 

@@ -94,7 +94,7 @@ void PlagueMonks::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -110,7 +110,7 @@ void PlagueMonks::Init()
             CHAOS,
             { SKAVEN }
         };
-        s_registered = UnitFactory::Register("Plague Monks", *factoryMethod);
+        s_registered = UnitFactory::Register("Plague Monks", factoryMethod);
     }
 }
 

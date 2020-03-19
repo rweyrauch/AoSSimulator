@@ -13,21 +13,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    BladegheistRevenants::Create,
-    nullptr,
-    nullptr,
-    BladegheistRevenants::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BladegheistRevenants::MIN_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE,
-            BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool BladegheistRevenants::s_registered = false;
 
 BladegheistRevenants::BladegheistRevenants() :
@@ -77,6 +62,20 @@ void BladegheistRevenants::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BladegheistRevenants::Create,
+            nullptr,
+            nullptr,
+            BladegheistRevenants::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BladegheistRevenants::MIN_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE,
+                    BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Bladegheist Revenants", factoryMethod);
     }
 }

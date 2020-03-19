@@ -73,21 +73,18 @@ void KhineraiHeartrenders::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            KhineraiHeartrenders::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            KhineraiHeartrenders::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", KhineraiHeartrenders::MIN_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE,
-                    KhineraiHeartrenders::MAX_UNIT_SIZE, KhineraiHeartrenders::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Khinerai Lifetakers", *factoryMethod);
+        s_registered = UnitFactory::Register("Khinerai Lifetakers", factoryMethod);
     }
 }
 

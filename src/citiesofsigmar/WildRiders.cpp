@@ -11,19 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    WildRiders::Create,
-    WildRiders::ValueToString,
-    WildRiders::EnumStringToInt,
-    WildRiders::ComputePoints,
-    {
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool WildRiders::s_registered = false;
 
@@ -61,6 +48,19 @@ void WildRiders::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            WildRiders::Create,
+            WildRiders::ValueToString,
+            WildRiders::EnumStringToInt,
+            WildRiders::ComputePoints,
+            {
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Wild Riders", factoryMethod);
     }
 }

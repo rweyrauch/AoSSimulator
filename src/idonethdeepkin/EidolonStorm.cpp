@@ -33,7 +33,7 @@ void EidolonOfMathlannAspectOfTheStorm::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             IdonethDeepkinBase::ValueToString,
             IdonethDeepkinBase::EnumStringToInt,
@@ -45,7 +45,7 @@ void EidolonOfMathlannAspectOfTheStorm::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Eidolon of Mathlann Aspect of the Storm", *factoryMethod);
+        s_registered = UnitFactory::Register("Eidolon of Mathlann Aspect of the Storm", factoryMethod);
     }
 }
 

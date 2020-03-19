@@ -11,21 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    ScourgerunnerChariots::Create,
-    ScourgerunnerChariots::ValueToString,
-    ScourgerunnerChariots::EnumStringToInt,
-    ScourgerunnerChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", ScourgerunnerChariots::MIN_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE,
-            ScourgerunnerChariots::MAX_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool ScourgerunnerChariots::s_registered = false;
 
@@ -61,6 +46,21 @@ void ScourgerunnerChariots::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ScourgerunnerChariots::Create,
+            ScourgerunnerChariots::ValueToString,
+            ScourgerunnerChariots::EnumStringToInt,
+            ScourgerunnerChariots::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", ScourgerunnerChariots::MIN_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE,
+                    ScourgerunnerChariots::MAX_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Scourgerunner Chariots", factoryMethod);
     }
 }

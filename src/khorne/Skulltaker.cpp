@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Skulltaker::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Skulltaker::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Skulltaker::s_registered = false;
 
@@ -65,6 +54,17 @@ void Skulltaker::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Skulltaker::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Skulltaker::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Skulltaker", factoryMethod);
     }
 }

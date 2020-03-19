@@ -21,8 +21,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, 16, Archaon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, 16, Archaon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6},
         {12, 5},
@@ -97,7 +97,7 @@ void Archaon::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SlavesToDarknessBase::ValueToString,
             SlavesToDarknessBase::EnumStringToInt,
@@ -108,7 +108,7 @@ void Archaon::Init()
             CHAOS,
             { EVERCHOSEN, SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, NURGLE, SLAANESH }
         };
-        s_registered = UnitFactory::Register("Archaon", *factoryMethod);
+        s_registered = UnitFactory::Register("Archaon", factoryMethod);
     }
 }
 
@@ -125,7 +125,7 @@ int Archaon::getDamageTableIndex() const
     for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
     {
         if (woundsInflicted < g_woundThresholds[i])
-        {return false;
+        {
             return i;
         }
     }

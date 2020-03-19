@@ -11,20 +11,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    OrrukBoarChariots::Create,
-    nullptr,
-    nullptr,
-    OrrukBoarChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", OrrukBoarChariots::MIN_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE,
-            OrrukBoarChariots::MAX_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE
-        },
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 bool OrrukBoarChariots::s_registered = false;
 
@@ -75,6 +61,20 @@ void OrrukBoarChariots::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukBoarChariots::Create,
+            nullptr,
+            nullptr,
+            OrrukBoarChariots::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", OrrukBoarChariots::MIN_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE,
+                    OrrukBoarChariots::MAX_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE
+                },
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Orruk Boar Chariots", factoryMethod);
     }
 }

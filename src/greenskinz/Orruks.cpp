@@ -12,23 +12,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    Orruks::Create,
-    Orruks::ValueToString,
-    Orruks::EnumStringToInt,
-    Orruks::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Orruks::MIN_UNIT_SIZE,
-            Orruks::MIN_UNIT_SIZE, Orruks::MAX_UNIT_SIZE, Orruks::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", Orruks::ChoppaAndShield, Orruks::ChoppaAndShield, Orruks::OrrukBowAndCutta, 1},
-        {ParamType::Boolean, "Waaagh! Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "Standard Bearer", Orruks::OrrukBanner, Orruks::None, Orruks::SkullIcon, 1},
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 bool Orruks::s_registered = false;
 
@@ -135,6 +118,23 @@ void Orruks::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Orruks::Create,
+            Orruks::ValueToString,
+            Orruks::EnumStringToInt,
+            Orruks::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Orruks::MIN_UNIT_SIZE,
+                    Orruks::MIN_UNIT_SIZE, Orruks::MAX_UNIT_SIZE, Orruks::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", Orruks::ChoppaAndShield, Orruks::ChoppaAndShield, Orruks::OrrukBowAndCutta, 1},
+                {ParamType::Boolean, "Waaagh! Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "Standard Bearer", Orruks::OrrukBanner, Orruks::None, Orruks::SkullIcon, 1},
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Orruks", factoryMethod);
     }
 }

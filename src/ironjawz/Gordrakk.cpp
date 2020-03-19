@@ -12,17 +12,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    GordrakkTheFistOfGork::Create,
-    Ironjawz::ValueToString,
-    Ironjawz::EnumStringToInt,
-    GordrakkTheFistOfGork::ComputePoints,
-    {
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool GordrakkTheFistOfGork::s_registered = false;
 
@@ -89,6 +78,17 @@ void GordrakkTheFistOfGork::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GordrakkTheFistOfGork::Create,
+            Ironjawz::ValueToString,
+            Ironjawz::EnumStringToInt,
+            GordrakkTheFistOfGork::ComputePoints,
+            {
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Gordrakk the Fist of Gork", factoryMethod);
     }
 }

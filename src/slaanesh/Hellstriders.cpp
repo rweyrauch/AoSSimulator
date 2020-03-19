@@ -89,7 +89,7 @@ void Hellstriders::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -105,7 +105,7 @@ void Hellstriders::Init()
             CHAOS,
             { SLAANESH }
         };
-        s_registered = UnitFactory::Register("Hellstriders", *factoryMethod);
+        s_registered = UnitFactory::Register("Hellstriders", factoryMethod);
     }
 }
 

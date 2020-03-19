@@ -86,7 +86,7 @@ void Seekers::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SlaaneshBase::ValueToString,
             SlaaneshBase::EnumStringToInt,
@@ -101,7 +101,7 @@ void Seekers::Init()
             CHAOS,
             { SLAANESH }
         };
-        s_registered = UnitFactory::Register("Seekers", *factoryMethod);
+        s_registered = UnitFactory::Register("Seekers", factoryMethod);
     }
 }
 

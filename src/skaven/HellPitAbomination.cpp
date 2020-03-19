@@ -93,7 +93,7 @@ void HellPitAbomination::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             nullptr,
             nullptr,
@@ -104,7 +104,7 @@ void HellPitAbomination::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Hell Pit Abomination", *factoryMethod);
+        s_registered = UnitFactory::Register("Hell Pit Abomination", factoryMethod);
     }
 }
 

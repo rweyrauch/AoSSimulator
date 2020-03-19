@@ -12,16 +12,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    RogueIdol::Create,
-    nullptr,
-    nullptr,
-    RogueIdol::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 struct TableEntry
 {
@@ -81,6 +71,16 @@ void RogueIdol::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            RogueIdol::Create,
+            nullptr,
+            nullptr,
+            RogueIdol::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Rogue Idol", factoryMethod);
     }
 }

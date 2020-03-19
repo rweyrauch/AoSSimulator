@@ -74,7 +74,7 @@ void LordArcanum::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -88,7 +88,7 @@ void LordArcanum::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Lord-Arcanum", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Arcanum", factoryMethod);
     }
 }
 

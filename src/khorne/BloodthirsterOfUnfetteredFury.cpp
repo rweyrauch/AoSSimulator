@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    BloodthirsterOfUnfetteredFury::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    BloodthirsterOfUnfetteredFury::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 struct TableEntry
 {
@@ -85,6 +74,17 @@ void BloodthirsterOfUnfetteredFury::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BloodthirsterOfUnfetteredFury::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            BloodthirsterOfUnfetteredFury::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Bloodthirster Of Unfettered Fury", factoryMethod);
     }
 }

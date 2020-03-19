@@ -67,7 +67,7 @@ void Aetherwings::Init()
 {
     if (!s_registered)
     {
-        static auto* factoryMethod = new FactoryMethod {
+        static FactoryMethod factoryMethod = {
             Create,
             StormcastEternal::ValueToString,
             StormcastEternal::EnumStringToInt,
@@ -80,7 +80,7 @@ void Aetherwings::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Aetherwings", *factoryMethod);
+        s_registered = UnitFactory::Register("Aetherwings", factoryMethod);
     }
 }
 

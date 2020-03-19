@@ -82,7 +82,7 @@ void Daemonettes::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SlaaneshBase::ValueToString,
             SlaaneshBase::EnumStringToInt,
@@ -97,7 +97,7 @@ void Daemonettes::Init()
             CHAOS,
             { SLAANESH }
         };
-        s_registered = UnitFactory::Register("Daemonettes", *factoryMethod);
+        s_registered = UnitFactory::Register("Daemonettes", factoryMethod);
     }
 }
 

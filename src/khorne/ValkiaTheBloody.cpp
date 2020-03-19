@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    ValkiaTheBloody::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    ValkiaTheBloody::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool ValkiaTheBloody::s_registered = false;
 
@@ -65,6 +54,17 @@ void ValkiaTheBloody::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ValkiaTheBloody::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            ValkiaTheBloody::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Valkia the Bloody", factoryMethod);
     }
 }

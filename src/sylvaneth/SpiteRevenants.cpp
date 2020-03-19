@@ -14,22 +14,6 @@
 namespace Sylvaneth
 {
 
-static FactoryMethod factoryMethod = {
-    SpiteRevenants::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    SpiteRevenants::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SpiteRevenants::MIN_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE,
-            SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
-
 bool SpiteRevenants::s_registered = false;
 
 SpiteRevenants::SpiteRevenants() :
@@ -92,6 +76,21 @@ void SpiteRevenants::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SpiteRevenants::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            SpiteRevenants::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SpiteRevenants::MIN_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE,
+                    SpiteRevenants::MAX_UNIT_SIZE, SpiteRevenants::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Spite-Revenants", factoryMethod);
     }
 }

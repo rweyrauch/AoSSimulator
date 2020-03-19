@@ -65,7 +65,7 @@ void LordVeritant::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -78,7 +78,7 @@ void LordVeritant::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Lord-Veritant", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Veritant", factoryMethod);
     }
 }
 

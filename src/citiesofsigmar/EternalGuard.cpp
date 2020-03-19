@@ -12,25 +12,6 @@
 namespace CitiesOfSigmar
 {
 
-static FactoryMethod factoryMethod = {
-    EternalGuard::Create,
-    CitizenOfSigmar::ValueToString,
-    CitizenOfSigmar::EnumStringToInt,
-    EternalGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", EternalGuard::MIN_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE,
-            EternalGuard::MAX_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Glade Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
-
 bool EternalGuard::s_registered = false;
 
 EternalGuard::EternalGuard() :
@@ -93,6 +74,24 @@ void EternalGuard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            EternalGuard::Create,
+            CitizenOfSigmar::ValueToString,
+            CitizenOfSigmar::EnumStringToInt,
+            EternalGuard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", EternalGuard::MIN_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE,
+                    EternalGuard::MAX_UNIT_SIZE, EternalGuard::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Glade Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Eternal Guard", factoryMethod);
     }
 }

@@ -11,21 +11,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    FrostSabres::Create,
-    MawtribesBase::ValueToString,
-    MawtribesBase::EnumStringToInt,
-    FrostSabres::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FrostSabres::MIN_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE,
-            FrostSabres::MAX_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool FrostSabres::s_registered = false;
 
@@ -51,6 +36,21 @@ void FrostSabres::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FrostSabres::Create,
+            MawtribesBase::ValueToString,
+            MawtribesBase::EnumStringToInt,
+            FrostSabres::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FrostSabres::MIN_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE,
+                    FrostSabres::MAX_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Frost Sabres", factoryMethod);
     }
 }

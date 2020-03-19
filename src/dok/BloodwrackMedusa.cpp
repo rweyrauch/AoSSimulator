@@ -61,17 +61,17 @@ void BloodwrackMedusa::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            BloodwrackMedusa::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            BloodwrackMedusa::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Bloodwrack Medusa", *factoryMethod);
+        s_registered = UnitFactory::Register("Bloodwrack Medusa", factoryMethod);
     }
 }
 

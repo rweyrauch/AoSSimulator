@@ -11,17 +11,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    KnightOfShrouds::Create,
-    nullptr,
-    nullptr,
-    KnightOfShrouds::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool KnightOfShrouds::s_registered = false;
 
 Unit *KnightOfShrouds::Create(const ParameterList &parameters)
@@ -41,6 +30,16 @@ void KnightOfShrouds::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            KnightOfShrouds::Create,
+            nullptr,
+            nullptr,
+            KnightOfShrouds::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Knight of Shrouds", factoryMethod);
     }
 }

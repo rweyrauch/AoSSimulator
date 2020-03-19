@@ -3,19 +3,8 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    SkaethsWildHunt::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    SkaethsWildHunt::ComputePoints,
-    {
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool SkaethsWildHunt::s_registered = false;
-
 
 Unit *SkaethsWildHunt::Create(const ParameterList &parameters)
 {
@@ -34,6 +23,16 @@ void SkaethsWildHunt::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SkaethsWildHunt::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            SkaethsWildHunt::ComputePoints,
+            {
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Skaeth's Wild Hunt", factoryMethod);
     }
 }

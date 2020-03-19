@@ -31,7 +31,7 @@ void PlaguePriest::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -42,7 +42,7 @@ void PlaguePriest::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Plague Priest", *factoryMethod);
+        s_registered = UnitFactory::Register("Plague Priest", factoryMethod);
     }
 }
 

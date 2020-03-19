@@ -12,21 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    DrakespawnChariots::Create,
-    DrakespawnChariots::ValueToString,
-    DrakespawnChariots::EnumStringToInt,
-    DrakespawnChariots::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DrakespawnChariots::MIN_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE,
-            DrakespawnChariots::MAX_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool DrakespawnChariots::s_registered = false;
 
@@ -62,6 +47,21 @@ void DrakespawnChariots::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DrakespawnChariots::Create,
+            DrakespawnChariots::ValueToString,
+            DrakespawnChariots::EnumStringToInt,
+            DrakespawnChariots::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", DrakespawnChariots::MIN_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE,
+                    DrakespawnChariots::MAX_UNIT_SIZE, DrakespawnChariots::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Drakespawn Chariots", factoryMethod);
     }
 }

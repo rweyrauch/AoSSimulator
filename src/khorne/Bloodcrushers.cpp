@@ -83,7 +83,7 @@ void Bloodcrushers::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Bloodcrushers::Create,
             KhorneBase::ValueToString,
             KhorneBase::EnumStringToInt,
@@ -100,7 +100,7 @@ void Bloodcrushers::Init()
             CHAOS,
             { KHORNE }
         };
-        s_registered = UnitFactory::Register("Bloodcrushers", *factoryMethod);
+        s_registered = UnitFactory::Register("Bloodcrushers", factoryMethod);
     }
 }
 

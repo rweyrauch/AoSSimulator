@@ -11,17 +11,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    SpiritTorment::Create,
-    nullptr,
-    nullptr,
-    SpiritTorment::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool SpiritTorment::s_registered = false;
 
 Unit *SpiritTorment::Create(const ParameterList &parameters)
@@ -42,6 +31,16 @@ void SpiritTorment::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SpiritTorment::Create,
+            nullptr,
+            nullptr,
+            SpiritTorment::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Spirit Torment", factoryMethod);
     }
 }

@@ -77,7 +77,7 @@ void LordArcanumOnGryphcharger::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -91,7 +91,7 @@ void LordArcanumOnGryphcharger::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Lord-Arcanum on Gryph-charger", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Arcanum on Gryph-charger", factoryMethod);
     }
 }
 

@@ -11,21 +11,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    ArkanautIronclad::Create,
-    ArkanautIronclad::ValueToString,
-    ArkanautIronclad::EnumStringToInt,
-    ArkanautIronclad::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", ArkanautIronclad::GreatSkyCannon, ArkanautIronclad::GreatSkyCannon,
-            ArkanautIronclad::GreatVolleyCannon, 1
-        },
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 struct TableEntry
 {
@@ -87,6 +72,21 @@ void ArkanautIronclad::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ArkanautIronclad::Create,
+            ArkanautIronclad::ValueToString,
+            ArkanautIronclad::EnumStringToInt,
+            ArkanautIronclad::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", ArkanautIronclad::GreatSkyCannon, ArkanautIronclad::GreatSkyCannon,
+                    ArkanautIronclad::GreatVolleyCannon, 1
+                },
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Arkanaut Ironclad", factoryMethod);
     }
 }

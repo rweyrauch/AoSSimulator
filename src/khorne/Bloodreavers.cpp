@@ -14,27 +14,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Bloodreavers::Create,
-    Bloodreavers::ValueToString,
-    Bloodreavers::EnumStringToInt,
-    Bloodreavers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE,
-            Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", Bloodreavers::ReaverBlades, Bloodreavers::ReaverBlades,
-            Bloodreavers::MeatripperAxe, 1
-        },
-        {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Bloodreavers::s_registered = false;
 
@@ -141,6 +120,27 @@ void Bloodreavers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Bloodreavers::Create,
+            Bloodreavers::ValueToString,
+            Bloodreavers::EnumStringToInt,
+            Bloodreavers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Bloodreavers::MIN_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE,
+                    Bloodreavers::MAX_UNIT_SIZE, Bloodreavers::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", Bloodreavers::ReaverBlades, Bloodreavers::ReaverBlades,
+                    Bloodreavers::MeatripperAxe, 1
+                },
+                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Bloodreavers", factoryMethod);
     }
 }

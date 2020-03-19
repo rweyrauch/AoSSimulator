@@ -11,16 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    Necromancer::Create,
-    nullptr,
-    nullptr,
-    Necromancer::ComputePoints,
-    {
-    },
-    DEATH,
-    { DEATHMAGES }
-};
 
 bool Necromancer::s_registered = false;
 
@@ -60,6 +50,16 @@ void Necromancer::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            DEATH,
+            { DEATHMAGES }
+        };
         s_registered = UnitFactory::Register("Necromancer", factoryMethod);
     }
 }

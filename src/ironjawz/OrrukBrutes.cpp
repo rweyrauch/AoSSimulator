@@ -11,26 +11,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    OrrukBrutes::Create,
-    OrrukBrutes::ValueToString,
-    OrrukBrutes::EnumStringToInt,
-    OrrukBrutes::ComputePoints,
-    {
-        {ParamType::Integer, "Models", OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
-        {
-            ParamType::Enum, "Weapons", OrrukBrutes::TwoBruteChoppas, OrrukBrutes::TwoBruteChoppas,
-            OrrukBrutes::JaggedGorehacka, 1
-        },
-        {ParamType::Integer, "Gore Choppas", 0, 0, OrrukBrutes::MAX_UNIT_SIZE / 5, 1},
-        {
-            ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
-        },
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool OrrukBrutes::s_registered = false;
 
@@ -123,6 +103,26 @@ void OrrukBrutes::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukBrutes::Create,
+            OrrukBrutes::ValueToString,
+            OrrukBrutes::EnumStringToInt,
+            OrrukBrutes::ComputePoints,
+            {
+                {ParamType::Integer, "Models", OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
+                {
+                    ParamType::Enum, "Weapons", OrrukBrutes::TwoBruteChoppas, OrrukBrutes::TwoBruteChoppas,
+                    OrrukBrutes::JaggedGorehacka, 1
+                },
+                {ParamType::Integer, "Gore Choppas", 0, 0, OrrukBrutes::MAX_UNIT_SIZE / 5, 1},
+                {
+                    ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
+                },
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Orruk Brutes", factoryMethod);
     }
 }

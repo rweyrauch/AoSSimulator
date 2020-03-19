@@ -10,18 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    ThundertuskBeastriders::Create,
-    ThundertuskBeastriders::ValueToString,
-    ThundertuskBeastriders::EnumStringToInt,
-    ThundertuskBeastriders::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", ThundertuskBeastriders::Chaintrap, ThundertuskBeastriders::Chaintrap, ThundertuskBeastriders::BloodVulture, 1},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    {OGOR_MAWTRIBES}
-};
 
 struct TableEntry
 {
@@ -83,6 +71,18 @@ void ThundertuskBeastriders::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ThundertuskBeastriders::Create,
+            ThundertuskBeastriders::ValueToString,
+            ThundertuskBeastriders::EnumStringToInt,
+            ThundertuskBeastriders::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", ThundertuskBeastriders::Chaintrap, ThundertuskBeastriders::Chaintrap, ThundertuskBeastriders::BloodVulture, 1},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            {OGOR_MAWTRIBES}
+        };
         s_registered = UnitFactory::Register("Thundertusk Beastriders", factoryMethod);
     }
 }

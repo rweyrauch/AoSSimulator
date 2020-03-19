@@ -44,7 +44,7 @@ void Vokmortian::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -56,7 +56,7 @@ void Vokmortian::Init()
             { OSSIARCH_BONEREAPERS }
         };
 
-        s_registered = UnitFactory::Register("Vokmortian", *factoryMethod);
+        s_registered = UnitFactory::Register("Vokmortian", factoryMethod);
     }
 }
 

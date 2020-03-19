@@ -89,16 +89,13 @@ void SistersOfSlaughter::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            SistersOfSlaughter::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            SistersOfSlaughter::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SistersOfSlaughter::MIN_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE,
-                    SistersOfSlaughter::MAX_UNIT_SIZE, SistersOfSlaughter::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Sacrificial Knife", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
@@ -106,7 +103,7 @@ void SistersOfSlaughter::Init()
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Sisters of Slaughter", *factoryMethod);
+        s_registered = UnitFactory::Register("Sisters of Slaughter", factoryMethod);
     }
 }
 

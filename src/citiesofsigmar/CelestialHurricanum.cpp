@@ -22,8 +22,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, CelestialHurricanum::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, CelestialHurricanum::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 10, 3},
         {9, 8, 2},
@@ -66,7 +66,7 @@ void CelestialHurricanum::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -79,7 +79,7 @@ void CelestialHurricanum::Init()
             { CITIES_OF_SIGMAR }
         };
 
-        s_registered = UnitFactory::Register("Celestial Hurricanum", *factoryMethod);
+        s_registered = UnitFactory::Register("Celestial Hurricanum", factoryMethod);
     }
 }
 

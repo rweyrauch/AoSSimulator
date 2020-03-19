@@ -12,20 +12,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    BoingrotBounderz::Create,
-    nullptr,
-    nullptr,
-    BoingrotBounderz::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BoingrotBounderz::MIN_UNIT_SIZE,
-            BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE
-        }
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool BoingrotBounderz::s_registered = false;
 
@@ -86,6 +72,20 @@ void BoingrotBounderz::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BoingrotBounderz::Create,
+            nullptr,
+            nullptr,
+            BoingrotBounderz::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", BoingrotBounderz::MIN_UNIT_SIZE,
+                    BoingrotBounderz::MIN_UNIT_SIZE, BoingrotBounderz::MAX_UNIT_SIZE, BoingrotBounderz::MIN_UNIT_SIZE
+                }
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Boingrot Bounderz", factoryMethod);
     }
 }

@@ -10,23 +10,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    MorghastHarbingers::Create,
-    MorghastHarbingers::ValueToString,
-    MorghastHarbingers::EnumStringToInt,
-    MorghastHarbingers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MAX_UNIT_SIZE,
-            MorghastHarbingers::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1
-        },
-    },
-    DEATH,
-    { DEATHLORDS }
-};
 
 bool MorghastHarbingers::s_registered = false;
 
@@ -106,6 +89,18 @@ void MorghastHarbingers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", SpiritHalberd, SpiritHalberd, SpiritSwords, 1},
+            },
+            DEATH,
+            { DEATHLORDS }
+        };
         s_registered = UnitFactory::Register("Morghast Harbingers", factoryMethod);
     }
 }

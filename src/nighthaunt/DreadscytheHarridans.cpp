@@ -11,22 +11,6 @@
 
 namespace Nighthaunt
 {
-
-static FactoryMethod factoryMethod = {
-    DreadscytheHarridans::Create,
-    nullptr,
-    nullptr,
-    DreadscytheHarridans::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DreadscytheHarridans::MIN_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE,
-            DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool DreadscytheHarridans::s_registered = false;
 
 DreadscytheHarridans::DreadscytheHarridans() :
@@ -79,6 +63,20 @@ void DreadscytheHarridans::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DreadscytheHarridans::Create,
+            nullptr,
+            nullptr,
+            DreadscytheHarridans::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", DreadscytheHarridans::MIN_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE,
+                    DreadscytheHarridans::MAX_UNIT_SIZE, DreadscytheHarridans::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Dreadscythe Harridans", factoryMethod);
     }
 }

@@ -41,7 +41,7 @@ void SkryeAcolytes::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -53,7 +53,7 @@ void SkryeAcolytes::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Skrye Acolytes", *factoryMethod);
+        s_registered = UnitFactory::Register("Skrye Acolytes", factoryMethod);
     }
 }
 

@@ -142,7 +142,7 @@ void Judicators::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -158,7 +158,7 @@ void Judicators::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Judicators", *factoryMethod);
+        s_registered = UnitFactory::Register("Judicators", factoryMethod);
     }
 }
 

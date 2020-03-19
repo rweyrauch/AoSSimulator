@@ -12,17 +12,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    DreadbladeHarrow::Create,
-    nullptr,
-    nullptr,
-    DreadbladeHarrow::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool DreadbladeHarrow::s_registered = false;
 
 Unit *DreadbladeHarrow::Create(const ParameterList &parameters)
@@ -42,6 +31,16 @@ void DreadbladeHarrow::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DreadbladeHarrow::Create,
+            nullptr,
+            nullptr,
+            DreadbladeHarrow::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Dreadblade Harrow", factoryMethod);
     }
 }

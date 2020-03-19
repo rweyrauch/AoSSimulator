@@ -12,17 +12,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    GuardianOfSouls::Create,
-    nullptr,
-    nullptr,
-    GuardianOfSouls::ComputePoints,
-    {
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool GuardianOfSouls::s_registered = false;
 
 Unit *GuardianOfSouls::Create(const ParameterList &parameters)
@@ -42,6 +31,16 @@ void GuardianOfSouls::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GuardianOfSouls::Create,
+            nullptr,
+            nullptr,
+            GuardianOfSouls::ComputePoints,
+            {
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Guardian of Souls with Nightmare Lantern", factoryMethod);
     }
 }

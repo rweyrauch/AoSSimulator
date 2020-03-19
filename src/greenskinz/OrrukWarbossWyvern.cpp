@@ -11,17 +11,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    OrrukWarbossOnWyvern::Create,
-    nullptr,
-    nullptr,
-    OrrukWarbossOnWyvern::ComputePoints,
-    {
-        {ParamType::Boolean, "Two Boss Choppas", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 struct TableEntry
 {
@@ -87,6 +76,17 @@ void OrrukWarbossOnWyvern::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukWarbossOnWyvern::Create,
+            nullptr,
+            nullptr,
+            OrrukWarbossOnWyvern::ComputePoints,
+            {
+                {ParamType::Boolean, "Two Boss Choppas", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Orruk Warboss on Wyvern", factoryMethod);
     }
 }

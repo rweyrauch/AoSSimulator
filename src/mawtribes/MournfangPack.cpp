@@ -10,24 +10,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    MournfangPack::Create,
-    MournfangPack::ValueToString,
-    MournfangPack::EnumStringToInt,
-    MournfangPack::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", MournfangPack::MIN_UNIT_SIZE, MournfangPack::MIN_UNIT_SIZE,
-            MournfangPack::MAX_UNIT_SIZE, MournfangPack::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Weapons", MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::GargantHacker, 1},
-        {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool MournfangPack::s_registered = false;
 
@@ -56,6 +38,24 @@ void MournfangPack::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            MournfangPack::Create,
+            MournfangPack::ValueToString,
+            MournfangPack::EnumStringToInt,
+            MournfangPack::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", MournfangPack::MIN_UNIT_SIZE, MournfangPack::MIN_UNIT_SIZE,
+                    MournfangPack::MAX_UNIT_SIZE, MournfangPack::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Weapons", MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::GargantHacker, 1},
+                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Mournfang Pack", factoryMethod);
     }
 }

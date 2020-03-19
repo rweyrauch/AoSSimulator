@@ -13,22 +13,6 @@
 
 namespace FleshEaterCourt
 {
-static FactoryMethod factoryMethod = {
-    CryptHorrors::Create,
-    FleshEaterCourts::ValueToString,
-    FleshEaterCourts::EnumStringToInt,
-    CryptHorrors::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", CryptHorrors::MIN_UNIT_SIZE, CryptHorrors::MIN_UNIT_SIZE,
-            CryptHorrors::MAX_UNIT_SIZE, CryptHorrors::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-    },
-    DEATH,
-    { FLESH_EATER_COURTS }
-};
 
 bool CryptHorrors::s_registered = false;
 
@@ -88,6 +72,22 @@ void CryptHorrors::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            CryptHorrors::Create,
+            FleshEaterCourts::ValueToString,
+            FleshEaterCourts::EnumStringToInt,
+            CryptHorrors::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", CryptHorrors::MIN_UNIT_SIZE, CryptHorrors::MIN_UNIT_SIZE,
+                    CryptHorrors::MAX_UNIT_SIZE, CryptHorrors::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
+            },
+            DEATH,
+            { FLESH_EATER_COURTS }
+        };
         s_registered = UnitFactory::Register("Crypt Horrors", factoryMethod);
     }
 }

@@ -12,17 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Sorceress::Create,
-    Sorceress::ValueToString,
-    Sorceress::EnumStringToInt,
-    Sorceress::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Sorceress::s_registered = false;
 
@@ -56,6 +45,17 @@ void Sorceress::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Sorceress::Create,
+            Sorceress::ValueToString,
+            Sorceress::EnumStringToInt,
+            Sorceress::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Sorceress", factoryMethod);
     }
 }

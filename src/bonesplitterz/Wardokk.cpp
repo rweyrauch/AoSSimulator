@@ -34,7 +34,7 @@ void Wardokk::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Bonesplitterz::ValueToString,
             Bonesplitterz::EnumStringToInt,
@@ -46,7 +46,7 @@ void Wardokk::Init()
             { BONESPLITTERZ }
         };
 
-        s_registered = UnitFactory::Register("Wardokk", *factoryMethod);
+        s_registered = UnitFactory::Register("Wardokk", factoryMethod);
     }
 }
 

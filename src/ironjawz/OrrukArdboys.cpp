@@ -90,7 +90,7 @@ void OrrukArdboys::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -106,7 +106,7 @@ void OrrukArdboys::Init()
             { IRONJAWZ }
         };
 
-        s_registered = UnitFactory::Register("Orruk Ardboys", *factoryMethod);
+        s_registered = UnitFactory::Register("Orruk Ardboys", factoryMethod);
     }
 }
 

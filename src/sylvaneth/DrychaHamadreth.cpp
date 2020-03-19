@@ -15,17 +15,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    DrychaHamadreth::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    DrychaHamadreth::ComputePoints,
-    {
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool DrychaHamadreth::s_registered = false;
 
@@ -37,8 +26,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, DrychaHamadreth::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, DrychaHamadreth::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {18, 3, 6},
         {15, 4, 5},
@@ -123,6 +112,17 @@ void DrychaHamadreth::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            DrychaHamadreth::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            DrychaHamadreth::ComputePoints,
+            {
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Drycha Hamadreth", factoryMethod);
     }
 }

@@ -8,21 +8,10 @@
 #include <algorithm>
 #include <gloomspitegitz/ManglerSquigs.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    ManglerSquigs::Create,
-    nullptr,
-    nullptr,
-    ManglerSquigs::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool ManglerSquigs::s_registered = false;
 
@@ -125,6 +114,16 @@ void ManglerSquigs::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ManglerSquigs::Create,
+            nullptr,
+            nullptr,
+            ManglerSquigs::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Mangler Squigs", factoryMethod);
     }
 }

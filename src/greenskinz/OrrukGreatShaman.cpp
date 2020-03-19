@@ -12,17 +12,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    OrrukGreatShaman::Create,
-    nullptr,
-    nullptr,
-    OrrukGreatShaman::ComputePoints,
-    {
-        {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 bool OrrukGreatShaman::s_registered = false;
 
@@ -69,6 +58,17 @@ void OrrukGreatShaman::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukGreatShaman::Create,
+            nullptr,
+            nullptr,
+            OrrukGreatShaman::ComputePoints,
+            {
+                {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Orruk Great Shaman", factoryMethod);
     }
 }

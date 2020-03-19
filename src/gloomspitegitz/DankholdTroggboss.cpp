@@ -59,7 +59,7 @@ void DankholdTroggboss::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             nullptr,
             nullptr,
@@ -70,7 +70,7 @@ void DankholdTroggboss::Init()
             { GLOOMSPITE_GITZ }
         };
 
-        s_registered = UnitFactory::Register("Dankhold Troggboss", *factoryMethod);
+        s_registered = UnitFactory::Register("Dankhold Troggboss", factoryMethod);
     }
 }
 

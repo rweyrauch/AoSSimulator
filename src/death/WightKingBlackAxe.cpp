@@ -11,16 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    WightKingWithBlackAxe::Create,
-    nullptr,
-    nullptr,
-    WightKingWithBlackAxe::ComputePoints,
-    {
-    },
-    DEATH,
-    { DEATHRATTLE }
-};
 
 bool WightKingWithBlackAxe::s_registered = false;
 
@@ -60,6 +50,16 @@ void WightKingWithBlackAxe::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            DEATH,
+            { DEATHRATTLE }
+        };
         s_registered = UnitFactory::Register("Wight King with Black Axe", factoryMethod);
     }
 }

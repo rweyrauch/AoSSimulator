@@ -11,18 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FlamespyrePhoenix::Create,
-    FlamespyrePhoenix::ValueToString,
-    FlamespyrePhoenix::EnumStringToInt,
-    FlamespyrePhoenix::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-        {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 struct TableEntry
 {
@@ -32,8 +20,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, FlamespyrePhoenix::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, FlamespyrePhoenix::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 6, 5},
         {14, 5, 4},
@@ -76,6 +64,18 @@ void FlamespyrePhoenix::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FlamespyrePhoenix::Create,
+            FlamespyrePhoenix::ValueToString,
+            FlamespyrePhoenix::EnumStringToInt,
+            FlamespyrePhoenix::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+                {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Flamespyre Phoenix", factoryMethod);
     }
 }

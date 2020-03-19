@@ -13,18 +13,6 @@
 
 namespace FleshEaterCourt
 {
-static FactoryMethod factoryMethod = {
-    CryptInfernalCourtier::Create,
-    FleshEaterCourts::ValueToString,
-    FleshEaterCourts::EnumStringToInt,
-    CryptInfernalCourtier::ComputePoints,
-    {
-        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-    },
-    DEATH,
-    { FLESH_EATER_COURTS }
-};
 
 bool CryptInfernalCourtier::s_registered = false;
 
@@ -72,6 +60,18 @@ void CryptInfernalCourtier::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            CryptInfernalCourtier::Create,
+            FleshEaterCourts::ValueToString,
+            FleshEaterCourts::EnumStringToInt,
+            CryptInfernalCourtier::ComputePoints,
+            {
+                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
+            },
+            DEATH,
+            { FLESH_EATER_COURTS }
+        };
         s_registered = UnitFactory::Register("Crypt Infernal Courtier", factoryMethod);
     }
 }

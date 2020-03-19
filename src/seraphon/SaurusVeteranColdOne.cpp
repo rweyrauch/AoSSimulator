@@ -59,7 +59,7 @@ void SaurusScarVeteranOnColdOne::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -72,7 +72,7 @@ void SaurusScarVeteranOnColdOne::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Saurus Scar-Veteran on Cold One", *factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Scar-Veteran on Cold One", factoryMethod);
     }
 }
 

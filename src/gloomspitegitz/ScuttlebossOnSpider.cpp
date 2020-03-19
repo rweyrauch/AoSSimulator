@@ -14,16 +14,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    ScuttlebossOnGiganticSpider::Create,
-    nullptr,
-    nullptr,
-    ScuttlebossOnGiganticSpider::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool ScuttlebossOnGiganticSpider::s_registered = false;
 
@@ -65,6 +55,16 @@ void ScuttlebossOnGiganticSpider::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ScuttlebossOnGiganticSpider::Create,
+            nullptr,
+            nullptr,
+            ScuttlebossOnGiganticSpider::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Scuttleboss on Gigantic Spider", factoryMethod);
     }
 }

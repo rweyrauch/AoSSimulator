@@ -55,7 +55,7 @@ void Doombull::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             BeastsOfChaosBase::ValueToString,
             BeastsOfChaosBase::EnumStringToInt,
@@ -67,7 +67,7 @@ void Doombull::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Doombull", *factoryMethod);
+        s_registered = UnitFactory::Register("Doombull", factoryMethod);
     }
 }
 

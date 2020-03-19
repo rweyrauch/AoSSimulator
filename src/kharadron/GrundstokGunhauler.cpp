@@ -11,21 +11,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    GrundstokGunhauler::Create,
-    GrundstokGunhauler::ValueToString,
-    GrundstokGunhauler::EnumStringToInt,
-    GrundstokGunhauler::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", GrundstokGunhauler::SkyCannon, GrundstokGunhauler::SkyCannon,
-            GrundstokGunhauler::DrillCannon, 1
-        },
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool GrundstokGunhauler::s_registered = false;
 
@@ -67,6 +52,21 @@ void GrundstokGunhauler::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GrundstokGunhauler::Create,
+            GrundstokGunhauler::ValueToString,
+            GrundstokGunhauler::EnumStringToInt,
+            GrundstokGunhauler::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", GrundstokGunhauler::SkyCannon, GrundstokGunhauler::SkyCannon,
+                    GrundstokGunhauler::DrillCannon, 1
+                },
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Grundstok Gunhauler", factoryMethod);
     }
 }

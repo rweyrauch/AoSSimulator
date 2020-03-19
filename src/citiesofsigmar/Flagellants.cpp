@@ -12,21 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Flagellants::Create,
-    Flagellants::ValueToString,
-    Flagellants::EnumStringToInt,
-    Flagellants::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Flagellants::MIN_UNIT_SIZE, Flagellants::MIN_UNIT_SIZE,
-            Flagellants::MAX_UNIT_SIZE, Flagellants::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Flagellants::s_registered = false;
 
@@ -62,6 +47,21 @@ void Flagellants::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Flagellants::Create,
+            Flagellants::ValueToString,
+            Flagellants::EnumStringToInt,
+            Flagellants::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Flagellants::MIN_UNIT_SIZE, Flagellants::MIN_UNIT_SIZE,
+                    Flagellants::MAX_UNIT_SIZE, Flagellants::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Flagellants", factoryMethod);
     }
 }

@@ -10,26 +10,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    GrundstokThunderers::Create,
-    GrundstokThunderers::ValueToString,
-    GrundstokThunderers::EnumStringToInt,
-    GrundstokThunderers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GrundstokThunderers::MIN_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE,
-            GrundstokThunderers::MAX_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE
-        },
-        { ParamType::Integer, "Grundstok Mortars", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Aethercannons", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Aetheric Fumigator", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Desksweepers", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Honour Bearers", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-        { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool GrundstokThunderers::s_registered = false;
 
@@ -69,6 +49,26 @@ void GrundstokThunderers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GrundstokThunderers::Create,
+            GrundstokThunderers::ValueToString,
+            GrundstokThunderers::EnumStringToInt,
+            GrundstokThunderers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", GrundstokThunderers::MIN_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE,
+                    GrundstokThunderers::MAX_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE
+                },
+                { ParamType::Integer, "Grundstok Mortars", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Aethercannons", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Aetheric Fumigator", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Desksweepers", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Honour Bearers", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
+                { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Endrinriggers", factoryMethod);
     }
 }

@@ -11,25 +11,8 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    SpiderRiders::Create,
-    nullptr,
-    nullptr,
-    SpiderRiders::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SpiderRiders::MIN_UNIT_SIZE,
-            SpiderRiders::MIN_UNIT_SIZE, SpiderRiders::MAX_UNIT_SIZE, SpiderRiders::MIN_UNIT_SIZE
-        },
-        { ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        { ParamType::Boolean, "Totem Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool SpiderRiders::s_registered = false;
-
 
 SpiderRiders::SpiderRiders() :
     GloomspiteGitzBase("Spider Riders", 10, WOUNDS, 4, 5, true), // Wall Crawler treated as fly
@@ -96,6 +79,22 @@ void SpiderRiders::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SpiderRiders::Create,
+            nullptr,
+            nullptr,
+            SpiderRiders::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SpiderRiders::MIN_UNIT_SIZE,
+                    SpiderRiders::MIN_UNIT_SIZE, SpiderRiders::MAX_UNIT_SIZE, SpiderRiders::MIN_UNIT_SIZE
+                },
+                { ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                { ParamType::Boolean, "Totem Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Spider Riders", factoryMethod);
     }
 }

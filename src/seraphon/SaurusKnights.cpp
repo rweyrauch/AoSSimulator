@@ -123,7 +123,7 @@ void SaurusKnights::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -140,7 +140,7 @@ void SaurusKnights::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Saurus Knights", *factoryMethod);
+        s_registered = UnitFactory::Register("Saurus Knights", factoryMethod);
     }
 }
 

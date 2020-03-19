@@ -10,17 +10,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    ArkanautAdmiral::Create,
-    KharadronBase::ValueToString,
-    KharadronBase::EnumStringToInt,
-    ArkanautAdmiral::ComputePoints,
-    {
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool ArkanautAdmiral::s_registered = false;
 
@@ -44,6 +33,17 @@ void ArkanautAdmiral::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ArkanautAdmiral::Create,
+            KharadronBase::ValueToString,
+            KharadronBase::EnumStringToInt,
+            ArkanautAdmiral::ComputePoints,
+            {
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Arkanaut Admiral", factoryMethod);
     }
 }

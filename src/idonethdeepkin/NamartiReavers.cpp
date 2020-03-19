@@ -76,7 +76,7 @@ void NamartiReavers::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             IdonethDeepkinBase::ValueToString,
             IdonethDeepkinBase::EnumStringToInt,
@@ -90,7 +90,7 @@ void NamartiReavers::Init()
             { IDONETH_DEEPKIN }
         };
 
-        s_registered = UnitFactory::Register("Namarti Reavers", *factoryMethod);
+        s_registered = UnitFactory::Register("Namarti Reavers", factoryMethod);
     }
 }
 
@@ -104,7 +104,7 @@ void NamartiReavers::onStartShooting(PlayerId player)
     if (nearestUnit)
     {
         float rangeTo = distanceTo(nearestUnit);
-        if (rangeTo < m_whisperbowStormFire.range())
+        if (rangeTo < (float)m_whisperbowStormFire.range())
         {
             m_whisperbowStormFire.activate(true);
             m_whisperbowAimedFire.activate(false);

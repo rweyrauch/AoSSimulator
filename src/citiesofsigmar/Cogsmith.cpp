@@ -12,21 +12,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Cogsmith::Create,
-    Cogsmith::ValueToString,
-    Cogsmith::EnumStringToInt,
-    Cogsmith::ComputePoints,
-    {
-        {
-            ParamType::Enum, "Weapon", Cogsmith::GrudgeRaker, Cogsmith::GrudgeRaker,
-            Cogsmith::CogAxe, 1
-        },
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Cogsmith::s_registered = false;
 
@@ -82,6 +67,21 @@ void Cogsmith::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Cogsmith::Create,
+            Cogsmith::ValueToString,
+            Cogsmith::EnumStringToInt,
+            Cogsmith::ComputePoints,
+            {
+                {
+                    ParamType::Enum, "Weapon", Cogsmith::GrudgeRaker, Cogsmith::GrudgeRaker,
+                    Cogsmith::CogAxe, 1
+                },
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Cogsmith", factoryMethod);
     }
 }

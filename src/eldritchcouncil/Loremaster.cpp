@@ -12,17 +12,6 @@
 
 namespace EldritchCouncil
 {
-static FactoryMethod factoryMethod = {
-    Loremaster::Create,
-    nullptr,
-    nullptr,
-    Loremaster::ComputePoints,
-    {
-    },
-    ORDER,
-    { ELDRITCH_COUNCIL }
-};
-
 bool Loremaster::s_registered = false;
 
 Loremaster::Loremaster() :
@@ -67,6 +56,16 @@ void Loremaster::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            ORDER,
+            { ELDRITCH_COUNCIL }
+        };
         s_registered = UnitFactory::Register("Loremaster", factoryMethod);
     }
 }

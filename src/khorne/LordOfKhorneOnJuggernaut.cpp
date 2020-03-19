@@ -11,17 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    LordOfKhorneOnJuggernaut::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    LordOfKhorneOnJuggernaut::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool LordOfKhorneOnJuggernaut::s_registered = false;
 
@@ -66,6 +55,17 @@ void LordOfKhorneOnJuggernaut::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            LordOfKhorneOnJuggernaut::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            LordOfKhorneOnJuggernaut::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Lord of Khorne on Juggernaut", factoryMethod);
     }
 }

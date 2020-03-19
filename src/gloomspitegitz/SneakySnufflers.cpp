@@ -8,26 +8,11 @@
 #include <algorithm>
 #include <gloomspitegitz/SneakySnufflers.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 #include <Roster.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    SneakySnufflers::Create,
-    nullptr,
-    nullptr,
-    SneakySnufflers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SneakySnufflers::MIN_UNIT_SIZE, SneakySnufflers::MIN_UNIT_SIZE,
-            SneakySnufflers::MAX_UNIT_SIZE, SneakySnufflers::MIN_UNIT_SIZE
-        }
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool SneakySnufflers::s_registered = false;
 
@@ -80,6 +65,20 @@ void SneakySnufflers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SneakySnufflers::Create,
+            nullptr,
+            nullptr,
+            SneakySnufflers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SneakySnufflers::MIN_UNIT_SIZE, SneakySnufflers::MIN_UNIT_SIZE,
+                    SneakySnufflers::MAX_UNIT_SIZE, SneakySnufflers::MIN_UNIT_SIZE
+                }
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Sneaky Snufflers", factoryMethod);
     }
 }

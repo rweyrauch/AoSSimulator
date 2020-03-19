@@ -52,7 +52,7 @@ protected:
 
 private:
 
-    Ability m_ability;
+    Ability m_ability = Brawlers;
 
     Weapon m_pistolsOrStars,
         m_bashers,

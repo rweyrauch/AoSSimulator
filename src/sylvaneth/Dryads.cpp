@@ -15,22 +15,6 @@
 namespace Sylvaneth
 {
 
-static FactoryMethod factoryMethod = {
-    Dryads::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    Dryads::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Dryads::MIN_UNIT_SIZE, Dryads::MIN_UNIT_SIZE,
-            Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
-
 bool Dryads::s_registered = false;
 
 Dryads::Dryads() :
@@ -88,6 +72,21 @@ void Dryads::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Dryads::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            Dryads::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Dryads::MIN_UNIT_SIZE, Dryads::MIN_UNIT_SIZE,
+                    Dryads::MAX_UNIT_SIZE, Dryads::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Dryads", factoryMethod);
     }
 }

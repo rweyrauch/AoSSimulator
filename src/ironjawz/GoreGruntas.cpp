@@ -11,22 +11,6 @@
 
 namespace Ironjawz
 {
-static FactoryMethod factoryMethod = {
-    OrrukGoreGruntas::Create,
-    OrrukGoreGruntas::ValueToString,
-    OrrukGoreGruntas::EnumStringToInt,
-    OrrukGoreGruntas::ComputePoints,
-    {
-        {ParamType::Integer, "Models", OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MAX_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE},
-        {
-            ParamType::Enum, "Weapons", OrrukGoreGruntas::PigIronChoppa, OrrukGoreGruntas::PigIronChoppa,
-            OrrukGoreGruntas::JaggedGorehacka, 1
-        },
-        {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-    },
-    DESTRUCTION,
-    { IRONJAWZ }
-};
 
 bool OrrukGoreGruntas::s_registered = false;
 
@@ -135,6 +119,22 @@ void OrrukGoreGruntas::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukGoreGruntas::Create,
+            OrrukGoreGruntas::ValueToString,
+            OrrukGoreGruntas::EnumStringToInt,
+            OrrukGoreGruntas::ComputePoints,
+            {
+                {ParamType::Integer, "Models", OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE, OrrukGoreGruntas::MAX_UNIT_SIZE, OrrukGoreGruntas::MIN_UNIT_SIZE},
+                {
+                    ParamType::Enum, "Weapons", OrrukGoreGruntas::PigIronChoppa, OrrukGoreGruntas::PigIronChoppa,
+                    OrrukGoreGruntas::JaggedGorehacka, 1
+                },
+                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
+            },
+            DESTRUCTION,
+            { IRONJAWZ }
+        };
         s_registered = UnitFactory::Register("Orruk Gore-gruntas", factoryMethod);
     }
 }

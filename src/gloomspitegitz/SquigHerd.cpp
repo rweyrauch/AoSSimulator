@@ -8,26 +8,11 @@
 #include <algorithm>
 #include <gloomspitegitz/SquigHerd.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 #include <Roster.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    SquiqHerd::Create,
-    nullptr,
-    nullptr,
-    SquiqHerd::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", SquiqHerd::MIN_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE,
-            SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE
-        }
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool SquiqHerd::s_registered = false;
 
@@ -90,6 +75,20 @@ void SquiqHerd::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            SquiqHerd::Create,
+            nullptr,
+            nullptr,
+            SquiqHerd::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", SquiqHerd::MIN_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE,
+                    SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE
+                }
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Squiq Herd", factoryMethod);
     }
 }

@@ -53,7 +53,7 @@ void WarpLightningCannon::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -63,7 +63,7 @@ void WarpLightningCannon::Init()
             CHAOS,
             { SKAVEN }
         };
-        s_registered = UnitFactory::Register("Warp Lightning Cannon", *factoryMethod);
+        s_registered = UnitFactory::Register("Warp Lightning Cannon", factoryMethod);
     }
 }
 

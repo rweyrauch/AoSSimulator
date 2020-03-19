@@ -11,16 +11,6 @@
 
 namespace OgorMawtribes
 {
-static FactoryMethod factoryMethod = {
-    Hrothgorn::Create,
-    Hrothgorn::ValueToString,
-    Hrothgorn::EnumStringToInt,
-    Hrothgorn::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { OGOR_MAWTRIBES }
-};
 
 bool Hrothgorn::s_registered = false;
 
@@ -43,6 +33,16 @@ void Hrothgorn::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Hrothgorn::Create,
+            Hrothgorn::ValueToString,
+            Hrothgorn::EnumStringToInt,
+            Hrothgorn::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { OGOR_MAWTRIBES }
+        };
         s_registered = UnitFactory::Register("Hrothgorn", factoryMethod);
     }
 }

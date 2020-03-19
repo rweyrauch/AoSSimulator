@@ -11,27 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    FreeguildGuard::Create,
-    FreeguildGuard::ValueToString,
-    FreeguildGuard::EnumStringToInt,
-    FreeguildGuard::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", FreeguildGuard::MIN_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE,
-            FreeguildGuard::MAX_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE
-        },
-        {
-            ParamType::Enum, "Weapons", FreeguildGuard::Spear, FreeguildGuard::Halberd,
-            FreeguildGuard::Sword, 1
-        },
-        {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool FreeguildGuard::s_registered = false;
 
@@ -97,6 +76,27 @@ void FreeguildGuard::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            FreeguildGuard::Create,
+            FreeguildGuard::ValueToString,
+            FreeguildGuard::EnumStringToInt,
+            FreeguildGuard::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", FreeguildGuard::MIN_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE,
+                    FreeguildGuard::MAX_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE
+                },
+                {
+                    ParamType::Enum, "Weapons", FreeguildGuard::Spear, FreeguildGuard::Halberd,
+                    FreeguildGuard::Sword, 1
+                },
+                {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Freeguild Guard", factoryMethod);
     }
 }

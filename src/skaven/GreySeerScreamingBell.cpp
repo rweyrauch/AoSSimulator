@@ -51,7 +51,7 @@ void GreySeerOnScreamingBell::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -62,7 +62,7 @@ void GreySeerOnScreamingBell::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Grey Seer on Screaming Bell", *factoryMethod);
+        s_registered = UnitFactory::Register("Grey Seer on Screaming Bell", factoryMethod);
     }
 }
 

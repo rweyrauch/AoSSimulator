@@ -11,18 +11,6 @@
 
 namespace Greenskinz
 {
-static FactoryMethod factoryMethod = {
-    OrrukWarboss::Create,
-    OrrukWarboss::ValueToString,
-    OrrukWarboss::EnumStringToInt,
-    OrrukWarboss::ComputePoints,
-    {
-        {ParamType::Enum, "Weapon", OrrukWarboss::BossChoppaAndShield, OrrukWarboss::BossChoppaAndShield, OrrukWarboss::GreatWaaaghBanner, 1},
-        {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DESTRUCTION,
-    { GREENSKINZ }
-};
 
 bool OrrukWarboss::s_registered = false;
 
@@ -88,6 +76,18 @@ void OrrukWarboss::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            OrrukWarboss::Create,
+            OrrukWarboss::ValueToString,
+            OrrukWarboss::EnumStringToInt,
+            OrrukWarboss::ComputePoints,
+            {
+                {ParamType::Enum, "Weapon", OrrukWarboss::BossChoppaAndShield, OrrukWarboss::BossChoppaAndShield, OrrukWarboss::GreatWaaaghBanner, 1},
+                {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DESTRUCTION,
+            { GREENSKINZ }
+        };
         s_registered = UnitFactory::Register("Orruk Warboss", factoryMethod);
     }
 }

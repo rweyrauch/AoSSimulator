@@ -11,17 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Skarbrand::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Skarbrand::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 struct TableEntry
 {
@@ -84,6 +73,17 @@ void Skarbrand::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Skarbrand::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Skarbrand::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Skarbrand", factoryMethod);
     }
 }

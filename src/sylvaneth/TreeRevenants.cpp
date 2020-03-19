@@ -14,25 +14,6 @@
 namespace Sylvaneth
 {
 
-static FactoryMethod factoryMethod = {
-    TreeRevenants::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    TreeRevenants::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", TreeRevenants::MIN_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE,
-            TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Scion Glaive", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Glade Banners", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Boolean, "Waypipes", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
-
 bool TreeRevenants::s_registered = false;
 
 TreeRevenants::TreeRevenants() :
@@ -107,6 +88,24 @@ void TreeRevenants::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TreeRevenants::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            TreeRevenants::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", TreeRevenants::MIN_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE,
+                    TreeRevenants::MAX_UNIT_SIZE, TreeRevenants::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Scion Glaive", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Glade Banners", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Boolean, "Waypipes", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Tree-Revenants", factoryMethod);
     }
 }

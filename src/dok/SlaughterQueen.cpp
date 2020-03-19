@@ -53,17 +53,17 @@ void SlaughterQueen::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            SlaughterQueen::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            SlaughterQueen::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Slaughter Queen", *factoryMethod);
+        s_registered = UnitFactory::Register("Slaughter Queen", factoryMethod);
     }
 }
 

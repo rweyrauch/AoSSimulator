@@ -11,22 +11,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    BlackKnights::Create,
-    nullptr,
-    nullptr,
-    BlackKnights::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", BlackKnights::MIN_UNIT_SIZE, BlackKnights::MIN_UNIT_SIZE, BlackKnights::MAX_UNIT_SIZE,
-            BlackKnights::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-        {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-    },
-    DEATH,
-    { DEATHRATTLE }
-};
 
 bool BlackKnights::s_registered = false;
 
@@ -89,6 +73,19 @@ void BlackKnights::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+            },
+            DEATH,
+            { DEATHRATTLE }
+        };
         s_registered = UnitFactory::Register("Black Knights", factoryMethod);
     }
 }

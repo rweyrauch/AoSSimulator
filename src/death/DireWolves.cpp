@@ -12,20 +12,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    DireWolves::Create,
-    nullptr,
-    nullptr,
-    DireWolves::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", DireWolves::MIN_UNIT_SIZE, DireWolves::MIN_UNIT_SIZE, DireWolves::MAX_UNIT_SIZE,
-            DireWolves::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { DEADWALKERS }
-};
 
 bool DireWolves::s_registered = false;
 
@@ -80,6 +66,17 @@ void DireWolves::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE,MIN_UNIT_SIZE},
+            },
+            DEATH,
+            { DEADWALKERS }
+        };
         s_registered = UnitFactory::Register("Dire Wolves", factoryMethod);
     }
 }

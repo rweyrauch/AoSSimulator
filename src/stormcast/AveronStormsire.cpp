@@ -75,7 +75,7 @@ void AveronStormsire::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -88,7 +88,7 @@ void AveronStormsire::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Averon Stormsire", *factoryMethod);
+        s_registered = UnitFactory::Register("Averon Stormsire", factoryMethod);
     }
 }
 

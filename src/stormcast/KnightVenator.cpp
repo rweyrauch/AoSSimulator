@@ -60,7 +60,7 @@ void KnightVenator::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             StormcastEternal::ValueToString,
             StormcastEternal::EnumStringToInt,
@@ -72,7 +72,7 @@ void KnightVenator::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Knight-Venator", *factoryMethod);
+        s_registered = UnitFactory::Register("Knight-Venator", factoryMethod);
     }
 }
 

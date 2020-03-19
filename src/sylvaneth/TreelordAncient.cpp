@@ -14,17 +14,6 @@
 
 namespace Sylvaneth
 {
-static FactoryMethod factoryMethod = {
-    TreelordAncient::Create,
-    SylvanethBase::ValueToString,
-    SylvanethBase::EnumStringToInt,
-    TreelordAncient::ComputePoints,
-    {
-        {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
-    },
-    ORDER,
-    { SYLVANETH }
-};
 
 bool TreelordAncient::s_registered = false;
 
@@ -36,8 +25,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, TreelordAncient::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, TreelordAncient::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {2, 3, 2},
         {3, 2, 2},
@@ -124,6 +113,17 @@ void TreelordAncient::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            TreelordAncient::Create,
+            SylvanethBase::ValueToString,
+            SylvanethBase::EnumStringToInt,
+            TreelordAncient::ComputePoints,
+            {
+                {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
+            },
+            ORDER,
+            { SYLVANETH }
+        };
         s_registered = UnitFactory::Register("Treelord Ancient", factoryMethod);
     }
 }

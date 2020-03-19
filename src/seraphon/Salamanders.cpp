@@ -71,7 +71,7 @@ void Salamanders::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -87,7 +87,7 @@ void Salamanders::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Salamanders", *factoryMethod);
+        s_registered = UnitFactory::Register("Salamanders", factoryMethod);
     }
 }
 

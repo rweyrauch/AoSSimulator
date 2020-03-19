@@ -11,22 +11,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Wrathmongers::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Wrathmongers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Wrathmongers::MIN_UNIT_SIZE,
-            Wrathmongers::MIN_UNIT_SIZE,
-            Wrathmongers::MAX_UNIT_SIZE, Wrathmongers::MIN_UNIT_SIZE
-        },
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Wrathmongers::s_registered = false;
 
@@ -90,6 +74,22 @@ void Wrathmongers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Wrathmongers::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Wrathmongers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Wrathmongers::MIN_UNIT_SIZE,
+                    Wrathmongers::MIN_UNIT_SIZE,
+                    Wrathmongers::MAX_UNIT_SIZE, Wrathmongers::MIN_UNIT_SIZE
+                },
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Wrathmongers", factoryMethod);
     }
 }

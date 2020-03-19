@@ -85,22 +85,19 @@ void DoomfireWarlocks::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            DoomfireWarlocks::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            DoomfireWarlocks::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", DoomfireWarlocks::MIN_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE,
-                    DoomfireWarlocks::MAX_UNIT_SIZE, DoomfireWarlocks::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Crossbows", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Doomfire Warlocks", *factoryMethod);
+        s_registered = UnitFactory::Register("Doomfire Warlocks", factoryMethod);
     }
 }
 

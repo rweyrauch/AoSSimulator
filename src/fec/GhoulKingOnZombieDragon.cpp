@@ -11,20 +11,6 @@
 
 namespace FleshEaterCourt
 {
-static FactoryMethod factoryMethod = {
-    AbhorrantGhoulKingOnZombieDragon::Create,
-    FleshEaterCourts::ValueToString,
-    FleshEaterCourts::EnumStringToInt,
-    AbhorrantGhoulKingOnZombieDragon::ComputePoints,
-    {
-        {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-        {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-    },
-    DEATH,
-    { FLESH_EATER_COURTS }
-};
-
-bool AbhorrantGhoulKingOnZombieDragon::s_registered = false;
 
 struct TableEntry
 {
@@ -34,8 +20,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, AbhorrantGhoulKingOnZombieDragon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, AbhorrantGhoulKingOnZombieDragon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 2, 7},
         {12, 3, 6},
@@ -43,6 +29,8 @@ static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
         {8,  5, 4},
         {6,  6, 3}
     };
+
+bool AbhorrantGhoulKingOnZombieDragon::s_registered = false;
 
 AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
     FleshEaterCourts("Abhorrant Ghoul King on Zombie Dragon", 14, WOUNDS, 10, 4, true),
@@ -99,6 +87,18 @@ void AbhorrantGhoulKingOnZombieDragon::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AbhorrantGhoulKingOnZombieDragon::Create,
+            FleshEaterCourts::ValueToString,
+            FleshEaterCourts::EnumStringToInt,
+            AbhorrantGhoulKingOnZombieDragon::ComputePoints,
+            {
+                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
+                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
+            },
+            DEATH,
+            { FLESH_EATER_COURTS }
+        };
         s_registered = UnitFactory::Register("Abhorrant Ghoul King on Zombie Dragon", factoryMethod);
     }
 }

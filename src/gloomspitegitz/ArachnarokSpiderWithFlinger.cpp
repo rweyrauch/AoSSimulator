@@ -13,16 +13,6 @@
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    ArachnarokSpiderWithFlinger::Create,
-    nullptr,
-    nullptr,
-    ArachnarokSpiderWithFlinger::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool ArachnarokSpiderWithFlinger::s_registered = false;
 
@@ -117,6 +107,16 @@ void ArachnarokSpiderWithFlinger::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ArachnarokSpiderWithFlinger::Create,
+            nullptr,
+            nullptr,
+            ArachnarokSpiderWithFlinger::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Arachnarok Spider with Flinger", factoryMethod);
     }
 }

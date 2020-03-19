@@ -30,7 +30,7 @@ void Clawlord::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -41,7 +41,7 @@ void Clawlord::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Clawlord", *factoryMethod);
+        s_registered = UnitFactory::Register("Clawlord", factoryMethod);
     }
 }
 

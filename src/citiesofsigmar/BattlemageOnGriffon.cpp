@@ -13,17 +13,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    BattlemageOnGriffon::Create,
-    BattlemageOnGriffon::ValueToString,
-    BattlemageOnGriffon::EnumStringToInt,
-    BattlemageOnGriffon::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 struct TableEntry
 {
@@ -33,8 +22,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 11, BattlemageOnGriffon::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 11, BattlemageOnGriffon::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {15, 3, 6},
         {13, 2, 5},
@@ -75,6 +64,17 @@ void BattlemageOnGriffon::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            BattlemageOnGriffon::Create,
+            BattlemageOnGriffon::ValueToString,
+            BattlemageOnGriffon::EnumStringToInt,
+            BattlemageOnGriffon::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Battlemage on Griffon", factoryMethod);
     }
 }

@@ -8,21 +8,10 @@
 #include <algorithm>
 #include <gloomspitegitz/Loonboss.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace GloomspiteGitz
 {
-static FactoryMethod factoryMethod = {
-    Loonboss::Create,
-    nullptr,
-    nullptr,
-    Loonboss::ComputePoints,
-    {
-    },
-    DESTRUCTION,
-    { GLOOMSPITE_GITZ }
-};
 
 bool Loonboss::s_registered = false;
 
@@ -62,6 +51,16 @@ void Loonboss::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Loonboss::Create,
+            nullptr,
+            nullptr,
+            Loonboss::ComputePoints,
+            {
+            },
+            DESTRUCTION,
+            { GLOOMSPITE_GITZ }
+        };
         s_registered = UnitFactory::Register("Loonboss", factoryMethod);
     }
 }

@@ -12,16 +12,6 @@
 
 namespace Death
 {
-static FactoryMethod factoryMethod = {
-    Nagash::Create,
-    nullptr,
-    nullptr,
-    Nagash::ComputePoints,
-    {
-    },
-    DEATH,
-    { DEATHLORDS }
-};
 
 struct TableEntry
 {
@@ -32,8 +22,8 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, Nagash::WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, Nagash::WOUNDS};
+const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {5, 6, 3, 3},
         {4, 5, 3, 2},
@@ -76,6 +66,16 @@ void Nagash::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Create,
+            nullptr,
+            nullptr,
+            ComputePoints,
+            {
+            },
+            DEATH,
+            { DEATHLORDS }
+        };
         s_registered = UnitFactory::Register("Nagash", factoryMethod);
     }
 }

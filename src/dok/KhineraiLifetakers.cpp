@@ -64,21 +64,18 @@ void KhineraiLifetakers::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            KhineraiLifetakers::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            KhineraiLifetakers::ComputePoints,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", KhineraiLifetakers::MIN_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE,
-                    KhineraiLifetakers::MAX_UNIT_SIZE, KhineraiLifetakers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Khinerai Lifetakers", *factoryMethod);
+        s_registered = UnitFactory::Register("Khinerai Lifetakers", factoryMethod);
     }
 }
 

@@ -57,17 +57,17 @@ void MorathiHighOracleOfKhaine::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
-            MorathiHighOracleOfKhaine::Create,
+        static FactoryMethod factoryMethod = {
+            Create,
             nullptr,
             nullptr,
-            MorathiHighOracleOfKhaine::ComputePoints,
+            ComputePoints,
             {
             },
             ORDER,
             { DAUGHTERS_OF_KHAINE }
         };
-        s_registered = UnitFactory::Register("Morathi, High Oracle of Khaine", *factoryMethod);
+        s_registered = UnitFactory::Register("Morathi, High Oracle of Khaine", factoryMethod);
     }
 }
 

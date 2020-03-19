@@ -42,7 +42,7 @@ void RatOgors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -55,7 +55,7 @@ void RatOgors::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Rat Ogors", *factoryMethod);
+        s_registered = UnitFactory::Register("Rat Ogors", factoryMethod);
     }
 }
 

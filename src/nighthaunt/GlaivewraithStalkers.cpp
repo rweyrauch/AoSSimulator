@@ -12,22 +12,6 @@
 namespace Nighthaunt
 {
 
-static FactoryMethod factoryMethod = {
-    GlaivewraithStalkers::Create,
-    nullptr,
-    nullptr,
-    GlaivewraithStalkers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", GlaivewraithStalkers::MIN_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE,
-            GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
-        },
-        {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool GlaivewraithStalkers::s_registered = false;
 
 GlaivewraithStalkers::GlaivewraithStalkers() :
@@ -79,6 +63,21 @@ void GlaivewraithStalkers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            GlaivewraithStalkers::Create,
+            nullptr,
+            nullptr,
+            GlaivewraithStalkers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", GlaivewraithStalkers::MIN_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE,
+                    GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
+                },
+                {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Glaivewraith Stalkers", factoryMethod);
     }
 }

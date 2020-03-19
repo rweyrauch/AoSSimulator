@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    Bloodmaster::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    Bloodmaster::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool Bloodmaster::s_registered = false;
 
@@ -65,6 +54,17 @@ void Bloodmaster::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Bloodmaster::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            Bloodmaster::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Bloodmaster", factoryMethod);
     }
 }

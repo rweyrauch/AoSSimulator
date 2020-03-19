@@ -10,25 +10,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    Skywardens::Create,
-    Skywardens::ValueToString,
-    Skywardens::EnumStringToInt,
-    Skywardens::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Skywardens::MIN_UNIT_SIZE, Skywardens::MIN_UNIT_SIZE,
-            Skywardens::MAX_UNIT_SIZE, Skywardens::MIN_UNIT_SIZE
-        },
-        { ParamType::Integer, "Volley Guns", 1, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Skyhooks", 0, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Grapnel Launchers", 0, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Drill Launchers", 0, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
-        { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool Skywardens::s_registered = false;
 
@@ -67,6 +48,25 @@ void Skywardens::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Skywardens::Create,
+            Skywardens::ValueToString,
+            Skywardens::EnumStringToInt,
+            Skywardens::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Skywardens::MIN_UNIT_SIZE, Skywardens::MIN_UNIT_SIZE,
+                    Skywardens::MAX_UNIT_SIZE, Skywardens::MIN_UNIT_SIZE
+                },
+                { ParamType::Integer, "Volley Guns", 1, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Skyhooks", 0, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Grapnel Launchers", 0, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Drill Launchers", 0, 0, Skywardens::MAX_UNIT_SIZE/Skywardens::MIN_UNIT_SIZE, 1},
+                { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Skywardens", factoryMethod);
     }
 }

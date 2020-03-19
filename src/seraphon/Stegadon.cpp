@@ -110,7 +110,7 @@ void Stegadon::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -125,7 +125,7 @@ void Stegadon::Init()
             { SERAPHON }
         };
 
-        s_registered = UnitFactory::Register("Stegadon", *factoryMethod);
+        s_registered = UnitFactory::Register("Stegadon", factoryMethod);
     }
 }
 

@@ -11,18 +11,6 @@
 namespace KharadronOverlords
 {
 
-static FactoryMethod factoryMethod = {
-    AethericNavigator::Create,
-    KharadronBase::ValueToString,
-    KharadronBase::EnumStringToInt,
-    AethericNavigator::ComputePoints,
-    {
-        {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
-
 bool AethericNavigator::s_registered = false;
 
 Unit *AethericNavigator::Create(const ParameterList &parameters)
@@ -45,6 +33,17 @@ void AethericNavigator::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            AethericNavigator::Create,
+            KharadronBase::ValueToString,
+            KharadronBase::EnumStringToInt,
+            AethericNavigator::ComputePoints,
+            {
+                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Aetheric Navigator", factoryMethod);
     }
 }

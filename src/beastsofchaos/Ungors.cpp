@@ -92,7 +92,7 @@ void Ungors::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -108,7 +108,7 @@ void Ungors::Init()
             { BEASTS_OF_CHAOS }
         };
 
-        s_registered = UnitFactory::Register("Ungors", *factoryMethod);
+        s_registered = UnitFactory::Register("Ungors", factoryMethod);
     }
 }
 

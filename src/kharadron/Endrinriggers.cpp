@@ -10,25 +10,6 @@
 
 namespace KharadronOverlords
 {
-static FactoryMethod factoryMethod = {
-    Endrinriggers::Create,
-    Endrinriggers::ValueToString,
-    Endrinriggers::EnumStringToInt,
-    Endrinriggers::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Endrinriggers::MIN_UNIT_SIZE, Endrinriggers::MIN_UNIT_SIZE,
-            Endrinriggers::MAX_UNIT_SIZE, Endrinriggers::MIN_UNIT_SIZE
-        },
-        { ParamType::Integer, "Volley Guns", 1, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Skyhooks", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Grapnel Launchers", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-        { ParamType::Integer, "Drill Launchers", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-        { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-    },
-    ORDER,
-    { KHARADRON_OVERLORDS }
-};
 
 bool Endrinriggers::s_registered = false;
 
@@ -67,6 +48,25 @@ void Endrinriggers::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Endrinriggers::Create,
+            Endrinriggers::ValueToString,
+            Endrinriggers::EnumStringToInt,
+            Endrinriggers::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Endrinriggers::MIN_UNIT_SIZE, Endrinriggers::MIN_UNIT_SIZE,
+                    Endrinriggers::MAX_UNIT_SIZE, Endrinriggers::MIN_UNIT_SIZE
+                },
+                { ParamType::Integer, "Volley Guns", 1, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Skyhooks", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Grapnel Launchers", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Drill Launchers", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
+                { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
+            },
+            ORDER,
+            { KHARADRON_OVERLORDS }
+        };
         s_registered = UnitFactory::Register("Endrinriggers", factoryMethod);
     }
 }

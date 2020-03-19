@@ -83,7 +83,7 @@ void LordArcanumOnDracoline::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             ValueToString,
             EnumStringToInt,
@@ -97,7 +97,7 @@ void LordArcanumOnDracoline::Init()
             { STORMCAST_ETERNAL }
         };
 
-        s_registered = UnitFactory::Register("Lord-Arcanum on Celestial Dracoline", *factoryMethod);
+        s_registered = UnitFactory::Register("Lord-Arcanum on Celestial Dracoline", factoryMethod);
     }
 }
 

@@ -80,7 +80,7 @@ void Kroxigor::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             SeraphonBase::ValueToString,
             SeraphonBase::EnumStringToInt,
@@ -94,7 +94,7 @@ void Kroxigor::Init()
             ORDER,
             { SERAPHON }
         };
-        s_registered = UnitFactory::Register("Kroxigor", *factoryMethod);
+        s_registered = UnitFactory::Register("Kroxigor", factoryMethod);
     }
 }
 

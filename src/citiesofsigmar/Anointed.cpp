@@ -11,17 +11,6 @@
 
 namespace CitiesOfSigmar
 {
-static FactoryMethod factoryMethod = {
-    Anointed::Create,
-    Anointed::ValueToString,
-    Anointed::EnumStringToInt,
-    Anointed::ComputePoints,
-    {
-        {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-    },
-    ORDER,
-    { CITIES_OF_SIGMAR }
-};
 
 bool Anointed::s_registered = false;
 
@@ -55,6 +44,17 @@ void Anointed::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Anointed::Create,
+            Anointed::ValueToString,
+            Anointed::EnumStringToInt,
+            Anointed::ComputePoints,
+            {
+                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
+            },
+            ORDER,
+            { CITIES_OF_SIGMAR }
+        };
         s_registered = UnitFactory::Register("Anointed", factoryMethod);
     }
 }

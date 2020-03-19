@@ -11,21 +11,6 @@
 
 namespace Nighthaunt
 {
-static FactoryMethod factoryMethod = {
-    Hexwraiths::Create,
-    nullptr,
-    nullptr,
-    Hexwraiths::ComputePoints,
-    {
-        {
-            ParamType::Integer, "Models", Hexwraiths::MIN_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE,
-            Hexwraiths::MAX_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE
-        },
-    },
-    DEATH,
-    { NIGHTHAUNT }
-};
-
 bool Hexwraiths::s_registered = false;
 
 Hexwraiths::Hexwraiths() :
@@ -81,6 +66,20 @@ void Hexwraiths::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            Hexwraiths::Create,
+            nullptr,
+            nullptr,
+            Hexwraiths::ComputePoints,
+            {
+                {
+                    ParamType::Integer, "Models", Hexwraiths::MIN_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE,
+                    Hexwraiths::MAX_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE
+                },
+            },
+            DEATH,
+            { NIGHTHAUNT }
+        };
         s_registered = UnitFactory::Register("Hexwraiths", factoryMethod);
     }
 }

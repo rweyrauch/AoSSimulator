@@ -80,7 +80,7 @@ void Stormvermin::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -94,7 +94,7 @@ void Stormvermin::Init()
             CHAOS,
             { SKAVEN }
         };
-        s_registered = UnitFactory::Register("Stormvermin", *factoryMethod);
+        s_registered = UnitFactory::Register("Stormvermin", factoryMethod);
     }
 }
 

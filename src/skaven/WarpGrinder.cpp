@@ -30,7 +30,7 @@ void WarpGrinder::Init()
 {
     if (!s_registered)
     {
-        static auto factoryMethod = new FactoryMethod{
+        static FactoryMethod factoryMethod = {
             Create,
             Skaventide::ValueToString,
             Skaventide::EnumStringToInt,
@@ -41,7 +41,7 @@ void WarpGrinder::Init()
             { SKAVEN }
         };
 
-        s_registered = UnitFactory::Register("Warp-grinder", *factoryMethod);
+        s_registered = UnitFactory::Register("Warp-grinder", factoryMethod);
     }
 }
 

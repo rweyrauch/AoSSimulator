@@ -12,17 +12,6 @@
 
 namespace Khorne
 {
-static FactoryMethod factoryMethod = {
-    ScylaAnfingrimm::Create,
-    KhorneBase::ValueToString,
-    KhorneBase::EnumStringToInt,
-    ScylaAnfingrimm::ComputePoints,
-    {
-        {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-    },
-    CHAOS,
-    { KHORNE }
-};
 
 bool ScylaAnfingrimm::s_registered = false;
 
@@ -73,6 +62,17 @@ void ScylaAnfingrimm::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            ScylaAnfingrimm::Create,
+            KhorneBase::ValueToString,
+            KhorneBase::EnumStringToInt,
+            ScylaAnfingrimm::ComputePoints,
+            {
+                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
+            },
+            CHAOS,
+            { KHORNE }
+        };
         s_registered = UnitFactory::Register("Scyla Anfingrimm", factoryMethod);
     }
 }
