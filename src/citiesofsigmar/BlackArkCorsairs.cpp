@@ -11,6 +11,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool BlackArkCorsairs::s_registered = false;
 
@@ -69,19 +75,13 @@ void BlackArkCorsairs::Init()
     if (!s_registered)
     {
         static FactoryMethod factoryMethod = {
-            BlackArkCorsairs::Create,
-            BlackArkCorsairs::ValueToString,
-            BlackArkCorsairs::EnumStringToInt,
-            BlackArkCorsairs::ComputePoints,
+            Create,
+            ValueToString,
+            EnumStringToInt,
+            ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", BlackArkCorsairs::MIN_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE,
-                    BlackArkCorsairs::MAX_UNIT_SIZE, BlackArkCorsairs::MIN_UNIT_SIZE
-                },
-                {
-                    ParamType::Enum, "Weapons", BlackArkCorsairs::WickedCutlass, BlackArkCorsairs::RepeaterHandbow,
-                    BlackArkCorsairs::WickedCutlass, 1
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", WickedCutlass, RepeaterHandbow, WickedCutlass, 1},
                 {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},

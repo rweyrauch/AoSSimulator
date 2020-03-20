@@ -19,13 +19,6 @@ class PhoenixGuard : public CitizenOfSigmar
 {
 public:
 
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = 420;
-
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);

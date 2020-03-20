@@ -11,6 +11,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 150;
+static const int POINTS_MAX_UNIT_SIZE = 150 * 4;
 
 bool DrakespawnKnights::s_registered = false;
 
@@ -54,10 +60,7 @@ void DrakespawnKnights::Init()
             DrakespawnKnights::EnumStringToInt,
             DrakespawnKnights::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", DrakespawnKnights::MIN_UNIT_SIZE, DrakespawnKnights::MIN_UNIT_SIZE,
-                    DrakespawnKnights::MAX_UNIT_SIZE, DrakespawnKnights::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},

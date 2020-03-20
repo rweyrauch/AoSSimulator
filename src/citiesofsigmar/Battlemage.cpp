@@ -13,6 +13,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool Battlemage::s_registered = false;
 
@@ -97,6 +100,11 @@ int Battlemage::castingModifier() const
     if (m_realm == Board::Instance()->getRealm()) mod++;
 
     return mod;
+}
+
+int Battlemage::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 }//namespace CitiesOfSigmar

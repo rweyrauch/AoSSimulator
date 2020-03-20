@@ -11,6 +11,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 6;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 3;
+static const int POINTS_PER_BLOCK = 60;
+static const int POINTS_MAX_UNIT_SIZE = 150;
 
 bool ScourgerunnerChariots::s_registered = false;
 
@@ -52,10 +58,7 @@ void ScourgerunnerChariots::Init()
             ScourgerunnerChariots::EnumStringToInt,
             ScourgerunnerChariots::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ScourgerunnerChariots::MIN_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE,
-                    ScourgerunnerChariots::MAX_UNIT_SIZE, ScourgerunnerChariots::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
             },
             ORDER,

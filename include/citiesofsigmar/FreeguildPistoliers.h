@@ -19,13 +19,6 @@ class FreeguildPistoliers : public CitizenOfSigmar
 {
 public:
 
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
-
     enum WeaponOption
     {
         RepeaterHandgun,

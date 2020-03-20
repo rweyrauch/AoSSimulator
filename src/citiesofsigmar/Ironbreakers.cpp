@@ -12,6 +12,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = 330;
 
 bool Ironbreakers::s_registered = false;
 
@@ -99,10 +105,7 @@ void Ironbreakers::Init()
             Ironbreakers::EnumStringToInt,
             Ironbreakers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Ironbreakers::MIN_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE,
-                    Ironbreakers::MAX_UNIT_SIZE, Ironbreakers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer, Ironbreakers::IronbreakerAxeOrHammer,
                     Ironbreakers::PairedDrakefirePistols, 1

@@ -19,13 +19,6 @@ class DrakespawnKnights : public CitizenOfSigmar
 {
 public:
 
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 150;
-    static const int POINTS_MAX_UNIT_SIZE = 150 * 4;
-
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);

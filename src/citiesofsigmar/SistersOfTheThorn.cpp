@@ -12,6 +12,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = 130*4;
 
 bool SistersOfTheThorn::s_registered = false;
 
@@ -55,10 +61,7 @@ void SistersOfTheThorn::Init()
             SistersOfTheThorn::EnumStringToInt,
             SistersOfTheThorn::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SistersOfTheThorn::MIN_UNIT_SIZE, SistersOfTheThorn::MIN_UNIT_SIZE,
-                    SistersOfTheThorn::MAX_UNIT_SIZE, SistersOfTheThorn::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},

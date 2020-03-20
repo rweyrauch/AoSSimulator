@@ -12,6 +12,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 150;
+static const int POINTS_MAX_UNIT_SIZE = 450;
 
 bool Irondrakes::s_registered = false;
 
@@ -108,10 +114,7 @@ void Irondrakes::Init()
             Irondrakes::EnumStringToInt,
             Irondrakes::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Irondrakes::MIN_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE,
-                    Irondrakes::MAX_UNIT_SIZE, Irondrakes::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
                     Irondrakes::PairedDrakefirePistols, 1

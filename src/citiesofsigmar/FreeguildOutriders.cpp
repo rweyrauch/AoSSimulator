@@ -12,6 +12,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 400;
 
 bool FreeguildOutriders::s_registered = false;
 
@@ -82,10 +88,7 @@ void FreeguildOutriders::Init()
             FreeguildOutriders::EnumStringToInt,
             FreeguildOutriders::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", FreeguildOutriders::MIN_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE,
-                    FreeguildOutriders::MAX_UNIT_SIZE, FreeguildOutriders::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Sharpshooter Weapon", FreeguildOutriders::RepeaterHandgun, FreeguildOutriders::RepeaterHandgun,
                     FreeguildOutriders::BraceOfPistols, 1

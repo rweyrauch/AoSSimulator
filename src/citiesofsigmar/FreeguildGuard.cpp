@@ -11,6 +11,12 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool FreeguildGuard::s_registered = false;
 
@@ -82,10 +88,7 @@ void FreeguildGuard::Init()
             FreeguildGuard::EnumStringToInt,
             FreeguildGuard::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", FreeguildGuard::MIN_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE,
-                    FreeguildGuard::MAX_UNIT_SIZE, FreeguildGuard::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", FreeguildGuard::Spear, FreeguildGuard::Halberd,
                     FreeguildGuard::Sword, 1
