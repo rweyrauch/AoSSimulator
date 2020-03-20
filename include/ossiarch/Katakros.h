@@ -15,7 +15,7 @@
 namespace OssiarchBonereapers
 {
 
-class OrpheonKatakros : public OssiarchBonereaperBase
+class Katakros : public OssiarchBonereaperBase
 {
 public:
 
@@ -25,14 +25,15 @@ public:
     static int ComputePoints(int numModels);
     static void Init();
 
-    OrpheonKatakros();
-    ~OrpheonKatakros() override = default;
+    Katakros();
+    ~Katakros() override = default;
 
     bool configure();
 
 protected:
 
     void onWounded() override;
+    void onRestore() override;
     int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

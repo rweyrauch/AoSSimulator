@@ -75,7 +75,7 @@ void ArkhanTheBlack::Init()
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
             DEATH,
-            { OSSIARCH_BONEREAPERS }
+            { OSSIARCH_BONEREAPERS, DEATHLORDS }
         };
         s_registered = UnitFactory::Register("Arkhan the Black, Mortarch of Sacrament", factoryMethod);
     }
@@ -136,6 +136,8 @@ int ArkhanTheBlack::getDamageTableIndex() const
 
 void ArkhanTheBlack::onRestore()
 {
+    Unit::onRestore();
+
     // Restore table-driven attributes
     onWounded();
 }

@@ -109,7 +109,7 @@ void MorghastArchai::Init()
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
             DEATH,
-            { OSSIARCH_BONEREAPERS }
+            { OSSIARCH_BONEREAPERS, DEATHLORDS }
         };
         s_registered = UnitFactory::Register("Morghast Archai", factoryMethod);
     }

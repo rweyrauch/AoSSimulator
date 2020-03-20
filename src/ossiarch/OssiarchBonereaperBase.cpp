@@ -16,7 +16,7 @@
 #include "ossiarch/KavalosDeathriders.h"
 #include "ossiarch/GothizzarHarvester.h"
 #include "ossiarch/MortekCrawler.h"
-#include "ossiarch/OrpheonKatakros.h"
+#include "ossiarch/Katakros.h"
 #include "ossiarch/LiegeKavalos.h"
 #include "ossiarch/KavalosZandtos.h"
 #include "ossiarch/Boneshaper.h"
@@ -127,7 +127,7 @@ void Init()
     MortisanSoulmason::Init();
     MortisanSoulreaper::Init();
     NecropolisStalkers::Init();
-    OrpheonKatakros::Init();
+    Katakros::Init();
     Vokmortian::Init();
 }
 

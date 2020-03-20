@@ -77,7 +77,7 @@ void Nagash::Init()
             {
             },
             DEATH,
-            { DEATHLORDS }
+            { DEATHLORDS, OSSIARCH_BONEREAPERS }
         };
         s_registered = UnitFactory::Register("Nagash", factoryMethod);
     }
@@ -148,6 +148,22 @@ Wounds Nagash::weaponDamage(const Weapon *weapon, const Unit *target, int hitRol
 int Nagash::ComputePoints(int numModels)
 {
     return POINTS_PER_UNIT;
+}
+
+void Nagash::onWounded()
+{
+    const int damageIndex = getDamageTableIndex();
+    m_zefetNebtar.setAttacks(g_damageTable[damageIndex].m_zefetAttacks);
+
+    Unit::onWounded();
+}
+
+void Nagash::onRestore()
+{
+    Unit::onRestore();
+
+    // Restore table-driven attributes
+    onWounded();
 }
 
 } // namespace Death

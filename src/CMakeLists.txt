@@ -304,7 +304,6 @@ add_library(
         nurgle/SorcererOfNurgle.cpp
 
         death/LegionOfNagash.cpp
-        death/ArkhanTheBlack.cpp
         death/BlackKnights.cpp
         death/BloodKnights.cpp
         death/DireWolves.cpp
@@ -315,8 +314,6 @@ add_library(
         death/WightKingBlackAxe.cpp
         death/WightKingTombBlade.cpp
         death/Necromancer.cpp
-        death/MorghastArchai.cpp
-        death/MorghastHarbingers.cpp
         death/Nagash.cpp
 
         fec/FleshEaterCourts.cpp
@@ -622,7 +619,7 @@ add_library(
         ossiarch/ImmortisGuard.cpp
         ossiarch/GothizzarHarvester.cpp
         ossiarch/MortekCrawler.cpp
-        ossiarch/OrpheonKatakros.cpp
+        ossiarch/Katakros.cpp
         ossiarch/LiegeKavalos.cpp
         ossiarch/KavalosZandtos.cpp
         ossiarch/Boneshaper.cpp

@@ -19,9 +19,6 @@
 #include "death/WightKingTombBlade.h"
 #include "death/WightKingBlackAxe.h"
 #include "death/Necromancer.h"
-#include "death/MorghastArchai.h"
-#include "death/MorghastHarbingers.h"
-#include "death/ArkhanTheBlack.h"
 
 namespace Death
 {
@@ -49,9 +46,6 @@ void Init()
     WightKingWithBlackAxe::Init();
     WightKingWithBalefulTombBlade::Init();
     Necromancer::Init();
-    MorghastArchai::Init();
-    MorghastHarbingers::Init();
-    ArkhanTheBlack::Init();
 }
 
 } //namespace Seraphon

@@ -32,10 +32,12 @@ public:
 
 protected:
 
-    int getDamageTableIndex() const;
-
+    void onWounded() override;
+    void onRestore() override;
     int unbindingModifier() const override;
     Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    int getDamageTableIndex() const;
 
 private:
 

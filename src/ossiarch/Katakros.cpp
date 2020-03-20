@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
-#include "ossiarch/OrpheonKatakros.h"
+#include "ossiarch/Katakros.h"
 
 namespace OssiarchBonereapers
 {
@@ -14,11 +14,11 @@ static const int BASESIZE = 120; // x92 oval
 static const int WOUNDS = 20;
 static const int POINTS_PER_UNIT = 500;
 
-bool OrpheonKatakros::s_registered = false;
+bool Katakros::s_registered = false;
 
-Unit *OrpheonKatakros::Create(const ParameterList &parameters)
+Unit *Katakros::Create(const ParameterList &parameters)
 {
-    auto unit = new OrpheonKatakros();
+    auto unit = new Katakros();
 
     auto legion = (Legion)GetEnumParam("Legion", parameters, None);
     unit->setLegion(legion);
@@ -32,25 +32,25 @@ Unit *OrpheonKatakros::Create(const ParameterList &parameters)
     return unit;
 }
 
-std::string OrpheonKatakros::ValueToString(const Parameter &parameter)
+std::string Katakros::ValueToString(const Parameter &parameter)
 {
     return OssiarchBonereaperBase::ValueToString(parameter);
 }
 
-int OrpheonKatakros::EnumStringToInt(const std::string &enumString)
+int Katakros::EnumStringToInt(const std::string &enumString)
 {
     return OssiarchBonereaperBase::EnumStringToInt(enumString);
 }
 
-void OrpheonKatakros::Init()
+void Katakros::Init()
 {
     if (!s_registered)
     {
         static FactoryMethod factoryMethod = {
-            OrpheonKatakros::Create,
-            OrpheonKatakros::ValueToString,
-            OrpheonKatakros::EnumStringToInt,
-            OrpheonKatakros::ComputePoints,
+            Katakros::Create,
+            Katakros::ValueToString,
+            Katakros::EnumStringToInt,
+            Katakros::ComputePoints,
             {
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
@@ -61,7 +61,7 @@ void OrpheonKatakros::Init()
     }
 }
 
-OrpheonKatakros::OrpheonKatakros() :
+Katakros::Katakros() :
     OssiarchBonereaperBase("Orpheon Katakros", 4, WOUNDS, 10, 3, false),
     m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
     m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
@@ -74,7 +74,7 @@ OrpheonKatakros::OrpheonKatakros() :
     m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
 }
 
-bool OrpheonKatakros::configure()
+bool Katakros::configure()
 {
     auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_indaKhaat);
@@ -93,13 +93,13 @@ bool OrpheonKatakros::configure()
     return true;
 }
 
-int OrpheonKatakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
+int Katakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
 {
     if ((unmodifiedHitRoll == 6) && ((weapon->name() == m_nadiriteDagger.name()) || (weapon->name() == m_blades.name()))) return 2;
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
 }
 
-void OrpheonKatakros::onWounded()
+void Katakros::onWounded()
 {
     Unit::onWounded();
 
@@ -124,7 +124,7 @@ void OrpheonKatakros::onWounded()
     }
 }
 
-Wounds OrpheonKatakros::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
+Wounds Katakros::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
 {
     // Deadly Combination
     if ((hitRoll == 6) && (weapon->name() == m_shieldImmortis.name()))
@@ -134,9 +134,17 @@ Wounds OrpheonKatakros::weaponDamage(const Weapon *weapon, const Unit *target, i
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 }
 
-int OrpheonKatakros::ComputePoints(int numModels)
+int Katakros::ComputePoints(int numModels)
 {
     return POINTS_PER_UNIT;
+}
+
+void Katakros::onRestore()
+{
+    Unit::onRestore();
+
+    // Restore table-driven attributes
+    onWounded();
 }
 
 } // namespace OssiarchBonereapers
