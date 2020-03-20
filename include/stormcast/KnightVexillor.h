@@ -12,34 +12,35 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class KnightVexillor : public StormcastEternal
-{
-public:
+    class KnightVexillor : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    KnightVexillor();
-    ~KnightVexillor() override;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        KnightVexillor();
 
-    Rerolls iconOfWarChargeReroll(const Unit* unit);
+        ~KnightVexillor() override;
 
-private:
+        bool configure();
 
-    Weapon m_warhammer;
+    protected:
 
-    lsignal::slot m_iconOfWarSlot;
+        Rerolls iconOfWarChargeReroll(const Unit *unit);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_warhammer;
+
+        lsignal::slot m_iconOfWarSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

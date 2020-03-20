@@ -12,42 +12,48 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class EternalGuard : public CitizenOfSigmar
-{
-public:
+    class EternalGuard : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    EternalGuard();
-    ~EternalGuard() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields);
+        static int ComputePoints(int numModels);
 
-protected:
+        EternalGuard();
 
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
+        ~EternalGuard() override = default;
 
-private:
+        bool configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields);
 
-    bool m_hornblower = false,
-        m_standardBearer = false,
-        m_gladeShields = false;
+    protected:
 
-    Weapon m_spearStave,
-        m_spearStaveWarden;
+        int runModifier() const override;
 
-    static bool s_registered;
-};
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+    private:
+
+        bool m_hornblower = false,
+                m_standardBearer = false,
+                m_gladeShields = false;
+
+        Weapon m_spearStave,
+                m_spearStaveWarden;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

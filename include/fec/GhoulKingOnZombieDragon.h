@@ -12,40 +12,44 @@
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt
-{
+namespace FleshEaterCourt {
 
-class AbhorrantGhoulKingOnZombieDragon : public FleshEaterCourts
-{
-public:
+    class AbhorrantGhoulKingOnZombieDragon : public FleshEaterCourts {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AbhorrantGhoulKingOnZombieDragon();
-    ~AbhorrantGhoulKingOnZombieDragon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AbhorrantGhoulKingOnZombieDragon();
 
-    void onStartHero(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onWounded() override;
-    void onRestore() override;
+        ~AbhorrantGhoulKingOnZombieDragon() override = default;
 
-    int getDamageTableIndex() const;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_pestilentialBreath,
-        m_goryTalonsAndFangs,
-        m_snappingMaw,
-        m_swordlikeClaws;
+        void onStartHero(PlayerId player) override;
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_pestilentialBreath,
+                m_goryTalonsAndFangs,
+                m_snappingMaw,
+                m_swordlikeClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

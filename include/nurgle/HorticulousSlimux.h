@@ -11,38 +11,40 @@
 
 #include "nurgle/Nurgle.h"
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class HorticulousSlimux : public NurgleBase
-{
-public:
+    class HorticulousSlimux : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HorticulousSlimux();
-    ~HorticulousSlimux() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        HorticulousSlimux();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~HorticulousSlimux() override;
 
-    Rerolls beastHandlerChargeReroll(const Unit* unit);
-    Rerolls beastHandlerToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_shears,
-        m_jaws;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    lsignal::slot m_beastHandlerChargeSlot, m_beastHandlerToHitSlot;
+        Rerolls beastHandlerChargeReroll(const Unit *unit);
 
-    static bool s_registered;
-};
+        Rerolls beastHandlerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
+    private:
+
+        Weapon m_shears,
+                m_jaws;
+
+        lsignal::slot m_beastHandlerChargeSlot, m_beastHandlerToHitSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

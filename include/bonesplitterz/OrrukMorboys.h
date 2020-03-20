@@ -10,55 +10,52 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
-class SavageOrrukMorboys : public Bonesplitterz
-{
-public:
+namespace Bonesplitterz {
+    class SavageOrrukMorboys : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SavageOrrukMorboys();
-    ~SavageOrrukMorboys() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool skullThumper, bool totemBearer);
+        static int ComputePoints(int numModels);
 
-protected:
+        SavageOrrukMorboys();
 
-    int chargeModifier() const override
-    {
-        int mod = Unit::chargeModifier();
-        if (m_thumper)
-        {
-            mod += 2;
+        ~SavageOrrukMorboys() override = default;
+
+        bool configure(int numModels, bool skullThumper, bool totemBearer);
+
+    protected:
+
+        int chargeModifier() const override {
+            int mod = Unit::chargeModifier();
+            if (m_thumper) {
+                mod += 2;
+            }
+            return mod;
         }
-        return mod;
-    }
 
-    int braveryModifier() const override
-    {
-        int mod = Unit::braveryModifier();
-        if (m_totemBearer)
-        {
-            mod++;
+        int braveryModifier() const override {
+            int mod = Unit::braveryModifier();
+            if (m_totemBearer) {
+                mod++;
+            }
+            return mod;
         }
-        return mod;
-    }
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-private:
+    private:
 
-    bool m_thumper = false;
-    bool m_totemBearer = false;
+        bool m_thumper = false;
+        bool m_totemBearer = false;
 
-    Weapon m_chompaAndShiv,
-        m_chompaAndShivBoss;
+        Weapon m_chompaAndShiv,
+                m_chompaAndShivBoss;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

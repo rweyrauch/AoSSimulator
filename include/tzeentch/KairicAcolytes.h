@@ -12,52 +12,57 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class KairicAcolytes : public TzeentchBase
-{
-public:
+    class KairicAcolytes : public TzeentchBase {
+    public:
 
-    enum WeaponOptions
-    {
-        CursedBlade,
-        PairedCursedBlades,
-        CursedBladeAndShield
+        enum WeaponOptions {
+            CursedBlade,
+            PairedCursedBlades,
+            CursedBladeAndShield
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        KairicAcolytes();
+
+        ~KairicAcolytes() override = default;
+
+        bool configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts,
+                       int numVulcharcs);
+
+    protected:
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int castingModifier() const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        WeaponOptions m_weaponOption = CursedBlade;
+        int m_numCursedGlaives = 0;
+        int m_numScrollsOfDarkArts = 0;
+        int m_numVulcharcs = 0;
+
+        Weapon m_sorcerousBolt,
+                m_cursedBlade,
+                m_cursedGlaive,
+                m_cursedBladeAdept,
+                m_cursedGlaiveAdept;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    KairicAcolytes();
-    ~KairicAcolytes() override = default;
-
-    bool configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts, int numVulcharcs);
-
-protected:
-
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int castingModifier() const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    WeaponOptions m_weaponOption = CursedBlade;
-    int m_numCursedGlaives = 0;
-    int m_numScrollsOfDarkArts = 0;
-    int m_numVulcharcs = 0;
-
-    Weapon m_sorcerousBolt,
-        m_cursedBlade,
-        m_cursedGlaive,
-        m_cursedBladeAdept,
-        m_cursedGlaiveAdept;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

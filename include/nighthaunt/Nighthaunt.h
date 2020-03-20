@@ -12,22 +12,22 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class Nighthaunt : public Unit
-{
-public:
-    Nighthaunt() = default;
-    ~Nighthaunt() override = default;
+    class Nighthaunt : public Unit {
+    public:
+        Nighthaunt() = default;
 
-protected:
-    Nighthaunt(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
+        ~Nighthaunt() override = default;
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int toSaveModifier(const Weapon* weapon) const override;
-};
+    protected:
+        Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+    };
 
 //
 // Abilities                    Implemented
@@ -40,7 +40,7 @@ protected:
 // Spectral Summons                 TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace Nighthaunt
 

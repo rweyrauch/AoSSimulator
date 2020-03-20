@@ -10,96 +10,83 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Greenskinz
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 120;
+namespace Greenskinz {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 120;
 
-bool OrrukGreatShaman::s_registered = false;
+    bool OrrukGreatShaman::s_registered = false;
 
-OrrukGreatShaman::OrrukGreatShaman() :
-    Unit("Orruk Great Shaman", 5, WOUNDS, 6, 5, false),
-    m_totemicStaff(Weapon::Type::Melee, "Totemic Staff", 2, 1, 4, 3, 0, RAND_D3),
-    m_boarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1)
-{
-    m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, WIZARD, ORRUK_GREAT_SHAMAN};
-    m_weapons = {&m_totemicStaff, &m_boarsTusks};
-}
-
-bool OrrukGreatShaman::configure(bool warboar)
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_totemicStaff);
-    if (warboar)
-    {
-        model->addMeleeWeapon(&m_boarsTusks);
-        m_move = 9;
+    OrrukGreatShaman::OrrukGreatShaman() :
+            Unit("Orruk Great Shaman", 5, WOUNDS, 6, 5, false),
+            m_totemicStaff(Weapon::Type::Melee, "Totemic Staff", 2, 1, 4, 3, 0, RAND_D3),
+            m_boarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1) {
+        m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, WIZARD, ORRUK_GREAT_SHAMAN};
+        m_weapons = {&m_totemicStaff, &m_boarsTusks};
     }
-    addModel(model);
 
-    m_points = POINTS_PER_UNIT;
+    bool OrrukGreatShaman::configure(bool warboar) {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_totemicStaff);
+        if (warboar) {
+            model->addMeleeWeapon(&m_boarsTusks);
+            m_move = 9;
+        }
+        addModel(model);
 
-    return true;
-}
+        m_points = POINTS_PER_UNIT;
 
-Unit *OrrukGreatShaman::Create(const ParameterList &parameters)
-{
-    auto unit = new OrrukGreatShaman();
-    bool warboar = GetBoolParam("War Boar", parameters, false);
-
-    bool ok = unit->configure(warboar);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        return true;
     }
-    return unit;
-}
 
-void OrrukGreatShaman::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            OrrukGreatShaman::Create,
-            nullptr,
-            nullptr,
-            OrrukGreatShaman::ComputePoints,
-            {
-                {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-            },
-            DESTRUCTION,
-            { GREENSKINZ }
-        };
-        s_registered = UnitFactory::Register("Orruk Great Shaman", factoryMethod);
+    Unit *OrrukGreatShaman::Create(const ParameterList &parameters) {
+        auto unit = new OrrukGreatShaman();
+        bool warboar = GetBoolParam("War Boar", parameters, false);
+
+        bool ok = unit->configure(warboar);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-}
 
-int OrrukGreatShaman::castingModifier() const
-{
-    auto modifier = Unit::castingModifier();
-
-    // Waaagh! Energy
-    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
-    int totalOrruks = 0;
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(ORRUK))
-        {
-            totalOrruks = ip->remainingModels();
+    void OrrukGreatShaman::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    OrrukGreatShaman::Create,
+                    nullptr,
+                    nullptr,
+                    OrrukGreatShaman::ComputePoints,
+                    {
+                            {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                    },
+                    DESTRUCTION,
+                    {GREENSKINZ}
+            };
+            s_registered = UnitFactory::Register("Orruk Great Shaman", factoryMethod);
         }
     }
-    if (totalOrruks >= 20)
-    {
-        modifier += 1;
-    }
-    return modifier;
-}
 
-int OrrukGreatShaman::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int OrrukGreatShaman::castingModifier() const {
+        auto modifier = Unit::castingModifier();
+
+        // Waaagh! Energy
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
+        int totalOrruks = 0;
+        for (auto ip : units) {
+            if (ip->hasKeyword(ORRUK)) {
+                totalOrruks = ip->remainingModels();
+            }
+        }
+        if (totalOrruks >= 20) {
+            modifier += 1;
+        }
+        return modifier;
+    }
+
+    int OrrukGreatShaman::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Greenskinz

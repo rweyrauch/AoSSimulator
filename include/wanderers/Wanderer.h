@@ -12,28 +12,26 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Wanderers
-{
+namespace Wanderers {
 
-class Wanderer : public Unit
-{
-public:
+    class Wanderer : public Unit {
+    public:
 
-    Wanderer() = default;
-    ~Wanderer() override = default;
+        Wanderer() = default;
 
-protected:
-    Wanderer(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly)
-    {
-        // Melt Away
-        m_retreatAndShoot = true;
-    }
+        ~Wanderer() override = default;
 
-    // Defiant Hunters
-    Rerolls battleshockRerolls() const override { return RerollFailed; }
+    protected:
+        Wanderer(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {
+            // Melt Away
+            m_retreatAndShoot = true;
+        }
 
-};
+        // Defiant Hunters
+        Rerolls battleshockRerolls() const override { return RerollFailed; }
+
+    };
 
 //
 // Abilities                    Implemented
@@ -43,7 +41,7 @@ protected:
 // Melt Away                        Yes
 //
 
-void Init();
+    void Init();
 
 } // namespace Wanderers
 

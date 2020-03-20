@@ -12,41 +12,47 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class ColossalSquig : public GloomspiteGitzBase
-{
-public:
+    class ColossalSquig : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ColossalSquig();
-    ~ColossalSquig() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ColossalSquig();
 
-    void onWounded() override;
-    void onSlain() override;
-    void onCharged() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
+        ~ColossalSquig() override = default;
 
-    int getDamageTableIndex() const;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_puffSpores,
-        m_enormousJaws,
-        m_tramplingFeet;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onSlain() override;
+
+        void onCharged() override;
+
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_puffSpores,
+                m_enormousJaws,
+                m_tramplingFeet;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,32 +12,33 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class ViceleaderHeraldOfSlaanesh : public SlaaneshBase
-{
-public:
+    class ViceleaderHeraldOfSlaanesh : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ViceleaderHeraldOfSlaanesh();
-    ~ViceleaderHeraldOfSlaanesh() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ViceleaderHeraldOfSlaanesh();
 
-    Wounds applyWoundSave(const Wounds& wounds) override;
+        ~ViceleaderHeraldOfSlaanesh() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_ravagingClaws;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_ravagingClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

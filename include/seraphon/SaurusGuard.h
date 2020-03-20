@@ -12,41 +12,42 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SaurusGuard : public SeraphonBase
-{
-public:
+    class SaurusGuard : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SaurusGuard();
-    ~SaurusGuard() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool wardrum);
+        static void Init();
 
-protected:
+        SaurusGuard();
 
-    Rerolls chargeRerolls() const override;
+        ~SaurusGuard() override;
 
-    int stardrakeIcon(const Unit* target);
+        bool configure(int numModels, bool iconBearer, bool wardrum);
 
-private:
+    protected:
 
-    bool m_iconBearer = false;
-    bool m_wardrum = false;
+        Rerolls chargeRerolls() const override;
 
-    Weapon m_celestitePolearm,
-        m_celestitePolearmAlpha,
-        m_jaws;
+        int stardrakeIcon(const Unit *target);
 
-    lsignal::slot m_connection;
+    private:
 
-    static bool s_registered;
-};
+        bool m_iconBearer = false;
+        bool m_wardrum = false;
+
+        Weapon m_celestitePolearm,
+            m_celestitePolearmAlpha,
+            m_jaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

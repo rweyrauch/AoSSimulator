@@ -12,38 +12,41 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Doomwheel : public Skaventide
-{
-public:
+    class Doomwheel : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Doomwheel();
-    ~Doomwheel() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Doomwheel();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    void onRestore() override;
-    Wounds onEndShooting(PlayerId player) override;
+        ~Doomwheel() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_warpBolts,
-        m_grindingWheel,
-        m_teethAndKnives;
+    protected:
 
-    mutable bool m_moreMoreFailed = false;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        Wounds onEndShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_warpBolts,
+                m_grindingWheel,
+                m_teethAndKnives;
+
+        mutable bool m_moreMoreFailed = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

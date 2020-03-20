@@ -12,46 +12,51 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosChosen : public SlavesToDarknessBase
-{
-public:
+    class ChaosChosen : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosChosen();
-    ~ChaosChosen() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool drummer);
+        static void Init();
 
-protected:
+        ChaosChosen();
 
-    void onWounded() override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~ChaosChosen() override;
 
-    int iconBearer(const Unit* unit);
+        bool configure(int numModels, bool iconBearer, bool drummer);
 
-protected:
+    protected:
 
-    bool m_iconBearer = false;
-    bool m_drummer = false;
+        void onWounded() override;
 
-private:
+        int runModifier() const override;
 
-    Weapon m_greataxe,
-        m_greataxeChampion;
+        int chargeModifier() const override;
 
-    lsignal::slot m_braverySlot;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int iconBearer(const Unit *unit);
+
+    protected:
+
+        bool m_iconBearer = false;
+        bool m_drummer = false;
+
+    private:
+
+        Weapon m_greataxe,
+            m_greataxeChampion;
+
+        lsignal::slot m_braverySlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

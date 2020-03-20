@@ -12,30 +12,31 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Aetherwings : public StormcastEternal
-{
-public:
+    class Aetherwings : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Aetherwings();
-    ~Aetherwings() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Aetherwings();
 
-private:
+        ~Aetherwings() override = default;
 
-    Weapon m_beakAndClaws;
+        bool configure(int numModels);
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_beakAndClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

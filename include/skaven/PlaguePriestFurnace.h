@@ -12,49 +12,54 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class PlaguePriestOnPlagueFurnace : public Skaventide
-{
-public:
+    class PlaguePriestOnPlagueFurnace : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    PlaguePriestOnPlagueFurnace();
-    ~PlaguePriestOnPlagueFurnace() override;
+        PlaguePriestOnPlagueFurnace();
 
-    bool configure();
+        ~PlaguePriestOnPlagueFurnace() override;
 
-protected:
+        bool configure();
 
-    void onWounded() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds onEndCombat(PlayerId player) override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId player) override;
+    protected:
 
-    int getDamageTableIndex() const;
+        void onWounded() override;
 
-    int altarOfTheHornedRat(const Unit* unit);
+        void onRestore() override;
 
-private:
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    Weapon m_censer,
-        m_staff,
-        m_blades,
-        m_spikes;
+        Wounds onEndCombat(PlayerId player) override;
 
-    lsignal::slot m_connection;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onStartHero(PlayerId player) override;
+
+        int getDamageTableIndex() const;
+
+        int altarOfTheHornedRat(const Unit *unit);
+
+    private:
+
+        Weapon m_censer,
+                m_staff,
+                m_blades,
+                m_spikes;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

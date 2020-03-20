@@ -12,38 +12,41 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class RipperdactylRiders : public SeraphonBase
-{
-public:
+    class RipperdactylRiders : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RipperdactylRiders();
-    ~RipperdactylRiders() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        RipperdactylRiders();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    void onRestore() override { m_usedToad = false; }
+        ~RipperdactylRiders() override = default;
 
-private:
+        bool configure(int numModels);
 
-    mutable bool m_usedToad = false;
+    protected:
 
-    Weapon m_spear,
-        m_spearAlpha,
-        m_jaws;
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        void onRestore() override { m_usedToad = false; }
+
+    private:
+
+        mutable bool m_usedToad = false;
+
+        Weapon m_spear,
+                m_spearAlpha,
+                m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

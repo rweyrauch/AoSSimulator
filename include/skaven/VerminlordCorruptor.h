@@ -12,45 +12,48 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class VerminlordCorruptor : public Skaventide
-{
-public:
+    class VerminlordCorruptor : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    VerminlordCorruptor();
+        VerminlordCorruptor();
 
-    ~VerminlordCorruptor() override;
+        ~VerminlordCorruptor() override;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds onEndCombat(PlayerId player) override;
-    void onWounded() override;
-    void onRestore() override;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    int terrifying(const Unit* target);
-    int getDamageTableIndex() const;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-private:
+        Wounds onEndCombat(PlayerId player) override;
 
-    Weapon m_tails,
-        m_plaguereapers;
+        void onWounded() override;
 
-    lsignal::slot m_connection;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        int terrifying(const Unit *target);
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_tails,
+                m_plaguereapers;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,59 +12,70 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordCelestantOnStardrake : public StormcastEternal
-{
-public:
+    class LordCelestantOnStardrake : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        CelestineHammer,
-        StormboundBlade,
+        enum WeaponOption {
+            CelestineHammer,
+            StormboundBlade,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        LordCelestantOnStardrake();
+
+        ~LordCelestantOnStardrake() override;
+
+        bool configure(WeaponOption weapons);
+
+    protected:
+
+        void onWounded() override;
+
+        int getDamageTableIndex() const;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        void onStartShooting(PlayerId player) override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        void onRestore() override;
+
+        int arcaneLineage(const Unit *target);
+
+    protected:
+
+        WeaponOption m_weaponOption = CelestineHammer;
+
+    private:
+
+        Weapon m_celestineHammer,
+                m_stormboundBlade,
+                m_greatClaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    LordCelestantOnStardrake();
-    ~LordCelestantOnStardrake() override;
-
-    bool configure(WeaponOption weapons);
-
-protected:
-
-    void onWounded() override;
-    int getDamageTableIndex() const;
-
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
-    void onStartShooting(PlayerId player) override;
-    void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
-    void onRestore() override;
-    int arcaneLineage(const Unit* target);
-
-protected:
-
-    WeaponOption m_weaponOption = CelestineHammer;
-
-private:
-
-    Weapon m_celestineHammer,
-        m_stormboundBlade,
-        m_greatClaws;
-
-    lsignal::slot m_connection;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

@@ -12,43 +12,49 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class VorgarothAndSkalok : public KhorneBase
-{
-public:
+    class VorgarothAndSkalok : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    VorgarothAndSkalok();
-    ~VorgarothAndSkalok() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        VorgarothAndSkalok();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
+        ~VorgarothAndSkalok() override = default;
 
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onCharged() override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onRestore() override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_balefire,
-        m_skullCleaverAxeOfKhorne,
-        m_evisceratingClaws,
-        m_cavernousJaws,
-        m_brassPlatedTail;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onCharged() override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onRestore() override;
+
+    private:
+
+        Weapon m_balefire,
+                m_skullCleaverAxeOfKhorne,
+                m_evisceratingClaws,
+                m_cavernousJaws,
+                m_brassPlatedTail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

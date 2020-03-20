@@ -9,10 +9,8 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Unit.h>
 
-std::string ToString(LoreOfTheStorm which)
-{
-    switch (which)
-    {
+std::string ToString(LoreOfTheStorm which) {
+    switch (which) {
         case LoreOfTheStorm::None:
             return "None";
         case LoreOfTheStorm::LightningBlast:
@@ -31,12 +29,11 @@ std::string ToString(LoreOfTheStorm which)
     return "";
 }
 
-bool FromString(const std::string &enumString, LoreOfTheStorm &outLore)
-{
+bool FromString(const std::string &enumString, LoreOfTheStorm &outLore) {
     bool valid = true;
 
     if (enumString == "None")
-        outLore =LoreOfTheStorm::None;
+        outLore = LoreOfTheStorm::None;
     else if (enumString == "Lightning Blast")
         outLore = LoreOfTheStorm::LightningBlast;
     else if (enumString == "Starfall")
@@ -54,10 +51,8 @@ bool FromString(const std::string &enumString, LoreOfTheStorm &outLore)
     return valid;
 }
 
-std::string ToString(LoreOfInvigoration which)
-{
-    switch (which)
-    {
+std::string ToString(LoreOfInvigoration which) {
+    switch (which) {
         case LoreOfInvigoration::None:
             return "None";
         case LoreOfInvigoration::TerrifyingAspect:
@@ -70,8 +65,7 @@ std::string ToString(LoreOfInvigoration which)
     return "";
 }
 
-bool FromString(const std::string &enumString, LoreOfInvigoration &outLore)
-{
+bool FromString(const std::string &enumString, LoreOfInvigoration &outLore) {
     bool valid = true;
 
     if (enumString == "None")
@@ -87,75 +81,60 @@ bool FromString(const std::string &enumString, LoreOfInvigoration &outLore)
     return valid;
 }
 
-DamageSpell *CreateLightningBlast(Unit *caster)
-{
+DamageSpell *CreateLightningBlast(Unit *caster) {
     return new DamageSpell(caster, "Lightning Blast", 5, FLT_MAX, RAND_D3);
 }
 
-AreaOfEffectSpell *CreateStarfall(Unit *caster)
-{
+AreaOfEffectSpell *CreateStarfall(Unit *caster) {
     return new AreaOfEffectSpell(caster, "Starfall", 5, 12.0f, 3.0f, 1, 4);
 }
 
-class Thundershock : public AreaOfEffectSpell
-{
+class Thundershock : public AreaOfEffectSpell {
 public:
-    explicit Thundershock(Unit* caster) :
-        AreaOfEffectSpell(caster, "Thundershock", 6, 0.0f, 6.0f, 1, 4)
-    {}
+    explicit Thundershock(Unit *caster) :
+            AreaOfEffectSpell(caster, "Thundershock", 6, 0.0f, 6.0f, 1, 4) {}
 
 protected:
-    void secondaryEffect(Unit* target, int round) const override;
+    void secondaryEffect(Unit *target, int round) const override;
 };
 
-void Thundershock::secondaryEffect(Unit *target, int round) const
-{
-    if (target)
-    {
-        target->buffModifier(ToHitMelee, -1, {Phase::Hero, round+1, m_caster->owningPlayer()});
-        target->buffModifier(ToHitMissile, -1, {Phase::Hero, round+1, m_caster->owningPlayer()});
+void Thundershock::secondaryEffect(Unit *target, int round) const {
+    if (target) {
+        target->buffModifier(ToHitMelee, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
+        target->buffModifier(ToHitMissile, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
     }
 }
 
-AreaOfEffectSpell *CreateThundershock(Unit *caster)
-{
+AreaOfEffectSpell *CreateThundershock(Unit *caster) {
     return new Thundershock(caster);
 }
 
-AreaOfEffectSpell *CreateStormcaller(Unit *caster)
-{
+AreaOfEffectSpell *CreateStormcaller(Unit *caster) {
     return new AreaOfEffectSpell(caster, "Stormcaller", 7, 0.0f, FLT_MAX, RAND_D3, 6);
 }
 
-Spell *CreateAzyriteHalo(Unit *caster)
-{
+Spell *CreateAzyriteHalo(Unit *caster) {
     return nullptr;
 }
 
-AreaOfEffectSpell *CreateChainLightning(Unit *caster)
-{
+AreaOfEffectSpell *CreateChainLightning(Unit *caster) {
     return nullptr;
 }
 
-Spell *CreateTerrifyingAspect(Unit *caster)
-{
+Spell *CreateTerrifyingAspect(Unit *caster) {
     return nullptr;
 }
 
-Spell *CreateCelestialBlades(Unit *caster)
-{
+Spell *CreateCelestialBlades(Unit *caster) {
     return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0f, ToWoundMelee, 1, true);
 }
 
-Spell *CreateSpeedOfLightning(Unit *caster)
-{
+Spell *CreateSpeedOfLightning(Unit *caster) {
     return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0f, ChargeDistance, RerollFailed, true);
 }
 
-Spell *CreateLoreOfTheStorm(LoreOfTheStorm which, Unit *caster)
-{
-    switch (which)
-    {
+Spell *CreateLoreOfTheStorm(LoreOfTheStorm which, Unit *caster) {
+    switch (which) {
         case LoreOfTheStorm::LightningBlast:
             return CreateLightningBlast(caster);
         case LoreOfTheStorm::Starfall:
@@ -173,10 +152,8 @@ Spell *CreateLoreOfTheStorm(LoreOfTheStorm which, Unit *caster)
     }
 }
 
-Spell *CreateLoreOfInvigoration(LoreOfInvigoration which, Unit *caster)
-{
-    switch (which)
-    {
+Spell *CreateLoreOfInvigoration(LoreOfInvigoration which, Unit *caster) {
+    switch (which) {
         case LoreOfInvigoration::CelestialBlades:
             return CreateCelestialBlades(caster);
         case LoreOfInvigoration::TerrifyingAspect:

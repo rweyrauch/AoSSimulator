@@ -13,143 +13,125 @@
 #include <Board.h>
 #include "UnitFactory.h"
 
-namespace StormcastEternals
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 120;
+namespace StormcastEternals {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 120;
 
-bool LordExorcist::s_registered = false;
+    bool LordExorcist::s_registered = false;
 
-LordExorcist::LordExorcist() :
-    StormcastEternal("Lord-Exorcist", 5, WOUNDS, 9, 3, false),
-    m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3)
-{
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
-    m_weapons = {&m_stave};
+    LordExorcist::LordExorcist() :
+            StormcastEternal("Lord-Exorcist", 5, WOUNDS, 9, 3, false),
+            m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3) {
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
+        m_weapons = {&m_stave};
 
-    m_totalSpells = 1;
-    m_totalUnbinds = 1;
-}
-
-bool LordExorcist::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration)
-{
-    if ((storm != LoreOfTheStorm::None) && (invigoration != LoreOfInvigoration::None))
-    {
-        return false;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_stave);
-    addModel(model);
+    bool LordExorcist::configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration) {
+        if ((storm != LoreOfTheStorm::None) && (invigoration != LoreOfInvigoration::None)) {
+            return false;
+        }
 
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePurifyingBlast(this)));
-    if (storm != LoreOfTheStorm::None)
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheStorm(storm, this)));
-    if (invigoration != LoreOfInvigoration::None)
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_stave);
+        addModel(model);
 
-    m_points = POINTS_PER_UNIT;
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePurifyingBlast(this)));
+        if (storm != LoreOfTheStorm::None)
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheStorm(storm, this)));
+        if (invigoration != LoreOfInvigoration::None)
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
 
-    return true;
-}
+        m_points = POINTS_PER_UNIT;
 
-Unit *LordExorcist::Create(const ParameterList &parameters)
-{
-    auto unit = new LordExorcist();
-    auto storm = (LoreOfTheStorm)GetEnumParam("Lore of the Storm", parameters, (int)LoreOfTheStorm::None);
-    auto invigoration = (LoreOfInvigoration)GetEnumParam("Lore of Invigoration", parameters, (int)LoreOfInvigoration::None);
-
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
-
-    bool ok = unit->configure(storm, invigoration);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        return true;
     }
-    return unit;
-}
 
-void LordExorcist::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Lore of the Storm", (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::None, (int)LoreOfTheStorm::Stormcaller, 1},
-                {ParamType::Enum, "Lore of Invigoration", (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::None, (int)LoreOfInvigoration::SpeedOfLightning, 1},
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
+    Unit *LordExorcist::Create(const ParameterList &parameters) {
+        auto unit = new LordExorcist();
+        auto storm = (LoreOfTheStorm) GetEnumParam("Lore of the Storm", parameters, (int) LoreOfTheStorm::None);
+        auto invigoration = (LoreOfInvigoration) GetEnumParam("Lore of Invigoration", parameters,
+                                                              (int) LoreOfInvigoration::None);
 
-        s_registered = UnitFactory::Register("Lord-Exorcist", factoryMethod);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        unit->setStormhost(stormhost);
+
+        bool ok = unit->configure(storm, invigoration);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-}
 
-std::string LordExorcist::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Lore of the Storm")
-    {
-        return ToString((LoreOfTheStorm) parameter.intValue);
-    }
-    else if (std::string(parameter.name) == "Lore of Invigoration")
-    {
-        return ToString((LoreOfInvigoration) parameter.intValue);
-    }
-    return StormcastEternal::ValueToString(parameter);
-}
+    void LordExorcist::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Lore of the Storm", (int) LoreOfTheStorm::None,
+                             (int) LoreOfTheStorm::None, (int) LoreOfTheStorm::Stormcaller, 1},
+                            {ParamType::Enum, "Lore of Invigoration", (int) LoreOfInvigoration::None,
+                             (int) LoreOfInvigoration::None, (int) LoreOfInvigoration::SpeedOfLightning, 1},
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
 
-int LordExorcist::EnumStringToInt(const std::string &enumString)
-{
-    LoreOfTheStorm storm;
-    LoreOfInvigoration invigoration;
-    if (FromString(enumString, storm))
-    {
-        return (int)storm;
+            s_registered = UnitFactory::Register("Lord-Exorcist", factoryMethod);
+        }
     }
-    else if (FromString(enumString, invigoration))
-    {
-        return (int) invigoration;
+
+    std::string LordExorcist::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Lore of the Storm") {
+            return ToString((LoreOfTheStorm) parameter.intValue);
+        } else if (std::string(parameter.name) == "Lore of Invigoration") {
+            return ToString((LoreOfInvigoration) parameter.intValue);
+        }
+        return StormcastEternal::ValueToString(parameter);
     }
-    return StormcastEternal::EnumStringToInt(enumString);
-}
 
-void LordExorcist::onStartShooting(PlayerId player)
-{
-    StormcastEternal::onStartShooting(player);
+    int LordExorcist::EnumStringToInt(const std::string &enumString) {
+        LoreOfTheStorm storm;
+        LoreOfInvigoration invigoration;
+        if (FromString(enumString, storm)) {
+            return (int) storm;
+        } else if (FromString(enumString, invigoration)) {
+            return (int) invigoration;
+        }
+        return StormcastEternal::EnumStringToInt(enumString);
+    }
 
-    if (player == owningPlayer())
-    {
-        // Redemptor Casket
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
-        for (auto ip : units)
-        {
-            if (ip->hasKeyword(DAEMON) || ip->hasKeyword(NIGHTHAUNT))
-            {
-                int roll = Dice::rollD6();
-                if (roll >= 4)
-                {
-                    ip->applyDamage({0, 1});
+    void LordExorcist::onStartShooting(PlayerId player) {
+        StormcastEternal::onStartShooting(player);
+
+        if (player == owningPlayer()) {
+            // Redemptor Casket
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+            for (auto ip : units) {
+                if (ip->hasKeyword(DAEMON) || ip->hasKeyword(NIGHTHAUNT)) {
+                    int roll = Dice::rollD6();
+                    if (roll >= 4) {
+                        ip->applyDamage({0, 1});
+                    }
                 }
             }
         }
     }
-}
 
-int LordExorcist::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int LordExorcist::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 
 } // namespace StormcastEternals

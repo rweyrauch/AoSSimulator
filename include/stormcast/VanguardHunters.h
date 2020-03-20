@@ -12,46 +12,48 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class VanguardHunters : public StormcastEternal
-{
-public:
+    class VanguardHunters : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        ShockHandaxe,
-        StormSabre,
+        enum WeaponOption {
+            ShockHandaxe,
+            StormSabre,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        VanguardHunters();
+
+        ~VanguardHunters() override = default;
+
+        bool configure(int numModels, WeaponOption weapons, bool astralCompass);
+
+    protected:
+
+    private:
+
+        WeaponOption m_weaponOption = StormSabre;
+        bool m_astralCompass = false;
+
+        Weapon m_boltstormPistol,
+                m_boltstormPistolPrime,
+                m_shockHandaxe,
+                m_shockHandaxePrime,
+                m_stormSabre,
+                m_stormSabrePrime;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    VanguardHunters();
-    ~VanguardHunters() override = default;
-
-    bool configure(int numModels, WeaponOption weapons, bool astralCompass);
-
-protected:
-
-private:
-
-    WeaponOption m_weaponOption = StormSabre;
-    bool m_astralCompass = false;
-
-    Weapon m_boltstormPistol,
-                  m_boltstormPistolPrime,
-                  m_shockHandaxe,
-                  m_shockHandaxePrime,
-                  m_stormSabre,
-                  m_stormSabrePrime;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

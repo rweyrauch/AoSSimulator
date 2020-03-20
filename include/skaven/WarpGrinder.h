@@ -12,33 +12,31 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class WarpGrinder : public Skaventide
-{
-public:
+    class WarpGrinder : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    WarpGrinder();
+        WarpGrinder();
 
-    ~WarpGrinder() override = default;
+        ~WarpGrinder() override = default;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-private:
+    private:
 
-    Weapon m_warpGrinder;
+        Weapon m_warpGrinder;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

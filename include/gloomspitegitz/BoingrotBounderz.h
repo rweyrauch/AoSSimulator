@@ -12,35 +12,37 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class BoingrotBounderz : public GloomspiteGitzBase
-{
-public:
+    class BoingrotBounderz : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BoingrotBounderz();
-    ~BoingrotBounderz() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        BoingrotBounderz();
 
-    void onCharged() override;
-    int toWoundModifier(const Weapon* weapon, const Unit* unit) const override;
+        ~BoingrotBounderz() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_fangFilledGob,
-        m_pokinLance,
-        m_pokinLanceBoss;
+    protected:
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_fangFilledGob,
+                m_pokinLance,
+                m_pokinLanceBoss;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

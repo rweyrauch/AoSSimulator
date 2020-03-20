@@ -12,67 +12,71 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Prosecutors : public StormcastEternal
-{
-public:
+    class Prosecutors : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        StormcallJavelinAndShield,
-        PairedCelestialHammers,
-        CelestialHammerAndShield
+        enum WeaponOption {
+            StormcallJavelinAndShield,
+            PairedCelestialHammers,
+            CelestialHammerAndShield
+        };
+
+        enum GrandWeaponOption {
+            None,
+            StormsurgeTrident,
+            Grandaxe,
+            Grandblade,
+            Grandhammer,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Prosecutors();
+
+        ~Prosecutors() override = default;
+
+        bool configure(int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
+                       int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
+
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        WeaponOption m_weaponOption = StormcallJavelinAndShield;
+
+        Weapon m_celestialHammersMissile,
+            m_stormcallJavelinMissile,
+            m_stormcallJavelinMissilePrime,
+            m_stormsurgeTridentMissile,
+            m_stormsurgeTridentMissilePrime,
+            m_celestialHammers,
+            m_celestialHammersPrime,
+            m_grandaxe,
+            m_grandblade,
+            m_grandhammer,
+            m_stormcallJavelin,
+            m_stormsurgeTrident;
+
+        static bool s_registered;
     };
-
-    enum GrandWeaponOption
-    {
-        None,
-        StormsurgeTrident,
-        Grandaxe,
-        Grandblade,
-        Grandhammer,
-    };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Prosecutors();
-    ~Prosecutors() override = default;
-
-    bool configure(int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
-        int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
-
-protected:
-
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    WeaponOption m_weaponOption = StormcallJavelinAndShield;
-
-    Weapon m_celestialHammersMissile,
-        m_stormcallJavelinMissile,
-        m_stormcallJavelinMissilePrime,
-        m_stormsurgeTridentMissile,
-        m_stormsurgeTridentMissilePrime,
-        m_celestialHammers,
-        m_celestialHammersPrime,
-        m_grandaxe,
-        m_grandblade,
-        m_grandhammer,
-        m_stormcallJavelin,
-        m_stormsurgeTrident;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

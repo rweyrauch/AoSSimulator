@@ -12,38 +12,42 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Skullreapers : public KhorneBase
-{
-public:
+    class Skullreapers : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Skullreapers();
-    ~Skullreapers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer);
+        static void Init();
 
-protected:
+        Skullreapers();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    bool battleshockRequired() const override { return false; }
-    void onModelSlain() override;
+        ~Skullreapers() override = default;
 
-private:
+        bool configure(int numModels, bool iconBearer);
 
-    bool m_iconBearer = false;
+    protected:
 
-    Weapon m_blades,
-        m_viciousMutation;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        bool battleshockRequired() const override { return false; }
+
+        void onModelSlain() override;
+
+    private:
+
+        bool m_iconBearer = false;
+
+        Weapon m_blades,
+                m_viciousMutation;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,35 +12,38 @@
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt
-{
+namespace FleshEaterCourt {
 
-class CryptHorrors : public FleshEaterCourts
-{
-public:
+    class CryptHorrors : public FleshEaterCourts {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    CryptHorrors();
-    ~CryptHorrors() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        CryptHorrors();
 
-    void onStartHero(PlayerId player) override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~CryptHorrors() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_clubsAndTalons,
-        m_clubsAndTalonsHaunter;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_clubsAndTalons,
+                m_clubsAndTalonsHaunter;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

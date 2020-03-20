@@ -12,32 +12,33 @@
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt
-{
+namespace FleshEaterCourt {
 
-class AbhorrantGhoulKing : public FleshEaterCourts
-{
-public:
+    class AbhorrantGhoulKing : public FleshEaterCourts {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AbhorrantGhoulKing();
-    ~AbhorrantGhoulKing() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AbhorrantGhoulKing();
 
-    void onStartHero(PlayerId player) override;
+        ~AbhorrantGhoulKing() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_goryTalonsAndFangs;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        Weapon m_goryTalonsAndFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

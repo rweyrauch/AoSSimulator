@@ -12,42 +12,46 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class WitchAelves : public DaughterOfKhaine
-{
-public:
+    class WitchAelves : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WitchAelves();
-    ~WitchAelves() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers);
+        static void Init();
 
-protected:
+        WitchAelves();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int rollBattleshock() const override;
-    int toSaveModifier(const Weapon* weapon) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+        ~WitchAelves() override = default;
 
-protected:
+        bool configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers);
 
-    bool m_pairedKnives = true;
-    bool m_hornblowers = false;
-    bool m_standardBearers = false;
+    protected:
 
-private:
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    Weapon m_sacrificialKnife,
-        m_sacrificialKnifeHag;
+        int rollBattleshock() const override;
 
-    static bool s_registered;
-};
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    protected:
+
+        bool m_pairedKnives = true;
+        bool m_hornblowers = false;
+        bool m_standardBearers = false;
+
+    private:
+
+        Weapon m_sacrificialKnife,
+                m_sacrificialKnifeHag;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

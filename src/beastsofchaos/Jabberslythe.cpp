@@ -9,76 +9,69 @@
 #include <beastsofchaos/Jabberslythe.h>
 #include <UnitFactory.h>
 
-namespace BeastsOfChaos
-{
-static const int BASESIZE = 120; // x92 oval
-static const int WOUNDS = 10;
-static const int POINTS_PER_UNIT = 160;
+namespace BeastsOfChaos {
+    static const int BASESIZE = 120; // x92 oval
+    static const int WOUNDS = 10;
+    static const int POINTS_PER_UNIT = 160;
 
-bool Jabberslythe::s_registered = false;
+    bool Jabberslythe::s_registered = false;
 
-Jabberslythe::Jabberslythe() :
-    BeastsOfChaosBase("Jabberslythe", 12, WOUNDS, 6, 5, true),
-    m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 1, 3, 3, -1, RAND_D3),
-    m_vorpalClaws(Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1),
-    m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3)
-{
-    m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
-    m_weapons = { &m_slytheyTongue, &m_vorpalClaws, &m_spikedTail };
-}
-
-bool Jabberslythe::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_slytheyTongue);
-    model->addMeleeWeapon(&m_vorpalClaws);
-    model->addMeleeWeapon(&m_spikedTail);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *Jabberslythe::Create(const ParameterList &parameters)
-{
-    auto unit = new Jabberslythe();
-
-    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
-    unit->setGreatfray(fray);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    Jabberslythe::Jabberslythe() :
+            BeastsOfChaosBase("Jabberslythe", 12, WOUNDS, 6, 5, true),
+            m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 1, 3, 3, -1, RAND_D3),
+            m_vorpalClaws(Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1),
+            m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3) {
+        m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
+        m_weapons = {&m_slytheyTongue, &m_vorpalClaws, &m_spikedTail};
     }
-    return unit;
-}
 
-void Jabberslythe::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            BeastsOfChaosBase::ValueToString,
-            BeastsOfChaosBase::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-            },
-            CHAOS,
-            { BEASTS_OF_CHAOS }
-        };
+    bool Jabberslythe::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_slytheyTongue);
+        model->addMeleeWeapon(&m_vorpalClaws);
+        model->addMeleeWeapon(&m_spikedTail);
+        addModel(model);
 
-        s_registered = UnitFactory::Register("Jabberslythe", factoryMethod);
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-int Jabberslythe::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Unit *Jabberslythe::Create(const ParameterList &parameters) {
+        auto unit = new Jabberslythe();
+
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        unit->setGreatfray(fray);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void Jabberslythe::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    BeastsOfChaosBase::ValueToString,
+                    BeastsOfChaosBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
+                             BeastsOfChaosBase::Gavespawn, 1},
+                    },
+                    CHAOS,
+                    {BEASTS_OF_CHAOS}
+            };
+
+            s_registered = UnitFactory::Register("Jabberslythe", factoryMethod);
+        }
+    }
+
+    int Jabberslythe::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace BeastsOfChaos

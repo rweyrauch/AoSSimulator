@@ -12,33 +12,35 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ExaltedHeroOfChaos : public SlavesToDarknessBase
-{
-public:
+    class ExaltedHeroOfChaos : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ExaltedHeroOfChaos();
-    ~ExaltedHeroOfChaos() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ExaltedHeroOfChaos();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        ~ExaltedHeroOfChaos() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_blades;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_blades;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

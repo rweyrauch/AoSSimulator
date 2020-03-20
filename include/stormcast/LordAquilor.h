@@ -13,37 +13,38 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordAquilor : public StormcastEternal
-{
-public:
+    class LordAquilor : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordAquilor();
-    ~LordAquilor() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(bool astralCompass);
+        static void Init();
 
-protected:
+        LordAquilor();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~LordAquilor() override = default;
 
-private:
+        bool configure(bool astralCompass);
 
-    bool m_astralCompass = false;
+    protected:
 
-    Weapon m_boltstormPistol,
-        m_starboundBlade,
-        m_shockHandaxe,
-        m_beakAndClaws;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+    private:
+
+        bool m_astralCompass = false;
+
+        Weapon m_boltstormPistol,
+                m_starboundBlade,
+                m_shockHandaxe,
+                m_beakAndClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

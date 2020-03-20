@@ -12,35 +12,38 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosWarshrine : public SlavesToDarknessBase
-{
-public:
+    class ChaosWarshrine : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosWarshrine();
-    ~ChaosWarshrine() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ChaosWarshrine();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~ChaosWarshrine() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_blade,
-        m_fists;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_blade,
+                m_fists;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

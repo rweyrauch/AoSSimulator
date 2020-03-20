@@ -8,89 +8,79 @@
 #include <UnitFactory.h>
 #include "slavestodarkness/Furies.h"
 
-namespace SlavesToDarkness
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 2;
-static const int MIN_UNIT_SIZE = 6;
-static const int MAX_UNIT_SIZE = 30;
-static const int POINTS_PER_BLOCK = 100;
-static const int POINTS_MAX_UNIT_SIZE = 500;
+namespace SlavesToDarkness {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 6;
+    static const int MAX_UNIT_SIZE = 30;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 500;
 
-bool Furies::s_registered = false;
+    bool Furies::s_registered = false;
 
-Unit *Furies::Create(const ParameterList &parameters)
-{
-    auto unit = new Furies();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    Unit *Furies::Create(const ParameterList &parameters) {
+        auto unit = new Furies();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
-    unit->setDamnedLegion(legion);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        unit->setDamnedLegion(legion);
 
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void Furies::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Furies::Create,
-            SlavesToDarknessBase::ValueToString,
-            SlavesToDarknessBase::EnumStringToInt,
-            Furies::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-            },
-            CHAOS,
-            { SLAVES_TO_DARKNESS }
-        };
-        s_registered = UnitFactory::Register("Furies", factoryMethod);
-    }
-}
-
-bool Furies::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    for (auto i = 0; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_daggerAndClaws);
-        addModel(model);
+    void Furies::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Furies::Create,
+                    SlavesToDarknessBase::ValueToString,
+                    SlavesToDarknessBase::EnumStringToInt,
+                    Furies::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
+                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                    },
+                    CHAOS,
+                    {SLAVES_TO_DARKNESS}
+            };
+            s_registered = UnitFactory::Register("Furies", factoryMethod);
+        }
     }
 
-    m_points = ComputePoints(numModels);
+    bool Furies::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    return true;
-}
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_daggerAndClaws);
+            addModel(model);
+        }
 
-Furies::Furies() :
-    SlavesToDarknessBase("Furies", 12, WOUNDS, 10, NoSave, true),
-    m_daggerAndClaws(Weapon::Type::Melee, "Razor-sharp Dagger and Claws", 1, 2, 4, 3, -1, 1)
-{
-    m_keywords = { CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES };
-    m_weapons = {&m_daggerAndClaws};
-}
+        m_points = ComputePoints(numModels);
 
-int Furies::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+        return true;
     }
-    return points;
-}
+
+    Furies::Furies() :
+            SlavesToDarknessBase("Furies", 12, WOUNDS, 10, NoSave, true),
+            m_daggerAndClaws(Weapon::Type::Melee, "Razor-sharp Dagger and Claws", 1, 2, 4, 3, -1, 1) {
+        m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES};
+        m_weapons = {&m_daggerAndClaws};
+    }
+
+    int Furies::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } //SlavesToDarkness

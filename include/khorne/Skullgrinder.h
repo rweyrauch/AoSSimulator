@@ -12,38 +12,41 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Skullgrinder : public KhorneBase
-{
-public:
+    class Skullgrinder : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Skullgrinder();
-    ~Skullgrinder() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Wounds onEndCombat(PlayerId player) override;
+        static void Init();
 
-    int favouredByKhorne(const Unit* unit);
+        Skullgrinder();
 
-private:
+        ~Skullgrinder() override;
 
-    Weapon m_brazenAnvil;
+        bool configure();
 
-    lsignal::slot m_connection;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds onEndCombat(PlayerId player) override;
+
+        int favouredByKhorne(const Unit *unit);
+
+    private:
+
+        Weapon m_brazenAnvil;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

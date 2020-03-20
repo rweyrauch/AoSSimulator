@@ -12,41 +12,48 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Bleakswords : public CitizenOfSigmar
-{
-public:
+    class Bleakswords : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Bleakswords();
-    ~Bleakswords() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool standardBearer, bool hornblower);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        static void Init();
 
-private:
+        Bleakswords();
 
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
+        ~Bleakswords() override = default;
 
-    Weapon m_sword, m_swordLordling;
+        bool configure(int numModels, bool standardBearer, bool hornblower);
 
-    static bool s_registered;
-};
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_sword, m_swordLordling;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

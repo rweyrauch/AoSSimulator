@@ -12,42 +12,49 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class PhoenixGuard : public CitizenOfSigmar
-{
-public:
+    class PhoenixGuard : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    PhoenixGuard();
-    ~PhoenixGuard() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool standardBearer, bool drummer);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    bool battleshockRequired() const override;
+        static void Init();
 
-private:
+        PhoenixGuard();
 
-    bool m_standardBearer = false;
-    bool m_drummer = false;
+        ~PhoenixGuard() override = default;
 
-    Weapon m_halberd,
-        m_halberdKeeper;
+        bool configure(int numModels, bool standardBearer, bool drummer);
 
-    static bool s_registered;
-};
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        bool battleshockRequired() const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_drummer = false;
+
+        Weapon m_halberd,
+                m_halberdKeeper;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

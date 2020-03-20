@@ -14,8 +14,7 @@
 #include <vector>
 #include "Dice.h"
 
-enum Phase
-{
+enum Phase {
     Initiative,
     Hero,
     Movement,
@@ -25,8 +24,7 @@ enum Phase
     Battleshock
 };
 
-enum RandomNumber
-{
+enum RandomNumber {
     RAND_D3 = -1,
     RAND_D6 = -2,
     RAND_2D6 = -3,
@@ -35,15 +33,13 @@ enum RandomNumber
     RAND_2D3 = -6,
 };
 
-enum PlayerId
-{
+enum PlayerId {
     None = -1,
     Red = 0,
     Blue = 1
 };
 
-enum Rerolls
-{
+enum Rerolls {
     NoRerolls = 0,
     RerollOnes,
     RerollOnesAndTwos,
@@ -54,8 +50,7 @@ enum Rerolls
 
 const int NoSave = 7;
 
-enum Role
-{
+enum Role {
     Battleline,
     Leader,
     Other,
@@ -63,8 +58,7 @@ enum Role
     LeaderBehemoth,
 };
 
-enum BuffableAttribute
-{
+enum BuffableAttribute {
     MoveDistance = 0,
     RunDistance,
     ChargeDistance,
@@ -87,8 +81,7 @@ enum BuffableAttribute
     NUM_BUFFABLE_ATTRIBUTES
 };
 
-enum MovementRules
-{
+enum MovementRules {
     Fly = 0,
     RunAndShoot,
     RunAndCharge,
@@ -98,8 +91,7 @@ enum MovementRules
     NUM_MOVEMENT_RULES
 };
 
-enum Realm
-{
+enum Realm {
     Aqshy,
     Azyr,
     Chamon,
@@ -110,8 +102,7 @@ enum Realm
     Ulgu
 };
 
-enum Keyword
-{
+enum Keyword {
     UNKNOWN = -1,
 
     // Grand alliances
@@ -1016,66 +1007,61 @@ enum Keyword
 
 };
 
-Keyword GrandAllianceStringToKeyword(const std::string& allianceName);
-Keyword FactionStringToKeyword(const std::string& factionName);
-const std::string& GrandAllianceKeywordToString(Keyword ga);
-const std::string& FactionKeywordToString(Keyword faction);
+Keyword GrandAllianceStringToKeyword(const std::string &allianceName);
 
-struct Duration
-{
+Keyword FactionStringToKeyword(const std::string &factionName);
+
+const std::string &GrandAllianceKeywordToString(Keyword ga);
+
+const std::string &FactionKeywordToString(Keyword faction);
+
+struct Duration {
     Phase phase;
     int round;
     PlayerId player;
 };
 
-bool Expired(const Duration& duration, const Duration& current);
+bool Expired(const Duration &duration, const Duration &current);
 
-struct ModifierBuff
-{
+struct ModifierBuff {
     int modifier;
     Duration duration;
 };
 
-struct RerollBuff
-{
+struct RerollBuff {
     Rerolls rerolls;
     Duration duration;
 };
 
-struct MovementRuleBuff
-{
+struct MovementRuleBuff {
     bool allowed;
     Duration duration;
 };
 
-enum Verbosity : int
-{
+enum Verbosity : int {
     Silence = 0,
     Normal,
     Narrative,
     Debug
 };
 
-struct Wounds
-{
+struct Wounds {
     int normal = 0;
     int mortal = 0;
 
-    Wounds& operator += (const Wounds& w)
-    {
+    Wounds &operator+=(const Wounds &w) {
         normal += w.normal;
         mortal += w.mortal;
         return *this;
     }
-    Wounds& operator -= (const Wounds& w)
-    {
+
+    Wounds &operator-=(const Wounds &w) {
         normal -= w.normal;
         mortal -= w.mortal;
         return *this;
     }
 
-    Wounds& clamp()
-    {
+    Wounds &clamp() {
         normal = std::max(0, normal);
         mortal = std::max(0, mortal);
         return *this;
@@ -1083,23 +1069,20 @@ struct Wounds
 };
 
 
-enum ParamType
-{
+enum ParamType {
     Boolean,
     Integer,
     Enum,
 };
 
-enum
-{
+enum {
     SIM_FALSE = 0,
     SIM_TRUE = 1,
 };
 
-struct Parameter
-{
+struct Parameter {
     ParamType paramType = Integer;
-    const char* name = nullptr;
+    const char *name = nullptr;
     int intValue = 0;
     int minValue = 0;
     int maxValue = 0;
@@ -1108,23 +1091,31 @@ struct Parameter
 
 typedef std::vector<Parameter> ParameterList;
 
-std::string ParameterValueToString(const Parameter& param);
-ParameterList::const_iterator FindParam(const std::string& name, const ParameterList& parameters);
-ParameterList::iterator FindParam(const std::string& name, ParameterList& parameters);
-int GetIntParam(const std::string& name, const ParameterList& parameters, int defaultValue);
-int GetEnumParam(const std::string& name, const ParameterList& parameters, int defaultValue);
-bool GetBoolParam(const std::string& name, const ParameterList& parameters, bool defaultValue);
+std::string ParameterValueToString(const Parameter &param);
+
+ParameterList::const_iterator FindParam(const std::string &name, const ParameterList &parameters);
+
+ParameterList::iterator FindParam(const std::string &name, ParameterList &parameters);
+
+int GetIntParam(const std::string &name, const ParameterList &parameters, int defaultValue);
+
+int GetEnumParam(const std::string &name, const ParameterList &parameters, int defaultValue);
+
+bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool defaultValue);
 
 std::string PhaseToString(Phase phase);
+
 std::string PlayerIdToString(PlayerId id);
+
 PlayerId GetEnemyId(PlayerId friendlyId);
 
 void Initialize(Verbosity verbosity = Verbosity::Normal);
 
 void SetVerbosity(Verbosity verbosity);
+
 Verbosity GetVerbosity();
 
-void SimLog(Verbosity verbosity, const char* format, ...);
+void SimLog(Verbosity verbosity, const char *format, ...);
 
 
 float AverageRandomValue(int value);

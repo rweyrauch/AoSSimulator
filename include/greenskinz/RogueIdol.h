@@ -12,40 +12,46 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Greenskinz
-{
+namespace Greenskinz {
 
-class RogueIdol : public Unit
-{
-public:
+    class RogueIdol : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RogueIdol();
-    ~RogueIdol() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        RogueIdol();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    void onRestore() override;
+        ~RogueIdol() override = default;
 
-    void onSlain() override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    Wounds onEndCombat(PlayerId player) override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_boulderFists,
-        m_stompinFeet;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        void onSlain() override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_boulderFists,
+                m_stompinFeet;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,31 +12,31 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class NurgleBase : public Unit
-{
-public:
+    class NurgleBase : public Unit {
+    public:
 
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
+        static std::string ValueToString(const Parameter &parameter);
 
-    NurgleBase() = default;
-    ~NurgleBase() override = default;
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        NurgleBase() = default;
 
-    NurgleBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-};
+        ~NurgleBase() override = default;
+
+    protected:
+
+        NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+    };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 //
 
-void Init();
+    void Init();
 
 } // namespace Nurgle
 

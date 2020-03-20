@@ -11,37 +11,35 @@
 
 #include <Prayer.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-enum class PrayersOfTheStormhost : int
-{
-    None = 0,
-    DivineLight,
-    BlessWeapons,
-    BolsterFaith,
-    Abjuration,
-    GodKingsAspect,
-    Translocation,
-};
+    enum class PrayersOfTheStormhost : int {
+        None = 0,
+        DivineLight,
+        BlessWeapons,
+        BolsterFaith,
+        Abjuration,
+        GodKingsAspect,
+        Translocation,
+    };
 
-std::string ToString(PrayersOfTheStormhost which);
+    std::string ToString(PrayersOfTheStormhost which);
 
-bool FromString(const std::string &enumString, PrayersOfTheStormhost &outPrayer);
+    bool FromString(const std::string &enumString, PrayersOfTheStormhost &outPrayer);
 
-Prayer *CreateDivineLight(Unit *caster);
+    Prayer *CreateDivineLight(Unit *caster);
 
-Prayer *CreateBlessWeapons(Unit *caster);
+    Prayer *CreateBlessWeapons(Unit *caster);
 
-Prayer *CreateBolsterFaith(Unit *caster);
+    Prayer *CreateBolsterFaith(Unit *caster);
 
-Prayer *CreateAbjuration(Unit *caster);
+    Prayer *CreateAbjuration(Unit *caster);
 
-Prayer *CreateGodKingsAspect(Unit *caster);
+    Prayer *CreateGodKingsAspect(Unit *caster);
 
-Prayer *CreateTranslocation(Unit *caster);
+    Prayer *CreateTranslocation(Unit *caster);
 
-Prayer *CreatePrayerOfTheStormhost(PrayersOfTheStormhost which, Unit *caster);
+    Prayer *CreatePrayerOfTheStormhost(PrayersOfTheStormhost which, Unit *caster);
 
 } // namespace StormcastEternals
 

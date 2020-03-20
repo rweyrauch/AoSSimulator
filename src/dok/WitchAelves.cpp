@@ -11,158 +11,137 @@
 #include <iostream>
 #include <Board.h>
 
-namespace DaughtersOfKhaine
-{
-static const int BASESIZE = 25;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 10;
-static const int MAX_UNIT_SIZE = 30;
-static const int POINTS_PER_BLOCK = 120;
-static const int POINTS_MAX_UNIT_SIZE = 300;
+namespace DaughtersOfKhaine {
+    static const int BASESIZE = 25;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 10;
+    static const int MAX_UNIT_SIZE = 30;
+    static const int POINTS_PER_BLOCK = 120;
+    static const int POINTS_MAX_UNIT_SIZE = 300;
 
-bool WitchAelves::s_registered = false;
+    bool WitchAelves::s_registered = false;
 
-WitchAelves::WitchAelves() :
-    DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false),
-    m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
-    m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1)
-{
-    m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
-    m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHag};
-}
-
-bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    WitchAelves::WitchAelves() :
+            DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false),
+            m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
+            m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1) {
+        m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
+        m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHag};
     }
 
-    m_pairedKnives = pairedKnives;
-    m_hornblowers = hornblowers;
-    m_standardBearers = standardBearers;
+    bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    if (m_hornblowers)
-    {
-        m_runAndCharge = true;
+        m_pairedKnives = pairedKnives;
+        m_hornblowers = hornblowers;
+        m_standardBearers = standardBearers;
+
+        if (m_hornblowers) {
+            m_runAndCharge = true;
+        }
+
+        auto hag = new Model(BASESIZE, wounds());
+        hag->addMeleeWeapon(&m_sacrificialKnifeHag);
+        addModel(hag);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto witch = new Model(BASESIZE, wounds());
+            witch->addMeleeWeapon(&m_sacrificialKnife);
+            addModel(witch);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    auto hag = new Model(BASESIZE, wounds());
-    hag->addMeleeWeapon(&m_sacrificialKnifeHag);
-    addModel(hag);
+    Unit *WitchAelves::Create(const ParameterList &parameters) {
+        auto unit = new WitchAelves();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        bool pairedKnives = GetBoolParam("Paired Knives", parameters, true);
+        bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+        bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
 
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto witch = new Model(BASESIZE, wounds());
-        witch->addMeleeWeapon(&m_sacrificialKnife);
-        addModel(witch);
+        bool ok = unit->configure(numModels, pairedKnives, hornblowers, standardBearers);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    m_points = ComputePoints(numModels);
-
-    return true;
-}
-
-Unit *WitchAelves::Create(const ParameterList &parameters)
-{
-    auto unit = new WitchAelves();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    bool pairedKnives = GetBoolParam("Paired Knives", parameters, true);
-    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
-
-    bool ok = unit->configure(numModels, pairedKnives, hornblowers, standardBearers);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void WitchAelves::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            nullptr,
-            nullptr,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Paired Knives", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-            },
-            ORDER,
-            { DAUGHTERS_OF_KHAINE }
-        };
-        s_registered = UnitFactory::Register("Witch Aelves", factoryMethod);
-    }
-}
-
-int WitchAelves::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    // Paired Sacrificial Knives
-    int attacks = DaughterOfKhaine::extraAttacks(nullptr, weapon, target);
-    if (m_pairedKnives) attacks++;
-
-    // Frenzied Fervour
-    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
-    for (auto unit : units)
-    {
-        if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && unit->hasKeyword(HERO))
-        {
-            attacks++;
-            break;
+    void WitchAelves::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    nullptr,
+                    nullptr,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Paired Knives", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                    },
+                    ORDER,
+                    {DAUGHTERS_OF_KHAINE}
+            };
+            s_registered = UnitFactory::Register("Witch Aelves", factoryMethod);
         }
     }
-    return attacks;
-}
 
-int WitchAelves::rollBattleshock() const
-{
-    if (m_standardBearers)
-    {
-        int r1 = Dice::rollD6();
-        int r2 = Dice::rollD6();
-        return std::min(r1, r2);
-    }
-    return DaughterOfKhaine::rollBattleshock();
-}
+    int WitchAelves::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        // Paired Sacrificial Knives
+        int attacks = DaughterOfKhaine::extraAttacks(nullptr, weapon, target);
+        if (m_pairedKnives) attacks++;
 
-int WitchAelves::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = DaughterOfKhaine::toSaveModifier(weapon);
-    // Bladed Bucklers
-    if (!m_pairedKnives)
-    {
-        modifier += 1;
+        // Frenzied Fervour
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
+        for (auto unit : units) {
+            if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && unit->hasKeyword(HERO)) {
+                attacks++;
+                break;
+            }
+        }
+        return attacks;
     }
-    return modifier;
-}
 
-Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
-{
-    auto wounds = DaughterOfKhaine::computeReturnedDamage(weapon, saveRoll);
-    // Bladed Bucklers
-    if (!weapon->isMissile())
-    {
-        // 1 mortal wound for each save of a 6
-        wounds += {0, 1};
+    int WitchAelves::rollBattleshock() const {
+        if (m_standardBearers) {
+            int r1 = Dice::rollD6();
+            int r2 = Dice::rollD6();
+            return std::min(r1, r2);
+        }
+        return DaughterOfKhaine::rollBattleshock();
     }
-    return wounds;
-}
 
-int WitchAelves::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int WitchAelves::toSaveModifier(const Weapon *weapon) const {
+        int modifier = DaughterOfKhaine::toSaveModifier(weapon);
+        // Bladed Bucklers
+        if (!m_pairedKnives) {
+            modifier += 1;
+        }
+        return modifier;
     }
-    return points;
-}
+
+    Wounds WitchAelves::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
+        auto wounds = DaughterOfKhaine::computeReturnedDamage(weapon, saveRoll);
+        // Bladed Bucklers
+        if (!weapon->isMissile()) {
+            // 1 mortal wound for each save of a 6
+            wounds += {0, 1};
+        }
+        return wounds;
+    }
+
+    int WitchAelves::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace DaughtersOfKhaine

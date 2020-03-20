@@ -12,39 +12,43 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Hammerers : public CitizenOfSigmar
-{
-public:
+    class Hammerers : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Hammerers();
-    ~Hammerers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearer, bool musician);
+        static void Init();
 
-protected:
+        Hammerers();
 
-    bool battleshockRequired() const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
+        ~Hammerers() override = default;
 
-private:
+        bool configure(int numModels, bool standardBearer, bool musician);
 
-    bool m_standardBearer = false;
-    bool m_musician = false;
+    protected:
 
-    Weapon m_greatHammer,
-        m_greatHammerKeeper;
+        bool battleshockRequired() const override;
 
-    static bool s_registered;
-};
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_musician = false;
+
+        Weapon m_greatHammer,
+                m_greatHammerKeeper;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

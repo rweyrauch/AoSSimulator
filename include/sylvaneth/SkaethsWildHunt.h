@@ -12,32 +12,33 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class SkaethsWildHunt : public SylvanethBase
-{
-public:
+    class SkaethsWildHunt : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SkaethsWildHunt();
-    ~SkaethsWildHunt() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-private:
+        SkaethsWildHunt();
 
-    Weapon m_seekerBow,
-        m_javalin,
-        m_javalinMelee,
-        m_huntingWeapon,
-        m_teethAndClaws;
+        ~SkaethsWildHunt() override = default;
 
-    static bool s_registered;
-};
+        bool configure();
+
+    private:
+
+        Weapon m_seekerBow,
+                m_javalin,
+                m_javalinMelee,
+                m_huntingWeapon,
+                m_teethAndClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

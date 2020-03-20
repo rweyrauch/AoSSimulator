@@ -12,36 +12,39 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class EidolonOfMathlannAspectOfTheStorm : public IdonethDeepkinBase
-{
-public:
+    class EidolonOfMathlannAspectOfTheStorm : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    EidolonOfMathlannAspectOfTheStorm();
-    ~EidolonOfMathlannAspectOfTheStorm() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        EidolonOfMathlannAspectOfTheStorm();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onCharged() override;
+        ~EidolonOfMathlannAspectOfTheStorm() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_spear,
-        m_crulhook,
-        m_stormshoal;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onCharged() override;
+
+    private:
+
+        Weapon m_spear,
+                m_crulhook,
+                m_stormshoal;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

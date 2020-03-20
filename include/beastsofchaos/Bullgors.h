@@ -12,52 +12,57 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Bullgors : public BeastsOfChaosBase
-{
-public:
+    class Bullgors : public BeastsOfChaosBase {
+    public:
 
-    enum WeaponOptions
-    {
-        BullgorAxe,
-        PairedBullgorAxes,
-        BullgorGreatAxe
+        enum WeaponOptions {
+            BullgorAxe,
+            PairedBullgorAxes,
+            BullgorGreatAxe
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Bullgors();
+
+        ~Bullgors() override = default;
+
+        bool configure(int numModels, WeaponOptions options, bool drummer, bool bannerBearer);
+
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        int chargeModifier() const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        bool m_drummer = false;
+        bool m_bannerBearer = false;
+        bool m_pairedAxes = false;
+
+        Weapon m_bullgorHorns;
+        Weapon m_bullgorAxe;
+        Weapon m_bullgorAxeBloodkine;
+        Weapon m_bullgorGreatAxe;
+        Weapon m_bullgorGreatAxeBloodkine;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Bullgors();
-    ~Bullgors() override = default;
-
-    bool configure(int numModels, WeaponOptions options, bool drummer, bool bannerBearer);
-
-protected:
-
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int chargeModifier() const override;
-    int toSaveModifier(const Weapon* weapon) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
-private:
-
-    bool m_drummer = false;
-    bool m_bannerBearer = false;
-    bool m_pairedAxes = false;
-
-    Weapon m_bullgorHorns;
-    Weapon m_bullgorAxe;
-    Weapon m_bullgorAxeBloodkine;
-    Weapon m_bullgorGreatAxe;
-    Weapon m_bullgorGreatAxeBloodkine;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

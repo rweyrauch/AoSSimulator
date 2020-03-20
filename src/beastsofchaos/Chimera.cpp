@@ -10,153 +10,136 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace BeastsOfChaos
-{
-static const int BASESIZE = 120; // x92 oval
-static const int WOUNDS = 12;
-static const int POINTS_PER_UNIT = 240;
+namespace BeastsOfChaos {
+    static const int BASESIZE = 120; // x92 oval
+    static const int WOUNDS = 12;
+    static const int POINTS_PER_UNIT = 240;
 
 
-bool Chimera::s_registered = false;
+    bool Chimera::s_registered = false;
 
-struct TableEntry
-{
-    int m_fieryBreath;
-    int m_avianHeadRend;
-    int m_leonineHeadDamage;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {RAND_D6, -3, RAND_D6},
-        {RAND_D3, -2, RAND_D3},
-        {RAND_D3, -2, RAND_D3},
-        {1, -1, 1},
-        {1, -1, 1}
+    struct TableEntry {
+        int m_fieryBreath;
+        int m_avianHeadRend;
+        int m_leonineHeadDamage;
     };
 
-Chimera::Chimera() :
-    BeastsOfChaosBase("Chimera", 10, WOUNDS, 6, 5, true),
-    m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 14, 1, 0, 0, 0, RAND_D6),
-    m_avianHead(Weapon::Type::Melee, "Avian Head", 1, 3, 3, 4, -3, RAND_D3),
-    m_draconicHead(Weapon::Type::Melee, "Draconic Head", 1, 3, 4, 4, -1, 2),
-    m_leonineHead(Weapon::Type::Melee, "Leonine Head", 1, 3, 4, 3, -1, RAND_D6),
-    m_maulingClaws(Weapon::Type::Melee, "Mauling Claws", 2, 6, 4, 3, 0, 1)
-{
-    m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHIMERA};
-    m_weapons = {&m_fieryBreath, &m_avianHead, &m_draconicHead, &m_leonineHead, &m_maulingClaws };
-}
-
-bool Chimera::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-
-    // NOTE: Fiery Breath attack is special, do not treat it as a weapon
-
-    model->addMeleeWeapon(&m_avianHead);
-    model->addMeleeWeapon(&m_draconicHead);
-    model->addMeleeWeapon(&m_leonineHead);
-    model->addMeleeWeapon(&m_maulingClaws);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *Chimera::Create(const ParameterList &parameters)
-{
-    auto unit = new Chimera();
-
-    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
-    unit->setGreatfray(fray);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void Chimera::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            BeastsOfChaosBase::ValueToString,
-            BeastsOfChaosBase::EnumStringToInt,
-            ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-            },
-            CHAOS,
-            { BEASTS_OF_CHAOS }
-        };
+                    {RAND_D6, -3, RAND_D6},
+                    {RAND_D3, -2, RAND_D3},
+                    {RAND_D3, -2, RAND_D3},
+                    {1,       -1, 1},
+                    {1,       -1, 1}
+            };
 
-        s_registered = UnitFactory::Register("Chimera", factoryMethod);
+    Chimera::Chimera() :
+            BeastsOfChaosBase("Chimera", 10, WOUNDS, 6, 5, true),
+            m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 14, 1, 0, 0, 0, RAND_D6),
+            m_avianHead(Weapon::Type::Melee, "Avian Head", 1, 3, 3, 4, -3, RAND_D3),
+            m_draconicHead(Weapon::Type::Melee, "Draconic Head", 1, 3, 4, 4, -1, 2),
+            m_leonineHead(Weapon::Type::Melee, "Leonine Head", 1, 3, 4, 3, -1, RAND_D6),
+            m_maulingClaws(Weapon::Type::Melee, "Mauling Claws", 2, 6, 4, 3, 0, 1) {
+        m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHIMERA};
+        m_weapons = {&m_fieryBreath, &m_avianHead, &m_draconicHead, &m_leonineHead, &m_maulingClaws};
     }
-}
 
-void Chimera::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
+    bool Chimera::configure() {
+        auto model = new Model(BASESIZE, wounds());
 
-    m_avianHead.setRend(g_damageTable[damageIndex].m_avianHeadRend);
-    m_leonineHead.setDamage(g_damageTable[damageIndex].m_leonineHeadDamage);
+        // NOTE: Fiery Breath attack is special, do not treat it as a weapon
 
-    Unit::onWounded();
-}
+        model->addMeleeWeapon(&m_avianHead);
+        model->addMeleeWeapon(&m_draconicHead);
+        model->addMeleeWeapon(&m_leonineHead);
+        model->addMeleeWeapon(&m_maulingClaws);
+        addModel(model);
 
-int Chimera::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    Unit *Chimera::Create(const ParameterList &parameters) {
+        auto unit = new Chimera();
+
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        unit->setGreatfray(fray);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void Chimera::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    BeastsOfChaosBase::ValueToString,
+                    BeastsOfChaosBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
+                             BeastsOfChaosBase::Gavespawn, 1},
+                    },
+                    CHAOS,
+                    {BEASTS_OF_CHAOS}
+            };
+
+            s_registered = UnitFactory::Register("Chimera", factoryMethod);
         }
     }
-    return 0;
-}
 
-int Chimera::chargeModifier() const
-{
-    int modifier = Unit::chargeModifier();
+    void Chimera::onWounded() {
+        const int damageIndex = getDamageTableIndex();
 
-    // Vicious Charge
-    modifier += 2;
+        m_avianHead.setRend(g_damageTable[damageIndex].m_avianHeadRend);
+        m_leonineHead.setDamage(g_damageTable[damageIndex].m_leonineHeadDamage);
 
-    return modifier;
-}
+        Unit::onWounded();
+    }
 
-void Chimera::onStartShooting(PlayerId player)
-{
-    Unit::onStartShooting(player);
+    int Chimera::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
-    if (player == owningPlayer())
-    {
-        // Fiery Breath
-        if (m_shootingTarget)
-        {
-            if (distanceTo(m_shootingTarget) <= (float)m_fieryBreath.range())
-            {
-                // Auto-hit and inflict mortal wounds.
-                Wounds breathDamage = {0, Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};
-                m_shootingTarget->applyDamage(breathDamage);
+    int Chimera::chargeModifier() const {
+        int modifier = Unit::chargeModifier();
+
+        // Vicious Charge
+        modifier += 2;
+
+        return modifier;
+    }
+
+    void Chimera::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        if (player == owningPlayer()) {
+            // Fiery Breath
+            if (m_shootingTarget) {
+                if (distanceTo(m_shootingTarget) <= (float) m_fieryBreath.range()) {
+                    // Auto-hit and inflict mortal wounds.
+                    Wounds breathDamage = {0, Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};
+                    m_shootingTarget->applyDamage(breathDamage);
+                }
             }
         }
     }
-}
 
-int Chimera::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int Chimera::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace BeastsOfChaos

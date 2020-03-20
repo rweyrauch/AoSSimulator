@@ -12,49 +12,54 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class FreeguildPistoliers : public CitizenOfSigmar
-{
-public:
+    class FreeguildPistoliers : public CitizenOfSigmar {
+    public:
 
-    enum WeaponOption
-    {
-        RepeaterHandgun,
-        BraceOfPistols
+        enum WeaponOption {
+            RepeaterHandgun,
+            BraceOfPistols
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        FreeguildPistoliers();
+
+        ~FreeguildPistoliers() override = default;
+
+        bool configure(int numModels, bool trumpeter, WeaponOption outriderWeapon);
+
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        Rerolls runRerolls() const override;
+
+        Rerolls chargeRerolls() const override;
+
+    private:
+
+        bool m_trumpeter = false;
+
+        Weapon m_pistols,
+            m_handgun,
+            m_sabreAndPistolButt,
+            m_hooves,
+            m_sabreAndPistolButtOutrider;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    FreeguildPistoliers();
-    ~FreeguildPistoliers() override = default;
-
-    bool configure(int numModels, bool trumpeter, WeaponOption outriderWeapon);
-
-protected:
-
-    int runModifier() const override;
-    int chargeModifier() const override;
-    Rerolls runRerolls() const override;
-    Rerolls chargeRerolls() const override;
-
-private:
-
-    bool m_trumpeter = false;
-
-    Weapon m_pistols,
-        m_handgun,
-        m_sabreAndPistolButt,
-        m_hooves,
-        m_sabreAndPistolButtOutrider;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

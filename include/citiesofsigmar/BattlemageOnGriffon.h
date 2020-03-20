@@ -12,42 +12,47 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class BattlemageOnGriffon : public CitizenOfSigmar
-{
-public:
+    class BattlemageOnGriffon : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    static void Init();
+        static std::string ValueToString(const Parameter &parameter);
 
-    BattlemageOnGriffon();
-    ~BattlemageOnGriffon() override = default;
+        static int EnumStringToInt(const std::string &enumString);
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        static void Init();
 
-    void onWounded() override;
-    void onRestore() override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    int castingModifier() const override;
+        BattlemageOnGriffon();
 
-private:
+        ~BattlemageOnGriffon() override = default;
 
-    int getDamageTableIndex() const;
+        bool configure();
 
-    Weapon m_beastStaff,
-        m_twinBeaks,
-        m_razorClaws;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        int castingModifier() const override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_beastStaff,
+            m_twinBeaks,
+            m_razorClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

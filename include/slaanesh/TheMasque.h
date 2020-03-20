@@ -12,30 +12,31 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class TheMasque : public SlaaneshBase
-{
-public:
+    class TheMasque : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TheMasque();
-    ~TheMasque() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TheMasque();
 
-private:
+        ~TheMasque() override = default;
 
-    Weapon m_ravagingClaws;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_ravagingClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

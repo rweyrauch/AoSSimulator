@@ -12,47 +12,52 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class Katakros : public OssiarchBonereaperBase
-{
-public:
+    class Katakros : public OssiarchBonereaperBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Katakros();
-    ~Katakros() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        static void Init();
 
-private:
+        Katakros();
 
-    int woundsTaken() const
-    {
-        return wounds() - remainingWounds();
-    }
+        ~Katakros() override = default;
 
-    Weapon m_indaKhaat,
-        m_shieldImmortis,
-        m_nadiriteDagger,
-        m_blades,
-        m_greatblade,
-        m_spiritDagger;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        int woundsTaken() const {
+            return wounds() - remainingWounds();
+        }
+
+        Weapon m_indaKhaat,
+            m_shieldImmortis,
+            m_nadiriteDagger,
+            m_blades,
+            m_greatblade,
+            m_spiritDagger;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,34 +12,34 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class BrokkGrungsson : public KharadronBase
-{
-public:
+    class BrokkGrungsson : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BrokkGrungsson();
+        static int ComputePoints(int numModels);
 
-    ~BrokkGrungsson() override = default;
+        static void Init();
 
-    bool configure();
+        BrokkGrungsson();
 
-protected:
+        ~BrokkGrungsson() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_boast,
-        m_charter,
-        m_aetherblasters,
-        m_saw;
+    protected:
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_boast,
+                m_charter,
+                m_aetherblasters,
+                m_saw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

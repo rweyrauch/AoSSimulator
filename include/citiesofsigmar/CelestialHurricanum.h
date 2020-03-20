@@ -12,48 +12,55 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class CelestialHurricanum : public CitizenOfSigmar
-{
-public:
+    class CelestialHurricanum : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    CelestialHurricanum();
-    ~CelestialHurricanum() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(bool battlemage);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    void onStartShooting(PlayerId player) override;
-    int castingModifier() const override;
+        static void Init();
 
-    int locusOfAzyr(const Unit* caster);
-    int portentsOfBattle(const Unit* attacker, const Weapon* weapon, const Unit* unit);
+        CelestialHurricanum();
 
-private:
+        ~CelestialHurricanum() override;
 
-    int getDamageTableIndex() const;
+        bool configure(bool battlemage);
 
-    Weapon m_stormOfShemtek,
-        m_wizardStaff,
-        m_arcaneTools,
-        m_hooves;
+    protected:
 
-    lsignal::slot m_locusConnection;
-    lsignal::slot m_portentsConnection;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        void onStartShooting(PlayerId player) override;
+
+        int castingModifier() const override;
+
+        int locusOfAzyr(const Unit *caster);
+
+        int portentsOfBattle(const Unit *attacker, const Weapon *weapon, const Unit *unit);
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_stormOfShemtek,
+            m_wizardStaff,
+            m_arcaneTools,
+            m_hooves;
+
+        lsignal::slot m_locusConnection;
+        lsignal::slot m_portentsConnection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

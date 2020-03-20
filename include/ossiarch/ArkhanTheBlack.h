@@ -12,43 +12,50 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class ArkhanTheBlack : public OssiarchBonereaperBase
-{
-public:
+    class ArkhanTheBlack : public OssiarchBonereaperBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArkhanTheBlack();
-    ~ArkhanTheBlack() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int castingModifier() const override;
-    int unbindingModifier() const override;
+        static void Init();
 
-private:
+        ArkhanTheBlack();
 
-    int getDamageTableIndex() const;
+        ~ArkhanTheBlack() override = default;
 
-    Weapon m_zefetKar,
-        m_khenashAn,
-        m_claws,
-        m_clawsAndDaggers;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_zefetKar,
+            m_khenashAn,
+            m_claws,
+            m_clawsAndDaggers;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

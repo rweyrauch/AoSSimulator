@@ -12,38 +12,40 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Wrathmongers : public KhorneBase
-{
-public:
+    class Wrathmongers : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Wrathmongers();
-    ~Wrathmongers() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Wrathmongers();
 
-    int toHitModifier(const Weapon* weapon, const Unit* target) const override;
-    void onModelSlain() override;
+        ~Wrathmongers() override;
 
-    int crimsonHaze(const Unit* attacker, const Model* attackingModel, const Weapon* weapon, const Unit* target);
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_wrathflails,
-        m_wrathflailsMaster;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-    lsignal::slot m_hazeSlot;
+        void onModelSlain() override;
 
-    static bool s_registered;
-};
+        int crimsonHaze(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+
+    private:
+
+        Weapon m_wrathflails,
+            m_wrathflailsMaster;
+
+        lsignal::slot m_hazeSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

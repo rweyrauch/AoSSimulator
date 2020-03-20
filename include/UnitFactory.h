@@ -15,13 +15,15 @@
 
 class Unit;
 
-typedef Unit* (*CreateMethod)(const std::vector<Parameter>& parameters);
-typedef std::string (*ParamValueToString)(const Parameter& parameter);
-typedef int (*EnumStringToInt)(const std::string& enumString);
+typedef Unit *(*CreateMethod)(const std::vector<Parameter> &parameters);
+
+typedef std::string (*ParamValueToString)(const Parameter &parameter);
+
+typedef int (*EnumStringToInt)(const std::string &enumString);
+
 typedef int (*ComputePoints)(int numModels);
 
-struct FactoryMethod
-{
+struct FactoryMethod {
 public:
     CreateMethod m_create;
     ParamValueToString m_paramToString;
@@ -32,18 +34,19 @@ public:
     std::vector<Keyword> m_factions;
 };
 
-class UnitFactory
-{
+class UnitFactory {
 public:
 
-    static bool Register(const std::string& name, const FactoryMethod& factoryMethod);
+    static bool Register(const std::string &name, const FactoryMethod &factoryMethod);
 
-    static Unit* Create(const std::string& name, const std::vector<Parameter>& parameters);
+    static Unit *Create(const std::string &name, const std::vector<Parameter> &parameters);
 
-    static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsBegin() { return s_registeredUnits.begin(); }
+    static std::map<std::string, FactoryMethod>::const_iterator
+    RegisteredUnitsBegin() { return s_registeredUnits.begin(); }
+
     static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsEnd() { return s_registeredUnits.end(); }
 
-    static const FactoryMethod* LookupUnit(const std::string& name);
+    static const FactoryMethod *LookupUnit(const std::string &name);
 
 protected:
 

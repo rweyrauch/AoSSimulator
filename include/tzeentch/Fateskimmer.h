@@ -12,35 +12,36 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class Fateskimmer : public TzeentchBase
-{
-public:
+    class Fateskimmer : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Fateskimmer();
-    ~Fateskimmer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Fateskimmer();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~Fateskimmer() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_magicalFlames,
-        m_staff,
-        m_dagger,
-        m_bite;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_magicalFlames,
+                m_staff,
+                m_dagger,
+                m_bite;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

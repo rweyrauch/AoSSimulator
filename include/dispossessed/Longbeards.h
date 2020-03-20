@@ -12,49 +12,53 @@
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-class Longbeards : public Dispossessed
-{
-public:
+    class Longbeards : public Dispossessed {
+    public:
 
-    enum WeaponOptions
-    {
-        AncestralAxesOrHammers,
-        AncestralGreatAxe
+        enum WeaponOptions {
+            AncestralAxesOrHammers,
+            AncestralGreatAxe
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Longbeards();
+
+        ~Longbeards() override = default;
+
+        bool configure(int numModels, WeaponOptions weapons, bool gromrilShields, bool standardBearer, bool musician);
+
+    protected:
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        int rollRunDistance() const override;
+
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
+
+    private:
+
+        bool m_gromrilShields = false;
+        bool m_standardBearer = false;
+        bool m_musician = false;
+
+        Weapon m_ancestralAxeHammer,
+                m_ancestralGreatAxe,
+                m_ancestralAxeHammerOldGuard,
+                m_ancestralGreatAxeOldGuard;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Longbeards();
-    ~Longbeards() override = default;
-
-    bool configure(int numModels, WeaponOptions weapons, bool gromrilShields, bool standardBearer, bool musician);
-
-protected:
-
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int rollRunDistance() const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-
-private:
-
-    bool m_gromrilShields = false;
-    bool m_standardBearer = false;
-    bool m_musician = false;
-
-    Weapon m_ancestralAxeHammer,
-        m_ancestralGreatAxe,
-        m_ancestralAxeHammerOldGuard,
-        m_ancestralGreatAxeOldGuard;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

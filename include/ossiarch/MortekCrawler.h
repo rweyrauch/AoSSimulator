@@ -12,39 +12,42 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class MortekCrawler : public OssiarchBonereaperBase
-{
-public:
+    class MortekCrawler : public OssiarchBonereaperBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MortekCrawler();
-    ~MortekCrawler() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
+        static void Init();
 
-private:
+        MortekCrawler();
 
-    int getDamageTableIndex() const;
+        ~MortekCrawler() override = default;
 
-    Weapon m_catapultSkulls,
-        m_catapultCauldron,
-        m_catapultStele,
-        m_tools;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        void onWounded() override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_catapultSkulls,
+                m_catapultCauldron,
+                m_catapultStele,
+                m_tools;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

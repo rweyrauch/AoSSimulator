@@ -12,37 +12,39 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class SloppityBilepiperHeraldOfNurgle : public NurgleBase
-{
-public:
+    class SloppityBilepiperHeraldOfNurgle : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SloppityBilepiperHeraldOfNurgle();
-    ~SloppityBilepiperHeraldOfNurgle() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SloppityBilepiperHeraldOfNurgle();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~SloppityBilepiperHeraldOfNurgle() override;
 
-    int diseaseOfMirthBraveryMod(const Unit* unit);
-    Rerolls jollyGutpipesChargeReroll(const Unit* unit);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_marotter;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    lsignal::slot m_diseaseOfMirthSlot, m_jollyGutpipesSlot;
+        int diseaseOfMirthBraveryMod(const Unit *unit);
 
-    static bool s_registered;
-};
+        Rerolls jollyGutpipesChargeReroll(const Unit *unit);
+
+    private:
+
+        Weapon m_marotter;
+
+        lsignal::slot m_diseaseOfMirthSlot, m_jollyGutpipesSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

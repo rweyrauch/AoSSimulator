@@ -12,43 +12,45 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class BlackArkFleetmaster : public CitizenOfSigmar
-{
-public:
+    class BlackArkFleetmaster : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BlackArkFleetmaster();
-    ~BlackArkFleetmaster() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int toSaveModifier(const Weapon *weapon) const override
-    {
-        // Sea Dragon Cloak
-        auto mod = CitizenOfSigmar::toSaveModifier(weapon);
-        if (weapon->isMissile()) mod++;
-        return mod;
-    }
+        static void Init();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+        BlackArkFleetmaster();
 
-private:
+        ~BlackArkFleetmaster() override = default;
 
-    Weapon m_cutlass,
-        m_murderHook;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        int toSaveModifier(const Weapon *weapon) const override {
+            // Sea Dragon Cloak
+            auto mod = CitizenOfSigmar::toSaveModifier(weapon);
+            if (weapon->isMissile()) mod++;
+            return mod;
+        }
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_cutlass,
+                m_murderHook;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

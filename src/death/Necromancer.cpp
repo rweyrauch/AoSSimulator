@@ -9,72 +9,63 @@
 #include <death/Necromancer.h>
 #include <UnitFactory.h>
 
-namespace Death
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 130;
+namespace Death {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 130;
 
-bool Necromancer::s_registered = false;
+    bool Necromancer::s_registered = false;
 
-Necromancer::Necromancer() :
-    LegionOfNagashBase("Necromancer", 5, WOUNDS, 10, 6, false),
-    m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3)
-{
-    m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
-    m_weapons = {&m_staff};
-}
-
-bool Necromancer::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_staff);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *Necromancer::Create(const ParameterList &parameters)
-{
-    auto unit = new Necromancer();
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    Necromancer::Necromancer() :
+            LegionOfNagashBase("Necromancer", 5, WOUNDS, 10, 6, false),
+            m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3) {
+        m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
+        m_weapons = {&m_staff};
     }
-    return unit;
-}
 
-void Necromancer::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            nullptr,
-            nullptr,
-            ComputePoints,
-            {
-            },
-            DEATH,
-            { DEATHMAGES }
-        };
-        s_registered = UnitFactory::Register("Necromancer", factoryMethod);
+    bool Necromancer::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_staff);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-Wounds Necromancer::applyWoundSave(const Wounds &wounds)
-{
-    return Unit::applyWoundSave(wounds);
-}
+    Unit *Necromancer::Create(const ParameterList &parameters) {
+        auto unit = new Necromancer();
 
-int Necromancer::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void Necromancer::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    nullptr,
+                    nullptr,
+                    ComputePoints,
+                    {
+                    },
+                    DEATH,
+                    {DEATHMAGES}
+            };
+            s_registered = UnitFactory::Register("Necromancer", factoryMethod);
+        }
+    }
+
+    Wounds Necromancer::applyWoundSave(const Wounds &wounds) {
+        return Unit::applyWoundSave(wounds);
+    }
+
+    int Necromancer::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Death

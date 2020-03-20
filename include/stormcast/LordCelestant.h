@@ -12,40 +12,41 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordCelestant : public StormcastEternal
-{
-public:
+    class LordCelestant : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordCelestant();
-    ~LordCelestant() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LordCelestant();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override
-    {
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
-        // Inescapable Vengeance
-        if (m_charged) attacks += 1;
-        return attacks;
-    }
-    void onStartShooting(PlayerId player) override;
+        ~LordCelestant() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_runeblade,
-        m_warhammer;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override {
+            int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+            // Inescapable Vengeance
+            if (m_charged) attacks += 1;
+            return attacks;
+        }
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_runeblade,
+                m_warhammer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

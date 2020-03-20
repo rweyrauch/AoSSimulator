@@ -12,34 +12,36 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosLordOnDaemonicMount : public SlavesToDarknessBase
-{
-public:
+    class ChaosLordOnDaemonicMount : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosLordOnDaemonicMount();
-    ~ChaosLordOnDaemonicMount() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ChaosLordOnDaemonicMount();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~ChaosLordOnDaemonicMount() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_hammer,
-        m_hooves;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_hammer,
+            m_hooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

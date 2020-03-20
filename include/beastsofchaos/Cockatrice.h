@@ -12,35 +12,37 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Cockatrice : public BeastsOfChaosBase
-{
-public:
+    class Cockatrice : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Cockatrice();
-    ~Cockatrice() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Cockatrice();
 
-    void onStartShooting(PlayerId player) override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~Cockatrice() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_petrifyingGaze,
-        m_viciousBeak,
-        m_swordlikeTalons;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartShooting(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_petrifyingGaze,
+                m_viciousBeak,
+                m_swordlikeTalons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

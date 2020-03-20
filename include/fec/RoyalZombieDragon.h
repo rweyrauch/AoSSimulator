@@ -12,36 +12,39 @@
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt
-{
+namespace FleshEaterCourt {
 
-class RoyalZombieDragon : public FleshEaterCourts
-{
-public:
+    class RoyalZombieDragon : public FleshEaterCourts {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RoyalZombieDragon();
-    ~RoyalZombieDragon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        RoyalZombieDragon();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~RoyalZombieDragon() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_pestilentialBreath,
-        m_snappingMaw,
-        m_swordlikeClaws;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_pestilentialBreath,
+                m_snappingMaw,
+                m_swordlikeClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

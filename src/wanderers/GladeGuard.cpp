@@ -10,156 +10,135 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Wanderers
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 10;
-static const int MAX_UNIT_SIZE = 30;
-static const int POINTS_PER_BLOCK = 120;
-static const int POINTS_MAX_UNIT_SIZE = 360;
+namespace Wanderers {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 10;
+    static const int MAX_UNIT_SIZE = 30;
+    static const int POINTS_PER_BLOCK = 120;
+    static const int POINTS_MAX_UNIT_SIZE = 360;
 
-bool GladeGuard::s_registered = false;
+    bool GladeGuard::s_registered = false;
 
-GladeGuard::GladeGuard() :
-    Wanderer("Glade Guard", 6, WOUNDS, 6, 6, false),
-    m_longbow(Weapon::Type::Missile, "Longbow", 20, 1, 4, 4, 0, 1),
-    m_longbowLord(Weapon::Type::Missile, "Longbow", 20, 2, 4, 4, 0, 1),
-    m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1)
-{
-    m_keywords = {ORDER, AELF, WANDERER, GLADE_GUARD};
-    m_weapons = {&m_longbow, &m_longbowLord, &m_gladeBlade};
-}
-
-bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    GladeGuard::GladeGuard() :
+            Wanderer("Glade Guard", 6, WOUNDS, 6, 6, false),
+            m_longbow(Weapon::Type::Missile, "Longbow", 20, 1, 4, 4, 0, 1),
+            m_longbowLord(Weapon::Type::Missile, "Longbow", 20, 2, 4, 4, 0, 1),
+            m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1) {
+        m_keywords = {ORDER, AELF, WANDERER, GLADE_GUARD};
+        m_weapons = {&m_longbow, &m_longbowLord, &m_gladeBlade};
     }
 
-    m_pennantBearer = pennantBearer;
-    m_hornblower = hornblower;
+    bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    auto lord = new Model(BASESIZE, wounds());
-    lord->addMissileWeapon(&m_longbowLord);
-    lord->addMeleeWeapon(&m_gladeBlade);
-    addModel(lord);
+        m_pennantBearer = pennantBearer;
+        m_hornblower = hornblower;
 
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMissileWeapon(&m_longbow);
-        model->addMeleeWeapon(&m_gladeBlade);
-        addModel(model);
+        auto lord = new Model(BASESIZE, wounds());
+        lord->addMissileWeapon(&m_longbowLord);
+        lord->addMeleeWeapon(&m_gladeBlade);
+        addModel(lord);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMissileWeapon(&m_longbow);
+            model->addMeleeWeapon(&m_gladeBlade);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *GladeGuard::Create(const ParameterList &parameters) {
+        auto unit = new GladeGuard();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        bool pennantBearer = GetBoolParam("Pennant Bearer", parameters, false);
+        bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
-    return true;
-}
-
-Unit *GladeGuard::Create(const ParameterList &parameters)
-{
-    auto unit = new GladeGuard();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    bool pennantBearer = GetBoolParam("Pennant Bearer", parameters, false);
-    bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
-    bool ok = unit->configure(numModels, pennantBearer, hornblower);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels, pennantBearer, hornblower);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void GladeGuard::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            GladeGuard::Create,
-            nullptr,
-            nullptr,
-            GladeGuard::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Pennant Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-            },
-            ORDER,
-            { WANDERER }
-        };
-        s_registered = UnitFactory::Register("Glade Guard", factoryMethod);
+    void GladeGuard::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    GladeGuard::Create,
+                    nullptr,
+                    nullptr,
+                    GladeGuard::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Pennant Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                    },
+                    ORDER,
+                    {WANDERER}
+            };
+            s_registered = UnitFactory::Register("Glade Guard", factoryMethod);
+        }
     }
-}
 
-int GladeGuard::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Wanderer::toHitModifier(weapon, target);
-    // Peerless Archery
-    if (weapon->isMissile() && remainingModels() >= 20)
-    {
-        auto closestUnit = Board::Instance()->getNearestUnit(this, owningPlayer());
-        if ((closestUnit == nullptr) || (distanceTo(closestUnit) > 3))
-        {
+    int GladeGuard::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        int modifier = Wanderer::toHitModifier(weapon, target);
+        // Peerless Archery
+        if (weapon->isMissile() && remainingModels() >= 20) {
+            auto closestUnit = Board::Instance()->getNearestUnit(this, owningPlayer());
+            if ((closestUnit == nullptr) || (distanceTo(closestUnit) > 3)) {
+                modifier += 1;
+            }
+        }
+        return modifier;
+    }
+
+    Rerolls GladeGuard::runRerolls() const {
+        if (m_hornblower) {
+            return RerollFailed;
+        }
+        return Wanderer::runRerolls();
+    }
+
+    int GladeGuard::braveryModifier() const {
+        int modifier = Wanderer::braveryModifier();
+        if (m_pennantBearer) {
             modifier += 1;
+
+            // if (Board::Instance()->unitInCover(this)) { modifier += 1; }
+        }
+        return modifier;
+    }
+
+    void GladeGuard::onStartShooting(PlayerId player) {
+        Wanderer::onStartShooting(player);
+
+        m_longbow.setRend(0);
+        m_longbowLord.setRend(0);
+
+        if (!m_usedArcaneBodkins) {
+            if (m_shootingTarget) {
+                // Arcane Bodkins
+                m_usedArcaneBodkins = true;
+
+                m_longbow.setRend(-3);
+                m_longbowLord.setRend(-3);
+            }
         }
     }
-    return modifier;
-}
 
-Rerolls GladeGuard::runRerolls() const
-{
-    if (m_hornblower)
-    {
-        return RerollFailed;
-    }
-    return Wanderer::runRerolls();
-}
-
-int GladeGuard::braveryModifier() const
-{
-    int modifier = Wanderer::braveryModifier();
-    if (m_pennantBearer)
-    {
-        modifier += 1;
-
-        // if (Board::Instance()->unitInCover(this)) { modifier += 1; }
-    }
-    return modifier;
-}
-
-void GladeGuard::onStartShooting(PlayerId player)
-{
-    Wanderer::onStartShooting(player);
-
-    m_longbow.setRend(0);
-    m_longbowLord.setRend(0);
-
-    if (!m_usedArcaneBodkins)
-    {
-        if (m_shootingTarget)
-        {
-            // Arcane Bodkins
-            m_usedArcaneBodkins = true;
-
-            m_longbow.setRend(-3);
-            m_longbowLord.setRend(-3);
+    int GladeGuard::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
         }
+        return points;
     }
-}
-
-int GladeGuard::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
-    }
-    return points;
-}
 
 } // namespace Wanderers

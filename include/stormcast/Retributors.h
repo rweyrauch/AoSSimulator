@@ -12,35 +12,37 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Retributors : public StormcastEternal
-{
-public:
+    class Retributors : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Retributors();
-    ~Retributors() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numStarsoulMaces);
+        static void Init();
 
-protected:
+        Retributors();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartCombat(PlayerId player) override;
+        ~Retributors() override = default;
 
-private:
+        bool configure(int numModels, int numStarsoulMaces);
 
-    Weapon m_lightningHammer,
-        m_lightningHammerPrime,
-        m_starsoulMace;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+    private:
+
+        Weapon m_lightningHammer,
+                m_lightningHammerPrime,
+                m_starsoulMace;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

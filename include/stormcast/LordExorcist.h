@@ -13,34 +13,37 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordExorcist : public StormcastEternal
-{
-public:
+    class LordExorcist : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    LordExorcist();
-    ~LordExorcist() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    void onStartShooting(PlayerId player) override;
+        static int ComputePoints(int numModels);
 
-private:
+        LordExorcist();
 
-    Weapon m_stave;
+        ~LordExorcist() override = default;
 
-    static bool s_registered;
-};
+        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+
+    protected:
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_stave;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

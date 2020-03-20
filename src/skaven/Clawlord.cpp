@@ -9,77 +9,68 @@
 #include <skaven/Clawlord.h>
 #include <UnitFactory.h>
 
-namespace Skaven
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 100;
+namespace Skaven {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 100;
 
-bool Clawlord::s_registered = false;
+    bool Clawlord::s_registered = false;
 
-Unit *Clawlord::Create(const ParameterList &parameters)
-{
-    auto unit = new Clawlord();
+    Unit *Clawlord::Create(const ParameterList &parameters) {
+        auto unit = new Clawlord();
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void Clawlord::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            Skaventide::ValueToString,
-            Skaventide::EnumStringToInt,
-            ComputePoints,
-            {
-            },
-            CHAOS,
-            { SKAVEN }
-        };
+    void Clawlord::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    Skaventide::ValueToString,
+                    Skaventide::EnumStringToInt,
+                    ComputePoints,
+                    {
+                    },
+                    CHAOS,
+                    {SKAVEN}
+            };
 
-        s_registered = UnitFactory::Register("Clawlord", factoryMethod);
+            s_registered = UnitFactory::Register("Clawlord", factoryMethod);
+        }
     }
-}
 
-Clawlord::Clawlord() :
-    Skaventide("Clawlord", 6, WOUNDS, 6, 4, false),
-    m_blade(Weapon::Type::Melee, "Warpforged Blade", 1, 3, 3, 3, -1, RAND_D3)
-{
-    m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD};
-    m_weapons = {&m_blade};
-}
+    Clawlord::Clawlord() :
+            Skaventide("Clawlord", 6, WOUNDS, 6, 4, false),
+            m_blade(Weapon::Type::Melee, "Warpforged Blade", 1, 3, 3, 3, -1, RAND_D3) {
+        m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD};
+        m_weapons = {&m_blade};
+    }
 
-bool Clawlord::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_blade);
-    addModel(model);
+    bool Clawlord::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_blade);
+        addModel(model);
 
-    m_points = POINTS_PER_UNIT;
+        m_points = POINTS_PER_UNIT;
 
-    return true;
-}
+        return true;
+    }
 
-int Clawlord::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
+    int Clawlord::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
 
-    // Cornered Fury
-    extra += (initialWounds() - remainingWounds());
+        // Cornered Fury
+        extra += (initialWounds() - remainingWounds());
 
-    return extra;
-}
+        return extra;
+    }
 
-int Clawlord::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int Clawlord::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 } //namespace Skaven

@@ -10,151 +10,132 @@
 #include <UnitFactory.h>
 #include <iostream>
 
-namespace BeastsOfChaos
-{
-static const int BASESIZE = 120; // x92 oval
-static const int WOUNDS = 14;
-static const int POINTS_PER_UNIT = 160;
+namespace BeastsOfChaos {
+    static const int BASESIZE = 120; // x92 oval
+    static const int WOUNDS = 14;
+    static const int POINTS_PER_UNIT = 160;
 
-bool Ghorgon::s_registered = false;
+    bool Ghorgon::s_registered = false;
 
-struct TableEntry
-{
-    int m_move;
-    int m_bladesAttacks;
-    int m_greatMawToWound;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {8, 5, 2},
-        {6, 4, 3},
-        {5, 3, 3},
-        {4, 2, 4},
-        {3, 1, 4}
+    struct TableEntry {
+        int m_move;
+        int m_bladesAttacks;
+        int m_greatMawToWound;
     };
 
-Ghorgon::Ghorgon() :
-    BeastsOfChaosBase("Ghorgon", 8, WOUNDS, 7, 5, false),
-    m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
-    m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6)
-{
-    m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
-    m_weapons = { &m_butcheringBlades, &m_hugeSlaveringMaw };
-}
-
-bool Ghorgon::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_butcheringBlades);
-    model->addMeleeWeapon(&m_hugeSlaveringMaw);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-void Ghorgon::onRestore()
-{
-    // Reset table-driven attributes
-    onWounded();
-}
-
-Unit *Ghorgon::Create(const ParameterList &parameters)
-{
-    auto unit = new Ghorgon();
-
-    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
-    unit->setGreatfray(fray);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void Ghorgon::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            BeastsOfChaosBase::ValueToString,
-            BeastsOfChaosBase::EnumStringToInt,
-            ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-            },
-            CHAOS,
-            { BEASTS_OF_CHAOS }
-        };
+                    {8, 5, 2},
+                    {6, 4, 3},
+                    {5, 3, 3},
+                    {4, 2, 4},
+                    {3, 1, 4}
+            };
 
-        s_registered = UnitFactory::Register("Ghorgon", factoryMethod);
+    Ghorgon::Ghorgon() :
+            BeastsOfChaosBase("Ghorgon", 8, WOUNDS, 7, 5, false),
+            m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
+            m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6) {
+        m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
+        m_weapons = {&m_butcheringBlades, &m_hugeSlaveringMaw};
     }
-}
 
-void Ghorgon::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
+    bool Ghorgon::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_butcheringBlades);
+        model->addMeleeWeapon(&m_hugeSlaveringMaw);
+        addModel(model);
 
-    m_butcheringBlades.setAttacks(g_damageTable[damageIndex].m_bladesAttacks);
-    m_hugeSlaveringMaw.setDamage(g_damageTable[damageIndex].m_greatMawToWound);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
+        m_points = POINTS_PER_UNIT;
 
-    Unit::onWounded();
-}
+        return true;
+    }
 
-int Ghorgon::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+    void Ghorgon::onRestore() {
+        // Reset table-driven attributes
+        onWounded();
+    }
+
+    Unit *Ghorgon::Create(const ParameterList &parameters) {
+        auto unit = new Ghorgon();
+
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        unit->setGreatfray(fray);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void Ghorgon::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    BeastsOfChaosBase::ValueToString,
+                    BeastsOfChaosBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
+                             BeastsOfChaosBase::Gavespawn, 1},
+                    },
+                    CHAOS,
+                    {BEASTS_OF_CHAOS}
+            };
+
+            s_registered = UnitFactory::Register("Ghorgon", factoryMethod);
         }
     }
-    return 0;
-}
 
-Wounds Ghorgon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Ravenous Bloodgreed
-    if (hitRoll == 6)
-    {
-        return { weapon->damage(), Dice::rollD3() };
+    void Ghorgon::onWounded() {
+        const int damageIndex = getDamageTableIndex();
+
+        m_butcheringBlades.setAttacks(g_damageTable[damageIndex].m_bladesAttacks);
+        m_hugeSlaveringMaw.setDamage(g_damageTable[damageIndex].m_greatMawToWound);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+
+        Unit::onWounded();
     }
 
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
+    int Ghorgon::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
-void Ghorgon::onStartCombat(PlayerId player)
-{
-    Unit::onStartCombat(player);
+    Wounds Ghorgon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Ravenous Bloodgreed
+        if (hitRoll == 6) {
+            return {weapon->damage(), Dice::rollD3()};
+        }
 
-    if (player != owningPlayer())
-    { return; }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
 
-    // Swallowed Whole
-    if (m_meleeTarget)
-    {
-        int roll = Dice::rollD6();
-        if (roll >= m_meleeTarget->wounds())
-        {
-            m_meleeTarget->slay(1);
+    void Ghorgon::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        if (player != owningPlayer()) { return; }
+
+        // Swallowed Whole
+        if (m_meleeTarget) {
+            int roll = Dice::rollD6();
+            if (roll >= m_meleeTarget->wounds()) {
+                m_meleeTarget->slay(1);
+            }
         }
     }
-}
 
-int Ghorgon::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int Ghorgon::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace BeastsOfChaos

@@ -12,43 +12,49 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class SpiritOfDurthu : public SylvanethBase
-{
-public:
+    class SpiritOfDurthu : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SpiritOfDurthu();
-    ~SpiritOfDurthu() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SpiritOfDurthu();
 
-    void onStartCombat(PlayerId id) override;
-    void onStartHero(PlayerId id) override;
-    void onWounded() override;
-    int getDamageTableIndex() const;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~SpiritOfDurthu() override;
 
-    int championOfTheEverqueensWill(const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_verdantBlast,
-        m_guardianSword,
-        m_massiveImpalingTalons;
+        void onStartCombat(PlayerId id) override;
 
-    lsignal::slot m_connection;
+        void onStartHero(PlayerId id) override;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        int getDamageTableIndex() const;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int championOfTheEverqueensWill(const Unit *target);
+
+    private:
+
+        Weapon m_verdantBlast,
+            m_guardianSword,
+            m_massiveImpalingTalons;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

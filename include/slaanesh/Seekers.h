@@ -12,47 +12,51 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class Seekers : public SlaaneshBase
-{
-public:
+    class Seekers : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Seekers();
-    ~Seekers() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
+        static void Init();
 
-protected:
+        Seekers();
 
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    void restoreModels(int numModels) override;
-    Rerolls chargeRerolls() const override;
-    int runModifier() const override;
+        ~Seekers() override;
 
-    Rerolls hornblowerBattleshockReroll(const Unit* unit);
+        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
-protected:
+    protected:
 
-    bool m_iconBearer = false;
-    bool m_bannerBearer = false;
-    bool m_hornblower = false;
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 
-private:
+        void restoreModels(int numModels) override;
 
-    Weapon m_piercingClaws,
-        m_piercingClawsHeartseeker,
-        m_poisonedTongue;
+        Rerolls chargeRerolls() const override;
 
-    lsignal::slot m_hornblowerSlot;
+        int runModifier() const override;
 
-    static bool s_registered;
-};
+        Rerolls hornblowerBattleshockReroll(const Unit *unit);
+
+    protected:
+
+        bool m_iconBearer = false;
+        bool m_bannerBearer = false;
+        bool m_hornblower = false;
+
+    private:
+
+        Weapon m_piercingClaws,
+            m_piercingClawsHeartseeker,
+            m_poisonedTongue;
+
+        lsignal::slot m_hornblowerSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

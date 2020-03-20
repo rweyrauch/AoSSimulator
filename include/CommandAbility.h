@@ -14,25 +14,27 @@
 
 class Unit;
 
-class CommandAbility
-{
+class CommandAbility {
 public:
-    CommandAbility(Unit* source, const std::string& name) :
-        m_source(source),
-        m_name(name) {}
+    CommandAbility(Unit *source, const std::string &name) :
+            m_source(source),
+            m_name(name) {}
+
     virtual ~CommandAbility() = default;
 
-    virtual int apply(const Unit* target) = 0;
+    virtual int apply(const Unit *target) = 0;
 
     float range() const { return m_range; }
-    const std::string& name() const { return m_name; }
+
+    const std::string &name() const { return m_name; }
 
     bool targetFriendly() const { return m_targetFriendly; }
+
     Phase phase() const { return m_phase; }
 
 protected:
 
-    Unit* m_source = nullptr;
+    Unit *m_source = nullptr;
     std::string m_name = "";
     //Duration m_duration;
     float m_range = 0.0f;

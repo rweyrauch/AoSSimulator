@@ -12,34 +12,37 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class KnightQuestor : public StormcastEternal
-{
-public:
+    class KnightQuestor : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    KnightQuestor();
-    ~KnightQuestor() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        KnightQuestor();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~KnightQuestor() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_warblade;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_warblade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

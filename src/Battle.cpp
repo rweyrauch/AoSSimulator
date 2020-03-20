@@ -8,19 +8,16 @@
 #include <Dice.h>
 #include <Battle.h>
 
-void Battle::start(PlayerId firstPlayer)
-{
+void Battle::start(PlayerId firstPlayer) {
     m_topOfRound = true;
     m_currentPlayer = firstPlayer;
     m_currentPhase = Phase::Hero;
     m_round = 1;
 }
 
-void Battle::next()
-{
+void Battle::next() {
     // advance battle state machine
-    switch (m_currentPhase)
-    {
+    switch (m_currentPhase) {
         case Phase::Initiative:
             m_currentPhase = Phase::Hero;
             break;
@@ -40,16 +37,12 @@ void Battle::next()
             m_currentPhase = Phase::Battleshock;
             break;
         case Phase::Battleshock:
-            if (m_topOfRound)
-            {
+            if (m_topOfRound) {
                 // Next players turn
                 m_topOfRound = false;
-                if (m_currentPlayer == PlayerId::Red)
-                {
+                if (m_currentPlayer == PlayerId::Red) {
                     m_currentPlayer = PlayerId::Blue;
-                }
-                else
-                {
+                } else {
                     m_currentPlayer = PlayerId::Red;
                 }
 
@@ -57,17 +50,14 @@ void Battle::next()
                 m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
                 m_currentPhase = Phase::Hero;
-            }
-            else
-            {
+            } else {
                 // End of round.
                 m_currentPhase = Phase::Initiative;
                 m_topOfRound = true;
                 m_round++;
 
                 // End of battle.
-                if (m_round > m_numRounds)
-                {
+                if (m_round > m_numRounds) {
                     m_isDone = true;
                 }
             }
@@ -75,21 +65,18 @@ void Battle::next()
     }
 }
 
-bool Battle::done()
-{
+bool Battle::done() {
     return m_isDone;
 }
 
-void Battle::simulate()
-{
+void Battle::simulate() {
     SimLog(Verbosity::Narrative, "Battle State:\n");
     SimLog(Verbosity::Narrative, "\tRound: %d of %d.  Top of round: %d\n", m_round, m_numRounds, m_topOfRound);
     SimLog(Verbosity::Narrative, "\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
     SimLog(Verbosity::Narrative, "\tCurrent Player: %s\n", PlayerIdToString(m_currentPlayer).c_str());
 
     // run the simulation for the current state
-    switch (m_currentPhase)
-    {
+    switch (m_currentPhase) {
         case Phase::Initiative:
             runInitiativePhase();
             break;
@@ -114,75 +101,62 @@ void Battle::simulate()
     }
 }
 
-void Battle::addPlayers(Player *player1, Player *player2)
-{
+void Battle::addPlayers(Player *player1, Player *player2) {
     m_players[0] = player1;
     m_players[1] = player2;
 }
 
-void Battle::runInitiativePhase()
-{
+void Battle::runInitiativePhase() {
     // Roll D6 for each player, highest goes first.
     auto p1 = Dice::rollD6();
     auto p2 = Dice::rollD6();
-    if (p1 == p2)
-    {
+    if (p1 == p2) {
         // Ties go to the player that went first in the previous round.
         m_currentPlayer = (m_currentPlayer == PlayerId::Red) ? PlayerId::Blue : PlayerId::Red;
-    }
-    else if (p1 > p2)
-    {
+    } else if (p1 > p2) {
         m_currentPlayer = PlayerId::Red;
-    }
-    else
-    {
+    } else {
         m_currentPlayer = PlayerId::Blue;
     }
 
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
-    SimLog(Verbosity::Narrative, "Player %s wins initiative.  P1: %d P2: %d", PlayerIdToString(m_currentPlayer).c_str(), p1, p2);
+    SimLog(Verbosity::Narrative, "Player %s wins initiative.  P1: %d P2: %d", PlayerIdToString(m_currentPlayer).c_str(),
+           p1, p2);
 }
 
-void Battle::runHeroPhase()
-{
+void Battle::runHeroPhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doHeroPhase();
 }
 
-void Battle::runMovementPhase()
-{
+void Battle::runMovementPhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doMovementPhase();
 }
 
-void Battle::runShootingPhase()
-{
+void Battle::runShootingPhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doShootingPhase();
 }
 
-void Battle::runChargePhase()
-{
+void Battle::runChargePhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doChargePhase();
 }
 
-void Battle::runCombatPhase()
-{
+void Battle::runCombatPhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doCombatPhase();
 }
 
-void Battle::runBattleshockPhase()
-{
+void Battle::runBattleshockPhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->doBattleshockPhase();
 }
 
-void Battle::deployment()
-{
+void Battle::deployment() {
     //
     // initiative to select player deploying first
 

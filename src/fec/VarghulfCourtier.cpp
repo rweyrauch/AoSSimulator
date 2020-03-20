@@ -11,77 +11,71 @@
 #include <Board.h>
 #include <iostream>
 
-namespace FleshEaterCourt
-{
-static const int BASESIZE = 60;
-static const int WOUNDS = 8;
-static const int POINTS_PER_UNIT = 160;
+namespace FleshEaterCourt {
+    static const int BASESIZE = 60;
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 160;
 
-bool VarghulfCourtier::s_registered = false;
+    bool VarghulfCourtier::s_registered = false;
 
-VarghulfCourtier::VarghulfCourtier() :
-    FleshEaterCourts("Varghulf Courtier", 12, WOUNDS, 10, 4, true),
-    m_immenseClaws(Weapon::Type::Melee, "Immense Claws", 2, 4, 3, 3, -1, 2),
-    m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3)
-{
-    m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
-    m_weapons = {&m_immenseClaws, &m_daggerlikeFangs};
-}
-
-bool VarghulfCourtier::configure()
-{
-    auto courtier = new Model(BASESIZE, wounds());
-    courtier->addMeleeWeapon(&m_immenseClaws);
-    courtier->addMeleeWeapon(&m_daggerlikeFangs);
-    addModel(courtier);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *VarghulfCourtier::Create(const ParameterList &parameters)
-{
-    auto unit = new VarghulfCourtier();
-
-    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
-    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
-    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
-    unit->setGrandCourt(court);
-    unit->setCourtsOfDelusion(delusion);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    VarghulfCourtier::VarghulfCourtier() :
+            FleshEaterCourts("Varghulf Courtier", 12, WOUNDS, 10, 4, true),
+            m_immenseClaws(Weapon::Type::Melee, "Immense Claws", 2, 4, 3, 3, -1, 2),
+            m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3) {
+        m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
+        m_weapons = {&m_immenseClaws, &m_daggerlikeFangs};
     }
-    return unit;
-}
 
-void VarghulfCourtier::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            VarghulfCourtier::Create,
-            FleshEaterCourts::ValueToString,
-            FleshEaterCourts::EnumStringToInt,
-            VarghulfCourtier::ComputePoints,
-            {
-                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-            },
-            DEATH,
-            { FLESH_EATER_COURTS }
-        };
-        s_registered = UnitFactory::Register("Varghulf Courtier", factoryMethod);
+    bool VarghulfCourtier::configure() {
+        auto courtier = new Model(BASESIZE, wounds());
+        courtier->addMeleeWeapon(&m_immenseClaws);
+        courtier->addMeleeWeapon(&m_daggerlikeFangs);
+        addModel(courtier);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-int VarghulfCourtier::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Unit *VarghulfCourtier::Create(const ParameterList &parameters) {
+        auto unit = new VarghulfCourtier();
+
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+        unit->setGrandCourt(court);
+        unit->setCourtsOfDelusion(delusion);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void VarghulfCourtier::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    VarghulfCourtier::Create,
+                    FleshEaterCourts::ValueToString,
+                    FleshEaterCourts::EnumStringToInt,
+                    VarghulfCourtier::ComputePoints,
+                    {
+                            {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt,
+                             FleshEaterCourts::Gristlegore, 1},
+                            {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None,
+                             FleshEaterCourts::DefendersOfTheRealm, 1},
+                    },
+                    DEATH,
+                    {FLESH_EATER_COURTS}
+            };
+            s_registered = UnitFactory::Register("Varghulf Courtier", factoryMethod);
+        }
+    }
+
+    int VarghulfCourtier::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace FleshEaterCourt

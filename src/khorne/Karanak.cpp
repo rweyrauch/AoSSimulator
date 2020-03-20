@@ -10,105 +10,92 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Khorne
-{
-static const int BASESIZE = 60; // x35 oval
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 140;
+namespace Khorne {
+    static const int BASESIZE = 60; // x35 oval
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 140;
 
-bool Karanak::s_registered = false;
+    bool Karanak::s_registered = false;
 
-Karanak::Karanak() :
-    KhorneBase("Karanak", 8, WOUNDS, 10, 4, false),
-    m_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1),
-    m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3)
-{
-    m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
-    m_weapons = {&m_goreSlickClaws, &m_savageMaws};
-}
-
-bool Karanak::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_goreSlickClaws);
-    model->addMeleeWeapon(&m_savageMaws);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *Karanak::Create(const ParameterList &parameters)
-{
-    auto unit = new Karanak();
-
-    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
-    unit->setSlaughterHost(host);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void Karanak::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Karanak::Create,
-            KhorneBase::ValueToString,
-            KhorneBase::EnumStringToInt,
-            Karanak::ComputePoints,
-            {
-                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-            },
-            CHAOS,
-            { KHORNE }
-        };
-        s_registered = UnitFactory::Register("Karanak", factoryMethod);
-    }
-}
-
-Rerolls Karanak::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Prey of the Blood God
-    if (m_pQuarry && (m_pQuarry->name() == target->name()))
-    {
-        return RerollFailed;
-    }
-    return KhorneBase::toHitRerolls(weapon, target);
-}
-
-Rerolls Karanak::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Prey of the Blood God
-    if (m_pQuarry && (m_pQuarry->name() == target->name()))
-    {
-        return RerollFailed;
-    }
-    return KhorneBase::toWoundRerolls(weapon, target);
-}
-
-void Karanak::onBeginTurn(int battleRound)
-{
-    if (battleRound == 1)
-    {
-        // Select a quarry for Karanak
-        // TODO: Select a _good_ unit to be Karanak's quarry
-        m_pQuarry = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+    Karanak::Karanak() :
+            KhorneBase("Karanak", 8, WOUNDS, 10, 4, false),
+            m_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1),
+            m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3) {
+        m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
+        m_weapons = {&m_goreSlickClaws, &m_savageMaws};
     }
 
-    KhorneBase::onBeginTurn(battleRound);
-}
+    bool Karanak::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_goreSlickClaws);
+        model->addMeleeWeapon(&m_savageMaws);
+        addModel(model);
 
-int Karanak::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    Unit *Karanak::Create(const ParameterList &parameters) {
+        auto unit = new Karanak();
+
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        unit->setSlaughterHost(host);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void Karanak::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Karanak::Create,
+                    KhorneBase::ValueToString,
+                    KhorneBase::EnumStringToInt,
+                    Karanak::ComputePoints,
+                    {
+                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
+                             KhorneBase::SkullfiendTribe, 1}
+                    },
+                    CHAOS,
+                    {KHORNE}
+            };
+            s_registered = UnitFactory::Register("Karanak", factoryMethod);
+        }
+    }
+
+    Rerolls Karanak::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Prey of the Blood God
+        if (m_pQuarry && (m_pQuarry->name() == target->name())) {
+            return RerollFailed;
+        }
+        return KhorneBase::toHitRerolls(weapon, target);
+    }
+
+    Rerolls Karanak::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Prey of the Blood God
+        if (m_pQuarry && (m_pQuarry->name() == target->name())) {
+            return RerollFailed;
+        }
+        return KhorneBase::toWoundRerolls(weapon, target);
+    }
+
+    void Karanak::onBeginTurn(int battleRound) {
+        if (battleRound == 1) {
+            // Select a quarry for Karanak
+            // TODO: Select a _good_ unit to be Karanak's quarry
+            m_pQuarry = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        }
+
+        KhorneBase::onBeginTurn(battleRound);
+    }
+
+    int Karanak::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Khorne

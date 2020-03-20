@@ -12,61 +12,62 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Stormfiends : public Skaventide
-{
-public:
+    class Stormfiends : public Skaventide {
+    public:
 
-    enum WeaponOption_1
-    {
-        WarpfireProjectors,
-        Windlaunchers
+        enum WeaponOption_1 {
+            WarpfireProjectors,
+            Windlaunchers
+        };
+        enum WeaponOption_2 {
+            Grinderfists,
+            RatlingCannons
+        };
+        enum WeaponOption_3 {
+            DoomflayerGauntlets,
+            ShockGauntlets
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Stormfiends();
+
+        ~Stormfiends() override = default;
+
+        bool configure(int numModels, WeaponOption_1 weapon1, WeaponOption_2 weapon2, WeaponOption_3 weapon3);
+
+    protected:
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        WeaponOption_1 m_weapons1 = WarpfireProjectors;
+        WeaponOption_2 m_weapons2 = Grinderfists;
+        WeaponOption_3 m_weapons3 = DoomflayerGauntlets;
+
+        Weapon m_ratlingCannons,
+            m_windlaunchers,
+            m_warpfireProjectors,
+            m_doomfireGauntlets,
+            m_grinderfists,
+            m_shockGauntlets,
+            m_clubbingBlows;
+
+        static bool s_registered;
     };
-    enum WeaponOption_2
-    {
-        Grinderfists,
-        RatlingCannons
-    };
-    enum WeaponOption_3
-    {
-        DoomflayerGauntlets,
-        ShockGauntlets
-    };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Stormfiends();
-    ~Stormfiends() override = default;
-
-    bool configure(int numModels, WeaponOption_1 weapon1, WeaponOption_2 weapon2, WeaponOption_3 weapon3);
-
-protected:
-
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-
-private:
-
-    WeaponOption_1 m_weapons1 = WarpfireProjectors;
-    WeaponOption_2 m_weapons2 = Grinderfists;
-    WeaponOption_3 m_weapons3 = DoomflayerGauntlets;
-
-    Weapon m_ratlingCannons,
-        m_windlaunchers,
-        m_warpfireProjectors,
-        m_doomfireGauntlets,
-        m_grinderfists,
-        m_shockGauntlets,
-        m_clubbingBlows;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

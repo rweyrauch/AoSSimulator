@@ -12,49 +12,53 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class MortekGuard : public OssiarchBonereaperBase
-{
-public:
+    class MortekGuard : public OssiarchBonereaperBase {
+    public:
 
-    enum WeaponOption
-    {
-        NadiriteBladeAndShield,
-        NadirateSpearAndShield
+        enum WeaponOption {
+            NadiriteBladeAndShield,
+            NadirateSpearAndShield
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        MortekGuard();
+
+        ~MortekGuard() override = default;
+
+        bool configure(int numModels, WeaponOption option, int numGreatblades, bool necrophoros);
+
+    protected:
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+    private:
+
+        bool m_necrophoros = false;
+
+        Weapon m_blade,
+            m_spear,
+            m_greatblade,
+            m_bladeHekatos,
+            m_spearHekatos,
+            m_greatbladeHekatos;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    MortekGuard();
-    ~MortekGuard() override = default;
-
-    bool configure(int numModels, WeaponOption option, int numGreatblades, bool necrophoros);
-
-protected:
-
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-
-private:
-
-    bool m_necrophoros = false;
-
-    Weapon m_blade,
-        m_spear,
-        m_greatblade,
-        m_bladeHekatos,
-        m_spearHekatos,
-        m_greatbladeHekatos;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

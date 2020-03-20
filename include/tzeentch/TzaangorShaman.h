@@ -12,32 +12,33 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class TzaangorShaman : public TzeentchBase
-{
-public:
+    class TzaangorShaman : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TzaangorShaman();
-    ~TzaangorShaman() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TzaangorShaman();
 
-private:
+        ~TzaangorShaman() override = default;
 
-    Weapon m_staff,
-        m_dagger,
-        m_teethAndHorns;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_staff,
+                m_dagger,
+                m_teethAndHorns;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

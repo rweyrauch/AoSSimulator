@@ -12,36 +12,39 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class FomoroidCrusher : public SlavesToDarknessBase
-{
-public:
+    class FomoroidCrusher : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    FomoroidCrusher();
-    ~FomoroidCrusher() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        FomoroidCrusher();
 
-    void onCharged() override;
-    int rollChargeDistance() const override;
-    void onStartHero(PlayerId player) override;
+        ~FomoroidCrusher() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_hurledTerrain,
-        m_fists;
-    mutable int m_lastChargeDistance = 0;
+    protected:
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+        int rollChargeDistance() const override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        Weapon m_hurledTerrain,
+                m_fists;
+        mutable int m_lastChargeDistance = 0;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

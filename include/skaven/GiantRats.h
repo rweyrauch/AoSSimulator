@@ -12,35 +12,37 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class GiantRats : public Skaventide
-{
-public:
+    class GiantRats : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GiantRats();
-    ~GiantRats() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        GiantRats();
 
-    void onWounded() override { setTeethRange(); }
-    void onRestore() override { setTeethRange(); }
+        ~GiantRats() override = default;
 
-    void setTeethRange();
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_teeth;
+        void onWounded() override { setTeethRange(); }
 
-    static bool s_registered;
-};
+        void onRestore() override { setTeethRange(); }
+
+        void setTeethRange();
+
+    private:
+
+        Weapon m_teeth;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

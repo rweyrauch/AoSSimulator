@@ -12,37 +12,40 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class Vokmortian : public OssiarchBonereaperBase
-{
-public:
+    class Vokmortian : public OssiarchBonereaperBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Vokmortian();
-    ~Vokmortian() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int grimWarning(const Unit* unit);
+        static void Init();
 
-private:
+        Vokmortian();
 
-    Weapon m_gazeOfDeath,
-        m_staff;
+        ~Vokmortian() override;
 
-    lsignal::slot m_connection;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        int grimWarning(const Unit *unit);
+
+    private:
+
+        Weapon m_gazeOfDeath,
+                m_staff;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

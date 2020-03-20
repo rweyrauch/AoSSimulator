@@ -12,33 +12,34 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace EldritchCouncil
-{
+namespace EldritchCouncil {
 
-class Archmage : public Unit
-{
-public:
+    class Archmage : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Archmage();
-    ~Archmage() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(bool steed);
+        static void Init();
 
-protected:
+        Archmage();
 
-private:
+        ~Archmage() override = default;
 
-    bool m_steed = false;
+        bool configure(bool steed);
 
-    Weapon m_seerstaff,
-        m_steedHooves;
+    protected:
 
-    static bool s_registered;
-};
+    private:
+
+        bool m_steed = false;
+
+        Weapon m_seerstaff,
+                m_steedHooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

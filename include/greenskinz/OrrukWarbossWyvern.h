@@ -12,40 +12,45 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Greenskinz
-{
+namespace Greenskinz {
 
-class OrrukWarbossOnWyvern : public Unit
-{
-public:
+    class OrrukWarbossOnWyvern : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    OrrukWarbossOnWyvern();
-    ~OrrukWarbossOnWyvern() override = default;
+        static void Init();
 
-    bool configure(bool pairedChoppas);
+        static int ComputePoints(int numModels);
 
-protected:
+        OrrukWarbossOnWyvern();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    void onRestore() override;
+        ~OrrukWarbossOnWyvern() override = default;
 
-private:
+        bool configure(bool pairedChoppas);
 
-    bool m_pairedChoppas = false;
+    protected:
 
-    Weapon m_bossChoppa,
-        m_hornsClawsAndTeeth,
-        m_barbedTail;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        void onRestore() override;
+
+    private:
+
+        bool m_pairedChoppas = false;
+
+        Weapon m_bossChoppa,
+                m_hornsClawsAndTeeth,
+                m_barbedTail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

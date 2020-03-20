@@ -41,129 +41,123 @@
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-std::string SlavesToDarknessBase::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Damned Legion")
-    {
-        if (parameter.intValue == Ravagers) return "Ravagers";
-        else if (parameter.intValue == Cabalists) return "Cabalists";
-        else if (parameter.intValue == Despoilers) return "Despoilers";
-        else if (parameter.intValue == HostOfTheEverchosen) return "Host of the Everchosen";
+    std::string SlavesToDarknessBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Damned Legion") {
+            if (parameter.intValue == Ravagers) return "Ravagers";
+            else if (parameter.intValue == Cabalists) return "Cabalists";
+            else if (parameter.intValue == Despoilers) return "Despoilers";
+            else if (parameter.intValue == HostOfTheEverchosen) return "Host of the Everchosen";
+        } else if (std::string(parameter.name) == "Mark of Chaos") {
+            if (parameter.intValue == Undivided) return "Undivided";
+            if (parameter.intValue == Nurgle) return "Nurgle";
+            if (parameter.intValue == Khorne) return "Khorne";
+            if (parameter.intValue == Slaanesh) return "Slaanesh";
+            if (parameter.intValue == Tzeentch) return "Tzeentch";
+        }
+        return ParameterValueToString(parameter);
     }
-    else if (std::string(parameter.name) == "Mark of Chaos")
-    {
-        if (parameter.intValue == Undivided) return "Undivided";
-        if (parameter.intValue == Nurgle) return "Nurgle";
-        if (parameter.intValue == Khorne) return "Khorne";
-        if (parameter.intValue == Slaanesh) return "Slaanesh";
-        if (parameter.intValue == Tzeentch) return "Tzeentch";
+
+    int SlavesToDarknessBase::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Ravagers") return Ravagers;
+        else if (enumString == "Cabalists") return Cabalists;
+        else if (enumString == "Despoilers") return Despoilers;
+        else if (enumString == "Host of the Everchosen") return HostOfTheEverchosen;
+        else if (enumString == "Undivided") return Undivided;
+        else if (enumString == "Nurgle") return Nurgle;
+        else if (enumString == "Khorne") return Khorne;
+        else if (enumString == "Slaanesh") return Slaanesh;
+        else if (enumString == "Tzeentch") return Tzeentch;
+        return 0;
     }
-    return ParameterValueToString(parameter);
-}
 
-int SlavesToDarknessBase::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Ravagers") return Ravagers;
-    else if (enumString == "Cabalists") return Cabalists;
-    else if (enumString == "Despoilers") return Despoilers;
-    else if (enumString == "Host of the Everchosen") return HostOfTheEverchosen;
-    else if (enumString == "Undivided") return Undivided;
-    else if (enumString == "Nurgle") return Nurgle;
-    else if (enumString == "Khorne") return Khorne;
-    else if (enumString == "Slaanesh") return Slaanesh;
-    else if (enumString == "Tzeentch") return Tzeentch;
-    return 0;
-}
+    void SlavesToDarknessBase::setDamnedLegion(DamnedLegion legion) {
+        removeKeyword(RAVAGERS);
+        removeKeyword(CABALISTS);
+        removeKeyword(DESPOILERS);
+        removeKeyword(HOST_OF_THE_EVERCHOSEN);
 
-void SlavesToDarknessBase::setDamnedLegion(DamnedLegion legion)
-{
-    removeKeyword(RAVAGERS);
-    removeKeyword(CABALISTS);
-    removeKeyword(DESPOILERS);
-    removeKeyword(HOST_OF_THE_EVERCHOSEN);
-
-    m_legion = legion;
-    switch (legion)
-    {
-        case Ravagers:
-            addKeyword(RAVAGERS);
-            break;
-        case Cabalists:
-            addKeyword(CABALISTS);
-            break;
-        case Despoilers:
-            addKeyword(DESPOILERS);
-            break;
-        case HostOfTheEverchosen:
-            addKeyword(HOST_OF_THE_EVERCHOSEN);
-            break;
-        default:
-            break;
+        m_legion = legion;
+        switch (legion) {
+            case Ravagers:
+                addKeyword(RAVAGERS);
+                break;
+            case Cabalists:
+                addKeyword(CABALISTS);
+                break;
+            case Despoilers:
+                addKeyword(DESPOILERS);
+                break;
+            case HostOfTheEverchosen:
+                addKeyword(HOST_OF_THE_EVERCHOSEN);
+                break;
+            default:
+                break;
+        }
     }
-}
 
-void SlavesToDarknessBase::setMarkOfChaos(MarkOfChaos mark)
-{
-    removeKeyword(UNDIVIDED);
-    removeKeyword(NURGLE);
-    removeKeyword(KHORNE);
-    removeKeyword(SLAANESH);
-    removeKeyword(TZEENTCH);
+    void SlavesToDarknessBase::setMarkOfChaos(MarkOfChaos mark) {
+        removeKeyword(UNDIVIDED);
+        removeKeyword(NURGLE);
+        removeKeyword(KHORNE);
+        removeKeyword(SLAANESH);
+        removeKeyword(TZEENTCH);
 
-    m_markOfChaos = mark;
+        m_markOfChaos = mark;
 
-    switch (mark)
-    {
-        case Undivided:
-            addKeyword(UNDIVIDED); break;
-        case Nurgle:
-            addKeyword(NURGLE); break;
-        case Khorne:
-            addKeyword(KHORNE); break;
-        case Slaanesh:
-            addKeyword(SLAANESH); break;
-        case Tzeentch:
-            addKeyword(TZEENTCH); break;
+        switch (mark) {
+            case Undivided:
+                addKeyword(UNDIVIDED);
+                break;
+            case Nurgle:
+                addKeyword(NURGLE);
+                break;
+            case Khorne:
+                addKeyword(KHORNE);
+                break;
+            case Slaanesh:
+                addKeyword(SLAANESH);
+                break;
+            case Tzeentch:
+                addKeyword(TZEENTCH);
+                break;
+        }
     }
-}
 
-void Init()
-{
-    Archaon::Init();
-    Varanguard::Init();
+    void Init() {
+        Archaon::Init();
+        Varanguard::Init();
 
-    ChaosChosen::Init();
-    ChaosKnights::Init();
-    ChaosMarauders::Init();
-    ChaosWarriors::Init();
-    CorvusCabal::Init();
-    CypherLords::Init();
-    Furies::Init();
-    IronGolems::Init();
-    Raptoryx::Init();
-    Slambo::Init();
-    SplinteredFang::Init();
-    TheUnmade::Init();
-    UntamedBeasts::Init();
-    ChaosLordOnKarkadrak::Init();
-    ChaosLordOnManticore::Init();
-    ChaosWarshrine::Init();
-    ChaosSorcererOnManticore::Init();
-    ChaosSorcerer::Init();
-    DarkoathChieftain::Init();
-    DarkoathWarqueen::Init();
-    ExaltedHeroOfChaos::Init();
-    ChaosLordOnDaemonicMount::Init();
-    ChaosLord::Init();
-    ChaosChariots::Init();
-    GorebeastChariots::Init();
-    SpireTyrants::Init();
-    FomoroidCrusher::Init();
-    MindstealerSphiranx::Init();
-    OgroidMyrmidon::Init();
-}
+        ChaosChosen::Init();
+        ChaosKnights::Init();
+        ChaosMarauders::Init();
+        ChaosWarriors::Init();
+        CorvusCabal::Init();
+        CypherLords::Init();
+        Furies::Init();
+        IronGolems::Init();
+        Raptoryx::Init();
+        Slambo::Init();
+        SplinteredFang::Init();
+        TheUnmade::Init();
+        UntamedBeasts::Init();
+        ChaosLordOnKarkadrak::Init();
+        ChaosLordOnManticore::Init();
+        ChaosWarshrine::Init();
+        ChaosSorcererOnManticore::Init();
+        ChaosSorcerer::Init();
+        DarkoathChieftain::Init();
+        DarkoathWarqueen::Init();
+        ExaltedHeroOfChaos::Init();
+        ChaosLordOnDaemonicMount::Init();
+        ChaosLord::Init();
+        ChaosChariots::Init();
+        GorebeastChariots::Init();
+        SpireTyrants::Init();
+        FomoroidCrusher::Init();
+        MindstealerSphiranx::Init();
+        OgroidMyrmidon::Init();
+    }
 
 } //namespace SlavesToDarkness

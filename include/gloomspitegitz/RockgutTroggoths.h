@@ -12,34 +12,37 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class RockgutTroggoths : public GloomspiteGitzBase
-{
-public:
+    class RockgutTroggoths : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RockgutTroggoths();
-    ~RockgutTroggoths() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        RockgutTroggoths();
 
-    void onStartHero(PlayerId player) override;
-    void onStartShooting(PlayerId player) override;
-    Wounds applyWoundSave(const Wounds& wounds) override;
+        ~RockgutTroggoths() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_massiveStoneMaul;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        void onStartShooting(PlayerId player) override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_massiveStoneMaul;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

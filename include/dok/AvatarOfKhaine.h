@@ -12,35 +12,36 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class AvatarOfKhaine : public DaughterOfKhaine
-{
-public:
+    class AvatarOfKhaine : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AvatarOfKhaine();
-    ~AvatarOfKhaine() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AvatarOfKhaine();
 
-    int idolOfWorship(const Unit* unit);
+        ~AvatarOfKhaine() override;
 
-private:
+        bool configure();
 
-    Weapon m_torrentOfBurningBlood,
-        m_sword;
+    protected:
 
-    lsignal::slot m_idolSlot;
+        int idolOfWorship(const Unit *unit);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_torrentOfBurningBlood,
+            m_sword;
+
+        lsignal::slot m_idolSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

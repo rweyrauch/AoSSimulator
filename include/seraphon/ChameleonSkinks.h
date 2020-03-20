@@ -12,33 +12,34 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class ChameleonSkinks : public SeraphonBase
-{
-public:
+    class ChameleonSkinks : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChameleonSkinks();
-    ~ChameleonSkinks() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        ChameleonSkinks();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~ChameleonSkinks() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_dartpipe,
-        m_dagger;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_dartpipe,
+            m_dagger;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

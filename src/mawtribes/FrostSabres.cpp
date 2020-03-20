@@ -9,113 +9,101 @@
 #include <Board.h>
 #include "mawtribes/FrostSabres.h"
 
-namespace OgorMawtribes
-{
-static const int BASESIZE = 60; // x35 oval
-static const int WOUNDS = 2;
-static const int MIN_UNIT_SIZE = 2;
-static const int MAX_UNIT_SIZE = 12;
-static const int POINTS_PER_BLOCK = 40;
-static const int POINTS_MAX_UNIT_SIZE = 240;
+namespace OgorMawtribes {
+    static const int BASESIZE = 60; // x35 oval
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 2;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 40;
+    static const int POINTS_MAX_UNIT_SIZE = 240;
 
 
-bool FrostSabres::s_registered = false;
+    bool FrostSabres::s_registered = false;
 
-Unit *FrostSabres::Create(const ParameterList &parameters)
-{
-    auto unit = new FrostSabres();
+    Unit *FrostSabres::Create(const ParameterList &parameters) {
+        auto unit = new FrostSabres();
 
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
-    unit->setMawtribe(tribe);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        unit->setMawtribe(tribe);
 
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void FrostSabres::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            FrostSabres::Create,
-            MawtribesBase::ValueToString,
-            MawtribesBase::EnumStringToInt,
-            FrostSabres::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-            },
-            DESTRUCTION,
-            { OGOR_MAWTRIBES }
-        };
-        s_registered = UnitFactory::Register("Frost Sabres", factoryMethod);
-    }
-}
-
-FrostSabres::FrostSabres() :
-    MawtribesBase("Frost Sabres", 9, WOUNDS, 5, 6, false),
-    m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 3, -1, 1)
-{
-    m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, FROST_SABRES};
-    m_weapons = {&m_fangs};
-}
-
-bool FrostSabres::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    for (auto i = 0; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_fangs);
-        addModel(model);
+    void FrostSabres::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    FrostSabres::Create,
+                    MawtribesBase::ValueToString,
+                    MawtribesBase::EnumStringToInt,
+                    FrostSabres::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
+                             MawtribesBase::Winterbite, 1}
+                    },
+                    DESTRUCTION,
+                    {OGOR_MAWTRIBES}
+            };
+            s_registered = UnitFactory::Register("Frost Sabres", factoryMethod);
+        }
     }
 
-    m_points = ComputePoints(numModels);
-
-    return true;
-}
-
-int FrostSabres::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    FrostSabres::FrostSabres() :
+            MawtribesBase("Frost Sabres", 9, WOUNDS, 5, 6, false),
+            m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 3, -1, 1) {
+        m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, FROST_SABRES};
+        m_weapons = {&m_fangs};
     }
-    return points;
-}
 
-int FrostSabres::chargeModifier() const
-{
-    auto mod = Unit::chargeModifier();
+    bool FrostSabres::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    // Their Master's Voice
-    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
-    if (unit) mod += 3;
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_fangs);
+            addModel(model);
+        }
 
-    return mod;
-}
+        m_points = ComputePoints(numModels);
 
-int FrostSabres::braveryModifier() const
-{
-    auto mod = MawtribesBase::braveryModifier();
+        return true;
+    }
 
-    // Their Master's Voice
-    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
-    if (unit) mod += 2;
+    int FrostSabres::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
-    return mod;
-}
+    int FrostSabres::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+
+        // Their Master's Voice
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
+        if (unit) mod += 3;
+
+        return mod;
+    }
+
+    int FrostSabres::braveryModifier() const {
+        auto mod = MawtribesBase::braveryModifier();
+
+        // Their Master's Voice
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
+        if (unit) mod += 2;
+
+        return mod;
+    }
 
 } // namespace OgorMawtribes

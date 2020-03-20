@@ -12,42 +12,41 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-class Dispossessed : public Unit
-{
-public:
-    enum Grudge
-    {
-        StuckUp,
-        SpeedMerchants,
-        MonstrousCheaters,
-        CowardlyHorders,
-        ShoddyCraftsmanship,
-        SneakyAmbushers
+    class Dispossessed : public Unit {
+    public:
+        enum Grudge {
+            StuckUp,
+            SpeedMerchants,
+            MonstrousCheaters,
+            CowardlyHorders,
+            ShoddyCraftsmanship,
+            SneakyAmbushers
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        Dispossessed() = default;
+
+        ~Dispossessed() override = default;
+
+        void setGrudge(Grudge grudge);
+
+    protected:
+        Dispossessed(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Grudge m_grudge = StuckUp;
     };
-
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    Dispossessed() = default;
-    ~Dispossessed() override = default;
-
-    void setGrudge(Grudge grudge);
-
-protected:
-    Dispossessed(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    Grudge m_grudge = StuckUp;
-};
 
 //
 // Abilities                    Implemented
@@ -62,7 +61,7 @@ private:
 //      Sneaky Ambushers            TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace Dispossessed
 

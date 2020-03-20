@@ -11,7 +11,8 @@
 
 #include <Spell.h>
 
-DamageSpell* CreateWarpLightning(Unit* caster);
-AreaOfEffectSpell* CreateWarpLightningStorm(Unit* caster);
+DamageSpell *CreateWarpLightning(Unit *caster);
+
+AreaOfEffectSpell *CreateWarpLightningStorm(Unit *caster);
 
 #endif //SKAVENSPELLS_H

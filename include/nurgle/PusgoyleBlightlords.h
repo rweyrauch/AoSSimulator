@@ -12,39 +12,42 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class PusgoyleBlightlords : public NurgleBase
-{
-public:
+    class PusgoyleBlightlords : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    PusgoyleBlightlords();
-    ~PusgoyleBlightlords() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numTocsins);
+        static void Init();
 
-protected:
+        PusgoyleBlightlords();
 
-    Wounds applyWoundSave(const Wounds& wounds) override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    void onStartHero(PlayerId player) override;
+        ~PusgoyleBlightlords() override = default;
 
-protected:
+        bool configure(int numModels, int numTocsins);
 
-private:
+    protected:
 
-    Weapon m_blightedWeapon,
-        m_dolorousTocsin,
-        m_mouthparts,
-        m_venemousSting;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    static bool s_registered;
-};
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        void onStartHero(PlayerId player) override;
+
+    protected:
+
+    private:
+
+        Weapon m_blightedWeapon,
+                m_dolorousTocsin,
+                m_mouthparts,
+                m_venemousSting;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

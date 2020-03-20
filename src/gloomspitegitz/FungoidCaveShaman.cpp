@@ -12,114 +12,101 @@
 #include <iostream>
 #include <spells/MysticShield.h>
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 4;
-static const int POINTS_PER_UNIT = 90;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 4;
+    static const int POINTS_PER_UNIT = 90;
 
-bool FungoidCaveShaman::s_registered = false;
+    bool FungoidCaveShaman::s_registered = false;
 
-FungoidCaveShaman::FungoidCaveShaman() :
-    GloomspiteGitzBase("Fungoid Cave-shaman", 5, WOUNDS, 4, 6, false),
-    m_moonSickle(Weapon::Type::Melee, "Moon-sickle", 1, 3, 4, 4, -1, 1),
-    m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1)
-{
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
-    m_weapons = {&m_moonSickle, &m_squigsTeeth};
+    FungoidCaveShaman::FungoidCaveShaman() :
+            GloomspiteGitzBase("Fungoid Cave-shaman", 5, WOUNDS, 4, 6, false),
+            m_moonSickle(Weapon::Type::Melee, "Moon-sickle", 1, 3, 4, 4, -1, 1),
+            m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
+        m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
+        m_weapons = {&m_moonSickle, &m_squigsTeeth};
 
-    m_totalUnbinds = 1;
-    m_totalSpells = 1;
-}
-
-bool FungoidCaveShaman::configure(LoreOfTheMoonclans lore)
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_moonSickle);
-    model->addMeleeWeapon(&m_squigsTeeth);
-
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    //m_knownSpells.push_back(std::make_unique<SporeMaws>(this));
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
-
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *FungoidCaveShaman::Create(const ParameterList &parameters)
-{
-    auto unit = new FungoidCaveShaman();
-    auto lore = (LoreOfTheMoonclans)GetEnumParam("Lore of the Moonclans", parameters, (int)LoreOfTheMoonclans ::None);
-
-    bool ok = unit->configure(lore);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        m_totalUnbinds = 1;
+        m_totalSpells = 1;
     }
-    return unit;
-}
 
-void FungoidCaveShaman::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
+    bool FungoidCaveShaman::configure(LoreOfTheMoonclans lore) {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_moonSickle);
+        model->addMeleeWeapon(&m_squigsTeeth);
 
-        s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        //m_knownSpells.push_back(std::make_unique<SporeMaws>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
+
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-std::string FungoidCaveShaman::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Lore of the Moonclans")
-    {
-        return ToString((LoreOfTheMoonclans)parameter.intValue);
+    Unit *FungoidCaveShaman::Create(const ParameterList &parameters) {
+        auto unit = new FungoidCaveShaman();
+        auto lore = (LoreOfTheMoonclans) GetEnumParam("Lore of the Moonclans", parameters,
+                                                      (int) LoreOfTheMoonclans::None);
+
+        bool ok = unit->configure(lore);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return ParameterValueToString(parameter);
-}
 
-int FungoidCaveShaman::EnumStringToInt(const std::string &enumString)
-{
-    LoreOfTheMoonclans lore;
-    if (FromString(enumString, lore))
-    {
-        return (int) lore;
-    }
-    return 0;
-}
+    void FungoidCaveShaman::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Lore of the Moonclans", (int) LoreOfTheMoonclans::None,
+                             (int) LoreOfTheMoonclans::None, (int) LoreOfTheMoonclans::CallDaMoon, 1},
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
 
-void FungoidCaveShaman::onStartHero(PlayerId playerId)
-{
-    GloomspiteGitzBase::onStartHero(playerId);
-
-    // Mouthpiece of Mork
-    if ((owningPlayer() == playerId) && m_roster)
-    {
-        if (Dice::rollD6() >= 4)
-        {
-            m_roster->addCommandPoints(1);
+            s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
         }
     }
-}
 
-int FungoidCaveShaman::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    std::string FungoidCaveShaman::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Lore of the Moonclans") {
+            return ToString((LoreOfTheMoonclans) parameter.intValue);
+        }
+        return ParameterValueToString(parameter);
+    }
+
+    int FungoidCaveShaman::EnumStringToInt(const std::string &enumString) {
+        LoreOfTheMoonclans lore;
+        if (FromString(enumString, lore)) {
+            return (int) lore;
+        }
+        return 0;
+    }
+
+    void FungoidCaveShaman::onStartHero(PlayerId playerId) {
+        GloomspiteGitzBase::onStartHero(playerId);
+
+        // Mouthpiece of Mork
+        if ((owningPlayer() == playerId) && m_roster) {
+            if (Dice::rollD6() >= 4) {
+                m_roster->addCommandPoints(1);
+            }
+        }
+    }
+
+    int FungoidCaveShaman::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace GloomspiteGitz

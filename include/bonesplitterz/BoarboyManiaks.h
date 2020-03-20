@@ -10,59 +10,58 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class SavageBoarboyManiaks : public Bonesplitterz
-{
-public:
+    class SavageBoarboyManiaks : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SavageBoarboyManiaks();
-    ~SavageBoarboyManiaks() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool boarThumper, bool totemBearer);
+        static int ComputePoints(int numModels);
 
-protected:
+        SavageBoarboyManiaks();
 
-    int chargeModifier() const override
-    {
-        int mod = Unit::chargeModifier();
-        if (m_thumper)
-        {
-            mod += 2;
+        ~SavageBoarboyManiaks() override = default;
+
+        bool configure(int numModels, bool boarThumper, bool totemBearer);
+
+    protected:
+
+        int chargeModifier() const override {
+            int mod = Unit::chargeModifier();
+            if (m_thumper) {
+                mod += 2;
+            }
+            return mod;
         }
-        return mod;
-    }
 
-    int braveryModifier() const override
-    {
-        int mod = Unit::braveryModifier();
-        if (m_totemBearer)
-        {
-            mod++;
+        int braveryModifier() const override {
+            int mod = Unit::braveryModifier();
+            if (m_totemBearer) {
+                mod++;
+            }
+            return mod;
         }
-        return mod;
-    }
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-private:
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-    bool m_thumper = false;
-    bool m_totemBearer = false;
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-    Weapon m_chompas,
-        m_tusksAndHooves,
-        m_chompasBoss;
+    private:
 
-    static bool s_registered;
-};
+        bool m_thumper = false;
+        bool m_totemBearer = false;
+
+        Weapon m_chompas,
+                m_tusksAndHooves,
+                m_chompasBoss;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,38 +12,40 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class VandusHammerhand : public StormcastEternal
-{
-public:
+    class VandusHammerhand : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    VandusHammerhand();
-    ~VandusHammerhand() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        VandusHammerhand();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~VandusHammerhand() override;
 
-    int lordOfTheHammerhandsBraveryMod(const Unit* unit);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_heldensen,
-        m_clawsAndFangs;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    lsignal::slot m_lordSlot;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        int lordOfTheHammerhandsBraveryMod(const Unit *unit);
+
+    private:
+
+        Weapon m_heldensen,
+                m_clawsAndFangs;
+
+        lsignal::slot m_lordSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

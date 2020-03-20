@@ -1,88 +1,79 @@
 #include <UnitFactory.h>
 #include "sylvaneth/YlthariGardians.h"
 
-namespace Sylvaneth
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 1;
-static const int POINTS_PER_UNIT = 0;
+namespace Sylvaneth {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 1;
+    static const int POINTS_PER_UNIT = 0;
 
-bool YltharisGuardians::s_registered = false;
+    bool YltharisGuardians::s_registered = false;
 
-Unit *YltharisGuardians::Create(const ParameterList &parameters)
-{
-    auto unit = new YltharisGuardians();
+    Unit *YltharisGuardians::Create(const ParameterList &parameters) {
+        auto unit = new YltharisGuardians();
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void YltharisGuardians::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            YltharisGuardians::Create,
-            SylvanethBase::ValueToString,
-            SylvanethBase::EnumStringToInt,
-            YltharisGuardians::ComputePoints,
-            {
-            },
-            ORDER,
-            { SYLVANETH }
-        };
-        s_registered = UnitFactory::Register("Ylthari's Guardians", factoryMethod);
+    void YltharisGuardians::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    YltharisGuardians::Create,
+                    SylvanethBase::ValueToString,
+                    SylvanethBase::EnumStringToInt,
+                    YltharisGuardians::ComputePoints,
+                    {
+                    },
+                    ORDER,
+                    {SYLVANETH}
+            };
+            s_registered = UnitFactory::Register("Ylthari's Guardians", factoryMethod);
+        }
     }
-}
 
-YltharisGuardians::YltharisGuardians() :
-    SylvanethBase("Ylthari's Guardians", 5, WOUNDS, 6, 5, false),
-    m_enchantedGreatBlade(Weapon::Type::Melee, "Enchanted Greatblade", 1, 4, 3, 3, -1, 1),
-    m_revenantBow(Weapon::Type::Missile, "Revenant Bow", 24, 2, 4, 3, -1, 1),
-    m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2),
-    m_revenantBowMelee(Weapon::Type::Melee, "Revenent Bow (Melee)", 1, 1, 4, 3, 0, 1)
-{
-    m_keywords = {ORDER, SYLVANETH, OAKENBROW, TREE_REVENANTS, YLTHARIS_GUARDIANS};
-    m_weapons = {&m_enchantedGreatBlade, &m_revenantBow, &m_protectorGlaive, &m_revenantBowMelee};
-}
+    YltharisGuardians::YltharisGuardians() :
+            SylvanethBase("Ylthari's Guardians", 5, WOUNDS, 6, 5, false),
+            m_enchantedGreatBlade(Weapon::Type::Melee, "Enchanted Greatblade", 1, 4, 3, 3, -1, 1),
+            m_revenantBow(Weapon::Type::Missile, "Revenant Bow", 24, 2, 4, 3, -1, 1),
+            m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2),
+            m_revenantBowMelee(Weapon::Type::Melee, "Revenent Bow (Melee)", 1, 1, 4, 3, 0, 1) {
+        m_keywords = {ORDER, SYLVANETH, OAKENBROW, TREE_REVENANTS, YLTHARIS_GUARDIANS};
+        m_weapons = {&m_enchantedGreatBlade, &m_revenantBow, &m_protectorGlaive, &m_revenantBowMelee};
+    }
 
-bool YltharisGuardians::configure()
-{
-    auto gallanghann = new Model(BASESIZE, wounds());
-    gallanghann->addMeleeWeapon(&m_protectorGlaive);
-    gallanghann->setName("Gallanghann");
-    addModel(gallanghann);
+    bool YltharisGuardians::configure() {
+        auto gallanghann = new Model(BASESIZE, wounds());
+        gallanghann->addMeleeWeapon(&m_protectorGlaive);
+        gallanghann->setName("Gallanghann");
+        addModel(gallanghann);
 
-    auto skhathael = new Model(BASESIZE, wounds());
-    skhathael->addMeleeWeapon(&m_enchantedGreatBlade);
-    skhathael->setName("Skhathael");
-    addModel(skhathael);
+        auto skhathael = new Model(BASESIZE, wounds());
+        skhathael->addMeleeWeapon(&m_enchantedGreatBlade);
+        skhathael->setName("Skhathael");
+        addModel(skhathael);
 
-    auto ahnslaine = new Model(BASESIZE, wounds());
-    ahnslaine->addMissileWeapon(&m_revenantBow);
-    ahnslaine->addMeleeWeapon(&m_revenantBowMelee);
-    ahnslaine->setName("Ahnslaine");
-    addModel(ahnslaine);
+        auto ahnslaine = new Model(BASESIZE, wounds());
+        ahnslaine->addMissileWeapon(&m_revenantBow);
+        ahnslaine->addMeleeWeapon(&m_revenantBowMelee);
+        ahnslaine->setName("Ahnslaine");
+        addModel(ahnslaine);
 
-    m_points = POINTS_PER_UNIT;
+        m_points = POINTS_PER_UNIT;
 
-    return true;
-}
+        return true;
+    }
 
-Rerolls YltharisGuardians::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Vigour and Wrath
-    return RerollOnes;
-}
+    Rerolls YltharisGuardians::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Vigour and Wrath
+        return RerollOnes;
+    }
 
-int YltharisGuardians::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int YltharisGuardians::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Sylvaneth

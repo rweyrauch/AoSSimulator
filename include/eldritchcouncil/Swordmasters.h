@@ -12,37 +12,39 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace EldritchCouncil
-{
+namespace EldritchCouncil {
 
-class Swordmasters : public Unit
-{
-public:
+    class Swordmasters : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Swordmasters();
-    ~Swordmasters() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool hornblower, bool standardBearer);
+        static void Init();
 
-protected:
+        Swordmasters();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        ~Swordmasters() override = default;
 
-private:
+        bool configure(int numModels, bool hornblower, bool standardBearer);
 
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
+    protected:
 
-    Weapon m_greatsword,
-        m_greatswordLord;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_greatsword,
+                m_greatswordLord;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

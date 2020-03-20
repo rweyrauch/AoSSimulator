@@ -12,37 +12,40 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Leadbelchers : public MawtribesBase
-{
-public:
+    class Leadbelchers : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Leadbelchers();
-    ~Leadbelchers() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onStartShooting(PlayerId player) override;
+        static void Init();
 
-private:
+        Leadbelchers();
 
-    Weapon m_gun,
-        m_blow,
-        m_bite,
-        m_blowThunderfist;
+        ~Leadbelchers() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels);
+
+    protected:
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_gun,
+                m_blow,
+                m_bite,
+                m_blowThunderfist;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

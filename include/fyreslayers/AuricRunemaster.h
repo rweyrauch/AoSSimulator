@@ -12,32 +12,33 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class AuricRunemaster : public Fyreslayer
-{
-public:
+    class AuricRunemaster : public Fyreslayer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AuricRunemaster();
-    ~AuricRunemaster() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AuricRunemaster();
 
-private:
+        ~AuricRunemaster() override = default;
 
-    Weapon m_throwingAxe,
-        m_brazierStaff,
-        m_runicIron;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_throwingAxe,
+                m_brazierStaff,
+                m_runicIron;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,43 +12,48 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Kharibdyss : public CitizenOfSigmar
-{
-public:
+    class Kharibdyss : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Kharibdyss();
-    ~Kharibdyss() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    int abyssalHowl(const Unit* target);
+        static void Init();
 
-private:
+        Kharibdyss();
 
-    int getDamageTableIndex() const;
+        ~Kharibdyss() override;
 
-    Weapon m_tentacles,
-        m_tail,
-        m_limbs,
-        m_goadsAndWhips;
+        bool configure();
 
-    lsignal::slot m_connection;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int abyssalHowl(const Unit *target);
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_tentacles,
+                m_tail,
+                m_limbs,
+                m_goadsAndWhips;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

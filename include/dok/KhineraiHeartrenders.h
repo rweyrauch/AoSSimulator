@@ -12,40 +12,44 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class KhineraiHeartrenders : public DaughterOfKhaine
-{
-public:
+    class KhineraiHeartrenders : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    KhineraiHeartrenders();
-    ~KhineraiHeartrenders() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        KhineraiHeartrenders();
 
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
-    void onRestore() override;
+        ~KhineraiHeartrenders() override = default;
 
-private:
+        bool configure(int numModels);
 
-    int m_setupInRound = 0;
+    protected:
 
-    Weapon m_barbedJavelinMissile,
-        m_barbedJavelin,
-        m_barbedJavelinShrykeMissile,
-        m_barbedJavelinShryke;
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-    static bool s_registered;
-};
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onRestore() override;
+
+    private:
+
+        int m_setupInRound = 0;
+
+        Weapon m_barbedJavelinMissile,
+            m_barbedJavelin,
+            m_barbedJavelinShrykeMissile,
+            m_barbedJavelinShryke;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

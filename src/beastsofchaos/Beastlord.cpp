@@ -9,92 +9,81 @@
 #include <beastsofchaos/Beastlord.h>
 #include <UnitFactory.h>
 
-namespace BeastsOfChaos
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 90;
+namespace BeastsOfChaos {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 90;
 
-bool Beastlord::s_registered = false;
+    bool Beastlord::s_registered = false;
 
-Beastlord::Beastlord() :
-    BeastsOfChaosBase("Beastlord", 6, WOUNDS, 7, 4, false),
-    m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1)
-{
-    m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
-    m_weapons.push_back(&m_pairedAxes);
-}
-
-bool Beastlord::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_pairedAxes);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *Beastlord::Create(const ParameterList &parameters)
-{
-    auto unit = new Beastlord();
-
-    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
-    unit->setGreatfray(fray);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    Beastlord::Beastlord() :
+            BeastsOfChaosBase("Beastlord", 6, WOUNDS, 7, 4, false),
+            m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1) {
+        m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
+        m_weapons.push_back(&m_pairedAxes);
     }
-    return unit;
-}
 
-void Beastlord::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            BeastsOfChaosBase::ValueToString,
-            BeastsOfChaosBase::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-            },
-            CHAOS,
-            { BEASTS_OF_CHAOS }
-        };
+    bool Beastlord::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_pairedAxes);
+        addModel(model);
 
-        s_registered = UnitFactory::Register("Beastlord", factoryMethod);
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Dual Axes
-    if (weapon->name() == m_pairedAxes.name())
-    {
-        return RerollOnes;
+    Unit *Beastlord::Create(const ParameterList &parameters) {
+        auto unit = new Beastlord();
+
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        unit->setGreatfray(fray);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return Unit::toHitRerolls(weapon, target);
-}
 
-Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Hatred of Heroes
-    if (target->hasKeyword(HERO))
-    {
-        return RerollFailed;
+    void Beastlord::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    BeastsOfChaosBase::ValueToString,
+                    BeastsOfChaosBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
+                             BeastsOfChaosBase::Gavespawn, 1},
+                    },
+                    CHAOS,
+                    {BEASTS_OF_CHAOS}
+            };
+
+            s_registered = UnitFactory::Register("Beastlord", factoryMethod);
+        }
     }
-    return Unit::toWoundRerolls(weapon, target);
-}
 
-int Beastlord::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Dual Axes
+        if (weapon->name() == m_pairedAxes.name()) {
+            return RerollOnes;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Hatred of Heroes
+        if (target->hasKeyword(HERO)) {
+            return RerollFailed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int Beastlord::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace BeastsOfChaos

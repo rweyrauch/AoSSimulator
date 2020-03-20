@@ -12,31 +12,31 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Death
-{
+namespace Death {
 
-class LegionOfNagashBase : public Unit
-{
-public:
+    class LegionOfNagashBase : public Unit {
+    public:
 
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
+        static std::string ValueToString(const Parameter &parameter);
 
-    LegionOfNagashBase() = default;
-    ~LegionOfNagashBase() override = default;
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        LegionOfNagashBase() = default;
 
-    LegionOfNagashBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-};
+        ~LegionOfNagashBase() override = default;
+
+    protected:
+
+        LegionOfNagashBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+    };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 //
 
-void Init();
+    void Init();
 
 } // namespace Death
 

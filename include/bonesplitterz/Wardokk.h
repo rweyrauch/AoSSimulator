@@ -10,31 +10,32 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class Wardokk : public Bonesplitterz
-{
-public:
+    class Wardokk : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Wardokk();
-    ~Wardokk() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Wardokk();
+
+        ~Wardokk() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_bonebeastStikk;
+        Weapon m_bonebeastStikk;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

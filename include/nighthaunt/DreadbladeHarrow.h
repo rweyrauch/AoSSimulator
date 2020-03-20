@@ -12,35 +12,38 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class DreadbladeHarrow : public Nighthaunt
-{
-public:
+    class DreadbladeHarrow : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DreadbladeHarrow();
-    ~DreadbladeHarrow() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        DreadbladeHarrow();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~DreadbladeHarrow() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_dreadblade,
-        m_hoovesAndTeeth;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_dreadblade,
+                m_hoovesAndTeeth;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

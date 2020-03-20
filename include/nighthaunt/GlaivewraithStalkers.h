@@ -12,35 +12,35 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class GlaivewraithStalkers : public Nighthaunt
-{
-public:
+    class GlaivewraithStalkers : public Nighthaunt {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GlaivewraithStalkers();
+        static int ComputePoints(int numModels);
 
-    ~GlaivewraithStalkers() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool drummer);
+        GlaivewraithStalkers();
 
-protected:
+        ~GlaivewraithStalkers() override = default;
 
-    bool m_drummer = true;
+        bool configure(int numModels, bool drummer);
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+    protected:
 
-private:
+        bool m_drummer = true;
 
-    Weapon m_huntersGlaive;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_huntersGlaive;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

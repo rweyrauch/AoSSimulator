@@ -12,45 +12,52 @@
 #include <wanderers/Wanderer.h>
 #include <Weapon.h>
 
-namespace Wanderers
-{
+namespace Wanderers {
 
-class EternalGuard : public Wanderer
-{
-public:
+    class EternalGuard : public Wanderer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    EternalGuard();
-    ~EternalGuard() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields);
+        static void Init();
 
-protected:
+        EternalGuard();
 
-    void onStartHero(PlayerId player) override;
-    Rerolls runRerolls() const override;
-    int braveryModifier() const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
-    int toSaveModifier(const Weapon *weapon) const override { return m_fortressModifier; }
+        ~EternalGuard() override = default;
 
-private:
+        bool configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields);
 
-    bool m_hornblower = false,
-        m_standardBearer = false,
-        m_gladeShields = false;
+    protected:
 
-    int m_fortressModifier = 0;
+        void onStartHero(PlayerId player) override;
 
-    Weapon m_spearStave,
-        m_spearStaveWarden;
+        Rerolls runRerolls() const override;
 
-    static bool s_registered;
-};
+        int braveryModifier() const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
+
+        int toSaveModifier(const Weapon *weapon) const override { return m_fortressModifier; }
+
+    private:
+
+        bool m_hornblower = false,
+                m_standardBearer = false,
+                m_gladeShields = false;
+
+        int m_fortressModifier = 0;
+
+        Weapon m_spearStave,
+                m_spearStaveWarden;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

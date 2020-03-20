@@ -12,55 +12,60 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class GreatUncleanOne : public NurgleBase
-{
-public:
+    class GreatUncleanOne : public NurgleBase {
+    public:
 
-    enum WeaponOptionOne
-    {
-        PlagueFlail,
-        Bileblade
+        enum WeaponOptionOne {
+            PlagueFlail,
+            Bileblade
+        };
+
+        enum WeaponOptionTwo {
+            MassiveBilesword,
+            DoomsdayBell
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        GreatUncleanOne();
+
+        ~GreatUncleanOne() override = default;
+
+        bool configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo);
+
+    protected:
+
+        void onWounded() override;
+
+        void onCharged() override;
+
+        int getDamageTableIndex() const;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        Weapon m_bile,
+                m_flail,
+                m_bilesword,
+                m_bileblade,
+                m_doomsdayBell,
+                m_nurglings;
+
+        static bool s_registered;
     };
-
-    enum WeaponOptionTwo
-    {
-        MassiveBilesword,
-        DoomsdayBell
-    };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    GreatUncleanOne();
-    ~GreatUncleanOne() override = default;
-
-    bool configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo);
-
-protected:
-
-    void onWounded() override;
-    void onCharged() override;
-    int getDamageTableIndex() const;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId player) override;
-
-private:
-
-    Weapon m_bile,
-        m_flail,
-        m_bilesword,
-        m_bileblade,
-        m_doomsdayBell,
-        m_nurglings;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

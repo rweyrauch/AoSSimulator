@@ -12,38 +12,41 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class Volturnos : public IdonethDeepkinBase
-{
-public:
+    class Volturnos : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Volturnos();
-    ~Volturnos() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Volturnos();
 
-    void onCharged() override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
-    int crestOfTheHighKings(const Unit* target);
+        ~Volturnos() override;
 
-private:
+        bool configure();
 
-    Weapon m_theAstraSolus,
-        m_deepmareJawsTalons,
-        m_deepmareTails;
+    protected:
 
-    lsignal::slot m_connection;
+        void onCharged() override;
 
-    static bool s_registered;
-};
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int crestOfTheHighKings(const Unit *target);
+
+    private:
+
+        Weapon m_theAstraSolus,
+                m_deepmareJawsTalons,
+                m_deepmareTails;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,34 +12,37 @@
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-class Unforged : public Dispossessed
-{
-public:
+    class Unforged : public Dispossessed {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Unforged();
-    ~Unforged() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Unforged();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+        ~Unforged() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_runicAxes;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_runicAxes;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

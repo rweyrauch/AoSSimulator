@@ -12,42 +12,47 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class DreadSaurian : public SeraphonBase
-{
-public:
+    class DreadSaurian : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DreadSaurian();
-    ~DreadSaurian() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        DreadSaurian();
 
-    void onWounded() override;
-    void onRestore() override;
-    void onCharged() override;
-    void onSlain() override;
+        ~DreadSaurian() override;
 
-    int getDamageTableIndex() const;
-    int terror(const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_gargantuanJaws,
-        m_rakingClaws,
-        m_armouredTail;
+        void onWounded() override;
 
-    lsignal::slot m_terrorSlot;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+        void onSlain() override;
+
+        int getDamageTableIndex() const;
+
+        int terror(const Unit *target);
+
+    private:
+
+        Weapon m_gargantuanJaws,
+                m_rakingClaws,
+                m_armouredTail;
+
+        lsignal::slot m_terrorSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

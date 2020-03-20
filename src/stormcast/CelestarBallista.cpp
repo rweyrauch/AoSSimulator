@@ -11,112 +11,100 @@
 #include <Board.h>
 #include <Roster.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-static const int BASESIZE = 60;
-static const int WOUNDS = 7;
-static const int POINTS_PER_UNIT = 110;
+    static const int BASESIZE = 60;
+    static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 110;
 
-bool CelestarBallista::s_registered = false;
+    bool CelestarBallista::s_registered = false;
 
-CelestarBallista::CelestarBallista() :
-    StormcastEternal("Celestar Ballista", 3, WOUNDS, 7, 4, false),
-    m_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1),
-    m_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1),
-    m_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1)
-{
-    // Burst of Celestial Energy
-    m_stormboltsSingle.setHitsPerAttack(RAND_D6);
-    m_stormboltsRapid.setHitsPerAttack(RAND_D6);
+    CelestarBallista::CelestarBallista() :
+            StormcastEternal("Celestar Ballista", 3, WOUNDS, 7, 4, false),
+            m_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1),
+            m_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1),
+            m_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1) {
+        // Burst of Celestial Energy
+        m_stormboltsSingle.setHitsPerAttack(RAND_D6);
+        m_stormboltsRapid.setHitsPerAttack(RAND_D6);
 
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE, CELESTAR_BALLISTA};
-    m_weapons = {&m_stormboltsSingle, &m_stormboltsRapid, &m_sigmariteBlades};
-}
-
-bool CelestarBallista::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_sigmariteBlades);
-
-    m_stormboltsRapid.activate(true);
-    m_stormboltsSingle.activate(false);
-
-    model->addMissileWeapon(&m_stormboltsSingle);
-    model->addMissileWeapon(&m_stormboltsRapid);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *CelestarBallista::Create(const ParameterList &parameters)
-{
-    auto ballista = new CelestarBallista();
-
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    ballista->setStormhost(stormhost);
-
-    bool ok = ballista->configure();
-    if (!ok)
-    {
-        delete ballista;
-        ballista = nullptr;
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE,
+                      CELESTAR_BALLISTA};
+        m_weapons = {&m_stormboltsSingle, &m_stormboltsRapid, &m_sigmariteBlades};
     }
-    return ballista;
-}
 
-void CelestarBallista::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            StormcastEternal::ValueToString,
-            StormcastEternal::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
+    bool CelestarBallista::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_sigmariteBlades);
 
-        s_registered = UnitFactory::Register("Celestar Ballista", factoryMethod);
+        m_stormboltsRapid.activate(true);
+        m_stormboltsSingle.activate(false);
+
+        model->addMissileWeapon(&m_stormboltsSingle);
+        model->addMissileWeapon(&m_stormboltsRapid);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-void CelestarBallista::onStartShooting(PlayerId player)
-{
-    auto board = Board::Instance();
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-    {
-        otherPlayer = PlayerId::Blue;
-    }
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
+    Unit *CelestarBallista::Create(const ParameterList &parameters) {
+        auto ballista = new CelestarBallista();
 
-    auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
-    if (nearestUnit)
-    {
-        float rangeTo = distanceTo(nearestUnit);
-        if (rangeTo < (float)m_stormboltsRapid.range())
-        {
-            m_stormboltsRapid.activate(true);
-            m_stormboltsSingle.activate(false);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        ballista->setStormhost(stormhost);
+
+        bool ok = ballista->configure();
+        if (!ok) {
+            delete ballista;
+            ballista = nullptr;
         }
-        else
-        {
-            m_stormboltsRapid.activate(false);
-            m_stormboltsSingle.activate(true);
+        return ballista;
+    }
+
+    void CelestarBallista::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
+
+            s_registered = UnitFactory::Register("Celestar Ballista", factoryMethod);
         }
     }
-}
 
-int CelestarBallista::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    void CelestarBallista::onStartShooting(PlayerId player) {
+        auto board = Board::Instance();
+        PlayerId otherPlayer = PlayerId::Red;
+        if (player == PlayerId::Red) {
+            otherPlayer = PlayerId::Blue;
+        }
+        auto otherRoster = board->getPlayerRoster(otherPlayer);
+
+        auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+        if (nearestUnit) {
+            float rangeTo = distanceTo(nearestUnit);
+            if (rangeTo < (float) m_stormboltsRapid.range()) {
+                m_stormboltsRapid.activate(true);
+                m_stormboltsSingle.activate(false);
+            } else {
+                m_stormboltsRapid.activate(false);
+                m_stormboltsSingle.activate(true);
+            }
+        }
+    }
+
+    int CelestarBallista::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace StormcastEternals

@@ -12,35 +12,38 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class IcebrowHunter : public MawtribesBase
-{
-public:
+    class IcebrowHunter : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    IcebrowHunter();
-    ~IcebrowHunter() override = default;
+        static void Init();
 
-    bool configure();
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-private:
+        static int ComputePoints(int numModels);
 
-    Weapon m_spear,
-        m_crossbow,
-        m_club,
-        m_bite;
+        IcebrowHunter();
 
-    static bool s_registered;
-};
+        ~IcebrowHunter() override = default;
+
+        bool configure();
+
+    protected:
+
+    private:
+
+        Weapon m_spear,
+            m_crossbow,
+            m_club,
+            m_bite;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,33 +12,34 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SkinkStarseer : public SeraphonBase
-{
-public:
+    class SkinkStarseer : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SkinkStarseer();
-    ~SkinkStarseer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SkinkStarseer();
 
-    void onStartHero(PlayerId player) override;
+        ~SkinkStarseer() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_astralBolt,
-        m_staff;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        Weapon m_astralBolt,
+                m_staff;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

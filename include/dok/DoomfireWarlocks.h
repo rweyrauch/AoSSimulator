@@ -12,37 +12,39 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class DoomfireWarlocks : public DaughterOfKhaine
-{
-public:
+    class DoomfireWarlocks : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DoomfireWarlocks();
-    ~DoomfireWarlocks() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool crossbows);
+        static void Init();
 
-protected:
+        DoomfireWarlocks();
 
-    int castingModifier() const override;
-    int unbindingModifier() const override;
+        ~DoomfireWarlocks() override = default;
 
-private:
+        bool configure(int numModels, bool crossbows);
 
-    Weapon m_crossBow,
-        m_scimitar,
-        m_crossBowMaster,
-        m_scimitarMaster,
-        m_steedsBite;
+    protected:
 
-    static bool s_registered;
-};
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+    private:
+
+        Weapon m_crossBow,
+            m_scimitar,
+            m_crossBowMaster,
+            m_scimitarMaster,
+            m_steedsBite;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

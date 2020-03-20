@@ -13,51 +13,56 @@
 #include <Weapon.h>
 #include <UnitFactory.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Liberators : public StormcastEternal
-{
-public:
+    class Liberators : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        Warhammer = 0,
-        Warblade,
+        enum WeaponOption {
+            Warhammer = 0,
+            Warblade,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Liberators();
+
+        ~Liberators() override = default;
+
+        bool
+        configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades);
+
+    protected:
+
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        WeaponOption m_weaponOption = Warhammer;
+        bool m_pairedWeapons = false;
+
+        Weapon m_warhammer,
+                m_warhammerPrime,
+                m_warblade,
+                m_warbladePrime,
+                m_grandhammer,
+                m_grandblade;
+
+        static bool s_registered;
+
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Liberators();
-    ~Liberators() override = default;
-
-    bool configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades);
-
-protected:
-
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-
-private:
-
-    WeaponOption m_weaponOption = Warhammer;
-    bool m_pairedWeapons = false;
-
-    Weapon m_warhammer,
-                  m_warhammerPrime,
-                  m_warblade,
-                  m_warbladePrime,
-                  m_grandhammer,
-                  m_grandblade;
-
-    static bool s_registered;
-
-};
 
 //
 // Abilities                    Implemented

@@ -47,95 +47,87 @@
 #include "skaven/WarpLightningCannon.h"
 #include "skaven/WarplockJezzails.h"
 
-namespace Skaven
-{
+namespace Skaven {
 
-int Skaventide::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Unit::toHitModifier(weapon, target);
+    int Skaventide::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        int modifier = Unit::toHitModifier(weapon, target);
 
-    // Overwhelming Mass
-    if (!weapon->isMissile() && remainingModels() >= 20)
-        modifier += 1;
+        // Overwhelming Mass
+        if (!weapon->isMissile() && remainingModels() >= 20)
+            modifier += 1;
 
-    return modifier;
-}
+        return modifier;
+    }
 
-int Skaventide::toWoundModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Unit::toWoundModifier(weapon, target);
+    int Skaventide::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        int modifier = Unit::toWoundModifier(weapon, target);
 
-    // Overwhelming Mass
-    if (!weapon->isMissile() && remainingModels() >= 30)
-        modifier += 1;
+        // Overwhelming Mass
+        if (!weapon->isMissile() && remainingModels() >= 30)
+            modifier += 1;
 
-    return modifier;
-}
+        return modifier;
+    }
 
-int Skaventide::braveryModifier() const
-{
-    int modifier = Unit::braveryModifier();
+    int Skaventide::braveryModifier() const {
+        int modifier = Unit::braveryModifier();
 
-    // Strength in Numbers (add an additional +1 for each 10 models)
-    modifier += remainingModels() / 10;
+        // Strength in Numbers (add an additional +1 for each 10 models)
+        modifier += remainingModels() / 10;
 
-    return modifier;
-}
+        return modifier;
+    }
 
-bool Skaventide::moreMore() const
-{
-    return (Dice::rollD6() >= 3);
-}
+    bool Skaventide::moreMore() const {
+        return (Dice::rollD6() >= 3);
+    }
 
-std::string Skaventide::ValueToString(const Parameter &parameter)
-{
-    return "";
-}
+    std::string Skaventide::ValueToString(const Parameter &parameter) {
+        return "";
+    }
 
-int Skaventide::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
-}
+    int Skaventide::EnumStringToInt(const std::string &enumString) {
+        return 0;
+    }
 
-void Init()
-{
-    ArchWarlock::Init();
-    Clanrats::Init();
-    Clawlord::Init();
-    Deathmaster::Init();
-    Doomflayer::Init();
-    Doomwheel::Init();
-    GiantRats::Init();
-    GreySeer::Init();
-    GreySeerOnScreamingBell::Init();
-    GutterRunners::Init();
-    HellPitAbomination::Init();
-    LordSkreechVerminking::Init();
-    MasterMoulder::Init();
-    NightRunners::Init();
-    Packmasters::Init();
-    PlagueCenserBearers::Init();
-    Plagueclaw::Init();
-    PlagueMonks::Init();
-    PlaguePriestOnPlagueFurnace::Init();
-    PlaguePriest::Init();
-    RatlingGun::Init();
-    RatOgors::Init();
-    RatSwarms::Init();
-    SkryeAcolytes::Init();
-    Stormfiends::Init();
-    Stormvermin::Init();
-    ThanquolOnBoneripper::Init();
-    VerminlordCorruptor::Init();
-    VerminlordDeceiver::Init();
-    VerminlordWarbringer::Init();
-    VerminlordWarpseer::Init();
-    WarlockBombardier::Init();
-    WarlockEngineer::Init();
-    WarpfireThrower::Init();
-    WarpGrinder::Init();
-    WarpLightningCannon::Init();
-    WarplockJezzails::Init();
-}
+    void Init() {
+        ArchWarlock::Init();
+        Clanrats::Init();
+        Clawlord::Init();
+        Deathmaster::Init();
+        Doomflayer::Init();
+        Doomwheel::Init();
+        GiantRats::Init();
+        GreySeer::Init();
+        GreySeerOnScreamingBell::Init();
+        GutterRunners::Init();
+        HellPitAbomination::Init();
+        LordSkreechVerminking::Init();
+        MasterMoulder::Init();
+        NightRunners::Init();
+        Packmasters::Init();
+        PlagueCenserBearers::Init();
+        Plagueclaw::Init();
+        PlagueMonks::Init();
+        PlaguePriestOnPlagueFurnace::Init();
+        PlaguePriest::Init();
+        RatlingGun::Init();
+        RatOgors::Init();
+        RatSwarms::Init();
+        SkryeAcolytes::Init();
+        Stormfiends::Init();
+        Stormvermin::Init();
+        ThanquolOnBoneripper::Init();
+        VerminlordCorruptor::Init();
+        VerminlordDeceiver::Init();
+        VerminlordWarbringer::Init();
+        VerminlordWarpseer::Init();
+        WarlockBombardier::Init();
+        WarlockEngineer::Init();
+        WarpfireThrower::Init();
+        WarpGrinder::Init();
+        WarpLightningCannon::Init();
+        WarplockJezzails::Init();
+    }
 
 } // namespace Skaven

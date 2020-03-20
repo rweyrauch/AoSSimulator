@@ -15,90 +15,102 @@
 #include "MathUtils.h"
 
 class Model;
+
 class Roster;
+
 class Unit;
 
-struct Objective
-{
+struct Objective {
     int m_id;
     Math::Point3 m_pos;
 };
 
-class Board
-{
+class Board {
 public:
-    static Board* Instance();
+    static Board *Instance();
 
-    void setSize(float width, float depth)
-    {
+    void setSize(float width, float depth) {
         m_width = width;
         m_depth = depth;
     }
 
-    void addFeature(TerrainFeature* feature);
-    void addObjective(Objective* objective);
+    void addFeature(TerrainFeature *feature);
+
+    void addObjective(Objective *objective);
+
     void moveObjective(int which, float x, float y);
-    void addRosters(Roster* pRedRoster, Roster* pBlueRoster);
+
+    void addRosters(Roster *pRedRoster, Roster *pBlueRoster);
 
     float width() const { return m_width; }
+
     float depth() const { return m_depth; }
 
-    int getNumFeatures() const { return (int)m_features.size(); }
-    const TerrainFeature* getFeature(int which) const { return m_features.at((size_t)which); }
+    int getNumFeatures() const { return (int) m_features.size(); }
 
-    int getNumObjectives() const { return (int)m_objectives.size(); }
-    const Objective* getObjective(int which) const { return m_objectives.at((size_t)which); }
-    const Objective* getNearestObjective(const Unit* unit);
+    const TerrainFeature *getFeature(int which) const { return m_features.at((size_t) which); }
 
-    Roster* getPlayerRoster(PlayerId which) { return m_rosters[(int)which]; }
+    int getNumObjectives() const { return (int) m_objectives.size(); }
 
-    Unit* getNearestUnit(const Unit* unit, PlayerId fromPlayer);
-    std::vector<Unit*> getUnitsWithin(const Unit* unit, PlayerId fromPlayer, float distance);
-    std::vector<Unit*> getUnitsWithin(const Math::Point3& point, PlayerId fromPlayer, float distance);
-    Unit* getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
+    const Objective *getObjective(int which) const { return m_objectives.at((size_t) which); }
 
-    void setRealm(Realm realm)
-    {
+    const Objective *getNearestObjective(const Unit *unit);
+
+    Roster *getPlayerRoster(PlayerId which) { return m_rosters[(int) which]; }
+
+    Unit *getNearestUnit(const Unit *unit, PlayerId fromPlayer);
+
+    std::vector<Unit *> getUnitsWithin(const Unit *unit, PlayerId fromPlayer, float distance);
+
+    std::vector<Unit *> getUnitsWithin(const Math::Point3 &point, PlayerId fromPlayer, float distance);
+
+    Unit *getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
+
+    void setRealm(Realm realm) {
         m_realm = realm;
     }
+
     Realm getRealm() const { return m_realm; }
 
-    enum Quadrant
-    {
+    enum Quadrant {
         Northwest = 0, //
         Northeast,
         Southeast,
         Southwest,
     };
 
-    std::vector<Unit*> getUnitWithin(Quadrant quadrant, PlayerId fromPlayer);
-    std::vector<Unit*> getAllUnits(PlayerId fromPlayer);
-    bool isUnitWithin(Quadrant quadrant, const Unit* unit) const;
+    std::vector<Unit *> getUnitWithin(Quadrant quadrant, PlayerId fromPlayer);
 
-    bool unbindAttempt(const Unit* caster, int castingRoll);
+    std::vector<Unit *> getAllUnits(PlayerId fromPlayer);
 
-    bool isVisible(const Unit* from, const Unit* target);
+    bool isUnitWithin(Quadrant quadrant, const Unit *unit) const;
 
-    void render(const std::string& filename) const;
+    bool unbindAttempt(const Unit *caster, int castingRoll);
 
-    bool castRay(const Math::Ray& ray, Math::RayHit& result) const;
-    bool castRay(const Math::Ray2& ray, Math::RayHit& result) const;
+    bool isVisible(const Unit *from, const Unit *target);
 
-    bool moveModel(Model& model, const Math::Point3& toPoint) const;
+    void render(const std::string &filename) const;
+
+    bool castRay(const Math::Ray &ray, Math::RayHit &result) const;
+
+    bool castRay(const Math::Ray2 &ray, Math::RayHit &result) const;
+
+    bool moveModel(Model &model, const Math::Point3 &toPoint) const;
 
 protected:
     Board() = default;
 
-    bool inQuadrant(Quadrant quadrant, const Math::Plane& northSouth, const Math::Plane& eastWest, const Math::Point3& point3) const;
+    bool inQuadrant(Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest,
+                    const Math::Point3 &point3) const;
 
 private:
     float m_width = 0.0f, m_depth = 0.0f;
-    std::vector<TerrainFeature*> m_features;
-    std::vector<Objective*> m_objectives;
-    Roster* m_rosters[2] = {nullptr, nullptr};
+    std::vector<TerrainFeature *> m_features;
+    std::vector<Objective *> m_objectives;
+    Roster *m_rosters[2] = {nullptr, nullptr};
     Realm m_realm = Azyr;
 
-    static Board* s_pInstance;
+    static Board *s_pInstance;
 };
 
 

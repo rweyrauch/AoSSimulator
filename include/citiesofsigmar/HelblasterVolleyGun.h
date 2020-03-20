@@ -12,37 +12,40 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class HelblasterVolleyGun : public CitizenOfSigmar
-{
-public:
+    class HelblasterVolleyGun : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HelblasterVolleyGun();
-    ~HelblasterVolleyGun() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        static void Init();
 
-private:
+        HelblasterVolleyGun();
 
-    Weapon m_volley1,
-        m_volley2,
-        m_volley3,
-        m_crewsTools;
+        ~HelblasterVolleyGun() override = default;
 
-    static bool s_registered;
-};
+        bool configure();
+
+    protected:
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_volley1,
+            m_volley2,
+            m_volley3,
+            m_crewsTools;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,54 +12,60 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class Tzaangors : public TzeentchBase
-{
-public:
+    class Tzaangors : public TzeentchBase {
+    public:
 
-    enum WeaponOptions
-    {
-        PairedSavageBlades,
-        SavageBladeAndShield
+        enum WeaponOptions {
+            PairedSavageBlades,
+            SavageBladeAndShield
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Tzaangors();
+
+        ~Tzaangors() override = default;
+
+        bool configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
+                       bool brayhorns);
+
+    protected:
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        WeaponOptions m_weaponOption = PairedSavageBlades;
+        int m_numGreatblades = 0;
+        int m_numMutants = 0;
+        bool m_iconBearer = false;
+        bool m_brayhorns = false;
+
+        Weapon m_savageBlade,
+                m_savageBladeTwistbray,
+                m_savageGreatblade,
+                m_savageGreatbladeTwistbray,
+                m_viciousBeak,
+                m_viciousBeakTwistbray;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Tzaangors();
-    ~Tzaangors() override = default;
-
-    bool configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer, bool brayhorns);
-
-protected:
-
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    WeaponOptions m_weaponOption = PairedSavageBlades;
-    int m_numGreatblades = 0;
-    int m_numMutants = 0;
-    bool m_iconBearer = false;
-    bool m_brayhorns = false;
-
-    Weapon m_savageBlade,
-        m_savageBladeTwistbray,
-        m_savageGreatblade,
-        m_savageGreatbladeTwistbray,
-        m_viciousBeak,
-        m_viciousBeakTwistbray;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

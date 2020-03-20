@@ -12,35 +12,36 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class AuricHearthguard : public Fyreslayer
-{
-public:
+    class AuricHearthguard : public Fyreslayer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AuricHearthguard();
-    ~AuricHearthguard() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        AuricHearthguard();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~AuricHearthguard() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_magmapike,
-        m_magmapikeKarl,
-        m_throwingAxe,
-        m_magmapikeMelee;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_magmapike,
+            m_magmapikeKarl,
+            m_throwingAxe,
+            m_magmapikeMelee;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

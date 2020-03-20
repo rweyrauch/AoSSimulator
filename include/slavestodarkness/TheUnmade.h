@@ -12,36 +12,37 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class TheUnmade : public SlavesToDarknessBase
-{
-public:
+    class TheUnmade : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TheUnmade();
-    ~TheUnmade() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        TheUnmade();
 
-    int frozenInFear(const Unit* unit);
+        ~TheUnmade() override;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_maimingWeapons,
-        m_maimingWeaponsLeader,
-        m_nigthmareSickles;
+    protected:
 
-    lsignal::slot m_connection;
+        int frozenInFear(const Unit *unit);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_maimingWeapons,
+            m_maimingWeaponsLeader,
+            m_nigthmareSickles;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

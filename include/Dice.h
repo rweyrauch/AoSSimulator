@@ -12,41 +12,47 @@
 #include <random>
 #include <vector>
 
-class Dice
-{
+class Dice {
 public:
     Dice() = delete;
+
     ~Dice() = delete;
 
     static int rollD6();
+
     static int roll2D6();
+
     static int roll3D6();
+
     static int roll4D6();
+
     static int rollD3();
+
     static int rollD4();
+
     static int rollSpecial(int number);
 
     static std::vector<int> rollD6(int number);
+
     static std::vector<int> rollD6(int number, int rerolling);
 
-    struct RollResult
-    {
+    struct RollResult {
         // distribution[0] is defined just make index values match roll values.
         // That is distribution[1] is the number of 1's rolled and distibution[6] is the number
         // of 6's rolled.
-        int distribution[7] = { 0, 0, 0, 0, 0, 0, 0 };
-        void clear()
-        {
+        int distribution[7] = {0, 0, 0, 0, 0, 0, 0};
+
+        void clear() {
             for (auto i = 0; i < 7; i++)
                 distribution[i] = 0;
         }
-        void add(const RollResult& r)
-        {
+
+        void add(const RollResult &r) {
             for (auto i = 0; i < 7; i++)
                 distribution[i] += r.distribution[i];
         }
-        int rollsGE(int roll) const
-        {
+
+        int rollsGE(int roll) const {
             if (roll < 1 || roll > 6) return 0;
 
             int rolls = 0;
@@ -54,27 +60,26 @@ public:
                 rolls += distribution[i];
             return rolls;
         }
-        void clearLT(int roll)
-        {
+
+        void clearLT(int roll) {
             if (roll < 1 || roll > 6) return;
-            for (auto i = 1; i < roll; i++)
-            {
+            for (auto i = 1; i < roll; i++) {
                 distribution[i] = 0;
             }
         }
 
-        int numUnmodified6s() const
-        {
+        int numUnmodified6s() const {
             return distribution[6];
         }
-        int numUnmodified1s() const
-        {
+
+        int numUnmodified1s() const {
             return distribution[1];
         }
     };
 
-    static void rollD6(int number, RollResult& result);
-    static void rollD6(int number, int rerolling, RollResult& result);
+    static void rollD6(int number, RollResult &result);
+
+    static void rollD6(int number, int rerolling, RollResult &result);
 
 private:
 

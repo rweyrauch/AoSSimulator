@@ -10,101 +10,89 @@
 #include <Board.h>
 #include "UnitFactory.h"
 
-namespace StormcastEternals
-{
-static const int BASESIZE = 100; //
-static const int WOUNDS = 8;
-static const int POINTS_PER_UNIT = 340;
+namespace StormcastEternals {
+    static const int BASESIZE = 100; //
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 340;
 
-bool CelestantPrime::s_registered = false;
+    bool CelestantPrime::s_registered = false;
 
-Unit *CelestantPrime::Create(const ParameterList &parameters)
-{
-    auto unit = new CelestantPrime();
+    Unit *CelestantPrime::Create(const ParameterList &parameters) {
+        auto unit = new CelestantPrime();
 
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        unit->setStormhost(stormhost);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void CelestantPrime::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
-
-        s_registered = UnitFactory::Register("Celestant Prime", factoryMethod);
-    }
-}
-
-std::string CelestantPrime::ValueToString(const Parameter &parameter)
-{
-    return StormcastEternal::ValueToString(parameter);
-}
-
-int CelestantPrime::EnumStringToInt(const std::string &enumString)
-{
-    return StormcastEternal::EnumStringToInt(enumString);
-}
-
-CelestantPrime::CelestantPrime() :
-    StormcastEternal("Celestant Prime", 12, WOUNDS, 10, 3, true),
-    m_ghalMaraz(Weapon::Type::Melee, "Ghal Maraz, the Hammer of Sigmar", 2, 3, 3, 2, -3, 3)
-{
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
-    m_weapons = {&m_ghalMaraz};
-
-    s_globalBraveryMod.connect(this, &CelestantPrime::bearerOfTheWarhammer, &m_connection);
-}
-
-CelestantPrime::~CelestantPrime()
-{
-    m_connection.disconnect();
-}
-
-bool CelestantPrime::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_ghalMaraz);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-int CelestantPrime::bearerOfTheWarhammer(const Unit *target)
-{
-    // Bearer of the Warhammer
-    if (target->hasKeyword(ORDER) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0f))
-    {
-        return 1;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    return 0;
-}
+    void CelestantPrime::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
 
-int CelestantPrime::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+            s_registered = UnitFactory::Register("Celestant Prime", factoryMethod);
+        }
+    }
+
+    std::string CelestantPrime::ValueToString(const Parameter &parameter) {
+        return StormcastEternal::ValueToString(parameter);
+    }
+
+    int CelestantPrime::EnumStringToInt(const std::string &enumString) {
+        return StormcastEternal::EnumStringToInt(enumString);
+    }
+
+    CelestantPrime::CelestantPrime() :
+            StormcastEternal("Celestant Prime", 12, WOUNDS, 10, 3, true),
+            m_ghalMaraz(Weapon::Type::Melee, "Ghal Maraz, the Hammer of Sigmar", 2, 3, 3, 2, -3, 3) {
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
+        m_weapons = {&m_ghalMaraz};
+
+        s_globalBraveryMod.connect(this, &CelestantPrime::bearerOfTheWarhammer, &m_connection);
+    }
+
+    CelestantPrime::~CelestantPrime() {
+        m_connection.disconnect();
+    }
+
+    bool CelestantPrime::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_ghalMaraz);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    int CelestantPrime::bearerOfTheWarhammer(const Unit *target) {
+        // Bearer of the Warhammer
+        if (target->hasKeyword(ORDER) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0f)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    int CelestantPrime::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 
 } // namespace StormcastEternals

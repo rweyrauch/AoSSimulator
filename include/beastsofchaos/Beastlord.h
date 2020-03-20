@@ -12,33 +12,35 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Beastlord : public BeastsOfChaosBase
-{
-public:
+    class Beastlord : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Beastlord();
-    ~Beastlord() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Beastlord();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~Beastlord() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_pairedAxes;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_pairedAxes;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

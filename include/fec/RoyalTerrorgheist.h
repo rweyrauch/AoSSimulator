@@ -12,41 +12,45 @@
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt
-{
+namespace FleshEaterCourt {
 
-class RoyalTerrorgheist : public FleshEaterCourts
-{
-public:
+    class RoyalTerrorgheist : public FleshEaterCourts {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RoyalTerrorgheist();
-    ~RoyalTerrorgheist() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-    void onSlain() override;
+        RoyalTerrorgheist();
 
-protected:
+        ~RoyalTerrorgheist() override = default;
 
-    void onStartHero(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onWounded() override;
-    void onRestore() override;
+        bool configure();
 
-    int getDamageTableIndex() const;
+        void onSlain() override;
 
-private:
+    protected:
 
-    Weapon m_deathShriek,
-        m_skeletalClaws,
-        m_fangedMaw;
+        void onStartHero(PlayerId player) override;
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_deathShriek,
+                m_skeletalClaws,
+                m_fangedMaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

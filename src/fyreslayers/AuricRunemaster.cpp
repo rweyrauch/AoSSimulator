@@ -9,75 +9,67 @@
 #include <Board.h>
 #include <UnitFactory.h>
 
-namespace Fyreslayers
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 120;
+namespace Fyreslayers {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 120;
 
-bool AuricRunemaster::s_registered = false;
+    bool AuricRunemaster::s_registered = false;
 
-AuricRunemaster::AuricRunemaster() :
-    Fyreslayer("Auric Runemaster", 4, WOUNDS, 8, 4, false),
-    m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
-    m_brazierStaff(Weapon::Type::Melee, "Brazier-staff", 2, 1, 4, 3, -1, RAND_D3),
-    m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1)
-{
-    m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNEMASTER};
-    m_weapons = {&m_throwingAxe, &m_brazierStaff, &m_runicIron};
-}
-
-bool AuricRunemaster::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_throwingAxe);
-    model->addMeleeWeapon(&m_brazierStaff);
-    model->addMeleeWeapon(&m_runicIron);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *AuricRunemaster::Create(const ParameterList &parameters)
-{
-    auto unit = new AuricRunemaster();
-
-    auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
-    unit->setLodge(lodge);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    AuricRunemaster::AuricRunemaster() :
+            Fyreslayer("Auric Runemaster", 4, WOUNDS, 8, 4, false),
+            m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
+            m_brazierStaff(Weapon::Type::Melee, "Brazier-staff", 2, 1, 4, 3, -1, RAND_D3),
+            m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
+        m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNEMASTER};
+        m_weapons = {&m_throwingAxe, &m_brazierStaff, &m_runicIron};
     }
-    return unit;
-}
 
-void AuricRunemaster::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            AuricRunemaster::Create,
-            Fyreslayer::ValueToString,
-            Fyreslayer::EnumStringToInt,
-            AuricRunemaster::ComputePoints,
-            {
-                {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
-            },
-            ORDER,
-            { FYRESLAYERS }
-        };
-        s_registered = UnitFactory::Register("Auric Runemaster", factoryMethod);
+    bool AuricRunemaster::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_throwingAxe);
+        model->addMeleeWeapon(&m_brazierStaff);
+        model->addMeleeWeapon(&m_runicIron);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-int AuricRunemaster::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Unit *AuricRunemaster::Create(const ParameterList &parameters) {
+        auto unit = new AuricRunemaster();
+
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+        unit->setLodge(lodge);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void AuricRunemaster::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    AuricRunemaster::Create,
+                    Fyreslayer::ValueToString,
+                    Fyreslayer::EnumStringToInt,
+                    AuricRunemaster::ComputePoints,
+                    {
+                            {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+                    },
+                    ORDER,
+                    {FYRESLAYERS}
+            };
+            s_registered = UnitFactory::Register("Auric Runemaster", factoryMethod);
+        }
+    }
+
+    int AuricRunemaster::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Fyreslayers

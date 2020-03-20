@@ -12,36 +12,39 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class MagoresFiends : public KhorneBase
-{
-public:
+    class MagoresFiends : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MagoresFiends();
-    ~MagoresFiends() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        MagoresFiends();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
-    Rerolls chargeRerolls() const override;
+        ~MagoresFiends() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_bellyMaw,
-        m_daemonicAxe,
-        m_goreaxe;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        Rerolls chargeRerolls() const override;
+
+    private:
+
+        Weapon m_bellyMaw,
+                m_daemonicAxe,
+                m_goreaxe;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

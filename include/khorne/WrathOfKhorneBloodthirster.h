@@ -12,38 +12,45 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class WrathOfKhorneBloodthirster : public KhorneBase
-{
-public:
+    class WrathOfKhorneBloodthirster : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WrathOfKhorneBloodthirster();
-    ~WrathOfKhorneBloodthirster() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        WrathOfKhorneBloodthirster();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int unbindingModifier() const override { return 2; }
-private:
+        ~WrathOfKhorneBloodthirster() override = default;
 
-    Weapon m_bloodflail,
-        m_mightyAxeOfKhorne,
-        m_breath;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int unbindingModifier() const override { return 2; }
+
+    private:
+
+        Weapon m_bloodflail,
+                m_mightyAxeOfKhorne,
+                m_breath;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

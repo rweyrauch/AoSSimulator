@@ -12,32 +12,33 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace EldritchCouncil
-{
+namespace EldritchCouncil {
 
-class Loremaster : public Unit
-{
-public:
+    class Loremaster : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Loremaster();
-    ~Loremaster() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Loremaster();
 
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        ~Loremaster() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_greatsword;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_greatsword;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

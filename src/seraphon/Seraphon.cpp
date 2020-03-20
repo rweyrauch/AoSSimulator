@@ -37,175 +37,155 @@
 #include "seraphon/SkinkPriest.h"
 #include "seraphon/SlannStarmaster.h"
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-std::string SeraphonBase::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Way of the Seraphon")
-    {
-        if (parameter.intValue == Starborne) return "Starborne";
-        else if (parameter.intValue == Coalesced) return "Coalesced";
-    }
-    else if (std::string(parameter.name) == "Constellation")
-    {
-        if (parameter.intValue == KoatlsClaw) return "Koatl's Claw";
-        else if (parameter.intValue == ThunderLizard) return "ThunderLizard";
-        else if (parameter.intValue == DracothionsTail) return "Dracothion's Tail";
-        else if (parameter.intValue == FangsOfSotek) return "Fangs of Sotek";
-        else if (parameter.intValue == None) return "None";
-    }
-    return ParameterValueToString(parameter);
-}
-
-int SeraphonBase::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Starborne") return Starborne;
-    else if (enumString == "Coalesced") return Coalesced;
-    else if (enumString == "Koatl's Claw") return KoatlsClaw;
-    else if (enumString == "ThunderLizard") return ThunderLizard;
-    else if (enumString == "Dracothion's Tail") return DracothionsTail;
-    else if (enumString == "Fangs of Sotek") return FangsOfSotek;
-    else if (enumString == "None") return None;
-
-    return 0;
-}
-
-void SeraphonBase::setWayOfTheSeraphon(SeraphonBase::WayOfTheSeraphon way, Constellation constellation)
-{
-    // TODO: validate the combination of way and constellation and warn caller
-    if (way == Starborne)
-    {
-        if (constellation == KoatlsClaw || constellation == ThunderLizard)
-            constellation = None;
-    }
-    else if (way == Coalesced)
-    {
-        if (constellation == DracothionsTail || constellation == FangsOfSotek)
-            constellation = None;
+    std::string SeraphonBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Way of the Seraphon") {
+            if (parameter.intValue == Starborne) return "Starborne";
+            else if (parameter.intValue == Coalesced) return "Coalesced";
+        } else if (std::string(parameter.name) == "Constellation") {
+            if (parameter.intValue == KoatlsClaw) return "Koatl's Claw";
+            else if (parameter.intValue == ThunderLizard) return "ThunderLizard";
+            else if (parameter.intValue == DracothionsTail) return "Dracothion's Tail";
+            else if (parameter.intValue == FangsOfSotek) return "Fangs of Sotek";
+            else if (parameter.intValue == None) return "None";
+        }
+        return ParameterValueToString(parameter);
     }
 
-    removeKeyword(COALESCED);
-    removeKeyword(STARBORNE);
-    removeKeyword(KOATLS_CLAW);
-    removeKeyword(THUNDER_LIZARD);
-    removeKeyword(DRACOTHIONS_TAIL);
-    removeKeyword(FANGS_OF_SOTEK);
+    int SeraphonBase::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Starborne") return Starborne;
+        else if (enumString == "Coalesced") return Coalesced;
+        else if (enumString == "Koatl's Claw") return KoatlsClaw;
+        else if (enumString == "ThunderLizard") return ThunderLizard;
+        else if (enumString == "Dracothion's Tail") return DracothionsTail;
+        else if (enumString == "Fangs of Sotek") return FangsOfSotek;
+        else if (enumString == "None") return None;
 
-    if (way == Coalesced) addKeyword(COALESCED);
-    else if (way == Starborne) addKeyword(STARBORNE);
-
-    if (constellation == KoatlsClaw) addKeyword(KOATLS_CLAW);
-    else if (constellation == ThunderLizard) addKeyword(THUNDER_LIZARD);
-    else if (constellation == DracothionsTail) addKeyword(DRACOTHIONS_TAIL);
-    else if (constellation == FangsOfSotek) addKeyword(FANGS_OF_SOTEK);
-
-    m_way = way;
-    m_constellation = constellation;
-}
-
-int SeraphonBase::moveModifier() const
-{
-    auto mod = Unit::moveModifier();
-
-    // First to Battle
-    if ((m_battleRound == 1) && (hasKeyword(SKINK) && (hasKeyword(FANGS_OF_SOTEK))))
-    {
-        mod += 3;
+        return 0;
     }
 
-    return mod;
-}
+    void SeraphonBase::setWayOfTheSeraphon(SeraphonBase::WayOfTheSeraphon way, Constellation constellation) {
+        // TODO: validate the combination of way and constellation and warn caller
+        if (way == Starborne) {
+            if (constellation == KoatlsClaw || constellation == ThunderLizard)
+                constellation = None;
+        } else if (way == Coalesced) {
+            if (constellation == DracothionsTail || constellation == FangsOfSotek)
+                constellation = None;
+        }
 
-int SeraphonBase::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    auto mod = Unit::toHitModifier(weapon, target);
+        removeKeyword(COALESCED);
+        removeKeyword(STARBORNE);
+        removeKeyword(KOATLS_CLAW);
+        removeKeyword(THUNDER_LIZARD);
+        removeKeyword(DRACOTHIONS_TAIL);
+        removeKeyword(FANGS_OF_SOTEK);
 
-    // Savagery Incarnate
-    if (m_charged && hasKeyword(KOATLS_CLAW) && hasKeyword(SAURUS)) mod++;
+        if (way == Coalesced) addKeyword(COALESCED);
+        else if (way == Starborne) addKeyword(STARBORNE);
 
-    return mod;
-}
+        if (constellation == KoatlsClaw) addKeyword(KOATLS_CLAW);
+        else if (constellation == ThunderLizard) addKeyword(THUNDER_LIZARD);
+        else if (constellation == DracothionsTail) addKeyword(DRACOTHIONS_TAIL);
+        else if (constellation == FangsOfSotek) addKeyword(FANGS_OF_SOTEK);
 
-int SeraphonBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    auto extra = Unit::extraAttacks(attackingModel, weapon, target);
-
-    // Predatory Fighters
-    if (hasKeyword(COALESCED) && (weapon->name().find("Jaws") != std::string::npos))
-    {
-        extra++;
+        m_way = way;
+        m_constellation = constellation;
     }
 
-    return extra;
-}
+    int SeraphonBase::moveModifier() const {
+        auto mod = Unit::moveModifier();
 
-int SeraphonBase::braveryModifier() const
-{
-    auto mod = Unit::braveryModifier();
+        // First to Battle
+        if ((m_battleRound == 1) && (hasKeyword(SKINK) && (hasKeyword(FANGS_OF_SOTEK)))) {
+            mod += 3;
+        }
 
-    // Unfeeling
-    if (hasKeyword(STARBORNE))
-    {
-        // All Starborne units have a bravery of 10.
-        mod += (10-bravery());
+        return mod;
     }
-    return mod;
-}
 
-Wounds SeraphonBase::targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll, int woundRoll) const
-{
-    Wounds modifedWounds = Unit::targetAttackDamageModifier(wounds, attacker, hitRoll, woundRoll);
+    int SeraphonBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
 
-    // Scaly Skin
-    if (hasKeyword(COALESCED))
-    {
-        if (modifedWounds.normal > 1) modifedWounds.normal--;
+        // Savagery Incarnate
+        if (m_charged && hasKeyword(KOATLS_CLAW) && hasKeyword(SAURUS)) mod++;
+
+        return mod;
     }
-    return modifedWounds;
-}
 
-int SeraphonBase::woundModifier() const
-{
-    auto mod = Unit::woundModifier();
+    int SeraphonBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
 
-    // Mighty Beasts of War
-    if (hasKeyword(MONSTER) && hasKeyword(THUNDER_LIZARD)) mod += 2;
+        // Predatory Fighters
+        if (hasKeyword(COALESCED) && (weapon->name().find("Jaws") != std::string::npos)) {
+            extra++;
+        }
 
-    return mod;
-}
+        return extra;
+    }
 
-void Init()
-{
-    DreadSaurian::Init();
-    SaurusGuard::Init();
-    SaurusKnights::Init();
-    SaurusWarriors::Init();
-    Skinks::Init();
-    SaurusOldblood::Init();
-    SaurusSunblood::Init();
-    SaurusOldbloodOnCarnosaur::Init();
-    SaurusScarVeteranOnCarnosaur::Init();
-    Salamanders::Init();
-    Razordons::Init();
-    Troglodon::Init();
-    Bastiladon::Init();
-    Kroxigor::Init();
-    RipperdactylRiders::Init();
-    TerradonRiders::Init();
-    Stegadon::Init();
-    EngineOfTheGods::Init();
-    SaurusScarVeteranOnColdOne::Init();
-    ChameleonSkinks::Init();
-    TerradonChief::Init();
-    RipperdactylChief::Init();
-    SaurusAstrolithBearer::Init();
-    SaurusEternityWarden::Init();
-    LordKroak::Init();
-    SkinkStarseer::Init();
-    SkinkPriest::Init();
-    SkinkStarpriest::Init();
-    SlannStarmaster::Init();
-}
+    int SeraphonBase::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+
+        // Unfeeling
+        if (hasKeyword(STARBORNE)) {
+            // All Starborne units have a bravery of 10.
+            mod += (10 - bravery());
+        }
+        return mod;
+    }
+
+    Wounds SeraphonBase::targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll,
+                                                    int woundRoll) const {
+        Wounds modifedWounds = Unit::targetAttackDamageModifier(wounds, attacker, hitRoll, woundRoll);
+
+        // Scaly Skin
+        if (hasKeyword(COALESCED)) {
+            if (modifedWounds.normal > 1) modifedWounds.normal--;
+        }
+        return modifedWounds;
+    }
+
+    int SeraphonBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+
+        // Mighty Beasts of War
+        if (hasKeyword(MONSTER) && hasKeyword(THUNDER_LIZARD)) mod += 2;
+
+        return mod;
+    }
+
+    void Init() {
+        DreadSaurian::Init();
+        SaurusGuard::Init();
+        SaurusKnights::Init();
+        SaurusWarriors::Init();
+        Skinks::Init();
+        SaurusOldblood::Init();
+        SaurusSunblood::Init();
+        SaurusOldbloodOnCarnosaur::Init();
+        SaurusScarVeteranOnCarnosaur::Init();
+        Salamanders::Init();
+        Razordons::Init();
+        Troglodon::Init();
+        Bastiladon::Init();
+        Kroxigor::Init();
+        RipperdactylRiders::Init();
+        TerradonRiders::Init();
+        Stegadon::Init();
+        EngineOfTheGods::Init();
+        SaurusScarVeteranOnColdOne::Init();
+        ChameleonSkinks::Init();
+        TerradonChief::Init();
+        RipperdactylChief::Init();
+        SaurusAstrolithBearer::Init();
+        SaurusEternityWarden::Init();
+        LordKroak::Init();
+        SkinkStarseer::Init();
+        SkinkPriest::Init();
+        SkinkStarpriest::Init();
+        SlannStarmaster::Init();
+    }
 
 } //namespace Seraphon

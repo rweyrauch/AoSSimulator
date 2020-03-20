@@ -12,49 +12,53 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class GreySeerOnScreamingBell : public Skaventide
-{
-public:
+    class GreySeerOnScreamingBell : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    GreySeerOnScreamingBell();
+        GreySeerOnScreamingBell();
 
-    ~GreySeerOnScreamingBell() override;
+        ~GreySeerOnScreamingBell() override;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onWounded() override;
-    void onRestore() override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    void onStartHero(PlayerId player) override;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    int getDamageTableIndex() const;
-    int altarOfTheHornedRat(const Unit* unit);
-    int wallOfUnholySound(const Unit* attacker, const Weapon* weapon, const Unit* unit);
+        void onWounded() override;
 
-private:
+        void onRestore() override;
 
-    Weapon m_staff,
-        m_clawsAndFangs,
-        m_spikes;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    lsignal::slot m_connection;
-    lsignal::slot m_unholySoundConnection;
-    bool m_unholySoundActive = false;
+        void onStartHero(PlayerId player) override;
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        int altarOfTheHornedRat(const Unit *unit);
+
+        int wallOfUnholySound(const Unit *attacker, const Weapon *weapon, const Unit *unit);
+
+    private:
+
+        Weapon m_staff,
+                m_clawsAndFangs,
+                m_spikes;
+
+        lsignal::slot m_connection;
+        lsignal::slot m_unholySoundConnection;
+        bool m_unholySoundActive = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

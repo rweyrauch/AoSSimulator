@@ -12,37 +12,40 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosLordOnKarkadrak : public SlavesToDarknessBase
-{
-public:
+    class ChaosLordOnKarkadrak : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosLordOnKarkadrak();
-    ~ChaosLordOnKarkadrak() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ChaosLordOnKarkadrak();
 
-    void onCharged() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~ChaosLordOnKarkadrak() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_battleAxe,
-        m_blade,
-        m_hornsAndClaws,
-        m_tail;
+    protected:
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_battleAxe,
+                m_blade,
+                m_hornsAndClaws,
+                m_tail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

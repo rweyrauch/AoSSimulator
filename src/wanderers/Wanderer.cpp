@@ -10,14 +10,12 @@
 #include "wanderers/EternalGuard.h"
 #include "wanderers/WildwoodRangers.h"
 
-namespace Wanderers
-{
+namespace Wanderers {
 
-void Init()
-{
-    GladeGuard::Init();
-    EternalGuard::Init();
-    WildwoodRangers::Init();
-}
+    void Init() {
+        GladeGuard::Init();
+        EternalGuard::Init();
+        WildwoodRangers::Init();
+    }
 
 } // namespace Wanderers

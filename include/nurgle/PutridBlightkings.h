@@ -12,40 +12,44 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class PutridBlightkings : public NurgleBase
-{
-public:
+    class PutridBlightkings : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    PutridBlightkings();
-    ~PutridBlightkings() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool sonorousTocsin);
+        static void Init();
 
-protected:
+        PutridBlightkings();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    void onStartHero(PlayerId player) override;
+        ~PutridBlightkings() override = default;
 
-protected:
+        bool configure(int numModels, bool iconBearer, bool sonorousTocsin);
 
-    bool m_iconBearer = false;
-    bool m_sonorousTocsin = false;
+    protected:
 
-private:
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
-    Weapon m_blightedWeapon;
+        int runModifier() const override;
 
-    static bool s_registered;
-};
+        int chargeModifier() const override;
+
+        void onStartHero(PlayerId player) override;
+
+    protected:
+
+        bool m_iconBearer = false;
+        bool m_sonorousTocsin = false;
+
+    private:
+
+        Weapon m_blightedWeapon;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

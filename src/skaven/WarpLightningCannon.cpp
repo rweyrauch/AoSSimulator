@@ -10,120 +10,104 @@
 #include <Board.h>
 #include <UnitFactory.h>
 
-namespace Skaven
-{
-static const int BASESIZE = 120; // x92 oval
-static const int WOUNDS = 8;
-static const int POINTS_PER_UNIT = 180;
+namespace Skaven {
+    static const int BASESIZE = 120; // x92 oval
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 180;
 
-bool WarpLightningCannon::s_registered = false;
+    bool WarpLightningCannon::s_registered = false;
 
-WarpLightningCannon::WarpLightningCannon() :
-    Skaventide("Warp Lightning Cannon", 3, WOUNDS, 4, 4, false),
-    m_warpLightningBlast(Weapon::Type::Missile, "Warp Lightning Blast", 24, 0, 0, 0, 0, 0),
-    m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1)
-{
-    m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
-    m_weapons = {&m_warpLightningBlast, &m_teethAndKnives};
-}
-
-bool WarpLightningCannon::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_warpLightningBlast);
-    model->addMeleeWeapon(&m_teethAndKnives);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *WarpLightningCannon::Create(const ParameterList &parameters)
-{
-    auto unit = new WarpLightningCannon();
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    WarpLightningCannon::WarpLightningCannon() :
+            Skaventide("Warp Lightning Cannon", 3, WOUNDS, 4, 4, false),
+            m_warpLightningBlast(Weapon::Type::Missile, "Warp Lightning Blast", 24, 0, 0, 0, 0, 0),
+            m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1) {
+        m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
+        m_weapons = {&m_warpLightningBlast, &m_teethAndKnives};
     }
-    return unit;
-}
 
-void WarpLightningCannon::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            Skaventide::ValueToString,
-            Skaventide::EnumStringToInt,
-            ComputePoints,
-            {
-            },
-            CHAOS,
-            { SKAVEN }
-        };
-        s_registered = UnitFactory::Register("Warp Lightning Cannon", factoryMethod);
+    bool WarpLightningCannon::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_warpLightningBlast);
+        model->addMeleeWeapon(&m_teethAndKnives);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-int WarpLightningCannon::generateMortalWounds(const Unit *unit)
-{
-    auto mortalWounds = Skaventide::generateMortalWounds(unit);
+    Unit *WarpLightningCannon::Create(const ParameterList &parameters) {
+        auto unit = new WarpLightningCannon();
 
-    if (m_shootingTarget)
-    {
-        bool moreMoreWarpLightning = ((Dice::rollD6() >= 2) || remainingWounds() <= 2);
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
 
-        // Warp Lightning Blast
-        if (distanceTo(m_shootingTarget) <= (float)m_warpLightningBlast.range())
-        {
-            int power = Dice::rollD6();
-            Dice::RollResult rollResult;
-            Dice::rollD6(6, rollResult);
-            mortalWounds += rollResult.rollsGE(power);
-
-            // More-more Warp Lightning!
-            if (moreMoreWarpLightning)
-            {
-                bool foundEngineer = false;
-                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
-                for (auto ip : units)
-                {
-                    if (ip->hasKeyword(WARLOCK) && ip->hasKeyword(ENGINEER))
+    void WarpLightningCannon::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    Skaventide::ValueToString,
+                    Skaventide::EnumStringToInt,
+                    ComputePoints,
                     {
-                        foundEngineer = true;
-                        break;
-                    }
-                }
-
-                if (foundEngineer)
-                {
-                    Dice::RollResult rollResultMore;
-                    Dice::rollD6(6, rollResultMore);
-                    mortalWounds += rollResultMore.rollsGE(power);
-
-                    int mortalWoundsSelf = 0;
-                    int numUnmodifiedOnes = rollResult.numUnmodified1s() + rollResultMore.numUnmodified1s();
-                    for (auto i = 0; i < numUnmodifiedOnes; i++)
-                    {
-                        mortalWoundsSelf += Dice::rollD3();
-                    }
-                    applyDamage({0, mortalWoundsSelf});
-                }
-            }
+                    },
+                    CHAOS,
+                    {SKAVEN}
+            };
+            s_registered = UnitFactory::Register("Warp Lightning Cannon", factoryMethod);
         }
     }
 
-    return mortalWounds;
-}
+    int WarpLightningCannon::generateMortalWounds(const Unit *unit) {
+        auto mortalWounds = Skaventide::generateMortalWounds(unit);
 
-int WarpLightningCannon::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        if (m_shootingTarget) {
+            bool moreMoreWarpLightning = ((Dice::rollD6() >= 2) || remainingWounds() <= 2);
+
+            // Warp Lightning Blast
+            if (distanceTo(m_shootingTarget) <= (float) m_warpLightningBlast.range()) {
+                int power = Dice::rollD6();
+                Dice::RollResult rollResult;
+                Dice::rollD6(6, rollResult);
+                mortalWounds += rollResult.rollsGE(power);
+
+                // More-more Warp Lightning!
+                if (moreMoreWarpLightning) {
+                    bool foundEngineer = false;
+                    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+                    for (auto ip : units) {
+                        if (ip->hasKeyword(WARLOCK) && ip->hasKeyword(ENGINEER)) {
+                            foundEngineer = true;
+                            break;
+                        }
+                    }
+
+                    if (foundEngineer) {
+                        Dice::RollResult rollResultMore;
+                        Dice::rollD6(6, rollResultMore);
+                        mortalWounds += rollResultMore.rollsGE(power);
+
+                        int mortalWoundsSelf = 0;
+                        int numUnmodifiedOnes = rollResult.numUnmodified1s() + rollResultMore.numUnmodified1s();
+                        for (auto i = 0; i < numUnmodifiedOnes; i++) {
+                            mortalWoundsSelf += Dice::rollD3();
+                        }
+                        applyDamage({0, mortalWoundsSelf});
+                    }
+                }
+            }
+        }
+
+        return mortalWounds;
+    }
+
+    int WarpLightningCannon::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Skaven

@@ -12,39 +12,42 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Gors : public BeastsOfChaosBase
-{
-public:
+    class Gors : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Gors();
-    ~Gors() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer);
+        static int ComputePoints(int numModels);
 
-protected:
+        Gors();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    int toSaveModifier(const Weapon* weapon) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~Gors() override = default;
 
-private:
+        bool configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer);
 
-    bool m_pairedBlades = false;
-    bool m_brayhorn = false;
-    bool m_bannerBearer = false;
+    protected:
 
-    Weapon m_gorBlade,
-        m_gorBladeFoeRender;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        bool m_pairedBlades = false;
+        bool m_brayhorn = false;
+        bool m_bannerBearer = false;
+
+        Weapon m_gorBlade,
+                m_gorBladeFoeRender;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

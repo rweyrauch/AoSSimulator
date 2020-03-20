@@ -12,59 +12,63 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class BlackArkCorsairs : public CitizenOfSigmar
-{
-public:
+    class BlackArkCorsairs : public CitizenOfSigmar {
+    public:
 
-    enum WeaponOption
-    {
-        RepeaterHandbow,
-        WickedCutlass
+        enum WeaponOption {
+            RepeaterHandbow,
+            WickedCutlass
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        BlackArkCorsairs();
+
+        ~BlackArkCorsairs() override = default;
+
+        bool configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons);
+
+    protected:
+
+        int toSaveModifier(const Weapon *weapon) const override {
+            // Sea Dragon Cloak
+            auto mod = CitizenOfSigmar::toSaveModifier(weapon);
+            if (weapon->isMissile()) mod++;
+            return mod;
+        }
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_handbow,
+                m_cutlass,
+                m_blade,
+                m_handbowReaver,
+                m_cutlassReaver,
+                m_bladeReaver;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    BlackArkCorsairs();
-    ~BlackArkCorsairs() override = default;
-
-    bool configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons);
-
-protected:
-
-    int toSaveModifier(const Weapon *weapon) const override
-    {
-        // Sea Dragon Cloak
-        auto mod = CitizenOfSigmar::toSaveModifier(weapon);
-        if (weapon->isMissile()) mod++;
-        return mod;
-    }
-
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
-
-    Weapon m_handbow,
-        m_cutlass,
-        m_blade,
-        m_handbowReaver,
-        m_cutlassReaver,
-        m_bladeReaver;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

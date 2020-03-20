@@ -12,45 +12,51 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class DarkRiders : public CitizenOfSigmar
-{
-public:
+    class DarkRiders : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DarkRiders();
-    ~DarkRiders() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool standardBearer, bool hornblower);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int sowTerrorAndConfusion(const Unit* target);
+        static void Init();
 
-private:
+        DarkRiders();
 
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
+        ~DarkRiders() override;
 
-    Weapon m_crossbow,
-        m_spear,
-        m_bite,
-        m_crossbowHerald;
+        bool configure(int numModels, bool standardBearer, bool hornblower);
 
-    lsignal::slot m_connection;
+    protected:
 
-    static bool s_registered;
-};
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int sowTerrorAndConfusion(const Unit *target);
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_crossbow,
+                m_spear,
+                m_bite,
+                m_crossbowHerald;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

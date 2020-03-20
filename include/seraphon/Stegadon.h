@@ -12,55 +12,60 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class Stegadon : public SeraphonBase
-{
-public:
+    class Stegadon : public SeraphonBase {
+    public:
 
-    enum WeaponOption
-    {
-        SkystreakBow,
-        SunfireThrowers
+        enum WeaponOption {
+            SkystreakBow,
+            SunfireThrowers
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Stegadon();
+
+        ~Stegadon() override;
+
+        bool configure(WeaponOption option, bool skinkChief);
+
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        void onCharged() override;
+
+        Rerolls steadfastMajestyBraveryReroll(const Unit *unit);
+
+    private:
+
+        bool m_skinkChief = false;
+
+        Weapon m_javelins,
+                m_bow,
+                m_throwers,
+                m_warspear,
+                m_horns,
+                m_jaws,
+                m_stomps;
+
+        lsignal::slot m_steadfastSlot;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Stegadon();
-    ~Stegadon() override;
-
-    bool configure(WeaponOption option, bool skinkChief);
-
-protected:
-
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-    void onCharged() override;
-
-    Rerolls steadfastMajestyBraveryReroll(const Unit* unit);
-
-private:
-
-    bool m_skinkChief = false;
-
-    Weapon m_javelins,
-        m_bow,
-        m_throwers,
-        m_warspear,
-        m_horns,
-        m_jaws,
-        m_stomps;
-
-    lsignal::slot m_steadfastSlot;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

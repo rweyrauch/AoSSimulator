@@ -12,43 +12,43 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class KhorneBase : public Unit
-{
-public:
+    class KhorneBase : public Unit {
+    public:
 
-    enum SlaughterHost
-    {
-        None = 0,
-        ReapersOfVengeance,
-        Bloodlords,
-        Goretide,
-        SkullfiendTribe
+        enum SlaughterHost {
+            None = 0,
+            ReapersOfVengeance,
+            Bloodlords,
+            Goretide,
+            SkullfiendTribe
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        KhorneBase() = default;
+
+        ~KhorneBase() override = default;
+
+        void setSlaughterHost(SlaughterHost host);
+
+    protected:
+        KhorneBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    protected:
+
+        SlaughterHost m_slaughterHost = None;
     };
 
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    KhorneBase() = default;
-    ~KhorneBase() override = default;
-
-    void setSlaughterHost(SlaughterHost host);
-
-protected:
-    KhorneBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-
-protected:
-
-    SlaughterHost m_slaughterHost = None;
-};
-
-void Init();
+    void Init();
 
 //
 // Abilities                    Implemented

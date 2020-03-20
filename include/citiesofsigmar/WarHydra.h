@@ -12,40 +12,44 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class WarHydra : public CitizenOfSigmar
-{
-public:
+    class WarHydra : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WarHydra();
-    ~WarHydra() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
+        static void Init();
 
-private:
+        WarHydra();
 
-    int getDamageTableIndex() const;
+        ~WarHydra() override = default;
 
-    Weapon m_fieryBreath,
-        m_fangs,
-        m_limbs,
-        m_goadAndWhips;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_fieryBreath,
+                m_fangs,
+                m_limbs,
+                m_goadAndWhips;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

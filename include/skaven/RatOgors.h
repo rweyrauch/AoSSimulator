@@ -12,33 +12,34 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class RatOgors : public Skaventide
-{
-public:
+    class RatOgors : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RatOgors();
-    ~RatOgors() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numGuns);
+        static void Init();
 
-protected:
+        RatOgors();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+        ~RatOgors() override = default;
 
-private:
+        bool configure(int numModels, int numGuns);
 
-    Weapon m_gun,
-        m_clawsBladesAndFangs;
+    protected:
 
-    static bool s_registered;
-};
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_gun,
+                m_clawsBladesAndFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

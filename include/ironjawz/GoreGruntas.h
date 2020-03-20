@@ -11,42 +11,44 @@
 
 #include <ironjawz/Ironjawz.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class OrrukGoreGruntas : public Ironjawz
-{
-public:
+    class OrrukGoreGruntas : public Ironjawz {
+    public:
 
-    enum WeaponOption
-    {
-        PigIronChoppa = 0,
-        JaggedGorehacka,
+        enum WeaponOption {
+            PigIronChoppa = 0,
+            JaggedGorehacka,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        OrrukGoreGruntas();
+
+        ~OrrukGoreGruntas() override = default;
+
+        bool configure(int numModels, WeaponOption weapons);
+
+    protected:
+
+    protected:
+
+        Weapon m_pigironChoppa,
+            m_jaggedGorehacka,
+            m_tusksAndHooves,
+            m_bossPigironChoppa,
+            m_bossJaggedGorehacka;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    OrrukGoreGruntas();
-    ~OrrukGoreGruntas() override = default;
-
-    bool configure(int numModels, WeaponOption weapons);
-
-protected:
-
-protected:
-
-    Weapon m_pigironChoppa,
-        m_jaggedGorehacka,
-        m_tusksAndHooves,
-        m_bossPigironChoppa,
-        m_bossJaggedGorehacka;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

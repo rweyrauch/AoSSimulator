@@ -12,45 +12,49 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class HellPitAbomination : public Skaventide
-{
-public:
+    class HellPitAbomination : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HellPitAbomination();
-    ~HellPitAbomination() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        HellPitAbomination();
 
-    void onStartHero(PlayerId player) override;
-    int generateMortalWounds(const Unit *unit) override;
-    void onSlain() override;
-    int terrifying(const Unit* unit);
+        ~HellPitAbomination() override;
 
-    int getDamageTableIndex() const;
+        bool configure();
 
-protected:
+    protected:
 
-    bool m_beenSlain = false;
+        void onStartHero(PlayerId player) override;
 
-private:
+        int generateMortalWounds(const Unit *unit) override;
 
-    Weapon m_gnashingTeath,
-        m_flailingFists,
-        m_avalancheOfFlesh;
+        void onSlain() override;
 
-    lsignal::slot m_connection;
+        int terrifying(const Unit *unit);
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+    protected:
+
+        bool m_beenSlain = false;
+
+    private:
+
+        Weapon m_gnashingTeath,
+                m_flailingFists,
+                m_avalancheOfFlesh;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

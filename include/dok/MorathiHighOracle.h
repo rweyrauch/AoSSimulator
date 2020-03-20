@@ -12,38 +12,42 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class MorathiHighOracleOfKhaine : public DaughterOfKhaine
-{
-public:
+    class MorathiHighOracleOfKhaine : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MorathiHighOracleOfKhaine();
-    ~MorathiHighOracleOfKhaine() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        MorathiHighOracleOfKhaine();
 
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-    int castingModifier() const override;
-    int unbindingModifier() const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~MorathiHighOracleOfKhaine() override = default;
 
-private:
+        bool configure();
 
-    int m_woundsInTurn = 0;
+    protected:
 
-    Weapon m_heartrender,
-        m_wings;
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    static bool s_registered;
-};
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        int m_woundsInTurn = 0;
+
+        Weapon m_heartrender,
+                m_wings;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

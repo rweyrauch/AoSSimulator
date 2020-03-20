@@ -12,54 +12,59 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordCelestantOnDracoth : public StormcastEternal
-{
-public:
+    class LordCelestantOnDracoth : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        TempestosHammer,
-        Thunderaxe,
-        LightningHammer,
-        StormstrikeGlaive,
+        enum WeaponOption {
+            TempestosHammer,
+            Thunderaxe,
+            LightningHammer,
+            StormstrikeGlaive,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        LordCelestantOnDracoth();
+
+        ~LordCelestantOnDracoth() override = default;
+
+        bool configure(WeaponOption weapons, bool sigmariteThundershield);
+
+    protected:
+
+        WeaponOption m_weapon = TempestosHammer;
+        bool m_sigmariteThundershield = false;
+
+    protected:
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_stormstrikeGlaive,
+                m_lightningHammer,
+                m_thunderaxe,
+                m_tempestosHammer,
+                m_clawsAndFangs;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    LordCelestantOnDracoth();
-    ~LordCelestantOnDracoth() override = default;
-
-    bool configure(WeaponOption weapons, bool sigmariteThundershield);
-
-protected:
-
-    WeaponOption m_weapon = TempestosHammer;
-    bool m_sigmariteThundershield = false;
-
-protected:
-
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
-private:
-
-    Weapon m_stormstrikeGlaive,
-        m_lightningHammer,
-        m_thunderaxe,
-        m_tempestosHammer,
-        m_clawsAndFangs;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

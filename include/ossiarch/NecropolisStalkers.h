@@ -12,50 +12,57 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class NecropolisStalkers : public OssiarchBonereaperBase
-{
-public:
+    class NecropolisStalkers : public OssiarchBonereaperBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    NecropolisStalkers();
-    ~NecropolisStalkers() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, int numFalchions);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onStartCombat(PlayerId player) override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+        static void Init();
 
-private:
+        NecropolisStalkers();
 
-    enum Aspect
-    {
-        BladeStrike,
-        BladeParry,
-        Destroyer,
-        Precision
+        ~NecropolisStalkers() override = default;
+
+        bool configure(int numModels, int numFalchions);
+
+    protected:
+
+        void onStartCombat(PlayerId player) override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        enum Aspect {
+            BladeStrike,
+            BladeParry,
+            Destroyer,
+            Precision
+        };
+
+        Aspect m_activeAspect = BladeStrike;
+
+        Weapon m_falchions,
+            m_blades;
+
+        static bool s_registered;
     };
-
-    Aspect m_activeAspect = BladeStrike;
-
-    Weapon m_falchions,
-        m_blades;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

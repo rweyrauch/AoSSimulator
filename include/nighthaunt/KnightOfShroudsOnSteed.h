@@ -12,31 +12,32 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class KnightOfShroudsOnEtherealSteed : public Nighthaunt
-{
-public:
+    class KnightOfShroudsOnEtherealSteed : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    KnightOfShroudsOnEtherealSteed();
-    ~KnightOfShroudsOnEtherealSteed() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        KnightOfShroudsOnEtherealSteed();
 
-private:
+        ~KnightOfShroudsOnEtherealSteed() override = default;
 
-    Weapon m_sword,
-        m_hoovesAndTeeth;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_sword,
+                m_hoovesAndTeeth;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

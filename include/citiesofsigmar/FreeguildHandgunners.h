@@ -12,51 +12,56 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class FreeguildHandgunners : public CitizenOfSigmar
-{
-public:
+    class FreeguildHandgunners : public CitizenOfSigmar {
+    public:
 
-    enum WeaponOption
-    {
-        Handgun,
-        LongRifle,
-        RepeaterHandgun
+        enum WeaponOption {
+            Handgun,
+            LongRifle,
+            RepeaterHandgun
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        FreeguildHandgunners();
+
+        ~FreeguildHandgunners() override = default;
+
+        bool configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon);
+
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_piper = false;
+
+        Weapon m_freeguildHandgun,
+            m_dagger,
+            m_longRifle,
+            m_repeaterHandgun,
+            m_handgunMarksman;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    FreeguildHandgunners();
-    ~FreeguildHandgunners() override = default;
-
-    bool configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon);
-
-protected:
-
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    bool m_standardBearer = false;
-    bool m_piper = false;
-
-    Weapon m_freeguildHandgun,
-        m_dagger,
-        m_longRifle,
-        m_repeaterHandgun,
-        m_handgunMarksman;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

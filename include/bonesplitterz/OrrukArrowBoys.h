@@ -10,58 +10,56 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class SavageOrrukArrowboys : public Bonesplitterz
-{
-public:
+    class SavageOrrukArrowboys : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SavageOrrukArrowboys();
-    ~SavageOrrukArrowboys() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool skullThumper, bool totemBearer);
+        static int ComputePoints(int numModels);
 
-protected:
+        SavageOrrukArrowboys();
 
-    int chargeModifier() const override
-    {
-        int mod = Unit::chargeModifier();
-        if (m_thumper)
-        {
-            mod += 2;
+        ~SavageOrrukArrowboys() override = default;
+
+        bool configure(int numModels, bool skullThumper, bool totemBearer);
+
+    protected:
+
+        int chargeModifier() const override {
+            int mod = Unit::chargeModifier();
+            if (m_thumper) {
+                mod += 2;
+            }
+            return mod;
         }
-        return mod;
-    }
 
-    int braveryModifier() const override
-    {
-        int mod = Unit::braveryModifier();
-        if (m_totemBearer)
-        {
-            mod++;
+        int braveryModifier() const override {
+            int mod = Unit::braveryModifier();
+            if (m_totemBearer) {
+                mod++;
+            }
+            return mod;
         }
-        return mod;
-    }
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-private:
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    bool m_thumper = false;
-    bool m_totemBearer = false;
+    private:
 
-    Weapon m_stingaBow,
-        m_boneShiv,
-        m_chompa;
+        bool m_thumper = false;
+        bool m_totemBearer = false;
 
-    static bool s_registered;
-};
+        Weapon m_stingaBow,
+                m_boneShiv,
+                m_chompa;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,37 +12,41 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class SistersOfTheWatch : public CitizenOfSigmar
-{
-public:
+    class SistersOfTheWatch : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SistersOfTheWatch();
-    ~SistersOfTheWatch() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        static void Init();
 
-private:
+        SistersOfTheWatch();
 
-    Weapon m_bow,
-        m_sword,
-        m_bowHighSister;
+        ~SistersOfTheWatch() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels);
+
+    protected:
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_bow,
+            m_sword,
+            m_bowHighSister;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

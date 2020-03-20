@@ -10,8 +10,7 @@
 #include <Weapon.h>
 #include <UnitFactory.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
     static const int BASESIZE = 25;
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
@@ -20,143 +19,125 @@ namespace Slaanesh
     static const int POINTS_MAX_UNIT_SIZE = 300;
 
 
-bool Daemonettes::s_registered = false;
+    bool Daemonettes::s_registered = false;
 
-Daemonettes::Daemonettes() :
-    SlaaneshBase("Daemonettes", 6, WOUNDS, 10, 5, false),
-    m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
-    m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1)
-{
-    m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
-    m_weapons = {&m_piercingClaws, &m_piercingClawsAlluress};
+    Daemonettes::Daemonettes() :
+            SlaaneshBase("Daemonettes", 6, WOUNDS, 10, 5, false),
+            m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
+            m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1) {
+        m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
+        m_weapons = {&m_piercingClaws, &m_piercingClawsAlluress};
 
-    // Lithe and Swift
-    m_runAndCharge = true;
+        // Lithe and Swift
+        m_runAndCharge = true;
 
-    s_globalBattleshockReroll.connect(this, &Daemonettes::hornblowerBattleshockReroll, &m_hornblowerSlot);
-}
-
-Daemonettes::~Daemonettes()
-{
-    m_hornblowerSlot.disconnect();
-}
-
-bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+        s_globalBattleshockReroll.connect(this, &Daemonettes::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }
 
-    m_iconBearer = iconBearer;
-    m_bannerBearer = bannerBearer;
-    m_hornblower = hornblower;
-
-    // Add the Alluress
-    auto reaperModel = new Model(BASESIZE, wounds());
-    reaperModel->addMeleeWeapon(&m_piercingClawsAlluress);
-    addModel(reaperModel);
-
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_piercingClaws);
-        addModel(model);
+    Daemonettes::~Daemonettes() {
+        m_hornblowerSlot.disconnect();
     }
 
-    m_points = ComputePoints(numModels);
+    bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    return true;
-}
+        m_iconBearer = iconBearer;
+        m_bannerBearer = bannerBearer;
+        m_hornblower = hornblower;
 
-Unit *Daemonettes::Create(const ParameterList &parameters)
-{
-    auto unit = new Daemonettes();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
-    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+        // Add the Alluress
+        auto reaperModel = new Model(BASESIZE, wounds());
+        reaperModel->addMeleeWeapon(&m_piercingClawsAlluress);
+        addModel(reaperModel);
 
-    bool ok = unit->configure(numModels, iconBearer, bannerBearer, hornblowers);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_piercingClaws);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
-    return unit;
-}
 
-void Daemonettes::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            SlaaneshBase::ValueToString,
-            SlaaneshBase::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
-            },
-            CHAOS,
-            { SLAANESH }
-        };
-        s_registered = UnitFactory::Register("Daemonettes", factoryMethod);
+    Unit *Daemonettes::Create(const ParameterList &parameters) {
+        auto unit = new Daemonettes();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+        bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
+        bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
+
+        bool ok = unit->configure(numModels, iconBearer, bannerBearer, hornblowers);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-}
 
-void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
-{
-    Unit::computeBattleshockEffect(roll, numFled, numAdded);
-    if (m_iconBearer)
-    {
-        // Icon Bearer
-        if (roll == 1)
-        {
-            numAdded = Dice::rollD6();
+    void Daemonettes::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    SlaaneshBase::ValueToString,
+                    SlaaneshBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders,
+                             SlaaneshBase::Godseekers, 1},
+                    },
+                    CHAOS,
+                    {SLAANESH}
+            };
+            s_registered = UnitFactory::Register("Daemonettes", factoryMethod);
         }
     }
-}
 
-void Daemonettes::restoreModels(int numModels)
-{
-    // Icon Bearer
-    for (auto i = 0; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_piercingClaws);
-        addModel(model);
+    void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
+        Unit::computeBattleshockEffect(roll, numFled, numAdded);
+        if (m_iconBearer) {
+            // Icon Bearer
+            if (roll == 1) {
+                numAdded = Dice::rollD6();
+            }
+        }
     }
-}
 
-Rerolls Daemonettes::chargeRerolls() const
-{
-    if (m_bannerBearer)
-    {
-        return RerollFailed;
+    void Daemonettes::restoreModels(int numModels) {
+        // Icon Bearer
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_piercingClaws);
+            addModel(model);
+        }
     }
-    return Unit::chargeRerolls();
-}
 
-int Daemonettes::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    Rerolls Daemonettes::chargeRerolls() const {
+        if (m_bannerBearer) {
+            return RerollFailed;
+        }
+        return Unit::chargeRerolls();
     }
-    return points;
-}
 
-Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit)
-{
-    if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0f)) return RerollOnes;
+    int Daemonettes::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
-    return NoRerolls;
-}
+    Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit) {
+        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0f)) return RerollOnes;
+
+        return NoRerolls;
+    }
 
 } // namespace Slaanesh

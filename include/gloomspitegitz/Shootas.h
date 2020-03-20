@@ -12,46 +12,52 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class Shootas : public GloomspiteGitzBase
-{
-public:
+    class Shootas : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Shootas();
-    ~Shootas() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numBarbedNets,
-                   int numGongbashers, int numFlagbearers, int numIconbearers);
+        static void Init();
 
-protected:
+        Shootas();
 
-    int toWoundModifier(const Weapon* weapon, const Unit* unit) const override;
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    int runModifier() const override;
-    int braveryModifier() const override;
-    int toSaveModifier(const Weapon* weapon) const override;
-    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
+        ~Shootas() override = default;
 
-private:
+        bool configure(int numModels, int numBarbedNets,
+                       int numGongbashers, int numFlagbearers, int numIconbearers);
 
-    int m_numGongbashers = 0;
-    int m_numFlagbearers = 0;
-    int m_numIconbearers = 0;
+    protected:
 
-    Weapon m_slitta,
-        m_slittaBoss,
-        m_moonclanBow,
-        m_moonclanBowBoss,
-        m_barbedNet;
+        int toWoundModifier(const Weapon *weapon, const Unit *unit) const override;
 
-    static bool s_registered;
-};
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+
+        int runModifier() const override;
+
+        int braveryModifier() const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
+
+        int m_numGongbashers = 0;
+        int m_numFlagbearers = 0;
+        int m_numIconbearers = 0;
+
+        Weapon m_slitta,
+                m_slittaBoss,
+                m_moonclanBow,
+                m_moonclanBowBoss,
+                m_barbedNet;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

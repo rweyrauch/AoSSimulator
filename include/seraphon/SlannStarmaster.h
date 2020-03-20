@@ -12,33 +12,35 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SlannStarmaster : public SeraphonBase
-{
-public:
+    class SlannStarmaster : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SlannStarmaster();
-    ~SlannStarmaster() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SlannStarmaster();
 
-    void onStartHero(PlayerId player) override;
-    int castingModifier() const override;
+        ~SlannStarmaster() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_lightning;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        int castingModifier() const override;
+
+    private:
+
+        Weapon m_lightning;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

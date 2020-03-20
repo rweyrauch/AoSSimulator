@@ -12,37 +12,48 @@
 #include <AgeOfSigmarSim.h>
 #include <Player.h>
 
-class Battle
-{
+class Battle {
 public:
     Battle() = default;
 
-    void addPlayers(Player* player1, Player* player2);
+    void addPlayers(Player *player1, Player *player2);
+
     void setNumRounds(int rounds) { m_numRounds = rounds; }
 
     void deployment();
 
     void start(PlayerId firstPlayer);
+
     void simulate();
+
     void next();
+
     bool done();
 
     int currentRound() const { return m_round; }
+
     PlayerId activePlayer() const { return m_currentPlayer; }
+
     Phase currentPhase() const { return m_currentPhase; }
 
 protected:
 
     void runInitiativePhase();
+
     void runHeroPhase();
+
     void runMovementPhase();
+
     void runShootingPhase();
+
     void runChargePhase();
+
     void runCombatPhase();
+
     void runBattleshockPhase();
 
 private:
-    Player* m_players[2] = {nullptr, nullptr};
+    Player *m_players[2] = {nullptr, nullptr};
     int m_numRounds = 5;
 
     int m_round = 0;

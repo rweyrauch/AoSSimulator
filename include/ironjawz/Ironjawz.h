@@ -12,41 +12,41 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class Ironjawz : public Unit
-{
-public:
-    Ironjawz() = default;
-    ~Ironjawz() override = default;
+    class Ironjawz : public Unit {
+    public:
+        Ironjawz() = default;
 
-    enum Warclan
-    {
-        Ironsunz,
-        Bloodtoofs,
-        DaChoppas
+        ~Ironjawz() override = default;
+
+        enum Warclan {
+            Ironsunz,
+            Bloodtoofs,
+            DaChoppas
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        void setWarclan(Warclan warclan);
+
+    protected:
+        Ironjawz(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+    protected:
+
+        int chargeModifier() const override;
+
+        int runModifier() const override;
+
+    protected:
+
+        Warclan m_warclan = Ironsunz;
+
     };
-
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    void setWarclan(Warclan warclan);
-
-protected:
-    Ironjawz(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-protected:
-
-    int chargeModifier() const override;
-    int runModifier() const override;
-
-protected:
-
-    Warclan m_warclan = Ironsunz;
-
-};
 
 //
 // Abilities                    Implemented
@@ -57,7 +57,7 @@ protected:
 // Mad as Hell                      TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace Ironjawz
 

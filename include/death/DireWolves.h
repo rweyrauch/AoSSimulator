@@ -12,34 +12,36 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
-class DireWolves : public LegionOfNagashBase
-{
-public:
+namespace Death {
+    class DireWolves : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DireWolves();
-    ~DireWolves() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        DireWolves();
 
-    int toWoundModifier(const Weapon* weapon, const Unit* target) const override;
-    int toSaveModifier(const Weapon* weapon) const override;
+        ~DireWolves() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_fangsAndClaws,
-        m_fangsAndClawsDoom;
+    protected:
 
-    static bool s_registered;
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-};
+        int toSaveModifier(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_fangsAndClaws,
+                m_fangsAndClawsDoom;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

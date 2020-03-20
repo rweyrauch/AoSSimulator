@@ -52,18 +52,15 @@
 
 static Verbosity g_verbosity = Verbosity::Normal;
 
-Verbosity GetVerbosity()
-{
+Verbosity GetVerbosity() {
     return g_verbosity;
 }
 
-void SetVerbosity(Verbosity verbosity)
-{
+void SetVerbosity(Verbosity verbosity) {
     g_verbosity = verbosity;
 }
 
-void Initialize(Verbosity verbosity)
-{
+void Initialize(Verbosity verbosity) {
     g_verbosity = verbosity;
 
     StormcastEternals::Init();

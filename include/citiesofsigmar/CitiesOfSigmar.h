@@ -12,49 +12,48 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class CitizenOfSigmar : public Unit
-{
-public:
-    CitizenOfSigmar() = default;
-    ~CitizenOfSigmar() override = default;
+    class CitizenOfSigmar : public Unit {
+    public:
+        CitizenOfSigmar() = default;
 
-    enum City
-    {
-        Hammerhal,
-        LivingCity,
-        GreywaterFastness,
-        Phoenicium,
-        Anvilgard,
-        Hallowheart,
-        TempestsEye
+        ~CitizenOfSigmar() override = default;
+
+        enum City {
+            Hammerhal,
+            LivingCity,
+            GreywaterFastness,
+            Phoenicium,
+            Anvilgard,
+            Hallowheart,
+            TempestsEye
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        void setCity(City city);
+
+    protected:
+        CitizenOfSigmar(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+    protected:
+
+    protected:
+
+        City m_city = Hammerhal;
+
     };
-
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    void setCity(City city);
-
-protected:
-    CitizenOfSigmar(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-protected:
-
-protected:
-
-    City m_city = Hammerhal;
-
-};
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 //
 
-void Init();
+    void Init();
 
 } // namespace CitiesOfSigmar
 

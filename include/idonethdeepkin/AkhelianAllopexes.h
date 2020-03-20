@@ -12,42 +12,44 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class AkhelianAllopexes : public IdonethDeepkinBase
-{
-public:
+    class AkhelianAllopexes : public IdonethDeepkinBase {
+    public:
 
-    enum WeaponOption
-    {
-        HarpoonLauncher,
-        NetLauncher,
+        enum WeaponOption {
+            HarpoonLauncher,
+            NetLauncher,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static void Init();
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        AkhelianAllopexes();
+
+        ~AkhelianAllopexes() override = default;
+
+        bool configure(int numModels, WeaponOption weapons);
+
+    protected:
+
+    private:
+
+        Weapon m_harpoonLauncher,
+                m_netLauncher,
+                m_hooksAndBlades,
+                m_allopexBite,
+                m_allopexFins;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-
-    AkhelianAllopexes();
-    ~AkhelianAllopexes() override = default;
-
-    bool configure(int numModels, WeaponOption weapons);
-
-protected:
-
-private:
-
-    Weapon m_harpoonLauncher,
-        m_netLauncher,
-        m_hooksAndBlades,
-        m_allopexBite,
-        m_allopexFins;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

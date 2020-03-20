@@ -12,33 +12,34 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class KnightZephyros : public StormcastEternal
-{
-public:
+    class KnightZephyros : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    KnightZephyros();
-    ~KnightZephyros() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        KnightZephyros();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~KnightZephyros() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_boltstormPistol,
-        m_tempestAxes;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_boltstormPistol,
+                m_tempestAxes;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

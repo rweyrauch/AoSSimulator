@@ -12,35 +12,39 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class PlagueCenserBearers : public Skaventide
-{
-public:
+    class PlagueCenserBearers : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    PlagueCenserBearers();
-    ~PlagueCenserBearers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        PlagueCenserBearers();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls battleshockRerolls() const override;
-    Wounds onEndCombat(PlayerId player) override;
+        ~PlagueCenserBearers() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_censer;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls battleshockRerolls() const override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+    private:
+
+        Weapon m_censer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -10,32 +10,33 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class ManiakWeirdnob : public Bonesplitterz
-{
-public:
+    class ManiakWeirdnob : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    ManiakWeirdnob();
-    ~ManiakWeirdnob() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        ManiakWeirdnob();
+
+        ~ManiakWeirdnob() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_bonebeastStaff,
-        m_tusksAndHooves;
+        Weapon m_bonebeastStaff,
+            m_tusksAndHooves;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

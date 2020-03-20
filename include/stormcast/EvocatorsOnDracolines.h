@@ -13,47 +13,49 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class EvocatorsOnCelestialDracolines : public StormcastEternal
-{
-public:
+    class EvocatorsOnCelestialDracolines : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    EvocatorsOnCelestialDracolines();
+        static void Init();
 
-    ~EvocatorsOnCelestialDracolines() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        EvocatorsOnCelestialDracolines();
 
-    int generateMortalWounds(const Unit *unit) override;
+        ~EvocatorsOnCelestialDracolines() override;
 
-    Rerolls chargeRerolls() const override;
+        bool configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration);
 
-    int supernaturalRoar(const Unit* target);
+    protected:
 
-private:
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
-    Weapon m_tempestBladeAndStave,
-        m_tempestBladeAndStavePrime,
-        m_grandStave,
-        m_grandStavePrime,
-        m_monstrousClaws;
+        int generateMortalWounds(const Unit *unit) override;
 
-    lsignal::slot m_connection;
+        Rerolls chargeRerolls() const override;
 
-    static bool s_registered;
-};
+        int supernaturalRoar(const Unit *target);
+
+    private:
+
+        Weapon m_tempestBladeAndStave,
+                m_tempestBladeAndStavePrime,
+                m_grandStave,
+                m_grandStavePrime,
+                m_monstrousClaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

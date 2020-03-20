@@ -12,34 +12,35 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class HeraldOfKhorneOnBloodThrone : public KhorneBase
-{
-public:
+    class HeraldOfKhorneOnBloodThrone : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HeraldOfKhorneOnBloodThrone();
-    ~HeraldOfKhorneOnBloodThrone() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        HeraldOfKhorneOnBloodThrone();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~HeraldOfKhorneOnBloodThrone() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_bladeOfBlood,
-        m_hellblades,
-        m_gnashingMaw;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_bladeOfBlood,
+                m_hellblades,
+                m_gnashingMaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

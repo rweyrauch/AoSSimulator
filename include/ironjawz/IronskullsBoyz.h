@@ -12,35 +12,37 @@
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class IronskullsBoyz : public Ironjawz
-{
-public:
+    class IronskullsBoyz : public Ironjawz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    IronskullsBoyz();
-    ~IronskullsBoyz() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        IronskullsBoyz();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        ~IronskullsBoyz() override = default;
 
-protected:
+        bool configure();
 
-    Weapon m_eadButt,
-        m_pairedChoppas,
-        m_bigChoppa;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    protected:
+
+        Weapon m_eadButt,
+                m_pairedChoppas,
+                m_bigChoppa;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

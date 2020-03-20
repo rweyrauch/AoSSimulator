@@ -12,36 +12,39 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class ChaosGargant : public BeastsOfChaosBase
-{
-public:
+    class ChaosGargant : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosGargant();
-    ~ChaosGargant() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ChaosGargant();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    void onRestore() override;
+        ~ChaosGargant() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_eadbutt,
-        m_massiveClub,
-        m_mightyKick;
+    protected:
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+    private:
+
+        Weapon m_eadbutt,
+                m_massiveClub,
+                m_mightyKick;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

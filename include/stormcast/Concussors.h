@@ -12,36 +12,37 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Concussors : public StormcastEternal
-{
-public:
+    class Concussors : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Concussors();
+        static int ComputePoints(int numModels);
 
-    ~Concussors() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        Concussors();
 
-protected:
+        ~Concussors() override = default;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_stormBlast,
-        m_lightningHammer,
-        m_clawsAndFangs;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_stormBlast,
+                m_lightningHammer,
+                m_clawsAndFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

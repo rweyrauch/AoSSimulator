@@ -12,43 +12,46 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class Skywardens : public KharadronBase
-{
-public:
+    class Skywardens : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Skywardens();
+        static std::string ValueToString(const Parameter &parameter);
 
-    ~Skywardens() override = default;
+        static int EnumStringToInt(const std::string &enumString);
 
-    bool configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks);
+        static int ComputePoints(int numModels);
 
-protected:
+        static void Init();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int chargeModifier() const override;
+        Skywardens();
 
-private:
+        ~Skywardens() override = default;
 
-    Weapon m_volleyGun,
-        m_skyhook,
-        m_drillLauncher,
-        m_pistol,
-        m_gunButt,
-        m_skypike,
-        m_gunButtCustodian,
-        m_skypikeCustodian;
+        bool configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks);
 
-    static bool s_registered;
-};
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int chargeModifier() const override;
+
+    private:
+
+        Weapon m_volleyGun,
+            m_skyhook,
+            m_drillLauncher,
+            m_pistol,
+            m_gunButt,
+            m_skypike,
+            m_gunButtCustodian,
+            m_skypikeCustodian;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

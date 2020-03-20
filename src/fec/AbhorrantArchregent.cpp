@@ -10,98 +10,88 @@
 #include <Spell.h>
 #include <spells/MysticShield.h>
 
-namespace FleshEaterCourt
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 7;
-static const int POINTS_PER_UNIT = 240;
+namespace FleshEaterCourt {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 240;
 
-bool AbhorrantArchregent::s_registered = false;
+    bool AbhorrantArchregent::s_registered = false;
 
-AbhorrantArchregent::AbhorrantArchregent() :
-    FleshEaterCourts("Abhorrant Archregent", 6, WOUNDS, 10, 4, false),
-    m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 7, 3, 3, -1, 1)
-{
-    m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD, ABHORRANT_ARCHREGENT};
-    m_weapons = {&m_goryTalonsAndFangs};
+    AbhorrantArchregent::AbhorrantArchregent() :
+            FleshEaterCourts("Abhorrant Archregent", 6, WOUNDS, 10, 4, false),
+            m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 7, 3, 3, -1, 1) {
+        m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD, ABHORRANT_ARCHREGENT};
+        m_weapons = {&m_goryTalonsAndFangs};
 
-    m_totalUnbinds = 2;
-    m_totalSpells = 2;
-}
-
-bool AbhorrantArchregent::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_goryTalonsAndFangs);
-    addModel(model);
-
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *AbhorrantArchregent::Create(const ParameterList &parameters)
-{
-    auto unit = new AbhorrantArchregent();
-
-    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
-    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
-    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
-    unit->setGrandCourt(court);
-    unit->setCourtsOfDelusion(delusion);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        m_totalUnbinds = 2;
+        m_totalSpells = 2;
     }
-    return unit;
-}
 
-void AbhorrantArchregent::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            FleshEaterCourts::ValueToString,
-            FleshEaterCourts::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-            },
-            DEATH,
-            { FLESH_EATER_COURTS }
-        };
-        s_registered = UnitFactory::Register("Abhorrant Archregent", factoryMethod);
+    bool AbhorrantArchregent::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_goryTalonsAndFangs);
+        addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-void AbhorrantArchregent::onStartHero(PlayerId player)
-{
-    // Imperial Blood
-    if (player == owningPlayer())
-    {
-        if (remainingWounds() < WOUNDS && remainingWounds() > 0)
-        {
-            int woundsHealed = 3;
-            for (auto &m : m_models)
-            {
-                m->applyHealing(woundsHealed);
-            }
+    Unit *AbhorrantArchregent::Create(const ParameterList &parameters) {
+        auto unit = new AbhorrantArchregent();
+
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+        unit->setGrandCourt(court);
+        unit->setCourtsOfDelusion(delusion);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void AbhorrantArchregent::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    FleshEaterCourts::ValueToString,
+                    FleshEaterCourts::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt,
+                             FleshEaterCourts::Gristlegore, 1},
+                            {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None,
+                             FleshEaterCourts::DefendersOfTheRealm, 1},
+                    },
+                    DEATH,
+                    {FLESH_EATER_COURTS}
+            };
+            s_registered = UnitFactory::Register("Abhorrant Archregent", factoryMethod);
         }
     }
 
-}
+    void AbhorrantArchregent::onStartHero(PlayerId player) {
+        // Imperial Blood
+        if (player == owningPlayer()) {
+            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+                int woundsHealed = 3;
+                for (auto &m : m_models) {
+                    m->applyHealing(woundsHealed);
+                }
+            }
+        }
 
-int AbhorrantArchregent::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    }
+
+    int AbhorrantArchregent::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace FleshEasterCourt

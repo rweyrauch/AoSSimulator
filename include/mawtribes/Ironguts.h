@@ -12,39 +12,40 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Ironguts : public MawtribesBase
-{
-public:
+    class Ironguts : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Ironguts();
-    ~Ironguts() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool runeMawBearer, bool bellower);
+        static void Init();
 
-protected:
+        Ironguts();
 
-    int bellower(const Unit* target);
+        ~Ironguts() override;
 
-private:
+        bool configure(int numModels, bool runeMawBearer, bool bellower);
 
-    bool m_runeMawBearer = false;
-    bool m_bellower = false;
+    protected:
 
-    Weapon m_bashingWeapon,
-        m_bite,
-        m_bashingWeaponGutlord;
+        int bellower(const Unit *target);
 
-    lsignal::slot m_connection;
+    private:
 
-    static bool s_registered;
-};
+        bool m_runeMawBearer = false;
+        bool m_bellower = false;
+
+        Weapon m_bashingWeapon,
+                m_bite,
+                m_bashingWeaponGutlord;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

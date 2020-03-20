@@ -12,34 +12,36 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class BeastsOfNurgle : public NurgleBase
-{
-public:
+    class BeastsOfNurgle : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BeastsOfNurgle();
-    ~BeastsOfNurgle() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        BeastsOfNurgle();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~BeastsOfNurgle() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_clawsAndTentacles,
-        m_slobberingTongue;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_clawsAndTentacles,
+            m_slobberingTongue;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

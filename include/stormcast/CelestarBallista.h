@@ -13,35 +13,35 @@
 #include <Weapon.h>
 
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class CelestarBallista : public StormcastEternal
-{
-public:
+    class CelestarBallista : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    CelestarBallista();
+        static int ComputePoints(int numModels);
 
-    ~CelestarBallista() override = default;
+        static void Init();
 
-    bool configure();
+        CelestarBallista();
 
-protected:
+        ~CelestarBallista() override = default;
 
-    void onStartShooting(PlayerId player) override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_stormboltsSingle,
-        m_stormboltsRapid,
-        m_sigmariteBlades;
+        void onStartShooting(PlayerId player) override;
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_stormboltsSingle,
+                m_stormboltsRapid,
+                m_sigmariteBlades;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

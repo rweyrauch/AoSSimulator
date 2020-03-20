@@ -12,36 +12,37 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class AkhelianLeviadon : public IdonethDeepkinBase
-{
-public:
+    class AkhelianLeviadon : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AkhelianLeviadon();
-    ~AkhelianLeviadon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AkhelianLeviadon();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~AkhelianLeviadon() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_harpoonLauncher,
-        m_crushingJaws,
-        m_scythedFins,
-        m_twinProngedSpear,
-        m_razorshellHarpoons;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_harpoonLauncher,
+                m_crushingJaws,
+                m_scythedFins,
+                m_twinProngedSpear,
+                m_razorshellHarpoons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

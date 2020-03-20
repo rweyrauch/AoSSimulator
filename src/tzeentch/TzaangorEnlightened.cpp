@@ -10,127 +10,113 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Tzeentch
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 3;
-static const int MIN_UNIT_SIZE = 3;
-static const int MAX_UNIT_SIZE = 9;
-static const int POINTS_PER_BLOCK = 100;
-static const int POINTS_MAX_UNIT_SIZE = 300;
+namespace Tzeentch {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 3;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 9;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 300;
 
-bool TzaangorEnlightened::s_registered = false;
+    bool TzaangorEnlightened::s_registered = false;
 
-TzaangorEnlightened::TzaangorEnlightened() :
-    TzeentchBase("Tzaangor Enlightened", 6, WOUNDS, 6, 5, false),
-    m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
-    m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
-    m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1)
-{
-    m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_ENLIGHTENED};
-    m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak};
-}
-
-bool TzaangorEnlightened::configure(int numModels)
-{
-    // validate inputs
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        // Invalid model count.
-        return false;
+    TzaangorEnlightened::TzaangorEnlightened() :
+            TzeentchBase("Tzaangor Enlightened", 6, WOUNDS, 6, 5, false),
+            m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
+            m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
+            m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1) {
+        m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_ENLIGHTENED};
+        m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak};
     }
 
-    auto aviarch = new Model(BASESIZE, wounds());
-    aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
-    aviarch->addMeleeWeapon(&m_viciousBeak);
-    addModel(aviarch);
+    bool TzaangorEnlightened::configure(int numModels) {
+        // validate inputs
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
+        }
 
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_tzeentchianSpear);
-        model->addMeleeWeapon(&m_viciousBeak);
-        addModel(model);
+        auto aviarch = new Model(BASESIZE, wounds());
+        aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
+        aviarch->addMeleeWeapon(&m_viciousBeak);
+        addModel(aviarch);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_tzeentchianSpear);
+            model->addMeleeWeapon(&m_viciousBeak);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *TzaangorEnlightened::Create(const ParameterList &parameters) {
+        auto *unit = new TzaangorEnlightened();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    return true;
-}
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        unit->setChangeCoven(coven);
 
-Unit *TzaangorEnlightened::Create(const ParameterList &parameters)
-{
-    auto *unit = new TzaangorEnlightened();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-
-    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
-    unit->setChangeCoven(coven);
-
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void TzaangorEnlightened::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            TzaangorEnlightened::Create,
-            TzeentchBase::ValueToString,
-            TzeentchBase::EnumStringToInt,
-            TzaangorEnlightened::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-            },
-            CHAOS,
-            { TZEENTCH, BEASTS_OF_CHAOS }
-        };
-        s_registered = UnitFactory::Register("Tzaangor Enlightened", factoryMethod);
+    void TzaangorEnlightened::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    TzaangorEnlightened::Create,
+                    TzeentchBase::ValueToString,
+                    TzeentchBase::EnumStringToInt,
+                    TzaangorEnlightened::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
+                             TzeentchBase::GuildOfSummoners, 1},
+                    },
+                    CHAOS,
+                    {TZEENTCH, BEASTS_OF_CHAOS}
+            };
+            s_registered = UnitFactory::Register("Tzaangor Enlightened", factoryMethod);
+        }
     }
-}
 
-Rerolls TzaangorEnlightened::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Guided by the Past
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
-    bool enemyHasFought = false;
-    for (auto ip : units)
-    {
-        enemyHasFought |= ip->hasFought();
+    Rerolls TzaangorEnlightened::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Guided by the Past
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        bool enemyHasFought = false;
+        for (auto ip : units) {
+            enemyHasFought |= ip->hasFought();
+        }
+        if (enemyHasFought) return RerollFailed;
+
+        return TzeentchBase::toHitRerolls(weapon, target);
     }
-    if (enemyHasFought) return RerollFailed;
 
-    return TzeentchBase::toHitRerolls(weapon, target);
-}
+    Rerolls TzaangorEnlightened::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Guided by the Past
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        bool enemyHasFought = false;
+        for (auto ip : units) {
+            enemyHasFought |= ip->hasFought();
+        }
+        if (enemyHasFought) return RerollFailed;
 
-Rerolls TzaangorEnlightened::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Guided by the Past
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
-    bool enemyHasFought = false;
-    for (auto ip : units)
-    {
-        enemyHasFought |= ip->hasFought();
+        return TzeentchBase::toWoundRerolls(weapon, target);
     }
-    if (enemyHasFought) return RerollFailed;
 
-    return TzeentchBase::toWoundRerolls(weapon, target);
-}
-
-int TzaangorEnlightened::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int TzaangorEnlightened::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
     }
-    return points;
-}
 
 } //namespace Tzeentch

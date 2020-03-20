@@ -12,37 +12,40 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class WarlockBombardier : public Skaventide
-{
-public:
+    class WarlockBombardier : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WarlockBombardier();
-    ~WarlockBombardier() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        WarlockBombardier();
 
-    void onRestore() override;
-    Wounds onEndShooting(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~WarlockBombardier() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_doomrocket,
-           m_pole;
+    protected:
 
-    mutable bool m_moreMoreFailed = false;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        Wounds onEndShooting(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_doomrocket,
+                m_pole;
+
+        mutable bool m_moreMoreFailed = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

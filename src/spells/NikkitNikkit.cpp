@@ -8,13 +8,10 @@
 #include <spells/NikkitNikkit.h>
 
 NikkitNikkit::NikkitNikkit(Unit *caster) :
-    DamageSpell(caster, "Nikkit! Nikkit!", 8, 18.0f, RAND_D3)
-{}
+        DamageSpell(caster, "Nikkit! Nikkit!", 8, 18.0f, RAND_D3) {}
 
-int NikkitNikkit::getDamage(int castingRoll) const
-{
-    if (castingRoll >= 10)
-    {
+int NikkitNikkit::getDamage(int castingRoll) const {
+    if (castingRoll >= 10) {
         // TODO: negates artefact on target
     }
     return Dice::rollD3();

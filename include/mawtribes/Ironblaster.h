@@ -12,39 +12,43 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Ironblaster : public MawtribesBase
-{
-public:
+    class Ironblaster : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Ironblaster();
-    ~Ironblaster() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartShooting(PlayerId player) override;
+        static void Init();
 
-private:
+        Ironblaster();
 
-    Weapon m_cannonBall,
-        m_hailShot,
-        m_clubber,
-        m_horns,
-        m_blade;
+        ~Ironblaster() override = default;
 
-    static bool s_registered;
-};
+        bool configure();
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_cannonBall,
+                m_hailShot,
+                m_clubber,
+                m_horns,
+                m_blade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

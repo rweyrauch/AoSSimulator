@@ -12,35 +12,36 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class BloodwrackMedusa : public DaughterOfKhaine
-{
-public:
+    class BloodwrackMedusa : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloodwrackMedusa();
-    ~BloodwrackMedusa() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BloodwrackMedusa();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~BloodwrackMedusa() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_bloodwrackStare,
-        m_whisperclaw,
-        m_tailOfSerpents,
-        m_bloodwrackSpear;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_bloodwrackStare,
+                m_whisperclaw,
+                m_tailOfSerpents,
+                m_bloodwrackSpear;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

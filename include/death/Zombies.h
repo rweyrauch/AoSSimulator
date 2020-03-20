@@ -12,36 +12,38 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
-class Zombies : public LegionOfNagashBase
-{
-public:
+namespace Death {
+    class Zombies : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Zombies();
-    ~Zombies() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearer, bool noiseMaker);
+        static void Init();
 
-protected:
+        Zombies();
 
-    int toHitModifier(const Weapon* weapon, const Unit* target) const override;
-    int toWoundModifier(const Weapon* weapon, const Unit* target) const override;
+        ~Zombies() override = default;
 
-private:
+        bool configure(int numModels, bool standardBearer, bool noiseMaker);
 
-    bool m_standardBearer = false;
-    bool m_noiseMaker = false;
+    protected:
 
-    Weapon m_zombieBite;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-};
+    private:
+
+        bool m_standardBearer = false;
+        bool m_noiseMaker = false;
+
+        Weapon m_zombieBite;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

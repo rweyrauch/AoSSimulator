@@ -12,32 +12,33 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class Loonboss : public GloomspiteGitzBase
-{
-public:
+    class Loonboss : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Loonboss();
-    ~Loonboss() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Loonboss();
 
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+        ~Loonboss() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_moonslicer;
+    protected:
 
-    static bool s_registered;
-};
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
+
+        Weapon m_moonslicer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

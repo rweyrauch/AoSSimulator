@@ -12,30 +12,31 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class SorcererOfNurgle : public NurgleBase
-{
-public:
+    class SorcererOfNurgle : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SorcererOfNurgle();
-    ~SorcererOfNurgle() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SorcererOfNurgle();
 
-private:
+        ~SorcererOfNurgle() override = default;
 
-    Weapon m_staff;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_staff;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

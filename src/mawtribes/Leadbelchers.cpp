@@ -8,132 +8,115 @@
 #include <UnitFactory.h>
 #include "mawtribes/Leadbelchers.h"
 
-namespace OgorMawtribes
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 4;
-static const int MIN_UNIT_SIZE = 2;
-static const int MAX_UNIT_SIZE = 12;
-static const int POINTS_PER_BLOCK = 80;
-static const int POINTS_MAX_UNIT_SIZE = 480;
+namespace OgorMawtribes {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 4;
+    static const int MIN_UNIT_SIZE = 2;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 80;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
 
-bool Leadbelchers::s_registered = false;
+    bool Leadbelchers::s_registered = false;
 
-Unit *Leadbelchers::Create(const ParameterList &parameters)
-{
-    auto unit = new Leadbelchers();
+    Unit *Leadbelchers::Create(const ParameterList &parameters) {
+        auto unit = new Leadbelchers();
 
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    auto tribe = (Mawtribe)GetEnumParam("Mawtribe", parameters, None);
-    unit->setMawtribe(tribe);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        unit->setMawtribe(tribe);
 
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-std::string Leadbelchers::ValueToString(const Parameter &parameter)
-{
-    return MawtribesBase::ValueToString(parameter);
-}
-
-int Leadbelchers::EnumStringToInt(const std::string &enumString)
-{
-    return MawtribesBase::EnumStringToInt(enumString);
-}
-
-void Leadbelchers::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Leadbelchers::Create,
-            Leadbelchers::ValueToString,
-            Leadbelchers::EnumStringToInt,
-            Leadbelchers::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
-            },
-            DESTRUCTION,
-            { OGOR_MAWTRIBES }
-        };
-        s_registered = UnitFactory::Register("Leadbelchers", factoryMethod);
-    }
-}
-
-Leadbelchers::Leadbelchers() :
-    MawtribesBase("Leadbelchers", 6, WOUNDS, 6, 5, false),
-    m_gun(Weapon::Type::Missile, "Leadbelcher Gun", 12, RAND_D3, 4, 3, -1, 1),
-    m_blow(Weapon::Type::Melee, "Bludgeoning Blow", 1, 2, 3, 3, -1, 2),
-    m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
-    m_blowThunderfist(Weapon::Type::Melee, "Bludgeoning Blow", 1, 3, 3, 3, -1, 2)
-{
-    m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, LEADBELCHERS};
-    m_weapons = {&m_gun, &m_blow, &m_bite, &m_blowThunderfist};
-}
-
-bool Leadbelchers::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    // Gunmasters
-    if (hasKeyword(UNDERGUTS))
-    {
-        m_gun.setRange(m_gun.range()+6);
+    std::string Leadbelchers::ValueToString(const Parameter &parameter) {
+        return MawtribesBase::ValueToString(parameter);
     }
 
-    auto boss = new Model(BASESIZE, wounds());
-    boss->addMissileWeapon(&m_gun);
-    boss->addMeleeWeapon(&m_blowThunderfist);
-    boss->addMeleeWeapon(&m_bite);
-    addModel(boss);
-
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMissileWeapon(&m_gun);
-        model->addMeleeWeapon(&m_blow);
-        model->addMeleeWeapon(&m_bite);
-        addModel(model);
+    int Leadbelchers::EnumStringToInt(const std::string &enumString) {
+        return MawtribesBase::EnumStringToInt(enumString);
     }
 
-    m_points = ComputePoints(numModels);
-
-    return true;
-}
-
-void Leadbelchers::onStartShooting(PlayerId player)
-{
-    Unit::onStartShooting(player);
-
-    if (m_moved)
-    {
-        m_gun.setAttacks(RAND_D3);
+    void Leadbelchers::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Leadbelchers::Create,
+                    Leadbelchers::ValueToString,
+                    Leadbelchers::EnumStringToInt,
+                    Leadbelchers::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
+                             MawtribesBase::Winterbite, 1}
+                    },
+                    DESTRUCTION,
+                    {OGOR_MAWTRIBES}
+            };
+            s_registered = UnitFactory::Register("Leadbelchers", factoryMethod);
+        }
     }
-    else
-    {
-        m_gun.setAttacks(RAND_D6);
-    }
-}
 
-int Leadbelchers::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    Leadbelchers::Leadbelchers() :
+            MawtribesBase("Leadbelchers", 6, WOUNDS, 6, 5, false),
+            m_gun(Weapon::Type::Missile, "Leadbelcher Gun", 12, RAND_D3, 4, 3, -1, 1),
+            m_blow(Weapon::Type::Melee, "Bludgeoning Blow", 1, 2, 3, 3, -1, 2),
+            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
+            m_blowThunderfist(Weapon::Type::Melee, "Bludgeoning Blow", 1, 3, 3, 3, -1, 2) {
+        m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, LEADBELCHERS};
+        m_weapons = {&m_gun, &m_blow, &m_bite, &m_blowThunderfist};
     }
-    return points;
-}
+
+    bool Leadbelchers::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
+
+        // Gunmasters
+        if (hasKeyword(UNDERGUTS)) {
+            m_gun.setRange(m_gun.range() + 6);
+        }
+
+        auto boss = new Model(BASESIZE, wounds());
+        boss->addMissileWeapon(&m_gun);
+        boss->addMeleeWeapon(&m_blowThunderfist);
+        boss->addMeleeWeapon(&m_bite);
+        addModel(boss);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMissileWeapon(&m_gun);
+            model->addMeleeWeapon(&m_blow);
+            model->addMeleeWeapon(&m_bite);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
+    }
+
+    void Leadbelchers::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        if (m_moved) {
+            m_gun.setAttacks(RAND_D3);
+        } else {
+            m_gun.setAttacks(RAND_D6);
+        }
+    }
+
+    int Leadbelchers::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace OgorMawtribes

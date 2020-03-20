@@ -12,45 +12,48 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class VanguardPalladors : public StormcastEternal
-{
-public:
+    class VanguardPalladors : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        ShockHandaxe,
-        StarstrikeJavelin,
+        enum WeaponOption {
+            ShockHandaxe,
+            StarstrikeJavelin,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static void Init();
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        VanguardPalladors();
+
+        ~VanguardPalladors() override = default;
+
+        bool configure(int numModels, WeaponOption weapons);
+
+    protected:
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_boltstormPistol,
+            m_starstrikeJavelinMissile,
+            m_shockHandaxe,
+            m_starstrikeJavelin,
+            m_beakAndClaws;
+
+        static bool s_registered;
     };
-
-    static Unit *Create(const ParameterList &parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-
-    VanguardPalladors();
-    ~VanguardPalladors() override = default;
-
-    bool configure(int numModels, WeaponOption weapons);
-
-protected:
-
-    Wounds onEndCombat(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
-private:
-
-    Weapon m_boltstormPistol,
-        m_starstrikeJavelinMissile,
-        m_shockHandaxe,
-        m_starstrikeJavelin,
-        m_beakAndClaws;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

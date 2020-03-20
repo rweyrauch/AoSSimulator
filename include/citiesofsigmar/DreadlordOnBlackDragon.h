@@ -12,73 +12,76 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class DreadlordOnBlackDragon : public CitizenOfSigmar
-{
-public:
+    class DreadlordOnBlackDragon : public CitizenOfSigmar {
+    public:
 
-    enum WeaponOption
-    {
-        ExileBladeAndShield,
-        ExileBladeAndCrossbow,
-        LanceAndShield,
-        LanceAndCrossbow,
-        PairExileBlades
-    };
+        enum WeaponOption {
+            ExileBladeAndShield,
+            ExileBladeAndCrossbow,
+            LanceAndShield,
+            LanceAndCrossbow,
+            PairExileBlades
+        };
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DreadlordOnBlackDragon();
-    ~DreadlordOnBlackDragon() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(WeaponOption weapon);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override
-    {
-        if ((m_weaponOption == PairExileBlades) && (weapon->name() == m_blade.name()))
-        {
-            return RerollFailed;
+        static void Init();
+
+        DreadlordOnBlackDragon();
+
+        ~DreadlordOnBlackDragon() override = default;
+
+        bool configure(WeaponOption weapon);
+
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override {
+            if ((m_weaponOption == PairExileBlades) && (weapon->name() == m_blade.name())) {
+                return RerollFailed;
+            }
+            return Unit::toHitRerolls(weapon, target);
         }
-        return Unit::toHitRerolls(weapon, target);
-    }
-    int toSaveModifier(const Weapon *weapon) const override
-    {
-        auto mod = Unit::toSaveModifier(weapon);
 
-        // Tyrant Shield
-        if (m_weaponOption == LanceAndShield || m_weaponOption == ExileBladeAndShield) mod++;
+        int toSaveModifier(const Weapon *weapon) const override {
+            auto mod = Unit::toSaveModifier(weapon);
 
-        return mod;
-    }
+            // Tyrant Shield
+            if (m_weaponOption == LanceAndShield || m_weaponOption == ExileBladeAndShield) mod++;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+            return mod;
+        }
 
-private:
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    int getDamageTableIndex() const;
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    WeaponOption m_weaponOption = LanceAndShield;
+    private:
 
-    Weapon m_crossbow,
-        m_noxiousBreath,
-        m_blade,
-        m_lance,
-        m_jaws,
-        m_claws;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        WeaponOption m_weaponOption = LanceAndShield;
+
+        Weapon m_crossbow,
+                m_noxiousBreath,
+                m_blade,
+                m_lance,
+                m_jaws,
+                m_claws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

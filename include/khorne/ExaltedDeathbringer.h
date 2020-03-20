@@ -12,48 +12,53 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class ExaltedDeathbringer : public KhorneBase
-{
-public:
+    class ExaltedDeathbringer : public KhorneBase {
+    public:
 
-    enum WeaponOption
-    {
-        RuinousAxeAndSkullgouger,
-        BloodbiteAxeAndRunemarkedShield,
-        ImpalingSpear
+        enum WeaponOption {
+            RuinousAxeAndSkullgouger,
+            BloodbiteAxeAndRunemarkedShield,
+            ImpalingSpear
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        ExaltedDeathbringer();
+
+        ~ExaltedDeathbringer() override = default;
+
+        bool configure(WeaponOption weapon);
+
+    protected:
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    private:
+
+        WeaponOption m_weaponOption = RuinousAxeAndSkullgouger;
+
+        Weapon m_ruinousAxe,
+                m_bloodbiteAxe,
+                m_impalingSpear;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    ExaltedDeathbringer();
-    ~ExaltedDeathbringer() override = default;
-
-    bool configure(WeaponOption weapon);
-
-protected:
-
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-
-private:
-
-    WeaponOption m_weaponOption = RuinousAxeAndSkullgouger;
-
-    Weapon m_ruinousAxe,
-        m_bloodbiteAxe,
-        m_impalingSpear;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

@@ -12,31 +12,32 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class WardenKing : public CitizenOfSigmar
-{
-public:
+    class WardenKing : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WardenKing();
-    ~WardenKing() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        WardenKing();
+
+        ~WardenKing() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_runeWeapon;
+        Weapon m_runeWeapon;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

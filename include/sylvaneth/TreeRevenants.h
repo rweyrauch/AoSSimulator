@@ -12,51 +12,58 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class TreeRevenants : public SylvanethBase
-{
-public:
+    class TreeRevenants : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TreeRevenants();
-    ~TreeRevenants() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes);
+        static void Init();
 
-protected:
+        TreeRevenants();
 
-    void onBeginTurn(int battleRound) override;
-    Rerolls runRerolls() const override;
-    Rerolls chargeRerolls() const override;
-    Rerolls battleshockRerolls() const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~TreeRevenants() override = default;
 
-protected:
+        bool configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes);
 
-    bool m_gladeBanners = false;
-    bool m_waypipes = false;
+    protected:
 
-    // Martial memories - one reroll per phase.
-    mutable bool m_combatRerollAvailable = false;
-    mutable bool m_moveRerollAvailable = false;
-    mutable bool m_missileRerollAvailable = false;
-    mutable bool m_battleshockRerollAvailable = false;
+        void onBeginTurn(int battleRound) override;
 
-private:
+        Rerolls runRerolls() const override;
 
-    Weapon m_enchantedBlade,
-        m_enchantedBladeScion,
-        m_protectorGlaive;
+        Rerolls chargeRerolls() const override;
 
-    static bool s_registered;
-};
+        Rerolls battleshockRerolls() const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    protected:
+
+        bool m_gladeBanners = false;
+        bool m_waypipes = false;
+
+        // Martial memories - one reroll per phase.
+        mutable bool m_combatRerollAvailable = false;
+        mutable bool m_moveRerollAvailable = false;
+        mutable bool m_missileRerollAvailable = false;
+        mutable bool m_battleshockRerollAvailable = false;
+
+    private:
+
+        Weapon m_enchantedBlade,
+                m_enchantedBladeScion,
+                m_protectorGlaive;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

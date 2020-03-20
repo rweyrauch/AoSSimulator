@@ -10,73 +10,66 @@
 #include <iostream>
 #include "UnitFactory.h"
 
-namespace StormcastEternals
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 100;
+namespace StormcastEternals {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 100;
 
-bool KnightHeraldor::s_registered = false;
+    bool KnightHeraldor::s_registered = false;
 
-KnightHeraldor::KnightHeraldor() :
-    StormcastEternal("Knight-Heraldor", 5, WOUNDS, 8, 3, false),
-    m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1)
-{
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
-    m_weapons = {&m_broadsword};
-}
-
-bool KnightHeraldor::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_broadsword);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *KnightHeraldor::Create(const ParameterList &parameters)
-{
-    auto unit = new KnightHeraldor();
-
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    KnightHeraldor::KnightHeraldor() :
+            StormcastEternal("Knight-Heraldor", 5, WOUNDS, 8, 3, false),
+            m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1) {
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
+        m_weapons = {&m_broadsword};
     }
-    return unit;
-}
 
-void KnightHeraldor::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            StormcastEternal::ValueToString,
-            StormcastEternal::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
+    bool KnightHeraldor::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_broadsword);
+        addModel(model);
 
-        s_registered = UnitFactory::Register("Knight-Heraldor", factoryMethod);
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-int KnightHeraldor::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Unit *KnightHeraldor::Create(const ParameterList &parameters) {
+        auto unit = new KnightHeraldor();
+
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        unit->setStormhost(stormhost);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void KnightHeraldor::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
+
+            s_registered = UnitFactory::Register("Knight-Heraldor", factoryMethod);
+        }
+    }
+
+    int KnightHeraldor::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 
 } // namespace StormcastEternals

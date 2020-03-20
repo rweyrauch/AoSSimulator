@@ -12,39 +12,45 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class TuskgorChariots : public BeastsOfChaosBase
-{
-public:
+    class TuskgorChariots : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TuskgorChariots();
-    ~TuskgorChariots() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Rerolls chargeRerolls() const override;
+        static void Init();
 
-private:
+        TuskgorChariots();
 
-    Weapon m_despoilerAxe,
-        m_gnarledSpear,
-        m_tusksAndHooves;
+        ~TuskgorChariots() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels);
+
+    protected:
+
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls chargeRerolls() const override;
+
+    private:
+
+        Weapon m_despoilerAxe,
+                m_gnarledSpear,
+                m_tusksAndHooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

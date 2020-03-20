@@ -12,37 +12,42 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Ghorgon : public BeastsOfChaosBase
-{
-public:
+    class Ghorgon : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Ghorgon();
-    ~Ghorgon() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Ghorgon();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartCombat(PlayerId player) override;
+        ~Ghorgon() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_butcheringBlades,
-        m_hugeSlaveringMaw;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+    private:
+
+        Weapon m_butcheringBlades,
+                m_hugeSlaveringMaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

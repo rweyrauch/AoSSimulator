@@ -12,36 +12,39 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class DrakespawnChariots : public CitizenOfSigmar
-{
-public:
+    class DrakespawnChariots : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DrakespawnChariots();
-    ~DrakespawnChariots() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onCharged() override;
+        static void Init();
 
-private:
+        DrakespawnChariots();
 
-    Weapon m_crossbow,
-        m_spear,
-        m_jaws;
+        ~DrakespawnChariots() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels);
+
+    protected:
+
+        void onCharged() override;
+
+    private:
+
+        Weapon m_crossbow,
+                m_spear,
+                m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

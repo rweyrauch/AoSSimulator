@@ -12,47 +12,45 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class MasterMoulder : public Skaventide
-{
-public:
+    class MasterMoulder : public Skaventide {
+    public:
 
-    enum WeaponOption
-    {
-        Lash,
-        ThingsCatcher
+        enum WeaponOption {
+            Lash,
+            ThingsCatcher
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        MasterMoulder();
+
+        ~MasterMoulder() override;
+
+        bool configure(WeaponOption option);
+
+    protected:
+
+        void onStartHero(PlayerId player) override;
+
+        int crackTheWhip(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
+        int crackTheWhipBravery(const Unit *unit);
+
+    private:
+
+        Weapon m_lash,
+            m_catcher;
+
+        lsignal::slot m_whipSlot, m_whipBraverySlot;
+
+        static bool s_registered;
     };
-
-    static Unit *Create(const ParameterList &parameters);
-
-    static int ComputePoints(int numModels);
-
-    static void Init();
-
-    MasterMoulder();
-
-    ~MasterMoulder() override;
-
-    bool configure(WeaponOption option);
-
-protected:
-
-    void onStartHero(PlayerId player) override;
-
-    int crackTheWhip(const Unit* attacker, const Weapon* weapon, const Unit* target);
-    int crackTheWhipBravery(const Unit* unit);
-
-private:
-
-    Weapon m_lash,
-        m_catcher;
-
-    lsignal::slot m_whipSlot, m_whipBraverySlot;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

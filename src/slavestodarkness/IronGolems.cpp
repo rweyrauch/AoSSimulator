@@ -8,144 +8,128 @@
 #include <UnitFactory.h>
 #include "slavestodarkness/IronGolems.h"
 
-namespace SlavesToDarkness
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 8;
-static const int MAX_UNIT_SIZE = 32;
-static const int POINTS_PER_BLOCK = 70;
-static const int POINTS_MAX_UNIT_SIZE = 280;
+namespace SlavesToDarkness {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 8;
+    static const int MAX_UNIT_SIZE = 32;
+    static const int POINTS_PER_BLOCK = 70;
+    static const int POINTS_MAX_UNIT_SIZE = 280;
 
-bool IronGolems::s_registered = false;
+    bool IronGolems::s_registered = false;
 
-Unit *IronGolems::Create(const ParameterList &parameters)
-{
-    auto unit = new IronGolems();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+    Unit *IronGolems::Create(const ParameterList &parameters) {
+        auto unit = new IronGolems();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
-    unit->setDamnedLegion(legion);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        unit->setDamnedLegion(legion);
 
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void IronGolems::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            IronGolems::Create,
-            SlavesToDarknessBase::ValueToString,
-            SlavesToDarknessBase::EnumStringToInt,
-            IronGolems::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-            },
-            CHAOS,
-            { SLAVES_TO_DARKNESS }
-        };
-        s_registered = UnitFactory::Register("Iron Golems", factoryMethod);
-    }
-}
-
-IronGolems::IronGolems() :
-    SlavesToDarknessBase("Iron Golems", 5, WOUNDS, 6, 4, false),
-    m_bolas(Weapon::Type::Missile, "Bolas", 8, 1, 4, 4, 0, 1),
-    m_legionWeapons(Weapon::Type::Melee, "Legion Weapons", 1, 1, 4, 4, 0, 1),
-    m_legionWeaponsDominar(Weapon::Type::Melee, "Legion Weapons (Dominar)", 1, 2, 4, 4, 0, 1)
-{
-    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, IRON_GOLEMS};
-    m_weapons = {&m_bolas, &m_legionWeapons, &m_legionWeaponsDominar};
-}
-
-bool IronGolems::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    auto dominar = new Model(BASESIZE, wounds());
-    dominar->addMissileWeapon(&m_bolas);
-    dominar->addMeleeWeapon(&m_legionWeaponsDominar);
-    dominar->setName("Dominar");
-    addModel(dominar);
-
-    auto signifer = new Model(BASESIZE, wounds());
-    signifer->addMissileWeapon(&m_bolas);
-    signifer->addMeleeWeapon(&m_legionWeapons);
-    signifer->setName("Signifer");
-    addModel(signifer);
-
-    auto breacher = new Model(BASESIZE, 3);
-    breacher->addMissileWeapon(&m_bolas);
-    breacher->addMeleeWeapon(&m_legionWeapons);
-    breacher->setName("Ogor Breacher");
-    addModel(breacher);
-
-    for (auto i = 3; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMissileWeapon(&m_bolas);
-        model->addMeleeWeapon(&m_legionWeapons);
-        addModel(model);
-    }
-
-    m_points = ComputePoints(numModels);
-
-    return true;
-}
-
-int IronGolems::braveryModifier() const
-{
-    int modifier = Unit::braveryModifier();
-    if (m_hasSignifer)
-    {
-        modifier += 2;
-    }
-    return modifier;
-}
-
-void IronGolems::onWounded()
-{
-    Unit::onWounded();
-
-    // Check for Signifer
-    for (const auto& ip : m_models)
-    {
-        if (ip->slain() && (ip->getName() == "Signifer"))
-        {
-            m_hasSignifer = false;
-            break;
+    void IronGolems::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    IronGolems::Create,
+                    SlavesToDarknessBase::ValueToString,
+                    SlavesToDarknessBase::EnumStringToInt,
+                    IronGolems::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
+                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                    },
+                    CHAOS,
+                    {SLAVES_TO_DARKNESS}
+            };
+            s_registered = UnitFactory::Register("Iron Golems", factoryMethod);
         }
     }
 
-}
-
-int IronGolems::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    IronGolems::IronGolems() :
+            SlavesToDarknessBase("Iron Golems", 5, WOUNDS, 6, 4, false),
+            m_bolas(Weapon::Type::Missile, "Bolas", 8, 1, 4, 4, 0, 1),
+            m_legionWeapons(Weapon::Type::Melee, "Legion Weapons", 1, 1, 4, 4, 0, 1),
+            m_legionWeaponsDominar(Weapon::Type::Melee, "Legion Weapons (Dominar)", 1, 2, 4, 4, 0, 1) {
+        m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, IRON_GOLEMS};
+        m_weapons = {&m_bolas, &m_legionWeapons, &m_legionWeaponsDominar};
     }
-    return points;
-}
 
-Rerolls IronGolems::toSaveRerolls(const Weapon *weapon) const
-{
-    // Iron Resilience
-    if (!m_moved) return RerollFailed;
+    bool IronGolems::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    return Unit::toSaveRerolls(weapon);
-}
+        auto dominar = new Model(BASESIZE, wounds());
+        dominar->addMissileWeapon(&m_bolas);
+        dominar->addMeleeWeapon(&m_legionWeaponsDominar);
+        dominar->setName("Dominar");
+        addModel(dominar);
+
+        auto signifer = new Model(BASESIZE, wounds());
+        signifer->addMissileWeapon(&m_bolas);
+        signifer->addMeleeWeapon(&m_legionWeapons);
+        signifer->setName("Signifer");
+        addModel(signifer);
+
+        auto breacher = new Model(BASESIZE, 3);
+        breacher->addMissileWeapon(&m_bolas);
+        breacher->addMeleeWeapon(&m_legionWeapons);
+        breacher->setName("Ogor Breacher");
+        addModel(breacher);
+
+        for (auto i = 3; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMissileWeapon(&m_bolas);
+            model->addMeleeWeapon(&m_legionWeapons);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
+    }
+
+    int IronGolems::braveryModifier() const {
+        int modifier = Unit::braveryModifier();
+        if (m_hasSignifer) {
+            modifier += 2;
+        }
+        return modifier;
+    }
+
+    void IronGolems::onWounded() {
+        Unit::onWounded();
+
+        // Check for Signifer
+        for (const auto &ip : m_models) {
+            if (ip->slain() && (ip->getName() == "Signifer")) {
+                m_hasSignifer = false;
+                break;
+            }
+        }
+
+    }
+
+    int IronGolems::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
+
+    Rerolls IronGolems::toSaveRerolls(const Weapon *weapon) const {
+        // Iron Resilience
+        if (!m_moved) return RerollFailed;
+
+        return Unit::toSaveRerolls(weapon);
+    }
 
 } //SlavesToDarkness

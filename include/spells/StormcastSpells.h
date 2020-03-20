@@ -11,14 +11,22 @@
 
 #include <Spell.h>
 
-DamageSpell* CreatePrimeElectrids(Unit* caster);
-DamageSpell* CreateSpiritStorm(Unit* caster);
-LineOfEffectSpell* CreatePyroelectricBlast(Unit* caster);
-AreaOfEffectSpell* CreateLightningPulse(Unit* caster);
-AreaOfEffectSpell* CreateLightningOrb(Unit* caster);
-LineOfEffectSpell* CreateStormLance(Unit* caster);
-HealSpell* CreateHealingLight(Unit* caster);
-Spell* CreatePurifyingBlast(Unit* caster);
-Spell* CreateThunderclap(Unit* caster);
+DamageSpell *CreatePrimeElectrids(Unit *caster);
+
+DamageSpell *CreateSpiritStorm(Unit *caster);
+
+LineOfEffectSpell *CreatePyroelectricBlast(Unit *caster);
+
+AreaOfEffectSpell *CreateLightningPulse(Unit *caster);
+
+AreaOfEffectSpell *CreateLightningOrb(Unit *caster);
+
+LineOfEffectSpell *CreateStormLance(Unit *caster);
+
+HealSpell *CreateHealingLight(Unit *caster);
+
+Spell *CreatePurifyingBlast(Unit *caster);
+
+Spell *CreateThunderclap(Unit *caster);
 
 #endif //STORMCASTSPELLS_H

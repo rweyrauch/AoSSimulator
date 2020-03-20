@@ -12,39 +12,44 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class TheGlottkin : public NurgleBase
-{
-public:
+    class TheGlottkin : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TheGlottkin();
-    ~TheGlottkin() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TheGlottkin();
 
-    void onStartHero(PlayerId player) override;
-    void onWounded() override;
-    void onRestore() override;
-    void onCharged() override;
-    int getDamageTableIndex() const;
+        ~TheGlottkin() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_pestilentTorrent,
-        m_flailingTentacle,
-        m_lampreyMaw,
-        m_poisonScythe;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        void onCharged() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_pestilentTorrent,
+                m_flailingTentacle,
+                m_lampreyMaw,
+                m_poisonScythe;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

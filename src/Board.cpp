@@ -8,11 +8,13 @@
 
 #include <vector>
 #include <algorithm>
+
 #ifdef HAVE_CAIRO
 #include <cairommconfig.h>
 #include <cairomm/context.h>
 #include <cairomm/surface.h>
 #endif
+
 #include <Board.h>
 #include <Roster.h>
 #include "jps.hh"
@@ -21,48 +23,39 @@
 
 Board *Board::s_pInstance = nullptr;
 
-void Board::addObjective(Objective *objective)
-{
+void Board::addObjective(Objective *objective) {
     m_objectives.push_back(objective);
 }
 
-void Board::moveObjective(int id, float x, float y)
-{
-    auto matchId = [id](const Objective *obj) -> bool
-    {
+void Board::moveObjective(int id, float x, float y) {
+    auto matchId = [id](const Objective *obj) -> bool {
         return (obj->m_id == id);
     };
 
     auto obj = std::find_if(m_objectives.begin(), m_objectives.end(), matchId);
-    if (obj != m_objectives.end())
-    {
+    if (obj != m_objectives.end()) {
         (*obj)->m_pos.x = x;
         (*obj)->m_pos.y = y;
     }
 }
 
-void Board::addFeature(TerrainFeature *feature)
-{
+void Board::addFeature(TerrainFeature *feature) {
     m_features.push_back(feature);
 }
 
-void Board::addRosters(Roster *pRedRoster, Roster *pBlueRoster)
-{
+void Board::addRosters(Roster *pRedRoster, Roster *pBlueRoster) {
     m_rosters[(int) PlayerId::Red] = pRedRoster;
     m_rosters[(int) PlayerId::Blue] = pBlueRoster;
 }
 
-Board *Board::Instance()
-{
-    if (s_pInstance == nullptr)
-    {
+Board *Board::Instance() {
+    if (s_pInstance == nullptr) {
         s_pInstance = new Board();
     }
     return s_pInstance;
 }
 
-void Board::render(const std::string &filename) const
-{
+void Board::render(const std::string &filename) const {
 #ifdef HAVE_CAIRO
     // use cairomm to create a raster image of the current board state
     int imageW = (int) (m_width * 10.0f); // tenth's of inches
@@ -189,55 +182,39 @@ void Board::render(const std::string &filename) const
 #endif
 }
 
-std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, float distance)
-{
+std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, float distance) {
     std::vector<Unit *> units;
-    if (which == PlayerId::None)
-    {
-        if (m_rosters[0] != nullptr)
-        {
-            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
-            {
-                if (*ip == unit)
-                {
+    if (which == PlayerId::None) {
+        if (m_rosters[0] != nullptr) {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
+                if (*ip == unit) {
                     continue;
                 }
                 float dist = unit->distanceTo(*ip);
-                if (dist <= distance)
-                {
+                if (dist <= distance) {
                     units.push_back(*ip);
                 }
             }
         }
-        if (m_rosters[1] != nullptr)
-        {
-            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
-            {
-                if (*ip == unit)
-                {
+        if (m_rosters[1] != nullptr) {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
+                if (*ip == unit) {
                     continue;
                 }
                 float dist = unit->distanceTo(*ip);
-                if (dist <= distance)
-                {
+                if (dist <= distance) {
                     units.push_back(*ip);
                 }
             }
         }
-    }
-    else
-    {
-        if (m_rosters[(int) which] != nullptr)
-        {
-            for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip)
-            {
-                if (*ip == unit)
-                {
+    } else {
+        if (m_rosters[(int) which] != nullptr) {
+            for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
+                if (*ip == unit) {
                     continue;
                 }
                 float dist = unit->distanceTo(*ip);
-                if (dist <= distance)
-                {
+                if (dist <= distance) {
                     units.push_back(*ip);
                 }
             }
@@ -246,44 +223,33 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
     return units;
 }
 
-Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer)
-{
-    if (unit == nullptr)
-    {
+Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer) {
+    if (unit == nullptr) {
         return nullptr;
     }
     Unit *nearestUnit = nullptr;
 
-    if (fromPlayer == PlayerId::None)
-    {
+    if (fromPlayer == PlayerId::None) {
         Unit *nearestRedUnit = m_rosters[0]->nearestUnit(unit);
         Unit *nearestBlueUnit = m_rosters[1]->nearestUnit(unit);
         auto dtoRed = unit->distanceTo(nearestRedUnit);
         auto dtoBlue = unit->distanceTo(nearestBlueUnit);
-        if (dtoRed < dtoBlue)
-        {
+        if (dtoRed < dtoBlue) {
             nearestUnit = nearestRedUnit;
-        }
-        else
-        {
+        } else {
             nearestUnit = nearestBlueUnit;
         }
-    }
-    else
-    {
+    } else {
         nearestUnit = m_rosters[(int) fromPlayer]->nearestUnit(unit);
     }
     return nearestUnit;
 }
 
-Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance)
-{
+Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance) {
     auto units = getUnitsWithin(unit, fromPlayer, distance);
 
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(keyword))
-        {
+    for (auto ip : units) {
+        if (ip->hasKeyword(keyword)) {
             return ip;
         }
     }
@@ -291,15 +257,11 @@ Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword k
     return nullptr;
 }
 
-bool Board::unbindAttempt(const Unit* caster, int castingRoll)
-{
-    int targetId = (int)GetEnemyId(caster->owningPlayer());
-    if (m_rosters[targetId])
-    {
-        for (auto ip = m_rosters[targetId]->unitBegin(); ip != m_rosters[targetId]->unitEnd(); ++ip)
-        {
-            if ((*ip)->unbind(caster, castingRoll))
-            {
+bool Board::unbindAttempt(const Unit *caster, int castingRoll) {
+    int targetId = (int) GetEnemyId(caster->owningPlayer());
+    if (m_rosters[targetId]) {
+        for (auto ip = m_rosters[targetId]->unitBegin(); ip != m_rosters[targetId]->unitEnd(); ++ip) {
+            if ((*ip)->unbind(caster, castingRoll)) {
                 return true;
             }
         }
@@ -308,43 +270,31 @@ bool Board::unbindAttempt(const Unit* caster, int castingRoll)
     return false;
 }
 
-std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId fromPlayer)
-{
-    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth/2.0f);
-    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width/2.0f);
+std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId fromPlayer) {
+    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth / 2.0f);
+    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width / 2.0f);
 
     std::vector<Unit *> units;
-    if (fromPlayer == PlayerId::None)
-    {
-        if (m_rosters[0] != nullptr)
-        {
-            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
-            {
-                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
-                {
+    if (fromPlayer == PlayerId::None) {
+        if (m_rosters[0] != nullptr) {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
+                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position())) {
                     units.push_back(*ip);
                 }
             }
         }
-        if (m_rosters[1] != nullptr)
-        {
-            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
-            {
-                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
-                {
+        if (m_rosters[1] != nullptr) {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
+                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position())) {
                     units.push_back(*ip);
                 }
             }
         }
-    }
-    else
-    {
-        if (m_rosters[(int) fromPlayer] != nullptr)
-        {
-            for (auto ip = m_rosters[(int) fromPlayer]->unitBegin(); ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip)
-            {
-                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position()))
-                {
+    } else {
+        if (m_rosters[(int) fromPlayer] != nullptr) {
+            for (auto ip = m_rosters[(int) fromPlayer]->unitBegin();
+                 ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip) {
+                if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position())) {
                     units.push_back(*ip);
                 }
             }
@@ -353,32 +303,23 @@ std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId from
     return units;
 }
 
-std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer)
-{
+std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer) {
     std::vector<Unit *> units;
-    if (fromPlayer == PlayerId::None)
-    {
-        if (m_rosters[0] != nullptr)
-        {
-            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
-            {
+    if (fromPlayer == PlayerId::None) {
+        if (m_rosters[0] != nullptr) {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
                 units.push_back(*ip);
             }
         }
-        if (m_rosters[1] != nullptr)
-        {
-            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
-            {
+        if (m_rosters[1] != nullptr) {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
                 units.push_back(*ip);
             }
         }
-    }
-    else
-    {
-        if (m_rosters[(int) fromPlayer] != nullptr)
-        {
-            for (auto ip = m_rosters[(int) fromPlayer]->unitBegin(); ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip)
-            {
+    } else {
+        if (m_rosters[(int) fromPlayer] != nullptr) {
+            for (auto ip = m_rosters[(int) fromPlayer]->unitBegin();
+                 ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip) {
                 units.push_back(*ip);
             }
         }
@@ -386,10 +327,9 @@ std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer)
     return units;
 }
 
-bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest, const Math::Point3 &position) const
-{
-    switch (quadrant)
-    {
+bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest,
+                       const Math::Point3 &position) const {
+    switch (quadrant) {
         case Northwest:
             if (northSouth.contains(position) && !eastWest.contains(position))
                 return true;
@@ -410,55 +350,40 @@ bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, 
     return false;
 }
 
-bool Board::isUnitWithin(Quadrant quadrant, const Unit* unit) const
-{
-    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth/2.0f);
-    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width/2.0f);
+bool Board::isUnitWithin(Quadrant quadrant, const Unit *unit) const {
+    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth / 2.0f);
+    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width / 2.0f);
 
-    if (unit)
-    {
+    if (unit) {
         return inQuadrant(quadrant, northSouth, eastWest, unit->position());
     }
     return false;
 }
 
-std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId which, float distance)
-{
+std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId which, float distance) {
     std::vector<Unit *> units;
-    if (which == PlayerId::None)
-    {
-        if (m_rosters[0] != nullptr)
-        {
-            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip)
-            {
+    if (which == PlayerId::None) {
+        if (m_rosters[0] != nullptr) {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
                 float dist = point.distance((*ip)->position());
-                if (dist <= distance)
-                {
+                if (dist <= distance) {
                     units.push_back(*ip);
                 }
             }
         }
-        if (m_rosters[1] != nullptr)
-        {
-            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip)
-            {
+        if (m_rosters[1] != nullptr) {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
                 float dist = point.distance((*ip)->position());
-                if (dist <= distance)
-                {
+                if (dist <= distance) {
                     units.push_back(*ip);
                 }
             }
         }
-    }
-    else
-    {
-        if (m_rosters[(int) which] != nullptr)
-        {
-            for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip)
-            {
+    } else {
+        if (m_rosters[(int) which] != nullptr) {
+            for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
                 float dist = point.distance((*ip)->position());
-                if (dist <= distance)
-                {
+                if (dist <= distance) {
                     units.push_back(*ip);
                 }
             }
@@ -467,10 +392,8 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
     return units;
 }
 
-bool Board::isVisible(const Unit *from, const Unit *target)
-{
-    if ((from == nullptr) || (target == nullptr))
-    {
+bool Board::isVisible(const Unit *from, const Unit *target) {
+    if ((from == nullptr) || (target == nullptr)) {
         return false;
     }
 
@@ -479,36 +402,29 @@ bool Board::isVisible(const Unit *from, const Unit *target)
     return true;
 }
 
-bool Board::castRay(const Math::Ray &ray, Math::RayHit &result) const
-{
+bool Board::castRay(const Math::Ray &ray, Math::RayHit &result) const {
     result.m_t = 0.0f;
     return false;
 }
 
-bool Board::castRay(const Math::Ray2 &ray, Math::RayHit &result) const
-{
+bool Board::castRay(const Math::Ray2 &ray, Math::RayHit &result) const {
     result.m_t = 0.0f;
     return false;
 }
 
-bool Board::moveModel(Model &model, const Math::Point3& toPoint) const
-{
+bool Board::moveModel(Model &model, const Math::Point3 &toPoint) const {
     return false;
 }
 
-const Objective *Board::getNearestObjective(const Unit *unit)
-{
-    if (unit == nullptr || m_objectives.empty())
-    {
+const Objective *Board::getNearestObjective(const Unit *unit) {
+    if (unit == nullptr || m_objectives.empty()) {
         return nullptr;
     }
     Objective *nearestObjective = m_objectives.front();
     float minDistance = FLT_MAX;
-    for (auto o : m_objectives)
-    {
+    for (auto o : m_objectives) {
         float dist = unit->distanceTo(o->m_pos);
-        if (dist < minDistance)
-        {
+        if (dist < minDistance) {
             minDistance = dist;
             nearestObjective = o;
         }

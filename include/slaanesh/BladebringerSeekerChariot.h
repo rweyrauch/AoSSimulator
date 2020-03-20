@@ -12,34 +12,35 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class BladebringerOnSeekerChariot : public SlaaneshBase
-{
-public:
+    class BladebringerOnSeekerChariot : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BladebringerOnSeekerChariot();
-    ~BladebringerOnSeekerChariot() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BladebringerOnSeekerChariot();
 
-    void onCharged() override;
+        ~BladebringerOnSeekerChariot() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_flensingWhips,
-        m_piercingClaws,
-        m_poisonedTongues;
+    protected:
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+    private:
+
+        Weapon m_flensingWhips,
+                m_piercingClaws,
+                m_poisonedTongues;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

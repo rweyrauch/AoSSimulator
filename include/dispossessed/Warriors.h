@@ -12,60 +12,66 @@
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-class Warriors : public Dispossessed
-{
-public:
+    class Warriors : public Dispossessed {
+    public:
 
-    enum WeaponOptions
-    {
-        DuardinAxeOrHammer,
-        DoubleHandedDuardinAxe
+        enum WeaponOptions {
+            DuardinAxeOrHammer,
+            DoubleHandedDuardinAxe
+        };
+
+        enum StandardOptions {
+            None,
+            RunicIcon,
+            ClanBanner
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Warriors();
+
+        ~Warriors() override = default;
+
+        bool configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard,
+                       bool hornblowers);
+
+    protected:
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        int rollRunDistance() const override;
+
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
+
+    private:
+
+        bool m_duardinShields = false;
+        StandardOptions m_standard = None;
+        bool m_hornblowers = false;
+
+        bool m_opponentsCombat = false;
+
+        Weapon m_duardinAxeOrHammer,
+                m_duardinAxeOrHammerVeteran,
+                m_doubleHandedAxe,
+                m_doubleHandedAxeVeteran;
+
+        static bool s_registered;
     };
-
-    enum StandardOptions
-    {
-        None,
-        RunicIcon,
-        ClanBanner
-    };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Warriors();
-    ~Warriors() override = default;
-
-    bool configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard, bool hornblowers);
-
-protected:
-
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-    void onStartCombat(PlayerId player) override;
-    int rollRunDistance() const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-
-private:
-
-    bool m_duardinShields = false;
-    StandardOptions m_standard = None;
-    bool m_hornblowers = false;
-
-    bool m_opponentsCombat = false;
-
-    Weapon m_duardinAxeOrHammer,
-        m_duardinAxeOrHammerVeteran,
-        m_doubleHandedAxe,
-        m_doubleHandedAxeVeteran;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

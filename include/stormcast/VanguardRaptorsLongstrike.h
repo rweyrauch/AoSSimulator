@@ -12,35 +12,37 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class VanguardRaptorsLongstrike : public StormcastEternal
-{
-public:
+    class VanguardRaptorsLongstrike : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    VanguardRaptorsLongstrike();
-    ~VanguardRaptorsLongstrike() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        VanguardRaptorsLongstrike();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartShooting(PlayerId player) override;
+        ~VanguardRaptorsLongstrike() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_longstikeCrossbow,
-                  m_heavyStock,
-                  m_beakAndClaws;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_longstikeCrossbow,
+            m_heavyStock,
+            m_beakAndClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

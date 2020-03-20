@@ -12,143 +12,119 @@
 #include <Roster.h>
 #include <iostream>
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 110;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 110;
 
-bool LoonbossOnGiantCaveSquig::s_registered = false;
+    bool LoonbossOnGiantCaveSquig::s_registered = false;
 
-LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
-    GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, WOUNDS, 6, 4, true),
-    m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
-    m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
-    m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1)
-{
-    m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
-    m_weapons = {&m_massiveFangFilledGob, &m_moonCutta, &m_moonclanStabba};
-}
-
-bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon)
-{
-    auto model = new Model(BASESIZE, wounds());
-
-    model->addMeleeWeapon(&m_massiveFangFilledGob);
-    if (weapon == Mooncutta)
-    {
-        model->addMeleeWeapon(&m_moonCutta);
+    LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
+            GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, WOUNDS, 6, 4, true),
+            m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
+            m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
+            m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1) {
+        m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
+        m_weapons = {&m_massiveFangFilledGob, &m_moonCutta, &m_moonclanStabba};
     }
-    else if (weapon == MoonclanStabba)
-    {
-        model->addMeleeWeapon(&m_moonclanStabba);
+
+    bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon) {
+        auto model = new Model(BASESIZE, wounds());
+
+        model->addMeleeWeapon(&m_massiveFangFilledGob);
+        if (weapon == Mooncutta) {
+            model->addMeleeWeapon(&m_moonCutta);
+        } else if (weapon == MoonclanStabba) {
+            model->addMeleeWeapon(&m_moonclanStabba);
+        }
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-    addModel(model);
 
-    m_points = POINTS_PER_UNIT;
+    Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters) {
+        auto unit = new LoonbossOnGiantCaveSquig();
+        WeaponOptions weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
 
-    return true;
-}
-
-Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters)
-{
-    auto unit = new LoonbossOnGiantCaveSquig();
-    WeaponOptions weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
-
-    bool ok = unit->configure(weapon);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(weapon);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter& parameter)
-{
-    if (std::string(parameter.name) == "weapons")
-    {
-        if (parameter.intValue == Mooncutta) { return "Mooncutta"; }
-        else if (parameter.intValue == MoonclanStabba) { return "MoonclanStabba"; }
+    std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "weapons") {
+            if (parameter.intValue == Mooncutta) { return "Mooncutta"; }
+            else if (parameter.intValue == MoonclanStabba) { return "MoonclanStabba"; }
+        }
+        return ParameterValueToString(parameter);
     }
-    return ParameterValueToString(parameter);
-}
 
-int LoonbossOnGiantCaveSquig::EnumStringToInt(const std::string& enumString)
-{
-    if (enumString == "Mooncutta")
-    {
-        return Mooncutta;
+    int LoonbossOnGiantCaveSquig::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Mooncutta") {
+            return Mooncutta;
+        } else if (enumString == "MoonclanStabba") {
+            return MoonclanStabba;
+        }
+        return 0;
     }
-    else if (enumString == "MoonclanStabba")
-    {
-        return MoonclanStabba;
+
+    void LoonbossOnGiantCaveSquig::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    LoonbossOnGiantCaveSquig::Create,
+                    LoonbossOnGiantCaveSquig::ValueToString,
+                    LoonbossOnGiantCaveSquig::EnumStringToInt,
+                    LoonbossOnGiantCaveSquig::ComputePoints,
+                    {
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
+            s_registered = UnitFactory::Register("Loonboss on Giant Cave Squig", factoryMethod);
+        }
     }
-    return 0;
-}
 
-void LoonbossOnGiantCaveSquig::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            LoonbossOnGiantCaveSquig::Create,
-            LoonbossOnGiantCaveSquig::ValueToString,
-            LoonbossOnGiantCaveSquig::EnumStringToInt,
-            LoonbossOnGiantCaveSquig::ComputePoints,
-            {
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
-        s_registered = UnitFactory::Register("Loonboss on Giant Cave Squig", factoryMethod);
-    }
-}
+    void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player) {
+        if (player == owningPlayer()) {
+            // Redcap Mushrooms
+            m_toHitRerolls = NoRerolls;
+            m_toWoundRerolls = NoRerolls;
 
-void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player)
-{
-    if (player == owningPlayer())
-    {
-        // Redcap Mushrooms
-        m_toHitRerolls = NoRerolls;
-        m_toWoundRerolls = NoRerolls;
-
-        if (!m_eatenRedcapMushroom)
-        {
-            if (m_meleeTarget)
-            {
-                std::cout << "Eating the Redcap Mushroom!" << std::endl;
-                m_eatenRedcapMushroom = true;
-                m_toHitRerolls = RerollFailed;
-                m_toWoundRerolls = RerollFailed;
+            if (!m_eatenRedcapMushroom) {
+                if (m_meleeTarget) {
+                    std::cout << "Eating the Redcap Mushroom!" << std::endl;
+                    m_eatenRedcapMushroom = true;
+                    m_toHitRerolls = RerollFailed;
+                    m_toWoundRerolls = RerollFailed;
+                }
             }
         }
     }
-}
 
-int LoonbossOnGiantCaveSquig::toHitModifier(const Weapon *weapon, const Unit *unit) const
-{
-    return GloomspiteGitzBase::toHitModifier(weapon, unit);
-}
+    int LoonbossOnGiantCaveSquig::toHitModifier(const Weapon *weapon, const Unit *unit) const {
+        return GloomspiteGitzBase::toHitModifier(weapon, unit);
+    }
 
-Rerolls LoonbossOnGiantCaveSquig::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
-        return m_toHitRerolls;
-    return GloomspiteGitzBase::toHitRerolls(weapon, target);
-}
+    Rerolls LoonbossOnGiantCaveSquig::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
+            return m_toHitRerolls;
+        return GloomspiteGitzBase::toHitRerolls(weapon, target);
+    }
 
-Rerolls LoonbossOnGiantCaveSquig::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
-        return m_toWoundRerolls;
-    return GloomspiteGitzBase::toWoundRerolls(weapon, target);
-}
+    Rerolls LoonbossOnGiantCaveSquig::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
+            return m_toWoundRerolls;
+        return GloomspiteGitzBase::toWoundRerolls(weapon, target);
+    }
 
-int LoonbossOnGiantCaveSquig::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int LoonbossOnGiantCaveSquig::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace GloomspiteGitz
 

@@ -9,183 +9,157 @@
 #include <beastsofchaos/Bullgors.h>
 #include <UnitFactory.h>
 
-namespace BeastsOfChaos
-{
-static const int BASESIZE = 50;
-static const int WOUNDS = 4;
-static const int MIN_UNIT_SIZE = 3;
-static const int MAX_UNIT_SIZE = 12;
-static const int POINTS_PER_BLOCK = 140;
-static const int POINTS_MAX_UNIT_SIZE = 140*4;
+namespace BeastsOfChaos {
+    static const int BASESIZE = 50;
+    static const int WOUNDS = 4;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 140;
+    static const int POINTS_MAX_UNIT_SIZE = 140 * 4;
 
-bool Bullgors::s_registered = false;
+    bool Bullgors::s_registered = false;
 
-Bullgors::Bullgors() :
-    BeastsOfChaosBase("Bullgors", 7, WOUNDS, 6, 5, false),
-    m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
-    m_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2),
-    m_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe", 1, 4, 4, 3, -1, 2),
-    m_bullgorGreatAxe(Weapon::Type::Melee, "Bullgor Great Axe", 1, 2, 4, 3, -2, 3),
-    m_bullgorGreatAxeBloodkine(Weapon::Type::Melee, "Bullgor Great Axe", 1, 3, 4, 3, -2, 3)
-{
-    m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
-    m_weapons = { &m_bullgorHorns, &m_bullgorAxe, &m_bullgorAxeBloodkine, &m_bullgorGreatAxe, &m_bullgorGreatAxeBloodkine };
-}
-
-bool Bullgors::configure(int numModels, WeaponOptions options,
-                         bool drummer, bool bannerBearer)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    Bullgors::Bullgors() :
+            BeastsOfChaosBase("Bullgors", 7, WOUNDS, 6, 5, false),
+            m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
+            m_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2),
+            m_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe", 1, 4, 4, 3, -1, 2),
+            m_bullgorGreatAxe(Weapon::Type::Melee, "Bullgor Great Axe", 1, 2, 4, 3, -2, 3),
+            m_bullgorGreatAxeBloodkine(Weapon::Type::Melee, "Bullgor Great Axe", 1, 3, 4, 3, -2, 3) {
+        m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
+        m_weapons = {&m_bullgorHorns, &m_bullgorAxe, &m_bullgorAxeBloodkine, &m_bullgorGreatAxe,
+                     &m_bullgorGreatAxeBloodkine};
     }
 
-    m_drummer = drummer;
-    m_bannerBearer = bannerBearer;
-    m_pairedAxes = (options == PairedBullgorAxes);
-
-    auto bloodkine = new Model(BASESIZE, wounds());
-    bloodkine->addMeleeWeapon(&m_bullgorHorns);
-    if (options == BullgorAxe || options == PairedBullgorAxes)
-    {
-        bloodkine->addMeleeWeapon(&m_bullgorAxeBloodkine);
-    }
-    else if (options == BullgorGreatAxe)
-    {
-        bloodkine->addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
-    }
-    addModel(bloodkine);
-
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_bullgorHorns);
-        if (options == BullgorAxe || options == PairedBullgorAxes)
-        {
-            model->addMeleeWeapon(&m_bullgorAxe);
+    bool Bullgors::configure(int numModels, WeaponOptions options,
+                             bool drummer, bool bannerBearer) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
         }
-        else if (options == BullgorGreatAxe)
-        {
-            model->addMeleeWeapon(&m_bullgorGreatAxe);
+
+        m_drummer = drummer;
+        m_bannerBearer = bannerBearer;
+        m_pairedAxes = (options == PairedBullgorAxes);
+
+        auto bloodkine = new Model(BASESIZE, wounds());
+        bloodkine->addMeleeWeapon(&m_bullgorHorns);
+        if (options == BullgorAxe || options == PairedBullgorAxes) {
+            bloodkine->addMeleeWeapon(&m_bullgorAxeBloodkine);
+        } else if (options == BullgorGreatAxe) {
+            bloodkine->addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
         }
-        addModel(model);
+        addModel(bloodkine);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_bullgorHorns);
+            if (options == BullgorAxe || options == PairedBullgorAxes) {
+                model->addMeleeWeapon(&m_bullgorAxe);
+            } else if (options == BullgorGreatAxe) {
+                model->addMeleeWeapon(&m_bullgorGreatAxe);
+            }
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *Bullgors::Create(const ParameterList &parameters) {
+        auto unit = new Bullgors();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, BullgorAxe);
+        bool drummer = GetBoolParam("Drummer", parameters, false);
+        bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
-    return true;
-}
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        unit->setGreatfray(fray);
 
-Unit *Bullgors::Create(const ParameterList &parameters)
-{
-    auto unit = new Bullgors();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, BullgorAxe);
-    bool drummer = GetBoolParam("Drummer", parameters, false);
-    bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-
-    auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
-    unit->setGreatfray(fray);
-
-    bool ok = unit->configure(numModels, weapon, drummer, bannerBearer);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels, weapon, drummer, bannerBearer);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void Bullgors::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Weapons", BullgorAxe, BullgorAxe, BullgorGreatAxe, 1},
-                {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None, BeastsOfChaosBase::Gavespawn, 1},
-            },
-            CHAOS,
-            { BEASTS_OF_CHAOS }
-        };
+    void Bullgors::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Weapons", BullgorAxe, BullgorAxe, BullgorGreatAxe, 1},
+                            {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
+                             BeastsOfChaosBase::Gavespawn, 1},
+                    },
+                    CHAOS,
+                    {BEASTS_OF_CHAOS}
+            };
 
-        s_registered = UnitFactory::Register("Bullgors", factoryMethod);
+            s_registered = UnitFactory::Register("Bullgors", factoryMethod);
+        }
     }
-}
 
-std::string Bullgors::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Weapons")
-    {
-        if (parameter.intValue == BullgorAxe) { return "Bullgor Axe"; }
-        else if (parameter.intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
-        else if (parameter.intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
+    std::string Bullgors::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapons") {
+            if (parameter.intValue == BullgorAxe) { return "Bullgor Axe"; }
+            else if (parameter.intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
+            else if (parameter.intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
+        }
+        return BeastsOfChaosBase::ValueToString(parameter);
     }
-    return BeastsOfChaosBase::ValueToString(parameter);
-}
 
-int Bullgors::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Bullgor Axe") { return BullgorAxe; }
-    else if (enumString == "Paired Bullgor Axes") { return PairedBullgorAxes; }
-    else if (enumString == "Bullgor Great Axe") { return BullgorGreatAxe; }
-    return BeastsOfChaosBase::EnumStringToInt(enumString);
-}
-
-int Bullgors::chargeModifier() const
-{
-    int modifier = Unit::chargeModifier();
-    if (m_drummer)
-    {
-        modifier += 1;
+    int Bullgors::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Bullgor Axe") { return BullgorAxe; }
+        else if (enumString == "Paired Bullgor Axes") { return PairedBullgorAxes; }
+        else if (enumString == "Bullgor Great Axe") { return BullgorGreatAxe; }
+        return BeastsOfChaosBase::EnumStringToInt(enumString);
     }
-    return modifier;
-}
 
-Rerolls Bullgors::toHitRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    if (m_pairedAxes)
-    {
-        return RerollOnes;
+    int Bullgors::chargeModifier() const {
+        int modifier = Unit::chargeModifier();
+        if (m_drummer) {
+            modifier += 1;
+        }
+        return modifier;
     }
-    return Unit::toHitRerolls(weapon, unit);
-}
 
-int Bullgors::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = Unit::toSaveModifier(weapon);
-    if (!m_pairedAxes)
-    {
-        modifier += 1;
+    Rerolls Bullgors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
+        if (m_pairedAxes) {
+            return RerollOnes;
+        }
+        return Unit::toHitRerolls(weapon, unit);
     }
-    return modifier;
-}
 
-Wounds Bullgors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Bloodgreed
-    if (woundRoll == 6)
-    {
-        return {weapon->damage(), 1};
+    int Bullgors::toSaveModifier(const Weapon *weapon) const {
+        int modifier = Unit::toSaveModifier(weapon);
+        if (!m_pairedAxes) {
+            modifier += 1;
+        }
+        return modifier;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int Bullgors::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    Wounds Bullgors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Bloodgreed
+        if (woundRoll == 6) {
+            return {weapon->damage(), 1};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
-    return points;
-}
+
+    int Bullgors::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace BeastsOfChaos

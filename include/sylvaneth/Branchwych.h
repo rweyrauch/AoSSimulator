@@ -12,34 +12,36 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class Branchwych : public SylvanethBase
-{
-public:
+    class Branchwych : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Branchwych();
-    ~Branchwych() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Branchwych();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        ~Branchwych() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_greenwoodScythe,
-        m_bittergrubsMandibles;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_greenwoodScythe,
+                m_bittergrubsMandibles;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

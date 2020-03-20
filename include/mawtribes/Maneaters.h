@@ -12,47 +12,50 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Maneaters : public MawtribesBase
-{
-public:
+    class Maneaters : public MawtribesBase {
+    public:
 
-    enum Ability
-    {
-        Brawlers,
-        CrackShots,
-        Striders,
-        Stubborn
+        enum Ability {
+            Brawlers,
+            CrackShots,
+            Striders,
+            Stubborn
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Maneaters();
+
+        ~Maneaters() override = default;
+
+        bool configure(int numModels, Ability ability);
+
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        bool battleshockRequired() const override;
+
+    private:
+
+        Ability m_ability = Brawlers;
+
+        Weapon m_pistolsOrStars,
+                m_bashers,
+                m_bite;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Maneaters();
-    ~Maneaters() override = default;
-
-    bool configure(int numModels, Ability ability);
-
-protected:
-
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    bool battleshockRequired() const override;
-
-private:
-
-    Ability m_ability = Brawlers;
-
-    Weapon m_pistolsOrStars,
-        m_bashers,
-        m_bite;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

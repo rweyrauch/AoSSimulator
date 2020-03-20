@@ -12,50 +12,59 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class SteamTank : public CitizenOfSigmar
-{
-public:
+    class SteamTank : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SteamTank();
-    ~SteamTank() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(bool commander);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    void onCharged() override;
-    void onStartHero(PlayerId player) override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int moveModifier() const override;
+        static void Init();
 
-private:
+        SteamTank();
 
-    int getDamageTableIndex() const;
+        ~SteamTank() override = default;
 
-    Weapon m_steamCannon,
-        m_steamGun,
-        m_longRifle,
-        m_handgun,
-        m_crushingWheels,
-        m_sword;
+        bool configure(bool commander);
 
-    bool m_commander = false;
-    bool m_overpressured = false;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        void onCharged() override;
+
+        void onStartHero(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int moveModifier() const override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_steamCannon,
+                m_steamGun,
+                m_longRifle,
+                m_handgun,
+                m_crushingWheels,
+                m_sword;
+
+        bool m_commander = false;
+        bool m_overpressured = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

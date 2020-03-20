@@ -12,45 +12,50 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class LuminarkOfHysh : public CitizenOfSigmar
-{
-public:
+    class LuminarkOfHysh : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LuminarkOfHysh();
-    ~LuminarkOfHysh() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(bool battlemage);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
-    int castingModifier() const override;
+        static void Init();
 
-    int locusOfHysh(const Unit* caster);
+        LuminarkOfHysh();
 
-private:
+        ~LuminarkOfHysh() override;
 
-    int getDamageTableIndex() const;
+        bool configure(bool battlemage);
 
-    Weapon m_beamOfLight,
-        m_wizardsStaff,
-        m_arcaneTools,
-        m_hooves;
+    protected:
 
-    lsignal::slot m_locusSlot;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        int castingModifier() const override;
+
+        int locusOfHysh(const Unit *caster);
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_beamOfLight,
+            m_wizardsStaff,
+            m_arcaneTools,
+            m_hooves;
+
+        lsignal::slot m_locusSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

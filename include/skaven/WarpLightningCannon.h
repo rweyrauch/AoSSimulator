@@ -12,33 +12,34 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class WarpLightningCannon : public Skaventide
-{
-public:
+    class WarpLightningCannon : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WarpLightningCannon();
-    ~WarpLightningCannon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        WarpLightningCannon();
 
-    int generateMortalWounds(const Unit *unit) override;
+        ~WarpLightningCannon() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_warpLightningBlast,
-        m_teethAndKnives;
+    protected:
 
-    static bool s_registered;
-};
+        int generateMortalWounds(const Unit *unit) override;
+
+    private:
+
+        Weapon m_warpLightningBlast,
+                m_teethAndKnives;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

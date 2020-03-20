@@ -12,37 +12,40 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class SkitterstrandArachnarok : public GloomspiteGitzBase
-{
-public:
+    class SkitterstrandArachnarok : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SkitterstrandArachnarok();
-    ~SkitterstrandArachnarok() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SkitterstrandArachnarok();
 
-    void onWounded() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~SkitterstrandArachnarok() override = default;
 
-private:
+        bool configure();
 
-    int getDamageTableIndex() const;
+    protected:
 
-    Weapon m_chitinousLegs,
-        m_monstrousFangs;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_chitinousLegs,
+                m_monstrousFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

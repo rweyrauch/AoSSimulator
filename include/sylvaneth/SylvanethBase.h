@@ -12,49 +12,52 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class SylvanethBase : public Unit
-{
-public:
+    class SylvanethBase : public Unit {
+    public:
 
-    enum Glade
-    {
-        None = 0,
-        Oakenbrow,
-        Gnarlroot,
-        Heartwood,
-        Ironbark,
-        Winterleaf,
-        Dreadwood,
-        Harvestboon
+        enum Glade {
+            None = 0,
+            Oakenbrow,
+            Gnarlroot,
+            Heartwood,
+            Ironbark,
+            Winterleaf,
+            Dreadwood,
+            Harvestboon
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        SylvanethBase() = default;
+
+        ~SylvanethBase() override = default;
+
+        void setGlade(Glade glade);
+
+    protected:
+        SylvanethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls battleshockRerolls() const override;
+
+        int braveryModifier() const override;
+
+    protected:
+
+        Glade m_glade = None;
     };
 
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    SylvanethBase() = default;
-    ~SylvanethBase() override = default;
-
-    void setGlade(Glade glade);
-
-protected:
-    SylvanethBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    Rerolls battleshockRerolls() const override;
-    int braveryModifier() const override;
-
-protected:
-
-    Glade m_glade = None;
-};
-
-void Init();
+    void Init();
 
 } // namespace Sylvaneth
 

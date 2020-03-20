@@ -11,125 +11,110 @@
 #include <iostream>
 #include <Board.h>
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 160;
-static const int WOUNDS = 14;
-static const int POINTS_PER_UNIT = 200;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 160;
+    static const int WOUNDS = 14;
+    static const int POINTS_PER_UNIT = 200;
 
-bool SkitterstrandArachnarok::s_registered = false;
+    bool SkitterstrandArachnarok::s_registered = false;
 
-struct TableEntry
-{
-    int m_move;
-    int m_legsAttacks;
-    int m_fangsToHit;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {8, 8, 2},
-        {7, 7, 3},
-        {6, 6, 3},
-        {5, 5, 4},
-        {4, 4, 4}
+    struct TableEntry {
+        int m_move;
+        int m_legsAttacks;
+        int m_fangsToHit;
     };
 
-SkitterstrandArachnarok::SkitterstrandArachnarok() :
-    GloomspiteGitzBase("Skitterstrand Arachnarok", 8, WOUNDS, 6, 4, true),
-    m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
-    m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3)
-{
-    m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
-    m_weapons = {&m_chitinousLegs, &m_monstrousFangs};
-}
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {8, 8, 2},
+                    {7, 7, 3},
+                    {6, 6, 3},
+                    {5, 5, 4},
+                    {4, 4, 4}
+            };
 
-bool SkitterstrandArachnarok::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_chitinousLegs);
-    model->addMeleeWeapon(&m_monstrousFangs);
-    addModel(model);
+    SkitterstrandArachnarok::SkitterstrandArachnarok() :
+            GloomspiteGitzBase("Skitterstrand Arachnarok", 8, WOUNDS, 6, 4, true),
+            m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
+            m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3) {
+        m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
+        m_weapons = {&m_chitinousLegs, &m_monstrousFangs};
+    }
 
-    m_points = POINTS_PER_UNIT;
+    bool SkitterstrandArachnarok::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_chitinousLegs);
+        model->addMeleeWeapon(&m_monstrousFangs);
+        addModel(model);
 
-    return true;
-}
+        m_points = POINTS_PER_UNIT;
 
-void SkitterstrandArachnarok::onRestore()
-{
-    // Reset table-driven attributes
-    onWounded();
-}
+        return true;
+    }
 
-void SkitterstrandArachnarok::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
-    m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
-    m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
-}
+    void SkitterstrandArachnarok::onRestore() {
+        // Reset table-driven attributes
+        onWounded();
+    }
 
-int SkitterstrandArachnarok::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+    void SkitterstrandArachnarok::onWounded() {
+        const int damageIndex = getDamageTableIndex();
+        m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
+        m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    int SkitterstrandArachnarok::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    Unit *SkitterstrandArachnarok::Create(const ParameterList &parameters) {
+        auto unit = new SkitterstrandArachnarok();
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void SkitterstrandArachnarok::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    SkitterstrandArachnarok::Create,
+                    nullptr,
+                    nullptr,
+                    SkitterstrandArachnarok::ComputePoints,
+                    {
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
+            s_registered = UnitFactory::Register("Skitterstrand Arachnarok", factoryMethod);
         }
     }
-    return 0;
-}
 
-Unit *SkitterstrandArachnarok::Create(const ParameterList &parameters)
-{
-    auto unit = new SkitterstrandArachnarok();
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    Wounds
+    SkitterstrandArachnarok::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Spider Venom
+        int threshold = inLightOfTheBadMoon() ? 5 : 6;
+        if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name())) {
+            return {0, Dice::rollD3()};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
-    return unit;
-}
 
-void SkitterstrandArachnarok::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            SkitterstrandArachnarok::Create,
-            nullptr,
-            nullptr,
-            SkitterstrandArachnarok::ComputePoints,
-            {
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
-        s_registered = UnitFactory::Register("Skitterstrand Arachnarok", factoryMethod);
+    int SkitterstrandArachnarok::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
     }
-}
-
-Wounds SkitterstrandArachnarok::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Spider Venom
-    int threshold = inLightOfTheBadMoon() ? 5 : 6;
-    if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name()))
-    {
-        return {0, Dice::rollD3()};
-    }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-int SkitterstrandArachnarok::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
 
 } // namespace GloomspiteGitz

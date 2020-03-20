@@ -10,114 +10,99 @@
 #include <iostream>
 #include <Board.h>
 
-namespace Nighthaunt
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 5;
-static const int MAX_UNIT_SIZE = 20;
-static const int POINTS_PER_BLOCK = 90;
-static const int POINTS_MAX_UNIT_SIZE = 320;
+namespace Nighthaunt {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 20;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 320;
 
 
-bool BladegheistRevenants::s_registered = false;
+    bool BladegheistRevenants::s_registered = false;
 
-BladegheistRevenants::BladegheistRevenants() :
-    Nighthaunt("Bladegheist Revenants", 8, WOUNDS, 10, 4, true),
-    m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1)
-{
-    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
-    m_weapons = {&m_tombGreatblade};
-}
-
-bool BladegheistRevenants::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    BladegheistRevenants::BladegheistRevenants() :
+            Nighthaunt("Bladegheist Revenants", 8, WOUNDS, 10, 4, true),
+            m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1) {
+        m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
+        m_weapons = {&m_tombGreatblade};
     }
 
-    m_retreatAndCharge = true;
+    bool BladegheistRevenants::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    for (auto i = 0; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_tombGreatblade);
-        addModel(model);
+        m_retreatAndCharge = true;
+
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_tombGreatblade);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *BladegheistRevenants::Create(const ParameterList &parameters) {
+        auto unit = new BladegheistRevenants();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    return true;
-}
-
-Unit *BladegheistRevenants::Create(const ParameterList &parameters)
-{
-    auto unit = new BladegheistRevenants();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void BladegheistRevenants::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            BladegheistRevenants::Create,
-            nullptr,
-            nullptr,
-            BladegheistRevenants::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-            },
-            DEATH,
-            { NIGHTHAUNT }
-        };
-        s_registered = UnitFactory::Register("Bladegheist Revenants", factoryMethod);
-    }
-}
-
-Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    // Fearful Frenzy
-    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(SPIRIT_TORMENT) || ip->hasKeyword(CHAINGHASTS))
-        {
-            return RerollFailed;
+    void BladegheistRevenants::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    BladegheistRevenants::Create,
+                    nullptr,
+                    nullptr,
+                    BladegheistRevenants::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                    },
+                    DEATH,
+                    {NIGHTHAUNT}
+            };
+            s_registered = UnitFactory::Register("Bladegheist Revenants", factoryMethod);
         }
     }
 
-    return Nighthaunt::toHitRerolls(weapon, unit);
-}
+    Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
+        // Fearful Frenzy
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        for (auto ip : units) {
+            if (ip->hasKeyword(SPIRIT_TORMENT) || ip->hasKeyword(CHAINGHASTS)) {
+                return RerollFailed;
+            }
+        }
 
-int BladegheistRevenants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    // Whirling Death
-    int attacks = Nighthaunt::extraAttacks(nullptr, weapon, target);
-    if (m_charged)
-    {
-        attacks += 1;
+        return Nighthaunt::toHitRerolls(weapon, unit);
     }
-    return attacks;
-}
 
-int BladegheistRevenants::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int
+    BladegheistRevenants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        // Whirling Death
+        int attacks = Nighthaunt::extraAttacks(nullptr, weapon, target);
+        if (m_charged) {
+            attacks += 1;
+        }
+        return attacks;
     }
-    return points;
-}
+
+    int BladegheistRevenants::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace Nighthaunt

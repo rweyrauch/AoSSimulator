@@ -12,31 +12,32 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class GuardianOfSouls : public Nighthaunt
-{
-public:
+    class GuardianOfSouls : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GuardianOfSouls();
-    ~GuardianOfSouls() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        GuardianOfSouls();
 
-private:
+        ~GuardianOfSouls() override = default;
 
-    Weapon m_blade,
-        m_maul;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_blade,
+                m_maul;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

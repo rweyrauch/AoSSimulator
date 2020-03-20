@@ -9,134 +9,119 @@
 #include <UnitFactory.h>
 #include "citiesofsigmar/WarHydra.h"
 
-namespace CitiesOfSigmar
-{
-static const int BASESIZE = 105;
-static const int WOUNDS = 12;
-static const int POINTS_PER_UNIT = 170;
+namespace CitiesOfSigmar {
+    static const int BASESIZE = 105;
+    static const int WOUNDS = 12;
+    static const int POINTS_PER_UNIT = 170;
 
-struct TableEntry
-{
-    int m_move;
-    int m_breathAttacks;
-    int m_fangAttacks;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 7, 9, WOUNDS};
-const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {8, 6, 6},
-        {7, 5, 5},
-        {6, 4, 4},
-        {5,  3, 3},
-        {4,  2, 2}
+    struct TableEntry {
+        int m_move;
+        int m_breathAttacks;
+        int m_fangAttacks;
     };
 
-bool WarHydra::s_registered = false;
-
-Unit *WarHydra::Create(const ParameterList &parameters)
-{
-    auto unit = new WarHydra();
-
-    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
-    unit->setCity(city);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-std::string WarHydra::ValueToString(const Parameter &parameter)
-{
-    return CitizenOfSigmar::ValueToString(parameter);
-}
-
-int WarHydra::EnumStringToInt(const std::string &enumString)
-{
-    return CitizenOfSigmar::EnumStringToInt(enumString);
-}
-
-void WarHydra::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            WarHydra::Create,
-            WarHydra::ValueToString,
-            WarHydra::EnumStringToInt,
-            WarHydra::ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 7, 9, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-            },
-            ORDER,
-            { CITIES_OF_SIGMAR }
-        };
-        s_registered = UnitFactory::Register("War Hydra", factoryMethod);
+                    {8, 6, 6},
+                    {7, 5, 5},
+                    {6, 4, 4},
+                    {5, 3, 3},
+                    {4, 2, 2}
+            };
+
+    bool WarHydra::s_registered = false;
+
+    Unit *WarHydra::Create(const ParameterList &parameters) {
+        auto unit = new WarHydra();
+
+        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        unit->setCity(city);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-}
 
-WarHydra::WarHydra() :
-    CitizenOfSigmar("War Hydra", 8, WOUNDS, 6, 4, false),
-    m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 9, 6, 3, 3, -1, 1),
-    m_fangs(Weapon::Type::Melee, "Razor-sharp Fangs", 2, 6, 4, 3, -1, RAND_D3),
-    m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
-    m_goadAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1)
-{
-    m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, WAR_HYDRA};
-    m_weapons = {&m_fieryBreath, &m_fangs, &m_limbs, &m_goadAndWhips};
-}
+    std::string WarHydra::ValueToString(const Parameter &parameter) {
+        return CitizenOfSigmar::ValueToString(parameter);
+    }
 
-bool WarHydra::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_fieryBreath);
-    model->addMeleeWeapon(&m_fangs);
-    model->addMeleeWeapon(&m_limbs);
-    model->addMeleeWeapon(&m_goadAndWhips);
-    addModel(model);
+    int WarHydra::EnumStringToInt(const std::string &enumString) {
+        return CitizenOfSigmar::EnumStringToInt(enumString);
+    }
 
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-void WarHydra::onRestore()
-{
-    // Restore table-driven attributes
-    onWounded();
-}
-
-void WarHydra::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
-    m_fieryBreath.setAttacks(g_damageTable[damageIndex].m_breathAttacks);
-    m_fangs.setAttacks(g_damageTable[damageIndex].m_fangAttacks);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
-
-    Unit::onWounded();
-}
-
-int WarHydra::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+    void WarHydra::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    WarHydra::Create,
+                    WarHydra::ValueToString,
+                    WarHydra::EnumStringToInt,
+                    WarHydra::ComputePoints,
+                    {
+                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
+                             CitizenOfSigmar::TempestsEye, 1},
+                    },
+                    ORDER,
+                    {CITIES_OF_SIGMAR}
+            };
+            s_registered = UnitFactory::Register("War Hydra", factoryMethod);
         }
     }
-    return 0;
-}
 
-int WarHydra::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    WarHydra::WarHydra() :
+            CitizenOfSigmar("War Hydra", 8, WOUNDS, 6, 4, false),
+            m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 9, 6, 3, 3, -1, 1),
+            m_fangs(Weapon::Type::Melee, "Razor-sharp Fangs", 2, 6, 4, 3, -1, RAND_D3),
+            m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
+            m_goadAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1) {
+        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, WAR_HYDRA};
+        m_weapons = {&m_fieryBreath, &m_fangs, &m_limbs, &m_goadAndWhips};
+    }
+
+    bool WarHydra::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_fieryBreath);
+        model->addMeleeWeapon(&m_fangs);
+        model->addMeleeWeapon(&m_limbs);
+        model->addMeleeWeapon(&m_goadAndWhips);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    void WarHydra::onRestore() {
+        // Restore table-driven attributes
+        onWounded();
+    }
+
+    void WarHydra::onWounded() {
+        const int damageIndex = getDamageTableIndex();
+        m_fieryBreath.setAttacks(g_damageTable[damageIndex].m_breathAttacks);
+        m_fangs.setAttacks(g_damageTable[damageIndex].m_fangAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+
+        Unit::onWounded();
+    }
+
+    int WarHydra::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    int WarHydra::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace CitiesOfSigmar

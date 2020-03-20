@@ -20,32 +20,28 @@
 #include "death/WightKingBlackAxe.h"
 #include "death/Necromancer.h"
 
-namespace Death
-{
+namespace Death {
 
-std::string LegionOfNagashBase::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
+    std::string LegionOfNagashBase::ValueToString(const Parameter &parameter) {
+        return ParameterValueToString(parameter);
+    }
 
-int LegionOfNagashBase::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
-}
+    int LegionOfNagashBase::EnumStringToInt(const std::string &enumString) {
+        return 0;
+    }
 
-void Init()
-{
-    Nagash::Init();
-    BlackKnights::Init();
-    BloodKnights::Init();
-    DireWolves::Init();
-    GraveGuard::Init();
-    SkeletonWarriors::Init();
-    Vargheists::Init();
-    Zombies::Init();
-    WightKingWithBlackAxe::Init();
-    WightKingWithBalefulTombBlade::Init();
-    Necromancer::Init();
-}
+    void Init() {
+        Nagash::Init();
+        BlackKnights::Init();
+        BloodKnights::Init();
+        DireWolves::Init();
+        GraveGuard::Init();
+        SkeletonWarriors::Init();
+        Vargheists::Init();
+        Zombies::Init();
+        WightKingWithBlackAxe::Init();
+        WightKingWithBalefulTombBlade::Init();
+        Necromancer::Init();
+    }
 
 } //namespace Seraphon

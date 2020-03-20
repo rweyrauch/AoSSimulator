@@ -12,45 +12,48 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class Daemonettes : public SlaaneshBase
-{
-public:
+    class Daemonettes : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Daemonettes();
-    ~Daemonettes() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
+        static void Init();
 
-protected:
+        Daemonettes();
 
-    Rerolls chargeRerolls() const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    void restoreModels(int numModels) override;
+        ~Daemonettes() override;
 
-    Rerolls hornblowerBattleshockReroll(const Unit* unit);
+        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
-protected:
+    protected:
 
-    bool m_iconBearer = false;
-    bool m_bannerBearer = false;
-    bool m_hornblower = false;
+        Rerolls chargeRerolls() const override;
 
-private:
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 
-    Weapon m_piercingClaws,
-        m_piercingClawsAlluress;
+        void restoreModels(int numModels) override;
 
-    lsignal::slot m_hornblowerSlot;
+        Rerolls hornblowerBattleshockReroll(const Unit *unit);
 
-    static bool s_registered;
-};
+    protected:
+
+        bool m_iconBearer = false;
+        bool m_bannerBearer = false;
+        bool m_hornblower = false;
+
+    private:
+
+        Weapon m_piercingClaws,
+                m_piercingClawsAlluress;
+
+        lsignal::slot m_hornblowerSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

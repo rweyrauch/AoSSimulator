@@ -12,29 +12,35 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class DaughterOfKhaine : public Unit
-{
-public:
-    DaughterOfKhaine() = default;
-    ~DaughterOfKhaine() override = default;
+    class DaughterOfKhaine : public Unit {
+    public:
+        DaughterOfKhaine() = default;
 
-protected:
-    DaughterOfKhaine(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
+        ~DaughterOfKhaine() override = default;
 
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toWoundRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Rerolls runRerolls() const override;
-    Rerolls chargeRerolls() const override;
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
+    protected:
+        DaughterOfKhaine(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
 
-};
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Rerolls runRerolls() const override;
+
+        Rerolls chargeRerolls() const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    };
 
 //
 // Abilities                    Implemented
@@ -52,7 +58,7 @@ protected:
 // Concealment and Stealth          Yes
 //
 
-void Init();
+    void Init();
 
 } // namespace DaughtersOfKhaine
 

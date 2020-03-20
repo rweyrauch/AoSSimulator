@@ -9,168 +9,146 @@
 #include <UnitFactory.h>
 #include "citiesofsigmar/FlamespyrePhoenix.h"
 
-namespace CitiesOfSigmar
-{
-static const int BASESIZE = 105;
-static const int WOUNDS = 12;
-static const int POINTS_PER_UNIT = 200;
-static const int POINTS_PER_UNIT_WITH_ANOINTED = 300;
+namespace CitiesOfSigmar {
+    static const int BASESIZE = 105;
+    static const int WOUNDS = 12;
+    static const int POINTS_PER_UNIT = 200;
+    static const int POINTS_PER_UNIT_WITH_ANOINTED = 300;
 
-struct TableEntry
-{
-    int m_move;
-    int m_talonAttacks;
-    int m_wakeOfFire;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, WOUNDS};
-const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {16, 6, 5},
-        {14, 5, 4},
-        {12, 4, 3},
-        {10,  3, 2},
-        {8,  2, 61}
+    struct TableEntry {
+        int m_move;
+        int m_talonAttacks;
+        int m_wakeOfFire;
     };
 
-bool FlamespyrePhoenix::s_registered = false;
-
-Unit *FlamespyrePhoenix::Create(const ParameterList &parameters)
-{
-    auto unit = new FlamespyrePhoenix();
-
-    auto anointed = GetBoolParam("Anointed", parameters, true);
-
-    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
-    unit->setCity(city);
-
-    bool ok = unit->configure(anointed);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-std::string FlamespyrePhoenix::ValueToString(const Parameter &parameter)
-{
-    return CitizenOfSigmar::ValueToString(parameter);
-}
-
-int FlamespyrePhoenix::EnumStringToInt(const std::string &enumString)
-{
-    return CitizenOfSigmar::EnumStringToInt(enumString);
-}
-
-void FlamespyrePhoenix::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            FlamespyrePhoenix::Create,
-            FlamespyrePhoenix::ValueToString,
-            FlamespyrePhoenix::EnumStringToInt,
-            FlamespyrePhoenix::ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-                {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-            },
-            ORDER,
-            { CITIES_OF_SIGMAR }
-        };
-        s_registered = UnitFactory::Register("Flamespyre Phoenix", factoryMethod);
-    }
-}
+                    {16, 6, 5},
+                    {14, 5, 4},
+                    {12, 4, 3},
+                    {10, 3, 2},
+                    {8,  2, 61}
+            };
 
-FlamespyrePhoenix::FlamespyrePhoenix() :
-    CitizenOfSigmar("Flamespyre Phoenix", 16, WOUNDS, 8, 4, true),
-    m_talons(Weapon::Type::Melee, "Flaming Talons", 2, 6, 4, 3, -1, 2),
-    m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1)
-{
-    m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
-    m_weapons = {&m_talons, &m_halberd};
-}
+    bool FlamespyrePhoenix::s_registered = false;
 
-bool FlamespyrePhoenix::configure(bool anointed)
-{
-    if (anointed)
-    {
-        addKeyword(HERO);
-    }
+    Unit *FlamespyrePhoenix::Create(const ParameterList &parameters) {
+        auto unit = new FlamespyrePhoenix();
 
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_talons);
-    if (anointed)
-    {
-        model->addMeleeWeapon(&m_halberd);
-    }
-    addModel(model);
+        auto anointed = GetBoolParam("Anointed", parameters, true);
 
-    if (anointed)
-    {
-        m_points = POINTS_PER_UNIT_WITH_ANOINTED;
-    }
-    else
-    {
-        m_points = POINTS_PER_UNIT;
+        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        unit->setCity(city);
+
+        bool ok = unit->configure(anointed);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    return true;
-}
+    std::string FlamespyrePhoenix::ValueToString(const Parameter &parameter) {
+        return CitizenOfSigmar::ValueToString(parameter);
+    }
 
-void FlamespyrePhoenix::onRestore()
-{
-    // Restore table-driven attributes
-    onWounded();
-}
+    int FlamespyrePhoenix::EnumStringToInt(const std::string &enumString) {
+        return CitizenOfSigmar::EnumStringToInt(enumString);
+    }
 
-void FlamespyrePhoenix::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
-    m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
-
-    Unit::onWounded();
-}
-
-int FlamespyrePhoenix::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+    void FlamespyrePhoenix::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    FlamespyrePhoenix::Create,
+                    FlamespyrePhoenix::ValueToString,
+                    FlamespyrePhoenix::EnumStringToInt,
+                    FlamespyrePhoenix::ComputePoints,
+                    {
+                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
+                             CitizenOfSigmar::TempestsEye, 1},
+                            {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                    },
+                    ORDER,
+                    {CITIES_OF_SIGMAR}
+            };
+            s_registered = UnitFactory::Register("Flamespyre Phoenix", factoryMethod);
         }
     }
-    return 0;
-}
 
-Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds)
-{
-    if (hasKeyword(HERO))
-    {
-        // Witness to Destiny
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(4);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(4);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+    FlamespyrePhoenix::FlamespyrePhoenix() :
+            CitizenOfSigmar("Flamespyre Phoenix", 16, WOUNDS, 8, 4, true),
+            m_talons(Weapon::Type::Melee, "Flaming Talons", 2, 6, 4, 3, -1, 2),
+            m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
+        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
+        m_weapons = {&m_talons, &m_halberd};
     }
-    return Unit::applyWoundSave(wounds);
-}
 
-int FlamespyrePhoenix::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    bool FlamespyrePhoenix::configure(bool anointed) {
+        if (anointed) {
+            addKeyword(HERO);
+        }
+
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_talons);
+        if (anointed) {
+            model->addMeleeWeapon(&m_halberd);
+        }
+        addModel(model);
+
+        if (anointed) {
+            m_points = POINTS_PER_UNIT_WITH_ANOINTED;
+        } else {
+            m_points = POINTS_PER_UNIT;
+        }
+
+        return true;
+    }
+
+    void FlamespyrePhoenix::onRestore() {
+        // Restore table-driven attributes
+        onWounded();
+    }
+
+    void FlamespyrePhoenix::onWounded() {
+        const int damageIndex = getDamageTableIndex();
+        m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+
+        Unit::onWounded();
+    }
+
+    int FlamespyrePhoenix::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds) {
+        if (hasKeyword(HERO)) {
+            // Witness to Destiny
+            Dice::RollResult woundSaves, mortalSaves;
+            Dice::rollD6(wounds.normal, woundSaves);
+            Dice::rollD6(wounds.mortal, mortalSaves);
+
+            Wounds totalWounds = wounds;
+            totalWounds.normal -= woundSaves.rollsGE(4);
+            totalWounds.normal = std::max(totalWounds.normal, 0);
+            totalWounds.mortal -= mortalSaves.rollsGE(4);
+            totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+            return totalWounds;
+        }
+        return Unit::applyWoundSave(wounds);
+    }
+
+    int FlamespyrePhoenix::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace CitiesOfSigmar

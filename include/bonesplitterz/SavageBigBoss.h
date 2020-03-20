@@ -10,30 +10,31 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
-class SavageBigBoss : public Bonesplitterz
-{
-public:
+namespace Bonesplitterz {
+    class SavageBigBoss : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SavageBigBoss();
-    ~SavageBigBoss() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        SavageBigBoss();
+
+        ~SavageBigBoss() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_chompasBoss;
+        Weapon m_chompasBoss;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

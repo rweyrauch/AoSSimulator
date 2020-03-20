@@ -13,38 +13,44 @@
 #include <Weapon.h>
 #include <spells/GloomspiteSpells.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class Skragrott : public GloomspiteGitzBase
-{
-public:
+    class Skragrott : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Skragrott();
-    ~Skragrott() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheMoonclans lore);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    int castingModifier() const override;
-    int unbindingModifier() const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId playerId) override;
+        static int ComputePoints(int numModels);
 
-private:
+        Skragrott();
 
-    Weapon m_daMoonOnnaStikkMissile,
-        m_daMoonOnnaStikk;
+        ~Skragrott() override = default;
 
-    static bool s_registered;
-};
+        bool configure(LoreOfTheMoonclans lore);
+
+    protected:
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onStartHero(PlayerId playerId) override;
+
+    private:
+
+        Weapon m_daMoonOnnaStikkMissile,
+                m_daMoonOnnaStikk;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

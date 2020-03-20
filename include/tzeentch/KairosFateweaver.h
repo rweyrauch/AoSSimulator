@@ -12,37 +12,40 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class KairosFateweaver : public TzeentchBase
-{
-public:
+    class KairosFateweaver : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    KairosFateweaver();
-    ~KairosFateweaver() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-    int rollCasting() const override;
+        KairosFateweaver();
 
-protected:
+        ~KairosFateweaver() override = default;
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        bool configure();
 
-private:
+        int rollCasting() const override;
 
-    Weapon m_staff,
-        m_beakAndTalons;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_staff,
+            m_beakAndTalons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,35 +12,33 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Clawlord : public Skaventide
-{
-public:
+    class Clawlord : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    Clawlord();
+        Clawlord();
 
-    ~Clawlord() override = default;
+        ~Clawlord() override = default;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-private:
+    private:
 
-    Weapon m_blade;
+        Weapon m_blade;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

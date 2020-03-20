@@ -12,43 +12,46 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class SistersOfSlaughter : public DaughterOfKhaine
-{
-public:
+    class SistersOfSlaughter : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SistersOfSlaughter();
-    ~SistersOfSlaughter() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers);
+        static void Init();
 
-protected:
+        SistersOfSlaughter();
 
-    int rollBattleshock() const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+        ~SistersOfSlaughter() override = default;
 
-protected:
+        bool configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers);
 
-    bool m_hasSacrificialKnife = true;
-    bool m_hornblowers = false;
-    bool m_standardBearers = false;
+    protected:
 
-private:
+        int rollBattleshock() const override;
 
-    Weapon m_sacrificialKnife,
-        m_sacrificialKnifeHandmaiden,
-        m_barbedWhip,
-        m_barbedWhipHandmaiden;
+        int toSaveModifier(const Weapon *weapon) const override;
 
-    static bool s_registered;
-};
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    protected:
+
+        bool m_hasSacrificialKnife = true;
+        bool m_hornblowers = false;
+        bool m_standardBearers = false;
+
+    private:
+
+        Weapon m_sacrificialKnife,
+                m_sacrificialKnifeHandmaiden,
+                m_barbedWhip,
+                m_barbedWhipHandmaiden;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

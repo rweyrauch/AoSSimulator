@@ -12,33 +12,34 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class TheContortedEpitome : public SlaaneshBase
-{
-public:
+    class TheContortedEpitome : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TheContortedEpitome();
-    ~TheContortedEpitome() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TheContortedEpitome();
 
-    Wounds applyWoundSave(const Wounds& wounds) override;
+        ~TheContortedEpitome() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_ravagingClaws,
-        m_coiledTentacles;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_ravagingClaws,
+                m_coiledTentacles;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

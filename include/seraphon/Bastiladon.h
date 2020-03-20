@@ -12,39 +12,42 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class Bastiladon : public SeraphonBase
-{
-public:
+    class Bastiladon : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Bastiladon();
-    ~Bastiladon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Bastiladon();
 
-    void onWounded() override;
-    int getDamageTableIndex() const;
-    void onRestore() override;
+        ~Bastiladon() override = default;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_beam,
-        m_javelins,
-        m_ark,
-        m_tail;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_beam,
+                m_javelins,
+                m_ark,
+                m_tail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

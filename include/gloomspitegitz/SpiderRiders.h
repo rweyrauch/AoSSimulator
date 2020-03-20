@@ -12,40 +12,43 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class SpiderRiders : public GloomspiteGitzBase
-{
-public:
+    class SpiderRiders : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SpiderRiders();
-    ~SpiderRiders() override = default;
+        static void Init();
 
-    bool configure(int numModels, bool drummers, bool totemBearers);
+        static int ComputePoints(int numModels);
 
-protected:
+        SpiderRiders();
 
-    int braveryModifier() const override;
-    int runModifier() const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~SpiderRiders() override = default;
 
-private:
+        bool configure(int numModels, bool drummers, bool totemBearers);
 
-    bool m_drummers = false;
-    bool m_totemBearers = false;
+    protected:
 
-    Weapon m_spiderBow,
-        m_crookedSpear,
-        m_crookedSpearBoss,
-        m_fangs;
+        int braveryModifier() const override;
 
-    static bool s_registered;
-};
+        int runModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        bool m_drummers = false;
+        bool m_totemBearers = false;
+
+        Weapon m_spiderBow,
+                m_crookedSpear,
+                m_crookedSpearBoss,
+                m_fangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

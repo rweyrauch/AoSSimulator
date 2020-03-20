@@ -12,31 +12,32 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosSorcerer : public SlavesToDarknessBase
-{
-public:
+    class ChaosSorcerer : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosSorcerer();
-    ~ChaosSorcerer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ChaosSorcerer();
 
-private:
+        ~ChaosSorcerer() override = default;
 
-    Weapon m_staff,
-        m_blade;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_staff,
+                m_blade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

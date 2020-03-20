@@ -7,10 +7,8 @@
  */
 #include <khorne/BloodBlessingsOfKhorne.h>
 
-std::string ToString(BloodBlessingsOfKhorne which)
-{
-    switch (which)
-    {
+std::string ToString(BloodBlessingsOfKhorne which) {
+    switch (which) {
         case BloodBlessingsOfKhorne::None:
             return "None";
         case BloodBlessingsOfKhorne::BronzedFlesh:
@@ -29,8 +27,7 @@ std::string ToString(BloodBlessingsOfKhorne which)
     return "";
 }
 
-bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessing)
-{
+bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessing) {
     bool valid = true;
 
     if (enumString == "None") outBlessing = BloodBlessingsOfKhorne::None;
@@ -45,10 +42,8 @@ bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessi
     return valid;
 }
 
-Prayer* CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit* priest)
-{
-    switch (which)
-    {
+Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest) {
+    switch (which) {
         case BloodBlessingsOfKhorne::BronzedFlesh:
             return new BuffModifierPrayer(priest, "Bronzed Flesh", 4, 16.0f, ToSave, 1, true, 1);
         case BloodBlessingsOfKhorne::BloodSacrifice:

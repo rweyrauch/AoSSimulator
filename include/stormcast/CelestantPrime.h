@@ -13,36 +13,39 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class CelestantPrime : public StormcastEternal
-{
-public:
+    class CelestantPrime : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    CelestantPrime();
-    ~CelestantPrime() override;
+        static void Init();
 
-    bool configure();
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    int bearerOfTheWarhammer(const Unit* target);
+        static int ComputePoints(int numModels);
 
-private:
+        CelestantPrime();
 
-    Weapon m_ghalMaraz;
+        ~CelestantPrime() override;
 
-    lsignal::slot m_connection;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        int bearerOfTheWarhammer(const Unit *target);
+
+    private:
+
+        Weapon m_ghalMaraz;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

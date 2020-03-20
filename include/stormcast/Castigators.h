@@ -12,41 +12,41 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Castigators : public StormcastEternal
-{
-public:
+    class Castigators : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Castigators();
+        static int ComputePoints(int numModels);
 
-    ~Castigators() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        Castigators();
 
-protected:
+        ~Castigators() override = default;
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+        bool configure(int numModels);
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+    protected:
 
-    void onStartShooting(PlayerId player) override;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-private:
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
-    bool m_aethericChannellingPower = false;
+        void onStartShooting(PlayerId player) override;
 
-    Weapon m_thunderheadGreatbow,
-        m_thunderheadGreatbowPrime,
-        m_heavyStock;
+    private:
 
-    static bool s_registered;
-};
+        bool m_aethericChannellingPower = false;
+
+        Weapon m_thunderheadGreatbow,
+                m_thunderheadGreatbowPrime,
+                m_heavyStock;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

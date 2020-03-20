@@ -9,103 +9,92 @@
 #include <khorne/LordOfKhorneOnJuggernaut.h>
 #include <UnitFactory.h>
 
-namespace Khorne
-{
-static const int BASESIZE = 90; // x52 oval
-static const int WOUNDS = 8;
-static const int POINTS_PER_UNIT = 160;
+namespace Khorne {
+    static const int BASESIZE = 90; // x52 oval
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 160;
 
-bool LordOfKhorneOnJuggernaut::s_registered = false;
+    bool LordOfKhorneOnJuggernaut::s_registered = false;
 
-LordOfKhorneOnJuggernaut::LordOfKhorneOnJuggernaut() :
-    KhorneBase("Lord of Khorne on Juggernaut", 5, WOUNDS, 9, 3, false),
-    m_wrathforgedAxe(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
-    m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1)
-{
-    m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, LORD_OF_KHORNE_ON_JUGGERNAUT};
-    m_weapons = {&m_wrathforgedAxe, &m_brazenHooves};
-}
-
-bool LordOfKhorneOnJuggernaut::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_wrathforgedAxe);
-    model->addMeleeWeapon(&m_brazenHooves);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *LordOfKhorneOnJuggernaut::Create(const ParameterList &parameters)
-{
-    auto unit = new LordOfKhorneOnJuggernaut();
-
-    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
-    unit->setSlaughterHost(host);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    LordOfKhorneOnJuggernaut::LordOfKhorneOnJuggernaut() :
+            KhorneBase("Lord of Khorne on Juggernaut", 5, WOUNDS, 9, 3, false),
+            m_wrathforgedAxe(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
+            m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
+        m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, LORD_OF_KHORNE_ON_JUGGERNAUT};
+        m_weapons = {&m_wrathforgedAxe, &m_brazenHooves};
     }
-    return unit;
-}
 
-void LordOfKhorneOnJuggernaut::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            LordOfKhorneOnJuggernaut::Create,
-            KhorneBase::ValueToString,
-            KhorneBase::EnumStringToInt,
-            LordOfKhorneOnJuggernaut::ComputePoints,
-            {
-                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-            },
-            CHAOS,
-            { KHORNE }
-        };
-        s_registered = UnitFactory::Register("Lord of Khorne on Juggernaut", factoryMethod);
+    bool LordOfKhorneOnJuggernaut::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_wrathforgedAxe);
+        model->addMeleeWeapon(&m_brazenHooves);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-void LordOfKhorneOnJuggernaut::onCharged()
-{
-    // Slaughterous Charge
-    if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f))
-    {
-        int roll = Dice::rollD6();
-        if (roll >= 2)
-        {
-            Wounds wounds = {0, Dice::rollD3()};
+    Unit *LordOfKhorneOnJuggernaut::Create(const ParameterList &parameters) {
+        auto unit = new LordOfKhorneOnJuggernaut();
 
-            SimLog(Verbosity::Narrative, "%s Murderous Charge inflicted %d mortal wounds on %s\n",
-                   name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        unit->setSlaughterHost(host);
 
-            m_meleeTarget->applyDamage(wounds);
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void LordOfKhorneOnJuggernaut::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    LordOfKhorneOnJuggernaut::Create,
+                    KhorneBase::ValueToString,
+                    KhorneBase::EnumStringToInt,
+                    LordOfKhorneOnJuggernaut::ComputePoints,
+                    {
+                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
+                             KhorneBase::SkullfiendTribe, 1}
+                    },
+                    CHAOS,
+                    {KHORNE}
+            };
+            s_registered = UnitFactory::Register("Lord of Khorne on Juggernaut", factoryMethod);
         }
     }
-    KhorneBase::onCharged();
-}
 
-Wounds LordOfKhorneOnJuggernaut::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Daemonic Axe
-    if ((hitRoll == 6) && (weapon->name() == m_wrathforgedAxe.name()))
-    {
-        return {RAND_D3, 0};
+    void LordOfKhorneOnJuggernaut::onCharged() {
+        // Slaughterous Charge
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f)) {
+            int roll = Dice::rollD6();
+            if (roll >= 2) {
+                Wounds wounds = {0, Dice::rollD3()};
+
+                SimLog(Verbosity::Narrative, "%s Murderous Charge inflicted %d mortal wounds on %s\n",
+                       name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+
+                m_meleeTarget->applyDamage(wounds);
+            }
+        }
+        KhorneBase::onCharged();
     }
-    return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int LordOfKhorneOnJuggernaut::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Wounds
+    LordOfKhorneOnJuggernaut::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Daemonic Axe
+        if ((hitRoll == 6) && (weapon->name() == m_wrathforgedAxe.name())) {
+            return {RAND_D3, 0};
+        }
+        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int LordOfKhorneOnJuggernaut::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 
 } // namespace Khorne

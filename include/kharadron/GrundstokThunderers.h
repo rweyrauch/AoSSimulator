@@ -12,40 +12,43 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class GrundstokThunderers : public KharadronBase
-{
-public:
+    class GrundstokThunderers : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GrundstokThunderers();
+        static std::string ValueToString(const Parameter &parameter);
 
-    ~GrundstokThunderers() override = default;
+        static int EnumStringToInt(const std::string &enumString);
 
-    bool configure(int numModels, int numMortars, int numCannons, int numFumigators, int numDecksweeper, int numHonourBearers);
+        static int ComputePoints(int numModels);
 
-protected:
+        static void Init();
 
-private:
+        GrundstokThunderers();
 
-    Weapon m_rifle,
-        m_doubleBarrelledRifle,
-        m_fumigator,
-        m_decksweeper,
-        m_aethercannon,
-        m_mortar,
-        m_drillbill,
-        m_gunButt;
+        ~GrundstokThunderers() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels, int numMortars, int numCannons, int numFumigators, int numDecksweeper,
+                       int numHonourBearers);
+
+    protected:
+
+    private:
+
+        Weapon m_rifle,
+            m_doubleBarrelledRifle,
+            m_fumigator,
+            m_decksweeper,
+            m_aethercannon,
+            m_mortar,
+            m_drillbill,
+            m_gunButt;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

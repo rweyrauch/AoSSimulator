@@ -12,48 +12,56 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class Archaon : public SlavesToDarknessBase
-{
-public:
+    class Archaon : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Archaon();
-    ~Archaon() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Archaon();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~Archaon() override;
 
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartCombat(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartHero(PlayerId player) override;
-    int crownOfDomination(const Unit* unit);
+        bool configure();
 
-private:
+    protected:
 
-    mutable int m_slayerOfKingsSixesThisCombat = 0;
+        void onWounded() override;
 
-    Weapon m_slayerOfKings,
-        m_dorgharsClaws,
-        m_dorgharsTails,
-        m_dorgharsHeads;
+        void onRestore() override;
 
-    lsignal::slot m_connection;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartHero(PlayerId player) override;
+
+        int crownOfDomination(const Unit *unit);
+
+    private:
+
+        mutable int m_slayerOfKingsSixesThisCombat = 0;
+
+        Weapon m_slayerOfKings,
+                m_dorgharsClaws,
+                m_dorgharsTails,
+                m_dorgharsHeads;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

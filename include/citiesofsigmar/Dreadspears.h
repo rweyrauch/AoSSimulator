@@ -12,41 +12,48 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Dreadspears : public CitizenOfSigmar
-{
-public:
+    class Dreadspears : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Dreadspears();
-    ~Dreadspears() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool standardBearer, bool hornblower);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+        static void Init();
 
-private:
+        Dreadspears();
 
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
+        ~Dreadspears() override = default;
 
-    Weapon m_spear, m_spearLordling;
+        bool configure(int numModels, bool standardBearer, bool hornblower);
 
-    static bool s_registered;
-};
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_spear, m_spearLordling;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

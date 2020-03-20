@@ -12,53 +12,57 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SaurusKnights : public SeraphonBase
-{
-public:
+    class SaurusKnights : public SeraphonBase {
+    public:
 
-    enum WeaponOption
-    {
-        CelestiteBlade,
-        CelestiteWarspear
+        enum WeaponOption {
+            CelestiteBlade,
+            CelestiteWarspear
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        SaurusKnights();
+
+        ~SaurusKnights() override;
+
+        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls chargeRerolls() const override;
+
+        int stardrakeIcon(const Unit *target);
+
+    private:
+
+        WeaponOption m_weaponOption = CelestiteBlade;
+        bool m_iconBearer = false;
+        bool m_wardrum = false;
+
+        Weapon m_celestiteBlade,
+                m_celestiteBladeAlpha,
+                m_celestiteSpear,
+                m_celestiteSpearAlpha,
+                m_jaws,
+                m_coldOneJaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    SaurusKnights();
-    ~SaurusKnights() override;
-
-    bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls chargeRerolls() const override;
-    int stardrakeIcon(const Unit* target);
-
-private:
-
-    WeaponOption m_weaponOption = CelestiteBlade;
-    bool m_iconBearer = false;
-    bool m_wardrum = false;
-
-    Weapon m_celestiteBlade,
-        m_celestiteBladeAlpha,
-        m_celestiteSpear,
-        m_celestiteSpearAlpha,
-        m_jaws,
-        m_coldOneJaws;
-
-    lsignal::slot m_connection;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

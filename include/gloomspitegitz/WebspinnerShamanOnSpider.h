@@ -13,47 +13,54 @@
 #include <Weapon.h>
 #include <spells/GloomspiteSpells.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class WebspinnerShamanOnArachnarokSpider : public GloomspiteGitzBase
-{
-public:
+    class WebspinnerShamanOnArachnarokSpider : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    WebspinnerShamanOnArachnarokSpider();
-    ~WebspinnerShamanOnArachnarokSpider() override;
+        static void Init();
 
-    bool configure(LoreOfTheSpiderFangs lore);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    void onWounded() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int catchwebSpidershrine(const Unit* caster);
-    int prophetOfTheSpiderGod(const Unit* unit);
+        static int ComputePoints(int numModels);
 
-private:
+        WebspinnerShamanOnArachnarokSpider();
 
-    int getDamageTableIndex() const;
+        ~WebspinnerShamanOnArachnarokSpider() override;
 
-    Weapon m_spiderBows,
-        m_spiderGodStaff,
-        m_chitinousLegs,
-        m_monstrousFangs,
-        m_crookedSpears;
+        bool configure(LoreOfTheSpiderFangs lore);
 
-    lsignal::slot m_shrineConnection,
-        m_prophetConnection;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int catchwebSpidershrine(const Unit *caster);
+
+        int prophetOfTheSpiderGod(const Unit *unit);
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_spiderBows,
+                m_spiderGodStaff,
+                m_chitinousLegs,
+                m_monstrousFangs,
+                m_crookedSpears;
+
+        lsignal::slot m_shrineConnection,
+                m_prophetConnection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

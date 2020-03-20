@@ -12,36 +12,37 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
+namespace Death {
 
-class WightKingWithBalefulTombBlade : public LegionOfNagashBase
-{
-public:
+    class WightKingWithBalefulTombBlade : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WightKingWithBalefulTombBlade();
-    ~WightKingWithBalefulTombBlade() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(bool hasSteed);
+        static void Init();
 
-protected:
+        WightKingWithBalefulTombBlade();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~WightKingWithBalefulTombBlade() override = default;
 
-private:
+        bool configure(bool hasSteed);
 
-    bool m_hasSteed = false;
+    protected:
 
-    Weapon m_balefulTombBlade,
-        m_steedsHoovesAndTeeth;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
+    private:
 
-};
+        bool m_hasSteed = false;
+
+        Weapon m_balefulTombBlade,
+                m_steedsHoovesAndTeeth;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

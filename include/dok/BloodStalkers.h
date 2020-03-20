@@ -12,36 +12,37 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class BloodStalkers : public DaughterOfKhaine
-{
-public:
+    class BloodStalkers : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloodStalkers();
-    ~BloodStalkers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool bloodWyrm);
+        static void Init();
 
-protected:
+        BloodStalkers();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~BloodStalkers() override = default;
 
-private:
+        bool configure(int numModels, bool bloodWyrm);
 
-    Weapon m_hearseekerBow,
-        m_sacraficialDaggar,
-        m_heartseekBowKrone,
-        m_sacraficialDaggarKrone,
-        m_bloodWyrm;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_hearseekerBow,
+                m_sacraficialDaggar,
+                m_heartseekBowKrone,
+                m_sacraficialDaggarKrone,
+                m_bloodWyrm;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

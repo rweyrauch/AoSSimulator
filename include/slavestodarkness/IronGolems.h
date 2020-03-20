@@ -12,40 +12,43 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class IronGolems : public SlavesToDarknessBase
-{
-public:
+    class IronGolems : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    IronGolems();
-    ~IronGolems() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        IronGolems();
 
-    int braveryModifier() const override;
-    void onWounded() override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        ~IronGolems() override = default;
 
-protected:
+        bool configure(int numModels);
 
-    bool m_hasSignifer = true;
+    protected:
 
-private:
+        int braveryModifier() const override;
 
-    Weapon m_bolas,
-        m_legionWeapons,
-        m_legionWeaponsDominar;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    protected:
+
+        bool m_hasSignifer = true;
+
+    private:
+
+        Weapon m_bolas,
+                m_legionWeapons,
+                m_legionWeaponsDominar;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

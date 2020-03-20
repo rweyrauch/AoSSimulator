@@ -12,38 +12,42 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class Dryads : public SylvanethBase
-{
-public:
+    class Dryads : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Dryads();
-    ~Dryads() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Dryads();
 
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    void onStartCombat(PlayerId player) override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        ~Dryads() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_wrackingTalons,
-        m_wrackingTalonsNymph;
+    protected:
 
-    Unit* m_enrapturedUnit = nullptr;
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    static bool s_registered;
-};
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_wrackingTalons,
+                m_wrackingTalonsNymph;
+
+        Unit *m_enrapturedUnit = nullptr;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

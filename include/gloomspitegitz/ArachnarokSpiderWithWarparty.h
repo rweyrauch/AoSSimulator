@@ -12,51 +12,54 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class ArachnarokSpiderWithSpiderfangWarparty : public GloomspiteGitzBase
-{
-public:
+    class ArachnarokSpiderWithSpiderfangWarparty : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArachnarokSpiderWithSpiderfangWarparty();
-    ~ArachnarokSpiderWithSpiderfangWarparty() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ArachnarokSpiderWithSpiderfangWarparty();
 
-    void onWounded() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls runRerolls() const override
-    {
-        // Voracious Predator
-        return RerollFailed;
-    }
+        ~ArachnarokSpiderWithSpiderfangWarparty() override = default;
 
-    Rerolls chargeRerolls() const override
-    {
-        // Voracious Predator
-        return RerollFailed;
-    }
-    void onCharged() override;
+        bool configure();
 
-private:
+    protected:
 
-    int getDamageTableIndex() const;
+        void onWounded() override;
 
-    Weapon m_spiderBows,
-        m_chitinousLegs,
-        m_monstrousFangs,
-        m_crookedSpears;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls runRerolls() const override {
+            // Voracious Predator
+            return RerollFailed;
+        }
+
+        Rerolls chargeRerolls() const override {
+            // Voracious Predator
+            return RerollFailed;
+        }
+
+        void onCharged() override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_spiderBows,
+                m_chitinousLegs,
+                m_monstrousFangs,
+                m_crookedSpears;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

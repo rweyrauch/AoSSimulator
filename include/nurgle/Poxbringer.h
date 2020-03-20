@@ -12,32 +12,33 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class PoxbringerHeraldOfNurgle : public NurgleBase
-{
-public:
+    class PoxbringerHeraldOfNurgle : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    PoxbringerHeraldOfNurgle();
-    ~PoxbringerHeraldOfNurgle() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        PoxbringerHeraldOfNurgle();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~PoxbringerHeraldOfNurgle() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_balesword;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_balesword;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

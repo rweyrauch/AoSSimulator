@@ -12,38 +12,40 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Stormvermin : public Skaventide
-{
-public:
+    class Stormvermin : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Stormvermin();
-    ~Stormvermin() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool clanshields, int standardBearers, int drummers);
+        static void Init();
 
-protected:
+        Stormvermin();
 
-    int toSaveModifier(const Weapon *weapon) const override;
-    int runModifier() const override;
+        ~Stormvermin() override = default;
 
-private:
+        bool configure(int numModels, bool clanshields, int standardBearers, int drummers);
 
-    bool m_clanshields = false;
-    int m_numStandardBearers = 0;
-    int m_numDrummers = 0;
+    protected:
 
-    Weapon m_rustyHalberd,
-        m_rustyHalberdLeader;
+        int toSaveModifier(const Weapon *weapon) const override;
 
-    static bool s_registered;
-};
+        int runModifier() const override;
+
+    private:
+
+        bool m_clanshields = false;
+        int m_numStandardBearers = 0;
+        int m_numDrummers = 0;
+
+        Weapon m_rustyHalberd,
+                m_rustyHalberdLeader;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

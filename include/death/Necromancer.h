@@ -12,33 +12,34 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
+namespace Death {
 
-class Necromancer : public LegionOfNagashBase
-{
-public:
+    class Necromancer : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Necromancer();
-    ~Necromancer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Necromancer();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~Necromancer() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_staff;
+    protected:
 
-    static bool s_registered;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-};
+    private:
+
+        Weapon m_staff;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

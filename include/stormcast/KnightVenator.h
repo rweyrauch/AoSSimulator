@@ -12,35 +12,36 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class KnightVenator : public StormcastEternal
-{
-public:
+    class KnightVenator : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    KnightVenator();
-    ~KnightVenator() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        KnightVenator();
 
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+        ~KnightVenator() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_realmhuntersBow,
-        m_beakAndTalonsMissile,
-        m_bowStave,
-        m_beakAndTalons;
+    protected:
 
-    static bool s_registered;
-};
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_realmhuntersBow,
+                m_beakAndTalonsMissile,
+                m_bowStave,
+                m_beakAndTalons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

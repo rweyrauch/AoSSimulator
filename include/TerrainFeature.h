@@ -10,8 +10,7 @@
 #define TERRAINFEATURE_H
 
 
-class TerrainFeature
-{
+class TerrainFeature {
 public:
     TerrainFeature() = default;
 

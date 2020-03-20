@@ -12,40 +12,43 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Chimera : public BeastsOfChaosBase
-{
-public:
+    class Chimera : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Chimera();
-    ~Chimera() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Chimera();
 
-    void onWounded() override;
-    int getDamageTableIndex() const;
+        ~Chimera() override = default;
 
-    int chargeModifier() const override;
-    void onStartShooting(PlayerId player) override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_fieryBreath,
-        m_avianHead,
-        m_draconicHead,
-        m_leonineHead,
-        m_maulingClaws;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        int chargeModifier() const override;
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_fieryBreath,
+                m_avianHead,
+                m_draconicHead,
+                m_leonineHead,
+                m_maulingClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -41,171 +41,154 @@
 #include "gloomspitegitz/Zarbag.h"
 #include "gloomspitegitz/ZarbagsGitz.h"
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-void GloomspiteGitzBase::onBeginRound(int battleRound)
-{
-    Unit::onBeginRound(battleRound);
+    void GloomspiteGitzBase::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
 
-    // First GG moves the moon
-    m_movedMoon = BadMoon::Instance()->move(battleRound);
-}
+        // First GG moves the moon
+        m_movedMoon = BadMoon::Instance()->move(battleRound);
+    }
 
-void GloomspiteGitzBase::onEndRound(int battleRound)
-{
-    Unit::onEndRound(battleRound);
+    void GloomspiteGitzBase::onEndRound(int battleRound) {
+        Unit::onEndRound(battleRound);
 
-    m_movedMoon = false;
-}
+        m_movedMoon = false;
+    }
 
-void GloomspiteGitzBase::onStartHero(PlayerId player)
-{
-    Unit::onStartHero(player);
+    void GloomspiteGitzBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
 
-    if (player == owningPlayer())
-    {
-        if (m_movedMoon)
-        {
-            std::vector<Unit*> units;
-            // Fangs of the Bad Moon
-            const auto moonLocation = BadMoon::Instance()->location();
-            switch (moonLocation)
-            {
-                case BadMoon::Location::All:
-                    units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
-                    break;
-                case BadMoon::Location::Northeast:
-                    units = Board::Instance()->getUnitWithin(Board::Northeast, GetEnemyId(owningPlayer()));
-                    break;
-                case BadMoon::Location::Northwest:
-                    units = Board::Instance()->getUnitWithin(Board::Northwest, GetEnemyId(owningPlayer()));
-                    break;
-                case BadMoon::Location::Southeast:
-                    units = Board::Instance()->getUnitWithin(Board::Southeast, GetEnemyId(owningPlayer()));
-                    break;
-                case BadMoon::Location::Southwest:
-                    units = Board::Instance()->getUnitWithin(Board::Southwest, GetEnemyId(owningPlayer()));
-                    break;
-                default:
-                    // No affect
-                    break;
-            }
-
-            // Find the strongest unit - maximum points value
-            int points = INT32_MIN;
-            Unit* target = nullptr;
-            for (auto ip : units)
-            {
-                if ((*ip).points() > points)
-                {
-                    target = ip;
-                    points = target->points();
+        if (player == owningPlayer()) {
+            if (m_movedMoon) {
+                std::vector<Unit *> units;
+                // Fangs of the Bad Moon
+                const auto moonLocation = BadMoon::Instance()->location();
+                switch (moonLocation) {
+                    case BadMoon::Location::All:
+                        units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
+                        break;
+                    case BadMoon::Location::Northeast:
+                        units = Board::Instance()->getUnitWithin(Board::Northeast, GetEnemyId(owningPlayer()));
+                        break;
+                    case BadMoon::Location::Northwest:
+                        units = Board::Instance()->getUnitWithin(Board::Northwest, GetEnemyId(owningPlayer()));
+                        break;
+                    case BadMoon::Location::Southeast:
+                        units = Board::Instance()->getUnitWithin(Board::Southeast, GetEnemyId(owningPlayer()));
+                        break;
+                    case BadMoon::Location::Southwest:
+                        units = Board::Instance()->getUnitWithin(Board::Southwest, GetEnemyId(owningPlayer()));
+                        break;
+                    default:
+                        // No affect
+                        break;
                 }
-            }
-            if (target)
-            {
-                int mortal = Dice::rollD3();
-                target->applyDamage({0, mortal});
 
-                SimLog(Verbosity::Narrative, "Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",
-                    mortal, target->name().c_str(), m_battleRound);
+                // Find the strongest unit - maximum points value
+                int points = INT32_MIN;
+                Unit *target = nullptr;
+                for (auto ip : units) {
+                    if ((*ip).points() > points) {
+                        target = ip;
+                        points = target->points();
+                    }
+                }
+                if (target) {
+                    int mortal = Dice::rollD3();
+                    target->applyDamage({0, mortal});
+
+                    SimLog(Verbosity::Narrative,
+                           "Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",
+                           mortal, target->name().c_str(), m_battleRound);
+                }
             }
         }
     }
-}
 
-int GloomspiteGitzBase::castingModifier() const
-{
-    int modifier = Unit::castingModifier();
+    int GloomspiteGitzBase::castingModifier() const {
+        int modifier = Unit::castingModifier();
 
-    // Bad Moon Magic
-    if (hasKeyword(WIZARD) && inLightOfTheBadMoon())
-    {
-        modifier += 1;
-        SimLog(Verbosity::Narrative, "Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.\n", name().c_str());
+        // Bad Moon Magic
+        if (hasKeyword(WIZARD) && inLightOfTheBadMoon()) {
+            modifier += 1;
+            SimLog(Verbosity::Narrative, "Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.\n",
+                   name().c_str());
+        }
+
+        return modifier;
     }
 
-    return modifier;
-}
-
-Rerolls GloomspiteGitzBase::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Moonclan Fungus Brew
-    if (hasKeyword(MOONCLAN) && hasKeyword(GROT) && inLightOfTheBadMoon())
-    {
-        return RerollOnes;
+    Rerolls GloomspiteGitzBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Moonclan Fungus Brew
+        if (hasKeyword(MOONCLAN) && hasKeyword(GROT) && inLightOfTheBadMoon()) {
+            return RerollOnes;
+        }
+        return Unit::toHitRerolls(weapon, target);
     }
-    return Unit::toHitRerolls(weapon, target);
-}
 
-bool GloomspiteGitzBase::inLightOfTheBadMoon() const
-{
-    const auto moonLocation = BadMoon::Instance()->location();
-    switch (moonLocation)
-    {
-        case BadMoon::Location::All:
-            return true;
-        case BadMoon::Location::Northeast:
-            return (Board::Instance()->isUnitWithin(Board::Northeast, this));
-        case BadMoon::Location::Northwest:
-            return (Board::Instance()->isUnitWithin(Board::Northwest, this));
-        case BadMoon::Location::Southeast:
-            return (Board::Instance()->isUnitWithin(Board::Southeast, this));
-        case BadMoon::Location::Southwest:
-            return (Board::Instance()->isUnitWithin(Board::Southwest, this));
-        default:
-            // No affect
-            break;
+    bool GloomspiteGitzBase::inLightOfTheBadMoon() const {
+        const auto moonLocation = BadMoon::Instance()->location();
+        switch (moonLocation) {
+            case BadMoon::Location::All:
+                return true;
+            case BadMoon::Location::Northeast:
+                return (Board::Instance()->isUnitWithin(Board::Northeast, this));
+            case BadMoon::Location::Northwest:
+                return (Board::Instance()->isUnitWithin(Board::Northwest, this));
+            case BadMoon::Location::Southeast:
+                return (Board::Instance()->isUnitWithin(Board::Southeast, this));
+            case BadMoon::Location::Southwest:
+                return (Board::Instance()->isUnitWithin(Board::Southwest, this));
+            default:
+                // No affect
+                break;
+        }
+        return false;
     }
-    return false;
-}
 
-void GloomspiteGitzBase::onRan()
-{
-    Unit::onRan();
+    void GloomspiteGitzBase::onRan() {
+        Unit::onRan();
 
-    // Lunar Squigs
-    if (hasKeyword(SQUIG) && inLightOfTheBadMoon())
-    {
-        buffMovement(RunAndCharge, true, {Phase::Hero, m_battleRound+1, owningPlayer()});
+        // Lunar Squigs
+        if (hasKeyword(SQUIG) && inLightOfTheBadMoon()) {
+            buffMovement(RunAndCharge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
+        }
     }
-}
 
-void Init()
-{
-    BoingrotBounderz::Init();
-    ColossalSquig::Init();
-    LoonbossOnManglerSquigs::Init();
-    ManglerSquigs::Init();
-    SquiqHerd::Init();
-    SquiqHoppers::Init();
-    Stabbas::Init();
-    Shootas::Init();
-    RockgutTroggoths::Init();
-    DankholdTroggboss::Init();
-    DankholdTroggoths::Init();
-    Skragrott::Init();
-    Loonboss::Init();
-    LoonbossOnGiantCaveSquig::Init();
-    LoonbossWithGiantCaveSquig::Init();
-    AleguzzlerGargant::Init();
-    SquigGobba::Init();
-    SpiderRiders::Init();
-    FellwaterTroggoths::Init();
-    FungoidCaveShaman::Init();
-    MadcapShaman::Init();
-    WebspinnerShaman::Init();
-    WebspinnerShamanOnArachnarokSpider::Init();
-    ArachnarokSpiderWithFlinger::Init();
-    ArachnarokSpiderWithSpiderfangWarparty::Init();
-    SkitterstrandArachnarok::Init();
-    ScuttlebossOnGiganticSpider::Init();
-    SneakySnufflers::Init();
-    RippasSnarlfangs::Init();
-    Zarbag::Init();
-    ZarbagsGitz::Init();
-}
+    void Init() {
+        BoingrotBounderz::Init();
+        ColossalSquig::Init();
+        LoonbossOnManglerSquigs::Init();
+        ManglerSquigs::Init();
+        SquiqHerd::Init();
+        SquiqHoppers::Init();
+        Stabbas::Init();
+        Shootas::Init();
+        RockgutTroggoths::Init();
+        DankholdTroggboss::Init();
+        DankholdTroggoths::Init();
+        Skragrott::Init();
+        Loonboss::Init();
+        LoonbossOnGiantCaveSquig::Init();
+        LoonbossWithGiantCaveSquig::Init();
+        AleguzzlerGargant::Init();
+        SquigGobba::Init();
+        SpiderRiders::Init();
+        FellwaterTroggoths::Init();
+        FungoidCaveShaman::Init();
+        MadcapShaman::Init();
+        WebspinnerShaman::Init();
+        WebspinnerShamanOnArachnarokSpider::Init();
+        ArachnarokSpiderWithFlinger::Init();
+        ArachnarokSpiderWithSpiderfangWarparty::Init();
+        SkitterstrandArachnarok::Init();
+        ScuttlebossOnGiganticSpider::Init();
+        SneakySnufflers::Init();
+        RippasSnarlfangs::Init();
+        Zarbag::Init();
+        ZarbagsGitz::Init();
+    }
 
 } //namespace GloomspiteGitz
 

@@ -12,30 +12,31 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class SquiqHoppers : public GloomspiteGitzBase
-{
-public:
+    class SquiqHoppers : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SquiqHoppers();
-    ~SquiqHoppers() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        static int ComputePoints(int numModels);
 
-protected:
+        SquiqHoppers();
 
-    Weapon m_fangFilledGob,
-        m_slitta,
-        m_slittaBoss;
+        ~SquiqHoppers() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels);
+
+    protected:
+
+        Weapon m_fangFilledGob,
+            m_slitta,
+            m_slittaBoss;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

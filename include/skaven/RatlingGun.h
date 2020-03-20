@@ -12,37 +12,40 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class RatlingGun : public Skaventide
-{
-public:
+    class RatlingGun : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RatlingGun();
-    ~RatlingGun() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        RatlingGun();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    void onRestore() override;
-    Wounds onEndShooting(PlayerId player) override;
+        ~RatlingGun() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_ratlingGun,
-        m_rustyKnives;
+    protected:
 
-    mutable bool m_moreMoreFailed = false;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        Wounds onEndShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_ratlingGun,
+                m_rustyKnives;
+
+        mutable bool m_moreMoreFailed = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -13,37 +13,40 @@
 #include <Weapon.h>
 #include <UnitFactory.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class SteelheartsChampions : public StormcastEternal
-{
-public:
+    class SteelheartsChampions : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SteelheartsChampions();
-    ~SteelheartsChampions() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SteelheartsChampions();
 
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~SteelheartsChampions() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_broadSword,
-        m_grandhammer,
-        m_warhammer;
+    protected:
 
-    static bool s_registered;
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_broadSword,
+                m_grandhammer,
+                m_warhammer;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

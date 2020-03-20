@@ -12,37 +12,40 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class BurningChariotsOfTzeentch : public TzeentchBase
-{
-public:
+    class BurningChariotsOfTzeentch : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BurningChariotsOfTzeentch();
-    ~BurningChariotsOfTzeentch() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        BurningChariotsOfTzeentch();
 
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~BurningChariotsOfTzeentch() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_warpflame,
-        m_bite,
-        m_jabs,
-        m_flamingMaw;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_warpflame,
+                m_bite,
+                m_jabs,
+                m_flamingMaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

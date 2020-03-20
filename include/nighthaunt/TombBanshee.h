@@ -12,33 +12,35 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class TombBanshee : public Nighthaunt
-{
-public:
+    class TombBanshee : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TombBanshee();
-    ~TombBanshee() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TombBanshee();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartShooting(PlayerId player) override;
+        ~TombBanshee() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_dagger;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_dagger;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

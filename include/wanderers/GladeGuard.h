@@ -12,43 +12,46 @@
 #include <wanderers/Wanderer.h>
 #include <Weapon.h>
 
-namespace Wanderers
-{
+namespace Wanderers {
 
-class GladeGuard : public Wanderer
-{
-public:
+    class GladeGuard : public Wanderer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GladeGuard();
-    ~GladeGuard() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool pennantBearer, bool hornblower);
+        static void Init();
 
-protected:
+        GladeGuard();
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    Rerolls runRerolls() const override;
-    int braveryModifier() const override;
+        ~GladeGuard() override = default;
 
-    void onStartShooting(PlayerId player) override;
+        bool configure(int numModels, bool pennantBearer, bool hornblower);
 
-private:
+    protected:
 
-    bool m_hornblower = false,
-        m_pennantBearer = false;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-    bool m_usedArcaneBodkins = false;
+        Rerolls runRerolls() const override;
 
-    Weapon m_longbow,
-        m_longbowLord,
-        m_gladeBlade;
+        int braveryModifier() const override;
 
-    static bool s_registered;
-};
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        bool m_hornblower = false,
+                m_pennantBearer = false;
+
+        bool m_usedArcaneBodkins = false;
+
+        Weapon m_longbow,
+                m_longbowLord,
+                m_gladeBlade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

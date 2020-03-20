@@ -12,53 +12,62 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class PlagueMonks : public Skaventide
-{
-public:
+    class PlagueMonks : public Skaventide {
+    public:
 
-    enum WeaponOptions
-    {
-        PairedFoetidBlades,
-        FoetidBladeAndWoeStave
+        enum WeaponOptions {
+            PairedFoetidBlades,
+            FoetidBladeAndWoeStave
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        PlagueMonks();
+
+        ~PlagueMonks() override = default;
+
+        bool configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence, int doomGongs,
+                       int baleChimes);
+
+    protected:
+
+        void onStartHero(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        WeaponOptions m_weaponOption = PairedFoetidBlades;
+        int m_numContagionBanners = 0;
+        int m_numIconsOfPestilence = 0;
+        int m_numDoomGongs = 0;
+        int m_numBaleChimes = 0;
+
+        Weapon m_foetidBlade,
+                m_woeStave;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    PlagueMonks();
-    ~PlagueMonks() override = default;
-
-    bool configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence, int doomGongs, int baleChimes);
-
-protected:
-
-    void onStartHero(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
-
-private:
-
-    WeaponOptions m_weaponOption = PairedFoetidBlades;
-    int m_numContagionBanners = 0;
-    int m_numIconsOfPestilence = 0;
-    int m_numDoomGongs = 0;
-    int m_numBaleChimes = 0;
-
-    Weapon m_foetidBlade,
-        m_woeStave;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

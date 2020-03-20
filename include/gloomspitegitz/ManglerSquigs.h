@@ -12,38 +12,43 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class ManglerSquigs : public GloomspiteGitzBase
-{
-public:
+    class ManglerSquigs : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ManglerSquigs();
-    ~ManglerSquigs() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ManglerSquigs();
 
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    void onWounded() override;
-    void onSlain() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~ManglerSquigs() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_hugeFangFilledGob,
-        m_ballsAndChains,
-        m_grotsBashinStikk;
+    protected:
 
-    static bool s_registered;
-};
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+
+        void onWounded() override;
+
+        void onSlain() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_hugeFangFilledGob,
+                m_ballsAndChains,
+                m_grotsBashinStikk;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

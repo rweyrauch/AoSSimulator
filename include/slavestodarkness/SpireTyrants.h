@@ -12,36 +12,37 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class SpireTyrants : public SlavesToDarknessBase
-{
-public:
+    class SpireTyrants : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SpireTyrants();
-    ~SpireTyrants() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
+
+        SpireTyrants();
+
+        ~SpireTyrants() override = default;
+
+        bool configure(int numModels);
 
 
-protected:
+    protected:
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-private:
+    private:
 
-    Weapon m_gladiatorialWeapons,
-        m_gladiatorialWeaponsChampion,
-        m_gladiatorialWeaponsHeadclaimer,
-        m_gladiatorialWeaponsDestroyer;
+        Weapon m_gladiatorialWeapons,
+                m_gladiatorialWeaponsChampion,
+                m_gladiatorialWeaponsHeadclaimer,
+                m_gladiatorialWeaponsDestroyer;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

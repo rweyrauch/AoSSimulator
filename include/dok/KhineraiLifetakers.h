@@ -12,36 +12,40 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class KhineraiLifetakers : public DaughterOfKhaine
-{
-public:
+    class KhineraiLifetakers : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    KhineraiLifetakers();
-    ~KhineraiLifetakers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        KhineraiLifetakers();
 
-    void onBeginTurn(int battleRound) override;
-    void onCharged() override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
+        ~KhineraiLifetakers() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_barbedSickle,
-        m_barbedSickleHarridynn;
+    protected:
 
-    static bool s_registered;
-};
+        void onBeginTurn(int battleRound) override;
+
+        void onCharged() override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_barbedSickle,
+            m_barbedSickleHarridynn;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

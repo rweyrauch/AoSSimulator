@@ -10,19 +10,23 @@
 #define THINK_H
 
 class Unit;
+
 class Spell;
+
 class Prayer;
+
 class CommandAbility;
 
-struct AbilityTarget
-{
+struct AbilityTarget {
     bool targetUnit = false;
-    Unit* target = nullptr;
+    Unit *target = nullptr;
     float x = 0.0f, y = 0.0f;
 };
 
-Spell* SelectSpell(Unit* caster, AbilityTarget& outTarget);
-Prayer* SelectPrayer(Unit* priest, AbilityTarget& outTarget);
-CommandAbility* SelectCommandAbility(Unit* commander, AbilityTarget& outTarget);
+Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget);
+
+Prayer *SelectPrayer(Unit *priest, AbilityTarget &outTarget);
+
+CommandAbility *SelectCommandAbility(Unit *commander, AbilityTarget &outTarget);
 
 #endif //THINK_H

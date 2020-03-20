@@ -12,33 +12,34 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SaurusEternityWarden : public SeraphonBase
-{
-public:
+    class SaurusEternityWarden : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SaurusEternityWarden();
-    ~SaurusEternityWarden() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SaurusEternityWarden();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+        ~SaurusEternityWarden() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_mace,
-        m_jaws;
+    protected:
 
-    static bool s_registered;
-};
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_mace,
+            m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

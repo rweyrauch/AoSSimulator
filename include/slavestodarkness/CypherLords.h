@@ -12,39 +12,41 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class CypherLords : public SlavesToDarknessBase
-{
-public:
+    class CypherLords : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    CypherLords();
-    ~CypherLords() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        CypherLords();
 
-    int chargeModifier() const override;
-    void onWounded() override;
+        ~CypherLords() override = default;
 
-protected:
+        bool configure(int numModels);
 
-    bool m_hasThrallmaster = true;
-    bool m_hasLuminate = true;
+    protected:
 
-private:
+        int chargeModifier() const override;
 
-    Weapon m_throwingStars,
-        m_exoticBlades;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+    protected:
+
+        bool m_hasThrallmaster = true;
+        bool m_hasLuminate = true;
+
+    private:
+
+        Weapon m_throwingStars,
+                m_exoticBlades;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

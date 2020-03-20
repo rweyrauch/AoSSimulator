@@ -12,31 +12,32 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SaurusAstrolithBearer : public SeraphonBase
-{
-public:
+    class SaurusAstrolithBearer : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SaurusAstrolithBearer();
-    ~SaurusAstrolithBearer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SaurusAstrolithBearer();
 
-private:
+        ~SaurusAstrolithBearer() override = default;
 
-    Weapon m_warpick,
-        m_jaws;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_warpick,
+                m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

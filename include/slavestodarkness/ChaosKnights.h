@@ -12,62 +12,72 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosKnights : public SlavesToDarknessBase
-{
-public:
+    class ChaosKnights : public SlavesToDarknessBase {
+    public:
 
-    enum WeaponOption
-    {
-        EnsorcelledWeapon = 0,
-        CursedLance,
-        CursedFlail,    // Doom Knight only
+        enum WeaponOption {
+            EnsorcelledWeapon = 0,
+            CursedLance,
+            CursedFlail,    // Doom Knight only
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        ChaosKnights();
+
+        ~ChaosKnights() override;
+
+        bool configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer,
+                       bool hornblower);
+
+    protected:
+
+        void onWounded() override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int terrifyingChampions(const Unit *unit);
+
+    protected:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+
+    private:
+
+        Weapon m_ensorcelledWeapon,
+                m_lance,
+                m_ensorcelledWeaponLeader,
+                m_lanceLeader,
+                m_flailLeader,
+                m_hooves;
+
+        lsignal::slot m_terrifyingSlot;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    ChaosKnights();
-    ~ChaosKnights() override;
-
-    bool configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer, bool hornblower);
-
-protected:
-
-    void onWounded() override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
-
-    int terrifyingChampions(const Unit* unit);
-
-protected:
-
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
-
-private:
-
-    Weapon m_ensorcelledWeapon,
-        m_lance,
-        m_ensorcelledWeaponLeader,
-        m_lanceLeader,
-        m_flailLeader,
-        m_hooves;
-
-    lsignal::slot m_terrifyingSlot;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

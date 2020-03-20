@@ -13,8 +13,7 @@
 #include <functional>
 #include "AgeOfSigmarSim.h"
 
-struct TurnRecord
-{
+struct TurnRecord {
     void clear();
 
     int m_round = 0;
@@ -39,46 +38,53 @@ struct TurnRecord
     int m_numFled = 0;
 };
 
-class UnitStatistics
-{
+class UnitStatistics {
 public:
     UnitStatistics() = default;
 
-    void record(const TurnRecord& action)
-    {
+    void record(const TurnRecord &action) {
         m_actions.push_back(action);
     }
 
     int numberOfRoundsMoved() const;
+
     int numberOfRoundsRan() const;
+
     int numberOfRoundsCharged() const;
 
     // Totals
     float totalMovementDistance() const;
+
     float averageMovementDistance() const;
+
     float totalRunDistance() const;
+
     float averageRunDistance() const;
+
     float totalChargeDistance() const;
+
     float averageChargeDistance() const;
 
     int totalSavesMade() const;
+
     int totalSavesFailed() const;
 
     int totalEnemyModelsSlain() const;
-    void totalWoundsInflicted(Wounds& wounds) const;
+
+    void totalWoundsInflicted(Wounds &wounds) const;
 
     int totalModelsSlain() const;
-    void totalWoundsTaken(Wounds& wounds) const;
+
+    void totalWoundsTaken(Wounds &wounds) const;
 
     int totalModelsFled() const;
 
-    void reset()
-    {
+    void reset() {
         m_numRounds = 0;
         m_actions.clear();
     }
 
-    void visitTurn(std::function<void(const TurnRecord&)>& visitor);
+    void visitTurn(std::function<void(const TurnRecord &)> &visitor);
 
 private:
 

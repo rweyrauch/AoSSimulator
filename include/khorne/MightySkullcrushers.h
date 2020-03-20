@@ -12,51 +12,56 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class MightySkullcrushers : public KhorneBase
-{
-public:
+    class MightySkullcrushers : public KhorneBase {
+    public:
 
-    enum WeaponOption
-    {
-        EnsorcelledAxe,
-        Bloodglaive,
+        enum WeaponOption {
+            EnsorcelledAxe,
+            Bloodglaive,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static void Init();
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        MightySkullcrushers();
+
+        ~MightySkullcrushers() override = default;
+
+        bool configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers);
+
+    protected:
+
+        int chargeModifier() const override;
+
+        int runModifier() const override;
+
+        int braveryModifier() const override;
+
+        void onCharged() override;
+
+    private:
+
+        WeaponOption m_weaponOption = EnsorcelledAxe;
+        bool m_standarBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_ensorcelledAxe,
+                m_bloodglaive,
+                m_ensorcelledAxeHunter,
+                m_bloodglaiveHunter,
+                m_brazenHooves;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-
-    MightySkullcrushers();
-    ~MightySkullcrushers() override = default;
-
-    bool configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers);
-
-protected:
-
-    int chargeModifier() const override;
-    int runModifier() const override;
-    int braveryModifier() const override;
-    void onCharged() override;
-
-private:
-
-    WeaponOption m_weaponOption = EnsorcelledAxe;
-    bool m_standarBearer = false;
-    bool m_hornblower = false;
-
-    Weapon m_ensorcelledAxe,
-        m_bloodglaive,
-        m_ensorcelledAxeHunter,
-        m_bloodglaiveHunter,
-        m_brazenHooves;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

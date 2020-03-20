@@ -9,87 +9,78 @@
 #include <spells/MysticShield.h>
 #include "ossiarch/Boneshaper.h"
 
-namespace OssiarchBonereapers
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 130;
+namespace OssiarchBonereapers {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 130;
 
-bool MortisanBoneshaper::s_registered = false;
+    bool MortisanBoneshaper::s_registered = false;
 
-Unit *MortisanBoneshaper::Create(const ParameterList &parameters)
-{
-    auto unit = new MortisanBoneshaper();
+    Unit *MortisanBoneshaper::Create(const ParameterList &parameters) {
+        auto unit = new MortisanBoneshaper();
 
-    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
-    unit->setLegion(legion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        unit->setLegion(legion);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-std::string MortisanBoneshaper::ValueToString(const Parameter &parameter)
-{
-    return OssiarchBonereaperBase::ValueToString(parameter);
-}
-
-int MortisanBoneshaper::EnumStringToInt(const std::string &enumString)
-{
-    return OssiarchBonereaperBase::EnumStringToInt(enumString);
-}
-
-void MortisanBoneshaper::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            MortisanBoneshaper::Create,
-            MortisanBoneshaper::ValueToString,
-            MortisanBoneshaper::EnumStringToInt,
-            MortisanBoneshaper::ComputePoints,
-            {
-                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-            },
-            DEATH,
-            { OSSIARCH_BONEREAPERS }
-        };
-        s_registered = UnitFactory::Register("Mortisan Boneshaper", factoryMethod);
+    std::string MortisanBoneshaper::ValueToString(const Parameter &parameter) {
+        return OssiarchBonereaperBase::ValueToString(parameter);
     }
-}
 
-MortisanBoneshaper::MortisanBoneshaper() :
-    OssiarchBonereaperBase("Mortisan Boneshaper", 5, WOUNDS, 10, 4, false),
-    m_talons(Weapon::Type::Melee, "Ossified Talons", 1, 2, 3, 4, 0, 1)
-{
-    m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_BONESHAPER};
-    m_weapons = {&m_talons};
+    int MortisanBoneshaper::EnumStringToInt(const std::string &enumString) {
+        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+    }
 
-    m_totalSpells = 1;
-    m_totalUnbinds = 1;
-}
+    void MortisanBoneshaper::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    MortisanBoneshaper::Create,
+                    MortisanBoneshaper::ValueToString,
+                    MortisanBoneshaper::EnumStringToInt,
+                    MortisanBoneshaper::ComputePoints,
+                    {
+                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                             OssiarchBonereaperBase::Crematorians, 1},
+                    },
+                    DEATH,
+                    {OSSIARCH_BONEREAPERS}
+            };
+            s_registered = UnitFactory::Register("Mortisan Boneshaper", factoryMethod);
+        }
+    }
 
-bool MortisanBoneshaper::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_talons);
-    addModel(model);
+    MortisanBoneshaper::MortisanBoneshaper() :
+            OssiarchBonereaperBase("Mortisan Boneshaper", 5, WOUNDS, 10, 4, false),
+            m_talons(Weapon::Type::Melee, "Ossified Talons", 1, 2, 3, 4, 0, 1) {
+        m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_BONESHAPER};
+        m_weapons = {&m_talons};
 
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
+    }
 
-    m_points = POINTS_PER_UNIT;
+    bool MortisanBoneshaper::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_talons);
+        addModel(model);
 
-    return true;
-}
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-int MortisanBoneshaper::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    int MortisanBoneshaper::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace OssiarchBonereapers

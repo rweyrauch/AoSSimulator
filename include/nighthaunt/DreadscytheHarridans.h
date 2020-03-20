@@ -12,34 +12,36 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class DreadscytheHarridans : public Nighthaunt
-{
-public:
+    class DreadscytheHarridans : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DreadscytheHarridans();
-    ~DreadscytheHarridans() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        DreadscytheHarridans();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
+        ~DreadscytheHarridans() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_scythedLimbs,
-        m_scythedLimbsCrone;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
+
+        Weapon m_scythedLimbs,
+                m_scythedLimbsCrone;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

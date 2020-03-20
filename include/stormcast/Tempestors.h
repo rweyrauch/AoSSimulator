@@ -12,38 +12,40 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Tempestors : public StormcastEternal
-{
-public:
+    class Tempestors : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Tempestors();
+        static int ComputePoints(int numModels);
 
-    ~Tempestors() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        Tempestors();
 
-protected:
+        ~Tempestors() override = default;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_stormBlast,
-        m_volleystormCrossbow,
-        m_warblade,
-        m_clawsAndFangs;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
+
+        Weapon m_stormBlast,
+                m_volleystormCrossbow,
+                m_warblade,
+                m_clawsAndFangs;
+
+        static bool s_registered;
+    };
 //
 // Abilities                    Implemented
 // -------------------------------------------

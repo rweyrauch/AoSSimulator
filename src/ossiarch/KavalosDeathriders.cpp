@@ -8,167 +8,145 @@
 #include <UnitFactory.h>
 #include "ossiarch/KavalosDeathriders.h"
 
-namespace OssiarchBonereapers
-{
-static const int BASESIZE = 60; // x35
-static const int WOUNDS = 3;
-static const int MIN_UNIT_SIZE = 5;
-static const int MAX_UNIT_SIZE = 15;
-static const int POINTS_PER_BLOCK = 180;
-static const int POINTS_MAX_UNIT_SIZE = 480;
+namespace OssiarchBonereapers {
+    static const int BASESIZE = 60; // x35
+    static const int WOUNDS = 3;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 15;
+    static const int POINTS_PER_BLOCK = 180;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
-bool KavalosDeathriders::s_registered = false;
+    bool KavalosDeathriders::s_registered = false;
 
-Unit *KavalosDeathriders::Create(const ParameterList &parameters)
-{
-    auto unit = new KavalosDeathriders();
+    Unit *KavalosDeathriders::Create(const ParameterList &parameters) {
+        auto unit = new KavalosDeathriders();
 
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    auto weapons = (WeaponOption)GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
-    bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
+        bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
 
-    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
-    unit->setLegion(legion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        unit->setLegion(legion);
 
-    bool ok = unit->configure(numModels, weapons, necrophoros);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-std::string KavalosDeathriders::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Weapons")
-    {
-        if (parameter.intValue == NadirateSpearAndShield)
-        {
-            return "Nadirate Spear and Shield";
+        bool ok = unit->configure(numModels, weapons, necrophoros);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
         }
-        else if (parameter.intValue == NadiriteBladeAndShield)
-        {
-            return "Nadirite Blade and Shield";
+        return unit;
+    }
+
+    std::string KavalosDeathriders::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapons") {
+            if (parameter.intValue == NadirateSpearAndShield) {
+                return "Nadirate Spear and Shield";
+            } else if (parameter.intValue == NadiriteBladeAndShield) {
+                return "Nadirite Blade and Shield";
+            }
+        }
+        return OssiarchBonereaperBase::ValueToString(parameter);
+    }
+
+    int KavalosDeathriders::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Nadirite Blade and Shield") return NadiriteBladeAndShield;
+        else if (enumString == "Nadirate Spear and Shield") return NadirateSpearAndShield;
+
+        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+    }
+
+    void KavalosDeathriders::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    KavalosDeathriders::Create,
+                    KavalosDeathriders::ValueToString,
+                    KavalosDeathriders::EnumStringToInt,
+                    KavalosDeathriders::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield,
+                             KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
+                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                             OssiarchBonereaperBase::Crematorians, 1},
+                    },
+                    DEATH,
+                    {OSSIARCH_BONEREAPERS}
+            };
+            s_registered = UnitFactory::Register("Kavalos Deathriders", factoryMethod);
         }
     }
-    return OssiarchBonereaperBase::ValueToString(parameter);
-}
 
-int KavalosDeathriders::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Nadirite Blade and Shield") return NadiriteBladeAndShield;
-    else if (enumString == "Nadirate Spear and Shield") return NadirateSpearAndShield;
-
-    return OssiarchBonereaperBase::EnumStringToInt(enumString);
-}
-
-void KavalosDeathriders::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            KavalosDeathriders::Create,
-            KavalosDeathriders::ValueToString,
-            KavalosDeathriders::EnumStringToInt,
-            KavalosDeathriders::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
-                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-            },
-            DEATH,
-            { OSSIARCH_BONEREAPERS }
-        };
-        s_registered = UnitFactory::Register("Kavalos Deathriders", factoryMethod);
-    }
-}
-
-KavalosDeathriders::KavalosDeathriders() :
-    OssiarchBonereaperBase("Kavalos Deathriders", 12, WOUNDS, 10, 4, false),
-    m_blade(Weapon::Type::Melee, "Nadirite Blade", 1, 3, 3, 4, -1, 1),
-    m_spear(Weapon::Type::Melee, "Nadirite Spear", 2, 3, 3, 4, 0, 1),
-    m_bladeHekatos(Weapon::Type::Melee, "Nadirite Blade", 1, 4, 3, 4, -1, 1),
-    m_spearHekatos(Weapon::Type::Melee, "Nadirite Spear", 2, 4, 3, 4, 0, 1),
-    m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 3, 0, 1)
-{
-    m_keywords = {DEATH, OSSIARCH_BONEREAPERS, KAVALOS_DEATHRIDERS};
-    m_weapons = {&m_blade, &m_spear, &m_bladeHekatos, &m_spearHekatos, &m_hoovesAndTeeth};
-}
-
-bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necrophoros)
-{
-    // validate inputs
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        // Invalid model count.
-        return false;
+    KavalosDeathriders::KavalosDeathriders() :
+            OssiarchBonereaperBase("Kavalos Deathriders", 12, WOUNDS, 10, 4, false),
+            m_blade(Weapon::Type::Melee, "Nadirite Blade", 1, 3, 3, 4, -1, 1),
+            m_spear(Weapon::Type::Melee, "Nadirite Spear", 2, 3, 3, 4, 0, 1),
+            m_bladeHekatos(Weapon::Type::Melee, "Nadirite Blade", 1, 4, 3, 4, -1, 1),
+            m_spearHekatos(Weapon::Type::Melee, "Nadirite Spear", 2, 4, 3, 4, 0, 1),
+            m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 3, 0, 1) {
+        m_keywords = {DEATH, OSSIARCH_BONEREAPERS, KAVALOS_DEATHRIDERS};
+        m_weapons = {&m_blade, &m_spear, &m_bladeHekatos, &m_spearHekatos, &m_hoovesAndTeeth};
     }
 
-    auto hekatos = new Model(BASESIZE, wounds());
-    if (option == NadiriteBladeAndShield)
-    {
-        hekatos->addMeleeWeapon(&m_bladeHekatos);
-    }
-    else if (option == NadirateSpearAndShield)
-    {
-        hekatos->addMeleeWeapon(&m_spearHekatos);
-    }
-    hekatos->addMeleeWeapon(&m_hoovesAndTeeth);
-    addModel(hekatos);
-
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        if (option == NadiriteBladeAndShield)
-        {
-            model->addMeleeWeapon(&m_bladeHekatos);
+    bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necrophoros) {
+        // validate inputs
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
         }
-        else if (option == NadirateSpearAndShield)
-        {
-            model->addMeleeWeapon(&m_spearHekatos);
+
+        auto hekatos = new Model(BASESIZE, wounds());
+        if (option == NadiriteBladeAndShield) {
+            hekatos->addMeleeWeapon(&m_bladeHekatos);
+        } else if (option == NadirateSpearAndShield) {
+            hekatos->addMeleeWeapon(&m_spearHekatos);
         }
-        model->addMeleeWeapon(&m_hoovesAndTeeth);
-        addModel(model);
+        hekatos->addMeleeWeapon(&m_hoovesAndTeeth);
+        addModel(hekatos);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            if (option == NadiriteBladeAndShield) {
+                model->addMeleeWeapon(&m_bladeHekatos);
+            } else if (option == NadirateSpearAndShield) {
+                model->addMeleeWeapon(&m_spearHekatos);
+            }
+            model->addMeleeWeapon(&m_hoovesAndTeeth);
+            addModel(model);
+        }
+
+        m_necrophoros = necrophoros;
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_necrophoros = necrophoros;
-
-    m_points = ComputePoints(numModels);
-
-    return true;
-}
-
-int KavalosDeathriders::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
-{
-    if (m_charged && (weapon->name() == m_spear.name()) && (unmodifiedHitRoll >= 5)) return 2;
-    if ((unmodifiedHitRoll == 6) && ((weapon->name() == m_blade.name()) || (weapon->name() == m_spear.name()))) return 2;
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-}
-
-int KavalosDeathriders::runModifier() const
-{
-    auto mod = Unit::runModifier();
-    if (m_necrophoros) mod++;
-    return mod;
-}
-
-int KavalosDeathriders::chargeModifier() const
-{
-    auto mod = Unit::chargeModifier();
-    if (m_necrophoros) mod++;
-    return mod;
-}
-
-int KavalosDeathriders::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int KavalosDeathriders::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        if (m_charged && (weapon->name() == m_spear.name()) && (unmodifiedHitRoll >= 5)) return 2;
+        if ((unmodifiedHitRoll == 6) &&
+            ((weapon->name() == m_blade.name()) || (weapon->name() == m_spear.name())))
+            return 2;
+        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
-    return points;
-}
+
+    int KavalosDeathriders::runModifier() const {
+        auto mod = Unit::runModifier();
+        if (m_necrophoros) mod++;
+        return mod;
+    }
+
+    int KavalosDeathriders::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+        if (m_necrophoros) mod++;
+        return mod;
+    }
+
+    int KavalosDeathriders::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace OssiarchBonereapers

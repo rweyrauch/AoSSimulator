@@ -11,15 +11,16 @@
 
 #include <Spell.h>
 
-class MysticShield : public Spell
-{
+class MysticShield : public Spell {
 public:
     explicit MysticShield(Unit *caster);
 
-    Result cast(Unit* target, int round) override;
+    Result cast(Unit *target, int round) override;
+
     Result cast(float x, float y, int round) override { return Failed; }
 
 protected:
 
 };
+
 #endif// MYSTICSHIELD_H

@@ -12,38 +12,40 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class MorathiTheShadowQueen : public DaughterOfKhaine
-{
-public:
+    class MorathiTheShadowQueen : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MorathiTheShadowQueen();
-    ~MorathiTheShadowQueen() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        MorathiTheShadowQueen();
 
-    void onWounded() override;
-    void onRestore() override;
+        ~MorathiTheShadowQueen() override = default;
 
-private:
+        bool configure();
 
-    int getDamageTableIndex() const;
+    protected:
 
-    Weapon m_gaze,
-        m_heartrender,
-        m_crown,
-        m_tail;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_gaze,
+                m_heartrender,
+                m_crown,
+                m_tail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

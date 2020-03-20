@@ -27,8 +27,7 @@
 
 class Roster;
 
-class Unit
-{
+class Unit {
 public:
     Unit() = default;
 
@@ -62,23 +61,28 @@ public:
     int numPrayers() const { return m_totalPrayers; }
 
     PlayerId owningPlayer() const;
-    bool isFriendly(const Unit* unit) const;
 
-    void setRoster(Roster* roster);
-    Roster* getRoster() const { return m_roster; }
+    bool isFriendly(const Unit *unit) const;
+
+    void setRoster(Roster *roster);
+
+    Roster *getRoster() const { return m_roster; }
 
     bool addKeyword(Keyword word);
+
     void removeKeyword(Keyword word);
+
     bool hasKeyword(Keyword word) const;
 
     /*!
      * Add a model to this unit.
      * @param model
      */
-    void addModel(Model* model);
+    void addModel(Model *model);
 
-    int numModels() const { return (int)m_models.size(); }
-    const Model* getModel(int which) const { return m_models.at(which).get(); }
+    int numModels() const { return (int) m_models.size(); }
+
+    const Model *getModel(int which) const { return m_models.at(which).get(); }
 
     /*!
      * Restore a unit to its initial condition, as it was at the start of the battle.
@@ -116,11 +120,14 @@ public:
     bool setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation);
 
     const Math::Point3 &position() const { return m_position; };
+
     float x() const { return m_position.x; }
+
     float y() const { return m_position.y; }
 
     float distanceTo(const Unit *unit) const;
-    float distanceTo(const Math::Point3& point) const;
+
+    float distanceTo(const Math::Point3 &point) const;
 
     float distanceBetween(const Model *model, const Unit *unit) const;
 
@@ -139,15 +146,16 @@ public:
 
     int applyBattleshock();
 
-    bool makeSave(int woundRoll, const Weapon* weapon, int weaponRend, Unit* target, int& saveRoll);
+    bool makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll);
 
     int applyDamage(const Wounds &totalWounds);
 
-    int initialModels() const { return (int)m_models.size(); }
+    int initialModels() const { return (int) m_models.size(); }
 
     int remainingModels() const;
 
     int initialWounds() const;
+
     int remainingWounds() const;
 
     int remainingPoints() const;
@@ -169,39 +177,52 @@ public:
     bool hasFought() const { return m_hasFought; }
 
     bool canFly() const;
+
     bool canRunAndShoot() const;
+
     bool canRunAndCharge() const;
+
     bool canRetreatAndShoot() const;
+
     bool canRetreatAndCharge() const;
+
     bool canRecastArcaneBoldAndMysticShield() const { return m_canRecastArcaneBoldAndMysticShield; }
 
     int slay(int numModels);
 
-    bool unbind(const Unit* caster, int castRoll);
+    bool unbind(const Unit *caster, int castRoll);
 
     float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor);
 
-    int getNumWeapons() const { return (int)m_weapons.size(); }
-    const Weapon* getWeapon(int which) const { return m_weapons[which]; }
+    int getNumWeapons() const { return (int) m_weapons.size(); }
+
+    const Weapon *getWeapon(int which) const { return m_weapons[which]; }
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
 
     bool isGeneral() const { return m_isGeneral; }
 
     bool buffModifier(BuffableAttribute which, int modifier, Duration duration);
+
     bool buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration);
+
     bool buffMovement(MovementRules which, bool allowed, Duration duration);
 
     std::vector<std::unique_ptr<Spell>>::const_iterator spellBegin() const { return m_knownSpells.begin(); }
+
     std::vector<std::unique_ptr<Spell>>::const_iterator spellEnd() const { return m_knownSpells.end(); }
 
     std::vector<std::unique_ptr<Prayer>>::const_iterator prayerBegin() const { return m_knownPrayers.begin(); }
+
     std::vector<std::unique_ptr<Prayer>>::const_iterator prayerEnd() const { return m_knownPrayers.end(); }
 
-    std::vector<std::unique_ptr<CommandAbility>>::const_iterator commandAbilityBegin() const { return m_commandAbilities.begin(); }
-    std::vector<std::unique_ptr<CommandAbility>>::const_iterator commandAbilityEnd() const { return m_commandAbilities.end(); }
+    std::vector<std::unique_ptr<CommandAbility>>::const_iterator
+    commandAbilityBegin() const { return m_commandAbilities.begin(); }
+
+    std::vector<std::unique_ptr<CommandAbility>>::const_iterator
+    commandAbilityEnd() const { return m_commandAbilities.end(); }
 
     int numOfWoundedModels() const;
 
@@ -211,16 +232,21 @@ protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
-    void attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fromModel,
-        Wounds& totalWoundsInflicted, Wounds& totalWoundsSuffered);
+    void attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fromModel,
+                          Wounds &totalWoundsInflicted, Wounds &totalWoundsSuffered);
 
     int rerolling(int initialRoll, Rerolls reroll) const;
 
     void useCommandAbility();
+
     void castSpell();
+
     void makePrayer();
-    const Model* nearestModel(const Model* model, const Unit* targetUnit) const;
-    int getModelsWithin(const Model* model, const Unit* targetUnit, float distance) const;
+
+    const Model *nearestModel(const Model *model, const Unit *targetUnit) const;
+
+    int getModelsWithin(const Model *model, const Unit *targetUnit, float distance) const;
+
     void doPileIn();
 
     void timeoutBuffs(Phase phase, PlayerId player);
@@ -244,7 +270,7 @@ protected:
      * @param unit
      * @return
      */
-    virtual int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const { return  1; }
+    virtual int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const { return 1; }
 
     /*!
      * To-hit modifier (buffs) when this unit uses the given weapon to attack the target.
@@ -302,7 +328,9 @@ protected:
      * @param woundRoll Roll to-wound
      * @return Weapon damage
      */
-    virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return {weapon->damage(), 0}; }
+    virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        return {weapon->damage(), 0};
+    }
 
     /*!
      * Modifier to apply to damage for a single attack.
@@ -312,7 +340,8 @@ protected:
      * @param woundRoll Unmodified roll to-wound
      * @return Modified wounds
      */
-    virtual Wounds targetAttackDamageModifier(const Wounds& wounds, const Unit *attacker, int hitRoll, int woundRoll) const { return wounds; }
+    virtual Wounds targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll,
+                                              int woundRoll) const { return wounds; }
 
     /*!
      * Compute the weapon rend against the given target with the hit and wound rolls.
@@ -322,7 +351,8 @@ protected:
      * @param woundRoll Roll to-wound
      * @return Weapon rend
      */
-    virtual int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const { return weapon->rend(); }
+    virtual int
+    weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return weapon->rend(); }
 
     /*!
      * Some units do mortal wounds for simply existing.
@@ -349,12 +379,13 @@ protected:
 
     virtual int rollBattleshock() const;
 
-    virtual void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const;
+    virtual void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const;
 
     virtual int castingModifier() const;
+
     virtual int unbindingModifier() const;
 
-    virtual void restoreModels(int numModels) { }
+    virtual void restoreModels(int numModels) {}
 
     virtual int woundModifier() const { return 0; }
 
@@ -372,30 +403,41 @@ protected:
     virtual void onRestore() {}
 
     virtual void onBeginRound(int battleRound) {}
+
     virtual void onEndRound(int battleRound) {}
 
     virtual void onBeginTurn(int battleRound) {}
 
     virtual void onSlain() {}
+
     virtual void onModelSlain() {}
+
     virtual void onWounded() {}
+
     virtual void onRan() {}
+
     virtual void onFlee(int numFled) {}
+
     virtual void onCharged() {}
 
-    virtual void onUnboundSpell(const Unit* caster, int castRoll) {}
-    virtual void onCastSpell(const Spell* spell, const Unit* target) {}
+    virtual void onUnboundSpell(const Unit *caster, int castRoll) {}
+
+    virtual void onCastSpell(const Spell *spell, const Unit *target) {}
 
     virtual void onStartHero(PlayerId player) {}
+
     virtual void onEndHero(PlayerId player) {}
 
     virtual void onStartMovement(PlayerId player) {}
+
     virtual void onEndMovement(PlayerId player) {}
 
     virtual void onStartShooting(PlayerId player) {}
+
     virtual Wounds onEndShooting(PlayerId player) { return {0, 0}; }
 
     virtual void onStartCombat(PlayerId player) {}
+
     virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
 
     virtual int rollRunDistance() const;
@@ -428,7 +470,7 @@ protected:
     bool m_ignoreRend = false;
     bool m_isGeneral = false;
 
-    Roster* m_roster = nullptr;
+    Roster *m_roster = nullptr;
 
     int m_totalSpells = 0;
     int m_totalUnbinds = 0;
@@ -457,7 +499,7 @@ protected:
     std::vector<std::unique_ptr<Prayer>> m_knownPrayers;
     std::vector<std::unique_ptr<CommandAbility>> m_commandAbilities;
 
-    std::vector<const Weapon*> m_weapons;
+    std::vector<const Weapon *> m_weapons;
 
     Unit *m_shootingTarget = nullptr;
     Unit *m_meleeTarget = nullptr;
@@ -469,32 +511,31 @@ protected:
     std::list<RerollBuff> m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
     std::list<MovementRuleBuff> m_movementRules[NUM_MOVEMENT_RULES];
 
-    static lsignal::signal<int(const Unit*)> s_globalMoveMod;
-    static lsignal::signal<int(const Unit*)> s_globalRunMod;
-    static lsignal::signal<int(const Unit*)> s_globalChargeMod;
+    static lsignal::signal<int(const Unit *)> s_globalMoveMod;
+    static lsignal::signal<int(const Unit *)> s_globalRunMod;
+    static lsignal::signal<int(const Unit *)> s_globalChargeMod;
 
-    static lsignal::signal<int(const Unit*)> s_globalBraveryMod;
-    static lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> s_globalToHitMod;
-    static lsignal::signal<int(const Unit*, const Weapon*, const Unit*)> s_globalToWoundMod;
-    static lsignal::signal<int(const Unit*, const Weapon*)> s_globalSaveMod;
+    static lsignal::signal<int(const Unit *)> s_globalBraveryMod;
+    static lsignal::signal<int(const Unit *, const Weapon *, const Unit *)> s_globalToHitMod;
+    static lsignal::signal<int(const Unit *, const Weapon *, const Unit *)> s_globalToWoundMod;
+    static lsignal::signal<int(const Unit *, const Weapon *)> s_globalSaveMod;
 
-    static lsignal::signal<int(const Unit*, const Model *, const Weapon *, const Unit *)> s_globalAttackMod;
+    static lsignal::signal<int(const Unit *, const Model *, const Weapon *, const Unit *)> s_globalAttackMod;
 
-    static lsignal::signal<int(const Unit*)> s_globalCastMod;
-    static lsignal::signal<int(const Unit*)> s_globalUnbindMod;
+    static lsignal::signal<int(const Unit *)> s_globalCastMod;
+    static lsignal::signal<int(const Unit *)> s_globalUnbindMod;
 
-    static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalToHitReroll;
-    static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalToWoundReroll;
-    static lsignal::signal<Rerolls(const Unit*, const Weapon*, const Unit*)> s_globalSaveReroll;
-    static lsignal::signal<Rerolls(const Unit*)> s_globalBattleshockReroll;
+    static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalToHitReroll;
+    static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalToWoundReroll;
+    static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalSaveReroll;
+    static lsignal::signal<Rerolls(const Unit *)> s_globalBattleshockReroll;
 
-    static lsignal::signal<Rerolls(const Unit*)> s_globalRunReroll;
-    static lsignal::signal<Rerolls(const Unit*)> s_globalChargeReroll;
+    static lsignal::signal<Rerolls(const Unit *)> s_globalRunReroll;
+    static lsignal::signal<Rerolls(const Unit *)> s_globalChargeReroll;
 
 };
 
-class CustomUnit : public Unit
-{
+class CustomUnit : public Unit {
 public:
     CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 };

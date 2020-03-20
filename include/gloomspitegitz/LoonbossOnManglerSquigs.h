@@ -12,48 +12,54 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class LoonbossOnManglerSquigs : public GloomspiteGitzBase
-{
-public:
+    class LoonbossOnManglerSquigs : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LoonbossOnManglerSquigs();
-    ~LoonbossOnManglerSquigs() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LoonbossOnManglerSquigs();
 
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-    void onWounded() override;
-    void onRestore() override;
-    void onSlain() override;
+        ~LoonbossOnManglerSquigs() override = default;
 
-    void onStartHero(PlayerId player) override;
+        bool configure();
 
-private:
+    protected:
 
-    int getDamageTableIndex() const;
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
-    bool m_eatenRedcapMushroom = false;
-    Rerolls m_toHitRerolls = NoRerolls;
-    Rerolls m_toWoundRerolls = NoRerolls;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    Weapon m_hugeFangFilledGob,
-        m_moonCutta,
-        m_ballsAndChains,
-        m_grotsBashinStikk;
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        void onSlain() override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        bool m_eatenRedcapMushroom = false;
+        Rerolls m_toHitRerolls = NoRerolls;
+        Rerolls m_toWoundRerolls = NoRerolls;
+
+        Weapon m_hugeFangFilledGob,
+                m_moonCutta,
+                m_ballsAndChains,
+                m_grotsBashinStikk;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

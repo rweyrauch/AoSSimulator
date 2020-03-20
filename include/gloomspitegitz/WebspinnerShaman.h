@@ -13,32 +13,35 @@
 #include <Weapon.h>
 #include <spells/GloomspiteSpells.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class WebspinnerShaman : public GloomspiteGitzBase
-{
-public:
+    class WebspinnerShaman : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    WebspinnerShaman();
-    ~WebspinnerShaman() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheSpiderFangs lore);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-private:
+        static int ComputePoints(int numModels);
 
-    Weapon m_spiderGodStaff;
+        WebspinnerShaman();
 
-    static bool s_registered;
-};
+        ~WebspinnerShaman() override = default;
+
+        bool configure(LoreOfTheSpiderFangs lore);
+
+    protected:
+
+    private:
+
+        Weapon m_spiderGodStaff;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

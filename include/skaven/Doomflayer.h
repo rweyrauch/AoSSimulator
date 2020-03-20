@@ -12,38 +12,42 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Doomflayer : public Skaventide
-{
-public:
+    class Doomflayer : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Doomflayer();
-    ~Doomflayer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Doomflayer();
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    void onRestore() override;
-    Wounds onEndCombat(PlayerId player) override;
+        ~Doomflayer() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_whirlingBlades,
-        m_rustyKnives;
+    protected:
 
-    mutable bool m_moreMoreFailed = false;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        void onRestore() override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+    private:
+
+        Weapon m_whirlingBlades,
+                m_rustyKnives;
+
+        mutable bool m_moreMoreFailed = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

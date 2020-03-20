@@ -8,199 +8,173 @@
 #include <UnitFactory.h>
 #include "slavestodarkness/ChaosChosen.h"
 
-namespace SlavesToDarkness
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 2;
-static const int MIN_UNIT_SIZE = 5;
-static const int MAX_UNIT_SIZE = 20;
-static const int POINTS_PER_BLOCK = 140;
-static const int POINTS_MAX_UNIT_SIZE = 140*4;
+namespace SlavesToDarkness {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 20;
+    static const int POINTS_PER_BLOCK = 140;
+    static const int POINTS_MAX_UNIT_SIZE = 140 * 4;
 
-bool ChaosChosen::s_registered = false;
+    bool ChaosChosen::s_registered = false;
 
-Unit *ChaosChosen::Create(const ParameterList &parameters)
-{
-    auto unit = new ChaosChosen();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
-    bool drummer = GetBoolParam("Drummer", parameters, false);
+    Unit *ChaosChosen::Create(const ParameterList &parameters) {
+        auto unit = new ChaosChosen();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
+        bool drummer = GetBoolParam("Drummer", parameters, false);
 
-    auto legion = (DamnedLegion)GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
-    unit->setDamnedLegion(legion);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        unit->setDamnedLegion(legion);
 
-    auto mark = (MarkOfChaos)GetEnumParam("Mark of Chaos", parameters, Undivided);
-    unit->setMarkOfChaos(mark);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        unit->setMarkOfChaos(mark);
 
-    bool ok = unit->configure(numModels, iconBearer, drummer);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void ChaosChosen::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            ChaosChosen::Create,
-            SlavesToDarknessBase::ValueToString,
-            SlavesToDarknessBase::EnumStringToInt,
-            ChaosChosen::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-                {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
-            },
-            CHAOS,
-            { SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE }
-        };
-        s_registered = UnitFactory::Register("Chaos Chosen", factoryMethod);
-    }
-}
-
-ChaosChosen::ChaosChosen() :
-    SlavesToDarknessBase("Chaos Chosen", 6, WOUNDS, 7, 4, false),
-    m_greataxe(Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1),
-    m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1)
-{
-    m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
-    m_weapons = {&m_greataxe, &m_greataxeChampion};
-
-    s_globalBraveryMod.connect(this, &ChaosChosen::iconBearer, &m_braverySlot);
-}
-
-ChaosChosen::~ChaosChosen()
-{
-    m_braverySlot.disconnect();
-}
-
-bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
-    }
-
-    m_iconBearer = iconBearer;
-    m_drummer = drummer;
-
-    auto champion = new Model(BASESIZE, wounds());
-    champion->addMeleeWeapon(&m_greataxeChampion);
-    champion->setName("Exalted Champion");
-    addModel(champion);
-
-    if (m_iconBearer)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->setName("Icon Bearer");
-        model->addMeleeWeapon(&m_greataxe);
-        addModel(model);
-    }
-
-    if (m_drummer)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->setName("Drummer");
-        model->addMeleeWeapon(&m_greataxe);
-        addModel(model);
-    }
-
-    for (auto i = (int)m_models.size(); i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_greataxe);
-        addModel(model);
-    }
-
-    m_points = ComputePoints(numModels);
-
-    return true;
-}
-
-void ChaosChosen::onWounded()
-{
-    Unit::onWounded();
-
-    // Check for special models
-    for (const auto& ip : m_models)
-    {
-        if (ip->slain() && (ip->getName() == "Drummer"))
-        {
-            m_drummer = false;
+        bool ok = unit->configure(numModels, iconBearer, drummer);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
         }
-        if (ip->slain() && (ip->getName() == "Icon Bearer"))
-        {
-            m_iconBearer = false;
+        return unit;
+    }
+
+    void ChaosChosen::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    ChaosChosen::Create,
+                    SlavesToDarknessBase::ValueToString,
+                    SlavesToDarknessBase::EnumStringToInt,
+                    ChaosChosen::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
+                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                            {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided,
+                             SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+                    },
+                    CHAOS,
+                    {SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE}
+            };
+            s_registered = UnitFactory::Register("Chaos Chosen", factoryMethod);
         }
     }
-}
 
-int ChaosChosen::runModifier() const
-{
-    auto modifier = Unit::runModifier();
-    if (m_drummer) modifier += 1;
-    return modifier;
-}
+    ChaosChosen::ChaosChosen() :
+            SlavesToDarknessBase("Chaos Chosen", 6, WOUNDS, 7, 4, false),
+            m_greataxe(Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1),
+            m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1) {
+        m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
+        m_weapons = {&m_greataxe, &m_greataxeChampion};
 
-int ChaosChosen::chargeModifier() const
-{
-    auto modifier = Unit::chargeModifier();
-    if (m_drummer) modifier += 1;
-    return modifier;
-}
+        s_globalBraveryMod.connect(this, &ChaosChosen::iconBearer, &m_braverySlot);
+    }
 
-void ChaosChosen::onRestore()
-{
-    Unit::onRestore();
+    ChaosChosen::~ChaosChosen() {
+        m_braverySlot.disconnect();
+    }
 
-    // Check for special models
-    for (const auto& ip : m_models)
-    {
-        if (ip->getName() == "Drummer")
-        {
-            m_drummer = true;
+    bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
         }
-        if (ip->getName() == "Icon Bearer")
-        {
-            m_iconBearer = true;
+
+        m_iconBearer = iconBearer;
+        m_drummer = drummer;
+
+        auto champion = new Model(BASESIZE, wounds());
+        champion->addMeleeWeapon(&m_greataxeChampion);
+        champion->setName("Exalted Champion");
+        addModel(champion);
+
+        if (m_iconBearer) {
+            auto model = new Model(BASESIZE, wounds());
+            model->setName("Icon Bearer");
+            model->addMeleeWeapon(&m_greataxe);
+            addModel(model);
+        }
+
+        if (m_drummer) {
+            auto model = new Model(BASESIZE, wounds());
+            model->setName("Drummer");
+            model->addMeleeWeapon(&m_greataxe);
+            addModel(model);
+        }
+
+        for (auto i = (int) m_models.size(); i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_greataxe);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
+    }
+
+    void ChaosChosen::onWounded() {
+        Unit::onWounded();
+
+        // Check for special models
+        for (const auto &ip : m_models) {
+            if (ip->slain() && (ip->getName() == "Drummer")) {
+                m_drummer = false;
+            }
+            if (ip->slain() && (ip->getName() == "Icon Bearer")) {
+                m_iconBearer = false;
+            }
         }
     }
-}
 
-Wounds ChaosChosen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Soul splitter
-    if ((hitRoll >= 6) && (weapon->name() == m_greataxe.name()))
-    {
-        return { weapon->damage(), 1};
+    int ChaosChosen::runModifier() const {
+        auto modifier = Unit::runModifier();
+        if (m_drummer) modifier += 1;
+        return modifier;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int ChaosChosen::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int ChaosChosen::chargeModifier() const {
+        auto modifier = Unit::chargeModifier();
+        if (m_drummer) modifier += 1;
+        return modifier;
     }
-    return points;
-}
 
-int ChaosChosen::iconBearer(const Unit *unit)
-{
-    // Icon Bearer
-    if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f))
-    {
-        return -1;
+    void ChaosChosen::onRestore() {
+        Unit::onRestore();
+
+        // Check for special models
+        for (const auto &ip : m_models) {
+            if (ip->getName() == "Drummer") {
+                m_drummer = true;
+            }
+            if (ip->getName() == "Icon Bearer") {
+                m_iconBearer = true;
+            }
+        }
     }
-    return 0;
-}
+
+    Wounds ChaosChosen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Soul splitter
+        if ((hitRoll >= 6) && (weapon->name() == m_greataxe.name())) {
+            return {weapon->damage(), 1};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int ChaosChosen::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
+
+    int ChaosChosen::iconBearer(const Unit *unit) {
+        // Icon Bearer
+        if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f)) {
+            return -1;
+        }
+        return 0;
+    }
 
 } //SlavesToDarkness

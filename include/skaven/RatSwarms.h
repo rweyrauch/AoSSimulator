@@ -12,30 +12,31 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class RatSwarms : public Skaventide
-{
-public:
+    class RatSwarms : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RatSwarms();
-    ~RatSwarms() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        RatSwarms();
 
-private:
+        ~RatSwarms() override = default;
 
-    Weapon m_teeth;
+        bool configure(int numModels);
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_teeth;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

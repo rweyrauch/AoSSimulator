@@ -13,32 +13,35 @@
 #include <Weapon.h>
 #include "PrayersOfTheStormhosts.h"
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordRelictor : public StormcastEternal
-{
-public:
+    class LordRelictor : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    LordRelictor();
-    ~LordRelictor() override = default;
+        static void Init();
 
-    bool configure(PrayersOfTheStormhost prayer);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-private:
+        static int ComputePoints(int numModels);
 
-    Weapon m_relicHammer;
+        LordRelictor();
 
-    static bool s_registered;
-};
+        ~LordRelictor() override = default;
+
+        bool configure(PrayersOfTheStormhost prayer);
+
+    protected:
+
+    private:
+
+        Weapon m_relicHammer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

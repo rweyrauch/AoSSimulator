@@ -12,32 +12,33 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class BladebringerOnHellflayer : public SlaaneshBase
-{
-public:
+    class BladebringerOnHellflayer : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BladebringerOnHellflayer();
-    ~BladebringerOnHellflayer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BladebringerOnHellflayer();
 
-private:
+        ~BladebringerOnHellflayer() override = default;
 
-    Weapon m_flensingWhips,
-        m_piercingClaws,
-        m_poisonedTongues;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_flensingWhips,
+                m_piercingClaws,
+                m_poisonedTongues;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

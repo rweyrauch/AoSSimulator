@@ -207,7 +207,9 @@ You may abort a search anytime by starting a new one via findPathInit(), calling
 // The default allocator uses realloc(), free(). Change if necessary.
 // You will get the user pointer that you passed to findPath() or the Searcher ctor.
 #if !defined(JPS_realloc) || !defined(JPS_free)
+
 # include <stdlib.h> // for realloc, free
+
 # ifndef JPS_realloc
 #  define JPS_realloc(p, newsize, oldsize, user) realloc(p, newsize)
 # endif
@@ -246,19 +248,19 @@ namespace JPS {
 
 // unsigned integer type wide enough to store a position on one grid axis.
 // Note that on x86, u32 is actually faster than u16.
-typedef unsigned PosType;
+    typedef unsigned PosType;
 
 // Result of heuristics. can also be (unsigned) int but using float by default since that's what sqrtf() returns
 // and we don't need to cast float->int that way. Change if you use integer-only heuristics.
 // (Euclidean heuristic using sqrt() works fine even if cast to int. Your choice really.)
 #ifdef JPS_NO_FLOAT
-typedef int ScoreType;
+    typedef int ScoreType;
 #else
-typedef float ScoreType;
+    typedef float ScoreType;
 #endif
 
 // Size type; used internally for vectors and the like. You can set this to size_t if you want, but 32 bits is more than enough.
-typedef unsigned SizeT;
+    typedef unsigned SizeT;
 
 } // end namespace JPS
 
@@ -268,8 +270,7 @@ typedef unsigned SizeT;
 // ================================
 // ----------------------------------------------------------------------------------------
 
-enum JPS_Result
-{
+enum JPS_Result {
     JPS_NO_PATH,
     JPS_FOUND_PATH,
     JPS_NEED_MORE_STEPS,
@@ -282,831 +283,821 @@ enum JPS_Result
 // Trick via https://github.com/ocornut/imgui
 // "Defining a custom placement new() with a dummy parameter allows us to bypass including <new>
 // which on some platforms complains when user has disabled exceptions."
-struct JPS__NewDummy {};
-inline void* operator new(size_t, JPS__NewDummy, void* ptr) { return ptr; }
-inline void  operator delete(void*, JPS__NewDummy, void*)       {}
+struct JPS__NewDummy {
+};
+
+inline void *operator new(size_t, JPS__NewDummy, void *ptr) { return ptr; }
+
+inline void operator delete(void *, JPS__NewDummy, void *) {}
+
 #define JPS_PLACEMENT_NEW(p) new(JPS__NewDummy(), p)
 
 
 namespace JPS {
 
-struct Position
-{
-    PosType x, y;
+    struct Position {
+        PosType x, y;
 
-    inline bool operator==(const Position& p) const
-    {
-        return x == p.x && y == p.y;
-    }
-    inline bool operator!=(const Position& p) const
-    {
-        return x != p.x || y != p.y;
-    }
+        inline bool operator==(const Position &p) const {
+            return x == p.x && y == p.y;
+        }
 
-    inline bool isValid() const { return x != PosType(-1); }
-};
+        inline bool operator!=(const Position &p) const {
+            return x != p.x || y != p.y;
+        }
+
+        inline bool isValid() const { return x != PosType(-1); }
+    };
 
 // The invalid position. Used internally to mark non-walkable points.
-static const Position npos = {PosType(-1), PosType(-1)};
-static const SizeT noidx = SizeT(-1);
+    static const Position npos = {PosType(-1), PosType(-1)};
+    static const SizeT noidx = SizeT(-1);
 
 // ctor function to keep Position a real POD struct.
-inline static Position Pos(PosType x, PosType y)
-{
-    Position p;
-    p.x = x;
-    p.y = y;
-    return p;
-}
+    inline static Position Pos(PosType x, PosType y) {
+        Position p;
+        p.x = x;
+        p.y = y;
+        return p;
+    }
 
-template<typename T> inline static T Max(T a, T b) { return a < b ? b : a; }
-template<typename T> inline static T Min(T a, T b) { return a < b ? a : b; }
-template<typename T> inline static T Abs(T a)      { return a < T(0) ? -a : a; }
+    template<typename T>
+    inline static T Max(T a, T b) { return a < b ? b : a; }
+
+    template<typename T>
+    inline static T Min(T a, T b) { return a < b ? a : b; }
+
+    template<typename T>
+    inline static T Abs(T a) { return a < T(0) ? -a : a; }
 
 
 // Heuristics. Add new ones if you need them.
-namespace Heuristic
-{
-    inline ScoreType Manhattan(const Position& a, const Position& b)
-    {
-        const int dx = Abs(int(a.x - b.x));
-        const int dy = Abs(int(a.y - b.y));
-        return static_cast<ScoreType>(dx + dy);
-    }
+    namespace Heuristic {
+        inline ScoreType Manhattan(const Position &a, const Position &b) {
+            const int dx = Abs(int(a.x - b.x));
+            const int dy = Abs(int(a.y - b.y));
+            return static_cast<ScoreType>(dx + dy);
+        }
 
-    inline ScoreType Chebyshev(const Position& a, const Position& b)
-    {
-        const int dx = Abs(int(a.x - b.x));
-        const int dy = Abs(int(a.y - b.y));
-        return static_cast<ScoreType>(Max(dx, dy));
-    }
+        inline ScoreType Chebyshev(const Position &a, const Position &b) {
+            const int dx = Abs(int(a.x - b.x));
+            const int dy = Abs(int(a.y - b.y));
+            return static_cast<ScoreType>(Max(dx, dy));
+        }
+
 #ifdef JPS_sqrt
-    inline ScoreType Euclidean(const Position& a, const Position& b)
-    {
-        const int dx = (int(a.x - b.x));
-        const int dy = (int(a.y - b.y));
-        return static_cast<ScoreType>(JPS_sqrt(dx*dx + dy*dy));
-    }
+        inline ScoreType Euclidean(const Position& a, const Position& b)
+        {
+            const int dx = (int(a.x - b.x));
+            const int dy = (int(a.y - b.y));
+            return static_cast<ScoreType>(JPS_sqrt(dx*dx + dy*dy));
+        }
 #endif
-} // end namespace heuristic
+    } // end namespace heuristic
 
 
 
 // --- Begin infrastructure, data structures ---
 
-namespace Internal {
+    namespace Internal {
 
 // Never allocated outside of a PodVec<Node> --> All nodes are linearly adjacent in memory.
-struct Node
-{
-    ScoreType f, g; // heuristic distances
-    Position pos;
-    int parentOffs; // no parent if 0
-    unsigned _flags;
+        struct Node {
+            ScoreType f, g; // heuristic distances
+            Position pos;
+            int parentOffs; // no parent if 0
+            unsigned _flags;
 
-    inline int hasParent() const { return parentOffs; }
-    inline void setOpen() { _flags |= 1; }
-    inline void setClosed() { _flags |= 2; }
-    inline unsigned isOpen() const { return _flags & 1; }
-    inline unsigned isClosed() const { return _flags & 2; }
+            inline int hasParent() const { return parentOffs; }
 
-    // We know nodes are allocated sequentially in memory, so this is fine.
-    inline       Node& getParent()       { JPS_ASSERT(parentOffs); return this[parentOffs]; }
-    inline const Node& getParent() const { JPS_ASSERT(parentOffs); return this[parentOffs]; }
-    inline const Node *getParentOpt() const { return parentOffs ? this + parentOffs : 0; }
-    inline void setParent(const Node& p) { JPS_ASSERT(&p != this); parentOffs = static_cast<SizeT>(&p - this); }
-};
+            inline void setOpen() { _flags |= 1; }
 
-template<typename T>
-class PodVec
-{
-public:
-    PodVec(void *user = 0)
-        : _data(0), used(0), cap(0), _user(user)
-    {}
-    ~PodVec() { dealloc(); }
-    inline void clear()
-    {
-        used = 0;
-    }
-    void dealloc()
-    {
-        JPS_free(_data, cap * sizeof(T), _user);
-        _data = 0;
-        used = 0;
-        cap = 0;
-    }
-    T *alloc()
-    {
-        T *e = 0;
-        if(used < cap || _grow())
-        {
-            e = _data + used;
-            ++used;
-        }
-        return e;
-    }
-    inline void push_back(const T& e)
-    {
-        if(T *dst = alloc()) // yes, this silently fails when OOM. this is handled internally.
-            *dst = e;
-    }
-    inline void pop_back() { JPS_ASSERT(used); --used; }
-    inline T& back() { JPS_ASSERT(used); return _data[used-1]; }
-    inline SizeT size() const { return used; }
-    inline bool empty() const { return !used; }
-    inline T *data() { return _data; }
-    inline const T *data() const { return _data; }
-    inline T& operator[](size_t idx) const { JPS_ASSERT(idx < used); return _data[idx]; }
-    inline SizeT getindex(const T *e) const
-    {
-        JPS_ASSERT(e && _data <= e && e < _data + used);
-        return SizeT(e - _data);
-    }
+            inline void setClosed() { _flags |= 2; }
 
-    void *_reserve(SizeT newcap) // for internal use
-    {
-        return cap < newcap ? _grow(newcap) : _data;
-    }
-    void resize(SizeT sz)
-    {
-        if(_reserve(sz))
-            used = sz;
-    }
-    SizeT _getMemSize() const
-    {
-        return cap * sizeof(T);
-    }
+            inline unsigned isOpen() const { return _flags & 1; }
 
-    // minimal iterator interface
-    typedef T* iterator;
-    typedef const T* const_iterator;
-    typedef SizeT size_type;
-    typedef T value_type;
-    inline iterator begin() { return data(); }
-    inline iterator end() { return data() + size(); }
-    inline const_iterator cbegin() const { return data(); }
-    inline const_iterator cend() const { return data() + size(); }
+            inline unsigned isClosed() const { return _flags & 2; }
 
-private:
-    void *_grow(SizeT newcap)
-    {
-        void *p = JPS_realloc(_data, newcap * sizeof(T), cap * sizeof(T), _user);
-        if(p)
-        {
-            _data = (T*)p;
-            cap = newcap;
-        }
-        return p;
-    }
-    void * _grow()
-    {
-        const SizeT newcap = cap + (cap / 2) + 32;
-        return _grow(newcap);
-    }
-    T *_data;
-    SizeT used, cap;
+            // We know nodes are allocated sequentially in memory, so this is fine.
+            inline Node &getParent() {
+                JPS_ASSERT(parentOffs);
+                return this[parentOffs];
+            }
 
-public:
-    void * const _user;
+            inline const Node &getParent() const {
+                JPS_ASSERT(parentOffs);
+                return this[parentOffs];
+            }
 
-private:
-    // forbid ops
-    PodVec<T>& operator=(const PodVec<T>&);
-    PodVec(const PodVec<T>&);
-};
+            inline const Node *getParentOpt() const { return parentOffs ? this + parentOffs : 0; }
 
-template<typename T>
-inline static void Swap(T& a, T& b)
-{
-    const T tmp = a;
-    a = b;
-    b = tmp;
-}
+            inline void setParent(const Node &p) {
+                JPS_ASSERT(&p != this);
+                parentOffs = static_cast<SizeT>(&p - this);
+            }
+        };
 
-template<typename IT>
-inline static void Reverse(IT first, IT last)
-{
-    while((first != last) && (first != --last))
-    {
-        Swap(*first, *last);
-        ++first;
-    }
-}
+        template<typename T>
+        class PodVec {
+        public:
+            PodVec(void *user = 0)
+                    : _data(0), used(0), cap(0), _user(user) {}
 
-typedef PodVec<Node> Storage;
+            ~PodVec() { dealloc(); }
 
+            inline void clear() {
+                used = 0;
+            }
 
-class NodeMap
-{
-private:
-    static const unsigned LOAD_FACTOR = 8; // estimate: {CPU cache line size (64)} / sizeof(HashLoc)
-    static const unsigned INITIAL_BUCKETS = 16; // must be > 1 and power of 2
+            void dealloc() {
+                JPS_free(_data, cap * sizeof(T), _user);
+                _data = 0;
+                used = 0;
+                cap = 0;
+            }
 
-    struct HashLoc
-    {
-        unsigned hash2; // for early-out check only
-        SizeT idx; // index in central storage
-    };
-    typedef PodVec<HashLoc> Bucket;
-
-    // hash function to determine bucket. only uses lower few bits. should jumble lower bits nicely.
-    static inline unsigned Hash(PosType x, PosType y)
-    {
-        return x ^ y;
-    }
-
-    // hash function designed to lose as little data as possible. for early-out checks. all bits used.
-    static inline unsigned Hash2(PosType x, PosType y)
-    {
-        return (y << 16) ^ x;
-    }
-
-public:
-
-    NodeMap(Storage& storage)
-        : _storageRef(storage), _buckets(storage._user)
-    {}
-
-    void dealloc()
-    {
-        for(SizeT i = 0; i < _buckets.size(); ++i)
-            _buckets[i].~Bucket();
-        _buckets.dealloc();
-    }
-    void clear()
-    {
-        // clear the buckets, but *not* the bucket vector
-        for(SizeT i = 0; i <  _buckets.size(); ++i)
-            _buckets[i].clear();
-    }
-
-    Node *operator()(PosType x, PosType y)
-    {
-        const unsigned h = Hash(x, y);
-        const unsigned h2 = Hash2(x, y);
-        const SizeT ksz = _buckets.size(); // known to be power-of-2
-        Bucket *b = 0; // MSVC /W4 complains that this was uninitialized and used, so we init it...
-        if (ksz)
-        {
-            b = &_buckets[h & (ksz - 1)];
-            const SizeT bsz = b->size();
-            const HashLoc * const bdata = b->data();
-            for (SizeT i = 0; i < bsz; ++i)
-            {
-                // this is the only place where HashLoc::hash2 is used; it *could*be removed, which means:
-                // - twice as much space for indexes per cache line
-                // - but also higher chances for a cache miss because for each entry in the bucket we still need to check the node's X/Y coords,
-                //   and we'll likely end up in a random location in RAM for each node.
-                // Quick benchmarking showed that *with* the hash2 check it's almost immeasurably (less than 1%) faster.
-                if (bdata[i].hash2 == h2)
-                {
-                    Node &n = _storageRef[bdata[i].idx];
-                    if(n.pos.x == x && n.pos.y == y)
-                        return &n;
+            T *alloc() {
+                T *e = 0;
+                if (used < cap || _grow()) {
+                    e = _data + used;
+                    ++used;
                 }
+                return e;
             }
-        }
 
-        // enlarge hashmap if necessary; fix bucket if so
-        SizeT newbsz = _enlarge();
-        if(newbsz > 1)
-            b = &_buckets[h & (newbsz - 1)];
-        else if(newbsz == 1) // error case
-            return 0;
+            inline void push_back(const T &e) {
+                if (T *dst = alloc()) // yes, this silently fails when OOM. this is handled internally.
+                    *dst = e;
+            }
 
-        HashLoc *loc = b->alloc(); // ... see above. b is always initialized here. when ksz==0, _enlarge() will do its initial allocation, so it can never return 0.
+            inline void pop_back() {
+                JPS_ASSERT(used);
+                --used;
+            }
 
-        if(!loc)
-            return 0;
+            inline T &back() {
+                JPS_ASSERT(used);
+                return _data[used - 1];
+            }
 
-        loc->hash2 = h2;
-        loc->idx = _storageRef.size();
+            inline SizeT size() const { return used; }
 
-        // no node at (x, y), create new one
-        Node *n = _storageRef.alloc();
-        if(n)
-        {
-            n->f = 0;
-            n->g = 0;
-            n->pos.x = x;
-            n->pos.y = y;
-            n->parentOffs = 0;
-            n->_flags = 0;
-        }
-        return n;
-    }
+            inline bool empty() const { return !used; }
 
-    SizeT _getMemSize() const
-    {
-        SizeT sum = _buckets._getMemSize();
-        for(Buckets::const_iterator it = _buckets.cbegin(); it != _buckets.cend(); ++it)
-            sum += it->_getMemSize();
-        return sum;
-    }
+            inline T *data() { return _data; }
 
-private:
+            inline const T *data() const { return _data; }
 
-    // return values: 0 = nothing to do; 1 = error; >1: internal storage was enlarged to this many buckets
-    SizeT _enlarge()
-    {
-        const SizeT n = _storageRef.size();
-        const SizeT oldsz = _buckets.size();
-        if (n < oldsz * LOAD_FACTOR)
-            return 0;
+            inline T &operator[](size_t idx) const {
+                JPS_ASSERT(idx < used);
+                return _data[idx];
+            }
 
-        // pre-allocate bucket storage that we're going to use
-        const SizeT newsz = oldsz ? oldsz * 2 : INITIAL_BUCKETS; // stays power of 2
+            inline SizeT getindex(const T *e) const {
+                JPS_ASSERT(e && _data <= e && e < _data + used);
+                return SizeT(e - _data);
+            }
 
-        if(!_buckets._reserve(newsz))
-            return 0; // early out if realloc fails; this not a problem and we can continue.
-
-        // forget everything
-        for(SizeT i = 0; i < oldsz; ++i)
-            _buckets[i].clear();
-
-        // resize and init
-        for(SizeT i = oldsz; i < newsz; ++i)
-        {
-            void *p = _buckets.alloc(); // can't fail since the space was reserved
-            JPS_PLACEMENT_NEW(p) PodVec<HashLoc>(_buckets._user);
-        }
-
-        const SizeT mask = _buckets.size() - 1;
-        for(SizeT i = 0; i < n; ++i)
-        {
-            const Position p = _storageRef[i].pos;
-            HashLoc *loc = _buckets[Hash(p.x, p.y) & mask].alloc();
-            if(!loc)
-                return 1; // error case
-
-            loc->hash2 = Hash2(p.x, p.y);
-            loc->idx = i;
-        }
-        return newsz;
-    }
-
-    Storage& _storageRef;
-    typedef PodVec<Bucket> Buckets;
-    Buckets _buckets;
-};
-
-class OpenList
-{
-private:
-    const Storage& _storageRef;
-    PodVec<SizeT> idxHeap;
-
-public:
-
-    OpenList(const Storage& storage)
-        : _storageRef(storage), idxHeap(storage._user)
-    {}
-
-
-    inline void pushNode(Node *n)
-    {
-        _heapPushIdx(_storageRef.getindex(n));
-    }
-
-    inline Node& popNode()
-    {
-        return _storageRef[_popIdx()];
-    }
-
-    // re-heapify after node changed its order
-    inline void fixNode(const Node& n)
-    {
-        const unsigned ni = _storageRef.getindex(&n);
-        const unsigned sz = idxHeap.size();
-        unsigned *p = idxHeap.data();
-        for(unsigned i = 0; i < sz; ++i) // TODO: if this ever becomes a perf bottleneck: make it so that each node knows its heap index
-            if(p[i] == ni)
+            void *_reserve(SizeT newcap) // for internal use
             {
-                _fixIdx(i);
-                return;
+                return cap < newcap ? _grow(newcap) : _data;
             }
-            JPS_ASSERT(false); // expect node to be found
-    }
 
-    inline void dealloc() { idxHeap.dealloc(); }
-    inline void clear()   { idxHeap.clear(); }
-    inline bool empty() const { return idxHeap.empty(); }
+            void resize(SizeT sz) {
+                if (_reserve(sz))
+                    used = sz;
+            }
 
-    inline SizeT _getMemSize() const
-    {
-        return idxHeap._getMemSize();
-    }
+            SizeT _getMemSize() const {
+                return cap * sizeof(T);
+            }
 
-private:
+            // minimal iterator interface
+            typedef T *iterator;
+            typedef const T *const_iterator;
+            typedef SizeT size_type;
+            typedef T value_type;
 
-    inline bool _heapLess(SizeT a, SizeT b)
-    {
-        return _storageRef[idxHeap[a]].f > _storageRef[idxHeap[b]].f;
-    }
+            inline iterator begin() { return data(); }
 
-    inline bool _heapLessIdx(SizeT a, SizeT idx)
-    {
-        return _storageRef[idxHeap[a]].f > _storageRef[idx].f;
-    }
+            inline iterator end() { return data() + size(); }
 
-    void _percolateUp(SizeT i)
-    {
-        const SizeT idx = idxHeap[i];
-        SizeT p;
-        goto start;
-        do
-        {
-            idxHeap[i] = idxHeap[p]; // parent is smaller, move it down
-            i = p;                   // continue with parent
-start:
-            p = (i - 1) >> 1;
+            inline const_iterator cbegin() const { return data(); }
+
+            inline const_iterator cend() const { return data() + size(); }
+
+        private:
+            void *_grow(SizeT newcap) {
+                void *p = JPS_realloc(_data, newcap * sizeof(T), cap * sizeof(T), _user);
+                if (p) {
+                    _data = (T *) p;
+                    cap = newcap;
+                }
+                return p;
+            }
+
+            void *_grow() {
+                const SizeT newcap = cap + (cap / 2) + 32;
+                return _grow(newcap);
+            }
+
+            T *_data;
+            SizeT used, cap;
+
+        public:
+            void *const _user;
+
+        private:
+            // forbid ops
+            PodVec<T> &operator=(const PodVec<T> &);
+
+            PodVec(const PodVec<T> &);
+        };
+
+        template<typename T>
+        inline static void Swap(T &a, T &b) {
+            const T tmp = a;
+            a = b;
+            b = tmp;
         }
-        while(i && _heapLessIdx(p, idx));
-        idxHeap[i] = idx; // found correct place for idx
-    }
 
-    void _percolateDown(SizeT i)
-    {
-        const SizeT idx = idxHeap[i];
-        const SizeT sz = idxHeap.size();
-        SizeT child;
-        goto start;
-        do
-        {
-            // pick right sibling if exists and larger or equal
-            if(child + 1 < sz && !_heapLess(child+1, child))
-                ++child;
-            idxHeap[i] = idxHeap[child];
-            i = child;
-start:
-            child = (i << 1) + 1;
+        template<typename IT>
+        inline static void Reverse(IT first, IT last) {
+            while ((first != last) && (first != --last)) {
+                Swap(*first, *last);
+                ++first;
+            }
         }
-        while(child < sz);
-        idxHeap[i] = idx;
-        _percolateUp(i);
-    }
 
-    void _heapPushIdx(SizeT idx)
-    {
-        SizeT i = idxHeap.size();
-        idxHeap.push_back(idx);
-        _percolateUp(i);
-    }
+        typedef PodVec<Node> Storage;
 
-    SizeT _popIdx()
-    {
-        SizeT sz = idxHeap.size();
-        JPS_ASSERT(sz);
-        const SizeT root = idxHeap[0];
-        idxHeap[0] = idxHeap[--sz];
-        idxHeap.pop_back();
-        if(sz > 1)
-            _percolateDown(0);
-        return root;
-    }
 
-    // re-heapify node at index i
-    inline void _fixIdx(SizeT i)
-    {
-        _percolateDown(i);
-        _percolateUp(i);
-    }
-};
+        class NodeMap {
+        private:
+            static const unsigned LOAD_FACTOR = 8; // estimate: {CPU cache line size (64)} / sizeof(HashLoc)
+            static const unsigned INITIAL_BUCKETS = 16; // must be > 1 and power of 2
+
+            struct HashLoc {
+                unsigned hash2; // for early-out check only
+                SizeT idx; // index in central storage
+            };
+            typedef PodVec<HashLoc> Bucket;
+
+            // hash function to determine bucket. only uses lower few bits. should jumble lower bits nicely.
+            static inline unsigned Hash(PosType x, PosType y) {
+                return x ^ y;
+            }
+
+            // hash function designed to lose as little data as possible. for early-out checks. all bits used.
+            static inline unsigned Hash2(PosType x, PosType y) {
+                return (y << 16) ^ x;
+            }
+
+        public:
+
+            NodeMap(Storage &storage)
+                    : _storageRef(storage), _buckets(storage._user) {}
+
+            void dealloc() {
+                for (SizeT i = 0; i < _buckets.size(); ++i)
+                    _buckets[i].~Bucket();
+                _buckets.dealloc();
+            }
+
+            void clear() {
+                // clear the buckets, but *not* the bucket vector
+                for (SizeT i = 0; i < _buckets.size(); ++i)
+                    _buckets[i].clear();
+            }
+
+            Node *operator()(PosType x, PosType y) {
+                const unsigned h = Hash(x, y);
+                const unsigned h2 = Hash2(x, y);
+                const SizeT ksz = _buckets.size(); // known to be power-of-2
+                Bucket *b = 0; // MSVC /W4 complains that this was uninitialized and used, so we init it...
+                if (ksz) {
+                    b = &_buckets[h & (ksz - 1)];
+                    const SizeT bsz = b->size();
+                    const HashLoc *const bdata = b->data();
+                    for (SizeT i = 0; i < bsz; ++i) {
+                        // this is the only place where HashLoc::hash2 is used; it *could*be removed, which means:
+                        // - twice as much space for indexes per cache line
+                        // - but also higher chances for a cache miss because for each entry in the bucket we still need to check the node's X/Y coords,
+                        //   and we'll likely end up in a random location in RAM for each node.
+                        // Quick benchmarking showed that *with* the hash2 check it's almost immeasurably (less than 1%) faster.
+                        if (bdata[i].hash2 == h2) {
+                            Node &n = _storageRef[bdata[i].idx];
+                            if (n.pos.x == x && n.pos.y == y)
+                                return &n;
+                        }
+                    }
+                }
+
+                // enlarge hashmap if necessary; fix bucket if so
+                SizeT newbsz = _enlarge();
+                if (newbsz > 1)
+                    b = &_buckets[h & (newbsz - 1)];
+                else if (newbsz == 1) // error case
+                    return 0;
+
+                HashLoc *loc = b->alloc(); // ... see above. b is always initialized here. when ksz==0, _enlarge() will do its initial allocation, so it can never return 0.
+
+                if (!loc)
+                    return 0;
+
+                loc->hash2 = h2;
+                loc->idx = _storageRef.size();
+
+                // no node at (x, y), create new one
+                Node *n = _storageRef.alloc();
+                if (n) {
+                    n->f = 0;
+                    n->g = 0;
+                    n->pos.x = x;
+                    n->pos.y = y;
+                    n->parentOffs = 0;
+                    n->_flags = 0;
+                }
+                return n;
+            }
+
+            SizeT _getMemSize() const {
+                SizeT sum = _buckets._getMemSize();
+                for (Buckets::const_iterator it = _buckets.cbegin(); it != _buckets.cend(); ++it)
+                    sum += it->_getMemSize();
+                return sum;
+            }
+
+        private:
+
+            // return values: 0 = nothing to do; 1 = error; >1: internal storage was enlarged to this many buckets
+            SizeT _enlarge() {
+                const SizeT n = _storageRef.size();
+                const SizeT oldsz = _buckets.size();
+                if (n < oldsz * LOAD_FACTOR)
+                    return 0;
+
+                // pre-allocate bucket storage that we're going to use
+                const SizeT newsz = oldsz ? oldsz * 2 : INITIAL_BUCKETS; // stays power of 2
+
+                if (!_buckets._reserve(newsz))
+                    return 0; // early out if realloc fails; this not a problem and we can continue.
+
+                // forget everything
+                for (SizeT i = 0; i < oldsz; ++i)
+                    _buckets[i].clear();
+
+                // resize and init
+                for (SizeT i = oldsz; i < newsz; ++i) {
+                    void *p = _buckets.alloc(); // can't fail since the space was reserved
+                    JPS_PLACEMENT_NEW(p) PodVec<HashLoc>(_buckets._user);
+                }
+
+                const SizeT mask = _buckets.size() - 1;
+                for (SizeT i = 0; i < n; ++i) {
+                    const Position p = _storageRef[i].pos;
+                    HashLoc *loc = _buckets[Hash(p.x, p.y) & mask].alloc();
+                    if (!loc)
+                        return 1; // error case
+
+                    loc->hash2 = Hash2(p.x, p.y);
+                    loc->idx = i;
+                }
+                return newsz;
+            }
+
+            Storage &_storageRef;
+            typedef PodVec<Bucket> Buckets;
+            Buckets _buckets;
+        };
+
+        class OpenList {
+        private:
+            const Storage &_storageRef;
+            PodVec<SizeT> idxHeap;
+
+        public:
+
+            OpenList(const Storage &storage)
+                    : _storageRef(storage), idxHeap(storage._user) {}
+
+
+            inline void pushNode(Node *n) {
+                _heapPushIdx(_storageRef.getindex(n));
+            }
+
+            inline Node &popNode() {
+                return _storageRef[_popIdx()];
+            }
+
+            // re-heapify after node changed its order
+            inline void fixNode(const Node &n) {
+                const unsigned ni = _storageRef.getindex(&n);
+                const unsigned sz = idxHeap.size();
+                unsigned *p = idxHeap.data();
+                for (unsigned i = 0; i <
+                                     sz; ++i) // TODO: if this ever becomes a perf bottleneck: make it so that each node knows its heap index
+                    if (p[i] == ni) {
+                        _fixIdx(i);
+                        return;
+                    }
+                JPS_ASSERT(false); // expect node to be found
+            }
+
+            inline void dealloc() { idxHeap.dealloc(); }
+
+            inline void clear() { idxHeap.clear(); }
+
+            inline bool empty() const { return idxHeap.empty(); }
+
+            inline SizeT _getMemSize() const {
+                return idxHeap._getMemSize();
+            }
+
+        private:
+
+            inline bool _heapLess(SizeT a, SizeT b) {
+                return _storageRef[idxHeap[a]].f > _storageRef[idxHeap[b]].f;
+            }
+
+            inline bool _heapLessIdx(SizeT a, SizeT idx) {
+                return _storageRef[idxHeap[a]].f > _storageRef[idx].f;
+            }
+
+            void _percolateUp(SizeT i) {
+                const SizeT idx = idxHeap[i];
+                SizeT p;
+                goto start;
+                do {
+                    idxHeap[i] = idxHeap[p]; // parent is smaller, move it down
+                    i = p;                   // continue with parent
+                    start:
+                    p = (i - 1) >> 1;
+                } while (i && _heapLessIdx(p, idx));
+                idxHeap[i] = idx; // found correct place for idx
+            }
+
+            void _percolateDown(SizeT i) {
+                const SizeT idx = idxHeap[i];
+                const SizeT sz = idxHeap.size();
+                SizeT child;
+                goto start;
+                do {
+                    // pick right sibling if exists and larger or equal
+                    if (child + 1 < sz && !_heapLess(child + 1, child))
+                        ++child;
+                    idxHeap[i] = idxHeap[child];
+                    i = child;
+                    start:
+                    child = (i << 1) + 1;
+                } while (child < sz);
+                idxHeap[i] = idx;
+                _percolateUp(i);
+            }
+
+            void _heapPushIdx(SizeT idx) {
+                SizeT i = idxHeap.size();
+                idxHeap.push_back(idx);
+                _percolateUp(i);
+            }
+
+            SizeT _popIdx() {
+                SizeT sz = idxHeap.size();
+                JPS_ASSERT(sz);
+                const SizeT root = idxHeap[0];
+                idxHeap[0] = idxHeap[--sz];
+                idxHeap.pop_back();
+                if (sz > 1)
+                    _percolateDown(0);
+                return root;
+            }
+
+            // re-heapify node at index i
+            inline void _fixIdx(SizeT i) {
+                _percolateDown(i);
+                _percolateUp(i);
+            }
+        };
 
 #undef JPS_PLACEMENT_NEW
 
 // --- End infrastructure, data structures ---
 
 // All those things that don't depend on template parameters...
-class SearcherBase
-{
-protected:
-    Storage storage;
-    OpenList open;
-    NodeMap nodemap;
+        class SearcherBase {
+        protected:
+            Storage storage;
+            OpenList open;
+            NodeMap nodemap;
 
-    Position endPos;
-    SizeT endNodeIdx;
-    int stepsRemain;
-    SizeT stepsDone;
+            Position endPos;
+            SizeT endNodeIdx;
+            int stepsRemain;
+            SizeT stepsDone;
 
-    SearcherBase(void *user)
-        : storage(user)
-        , open(storage)
-        , nodemap(storage)
-        , endPos(npos), endNodeIdx(noidx), stepsRemain(0), stepsDone(0)
-    {}
+            SearcherBase(void *user)
+                    : storage(user), open(storage), nodemap(storage), endPos(npos), endNodeIdx(noidx), stepsRemain(0),
+                      stepsDone(0) {}
 
-    void clear()
-    {
-        open.clear();
-        nodemap.clear();
-        storage.clear();
-        endNodeIdx = noidx;
-        stepsDone = 0;
-    }
-
-    void _expandNode(const Position jp, Node& jn, const Node& parent)
-    {
-        JPS_ASSERT(jn.pos == jp);
-        ScoreType extraG = JPS_HEURISTIC_ACCURATE(jp, parent.pos);
-        ScoreType newG = parent.g + extraG;
-        if(!jn.isOpen() || newG < jn.g)
-        {
-            jn.g = newG;
-            jn.f = jn.g + JPS_HEURISTIC_ESTIMATE(jp, endPos);
-            jn.setParent(parent);
-            if(!jn.isOpen())
-            {
-                open.pushNode(&jn);
-                jn.setOpen();
+            void clear() {
+                open.clear();
+                nodemap.clear();
+                storage.clear();
+                endNodeIdx = noidx;
+                stepsDone = 0;
             }
-            else
-                open.fixNode(jn);
-        }
-    }
 
-public:
+            void _expandNode(const Position jp, Node &jn, const Node &parent) {
+                JPS_ASSERT(jn.pos == jp);
+                ScoreType extraG = JPS_HEURISTIC_ACCURATE(jp, parent.pos);
+                ScoreType newG = parent.g + extraG;
+                if (!jn.isOpen() || newG < jn.g) {
+                    jn.g = newG;
+                    jn.f = jn.g + JPS_HEURISTIC_ESTIMATE(jp, endPos);
+                    jn.setParent(parent);
+                    if (!jn.isOpen()) {
+                        open.pushNode(&jn);
+                        jn.setOpen();
+                    } else
+                        open.fixNode(jn);
+                }
+            }
 
-    template <typename PV>
-    JPS_Result generatePath(PV& path, unsigned step) const;
+        public:
 
-    void freeMemory()
-    {
-        open.dealloc();
-        nodemap.dealloc();
-        storage.dealloc();
-        endNodeIdx = noidx;
-    }
+            template<typename PV>
+            JPS_Result generatePath(PV &path, unsigned step) const;
 
-    // --- Statistics ---
+            void freeMemory() {
+                open.dealloc();
+                nodemap.dealloc();
+                storage.dealloc();
+                endNodeIdx = noidx;
+            }
 
-    inline SizeT getStepsDone() const { return stepsDone; }
-    inline SizeT getNodesExpanded() const { return storage.size(); }
+            // --- Statistics ---
 
-    SizeT getTotalMemoryInUse() const
-    {
-        return storage._getMemSize()
-             + nodemap._getMemSize()
-             + open._getMemSize();
-    }
-};
+            inline SizeT getStepsDone() const { return stepsDone; }
 
-template <typename GRID> class Searcher : public SearcherBase
-{
-public:
-    Searcher(const GRID& g, void *user = 0)
-        : SearcherBase(user), grid(g)
-    {}
+            inline SizeT getNodesExpanded() const { return storage.size(); }
 
-    // single-call
-    template<typename PV>
-    bool findPath(PV& path, Position start, Position end, unsigned step);
+            SizeT getTotalMemoryInUse() const {
+                return storage._getMemSize()
+                       + nodemap._getMemSize()
+                       + open._getMemSize();
+            }
+        };
 
-    // incremental pathfinding
-    JPS_Result findPathInit(Position start, Position end);
-    JPS_Result findPathStep(int limit);
-    // generate path after one was found
-    template<typename PV>
-    JPS_Result findPathFinish(PV& path, unsigned step) const;
+        template<typename GRID>
+        class Searcher : public SearcherBase {
+        public:
+            Searcher(const GRID &g, void *user = 0)
+                    : SearcherBase(user), grid(g) {}
 
-private:
+            // single-call
+            template<typename PV>
+            bool findPath(PV &path, Position start, Position end, unsigned step);
 
-    const GRID& grid;
+            // incremental pathfinding
+            JPS_Result findPathInit(Position start, Position end);
 
-    Node *getNode(const Position& pos);
-    bool identifySuccessors(const Node& n);
+            JPS_Result findPathStep(int limit);
+
+            // generate path after one was found
+            template<typename PV>
+            JPS_Result findPathFinish(PV &path, unsigned step) const;
+
+        private:
+
+            const GRID &grid;
+
+            Node *getNode(const Position &pos);
+
+            bool identifySuccessors(const Node &n);
 
 #ifndef JPS_DISABLE_GREEDY
-    bool findPathGreedy(Node *start, Node *end);
-#endif
-    
-#ifdef JPS_ASTAR_ONLY
-    unsigned findNeighborsAStar(const Node& n, Position *wptr);
-#else
-    unsigned findNeighbors(const Node& n, Position *wptr) const;
-    Position jumpP(const Position& p, const Position& src);
-    Position jumpD(Position p, int dx, int dy);
-    Position jumpX(Position p, int dx);
-    Position jumpY(Position p, int dy);
+
+            bool findPathGreedy(Node *start, Node *end);
+
 #endif
 
-    // forbid any ops
-    Searcher& operator=(const Searcher<GRID>&);
-    Searcher(const Searcher<GRID>&);
-};
+#ifdef JPS_ASTAR_ONLY
+            unsigned findNeighborsAStar(const Node& n, Position *wptr);
+#else
+
+            unsigned findNeighbors(const Node &n, Position *wptr) const;
+
+            Position jumpP(const Position &p, const Position &src);
+
+            Position jumpD(Position p, int dx, int dy);
+
+            Position jumpX(Position p, int dx);
+
+            Position jumpY(Position p, int dy);
+
+#endif
+
+            // forbid any ops
+            Searcher &operator=(const Searcher<GRID> &);
+
+            Searcher(const Searcher<GRID> &);
+        };
 
 
 // -----------------------------------------------------------------------
 
-template<typename PV> JPS_Result SearcherBase::generatePath(PV& path, unsigned step) const
-{
-    if(endNodeIdx == noidx)
-        return JPS_NO_PATH;
-    const SizeT offset = path.size();
-    SizeT added = 0;
-    const Node& endNode = storage[endNodeIdx];
-    const Node *next = &endNode;
-    if(!next->hasParent())
-        return JPS_NO_PATH;
-    if(step)
-    {
-        const Node *prev = endNode.getParentOpt();
-        if(!prev)
-            return JPS_NO_PATH;
-        do
-        {
-            const unsigned x = next->pos.x, y = next->pos.y;
-            int dx = int(prev->pos.x - x);
-            int dy = int(prev->pos.y - y);
-            const int adx = Abs(dx);
-            const int ady = Abs(dy);
-            JPS_ASSERT(!dx || !dy || adx == ady); // known to be straight, if diagonal
-            const int steps = Max(adx, ady);
-            dx /= Max(adx, 1);
-            dy /= Max(ady, 1);
-            dx *= int(step);
-            dy *= int(step);
-            int dxa = 0, dya = 0;
-            for(int i = 0; i < steps; i += step)
-            {
-                path.push_back(Pos(x+dxa, y+dya));
-                ++added;
-                dxa += dx;
-                dya += dy;
+        template<typename PV>
+        JPS_Result SearcherBase::generatePath(PV &path, unsigned step) const {
+            if (endNodeIdx == noidx)
+                return JPS_NO_PATH;
+            const SizeT offset = path.size();
+            SizeT added = 0;
+            const Node &endNode = storage[endNodeIdx];
+            const Node *next = &endNode;
+            if (!next->hasParent())
+                return JPS_NO_PATH;
+            if (step) {
+                const Node *prev = endNode.getParentOpt();
+                if (!prev)
+                    return JPS_NO_PATH;
+                do {
+                    const unsigned x = next->pos.x, y = next->pos.y;
+                    int dx = int(prev->pos.x - x);
+                    int dy = int(prev->pos.y - y);
+                    const int adx = Abs(dx);
+                    const int ady = Abs(dy);
+                    JPS_ASSERT(!dx || !dy || adx == ady); // known to be straight, if diagonal
+                    const int steps = Max(adx, ady);
+                    dx /= Max(adx, 1);
+                    dy /= Max(ady, 1);
+                    dx *= int(step);
+                    dy *= int(step);
+                    int dxa = 0, dya = 0;
+                    for (int i = 0; i < steps; i += step) {
+                        path.push_back(Pos(x + dxa, y + dya));
+                        ++added;
+                        dxa += dx;
+                        dya += dy;
+                    }
+                    next = prev;
+                    prev = prev->getParentOpt();
+                } while (prev);
+            } else {
+                do {
+                    JPS_ASSERT(next != &next->getParent());
+                    path.push_back(next->pos);
+                    ++added;
+                    next = &next->getParent();
+                } while (next->hasParent());
             }
-            next = prev;
-            prev = prev->getParentOpt();
-        }
-        while (prev);
-    }
-    else
-    {
-        do
-        {
-            JPS_ASSERT(next != &next->getParent());
-            path.push_back(next->pos);
-            ++added;
-            next = &next->getParent();
-        }
-        while (next->hasParent());
-    }
 
-    // JPS::PathVector silently discards push_back() when memory allocation fails;
-    // detect that case and roll back.
-    if(path.size() != offset + added)
-    {
-        path.resize(offset);
-        return JPS_OUT_OF_MEMORY;
-    }
+            // JPS::PathVector silently discards push_back() when memory allocation fails;
+            // detect that case and roll back.
+            if (path.size() != offset + added) {
+                path.resize(offset);
+                return JPS_OUT_OF_MEMORY;
+            }
 
-    // Nodes were traversed backwards, fix that
-    Reverse(path.begin() + offset, path.end());
-    return JPS_FOUND_PATH;
-}
+            // Nodes were traversed backwards, fix that
+            Reverse(path.begin() + offset, path.end());
+            return JPS_FOUND_PATH;
+        }
 
 //-----------------------------------------
 
-template <typename GRID> inline Node *Searcher<GRID>::getNode(const Position& pos)
-{
-    JPS_ASSERT(grid(pos.x, pos.y));
-    return nodemap(pos.x, pos.y);
-}
+        template<typename GRID>
+        inline Node *Searcher<GRID>::getNode(const Position &pos) {
+            JPS_ASSERT(grid(pos.x, pos.y));
+            return nodemap(pos.x, pos.y);
+        }
 
 #ifndef JPS_ASTAR_ONLY
-template <typename GRID> Position Searcher<GRID>::jumpP(const Position &p, const Position& src)
-{
-    JPS_ASSERT(grid(p.x, p.y));
 
-    int dx = int(p.x - src.x);
-    int dy = int(p.y - src.y);
-    JPS_ASSERT(dx || dy);
+        template<typename GRID>
+        Position Searcher<GRID>::jumpP(const Position &p, const Position &src) {
+            JPS_ASSERT(grid(p.x, p.y));
 
-    if(dx && dy)
-        return jumpD(p, dx, dy);
-    else if(dx)
-        return jumpX(p, dx);
-    else if(dy)
-        return jumpY(p, dy);
+            int dx = int(p.x - src.x);
+            int dy = int(p.y - src.y);
+            JPS_ASSERT(dx || dy);
 
-    // not reached
-    JPS_ASSERT(false);
-    return npos;
-}
+            if (dx && dy)
+                return jumpD(p, dx, dy);
+            else if (dx)
+                return jumpX(p, dx);
+            else if (dy)
+                return jumpY(p, dy);
 
-template <typename GRID> Position Searcher<GRID>::jumpD(Position p, int dx, int dy)
-{
-    JPS_ASSERT(grid(p.x, p.y));
-    JPS_ASSERT(dx && dy);
-
-    const Position endpos = endPos;
-    unsigned steps = 0;
-
-    while(true)
-    {
-        if(p == endpos)
-            break;
-
-        ++steps;
-        const PosType x = p.x;
-        const PosType y = p.y;
-
-        if( (grid(x-dx, y+dy) && !grid(x-dx, y)) || (grid(x+dx, y-dy) && !grid(x, y-dy)) )
-            break;
-
-        const bool gdx = !!grid(x+dx, y);
-        const bool gdy = !!grid(x, y+dy);
-
-        if(gdx && jumpX(Pos(x+dx, y), dx).isValid())
-            break;
-
-        if(gdy && jumpY(Pos(x, y+dy), dy).isValid())
-            break;
-
-        if((gdx || gdy) && grid(x+dx, y+dy))
-        {
-            p.x += dx;
-            p.y += dy;
-        }
-        else
-        {
-            p = npos;
-            break;
-        }
-    }
-    stepsDone += steps;
-    stepsRemain -= steps;
-    return p;
-}
-
-template <typename GRID> inline Position Searcher<GRID>::jumpX(Position p, int dx)
-{
-    JPS_ASSERT(dx);
-    JPS_ASSERT(grid(p.x, p.y));
-
-    const PosType y = p.y;
-    const Position endpos = endPos;
-    unsigned steps = 0;
-
-    unsigned a = ~((!!grid(p.x, y+1)) | ((!!grid(p.x, y-1)) << 1));
-
-    while(true)
-    {
-        const unsigned xx = p.x + dx;
-        const unsigned b = (!!grid(xx, y+1)) | ((!!grid(xx, y-1)) << 1);
-
-        if((b & a) || p == endpos)
-            break;
-        if(!grid(xx, y))
-        {
-            p = npos;
-            break;
+            // not reached
+            JPS_ASSERT(false);
+            return npos;
         }
 
-        p.x += dx;
-        a = ~b;
-        ++steps;
-    }
+        template<typename GRID>
+        Position Searcher<GRID>::jumpD(Position p, int dx, int dy) {
+            JPS_ASSERT(grid(p.x, p.y));
+            JPS_ASSERT(dx && dy);
 
-    stepsDone += steps;
-    stepsRemain -= steps;
-    return p;
-}
+            const Position endpos = endPos;
+            unsigned steps = 0;
 
-template <typename GRID> inline Position Searcher<GRID>::jumpY(Position p, int dy)
-{
-    JPS_ASSERT(dy);
-    JPS_ASSERT(grid(p.x, p.y));
+            while (true) {
+                if (p == endpos)
+                    break;
 
-    const PosType x = p.x;
-    const Position endpos = endPos;
-    unsigned steps = 0;
+                ++steps;
+                const PosType x = p.x;
+                const PosType y = p.y;
 
-    unsigned a = ~((!!grid(x+1, p.y)) | ((!!grid(x-1, p.y)) << 1));
+                if ((grid(x - dx, y + dy) && !grid(x - dx, y)) || (grid(x + dx, y - dy) && !grid(x, y - dy)))
+                    break;
 
-    while(true)
-    {
-        const unsigned yy = p.y + dy;
-        const unsigned b = (!!grid(x+1, yy)) | ((!!grid(x-1, yy)) << 1);
+                const bool gdx = !!grid(x + dx, y);
+                const bool gdy = !!grid(x, y + dy);
 
-        if((a & b) || p == endpos)
-            break;
-        if(!grid(x, yy))
-        {
-            p = npos;
-            break;
+                if (gdx && jumpX(Pos(x + dx, y), dx).isValid())
+                    break;
+
+                if (gdy && jumpY(Pos(x, y + dy), dy).isValid())
+                    break;
+
+                if ((gdx || gdy) && grid(x + dx, y + dy)) {
+                    p.x += dx;
+                    p.y += dy;
+                } else {
+                    p = npos;
+                    break;
+                }
+            }
+            stepsDone += steps;
+            stepsRemain -= steps;
+            return p;
         }
 
-        p.y += dy;
-        a = ~b;
-        ++steps;
-    }
+        template<typename GRID>
+        inline Position Searcher<GRID>::jumpX(Position p, int dx) {
+            JPS_ASSERT(dx);
+            JPS_ASSERT(grid(p.x, p.y));
 
-    stepsDone += steps;
-    stepsRemain -= steps;
-    return p;
-}
+            const PosType y = p.y;
+            const Position endpos = endPos;
+            unsigned steps = 0;
+
+            unsigned a = ~((!!grid(p.x, y + 1)) | ((!!grid(p.x, y - 1)) << 1));
+
+            while (true) {
+                const unsigned xx = p.x + dx;
+                const unsigned b = (!!grid(xx, y + 1)) | ((!!grid(xx, y - 1)) << 1);
+
+                if ((b & a) || p == endpos)
+                    break;
+                if (!grid(xx, y)) {
+                    p = npos;
+                    break;
+                }
+
+                p.x += dx;
+                a = ~b;
+                ++steps;
+            }
+
+            stepsDone += steps;
+            stepsRemain -= steps;
+            return p;
+        }
+
+        template<typename GRID>
+        inline Position Searcher<GRID>::jumpY(Position p, int dy) {
+            JPS_ASSERT(dy);
+            JPS_ASSERT(grid(p.x, p.y));
+
+            const PosType x = p.x;
+            const Position endpos = endPos;
+            unsigned steps = 0;
+
+            unsigned a = ~((!!grid(x + 1, p.y)) | ((!!grid(x - 1, p.y)) << 1));
+
+            while (true) {
+                const unsigned yy = p.y + dy;
+                const unsigned b = (!!grid(x + 1, yy)) | ((!!grid(x - 1, yy)) << 1);
+
+                if ((a & b) || p == endpos)
+                    break;
+                if (!grid(x, yy)) {
+                    p = npos;
+                    break;
+                }
+
+                p.y += dy;
+                a = ~b;
+                ++steps;
+            }
+
+            stepsDone += steps;
+            stepsRemain -= steps;
+            return p;
+        }
+
 #endif // JPS_ASTAR_ONLY
 
 #define JPS_CHECKGRID(dx, dy) (grid(x+(dx), y+(dy)))
@@ -1115,107 +1106,100 @@ template <typename GRID> inline Position Searcher<GRID>::jumpY(Position p, int d
 #define JPS_ADDPOS_NO_TUNNEL(dx, dy) do { if(grid(x+(dx),y) || grid(x,y+(dy))) JPS_ADDPOS_CHECK(dx, dy); } while(0)
 
 #ifndef JPS_ASTAR_ONLY
-template <typename GRID> unsigned Searcher<GRID>::findNeighbors(const Node& n, Position *wptr) const
-{
-    Position *w = wptr;
-    const unsigned x = n.pos.x;
-    const unsigned y = n.pos.y;
 
-    if(!n.hasParent())
-    {
-        // straight moves
-        JPS_ADDPOS_CHECK(-1, 0);
-        JPS_ADDPOS_CHECK(0, -1);
-        JPS_ADDPOS_CHECK(0, 1);
-        JPS_ADDPOS_CHECK(1, 0);
+        template<typename GRID>
+        unsigned Searcher<GRID>::findNeighbors(const Node &n, Position *wptr) const {
+            Position *w = wptr;
+            const unsigned x = n.pos.x;
+            const unsigned y = n.pos.y;
 
-        // diagonal moves + prevent tunneling
-        JPS_ADDPOS_NO_TUNNEL(-1, -1);
-        JPS_ADDPOS_NO_TUNNEL(-1, 1);
-        JPS_ADDPOS_NO_TUNNEL(1, -1);
-        JPS_ADDPOS_NO_TUNNEL(1, 1);
+            if (!n.hasParent()) {
+                // straight moves
+                JPS_ADDPOS_CHECK(-1, 0);
+                JPS_ADDPOS_CHECK(0, -1);
+                JPS_ADDPOS_CHECK(0, 1);
+                JPS_ADDPOS_CHECK(1, 0);
 
-        return unsigned(w - wptr);
-    }
-    const Node& p = n.getParent();
-    // jump directions (both -1, 0, or 1)
-    int dx = x - p.pos.x;
-    dx /= Max(Abs(dx), 1);
-    int dy = y - p.pos.y;
-    dy /= Max(Abs(dy), 1);
+                // diagonal moves + prevent tunneling
+                JPS_ADDPOS_NO_TUNNEL(-1, -1);
+                JPS_ADDPOS_NO_TUNNEL(-1, 1);
+                JPS_ADDPOS_NO_TUNNEL(1, -1);
+                JPS_ADDPOS_NO_TUNNEL(1, 1);
 
-    if(dx && dy)
-    {
-        // diagonal
-        // natural neighbors
-        const bool walkX = !!grid(x+dx, y);
-        if(walkX)
-            *w++ = Pos(x+dx, y);
-        const bool walkY = !!grid(x, y+dy);
-        if(walkY)
-            *w++ = Pos(x, y+dy);
+                return unsigned(w - wptr);
+            }
+            const Node &p = n.getParent();
+            // jump directions (both -1, 0, or 1)
+            int dx = x - p.pos.x;
+            dx /= Max(Abs(dx), 1);
+            int dy = y - p.pos.y;
+            dy /= Max(Abs(dy), 1);
 
-        if(walkX || walkY)
-            JPS_ADDPOS_CHECK(dx, dy);
+            if (dx && dy) {
+                // diagonal
+                // natural neighbors
+                const bool walkX = !!grid(x + dx, y);
+                if (walkX)
+                    *w++ = Pos(x + dx, y);
+                const bool walkY = !!grid(x, y + dy);
+                if (walkY)
+                    *w++ = Pos(x, y + dy);
 
-        // forced neighbors
-        if(walkY && !JPS_CHECKGRID(-dx,0))
-            JPS_ADDPOS_CHECK(-dx, dy);
+                if (walkX || walkY)
+                    JPS_ADDPOS_CHECK(dx, dy);
 
-        if(walkX && !JPS_CHECKGRID(0,-dy))
-            JPS_ADDPOS_CHECK(dx, -dy);
-    }
-    else if(dx)
-    {
-        // along X axis
-        if(JPS_CHECKGRID(dx, 0))
-        {
-            JPS_ADDPOS(dx, 0);
+                // forced neighbors
+                if (walkY && !JPS_CHECKGRID(-dx, 0))
+                    JPS_ADDPOS_CHECK(-dx, dy);
 
-             // Forced neighbors (+ prevent tunneling)
-            if(!JPS_CHECKGRID(0, 1))
-                JPS_ADDPOS_CHECK(dx, 1);
-            if(!JPS_CHECKGRID(0,-1))
-                JPS_ADDPOS_CHECK(dx,-1);
+                if (walkX && !JPS_CHECKGRID(0, -dy))
+                    JPS_ADDPOS_CHECK(dx, -dy);
+            } else if (dx) {
+                // along X axis
+                if (JPS_CHECKGRID(dx, 0)) {
+                    JPS_ADDPOS(dx, 0);
+
+                    // Forced neighbors (+ prevent tunneling)
+                    if (!JPS_CHECKGRID(0, 1))
+                        JPS_ADDPOS_CHECK(dx, 1);
+                    if (!JPS_CHECKGRID(0, -1))
+                        JPS_ADDPOS_CHECK(dx, -1);
+                }
+            } else if (dy) {
+                // along Y axis
+                if (JPS_CHECKGRID(0, dy)) {
+                    JPS_ADDPOS(0, dy);
+
+                    // Forced neighbors (+ prevent tunneling)
+                    if (!JPS_CHECKGRID(1, 0))
+                        JPS_ADDPOS_CHECK(1, dy);
+                    if (!JPS_CHECKGRID(-1, 0))
+                        JPS_ADDPOS_CHECK(-1, dy);
+                }
+            }
+
+            return unsigned(w - wptr);
         }
-    }
-    else if(dy)
-    {
-        // along Y axis
-        if(JPS_CHECKGRID(0, dy))
-        {
-            JPS_ADDPOS(0, dy);
-
-            // Forced neighbors (+ prevent tunneling)
-            if(!JPS_CHECKGRID(1, 0))
-                JPS_ADDPOS_CHECK(1, dy);
-            if(!JPS_CHECKGRID(-1, 0))
-                JPS_ADDPOS_CHECK(-1,dy);
-        }
-    }
-
-    return unsigned(w - wptr);
-}
 
 #else
-//-------------- Plain old A* search ----------------
-template <typename GRID> unsigned Searcher<GRID>::findNeighborsAStar(const Node& n, Position *wptr)
-{
-    Position *w = wptr;
-    const int x = n.pos.x;
-    const int y = n.pos.y;
-    const int d = 1;
-    JPS_ADDPOS_NO_TUNNEL(-d, -d);
-    JPS_ADDPOS_CHECK    ( 0, -d);
-    JPS_ADDPOS_NO_TUNNEL(+d, -d);
-    JPS_ADDPOS_CHECK    (-d,  0);
-    JPS_ADDPOS_CHECK    (+d,  0);
-    JPS_ADDPOS_NO_TUNNEL(-d, +d);
-    JPS_ADDPOS_CHECK    ( 0, +d);
-    JPS_ADDPOS_NO_TUNNEL(+d, +d);
-    stepsDone += 8;
-    return unsigned(w - wptr);
-}
+        //-------------- Plain old A* search ----------------
+        template <typename GRID> unsigned Searcher<GRID>::findNeighborsAStar(const Node& n, Position *wptr)
+        {
+            Position *w = wptr;
+            const int x = n.pos.x;
+            const int y = n.pos.y;
+            const int d = 1;
+            JPS_ADDPOS_NO_TUNNEL(-d, -d);
+            JPS_ADDPOS_CHECK    ( 0, -d);
+            JPS_ADDPOS_NO_TUNNEL(+d, -d);
+            JPS_ADDPOS_CHECK    (-d,  0);
+            JPS_ADDPOS_CHECK    (+d,  0);
+            JPS_ADDPOS_NO_TUNNEL(-d, +d);
+            JPS_ADDPOS_CHECK    ( 0, +d);
+            JPS_ADDPOS_NO_TUNNEL(+d, +d);
+            stepsDone += 8;
+            return unsigned(w - wptr);
+        }
 #endif // JPS_ASTAR_ONLY
 //-------------------------------------------------
 #undef JPS_ADDPOS
@@ -1224,205 +1208,197 @@ template <typename GRID> unsigned Searcher<GRID>::findNeighborsAStar(const Node&
 #undef JPS_CHECKGRID
 
 
-template <typename GRID> bool Searcher<GRID>::identifySuccessors(const Node& n_)
-{
-    const SizeT nidx = storage.getindex(&n_);
-    const Position np = n_.pos;
-    Position buf[8];
+        template<typename GRID>
+        bool Searcher<GRID>::identifySuccessors(const Node &n_) {
+            const SizeT nidx = storage.getindex(&n_);
+            const Position np = n_.pos;
+            Position buf[8];
 #ifdef JPS_ASTAR_ONLY
-    const int num = findNeighborsAStar(n_, &buf[0]);
+            const int num = findNeighborsAStar(n_, &buf[0]);
 #else
-    const int num = findNeighbors(n_, &buf[0]);
+            const int num = findNeighbors(n_, &buf[0]);
 #endif
-    for(int i = num-1; i >= 0; --i)
-    {
-        // Invariant: A node is only a valid neighbor if the corresponding grid position is walkable (asserted in jumpP)
+            for (int i = num - 1; i >= 0; --i) {
+                // Invariant: A node is only a valid neighbor if the corresponding grid position is walkable (asserted in jumpP)
 #ifdef JPS_ASTAR_ONLY
-        Position jp = buf[i];
+                Position jp = buf[i];
 #else
-        Position jp = jumpP(buf[i], np);
-        if(!jp.isValid())
-            continue;
+                Position jp = jumpP(buf[i], np);
+                if (!jp.isValid())
+                    continue;
 #endif
-        // Now that the grid position is definitely a valid jump point, we have to create the actual node.
-        Node *jn = getNode(jp); // this might realloc the storage
-        if(!jn)
-            return false; // out of memory
+                // Now that the grid position is definitely a valid jump point, we have to create the actual node.
+                Node *jn = getNode(jp); // this might realloc the storage
+                if (!jn)
+                    return false; // out of memory
 
-        Node& n = storage[nidx]; // get valid ref in case we realloc'd
-        JPS_ASSERT(jn != &n);
-        if(!jn->isClosed())
-            _expandNode(jp, *jn, n);
-    }
-    return true;
-}
-
-template <typename GRID> template<typename PV> bool Searcher<GRID>::findPath(PV& path, Position start, Position end, unsigned step)
-{
-    JPS_Result res = findPathInit(start, end);
-
-    // If this is true, the resulting path is empty (findPathFinish() would fail, so this needs to be checked before)
-    if(res == JPS_EMPTY_PATH)
-        return true;
-
-    while(true)
-    {
-        switch(res)
-        {
-            case JPS_NEED_MORE_STEPS:
-                res = findPathStep(0);
-                break; // the switch
-
-            case JPS_FOUND_PATH:
-                return findPathFinish(path, step) == JPS_FOUND_PATH;
-
-            case JPS_EMPTY_PATH:
-                JPS_ASSERT(false); // can't happen
-                // fall through
-            case JPS_NO_PATH:
-            case JPS_OUT_OF_MEMORY:
-                return false;
-        }
-    }
-}
-
-template <typename GRID> JPS_Result Searcher<GRID>::findPathInit(Position start, Position end)
-{
-    // This just resets a few counters; container memory isn't touched
-    this->clear();
-
-    endPos = end;
-
-    if(start == end)
-    {
-        // There is only a path if this single position is walkable.
-        // But since the starting position is omitted in the output, there is nothing to do here.
-        return grid(end.x, end.y) ? JPS_EMPTY_PATH : JPS_NO_PATH;
-    }
-
-    // If start or end point are obstructed, don't even start
-    if(!grid(start.x, start.y) || !grid(end.x, end.y))
-        return JPS_NO_PATH;
-
-    Node *endNode = getNode(end); // this might realloc the internal storage...
-    if(!endNode)
-        return JPS_OUT_OF_MEMORY;
-    endNodeIdx = storage.getindex(endNode); // .. so we keep this for later
-
-    Node *startNode = getNode(start); // this might also realloc
-    if(!startNode)
-        return JPS_OUT_OF_MEMORY;
-    endNode = &storage[endNodeIdx]; // startNode is valid, make sure that endNode is valid too in case we reallocated
-
-#ifndef JPS_DISABLE_GREEDY
-    // Try the quick way out first
-    if(findPathGreedy(startNode, endNode))
-        return JPS_FOUND_PATH;
-#endif
-
-    open.pushNode(startNode);
-
-    return JPS_NEED_MORE_STEPS;
-}
-
-template <typename GRID> JPS_Result Searcher<GRID>::findPathStep(int limit)
-{
-    stepsRemain = limit;
-    do
-    {
-        if(open.empty())
-            return JPS_NO_PATH;
-        Node& n = open.popNode();
-        n.setClosed();
-        if(n.pos == endPos)
-            return JPS_FOUND_PATH;
-        if(!identifySuccessors(n))
-            return JPS_OUT_OF_MEMORY;
-    }
-    while(stepsRemain >= 0);
-    return JPS_NEED_MORE_STEPS;
-}
-
-template<typename GRID> template<typename PV> JPS_Result Searcher<GRID>::findPathFinish(PV& path, unsigned step) const
-{
-    return this->generatePath(path, step);
-}
-
-#ifndef JPS_DISABLE_GREEDY
-template<typename GRID> bool Searcher<GRID>::findPathGreedy(Node *n, Node *endnode)
-{
-    Position midpos = npos;
-    PosType x = n->pos.x;
-    PosType y = n->pos.y;
-    const Position endpos = endnode->pos;
-
-    JPS_ASSERT(x != endpos.x || y != endpos.y); // must not be called when start==end
-    JPS_ASSERT(n != endnode);
-
-    int dx = int(endpos.x - x);
-    int dy = int(endpos.y - y);
-    const int adx = Abs(dx);
-    const int ady = Abs(dy);
-    dx /= Max(adx, 1);
-    dy /= Max(ady, 1);
-
-    // go diagonally first
-    if(x != endpos.x && y != endpos.y)
-    {
-        JPS_ASSERT(dx && dy);
-        const int minlen = Min(adx, ady);
-        const PosType tx = x + dx * minlen;
-        while(x != tx)
-        {
-            if(grid(x, y) && (grid(x+dx, y) || grid(x, y+dy))) // prevent tunneling as well
-            {
-                x += dx;
-                y += dy;
+                Node &n = storage[nidx]; // get valid ref in case we realloc'd
+                JPS_ASSERT(jn != &n);
+                if (!jn->isClosed())
+                    _expandNode(jp, *jn, n);
             }
-            else
-                return false;
+            return true;
         }
 
-        if(!grid(x, y))
-            return false;
+        template<typename GRID>
+        template<typename PV>
+        bool Searcher<GRID>::findPath(PV &path, Position start, Position end, unsigned step) {
+            JPS_Result res = findPathInit(start, end);
 
-        midpos = Pos(x, y);
-    }
+            // If this is true, the resulting path is empty (findPathFinish() would fail, so this needs to be checked before)
+            if (res == JPS_EMPTY_PATH)
+                return true;
 
-    // at this point, we're aligned to at least one axis
-    JPS_ASSERT(x == endpos.x || y == endpos.y);
+            while (true) {
+                switch (res) {
+                    case JPS_NEED_MORE_STEPS:
+                        res = findPathStep(0);
+                        break; // the switch
 
-    if(!(x == endpos.x && y == endpos.y))
-    {
-        while(x != endpos.x)
-            if(!grid(x += dx, y))
-                return false;
+                    case JPS_FOUND_PATH:
+                        return findPathFinish(path, step) == JPS_FOUND_PATH;
 
-        while(y != endpos.y)
-            if(!grid(x, y += dy))
-                return false;
+                    case JPS_EMPTY_PATH:
+                        JPS_ASSERT(false); // can't happen
+                        // fall through
+                    case JPS_NO_PATH:
+                    case JPS_OUT_OF_MEMORY:
+                        return false;
+                }
+            }
+        }
 
-        JPS_ASSERT(x == endpos.x && y == endpos.y);
-    }
+        template<typename GRID>
+        JPS_Result Searcher<GRID>::findPathInit(Position start, Position end) {
+            // This just resets a few counters; container memory isn't touched
+            this->clear();
 
-    if(midpos.isValid())
-    {
-        const unsigned nidx = storage.getindex(n);
-        Node *mid = getNode(midpos); // this might invalidate n, endnode
-        if(!mid)
-            return false;
-        n = &storage[nidx]; // reload pointers
-        endnode = &storage[endNodeIdx];
-        JPS_ASSERT(mid && mid != n);
-        mid->setParent(*n);
-        if(mid != endnode)
-            endnode->setParent(*mid);
-    }
-    else
-        endnode->setParent(*n);
+            endPos = end;
 
-    return true;
-}
+            if (start == end) {
+                // There is only a path if this single position is walkable.
+                // But since the starting position is omitted in the output, there is nothing to do here.
+                return grid(end.x, end.y) ? JPS_EMPTY_PATH : JPS_NO_PATH;
+            }
+
+            // If start or end point are obstructed, don't even start
+            if (!grid(start.x, start.y) || !grid(end.x, end.y))
+                return JPS_NO_PATH;
+
+            Node *endNode = getNode(end); // this might realloc the internal storage...
+            if (!endNode)
+                return JPS_OUT_OF_MEMORY;
+            endNodeIdx = storage.getindex(endNode); // .. so we keep this for later
+
+            Node *startNode = getNode(start); // this might also realloc
+            if (!startNode)
+                return JPS_OUT_OF_MEMORY;
+            endNode = &storage[endNodeIdx]; // startNode is valid, make sure that endNode is valid too in case we reallocated
+
+#ifndef JPS_DISABLE_GREEDY
+            // Try the quick way out first
+            if (findPathGreedy(startNode, endNode))
+                return JPS_FOUND_PATH;
+#endif
+
+            open.pushNode(startNode);
+
+            return JPS_NEED_MORE_STEPS;
+        }
+
+        template<typename GRID>
+        JPS_Result Searcher<GRID>::findPathStep(int limit) {
+            stepsRemain = limit;
+            do {
+                if (open.empty())
+                    return JPS_NO_PATH;
+                Node &n = open.popNode();
+                n.setClosed();
+                if (n.pos == endPos)
+                    return JPS_FOUND_PATH;
+                if (!identifySuccessors(n))
+                    return JPS_OUT_OF_MEMORY;
+            } while (stepsRemain >= 0);
+            return JPS_NEED_MORE_STEPS;
+        }
+
+        template<typename GRID>
+        template<typename PV>
+        JPS_Result Searcher<GRID>::findPathFinish(PV &path, unsigned step) const {
+            return this->generatePath(path, step);
+        }
+
+#ifndef JPS_DISABLE_GREEDY
+
+        template<typename GRID>
+        bool Searcher<GRID>::findPathGreedy(Node *n, Node *endnode) {
+            Position midpos = npos;
+            PosType x = n->pos.x;
+            PosType y = n->pos.y;
+            const Position endpos = endnode->pos;
+
+            JPS_ASSERT(x != endpos.x || y != endpos.y); // must not be called when start==end
+            JPS_ASSERT(n != endnode);
+
+            int dx = int(endpos.x - x);
+            int dy = int(endpos.y - y);
+            const int adx = Abs(dx);
+            const int ady = Abs(dy);
+            dx /= Max(adx, 1);
+            dy /= Max(ady, 1);
+
+            // go diagonally first
+            if (x != endpos.x && y != endpos.y) {
+                JPS_ASSERT(dx && dy);
+                const int minlen = Min(adx, ady);
+                const PosType tx = x + dx * minlen;
+                while (x != tx) {
+                    if (grid(x, y) && (grid(x + dx, y) || grid(x, y + dy))) // prevent tunneling as well
+                    {
+                        x += dx;
+                        y += dy;
+                    } else
+                        return false;
+                }
+
+                if (!grid(x, y))
+                    return false;
+
+                midpos = Pos(x, y);
+            }
+
+            // at this point, we're aligned to at least one axis
+            JPS_ASSERT(x == endpos.x || y == endpos.y);
+
+            if (!(x == endpos.x && y == endpos.y)) {
+                while (x != endpos.x)
+                    if (!grid(x += dx, y))
+                        return false;
+
+                while (y != endpos.y)
+                    if (!grid(x, y += dy))
+                        return false;
+
+                JPS_ASSERT(x == endpos.x && y == endpos.y);
+            }
+
+            if (midpos.isValid()) {
+                const unsigned nidx = storage.getindex(n);
+                Node *mid = getNode(midpos); // this might invalidate n, endnode
+                if (!mid)
+                    return false;
+                n = &storage[nidx]; // reload pointers
+                endnode = &storage[endNodeIdx];
+                JPS_ASSERT(mid && mid != n);
+                mid->setParent(*n);
+                if (mid != endnode)
+                    endnode->setParent(*mid);
+            } else
+                endnode->setParent(*n);
+
+            return true;
+        }
+
 #endif
 
 #undef JPS_ASSERT
@@ -1433,11 +1409,11 @@ template<typename GRID> bool Searcher<GRID>::findPathGreedy(Node *n, Node *endno
 #undef JPS_HEURISTIC_ESTIMATE
 
 
-} // end namespace Internal
+    } // end namespace Internal
 
-using Internal::Searcher;
+    using Internal::Searcher;
 
-typedef Internal::PodVec<Position> PathVector;
+    typedef Internal::PodVec<Position> PathVector;
 
 // Single-call convenience function. For efficiency, do NOT use this if you need to compute paths repeatedly.
 //
@@ -1459,17 +1435,17 @@ typedef Internal::PodVec<Position> PathVector;
 //       and there is no obstruction between any two consecutive points.
 //       Note that this parameter does NOT influence the pathfinding in any way;
 //       it only controls the coarseness of the output path.
-template <typename GRID, typename PV>
-SizeT findPath(PV& path, const GRID& grid, PosType startx, PosType starty, PosType endx, PosType endy,
-               unsigned step = 0, // optional
-               void *user = 0)    // memory allocation userdata
-{
-    Searcher<GRID> search(grid, user);
-    if(!search.findPath(path, Pos(startx, starty), Pos(endx, endy), step))
-        return 0;
-    const SizeT done = search.getStepsDone();
-    return done + !done; // report at least 1 step; as 0 would indicate failure
-}
+    template<typename GRID, typename PV>
+    SizeT findPath(PV &path, const GRID &grid, PosType startx, PosType starty, PosType endx, PosType endy,
+                   unsigned step = 0, // optional
+                   void *user = 0)    // memory allocation userdata
+    {
+        Searcher<GRID> search(grid, user);
+        if (!search.findPath(path, Pos(startx, starty), Pos(endx, endy), step))
+            return 0;
+        const SizeT done = search.getStepsDone();
+        return done + !done; // report at least 1 step; as 0 would indicate failure
+    }
 
 } // end namespace JPS
 

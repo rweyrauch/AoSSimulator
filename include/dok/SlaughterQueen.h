@@ -12,32 +12,33 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class SlaughterQueen : public DaughterOfKhaine
-{
-public:
+    class SlaughterQueen : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SlaughterQueen();
-    ~SlaughterQueen() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SlaughterQueen();
+
+        ~SlaughterQueen() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_bladeOfKhaine,
-        m_deathsword;
+        Weapon m_bladeOfKhaine,
+            m_deathsword;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

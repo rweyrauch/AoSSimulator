@@ -12,35 +12,37 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class TzaangorEnlightened : public TzeentchBase
-{
-public:
+    class TzaangorEnlightened : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TzaangorEnlightened();
-    ~TzaangorEnlightened() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        TzaangorEnlightened();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~TzaangorEnlightened() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_tzeentchianSpear,
-        m_tzeentchianSpearAviarch,
-        m_viciousBeak;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_tzeentchianSpear,
+            m_tzeentchianSpearAviarch,
+            m_viciousBeak;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

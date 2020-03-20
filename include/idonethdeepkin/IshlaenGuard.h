@@ -12,40 +12,43 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class AkhelianIshlaenGuard : public IdonethDeepkinBase
-{
-public:
+    class AkhelianIshlaenGuard : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AkhelianIshlaenGuard();
-    ~AkhelianIshlaenGuard() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearers, bool musicians);
+        static void Init();
 
-protected:
+        AkhelianIshlaenGuard();
 
-    Rerolls battleshockRerolls() const override;
-    Rerolls chargeRerolls() const override;
-    int toSaveModifier(const Weapon *weapon) const override;
+        ~AkhelianIshlaenGuard() override = default;
 
-    bool m_standardBearers = false;
-    bool m_musicians = false;
+        bool configure(int numModels, bool standardBearers, bool musicians);
 
-private:
+    protected:
 
-    Weapon m_helsabre,
-        m_helsabrePrince,
-        m_fangmoraFangedMaw,
-        m_fangmoraLashingTail;
+        Rerolls battleshockRerolls() const override;
 
-    static bool s_registered;
-};
+        Rerolls chargeRerolls() const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        bool m_standardBearers = false;
+        bool m_musicians = false;
+
+    private:
+
+        Weapon m_helsabre,
+                m_helsabrePrince,
+                m_fangmoraFangedMaw,
+                m_fangmoraLashingTail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

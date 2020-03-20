@@ -11,101 +11,92 @@
 #include <stormcast/StormcastPrayers.h>
 #include "UnitFactory.h"
 
-namespace StormcastEternals
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 120;
+namespace StormcastEternals {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 120;
 
-bool LordVeritant::s_registered = false;
+    bool LordVeritant::s_registered = false;
 
-LordVeritant::LordVeritant() :
-    StormcastEternal("Lord-Veritant", 5, WOUNDS, 9, 3, false),
-    m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2)
-{
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
-    m_weapons = {&m_judgementBlade};
+    LordVeritant::LordVeritant() :
+            StormcastEternal("Lord-Veritant", 5, WOUNDS, 9, 3, false),
+            m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2) {
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
+        m_weapons = {&m_judgementBlade};
 
-    m_totalPrayers = 2;
+        m_totalPrayers = 2;
 
-    // Lantern of Abjuration
-    m_totalUnbinds = 1;
-}
-
-bool LordVeritant::configure(PrayersOfTheStormhost prayer)
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_judgementBlade);
-    addModel(model);
-
-    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateSanction(this)));
-    m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *LordVeritant::Create(const ParameterList &parameters)
-{
-    auto unit = new LordVeritant();
-    auto prayer = (PrayersOfTheStormhost)GetEnumParam("Prayers of the Stormhost", parameters, (int)PrayersOfTheStormhost::None);
-
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
-
-    bool ok = unit->configure(prayer);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        // Lantern of Abjuration
+        m_totalUnbinds = 1;
     }
-    return unit;
-}
 
-void LordVeritant::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Prayers of the Stormhost", (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::None, (int)PrayersOfTheStormhost::Translocation, 1},
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
+    bool LordVeritant::configure(PrayersOfTheStormhost prayer) {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_judgementBlade);
+        addModel(model);
 
-        s_registered = UnitFactory::Register("Lord-Veritant", factoryMethod);
+        m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateSanction(this)));
+        m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-std::string LordVeritant::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Prayers of the Stormhost")
-    {
-        return ToString((PrayersOfTheStormhost) parameter.intValue);
+    Unit *LordVeritant::Create(const ParameterList &parameters) {
+        auto unit = new LordVeritant();
+        auto prayer = (PrayersOfTheStormhost) GetEnumParam("Prayers of the Stormhost", parameters,
+                                                           (int) PrayersOfTheStormhost::None);
+
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        unit->setStormhost(stormhost);
+
+        bool ok = unit->configure(prayer);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return StormcastEternal::ValueToString(parameter);
-}
 
-int LordVeritant::EnumStringToInt(const std::string &enumString)
-{
-    PrayersOfTheStormhost prayer;
-    if (FromString(enumString, prayer))
-    {
-        return (int)prayer;
+    void LordVeritant::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Prayers of the Stormhost", (int) PrayersOfTheStormhost::None,
+                             (int) PrayersOfTheStormhost::None, (int) PrayersOfTheStormhost::Translocation, 1},
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
+
+            s_registered = UnitFactory::Register("Lord-Veritant", factoryMethod);
+        }
     }
-    return StormcastEternal::EnumStringToInt(enumString);
-}
 
-int LordVeritant::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    std::string LordVeritant::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Prayers of the Stormhost") {
+            return ToString((PrayersOfTheStormhost) parameter.intValue);
+        }
+        return StormcastEternal::ValueToString(parameter);
+    }
+
+    int LordVeritant::EnumStringToInt(const std::string &enumString) {
+        PrayersOfTheStormhost prayer;
+        if (FromString(enumString, prayer)) {
+            return (int) prayer;
+        }
+        return StormcastEternal::EnumStringToInt(enumString);
+    }
+
+    int LordVeritant::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace StormcastEternals

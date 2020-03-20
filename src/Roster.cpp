@@ -8,71 +8,54 @@
 #include <cfloat>
 #include <Roster.h>
 
-void Roster::doHeroPhase()
-{
-    for (auto u : m_units)
-    {
+void Roster::doHeroPhase() {
+    for (auto u : m_units) {
         u->hero(m_id);
     }
 }
 
-void Roster::doMovementPhase()
-{
-    for (auto u : m_units)
-    {
+void Roster::doMovementPhase() {
+    for (auto u : m_units) {
         u->movement(m_id);
     }
 }
 
-void Roster::doShootingPhase()
-{
-    for (auto u : m_units)
-    {
+void Roster::doShootingPhase() {
+    for (auto u : m_units) {
         u->shooting(m_id);
     }
 }
 
-void Roster::doChargePhase()
-{
-    for (auto u : m_units)
-    {
+void Roster::doChargePhase() {
+    for (auto u : m_units) {
         u->charge(m_id);
     }
 }
 
-void Roster::doCombatPhase()
-{
-    for (auto u : m_units)
-    {
+void Roster::doCombatPhase() {
+    for (auto u : m_units) {
         u->combat(m_id);
     }
 }
 
-void Roster::doBattleshockPhase()
-{
-    for (auto u : m_units)
-    {
+void Roster::doBattleshockPhase() {
+    for (auto u : m_units) {
         u->battleshock(m_id);
     }
 }
 
-void Roster::beginTurn(int battleRound, PlayerId playerWithTurn)
-{
-    for (auto u : m_units)
-    {
+void Roster::beginTurn(int battleRound, PlayerId playerWithTurn) {
+    for (auto u : m_units) {
         u->beginTurn(battleRound, playerWithTurn);
     }
 }
 
-Unit *Roster::nearestUnit(const Unit *unit) const
-{
+Unit *Roster::nearestUnit(const Unit *unit) const {
     auto nearestUnit = m_units.front();
     float minDistance = FLT_MAX;
-    for (auto u : m_units)
-    {
+    for (auto u : m_units) {
         float dist = unit->distanceTo(u);
-        if (dist < minDistance)
-        {
+        if (dist < minDistance) {
             minDistance = dist;
             nearestUnit = u;
         }
@@ -80,55 +63,43 @@ Unit *Roster::nearestUnit(const Unit *unit) const
     return nearestUnit;
 }
 
-int Roster::totalPoints() const
-{
+int Roster::totalPoints() const {
     int points = 0;
-    for (auto u : m_units)
-    {
+    for (auto u : m_units) {
         points += u->points();
     }
     return points;
 }
 
-void Roster::endTurn(int battleRound)
-{
-    for (auto u : m_units)
-    {
+void Roster::endTurn(int battleRound) {
+    for (auto u : m_units) {
         u->endTurn(battleRound);
     }
 }
 
-void Roster::beginRound(int battleRound)
-{
-    for (auto u : m_units)
-    {
+void Roster::beginRound(int battleRound) {
+    for (auto u : m_units) {
         u->beginRound(battleRound);
     }
 }
 
-void Roster::endRound(int battleRound)
-{
-    for (auto u : m_units)
-    {
+void Roster::endRound(int battleRound) {
+    for (auto u : m_units) {
         u->endRound(battleRound);
     }
 }
 
-bool Roster::useCommandPoint()
-{
+bool Roster::useCommandPoint() {
     int cp = getCommandPoints();
-    if (cp > 0)
-    {
-        setCommandPoints(cp-1);
+    if (cp > 0) {
+        setCommandPoints(cp - 1);
         return true;
     }
     return false;
 }
 
-Roster::~Roster()
-{
-    for (auto ip : m_units)
-    {
+Roster::~Roster() {
+    for (auto ip : m_units) {
         delete ip;
     }
 }

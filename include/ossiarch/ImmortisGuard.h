@@ -12,35 +12,38 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class ImmortisGuard : public OssiarchBonereaperBase
-{
-public:
+    class ImmortisGuard : public OssiarchBonereaperBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ImmortisGuard();
-    ~ImmortisGuard() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        static void Init();
 
-private:
+        ImmortisGuard();
 
-    Weapon m_halberd,
-        m_battleShield;
+        ~ImmortisGuard() override = default;
 
-    static bool s_registered;
-};
+        bool configure(int numModels);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_halberd,
+            m_battleShield;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

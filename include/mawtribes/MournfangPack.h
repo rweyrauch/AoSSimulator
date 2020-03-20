@@ -12,52 +12,59 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class MournfangPack : public MawtribesBase
-{
-public:
+    class MournfangPack : public MawtribesBase {
+    public:
 
-    enum WeaponOption
-    {
-        CullingClubOrPreyHackerAndIronfist,
-        GargantHacker
+        enum WeaponOption {
+            CullingClubOrPreyHackerAndIronfist,
+            GargantHacker
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static int ComputePoints(int numModels);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static void Init();
+
+        MournfangPack();
+
+        ~MournfangPack() override = default;
+
+        bool configure(int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+    private:
+
+        WeaponOption m_option = CullingClubOrPreyHackerAndIronfist;
+        bool m_hornblower = false;
+        bool m_bannerBearer = false;
+
+        Weapon m_pistol,
+                m_clubOrHacker,
+                m_gargantHacker,
+                m_tusks;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static void Init();
-
-    MournfangPack();
-    ~MournfangPack() override = default;
-
-    bool configure(int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-    void onWounded() override;
-    void onRestore() override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-
-private:
-
-    WeaponOption m_option = CullingClubOrPreyHackerAndIronfist;
-    bool m_hornblower = false;
-    bool m_bannerBearer = false;
-
-    Weapon m_pistol,
-        m_clubOrHacker,
-        m_gargantHacker,
-        m_tusks;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

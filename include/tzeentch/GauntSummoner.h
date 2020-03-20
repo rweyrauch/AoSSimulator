@@ -12,37 +12,40 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class GauntSummonerOfTzeentch : public TzeentchBase
-{
-public:
+    class GauntSummonerOfTzeentch : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GauntSummonerOfTzeentch();
-    ~GauntSummonerOfTzeentch() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        GauntSummonerOfTzeentch();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartHero(PlayerId player) override;
-    void onRestore() override;
+        ~GauntSummonerOfTzeentch() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_staff,
-        m_blade;
+    protected:
 
-    bool m_usedBookOfSecrets = false;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        void onRestore() override;
+
+    private:
+
+        Weapon m_staff,
+                m_blade;
+
+        bool m_usedBookOfSecrets = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

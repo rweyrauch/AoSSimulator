@@ -12,39 +12,43 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class Fiends : public SlaaneshBase
-{
-public:
+    class Fiends : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Fiends();
-    ~Fiends() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Fiends();
 
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-    int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int disruptiveSong(const Unit* caster);
+        ~Fiends() override;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_deadlyPincers,
-        m_deadlyPincersBlissbringer,
-        m_barbedStinger;
+    protected:
 
-    lsignal::slot m_connection;
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    static bool s_registered;
-};
+        int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int disruptiveSong(const Unit *caster);
+
+    private:
+
+        Weapon m_deadlyPincers,
+                m_deadlyPincersBlissbringer,
+                m_barbedStinger;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

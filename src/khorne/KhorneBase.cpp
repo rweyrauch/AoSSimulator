@@ -42,160 +42,136 @@
 #include "khorne/SkarrBloodwrath.h"
 #include "khorne/Riptooth.h"
 
-namespace Khorne
-{
+namespace Khorne {
 
-void KhorneBase::setSlaughterHost(SlaughterHost host)
-{
-    removeKeyword(REAPERS_OF_VENGEANCE);
-    removeKeyword(BLOODLORDS);
-    removeKeyword(GORETIDE);
-    removeKeyword(SKULLFIEND_TRIBE);
+    void KhorneBase::setSlaughterHost(SlaughterHost host) {
+        removeKeyword(REAPERS_OF_VENGEANCE);
+        removeKeyword(BLOODLORDS);
+        removeKeyword(GORETIDE);
+        removeKeyword(SKULLFIEND_TRIBE);
 
-    m_slaughterHost = host;
-    switch (m_slaughterHost)
-    {
-        case ReapersOfVengeance:
-            addKeyword(REAPERS_OF_VENGEANCE);
-            break;
-        case Bloodlords:
-            addKeyword(BLOODLORDS);
-            break;
-        case Goretide:
-            addKeyword(GORETIDE);
-            break;
-        case SkullfiendTribe:
-            addKeyword(SKULLFIEND_TRIBE);
-            break;
-        default:
-            break;
-    }
-}
-
-Rerolls KhorneBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Slay the Mighty
-    if (m_slaughterHost == Bloodlords)
-    {
-        if (hasKeyword(DAEMON) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)))
-        {
-            return RerollOnes;
+        m_slaughterHost = host;
+        switch (m_slaughterHost) {
+            case ReapersOfVengeance:
+                addKeyword(REAPERS_OF_VENGEANCE);
+                break;
+            case Bloodlords:
+                addKeyword(BLOODLORDS);
+                break;
+            case Goretide:
+                addKeyword(GORETIDE);
+                break;
+            case SkullfiendTribe:
+                addKeyword(SKULLFIEND_TRIBE);
+                break;
+            default:
+                break;
         }
     }
-    // Tireless Conquerors
-    else if (m_slaughterHost == Goretide)
-    {
-        if (hasKeyword(MORTAL))
-        {
-            auto numObjMarkers = Board::Instance()->getNumObjectives();
-            for (auto i = 0; i < numObjMarkers; i++)
-            {
-                const auto obj = Board::Instance()->getObjective(i);
-                if (obj)
-                {
-                    if (position().distance(obj->m_pos) <= 12.0f)
-                    {
-                        return RerollOnes;
+
+    Rerolls KhorneBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Slay the Mighty
+        if (m_slaughterHost == Bloodlords) {
+            if (hasKeyword(DAEMON) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
+                return RerollOnes;
+            }
+        }
+            // Tireless Conquerors
+        else if (m_slaughterHost == Goretide) {
+            if (hasKeyword(MORTAL)) {
+                auto numObjMarkers = Board::Instance()->getNumObjectives();
+                for (auto i = 0; i < numObjMarkers; i++) {
+                    const auto obj = Board::Instance()->getObjective(i);
+                    if (obj) {
+                        if (position().distance(obj->m_pos) <= 12.0f) {
+                            return RerollOnes;
+                        }
                     }
                 }
             }
         }
+        return Unit::toWoundRerolls(weapon, target);
     }
-    return Unit::toWoundRerolls(weapon, target);
-}
 
-Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    // Skull Hunters
-    if (m_slaughterHost == SkullfiendTribe)
-    {
-        if (hasKeyword(MORTAL))
-        {
-            auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0f);
-            if (hero)
-            {
-                return RerollOnes;
+    Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
+        // Skull Hunters
+        if (m_slaughterHost == SkullfiendTribe) {
+            if (hasKeyword(MORTAL)) {
+                auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0f);
+                if (hero) {
+                    return RerollOnes;
+                }
             }
         }
-    }
 
-    // Locus of Fury
-    if (hasKeyword(DAEMON))
-    {
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);
-        for (auto ip : units)
-        {
-            if (ip->hasKeyword(GREATER_DAEMON))
-            {
-                return RerollOnes;
-            }
-            else if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0f)
-            {
-                return RerollOnes;
+        // Locus of Fury
+        if (hasKeyword(DAEMON)) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);
+            for (auto ip : units) {
+                if (ip->hasKeyword(GREATER_DAEMON)) {
+                    return RerollOnes;
+                } else if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0f) {
+                    return RerollOnes;
+                }
             }
         }
+        return Unit::toHitRerolls(weapon, unit);
     }
-    return Unit::toHitRerolls(weapon, unit);
-}
 
-std::string KhorneBase::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Slaughter Host")
-    {
-        if (parameter.intValue == ReapersOfVengeance) { return "Reapers of Vengeance"; }
-        else if (parameter.intValue == Bloodlords) { return "Bloodlords"; }
-        else if (parameter.intValue == Goretide) { return "Goretide"; }
-        else if (parameter.intValue == SkullfiendTribe) { return "Skullfiend Tribe"; }
-        else if (parameter.intValue == None) { return "None"; }
+    std::string KhorneBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Slaughter Host") {
+            if (parameter.intValue == ReapersOfVengeance) { return "Reapers of Vengeance"; }
+            else if (parameter.intValue == Bloodlords) { return "Bloodlords"; }
+            else if (parameter.intValue == Goretide) { return "Goretide"; }
+            else if (parameter.intValue == SkullfiendTribe) { return "Skullfiend Tribe"; }
+            else if (parameter.intValue == None) { return "None"; }
+        }
+        return ParameterValueToString(parameter);
     }
-    return ParameterValueToString(parameter);
-}
 
-int KhorneBase::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Reapers of Vengeance") { return ReapersOfVengeance; }
-    else if (enumString == "Bloodlords") { return Bloodlords; }
-    else if (enumString == "Goretide") { return Goretide; }
-    else if (enumString == "Skullfiend Tribe") { return SkullfiendTribe; }
-    else if (enumString == "None") { return None; }
-    return 0;
-}
+    int KhorneBase::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Reapers of Vengeance") { return ReapersOfVengeance; }
+        else if (enumString == "Bloodlords") { return Bloodlords; }
+        else if (enumString == "Goretide") { return Goretide; }
+        else if (enumString == "Skullfiend Tribe") { return SkullfiendTribe; }
+        else if (enumString == "None") { return None; }
+        return 0;
+    }
 
-void Init()
-{
-    AspiringDeathbringer::Init();
-    Bloodcrushers::Init();
-    Bloodletters::Init();
-    Bloodmaster::Init();
-    Bloodreavers::Init();
-    Bloodsecrator::Init();
-    Bloodstoker::Init();
-    BloodthirsterOfInsensateRage::Init();
-    BloodthirsterOfUnfetteredFury::Init();
-    BloodWarriors::Init();
-    ExaltedDeathbringer::Init();
-    FleshHounds::Init();
-    HeraldOfKhorneOnBloodThrone::Init();
-    Karanak::Init();
-    Khorgoraths::Init();
-    KorghosKhul::Init();
-    LordOfKhorneOnJuggernaut::Init();
-    MightyLordOfKhorne::Init();
-    MightySkullcrushers::Init();
-    Riptooth::Init();
-    ScylaAnfingrimm::Init();
-    Skarbrand::Init();
-    SkarrBloodwrath::Init();
-    SkullCannons::Init();
-    Skullgrinder::Init();
-    Skullmaster::Init();
-    Skullreapers::Init();
-    Skulltaker::Init();
-    Slaughterpriest::Init();
-    ValkiaTheBloody::Init();
-    VorgarothAndSkalok::Init();
-    Wrathmongers::Init();
-    WrathOfKhorneBloodthirster::Init();
-}
+    void Init() {
+        AspiringDeathbringer::Init();
+        Bloodcrushers::Init();
+        Bloodletters::Init();
+        Bloodmaster::Init();
+        Bloodreavers::Init();
+        Bloodsecrator::Init();
+        Bloodstoker::Init();
+        BloodthirsterOfInsensateRage::Init();
+        BloodthirsterOfUnfetteredFury::Init();
+        BloodWarriors::Init();
+        ExaltedDeathbringer::Init();
+        FleshHounds::Init();
+        HeraldOfKhorneOnBloodThrone::Init();
+        Karanak::Init();
+        Khorgoraths::Init();
+        KorghosKhul::Init();
+        LordOfKhorneOnJuggernaut::Init();
+        MightyLordOfKhorne::Init();
+        MightySkullcrushers::Init();
+        Riptooth::Init();
+        ScylaAnfingrimm::Init();
+        Skarbrand::Init();
+        SkarrBloodwrath::Init();
+        SkullCannons::Init();
+        Skullgrinder::Init();
+        Skullmaster::Init();
+        Skullreapers::Init();
+        Skulltaker::Init();
+        Slaughterpriest::Init();
+        ValkiaTheBloody::Init();
+        VorgarothAndSkalok::Init();
+        Wrathmongers::Init();
+        WrathOfKhorneBloodthirster::Init();
+    }
 
 } //namespace Khorne

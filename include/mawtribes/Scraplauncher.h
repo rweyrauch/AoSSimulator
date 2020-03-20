@@ -12,37 +12,41 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class GnoblarScraplauncher : public MawtribesBase
-{
-public:
+    class GnoblarScraplauncher : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    GnoblarScraplauncher();
-    ~GnoblarScraplauncher() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static void Init();
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        static int ComputePoints(int numModels);
 
-private:
+        GnoblarScraplauncher();
 
-    Weapon m_scrap,
-        m_scrapperWeapons,
-        m_horns;
+        ~GnoblarScraplauncher() override = default;
 
-    static bool s_registered;
-};
+        bool configure();
+
+    protected:
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_scrap,
+                m_scrapperWeapons,
+                m_horns;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

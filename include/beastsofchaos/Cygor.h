@@ -12,36 +12,40 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Cygor : public BeastsOfChaosBase
-{
-public:
+    class Cygor : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Cygor();
-    ~Cygor() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Cygor();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~Cygor() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_desecratedBoulder,
-        m_massiveHorns;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_desecratedBoulder,
+                m_massiveHorns;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

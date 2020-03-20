@@ -11,89 +11,81 @@
 #include <Board.h>
 #include <Roster.h>
 
-namespace Seraphon
-{
-static const int BASESIZE = 50;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 140;
+namespace Seraphon {
+    static const int BASESIZE = 50;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 140;
 
-bool SkinkStarseer::s_registered = false;
+    bool SkinkStarseer::s_registered = false;
 
-SkinkStarseer::SkinkStarseer() :
-    SeraphonBase("Skink Starseer", 5, WOUNDS, 6, 5, true),
-    m_astralBolt(Weapon::Type::Missile, "Astral Bolt", 18, 2, 3, 3, -1, RAND_D3),
-    m_staff(Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3)
-{
-    m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARSEER};
-    m_weapons = {&m_astralBolt, &m_staff};
-}
-
-bool SkinkStarseer::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_astralBolt);
-    model->addMeleeWeapon(&m_staff);
-    addModel(model);
-
-    m_points = ComputePoints(1);
-
-    return true;
-}
-
-Unit *SkinkStarseer::Create(const ParameterList &parameters)
-{
-    auto unit = new SkinkStarseer();
-
-    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
-    unit->setWayOfTheSeraphon(way, constellation);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    SkinkStarseer::SkinkStarseer() :
+            SeraphonBase("Skink Starseer", 5, WOUNDS, 6, 5, true),
+            m_astralBolt(Weapon::Type::Missile, "Astral Bolt", 18, 2, 3, 3, -1, RAND_D3),
+            m_staff(Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3) {
+        m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARSEER};
+        m_weapons = {&m_astralBolt, &m_staff};
     }
-    return unit;
-}
 
-void SkinkStarseer::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            SeraphonBase::ValueToString,
-            SeraphonBase::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
-                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
-            },
-            ORDER,
-            { SERAPHON }
-        };
+    bool SkinkStarseer::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_astralBolt);
+        model->addMeleeWeapon(&m_staff);
+        addModel(model);
 
-        s_registered = UnitFactory::Register("Skink Starseer", factoryMethod);
+        m_points = ComputePoints(1);
+
+        return true;
     }
-}
 
-void SkinkStarseer::onStartHero(PlayerId player)
-{
-    Unit::onStartHero(player);
+    Unit *SkinkStarseer::Create(const ParameterList &parameters) {
+        auto unit = new SkinkStarseer();
 
-    // Cosmic Herald
-    if (owningPlayer() == player)
-    {
-        Dice::RollResult result;
-        Dice::rollD6(1, result);
-        m_roster->addCommandPoints(result.rollsGE(4));
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        unit->setWayOfTheSeraphon(way, constellation);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-}
 
-int SkinkStarseer::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    void SkinkStarseer::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    SeraphonBase::ValueToString,
+                    SeraphonBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
+                             SeraphonBase::Coalesced, 1},
+                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
+                             SeraphonBase::FangsOfSotek, 1}
+                    },
+                    ORDER,
+                    {SERAPHON}
+            };
+
+            s_registered = UnitFactory::Register("Skink Starseer", factoryMethod);
+        }
+    }
+
+    void SkinkStarseer::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        // Cosmic Herald
+        if (owningPlayer() == player) {
+            Dice::RollResult result;
+            Dice::rollD6(1, result);
+            m_roster->addCommandPoints(result.rollsGE(4));
+        }
+    }
+
+    int SkinkStarseer::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } //namespace Seraphon

@@ -11,8 +11,7 @@
 
 #include <Prayer.h>
 
-enum class BloodBlessingsOfKhorne : int
-{
+enum class BloodBlessingsOfKhorne : int {
     None = 0,
     BronzedFlesh,
     BloodSacrifice,
@@ -23,8 +22,9 @@ enum class BloodBlessingsOfKhorne : int
 };
 
 std::string ToString(BloodBlessingsOfKhorne which);
+
 bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessing);
 
-Prayer* CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit* priest);
+Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest);
 
 #endif //BLOODBLESSINGSOFKHORNE_H

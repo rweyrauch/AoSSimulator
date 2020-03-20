@@ -12,36 +12,36 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class AetherKhemist : public KharadronBase
-{
-public:
+    class AetherKhemist : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AetherKhemist();
+        static int ComputePoints(int numModels);
 
-    ~AetherKhemist() override;
+        static void Init();
 
-    bool configure();
+        AetherKhemist();
 
-protected:
+        ~AetherKhemist() override;
 
-    int atmosphericIsolation(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_anatomiser,
-        m_instruments;
+        int atmosphericIsolation(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
-    lsignal::slot m_connection;
+    private:
 
-    static bool s_registered;
-};
+        Weapon m_anatomiser,
+                m_instruments;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

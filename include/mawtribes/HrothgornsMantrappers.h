@@ -12,31 +12,32 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class HrothgornsMantrappers : public MawtribesBase
-{
-public:
+    class HrothgornsMantrappers : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HrothgornsMantrappers();
-    ~HrothgornsMantrappers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        HrothgornsMantrappers();
 
-private:
+        ~HrothgornsMantrappers() override = default;
 
-    Weapon m_sharpStuff,
-        m_motleyWeapons;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_sharpStuff,
+            m_motleyWeapons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

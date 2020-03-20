@@ -12,30 +12,31 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class ChaosWarhounds : public BeastsOfChaosBase
-{
-public:
+    class ChaosWarhounds : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosWarhounds();
-    ~ChaosWarhounds() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        static int ComputePoints(int numModels);
 
-protected:
+        ChaosWarhounds();
 
-private:
+        ~ChaosWarhounds() override = default;
 
-    Weapon m_slaveringJaws;
+        bool configure(int numModels);
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_slaveringJaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

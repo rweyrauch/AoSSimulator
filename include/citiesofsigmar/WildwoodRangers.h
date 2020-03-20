@@ -12,39 +12,43 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class WildwoodRangers : public CitizenOfSigmar
-{
-public:
+    class WildwoodRangers : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WildwoodRangers();
-    ~WildwoodRangers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearer, bool hornblower);
+        static void Init();
 
-protected:
+        WildwoodRangers();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
+        ~WildwoodRangers() override = default;
 
-private:
+        bool configure(int numModels, bool standardBearer, bool hornblower);
 
-    bool m_hornblower = false,
-        m_standardBearer = false;
+    protected:
 
-    Weapon m_rangersDraich,
-        m_wardensDraich;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+    private:
+
+        bool m_hornblower = false,
+                m_standardBearer = false;
+
+        Weapon m_rangersDraich,
+                m_wardensDraich;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

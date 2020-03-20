@@ -13,34 +13,35 @@
 #include <Weapon.h>
 #include <UnitFactory.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class TheFarstriders : public StormcastEternal
-{
-public:
+    class TheFarstriders : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TheFarstriders();
-    ~TheFarstriders() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TheFarstriders();
+
+        ~TheFarstriders() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_boltstormPistol,
-        m_shockHandaxe,
-        m_stormSaber;
+        Weapon m_boltstormPistol,
+                m_shockHandaxe,
+                m_stormSaber;
 
-    static bool s_registered;
+        static bool s_registered;
 
-};
+    };
 
 //
 // Abilities                    Implemented

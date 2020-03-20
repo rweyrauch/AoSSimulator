@@ -12,37 +12,38 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class EidolonOfMathlannAspectOfTheSea : public IdonethDeepkinBase
-{
-public:
+    class EidolonOfMathlannAspectOfTheSea : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    EidolonOfMathlannAspectOfTheSea();
-    ~EidolonOfMathlannAspectOfTheSea() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        EidolonOfMathlannAspectOfTheSea();
 
-    int tranquilityOfTheAbyss(const Unit* target);
+        ~EidolonOfMathlannAspectOfTheSea() override;
 
-private:
+        bool configure();
 
-    Weapon m_abyssalEnergy,
-        m_trident,
-        m_sceptre,
-        m_stormshoal;
+    protected:
 
-    lsignal::slot m_connection;
+        int tranquilityOfTheAbyss(const Unit *target);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_abyssalEnergy,
+                m_trident,
+                m_sceptre,
+                m_stormshoal;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,34 +12,35 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Gorgers : public MawtribesBase
-{
-public:
+    class Gorgers : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Gorgers();
-    ~Gorgers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Gorgers();
 
-    // Instatiable Hunger
-    Rerolls chargeRerolls() const override { return RerollFailed; }
+        ~Gorgers() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_claws,
-        m_jaw;
+    protected:
 
-    static bool s_registered;
-};
+        // Instatiable Hunger
+        Rerolls chargeRerolls() const override { return RerollFailed; }
+
+    private:
+
+        Weapon m_claws,
+                m_jaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,40 +12,44 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class FlamespyrePhoenix : public CitizenOfSigmar
-{
-public:
+    class FlamespyrePhoenix : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    FlamespyrePhoenix();
-    ~FlamespyrePhoenix() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(bool anointed);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    void onWounded() override;
-    void onRestore() override;
+        static void Init();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        FlamespyrePhoenix();
 
-private:
+        ~FlamespyrePhoenix() override = default;
 
-    int getDamageTableIndex() const;
+        bool configure(bool anointed);
 
-    Weapon m_talons,
-        m_halberd;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_talons,
+            m_halberd;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

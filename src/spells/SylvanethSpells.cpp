@@ -9,41 +9,35 @@
 #include <Board.h>
 #include <Unit.h>
 
-class Metamorphosis : public DamageSpell
-{
+class Metamorphosis : public DamageSpell {
 public:
-    explicit Metamorphosis(Unit* caster);
+    explicit Metamorphosis(Unit *caster);
 
 protected:
     int getDamage(int castingRoll) const override;
 };
 
 Metamorphosis::Metamorphosis(Unit *caster) :
-    DamageSpell(caster, "Metamorphosis", 7, 16.0f, 1)
-{
+        DamageSpell(caster, "Metamorphosis", 7, 16.0f, 1) {
 }
 
-int Metamorphosis::getDamage(int castingRoll) const
-{
-   Dice::RollResult result;
-   Dice::rollD6(castingRoll, result);
-   return result.rollsGE(4);
+int Metamorphosis::getDamage(int castingRoll) const {
+    Dice::RollResult result;
+    Dice::rollD6(castingRoll, result);
+    return result.rollsGE(4);
 }
 
-Spell* CreateMetamorphosis(Unit* caster)
-{
+Spell *CreateMetamorphosis(Unit *caster) {
     return new Metamorphosis(caster);
 }
 
-class UnleashSpites : public AreaOfEffectSpell
-{
+class UnleashSpites : public AreaOfEffectSpell {
 public:
-    explicit UnleashSpites(Unit* caster) :
-        AreaOfEffectSpell(caster, "Unleash Spites", 5, 0.0f, 9.0f, 1, 0) {}
+    explicit UnleashSpites(Unit *caster) :
+            AreaOfEffectSpell(caster, "Unleash Spites", 5, 0.0f, 9.0f, 1, 0) {}
 
 protected:
-    int getDamage(int castingRoll) const override
-    {
+    int getDamage(int castingRoll) const override {
         Dice::RollResult result;
         Dice::rollD6(castingRoll, result);
         return result.rollsGE(6);
@@ -51,47 +45,38 @@ protected:
 };
 
 
-Spell* CreateUnleashSpites(Unit* caster)
-{
+Spell *CreateUnleashSpites(Unit *caster) {
     return new UnleashSpites(caster);
 }
 
-Spell* CreatePrimalTerror(Unit* caster)
-{
+Spell *CreatePrimalTerror(Unit *caster) {
     return nullptr;
 }
 
-Spell* CreateTheReaping(Unit* caster)
-{
+Spell *CreateTheReaping(Unit *caster) {
     return nullptr;
 }
 
-Spell *CreateThroneOfVines(Unit *caster)
-{
+Spell *CreateThroneOfVines(Unit *caster) {
     return nullptr;
 }
 
-Spell *CreateRegrowth(Unit *caster)
-{
+Spell *CreateRegrowth(Unit *caster) {
     return new HealSpell(caster, "Regrowth", 5, 18.0f, RAND_D6);
 }
 
-Spell *CreateTheDwellersBelow(Unit *caster)
-{
+Spell *CreateTheDwellersBelow(Unit *caster) {
     return nullptr;
 }
 
-Spell *CreateDeadlyHarvest(Unit *caster)
-{
+Spell *CreateDeadlyHarvest(Unit *caster) {
     return new AreaOfEffectSpell(caster, "Deadly Harvest", 6, 0.0f, 3.0f, RAND_D3, 0);
 }
 
-Spell *CreateVerdurousHarmony(Unit *caster)
-{
+Spell *CreateVerdurousHarmony(Unit *caster) {
     return nullptr;
 }
 
-Spell *CreateTreesong(Unit *caster)
-{
+Spell *CreateTreesong(Unit *caster) {
     return nullptr;
 }

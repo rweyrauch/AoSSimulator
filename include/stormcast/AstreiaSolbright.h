@@ -13,44 +13,50 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class AstreiaSolbright : public StormcastEternal
-{
-public:
+    class AstreiaSolbright : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    AstreiaSolbright();
-    ~AstreiaSolbright() override;
+        static void Init();
 
-    bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls chargeRerolls() const override;
+        static int ComputePoints(int numModels);
 
-    void onStartCombat(PlayerId player) override;
-    void onRestore() override { m_shatteredFlasks = false; }
-    int supernaturalRoar(const Unit* target);
+        AstreiaSolbright();
 
-private:
+        ~AstreiaSolbright() override;
 
-    bool m_shatteredFlasks = false;
+        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
-    Weapon m_aetherstave,
-        m_monstrousClaws;
+    protected:
 
-    lsignal::slot m_connection;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        Rerolls chargeRerolls() const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        void onRestore() override { m_shatteredFlasks = false; }
+
+        int supernaturalRoar(const Unit *target);
+
+    private:
+
+        bool m_shatteredFlasks = false;
+
+        Weapon m_aetherstave,
+                m_monstrousClaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,38 +12,42 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class LadyOlynder : public Nighthaunt
-{
-public:
+    class LadyOlynder : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LadyOlynder();
-    ~LadyOlynder() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LadyOlynder();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartHero(PlayerId player) override;
-    void onStartShooting(PlayerId player) override;
-    void onRestore() override;
+        ~LadyOlynder() override = default;
 
-private:
+        bool configure();
 
-    bool m_graveSandsOfTimeUsed = false;
+    protected:
 
-    Weapon m_staff,
-        m_claws;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        void onStartShooting(PlayerId player) override;
+
+        void onRestore() override;
+
+    private:
+
+        bool m_graveSandsOfTimeUsed = false;
+
+        Weapon m_staff,
+                m_claws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

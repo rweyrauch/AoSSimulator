@@ -12,48 +12,51 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class MawtribesBase : public Unit
-{
-public:
+    class MawtribesBase : public Unit {
+    public:
 
-    enum Mawtribe
-    {
-        None = 0,
-        Meatfist,
-        Bloodgullet,
-        Underguts,
-        Boulderhead,
-        Thunderbellies,
-        Winterbite
+        enum Mawtribe {
+            None = 0,
+            Meatfist,
+            Bloodgullet,
+            Underguts,
+            Boulderhead,
+            Thunderbellies,
+            Winterbite
+        };
+
+        MawtribesBase() = default;
+
+        ~MawtribesBase() override = default;
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        void setMawtribe(Mawtribe tribe);
+
+    protected:
+        MawtribesBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+    protected:
+
+        Mawtribe m_tribe = None;
+
+        mutable int m_unmodifiedChargeRoll = 0;
+
+        void onCharged() override;
+
+        void onStartHero(PlayerId player) override;
+
+        int rollChargeDistance() const override;
+
+        int moveModifier() const override;
+
+        int braveryModifier() const override;
     };
-
-    MawtribesBase() = default;
-    ~MawtribesBase() override = default;
-
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    void setMawtribe(Mawtribe tribe);
-
-protected:
-    MawtribesBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-protected:
-
-    Mawtribe m_tribe = None;
-
-    mutable int m_unmodifiedChargeRoll = 0;
-
-    void onCharged() override;
-    void onStartHero(PlayerId player) override;
-    int rollChargeDistance() const override;
-    int moveModifier() const override;
-    int braveryModifier() const override;
-};
 
 //
 // Abilities                    Implemented
@@ -70,7 +73,7 @@ protected:
 // Ghosts in the Blizzard (Winterbite)  TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace OgorMawtribes
 

@@ -9,96 +9,84 @@
 #include <UnitFactory.h>
 #include "nighthaunt/DreadbladeHarrow.h"
 
-namespace Nighthaunt
-{
-static const int BASESIZE = 60; // x35 oval
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 90;
+namespace Nighthaunt {
+    static const int BASESIZE = 60; // x35 oval
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 90;
 
-bool DreadbladeHarrow::s_registered = false;
+    bool DreadbladeHarrow::s_registered = false;
 
-Unit *DreadbladeHarrow::Create(const ParameterList &parameters)
-{
-    auto unit = new DreadbladeHarrow();
+    Unit *DreadbladeHarrow::Create(const ParameterList &parameters) {
+        auto unit = new DreadbladeHarrow();
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void DreadbladeHarrow::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            DreadbladeHarrow::Create,
-            nullptr,
-            nullptr,
-            DreadbladeHarrow::ComputePoints,
-            {
-            },
-            DEATH,
-            { NIGHTHAUNT }
-        };
-        s_registered = UnitFactory::Register("Dreadblade Harrow", factoryMethod);
+    void DreadbladeHarrow::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    DreadbladeHarrow::Create,
+                    nullptr,
+                    nullptr,
+                    DreadbladeHarrow::ComputePoints,
+                    {
+                    },
+                    DEATH,
+                    {NIGHTHAUNT}
+            };
+            s_registered = UnitFactory::Register("Dreadblade Harrow", factoryMethod);
+        }
     }
-}
 
-DreadbladeHarrow::DreadbladeHarrow() :
-    Nighthaunt("Dreadblade Harrow", 12, WOUNDS, 10, 4, true),
-    m_dreadblade(Weapon::Type::Melee, "Dreadblade", 1, 3, 3, 3, -1, 1),
-    m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1)
-{
-    m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, DREADBLADE_HARROW};
-    m_weapons = {&m_dreadblade, &m_hoovesAndTeeth};
-}
-
-bool DreadbladeHarrow::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_dreadblade);
-    model->addMeleeWeapon(&m_hoovesAndTeeth);
-    addModel(model);
-
-    m_points = ComputePoints(1);
-
-    return true;
-}
-
-int DreadbladeHarrow::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    // Dreadblade
-    auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
-    if (!m_charged && (weapon->name() == m_dreadblade.name())) attacks++;
-
-    return attacks;
-}
-
-Wounds DreadbladeHarrow::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Dreadblade
-    auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-    if (m_charged && (weapon->name() == m_dreadblade.name())) wounds.normal++;
-
-    return wounds;
-}
-
-Rerolls DreadbladeHarrow::toWoundRerolls(const Weapon *weapon, const Unit *target) const
-{
-    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), KNIGHT_OF_SHROUDS, 9.0f);
-    if (unit && (weapon->name() == m_dreadblade.name()))
-    {
-        return RerollOnes;
+    DreadbladeHarrow::DreadbladeHarrow() :
+            Nighthaunt("Dreadblade Harrow", 12, WOUNDS, 10, 4, true),
+            m_dreadblade(Weapon::Type::Melee, "Dreadblade", 1, 3, 3, 3, -1, 1),
+            m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
+        m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, DREADBLADE_HARROW};
+        m_weapons = {&m_dreadblade, &m_hoovesAndTeeth};
     }
-    return Unit::toWoundRerolls(weapon, target);
-}
 
-int DreadbladeHarrow::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    bool DreadbladeHarrow::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_dreadblade);
+        model->addMeleeWeapon(&m_hoovesAndTeeth);
+        addModel(model);
+
+        m_points = ComputePoints(1);
+
+        return true;
+    }
+
+    int DreadbladeHarrow::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        // Dreadblade
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        if (!m_charged && (weapon->name() == m_dreadblade.name())) attacks++;
+
+        return attacks;
+    }
+
+    Wounds DreadbladeHarrow::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Dreadblade
+        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (m_charged && (weapon->name() == m_dreadblade.name())) wounds.normal++;
+
+        return wounds;
+    }
+
+    Rerolls DreadbladeHarrow::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), KNIGHT_OF_SHROUDS, 9.0f);
+        if (unit && (weapon->name() == m_dreadblade.name())) {
+            return RerollOnes;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int DreadbladeHarrow::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 } // namespace Nighthaunt

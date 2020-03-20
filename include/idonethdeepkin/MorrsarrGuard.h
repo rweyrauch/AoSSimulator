@@ -12,45 +12,51 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class AkhelianMorrsarrGuard : public IdonethDeepkinBase
-{
-public:
+    class AkhelianMorrsarrGuard : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AkhelianMorrsarrGuard();
-    ~AkhelianMorrsarrGuard() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearers, bool musicians);
+        static void Init();
 
-protected:
+        AkhelianMorrsarrGuard();
 
-    Rerolls battleshockRerolls() const override;
-    Rerolls chargeRerolls() const override;
-    void onRestore() override { m_usedBiovoltaicBlast = false; }
-    void onBeginTurn(int battleRound) override;
-    void onStartCombat(PlayerId player) override;
-    void onCharged() override;
+        ~AkhelianMorrsarrGuard() override = default;
 
-    bool m_standardBearers = false;
-    bool m_musicians = false;
+        bool configure(int numModels, bool standardBearers, bool musicians);
 
-    bool m_usedBiovoltaicBlast = false;
+    protected:
 
-private:
+        Rerolls battleshockRerolls() const override;
 
-    Weapon m_voltspear,
-        m_voltspearPrince,
-        m_fangmoraFangedMaw,
-        m_fangmoraLashingTail;
+        Rerolls chargeRerolls() const override;
 
-    static bool s_registered;
-};
+        void onRestore() override { m_usedBiovoltaicBlast = false; }
+
+        void onBeginTurn(int battleRound) override;
+
+        void onStartCombat(PlayerId player) override;
+
+        void onCharged() override;
+
+        bool m_standardBearers = false;
+        bool m_musicians = false;
+
+        bool m_usedBiovoltaicBlast = false;
+
+    private:
+
+        Weapon m_voltspear,
+                m_voltspearPrince,
+                m_fangmoraFangedMaw,
+                m_fangmoraLashingTail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

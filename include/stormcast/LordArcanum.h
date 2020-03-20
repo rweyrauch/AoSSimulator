@@ -13,37 +13,41 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordArcanum : public StormcastEternal
-{
-public:
+    class LordArcanum : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    LordArcanum();
-    ~LordArcanum() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    void onStartCombat(PlayerId player) override;
-    void onRestore() override { m_shatteredFlasks = false; }
+        static int ComputePoints(int numModels);
 
-private:
+        LordArcanum();
 
-    bool m_shatteredFlasks = false;
+        ~LordArcanum() override = default;
 
-    Weapon m_aetherstave;
+        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
-    static bool s_registered;
-};
+    protected:
+
+        void onStartCombat(PlayerId player) override;
+
+        void onRestore() override { m_shatteredFlasks = false; }
+
+    private:
+
+        bool m_shatteredFlasks = false;
+
+        Weapon m_aetherstave;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,46 +12,52 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Bloodletters : public KhorneBase
-{
-public:
+    class Bloodletters : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Bloodletters();
-    ~Bloodletters() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
+        static void Init();
 
-protected:
+        Bloodletters();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    void restoreModels(int numModels) override;
-    Rerolls chargeRerolls() const override;
+        ~Bloodletters() override;
 
-    Rerolls hornblowerBattleshockReroll(const Unit* unit);
+        bool configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
 
-private:
+    protected:
 
-    bool m_iconBearer = false;
-    bool m_standarBearer = false;
-    bool m_hornblower = false;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    Weapon m_hellblade,
-        m_hellbladeReaper;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    lsignal::slot m_hornblowerSlot;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
+
+        void restoreModels(int numModels) override;
+
+        Rerolls chargeRerolls() const override;
+
+        Rerolls hornblowerBattleshockReroll(const Unit *unit);
+
+    private:
+
+        bool m_iconBearer = false;
+        bool m_standarBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_hellblade,
+                m_hellbladeReaper;
+
+        lsignal::slot m_hornblowerSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

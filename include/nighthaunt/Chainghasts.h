@@ -12,33 +12,34 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class Chainghasts : public Nighthaunt
-{
-public:
+    class Chainghasts : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Chainghasts();
-    ~Chainghasts() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Chainghasts();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~Chainghasts() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_ghastflailsMissile,
-        m_ghastflails;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_ghastflailsMissile,
+                m_ghastflails;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

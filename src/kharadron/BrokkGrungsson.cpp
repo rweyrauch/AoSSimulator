@@ -8,77 +8,70 @@
 #include <kharadron/BrokkGrungsson.h>
 #include <UnitFactory.h>
 
-namespace KharadronOverlords
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 8;
-static const int POINTS_PER_UNIT = 240;
+namespace KharadronOverlords {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 240;
 
-bool BrokkGrungsson::s_registered = false;
+    bool BrokkGrungsson::s_registered = false;
 
-Unit *BrokkGrungsson::Create(const ParameterList &parameters)
-{
-    auto unit = new BrokkGrungsson();
+    Unit *BrokkGrungsson::Create(const ParameterList &parameters) {
+        auto unit = new BrokkGrungsson();
 
-    auto port = (Skyport)GetEnumParam("Skyport", parameters, KharadronBase::None);
-    unit->setSkyport(port);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        unit->setSkyport(port);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void BrokkGrungsson::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            BrokkGrungsson::Create,
-            KharadronBase::ValueToString,
-            KharadronBase::EnumStringToInt,
-            BrokkGrungsson::ComputePoints,
-            {
-                {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
-            },
-            ORDER,
-            { KHARADRON_OVERLORDS }
-        };
-        s_registered = UnitFactory::Register("Brokk Grungsson", factoryMethod);
+    void BrokkGrungsson::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    BrokkGrungsson::Create,
+                    KharadronBase::ValueToString,
+                    KharadronBase::EnumStringToInt,
+                    BrokkGrungsson::ComputePoints,
+                    {
+                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
+                             KharadronBase::Custom, 1},
+                    },
+                    ORDER,
+                    {KHARADRON_OVERLORDS}
+            };
+            s_registered = UnitFactory::Register("Brokk Grungsson", factoryMethod);
+        }
     }
-}
 
-BrokkGrungsson::BrokkGrungsson() :
-    KharadronBase("Brokk Grungsson", 12, WOUNDS, 8, 3, true),
-    m_boast(Weapon::Type::Missile, "Grungsson's Boast", 18, 2, 3, 2, -2, RAND_D3),
-    m_charter(Weapon::Type::Missile, "The Magnate's Charter", 18, 6, 3, 3, -1, 1),
-    m_aetherblasters(Weapon::Type::Missile, "Aetherblasters", 9, 2, 3, 4, 0, 1),
-    m_saw(Weapon::Type::Melee, "Aethermatic Saw", 1, 4, 3, 2, -2, RAND_D3)
-{
-    m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, BROKK_GRUNGSSON};
-    m_weapons = {&m_boast, &m_charter, &m_aetherblasters, &m_saw};
-}
+    BrokkGrungsson::BrokkGrungsson() :
+            KharadronBase("Brokk Grungsson", 12, WOUNDS, 8, 3, true),
+            m_boast(Weapon::Type::Missile, "Grungsson's Boast", 18, 2, 3, 2, -2, RAND_D3),
+            m_charter(Weapon::Type::Missile, "The Magnate's Charter", 18, 6, 3, 3, -1, 1),
+            m_aetherblasters(Weapon::Type::Missile, "Aetherblasters", 9, 2, 3, 4, 0, 1),
+            m_saw(Weapon::Type::Melee, "Aethermatic Saw", 1, 4, 3, 2, -2, RAND_D3) {
+        m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, BROKK_GRUNGSSON};
+        m_weapons = {&m_boast, &m_charter, &m_aetherblasters, &m_saw};
+    }
 
-bool BrokkGrungsson::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_boast);
-    model->addMissileWeapon(&m_charter);
-    model->addMissileWeapon(&m_aetherblasters);
-    model->addMeleeWeapon(&m_saw);
-    addModel(model);
+    bool BrokkGrungsson::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_boast);
+        model->addMissileWeapon(&m_charter);
+        model->addMissileWeapon(&m_aetherblasters);
+        model->addMeleeWeapon(&m_saw);
+        addModel(model);
 
-    m_points = POINTS_PER_UNIT;
+        m_points = POINTS_PER_UNIT;
 
-    return true;
-}
+        return true;
+    }
 
-int BrokkGrungsson::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int BrokkGrungsson::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } //KharadronOverlords

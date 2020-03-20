@@ -12,44 +12,53 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class Alarielle : public SylvanethBase
-{
-public:
+    class Alarielle : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Alarielle();
-    ~Alarielle() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Alarielle();
 
-    void onStartHero(PlayerId player) override;
-    void onStartCombat(PlayerId player) override;
-    void onEndMovement(PlayerId player) override;
-    int toHitModifier(const Weapon* weapon, const Unit* unit) const override;
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-    void onCharged() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~Alarielle() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_spearOfKurnoth,
-        m_talonOfDwindling,
-        m_beetleGreatAntlers;
+    protected:
 
-    bool m_usedSoulAmphorae = false;
+        void onStartHero(PlayerId player) override;
 
-    static bool s_registered;
-};
+        void onStartCombat(PlayerId player) override;
+
+        void onEndMovement(PlayerId player) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        void onCharged() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_spearOfKurnoth,
+                m_talonOfDwindling,
+                m_beetleGreatAntlers;
+
+        bool m_usedSoulAmphorae = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

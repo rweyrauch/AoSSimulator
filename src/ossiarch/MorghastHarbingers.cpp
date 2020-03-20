@@ -8,119 +8,104 @@
 #include <ossiarch/MorghastHarbingers.h>
 #include <UnitFactory.h>
 
-namespace OssiarchBonereapers
-{
-static const int BASESIZE = 60;
-static const int WOUNDS = 6;
-static const int MIN_UNIT_SIZE = 2;
-static const int MAX_UNIT_SIZE = 6;
-static const int POINTS_PER_BLOCK = 210;
-static const int POINTS_MAX_UNIT_SIZE = 630;
+namespace OssiarchBonereapers {
+    static const int BASESIZE = 60;
+    static const int WOUNDS = 6;
+    static const int MIN_UNIT_SIZE = 2;
+    static const int MAX_UNIT_SIZE = 6;
+    static const int POINTS_PER_BLOCK = 210;
+    static const int POINTS_MAX_UNIT_SIZE = 630;
 
-bool MorghastHarbingers::s_registered = false;
+    bool MorghastHarbingers::s_registered = false;
 
-MorghastHarbingers::MorghastHarbingers() :
-    OssiarchBonereaperBase("Morghast Harbingers", 9, WOUNDS, 10, 4, true),
-    m_spiritHalberd(Weapon::Type::Melee, "Spirit Halberd", 2, 3, 3, 3, -2, 3),
-    m_spiritSwords(Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2)
-{
-    m_keywords = {DEATH, MORGHAST, DEATHLORDS, OSSIARCH_BONEREAPERS, HEKATOS, MORGHAST_HARBINGERS};
-    m_weapons = {&m_spiritHalberd, &m_spiritSwords};
-}
-
-bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        // Invalid model count.
-        return false;
+    MorghastHarbingers::MorghastHarbingers() :
+        OssiarchBonereaperBase("Morghast Harbingers", 9, WOUNDS, 10, 4, true),
+        m_spiritHalberd(Weapon::Type::Melee, "Spirit Halberd", 2, 3, 3, 3, -2, 3),
+        m_spiritSwords(Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2) {
+        m_keywords = {DEATH, MORGHAST, DEATHLORDS, OSSIARCH_BONEREAPERS, HEKATOS, MORGHAST_HARBINGERS};
+        m_weapons = {&m_spiritHalberd, &m_spiritSwords};
     }
 
-    m_weaponOption = weapons;
-
-    for (auto i = 0; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        if (weapons == SpiritHalberd)
-        {
-            model->addMeleeWeapon(&m_spiritHalberd);
+    bool MorghastHarbingers::configure(int numModels, WeaponOptions weapons) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
         }
-        else if (weapons == SpiritSwords)
-        {
-            model->addMeleeWeapon(&m_spiritSwords);
+
+        m_weaponOption = weapons;
+
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            if (weapons == SpiritHalberd) {
+                model->addMeleeWeapon(&m_spiritHalberd);
+            } else if (weapons == SpiritSwords) {
+                model->addMeleeWeapon(&m_spiritSwords);
+            }
+            addModel(model);
         }
-        addModel(model);
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *MorghastHarbingers::Create(const ParameterList &parameters) {
+        auto unit = new MorghastHarbingers();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, SpiritHalberd);
 
-    return true;
-}
+        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        unit->setLegion(legion);
 
-Unit *MorghastHarbingers::Create(const ParameterList &parameters)
-{
-    auto unit = new MorghastHarbingers();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, SpiritHalberd);
-
-    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
-    unit->setLegion(legion);
-
-    bool ok = unit->configure(numModels, weapons);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels, weapons);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-std::string MorghastHarbingers::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Weapons")
-    {
-        if (parameter.intValue == SpiritHalberd) { return "Spirit Halberd"; }
-        else if (parameter.intValue == SpiritSwords) { return "Spirit Swords"; }
+    std::string MorghastHarbingers::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapons") {
+            if (parameter.intValue == SpiritHalberd) { return "Spirit Halberd"; }
+            else if (parameter.intValue == SpiritSwords) { return "Spirit Swords"; }
+        }
+        return ParameterValueToString(parameter);
     }
-    return ParameterValueToString(parameter);
-}
 
-int MorghastHarbingers::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Spirit Halberd") { return SpiritHalberd; }
-    else if (enumString == "Spirit Swords") { return SpiritSwords; }
-    return 0;
-}
-
-void MorghastHarbingers::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            MorghastHarbingers::Create,
-            MorghastHarbingers::ValueToString,
-            MorghastHarbingers::EnumStringToInt,
-            MorghastHarbingers::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1},
-                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-            },
-            DEATH,
-            { OSSIARCH_BONEREAPERS, DEATHLORDS }
-        };
-        s_registered = UnitFactory::Register("Morghast Harbingers", factoryMethod);
+    int MorghastHarbingers::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Spirit Halberd") { return SpiritHalberd; }
+        else if (enumString == "Spirit Swords") { return SpiritSwords; }
+        return 0;
     }
-}
 
-int MorghastHarbingers::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    void MorghastHarbingers::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                MorghastHarbingers::Create,
+                MorghastHarbingers::ValueToString,
+                MorghastHarbingers::EnumStringToInt,
+                MorghastHarbingers::ComputePoints,
+                {
+                    {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                    {ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd,
+                     MorghastHarbingers::SpiritSwords, 1},
+                    {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                     OssiarchBonereaperBase::Crematorians, 1},
+                },
+                DEATH,
+                {OSSIARCH_BONEREAPERS, DEATHLORDS}
+            };
+            s_registered = UnitFactory::Register("Morghast Harbingers", factoryMethod);
+        }
     }
-    return points;
-}
+
+    int MorghastHarbingers::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } //namespace OssiarchBonereapers

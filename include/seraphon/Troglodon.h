@@ -12,45 +12,50 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class Troglodon : public SeraphonBase
-{
-public:
+    class Troglodon : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Troglodon();
-    ~Troglodon() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Troglodon();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~Troglodon() override;
 
-    void onStartHero(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int castingModifier() const override;
+        bool configure();
 
-    int terror(const Unit* target);
+    protected:
 
-private:
+        void onWounded() override;
 
-    Weapon m_spittle,
-        m_jaws,
-        m_forelimbs,
-        m_rod;
+        void onRestore() override;
 
-    lsignal::slot m_connection;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int castingModifier() const override;
+
+        int terror(const Unit *target);
+
+    private:
+
+        Weapon m_spittle,
+                m_jaws,
+                m_forelimbs,
+                m_rod;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

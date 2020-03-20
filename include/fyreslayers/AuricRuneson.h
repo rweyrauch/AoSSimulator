@@ -12,36 +12,38 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class AuricRuneson : public Fyreslayer
-{
-public:
+    class AuricRuneson : public Fyreslayer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AuricRuneson();
-    ~AuricRuneson() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AuricRuneson();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~AuricRuneson() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_throwingAxe,
-        m_javelin,
-        m_warAxe,
-        m_javelinMelee;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_throwingAxe,
+                m_javelin,
+                m_warAxe,
+                m_javelinMelee;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,33 +12,35 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class ValkiaTheBloody : public KhorneBase
-{
-public:
+    class ValkiaTheBloody : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ValkiaTheBloody();
-    ~ValkiaTheBloody() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ValkiaTheBloody();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
+        ~ValkiaTheBloody() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_slaupnir;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
+
+        Weapon m_slaupnir;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

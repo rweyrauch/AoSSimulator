@@ -9,83 +9,74 @@
 #include <gloomspitegitz/SquigGobba.h>
 #include <UnitFactory.h>
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 120; // x92 oval
-static const int WOUNDS = 8;
-static const int POINTS_PER_UNIT = 160;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 120; // x92 oval
+    static const int WOUNDS = 8;
+    static const int POINTS_PER_UNIT = 160;
 
-bool SquigGobba::s_registered = false;
+    bool SquigGobba::s_registered = false;
 
-SquigGobba::SquigGobba() :
-    GloomspiteGitzBase("Squig Gobba", 4, WOUNDS, 4, 5, false),
-    m_spitSquigs(Weapon::Type::Missile, "Spit-squigs", 30, 6, 4, 3, 0, RAND_D3),
-    m_bashinSticks(Weapon::Type::Melee, "Bashin' Sticks", 1, 3, 5, 5, 0, 1),
-    m_cavernousMaw(Weapon::Type::Melee, "Cavernous Maw", 2, 3, 3, 3, -2, RAND_D3)
-{
-    m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SQUIG, MOONCLAN, MONSTER, SQUIG_GOBBA};
-    m_weapons = {&m_spitSquigs, &m_bashinSticks, &m_cavernousMaw};
-}
-
-bool SquigGobba::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_spitSquigs);
-    model->addMeleeWeapon(&m_bashinSticks);
-    model->addMeleeWeapon(&m_cavernousMaw);
-
-    m_points = POINTS_PER_UNIT;
-
-    addModel(model);
-
-    return true;
-}
-
-Unit *SquigGobba::Create(const ParameterList &parameters)
-{
-    auto unit = new SquigGobba();
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    SquigGobba::SquigGobba() :
+            GloomspiteGitzBase("Squig Gobba", 4, WOUNDS, 4, 5, false),
+            m_spitSquigs(Weapon::Type::Missile, "Spit-squigs", 30, 6, 4, 3, 0, RAND_D3),
+            m_bashinSticks(Weapon::Type::Melee, "Bashin' Sticks", 1, 3, 5, 5, 0, 1),
+            m_cavernousMaw(Weapon::Type::Melee, "Cavernous Maw", 2, 3, 3, 3, -2, RAND_D3) {
+        m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SQUIG, MOONCLAN, MONSTER, SQUIG_GOBBA};
+        m_weapons = {&m_spitSquigs, &m_bashinSticks, &m_cavernousMaw};
     }
-    return unit;
-}
 
-void SquigGobba::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            SquigGobba::Create,
-            nullptr,
-            nullptr,
-            SquigGobba::ComputePoints,
-            {
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
-        s_registered = UnitFactory::Register("Squig Gobba", factoryMethod);
+    bool SquigGobba::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_spitSquigs);
+        model->addMeleeWeapon(&m_bashinSticks);
+        model->addMeleeWeapon(&m_cavernousMaw);
+
+        m_points = POINTS_PER_UNIT;
+
+        addModel(model);
+
+        return true;
     }
-}
 
-int SquigGobba::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = GloomspiteGitzBase::toHitModifier(weapon, target);
+    Unit *SquigGobba::Create(const ParameterList &parameters) {
+        auto unit = new SquigGobba();
 
-    // Arcing Spit
-    if (weapon->name() == m_spitSquigs.name() && target->remainingModels() >= 10)
-        modifier += 1;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
 
-    return modifier;
-}
+    void SquigGobba::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    SquigGobba::Create,
+                    nullptr,
+                    nullptr,
+                    SquigGobba::ComputePoints,
+                    {
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
+            s_registered = UnitFactory::Register("Squig Gobba", factoryMethod);
+        }
+    }
 
-int SquigGobba::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int SquigGobba::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        int modifier = GloomspiteGitzBase::toHitModifier(weapon, target);
+
+        // Arcing Spit
+        if (weapon->name() == m_spitSquigs.name() && target->remainingModels() >= 10)
+            modifier += 1;
+
+        return modifier;
+    }
+
+    int SquigGobba::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace GloomspiteGitz

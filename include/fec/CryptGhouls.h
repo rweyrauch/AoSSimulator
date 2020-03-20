@@ -12,34 +12,36 @@
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt
-{
+namespace FleshEaterCourt {
 
-class CryptGhouls : public FleshEaterCourts
-{
-public:
+    class CryptGhouls : public FleshEaterCourts {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    CryptGhouls();
-    ~CryptGhouls() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        CryptGhouls();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~CryptGhouls() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_teethAndClaws,
-        m_teethAndClawsGhast;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_teethAndClaws,
+                m_teethAndClawsGhast;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

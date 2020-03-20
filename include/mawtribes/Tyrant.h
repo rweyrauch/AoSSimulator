@@ -12,50 +12,53 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Tyrant : public MawtribesBase
-{
-public:
+    class Tyrant : public MawtribesBase {
+    public:
 
-    enum BigName
-    {
-        Deathcheater,
-        Brawlerguts,
-        Fateseeker,
-        Longstrider,
-        Giantbreaker,
-        Wallcrusher
+        enum BigName {
+            Deathcheater,
+            Brawlerguts,
+            Fateseeker,
+            Longstrider,
+            Giantbreaker,
+            Wallcrusher
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Tyrant();
+
+        ~Tyrant() override = default;
+
+        bool configure(BigName bigName);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        BigName m_bigName = Deathcheater;
+
+        Weapon m_pistols,
+            m_thundermace,
+            m_glaive,
+            m_bite;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Tyrant();
-    ~Tyrant() override = default;
-
-    bool configure(BigName bigName);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-
-private:
-
-    BigName m_bigName = Deathcheater;
-
-    Weapon m_pistols,
-        m_thundermace,
-        m_glaive,
-        m_bite;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

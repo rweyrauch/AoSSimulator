@@ -24,124 +24,107 @@
 #include "dok/MorathiShadowQueen.h"
 #include "dok/SlaughterQueenCauldronOfBlood.h"
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
 
-int DaughterOfKhaine::toHitModifier(const Weapon *weapon, const Unit *unit) const
-{
-    int modifier = Unit::toHitModifier(weapon, unit);
+    int DaughterOfKhaine::toHitModifier(const Weapon *weapon, const Unit *unit) const {
+        int modifier = Unit::toHitModifier(weapon, unit);
 
-    // Bladed Killers
-    if (hasKeyword(DRAICHI_GANETH) && m_charged)
-    {
-        modifier += 1;
-    }
-    return modifier;
-}
-
-
-Rerolls DaughterOfKhaine::toHitRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    // Blood Rites - Zealot's Rage
-    if (m_battleRound == 3)
-    {
-        // Daughters of the First Temple
-        if (hasKeyword(HAGG_NAR))
-        {
-            return RerollFailed;
+        // Bladed Killers
+        if (hasKeyword(DRAICHI_GANETH) && m_charged) {
+            modifier += 1;
         }
-        return RerollOnes;
-    }
-    return Unit::toHitRerolls(weapon, unit);
-}
-
-Rerolls DaughterOfKhaine::toWoundRerolls(const Weapon *weapon, const Unit *unit) const
-{
-    // Blood Rites - Slaughterer's Strength
-    if (m_battleRound == 4)
-    {
-        return RerollOnes;
+        return modifier;
     }
 
-    return Unit::toWoundRerolls(weapon, unit);
-}
 
-Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon) const
-{
-    // Blood Rites - Unquenchable Fervour
-    if (m_battleRound == 5)
-    {
-        return RerollOnes;
+    Rerolls DaughterOfKhaine::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
+        // Blood Rites - Zealot's Rage
+        if (m_battleRound == 3) {
+            // Daughters of the First Temple
+            if (hasKeyword(HAGG_NAR)) {
+                return RerollFailed;
+            }
+            return RerollOnes;
+        }
+        return Unit::toHitRerolls(weapon, unit);
     }
 
-    return Unit::toSaveRerolls(weapon);
-}
+    Rerolls DaughterOfKhaine::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
+        // Blood Rites - Slaughterer's Strength
+        if (m_battleRound == 4) {
+            return RerollOnes;
+        }
 
-Rerolls DaughterOfKhaine::runRerolls() const
-{
-    // Blood Rites - Quickening Bloodlust
-    if (m_battleRound == 1)
-    {
-        return RerollOnes;
+        return Unit::toWoundRerolls(weapon, unit);
     }
-    return Unit::runRerolls();
-}
 
-Rerolls DaughterOfKhaine::chargeRerolls() const
-{
-    // Blood Rites - Headlong Fury
-    if (m_battleRound == 2)
-    {
-        return RerollOnes;
+    Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon) const {
+        // Blood Rites - Unquenchable Fervour
+        if (m_battleRound == 5) {
+            return RerollOnes;
+        }
+
+        return Unit::toSaveRerolls(weapon);
     }
-    return Unit::chargeRerolls();
-}
 
-int DaughterOfKhaine::targetHitModifier(const Weapon *weapon, const Unit *attacker) const
-{
-    auto mod = Unit::targetHitModifier(weapon, attacker);
+    Rerolls DaughterOfKhaine::runRerolls() const {
+        // Blood Rites - Quickening Bloodlust
+        if (m_battleRound == 1) {
+            return RerollOnes;
+        }
+        return Unit::runRerolls();
+    }
 
-    // Concealment and Stealth
-    if (hasKeyword(KHAILEBRON) && weapon->isMissile()) mod--;
+    Rerolls DaughterOfKhaine::chargeRerolls() const {
+        // Blood Rites - Headlong Fury
+        if (m_battleRound == 2) {
+            return RerollOnes;
+        }
+        return Unit::chargeRerolls();
+    }
 
-    return mod;
-}
+    int DaughterOfKhaine::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
 
-Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds)
-{
-    // Fanatical Faith
-    Dice::RollResult mortalSaves, normalSaves;
-    Dice::rollD6(wounds.mortal, mortalSaves);
-    Dice::rollD6(wounds.normal, normalSaves);
+        // Concealment and Stealth
+        if (hasKeyword(KHAILEBRON) && weapon->isMissile()) mod--;
 
-    Wounds totalWounds = wounds;
-    totalWounds.normal -= normalSaves.rollsGE(6);
-    totalWounds.normal = std::max(totalWounds.normal, 0);
-    totalWounds.mortal -= mortalSaves.rollsGE(6);
-    totalWounds.mortal = std::max(totalWounds.mortal, 0);
+        return mod;
+    }
 
-    return totalWounds;
-}
+    Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds) {
+        // Fanatical Faith
+        Dice::RollResult mortalSaves, normalSaves;
+        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::rollD6(wounds.normal, normalSaves);
 
-void Init()
-{
-    AvatarOfKhaine::Init();
-    BloodSisters::Init();
-    BloodStalkers::Init();
-    BloodwrackMedusa::Init();
-    BloodwrackShrine::Init();
-    DoomfireWarlocks::Init();
-    HagQueen::Init();
-    HagQueenOnCauldronOfBlood::Init();
-    KhineraiHeartrenders::Init();
-    KhineraiLifetakers::Init();
-    MorathiHighOracleOfKhaine::Init();
-    MorathiTheShadowQueen::Init();
-    SistersOfSlaughter::Init();
-    SlaughterQueen::Init();
-    SlaughterQueenOnCauldronOfBlood::Init();
-    WitchAelves::Init();
-}
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= normalSaves.rollsGE(6);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(6);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
+    }
+
+    void Init() {
+        AvatarOfKhaine::Init();
+        BloodSisters::Init();
+        BloodStalkers::Init();
+        BloodwrackMedusa::Init();
+        BloodwrackShrine::Init();
+        DoomfireWarlocks::Init();
+        HagQueen::Init();
+        HagQueenOnCauldronOfBlood::Init();
+        KhineraiHeartrenders::Init();
+        KhineraiLifetakers::Init();
+        MorathiHighOracleOfKhaine::Init();
+        MorathiTheShadowQueen::Init();
+        SistersOfSlaughter::Init();
+        SlaughterQueen::Init();
+        SlaughterQueenOnCauldronOfBlood::Init();
+        WitchAelves::Init();
+    }
 
 } // namespace DaughtersOfKhaine

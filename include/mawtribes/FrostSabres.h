@@ -12,33 +12,35 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class FrostSabres : public MawtribesBase
-{
-public:
+    class FrostSabres : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    FrostSabres();
-    ~FrostSabres() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        FrostSabres();
 
-    int chargeModifier() const override;
-    int braveryModifier() const override;
+        ~FrostSabres() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_fangs;
+    protected:
 
-    static bool s_registered;
-};
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+    private:
+
+        Weapon m_fangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

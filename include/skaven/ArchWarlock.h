@@ -11,39 +11,43 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class ArchWarlock : public Skaventide
-{
-public:
+    class ArchWarlock : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArchWarlock();
-    ~ArchWarlock() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ArchWarlock();
 
-    void onRestore() override;
-    Wounds onEndCombat(PlayerId player) override;
-    void onStartShooting(PlayerId player) override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~ArchWarlock() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_halberd,
-           m_claw;
+    protected:
 
-    mutable bool m_moreMoreFailed = false;
-    bool m_usedGauntlet = false;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        Wounds onEndCombat(PlayerId player) override;
+
+        void onStartShooting(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_halberd,
+                m_claw;
+
+        mutable bool m_moreMoreFailed = false;
+        bool m_usedGauntlet = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

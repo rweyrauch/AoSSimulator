@@ -12,33 +12,34 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Riptooth : public KhorneBase
-{
-public:
+    class Riptooth : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Riptooth();
-    ~Riptooth() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Riptooth();
 
-    // Unflagging Hunter
-    Rerolls chargeRerolls() const override { return RerollFailed; }
+        ~Riptooth() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_claws;
+    protected:
 
-    static bool s_registered;
-};
+        // Unflagging Hunter
+        Rerolls chargeRerolls() const override { return RerollFailed; }
+
+    private:
+
+        Weapon m_claws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

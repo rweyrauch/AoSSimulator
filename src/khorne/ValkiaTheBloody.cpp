@@ -10,91 +10,80 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Khorne
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 140;
+namespace Khorne {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 140;
 
-bool ValkiaTheBloody::s_registered = false;
+    bool ValkiaTheBloody::s_registered = false;
 
-ValkiaTheBloody::ValkiaTheBloody() :
-    KhorneBase("Valkia the Bloody", 12, WOUNDS, 9, 3, true),
-    m_slaupnir(Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1)
-{
-    m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
-    m_weapons = {&m_slaupnir};
-}
-
-bool ValkiaTheBloody::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_slaupnir);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *ValkiaTheBloody::Create(const ParameterList &parameters)
-{
-    auto unit = new ValkiaTheBloody();
-
-    auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
-    unit->setSlaughterHost(host);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    ValkiaTheBloody::ValkiaTheBloody() :
+            KhorneBase("Valkia the Bloody", 12, WOUNDS, 9, 3, true),
+            m_slaupnir(Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1) {
+        m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
+        m_weapons = {&m_slaupnir};
     }
-    return unit;
-}
 
-void ValkiaTheBloody::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            ValkiaTheBloody::Create,
-            KhorneBase::ValueToString,
-            KhorneBase::EnumStringToInt,
-            ValkiaTheBloody::ComputePoints,
-            {
-                {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
-            },
-            CHAOS,
-            { KHORNE }
-        };
-        s_registered = UnitFactory::Register("Valkia the Bloody", factoryMethod);
+    bool ValkiaTheBloody::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_slaupnir);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-Wounds ValkiaTheBloody::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // The Spear Slaupnir
-    if (m_charged && (weapon->name() == m_slaupnir.name()))
-    {
-        return {RAND_D3, 1};
+    Unit *ValkiaTheBloody::Create(const ParameterList &parameters) {
+        auto unit = new ValkiaTheBloody();
+
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        unit->setSlaughterHost(host);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int ValkiaTheBloody::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const
-{
-    // Daemonshield
-    if (!weapon->isMissile())
-    {
-        return -1;
+    void ValkiaTheBloody::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    ValkiaTheBloody::Create,
+                    KhorneBase::ValueToString,
+                    KhorneBase::EnumStringToInt,
+                    ValkiaTheBloody::ComputePoints,
+                    {
+                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
+                             KhorneBase::SkullfiendTribe, 1}
+                    },
+                    CHAOS,
+                    {KHORNE}
+            };
+            s_registered = UnitFactory::Register("Valkia the Bloody", factoryMethod);
+        }
     }
-    return Unit::targetWoundModifier(weapon, attacker);
-}
 
-int ValkiaTheBloody::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Wounds ValkiaTheBloody::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // The Spear Slaupnir
+        if (m_charged && (weapon->name() == m_slaupnir.name())) {
+            return {RAND_D3, 1};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int ValkiaTheBloody::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
+        // Daemonshield
+        if (!weapon->isMissile()) {
+            return -1;
+        }
+        return Unit::targetWoundModifier(weapon, attacker);
+    }
+
+    int ValkiaTheBloody::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Khorne

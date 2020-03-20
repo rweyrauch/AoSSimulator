@@ -10,34 +10,36 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class WurrgogProphet : public Bonesplitterz
-{
-public:
+    class WurrgogProphet : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    WurrgogProphet();
-    ~WurrgogProphet() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        WurrgogProphet();
 
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-    void onStartHero(PlayerId playerId) override;
+        ~WurrgogProphet() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_staffAndShiv,
-        m_fangedMaw;
+    protected:
 
-    static bool s_registered;
-};
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        void onStartHero(PlayerId playerId) override;
+
+    private:
+
+        Weapon m_staffAndShiv,
+                m_fangedMaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

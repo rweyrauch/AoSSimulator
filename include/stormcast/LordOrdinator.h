@@ -13,50 +13,55 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordOrdinator : public StormcastEternal
-{
-public:
+    class LordOrdinator : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        AstralHammers,
-        AstralGrandhammer
+        enum WeaponOption {
+            AstralHammers,
+            AstralGrandhammer
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        LordOrdinator();
+
+        ~LordOrdinator() override;
+
+        bool configure(WeaponOption weaponOption);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        int arcaneEngineer(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
+    private:
+
+        WeaponOption m_weaponOption = AstralHammers;
+
+        Weapon m_astralHammers,
+                m_astralGrandhammer;
+
+        mutable std::vector<const Unit *> m_meteoricSlam;  // Modified in weaponDamage method
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    LordOrdinator();
-    ~LordOrdinator() override;
-
-    bool configure(WeaponOption weaponOption);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
-    int arcaneEngineer(const Unit* attacker, const Weapon* weapon, const Unit* target);
-
-private:
-
-    WeaponOption m_weaponOption = AstralHammers;
-
-    Weapon m_astralHammers,
-        m_astralGrandhammer;
-
-    mutable std::vector<const Unit*> m_meteoricSlam;  // Modified in weaponDamage method
-
-    lsignal::slot m_connection;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

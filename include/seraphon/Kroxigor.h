@@ -12,36 +12,39 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class Kroxigor : public SeraphonBase
-{
-public:
+    class Kroxigor : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Kroxigor();
-    ~Kroxigor() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numMoonhammers);
+        static void Init();
 
-protected:
+        Kroxigor();
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~Kroxigor() override = default;
 
-private:
+        bool configure(int numModels, int numMoonhammers);
 
-    Weapon m_maul,
-        m_hammer,
-        m_jaws;
+    protected:
 
-    static bool s_registered;
-};
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_maul,
+                m_hammer,
+                m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,39 +12,42 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class UngorRaiders : public BeastsOfChaosBase
-{
-public:
+    class UngorRaiders : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    UngorRaiders();
-    ~UngorRaiders() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool brayhorn, bool bannerBearer);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        static void Init();
 
-private:
+        UngorRaiders();
 
-    bool m_brayhorn = false;
-    bool m_bannerBearer = false;
+        ~UngorRaiders() override = default;
 
-    Weapon m_raiderBow,
-        m_raiderBowHalfhorn,
-        m_jaggedShank;
+        bool configure(int numModels, bool brayhorn, bool bannerBearer);
 
-    static bool s_registered;
-};
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        bool m_brayhorn = false;
+        bool m_bannerBearer = false;
+
+        Weapon m_raiderBow,
+            m_raiderBowHalfhorn,
+            m_jaggedShank;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

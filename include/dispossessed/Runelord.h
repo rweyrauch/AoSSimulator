@@ -12,34 +12,35 @@
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-class Runelord : public Dispossessed
-{
-public:
+    class Runelord : public Dispossessed {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Runelord();
-    ~Runelord() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Runelord();
 
-    // Runes of Spellbreaking
-    int unbindingModifier() const override { return 2; }
+        ~Runelord() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_runeStaff,
-        m_forgehammer;
+    protected:
 
-    static bool s_registered;
-};
+        // Runes of Spellbreaking
+        int unbindingModifier() const override { return 2; }
+
+    private:
+
+        Weapon m_runeStaff,
+                m_forgehammer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

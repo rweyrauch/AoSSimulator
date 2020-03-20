@@ -12,35 +12,38 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class WarplockJezzails : public Skaventide
-{
-public:
+    class WarplockJezzails : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WarplockJezzails();
-    ~WarplockJezzails() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        WarplockJezzails();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
+        ~WarplockJezzails() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_jezzail,
-        m_knives;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_jezzail,
+                m_knives;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

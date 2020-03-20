@@ -12,38 +12,43 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class Rotigus : public NurgleBase
-{
-public:
+    class Rotigus : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Rotigus();
-    ~Rotigus() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Rotigus();
 
-    void onWounded() override;
-    void onCharged() override;
-    int getDamageTableIndex() const;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId player) override;
+        ~Rotigus() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_gnarlrod,
-        m_fangedMaw,
-        m_nurglings;
+    protected:
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onCharged() override;
+
+        int getDamageTableIndex() const;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        Weapon m_gnarlrod,
+            m_fangedMaw,
+            m_nurglings;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

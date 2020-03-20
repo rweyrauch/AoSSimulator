@@ -12,37 +12,39 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Fulminators : public StormcastEternal
-{
-public:
+    class Fulminators : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Fulminators();
+        static int ComputePoints(int numModels);
 
-    ~Fulminators() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        Fulminators();
 
-protected:
+        ~Fulminators() override = default;
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_stormBlast,
-        m_stormstrkeGlaive,
-        m_clawsAndFangs;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_stormBlast,
+                m_stormstrkeGlaive,
+                m_clawsAndFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

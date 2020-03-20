@@ -12,81 +12,72 @@
 #include <Roster.h>
 #include <iostream>
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 60;
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 100;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 60;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 100;
 
-bool ScuttlebossOnGiganticSpider::s_registered = false;
+    bool ScuttlebossOnGiganticSpider::s_registered = false;
 
-ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider() :
-    GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, WOUNDS, 6, 4, true),
-    m_spear(Weapon::Type::Melee, "Envenomed Spear", 2, 4, 4, 4, -1, 1),
-    m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1)
-{
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
-    m_weapons = {&m_spear, &m_fangs};
-}
-
-bool ScuttlebossOnGiganticSpider::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_spear);
-    model->addMeleeWeapon(&m_fangs);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters)
-{
-    auto unit = new ScuttlebossOnGiganticSpider();
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider() :
+            GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, WOUNDS, 6, 4, true),
+            m_spear(Weapon::Type::Melee, "Envenomed Spear", 2, 4, 4, 4, -1, 1),
+            m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
+        m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
+        m_weapons = {&m_spear, &m_fangs};
     }
-    return unit;
-}
 
-void ScuttlebossOnGiganticSpider::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            ScuttlebossOnGiganticSpider::Create,
-            nullptr,
-            nullptr,
-            ScuttlebossOnGiganticSpider::ComputePoints,
-            {
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
-        s_registered = UnitFactory::Register("Scuttleboss on Gigantic Spider", factoryMethod);
+    bool ScuttlebossOnGiganticSpider::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_spear);
+        model->addMeleeWeapon(&m_fangs);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-Wounds ScuttlebossOnGiganticSpider::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Spider Venom
-    int threshold = inLightOfTheBadMoon() ? 5 : 6;
-    if ((hitRoll >= threshold) && (weapon->name() == m_fangs.name()))
-    {
-        return {0, 1};
+    Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters) {
+        auto unit = new ScuttlebossOnGiganticSpider();
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int ScuttlebossOnGiganticSpider::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    void ScuttlebossOnGiganticSpider::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    ScuttlebossOnGiganticSpider::Create,
+                    nullptr,
+                    nullptr,
+                    ScuttlebossOnGiganticSpider::ComputePoints,
+                    {
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
+            s_registered = UnitFactory::Register("Scuttleboss on Gigantic Spider", factoryMethod);
+        }
+    }
+
+    Wounds ScuttlebossOnGiganticSpider::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+                                                     int woundRoll) const {
+        // Spider Venom
+        int threshold = inLightOfTheBadMoon() ? 5 : 6;
+        if ((hitRoll >= threshold) && (weapon->name() == m_fangs.name())) {
+            return {0, 1};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int ScuttlebossOnGiganticSpider::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 
 } // namespace GloomspiteGitz

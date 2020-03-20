@@ -12,44 +12,48 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class EngineOfTheGods : public SeraphonBase
-{
-public:
+    class EngineOfTheGods : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    EngineOfTheGods();
-    ~EngineOfTheGods() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        EngineOfTheGods();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~EngineOfTheGods() override;
 
-    void onCharged() override;
-    void onStartShooting(PlayerId player) override;
+        bool configure();
 
-    Rerolls steadfastMajestyBraveryReroll(const Unit* unit);
+    protected:
 
-private:
+        void onWounded() override;
 
-    Weapon m_javelins,
-        m_horns,
-        m_jaws,
-        m_stomps;
+        void onRestore() override;
 
-    lsignal::slot m_steadfastSlot;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+        void onStartShooting(PlayerId player) override;
+
+        Rerolls steadfastMajestyBraveryReroll(const Unit *unit);
+
+    private:
+
+        Weapon m_javelins,
+            m_horns,
+            m_jaws,
+            m_stomps;
+
+        lsignal::slot m_steadfastSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

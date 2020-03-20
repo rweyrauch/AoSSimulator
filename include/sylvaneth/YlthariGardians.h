@@ -12,37 +12,38 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class YltharisGuardians : public SylvanethBase
-{
-public:
+    class YltharisGuardians : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    YltharisGuardians();
-    ~YltharisGuardians() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        YltharisGuardians();
 
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~YltharisGuardians() override = default;
 
-protected:
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_enchantedGreatBlade,
-        m_revenantBow,
-        m_protectorGlaive,
-        m_revenantBowMelee;
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_enchantedGreatBlade,
+                m_revenantBow,
+                m_protectorGlaive,
+                m_revenantBowMelee;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

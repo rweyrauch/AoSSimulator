@@ -12,34 +12,35 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class VanguardRaptorsHurricane : public StormcastEternal
-{
-public:
+    class VanguardRaptorsHurricane : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    VanguardRaptorsHurricane();
-    ~VanguardRaptorsHurricane() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        VanguardRaptorsHurricane();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~VanguardRaptorsHurricane() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_hurricaneCrossbow,
-        m_hurricaneCrossbowPrime,
-        m_heavyStock;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_hurricaneCrossbow,
+                m_hurricaneCrossbowPrime,
+                m_heavyStock;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

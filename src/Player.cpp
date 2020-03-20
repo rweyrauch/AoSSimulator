@@ -8,63 +8,48 @@
 
 #include <Player.h>
 
-void Player::doHeroPhase()
-{
-    if (m_roster)
-    {
+void Player::doHeroPhase() {
+    if (m_roster) {
         m_roster->doHeroPhase();
     }
 }
 
-void Player::doMovementPhase()
-{
-    if (m_roster)
-    {
+void Player::doMovementPhase() {
+    if (m_roster) {
         m_roster->doMovementPhase();
     }
 }
 
-void Player::doShootingPhase()
-{
-    if (m_roster)
-    {
+void Player::doShootingPhase() {
+    if (m_roster) {
         m_roster->doShootingPhase();
     }
 }
 
-void Player::doChargePhase()
-{
-    if (m_roster)
-    {
+void Player::doChargePhase() {
+    if (m_roster) {
         m_roster->doChargePhase();
     }
 }
 
-void Player::doCombatPhase()
-{
-    if (m_roster)
-    {
+void Player::doCombatPhase() {
+    if (m_roster) {
         m_roster->doCombatPhase();
     }
 }
 
-void Player::doBattleshockPhase()
-{
-    if (m_roster)
-    {
+void Player::doBattleshockPhase() {
+    if (m_roster) {
         m_roster->doBattleshockPhase();
     }
 }
 
-void Player::beginTurn(int battleRound, PlayerId playerWithTurn)
-{
-    if (m_id == playerWithTurn)
-    {
+void Player::beginTurn(int battleRound, PlayerId playerWithTurn) {
+    if (m_id == playerWithTurn) {
         m_commandPoints++;
     }
 
-    if (m_roster)
-    {
+    if (m_roster) {
         m_roster->beginTurn(battleRound, playerWithTurn);
     }
 }

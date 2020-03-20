@@ -12,41 +12,43 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Karanak : public KhorneBase
-{
-public:
+    class Karanak : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Karanak();
-    ~Karanak() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Karanak();
 
-    void onBeginTurn(int battleRound) override;
+        ~Karanak() override = default;
 
-    // Unflagging Hunter
-    Rerolls chargeRerolls() const override { return RerollFailed; }
+        bool configure();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    Rerolls toWoundRerolls(const Weapon* weapon, const Unit* target) const override;
+    protected:
 
-private:
+        void onBeginTurn(int battleRound) override;
 
-    Unit* m_pQuarry = nullptr;
+        // Unflagging Hunter
+        Rerolls chargeRerolls() const override { return RerollFailed; }
 
-    Weapon m_goreSlickClaws,
-        m_savageMaws;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Unit *m_pQuarry = nullptr;
+
+        Weapon m_goreSlickClaws,
+                m_savageMaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

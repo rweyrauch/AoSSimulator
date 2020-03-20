@@ -12,34 +12,35 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class Razordons : public SeraphonBase
-{
-public:
+    class Razordons : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Razordons();
-    ~Razordons() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Razordons();
 
-    int weaponRend(const Weapon* weapon, const Unit* target, int hitRoll, int woundRoll) const override;
+        ~Razordons() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_spikes,
-        m_tail,
-        m_goad;
+    protected:
 
-    static bool s_registered;
-};
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_spikes,
+            m_tail,
+            m_goad;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

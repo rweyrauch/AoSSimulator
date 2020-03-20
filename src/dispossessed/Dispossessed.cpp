@@ -19,106 +19,89 @@
 #include "dispossessed/WardenKing.h"
 #include "dispossessed/Runelord.h"
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-void Dispossessed::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const
-{
-    // Stubborn to the End
-    if (roll <= 3)
-    {
-        numFled = 0;
-        numAdded = 0;
+    void Dispossessed::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
+        // Stubborn to the End
+        if (roll <= 3) {
+            numFled = 0;
+            numAdded = 0;
+        } else {
+            Unit::computeBattleshockEffect(roll, numFled, numAdded);
+        }
     }
-    else
-    {
-        Unit::computeBattleshockEffect(roll, numFled, numAdded);
+
+    Rerolls Dispossessed::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        switch (m_grudge) {
+            case StuckUp:
+                if (target->hasKeyword(HERO)) {
+                    return RerollOnes;
+                }
+                break;
+            case SpeedMerchants:
+                if (target->move() >= 10) {
+                    return RerollOnes;
+                }
+                break;
+            case MonstrousCheaters:
+                if (target->hasKeyword(MONSTER)) {
+                    return RerollOnes;
+                }
+                break;
+            case CowardlyHorders:
+                if (target->initialModels() >= 20) {
+                    return RerollOnes;
+                }
+                break;
+            case ShoddyCraftsmanship:
+                if (target->save() >= 2 && target->save() <= 4) {
+                    return RerollOnes;
+                }
+                break;
+            case SneakyAmbushers:
+                // TODO:
+                break;
+        }
+        return Unit::toHitRerolls(weapon, target);
     }
-}
 
-Rerolls Dispossessed::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    switch (m_grudge)
-    {
-        case StuckUp:
-            if (target->hasKeyword(HERO))
-            {
-                return RerollOnes;
-            }
-            break;
-        case SpeedMerchants:
-            if (target->move() >= 10)
-            {
-                return RerollOnes;
-            }
-            break;
-        case MonstrousCheaters:
-            if (target->hasKeyword(MONSTER))
-            {
-                return RerollOnes;
-            }
-            break;
-        case CowardlyHorders:
-            if (target->initialModels() >= 20)
-            {
-                return RerollOnes;
-            }
-            break;
-        case ShoddyCraftsmanship:
-            if (target->save() >= 2 && target->save() <= 4)
-            {
-                return RerollOnes;
-            }
-            break;
-        case SneakyAmbushers:
-            // TODO:
-            break;
+    void Dispossessed::setGrudge(Dispossessed::Grudge grudge) {
+        m_grudge = grudge;
     }
-    return Unit::toHitRerolls(weapon, target);
-}
 
-void Dispossessed::setGrudge(Dispossessed::Grudge grudge)
-{
-    m_grudge = grudge;
-}
-
-std::string Dispossessed::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Grudge")
-    {
-        if (parameter.intValue == StuckUp) { return "Stuck-up"; }
-        else if (parameter.intValue == SpeedMerchants) { return "Speed Merchants"; }
-        else if (parameter.intValue == MonstrousCheaters) { return "Monstrous Cheaters"; }
-        else if (parameter.intValue == CowardlyHorders) { return "Cowardly Horders"; }
-        else if (parameter.intValue == ShoddyCraftsmanship) { return "Shoddy Craftsmanship"; }
-        else if (parameter.intValue == SneakyAmbushers) { return "Sneaky Ambushers"; }
+    std::string Dispossessed::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Grudge") {
+            if (parameter.intValue == StuckUp) { return "Stuck-up"; }
+            else if (parameter.intValue == SpeedMerchants) { return "Speed Merchants"; }
+            else if (parameter.intValue == MonstrousCheaters) { return "Monstrous Cheaters"; }
+            else if (parameter.intValue == CowardlyHorders) { return "Cowardly Horders"; }
+            else if (parameter.intValue == ShoddyCraftsmanship) { return "Shoddy Craftsmanship"; }
+            else if (parameter.intValue == SneakyAmbushers) { return "Sneaky Ambushers"; }
+        }
+        return ParameterValueToString(parameter);
     }
-    return ParameterValueToString(parameter);
-}
 
-int Dispossessed::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Stuck-up") { return StuckUp; }
-    else if (enumString == "Speed Merchants") { return SpeedMerchants; }
-    else if (enumString == "Monstrous Cheaters") { return MonstrousCheaters; }
-    else if (enumString == "Cowardly Horders") { return CowardlyHorders; }
-    else if (enumString == "ShoddyCraftsmanship") { return ShoddyCraftsmanship; }
-    else if (enumString == "Sneaky Ambushers") { return SneakyAmbushers; }
-    return 0;
-}
+    int Dispossessed::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Stuck-up") { return StuckUp; }
+        else if (enumString == "Speed Merchants") { return SpeedMerchants; }
+        else if (enumString == "Monstrous Cheaters") { return MonstrousCheaters; }
+        else if (enumString == "Cowardly Horders") { return CowardlyHorders; }
+        else if (enumString == "ShoddyCraftsmanship") { return ShoddyCraftsmanship; }
+        else if (enumString == "Sneaky Ambushers") { return SneakyAmbushers; }
+        return 0;
+    }
 
-void Init()
-{
-    Hammerers::Init();
-    Ironbreakers::Init();
-    Irondrakes::Init();
-    Longbeards::Init();
-    Quarrellers::Init();
-    Thunderers::Init();
-    Warriors::Init();
-    Unforged::Init();
-    Runelord::Init();
-    WardenKing::Init();
-}
+    void Init() {
+        Hammerers::Init();
+        Ironbreakers::Init();
+        Irondrakes::Init();
+        Longbeards::Init();
+        Quarrellers::Init();
+        Thunderers::Init();
+        Warriors::Init();
+        Unforged::Init();
+        Runelord::Init();
+        WardenKing::Init();
+    }
 
 } //namespace Dispossessed

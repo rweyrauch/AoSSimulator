@@ -14,30 +14,32 @@
 
 class Unit;
 
-class Prayer
-{
+class Prayer {
 public:
-    explicit Prayer(Unit* priest, const std::string& name, int prayingValue, float range, int damageOn1 = 0) :
-        m_priest(priest),
-        m_name(name),
-        m_prayingValue(prayingValue),
-        m_range(range),
-        m_damageOn1(damageOn1) {}
+    explicit Prayer(Unit *priest, const std::string &name, int prayingValue, float range, int damageOn1 = 0) :
+            m_priest(priest),
+            m_name(name),
+            m_prayingValue(prayingValue),
+            m_range(range),
+            m_damageOn1(damageOn1) {}
 
     virtual ~Prayer() = default;
 
-    virtual bool pray(Unit* target, int round) = 0;
+    virtual bool pray(Unit *target, int round) = 0;
+
     virtual bool pray(float x, float y, int round) = 0;
 
     int prayingValue() const { return m_prayingValue; }
+
     float range() const { return m_range; }
-    const std::string& name() const { return m_name; }
+
+    const std::string &name() const { return m_name; }
 
     bool targetFriendly() const { return m_targetFriendly; }
 
 protected:
 
-    Unit* m_priest = nullptr;
+    Unit *m_priest = nullptr;
     std::string m_name;
     int m_prayingValue = 0;
     Duration m_duration{};
@@ -48,47 +50,47 @@ protected:
 };
 
 
-class DamagePrayer : public Prayer
-{
+class DamagePrayer : public Prayer {
 public:
-    DamagePrayer(Unit* priest, const std::string& name, int prayingValue, float range, int damage, int damageOn1 = 0);
+    DamagePrayer(Unit *priest, const std::string &name, int prayingValue, float range, int damage, int damageOn1 = 0);
 
-    bool pray(Unit* target, int round) override;
+    bool pray(Unit *target, int round) override;
+
     bool pray(float x, float y, int round) override { return false; }
 
 protected:
 
-    virtual int getDamage(Unit* target, int prayingRoll) const;
-    virtual void secondaryEffect(Unit* target, int round) const {}
+    virtual int getDamage(Unit *target, int prayingRoll) const;
+
+    virtual void secondaryEffect(Unit *target, int round) const {}
 
     int m_damage = 0;
 };
 
-class HealPrayer : public Prayer
-{
+class HealPrayer : public Prayer {
 public:
-    HealPrayer(Unit* priest, const std::string& name, int prayingValue, float range, int healing, int damageOn1 = 0);
+    HealPrayer(Unit *priest, const std::string &name, int prayingValue, float range, int healing, int damageOn1 = 0);
 
-    bool pray(Unit* target, int round) override;
+    bool pray(Unit *target, int round) override;
+
     bool pray(float x, float y, int round) override { return false; }
 
 protected:
 
-    virtual int getHealing(int prayingRoll) const
-    {
+    virtual int getHealing(int prayingRoll) const {
         return m_healing;
     }
 
     int m_healing = 0;
 };
 
-class BuffModifierPrayer : public Prayer
-{
+class BuffModifierPrayer : public Prayer {
 public:
-    BuffModifierPrayer(Unit* priest, const std::string& name, int prayingValue, float range,
-        BuffableAttribute which, int modifier, bool targetFriendly, int damageOn1 = 0);
+    BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, float range,
+                       BuffableAttribute which, int modifier, bool targetFriendly, int damageOn1 = 0);
 
-    bool pray(Unit* target, int round) override;
+    bool pray(Unit *target, int round) override;
+
     bool pray(float x, float y, int round) override { return false; }
 
 protected:
@@ -99,13 +101,13 @@ protected:
     int m_modifier = 0;
 };
 
-class BuffRerollPrayer : public Prayer
-{
+class BuffRerollPrayer : public Prayer {
 public:
-    BuffRerollPrayer(Unit* priest, const std::string& name, int prayingValue, float range,
-        BuffableAttribute which, Rerolls reroll, bool targetFriendly, int damageOn1 = 0);
+    BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, float range,
+                     BuffableAttribute which, Rerolls reroll, bool targetFriendly, int damageOn1 = 0);
 
-    bool pray(Unit* target, int round) override;
+    bool pray(Unit *target, int round) override;
+
     bool pray(float x, float y, int round) override { return false; }
 
 protected:

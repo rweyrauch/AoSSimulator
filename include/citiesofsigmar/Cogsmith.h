@@ -12,46 +12,49 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Cogsmith : public CitizenOfSigmar
-{
-public:
+    class Cogsmith : public CitizenOfSigmar {
+    public:
 
-    enum WeaponOption
-    {
-        GrudgeRaker,
-        CogAxe
+        enum WeaponOption {
+            GrudgeRaker,
+            CogAxe
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int ComputePoints(int numModels);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static void Init();
+
+        Cogsmith();
+
+        ~Cogsmith() override = default;
+
+        bool configure(WeaponOption weapon);
+
+    protected:
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        WeaponOption m_weaponOption = GrudgeRaker;
+
+        Weapon m_grudgeRaker,
+                m_pistols,
+                m_cogAxe,
+                m_gunButt;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int ComputePoints(int numModels);
-    static int EnumStringToInt(const std::string &enumString);
-    static void Init();
-
-    Cogsmith();
-    ~Cogsmith() override = default;
-
-    bool configure(WeaponOption weapon);
-
-protected:
-
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    void onStartHero(PlayerId player) override;
-
-private:
-
-    WeaponOption m_weaponOption = GrudgeRaker;
-
-    Weapon m_grudgeRaker,
-        m_pistols,
-        m_cogAxe,
-        m_gunButt;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

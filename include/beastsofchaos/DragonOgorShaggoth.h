@@ -12,32 +12,33 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class DragonOgorShaggoth : public BeastsOfChaosBase
-{
-public:
+    class DragonOgorShaggoth : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    DragonOgorShaggoth();
-    ~DragonOgorShaggoth() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        DragonOgorShaggoth();
 
-private:
+        ~DragonOgorShaggoth() override = default;
 
-    Weapon m_stormWroughtAxe,
-        m_sweepingTail,
-        m_talonedForelimbs;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_stormWroughtAxe,
+                m_sweepingTail,
+                m_talonedForelimbs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,35 +12,39 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Skulltaker : public KhorneBase
-{
-public:
+    class Skulltaker : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Skulltaker();
-    ~Skulltaker() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Skulltaker();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~Skulltaker() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_slayerSword;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_slayerSword;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

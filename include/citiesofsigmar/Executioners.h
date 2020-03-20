@@ -12,41 +12,47 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Executioners : public CitizenOfSigmar
-{
-public:
+    class Executioners : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Executioners();
-    ~Executioners() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool standardBearer, bool drummer);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        static void Init();
 
-private:
+        Executioners();
 
-    bool m_standardBearer = false;
-    bool m_drummer = false;
+        ~Executioners() override = default;
 
-    Weapon m_draich,
-        m_draichMaster;
+        bool configure(int numModels, bool standardBearer, bool drummer);
 
-    static bool s_registered;
-};
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_drummer = false;
+
+        Weapon m_draich,
+                m_draichMaster;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

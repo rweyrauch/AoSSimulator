@@ -9,89 +9,80 @@
 #include <spells/MysticShield.h>
 #include "ossiarch/Soulmason.h"
 
-namespace OssiarchBonereapers
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 140;
+namespace OssiarchBonereapers {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 140;
 
-bool MortisanSoulmason::s_registered = false;
+    bool MortisanSoulmason::s_registered = false;
 
-Unit *MortisanSoulmason::Create(const ParameterList &parameters)
-{
-    auto unit = new MortisanSoulmason();
+    Unit *MortisanSoulmason::Create(const ParameterList &parameters) {
+        auto unit = new MortisanSoulmason();
 
-    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
-    unit->setLegion(legion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        unit->setLegion(legion);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-std::string MortisanSoulmason::ValueToString(const Parameter &parameter)
-{
-    return OssiarchBonereaperBase::ValueToString(parameter);
-}
-
-int MortisanSoulmason::EnumStringToInt(const std::string &enumString)
-{
-    return OssiarchBonereaperBase::EnumStringToInt(enumString);
-}
-
-void MortisanSoulmason::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            MortisanSoulmason::Create,
-            MortisanSoulmason::ValueToString,
-            MortisanSoulmason::EnumStringToInt,
-            MortisanSoulmason::ComputePoints,
-            {
-                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-            },
-            DEATH,
-            { OSSIARCH_BONEREAPERS }
-        };
-        s_registered = UnitFactory::Register("Mortisan Soulmason", factoryMethod);
+    std::string MortisanSoulmason::ValueToString(const Parameter &parameter) {
+        return OssiarchBonereaperBase::ValueToString(parameter);
     }
-}
 
-MortisanSoulmason::MortisanSoulmason() :
-    OssiarchBonereaperBase("Mortisan Soulmason", 5, WOUNDS, 10, 5, false),
-    m_staff(Weapon::Type::Melee, "Soulmason's Staff", 2, 2, 4, 3, -1, RAND_D3),
-    m_claws(Weapon::Type::Melee, "Ossified Claws", 1, 2, 4, 3, -1, 1)
-{
-    m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULMASON};
-    m_weapons = {&m_staff, &m_claws};
+    int MortisanSoulmason::EnumStringToInt(const std::string &enumString) {
+        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+    }
 
-    m_totalSpells = 2;
-    m_totalUnbinds = 2;
-}
+    void MortisanSoulmason::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    MortisanSoulmason::Create,
+                    MortisanSoulmason::ValueToString,
+                    MortisanSoulmason::EnumStringToInt,
+                    MortisanSoulmason::ComputePoints,
+                    {
+                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                             OssiarchBonereaperBase::Crematorians, 1},
+                    },
+                    DEATH,
+                    {OSSIARCH_BONEREAPERS}
+            };
+            s_registered = UnitFactory::Register("Mortisan Soulmason", factoryMethod);
+        }
+    }
 
-bool MortisanSoulmason::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_staff);
-    model->addMeleeWeapon(&m_claws);
-    addModel(model);
+    MortisanSoulmason::MortisanSoulmason() :
+            OssiarchBonereaperBase("Mortisan Soulmason", 5, WOUNDS, 10, 5, false),
+            m_staff(Weapon::Type::Melee, "Soulmason's Staff", 2, 2, 4, 3, -1, RAND_D3),
+            m_claws(Weapon::Type::Melee, "Ossified Claws", 1, 2, 4, 3, -1, 1) {
+        m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULMASON};
+        m_weapons = {&m_staff, &m_claws};
 
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_totalSpells = 2;
+        m_totalUnbinds = 2;
+    }
 
-    m_points = POINTS_PER_UNIT;
+    bool MortisanSoulmason::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_staff);
+        model->addMeleeWeapon(&m_claws);
+        addModel(model);
 
-    return true;
-}
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-int MortisanSoulmason::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    int MortisanSoulmason::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace OssiarchBonereapers

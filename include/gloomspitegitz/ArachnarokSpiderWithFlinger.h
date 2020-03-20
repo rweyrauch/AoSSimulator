@@ -12,40 +12,43 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class ArachnarokSpiderWithFlinger : public GloomspiteGitzBase
-{
-public:
+    class ArachnarokSpiderWithFlinger : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArachnarokSpiderWithFlinger();
-    ~ArachnarokSpiderWithFlinger() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ArachnarokSpiderWithFlinger();
 
-    void onWounded() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~ArachnarokSpiderWithFlinger() override = default;
 
-private:
+        bool configure();
 
-    int getDamageTableIndex() const;
+    protected:
 
-    Weapon m_spiderBows,
-        m_flinger,
-        m_chitinousLegs,
-        m_monstrousFangs,
-        m_crookedSpears;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_spiderBows,
+            m_flinger,
+            m_chitinousLegs,
+            m_monstrousFangs,
+            m_crookedSpears;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

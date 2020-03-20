@@ -12,32 +12,32 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class AethericNavigator : public KharadronBase
-{
-public:
+    class AethericNavigator : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AethericNavigator();
+        static int ComputePoints(int numModels);
 
-    ~AethericNavigator() override = default;
+        static void Init();
 
-    bool configure();
+        AethericNavigator();
 
-protected:
+        ~AethericNavigator() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_pistol,
-        m_zephyrscope;
+    protected:
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_pistol,
+                m_zephyrscope;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

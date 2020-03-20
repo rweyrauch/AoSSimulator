@@ -12,45 +12,48 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class HearthguardBerzerkers : public Fyreslayer
-{
-public:
+    class HearthguardBerzerkers : public Fyreslayer {
+    public:
 
-    enum WeaponOption
-    {
-        BerzerkerBroadaxe,
-        FlamestrikePoleaxe
+        enum WeaponOption {
+            BerzerkerBroadaxe,
+            FlamestrikePoleaxe
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static void Init();
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        HearthguardBerzerkers();
+
+        ~HearthguardBerzerkers() override = default;
+
+        bool configure(int numModels, WeaponOption weapons);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_broadaxe,
+                m_broadaxeKarl,
+                m_poleaxe,
+                m_poleaxeKarl,
+                m_throwingAxe;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-
-    HearthguardBerzerkers();
-    ~HearthguardBerzerkers() override = default;
-
-    bool configure(int numModels, WeaponOption weapons);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-
-private:
-
-    Weapon m_broadaxe,
-        m_broadaxeKarl,
-        m_poleaxe,
-        m_poleaxeKarl,
-        m_throwingAxe;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

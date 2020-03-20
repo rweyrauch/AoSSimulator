@@ -12,30 +12,31 @@
 #include "Ironjawz.h"
 #include <Weapon.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class OrrukWarchanter : public Ironjawz
-{
-public:
+    class OrrukWarchanter : public Ironjawz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    OrrukWarchanter();
-    ~OrrukWarchanter() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        OrrukWarchanter();
 
-private:
+        ~OrrukWarchanter() override = default;
 
-    Weapon m_stikks;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_stikks;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

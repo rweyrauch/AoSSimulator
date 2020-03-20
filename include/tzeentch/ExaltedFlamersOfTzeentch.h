@@ -12,34 +12,36 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class ExaltedFlamersOfTzeentch : public TzeentchBase
-{
-public:
+    class ExaltedFlamersOfTzeentch : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ExaltedFlamersOfTzeentch();
-    ~ExaltedFlamersOfTzeentch() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        ExaltedFlamersOfTzeentch();
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+        ~ExaltedFlamersOfTzeentch() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_warpflame,
-        m_flamingMaw;
+    protected:
 
-    static bool s_registered;
-};
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    private:
+
+        Weapon m_warpflame,
+                m_flamingMaw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

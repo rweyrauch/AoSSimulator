@@ -12,43 +12,48 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SaurusOldbloodOnCarnosaur : public SeraphonBase
-{
-public:
+    class SaurusOldbloodOnCarnosaur : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SaurusOldbloodOnCarnosaur();
-    ~SaurusOldbloodOnCarnosaur() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SaurusOldbloodOnCarnosaur();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        ~SaurusOldbloodOnCarnosaur() override;
 
-    int terror(const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_gauntlet,
-        m_spear,
-        m_forelimbs,
-        m_jaws;
+        void onWounded() override;
 
-    lsignal::slot m_connection;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int terror(const Unit *target);
+
+    private:
+
+        Weapon m_gauntlet,
+            m_spear,
+            m_forelimbs,
+            m_jaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,33 +12,35 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class BladegheistRevenants : public Nighthaunt
-{
-public:
+    class BladegheistRevenants : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BladegheistRevenants();
-    ~BladegheistRevenants() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        BladegheistRevenants();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~BladegheistRevenants() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_tombGreatblade;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_tombGreatblade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

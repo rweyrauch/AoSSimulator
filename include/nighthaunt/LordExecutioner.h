@@ -12,34 +12,37 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class LordExecutioner : public Nighthaunt
-{
-public:
+    class LordExecutioner : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordExecutioner();
-    ~LordExecutioner() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LordExecutioner();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartCombat(PlayerId player) override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~LordExecutioner() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_greataxe;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_greataxe;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

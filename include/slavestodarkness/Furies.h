@@ -12,30 +12,31 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class Furies : public SlavesToDarknessBase
-{
-public:
+    class Furies : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Furies();
-    ~Furies() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Furies();
 
-private:
+        ~Furies() override = default;
 
-    Weapon m_daggerAndClaws;
+        bool configure(int numModels);
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_daggerAndClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

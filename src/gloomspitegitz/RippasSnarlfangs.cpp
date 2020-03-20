@@ -9,102 +9,92 @@
 #include <UnitFactory.h>
 #include "gloomspitegitz/RippasSnarlfangs.h"
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 60; // x35 oval
-static const int WOUNDS = 2;
-static const int POINTS_PER_UNIT = 80;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 60; // x35 oval
+    static const int WOUNDS = 2;
+    static const int POINTS_PER_UNIT = 80;
 
-bool RippasSnarlfangs::s_registered = false;
+    bool RippasSnarlfangs::s_registered = false;
 
-Unit *RippasSnarlfangs::Create(const ParameterList &parameters)
-{
-    auto unit = new RippasSnarlfangs();
+    Unit *RippasSnarlfangs::Create(const ParameterList &parameters) {
+        auto unit = new RippasSnarlfangs();
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void RippasSnarlfangs::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            RippasSnarlfangs::Create,
-            nullptr,
-            nullptr,
-            RippasSnarlfangs::ComputePoints,
-            {
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
-        s_registered = UnitFactory::Register("Rippa's Snarlfangs", factoryMethod);
-    }
-}
-
-RippasSnarlfangs::RippasSnarlfangs() :
-    GloomspiteGitzBase("Rippa's Snarlfangs", 12, WOUNDS, 4, 5, false),
-    m_grotBow(Weapon::Type::Missile, "Grot Bow", 18, 1, 4, 4, 0, 1),
-    m_bossLoppa(Weapon::Type::Melee, "Boss Loppa", 1, 2, 3, 4, -1, 1),
-    m_stikka(Weapon::Type::Melee, "Stabbin' Stikka", 2, 1, 4, 4, 0, 1),
-    m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 1, 5, 5, 0, 1),
-    m_jaws(Weapon::Type::Melee, "Snarlfang's Jaws", 1, 2, 3, 3, 0, 2)
-{
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, RIPPAS_SNARLFANGS};
-    m_weapons = {&m_grotBow, &m_bossLoppa, &m_stikka, &m_bowStave, &m_jaws};
-
-    // Ferocious Pounce
-    m_pileInMove = 6;
-}
-
-bool RippasSnarlfangs::configure()
-{
-    auto rippa = new Model(BASESIZE, wounds());
-    rippa->addMeleeWeapon(&m_bossLoppa);
-    rippa->addMeleeWeapon(&m_jaws);
-    rippa->setName("Rippa Narkbad");
-    addModel(rippa);
-
-    auto stabbit = new Model(BASESIZE, wounds());
-    stabbit->addMeleeWeapon(&m_stikka);
-    stabbit->addMeleeWeapon(&m_jaws);
-    stabbit->setName("Stabbit");
-    addModel(stabbit);
-
-    auto meanEye = new Model(BASESIZE, wounds());
-    meanEye->addMissileWeapon(&m_grotBow);
-    meanEye->addMeleeWeapon(&m_bowStave);
-    meanEye->addMeleeWeapon(&m_jaws);
-    addModel(meanEye);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-int RippasSnarlfangs::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    auto mod = GloomspiteGitzBase::toHitModifier(weapon, target);
-
-    // Smell Weakness
-    if (target->numOfWoundedModels() > 0)
-    {
-        mod++;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    return mod;
-}
+    void RippasSnarlfangs::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    RippasSnarlfangs::Create,
+                    nullptr,
+                    nullptr,
+                    RippasSnarlfangs::ComputePoints,
+                    {
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
+            s_registered = UnitFactory::Register("Rippa's Snarlfangs", factoryMethod);
+        }
+    }
 
-int RippasSnarlfangs::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    RippasSnarlfangs::RippasSnarlfangs() :
+            GloomspiteGitzBase("Rippa's Snarlfangs", 12, WOUNDS, 4, 5, false),
+            m_grotBow(Weapon::Type::Missile, "Grot Bow", 18, 1, 4, 4, 0, 1),
+            m_bossLoppa(Weapon::Type::Melee, "Boss Loppa", 1, 2, 3, 4, -1, 1),
+            m_stikka(Weapon::Type::Melee, "Stabbin' Stikka", 2, 1, 4, 4, 0, 1),
+            m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 1, 5, 5, 0, 1),
+            m_jaws(Weapon::Type::Melee, "Snarlfang's Jaws", 1, 2, 3, 3, 0, 2) {
+        m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, RIPPAS_SNARLFANGS};
+        m_weapons = {&m_grotBow, &m_bossLoppa, &m_stikka, &m_bowStave, &m_jaws};
+
+        // Ferocious Pounce
+        m_pileInMove = 6;
+    }
+
+    bool RippasSnarlfangs::configure() {
+        auto rippa = new Model(BASESIZE, wounds());
+        rippa->addMeleeWeapon(&m_bossLoppa);
+        rippa->addMeleeWeapon(&m_jaws);
+        rippa->setName("Rippa Narkbad");
+        addModel(rippa);
+
+        auto stabbit = new Model(BASESIZE, wounds());
+        stabbit->addMeleeWeapon(&m_stikka);
+        stabbit->addMeleeWeapon(&m_jaws);
+        stabbit->setName("Stabbit");
+        addModel(stabbit);
+
+        auto meanEye = new Model(BASESIZE, wounds());
+        meanEye->addMissileWeapon(&m_grotBow);
+        meanEye->addMeleeWeapon(&m_bowStave);
+        meanEye->addMeleeWeapon(&m_jaws);
+        addModel(meanEye);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    int RippasSnarlfangs::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = GloomspiteGitzBase::toHitModifier(weapon, target);
+
+        // Smell Weakness
+        if (target->numOfWoundedModels() > 0) {
+            mod++;
+        }
+
+        return mod;
+    }
+
+    int RippasSnarlfangs::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } //namespace GloomspiteGitz
 

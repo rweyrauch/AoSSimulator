@@ -10,214 +10,180 @@
 #include <stormcast/Liberators.h>
 #include <iostream>
 
-namespace StormcastEternals
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 2;
-static const int MIN_UNIT_SIZE = 5;
-static const int MAX_UNIT_SIZE = 30;
-static const int POINTS_PER_BLOCK = 100;
-static const int POINTS_MAX_UNIT_SIZE = 520;
+namespace StormcastEternals {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 30;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 520;
 
-bool Liberators::s_registered = false;
+    bool Liberators::s_registered = false;
 
-Liberators::Liberators() :
-    StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false),
-    m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
-    m_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1),
-    m_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1),
-    m_warbladePrime(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1),
-    m_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2),
-    m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2)
-{
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
-    m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
-}
-
-bool
-Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades)
-{
-    // validate inputs
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        // Invalid model count.
-        return false;
-    }
-    const int maxGrandweapons = numModels / 5;
-    if (numGrandblades + numGrandhammers > maxGrandweapons)
-    {
-        // Invalid weapon configuration.
-        return false;
+    Liberators::Liberators() :
+            StormcastEternal("Liberators", 5, WOUNDS, 7, 4, false),
+            m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
+            m_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1),
+            m_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1),
+            m_warbladePrime(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1),
+            m_grandhammer(Weapon::Type::Melee, "Grandhammer", 1, 2, 4, 3, -1, 2),
+            m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2) {
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
+        m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
     }
 
-    m_weaponOption = weapons;
-    m_pairedWeapons = pairedWeapons;
-
-    // Add the Prime
-    auto primeModel = new Model(BASESIZE, wounds());
-    if (m_weaponOption == Warhammer)
-    {
-        primeModel->addMeleeWeapon(&m_warhammerPrime);
-    }
-    else if (m_weaponOption == Warblade)
-    {
-        primeModel->addMeleeWeapon(&m_warbladePrime);
-    }
-    addModel(primeModel);
-
-    for (auto i = 0; i < numGrandblades; i++)
-    {
-        auto grandbladeModel = new Model(BASESIZE, wounds());
-        grandbladeModel->addMeleeWeapon(&m_grandblade);
-        addModel(grandbladeModel);
-    }
-    for (auto i = 0; i < numGrandhammers; i++)
-    {
-        auto grandhammerModel = new Model(BASESIZE, wounds());
-        grandhammerModel->addMeleeWeapon(&m_grandhammer);
-        addModel(grandhammerModel);
-    }
-    int currentModelCount = (int) m_models.size();
-    for (auto i = currentModelCount; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        if (m_weaponOption == Warhammer)
-        {
-            model->addMeleeWeapon(&m_warhammer);
+    bool
+    Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers,
+                          int numGrandblades) {
+        // validate inputs
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
         }
-        else if (m_weaponOption == Warblade)
-        {
-            model->addMeleeWeapon(&m_warblade);
+        const int maxGrandweapons = numModels / 5;
+        if (numGrandblades + numGrandhammers > maxGrandweapons) {
+            // Invalid weapon configuration.
+            return false;
         }
-        addModel(model);
-    }
 
-    m_points = ComputePoints(numModels);
+        m_weaponOption = weapons;
+        m_pairedWeapons = pairedWeapons;
 
-    return true;
-}
-
-int Liberators::toHitModifier(const Weapon *weapon, const Unit *unit) const
-{
-    int modifier = StormcastEternal::toHitModifier(weapon, unit);
-
-    // Lay Low the Tyrants
-    if (unit->wounds() >= 5)
-    {
-        modifier += 1;
-    }
-
-    return modifier;
-}
-
-Rerolls Liberators::toSaveRerolls(const Weapon *weapon) const
-{
-    // Sigmarite Shields
-    if (m_weaponOption == Warhammer || m_weaponOption == Warblade)
-    {
-        return RerollOnes;
-    }
-
-    return StormcastEternal::toSaveRerolls(weapon);
-}
-
-int Liberators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
-{
-    if (unmodifiedHitRoll == 6)
-    {
-        if (m_pairedWeapons && (weapon->name() == m_warblade.name() || weapon->name() == m_warhammer.name()))
-        {
-            // each 6 inflicts an additional hit
-            return 2;
+        // Add the Prime
+        auto primeModel = new Model(BASESIZE, wounds());
+        if (m_weaponOption == Warhammer) {
+            primeModel->addMeleeWeapon(&m_warhammerPrime);
+        } else if (m_weaponOption == Warblade) {
+            primeModel->addMeleeWeapon(&m_warbladePrime);
         }
-    }
-    return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
-}
+        addModel(primeModel);
 
-Unit *Liberators::Create(const ParameterList &parameters)
-{
-    auto libs = new Liberators();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Warblade);
-    bool pairedWeapons = GetBoolParam("Paired Weapons", parameters, false);
-    int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
-    int numGrandblades = GetIntParam("Grandblades", parameters, 0);
-
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    libs->setStormhost(stormhost);
-
-    bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
-    if (!ok)
-    {
-        delete libs;
-        libs = nullptr;
-    }
-    return libs;
-}
-
-void Liberators::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Weapons", Warhammer, Warhammer,Warblade, 1},
-                {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Integer, "Grandhammers", 0, 0, MAX_UNIT_SIZE / 5, 1},
-                {ParamType::Integer, "Grandblades", 0, 0, MAX_UNIT_SIZE / 5, 1},
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
-
-        s_registered = UnitFactory::Register("Liberators", factoryMethod);
-    }
-}
-
-std::string Liberators::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Weapons")
-    {
-        if (parameter.intValue == Warhammer)
-        {
-            return "Warhammer";
+        for (auto i = 0; i < numGrandblades; i++) {
+            auto grandbladeModel = new Model(BASESIZE, wounds());
+            grandbladeModel->addMeleeWeapon(&m_grandblade);
+            addModel(grandbladeModel);
         }
-        else if (parameter.intValue == Warblade)
-        {
-            return "Warblade";
+        for (auto i = 0; i < numGrandhammers; i++) {
+            auto grandhammerModel = new Model(BASESIZE, wounds());
+            grandhammerModel->addMeleeWeapon(&m_grandhammer);
+            addModel(grandhammerModel);
+        }
+        int currentModelCount = (int) m_models.size();
+        for (auto i = currentModelCount; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            if (m_weaponOption == Warhammer) {
+                model->addMeleeWeapon(&m_warhammer);
+            } else if (m_weaponOption == Warblade) {
+                model->addMeleeWeapon(&m_warblade);
+            }
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
+    }
+
+    int Liberators::toHitModifier(const Weapon *weapon, const Unit *unit) const {
+        int modifier = StormcastEternal::toHitModifier(weapon, unit);
+
+        // Lay Low the Tyrants
+        if (unit->wounds() >= 5) {
+            modifier += 1;
+        }
+
+        return modifier;
+    }
+
+    Rerolls Liberators::toSaveRerolls(const Weapon *weapon) const {
+        // Sigmarite Shields
+        if (m_weaponOption == Warhammer || m_weaponOption == Warblade) {
+            return RerollOnes;
+        }
+
+        return StormcastEternal::toSaveRerolls(weapon);
+    }
+
+    int Liberators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        if (unmodifiedHitRoll == 6) {
+            if (m_pairedWeapons && (weapon->name() == m_warblade.name() || weapon->name() == m_warhammer.name())) {
+                // each 6 inflicts an additional hit
+                return 2;
+            }
+        }
+        return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
+    }
+
+    Unit *Liberators::Create(const ParameterList &parameters) {
+        auto libs = new Liberators();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Warblade);
+        bool pairedWeapons = GetBoolParam("Paired Weapons", parameters, false);
+        int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
+        int numGrandblades = GetIntParam("Grandblades", parameters, 0);
+
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        libs->setStormhost(stormhost);
+
+        bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
+        if (!ok) {
+            delete libs;
+            libs = nullptr;
+        }
+        return libs;
+    }
+
+    void Liberators::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Weapons", Warhammer, Warhammer, Warblade, 1},
+                            {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
+                            {ParamType::Integer, "Grandhammers", 0, 0, MAX_UNIT_SIZE / 5, 1},
+                            {ParamType::Integer, "Grandblades", 0, 0, MAX_UNIT_SIZE / 5, 1},
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
+
+            s_registered = UnitFactory::Register("Liberators", factoryMethod);
         }
     }
 
-    return StormcastEternal::ValueToString(parameter);
-}
+    std::string Liberators::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapons") {
+            if (parameter.intValue == Warhammer) {
+                return "Warhammer";
+            } else if (parameter.intValue == Warblade) {
+                return "Warblade";
+            }
+        }
 
-int Liberators::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Warhammer")
-    {
-        return Warhammer;
+        return StormcastEternal::ValueToString(parameter);
     }
-    else if (enumString == "Warblade")
-    {
-        return Warblade;
-    }
-    return StormcastEternal::EnumStringToInt(enumString);
-}
 
-int Liberators::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int Liberators::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Warhammer") {
+            return Warhammer;
+        } else if (enumString == "Warblade") {
+            return Warblade;
+        }
+        return StormcastEternal::EnumStringToInt(enumString);
     }
-    return points;
-}
+
+    int Liberators::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace StormcastEternals

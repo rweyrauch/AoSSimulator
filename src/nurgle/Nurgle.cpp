@@ -33,47 +33,43 @@
 #include "nurgle/Nurglings.h"
 #include "nurgle/SorcererOfNurgle.h"
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-std::string NurgleBase::ValueToString(const Parameter &parameter)
-{
-    return ParameterValueToString(parameter);
-}
+    std::string NurgleBase::ValueToString(const Parameter &parameter) {
+        return ParameterValueToString(parameter);
+    }
 
-int NurgleBase::EnumStringToInt(const std::string &enumString)
-{
-    return 0;
-}
+    int NurgleBase::EnumStringToInt(const std::string &enumString) {
+        return 0;
+    }
 
-void Init()
-{
-    LordOfPlagues::Init();
-    Plaguebearers::Init();
-    PutridBlightkings::Init();
-    BeastsOfNurgle::Init();
-    TheGlottkin::Init();
-    PlagueDrones::Init();
-    PusgoyleBlightlords::Init();
-    Rotigus::Init();
-    GreatUncleanOne::Init();
-    FeculaFlyblown::Init();
-    TheWurmspat::Init();
-    BloabRotspawned::Init();
-    EpidemiusTallymanOfNurgle::Init();
-    FestusTheLeechlord::Init();
-    GutrotSpume::Init();
-    HarbingerOfDecay::Init();
-    HorticulousSlimux::Init();
-    LordOfAfflictions::Init();
-    LordOfBlights::Init();
-    OrghottsDaemonspew::Init();
-    PoxbringerHeraldOfNurgle::Init();
-    SloppityBilepiperHeraldOfNurgle::Init();
-    SpoilpoxScrivenerHeraldOfNurgle::Init();
-    Nurglings::Init();
-    SorcererOfNurgle::Init();
-    MorbidexTwiceborn::Init();
-}
+    void Init() {
+        LordOfPlagues::Init();
+        Plaguebearers::Init();
+        PutridBlightkings::Init();
+        BeastsOfNurgle::Init();
+        TheGlottkin::Init();
+        PlagueDrones::Init();
+        PusgoyleBlightlords::Init();
+        Rotigus::Init();
+        GreatUncleanOne::Init();
+        FeculaFlyblown::Init();
+        TheWurmspat::Init();
+        BloabRotspawned::Init();
+        EpidemiusTallymanOfNurgle::Init();
+        FestusTheLeechlord::Init();
+        GutrotSpume::Init();
+        HarbingerOfDecay::Init();
+        HorticulousSlimux::Init();
+        LordOfAfflictions::Init();
+        LordOfBlights::Init();
+        OrghottsDaemonspew::Init();
+        PoxbringerHeraldOfNurgle::Init();
+        SloppityBilepiperHeraldOfNurgle::Init();
+        SpoilpoxScrivenerHeraldOfNurgle::Init();
+        Nurglings::Init();
+        SorcererOfNurgle::Init();
+        MorbidexTwiceborn::Init();
+    }
 
 } //namespace Nurgle

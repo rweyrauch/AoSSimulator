@@ -12,33 +12,34 @@
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
 
-namespace Dispossessed
-{
+namespace Dispossessed {
 
-class WardenKing : public Dispossessed
-{
-public:
+    class WardenKing : public Dispossessed {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    WardenKing();
-    ~WardenKing() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        WardenKing();
 
-    // Ancestor Shield
-    Rerolls toSaveRerolls(const Weapon *weapon) const override { return RerollFailed; }
+        ~WardenKing() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_runeWeapon;
+    protected:
 
-    static bool s_registered;
-};
+        // Ancestor Shield
+        Rerolls toSaveRerolls(const Weapon *weapon) const override { return RerollFailed; }
+
+    private:
+
+        Weapon m_runeWeapon;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

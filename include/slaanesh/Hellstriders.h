@@ -12,55 +12,58 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class Hellstriders : public SlaaneshBase
-{
-public:
+    class Hellstriders : public SlaaneshBase {
+    public:
 
-    enum WeaponOption
-    {
-        ClawSpear,
-        Hellscourge
+        enum WeaponOption {
+            ClawSpear,
+            Hellscourge
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static void Init();
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        Hellstriders();
+
+        ~Hellstriders() override;
+
+        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower);
+
+    protected:
+
+        Rerolls chargeRerolls() const override;
+
+        int braveryModifier() const override;
+
+        Rerolls hornblowerBattleshockReroll(const Unit *unit);
+
+    protected:
+
+        bool m_iconBearer = false;
+        bool m_bannerBearer = false;
+        bool m_hornblower = false;
+
+    private:
+
+        Weapon m_clawSpear,
+            m_clawSpearReaver,
+            m_hellscourge,
+            m_hellscourgeReaver,
+            m_poisonedTongue;
+
+        lsignal::slot m_hornblowerSlot;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-
-    Hellstriders();
-    ~Hellstriders() override;
-
-    bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower);
-
-protected:
-
-    Rerolls chargeRerolls() const override;
-    int braveryModifier() const override;
-
-    Rerolls hornblowerBattleshockReroll(const Unit* unit);
-
-protected:
-
-    bool m_iconBearer = false;
-    bool m_bannerBearer = false;
-    bool m_hornblower = false;
-
-private:
-
-    Weapon m_clawSpear,
-        m_clawSpearReaver,
-        m_hellscourge,
-        m_hellscourgeReaver,
-        m_poisonedTongue;
-
-    lsignal::slot m_hornblowerSlot;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

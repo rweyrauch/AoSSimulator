@@ -12,34 +12,35 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class Doomseeker : public Fyreslayer
-{
-public:
+    class Doomseeker : public Fyreslayer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Doomseeker();
-    ~Doomseeker() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Doomseeker();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~Doomseeker() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_throwingAxe,
-        m_warIron,
-        m_doomseekerAxe;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_throwingAxe,
+            m_warIron,
+            m_doomseekerAxe;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

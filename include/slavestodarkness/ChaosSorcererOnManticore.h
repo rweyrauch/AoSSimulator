@@ -12,38 +12,41 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class ChaosSorcererOnManticore : public SlavesToDarknessBase
-{
-public:
+    class ChaosSorcererOnManticore : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChaosSorcererOnManticore();
-    ~ChaosSorcererOnManticore() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ChaosSorcererOnManticore();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~ChaosSorcererOnManticore() override = default;
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_staff,
-        m_fangsAndClaws,
-        m_tail;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_staff,
+                m_fangsAndClaws,
+                m_tail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

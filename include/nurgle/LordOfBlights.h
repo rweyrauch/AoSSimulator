@@ -12,34 +12,35 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class LordOfBlights : public NurgleBase
-{
-public:
+    class LordOfBlights : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordOfBlights();
-    ~LordOfBlights() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LordOfBlights();
 
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        ~LordOfBlights() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_ripenedDeathsHead,
-        m_bountyDeathsHead,
-        m_hammer;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    private:
+
+        Weapon m_ripenedDeathsHead,
+            m_bountyDeathsHead,
+            m_hammer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

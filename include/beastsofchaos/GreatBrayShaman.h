@@ -12,34 +12,35 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class GreatBrayShaman : public BeastsOfChaosBase
-{
-public:
+    class GreatBrayShaman : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    GreatBrayShaman();
-    ~GreatBrayShaman() override;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        GreatBrayShaman();
 
-    int infuseWithBestialVigour(const Unit* unit);
+        ~GreatBrayShaman() override;
 
-private:
+        bool configure();
 
-    Weapon m_fetishStaff;
+    protected:
 
-    lsignal::slot m_connection;
+        int infuseWithBestialVigour(const Unit *unit);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_fetishStaff;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

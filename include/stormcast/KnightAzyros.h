@@ -12,38 +12,39 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class KnightAzyros : public StormcastEternal
-{
-public:
+    class KnightAzyros : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    KnightAzyros();
-    ~KnightAzyros() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        KnightAzyros();
 
-    void onStartHero(PlayerId player) override;
+        ~KnightAzyros() override;
 
-    Rerolls illuminatorOfTheLostReroll(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    bool m_usedLightOfSigmar = false;
+        void onStartHero(PlayerId player) override;
 
-    Weapon m_starblade;
+        Rerolls illuminatorOfTheLostReroll(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
-    lsignal::slot m_illuminatorSlot;
+    private:
 
-    static bool s_registered;
-};
+        bool m_usedLightOfSigmar = false;
+
+        Weapon m_starblade;
+
+        lsignal::slot m_illuminatorSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

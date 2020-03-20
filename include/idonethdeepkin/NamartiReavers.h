@@ -12,41 +12,42 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class NamartiReavers : public IdonethDeepkinBase
-{
-public:
+    class NamartiReavers : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    NamartiReavers();
-    ~NamartiReavers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numIconBearers);
+        static void Init();
 
-protected:
+        NamartiReavers();
 
-    void onStartShooting(PlayerId player) override;
+        ~NamartiReavers() override = default;
 
-    // Swift Tide
-    Rerolls runRerolls() const override { return RerollFailed; }
+        bool configure(int numModels, int numIconBearers);
 
-protected:
+    protected:
 
-    int m_numIconBearers = 0;
+        void onStartShooting(PlayerId player) override;
 
-private:
+        // Swift Tide
+        Rerolls runRerolls() const override { return RerollFailed; }
 
-    Weapon m_keeningBlade,
-        m_whisperbowAimedFire,
-        m_whisperbowStormFire;
+    protected:
 
-    static bool s_registered;
-};
+        int m_numIconBearers = 0;
+
+    private:
+
+        Weapon m_keeningBlade,
+                m_whisperbowAimedFire,
+                m_whisperbowStormFire;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

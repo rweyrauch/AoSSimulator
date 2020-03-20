@@ -12,36 +12,37 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class RippasSnarlfangs : public GloomspiteGitzBase
-{
-public:
+    class RippasSnarlfangs : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    RippasSnarlfangs();
-    ~RippasSnarlfangs() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        RippasSnarlfangs();
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        ~RippasSnarlfangs() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_grotBow,
-        m_bossLoppa,
-        m_stikka,
-        m_bowStave,
-        m_jaws;
+    protected:
 
-    static bool s_registered;
-};
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_grotBow,
+                m_bossLoppa,
+                m_stikka,
+                m_bowStave,
+                m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

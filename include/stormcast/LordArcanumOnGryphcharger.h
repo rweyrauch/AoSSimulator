@@ -13,40 +13,44 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordArcanumOnGryphcharger : public StormcastEternal
-{
-public:
+    class LordArcanumOnGryphcharger : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    LordArcanumOnGryphcharger();
-    ~LordArcanumOnGryphcharger() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static void Init();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        static int ComputePoints(int numModels);
 
-    void onStartCombat(PlayerId player) override;
-    void onRestore() override { m_shatteredFlasks = false; }
+        LordArcanumOnGryphcharger();
 
-private:
+        ~LordArcanumOnGryphcharger() override = default;
 
-    bool m_shatteredFlasks = false;
+        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
-    Weapon m_aetherstave,
-        m_beakAndClaws;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        void onRestore() override { m_shatteredFlasks = false; }
+
+    private:
+
+        bool m_shatteredFlasks = false;
+
+        Weapon m_aetherstave,
+                m_beakAndClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

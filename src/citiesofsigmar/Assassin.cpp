@@ -9,91 +9,80 @@
 #include <UnitFactory.h>
 #include "citiesofsigmar/Assassin.h"
 
-namespace CitiesOfSigmar
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 80;
+namespace CitiesOfSigmar {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 80;
 
-bool Assassin::s_registered = false;
+    bool Assassin::s_registered = false;
 
-Unit *Assassin::Create(const ParameterList &parameters)
-{
-    auto unit = new Assassin();
+    Unit *Assassin::Create(const ParameterList &parameters) {
+        auto unit = new Assassin();
 
-    auto city = (City)GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
-    unit->setCity(city);
+        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        unit->setCity(city);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-std::string Assassin::ValueToString(const Parameter &parameter)
-{
-    return CitizenOfSigmar::ValueToString(parameter);
-}
-
-int Assassin::EnumStringToInt(const std::string &enumString)
-{
-    return CitizenOfSigmar::EnumStringToInt(enumString);
-}
-
-void Assassin::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Assassin::Create,
-            Assassin::ValueToString,
-            Assassin::EnumStringToInt,
-            Assassin::ComputePoints,
-            {
-                {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal, CitizenOfSigmar::TempestsEye, 1},
-            },
-            ORDER,
-            { CITIES_OF_SIGMAR }
-        };
-        s_registered = UnitFactory::Register("Assassin", factoryMethod);
+    std::string Assassin::ValueToString(const Parameter &parameter) {
+        return CitizenOfSigmar::ValueToString(parameter);
     }
-}
 
-Assassin::Assassin() :
-    CitizenOfSigmar("Assassin", 6, WOUNDS, 7, 5, false),
-    m_blades(Weapon::Type::Melee, "Poison-coated Blades", 1, 6, 3, 3, -1, 1)
-{
-    m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, HERO, ASSASSIN};
-    m_weapons = {&m_blades};
-}
-
-bool Assassin::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_blades);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Wounds Assassin::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Deathshead Poison
-    if ((woundRoll == 6) && (weapon->name() == m_blades.name()))
-    {
-        return { 0,  Dice::rollD3() };
+    int Assassin::EnumStringToInt(const std::string &enumString) {
+        return CitizenOfSigmar::EnumStringToInt(enumString);
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int Assassin::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    void Assassin::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Assassin::Create,
+                    Assassin::ValueToString,
+                    Assassin::EnumStringToInt,
+                    Assassin::ComputePoints,
+                    {
+                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
+                             CitizenOfSigmar::TempestsEye, 1},
+                    },
+                    ORDER,
+                    {CITIES_OF_SIGMAR}
+            };
+            s_registered = UnitFactory::Register("Assassin", factoryMethod);
+        }
+    }
+
+    Assassin::Assassin() :
+            CitizenOfSigmar("Assassin", 6, WOUNDS, 7, 5, false),
+            m_blades(Weapon::Type::Melee, "Poison-coated Blades", 1, 6, 3, 3, -1, 1) {
+        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, HERO, ASSASSIN};
+        m_weapons = {&m_blades};
+    }
+
+    bool Assassin::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_blades);
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    Wounds Assassin::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Deathshead Poison
+        if ((woundRoll == 6) && (weapon->name() == m_blades.name())) {
+            return {0, Dice::rollD3()};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int Assassin::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } //namespace CitiesOfSigmar

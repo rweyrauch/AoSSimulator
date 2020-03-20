@@ -12,31 +12,32 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class SneakySnufflers : public GloomspiteGitzBase
-{
-public:
+    class SneakySnufflers : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SneakySnufflers();
-    ~SneakySnufflers() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        static int ComputePoints(int numModels);
 
-protected:
+        SneakySnufflers();
 
-private:
+        ~SneakySnufflers() override = default;
 
-    Weapon m_sickle,
-        m_gnashers;
+        bool configure(int numModels);
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_sickle,
+            m_gnashers;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

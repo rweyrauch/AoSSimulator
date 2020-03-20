@@ -13,40 +13,44 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordArcanumOnTauralon : public StormcastEternal
-{
-public:
+    class LordArcanumOnTauralon : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    LordArcanumOnTauralon();
-    ~LordArcanumOnTauralon() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    void onCharged() override;
+        static int ComputePoints(int numModels);
 
-    void onStartCombat(PlayerId player) override;
-    void onRestore() override { m_shatteredFlasks = false; }
+        LordArcanumOnTauralon();
 
-private:
+        ~LordArcanumOnTauralon() override = default;
 
-    bool m_shatteredFlasks = false;
+        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
-    Weapon m_aetherstave,
-        m_hornsAndHooves;
+    protected:
 
-    static bool s_registered;
-};
+        void onCharged() override;
+
+        void onStartCombat(PlayerId player) override;
+
+        void onRestore() override { m_shatteredFlasks = false; }
+
+    private:
+
+        bool m_shatteredFlasks = false;
+
+        Weapon m_aetherstave,
+                m_hornsAndHooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

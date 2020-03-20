@@ -13,142 +13,126 @@
 #include <spells/MysticShield.h>
 #include <spells/NikkitNikkit.h>
 
-namespace GloomspiteGitz
-{
-static const int BASESIZE = 60; // x35 oval
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 220;
+namespace GloomspiteGitz {
+    static const int BASESIZE = 60; // x35 oval
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 220;
 
-bool Skragrott::s_registered = false;
+    bool Skragrott::s_registered = false;
 
-Skragrott::Skragrott() :
-    GloomspiteGitzBase("Skragrott", 4, WOUNDS, 6, 5, false),
-    m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
-    m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3)
-{
-    m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
-    m_weapons = {&m_daMoonOnnaStikk, &m_daMoonOnnaStikkMissile};
+    Skragrott::Skragrott() :
+            GloomspiteGitzBase("Skragrott", 4, WOUNDS, 6, 5, false),
+            m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
+            m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3) {
+        m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
+        m_weapons = {&m_daMoonOnnaStikk, &m_daMoonOnnaStikkMissile};
 
-    m_totalUnbinds = 2;
-    m_totalSpells = 2;
-}
-
-bool Skragrott::configure(LoreOfTheMoonclans lore)
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
-    model->addMeleeWeapon(&m_daMoonOnnaStikk);
-
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-    m_knownSpells.push_back(std::make_unique<NikkitNikkit>(this));
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
-
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *Skragrott::Create(const ParameterList &parameters)
-{
-    auto unit = new Skragrott();
-    auto lore = (LoreOfTheMoonclans)GetEnumParam("Lore of the Moonclans", parameters, (int)LoreOfTheMoonclans ::None);
-
-    bool ok = unit->configure(lore);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        m_totalUnbinds = 2;
+        m_totalSpells = 2;
     }
-    return unit;
-}
 
-void Skragrott::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Lore of the Moonclans", (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::None, (int)LoreOfTheMoonclans::CallDaMoon, 1},
-            },
-            DESTRUCTION,
-            { GLOOMSPITE_GITZ }
-        };
+    bool Skragrott::configure(LoreOfTheMoonclans lore) {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
+        model->addMeleeWeapon(&m_daMoonOnnaStikk);
 
-        s_registered = UnitFactory::Register("Skragrott", factoryMethod);
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_knownSpells.push_back(std::make_unique<NikkitNikkit>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
+
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-std::string Skragrott::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Lore of the Moonclans")
-    {
-        return ToString((LoreOfTheMoonclans)parameter.intValue);
+    Unit *Skragrott::Create(const ParameterList &parameters) {
+        auto unit = new Skragrott();
+        auto lore = (LoreOfTheMoonclans) GetEnumParam("Lore of the Moonclans", parameters,
+                                                      (int) LoreOfTheMoonclans::None);
+
+        bool ok = unit->configure(lore);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return ParameterValueToString(parameter);
-}
 
-int Skragrott::EnumStringToInt(const std::string &enumString)
-{
-    LoreOfTheMoonclans lore;
-    if (FromString(enumString, lore))
-    {
-        return (int) lore;
-    }
-    return 0;
-}
+    void Skragrott::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Lore of the Moonclans", (int) LoreOfTheMoonclans::None,
+                             (int) LoreOfTheMoonclans::None, (int) LoreOfTheMoonclans::CallDaMoon, 1},
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
 
-int Skragrott::castingModifier() const
-{
-    // Loonking's Crown
-    return GloomspiteGitzBase::castingModifier() + 1;
-}
-
-int Skragrott::unbindingModifier() const
-{
-    // Loonking's Crown
-    return Unit::unbindingModifier() + 1;
-}
-
-Wounds Skragrott::applyWoundSave(const Wounds &wounds)
-{
-    // Loonking's Crown
-    Dice::RollResult woundSaves, mortalSaves;
-    Dice::rollD6(wounds.normal, woundSaves);
-    Dice::rollD6(wounds.mortal, mortalSaves);
-
-    Wounds totalWounds = wounds;
-    totalWounds.normal -= woundSaves.rollsGE(4);
-    totalWounds.normal = std::max(totalWounds.normal, 0);
-    totalWounds.mortal -= mortalSaves.rollsGE(4);
-    totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-    return totalWounds;
-}
-
-void Skragrott::onStartHero(PlayerId playerId)
-{
-    GloomspiteGitzBase::onStartHero(playerId);
-
-    // Babbling Wand
-    if (isGeneral() && (owningPlayer() == playerId) && m_roster)
-    {
-        if (Dice::rollD6() >= 4)
-        {
-            m_roster->addCommandPoints(Dice::rollD3());
+            s_registered = UnitFactory::Register("Skragrott", factoryMethod);
         }
     }
-}
 
-int Skragrott::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    std::string Skragrott::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Lore of the Moonclans") {
+            return ToString((LoreOfTheMoonclans) parameter.intValue);
+        }
+        return ParameterValueToString(parameter);
+    }
+
+    int Skragrott::EnumStringToInt(const std::string &enumString) {
+        LoreOfTheMoonclans lore;
+        if (FromString(enumString, lore)) {
+            return (int) lore;
+        }
+        return 0;
+    }
+
+    int Skragrott::castingModifier() const {
+        // Loonking's Crown
+        return GloomspiteGitzBase::castingModifier() + 1;
+    }
+
+    int Skragrott::unbindingModifier() const {
+        // Loonking's Crown
+        return Unit::unbindingModifier() + 1;
+    }
+
+    Wounds Skragrott::applyWoundSave(const Wounds &wounds) {
+        // Loonking's Crown
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(4);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(4);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
+    }
+
+    void Skragrott::onStartHero(PlayerId playerId) {
+        GloomspiteGitzBase::onStartHero(playerId);
+
+        // Babbling Wand
+        if (isGeneral() && (owningPlayer() == playerId) && m_roster) {
+            if (Dice::rollD6() >= 4) {
+                m_roster->addCommandPoints(Dice::rollD3());
+            }
+        }
+    }
+
+    int Skragrott::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace GloomspiteGitz

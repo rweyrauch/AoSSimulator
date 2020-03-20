@@ -12,37 +12,39 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Packmasters : public Skaventide
-{
-public:
+    class Packmasters : public Skaventide {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Packmasters();
-    ~Packmasters() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numCatchers);
+        static void Init();
 
-protected:
+        Packmasters();
 
-    int crackTheWhip(const Unit* attacker, const Weapon* weapon, const Unit* target);
-    int crackTheWhipBravery(const Unit* unit);
+        ~Packmasters() override;
 
-private:
+        bool configure(int numModels, int numCatchers);
 
-    Weapon m_whip,
-        m_blade,
-        m_catcher;
+    protected:
 
-    lsignal::slot m_whipSlot, m_whipBraverySlot;
+        int crackTheWhip(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
-    static bool s_registered;
-};
+        int crackTheWhipBravery(const Unit *unit);
+
+    private:
+
+        Weapon m_whip,
+                m_blade,
+                m_catcher;
+
+        lsignal::slot m_whipSlot, m_whipBraverySlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

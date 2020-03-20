@@ -11,35 +11,38 @@
 #include <Unit.h>
 #include <gloomspitegitz/BadMoon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class GloomspiteGitzBase : public Unit
-{
-public:
-    GloomspiteGitzBase() = default;
-    ~GloomspiteGitzBase() override = default;
+    class GloomspiteGitzBase : public Unit {
+    public:
+        GloomspiteGitzBase() = default;
 
-protected:
+        ~GloomspiteGitzBase() override = default;
 
-    GloomspiteGitzBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
+    protected:
 
-    void onBeginRound(int battleRound) override;
-    void onEndRound(int battleRound) override;
+        GloomspiteGitzBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
 
-    void onStartHero(PlayerId player) override;
-    int castingModifier() const override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    void onRan() override;
+        void onBeginRound(int battleRound) override;
 
-protected:
+        void onEndRound(int battleRound) override;
 
-    bool inLightOfTheBadMoon() const;
+        void onStartHero(PlayerId player) override;
 
-    bool m_movedMoon = false;
+        int castingModifier() const override;
 
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        void onRan() override;
+
+    protected:
+
+        bool inLightOfTheBadMoon() const;
+
+        bool m_movedMoon = false;
+
+    };
 
 //
 // Abilities                    Implemented
@@ -53,7 +56,7 @@ protected:
 // Troggoth Renawal                 Yes
 //
 
-void Init();
+    void Init();
 
 } // namespace GloomspiteGitz
 

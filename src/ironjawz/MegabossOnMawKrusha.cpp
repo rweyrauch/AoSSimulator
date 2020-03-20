@@ -10,212 +10,181 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Ironjawz
-{
-static const int BASESIZE = 160;
-static const int WOUNDS = 15;
-static const int POINTS_PER_UNIT = 460;
+namespace Ironjawz {
+    static const int BASESIZE = 160;
+    static const int WOUNDS = 15;
+    static const int POINTS_PER_UNIT = 460;
 
-bool MegabossOnMawKrusha::s_registered = false;
+    bool MegabossOnMawKrusha::s_registered = false;
 
-struct TableEntry
-{
-    int m_move;
-    int m_fistsAttacks;
-    int m_bulkDice;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {12, 8, 8},
-        {10, 7, 7},
-        {8,  6, 6},
-        {6, 5,5},
-        {4, 4, 4}
+    struct TableEntry {
+        int m_move;
+        int m_fistsAttacks;
+        int m_bulkDice;
     };
 
-MegabossOnMawKrusha::MegabossOnMawKrusha() :
-    Ironjawz("Megaboss on Maw-Krusha", 12, WOUNDS, 8, 3, true),
-    m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, RAND_D6, 2, 3, -1, 1),
-    m_hackaAndChoppa(Weapon::Type::Melee, "Boss Gore-hacka and Choppa", 2, 8, 3, 3, -1, 2),
-    m_ripToofFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2),
-    m_fistsAndTail(Weapon::Type::Melee, "Mighty Fists and Tail", 1, 8, 3, 3, -2, 2)
-{
-    m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
-    m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
-}
-
-bool MegabossOnMawKrusha::configure(WeaponOption weapons)
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMissileWeapon(&m_bellow);
-
-    if (weapons == HackaAndChoppa)
-    {
-        model->addMeleeWeapon(&m_hackaAndChoppa);
-    }
-    else if (weapons == ChoppaAndRiptoofFist)
-    {
-        model->addMeleeWeapon(&m_ripToofFist);
-    }
-    model->addMeleeWeapon(&m_fistsAndTail);
-
-    addModel(model);
-
-    m_weaponOption = weapons;
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters)
-{
-    auto unit = new MegabossOnMawKrusha();
-    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HackaAndChoppa);
-
-    auto warclan = (Warclan)GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
-    unit->setWarclan(warclan);
-
-    bool ok = unit->configure(weapons);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void MegabossOnMawKrusha::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            MegabossOnMawKrusha::Create,
-            MegabossOnMawKrusha::ValueToString,
-            MegabossOnMawKrusha::EnumStringToInt,
-            MegabossOnMawKrusha::ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                {
-                    ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa, MegabossOnMawKrusha::HackaAndChoppa,
-                    MegabossOnMawKrusha::ChoppaAndRiptoofFist, 1
-                },
-                {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
-            },
-            DESTRUCTION,
-            { IRONJAWZ }
-        };
-        s_registered = UnitFactory::Register("Megaboss on Maw-Krusha", factoryMethod);
+                    {12, 8, 8},
+                    {10, 7, 7},
+                    {8,  6, 6},
+                    {6,  5, 5},
+                    {4,  4, 4}
+            };
+
+    MegabossOnMawKrusha::MegabossOnMawKrusha() :
+            Ironjawz("Megaboss on Maw-Krusha", 12, WOUNDS, 8, 3, true),
+            m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, RAND_D6, 2, 3, -1, 1),
+            m_hackaAndChoppa(Weapon::Type::Melee, "Boss Gore-hacka and Choppa", 2, 8, 3, 3, -1, 2),
+            m_ripToofFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2),
+            m_fistsAndTail(Weapon::Type::Melee, "Mighty Fists and Tail", 1, 8, 3, 3, -2, 2) {
+        m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
+        m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
     }
-}
 
-void MegabossOnMawKrusha::onRestore()
-{
-    // Reset table-drive attributes
-    onWounded();
-}
+    bool MegabossOnMawKrusha::configure(WeaponOption weapons) {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_bellow);
 
-void MegabossOnMawKrusha::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
-    m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
-}
-
-int MegabossOnMawKrusha::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+        if (weapons == HackaAndChoppa) {
+            model->addMeleeWeapon(&m_hackaAndChoppa);
+        } else if (weapons == ChoppaAndRiptoofFist) {
+            model->addMeleeWeapon(&m_ripToofFist);
         }
+        model->addMeleeWeapon(&m_fistsAndTail);
+
+        addModel(model);
+
+        m_weaponOption = weapons;
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-    return 0;
-}
 
-void MegabossOnMawKrusha::onCharged()
-{
-    Unit::onCharged();
+    Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters) {
+        auto unit = new MegabossOnMawKrusha();
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HackaAndChoppa);
 
-    // Destructive Bulk
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
-    if (!units.empty())
-    {
-        auto unit = units.front();
-        Dice::RollResult result;
-        Dice::rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
-        Wounds bulkWounds = {0, result.rollsGE(5)};
-        unit->applyDamage(bulkWounds);
-    }
-}
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+        unit->setWarclan(warclan);
 
-void MegabossOnMawKrusha::onStartCombat(PlayerId player)
-{
-    m_modelsSlainAtStartOfCombat = m_currentRecord.m_enemyModelsSlain;
-
-    Ironjawz::onStartCombat(player);
-}
-
-Wounds MegabossOnMawKrusha::onEndCombat(PlayerId player)
-{
-    // Strength from Victory
-    if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat)
-    {
-        heal(1);
-        m_hackaAndChoppa.setAttacks(m_hackaAndChoppa.attacks()+1);
-        m_ripToofFist.setAttacks(m_ripToofFist.attacks()+1);
-    }
-    return Ironjawz::onEndCombat(player);
-}
-
-Wounds MegabossOnMawKrusha::computeReturnedDamage(const Weapon *weapon, int saveRoll) const
-{
-    auto wounds = Ironjawz::computeReturnedDamage(weapon, saveRoll);
-    // Rip-toof Fist
-    if ((saveRoll == 6) && (m_weaponOption == ChoppaAndRiptoofFist))
-    {
-        wounds += {0, 1};
-    }
-    return wounds;
-}
-
-std::string MegabossOnMawKrusha::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Weapon")
-    {
-        if (parameter.intValue == HackaAndChoppa)
-        {
-            return "Boss Gore-hacka and Choppa";
+        bool ok = unit->configure(weapons);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
         }
-        else if (parameter.intValue == ChoppaAndRiptoofFist)
-        {
-            return "Boss Choppa and Rip-toof Fist";
+        return unit;
+    }
+
+    void MegabossOnMawKrusha::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    MegabossOnMawKrusha::Create,
+                    MegabossOnMawKrusha::ValueToString,
+                    MegabossOnMawKrusha::EnumStringToInt,
+                    MegabossOnMawKrusha::ComputePoints,
+                    {
+                            {
+                                    ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa,
+                                    MegabossOnMawKrusha::HackaAndChoppa,
+                                    MegabossOnMawKrusha::ChoppaAndRiptoofFist, 1
+                            },
+                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
+                             1},
+                    },
+                    DESTRUCTION,
+                    {IRONJAWZ}
+            };
+            s_registered = UnitFactory::Register("Megaboss on Maw-Krusha", factoryMethod);
         }
     }
 
-    return Ironjawz::ValueToString(parameter);
-}
-
-int MegabossOnMawKrusha::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Boss Gore-hacka and Choppa")
-    {
-        return HackaAndChoppa;
+    void MegabossOnMawKrusha::onRestore() {
+        // Reset table-drive attributes
+        onWounded();
     }
-    else if (enumString == "Boss Choppa and Rip-toof Fist")
-    {
-        return ChoppaAndRiptoofFist;
-    }
-    return Ironjawz::EnumStringToInt(enumString);
-}
 
-int MegabossOnMawKrusha::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    void MegabossOnMawKrusha::onWounded() {
+        const int damageIndex = getDamageTableIndex();
+        m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    int MegabossOnMawKrusha::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    void MegabossOnMawKrusha::onCharged() {
+        Unit::onCharged();
+
+        // Destructive Bulk
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        if (!units.empty()) {
+            auto unit = units.front();
+            Dice::RollResult result;
+            Dice::rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
+            Wounds bulkWounds = {0, result.rollsGE(5)};
+            unit->applyDamage(bulkWounds);
+        }
+    }
+
+    void MegabossOnMawKrusha::onStartCombat(PlayerId player) {
+        m_modelsSlainAtStartOfCombat = m_currentRecord.m_enemyModelsSlain;
+
+        Ironjawz::onStartCombat(player);
+    }
+
+    Wounds MegabossOnMawKrusha::onEndCombat(PlayerId player) {
+        // Strength from Victory
+        if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
+            heal(1);
+            m_hackaAndChoppa.setAttacks(m_hackaAndChoppa.attacks() + 1);
+            m_ripToofFist.setAttacks(m_ripToofFist.attacks() + 1);
+        }
+        return Ironjawz::onEndCombat(player);
+    }
+
+    Wounds MegabossOnMawKrusha::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
+        auto wounds = Ironjawz::computeReturnedDamage(weapon, saveRoll);
+        // Rip-toof Fist
+        if ((saveRoll == 6) && (m_weaponOption == ChoppaAndRiptoofFist)) {
+            wounds += {0, 1};
+        }
+        return wounds;
+    }
+
+    std::string MegabossOnMawKrusha::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapon") {
+            if (parameter.intValue == HackaAndChoppa) {
+                return "Boss Gore-hacka and Choppa";
+            } else if (parameter.intValue == ChoppaAndRiptoofFist) {
+                return "Boss Choppa and Rip-toof Fist";
+            }
+        }
+
+        return Ironjawz::ValueToString(parameter);
+    }
+
+    int MegabossOnMawKrusha::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Boss Gore-hacka and Choppa") {
+            return HackaAndChoppa;
+        } else if (enumString == "Boss Choppa and Rip-toof Fist") {
+            return ChoppaAndRiptoofFist;
+        }
+        return Ironjawz::EnumStringToInt(enumString);
+    }
+
+    int MegabossOnMawKrusha::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } //namespace Ironjawz

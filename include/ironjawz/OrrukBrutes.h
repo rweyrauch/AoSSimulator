@@ -12,49 +12,50 @@
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class OrrukBrutes : public Ironjawz
-{
-public:
+    class OrrukBrutes : public Ironjawz {
+    public:
 
-    enum WeaponOption
-    {
-        TwoBruteChoppas = 0,
-        JaggedGorehacka,
+        enum WeaponOption {
+            TwoBruteChoppas = 0,
+            JaggedGorehacka,
+        };
+        enum BossWeaponOption {
+            BossChoppa,
+            BossKlaw,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        OrrukBrutes();
+
+        ~OrrukBrutes() override = default;
+
+        bool configure(int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon);
+
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    protected:
+
+        Weapon m_twoBruteChoppas,
+                m_gorehacka,
+                m_gorechoppa,
+                m_bossChoppa,
+                m_bossKlawAndBruteSmasha;
+
+        static bool s_registered;
     };
-    enum BossWeaponOption
-    {
-        BossChoppa,
-        BossKlaw,
-    };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    OrrukBrutes();
-    ~OrrukBrutes() override = default;
-
-    bool configure(int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon);
-
-protected:
-
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-
-protected:
-
-    Weapon m_twoBruteChoppas,
-        m_gorehacka,
-        m_gorechoppa,
-        m_bossChoppa,
-        m_bossKlawAndBruteSmasha;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

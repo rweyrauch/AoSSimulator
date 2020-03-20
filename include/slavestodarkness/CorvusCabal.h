@@ -12,39 +12,41 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class CorvusCabal : public SlavesToDarknessBase
-{
-public:
+    class CorvusCabal : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    CorvusCabal();
-    ~CorvusCabal() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        CorvusCabal();
 
-    Rerolls chargeRerolls() const override;
-    void onWounded() override;
+        ~CorvusCabal() override = default;
 
-protected:
+        bool configure(int numModels);
 
-    bool m_hasShrikeTalon = true;
+    protected:
 
-private:
+        Rerolls chargeRerolls() const override;
 
-    Weapon m_ravenDarts,
-        m_corvusWeapons,
-        m_corvusWeaponsLeader;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+    protected:
+
+        bool m_hasShrikeTalon = true;
+
+    private:
+
+        Weapon m_ravenDarts,
+                m_corvusWeapons,
+                m_corvusWeaponsLeader;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

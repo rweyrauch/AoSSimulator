@@ -12,34 +12,34 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class EndrinmasterWithDirigibleSuit : public KharadronBase
-{
-public:
+    class EndrinmasterWithDirigibleSuit : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    EndrinmasterWithDirigibleSuit();
+        static int ComputePoints(int numModels);
 
-    ~EndrinmasterWithDirigibleSuit() override = default;
+        static void Init();
 
-    bool configure();
+        EndrinmasterWithDirigibleSuit();
 
-protected:
+        ~EndrinmasterWithDirigibleSuit() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_aethercannon,
-        m_weaponBattery,
-        m_gaze,
-        m_saw;
+    protected:
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_aethercannon,
+                m_weaponBattery,
+                m_gaze,
+                m_saw;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -10,122 +10,109 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace FleshEaterCourt
-{
-static const int BASESIZE = 25;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 10;
-static const int MAX_UNIT_SIZE = 40;
-static const int POINTS_PER_BLOCK = 100;
-static const int POINTS_MAX_UNIT_SIZE = 360;
+namespace FleshEaterCourt {
+    static const int BASESIZE = 25;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 10;
+    static const int MAX_UNIT_SIZE = 40;
+    static const int POINTS_PER_BLOCK = 100;
+    static const int POINTS_MAX_UNIT_SIZE = 360;
 
-bool CryptGhouls::s_registered = false;
+    bool CryptGhouls::s_registered = false;
 
-CryptGhouls::CryptGhouls() :
-    FleshEaterCourts("Crypt Ghouls", 6, WOUNDS, 10, 6, false),
-    m_teethAndClaws(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 4, 0, 1),
-    m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 3, 0, 1)
-{
-    m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, SERFS, CRYPT_GHOULS};
-    m_weapons = {&m_teethAndClaws, &m_teethAndClawsGhast};
-}
-
-bool CryptGhouls::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    CryptGhouls::CryptGhouls() :
+            FleshEaterCourts("Crypt Ghouls", 6, WOUNDS, 10, 6, false),
+            m_teethAndClaws(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 4, 0, 1),
+            m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 3, 0, 1) {
+        m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, SERFS, CRYPT_GHOULS};
+        m_weapons = {&m_teethAndClaws, &m_teethAndClawsGhast};
     }
 
-    auto ghast = new Model(BASESIZE, wounds());
-    ghast->addMeleeWeapon(&m_teethAndClawsGhast);
-    addModel(ghast);
+    bool CryptGhouls::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_teethAndClaws);
-        addModel(model);
+        auto ghast = new Model(BASESIZE, wounds());
+        ghast->addMeleeWeapon(&m_teethAndClawsGhast);
+        addModel(ghast);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_teethAndClaws);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *CryptGhouls::Create(const ParameterList &parameters) {
+        auto unit = new CryptGhouls();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    return true;
-}
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+        unit->setGrandCourt(court);
+        unit->setCourtsOfDelusion(delusion);
 
-Unit *CryptGhouls::Create(const ParameterList &parameters)
-{
-    auto unit = new CryptGhouls();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-
-    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
-    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
-    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
-    unit->setGrandCourt(court);
-    unit->setCourtsOfDelusion(delusion);
-
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void CryptGhouls::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            CryptGhouls::Create,
-            FleshEaterCourts::ValueToString,
-            FleshEaterCourts::EnumStringToInt,
-            CryptGhouls::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-            },
-            DEATH,
-            { FLESH_EATER_COURTS }
-        };
-        s_registered = UnitFactory::Register("Crypt Ghouls", factoryMethod);
-    }
-}
-
-int CryptGhouls::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    int attacks = FleshEaterCourts::extraAttacks(nullptr, weapon, target);
-
-    // Boundless Ferocity
-    if (remainingModels() >= 20)
-    {
-        attacks += 1;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    return attacks;
-}
-
-Rerolls CryptGhouls::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Royal Approval
-    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
-    if (unit != nullptr)
-    {
-        return RerollOnes;
+    void CryptGhouls::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    CryptGhouls::Create,
+                    FleshEaterCourts::ValueToString,
+                    FleshEaterCourts::EnumStringToInt,
+                    CryptGhouls::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt,
+                             FleshEaterCourts::Gristlegore, 1},
+                            {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None,
+                             FleshEaterCourts::DefendersOfTheRealm, 1},
+                    },
+                    DEATH,
+                    {FLESH_EATER_COURTS}
+            };
+            s_registered = UnitFactory::Register("Crypt Ghouls", factoryMethod);
+        }
     }
-    return FleshEaterCourts::toHitRerolls(weapon, target);
-}
 
-int CryptGhouls::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    int CryptGhouls::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        int attacks = FleshEaterCourts::extraAttacks(nullptr, weapon, target);
+
+        // Boundless Ferocity
+        if (remainingModels() >= 20) {
+            attacks += 1;
+        }
+
+        return attacks;
     }
-    return points;
-}
+
+    Rerolls CryptGhouls::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Royal Approval
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
+        if (unit != nullptr) {
+            return RerollOnes;
+        }
+        return FleshEaterCourts::toHitRerolls(weapon, target);
+    }
+
+    int CryptGhouls::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace FleshEaterCourt

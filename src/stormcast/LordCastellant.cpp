@@ -10,72 +10,65 @@
 #include <iostream>
 #include "UnitFactory.h"
 
-namespace StormcastEternals
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 6;
-static const int POINTS_PER_UNIT = 120;
+namespace StormcastEternals {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 6;
+    static const int POINTS_PER_UNIT = 120;
 
-bool LordCastellant::s_registered = false;
+    bool LordCastellant::s_registered = false;
 
-LordCastellant::LordCastellant() :
-    StormcastEternal("Lord-Castellant", 5, WOUNDS, 9, 3, false),
-    m_halberd(Weapon::Type::Melee, "Castellant's Halberd", 2, 3, 3, 3, -1, 2)
-{
-    m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CASTELLANT};
-    m_weapons = {&m_halberd};
-}
-
-bool LordCastellant::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_halberd);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *LordCastellant::Create(const ParameterList &parameters)
-{
-    auto unit = new LordCastellant();
-
-    auto stormhost = (Stormhost)GetEnumParam("Stormhost", parameters, StormcastEternal::None);
-    unit->setStormhost(stormhost);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+    LordCastellant::LordCastellant() :
+            StormcastEternal("Lord-Castellant", 5, WOUNDS, 9, 3, false),
+            m_halberd(Weapon::Type::Melee, "Castellant's Halberd", 2, 3, 3, 3, -1, 2) {
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CASTELLANT};
+        m_weapons = {&m_halberd};
     }
-    return unit;
-}
 
-void LordCastellant::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            StormcastEternal::ValueToString,
-            StormcastEternal::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None, StormcastEternal::AstralTemplars, 1},
-            },
-            ORDER,
-            { STORMCAST_ETERNAL }
-        };
+    bool LordCastellant::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_halberd);
+        addModel(model);
 
-        s_registered = UnitFactory::Register("Lord-Castellant", factoryMethod);
+        m_points = POINTS_PER_UNIT;
+
+        return true;
     }
-}
 
-int LordCastellant::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Unit *LordCastellant::Create(const ParameterList &parameters) {
+        auto unit = new LordCastellant();
+
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        unit->setStormhost(stormhost);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void LordCastellant::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
+                             StormcastEternal::AstralTemplars, 1},
+                    },
+                    ORDER,
+                    {STORMCAST_ETERNAL}
+            };
+
+            s_registered = UnitFactory::Register("Lord-Castellant", factoryMethod);
+        }
+    }
+
+    int LordCastellant::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace StormcastEternals

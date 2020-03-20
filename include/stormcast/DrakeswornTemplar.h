@@ -12,60 +12,69 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class DrakeswornTemplar : public StormcastEternal
-{
-public:
+    class DrakeswornTemplar : public StormcastEternal {
+    public:
 
-    enum WeaponOption
-    {
-        TempestAxe,
-        ArcHammer,
-        Stormlance,
+        enum WeaponOption {
+            TempestAxe,
+            ArcHammer,
+            Stormlance,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        DrakeswornTemplar();
+
+        ~DrakeswornTemplar() override;
+
+        bool configure(WeaponOption weapons, bool skyboltBow);
+
+    protected:
+
+        void onWounded() override;
+
+        int getDamageTableIndex() const;
+
+        void onStartShooting(PlayerId player) override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onRestore() override;
+
+        int arcaneLineage(const Unit *target);
+
+    protected:
+
+        WeaponOption m_weaponOption = TempestAxe;
+
+    private:
+
+        Weapon m_skyboltBow,
+            m_tempestAxe,
+            m_arcHammer,
+            m_stormlance,
+            m_greatClaws;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    DrakeswornTemplar();
-    ~DrakeswornTemplar() override;
-
-    bool configure(WeaponOption weapons, bool skyboltBow);
-
-protected:
-
-    void onWounded() override;
-    int getDamageTableIndex() const;
-
-    void onStartShooting(PlayerId player) override;
-    void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onRestore() override;
-    int arcaneLineage(const Unit* target);
-
-protected:
-
-    WeaponOption m_weaponOption = TempestAxe;
-
-private:
-
-    Weapon m_skyboltBow,
-        m_tempestAxe,
-        m_arcHammer,
-        m_stormlance,
-        m_greatClaws;
-
-    lsignal::slot m_connection;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

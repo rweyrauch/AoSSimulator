@@ -12,57 +12,64 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class OgorGluttons : public MawtribesBase
-{
-public:
+    class OgorGluttons : public MawtribesBase {
+    public:
 
-    enum WeaponOption
-    {
-        ClubOrBladeAndIronfist,
-        PairedClubOrBlade
+        enum WeaponOption {
+            ClubOrBladeAndIronfist,
+            PairedClubOrBlade
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        OgorGluttons();
+
+        ~OgorGluttons() override;
+
+        bool configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar,
+                       bool bellower);
+
+    protected:
+
+        int braveryModifier() const override;
+
+        Rerolls chargeRerolls() const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int bellower(const Unit *target);
+
+    private:
+
+        WeaponOption m_weaponOption = ClubOrBladeAndIronfist;
+
+        bool m_bellower = false;
+        bool m_skullBearer = false;
+        bool m_bannerBearer = false;
+        bool m_lookoutGnoblar = false;
+
+        Weapon m_clubOrBlade,
+            m_bite,
+            m_clubOrBladeCrusher;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    OgorGluttons();
-    ~OgorGluttons() override;
-
-    bool configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar, bool bellower);
-
-protected:
-
-    int braveryModifier() const override;
-    Rerolls chargeRerolls() const override;
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-
-    int bellower(const Unit* target);
-
-private:
-
-    WeaponOption m_weaponOption = ClubOrBladeAndIronfist;
-
-    bool m_bellower = false;
-    bool m_skullBearer = false;
-    bool m_bannerBearer = false;
-    bool m_lookoutGnoblar = false;
-
-    Weapon m_clubOrBlade,
-        m_bite,
-        m_clubOrBladeCrusher;
-
-    lsignal::slot m_connection;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

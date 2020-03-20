@@ -12,32 +12,33 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class NamartiThralls : public IdonethDeepkinBase
-{
-public:
+    class NamartiThralls : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    NamartiThralls();
-    ~NamartiThralls() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numIconBearers);
+        static void Init();
 
-protected:
+        NamartiThralls();
 
-    int m_numIconBearers = 0;
+        ~NamartiThralls() override = default;
 
-private:
+        bool configure(int numModels, int numIconBearers);
 
-    Weapon m_lanmariBlade;
+    protected:
 
-    static bool s_registered;
-};
+        int m_numIconBearers = 0;
+
+    private:
+
+        Weapon m_lanmariBlade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

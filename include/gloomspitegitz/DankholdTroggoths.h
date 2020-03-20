@@ -12,36 +12,39 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class DankholdTroggoths : public GloomspiteGitzBase
-{
-public:
+    class DankholdTroggoths : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    DankholdTroggoths();
-    ~DankholdTroggoths() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        DankholdTroggoths();
 
-    void onStartCombat(PlayerId player) override;
-    void onStartHero(PlayerId player) override;
-    int reassuringPresence(const Unit* unit);
+        ~DankholdTroggoths() override;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_boulderClub;
+    protected:
 
-    lsignal::slot m_connection;
+        void onStartCombat(PlayerId player) override;
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        int reassuringPresence(const Unit *unit);
+
+    private:
+
+        Weapon m_boulderClub;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

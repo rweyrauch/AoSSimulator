@@ -12,42 +12,44 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Deathmaster : public Skaventide
-{
-public:
+    class Deathmaster : public Skaventide {
+    public:
 
-    enum WeaponOption
-    {
-        WeepingBlades,
-        FightingClaws
+        enum WeaponOption {
+            WeepingBlades,
+            FightingClaws
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Deathmaster();
+
+        ~Deathmaster() override = default;
+
+        bool configure(WeaponOption option);
+
+    protected:
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_stars,
+                m_blades,
+                m_claws;
+
+        static bool s_registered;
     };
-
-    static Unit *Create(const ParameterList &parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Deathmaster();
-    ~Deathmaster() override = default;
-
-    bool configure(WeaponOption option);
-
-protected:
-
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
-
-private:
-
-    Weapon m_stars,
-        m_blades,
-        m_claws;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

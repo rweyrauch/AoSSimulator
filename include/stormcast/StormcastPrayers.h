@@ -11,14 +11,13 @@
 
 #include <Prayer.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-Prayer *CreateSanction(Unit* source);
+    Prayer *CreateSanction(Unit *source);
 
-Prayer *CreateHealingStorm(Unit *source);
+    Prayer *CreateHealingStorm(Unit *source);
 
-Prayer *CreateLightningStorm(Unit *source);
+    Prayer *CreateLightningStorm(Unit *source);
 
 } // namespace StormcastEternals
 

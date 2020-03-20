@@ -12,42 +12,45 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace EldritchCouncil
-{
+namespace EldritchCouncil {
 
-class ArchmageOnDragon : public Unit
-{
-public:
+    class ArchmageOnDragon : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArchmageOnDragon();
-    ~ArchmageOnDragon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(bool arcaneTome, bool talisman);
+        static void Init();
 
-protected:
+        ArchmageOnDragon();
 
-    void onWounded() override;
-    int unbindingModifier() const override;
-    void onRestore() override;
+        ~ArchmageOnDragon() override = default;
 
-    int getDamageTableIndex() const;
+        bool configure(bool arcaneTome, bool talisman);
 
-private:
+    protected:
 
-    bool m_arcaneTome = false;
-    bool m_talismanOfArcanePower = false;
+        void onWounded() override;
 
-    Weapon m_magestaff,
-        m_sorcerousBlade,
-        m_dragonClaws,
-        m_dragonJaws;
+        int unbindingModifier() const override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        bool m_arcaneTome = false;
+        bool m_talismanOfArcanePower = false;
+
+        Weapon m_magestaff,
+                m_sorcerousBlade,
+                m_dragonClaws,
+                m_dragonJaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

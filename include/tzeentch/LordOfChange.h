@@ -12,48 +12,52 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class LordOfChange : public TzeentchBase
-{
-public:
+    class LordOfChange : public TzeentchBase {
+    public:
 
-    enum WeaponOption
-    {
-        BalefulSword,
-        RodOfSorcery,
-        CurvedBeakAndTalons
+        enum WeaponOption {
+            BalefulSword,
+            RodOfSorcery,
+            CurvedBeakAndTalons
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        LordOfChange();
+
+        ~LordOfChange() override = default;
+
+        bool configure(WeaponOption option);
+
+        int rollCasting() const override;
+
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_rodOfSorcery,
+            m_staff,
+            m_sword,
+            m_beakAndTalons;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    LordOfChange();
-    ~LordOfChange() override = default;
-
-    bool configure(WeaponOption option);
-
-    int rollCasting() const override;
-
-protected:
-
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-
-private:
-
-    Weapon m_rodOfSorcery,
-        m_staff,
-        m_sword,
-        m_beakAndTalons;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

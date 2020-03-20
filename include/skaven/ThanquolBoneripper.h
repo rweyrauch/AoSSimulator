@@ -12,39 +12,42 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class ThanquolOnBoneripper : public Skaventide
-{
-public:
+    class ThanquolOnBoneripper : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ThanquolOnBoneripper();
-    ~ThanquolOnBoneripper() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numProjectors);
+        static void Init();
 
-protected:
+        ThanquolOnBoneripper();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onWounded() override;
-    void onRestore() override;
+        ~ThanquolOnBoneripper() override = default;
 
-    int getDamageTableIndex() const;
+        bool configure(int numProjectors);
 
-private:
+    protected:
 
-    Weapon m_projectors,
-        m_staff,
-        m_braziers,
-        m_blows;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_projectors,
+                m_staff,
+                m_braziers,
+                m_blows;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

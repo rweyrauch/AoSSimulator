@@ -12,33 +12,35 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Razorgors : public BeastsOfChaosBase
-{
-public:
+    class Razorgors : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Razorgors();
-    ~Razorgors() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        static int ComputePoints(int numModels);
 
-protected:
+        Razorgors();
 
-    Rerolls chargeRerolls() const override { return RerollFailed; }
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~Razorgors() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_tusksAndHooves;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls chargeRerolls() const override { return RerollFailed; }
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_tusksAndHooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

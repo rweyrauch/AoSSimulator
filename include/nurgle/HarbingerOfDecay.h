@@ -11,33 +11,34 @@
 
 #include "nurgle/Nurgle.h"
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class HarbingerOfDecay : public NurgleBase
-{
-public:
+    class HarbingerOfDecay : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HarbingerOfDecay();
-    ~HarbingerOfDecay() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        HarbingerOfDecay();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~HarbingerOfDecay() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_scythe,
-        m_bite;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_scythe,
+                m_bite;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,37 +12,36 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class BeastsOfChaosBase : public Unit
-{
-public:
-    enum Greatfray
-    {
-        None,
-        Allherd,
-        Darkwalkers,
-        Gavespawn
+    class BeastsOfChaosBase : public Unit {
+    public:
+        enum Greatfray {
+            None,
+            Allherd,
+            Darkwalkers,
+            Gavespawn
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        BeastsOfChaosBase() = default;
+
+        ~BeastsOfChaosBase() override = default;
+
+        void setGreatfray(Greatfray fray);
+
+    protected:
+        BeastsOfChaosBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+    protected:
+
+        Greatfray m_greatfray = None;
+
     };
-
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    BeastsOfChaosBase() = default;
-    ~BeastsOfChaosBase() override = default;
-
-    void setGreatfray(Greatfray fray);
-
-protected:
-    BeastsOfChaosBase(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-protected:
-
-    Greatfray m_greatfray = None;
-
-};
 
 //
 // Abilities                    Implemented
@@ -62,7 +61,7 @@ protected:
 // Unravelling Aura                 TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace BeastsOfChaos
 

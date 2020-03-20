@@ -12,44 +12,48 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class HagQueenOnCauldronOfBlood : public DaughterOfKhaine
-{
-public:
+    class HagQueenOnCauldronOfBlood : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HagQueenOnCauldronOfBlood();
-    ~HagQueenOnCauldronOfBlood() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        HagQueenOnCauldronOfBlood();
 
-    void onWounded() override;
-    void onRestore() override;
-    void onCharged() override;
+        ~HagQueenOnCauldronOfBlood() override;
 
-    int idolOfWorship(const Unit* unit);
-    int bloodShield(const Unit* target, const Weapon* weapon);
+        bool configure();
 
-private:
+    protected:
 
-    int getDamageTableIndex() const;
+        void onWounded() override;
 
-    Weapon m_burningBlood,
-        m_knives,
-        m_blade,
-        m_sword;
+        void onRestore() override;
 
-    lsignal::slot m_idolSlot, m_bloodshieldSlot;
+        void onCharged() override;
 
-    static bool s_registered;
-};
+        int idolOfWorship(const Unit *unit);
+
+        int bloodShield(const Unit *target, const Weapon *weapon);
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_burningBlood,
+                m_knives,
+                m_blade,
+                m_sword;
+
+        lsignal::slot m_idolSlot, m_bloodshieldSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

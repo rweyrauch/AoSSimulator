@@ -12,39 +12,42 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class BloodWarriors : public KhorneBase
-{
-public:
+    class BloodWarriors : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloodWarriors();
-    ~BloodWarriors() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer);
+        static void Init();
 
-protected:
+        BloodWarriors();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int braveryModifier() const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+        ~BloodWarriors() override = default;
 
-private:
+        bool configure(int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer);
 
-    bool m_pairedGoreaxe = false;
-    bool m_iconBearer = false;
+    protected:
 
-    Weapon m_goreaxe,
-        m_goreaxeChampion,
-        m_goreglaive;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-    static bool s_registered;
-};
+        int braveryModifier() const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    private:
+
+        bool m_pairedGoreaxe = false;
+        bool m_iconBearer = false;
+
+        Weapon m_goreaxe,
+            m_goreaxeChampion,
+            m_goreglaive;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,33 +12,34 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Doombull : public BeastsOfChaosBase
-{
-public:
+    class Doombull : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Doombull();
-    ~Doombull() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Doombull();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~Doombull() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_bullgorHorns,
-        m_slaughtererAxe;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_bullgorHorns,
+                m_slaughtererAxe;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

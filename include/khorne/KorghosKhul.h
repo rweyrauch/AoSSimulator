@@ -12,33 +12,34 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class KorghosKhul : public KhorneBase
-{
-public:
+    class KorghosKhul : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    KorghosKhul();
-    ~KorghosKhul() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        KorghosKhul();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~KorghosKhul() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_axeOfKhorne,
-        m_clawsAndFangs;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_axeOfKhorne,
+                m_clawsAndFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

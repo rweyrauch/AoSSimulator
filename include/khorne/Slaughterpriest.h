@@ -13,40 +13,42 @@
 #include <khorne/BloodBlessingsOfKhorne.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Slaughterpriest : public KhorneBase
-{
-public:
+    class Slaughterpriest : public KhorneBase {
+    public:
 
-    enum WeaponOption
-    {
-        BloodbathedAxe,
-        HackbladeAndWrathHammer
+        enum WeaponOption {
+            BloodbathedAxe,
+            HackbladeAndWrathHammer
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Slaughterpriest();
+
+        ~Slaughterpriest() override = default;
+
+        bool configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
+
+    protected:
+
+    private:
+
+        Weapon m_bloodbathedAxe,
+                m_hackblade,
+                m_wrathHammer;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Slaughterpriest();
-    ~Slaughterpriest() override = default;
-
-    bool configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
-
-protected:
-
-private:
-
-    Weapon m_bloodbathedAxe,
-        m_hackblade,
-        m_wrathHammer;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

@@ -9,79 +9,69 @@
 #include <nurgle/LordOfPlagues.h>
 #include <UnitFactory.h>
 
-namespace Nurgle
-{
-static const int BASESIZE = 40;
-static const int WOUNDS = 7;
-static const int POINTS_PER_UNIT = 140;
+namespace Nurgle {
+    static const int BASESIZE = 40;
+    static const int WOUNDS = 7;
+    static const int POINTS_PER_UNIT = 140;
 
-bool LordOfPlagues::s_registered = false;
+    bool LordOfPlagues::s_registered = false;
 
-LordOfPlagues::LordOfPlagues() :
-    NurgleBase("Lord of Plagues", 4, WOUNDS, 9, 4, false),
-    m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3)
-{
-    m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
-    m_weapons = {&m_plagueriddenGreatBlade};
-}
-
-bool LordOfPlagues::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_plagueriddenGreatBlade);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *LordOfPlagues::Create(const ParameterList &parameters)
-{
-    auto unit = new LordOfPlagues();
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void LordOfPlagues::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            LordOfPlagues::Create,
-            NurgleBase::ValueToString,
-            NurgleBase::EnumStringToInt,
-            LordOfPlagues::ComputePoints,
-            {
-            },
-            CHAOS,
-            { NURGLE }
-        };
-        s_registered = UnitFactory::Register("Lord of Plagues", factoryMethod);
-    }
-}
-
-int LordOfPlagues::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
-{
-    // Plague-ridden Great Weapons
-    if (unmodifiedHitRoll == 6)
-    {
-        // each 6 inflicts D6 hits
-        return Dice::rollD6();
+    LordOfPlagues::LordOfPlagues() :
+            NurgleBase("Lord of Plagues", 4, WOUNDS, 9, 4, false),
+            m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3) {
+        m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
+        m_weapons = {&m_plagueriddenGreatBlade};
     }
 
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-}
+    bool LordOfPlagues::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_plagueriddenGreatBlade);
+        addModel(model);
 
-int LordOfPlagues::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    Unit *LordOfPlagues::Create(const ParameterList &parameters) {
+        auto unit = new LordOfPlagues();
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void LordOfPlagues::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    LordOfPlagues::Create,
+                    NurgleBase::ValueToString,
+                    NurgleBase::EnumStringToInt,
+                    LordOfPlagues::ComputePoints,
+                    {
+                    },
+                    CHAOS,
+                    {NURGLE}
+            };
+            s_registered = UnitFactory::Register("Lord of Plagues", factoryMethod);
+        }
+    }
+
+    int LordOfPlagues::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        // Plague-ridden Great Weapons
+        if (unmodifiedHitRoll == 6) {
+            // each 6 inflicts D6 hits
+            return Dice::rollD6();
+        }
+
+        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+    }
+
+    int LordOfPlagues::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Nurgle
 

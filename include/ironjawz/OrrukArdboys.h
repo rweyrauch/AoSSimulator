@@ -12,52 +12,58 @@
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class OrrukArdboys : public Ironjawz
-{
-public:
+    class OrrukArdboys : public Ironjawz {
+    public:
 
-    enum StandardOption
-    {
-        None = 0,
-        BannerBearer,
-        GlyphBearer
+        enum StandardOption {
+            None = 0,
+            BannerBearer,
+            GlyphBearer
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        OrrukArdboys();
+
+        ~OrrukArdboys() override;
+
+        bool configure(int numModels, int numShields, bool drummer, StandardOption standard);
+
+    protected:
+
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
+
+        int chargeModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        int braveryModifier() const override;
+
+        int glyphBearer(const Unit *target);
+
+    protected:
+
+        Weapon m_choppa,
+                m_bossChoppa;
+
+        bool m_drummer = false;
+        StandardOption m_standardBearer = None;
+        int m_numShields = 0;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    OrrukArdboys();
-    ~OrrukArdboys() override;
-
-    bool configure(int numModels, int numShields, bool drummer, StandardOption standard);
-
-protected:
-
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    int chargeModifier() const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    int braveryModifier() const override;
-    int glyphBearer(const Unit* target);
-
-protected:
-
-    Weapon m_choppa,
-        m_bossChoppa;
-
-    bool m_drummer = false;
-    StandardOption m_standardBearer = None;
-    int m_numShields = 0;
-
-    lsignal::slot m_connection;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

@@ -12,28 +12,30 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class Skaventide : public Unit
-{
-public:
-    Skaventide() = default;
-    ~Skaventide() override = default;
+    class Skaventide : public Unit {
+    public:
+        Skaventide() = default;
 
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
+        ~Skaventide() override = default;
 
-protected:
-    Skaventide(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
+        static std::string ValueToString(const Parameter &parameter);
 
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-    int braveryModifier() const override;
+        static int EnumStringToInt(const std::string &enumString);
 
-    bool moreMore() const;
-};
+    protected:
+        Skaventide(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int braveryModifier() const override;
+
+        bool moreMore() const;
+    };
 
 //
 // Abilities                    Implemented
@@ -50,7 +52,7 @@ protected:
 // Echoes of the Great Plagues      TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace Skaven
 

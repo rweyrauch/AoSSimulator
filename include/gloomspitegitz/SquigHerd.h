@@ -12,37 +12,40 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class SquiqHerd : public GloomspiteGitzBase
-{
-public:
+    class SquiqHerd : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SquiqHerd();
-    ~SquiqHerd() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        static int ComputePoints(int numModels);
 
-protected:
+        SquiqHerd();
 
-    bool hasHerder() const;
+        ~SquiqHerd() override = default;
 
-    Rerolls runRerolls() const override;
-    Rerolls chargeRerolls() const override;
-    void onFlee(int numFled) override;
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_fangFilledGob,
-        m_squigProdder;
+        bool hasHerder() const;
 
-    static bool s_registered;
-};
+        Rerolls runRerolls() const override;
+
+        Rerolls chargeRerolls() const override;
+
+        void onFlee(int numFled) override;
+
+    private:
+
+        Weapon m_fangFilledGob,
+                m_squigProdder;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

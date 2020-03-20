@@ -12,36 +12,41 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class BloodthirsterOfInsensateRage : public KhorneBase
-{
-public:
+    class BloodthirsterOfInsensateRage : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloodthirsterOfInsensateRage();
-    ~BloodthirsterOfInsensateRage() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BloodthirsterOfInsensateRage();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onRestore() override;
+        ~BloodthirsterOfInsensateRage() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_greatAxeOfKhorne;
+    protected:
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onRestore() override;
+
+    private:
+
+        Weapon m_greatAxeOfKhorne;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

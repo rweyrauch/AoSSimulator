@@ -12,37 +12,41 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class TreelordAncient : public SylvanethBase
-{
-public:
+    class TreelordAncient : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    TreelordAncient();
-    ~TreelordAncient() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        TreelordAncient();
 
-    void onStartHero(PlayerId id) override;
-    void onWounded() override;
-    int getDamageTableIndex() const;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~TreelordAncient() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_doomTendrilStaff,
-        m_sweepingBlows,
-        m_massiveImpalingTalons;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId id) override;
+
+        void onWounded() override;
+
+        int getDamageTableIndex() const;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_doomTendrilStaff,
+                m_sweepingBlows,
+                m_massiveImpalingTalons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,39 +12,41 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class Decimators : public StormcastEternal
-{
-public:
+    class Decimators : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Decimators();
-    ~Decimators() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, int numStarsoulMaces);
+        static void Init();
 
-protected:
+        Decimators();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~Decimators() override;
 
-    int grimHarvestors(const Unit* target);
+        bool configure(int numModels, int numStarsoulMaces);
 
-private:
+    protected:
 
-    Weapon m_thunderaxe,
-        m_thunderaxePrime,
-        m_starsoulMace;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    lsignal::slot m_connection;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        int grimHarvestors(const Unit *target);
+
+    private:
+
+        Weapon m_thunderaxe,
+                m_thunderaxePrime,
+                m_starsoulMace;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

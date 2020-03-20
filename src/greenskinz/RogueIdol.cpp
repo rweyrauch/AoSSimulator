@@ -10,176 +10,152 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Greenskinz
-{
-static const int BASESIZE = 170; // x105 oval
-static const int WOUNDS = 16;
-static const int POINTS_PER_UNIT = 400;
+namespace Greenskinz {
+    static const int BASESIZE = 170; // x105 oval
+    static const int WOUNDS = 16;
+    static const int POINTS_PER_UNIT = 400;
 
-struct TableEntry
-{
-    int m_move;
-    int m_fistToWound;
-    int m_feetAttacks;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 11, 13, WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {10, 2, 10},
-        {8,  3,  8},
-        {6,  3,  6},
-        {4,  4,  4},
-        {2,  5,  2}
+    struct TableEntry {
+        int m_move;
+        int m_fistToWound;
+        int m_feetAttacks;
     };
 
-bool RogueIdol::s_registered = false;
-
-RogueIdol::RogueIdol() :
-    Unit("Rogue Idol", 10, WOUNDS, 10, 4, false),
-    m_boulderFists(Weapon::Type::Melee, "Boulder Fists", 3, 2, 3, 2, -2, RAND_D6),
-    m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2)
-{
-    m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
-    m_weapons = {&m_boulderFists, &m_stompinFeet};
-}
-
-bool RogueIdol::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_boulderFists);
-    model->addMeleeWeapon(&m_stompinFeet);
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-Unit *RogueIdol::Create(const ParameterList &parameters)
-{
-    auto unit = new RogueIdol();
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void RogueIdol::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            RogueIdol::Create,
-            nullptr,
-            nullptr,
-            RogueIdol::ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 11, 13, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-            },
-            DESTRUCTION,
-            { GREENSKINZ }
-        };
-        s_registered = UnitFactory::Register("Rogue Idol", factoryMethod);
+                    {10, 2, 10},
+                    {8,  3, 8},
+                    {6,  3, 6},
+                    {4,  4, 4},
+                    {2,  5, 2}
+            };
+
+    bool RogueIdol::s_registered = false;
+
+    RogueIdol::RogueIdol() :
+            Unit("Rogue Idol", 10, WOUNDS, 10, 4, false),
+            m_boulderFists(Weapon::Type::Melee, "Boulder Fists", 3, 2, 3, 2, -2, RAND_D6),
+            m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2) {
+        m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
+        m_weapons = {&m_boulderFists, &m_stompinFeet};
     }
-}
 
-void RogueIdol::onRestore()
-{
-    // Reset table-drive attributes
-    onWounded();
-}
+    bool RogueIdol::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_boulderFists);
+        model->addMeleeWeapon(&m_stompinFeet);
+        addModel(model);
 
-int RogueIdol::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    Unit *RogueIdol::Create(const ParameterList &parameters) {
+        auto unit = new RogueIdol();
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void RogueIdol::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    RogueIdol::Create,
+                    nullptr,
+                    nullptr,
+                    RogueIdol::ComputePoints,
+                    {
+                    },
+                    DESTRUCTION,
+                    {GREENSKINZ}
+            };
+            s_registered = UnitFactory::Register("Rogue Idol", factoryMethod);
         }
     }
-    return 0;
-}
 
-void RogueIdol::onWounded()
-{
-    const int damageIndex = getDamageTableIndex();
-    m_boulderFists.setToWound(g_damageTable[damageIndex].m_fistToWound);
-    m_stompinFeet.setAttacks(g_damageTable[damageIndex].m_feetAttacks);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
+    void RogueIdol::onRestore() {
+        // Reset table-drive attributes
+        onWounded();
+    }
 
-    Unit::onWounded();
-}
-
-void RogueIdol::onSlain()
-{
-    // Avalanche!
-    auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
-    for (auto ip : units)
-    {
-        int roll = Dice::rollD6();
-        if (roll >= 4)
-        {
-            ip->applyDamage({0, Dice::rollD3()});
+    int RogueIdol::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
         }
+        return 0;
     }
 
-    Unit::onSlain();
-}
+    void RogueIdol::onWounded() {
+        const int damageIndex = getDamageTableIndex();
+        m_boulderFists.setToWound(g_damageTable[damageIndex].m_fistToWound);
+        m_stompinFeet.setAttacks(g_damageTable[damageIndex].m_feetAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-Wounds RogueIdol::applyWoundSave(const Wounds &wounds)
-{
-    Wounds modifiedWounds = wounds;
-
-    // Da Big' Un
-    modifiedWounds.normal = (wounds.normal + 1)/2;
-    if (wounds.mortal > 0)
-    {
-        Dice::RollResult rolls;
-        Dice::rollD6(wounds.mortal, rolls);
-        modifiedWounds.mortal = rolls.rollsGE(4);
+        Unit::onWounded();
     }
-    return modifiedWounds;
-}
 
-Wounds RogueIdol::onEndCombat(PlayerId player)
-{
-    auto wounds = Unit::onEndCombat(player);
-
-    // Rubble and Ruin
-    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
-    for (auto ip : units)
-    {
-        int roll = Dice::rollD6();
-        if (roll >= 4)
-        {
-            Wounds rubbleRuins = {0,0};
-            ip->applyDamage(rubbleRuins);
-            wounds += rubbleRuins;
+    void RogueIdol::onSlain() {
+        // Avalanche!
+        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+        for (auto ip : units) {
+            int roll = Dice::rollD6();
+            if (roll >= 4) {
+                ip->applyDamage({0, Dice::rollD3()});
+            }
         }
-    }
-    return wounds;
-}
 
-Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Spirit of the Waaagh!
-    if (m_charged)
-    {
-        return RerollOnes;
+        Unit::onSlain();
     }
-    return Unit::toHitRerolls(weapon, target);
-}
 
-int RogueIdol::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Wounds RogueIdol::applyWoundSave(const Wounds &wounds) {
+        Wounds modifiedWounds = wounds;
+
+        // Da Big' Un
+        modifiedWounds.normal = (wounds.normal + 1) / 2;
+        if (wounds.mortal > 0) {
+            Dice::RollResult rolls;
+            Dice::rollD6(wounds.mortal, rolls);
+            modifiedWounds.mortal = rolls.rollsGE(4);
+        }
+        return modifiedWounds;
+    }
+
+    Wounds RogueIdol::onEndCombat(PlayerId player) {
+        auto wounds = Unit::onEndCombat(player);
+
+        // Rubble and Ruin
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        for (auto ip : units) {
+            int roll = Dice::rollD6();
+            if (roll >= 4) {
+                Wounds rubbleRuins = {0, 0};
+                ip->applyDamage(rubbleRuins);
+                wounds += rubbleRuins;
+            }
+        }
+        return wounds;
+    }
+
+    Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Spirit of the Waaagh!
+        if (m_charged) {
+            return RerollOnes;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int RogueIdol::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // namespace Greenskinz

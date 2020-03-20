@@ -12,38 +12,40 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class SplinteredFang : public SlavesToDarknessBase
-{
-public:
+    class SplinteredFang : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SplinteredFang();
-    ~SplinteredFang() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        SplinteredFang();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onWounded() override;
+        ~SplinteredFang() override = default;
 
-protected:
+        bool configure(int numModels);
 
-    bool m_hasSerpentCaller = true;
+    protected:
 
-private:
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    Weapon m_poisonedWeapons,
-        m_poisonedWeaponsLeader;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+    protected:
+
+        bool m_hasSerpentCaller = true;
+
+    private:
+
+        Weapon m_poisonedWeapons,
+                m_poisonedWeaponsLeader;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

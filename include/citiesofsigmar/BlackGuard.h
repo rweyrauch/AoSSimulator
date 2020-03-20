@@ -12,40 +12,46 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class BlackGuard : public CitizenOfSigmar
-{
-public:
+    class BlackGuard : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BlackGuard();
-    ~BlackGuard() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(int numModels, bool standardBearer, bool drummer);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        static void Init();
 
-private:
+        BlackGuard();
 
-    bool m_standardBearer = false;
-    bool m_drummer = false;
+        ~BlackGuard() override = default;
 
-    Weapon m_halberd, m_halberdCaptain;
+        bool configure(int numModels, bool standardBearer, bool drummer);
 
-    static bool s_registered;
-};
+    protected:
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_drummer = false;
+
+        Weapon m_halberd, m_halberdCaptain;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

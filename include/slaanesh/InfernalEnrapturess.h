@@ -12,34 +12,35 @@
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Slaanesh
-{
+namespace Slaanesh {
 
-class InfernalEnrapturess : public SlaaneshBase
-{
-public:
+    class InfernalEnrapturess : public SlaaneshBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    InfernalEnrapturess();
-    ~InfernalEnrapturess() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        InfernalEnrapturess();
 
-    void onStartShooting(PlayerId player) override;
+        ~InfernalEnrapturess() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_ravagingClaw,
-        m_lyreCacophonousMelody,
-        m_lyreEuphonicBlast;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_ravagingClaw,
+                m_lyreCacophonousMelody,
+                m_lyreEuphonicBlast;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

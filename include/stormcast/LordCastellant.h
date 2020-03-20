@@ -12,30 +12,31 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class LordCastellant : public StormcastEternal
-{
-public:
+    class LordCastellant : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordCastellant();
-    ~LordCastellant() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LordCastellant();
 
-private:
+        ~LordCastellant() override = default;
 
-    Weapon m_halberd;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_halberd;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

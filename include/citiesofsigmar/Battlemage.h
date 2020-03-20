@@ -12,35 +12,38 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Battlemage : public CitizenOfSigmar
-{
-public:
+    class Battlemage : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Battlemage();
-    ~Battlemage() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(Realm realm);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    int castingModifier() const override;
+        static void Init();
 
-private:
+        Battlemage();
 
-    Weapon m_staff;
-    Realm m_realm = Azyr;
+        ~Battlemage() override = default;
 
-    static bool s_registered;
-};
+        bool configure(Realm realm);
+
+    protected:
+
+        int castingModifier() const override;
+
+    private:
+
+        Weapon m_staff;
+        Realm m_realm = Azyr;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

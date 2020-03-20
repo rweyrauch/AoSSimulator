@@ -12,45 +12,48 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class AkhelianKing : public IdonethDeepkinBase
-{
-public:
+    class AkhelianKing : public IdonethDeepkinBase {
+    public:
 
-    enum WeaponOption
-    {
-        BladedPolearm,
-        Greatsword,
+        enum WeaponOption {
+            BladedPolearm,
+            Greatsword,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static void Init();
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        AkhelianKing();
+
+        ~AkhelianKing() override = default;
+
+        bool configure(WeaponOption weapon);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onCharged() override;
+
+    private:
+
+        Weapon m_bladedPolearm,
+                m_greatsword,
+                m_falchion,
+                m_deepmareJawsTalons,
+                m_deepmareTails;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-
-    AkhelianKing();
-    ~AkhelianKing() override = default;
-
-    bool configure(WeaponOption weapon);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onCharged() override;
-
-private:
-
-    Weapon m_bladedPolearm,
-        m_greatsword,
-        m_falchion,
-        m_deepmareJawsTalons,
-        m_deepmareTails;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

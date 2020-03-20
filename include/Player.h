@@ -11,27 +11,31 @@
 
 #include <Roster.h>
 
-class Player
-{
+class Player {
 public:
     explicit Player(PlayerId id) : m_id(id) {}
 
-    void setRoster(Roster* roster)
-    {
+    void setRoster(Roster *roster) {
         m_roster = roster;
     }
 
     void beginTurn(int battleRound, PlayerId playerWithTurn);
+
     void doHeroPhase();
+
     void doMovementPhase();
+
     void doShootingPhase();
+
     void doChargePhase();
+
     void doCombatPhase();
+
     void doBattleshockPhase();
 
 private:
     const PlayerId m_id;
-    Roster* m_roster = nullptr;
+    Roster *m_roster = nullptr;
 
     int m_commandPoints = 0;
 };

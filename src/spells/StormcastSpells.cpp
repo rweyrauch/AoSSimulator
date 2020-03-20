@@ -9,109 +9,90 @@
 #include <Board.h>
 #include <Unit.h>
 
-DamageSpell* CreatePrimeElectrids(Unit* caster)
-{
+DamageSpell *CreatePrimeElectrids(Unit *caster) {
     return new DamageSpell(caster, "Prime Electrids", 5, 18.0f, RAND_D3, 10, RAND_D6);
 }
 
-DamageSpell* CreateSpiritStorm(Unit* caster)
-{
+DamageSpell *CreateSpiritStorm(Unit *caster) {
     return new DamageSpell(caster, "Spirit Storm", 7, 18.0f, 1);
 }
 
-LineOfEffectSpell *CreatePyroelectricBlast(Unit *caster)
-{
+LineOfEffectSpell *CreatePyroelectricBlast(Unit *caster) {
     return new LineOfEffectSpell(caster, "Pyroelectric Blast", 6, 9.0f, RAND_D3, 0);
 }
 
-AreaOfEffectSpell *CreateLightningPulse(Unit *caster)
-{
+AreaOfEffectSpell *CreateLightningPulse(Unit *caster) {
     return new AreaOfEffectSpell(caster, "Lightning Pulse", 5, 0.0f, 12.0f, 1, 5);
 }
 
-AreaOfEffectSpell *CreateLightningOrb(Unit *caster)
-{
+AreaOfEffectSpell *CreateLightningOrb(Unit *caster) {
     return new AreaOfEffectSpell(caster, "Lightning Orb", 6, 12.0f, 3.0f, RAND_D3, 4);
 }
 
-LineOfEffectSpell *CreateStormLance(Unit *caster)
-{
+LineOfEffectSpell *CreateStormLance(Unit *caster) {
     return new LineOfEffectSpell(caster, "Storm Lance", 5, 12.0f, 1, 5);
 }
 
-HealSpell *CreateHealingLight(Unit *caster)
-{
+HealSpell *CreateHealingLight(Unit *caster) {
     return new HealSpell(caster, "Healing Light", 5, 18.0f, RAND_D3, 10, RAND_D6);
 }
 
-class PurifyingBlast : public Spell
-{
+class PurifyingBlast : public Spell {
 public:
-    explicit PurifyingBlast(Unit* caster);
+    explicit PurifyingBlast(Unit *caster);
 
-    Result cast(Unit* target, int round) override;
-    Result cast(float x, float y, int round) override  { return cast(nullptr, round); }
+    Result cast(Unit *target, int round) override;
+
+    Result cast(float x, float y, int round) override { return cast(nullptr, round); }
 
 };
 
 PurifyingBlast::PurifyingBlast(Unit *caster) :
-    Spell(caster, "Purifying Blast", 5, 6.0f)
-{
+        Spell(caster, "Purifying Blast", 5, 6.0f) {
 
 }
 
-Spell::Result PurifyingBlast::cast(Unit* /*target*/, int round)
-{
+Spell::Result PurifyingBlast::cast(Unit * /*target*/, int round) {
     Spell::Result result = Failed;
 
     const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue)
-    {
+    if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound)
-        {
+        if (!unbound) {
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
-            for (auto ip : units)
-            {
+            for (auto ip : units) {
                 int roll = Dice::rollD6();
                 int total = roll + ip->bravery();
-                if (ip->hasKeyword(DEATH) || ip->hasKeyword(DAEMON))
-                {
+                if (ip->hasKeyword(DEATH) || ip->hasKeyword(DAEMON)) {
                     total = roll + ip->bravery() / 2;
                 }
-                if (total < 10)
-                {
+                if (total < 10) {
                     Wounds wounds = {0, Dice::rollD3()};
                     int numSlain = ip->applyDamage(wounds);
-                    if (numSlain > 0)
-                    {
-                        SimLog(Verbosity::Narrative, "%s inflicts %d mortal wounds on unit %s.\n", m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
+                    if (numSlain > 0) {
+                        SimLog(Verbosity::Narrative, "%s inflicts %d mortal wounds on unit %s.\n",
+                               m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
                     }
                 }
             }
             result = Success;
-        }
-        else
-        {
+        } else {
             SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
             result = Unbound;
         }
-    }
-    else
-    {
-        SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(), name().c_str(),
+    } else {
+        SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),
+               name().c_str(),
                castingRoll, m_castingValue);
     }
 
     return result;
 }
 
-Spell *CreatePurifyingBlast(Unit *caster)
-{
+Spell *CreatePurifyingBlast(Unit *caster) {
     return new PurifyingBlast(caster);
 }
 
-Spell* CreateThunderclap(Unit* caster)
-{
+Spell *CreateThunderclap(Unit *caster) {
     return nullptr;
 }

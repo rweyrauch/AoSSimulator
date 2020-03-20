@@ -28,57 +28,51 @@
 #include "beastsofchaos/DragonOgorShaggoth.h"
 #include "beastsofchaos/Razorgors.h"
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-void BeastsOfChaosBase::setGreatfray(BeastsOfChaosBase::Greatfray fray)
-{
+    void BeastsOfChaosBase::setGreatfray(BeastsOfChaosBase::Greatfray fray) {
 
-}
-
-std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Greatfray")
-    {
-        if (parameter.intValue == Allherd) { return "Allherd"; }
-        else if (parameter.intValue == Darkwalkers) { return "Darkwalkers"; }
-        else if (parameter.intValue == Gavespawn) { return "Gavespawn"; }
-        else if (parameter.intValue == None) { return "None"; }
     }
-    return ParameterValueToString(parameter);
-}
 
-int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Allherd") { return Allherd; }
-    else if (enumString == "Darkwalkers") { return Darkwalkers; }
-    else if (enumString == "Gavespawn") { return Gavespawn; }
-    else if (enumString == "None") { return None; }
-    return 0;
-}
+    std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Greatfray") {
+            if (parameter.intValue == Allherd) { return "Allherd"; }
+            else if (parameter.intValue == Darkwalkers) { return "Darkwalkers"; }
+            else if (parameter.intValue == Gavespawn) { return "Gavespawn"; }
+            else if (parameter.intValue == None) { return "None"; }
+        }
+        return ParameterValueToString(parameter);
+    }
 
-void Init()
-{
-    Beastlord::Init();
-    Bestigors::Init();
-    Bullgors::Init();
-    Centigors::Init();
-    ChaosSpawn::Init();
-    ChaosWarhounds::Init();
-    Chimera::Init();
-    Cockatrice::Init();
-    Cygor::Init();
-    Doombull::Init();
-    DragonOgorShaggoth::Init();
-    DragonOgors::Init();
-    Ghorgon::Init();
-    Gors::Init();
-    GreatBrayShaman::Init();
-    Jabberslythe::Init();
-    Razorgors::Init();
-    TuskgorChariots::Init();
-    UngorRaiders::Init();
-    Ungors::Init();
-}
+    int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Allherd") { return Allherd; }
+        else if (enumString == "Darkwalkers") { return Darkwalkers; }
+        else if (enumString == "Gavespawn") { return Gavespawn; }
+        else if (enumString == "None") { return None; }
+        return 0;
+    }
+
+    void Init() {
+        Beastlord::Init();
+        Bestigors::Init();
+        Bullgors::Init();
+        Centigors::Init();
+        ChaosSpawn::Init();
+        ChaosWarhounds::Init();
+        Chimera::Init();
+        Cockatrice::Init();
+        Cygor::Init();
+        Doombull::Init();
+        DragonOgorShaggoth::Init();
+        DragonOgors::Init();
+        Ghorgon::Init();
+        Gors::Init();
+        GreatBrayShaman::Init();
+        Jabberslythe::Init();
+        Razorgors::Init();
+        TuskgorChariots::Init();
+        UngorRaiders::Init();
+        Ungors::Init();
+    }
 
 } // namespace BeastsOfChaos

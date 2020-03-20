@@ -12,31 +12,32 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class VortemisTheAllSeeing : public TzeentchBase
-{
-public:
+    class VortemisTheAllSeeing : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    VortemisTheAllSeeing();
-    ~VortemisTheAllSeeing() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        VortemisTheAllSeeing();
 
-private:
+        ~VortemisTheAllSeeing() override = default;
 
-    Weapon m_staffMissile,
-        m_staff;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_staffMissile,
+                m_staff;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

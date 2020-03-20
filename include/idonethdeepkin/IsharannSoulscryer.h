@@ -12,32 +12,33 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class IsharannSoulscryer : public IdonethDeepkinBase
-{
-public:
+    class IsharannSoulscryer : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    IsharannSoulscryer();
-    ~IsharannSoulscryer() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        IsharannSoulscryer();
+
+        ~IsharannSoulscryer() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_shoal,
-        m_claw;
+        Weapon m_shoal,
+                m_claw;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

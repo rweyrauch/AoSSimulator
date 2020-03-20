@@ -12,31 +12,32 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class MightyLordOfKhorne : public KhorneBase
-{
-public:
+    class MightyLordOfKhorne : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MightyLordOfKhorne();
-    ~MightyLordOfKhorne() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        MightyLordOfKhorne();
 
-private:
+        ~MightyLordOfKhorne() override = default;
 
-    Weapon m_axeOfKhorne,
-        m_bloodDarkClaws;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_axeOfKhorne,
+                m_bloodDarkClaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

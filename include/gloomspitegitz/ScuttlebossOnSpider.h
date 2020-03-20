@@ -12,33 +12,34 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class ScuttlebossOnGiganticSpider : public GloomspiteGitzBase
-{
-public:
+    class ScuttlebossOnGiganticSpider : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ScuttlebossOnGiganticSpider();
-    ~ScuttlebossOnGiganticSpider() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ScuttlebossOnGiganticSpider();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~ScuttlebossOnGiganticSpider() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_spear,
-        m_fangs;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_spear,
+                m_fangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

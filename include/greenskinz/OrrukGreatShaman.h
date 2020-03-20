@@ -12,33 +12,34 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Greenskinz
-{
+namespace Greenskinz {
 
-class OrrukGreatShaman : public Unit
-{
-public:
+    class OrrukGreatShaman : public Unit {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    OrrukGreatShaman();
-    ~OrrukGreatShaman() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(bool warboar);
+        static void Init();
 
-protected:
+        OrrukGreatShaman();
 
-    int castingModifier() const override;
+        ~OrrukGreatShaman() override = default;
 
-private:
+        bool configure(bool warboar);
 
-    Weapon m_totemicStaff,
-        m_boarsTusks;
+    protected:
 
-    static bool s_registered;
-};
+        int castingModifier() const override;
+
+    private:
+
+        Weapon m_totemicStaff,
+                m_boarsTusks;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

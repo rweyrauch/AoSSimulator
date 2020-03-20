@@ -12,36 +12,39 @@
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class AleguzzlerGargant : public GloomspiteGitzBase
-{
-public:
+    class AleguzzlerGargant : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AleguzzlerGargant();
-    ~AleguzzlerGargant() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AleguzzlerGargant();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    void onRestore() override;
+        ~AleguzzlerGargant() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_eadbutt,
-        m_massiveClub,
-        m_mightyKick;
+    protected:
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+    private:
+
+        Weapon m_eadbutt,
+                m_massiveClub,
+                m_mightyKick;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

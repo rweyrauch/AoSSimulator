@@ -13,35 +13,38 @@
 #include <Weapon.h>
 #include <spells/GloomspiteSpells.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class FungoidCaveShaman : public GloomspiteGitzBase
-{
-public:
+    class FungoidCaveShaman : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    FungoidCaveShaman();
-    ~FungoidCaveShaman() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheMoonclans lore);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    void onStartHero(PlayerId playerId) override;
+        static int ComputePoints(int numModels);
 
-private:
+        FungoidCaveShaman();
 
-    Weapon m_moonSickle,
-        m_squigsTeeth;
+        ~FungoidCaveShaman() override = default;
 
-    static bool s_registered;
-};
+        bool configure(LoreOfTheMoonclans lore);
+
+    protected:
+
+        void onStartHero(PlayerId playerId) override;
+
+    private:
+
+        Weapon m_moonSickle,
+                m_squigsTeeth;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

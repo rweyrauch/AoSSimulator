@@ -11,36 +11,37 @@
 
 #include "nurgle/Nurgle.h"
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class MorbidexTwiceborn : public NurgleBase
-{
-public:
+    class MorbidexTwiceborn : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MorbidexTwiceborn();
-    ~MorbidexTwiceborn() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        MorbidexTwiceborn();
 
-    int maliciousMitesWoundMod(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        ~MorbidexTwiceborn() override;
 
-private:
+        bool configure();
 
-    Weapon m_tongues,
-        m_scythe,
-        m_claws;
+    protected:
 
-    lsignal::slot m_maliciousMitesSlot;
+        int maliciousMitesWoundMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_tongues,
+                m_scythe,
+                m_claws;
+
+        lsignal::slot m_maliciousMitesSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

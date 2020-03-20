@@ -12,34 +12,35 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class OgroidMyrmidon : public SlavesToDarknessBase
-{
-public:
+    class OgroidMyrmidon : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    OgroidMyrmidon();
-    ~OgroidMyrmidon() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        OgroidMyrmidon();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+        ~OgroidMyrmidon() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_spearMissile,
-        m_spear,
-        m_horns;
+    protected:
 
-    static bool s_registered;
-};
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_spearMissile,
+                m_spear,
+                m_horns;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,32 +12,33 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class Ylthari : public SylvanethBase
-{
-public:
+    class Ylthari : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Ylthari();
-    ~Ylthari() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
-    
-private:
+        Ylthari();
 
-    Weapon m_briarStaff,
-        m_thorns,
-        m_snappingMandibles;
+        ~Ylthari() override = default;
 
-    static bool s_registered;
-};
+        bool configure();
+
+    protected:
+
+    private:
+
+        Weapon m_briarStaff,
+                m_thorns,
+                m_snappingMandibles;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

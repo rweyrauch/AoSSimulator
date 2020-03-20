@@ -11,36 +11,38 @@
 
 #include <ironjawz/Ironjawz.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class OrrukMegaboss : public Ironjawz
-{
-public:
+    class OrrukMegaboss : public Ironjawz {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    OrrukMegaboss();
+        static int ComputePoints(int numModels);
 
-    ~OrrukMegaboss() override = default;
+        static void Init();
 
-    bool configure();
+        OrrukMegaboss();
 
-protected:
+        ~OrrukMegaboss() override = default;
 
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
-    void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_bossChoppaAndFist;
-    int m_modelsSlainAtStartOfCombat = 0;
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-    static bool s_registered;
-};
+        void onStartCombat(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+    private:
+
+        Weapon m_bossChoppaAndFist;
+        int m_modelsSlainAtStartOfCombat = 0;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -12,31 +12,32 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class SkinkPriest : public SeraphonBase
-{
-public:
+    class SkinkPriest : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SkinkPriest();
-    ~SkinkPriest() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SkinkPriest();
 
-private:
+        ~SkinkPriest() override = default;
 
-    Weapon m_starbolt,
-        m_staff;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+    private:
+
+        Weapon m_starbolt,
+                m_staff;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

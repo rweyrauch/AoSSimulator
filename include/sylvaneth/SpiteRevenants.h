@@ -12,37 +12,38 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class SpiteRevenants : public SylvanethBase
-{
-public:
+    class SpiteRevenants : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SpiteRevenants();
-    ~SpiteRevenants() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        SpiteRevenants();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~SpiteRevenants() override;
 
-    int unbridledMalice(const Unit* target);
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_cruelTalonsAndFangs,
-        m_cruelTalonsAndFangsShadestalker;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    lsignal::slot m_connection;
+        int unbridledMalice(const Unit *target);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_cruelTalonsAndFangs,
+            m_cruelTalonsAndFangsShadestalker;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

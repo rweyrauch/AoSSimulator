@@ -12,33 +12,34 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class GrimwrathBerzerker : public Fyreslayer
-{
-public:
+    class GrimwrathBerzerker : public Fyreslayer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GrimwrathBerzerker();
-    ~GrimwrathBerzerker() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        GrimwrathBerzerker();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~GrimwrathBerzerker() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_throwingAxe,
-        m_greatAxe;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        Weapon m_throwingAxe,
+                m_greatAxe;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

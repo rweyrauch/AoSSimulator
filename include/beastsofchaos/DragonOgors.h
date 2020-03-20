@@ -12,35 +12,36 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class DragonOgors : public BeastsOfChaosBase
-{
-public:
+    class DragonOgors : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    DragonOgors();
-    ~DragonOgors() override = default;
+        static void Init();
 
-    bool configure(int numModels, int numPairedWeapons, int numGlaives, int numCrushers);
+        static int ComputePoints(int numModels);
 
-protected:
+        DragonOgors();
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        ~DragonOgors() override = default;
 
-private:
+        bool configure(int numModels, int numPairedWeapons, int numGlaives, int numCrushers);
 
-    Weapon m_pairedAncientWeapons,
-        m_draconicWarglaive,
-        m_draconicCrusher,
-        m_rakingForeclaws;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_pairedAncientWeapons,
+                m_draconicWarglaive,
+                m_draconicCrusher,
+                m_rakingForeclaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

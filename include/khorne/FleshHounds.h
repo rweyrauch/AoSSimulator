@@ -12,35 +12,36 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class FleshHounds : public KhorneBase
-{
-public:
+    class FleshHounds : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    FleshHounds();
-    ~FleshHounds() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        FleshHounds();
 
-    // Unflagging Hunter
-    Rerolls chargeRerolls() const override { return RerollFailed; }
+        ~FleshHounds() override = default;
 
-private:
+        bool configure(int numModels);
+
+    protected:
+
+        // Unflagging Hunter
+        Rerolls chargeRerolls() const override { return RerollFailed; }
+
+    private:
 
 
-    Weapon m_burningRoar,
-        m_blooddarkClaws;
+        Weapon m_burningRoar,
+                m_blooddarkClaws;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

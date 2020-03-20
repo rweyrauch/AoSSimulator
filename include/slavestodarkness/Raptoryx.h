@@ -12,32 +12,33 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class Raptoryx : public SlavesToDarknessBase
-{
-public:
+    class Raptoryx : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Raptoryx();
-    ~Raptoryx() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Raptoryx();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        ~Raptoryx() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_beakAndTalons;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_beakAndTalons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

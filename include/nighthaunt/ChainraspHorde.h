@@ -12,33 +12,34 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class ChainraspHorde : public Nighthaunt
-{
-public:
+    class ChainraspHorde : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ChainraspHorde();
-    ~ChainraspHorde() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        ChainraspHorde();
 
-    Rerolls toWoundRerolls(const Weapon* weapon, const Unit* unit) const override;
+        ~ChainraspHorde() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_malignantWeapon,
-        m_malignantWeaponWarden;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_malignantWeapon,
+                m_malignantWeaponWarden;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

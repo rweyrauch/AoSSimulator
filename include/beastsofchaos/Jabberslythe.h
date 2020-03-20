@@ -12,33 +12,34 @@
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
 
-namespace BeastsOfChaos
-{
+namespace BeastsOfChaos {
 
-class Jabberslythe : public BeastsOfChaosBase
-{
-public:
+    class Jabberslythe : public BeastsOfChaosBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    Jabberslythe();
-    ~Jabberslythe() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        Jabberslythe();
+
+        ~Jabberslythe() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_slytheyTongue,
-        m_vorpalClaws,
-        m_spikedTail;
+        Weapon m_slytheyTongue,
+                m_vorpalClaws,
+                m_spikedTail;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

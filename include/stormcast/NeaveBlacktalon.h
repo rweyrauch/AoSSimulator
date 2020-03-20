@@ -12,34 +12,36 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class NeaveBlacktalon : public StormcastEternal
-{
-public:
+    class NeaveBlacktalon : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    NeaveBlacktalon();
-    ~NeaveBlacktalon() override = default;
+        static void Init();
 
-    bool configure();
+        static int ComputePoints(int numModels);
 
-protected:
+        NeaveBlacktalon();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        ~NeaveBlacktalon() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_boltstormPistol,
-        m_whirlwindAxes;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        Weapon m_boltstormPistol,
+                m_whirlwindAxes;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

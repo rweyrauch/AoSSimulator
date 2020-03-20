@@ -11,36 +11,37 @@
 
 #include "nurgle/Nurgle.h"
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class BloabRotspawned : public NurgleBase
-{
-public:
+    class BloabRotspawned : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloabRotspawned();
-    ~BloabRotspawned() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BloabRotspawned();
 
-    int windspeakerBellsCastingMod(const Unit* caster);
+        ~BloabRotspawned() override;
 
-private:
+        bool configure();
 
-    Weapon m_bile,
-        m_scythe,
-        m_claws;
+    protected:
 
-    lsignal::slot m_windspeakerSlot;
+        int windspeakerBellsCastingMod(const Unit *caster);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_bile,
+                m_scythe,
+                m_claws;
+
+        lsignal::slot m_windspeakerSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

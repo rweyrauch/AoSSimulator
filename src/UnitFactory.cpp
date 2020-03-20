@@ -8,19 +8,17 @@
 #include <sstream>
 #include <UnitFactory.h>
 
-static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, const std::vector<Parameter> &parameters)
-{
+static void
+LogUnitDescriptor(FactoryMethod *factory, const std::string &name, const std::vector<Parameter> &parameters) {
     std::stringstream descriptor;
     descriptor << "\"" << name;
-    for (auto ip : parameters)
-    {
+    for (auto ip : parameters) {
         descriptor << "," << ip.name << "=";
         if (ip.paramType == ParamType::Enum)
             descriptor << factory->m_paramToString(ip);
         else if (ip.paramType == ParamType::Integer)
             descriptor << ip.intValue;
-        else if (ip.paramType == ParamType::Boolean)
-        {
+        else if (ip.paramType == ParamType::Boolean) {
             if (ip.intValue != 0)
                 descriptor << "true";
             else
@@ -33,18 +31,15 @@ static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, c
 
 std::map<std::string, FactoryMethod> UnitFactory::s_registeredUnits = {};
 
-bool UnitFactory::Register(const std::string &name, const FactoryMethod& factoryMethod)
-{
+bool UnitFactory::Register(const std::string &name, const FactoryMethod &factoryMethod) {
     auto registeredPair = UnitFactory::s_registeredUnits.insert(std::make_pair(name.c_str(), factoryMethod));
     return registeredPair.second;
 }
 
-Unit *UnitFactory::Create(const std::string &name, const std::vector<Parameter> &parameters)
-{
+Unit *UnitFactory::Create(const std::string &name, const std::vector<Parameter> &parameters) {
     auto registeredPair = UnitFactory::s_registeredUnits.find(name);
 
-    if (registeredPair == UnitFactory::s_registeredUnits.end())
-    {
+    if (registeredPair == UnitFactory::s_registeredUnits.end()) {
         return nullptr;
     }
 
@@ -60,11 +55,9 @@ Unit *UnitFactory::Create(const std::string &name, const std::vector<Parameter> 
 }
 
 
-const FactoryMethod *UnitFactory::LookupUnit(const std::string &name)
-{
+const FactoryMethod *UnitFactory::LookupUnit(const std::string &name) {
     auto ip = s_registeredUnits.find(name);
-    if (ip == s_registeredUnits.end())
-    {
+    if (ip == s_registeredUnits.end()) {
         return nullptr;
     }
     return &(ip->second);

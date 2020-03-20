@@ -12,39 +12,44 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Skarbrand : public KhorneBase
-{
-public:
+    class Skarbrand : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Skarbrand();
-    ~Skarbrand() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Skarbrand();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    Rerolls chargeRerolls() const override;
-    int generateMortalWounds(const Unit *unit) override;
-    void onStartShooting(PlayerId player) override;
+        ~Skarbrand() override = default;
 
-private:
+        bool configure();
 
-    bool m_attackedInPreviousRound = false;
+    protected:
 
-    Weapon m_slaughter,
-        m_carnage;
+        int getDamageTableIndex() const;
 
-    static bool s_registered;
-};
+        void onWounded() override;
+
+        Rerolls chargeRerolls() const override;
+
+        int generateMortalWounds(const Unit *unit) override;
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        bool m_attackedInPreviousRound = false;
+
+        Weapon m_slaughter,
+            m_carnage;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

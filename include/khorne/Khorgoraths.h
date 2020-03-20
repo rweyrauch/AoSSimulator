@@ -12,37 +12,38 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Khorgoraths : public KhorneBase
-{
-public:
+    class Khorgoraths : public KhorneBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Khorgoraths();
+        static int ComputePoints(int numModels);
 
-    ~Khorgoraths() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        Khorgoraths();
 
-protected:
+        ~Khorgoraths() override = default;
 
-    void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    int m_modelsSlainAtStartOfCombat = 0;
+        void onStartCombat(PlayerId player) override;
 
-    Weapon m_boneTentacles,
-        m_clawAndFangs;
+        Wounds onEndCombat(PlayerId player) override;
 
-    static bool s_registered;
-};
+    private:
+
+        int m_modelsSlainAtStartOfCombat = 0;
+
+        Weapon m_boneTentacles,
+            m_clawAndFangs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

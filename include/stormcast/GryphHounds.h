@@ -12,34 +12,34 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class GryphHounds : public StormcastEternal
-{
-public:
+    class GryphHounds : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GryphHounds();
+        static int ComputePoints(int numModels);
 
-    ~GryphHounds() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        GryphHounds();
 
-protected:
+        ~GryphHounds() override = default;
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+        bool configure(int numModels);
 
-private:
+    protected:
 
-    Weapon m_beakAndClaws,
-        m_beakAndClawsAlpha;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_beakAndClaws,
+            m_beakAndClawsAlpha;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

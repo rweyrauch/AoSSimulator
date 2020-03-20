@@ -10,134 +10,120 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/KairosFateweaver.h"
 
-namespace Tzeentch
-{
-static const int BASESIZE = 100;
-static const int WOUNDS = 14;
-static const int POINTS_PER_UNIT = 400;
+namespace Tzeentch {
+    static const int BASESIZE = 100;
+    static const int WOUNDS = 14;
+    static const int POINTS_PER_UNIT = 400;
 
-struct TableEntry
-{
-    int m_move;
-    int m_staffToWound;
-    int m_giftOfChange;
-};
-
-const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-    {
-        {12, 1, 6},
-        {10, 2, RAND_D6},
-        {9, 3, 3},
-        {8,  4, RAND_D3},
-        {7,  5, 1}
+    struct TableEntry {
+        int m_move;
+        int m_staffToWound;
+        int m_giftOfChange;
     };
 
-bool KairosFateweaver::s_registered = false;
-
-Unit *KairosFateweaver::Create(const ParameterList &parameters)
-{
-    auto unit = new KairosFateweaver();
-
-    auto coven = (ChangeCoven)GetEnumParam("Change Coven", parameters, TzeentchBase::None);
-    unit->setChangeCoven(coven);
-
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void KairosFateweaver::Init()
-{
-    if (!s_registered)
-    {
-        static const FactoryMethod factoryMethod = {
-            KairosFateweaver::Create,
-            TzeentchBase::ValueToString,
-            TzeentchBase::EnumStringToInt,
-            KairosFateweaver::ComputePoints,
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
-            },
-            CHAOS,
-            { TZEENTCH }
-        };
-        s_registered = UnitFactory::Register("Kairos Fateweaver", factoryMethod);
+                    {12, 1, 6},
+                    {10, 2, RAND_D6},
+                    {9,  3, 3},
+                    {8,  4, RAND_D3},
+                    {7,  5, 1}
+            };
+
+    bool KairosFateweaver::s_registered = false;
+
+    Unit *KairosFateweaver::Create(const ParameterList &parameters) {
+        auto unit = new KairosFateweaver();
+
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        unit->setChangeCoven(coven);
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-}
 
-KairosFateweaver::KairosFateweaver() :
-    TzeentchBase("Kairos Fateweaver", 12, WOUNDS, 10, 4, true),
-    m_staff(Weapon::Type::Melee, "Staff of Tomorrow", 3, 3, 3, 1, -1, 2),
-    m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2)
-{
-    m_keywords = {CHAOS, DAEMON, TZEENTCH, MONSTER, HERO, WIZARD, LORD_OF_CHANGE, KAIROS_FATEWEAVER};
-    m_weapons = {&m_staff,
-                 &m_beakAndTalons};
-
-    m_totalSpells = 3;
-    m_totalUnbinds = 3;
-}
-
-bool KairosFateweaver::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_beakAndTalons);
-    model->addMeleeWeapon(&m_staff);
-    addModel(model);
-
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-void KairosFateweaver::onRestore()
-{
-    // Reset table-drive attributes
-    onWounded();
-}
-
-void KairosFateweaver::onWounded()
-{
-    TzeentchBase::onWounded();
-
-    const int damageIndex = getDamageTableIndex();
-    m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
-    m_move = g_damageTable[getDamageTableIndex()].m_move;
-}
-
-int KairosFateweaver::getDamageTableIndex() const
-{
-    auto woundsInflicted = wounds() - remainingWounds();
-    for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++)
-    {
-        if (woundsInflicted < g_woundThresholds[i])
-        {
-            return i;
+    void KairosFateweaver::Init() {
+        if (!s_registered) {
+            static const FactoryMethod factoryMethod = {
+                    KairosFateweaver::Create,
+                    TzeentchBase::ValueToString,
+                    TzeentchBase::EnumStringToInt,
+                    KairosFateweaver::ComputePoints,
+                    {
+                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
+                             TzeentchBase::GuildOfSummoners, 1},
+                    },
+                    CHAOS,
+                    {TZEENTCH}
+            };
+            s_registered = UnitFactory::Register("Kairos Fateweaver", factoryMethod);
         }
     }
-    return 0;
-}
 
-int KairosFateweaver::rollCasting() const
-{
-    // Mastery of Magic
-    auto r0 = Dice::rollD6();
-    auto r1 = Dice::rollD6();
-    return std::max(r0, r1) * 2 + castingModifier();
-}
+    KairosFateweaver::KairosFateweaver() :
+            TzeentchBase("Kairos Fateweaver", 12, WOUNDS, 10, 4, true),
+            m_staff(Weapon::Type::Melee, "Staff of Tomorrow", 3, 3, 3, 1, -1, 2),
+            m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2) {
+        m_keywords = {CHAOS, DAEMON, TZEENTCH, MONSTER, HERO, WIZARD, LORD_OF_CHANGE, KAIROS_FATEWEAVER};
+        m_weapons = {&m_staff,
+                     &m_beakAndTalons};
 
-int KairosFateweaver::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+        m_totalSpells = 3;
+        m_totalUnbinds = 3;
+    }
+
+    bool KairosFateweaver::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_beakAndTalons);
+        model->addMeleeWeapon(&m_staff);
+        addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    void KairosFateweaver::onRestore() {
+        // Reset table-drive attributes
+        onWounded();
+    }
+
+    void KairosFateweaver::onWounded() {
+        TzeentchBase::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    int KairosFateweaver::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    int KairosFateweaver::rollCasting() const {
+        // Mastery of Magic
+        auto r0 = Dice::rollD6();
+        auto r1 = Dice::rollD6();
+        return std::max(r0, r1) * 2 + castingModifier();
+    }
+
+    int KairosFateweaver::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } // Tzeentch

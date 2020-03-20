@@ -11,45 +11,50 @@
 
 #include <ironjawz/Ironjawz.h>
 
-namespace Ironjawz
-{
+namespace Ironjawz {
 
-class GordrakkTheFistOfGork : public Ironjawz
-{
-public:
+    class GordrakkTheFistOfGork : public Ironjawz {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GordrakkTheFistOfGork();
+        static int ComputePoints(int numModels);
 
-    ~GordrakkTheFistOfGork() override = default;
+        static void Init();
 
-    bool configure();
+        GordrakkTheFistOfGork();
 
-protected:
+        ~GordrakkTheFistOfGork() override = default;
 
-    void onWounded() override;
-    void onCharged() override;
-    void onRestore() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onStartCombat(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
+        bool configure();
 
-private:
+    protected:
 
-    int getDamageTableIndex() const;
+        void onWounded() override;
 
-    int m_modelsSlainAtStartOfCombat = 0;
+        void onCharged() override;
 
-    Weapon m_bellow,
-        m_smasha,
-        m_kunnin,
-        m_fistsAndTail;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        int m_modelsSlainAtStartOfCombat = 0;
+
+        Weapon m_bellow,
+            m_smasha,
+            m_kunnin,
+            m_fistsAndTail;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

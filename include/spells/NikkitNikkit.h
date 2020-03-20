@@ -11,10 +11,9 @@
 
 #include <Spell.h>
 
-class NikkitNikkit : public DamageSpell
-{
+class NikkitNikkit : public DamageSpell {
 public:
-    explicit NikkitNikkit(Unit* caster);
+    explicit NikkitNikkit(Unit *caster);
 
 protected:
     int getDamage(int castingRoll) const override;

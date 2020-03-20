@@ -10,33 +10,35 @@
 
 #include "bonesplitterz/Bonesplitterz.h"
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class SavageBigStabbas : public Bonesplitterz
-{
-public:
+    class SavageBigStabbas : public Bonesplitterz {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    SavageBigStabbas();
-    ~SavageBigStabbas() override = default;
+        static void Init();
 
-    bool configure(int numModels);
+        static int ComputePoints(int numModels);
 
-protected:
+        SavageBigStabbas();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void onModelSlain() override;
+        ~SavageBigStabbas() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_gorkToof;
+    protected:
 
-    static bool s_registered;
-};
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onModelSlain() override;
+
+    private:
+
+        Weapon m_gorkToof;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

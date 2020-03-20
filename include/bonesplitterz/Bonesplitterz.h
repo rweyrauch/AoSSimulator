@@ -12,38 +12,37 @@
 #include <Unit.h>
 #include <Weapon.h>
 
-namespace Bonesplitterz
-{
+namespace Bonesplitterz {
 
-class Bonesplitterz : public Unit
-{
-public:
-    Bonesplitterz() = default;
-    ~Bonesplitterz() override = default;
+    class Bonesplitterz : public Unit {
+    public:
+        Bonesplitterz() = default;
 
-    enum Warclan
-    {
-        Bonegrinz,
-        Drakkfoot,
-        Icebone
+        ~Bonesplitterz() override = default;
+
+        enum Warclan {
+            Bonegrinz,
+            Drakkfoot,
+            Icebone
+        };
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        void setWarclan(Warclan warclan);
+
+    protected:
+        Bonesplitterz(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {}
+
+    protected:
+
+    protected:
+
+        Warclan m_warclan = Bonegrinz;
+
     };
-
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-
-    void setWarclan(Warclan warclan);
-
-protected:
-    Bonesplitterz(const std::string& name, int move, int wounds, int bravery, int save, bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {}
-
-protected:
-
-protected:
-
-    Warclan m_warclan = Bonegrinz;
-
-};
 
 //
 // Abilities                    Implemented
@@ -55,7 +54,7 @@ protected:
 // Bonesplitterz Waaagh!            TODO
 //
 
-void Init();
+    void Init();
 
 } // namespace Bonesplitterz
 

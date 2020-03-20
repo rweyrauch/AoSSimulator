@@ -12,45 +12,50 @@
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
 
-namespace Tzeentch
-{
+namespace Tzeentch {
 
-class HorrorsOfTzeentch : public TzeentchBase
-{
-public:
+    class HorrorsOfTzeentch : public TzeentchBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    HorrorsOfTzeentch();
-    ~HorrorsOfTzeentch() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool hornblower);
+        static void Init();
 
-protected:
+        HorrorsOfTzeentch();
 
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    void restoreModels(int numModels) override;
-    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-    int castingModifier() const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~HorrorsOfTzeentch() override = default;
 
-private:
+        bool configure(int numModels, bool iconBearer, bool hornblower);
 
-    bool m_iconBearer = false;
-    bool m_hornblower = false;
+    protected:
 
-    Weapon m_magicalFlamesPink,
-        m_magicalFlamesBlue,
-        m_magicalFlamesBrimstone,
-        m_talonedHandsPink,
-        m_talonedHandsBlue,
-        m_talonedHandsBrimstone,
-        m_talonedHandsIridescent;
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 
-    static bool s_registered;
-};
+        void restoreModels(int numModels) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int castingModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+    private:
+
+        bool m_iconBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_magicalFlamesPink,
+            m_magicalFlamesBlue,
+            m_magicalFlamesBrimstone,
+            m_talonedHandsPink,
+            m_talonedHandsBlue,
+            m_talonedHandsBrimstone,
+            m_talonedHandsIridescent;
+
+        static bool s_registered;
+    };
 
 //Pink Horrors
 // Abilities                    Implemented

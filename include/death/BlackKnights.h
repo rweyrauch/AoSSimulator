@@ -12,40 +12,43 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
+namespace Death {
 
-class BlackKnights : public LegionOfNagashBase
-{
-public:
+    class BlackKnights : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BlackKnights();
-    ~BlackKnights() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool standardBearers, bool hornblowers);
+        static void Init();
 
-protected:
+        BlackKnights();
 
-    int toWoundModifier(const Weapon* weapon, const Unit* target) const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int toSaveModifier(const Weapon* weapon) const override;
+        ~BlackKnights() override = default;
 
-private:
+        bool configure(int numModels, bool standardBearers, bool hornblowers);
 
-    bool m_standardBearers = false;
-    bool m_hornblowers = false;
+    protected:
 
-    Weapon m_barrowLance,
-        m_barrowLanceKnight,
-        m_hoovesAndTeeth;
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-};
+        int toSaveModifier(const Weapon *weapon) const override;
+
+    private:
+
+        bool m_standardBearers = false;
+        bool m_hornblowers = false;
+
+        Weapon m_barrowLance,
+            m_barrowLanceKnight,
+            m_hoovesAndTeeth;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

@@ -12,38 +12,38 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class PlaguePriest : public Skaventide
-{
-public:
+    class PlaguePriest : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    PlaguePriest();
+        PlaguePriest();
 
-    ~PlaguePriest() override = default;
+        ~PlaguePriest() override = default;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-    Wounds onEndCombat(PlayerId player) override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    void onStartHero(PlayerId player) override;
+        Wounds onEndCombat(PlayerId player) override;
 
-private:
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    Weapon m_staff,
-        m_censer;
+        void onStartHero(PlayerId player) override;
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_staff,
+            m_censer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

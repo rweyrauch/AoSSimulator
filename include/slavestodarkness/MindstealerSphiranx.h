@@ -12,35 +12,36 @@
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace SlavesToDarkness
-{
+namespace SlavesToDarkness {
 
-class MindstealerSphiranx : public SlavesToDarknessBase
-{
-public:
+    class MindstealerSphiranx : public SlavesToDarknessBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    MindstealerSphiranx();
-    ~MindstealerSphiranx() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        MindstealerSphiranx();
 
-    int telepathicDread(const Unit* unit);
+        ~MindstealerSphiranx() override;
 
-private:
+        bool configure();
 
-    Weapon m_claws,
-        m_tail;
+    protected:
 
-    lsignal::slot m_connection;
+        int telepathicDread(const Unit *unit);
 
-    static bool s_registered;
-};
+    private:
+
+        Weapon m_claws,
+                m_tail;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

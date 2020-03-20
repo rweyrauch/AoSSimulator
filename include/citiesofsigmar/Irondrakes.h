@@ -12,57 +12,65 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class Irondrakes : public CitizenOfSigmar
-{
-public:
+    class Irondrakes : public CitizenOfSigmar {
+    public:
 
-    enum WeaponOptions
-    {
-        Drakegun,
-        GrudgehammerTorpedo,
-        DrakefirePistolAndCinderblastBomb,
-        PairedDrakefirePistols
+        enum WeaponOptions {
+            Drakegun,
+            GrudgehammerTorpedo,
+            DrakefirePistolAndCinderblastBomb,
+            PairedDrakefirePistols
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Irondrakes();
+
+        ~Irondrakes() override = default;
+
+        bool configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower);
+
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
+        void onStartShooting(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int braveryModifier() const override;
+
+    private:
+
+        bool m_standardBearer = false;
+        bool m_hornblower = false;
+        bool m_hasCinderblastBomb = false;
+
+        Weapon m_drakegun,
+                m_drakegunWarden,
+                m_grudgehammerTorpedo,
+                m_drakefirePistol,
+                m_drakefirePistolMelee,
+                m_mailedFist;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Irondrakes();
-    ~Irondrakes() override = default;
-
-    bool configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower);
-
-protected:
-
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int toSaveModifier(const Weapon *weapon) const override;
-    void onStartShooting(PlayerId player) override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-    int braveryModifier() const override;
-
-private:
-
-    bool m_standardBearer = false;
-    bool m_hornblower = false;
-    bool m_hasCinderblastBomb = false;
-
-    Weapon m_drakegun,
-        m_drakegunWarden,
-        m_grudgehammerTorpedo,
-        m_drakefirePistol,
-        m_drakefirePistolMelee,
-        m_mailedFist;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

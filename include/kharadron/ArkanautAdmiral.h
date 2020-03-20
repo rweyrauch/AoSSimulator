@@ -12,35 +12,36 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class ArkanautAdmiral : public KharadronBase
-{
-public:
+    class ArkanautAdmiral : public KharadronBase {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArkanautAdmiral();
+        static int ComputePoints(int numModels);
 
-    ~ArkanautAdmiral() override = default;
+        static void Init();
 
-    bool configure();
+        ArkanautAdmiral();
 
-protected:
+        ~ArkanautAdmiral() override = default;
 
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_pistol,
-        m_skalfhammer;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    static bool s_registered;
-};
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_pistol,
+                m_skalfhammer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

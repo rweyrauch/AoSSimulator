@@ -9,79 +9,72 @@
 #include <spells/MysticShield.h>
 #include "idonethdeepkin/IsharannTidecaster.h"
 
-namespace IdonethDeepkin
-{
-static const int BASESIZE = 32;
-static const int WOUNDS = 5;
-static const int POINTS_PER_UNIT = 100;
+namespace IdonethDeepkin {
+    static const int BASESIZE = 32;
+    static const int WOUNDS = 5;
+    static const int POINTS_PER_UNIT = 100;
 
-bool IsharannTidecaster::s_registered = false;
+    bool IsharannTidecaster::s_registered = false;
 
-Unit *IsharannTidecaster::Create(const ParameterList &parameters)
-{
-    auto unit = new IsharannTidecaster();
+    Unit *IsharannTidecaster::Create(const ParameterList &parameters) {
+        auto unit = new IsharannTidecaster();
 
-    auto enclave = (Enclave)GetEnumParam("Enclave", parameters, Enclave::None);
-    unit->setEnclave(enclave);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::None);
+        unit->setEnclave(enclave);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void IsharannTidecaster::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            IdonethDeepkinBase::ValueToString,
-            IdonethDeepkinBase::EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None, IdonethDeepkinBase::Briomdar, 1},
-            },
-            ORDER,
-            { IDONETH_DEEPKIN }
-        };
+    void IsharannTidecaster::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    IdonethDeepkinBase::ValueToString,
+                    IdonethDeepkinBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None,
+                             IdonethDeepkinBase::Briomdar, 1},
+                    },
+                    ORDER,
+                    {IDONETH_DEEPKIN}
+            };
 
-        s_registered = UnitFactory::Register("Isharann Tidecaster", factoryMethod);
+            s_registered = UnitFactory::Register("Isharann Tidecaster", factoryMethod);
+        }
     }
-}
 
-IsharannTidecaster::IsharannTidecaster() :
-    IdonethDeepkinBase("Isharann Tidecaster", 6, WOUNDS, 7, 6, false),
-    m_staff(Weapon::Type::Melee, "Pelagic Staff", 1, 2, 3, 3, 0, RAND_D3)
-{
-    m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};
-    m_weapons = {&m_staff};
+    IsharannTidecaster::IsharannTidecaster() :
+            IdonethDeepkinBase("Isharann Tidecaster", 6, WOUNDS, 7, 6, false),
+            m_staff(Weapon::Type::Melee, "Pelagic Staff", 1, 2, 3, 3, 0, RAND_D3) {
+        m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};
+        m_weapons = {&m_staff};
 
-    m_totalSpells = 1;
-    m_totalUnbinds = 1;
-}
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
+    }
 
-bool IsharannTidecaster::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_staff);
+    bool IsharannTidecaster::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_staff);
 
-    addModel(model);
+        addModel(model);
 
-    m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-    m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-    m_points = POINTS_PER_UNIT;
+        m_points = POINTS_PER_UNIT;
 
-    return true;
-}
+        return true;
+    }
 
-int IsharannTidecaster::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    int IsharannTidecaster::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
 
 } //IdonethDeepkin

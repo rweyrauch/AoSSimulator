@@ -12,36 +12,39 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Slaughtermaster : public MawtribesBase
-{
-public:
+    class Slaughtermaster : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Slaughtermaster();
-    ~Slaughtermaster() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Slaughtermaster();
 
-    void onCastSpell(const Spell* spell, const Unit* target) override;
-    void onUnboundSpell(const Unit* caster, int castRoll) override;
-    void onStartHero(PlayerId player) override;
+        ~Slaughtermaster() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_stumpBlades,
-        m_bite,
-        m_assortedWeapons;
+    protected:
 
-    static bool s_registered;
-};
+        void onCastSpell(const Spell *spell, const Unit *target) override;
+
+        void onUnboundSpell(const Unit *caster, int castRoll) override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        Weapon m_stumpBlades,
+            m_bite,
+            m_assortedWeapons;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

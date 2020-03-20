@@ -13,32 +13,35 @@
 #include <Weapon.h>
 #include <spells/GloomspiteSpells.h>
 
-namespace GloomspiteGitz
-{
+namespace GloomspiteGitz {
 
-class MadcapShaman : public GloomspiteGitzBase
-{
-public:
+    class MadcapShaman : public GloomspiteGitzBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    MadcapShaman();
-    ~MadcapShaman() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheMoonclans lore);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-private:
+        static int ComputePoints(int numModels);
 
-    Weapon m_moonStaff;
+        MadcapShaman();
 
-    static bool s_registered;
-};
+        ~MadcapShaman() override = default;
+
+        bool configure(LoreOfTheMoonclans lore);
+
+    protected:
+
+    private:
+
+        Weapon m_moonStaff;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

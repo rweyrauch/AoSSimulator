@@ -12,33 +12,34 @@
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Nighthaunt
-{
+namespace Nighthaunt {
 
-class GrimghastReapers : public Nighthaunt
-{
-public:
+    class GrimghastReapers : public Nighthaunt {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GrimghastReapers();
-    ~GrimghastReapers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        GrimghastReapers();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
+        ~GrimghastReapers() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_slasherScythe,
-        m_deathKnell;
+    protected:
 
-    static bool s_registered;
-};
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_slasherScythe,
+                m_deathKnell;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

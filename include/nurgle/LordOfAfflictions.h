@@ -12,40 +12,42 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class LordOfAfflictions : public NurgleBase
-{
-public:
+    class LordOfAfflictions : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordOfAfflictions();
-    ~LordOfAfflictions() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LordOfAfflictions();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId player) override;
+        ~LordOfAfflictions() override;
 
-    Rerolls plagueVectorToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_festerspike,
-        m_mouthparts,
-        m_sting,
-        m_tocsin;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    lsignal::slot m_plagueVectorSlot;
+        void onStartHero(PlayerId player) override;
 
-    static bool s_registered;
-};
+        Rerolls plagueVectorToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
+    private:
+
+        Weapon m_festerspike,
+                m_mouthparts,
+                m_sting,
+                m_tocsin;
+
+        lsignal::slot m_plagueVectorSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

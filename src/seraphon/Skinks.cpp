@@ -10,185 +10,170 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Seraphon
-{
-static const int BASESIZE = 25;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 10;
-static const int MAX_UNIT_SIZE = 40;
-static const int POINTS_PER_BLOCK = 60;
-static const int POINTS_MAX_UNIT_SIZE = 240;
+namespace Seraphon {
+    static const int BASESIZE = 25;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 10;
+    static const int MAX_UNIT_SIZE = 40;
+    static const int POINTS_PER_BLOCK = 60;
+    static const int POINTS_MAX_UNIT_SIZE = 240;
 
-bool Skinks::s_registered = false;
+    bool Skinks::s_registered = false;
 
-Skinks::Skinks() :
-    SeraphonBase("Skinks", 8, WOUNDS, 5, 6, false),
-    m_javelin(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
-    m_boltspitter(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
-    m_dagger(Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1),
-    m_daggerAlpha(Weapon::Type::Melee, "Celestite Dagger", 1, 2, 5, 5, 0, 1),
-    m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 4, 0, 1),
-    m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 4, 4, 0, 1)
-{
-    m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
-    m_weapons = {&m_javelin, &m_boltspitter, &m_dagger, &m_daggerAlpha, &m_club, &m_clubAlpha};
-}
-
-bool Skinks::configure(int numModels, WeaponOption weapons)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    Skinks::Skinks() :
+            SeraphonBase("Skinks", 8, WOUNDS, 5, 6, false),
+            m_javelin(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
+            m_boltspitter(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
+            m_dagger(Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1),
+            m_daggerAlpha(Weapon::Type::Melee, "Celestite Dagger", 1, 2, 5, 5, 0, 1),
+            m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 4, 0, 1),
+            m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 4, 4, 0, 1) {
+        m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
+        m_weapons = {&m_javelin, &m_boltspitter, &m_dagger, &m_daggerAlpha, &m_club, &m_clubAlpha};
     }
 
-    m_weaponOption = weapons;
-    
-    // Add the Alpha
-    auto alpha = new Model(BASESIZE, wounds());
-    switch (m_weaponOption)
-    {
-        case JavelinsDaggersAndBucklers:
-            alpha->addMissileWeapon(&m_javelin);
-            alpha->addMeleeWeapon(&m_daggerAlpha);
-            break;
-        case BoltspittersDaggersAndBucklers:
-            alpha->addMissileWeapon(&m_boltspitter);
-            alpha->addMeleeWeapon(&m_daggerAlpha);
-            break;
-        case BoltspittersAndClubs:
-            alpha->addMissileWeapon(&m_boltspitter);
-            alpha->addMeleeWeapon(&m_clubAlpha);
-            break;
-        case ClubsAndBucklers:
-            alpha->addMeleeWeapon(&m_clubAlpha);
-            break;
-    }
-    addModel(alpha);
+    bool Skinks::configure(int numModels, WeaponOption weapons) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    int currentModelCount = (int) m_models.size();
-    for (auto i = currentModelCount; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        switch (m_weaponOption)
-        {
+        m_weaponOption = weapons;
+
+        // Add the Alpha
+        auto alpha = new Model(BASESIZE, wounds());
+        switch (m_weaponOption) {
             case JavelinsDaggersAndBucklers:
-                model->addMissileWeapon(&m_javelin);
-                model->addMeleeWeapon(&m_dagger);
+                alpha->addMissileWeapon(&m_javelin);
+                alpha->addMeleeWeapon(&m_daggerAlpha);
                 break;
             case BoltspittersDaggersAndBucklers:
-                model->addMissileWeapon(&m_boltspitter);
-                model->addMeleeWeapon(&m_dagger);
+                alpha->addMissileWeapon(&m_boltspitter);
+                alpha->addMeleeWeapon(&m_daggerAlpha);
                 break;
             case BoltspittersAndClubs:
-                model->addMissileWeapon(&m_boltspitter);
-                model->addMeleeWeapon(&m_club);
+                alpha->addMissileWeapon(&m_boltspitter);
+                alpha->addMeleeWeapon(&m_clubAlpha);
                 break;
             case ClubsAndBucklers:
-                model->addMeleeWeapon(&m_club);
+                alpha->addMeleeWeapon(&m_clubAlpha);
                 break;
         }
-        addModel(model);
+        addModel(alpha);
+
+        int currentModelCount = (int) m_models.size();
+        for (auto i = currentModelCount; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            switch (m_weaponOption) {
+                case JavelinsDaggersAndBucklers:
+                    model->addMissileWeapon(&m_javelin);
+                    model->addMeleeWeapon(&m_dagger);
+                    break;
+                case BoltspittersDaggersAndBucklers:
+                    model->addMissileWeapon(&m_boltspitter);
+                    model->addMeleeWeapon(&m_dagger);
+                    break;
+                case BoltspittersAndClubs:
+                    model->addMissileWeapon(&m_boltspitter);
+                    model->addMeleeWeapon(&m_club);
+                    break;
+                case ClubsAndBucklers:
+                    model->addMeleeWeapon(&m_club);
+                    break;
+            }
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *Skinks::Create(const ParameterList &parameters) {
+        auto unit = new Skinks();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BoltspittersDaggersAndBucklers);
 
-    return true;
-}
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        unit->setWayOfTheSeraphon(way, constellation);
 
-Unit *Skinks::Create(const ParameterList &parameters)
-{
-    auto unit = new Skinks();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BoltspittersDaggersAndBucklers);
-
-    auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-    auto constellation = (Constellation)GetEnumParam("Constellation", parameters, SeraphonBase::None);
-    unit->setWayOfTheSeraphon(way, constellation);
-
-    bool ok = unit->configure(numModels, weapons);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void Skinks::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            ValueToString,
-            EnumStringToInt,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Weapons", BoltspittersDaggersAndBucklers, JavelinsDaggersAndBucklers, ClubsAndBucklers, 1},
-                {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne, SeraphonBase::Coalesced, 1},
-                {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None, SeraphonBase::FangsOfSotek, 1}
-            },
-            ORDER,
-            { SERAPHON }
-        };
-
-        s_registered = UnitFactory::Register("Skinks", factoryMethod);
-    }
-}
-
-std::string Skinks::ValueToString(const Parameter &parameter)
-{
-    if (std::string(parameter.name) == "Weapons")
-    {
-        if (parameter.intValue == JavelinsDaggersAndBucklers) { return "Javelins, Daggers and Bucklers"; }
-        else if (parameter.intValue == BoltspittersAndClubs) { return "Boltspitters and Clubs"; }
-        else if (parameter.intValue == BoltspittersDaggersAndBucklers) { return "Boltspitters, Daggers and Bucklers"; }
-        else if (parameter.intValue == ClubsAndBucklers) { return "Moonstone Clubs and Bucklers"; }
-    }
-    return SeraphonBase::ValueToString(parameter);
-}
-
-int Skinks::EnumStringToInt(const std::string &enumString)
-{
-    if (enumString == "Javelins, Daggers and Bucklers") { return JavelinsDaggersAndBucklers; }
-    else if (enumString == "Boltspitters and Clubs") { return BoltspittersAndClubs; }
-    else if (enumString == "Boltspitters, Daggers and Bucklers") { return BoltspittersDaggersAndBucklers; }
-    else if (enumString == "Moonstone Clubs and Bucklers") { return ClubsAndBucklers; }
-    return SeraphonBase::EnumStringToInt(enumString);
-}
-
-int Skinks::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = SeraphonBase::toSaveModifier(weapon);
-
-    if (m_weaponOption != BoltspittersAndClubs)
-    {
-        // Star-bucklers
-        modifier++;
+        bool ok = unit->configure(numModels, weapons);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    return modifier;
-}
+    void Skinks::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    ValueToString,
+                    EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Weapons", BoltspittersDaggersAndBucklers, JavelinsDaggersAndBucklers,
+                             ClubsAndBucklers, 1},
+                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
+                             SeraphonBase::Coalesced, 1},
+                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
+                             SeraphonBase::FangsOfSotek, 1}
+                    },
+                    ORDER,
+                    {SERAPHON}
+            };
 
-int Skinks::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+            s_registered = UnitFactory::Register("Skinks", factoryMethod);
+        }
     }
-    return points;
-}
 
-int Skinks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const
-{
-    auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
+    std::string Skinks::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapons") {
+            if (parameter.intValue == JavelinsDaggersAndBucklers) { return "Javelins, Daggers and Bucklers"; }
+            else if (parameter.intValue == BoltspittersAndClubs) { return "Boltspitters and Clubs"; }
+            else if (parameter.intValue ==
+                     BoltspittersDaggersAndBucklers) { return "Boltspitters, Daggers and Bucklers"; }
+            else if (parameter.intValue == ClubsAndBucklers) { return "Moonstone Clubs and Bucklers"; }
+        }
+        return SeraphonBase::ValueToString(parameter);
+    }
 
-    // Swarming Cohort
-    if (remainingModels() >= 15) extra++;
+    int Skinks::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Javelins, Daggers and Bucklers") { return JavelinsDaggersAndBucklers; }
+        else if (enumString == "Boltspitters and Clubs") { return BoltspittersAndClubs; }
+        else if (enumString == "Boltspitters, Daggers and Bucklers") { return BoltspittersDaggersAndBucklers; }
+        else if (enumString == "Moonstone Clubs and Bucklers") { return ClubsAndBucklers; }
+        return SeraphonBase::EnumStringToInt(enumString);
+    }
 
-    return extra;
-}
+    int Skinks::toSaveModifier(const Weapon *weapon) const {
+        int modifier = SeraphonBase::toSaveModifier(weapon);
+
+        if (m_weaponOption != BoltspittersAndClubs) {
+            // Star-bucklers
+            modifier++;
+        }
+
+        return modifier;
+    }
+
+    int Skinks::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
+
+    int Skinks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
+
+        // Swarming Cohort
+        if (remainingModels() >= 15) extra++;
+
+        return extra;
+    }
 
 } //namespace Seraphon

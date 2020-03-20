@@ -12,34 +12,37 @@
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class GavrielSureheart : public StormcastEternal
-{
-public:
+    class GavrielSureheart : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    GavrielSureheart();
-    ~GavrielSureheart() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        GavrielSureheart();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
-    Wounds computeReturnedDamage(const Weapon* weapon, int saveRoll) const override;
+        ~GavrielSureheart() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_starboundBlade;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    private:
+
+        Weapon m_starboundBlade;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

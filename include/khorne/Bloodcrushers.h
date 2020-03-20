@@ -12,44 +12,48 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Bloodcrushers : public KhorneBase
-{
-public:
+    class Bloodcrushers : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Bloodcrushers();
-    ~Bloodcrushers() override;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool hornblowers);
+        static void Init();
 
-protected:
+        Bloodcrushers();
 
-    void onCharged() override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    void computeBattleshockEffect(int roll, int& numFled, int& numAdded) const override;
-    void restoreModels(int numModels) override;
+        ~Bloodcrushers() override;
 
-    Rerolls hornblowerBattleshockReroll(const Unit* unit);
+        bool configure(int numModels, bool iconBearer, bool hornblowers);
 
-private:
+    protected:
 
-    bool m_iconBearer = false;
-    bool m_hornblower = false;
+        void onCharged() override;
 
-    lsignal::slot m_hornblowerSlot;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-    Weapon m_hellblade,
-        m_hellbladeHunter,
-        m_brazenHooves;
+        void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 
-    static bool s_registered;
-};
+        void restoreModels(int numModels) override;
+
+        Rerolls hornblowerBattleshockReroll(const Unit *unit);
+
+    private:
+
+        bool m_iconBearer = false;
+        bool m_hornblower = false;
+
+        lsignal::slot m_hornblowerSlot;
+
+        Weapon m_hellblade,
+                m_hellbladeHunter,
+                m_brazenHooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

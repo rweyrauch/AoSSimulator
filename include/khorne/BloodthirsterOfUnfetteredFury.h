@@ -12,36 +12,40 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class BloodthirsterOfUnfetteredFury : public KhorneBase
-{
-public:
+    class BloodthirsterOfUnfetteredFury : public KhorneBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloodthirsterOfUnfetteredFury();
-    ~BloodthirsterOfUnfetteredFury() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BloodthirsterOfUnfetteredFury();
 
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    void onStartHero(PlayerId player) override;
-    void onRestore() override;
+        ~BloodthirsterOfUnfetteredFury() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_lashOfKhorne,
-        m_mightyAxeOfKhorne;
+    protected:
 
-    static bool s_registered;
-};
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        void onStartHero(PlayerId player) override;
+
+        void onRestore() override;
+
+    private:
+
+        Weapon m_lashOfKhorne,
+                m_mightyAxeOfKhorne;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

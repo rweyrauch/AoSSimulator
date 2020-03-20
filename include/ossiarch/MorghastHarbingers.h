@@ -12,42 +12,44 @@
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
 
-namespace OssiarchBonereapers
-{
+namespace OssiarchBonereapers {
 
-class MorghastHarbingers : public OssiarchBonereaperBase
-{
-public:
+    class MorghastHarbingers : public OssiarchBonereaperBase {
+    public:
 
-    enum WeaponOptions
-    {
-        SpiritHalberd,
-        SpiritSwords,
+        enum WeaponOptions {
+            SpiritHalberd,
+            SpiritSwords,
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        MorghastHarbingers();
+
+        ~MorghastHarbingers() override = default;
+
+        bool configure(int numModels, WeaponOptions weapons);
+
+    protected:
+
+    private:
+
+        WeaponOptions m_weaponOption = SpiritHalberd;
+
+        Weapon m_spiritHalberd,
+                m_spiritSwords;
+
+        static bool s_registered;
+
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    MorghastHarbingers();
-    ~MorghastHarbingers() override = default;
-
-    bool configure(int numModels, WeaponOptions weapons);
-
-protected:
-
-private:
-
-    WeaponOptions m_weaponOption = SpiritHalberd;
-
-    Weapon m_spiritHalberd,
-        m_spiritSwords;
-
-    static bool s_registered;
-
-};
 
 //
 // Abilities                    Implemented

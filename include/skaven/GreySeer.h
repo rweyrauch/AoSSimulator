@@ -12,33 +12,31 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class GreySeer : public Skaventide
-{
-public:
+    class GreySeer : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    GreySeer();
+        GreySeer();
 
-    ~GreySeer() override = default;
+        ~GreySeer() override = default;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-private:
+    private:
 
-    Weapon m_staff;
+        Weapon m_staff;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

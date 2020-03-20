@@ -12,31 +12,32 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
-class Vargheists : public LegionOfNagashBase
-{
-public:
+namespace Death {
+    class Vargheists : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Vargheists();
-    ~Vargheists() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        Vargheists();
 
-private:
+        ~Vargheists() override = default;
 
-    Weapon m_fangsAndTalons,
-        m_fangsAndTalonsVargoyle;
+        bool configure(int numModels);
 
-    static bool s_registered;
+    protected:
 
-};
+    private:
+
+        Weapon m_fangsAndTalons,
+            m_fangsAndTalonsVargoyle;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

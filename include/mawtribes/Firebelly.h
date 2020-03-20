@@ -12,33 +12,34 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class Firebelly : public MawtribesBase
-{
-public:
+    class Firebelly : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Firebelly();
-    ~Firebelly() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Firebelly();
 
-    void onStartShooting(PlayerId player) override;
+        ~Firebelly() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_fireBreath,
-        m_hammer;
+    protected:
 
-    static bool s_registered;
-};
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        Weapon m_fireBreath,
+            m_hammer;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

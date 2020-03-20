@@ -10,140 +10,119 @@
 #include <UnitFactory.h>
 #include <Board.h>
 
-namespace Death
-{
-static const int BASESIZE = 25;
-static const int WOUNDS = 1;
-static const int MIN_UNIT_SIZE = 10;
-static const int MAX_UNIT_SIZE = 60;
-static const int POINTS_PER_BLOCK = 60;
-static const int POINTS_MAX_UNIT_SIZE = 320;
+namespace Death {
+    static const int BASESIZE = 25;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 10;
+    static const int MAX_UNIT_SIZE = 60;
+    static const int POINTS_PER_BLOCK = 60;
+    static const int POINTS_MAX_UNIT_SIZE = 320;
 
-bool Zombies::s_registered = false;
+    bool Zombies::s_registered = false;
 
-Zombies::Zombies() :
-    LegionOfNagashBase("Zombies", 4, WOUNDS, 10, NoSave, false),
-    m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1)
-{
-    m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
-    m_weapons = {&m_zombieBite};
-}
-
-bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        // Invalid model count.
-        return false;
+    Zombies::Zombies() :
+            LegionOfNagashBase("Zombies", 4, WOUNDS, 10, NoSave, false),
+            m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
+        m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
+        m_weapons = {&m_zombieBite};
     }
 
-    // TODO: standard bearers debuff enemy Bravery within 6".
-    m_standardBearer = standardBearer;
-    // TODO: minimum charge distance is 6" with noise maker present
-    m_noiseMaker = noiseMaker;
+    bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
+        }
 
-    for (auto i = 0; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_zombieBite);
-        addModel(model);
+        // TODO: standard bearers debuff enemy Bravery within 6".
+        m_standardBearer = standardBearer;
+        // TODO: minimum charge distance is 6" with noise maker present
+        m_noiseMaker = noiseMaker;
+
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_zombieBite);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *Zombies::Create(const ParameterList &parameters) {
+        auto unit = new Zombies();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
+        bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
 
-    return true;
-}
-
-Unit *Zombies::Create(const ParameterList &parameters)
-{
-    auto unit = new Zombies();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
-    bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
-
-    bool ok = unit->configure(numModels, standardBearers, noisemaker);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels, standardBearers, noisemaker);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void Zombies::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            nullptr,
-            nullptr,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                {ParamType::Boolean, "Noisemaker", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
-            },
-            DEATH,
-            { DEADWALKERS }
-        };
-        s_registered = UnitFactory::Register("Zombies", factoryMethod);
-    }
-}
-
-int Zombies::toHitModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Unit::toHitModifier(weapon, target);
-
-    // Vigour Mortis
-    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
-    for (auto ip : units)
-    {
-        if (ip->hasKeyword(CORPSE_CARTS))
-        {
-            modifier += 1;
-            break;
+    void Zombies::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    nullptr,
+                    nullptr,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Boolean, "Noisemaker", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
+                    },
+                    DEATH,
+                    {DEADWALKERS}
+            };
+            s_registered = UnitFactory::Register("Zombies", factoryMethod);
         }
     }
 
-    // Dragged Down and Torn Apart
-    if (remainingModels() >= 40)
-    {
-        modifier += 2;
-    }
-    else if (remainingModels() >= 20)
-    {
-        modifier += 1;
-    }
+    int Zombies::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        int modifier = Unit::toHitModifier(weapon, target);
 
-    return modifier;
-}
+        // Vigour Mortis
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
+        for (auto ip : units) {
+            if (ip->hasKeyword(CORPSE_CARTS)) {
+                modifier += 1;
+                break;
+            }
+        }
 
-int Zombies::toWoundModifier(const Weapon *weapon, const Unit *target) const
-{
-    int modifier = Unit::toWoundModifier(weapon, target);
+        // Dragged Down and Torn Apart
+        if (remainingModels() >= 40) {
+            modifier += 2;
+        } else if (remainingModels() >= 20) {
+            modifier += 1;
+        }
 
-    // Dragged Down and Torn Apart
-    if (remainingModels() >= 40)
-    {
-        modifier += 2;
-    }
-    else if (remainingModels() >= 20)
-    {
-        modifier += 1;
+        return modifier;
     }
 
-    return modifier;
-}
+    int Zombies::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        int modifier = Unit::toWoundModifier(weapon, target);
 
-int Zombies::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+        // Dragged Down and Torn Apart
+        if (remainingModels() >= 40) {
+            modifier += 2;
+        } else if (remainingModels() >= 20) {
+            modifier += 1;
+        }
+
+        return modifier;
     }
-    return points;
-}
+
+    int Zombies::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } //namespace Death

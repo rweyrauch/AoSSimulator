@@ -12,57 +12,65 @@
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
 
-namespace KharadronOverlords
-{
+namespace KharadronOverlords {
 
-class ArkanautIronclad : public KharadronBase
-{
-public:
+    class ArkanautIronclad : public KharadronBase {
+    public:
 
-    enum WeaponOption
-    {
-        GreatSkyCannon,
-        GreatSkyhook,
-        GreatVolleyCannon
+        enum WeaponOption {
+            GreatSkyCannon,
+            GreatSkyhook,
+            GreatVolleyCannon
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        ArkanautIronclad();
+
+        ~ArkanautIronclad() override = default;
+
+        bool configure(WeaponOption option);
+
+    protected:
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        void onStartShooting(PlayerId player) override;
+
+        int chargeModifier() const override;
+
+        void onStartHero(PlayerId player) override;
+
+        Rerolls runRerolls() const override;
+
+        void onStartCombat(PlayerId player) override;
+
+    private:
+
+        WeaponOption m_weaponOption = GreatSkyCannon;
+
+        Weapon m_cannonShrapnel,
+                m_cannonShell,
+                m_skyhook,
+                m_volleyCannon,
+                m_torpedoes,
+                m_carbines,
+                m_boardingWeapons;
+
+        static bool s_registered;
     };
-
-    static Unit *Create(const ParameterList &parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    ArkanautIronclad();
-
-    ~ArkanautIronclad() override = default;
-
-    bool configure(WeaponOption option);
-
-protected:
-
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
-    void onStartShooting(PlayerId player) override;
-    int chargeModifier() const override;
-    void onStartHero(PlayerId player) override;
-    Rerolls runRerolls() const override;
-    void onStartCombat(PlayerId player) override;
-
-private:
-
-    WeaponOption m_weaponOption = GreatSkyCannon;
-
-    Weapon m_cannonShrapnel,
-        m_cannonShell,
-        m_skyhook,
-        m_volleyCannon,
-        m_torpedoes,
-        m_carbines,
-        m_boardingWeapons;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

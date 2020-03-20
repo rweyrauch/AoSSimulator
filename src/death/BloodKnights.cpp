@@ -9,124 +9,109 @@
 #include <death/BloodKnights.h>
 #include <UnitFactory.h>
 
-namespace Death
-{
-static const int BASESIZE = 60; // x35 oval
-static const int WOUNDS = 2;
-static const int MIN_UNIT_SIZE = 5;
-static const int MAX_UNIT_SIZE = 15;
-static const int POINTS_PER_BLOCK = 200;
-static const int POINTS_MAX_UNIT_SIZE = 600;
+namespace Death {
+    static const int BASESIZE = 60; // x35 oval
+    static const int WOUNDS = 2;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 15;
+    static const int POINTS_PER_BLOCK = 200;
+    static const int POINTS_MAX_UNIT_SIZE = 600;
 
-bool BloodKnights::s_registered = false;
+    bool BloodKnights::s_registered = false;
 
-BloodKnights::BloodKnights() :
-    LegionOfNagashBase("Blood Knights", 10, WOUNDS, 10, 4, false),
-    m_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1),
-    m_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade", 1, 4, 3, 3, -1, 1),
-    m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1)
-{
-    m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
-    m_weapons = {&m_templarLanceOrBlade, &m_templarLanceOrBladeKastellan, &m_hoovesAndTeeth};
-}
-
-bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowers)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        // Invalid model count.
-        return false;
+    BloodKnights::BloodKnights() :
+            LegionOfNagashBase("Blood Knights", 10, WOUNDS, 10, 4, false),
+            m_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1),
+            m_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade", 1, 4, 3, 3, -1, 1),
+            m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
+        m_weapons = {&m_templarLanceOrBlade, &m_templarLanceOrBladeKastellan, &m_hoovesAndTeeth};
     }
 
-    m_standardBearers = standardBearers;
-    m_hornblowers = hornblowers;
+    bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowers) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
+        }
 
-    auto kastellan = new Model(BASESIZE, wounds());
-    kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
-    kastellan->addMeleeWeapon(&m_hoovesAndTeeth);
-    addModel(kastellan);
+        m_standardBearers = standardBearers;
+        m_hornblowers = hornblowers;
 
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_templarLanceOrBlade);
-        model->addMeleeWeapon(&m_hoovesAndTeeth);
-        addModel(model);
+        auto kastellan = new Model(BASESIZE, wounds());
+        kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
+        kastellan->addMeleeWeapon(&m_hoovesAndTeeth);
+        addModel(kastellan);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_templarLanceOrBlade);
+            model->addMeleeWeapon(&m_hoovesAndTeeth);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *BloodKnights::Create(const ParameterList &parameters) {
+        auto unit = new BloodKnights();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
+        bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-    return true;
-}
-
-Unit *BloodKnights::Create(const ParameterList &parameters)
-{
-    auto unit = new BloodKnights();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-    bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
-    bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-    bool ok = unit->configure(numModels, standardBearers, hornblowers);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
-    }
-    return unit;
-}
-
-void BloodKnights::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Create,
-            nullptr,
-            nullptr,
-            ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-            },
-            DEATH,
-            { SOULBLIGHT }
-        };
-        s_registered = UnitFactory::Register("Blood Knights", factoryMethod);
-    }
-}
-
-Wounds BloodKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Martial Fury
-    if (m_charged && weapon->name() == m_templarLanceOrBlade.name())
-    {
-        return {weapon->damage() + Dice::rollD3(), 0};
-    }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
-
-int BloodKnights::toSaveModifier(const Weapon *weapon) const
-{
-    int modifier = Unit::toSaveModifier(weapon);
-
-    // Bloodshields
-    if (weapon->rend() == 0)
-    {
-        modifier += 1;
+        bool ok = unit->configure(numModels, standardBearers, hornblowers);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    return modifier;
-}
-
-int BloodKnights::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    void BloodKnights::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    nullptr,
+                    nullptr,
+                    ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                    },
+                    DEATH,
+                    {SOULBLIGHT}
+            };
+            s_registered = UnitFactory::Register("Blood Knights", factoryMethod);
+        }
     }
-    return points;
-}
+
+    Wounds BloodKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Martial Fury
+        if (m_charged && weapon->name() == m_templarLanceOrBlade.name()) {
+            return {weapon->damage() + Dice::rollD3(), 0};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int BloodKnights::toSaveModifier(const Weapon *weapon) const {
+        int modifier = Unit::toSaveModifier(weapon);
+
+        // Bloodshields
+        if (weapon->rend() == 0) {
+            modifier += 1;
+        }
+
+        return modifier;
+    }
+
+    int BloodKnights::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } //namespace Death

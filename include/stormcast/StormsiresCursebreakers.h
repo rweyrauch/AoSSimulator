@@ -13,37 +13,41 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class StormsiresCursebreakers : public StormcastEternal
-{
-public:
+    class StormsiresCursebreakers : public StormcastEternal {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    StormsiresCursebreakers();
+        static void Init();
 
-    ~StormsiresCursebreakers() override = default;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure(LoreOfInvigoration invigoration);
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    int generateMortalWounds(const Unit *unit) override;
-    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        StormsiresCursebreakers();
 
-private:
+        ~StormsiresCursebreakers() override = default;
 
-    Weapon m_tempestBladeAndStave;
+        bool configure(LoreOfInvigoration invigoration);
 
-    static bool s_registered;
-};
+    protected:
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+        int generateMortalWounds(const Unit *unit) override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+    private:
+
+        Weapon m_tempestBladeAndStave;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

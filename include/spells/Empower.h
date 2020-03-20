@@ -11,15 +11,16 @@
 
 #include <Spell.h>
 
-class Empower : public Spell
-{
+class Empower : public Spell {
 public:
     explicit Empower(Unit *caster);
 
-    Result cast(Unit* target, int round) override;
+    Result cast(Unit *target, int round) override;
+
     Result cast(float x, float y, int round) override { return Failed; }
 
 protected:
 
 };
+
 #endif// EMPOWER_H

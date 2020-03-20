@@ -12,43 +12,47 @@
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
 
-namespace Death
-{
+namespace Death {
 
-class Nagash : public LegionOfNagashBase
-{
-public:
+    class Nagash : public LegionOfNagashBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Nagash();
-    ~Nagash() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-    int castingModifier() const override;
+        Nagash();
 
-protected:
+        ~Nagash() override = default;
 
-    void onWounded() override;
-    void onRestore() override;
-    int unbindingModifier() const override;
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        bool configure();
 
-    int getDamageTableIndex() const;
+        int castingModifier() const override;
 
-private:
+    protected:
 
-    Weapon m_gaze,
-        m_alakanash,
-        m_zefetNebtar,
-        m_clawsAndDaggers;
+        void onWounded() override;
 
-    static bool s_registered;
+        void onRestore() override;
 
-};
+        int unbindingModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_gaze,
+            m_alakanash,
+            m_zefetNebtar,
+            m_clawsAndDaggers;
+
+        static bool s_registered;
+
+    };
 
 //
 // Abilities                    Implemented

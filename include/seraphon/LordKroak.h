@@ -12,35 +12,39 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class LordKroak : public SeraphonBase
-{
-public:
+    class LordKroak : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    LordKroak();
-    ~LordKroak() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        LordKroak();
 
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId player) override;
-    int castingModifier() const override;
+        ~LordKroak() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_barrier;
+    protected:
 
-    static bool s_registered;
-};
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onStartHero(PlayerId player) override;
+
+        int castingModifier() const override;
+
+    private:
+
+        Weapon m_barrier;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

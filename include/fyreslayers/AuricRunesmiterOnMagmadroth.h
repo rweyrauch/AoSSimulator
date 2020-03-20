@@ -12,43 +12,48 @@
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
 
-namespace Fyreslayers
-{
+namespace Fyreslayers {
 
-class AuricRunesmiterOnMagmadroth : public Fyreslayer
-{
-public:
+    class AuricRunesmiterOnMagmadroth : public Fyreslayer {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    AuricRunesmiterOnMagmadroth();
-    ~AuricRunesmiterOnMagmadroth() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        AuricRunesmiterOnMagmadroth();
 
-    void onWounded() override;
-    void onRestore() override;
-    int getDamageTableIndex() const;
+        ~AuricRunesmiterOnMagmadroth() override = default;
 
-    void onStartShooting(PlayerId player) override;
-    Wounds onEndCombat(PlayerId player) override;
-    Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_throwingAxe,
-        m_fyrestream,
-        m_clawsAndHorns,
-        m_blazingMaw,
-        m_latchAxe,
-        m_runicIron;
+        void onWounded() override;
 
-    static bool s_registered;
-};
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
+        void onStartShooting(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
+
+    private:
+
+        Weapon m_throwingAxe,
+                m_fyrestream,
+                m_clawsAndHorns,
+                m_blazingMaw,
+                m_latchAxe,
+                m_runicIron;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -11,30 +11,31 @@
 
 #include "nurgle/Nurgle.h"
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class FeculaFlyblown : public NurgleBase
-{
-public:
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+    class FeculaFlyblown : public NurgleBase {
+    public:
+        static Unit *Create(const ParameterList &parameters);
 
-    FeculaFlyblown();
-    ~FeculaFlyblown() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        FeculaFlyblown();
+
+        ~FeculaFlyblown() override = default;
+
+        bool configure();
+
+    protected:
 
 
-private:
+    private:
 
-    Weapon m_staff;
+        Weapon m_staff;
 
-    static bool s_registered;
-};
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

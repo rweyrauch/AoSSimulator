@@ -12,42 +12,44 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Sylvaneth
-{
+namespace Sylvaneth {
 
-class ArchRevenant : public SylvanethBase
-{
-public:
+    class ArchRevenant : public SylvanethBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    ArchRevenant();
-    ~ArchRevenant() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        ArchRevenant();
 
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    Rerolls toSaveRerolls(const Weapon* weapon) const override;
+        ~ArchRevenant() override = default;
 
-    // Buff shields when not our combat phase.
-    void onStartHero(PlayerId id) override { m_crescentShieldProtection = false; }
+        bool configure();
 
-    // Buff weapons during our combat phase
-    void onStartCombat(PlayerId id) override { m_crescentShieldProtection = true; }
+    protected:
 
-private:
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-    Weapon m_glaive,
-        m_tailPincers;
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
-    bool m_crescentShieldProtection = false;
+        // Buff shields when not our combat phase.
+        void onStartHero(PlayerId id) override { m_crescentShieldProtection = false; }
 
-    static bool s_registered;
-};
+        // Buff weapons during our combat phase
+        void onStartCombat(PlayerId id) override { m_crescentShieldProtection = true; }
+
+    private:
+
+        Weapon m_glaive,
+                m_tailPincers;
+
+        bool m_crescentShieldProtection = false;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

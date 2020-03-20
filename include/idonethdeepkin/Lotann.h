@@ -12,38 +12,40 @@
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
 
-namespace IdonethDeepkin
-{
+namespace IdonethDeepkin {
 
-class Lotann : public IdonethDeepkinBase
-{
-public:
+    class Lotann : public IdonethDeepkinBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Lotann();
-    ~Lotann() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        Lotann();
 
-    Wounds applyWoundSave(const Wounds& wounds) override;
-    int catalogueOfSouls(const Unit* target);
+        ~Lotann() override;
 
-private:
+        bool configure();
 
-    Weapon m_quill,
-        m_cudgel,
-        m_blade,
-        m_tentacles;
+    protected:
 
-    lsignal::slot m_connection;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    static bool s_registered;
-};
+        int catalogueOfSouls(const Unit *target);
+
+    private:
+
+        Weapon m_quill,
+                m_cudgel,
+                m_blade,
+                m_tentacles;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

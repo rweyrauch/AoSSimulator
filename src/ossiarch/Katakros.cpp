@@ -8,143 +8,124 @@
 #include <UnitFactory.h>
 #include "ossiarch/Katakros.h"
 
-namespace OssiarchBonereapers
-{
-static const int BASESIZE = 120; // x92 oval
-static const int WOUNDS = 20;
-static const int POINTS_PER_UNIT = 500;
+namespace OssiarchBonereapers {
+    static const int BASESIZE = 120; // x92 oval
+    static const int WOUNDS = 20;
+    static const int POINTS_PER_UNIT = 500;
 
-bool Katakros::s_registered = false;
+    bool Katakros::s_registered = false;
 
-Unit *Katakros::Create(const ParameterList &parameters)
-{
-    auto unit = new Katakros();
+    Unit *Katakros::Create(const ParameterList &parameters) {
+        auto unit = new Katakros();
 
-    auto legion = (Legion)GetEnumParam("Legion", parameters, None);
-    unit->setLegion(legion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        unit->setLegion(legion);
 
-    bool ok = unit->configure();
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-std::string Katakros::ValueToString(const Parameter &parameter)
-{
-    return OssiarchBonereaperBase::ValueToString(parameter);
-}
-
-int Katakros::EnumStringToInt(const std::string &enumString)
-{
-    return OssiarchBonereaperBase::EnumStringToInt(enumString);
-}
-
-void Katakros::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            Katakros::Create,
-            Katakros::ValueToString,
-            Katakros::EnumStringToInt,
-            Katakros::ComputePoints,
-            {
-                {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
-            },
-            DEATH,
-            { OSSIARCH_BONEREAPERS }
-        };
-        s_registered = UnitFactory::Register("Orpheon Katakros", factoryMethod);
+    std::string Katakros::ValueToString(const Parameter &parameter) {
+        return OssiarchBonereaperBase::ValueToString(parameter);
     }
-}
 
-Katakros::Katakros() :
-    OssiarchBonereaperBase("Orpheon Katakros", 4, WOUNDS, 10, 3, false),
-    m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
-    m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
-    m_nadiriteDagger(Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1),
-    m_blades(Weapon::Type::Melee, "Nadirite Duelling Blades", 1, 6, 3, 3, -1, 1),
-    m_greatblade(Weapon::Type::Melee, "Soulreaver Greatblade", 1, 3, 3, 3, -1, 1),
-    m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1)
-{
-    m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
-    m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
-}
-
-bool Katakros::configure()
-{
-    auto model = new Model(BASESIZE, wounds());
-    model->addMeleeWeapon(&m_indaKhaat);
-    model->addMeleeWeapon(&m_shieldImmortis);
-    model->addMeleeWeapon(&m_nadiriteDagger);
-    model->addMeleeWeapon(&m_blades);
-    model->addMeleeWeapon(&m_greatblade);
-    model->addMeleeWeapon(&m_spiritDagger);
-
-    m_shieldImmortis.activate(false);
-
-    addModel(model);
-
-    m_points = POINTS_PER_UNIT;
-
-    return true;
-}
-
-int Katakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const
-{
-    if ((unmodifiedHitRoll == 6) && ((weapon->name() == m_nadiriteDagger.name()) || (weapon->name() == m_blades.name()))) return 2;
-    return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-}
-
-void Katakros::onWounded()
-{
-    Unit::onWounded();
-
-    if (woundsTaken() >= 13)
-    {
-        m_shieldImmortis.activate(true);
-        m_blades.activate(false);
-        m_indaKhaat.setAttacks(4);
+    int Katakros::EnumStringToInt(const std::string &enumString) {
+        return OssiarchBonereaperBase::EnumStringToInt(enumString);
     }
-    else if (woundsTaken() >= 8)
-    {
-        m_spiritDagger.activate(false);
-    }
-    else if (woundsTaken() >= 4)
-    {
-        m_greatblade.activate(false);
-        m_indaKhaat.setAttacks(2);
-    }
-    else if (woundsTaken() >= 2)
-    {
-        m_nadiriteDagger.activate(false);
-    }
-}
 
-Wounds Katakros::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Deadly Combination
-    if ((hitRoll == 6) && (weapon->name() == m_shieldImmortis.name()))
-    {
-        return {weapon->damage(), 2};
+    void Katakros::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                Katakros::Create,
+                Katakros::ValueToString,
+                Katakros::EnumStringToInt,
+                Katakros::ComputePoints,
+                {
+                    {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                     OssiarchBonereaperBase::Crematorians, 1},
+                },
+                DEATH,
+                {OSSIARCH_BONEREAPERS}
+            };
+            s_registered = UnitFactory::Register("Orpheon Katakros", factoryMethod);
+        }
     }
-    return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int Katakros::ComputePoints(int numModels)
-{
-    return POINTS_PER_UNIT;
-}
+    Katakros::Katakros() :
+        OssiarchBonereaperBase("Orpheon Katakros", 4, WOUNDS, 10, 3, false),
+        m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
+        m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
+        m_nadiriteDagger(Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1),
+        m_blades(Weapon::Type::Melee, "Nadirite Duelling Blades", 1, 6, 3, 3, -1, 1),
+        m_greatblade(Weapon::Type::Melee, "Soulreaver Greatblade", 1, 3, 3, 3, -1, 1),
+        m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1) {
+        m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
+        m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
+    }
 
-void Katakros::onRestore()
-{
-    Unit::onRestore();
+    bool Katakros::configure() {
+        auto model = new Model(BASESIZE, wounds());
+        model->addMeleeWeapon(&m_indaKhaat);
+        model->addMeleeWeapon(&m_shieldImmortis);
+        model->addMeleeWeapon(&m_nadiriteDagger);
+        model->addMeleeWeapon(&m_blades);
+        model->addMeleeWeapon(&m_greatblade);
+        model->addMeleeWeapon(&m_spiritDagger);
 
-    // Restore table-driven attributes
-    onWounded();
-}
+        m_shieldImmortis.activate(false);
+
+        addModel(model);
+
+        m_points = POINTS_PER_UNIT;
+
+        return true;
+    }
+
+    int Katakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        if ((unmodifiedHitRoll == 6) &&
+            ((weapon->name() == m_nadiriteDagger.name()) || (weapon->name() == m_blades.name())))
+            return 2;
+        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+    }
+
+    void Katakros::onWounded() {
+        Unit::onWounded();
+
+        if (woundsTaken() >= 13) {
+            m_shieldImmortis.activate(true);
+            m_blades.activate(false);
+            m_indaKhaat.setAttacks(4);
+        } else if (woundsTaken() >= 8) {
+            m_spiritDagger.activate(false);
+        } else if (woundsTaken() >= 4) {
+            m_greatblade.activate(false);
+            m_indaKhaat.setAttacks(2);
+        } else if (woundsTaken() >= 2) {
+            m_nadiriteDagger.activate(false);
+        }
+    }
+
+    Wounds Katakros::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Deadly Combination
+        if ((hitRoll == 6) && (weapon->name() == m_shieldImmortis.name())) {
+            return {weapon->damage(), 2};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int Katakros::ComputePoints(int numModels) {
+        return POINTS_PER_UNIT;
+    }
+
+    void Katakros::onRestore() {
+        Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
+    }
 
 } // namespace OssiarchBonereapers

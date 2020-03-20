@@ -13,40 +13,46 @@
 #include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
-namespace StormcastEternals
-{
+namespace StormcastEternals {
 
-class AventisFirestrike : public StormcastEternal
-{
-public:
+    class AventisFirestrike : public StormcastEternal {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static void Init();
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
+        static Unit *Create(const ParameterList &parameters);
 
-    AventisFirestrike();
-    ~AventisFirestrike() override = default;
+        static void Init();
 
-    bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        static std::string ValueToString(const Parameter &parameter);
 
-protected:
+        static int EnumStringToInt(const std::string &enumString);
 
-    void onStartCombat(PlayerId player) override;
-    void onRestore() override { m_shatteredFlasks = false; }
-    void onCharged() override;
-    void onStartHero(PlayerId player) override;
+        static int ComputePoints(int numModels);
 
-private:
+        AventisFirestrike();
 
-    bool m_shatteredFlasks = false;
+        ~AventisFirestrike() override = default;
 
-    Weapon m_staffOfHammerhal,
-        m_hornsAndHooves;
+        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
 
-    static bool s_registered;
-};
+    protected:
+
+        void onStartCombat(PlayerId player) override;
+
+        void onRestore() override { m_shatteredFlasks = false; }
+
+        void onCharged() override;
+
+        void onStartHero(PlayerId player) override;
+
+    private:
+
+        bool m_shatteredFlasks = false;
+
+        Weapon m_staffOfHammerhal,
+                m_hornsAndHooves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

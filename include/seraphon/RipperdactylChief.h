@@ -12,33 +12,34 @@
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
 
-namespace Seraphon
-{
+namespace Seraphon {
 
-class RipperdactylChief : public SeraphonBase
-{
-public:
+    class RipperdactylChief : public SeraphonBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    RipperdactylChief();
-    ~RipperdactylChief() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        RipperdactylChief();
 
-    int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+        ~RipperdactylChief() override = default;
 
-private:
+        bool configure();
 
-    Weapon m_skyblade,
-        m_jaws;
+    protected:
 
-    static bool s_registered;
-};
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+    private:
+
+        Weapon m_skyblade,
+            m_jaws;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

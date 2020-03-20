@@ -12,51 +12,57 @@
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
 
-namespace Khorne
-{
+namespace Khorne {
 
-class Bloodreavers : public KhorneBase
-{
-public:
+    class Bloodreavers : public KhorneBase {
+    public:
 
-    enum WeaponOption
-    {
-        ReaverBlades,
-        MeatripperAxe
+        enum WeaponOption {
+            ReaverBlades,
+            MeatripperAxe
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        Bloodreavers();
+
+        ~Bloodreavers() override = default;
+
+        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers);
+
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+
+        int braveryModifier() const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+    private:
+
+        WeaponOption m_weaponOption = ReaverBlades;
+        bool m_iconBearer = false;
+        bool m_hornblower = false;
+
+        Weapon m_reaverBlades,
+                m_reaverBladesChieftain,
+                m_meatripperAxe,
+                m_meatripperAxeChieftain;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter& parameter);
-    static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    Bloodreavers();
-    ~Bloodreavers() override = default;
-
-    bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers);
-
-protected:
-
-    Rerolls toHitRerolls(const Weapon* weapon, const Unit* unit) const override;
-    int braveryModifier() const override;
-    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-    int runModifier() const override;
-    int chargeModifier() const override;
-
-private:
-
-    WeaponOption m_weaponOption = ReaverBlades;
-    bool m_iconBearer = false;
-    bool m_hornblower = false;
-
-    Weapon m_reaverBlades,
-        m_reaverBladesChieftain,
-        m_meatripperAxe,
-        m_meatripperAxeChieftain;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

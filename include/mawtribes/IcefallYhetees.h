@@ -12,32 +12,33 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class IcefallYhetees : public MawtribesBase
-{
-public:
+    class IcefallYhetees : public MawtribesBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    IcefallYhetees();
-    ~IcefallYhetees() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels);
+        static void Init();
 
-protected:
+        IcefallYhetees();
 
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+        ~IcefallYhetees() override = default;
 
-private:
+        bool configure(int numModels);
 
-    Weapon m_clawsAndClubs;
+    protected:
 
-    static bool s_registered;
-};
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
+
+        Weapon m_clawsAndClubs;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

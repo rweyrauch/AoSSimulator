@@ -12,40 +12,43 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class Plaguebearers : public NurgleBase
-{
-public:
+    class Plaguebearers : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    Plaguebearers();
-    ~Plaguebearers() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure(int numModels, bool iconBearer, bool pipers);
+        static void Init();
 
-protected:
+        Plaguebearers();
 
-    Wounds applyWoundSave(const Wounds& wounds) override;
-    int targetHitModifier(const Weapon* weapon, const Unit* attacker) const override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        ~Plaguebearers() override = default;
 
-protected:
+        bool configure(int numModels, bool iconBearer, bool pipers);
 
-    bool m_iconBearer = false;
-    bool m_pipers = false;
+    protected:
 
-private:
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    Weapon m_plaguesword,
-        m_plagueswordPlagueRidden;
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    static bool s_registered;
-};
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    protected:
+
+        bool m_iconBearer = false;
+        bool m_pipers = false;
+
+    private:
+
+        Weapon m_plaguesword,
+                m_plagueswordPlagueRidden;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

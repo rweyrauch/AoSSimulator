@@ -12,38 +12,40 @@
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
 
-namespace Nurgle
-{
+namespace Nurgle {
 
-class SpoilpoxScrivenerHeraldOfNurgle : public NurgleBase
-{
-public:
+    class SpoilpoxScrivenerHeraldOfNurgle : public NurgleBase {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    SpoilpoxScrivenerHeraldOfNurgle();
-    ~SpoilpoxScrivenerHeraldOfNurgle() override;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        SpoilpoxScrivenerHeraldOfNurgle();
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
+        ~SpoilpoxScrivenerHeraldOfNurgle() override;
 
-    Rerolls keepCountingChargeRerolls(const Unit* unit);
-    Rerolls keepCountingToHitRerolls(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        bool configure();
 
-private:
+    protected:
 
-    Weapon m_sneeze,
-        m_maw;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    lsignal::slot m_keepCountingChargeSlot, m_keepCountingToHitSlot;
+        Rerolls keepCountingChargeRerolls(const Unit *unit);
 
-    static bool s_registered;
-};
+        Rerolls keepCountingToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
+    private:
+
+        Weapon m_sneeze,
+                m_maw;
+
+        lsignal::slot m_keepCountingChargeSlot, m_keepCountingToHitSlot;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

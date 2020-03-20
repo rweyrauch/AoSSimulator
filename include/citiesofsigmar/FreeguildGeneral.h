@@ -12,37 +12,41 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
 
-namespace CitiesOfSigmar
-{
+namespace CitiesOfSigmar {
 
-class FreeguildGeneral : public CitizenOfSigmar
-{
-public:
+    class FreeguildGeneral : public CitizenOfSigmar {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    FreeguildGeneral();
-    ~FreeguildGeneral() override;
+        static std::string ValueToString(const Parameter &parameter);
 
-    bool configure();
+        static int EnumStringToInt(const std::string &enumString);
 
-protected:
+        static int ComputePoints(int numModels);
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-    int inspiringLeader(const Unit* target);
+        static void Init();
 
-private:
+        FreeguildGeneral();
 
-    Weapon m_zweihander;
+        ~FreeguildGeneral() override;
 
-    lsignal::slot m_connection;
+        bool configure();
 
-    static bool s_registered;
-};
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int inspiringLeader(const Unit *target);
+
+    private:
+
+        Weapon m_zweihander;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

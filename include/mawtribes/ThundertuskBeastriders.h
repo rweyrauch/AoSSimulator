@@ -12,51 +12,57 @@
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
 
-namespace OgorMawtribes
-{
+namespace OgorMawtribes {
 
-class ThundertuskBeastriders : public MawtribesBase
-{
-public:
+    class ThundertuskBeastriders : public MawtribesBase {
+    public:
 
-    enum WeaponOption
-    {
-        Chaintrap,
-        BloodVulture
+        enum WeaponOption {
+            Chaintrap,
+            BloodVulture
+        };
+
+        static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        static int ComputePoints(int numModels);
+
+        static void Init();
+
+        ThundertuskBeastriders();
+
+        ~ThundertuskBeastriders() override = default;
+
+        bool configure(WeaponOption option);
+
+    protected:
+
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        void onStartShooting(PlayerId player) override;
+
+    private:
+
+        WeaponOption m_option = Chaintrap;
+
+        Weapon m_harpoon,
+                m_chaintrap,
+                m_vulture,
+                m_ice,
+                m_kicks,
+                m_tusks;
+
+        static bool s_registered;
     };
-
-    static Unit* Create(const ParameterList& parameters);
-    static std::string ValueToString(const Parameter &parameter);
-    static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels);
-    static void Init();
-
-    ThundertuskBeastriders();
-    ~ThundertuskBeastriders() override = default;
-
-    bool configure(WeaponOption option);
-
-protected:
-
-    int getDamageTableIndex() const;
-    void onWounded() override;
-    void onRestore() override;
-    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
-    void onStartShooting(PlayerId player) override;
-
-private:
-
-    WeaponOption m_option = Chaintrap;
-
-    Weapon m_harpoon,
-        m_chaintrap,
-        m_vulture,
-        m_ice,
-        m_kicks,
-        m_tusks;
-
-    static bool s_registered;
-};
 
 //
 // Abilities                    Implemented

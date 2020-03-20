@@ -9,10 +9,8 @@
 #include <Unit.h>
 #include <Board.h>
 
-std::string ToString(LoreOfTheMoonclans which)
-{
-    switch (which)
-    {
+std::string ToString(LoreOfTheMoonclans which) {
+    switch (which) {
         case LoreOfTheMoonclans::None:
             return "None";
         case LoreOfTheMoonclans::VindictiveGlare:
@@ -31,8 +29,7 @@ std::string ToString(LoreOfTheMoonclans which)
     return "";
 }
 
-bool FromString(const std::string &enumString, LoreOfTheMoonclans &outLore)
-{
+bool FromString(const std::string &enumString, LoreOfTheMoonclans &outLore) {
     bool valid = true;
 
     if (enumString == "None")
@@ -52,10 +49,8 @@ bool FromString(const std::string &enumString, LoreOfTheMoonclans &outLore)
     return valid;
 }
 
-std::string ToString(LoreOfTheSpiderFangs which)
-{
-    switch (which)
-    {
+std::string ToString(LoreOfTheSpiderFangs which) {
+    switch (which) {
         case LoreOfTheSpiderFangs::None:
             return "None";
         case LoreOfTheSpiderFangs::DeadlyWebbing:
@@ -74,8 +69,7 @@ std::string ToString(LoreOfTheSpiderFangs which)
     return "";
 }
 
-bool FromString(const std::string &enumString, LoreOfTheSpiderFangs &outLore)
-{
+bool FromString(const std::string &enumString, LoreOfTheSpiderFangs &outLore) {
     bool valid = true;
 
     if (enumString == "None")
@@ -95,47 +89,41 @@ bool FromString(const std::string &enumString, LoreOfTheSpiderFangs &outLore)
     return valid;
 }
 
-DamageSpell *CreateVindictiveGlare(Unit *caster)
-{
+DamageSpell *CreateVindictiveGlare(Unit *caster) {
     return new DamageSpell(caster, "Vindictive Glare", 5, 12, RAND_D3);
 }
 
-Spell *CreateLoreOfTheSpiderFangs(LoreOfTheSpiderFangs which, Unit *caster)
-{
+Spell *CreateLoreOfTheSpiderFangs(LoreOfTheSpiderFangs which, Unit *caster) {
     return nullptr;
 }
 
-class TheGreatGreenSpite : public Spell
-{
+class TheGreatGreenSpite : public Spell {
 public:
-    explicit TheGreatGreenSpite(Unit* caster);
+    explicit TheGreatGreenSpite(Unit *caster);
 
-    Result cast(Unit* target, int round) override;
+    Result cast(Unit *target, int round) override;
+
     Result cast(float x, float y, int round) override { return Failed; }
 };
 
 TheGreatGreenSpite::TheGreatGreenSpite(Unit *caster) :
-    Spell(caster, "The Great Green Spite", 7, 18.0f) {}
+        Spell(caster, "The Great Green Spite", 7, 18.0f) {}
 
-Spell::Result TheGreatGreenSpite::cast(Unit *target, int round)
-{
-    if (target == nullptr)
-    {
+Spell::Result TheGreatGreenSpite::cast(Unit *target, int round) {
+    if (target == nullptr) {
         return Failed;
     }
 
     // Distance to target
     const float distance = m_caster->distanceTo(target);
-    if (distance > m_range)
-    {
+    if (distance > m_range) {
         return Failed;
     }
 
     auto unit = Board::Instance()->getNearestUnit(m_caster, GetEnemyId(m_caster->owningPlayer()));
 
     // Check for visibility to enemy unit
-    if ((unit == nullptr) || !Board::Instance()->isVisible(m_caster, unit))
-    {
+    if ((unit == nullptr) || !Board::Instance()->isVisible(m_caster, unit)) {
         return Failed;
     }
 
@@ -149,19 +137,17 @@ Spell::Result TheGreatGreenSpite::cast(Unit *target, int round)
 
     int mortalWounds = 0;
     const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue)
-    {
+    if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound)
-        {
+        if (!unbound) {
             mortalWounds = Dice::rollSpecial(damage);
             target->applyDamage({0, mortalWounds});
-            SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds, target->name().c_str());
+            SimLog(Verbosity::Narrative,
+                   "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
+                   target->name().c_str());
             result = Success;
-        }
-        else
-        {
+        } else {
             result = Unbound;
         }
     }
@@ -169,10 +155,8 @@ Spell::Result TheGreatGreenSpite::cast(Unit *target, int round)
     return result;
 }
 
-Spell *CreateLoreOfTheMoonclans(LoreOfTheMoonclans which, Unit *caster)
-{
-    switch (which)
-    {
+Spell *CreateLoreOfTheMoonclans(LoreOfTheMoonclans which, Unit *caster) {
+    switch (which) {
         case LoreOfTheMoonclans::VindictiveGlare:
             return CreateVindictiveGlare(caster);
         case LoreOfTheMoonclans::ItchyNuisance:

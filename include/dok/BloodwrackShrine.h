@@ -12,44 +12,47 @@
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
 
-namespace DaughtersOfKhaine
-{
+namespace DaughtersOfKhaine {
 
-class BloodwrackShrine : public DaughterOfKhaine
-{
-public:
+    class BloodwrackShrine : public DaughterOfKhaine {
+    public:
 
-    static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels);
-    static void Init();
+        static Unit *Create(const ParameterList &parameters);
 
-    BloodwrackShrine();
-    ~BloodwrackShrine() override = default;
+        static int ComputePoints(int numModels);
 
-    bool configure();
+        static void Init();
 
-protected:
+        BloodwrackShrine();
 
-    void onWounded() override;
-    void onRestore() override;
+        ~BloodwrackShrine() override = default;
 
-    void onCharged() override;
-    void onStartHero(PlayerId player) override;
+        bool configure();
 
-    Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+    protected:
 
-private:
+        void onWounded() override;
 
-    int getDamageTableIndex() const;
+        void onRestore() override;
 
-    Weapon m_bloodwrackStare,
-        m_whisperclaw,
-        m_tailOfSerpents,
-        m_bloodwrackSpear,
-        m_goadstaves;
+        void onCharged() override;
 
-    static bool s_registered;
-};
+        void onStartHero(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_bloodwrackStare,
+                m_whisperclaw,
+                m_tailOfSerpents,
+                m_bloodwrackSpear,
+                m_goadstaves;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

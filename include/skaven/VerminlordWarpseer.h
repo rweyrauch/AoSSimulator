@@ -12,48 +12,52 @@
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
 
-namespace Skaven
-{
+namespace Skaven {
 
-class VerminlordWarpseer : public Skaventide
-{
-public:
+    class VerminlordWarpseer : public Skaventide {
+    public:
 
-    static Unit *Create(const ParameterList &parameters);
+        static Unit *Create(const ParameterList &parameters);
 
-    static int ComputePoints(int numModels);
+        static int ComputePoints(int numModels);
 
-    static void Init();
+        static void Init();
 
-    VerminlordWarpseer();
+        VerminlordWarpseer();
 
-    ~VerminlordWarpseer() override;
+        ~VerminlordWarpseer() override;
 
-    bool configure();
+        bool configure();
 
-protected:
+    protected:
 
-    Wounds applyWoundSave(const Wounds &wounds) override;
-    void onStartHero(PlayerId player) override;
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
-    void onStartShooting(PlayerId player) override;
-    void onWounded() override;
-    void onRestore() override;
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
-    int terrifying(const Unit* target);
-    int getDamageTableIndex() const;
+        void onStartHero(PlayerId player) override;
 
-private:
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
-    Weapon m_tails,
-        m_glaive;
+        void onStartShooting(PlayerId player) override;
 
-    bool m_usedOrb = false;
+        void onWounded() override;
 
-    lsignal::slot m_connection;
+        void onRestore() override;
 
-    static bool s_registered;
-};
+        int terrifying(const Unit *target);
+
+        int getDamageTableIndex() const;
+
+    private:
+
+        Weapon m_tails,
+                m_glaive;
+
+        bool m_usedOrb = false;
+
+        lsignal::slot m_connection;
+
+        static bool s_registered;
+    };
 
 //
 // Abilities                    Implemented

@@ -11,132 +11,116 @@
 #include <Board.h>
 #include <iostream>
 
-namespace FleshEaterCourt
-{
-static const int BASESIZE = 50;
-static const int WOUNDS = 4;
-static const int MIN_UNIT_SIZE = 3;
-static const int MAX_UNIT_SIZE = 12;
-static const int POINTS_PER_BLOCK = 130;
-static const int POINTS_MAX_UNIT_SIZE = 130*4;
+namespace FleshEaterCourt {
+    static const int BASESIZE = 50;
+    static const int WOUNDS = 4;
+    static const int MIN_UNIT_SIZE = 3;
+    static const int MAX_UNIT_SIZE = 12;
+    static const int POINTS_PER_BLOCK = 130;
+    static const int POINTS_MAX_UNIT_SIZE = 130 * 4;
 
-bool CryptHorrors::s_registered = false;
+    bool CryptHorrors::s_registered = false;
 
-CryptHorrors::CryptHorrors() :
-    FleshEaterCourts("Crypt Horrors", 7, WOUNDS, 10, 5, false),
-    m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
-    m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 4, 4, 3, 0, 2)
-{
-    m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_HORRORS};
-    m_weapons = {&m_clubsAndTalons, &m_clubsAndTalonsHaunter};
-}
-
-bool CryptHorrors::configure(int numModels)
-{
-    if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE)
-    {
-        return false;
+    CryptHorrors::CryptHorrors() :
+            FleshEaterCourts("Crypt Horrors", 7, WOUNDS, 10, 5, false),
+            m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
+            m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 4, 4, 3, 0, 2) {
+        m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_HORRORS};
+        m_weapons = {&m_clubsAndTalons, &m_clubsAndTalonsHaunter};
     }
 
-    auto haunter = new Model(BASESIZE, wounds());
-    haunter->addMeleeWeapon(&m_clubsAndTalonsHaunter);
-    addModel(haunter);
+    bool CryptHorrors::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
 
-    for (auto i = 1; i < numModels; i++)
-    {
-        auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_clubsAndTalons);
-        addModel(model);
+        auto haunter = new Model(BASESIZE, wounds());
+        haunter->addMeleeWeapon(&m_clubsAndTalonsHaunter);
+        addModel(haunter);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_clubsAndTalons);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
     }
 
-    m_points = ComputePoints(numModels);
+    Unit *CryptHorrors::Create(const ParameterList &parameters) {
+        auto unit = new CryptHorrors();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-    return true;
-}
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+        unit->setGrandCourt(court);
+        unit->setCourtsOfDelusion(delusion);
 
-Unit *CryptHorrors::Create(const ParameterList &parameters)
-{
-    auto unit = new CryptHorrors();
-    int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-
-    auto court = (GrandCourt)GetEnumParam("Grand Court", parameters, NoCourt);
-    auto delusion = (Delusion)GetEnumParam("Delusion", parameters, None);
-    // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
-    unit->setGrandCourt(court);
-    unit->setCourtsOfDelusion(delusion);
-
-    bool ok = unit->configure(numModels);
-    if (!ok)
-    {
-        delete unit;
-        unit = nullptr;
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
-    return unit;
-}
 
-void CryptHorrors::Init()
-{
-    if (!s_registered)
-    {
-        static FactoryMethod factoryMethod = {
-            CryptHorrors::Create,
-            FleshEaterCourts::ValueToString,
-            FleshEaterCourts::EnumStringToInt,
-            CryptHorrors::ComputePoints,
-            {
-                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
-                {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
-            },
-            DEATH,
-            { FLESH_EATER_COURTS }
-        };
-        s_registered = UnitFactory::Register("Crypt Horrors", factoryMethod);
-    }
-}
-
-Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) const
-{
-    // Chosen of the King
-    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
-    if (unit != nullptr)
-    {
-        return RerollFailed;
-    }
-    return FleshEaterCourts::toHitRerolls(weapon, target);
-}
-
-void CryptHorrors::onStartHero(PlayerId player)
-{
-    if (player == owningPlayer())
-    {
-        // Noble Blood
-        int woundsHealed = heal(remainingModels());
-        if (woundsHealed)
-        {
-            //std::cout << "Healed " << woundsHealed << " from Noble Blood." << std::endl;
+    void CryptHorrors::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    CryptHorrors::Create,
+                    FleshEaterCourts::ValueToString,
+                    FleshEaterCourts::EnumStringToInt,
+                    CryptHorrors::ComputePoints,
+                    {
+                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt,
+                             FleshEaterCourts::Gristlegore, 1},
+                            {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None,
+                             FleshEaterCourts::DefendersOfTheRealm, 1},
+                    },
+                    DEATH,
+                    {FLESH_EATER_COURTS}
+            };
+            s_registered = UnitFactory::Register("Crypt Horrors", factoryMethod);
         }
     }
-}
 
-Wounds CryptHorrors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const
-{
-    // Warrior Elite - one additional damage for each wound roll of 6.
-    if (woundRoll == 6)
-    {
-        return {weapon->damage()+1, 0};
+    Rerolls CryptHorrors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Chosen of the King
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
+        if (unit != nullptr) {
+            return RerollFailed;
+        }
+        return FleshEaterCourts::toHitRerolls(weapon, target);
     }
-    return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
-}
 
-int CryptHorrors::ComputePoints(int numModels)
-{
-    auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-    if (numModels == MAX_UNIT_SIZE)
-    {
-        points = POINTS_MAX_UNIT_SIZE;
+    void CryptHorrors::onStartHero(PlayerId player) {
+        if (player == owningPlayer()) {
+            // Noble Blood
+            int woundsHealed = heal(remainingModels());
+            if (woundsHealed) {
+                //std::cout << "Healed " << woundsHealed << " from Noble Blood." << std::endl;
+            }
+        }
     }
-    return points;
-}
+
+    Wounds CryptHorrors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Warrior Elite - one additional damage for each wound roll of 6.
+        if (woundRoll == 6) {
+            return {weapon->damage() + 1, 0};
+        }
+        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int CryptHorrors::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
 
 } // namespace FleshEaterCourt
