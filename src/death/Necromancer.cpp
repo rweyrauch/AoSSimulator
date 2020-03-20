@@ -64,7 +64,7 @@ namespace Death {
         return Unit::applyWoundSave(wounds);
     }
 
-    int Necromancer::ComputePoints(int numModels) {
+    int Necromancer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

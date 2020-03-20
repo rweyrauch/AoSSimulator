@@ -80,7 +80,7 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int WightKingWithBalefulTombBlade::ComputePoints(int numModels) {
+    int WightKingWithBalefulTombBlade::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

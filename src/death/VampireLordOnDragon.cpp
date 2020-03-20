@@ -14,13 +14,37 @@ namespace Death {
     static const int WOUNDS = 14;
     static const int POINTS_PER_UNIT = 440;
 
+    struct TableEntry {
+        int m_move;
+        int m_breathToWound;
+        int m_clawAttacks;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {14, 2, 7},
+                    {12, 3, 6},
+                    {10, 4, 5},
+                    {8, 5, 4},
+                    {6, 6, 3}
+            };
+
     bool VampireLordOnZombieDragon::s_registered = false;
 
     Unit *VampireLordOnZombieDragon::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto unit = new VampireLordOnZombieDragon();
+
+        bool ok = unit->configure();
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
     }
 
-    int VampireLordOnZombieDragon::ComputePoints(int numModels) {
+    int VampireLordOnZombieDragon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -67,13 +91,27 @@ namespace Death {
 
     void VampireLordOnZombieDragon::onWounded() {
         Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+        m_breath.setToWound(g_damageTable[damageIndex].m_breathToWound);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void VampireLordOnZombieDragon::onRestore() {
         Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
     int VampireLordOnZombieDragon::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
         return 0;
     }
 } // namespace Death

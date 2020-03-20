@@ -124,7 +124,7 @@ namespace Death {
         return modifier;
     }
 
-    int SkeletonWarriors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int SkeletonWarriors::extraAttacks(const Model* /*attackingModel*/, const Weapon *weapon, const Unit *target) const {
         int attacks = Unit::extraAttacks(nullptr, weapon, target);
         // Skeleton Legion
         if (remainingModels() >= 30) {

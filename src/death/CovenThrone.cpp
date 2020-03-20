@@ -14,6 +14,23 @@ namespace Death {
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 260;
 
+    struct TableEntry {
+        int m_move;
+        int m_handmaidenAttacks;
+        int m_hostAttacks;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {14, 8, 12},
+                    {12, 7, 10},
+                    {10, 6, 8},
+                    {8, 5, 6},
+                    {4, 4, 4}
+            };
+
     bool CovenThrone::s_registered = false;
 
     Unit *CovenThrone::Create(const ParameterList &parameters) {
@@ -27,7 +44,7 @@ namespace Death {
         return unit;
     }
 
-    int CovenThrone::ComputePoints(int numModels) {
+    int CovenThrone::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -72,13 +89,27 @@ namespace Death {
 
     void CovenThrone::onWounded() {
         Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_poniards.setAttacks(g_damageTable[damageIndex].m_handmaidenAttacks);
+        m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void CovenThrone::onRestore() {
         Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
     int CovenThrone::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
         return 0;
     }
 } // namespace Death

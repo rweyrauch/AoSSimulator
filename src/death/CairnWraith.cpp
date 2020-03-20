@@ -27,7 +27,7 @@ namespace Death {
         return unit;
     }
 
-    int CairnWraith::ComputePoints(int numModels) {
+    int CairnWraith::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

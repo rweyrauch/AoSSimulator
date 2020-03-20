@@ -14,6 +14,23 @@ namespace Death {
     static const int WOUNDS = 11;
     static const int POINTS_PER_UNIT = 340;
 
+    struct TableEntry {
+        int m_move;
+        int m_clawAttacks;
+        float m_allureRange;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {16, 6, 15},
+                    {13, 5, 12},
+                    {10, 4, 9},
+                    {7, 3, 6},
+                    {4, 2, 3}
+            };
+
     bool NeferataMortarchOfBlood::s_registered = false;
 
     Unit *NeferataMortarchOfBlood::Create(const ParameterList &parameters) {
@@ -27,7 +44,7 @@ namespace Death {
         return unit;
     }
 
-    int NeferataMortarchOfBlood::ComputePoints(int numModels) {
+    int NeferataMortarchOfBlood::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -72,13 +89,26 @@ namespace Death {
 
     void NeferataMortarchOfBlood::onWounded() {
         Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_skeletalClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void NeferataMortarchOfBlood::onRestore() {
         Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
     int NeferataMortarchOfBlood::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
         return 0;
     }
 } // namespace Death

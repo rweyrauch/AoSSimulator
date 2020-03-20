@@ -14,6 +14,23 @@ namespace Death {
     static const int WOUNDS = 14;
     static const int POINTS_PER_UNIT = 480;
 
+    struct TableEntry {
+        int m_move;
+        int m_breath;
+        int m_clawAttack;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {14, 6, 7},
+                    {12, RAND_D6, 6},
+                    {10, 3, 5},
+                    {8, RAND_D3, 4},
+                    {6, 1, 3}
+            };
+
     bool PrinceVhordrai::s_registered = false;
 
     Unit *PrinceVhordrai::Create(const ParameterList &parameters) {
@@ -27,7 +44,7 @@ namespace Death {
         return unit;
     }
 
-    int PrinceVhordrai::ComputePoints(int numModels) {
+    int PrinceVhordrai::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -70,13 +87,26 @@ namespace Death {
 
     void PrinceVhordrai::onWounded() {
         Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttack);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void PrinceVhordrai::onRestore() {
         Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
     int PrinceVhordrai::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
         return 0;
     }
 } // namespace Death

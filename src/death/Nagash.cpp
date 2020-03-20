@@ -129,7 +129,7 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Nagash::ComputePoints(int numModels) {
+    int Nagash::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

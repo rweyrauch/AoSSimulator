@@ -27,7 +27,7 @@ namespace Death {
         return unit;
     }
 
-    int CorpseCartWithUnholyLodestone::ComputePoints(int numModels) {
+    int CorpseCartWithUnholyLodestone::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

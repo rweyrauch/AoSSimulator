@@ -65,7 +65,7 @@ namespace Death {
         return {(wounds.normal + 1) / 2, wounds.mortal};
     }
 
-    int WightKingWithBlackAxe::ComputePoints(int numModels) {
+    int WightKingWithBlackAxe::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

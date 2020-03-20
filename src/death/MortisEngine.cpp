@@ -14,6 +14,23 @@ namespace Death {
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 180;
 
+    struct TableEntry {
+        int m_move;
+        float m_wailRange;
+        int m_hostAttacks;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
+    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {14, 9, 12},
+                    {12, 8, 10},
+                    {10, 7, 8},
+                    {8, 6, 6},
+                    {4, 5, 4}
+            };
+
     bool MortisEngine::s_registered = false;
 
     Unit *MortisEngine::Create(const ParameterList &parameters) {
@@ -27,7 +44,7 @@ namespace Death {
         return unit;
     }
 
-    int MortisEngine::ComputePoints(int numModels) {
+    int MortisEngine::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -70,13 +87,26 @@ namespace Death {
 
     void MortisEngine::onWounded() {
         Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void MortisEngine::onRestore() {
         Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
     int MortisEngine::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
         return 0;
     }
 } // namespace Death

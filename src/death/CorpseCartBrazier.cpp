@@ -27,7 +27,7 @@ namespace Death {
         return unit;
     }
 
-    int CorpseCartWithBalefireBrazier::ComputePoints(int numModels) {
+    int CorpseCartWithBalefireBrazier::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

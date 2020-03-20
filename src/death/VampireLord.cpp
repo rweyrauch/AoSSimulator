@@ -31,7 +31,7 @@ namespace Death {
         return unit;
     }
 
-    int VampireLord::ComputePoints(int numModels) {
+    int VampireLord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -63,7 +63,16 @@ namespace Death {
 
     bool VampireLord::configure(bool withSteed, bool withWings) {
         auto model = new Model(BASESIZE, wounds());
-        model->addMeleeWeapon(&m_hoovesAndTeeth);
+
+        if (withSteed) {
+            model->addMeleeWeapon(&m_hoovesAndTeeth);
+            m_move = 10;
+        }
+        else if (withWings) {
+            m_move = 10;
+            m_fly = true;
+        }
+
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
