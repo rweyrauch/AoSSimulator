@@ -36,7 +36,7 @@ class UnitFactory
 {
 public:
 
-    static bool Register(const std::string& name, FactoryMethod factoryMethod);
+    static bool Register(const std::string& name, const FactoryMethod& factoryMethod);
 
     static Unit* Create(const std::string& name, const std::vector<Parameter>& parameters);
 

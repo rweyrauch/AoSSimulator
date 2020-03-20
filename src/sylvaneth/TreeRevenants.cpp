@@ -64,7 +64,7 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
 
     if (m_gladeBanners)
     {
-        m_pileInMove = 6.0f;
+        m_pileInMove = 6;
     }
 
     return true;

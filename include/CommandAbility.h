@@ -32,9 +32,9 @@ public:
 
 protected:
 
-    Unit* m_source;
-    std::string m_name;
-    Duration m_duration;
+    Unit* m_source = nullptr;
+    std::string m_name = "";
+    //Duration m_duration;
     float m_range = 0.0f;
 
     bool m_targetFriendly = true;

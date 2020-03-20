@@ -33,7 +33,7 @@ static void LogUnitDescriptor(FactoryMethod* factory, const std::string &name, c
 
 std::map<std::string, FactoryMethod> UnitFactory::s_registeredUnits = {};
 
-bool UnitFactory::Register(const std::string &name, FactoryMethod factoryMethod)
+bool UnitFactory::Register(const std::string &name, const FactoryMethod& factoryMethod)
 {
     auto registeredPair = UnitFactory::s_registeredUnits.insert(std::make_pair(name.c_str(), factoryMethod));
     return registeredPair.second;

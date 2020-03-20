@@ -1058,8 +1058,8 @@ enum Verbosity : int
 
 struct Wounds
 {
-    int normal;
-    int mortal;
+    int normal = 0;
+    int mortal = 0;
 
     Wounds& operator += (const Wounds& w)
     {
@@ -1098,8 +1098,8 @@ enum
 
 struct Parameter
 {
-    ParamType paramType;
-    const char* name;
+    ParamType paramType = Integer;
+    const char* name = nullptr;
     int intValue = 0;
     int minValue = 0;
     int maxValue = 0;

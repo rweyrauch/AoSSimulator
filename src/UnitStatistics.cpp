@@ -20,9 +20,8 @@ float UnitStatistics::totalMovementDistance() const
 float UnitStatistics::averageMovementDistance() const
 {
     int numRounds = numberOfRoundsMoved();
-    if (numRounds <= 0)
-    { return 0.0f; }
-    return totalMovementDistance() / numRounds;
+    if (numRounds <= 0) { return 0.0f; }
+    return totalMovementDistance() / (float)numRounds;
 }
 
 float UnitStatistics::totalRunDistance() const
@@ -39,7 +38,7 @@ float UnitStatistics::averageRunDistance() const
 {
     int numRounds = numberOfRoundsRan();
     if (numRounds <= 0) { return 0.0f; }
-    return totalRunDistance() / numRounds;
+    return totalRunDistance() / (float)numRounds;
 }
 
 float UnitStatistics::totalChargeDistance() const
@@ -56,7 +55,7 @@ float UnitStatistics::averageChargeDistance() const
 {
     int numRounds = numberOfRoundsCharged();
     if (numRounds <= 0) { return 0.0f; }
-    return totalChargeDistance() / numRounds;
+    return totalChargeDistance() / (float)numRounds;
 }
 
 int UnitStatistics::totalEnemyModelsSlain() const

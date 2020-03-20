@@ -103,7 +103,7 @@ bool ChaosLordOnManticore::configure(WeaponOption weapon)
             model->addMeleeWeapon(&m_blade);
             model->addMeleeWeapon(&m_lance);
             break;
-        case WeaponOption::BladeAndShield:;
+        case WeaponOption::BladeAndShield:
         case WeaponOption::BladeAndDaggerfist:
             model->addMeleeWeapon(&m_blade);
             break;

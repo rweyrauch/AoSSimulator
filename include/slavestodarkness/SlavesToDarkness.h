@@ -37,7 +37,7 @@ public:
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
 
-    SlavesToDarknessBase();
+    SlavesToDarknessBase() = default;
     ~SlavesToDarknessBase() override = default;
 
     void setDamnedLegion(DamnedLegion legion);

@@ -157,9 +157,9 @@ float Weapon::strength() const
         float effAttacks = AverageRandomValue(m_attacks);
         float effHitsPerAttack = AverageRandomValue(m_hitsPerAttack);
         int toSave4 = std::max(1, std::min(6, 4 + m_rend));
-        float rawStrength = ((6 - m_toHit) / 6.0f) * ((6 - m_toWound) / 6.0f) * (toSave4 / 6.0f) * effDamage * effAttacks * effHitsPerAttack;
+        float rawStrength = ((float)(6 - m_toHit) / 6.0f) * ((float)(6 - m_toWound) / 6.0f) * ((float)toSave4 / 6.0f) * effDamage * effAttacks * effHitsPerAttack;
         rawStrength *= 100.0f;
-        rawStrength *= logf(m_range / 6.0f + 3.0f);
+        rawStrength *= logf((float)m_range / 6.0f + 3.0f);
         m_strength = rawStrength;
     }
 

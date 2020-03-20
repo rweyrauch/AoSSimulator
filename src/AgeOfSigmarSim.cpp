@@ -110,7 +110,7 @@ float AverageRandomValue(int value)
     constexpr float avgD3 = (1 + 2 + 3) / 3.0f;
     constexpr float avgD6 = (1 + 2 + 3 + 4 + 5 + 6) / 6.0f;
 
-    float avgValue = (float)value;
+    auto avgValue = (float)value;
     switch (value)
     {
         case RAND_D3:

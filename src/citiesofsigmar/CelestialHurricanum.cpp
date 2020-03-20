@@ -21,7 +21,7 @@ static const int POINTS_PER_UNIT_WITH_BATTLEMAGE = 280;
 struct TableEntry
 {
     int m_move;
-    int m_portentsOfBattle;
+    float m_portentsOfBattle;
     int m_stormOfShemtek;
 };
 
@@ -176,7 +176,7 @@ void CelestialHurricanum::onStartShooting(PlayerId player)
     {
         // Storm of Shemtek
         auto dist = distanceTo(m_shootingTarget);
-        if (dist <= m_stormOfShemtek.range())
+        if (dist <= (float)m_stormOfShemtek.range())
         {
             Dice::RollResult result;
             Dice::rollD6(g_damageTable[getDamageTableIndex()].m_stormOfShemtek, result);

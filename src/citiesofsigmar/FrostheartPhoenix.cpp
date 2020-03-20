@@ -20,7 +20,7 @@ struct TableEntry
 {
     int m_move;
     int m_talonAttacks;
-    int m_blizzazdAura;
+    float m_blizzazdAura;
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;

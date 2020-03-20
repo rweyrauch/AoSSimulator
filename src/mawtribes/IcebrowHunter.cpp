@@ -74,7 +74,7 @@ bool IcebrowHunter::configure()
 
     addModel(model);
 
-    m_points = ComputePoints(1);;
+    m_points = ComputePoints(1);
 
     return true;
 }

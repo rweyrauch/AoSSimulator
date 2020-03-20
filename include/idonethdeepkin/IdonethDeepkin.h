@@ -33,7 +33,7 @@ public:
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
 
-    IdonethDeepkinBase();
+    IdonethDeepkinBase() = default;
     ~IdonethDeepkinBase() override = default;
 
     void setEnclave(Enclave enclave);

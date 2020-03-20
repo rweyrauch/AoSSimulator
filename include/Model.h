@@ -25,7 +25,7 @@ public:
         m_woundsRemaining(wounds) {}
 
     int basesize() const { return m_baseSize_mm; }
-    float basesizeInches() const { return m_baseSize_mm / 25.4f; }
+    float basesizeInches() const { return (float)m_baseSize_mm / 25.4f; }
 
     void setPosition(const Math::Point3& pos) { m_position = pos; }
     const Math::Point3& position() const { return m_position; }

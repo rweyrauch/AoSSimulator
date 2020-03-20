@@ -241,7 +241,7 @@ void Unit::endTurn(int battleRound)
 void Unit::addModel(Model* model)
 {
     m_models.push_back(std::unique_ptr<Model>(model));
-    m_basesize_mm = model->basesize();
+    m_basesize_mm = (float)model->basesize();
 }
 
 int Unit::applyDamage(const Wounds& totalWoundsInflicted)
@@ -530,10 +530,10 @@ void Unit::movement(PlayerId player)
         float totalMoveDistance = 0.0f;
         if (weapon->isMissile())
         {
-            const float movement = move() + moveModifier();
+            const float movement = (float)(move() + moveModifier());
 
             // get into range (run or not?)
-            if (distance > weapon->range() + movement)
+            if (distance > (float)weapon->range() + movement)
             {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
@@ -545,7 +545,7 @@ void Unit::movement(PlayerId player)
                 m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
             }
-            else if (distance > weapon->range())
+            else if (distance > (float)weapon->range())
             {
                 // move toward unit
                 totalMoveDistance = movement;
@@ -562,7 +562,7 @@ void Unit::movement(PlayerId player)
         }
         else
         {
-            const float movement = move() + moveModifier();
+            const float movement = (float)(move() + moveModifier());
 
             if (distance <= MIN_CHARGE_DISTANCE)
             {
@@ -571,7 +571,7 @@ void Unit::movement(PlayerId player)
 
                 m_currentRecord.m_moved = 0.0f;
             }
-            if (distance > weapon->range() + movement)
+            if (distance > (float)weapon->range() + movement)
             {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
@@ -697,7 +697,7 @@ void Unit::charge(PlayerId player)
 
         if ((distance <= MAX_CHARGE_DISTANCE) && (distance >= MIN_CHARGE_DISTANCE))
         {
-            float chargeDist = rollChargeDistance();
+            auto chargeDist = (float)rollChargeDistance();
             if (chargeDist >= distance)
             {
                 m_charged = true;
@@ -710,7 +710,7 @@ void Unit::charge(PlayerId player)
             }
             else if (chargeRerolls() != NoRerolls)
             {
-                chargeDist = rollChargeDistance();
+                chargeDist = (float)rollChargeDistance();
                 if (chargeDist >= distance)
                 {
                     m_charged = true;
@@ -853,7 +853,7 @@ void Unit::attackWithWeapon(const Weapon* weapon, Unit* target, const Model* fro
 
     // check range to target unit
     float distanceToTarget = distanceBetween(fromModel, target);
-    if (distanceToTarget > weapon->range())
+    if (distanceToTarget > (float)weapon->range())
     {
         // out of range
         return;
@@ -964,8 +964,8 @@ void Unit::computeBattleshockEffect(int roll, int& numFled, int& numRestored) co
 
 int Unit::remainingPoints() const
 {
-    auto pointsPerWound = (float)m_points / (m_models.size() * wounds());
-    auto points = (int)roundf(pointsPerWound * remainingWounds());
+    auto pointsPerWound = (float)m_points / (float)(m_models.size() * wounds());
+    auto points = (int)roundf(pointsPerWound * (float)remainingWounds());
     return points;
 }
 
@@ -1078,9 +1078,7 @@ void Unit::makePrayer()
 
 bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration)
 {
-    ModifierBuff buff;
-    buff.modifier = modifier;
-    buff.duration = duration;
+    ModifierBuff buff = {modifier, duration};
     m_attributeModifiers[which].push_back(buff);
 
     return true;
@@ -1088,9 +1086,7 @@ bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration
 
 bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration)
 {
-    RerollBuff buff;
-    buff.rerolls = reroll;
-    buff.duration = duration;
+    RerollBuff buff = {reroll, duration};
     m_rollModifiers[which].push_back(buff);
 
     return true;
@@ -1098,9 +1094,7 @@ bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration
 
 bool Unit::buffMovement(MovementRules which, bool allowed, Duration duration)
 {
-    MovementRuleBuff buff;
-    buff.allowed = allowed;
-    buff.duration = duration;
+    MovementRuleBuff buff = {allowed, duration};
     m_movementRules[which].push_back(buff);
 
     return true;
@@ -1162,10 +1156,7 @@ int Unit::numModelsWithin(const Model *model, float range) const
 
 void Unit::timeoutBuffs(Phase phase, PlayerId player)
 {
-    Duration currentPhase;
-    currentPhase.phase = phase;
-    currentPhase.player = player;
-    currentPhase.round = m_battleRound;
+    Duration currentPhase ={phase, m_battleRound, player};
 
     // Remove all buffs that expire in the player's given phase
     for (auto& list : m_attributeModifiers)
