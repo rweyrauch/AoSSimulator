@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 150;
 
 bool TzaangorShaman::s_registered = false;
 
@@ -77,6 +80,11 @@ bool TzaangorShaman::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int TzaangorShaman::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

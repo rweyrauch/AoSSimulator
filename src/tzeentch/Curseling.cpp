@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 160;
 
 bool CurselingEyeOfTzeentch::s_registered = false;
 
@@ -78,6 +81,11 @@ bool CurselingEyeOfTzeentch::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int CurselingEyeOfTzeentch::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

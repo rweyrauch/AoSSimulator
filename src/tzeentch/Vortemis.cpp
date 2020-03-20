@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool VortemisTheAllSeeing::s_registered = false;
 
@@ -75,6 +78,11 @@ bool VortemisTheAllSeeing::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int VortemisTheAllSeeing::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

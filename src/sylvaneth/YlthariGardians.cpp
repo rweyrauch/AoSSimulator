@@ -3,6 +3,9 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int POINTS_PER_UNIT = 0;
 
 bool YltharisGuardians::s_registered = false;
 
@@ -75,6 +78,11 @@ Rerolls YltharisGuardians::toWoundRerolls(const Weapon *weapon, const Unit *targ
 {
     // Vigour and Wrath
     return RerollOnes;
+}
+
+int YltharisGuardians::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

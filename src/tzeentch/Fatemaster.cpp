@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 120;
 
 bool Fatemaster::s_registered = false;
 
@@ -69,6 +72,11 @@ bool Fatemaster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Fatemaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

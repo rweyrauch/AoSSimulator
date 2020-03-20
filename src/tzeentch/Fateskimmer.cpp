@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 140;
 
 bool Fateskimmer::s_registered = false;
 
@@ -89,6 +92,11 @@ Wounds Fateskimmer::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return {Dice::rollD3(), 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Fateskimmer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

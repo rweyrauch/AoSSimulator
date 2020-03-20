@@ -16,6 +16,9 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Branchwych::s_registered = false;
 
@@ -105,6 +108,11 @@ int Branchwych::toHitModifier(const Weapon *weapon, const Unit *target) const
     }
 
     return modifier;
+}
+
+int Branchwych::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

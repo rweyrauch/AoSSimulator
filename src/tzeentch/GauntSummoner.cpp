@@ -13,6 +13,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 240;
 
 bool GauntSummonerOfTzeentch::s_registered = false;
 
@@ -129,6 +132,11 @@ void GauntSummonerOfTzeentch::onRestore()
     Unit::onRestore();
 
     m_usedBookOfSecrets = false;
+}
+
+int GauntSummonerOfTzeentch::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

@@ -13,6 +13,9 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool ArchRevenant::s_registered = false;
 
@@ -91,6 +94,11 @@ Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon) const
     }
 
     return Unit::toSaveRerolls(weapon);
+}
+
+int ArchRevenant::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

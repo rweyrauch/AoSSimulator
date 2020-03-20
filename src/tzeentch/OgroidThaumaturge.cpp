@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool OgroidThaumaturge::s_registered = false;
 
@@ -77,6 +80,11 @@ bool OgroidThaumaturge::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int OgroidThaumaturge::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

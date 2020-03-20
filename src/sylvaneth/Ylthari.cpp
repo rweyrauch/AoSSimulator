@@ -5,9 +5,11 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 180;
 
 bool Ylthari::s_registered = false;
-
 
 Unit *Ylthari::Create(const ParameterList &parameters)
 {
@@ -68,6 +70,11 @@ bool Ylthari::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Ylthari::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth
