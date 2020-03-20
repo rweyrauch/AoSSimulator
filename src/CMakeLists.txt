@@ -315,6 +315,19 @@ add_library(
         death/WightKingTombBlade.cpp
         death/Necromancer.cpp
         death/Nagash.cpp
+        death/BatSwarms.cpp
+        death/BloodseekerPalanquin.cpp
+        death/CairnWraith.cpp
+        death/CorpseCartBrazier.cpp
+        death/CorpseCartLodestone.cpp
+        death/CovenThrone.cpp
+        death/FellBats.cpp
+        death/Mannfred.cpp
+        death/MortisEngine.cpp
+        death/Neferata.cpp
+        death/PrinceVhordrai.cpp
+        death/VampireLord.cpp
+        death/VampireLordOnDragon.cpp
 
         fec/FleshEaterCourts.cpp
         fec/CryptHorrors.cpp

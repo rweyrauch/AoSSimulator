@@ -320,6 +320,19 @@ OBJECTS += \
         src/death/WightKingBlackAxe.o \
         src/death/WightKingTombBlade.o \
         src/death/Necromancer.o \
+        src/death/BatSwarms.o \
+        src/death/BloodseekerPalanquin.o \
+        src/death/CairnWraith.o \
+        src/death/CorpseCartBrazier.o \
+        src/death/CorpseCartLodestone.o \
+        src/death/CovenThrone.o \
+        src/death/FellBats.o \
+        src/death/Mannfred.o \
+        src/death/MortisEngine.o \
+        src/death/Neferata.o \
+        src/death/PrinceVhordrai.o \
+        src/death/VampireLord.o \
+        src/death/VampireLordOnDragon.o \
         src/fec/FleshEaterCourts.o \
         src/fec/CryptHorrors.o \
         src/fec/CryptGhouls.o \

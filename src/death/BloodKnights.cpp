@@ -72,8 +72,8 @@ namespace Death {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    nullptr,
-                    nullptr,
+                    LegionOfNagashBase::ValueToString,
+                    LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
                             {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},

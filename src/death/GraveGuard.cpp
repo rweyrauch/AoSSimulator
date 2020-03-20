@@ -104,13 +104,13 @@ namespace Death {
             if (parameter.intValue == WightBlade) { return "Wight Blade"; }
             else if (parameter.intValue == GreatWightBlade) { return "Great Wight Blade"; }
         }
-        return ParameterValueToString(parameter);
+        return LegionOfNagashBase::ValueToString(parameter);
     }
 
     int GraveGuard::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Wight Blade") { return WightBlade; }
         else if (enumString == "Great Wight Blade") { return GreatWightBlade; }
-        return 0;
+        return LegionOfNagashBase::EnumStringToInt(enumString);
     }
 
     int GraveGuard::toSaveModifier(const Weapon *weapon) const {

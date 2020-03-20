@@ -104,13 +104,13 @@ namespace Death {
             if (parameter.intValue == AncientBlade) { return "Ancient Blade"; }
             else if (parameter.intValue == AncientSpear) { return "Ancient Spear"; }
         }
-        return ParameterValueToString(parameter);
+        return LegionOfNagashBase::ValueToString(parameter);
     }
 
     int SkeletonWarriors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Ancient Blade") { return AncientBlade; }
         else if (enumString == "Ancient Spear") { return AncientSpear; }
-        return 0;
+        return LegionOfNagashBase::EnumStringToInt(enumString);
     }
 
     int SkeletonWarriors::toSaveModifier(const Weapon *weapon) const {

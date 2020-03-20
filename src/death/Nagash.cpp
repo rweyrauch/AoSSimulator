@@ -64,8 +64,8 @@ namespace Death {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                 Create,
-                nullptr,
-                nullptr,
+                LegionOfNagashBase::ValueToString,
+                LegionOfNagashBase::EnumStringToInt,
                 ComputePoints,
                 {
                 },
