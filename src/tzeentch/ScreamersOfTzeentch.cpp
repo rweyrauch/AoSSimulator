@@ -12,6 +12,13 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 3;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 320;
+
 
 bool ScreamersOfTzeentch::s_registered = false;
 
@@ -69,10 +76,7 @@ void ScreamersOfTzeentch::Init()
             TzeentchBase::EnumStringToInt,
             ScreamersOfTzeentch::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ScreamersOfTzeentch::MIN_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE,
-                    ScreamersOfTzeentch::MAX_UNIT_SIZE, ScreamersOfTzeentch::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
             },
             CHAOS,

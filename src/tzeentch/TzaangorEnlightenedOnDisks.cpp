@@ -12,6 +12,13 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 9;
+static const int POINTS_PER_BLOCK = 180;
+static const int POINTS_MAX_UNIT_SIZE = 540;
+
 
 bool TzaangorEnlightenedOnDisks::s_registered = false;
 
@@ -82,8 +89,7 @@ void TzaangorEnlightenedOnDisks::Init()
             TzeentchBase::EnumStringToInt,
             TzaangorEnlightenedOnDisks::ComputePoints,
             {
-                {ParamType::Integer, "Models", TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE,
-                 TzaangorEnlightenedOnDisks::MAX_UNIT_SIZE, TzaangorEnlightenedOnDisks::MIN_UNIT_SIZE},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
             },
             CHAOS,

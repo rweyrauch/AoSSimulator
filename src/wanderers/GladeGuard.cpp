@@ -12,6 +12,12 @@
 
 namespace Wanderers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 360;
 
 bool GladeGuard::s_registered = false;
 
@@ -79,10 +85,7 @@ void GladeGuard::Init()
             nullptr,
             GladeGuard::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", GladeGuard::MIN_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE,
-                    GladeGuard::MAX_UNIT_SIZE, GladeGuard::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Pennant Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
             },

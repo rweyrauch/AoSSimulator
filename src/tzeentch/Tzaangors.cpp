@@ -12,6 +12,12 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 180;
+static const int POINTS_MAX_UNIT_SIZE = 540;
 
 bool Tzaangors::s_registered = false;
 
@@ -117,16 +123,13 @@ void Tzaangors::Init()
             Tzaangors::EnumStringToInt,
             Tzaangors::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Tzaangors::MIN_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE,
-                    Tzaangors::MAX_UNIT_SIZE, Tzaangors::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", Tzaangors::PairedSavageBlades, Tzaangors::PairedSavageBlades,
                     Tzaangors::SavageBladeAndShield, 1
                 },
-                {ParamType::Integer, "Greatblades", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE*2, 1},
-                {ParamType::Integer, "Mutants", 0, 0, Tzaangors::MAX_UNIT_SIZE/Tzaangors::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Greatblades", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE*2, 1},
+                {ParamType::Integer, "Mutants", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
                 {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
                 {ParamType::Boolean, "Brayhorns", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
                 {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},

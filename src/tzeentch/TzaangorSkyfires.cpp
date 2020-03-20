@@ -12,6 +12,12 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 9;
+static const int POINTS_PER_BLOCK = 200;
+static const int POINTS_MAX_UNIT_SIZE = 600;
 
 bool TzaangorSkyfires::s_registered = false;
 
@@ -85,8 +91,7 @@ void TzaangorSkyfires::Init()
             TzeentchBase::EnumStringToInt,
             TzaangorSkyfires::ComputePoints,
             {
-                {ParamType::Integer, "Models", TzaangorSkyfires::MIN_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE,
-                 TzaangorSkyfires::MAX_UNIT_SIZE, TzaangorSkyfires::MIN_UNIT_SIZE},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
             },
             CHAOS,

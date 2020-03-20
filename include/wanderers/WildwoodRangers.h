@@ -19,13 +19,6 @@ class WildwoodRangers : public Wanderer
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 420;
-
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
     static void Init();

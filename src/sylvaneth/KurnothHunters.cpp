@@ -14,6 +14,12 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 5;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 200;
+static const int POINTS_MAX_UNIT_SIZE = 800;
 
 bool KurnothHunters::s_registered = false;
 
@@ -110,13 +116,9 @@ void KurnothHunters::Init()
             KurnothHunters::EnumStringToInt,
             KurnothHunters::ComputePoints,
             {
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
-                    ParamType::Integer, "Models", KurnothHunters::MIN_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE,
-                    KurnothHunters::MAX_UNIT_SIZE, KurnothHunters::MIN_UNIT_SIZE
-                },
-                {
-                    ParamType::Enum, "Weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords,
-                    KurnothHunters::Greatbows, 1
+                    ParamType::Enum, "Weapons", KurnothHunters::Greatswords, KurnothHunters::Greatswords, KurnothHunters::Greatbows, 1
                 },
                 {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None, SylvanethBase::Harvestboon, 1},
             },
