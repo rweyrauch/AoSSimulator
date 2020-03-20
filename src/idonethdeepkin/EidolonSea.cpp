@@ -11,6 +11,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 380;
 
 bool EidolonOfMathlannAspectOfTheSea::s_registered = false;
 
@@ -98,6 +101,11 @@ int EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss(const Unit *target)
     }
 
     return 0;
+}
+
+int EidolonOfMathlannAspectOfTheSea::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // IdonethDeepkin

@@ -12,6 +12,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 70;
 
 bool Loonboss::s_registered = false;
 
@@ -71,6 +74,11 @@ int Loonboss::targetHitModifier(const Weapon *weapon, const Unit *attacker) cons
     // Dead Tricksy
     modifier -= 1;
     return modifier;
+}
+
+int Loonboss::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

@@ -10,6 +10,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 310;
 
 bool AkhelianLeviadon::s_registered = false;
 
@@ -85,6 +88,11 @@ Wounds AkhelianLeviadon::weaponDamage(const Weapon *weapon, const Unit *target, 
         return {0, 6};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int AkhelianLeviadon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace IdonethDeepkin

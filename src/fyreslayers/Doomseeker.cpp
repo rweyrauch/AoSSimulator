@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool Doomseeker::s_registered = false;
 
@@ -87,6 +90,11 @@ Wounds Doomseeker::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         }
     }
     return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Doomseeker::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers

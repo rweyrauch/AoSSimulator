@@ -13,6 +13,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 100;
 
 bool LoonbossWithGiantCaveSquig::s_registered = false;
 
@@ -76,6 +79,11 @@ int LoonbossWithGiantCaveSquig::targetHitModifier(const Weapon *weapon, const Un
     // Dead Tricksy
     modifier -= 1;
     return modifier;
+}
+
+int LoonbossWithGiantCaveSquig::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

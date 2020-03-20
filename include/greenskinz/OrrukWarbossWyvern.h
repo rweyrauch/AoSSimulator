@@ -19,13 +19,9 @@ class OrrukWarbossOnWyvern : public Unit
 {
 public:
 
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 11;
-    static const int POINTS_PER_UNIT = 240;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
 
     OrrukWarbossOnWyvern();
     ~OrrukWarbossOnWyvern() override = default;

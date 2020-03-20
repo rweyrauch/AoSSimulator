@@ -14,6 +14,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 100;
 
 bool ScuttlebossOnGiganticSpider::s_registered = false;
 
@@ -78,6 +81,11 @@ Wounds ScuttlebossOnGiganticSpider::weaponDamage(const Weapon *weapon, const Uni
         return {0, 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int ScuttlebossOnGiganticSpider::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

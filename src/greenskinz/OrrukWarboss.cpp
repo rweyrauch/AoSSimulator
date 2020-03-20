@@ -11,6 +11,9 @@
 
 namespace Greenskinz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 140;
 
 bool OrrukWarboss::s_registered = false;
 
@@ -156,6 +159,11 @@ Rerolls OrrukWarboss::toSaveRerolls(const Weapon *weapon) const
         return RerollFailed;
     }
     return Unit::toSaveRerolls(weapon);
+}
+
+int OrrukWarboss::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Greenskinz

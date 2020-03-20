@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool AuricRunesmiter::s_registered = false;
 
@@ -70,6 +73,11 @@ void AuricRunesmiter::Init()
         };
         s_registered = UnitFactory::Register("Auric Runesmiter", factoryMethod);
     }
+}
+
+int AuricRunesmiter::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers

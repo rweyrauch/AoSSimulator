@@ -11,6 +11,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool IsharannTidecaster::s_registered = false;
 
@@ -74,6 +77,11 @@ bool IsharannTidecaster::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int IsharannTidecaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //IdonethDeepkin

@@ -10,6 +10,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Lotann::s_registered = false;
 
@@ -106,6 +109,11 @@ int Lotann::catalogueOfSouls(const Unit *target)
     }
 
     return 0;
+}
+
+int Lotann::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //IdonethDeepkin

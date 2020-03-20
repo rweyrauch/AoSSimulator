@@ -10,6 +10,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 360;
 
 bool EidolonOfMathlannAspectOfTheStorm::s_registered = false;
 
@@ -104,6 +107,11 @@ void EidolonOfMathlannAspectOfTheStorm::onCharged()
     {
         heal(Dice::rollD3());
     }
+}
+
+int EidolonOfMathlannAspectOfTheStorm::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // IdonethDeepkin

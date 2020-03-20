@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool Battlesmith::s_registered = false;
 
@@ -68,6 +71,11 @@ void Battlesmith::Init()
         };
         s_registered = UnitFactory::Register("Battlesmith", factoryMethod);
     }
+}
+
+int Battlesmith::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers

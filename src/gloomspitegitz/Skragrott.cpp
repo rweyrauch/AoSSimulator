@@ -15,6 +15,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 220;
 
 bool Skragrott::s_registered = false;
 
@@ -141,6 +144,11 @@ void Skragrott::onStartHero(PlayerId playerId)
             m_roster->addCommandPoints(Dice::rollD3());
         }
     }
+}
+
+int Skragrott::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

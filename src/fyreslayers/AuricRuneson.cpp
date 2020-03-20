@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool AuricRuneson::s_registered = false;
 
@@ -92,6 +95,11 @@ Wounds AuricRuneson::weaponDamage(const Weapon *weapon, const Unit *target, int 
         return {weapon->damage()+2, 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int AuricRuneson::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers

@@ -12,6 +12,9 @@
 
 namespace Greenskinz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool OrrukGreatShaman::s_registered = false;
 
@@ -92,6 +95,11 @@ int OrrukGreatShaman::castingModifier() const
         modifier += 1;
     }
     return modifier;
+}
+
+int OrrukGreatShaman::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Greenskinz

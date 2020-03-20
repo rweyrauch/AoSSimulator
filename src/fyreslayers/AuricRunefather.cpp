@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 100;
 
 bool AuricRunefather::s_registered = false;
 
@@ -68,6 +71,11 @@ void AuricRunefather::Init()
         };
         s_registered = UnitFactory::Register("Auric Runefather", factoryMethod);
     }
+}
+
+int AuricRunefather::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers

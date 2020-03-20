@@ -14,6 +14,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 110;
 
 bool LoonbossOnGiantCaveSquig::s_registered = false;
 
@@ -140,6 +143,11 @@ Rerolls LoonbossOnGiantCaveSquig::toWoundRerolls(const Weapon *weapon, const Uni
     if (weapon->name() == m_moonCutta.name() || weapon->name() == m_moonclanStabba.name())
         return m_toWoundRerolls;
     return GloomspiteGitzBase::toWoundRerolls(weapon, target);
+}
+
+int LoonbossOnGiantCaveSquig::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

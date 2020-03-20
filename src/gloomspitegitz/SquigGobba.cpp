@@ -11,6 +11,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool SquigGobba::s_registered = false;
 
@@ -78,6 +81,11 @@ int SquigGobba::toHitModifier(const Weapon *weapon, const Unit *target) const
         modifier += 1;
 
     return modifier;
+}
+
+int SquigGobba::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

@@ -14,6 +14,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 4;
+static const int POINTS_PER_UNIT = 90;
 
 bool FungoidCaveShaman::s_registered = false;
 
@@ -112,6 +115,11 @@ void FungoidCaveShaman::onStartHero(PlayerId playerId)
             m_roster->addCommandPoints(1);
         }
     }
+}
+
+int FungoidCaveShaman::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

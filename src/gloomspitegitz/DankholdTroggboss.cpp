@@ -13,6 +13,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 270;
 
 bool DankholdTroggboss::s_registered = false;
 
@@ -131,6 +134,11 @@ int DankholdTroggboss::reassuringPresence(const Unit *unit)
     }
 
     return 0;
+}
+
+int DankholdTroggboss::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

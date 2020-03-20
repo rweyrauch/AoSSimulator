@@ -11,6 +11,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int POINTS_PER_UNIT = 80;
 
 bool RippasSnarlfangs::s_registered = false;
 
@@ -96,6 +99,11 @@ int RippasSnarlfangs::toHitModifier(const Weapon *weapon, const Unit *target) co
     }
 
     return mod;
+}
+
+int RippasSnarlfangs::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace GloomspiteGitz

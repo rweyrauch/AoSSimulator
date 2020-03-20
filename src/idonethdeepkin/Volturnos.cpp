@@ -11,6 +11,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 280;
 
 bool Volturnos::s_registered = false;
 
@@ -115,6 +118,11 @@ int Volturnos::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll,
         return -5;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int Volturnos::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace IdonethDeepkin

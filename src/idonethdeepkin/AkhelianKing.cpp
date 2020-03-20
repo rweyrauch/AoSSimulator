@@ -11,6 +11,9 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 240;
 
 bool AkhelianKing::s_registered = false;
 
@@ -139,6 +142,11 @@ void AkhelianKing::onCharged()
     }
 
     Unit::onCharged();
+}
+
+int AkhelianKing::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace IdonethDeepkin

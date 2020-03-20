@@ -13,6 +13,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 4;
+static const int POINTS_PER_UNIT = 80;
 
 bool WebspinnerShaman::s_registered = false;
 
@@ -94,6 +97,11 @@ int WebspinnerShaman::EnumStringToInt(const std::string &enumString)
         return (int) lore;
     }
     return 0;
+}
+
+int WebspinnerShaman::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

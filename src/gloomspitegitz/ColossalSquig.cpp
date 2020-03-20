@@ -13,6 +13,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 120; // oval
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 300;
 
 bool ColossalSquig::s_registered = false;
 
@@ -24,7 +27,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 7, 10, 13, ColossalSquig::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 7, 10, 13, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {RAND_4D6, 2, 10},
@@ -157,6 +160,11 @@ void ColossalSquig::onCharged()
             ip->applyDamage({0, 1});
         }
     }
+}
+
+int ColossalSquig::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz
