@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool Runelord::s_registered = false;
 
@@ -70,6 +73,11 @@ void Runelord::Init()
         };
         s_registered = UnitFactory::Register("Runelord", factoryMethod);
     }
+}
+
+int Runelord::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

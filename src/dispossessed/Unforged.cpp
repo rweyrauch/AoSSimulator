@@ -11,6 +11,9 @@
 
 namespace Dispossessed
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool Unforged::s_registered = false;
 
@@ -91,6 +94,11 @@ int Unforged::toWoundModifier(const Weapon *weapon, const Unit *target) const
         modifier += 1;
     }
     return modifier;
+}
+
+int Unforged::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Dispossessed

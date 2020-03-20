@@ -10,6 +10,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 9;
+static const int POINTS_PER_UNIT = 140;
+
 bool AvatarOfKhaine::s_registered = false;
 
 AvatarOfKhaine::AvatarOfKhaine() :
@@ -77,6 +81,11 @@ int AvatarOfKhaine::idolOfWorship(const Unit *unit)
     if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
 
     return 0;
+}
+
+int AvatarOfKhaine::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine

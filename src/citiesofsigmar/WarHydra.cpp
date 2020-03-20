@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 170;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 7, 9, WarHydra::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 7, 9, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 6, 6},
@@ -129,6 +132,11 @@ int WarHydra::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int WarHydra::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

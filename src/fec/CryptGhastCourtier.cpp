@@ -13,6 +13,9 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 4;
+static const int POINTS_PER_UNIT = 60;
 
 bool CryptGhastCourtier::s_registered = false;
 
@@ -74,6 +77,11 @@ void CryptGhastCourtier::Init()
         };
         s_registered = UnitFactory::Register("Crypt Ghast Courtier", factoryMethod);
     }
+}
+
+int CryptGhastCourtier::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace FleshEaterCourt

@@ -11,6 +11,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 0;
+
 bool MorathiHighOracleOfKhaine::s_registered = false;
 
 MorathiHighOracleOfKhaine::MorathiHighOracleOfKhaine() :
@@ -102,6 +106,11 @@ Wounds MorathiHighOracleOfKhaine::applyWoundSave(const Wounds &wounds)
     auto totalWounds = DaughterOfKhaine::applyWoundSave(wounds);
 
     return totalWounds;
+}
+
+int MorathiHighOracleOfKhaine::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine

@@ -12,9 +12,11 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 130;
 
 bool HelstormRocketBattery::s_registered = false;
-
 
 Unit *HelstormRocketBattery::Create(const ParameterList &parameters)
 {
@@ -101,6 +103,11 @@ Rerolls HelstormRocketBattery::toHitRerolls(const Weapon *weapon, const Unit *ta
         if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return RerollOnes;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int HelstormRocketBattery::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

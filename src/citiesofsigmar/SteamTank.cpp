@@ -12,6 +12,10 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 200;
+static const int POINTS_FOR_COMMANDER = 50;
 
 struct TableEntry
 {
@@ -21,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SteamTank::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {RAND_2D6, 30, 2},
@@ -208,6 +212,11 @@ int SteamTank::moveModifier() const
     if (m_overpressured) mod += 2;
 
     return mod;
+}
+
+int SteamTank::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

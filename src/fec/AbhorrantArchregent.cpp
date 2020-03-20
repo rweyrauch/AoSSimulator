@@ -12,6 +12,9 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 240;
 
 bool AbhorrantArchregent::s_registered = false;
 
@@ -94,6 +97,11 @@ void AbhorrantArchregent::onStartHero(PlayerId player)
         }
     }
 
+}
+
+int AbhorrantArchregent::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace FleshEasterCourt

@@ -12,6 +12,12 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 75; // x42
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 6;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 600;
 
 bool ExaltedFlamersOfTzeentch::s_registered = false;
 
@@ -71,10 +77,7 @@ void ExaltedFlamersOfTzeentch::Init()
             TzeentchBase::EnumStringToInt,
             ExaltedFlamersOfTzeentch::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE,
-                    ExaltedFlamersOfTzeentch::MAX_UNIT_SIZE, ExaltedFlamersOfTzeentch::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None, TzeentchBase::GuildOfSummoners, 1},
             },
             CHAOS,

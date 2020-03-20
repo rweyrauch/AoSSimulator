@@ -11,6 +11,9 @@
 
 namespace FreeAgent
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 520;
 
 bool GotrekGurnisson::s_registered = false;
 
@@ -140,6 +143,11 @@ Wounds GotrekGurnisson::onEndCombat(PlayerId player)
     wounds += Unit::onEndCombat(player);
 
     return wounds;
+}
+
+int GotrekGurnisson::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

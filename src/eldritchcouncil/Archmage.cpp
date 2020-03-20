@@ -12,6 +12,10 @@
 
 namespace EldritchCouncil
 {
+static const int BASESIZE = 25;
+static const int BASESIZE_STEED = 60; // x35 oval
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool Archmage::s_registered = false;
 
@@ -79,6 +83,11 @@ void Archmage::Init()
         };
         s_registered = UnitFactory::Register("Archmage", factoryMethod);
     }
+}
+
+int Archmage::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace EldritchCouncil

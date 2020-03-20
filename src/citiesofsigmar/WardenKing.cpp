@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 110;
 
 bool WardenKing::s_registered = false;
 
@@ -66,6 +69,11 @@ void WardenKing::Init()
         };
         s_registered = UnitFactory::Register("Warden King", factoryMethod);
     }
+}
+
+int WardenKing::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

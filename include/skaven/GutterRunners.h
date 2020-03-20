@@ -18,7 +18,6 @@ namespace Skaven
 class GutterRunners : public Skaventide
 {
 public:
-    static const int POINTS_MAX_UNIT_SIZE = 200;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

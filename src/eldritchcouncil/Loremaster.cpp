@@ -12,6 +12,10 @@
 
 namespace EldritchCouncil
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
+
 bool Loremaster::s_registered = false;
 
 Loremaster::Loremaster() :
@@ -78,6 +82,11 @@ Rerolls Loremaster::toSaveRerolls(const Weapon *weapon) const
         return RerollFailed;
     }
     return Unit::toSaveRerolls(weapon);
+}
+
+int Loremaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace EldritchCouncil

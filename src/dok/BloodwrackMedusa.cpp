@@ -11,6 +11,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 140;
+
 bool BloodwrackMedusa::s_registered = false;
 
 BloodwrackMedusa::BloodwrackMedusa() :
@@ -84,6 +88,11 @@ Wounds BloodwrackMedusa::weaponDamage(const Weapon *weapon, const Unit *target, 
        return {0, result.rollsGE(5)};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int BloodwrackMedusa::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine

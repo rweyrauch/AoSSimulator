@@ -13,6 +13,9 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 120;
 
 bool CryptInfernalCourtier::s_registered = false;
 
@@ -85,6 +88,11 @@ Wounds CryptInfernalCourtier::weaponDamage(const Weapon *weapon, const Unit *tar
         return {0, 2};
     }
     return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int CryptInfernalCourtier::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace FleshEaterCourt

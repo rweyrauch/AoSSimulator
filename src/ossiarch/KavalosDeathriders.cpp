@@ -10,6 +10,12 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 60; // x35
+static const int WOUNDS = 3;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 15;
+static const int POINTS_PER_BLOCK = 180;
+static const int POINTS_MAX_UNIT_SIZE = 480;
 
 bool KavalosDeathriders::s_registered = false;
 
@@ -67,10 +73,7 @@ void KavalosDeathriders::Init()
             KavalosDeathriders::EnumStringToInt,
             KavalosDeathriders::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", KavalosDeathriders::MIN_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE,
-                    KavalosDeathriders::MAX_UNIT_SIZE, KavalosDeathriders::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},

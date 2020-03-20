@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool HelblasterVolleyGun::s_registered = false;
 
@@ -93,6 +96,11 @@ int HelblasterVolleyGun::toHitModifier(const Weapon *weapon, const Unit *target)
     if (weapon->isMissile() && (distanceTo(target) <= 12.0f)) mod++;
 
     return mod;
+}
+
+int HelblasterVolleyGun::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

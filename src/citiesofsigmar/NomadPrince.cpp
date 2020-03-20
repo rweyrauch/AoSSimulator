@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool NomadPrince::s_registered = false;
 
@@ -76,6 +79,11 @@ bool NomadPrince::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int NomadPrince::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

@@ -19,14 +19,10 @@ class HelstormRocketBattery : public CitizenOfSigmar
 {
 public:
 
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 130;
-
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     HelstormRocketBattery();

@@ -11,17 +11,9 @@
 
 namespace Dispossessed
 {
-static FactoryMethod factoryMethod = {
-    WardenKing::Create,
-    Dispossessed::ValueToString,
-    Dispossessed::EnumStringToInt,
-    WardenKing::ComputePoints,
-    {
-        {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
-    },
-    ORDER,
-    { DISPOSSESSED }
-};
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool WardenKing::s_registered = false;
 
@@ -61,8 +53,24 @@ void WardenKing::Init()
 {
     if (!s_registered)
     {
+        static FactoryMethod factoryMethod = {
+            WardenKing::Create,
+            Dispossessed::ValueToString,
+            Dispossessed::EnumStringToInt,
+            WardenKing::ComputePoints,
+            {
+                {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp, Dispossessed::SneakyAmbushers, 1}
+            },
+            ORDER,
+            { DISPOSSESSED }
+        };
         s_registered = UnitFactory::Register("Warden King", factoryMethod);
     }
+}
+
+int WardenKing::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Dispossessed

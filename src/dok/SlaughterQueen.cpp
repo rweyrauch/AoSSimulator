@@ -10,6 +10,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
+
 bool SlaughterQueen::s_registered = false;
 
 SlaughterQueen::SlaughterQueen() :
@@ -65,6 +69,11 @@ void SlaughterQueen::Init()
         };
         s_registered = UnitFactory::Register("Slaughter Queen", factoryMethod);
     }
+}
+
+int SlaughterQueen::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine

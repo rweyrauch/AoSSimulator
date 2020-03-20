@@ -18,12 +18,9 @@ namespace FleshEaterCourt
 class VarghulfCourtier : public FleshEaterCourts
 {
 public:
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     VarghulfCourtier();

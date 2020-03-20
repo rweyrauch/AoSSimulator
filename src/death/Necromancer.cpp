@@ -11,6 +11,9 @@
 
 namespace Death
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 130;
 
 bool Necromancer::s_registered = false;
 
@@ -67,6 +70,11 @@ void Necromancer::Init()
 Wounds Necromancer::applyWoundSave(const Wounds &wounds)
 {
     return Unit::applyWoundSave(wounds);
+}
+
+int Necromancer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Death

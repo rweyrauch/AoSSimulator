@@ -11,6 +11,9 @@
 
 namespace Death
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool WightKingWithBlackAxe::s_registered = false;
 
@@ -68,6 +71,11 @@ Wounds WightKingWithBlackAxe::applyWoundSave(const Wounds &wounds)
 {
     // Barrow Armour
     return {(wounds.normal+1)/2, wounds.mortal};
+}
+
+int WightKingWithBlackAxe::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Death

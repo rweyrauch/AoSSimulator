@@ -19,10 +19,6 @@ class Cogsmith : public CitizenOfSigmar
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 60;
-
     enum WeaponOption
     {
         GrudgeRaker,
@@ -31,7 +27,7 @@ public:
 
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static int EnumStringToInt(const std::string &enumString);
     static void Init();
 

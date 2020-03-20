@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 60;
 
 bool BlackArkFleetmaster::s_registered = false;
 
@@ -88,6 +91,11 @@ int BlackArkFleetmaster::generateHits(int unmodifiedHitRoll, const Weapon *weapo
         return 2;
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int BlackArkFleetmaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 }//namespace CitiesOfSigmar

@@ -12,6 +12,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool Sorceress::s_registered = false;
 
@@ -83,6 +86,11 @@ bool Sorceress::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Sorceress::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

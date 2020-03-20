@@ -12,6 +12,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 60;
 
 bool Cogsmith::s_registered = false;
 
@@ -148,6 +151,11 @@ void Cogsmith::onStartHero(PlayerId player)
             }
         }
     }
+}
+
+int Cogsmith::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace CitiesOfSigmar

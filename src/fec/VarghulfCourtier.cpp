@@ -13,6 +13,9 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool VarghulfCourtier::s_registered = false;
 
@@ -74,6 +77,11 @@ void VarghulfCourtier::Init()
         };
         s_registered = UnitFactory::Register("Varghulf Courtier", factoryMethod);
     }
+}
+
+int VarghulfCourtier::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace FleshEaterCourt

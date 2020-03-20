@@ -10,6 +10,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
+
 bool HagQueen::s_registered = false;
 
 HagQueen::HagQueen() :
@@ -60,6 +64,11 @@ void HagQueen::Init()
         };
         s_registered = UnitFactory::Register("Hag Queen", factoryMethod);
     }
+}
+
+int HagQueen::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine
