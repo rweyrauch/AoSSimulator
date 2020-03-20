@@ -10,6 +10,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 80;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 200;
 
 bool LiegeKavalos::s_registered = false;
 
@@ -80,4 +83,10 @@ bool LiegeKavalos::configure()
 
     return true;
 }
+
+int LiegeKavalos::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
+}
+
 } // namespace OssiarchBonereapers

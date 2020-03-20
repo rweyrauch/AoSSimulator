@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 110;
 
 bool SorcererOfNurgle::s_registered = false;
 
@@ -68,6 +71,11 @@ bool SorcererOfNurgle::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int SorcererOfNurgle::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Nurgle

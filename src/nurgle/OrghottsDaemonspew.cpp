@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 240;
 
 bool OrghottsDaemonspew::s_registered = false;
 
@@ -75,6 +78,11 @@ int OrghottsDaemonspew::extraAttacks(const Model *attackingModel, const Weapon *
     if (m_charged) extra += Dice::rollD3();
 
     return extra;
+}
+
+int OrghottsDaemonspew::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

@@ -11,6 +11,9 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool DreadbladeHarrow::s_registered = false;
 
@@ -92,5 +95,10 @@ Rerolls DreadbladeHarrow::toWoundRerolls(const Weapon *weapon, const Unit *targe
         return RerollOnes;
     }
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int DreadbladeHarrow::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 } // namespace Nighthaunt

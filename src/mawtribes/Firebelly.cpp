@@ -12,6 +12,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool Firebelly::s_registered = false;
 
@@ -96,6 +99,11 @@ void Firebelly::onStartShooting(PlayerId player)
             }
         }
     }
+}
+
+int Firebelly::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

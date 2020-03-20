@@ -10,6 +10,9 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool SpiritTorment::s_registered = false;
 
@@ -62,6 +65,11 @@ bool SpiritTorment::configure()
     m_points = ComputePoints(1);
 
     return true;
+}
+
+int SpiritTorment::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

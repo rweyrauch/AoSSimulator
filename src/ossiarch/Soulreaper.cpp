@@ -11,6 +11,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool MortisanSoulreaper::s_registered = false;
 
@@ -102,6 +105,11 @@ Rerolls MortisanSoulreaper::toHitRerolls(const Weapon *weapon, const Unit *targe
         return RerollFailed;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int MortisanSoulreaper::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

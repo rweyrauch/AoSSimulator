@@ -10,6 +10,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 9;
+static const int POINTS_PER_UNIT = 120;
 
 bool GnoblarScraplauncher::s_registered = false;
 
@@ -109,6 +112,11 @@ Wounds GnoblarScraplauncher::weaponDamage(const Weapon *weapon, const Unit *targ
         return {weapon->damage()+1, 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int GnoblarScraplauncher::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

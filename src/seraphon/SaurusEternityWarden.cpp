@@ -12,6 +12,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 110;
 
 bool SaurusEternityWarden::s_registered = false;
 
@@ -82,6 +85,11 @@ int SaurusEternityWarden::generateHits(int unmodifiedHitRoll, const Weapon *weap
         return 2;
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int SaurusEternityWarden::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

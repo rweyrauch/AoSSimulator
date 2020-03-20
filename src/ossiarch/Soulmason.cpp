@@ -11,6 +11,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 140;
 
 bool MortisanSoulmason::s_registered = false;
 
@@ -84,6 +87,11 @@ bool MortisanSoulmason::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int MortisanSoulmason::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

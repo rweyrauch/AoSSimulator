@@ -11,6 +11,10 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 75; // x42 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 170;
+
 bool ReikenorTheGrimhailer::s_registered = false;
 
 Unit *ReikenorTheGrimhailer::Create(const ParameterList &parameters)
@@ -91,6 +95,11 @@ Rerolls ReikenorTheGrimhailer::toHitRerolls(const Weapon *weapon, const Unit *ta
     }
 
     return Unit::toHitRerolls(weapon, target);
+}
+
+int ReikenorTheGrimhailer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

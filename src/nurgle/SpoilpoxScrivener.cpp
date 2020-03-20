@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool SpoilpoxScrivenerHeraldOfNurgle::s_registered = false;
 
@@ -100,6 +103,11 @@ Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit* at
     if ((attacker->hasKeyword(PLAGUEBEARER) || attacker->hasKeyword(PLAGUEBEARERS)) && (distanceTo(attacker) <= 7.0f)) return RerollOnes;
 
     return NoRerolls;
+}
+
+int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

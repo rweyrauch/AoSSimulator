@@ -12,6 +12,10 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 240;
+
 bool BloabRotspawned::s_registered = false;
 
 Unit* BloabRotspawned::Create(const ParameterList &parameters)
@@ -88,6 +92,11 @@ int BloabRotspawned::windspeakerBellsCastingMod(const Unit *caster)
         return -1;
     }
     return 0;
+}
+
+int BloabRotspawned::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

@@ -10,6 +10,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 80;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 220;
 
 bool ArchKavalosZandtos::s_registered = false;
 
@@ -103,6 +106,11 @@ Rerolls ArchKavalosZandtos::toWoundRerolls(const Weapon *weapon, const Unit *tar
         return RerollFailed;
     }
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int ArchKavalosZandtos::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

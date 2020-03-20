@@ -11,6 +11,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 180;
 
 bool Vokmortian::s_registered = false;
 
@@ -102,6 +105,11 @@ int Vokmortian::grimWarning(const Unit *unit)
         return 1;
     }
     return 0;
+}
+
+int Vokmortian::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

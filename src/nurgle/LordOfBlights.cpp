@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 140;
 
 bool LordOfBlights::s_registered = false;
 
@@ -72,6 +75,11 @@ Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon) const
     // Vermid Shield
     if (!weapon->isMissile()) return RerollOnes;
     return Unit::toSaveRerolls(weapon);
+}
+
+int LordOfBlights::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

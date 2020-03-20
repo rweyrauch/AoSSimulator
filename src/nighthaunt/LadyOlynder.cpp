@@ -12,6 +12,10 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 200;
+
 bool LadyOlynder::s_registered = false;
 
 Unit *LadyOlynder::Create(const ParameterList &parameters)
@@ -139,6 +143,11 @@ void LadyOlynder::onRestore()
     Unit::onRestore();
 
     m_graveSandsOfTimeUsed = false;
+}
+
+int LadyOlynder::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

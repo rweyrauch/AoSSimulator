@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 140;
 
 bool LordOfPlagues::s_registered = false;
 
@@ -73,6 +76,11 @@ int LordOfPlagues::generateHits(int unmodifiedHitRoll, const Weapon *weapon, con
     }
 
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int LordOfPlagues::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

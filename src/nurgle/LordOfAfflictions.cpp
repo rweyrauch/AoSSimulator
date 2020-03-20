@@ -12,6 +12,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 200;
 
 bool LordOfAfflictions::s_registered = false;
 
@@ -128,6 +131,11 @@ Rerolls LordOfAfflictions::plagueVectorToHitRerolls(const Unit *attacker, const 
     if (isFriendly(attacker) && attacker->hasKeyword(ROTBRINGER) && (distanceTo(attacker) <= 7.0f)) return RerollOnes;
 
     return NoRerolls;
+}
+
+int LordOfAfflictions::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

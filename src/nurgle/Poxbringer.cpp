@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool PoxbringerHeraldOfNurgle::s_registered = false;
 
@@ -75,6 +78,11 @@ Wounds PoxbringerHeraldOfNurgle::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal -= mortalSaves.rollsGE(5);
 
     return totalWounds.clamp();
+}
+
+int PoxbringerHeraldOfNurgle::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

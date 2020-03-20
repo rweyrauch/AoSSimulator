@@ -13,6 +13,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 260;
 
 bool SlannStarmaster::s_registered = false;
 
@@ -94,6 +97,11 @@ int SlannStarmaster::castingModifier() const
     mod++;
 
     return mod;
+}
+
+int SlannStarmaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

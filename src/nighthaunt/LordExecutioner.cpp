@@ -11,6 +11,9 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool LordExecutioner::s_registered = false;
 
@@ -100,6 +103,11 @@ Wounds LordExecutioner::applyWoundSave(const Wounds &wounds)
         unsavedWounds.mortal = std::max(0, unsavedWounds.mortal);
     }
     return unsavedWounds;
+}
+
+int LordExecutioner::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

@@ -12,6 +12,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int POINTS_PER_UNIT = 80;
 
 bool RipperdactylChief::s_registered = false;
 
@@ -83,6 +86,11 @@ int RipperdactylChief::generateHits(int unmodifiedHitRoll, const Weapon *weapon,
         return 2;
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int RipperdactylChief::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

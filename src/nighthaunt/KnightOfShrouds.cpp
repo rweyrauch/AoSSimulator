@@ -10,6 +10,9 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool KnightOfShrouds::s_registered = false;
 
@@ -61,6 +64,11 @@ bool KnightOfShrouds::configure()
     m_points = ComputePoints(1);
 
     return true;
+}
+
+int KnightOfShrouds::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

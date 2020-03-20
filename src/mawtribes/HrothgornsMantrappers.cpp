@@ -10,6 +10,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int POINTS_PER_UNIT = 40;
 
 bool HrothgornsMantrappers::s_registered = false;
 

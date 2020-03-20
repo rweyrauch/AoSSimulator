@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 240;
 
 bool MorbidexTwiceborn::s_registered = false;
 
@@ -78,6 +81,11 @@ int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon
 {
     if (isFriendly(attacker) && attacker->hasKeyword(NURGLINGS) && (distanceTo(attacker) <= 7.0f)) return 1;
     return 0;
+}
+
+int MorbidexTwiceborn::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

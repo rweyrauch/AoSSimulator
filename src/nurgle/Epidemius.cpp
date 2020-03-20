@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 200;
 
 bool EpidemiusTallymanOfNurgle::s_registered = false;
 
@@ -77,6 +80,11 @@ Wounds EpidemiusTallymanOfNurgle::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal -= mortalSaves.rollsGE(5);
 
     return totalWounds.clamp();
+}
+
+int EpidemiusTallymanOfNurgle::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

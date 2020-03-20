@@ -11,6 +11,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool Tyrant::s_registered = false;
 
@@ -139,6 +142,11 @@ int Tyrant::toWoundModifier(const Weapon *weapon, const Unit *target) const
     if (m_charged && (m_bigName == Brawlerguts)) mod++;
 
     return mod;
+}
+
+int Tyrant::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

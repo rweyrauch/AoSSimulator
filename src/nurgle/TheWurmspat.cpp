@@ -11,9 +11,11 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 4;
+static const int POINTS_PER_UNIT = 80;
 
 bool TheWurmspat::s_registered = false;
-
 
 Unit *TheWurmspat::Create(const ParameterList &parameters)
 {
@@ -78,6 +80,11 @@ int TheWurmspat::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
     }
 
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int TheWurmspat::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

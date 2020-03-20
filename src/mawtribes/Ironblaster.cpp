@@ -13,6 +13,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 9;
+static const int POINTS_PER_UNIT = 120;
 
 bool Ironblaster::s_registered = false;
 
@@ -130,6 +133,11 @@ void Ironblaster::onStartShooting(PlayerId player)
             m_cannonBall.activate(true);
         }
     }
+}
+
+int Ironblaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

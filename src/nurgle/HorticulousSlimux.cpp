@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 105; // x70 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 220;
 
 bool HorticulousSlimux::s_registered = false;
 
@@ -104,6 +107,11 @@ Rerolls HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const 
         if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
     }
     return NoRerolls;
+}
+
+int HorticulousSlimux::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

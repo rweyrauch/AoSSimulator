@@ -12,6 +12,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 140;
 
 bool Butcher::s_registered = false;
 
@@ -134,6 +137,11 @@ void Butcher::onUnboundSpell(const Unit *caster, int castRoll)
     const auto roll = Dice::rollD6();
     if (roll == 1) applyDamage({0, 1});
     else heal(1);
+}
+
+int Butcher::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

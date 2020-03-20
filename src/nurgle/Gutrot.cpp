@@ -11,6 +11,10 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 140;
+
 bool GutrotSpume::s_registered = false;
 
 Unit* GutrotSpume::Create(const ParameterList &parameters)
@@ -62,6 +66,11 @@ bool GutrotSpume::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int GutrotSpume::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

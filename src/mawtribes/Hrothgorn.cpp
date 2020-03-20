@@ -11,6 +11,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool Hrothgorn::s_registered = false;
 
@@ -80,6 +83,11 @@ std::string Hrothgorn::ValueToString(const Parameter &parameter)
 int Hrothgorn::EnumStringToInt(const std::string &enumString)
 {
     return MawtribesBase::EnumStringToInt(enumString);
+}
+
+int Hrothgorn::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

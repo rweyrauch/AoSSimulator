@@ -12,6 +12,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 4;
+static const int POINTS_PER_UNIT = 70;
 
 bool SkinkPriest::s_registered = false;
 
@@ -71,6 +74,11 @@ void SkinkPriest::Init()
         };
         s_registered = UnitFactory::Register("Skink Priest", factoryMethod);
     }
+}
+
+int SkinkPriest::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

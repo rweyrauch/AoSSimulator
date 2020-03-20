@@ -11,6 +11,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool SloppityBilepiperHeraldOfNurgle::s_registered = false;
 
@@ -105,6 +108,11 @@ Rerolls SloppityBilepiperHeraldOfNurgle::jollyGutpipesChargeReroll(const Unit *u
     if ((unit->hasKeyword(NURGLINGS) || unit->hasKeyword(GREAT_UNCLEAN_ONE)) && (distanceTo(unit) <= 7.0f)) return RerollOnes;
 
     return NoRerolls;
+}
+
+int SloppityBilepiperHeraldOfNurgle::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

@@ -10,6 +10,9 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 75; // x42 oval
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 120;
 
 bool KnightOfShroudsOnEtherealSteed::s_registered = false;
 
@@ -63,6 +66,11 @@ bool KnightOfShroudsOnEtherealSteed::configure()
     m_points = ComputePoints(1);
 
     return true;
+}
+
+int KnightOfShroudsOnEtherealSteed::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

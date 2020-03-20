@@ -19,12 +19,8 @@ class SaurusScarVeteranOnColdOne : public SeraphonBase
 {
 public:
 
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 110;
-
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
+    static int ComputePoints(int numModels);
     static void Init();
 
     SaurusScarVeteranOnColdOne();

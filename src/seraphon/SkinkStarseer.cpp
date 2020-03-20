@@ -13,6 +13,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool SkinkStarseer::s_registered = false;
 
@@ -86,6 +89,11 @@ void SkinkStarseer::onStartHero(PlayerId player)
         Dice::rollD6(1, result);
         m_roster->addCommandPoints(result.rollsGE(4));
     }
+}
+
+int SkinkStarseer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

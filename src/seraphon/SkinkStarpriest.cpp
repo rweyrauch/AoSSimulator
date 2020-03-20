@@ -13,6 +13,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool SkinkStarpriest::s_registered = false;
 
@@ -86,6 +89,11 @@ void SkinkStarpriest::onStartHero(PlayerId player)
         Dice::rollD6(1, result);
         m_roster->addCommandPoints(result.rollsGE(5));
     }
+}
+
+int SkinkStarpriest::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

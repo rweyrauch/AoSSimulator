@@ -12,6 +12,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 70;
 
 bool TerradonChief::s_registered = false;
 
@@ -73,6 +76,11 @@ void TerradonChief::Init()
 
         s_registered = UnitFactory::Register("Terradon Chief", factoryMethod);
     }
+}
+
+int TerradonChief::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

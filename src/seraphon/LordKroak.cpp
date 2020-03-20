@@ -13,6 +13,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 320;
 
 bool LordKroak::s_registered = false;
 
@@ -128,6 +131,11 @@ int LordKroak::castingModifier() const
     // Masters of Order
     mod++;
     return mod;
+}
+
+int LordKroak::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

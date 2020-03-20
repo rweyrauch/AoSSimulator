@@ -10,6 +10,9 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 180;
 
 bool KurdossValentian::s_registered = false;
 
@@ -88,6 +91,11 @@ Rerolls KurdossValentian::toHitRerolls(const Weapon *weapon, const Unit *target)
         return RerollFailed;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int KurdossValentian::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

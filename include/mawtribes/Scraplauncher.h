@@ -19,15 +19,11 @@ class GnoblarScraplauncher : public MawtribesBase
 {
 public:
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 120;
-
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
     static void Init();
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
 
     GnoblarScraplauncher();
     ~GnoblarScraplauncher() override = default;

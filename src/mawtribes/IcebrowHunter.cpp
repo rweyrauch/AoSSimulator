@@ -11,6 +11,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool IcebrowHunter::s_registered = false;
 
@@ -84,6 +87,11 @@ std::string IcebrowHunter::ValueToString(const Parameter &parameter)
 int IcebrowHunter::EnumStringToInt(const std::string &enumString)
 {
     return MawtribesBase::EnumStringToInt(enumString);
+}
+
+int IcebrowHunter::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes
