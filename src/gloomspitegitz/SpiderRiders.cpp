@@ -11,6 +11,12 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 540;
 
 bool SpiderRiders::s_registered = false;
 
@@ -85,10 +91,7 @@ void SpiderRiders::Init()
             nullptr,
             SpiderRiders::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SpiderRiders::MIN_UNIT_SIZE,
-                    SpiderRiders::MIN_UNIT_SIZE, SpiderRiders::MAX_UNIT_SIZE, SpiderRiders::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 { ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 { ParamType::Boolean, "Totem Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE}
             },

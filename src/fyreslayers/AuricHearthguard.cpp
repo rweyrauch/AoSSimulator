@@ -10,6 +10,12 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 600;
 
 bool AuricHearthguard::s_registered = false;
 
@@ -79,10 +85,7 @@ void AuricHearthguard::Init()
             Fyreslayer::EnumStringToInt,
             AuricHearthguard::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", AuricHearthguard::MIN_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE,
-                    AuricHearthguard::MAX_UNIT_SIZE, AuricHearthguard::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
             },
             ORDER,

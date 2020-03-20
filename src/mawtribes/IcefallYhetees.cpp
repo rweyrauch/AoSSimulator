@@ -10,6 +10,12 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 110;
+static const int POINTS_MAX_UNIT_SIZE = 440;
 
 bool IcefallYhetees::s_registered = false;
 
@@ -41,10 +47,7 @@ void IcefallYhetees::Init()
             MawtribesBase::EnumStringToInt,
             IcefallYhetees::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", IcefallYhetees::MIN_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE,
-                    IcefallYhetees::MAX_UNIT_SIZE, IcefallYhetees::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
             },
             DESTRUCTION,

@@ -18,12 +18,6 @@ namespace GloomspiteGitz
 class SpiderRiders : public GloomspiteGitzBase
 {
 public:
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
 
     static Unit* Create(const ParameterList& parameters);
     static void Init();

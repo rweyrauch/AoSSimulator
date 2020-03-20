@@ -11,6 +11,13 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 560;
+
 bool Bloodcrushers::s_registered = false;
 
 Bloodcrushers::Bloodcrushers() :
@@ -89,10 +96,7 @@ void Bloodcrushers::Init()
             KhorneBase::EnumStringToInt,
             Bloodcrushers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Bloodcrushers::MIN_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE,
-                    Bloodcrushers::MAX_UNIT_SIZE, Bloodcrushers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}

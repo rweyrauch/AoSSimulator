@@ -11,6 +11,12 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 3;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 140*4;
 
 bool Wrathmongers::s_registered = false;
 
@@ -80,11 +86,7 @@ void Wrathmongers::Init()
             KhorneBase::EnumStringToInt,
             Wrathmongers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Wrathmongers::MIN_UNIT_SIZE,
-                    Wrathmongers::MIN_UNIT_SIZE,
-                    Wrathmongers::MAX_UNIT_SIZE, Wrathmongers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE },
                 {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
             },
             CHAOS,

@@ -10,6 +10,12 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 20;
+static const int MAX_UNIT_SIZE = 60;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 270;
 
 bool Gnoblars::s_registered = false;
 
@@ -41,10 +47,7 @@ void Gnoblars::Init()
             MawtribesBase::EnumStringToInt,
             Gnoblars::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Gnoblars::MIN_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE,
-                    Gnoblars::MAX_UNIT_SIZE, Gnoblars::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
             },
             DESTRUCTION,

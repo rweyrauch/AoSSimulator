@@ -10,6 +10,12 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 0;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 400;
 
 bool Endrinriggers::s_registered = false;
 
@@ -54,14 +60,11 @@ void Endrinriggers::Init()
             Endrinriggers::EnumStringToInt,
             Endrinriggers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Endrinriggers::MIN_UNIT_SIZE, Endrinriggers::MIN_UNIT_SIZE,
-                    Endrinriggers::MAX_UNIT_SIZE, Endrinriggers::MIN_UNIT_SIZE
-                },
-                { ParamType::Integer, "Volley Guns", 1, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Skyhooks", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Grapnel Launchers", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Drill Launchers", 0, 0, Endrinriggers::MAX_UNIT_SIZE/Endrinriggers::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                { ParamType::Integer, "Volley Guns", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Skyhooks", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Grapnel Launchers", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Drill Launchers", 0, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
                 { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
             },
             ORDER,

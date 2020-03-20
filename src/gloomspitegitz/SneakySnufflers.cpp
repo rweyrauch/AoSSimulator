@@ -13,6 +13,12 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 6;
+static const int MAX_UNIT_SIZE = 18;
+static const int POINTS_PER_BLOCK = 70;
+static const int POINTS_MAX_UNIT_SIZE = 210;
 
 bool SneakySnufflers::s_registered = false;
 
@@ -71,10 +77,7 @@ void SneakySnufflers::Init()
             nullptr,
             SneakySnufflers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SneakySnufflers::MIN_UNIT_SIZE, SneakySnufflers::MIN_UNIT_SIZE,
-                    SneakySnufflers::MAX_UNIT_SIZE, SneakySnufflers::MIN_UNIT_SIZE
-                }
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE}
             },
             DESTRUCTION,
             { GLOOMSPITE_GITZ }

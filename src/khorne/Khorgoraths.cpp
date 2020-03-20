@@ -10,9 +10,14 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 8;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 6;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 600;
 
 bool Khorgoraths::s_registered = false;
-
 
 Khorgoraths::Khorgoraths() :
     KhorneBase("Khorgoraths", 6, WOUNDS, 6, 4, false),
@@ -70,11 +75,7 @@ void Khorgoraths::Init()
             KhorneBase::EnumStringToInt,
             Khorgoraths::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Khorgoraths::MIN_UNIT_SIZE,
-                    Khorgoraths::MIN_UNIT_SIZE,
-                    Khorgoraths::MAX_UNIT_SIZE, Khorgoraths::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
             },
             CHAOS,

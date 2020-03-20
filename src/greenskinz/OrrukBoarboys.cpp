@@ -12,6 +12,12 @@
 
 namespace Greenskinz
 {
+static const int BASESIZE = 60; // x35 ovals
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
 
 bool OrrukBoarboys::s_registered = false;
 
@@ -102,10 +108,7 @@ void OrrukBoarboys::Init()
             OrrukBoarboys::EnumStringToInt,
             OrrukBoarboys::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", OrrukBoarboys::MIN_UNIT_SIZE,
-                    OrrukBoarboys::MIN_UNIT_SIZE, OrrukBoarboys::MAX_UNIT_SIZE, OrrukBoarboys::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Weapons", OrrukBoarboys::Choppa, OrrukBoarboys::Choppa, OrrukBoarboys::PigstikkaSpear, 1},
                 {ParamType::Boolean, "Glyph Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Boolean, "Waaagh! Horns", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},

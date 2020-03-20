@@ -19,13 +19,6 @@ class OrrukBoarboys : public Unit
 {
 public:
 
-    static const int BASESIZE = 60; // x35 ovals
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
-
     enum WeaponOption
     {
         Choppa,

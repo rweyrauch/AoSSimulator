@@ -11,6 +11,12 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 3;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 180;
+static const int POINTS_MAX_UNIT_SIZE = 720;
 
 bool Skullreapers::s_registered = false;
 
@@ -82,10 +88,7 @@ void Skullreapers::Init()
             KhorneBase::EnumStringToInt,
             Skullreapers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Skullreapers::MIN_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE,
-                    Skullreapers::MAX_UNIT_SIZE, Skullreapers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
             },

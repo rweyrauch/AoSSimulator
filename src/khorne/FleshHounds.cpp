@@ -12,6 +12,12 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 400;
 
 bool FleshHounds::s_registered = false;
 
@@ -81,10 +87,7 @@ void FleshHounds::Init()
             KhorneBase::EnumStringToInt,
             FleshHounds::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", FleshHounds::MIN_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE,
-                    FleshHounds::MAX_UNIT_SIZE, FleshHounds::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
             },
             CHAOS,

@@ -11,6 +11,13 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 2;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 40;
+static const int POINTS_MAX_UNIT_SIZE = 240;
+
 
 bool FrostSabres::s_registered = false;
 
@@ -42,10 +49,7 @@ void FrostSabres::Init()
             MawtribesBase::EnumStringToInt,
             FrostSabres::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", FrostSabres::MIN_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE,
-                    FrostSabres::MAX_UNIT_SIZE, FrostSabres::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
             },
             DESTRUCTION,

@@ -10,6 +10,12 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 6;
+static const int MIN_UNIT_SIZE = 2;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 840;
 
 bool MournfangPack::s_registered = false;
 
@@ -44,10 +50,7 @@ void MournfangPack::Init()
             MournfangPack::EnumStringToInt,
             MournfangPack::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", MournfangPack::MIN_UNIT_SIZE, MournfangPack::MIN_UNIT_SIZE,
-                    MournfangPack::MAX_UNIT_SIZE, MournfangPack::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Weapons", MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::GargantHacker, 1},
                 {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},

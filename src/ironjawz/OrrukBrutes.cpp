@@ -11,6 +11,12 @@
 
 namespace Ironjawz
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 3;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 560;
 
 bool OrrukBrutes::s_registered = false;
 
@@ -109,12 +115,12 @@ void OrrukBrutes::Init()
             OrrukBrutes::EnumStringToInt,
             OrrukBrutes::ComputePoints,
             {
-                {ParamType::Integer, "Models", OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE, OrrukBrutes::MAX_UNIT_SIZE, OrrukBrutes::MIN_UNIT_SIZE},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", OrrukBrutes::TwoBruteChoppas, OrrukBrutes::TwoBruteChoppas,
                     OrrukBrutes::JaggedGorehacka, 1
                 },
-                {ParamType::Integer, "Gore Choppas", 0, 0, OrrukBrutes::MAX_UNIT_SIZE / 5, 1},
+                {ParamType::Integer, "Gore Choppas", 0, 0, MAX_UNIT_SIZE / 5, 1},
                 {
                     ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa, OrrukBrutes::BossKlaw, 1
                 },

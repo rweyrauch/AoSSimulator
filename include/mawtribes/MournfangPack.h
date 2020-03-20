@@ -25,13 +25,6 @@ public:
         GargantHacker
     };
 
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 840;
-
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
     static std::string ValueToString(const Parameter& parameter);

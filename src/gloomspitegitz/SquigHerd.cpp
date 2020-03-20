@@ -13,6 +13,12 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 6;
+static const int MAX_UNIT_SIZE = 24;
+static const int POINTS_PER_BLOCK = 70;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool SquiqHerd::s_registered = false;
 
@@ -81,10 +87,7 @@ void SquiqHerd::Init()
             nullptr,
             SquiqHerd::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SquiqHerd::MIN_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE,
-                    SquiqHerd::MAX_UNIT_SIZE, SquiqHerd::MIN_UNIT_SIZE
-                }
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE}
             },
             DESTRUCTION,
             { GLOOMSPITE_GITZ }

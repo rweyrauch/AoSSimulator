@@ -11,6 +11,12 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 400;
 
 bool HearthguardBerzerkers::s_registered = false;
 
@@ -94,10 +100,7 @@ void HearthguardBerzerkers::Init()
             HearthguardBerzerkers::EnumStringToInt,
             HearthguardBerzerkers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", HearthguardBerzerkers::MIN_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE,
-                    HearthguardBerzerkers::MAX_UNIT_SIZE, HearthguardBerzerkers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Weapons", HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::FlamestrikePoleaxe, 1},
                 {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
             },

@@ -13,6 +13,12 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 520;
 
 bool BloodWarriors::s_registered = false;
 
@@ -122,12 +128,9 @@ void BloodWarriors::Init()
             KhorneBase::EnumStringToInt,
             BloodWarriors::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", BloodWarriors::MIN_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE,
-                    BloodWarriors::MAX_UNIT_SIZE, BloodWarriors::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Paired Goreaxe", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                {ParamType::Integer, "Goreglaives", 0, 0, BloodWarriors::MAX_UNIT_SIZE / 10, 1},
+                {ParamType::Integer, "Goreglaives", 0, 0, MAX_UNIT_SIZE / 10, 1},
                 {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None, KhorneBase::SkullfiendTribe, 1}
             },

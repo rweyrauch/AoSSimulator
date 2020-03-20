@@ -13,6 +13,12 @@
 
 namespace IdonethDeepkin
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = 260;
 
 bool NamartiReavers::s_registered = false;
 

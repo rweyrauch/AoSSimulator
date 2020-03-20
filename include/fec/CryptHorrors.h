@@ -18,12 +18,6 @@ namespace FleshEaterCourt
 class CryptHorrors : public FleshEaterCourts
 {
 public:
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = 130*4;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

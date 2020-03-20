@@ -11,6 +11,12 @@
 
 namespace Greenskinz
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 6;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 3;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 240;
 
 bool OrrukBoarChariots::s_registered = false;
 
@@ -67,10 +73,7 @@ void OrrukBoarChariots::Init()
             nullptr,
             OrrukBoarChariots::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", OrrukBoarChariots::MIN_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE,
-                    OrrukBoarChariots::MAX_UNIT_SIZE, OrrukBoarChariots::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DESTRUCTION,
             { GREENSKINZ }

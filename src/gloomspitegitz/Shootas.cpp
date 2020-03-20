@@ -12,6 +12,12 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 20;
+static const int MAX_UNIT_SIZE = 60;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 320;
 
 bool Shootas::s_registered = false;
 
@@ -56,14 +62,11 @@ void Shootas::Init()
             nullptr,
             Shootas::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Shootas::MIN_UNIT_SIZE,
-                    Shootas::MIN_UNIT_SIZE, Shootas::MAX_UNIT_SIZE, Shootas::MIN_UNIT_SIZE
-                },
-                {ParamType::Integer, "Barbed Nets", 0, 0, 3 * Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-                {ParamType::Integer, "Gong Bashers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-                {ParamType::Integer, "Flag Bearers", 1, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
-                {ParamType::Integer, "Icon Bearers", 0, 0, Shootas::MAX_UNIT_SIZE / Shootas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Barbed Nets", 0, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
             },
             DESTRUCTION,
             { GLOOMSPITE_GITZ }

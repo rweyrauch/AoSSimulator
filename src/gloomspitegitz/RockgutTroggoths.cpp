@@ -13,6 +13,13 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 140*4;
+
 bool RockgutTroggoths::s_registered = false;
 
 RockgutTroggoths::RockgutTroggoths() :
@@ -66,10 +73,7 @@ void RockgutTroggoths::Init()
             nullptr,
             RockgutTroggoths::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", RockgutTroggoths::MIN_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE,
-                    RockgutTroggoths::MAX_UNIT_SIZE, RockgutTroggoths::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DESTRUCTION,
             { GLOOMSPITE_GITZ }

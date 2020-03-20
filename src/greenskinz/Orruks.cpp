@@ -12,6 +12,12 @@
 
 namespace Greenskinz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool Orruks::s_registered = false;
 
@@ -124,10 +130,7 @@ void Orruks::Init()
             Orruks::EnumStringToInt,
             Orruks::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Orruks::MIN_UNIT_SIZE,
-                    Orruks::MIN_UNIT_SIZE, Orruks::MAX_UNIT_SIZE, Orruks::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Weapons", Orruks::ChoppaAndShield, Orruks::ChoppaAndShield, Orruks::OrrukBowAndCutta, 1},
                 {ParamType::Boolean, "Waaagh! Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Enum, "Standard Bearer", Orruks::OrrukBanner, Orruks::None, Orruks::SkullIcon, 1},

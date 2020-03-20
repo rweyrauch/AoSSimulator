@@ -10,6 +10,12 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 0;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 480;
 
 bool GrundstokThunderers::s_registered = false;
 
@@ -55,15 +61,12 @@ void GrundstokThunderers::Init()
             GrundstokThunderers::EnumStringToInt,
             GrundstokThunderers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", GrundstokThunderers::MIN_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE,
-                    GrundstokThunderers::MAX_UNIT_SIZE, GrundstokThunderers::MIN_UNIT_SIZE
-                },
-                { ParamType::Integer, "Grundstok Mortars", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Aethercannons", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Aetheric Fumigator", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Desksweepers", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Honour Bearers", 1, 0, GrundstokThunderers::MAX_UNIT_SIZE/GrundstokThunderers::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                { ParamType::Integer, "Grundstok Mortars", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Aethercannons", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Aetheric Fumigator", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Desksweepers", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Honour Bearers", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
                 { ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None, KharadronBase::Custom, 1},
             },
             ORDER,

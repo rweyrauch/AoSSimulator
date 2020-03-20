@@ -11,6 +11,12 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 5;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 160;
+static const int POINTS_MAX_UNIT_SIZE = 160*4;
 
 bool MightySkullcrushers::s_registered = false;
 
@@ -101,10 +107,7 @@ void MightySkullcrushers::Init()
             MightySkullcrushers::EnumStringToInt,
             MightySkullcrushers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", MightySkullcrushers::MIN_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE,
-                    MightySkullcrushers::MAX_UNIT_SIZE, MightySkullcrushers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", MightySkullcrushers::EnsorcelledAxe, MightySkullcrushers::EnsorcelledAxe,
                     MightySkullcrushers::Bloodglaive, 1

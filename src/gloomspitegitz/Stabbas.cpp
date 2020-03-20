@@ -12,6 +12,13 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 20;
+static const int MAX_UNIT_SIZE = 60;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = 360;
+
 bool Stabbas::s_registered = false;
 
 Stabbas::Stabbas() :
@@ -126,16 +133,13 @@ void Stabbas::Init()
             Stabbas::EnumStringToInt,
             Stabbas::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Stabbas::MIN_UNIT_SIZE,
-                    Stabbas::MIN_UNIT_SIZE, Stabbas::MAX_UNIT_SIZE, Stabbas::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Weapons", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
                 {ParamType::Enum, "Boss Weapon", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-                {ParamType::Integer, "Barbed Nets", 3, 0, 3 * Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-                {ParamType::Integer, "Gong Bashers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-                {ParamType::Integer, "Flag Bearers", 1, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
-                {ParamType::Integer, "Icon Bearers", 0, 0, Stabbas::MAX_UNIT_SIZE / Stabbas::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Barbed Nets", 3, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
             },
             DESTRUCTION,
             { GLOOMSPITE_GITZ }

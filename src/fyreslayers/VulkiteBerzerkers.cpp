@@ -10,6 +10,12 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 140*3;
 
 bool VulkiteBerzerkers::s_registered = false;
 
@@ -97,10 +103,7 @@ void VulkiteBerzerkers::Init()
             VulkiteBerzerkers::EnumStringToInt,
             VulkiteBerzerkers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", VulkiteBerzerkers::MIN_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE,
-                    VulkiteBerzerkers::MAX_UNIT_SIZE, VulkiteBerzerkers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", VulkiteBerzerkers::HandaxeAndShield, VulkiteBerzerkers::HandaxeAndShield,
                     VulkiteBerzerkers::PairedHandaxes, 1

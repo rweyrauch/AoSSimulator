@@ -11,6 +11,12 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 90;
+static const int POINTS_MAX_UNIT_SIZE = 360;
 
 bool ArkanautCompany::s_registered = false;
 
@@ -62,13 +68,10 @@ void ArkanautCompany::Init()
             ArkanautCompany::EnumStringToInt,
             ArkanautCompany::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ArkanautCompany::MIN_UNIT_SIZE, ArkanautCompany::MIN_UNIT_SIZE,
-                    ArkanautCompany::MAX_UNIT_SIZE, ArkanautCompany::MIN_UNIT_SIZE
-                },
-                { ParamType::Integer, "Volley Guns", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Light Skyhooks", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
-                { ParamType::Integer, "Skypikes", 1, 0, ArkanautCompany::MAX_UNIT_SIZE/ArkanautCompany::MIN_UNIT_SIZE, 1},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                { ParamType::Integer, "Volley Guns", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Light Skyhooks", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
+                { ParamType::Integer, "Skypikes", 1, 0, MAX_UNIT_SIZE/MIN_UNIT_SIZE, 1},
                 {
                     ParamType::Enum, "Captain Weapon", ArkanautCompany::AetherflarePistol, ArkanautCompany::AetherflarePistol,
                     ArkanautCompany::PrivateerPistol, 1

@@ -10,6 +10,13 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 2;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 480;
+
 
 bool Leadbelchers::s_registered = false;
 
@@ -51,10 +58,7 @@ void Leadbelchers::Init()
             Leadbelchers::EnumStringToInt,
             Leadbelchers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Leadbelchers::MIN_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE,
-                    Leadbelchers::MAX_UNIT_SIZE, Leadbelchers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
             },
             DESTRUCTION,

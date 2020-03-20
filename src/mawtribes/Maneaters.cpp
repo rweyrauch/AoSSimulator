@@ -10,6 +10,12 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 180;
+static const int POINTS_MAX_UNIT_SIZE = 720;
 
 bool Maneaters::s_registered = false;
 
@@ -64,10 +70,7 @@ void Maneaters::Init()
             Maneaters::EnumStringToInt,
             Maneaters::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Maneaters::MIN_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE,
-                    Maneaters::MAX_UNIT_SIZE, Maneaters::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Ability", Maneaters::Brawlers, Maneaters::Brawlers, Maneaters::Stubborn, 1},
                 {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
             },

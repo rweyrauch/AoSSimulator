@@ -10,6 +10,12 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 5;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 3;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 240;
 
 bool Gorgers::s_registered = false;
 
@@ -42,10 +48,7 @@ void Gorgers::Init()
             MawtribesBase::EnumStringToInt,
             Gorgers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Gorgers::MIN_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE,
-                    Gorgers::MAX_UNIT_SIZE, Gorgers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None, MawtribesBase::Winterbite, 1}
             },
             DESTRUCTION,

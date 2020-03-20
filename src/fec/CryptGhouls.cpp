@@ -12,6 +12,12 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 360;
 
 bool CryptGhouls::s_registered = false;
 
@@ -77,10 +83,7 @@ void CryptGhouls::Init()
             FleshEaterCourts::EnumStringToInt,
             CryptGhouls::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", CryptGhouls::MIN_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE,
-                    CryptGhouls::MAX_UNIT_SIZE, CryptGhouls::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt, FleshEaterCourts::Gristlegore, 1},
                 {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None, FleshEaterCourts::DefendersOfTheRealm, 1},
             },

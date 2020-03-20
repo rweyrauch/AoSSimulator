@@ -13,6 +13,12 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 110;
+static const int POINTS_MAX_UNIT_SIZE = 300;
 
 bool Bloodletters::s_registered = false;
 
@@ -101,10 +107,7 @@ void Bloodletters::Init()
             KhorneBase::EnumStringToInt,
             Bloodletters::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Bloodletters::MIN_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE,
-                    Bloodletters::MAX_UNIT_SIZE, Bloodletters::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
