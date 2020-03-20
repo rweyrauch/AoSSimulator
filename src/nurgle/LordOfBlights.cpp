@@ -56,7 +56,7 @@ LordOfBlights::LordOfBlights() :
 
 bool LordOfBlights::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_ripenedDeathsHead);
     model->addMissileWeapon(&m_bountyDeathsHead);
     model->addMeleeWeapon(&m_hammer);

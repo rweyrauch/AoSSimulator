@@ -14,6 +14,9 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 105; // x70 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 260;
 
 bool TreelordAncient::s_registered = false;
 
@@ -25,7 +28,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, TreelordAncient::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {2, 3, 2},
@@ -50,7 +53,7 @@ TreelordAncient::TreelordAncient() :
 
 bool TreelordAncient::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_doomTendrilStaff);
     model->addMeleeWeapon(&m_sweepingBlows);
     model->addMeleeWeapon(&m_massiveImpalingTalons);
@@ -136,6 +139,11 @@ Wounds TreelordAncient::weaponDamage(const Weapon *weapon, const Unit *target, i
         return {0, Dice::rollD6()};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int TreelordAncient::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

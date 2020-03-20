@@ -110,7 +110,7 @@ bool ArkanautCompany::configure(int numModels, int numVolleyGuns, int numSkyhook
     }
 
     // Add the Captain
-    auto captain = new Model(BASESIZE, WOUNDS);
+    auto captain = new Model(BASESIZE, wounds());
     if (option == AetherflarePistol)
     {
         captain->addMissileWeapon(&m_aetherflarePistol);
@@ -128,26 +128,26 @@ bool ArkanautCompany::configure(int numModels, int numVolleyGuns, int numSkyhook
 
     for (auto i = 0; i < numVolleyGuns; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_volleyGun);
         model->addMeleeWeapon(&m_gunButt);
     }
     for (auto i = 0; i < numSkyhooks; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_skyhook);
         model->addMeleeWeapon(&m_gunButt);
     }
     for (auto i = 0; i < numSkypikes; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_skypike);
     }
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_privateerPistol);
         model->addMeleeWeapon(&m_cutter);
         addModel(model);

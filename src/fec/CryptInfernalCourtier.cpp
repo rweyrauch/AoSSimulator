@@ -27,7 +27,7 @@ CryptInfernalCourtier::CryptInfernalCourtier() :
 
 bool CryptInfernalCourtier::configure()
 {
-    auto infernal = new Model(BASESIZE, WOUNDS);
+    auto infernal = new Model(BASESIZE, wounds());
     infernal->addMissileWeapon(&m_foetidBreath);
     infernal->addMeleeWeapon(&m_skeweringTalons);
     addModel(infernal);

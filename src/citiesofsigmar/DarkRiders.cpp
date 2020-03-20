@@ -98,7 +98,7 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
     m_hornblower = hornblower;
 
     // Add the Herald
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMissileWeapon(&m_crossbowHerald);
     bossModel->addMeleeWeapon(&m_spear);
     bossModel->addMeleeWeapon(&m_bite);
@@ -106,7 +106,7 @@ bool DarkRiders::configure(int numModels, bool standardBearer, bool hornblower)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_bite);

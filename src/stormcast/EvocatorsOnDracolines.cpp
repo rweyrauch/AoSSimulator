@@ -55,7 +55,7 @@ bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves
     }
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (primeGrandstave)
     {
         primeModel->addMeleeWeapon(&m_grandStavePrime);
@@ -70,7 +70,7 @@ bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves
 
     for (auto i = 0; i < numGrandstaves; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_grandStave);
         model->addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
@@ -79,7 +79,7 @@ bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_tempestBladeAndStave);
         model->addMeleeWeapon(&m_monstrousClaws);
         addModel(model);

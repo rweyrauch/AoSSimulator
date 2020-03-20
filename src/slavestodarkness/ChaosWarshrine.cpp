@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 170;
 
 struct TableEntry
 {
@@ -19,7 +22,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ChaosWarshrine::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 6, 18},
@@ -81,7 +84,7 @@ ChaosWarshrine::ChaosWarshrine() :
 
 bool ChaosWarshrine::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_blade);
     model->addMeleeWeapon(&m_fists);
     addModel(model);
@@ -115,6 +118,11 @@ int ChaosWarshrine::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int ChaosWarshrine::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

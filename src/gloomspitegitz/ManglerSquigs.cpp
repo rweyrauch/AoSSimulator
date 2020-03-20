@@ -12,6 +12,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 80;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 240;
 
 bool ManglerSquigs::s_registered = false;
 
@@ -23,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ManglerSquigs::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {RAND_3D6, 3, 7},
@@ -51,7 +54,7 @@ void ManglerSquigs::onRestore()
 
 bool ManglerSquigs::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_hugeFangFilledGob);
     model->addMeleeWeapon(&m_ballsAndChains);
     model->addMeleeWeapon(&m_grotsBashinStikk);
@@ -144,6 +147,11 @@ void ManglerSquigs::onSlain()
     }
 
     GloomspiteGitzBase::onSlain();
+}
+
+int ManglerSquigs::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

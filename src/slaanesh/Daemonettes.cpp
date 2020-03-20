@@ -45,13 +45,13 @@ bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, b
     m_hornblower = hornblower;
 
     // Add the Alluress
-    auto reaperModel = new Model(BASESIZE, WOUNDS);
+    auto reaperModel = new Model(BASESIZE, wounds());
     reaperModel->addMeleeWeapon(&m_piercingClawsAlluress);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_piercingClaws);
         addModel(model);
     }
@@ -119,7 +119,7 @@ void Daemonettes::restoreModels(int numModels)
     // Icon Bearer
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_piercingClaws);
         addModel(model);
     }

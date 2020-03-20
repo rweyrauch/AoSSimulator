@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 140*4;
 
 bool Bullgors::s_registered = false;
 
@@ -38,7 +44,7 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
     m_bannerBearer = bannerBearer;
     m_pairedAxes = (options == PairedBullgorAxes);
 
-    auto bloodkine = new Model(BASESIZE, WOUNDS);
+    auto bloodkine = new Model(BASESIZE, wounds());
     bloodkine->addMeleeWeapon(&m_bullgorHorns);
     if (options == BullgorAxe || options == PairedBullgorAxes)
     {
@@ -52,7 +58,7 @@ bool Bullgors::configure(int numModels, WeaponOptions options,
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_bullgorHorns);
         if (options == BullgorAxe || options == PairedBullgorAxes)
         {

@@ -19,10 +19,6 @@ class ChaosLordOnManticore : public SlavesToDarknessBase
 {
 public:
 
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 280;
-
     enum WeaponOption
     {
         BladeAndLance,
@@ -36,7 +32,7 @@ public:
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter& parameter);
     static int EnumStringToInt(const std::string& enumString);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     ChaosLordOnManticore();

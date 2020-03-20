@@ -28,7 +28,7 @@ LordRelictor::LordRelictor() :
 
 bool LordRelictor::configure(PrayersOfTheStormhost prayer)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_relicHammer);
     addModel(model);
 

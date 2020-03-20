@@ -54,14 +54,14 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
     m_numScrollsOfDarkArts = numScrollsOfDarkArts;
     m_numVulcharcs = numVulcharcs;
 
-    auto adept = new Model(BASESIZE, WOUNDS);
+    auto adept = new Model(BASESIZE, wounds());
     adept->addMissileWeapon(&m_sorcerousBolt);
     adept->addMeleeWeapon(&m_cursedBladeAdept);
     addModel(adept);
 
     for (auto i = 0; i < m_numCursedGlaives; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_sorcerousBolt);
         model->addMeleeWeapon(&m_cursedGlaive);
         addModel(model);
@@ -70,7 +70,7 @@ bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCurs
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_sorcerousBolt);
         model->addMeleeWeapon(&m_cursedBlade);
         addModel(model);

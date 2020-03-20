@@ -39,13 +39,13 @@ bool SpiteRevenants::configure(int numModels)
         return false;
     }
 
-    auto shadestalker = new Model(BASESIZE, WOUNDS);
+    auto shadestalker = new Model(BASESIZE, wounds());
     shadestalker->addMeleeWeapon(&m_cruelTalonsAndFangsShadestalker);
     addModel(shadestalker);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_cruelTalonsAndFangs);
         addModel(model);
     }

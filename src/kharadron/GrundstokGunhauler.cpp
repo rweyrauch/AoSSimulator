@@ -89,7 +89,7 @@ GrundstokGunhauler::GrundstokGunhauler() :
 
 bool GrundstokGunhauler::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (option == SkyCannon)
     {
         model->addMissileWeapon(&m_cannonShrapnel);

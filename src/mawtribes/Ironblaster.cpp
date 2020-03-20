@@ -75,7 +75,7 @@ Ironblaster::Ironblaster() :
 
 bool Ironblaster::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     m_hailShot.activate(false);
 

@@ -13,6 +13,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 130;
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 340;
 
 struct TableEntry
 {
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, GreatUncleanOne::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {2, 2, 4},
@@ -52,7 +55,7 @@ GreatUncleanOne::GreatUncleanOne() :
 
 bool GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bile);
     if (optionOne == PlagueFlail)
         model->addMeleeWeapon(&m_flail);
@@ -198,6 +201,11 @@ void GreatUncleanOne::onStartHero(PlayerId player)
         // Corpulent Mass
         heal(Dice::rollD3());
     }
+}
+
+int GreatUncleanOne::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

@@ -11,6 +11,9 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 130;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 440;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, AbhorrantGhoulKingOnZombieDragon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 2, 7},
@@ -49,7 +52,7 @@ AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
 
 bool AbhorrantGhoulKingOnZombieDragon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_pestilentialBreath);
     model->addMeleeWeapon(&m_goryTalonsAndFangs);
     model->addMeleeWeapon(&m_snappingMaw);
@@ -149,6 +152,11 @@ void AbhorrantGhoulKingOnZombieDragon::onRestore()
 {
     // Reset table-drive attributes
     onWounded();
+}
+
+int AbhorrantGhoulKingOnZombieDragon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace FleshEasterCourt

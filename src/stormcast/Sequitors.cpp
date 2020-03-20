@@ -60,7 +60,7 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     m_haveRedemptionCache = redemptionCache;
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (primeGreatmace)
     {
         primeModel->addMeleeWeapon(&m_stormsmiteGreatmacePrime);
@@ -81,7 +81,7 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
 
     for (auto i = 0; i < numGreatmaces; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_stormsmiteGreatmace);
         addModel(model);
     }
@@ -89,7 +89,7 @@ bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == StormsmiteMaul)
         {
             model->addMeleeWeapon(&m_stormsmiteMaul);

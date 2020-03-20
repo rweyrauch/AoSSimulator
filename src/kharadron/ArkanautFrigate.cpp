@@ -12,6 +12,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 0;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 250;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, ArkanautFrigate::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 6, 1},
@@ -108,7 +111,7 @@ ArkanautFrigate::ArkanautFrigate() :
 
 bool ArkanautFrigate::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (option == HeavySkyCannon)
     {
         model->addMissileWeapon(&m_cannonShrapnel);
@@ -216,6 +219,11 @@ void ArkanautFrigate::onStartCombat(PlayerId player)
             nearestUnit->applyDamage({0, wounds});
         }
     }
+}
+
+int ArkanautFrigate::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

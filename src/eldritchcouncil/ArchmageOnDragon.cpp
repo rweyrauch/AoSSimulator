@@ -12,6 +12,10 @@
 
 namespace EldritchCouncil
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 320;
+
 struct TableEntry
 {
     int m_move;
@@ -20,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, ArchmageOnDragon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6, 2},
@@ -56,7 +60,7 @@ bool ArchmageOnDragon::configure(bool arcaneTome, bool talisman)
         m_totalUnbinds = 2;
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_magestaff);
     if (!m_arcaneTome)
     {
@@ -143,6 +147,11 @@ int ArchmageOnDragon::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int ArchmageOnDragon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace EldritchCouncil

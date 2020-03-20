@@ -92,14 +92,14 @@ bool Packmasters::configure(int numModels, int numCatchers)
 
     for (auto i = 0; i < numCatchers; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_whip);
         model->addMeleeWeapon(&m_catcher);
         addModel(model);
     }
     for (auto i = numCatchers; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_whip);
         model->addMeleeWeapon(&m_blade);
         addModel(model);

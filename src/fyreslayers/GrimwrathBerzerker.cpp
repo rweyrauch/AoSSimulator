@@ -25,7 +25,7 @@ GrimwrathBerzerker::GrimwrathBerzerker() :
 
 bool GrimwrathBerzerker::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_greatAxe);
     addModel(model);

@@ -93,14 +93,14 @@ bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool pi
     m_piper = piper;
 
     // Add the Marksman
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMissileWeapon(&m_crossbowMarksman);
     bossModel->addMeleeWeapon(&m_dagger);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_dagger);
         addModel(model);

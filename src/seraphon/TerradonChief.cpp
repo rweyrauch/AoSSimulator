@@ -27,7 +27,7 @@ TerradonChief::TerradonChief() :
 bool TerradonChief::configure()
 {
     // Add the Alpha
-    auto alpha = new Model(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, wounds());
     alpha->addMeleeWeapon(&m_skyblade);
     alpha->addMeleeWeapon(&m_jaws);
     addModel(alpha);

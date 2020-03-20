@@ -44,13 +44,13 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
     m_pairedGoreaxe = pairedGoreax;
 
     // Add the Champion
-    auto championModel = new Model(BASESIZE, WOUNDS);
+    auto championModel = new Model(BASESIZE, wounds());
     championModel->addMeleeWeapon(&m_goreaxeChampion);
     addModel(championModel);
 
     for (auto i = 0; i < numGoreglaives; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_goreglaive);
         addModel(model);
     }
@@ -58,7 +58,7 @@ bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaiv
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_goreaxe);
         addModel(model);
     }

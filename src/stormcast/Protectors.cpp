@@ -41,13 +41,13 @@ bool Protectors::configure(int numModels, int numStarsoulMaces)
     }
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     primeModel->addMeleeWeapon(&m_glaivePrime);
     addModel(primeModel);
 
     for (auto i = 0; i < numStarsoulMaces; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_starsoulMace);
         addModel(model);
     }
@@ -55,7 +55,7 @@ bool Protectors::configure(int numModels, int numStarsoulMaces)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_glaive);
         addModel(model);
     }

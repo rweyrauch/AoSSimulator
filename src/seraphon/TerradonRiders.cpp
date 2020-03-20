@@ -35,7 +35,7 @@ bool TerradonRiders::configure(int numModels, WeaponOption option)
     }
 
     // Add the Alpha
-    auto alpha = new Model(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, wounds());
     if (option == StarstrikeJavelins)
     {
         alpha->addMissileWeapon(&m_javelinLeader);
@@ -50,7 +50,7 @@ bool TerradonRiders::configure(int numModels, WeaponOption option)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (option == StarstrikeJavelins)
         {
             model->addMissileWeapon(&m_javelin);

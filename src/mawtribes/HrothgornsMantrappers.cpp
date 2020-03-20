@@ -57,19 +57,19 @@ HrothgornsMantrappers::HrothgornsMantrappers() :
 
 bool HrothgornsMantrappers::configure()
 {
-    auto bushwakka = new Model(BASESIZE, WOUNDS);
+    auto bushwakka = new Model(BASESIZE, wounds());
     bushwakka->setName("Bushwakka");
     bushwakka->addMissileWeapon(&m_sharpStuff);
     bushwakka->addMeleeWeapon(&m_motleyWeapons);
     addModel(bushwakka);
 
-    auto quiv = new Model(BASESIZE, WOUNDS);
+    auto quiv = new Model(BASESIZE, wounds());
     quiv->setName("Quiv");
     quiv->addMissileWeapon(&m_sharpStuff);
     quiv->addMeleeWeapon(&m_motleyWeapons);
     addModel(quiv);
 
-    auto luggitAndThwak = new Model(BASESIZE, WOUNDS);
+    auto luggitAndThwak = new Model(BASESIZE, wounds());
     luggitAndThwak->setName("Luggit and Thwak");
     luggitAndThwak->addMissileWeapon(&m_sharpStuff);
     luggitAndThwak->addMeleeWeapon(&m_motleyWeapons);

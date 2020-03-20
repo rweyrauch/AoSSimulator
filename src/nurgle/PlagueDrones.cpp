@@ -47,7 +47,7 @@ bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBeare
     m_weapon = weapons;
 
     // Add the Plaguebringer
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     leader->addMissileWeapon(&m_deathsHead);
     leader->addMeleeWeapon(&m_plagueswordPlaguebringer);
     if (weapons == PrehensileProboscis)
@@ -63,7 +63,7 @@ bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBeare
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_deathsHead);
         model->addMeleeWeapon(&m_plaguesword);
         if (weapons == PrehensileProboscis)
@@ -159,7 +159,7 @@ void PlagueDrones::restoreModels(int numModels)
     // Icon Bearer
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_deathsHead);
         model->addMeleeWeapon(&m_plaguesword);
         if (m_weapon == PrehensileProboscis)

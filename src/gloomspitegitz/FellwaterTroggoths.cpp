@@ -34,7 +34,7 @@ bool FellwaterTroggoths::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_noxiousVomit);
         model->addMeleeWeapon(&m_spikedClub);
         addModel(model);
@@ -99,7 +99,7 @@ void FellwaterTroggoths::onStartHero(PlayerId player)
                 {
                     if (!m->slain() || !m->fled())
                     {
-                        if (m->woundsRemaining() < WOUNDS)
+                        if (m->woundsRemaining() < wounds())
                         {
                             int numToHeal = std::min(woundsHealed, WOUNDS - m->woundsRemaining());
                             m->applyHealing(numToHeal);

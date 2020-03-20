@@ -69,12 +69,12 @@ bool SplinteredFang::configure(int numModels)
         return false;
     }
 
-    auto trueblood = new Model(BASESIZE, WOUNDS);
+    auto trueblood = new Model(BASESIZE, wounds());
     trueblood->addMeleeWeapon(&m_poisonedWeaponsLeader);
     trueblood->setName("Trueblood");
     addModel(trueblood);
 
-    auto serpentCaller = new Model(BASESIZE, WOUNDS);
+    auto serpentCaller = new Model(BASESIZE, wounds());
     serpentCaller->addMeleeWeapon(&m_poisonedWeapons);
     serpentCaller->setName("Serpent Caller");
     addModel(serpentCaller);
@@ -86,7 +86,7 @@ bool SplinteredFang::configure(int numModels)
 
     for (auto i = 3; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_poisonedWeapons);
         addModel(model);
     }

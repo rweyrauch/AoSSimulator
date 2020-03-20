@@ -35,7 +35,7 @@ bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool horn
     m_weaponOption = weapons;
     m_hornOfGrimnir = hornOfGrimnir;
 
-    auto karl = new Model(BASESIZE, WOUNDS);
+    auto karl = new Model(BASESIZE, wounds());
     karl->addMissileWeapon(&m_throwingAxe);
     if (weapons == HandaxeAndShield || weapons == PairedHandaxes)
     {
@@ -50,7 +50,7 @@ bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool horn
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         if (weapons == HandaxeAndShield || weapons == PairedHandaxes)
         {

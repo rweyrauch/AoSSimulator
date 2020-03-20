@@ -12,6 +12,10 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 260;
+
 
 struct TableEntry
 {
@@ -21,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, Troglodon::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 18, 2},
@@ -53,7 +57,7 @@ Troglodon::~Troglodon()
 
 bool Troglodon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_spittle);
     model->addMeleeWeapon(&m_jaws);
     model->addMeleeWeapon(&m_forelimbs);
@@ -170,6 +174,11 @@ int Troglodon::terror(const Unit *target)
         return -1;
     }
     return 0;
+}
+
+int Troglodon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

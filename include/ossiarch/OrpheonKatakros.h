@@ -19,14 +19,10 @@ class OrpheonKatakros : public OssiarchBonereaperBase
 {
 public:
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 20;
-    static const int POINTS_PER_UNIT = 500;
-
     static Unit* Create(const ParameterList& parameters);
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     OrpheonKatakros();
@@ -44,7 +40,7 @@ private:
 
     int woundsTaken() const
     {
-        return WOUNDS - remainingWounds();
+        return wounds() - remainingWounds();
     }
 
     Weapon m_indaKhaat,

@@ -88,7 +88,7 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
 
     m_weaponOption = weapons;
 
-    auto prime = new Model(BASESIZE, WOUNDS);
+    auto prime = new Model(BASESIZE, wounds());
     switch (primeGrandWeapon)
     {
         case None:
@@ -125,33 +125,33 @@ bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons, Pr
 
     for (auto i = 0; i < totalTridents; i++)
     {
-        auto tridentModel = new Model(BASESIZE, WOUNDS);
+        auto tridentModel = new Model(BASESIZE, wounds());
         tridentModel->addMissileWeapon(&m_stormsurgeTridentMissile);
         tridentModel->addMeleeWeapon(&m_stormsurgeTrident);
         addModel(tridentModel);
     }
     for (auto i = 0; i < numGrandaxes; i++)
     {
-        auto grandaxeModel = new Model(BASESIZE, WOUNDS);
+        auto grandaxeModel = new Model(BASESIZE, wounds());
         grandaxeModel->addMeleeWeapon(&m_grandaxe);
         addModel(grandaxeModel);
     }
     for (auto i = 0; i < numGrandblades; i++)
     {
-        auto grandbladeModel = new Model(BASESIZE, WOUNDS);
+        auto grandbladeModel = new Model(BASESIZE, wounds());
         grandbladeModel->addMeleeWeapon(&m_grandblade);
         addModel(grandbladeModel);
     }
     for (auto i = 0; i < numGrandhammers; i++)
     {
-        auto grandhammerModel = new Model(BASESIZE, WOUNDS);
+        auto grandhammerModel = new Model(BASESIZE, wounds());
         grandhammerModel->addMeleeWeapon(&m_grandhammer);
         addModel(grandhammerModel);
     }
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == CelestialHammerAndShield || m_weaponOption == PairedCelestialHammers)
         {
             model->addMissileWeapon(&m_celestialHammersMissile);

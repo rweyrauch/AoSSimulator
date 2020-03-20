@@ -35,14 +35,14 @@ bool KhineraiHeartrenders::configure(int numModels)
         return false;
     }
 
-    auto shryke = new Model(BASESIZE, WOUNDS);
+    auto shryke = new Model(BASESIZE, wounds());
     shryke->addMissileWeapon(&m_barbedJavelinShrykeMissile);
     shryke->addMeleeWeapon(&m_barbedJavelinShryke);
     addModel(shryke);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_barbedJavelinMissile);
         model->addMeleeWeapon(&m_barbedJavelin);
         addModel(model);

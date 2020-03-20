@@ -35,7 +35,7 @@ bool BoingrotBounderz::configure(int numModels)
     }
 
     // Add the boss
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     boss->addMeleeWeapon(&m_pokinLanceBoss);
     boss->addMeleeWeapon(&m_fangFilledGob);
     addModel(boss);
@@ -43,7 +43,7 @@ bool BoingrotBounderz::configure(int numModels)
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_pokinLance);
         model->addMeleeWeapon(&m_fangFilledGob);
         addModel(model);

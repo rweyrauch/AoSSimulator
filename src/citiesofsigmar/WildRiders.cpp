@@ -88,14 +88,14 @@ bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower)
     m_hornblower = hornblower;
 
     // Add the Hunter
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMeleeWeapon(&m_spearHunter);
     bossModel->addMeleeWeapon(&m_hooves);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_hooves);
         addModel(model);

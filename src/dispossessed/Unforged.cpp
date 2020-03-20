@@ -24,7 +24,7 @@ Unforged::Unforged() :
 
 bool Unforged::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_runicAxes);
     addModel(model);
 

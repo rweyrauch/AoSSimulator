@@ -19,13 +19,6 @@ class ChaosSpawn : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 50;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
     static int ComputePoints(int numModels);

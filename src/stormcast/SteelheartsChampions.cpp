@@ -25,17 +25,17 @@ SteelheartsChampions::SteelheartsChampions() :
 
 bool SteelheartsChampions::configure()
 {
-    auto severin = new Model(BASESIZE, WOUNDS);
+    auto severin = new Model(BASESIZE, wounds());
     severin->setName("Severin");
     severin->addMeleeWeapon(&m_broadSword);
     addModel(severin);
 
-    auto obryn = new Model(BASESIZE, WOUNDS);
+    auto obryn = new Model(BASESIZE, wounds());
     obryn->setName("Obryn");
     obryn->addMeleeWeapon(&m_grandhammer);
     addModel(obryn);
 
-    auto angharad = new Model(BASESIZE, WOUNDS);
+    auto angharad = new Model(BASESIZE, wounds());
     angharad->setName("Angharad");
     angharad->addMeleeWeapon(&m_warhammer);
     addModel(angharad);

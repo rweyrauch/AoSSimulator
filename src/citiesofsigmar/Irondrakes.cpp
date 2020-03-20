@@ -38,7 +38,7 @@ bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool 
     m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
-    auto ironwarden = new Model(BASESIZE, WOUNDS);
+    auto ironwarden = new Model(BASESIZE, wounds());
     if (ironWardenWeapons == Drakegun)
     {
         ironwarden->addMissileWeapon(&m_drakegunWarden);
@@ -67,7 +67,7 @@ bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool 
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_drakegun);
         model->addMeleeWeapon(&m_mailedFist);
         addModel(model);

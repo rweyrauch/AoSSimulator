@@ -75,7 +75,7 @@ bool PlagueCenserBearers::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_censer);
         addModel(model);
     }

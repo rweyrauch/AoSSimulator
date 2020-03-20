@@ -33,7 +33,7 @@ bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons)
         return false;
     }
 
-    auto karl = new Model(BASESIZE, WOUNDS);
+    auto karl = new Model(BASESIZE, wounds());
     karl->addMissileWeapon(&m_throwingAxe);
     if (weapons == BerzerkerBroadaxe)
     {
@@ -48,7 +48,7 @@ bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         if (weapons == BerzerkerBroadaxe)
         {

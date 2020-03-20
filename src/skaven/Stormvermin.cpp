@@ -43,13 +43,13 @@ bool Stormvermin::configure(int numModels, bool clanshields, int standardBearers
     // Standard Bearers
     m_retreatAndCharge = (standardBearers > 0);
 
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     leader->addMeleeWeapon(&m_rustyHalberdLeader);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_rustyHalberd);
         addModel(model);
     }

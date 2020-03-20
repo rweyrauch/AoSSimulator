@@ -63,27 +63,27 @@ GarreksReavers::GarreksReavers() :
 
 bool GarreksReavers::configure()
 {
-    auto garrek = new Model(BASESIZE, WOUNDS);
+    auto garrek = new Model(BASESIZE, wounds());
     garrek->setName("Garrek");
     garrek->addMeleeWeapon(&m_garreksAxe);
     addModel(garrek);
 
-    auto karsus = new Model(BASESIZE, WOUNDS);
+    auto karsus = new Model(BASESIZE, wounds());
     karsus->setName("Karsus");
     karsus->addMeleeWeapon(&m_KarusAxe);
     addModel(karsus);
 
-    auto saek = new Model(BASESIZE, WOUNDS);
+    auto saek = new Model(BASESIZE, wounds());
     saek->setName("Saek");
     saek->addMeleeWeapon(&m_SaeksAxe);
     addModel(saek);
 
-    auto targor = new Model(BASESIZE, WOUNDS);
+    auto targor = new Model(BASESIZE, wounds());
     targor->setName("Targor");
     targor->addMeleeWeapon(&m_blades);
     addModel(targor);
 
-    auto arnulf = new Model(BASESIZE, WOUNDS);
+    auto arnulf = new Model(BASESIZE, wounds());
     arnulf->setName("Arnulf");
     arnulf->addMeleeWeapon(&m_blades);
     addModel(arnulf);

@@ -31,13 +31,13 @@ bool CryptGhouls::configure(int numModels)
         return false;
     }
 
-    auto ghast = new Model(BASESIZE, WOUNDS);
+    auto ghast = new Model(BASESIZE, wounds());
     ghast->addMeleeWeapon(&m_teethAndClawsGhast);
     addModel(ghast);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_teethAndClaws);
         addModel(model);
     }

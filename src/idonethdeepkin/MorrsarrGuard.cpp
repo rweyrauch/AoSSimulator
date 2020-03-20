@@ -35,7 +35,7 @@ bool AkhelianMorrsarrGuard::configure(int numModels, bool standardBearers, bool 
     m_standardBearers = standardBearers;
     m_musicians = musicians;
 
-    auto prince = new Model(BASESIZE, WOUNDS);
+    auto prince = new Model(BASESIZE, wounds());
     prince->addMeleeWeapon(&m_voltspearPrince);
     prince->addMeleeWeapon(&m_fangmoraFangedMaw);
     prince->addMeleeWeapon(&m_fangmoraLashingTail);
@@ -43,7 +43,7 @@ bool AkhelianMorrsarrGuard::configure(int numModels, bool standardBearers, bool 
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_voltspear);
         model->addMeleeWeapon(&m_fangmoraFangedMaw);
         model->addMeleeWeapon(&m_fangmoraLashingTail);

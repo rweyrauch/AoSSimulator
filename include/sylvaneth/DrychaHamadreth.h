@@ -19,12 +19,8 @@ class DrychaHamadreth : public SylvanethBase
 {
 public:
 
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 320;
-
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     DrychaHamadreth();

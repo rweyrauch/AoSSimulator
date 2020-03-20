@@ -95,7 +95,7 @@ SteamTank::SteamTank() :
 
 bool SteamTank::configure(bool commander)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_steamCannon);
     model->addMissileWeapon(&m_steamGun);
     model->addMeleeWeapon(&m_crushingWheels);

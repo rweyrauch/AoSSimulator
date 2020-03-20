@@ -84,7 +84,7 @@ bool ChaosChariots::configure(int numModels, WeaponOption weapons)
         return false;
     }
 
-    auto exalted = new Model(BASESIZE, WOUNDS);
+    auto exalted = new Model(BASESIZE, wounds());
     if (weapons == GreatBladeAndWhip)
     {
         exalted->addMeleeWeapon(&m_greatBladeExalted);
@@ -100,7 +100,7 @@ bool ChaosChariots::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == GreatBladeAndWhip)
             model->addMeleeWeapon(&m_greatBlade);
         else if (weapons == WarFlailAndWhip)

@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 300;
 
 bool Bestigors::s_registered = false;
 
@@ -35,13 +41,13 @@ bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_runAndCharge = m_brayhorn;
 
-    auto gougehorn = new Model(BASESIZE, WOUNDS);
+    auto gougehorn = new Model(BASESIZE, wounds());
     gougehorn->addMeleeWeapon(&m_despoilerAxeGougeHorn);
     addModel(gougehorn);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_despoilerAxe);
         addModel(model);
     }

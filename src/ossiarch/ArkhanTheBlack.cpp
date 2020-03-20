@@ -11,6 +11,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 11;
+static const int POINTS_PER_UNIT = 360;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, ArkhanTheBlack::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 6, 2, 2},
@@ -94,7 +97,7 @@ ArkhanTheBlack::ArkhanTheBlack() :
 
 bool ArkhanTheBlack::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_zefetKar);
     model->addMeleeWeapon(&m_khenashAn);
     model->addMeleeWeapon(&m_claws);
@@ -163,6 +166,11 @@ int ArkhanTheBlack::unbindingModifier() const
     mod += g_damageTable[getDamageTableIndex()].m_staffUnbind;
 
     return mod;
+}
+
+int ArkhanTheBlack::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

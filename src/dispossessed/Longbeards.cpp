@@ -36,7 +36,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
     m_musician = musician;
     m_gromrilShields = gromrilShields;
 
-    auto oldguard = new Model(BASESIZE, WOUNDS);
+    auto oldguard = new Model(BASESIZE, wounds());
     if (weapons == AncestralAxesOrHammers)
     {
         oldguard->addMeleeWeapon(&m_ancestralAxeHammerOldGuard);
@@ -49,7 +49,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShi
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == AncestralAxesOrHammers)
         {
             model->addMeleeWeapon(&m_ancestralAxeHammer);

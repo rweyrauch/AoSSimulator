@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 105; // x70 ovals
+static const int WOUNDS = 6;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 4;
+static const int POINTS_PER_BLOCK = 60;
+static const int POINTS_MAX_UNIT_SIZE = 200;
 
 bool TuskgorChariots::s_registered = false;
 
@@ -33,7 +39,7 @@ bool TuskgorChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_despoilerAxe);
         model->addMeleeWeapon(&m_gnarledSpear);
         model->addMeleeWeapon(&m_tusksAndHooves);

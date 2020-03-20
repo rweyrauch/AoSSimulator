@@ -12,6 +12,11 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 240;
+static const int POINTS_PER_UNIT_WITH_CHIEF = 270;
+
 
 struct TableEntry
 {
@@ -21,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 9, Stegadon::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 4, 5},
@@ -58,7 +63,7 @@ bool Stegadon::configure(WeaponOption option, bool skinkChief)
 {
     m_skinkChief = skinkChief;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_javelins);
     if (option == SkystreakBow)
         model->addMissileWeapon(&m_bow);
@@ -187,6 +192,11 @@ Rerolls Stegadon::steadfastMajestyBraveryReroll(const Unit *unit)
 {
     if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
     return NoRerolls;
+}
+
+int Stegadon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

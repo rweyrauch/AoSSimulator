@@ -13,6 +13,10 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 11;
+static const int POINTS_PER_UNIT = 220;
+static const int POINTS_PER_UNIT_WITH_BATTLEMAGE = 280;
 
 struct TableEntry
 {
@@ -22,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, CelestialHurricanum::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 10, 3},
@@ -114,7 +118,7 @@ bool CelestialHurricanum::configure(bool battlemage)
         m_totalUnbinds = 1;
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_stormOfShemtek);
     model->addMeleeWeapon(&m_arcaneTools);
     model->addMeleeWeapon(&m_hooves);
@@ -216,6 +220,11 @@ int CelestialHurricanum::portentsOfBattle(const Unit* attacker, const Weapon *we
         return 1;
     }
     return 0;
+}
+
+int CelestialHurricanum::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace CitiesOfSigmar

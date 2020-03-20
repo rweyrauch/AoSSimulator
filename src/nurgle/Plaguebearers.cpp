@@ -35,13 +35,13 @@ bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers)
     m_pipers = pipers;
 
     // Add the Plagueridden
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     leader->addMeleeWeapon(&m_plagueswordPlagueRidden);
     addModel(leader);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_plaguesword);
         addModel(model);
     }

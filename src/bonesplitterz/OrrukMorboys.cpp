@@ -10,6 +10,12 @@
 
 namespace Bonesplitterz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 360;
 
 bool SavageOrrukMorboys::s_registered = false;
 
@@ -76,13 +82,13 @@ bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemB
     m_totemBearer = totemBearer;
 
     // Add the Boss
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMeleeWeapon(&m_chompaAndShivBoss);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_chompaAndShiv);
         addModel(model);
     }

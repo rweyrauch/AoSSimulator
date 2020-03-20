@@ -58,7 +58,7 @@ bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool
     m_iconBearer = iconBearer;
     m_drummer = drummer;
 
-    auto ironbeard = new Model(BASESIZE, WOUNDS);
+    auto ironbeard = new Model(BASESIZE, wounds());
     if (ironbeardWeapons == IronbreakerAxeOrHammer)
     {
         ironbeard->addMeleeWeapon(&m_axeOrHammerIronbeard);
@@ -81,7 +81,7 @@ bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_axeOrHammer);
         addModel(model);
     }

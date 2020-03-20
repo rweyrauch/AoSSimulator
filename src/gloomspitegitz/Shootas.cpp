@@ -99,7 +99,7 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     m_numIconbearers = numIconbearers;
 
     // Add the boss
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     boss->addMeleeWeapon(&m_slittaBoss);
     boss->addMissileWeapon(&m_moonclanBowBoss);
     addModel(boss);
@@ -107,7 +107,7 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     // add the nets
     for (auto i = 1; i < numBarbedNets; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_barbedNet);
         addModel(model);
     }
@@ -116,7 +116,7 @@ bool Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, in
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_slitta);
         model->addMissileWeapon(&m_moonclanBow);
         addModel(model);

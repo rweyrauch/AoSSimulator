@@ -33,7 +33,7 @@ bool ChameleonSkinks::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_dartpipe);
         model->addMeleeWeapon(&m_dagger);
         addModel(model);

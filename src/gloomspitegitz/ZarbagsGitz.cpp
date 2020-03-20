@@ -12,6 +12,10 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int SQUIG_WOUNDS = 2;
+static const int POINTS_PER_UNIT = 80;
 
 bool ZarbagsGitz::s_registered = false;
 
@@ -44,7 +48,7 @@ bool ZarbagsGitz::configure()
     squig2->setName("Squig");
     addModel(squig2);
 
-    auto netter = new Model(BASESIZE, WOUNDS);
+    auto netter = new Model(BASESIZE, wounds());
     netter->addMeleeWeapon(&m_slitta);
     netter->setName("Netter");
     addModel(netter);
@@ -52,7 +56,7 @@ bool ZarbagsGitz::configure()
     // Three shootas
     for (auto i = 0; i < 3; i++)
     {
-        auto shoota = new Model(BASESIZE, WOUNDS);
+        auto shoota = new Model(BASESIZE, wounds());
         shoota->addMissileWeapon(&m_bow);
         shoota->addMeleeWeapon(&m_slitta);
         shoota->setName("Shoota");
@@ -116,6 +120,11 @@ int ZarbagsGitz::targetHitModifier(const Weapon *weapon, const Unit *attacker) c
         }
     }
     return modifier;
+}
+
+int ZarbagsGitz::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

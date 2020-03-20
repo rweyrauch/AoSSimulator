@@ -13,6 +13,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 13;
+static const int POINTS_PER_UNIT = 240;
+
 struct TableEntry
 {
     int m_move;
@@ -21,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, GreySeerOnScreamingBell::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 2, 26},
@@ -91,7 +95,7 @@ GreySeerOnScreamingBell::~GreySeerOnScreamingBell()
 
 bool GreySeerOnScreamingBell::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_clawsAndFangs);
     model->addMeleeWeapon(&m_spikes);
@@ -271,6 +275,11 @@ int GreySeerOnScreamingBell::wallOfUnholySound(const Unit* attacker, const Weapo
         return -1;
     }
     return 0;
+}
+
+int GreySeerOnScreamingBell::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

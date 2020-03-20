@@ -48,7 +48,7 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
     m_pairedWeapons = pairedWeapons;
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (m_weaponOption == Warhammer)
     {
         primeModel->addMeleeWeapon(&m_warhammerPrime);
@@ -61,20 +61,20 @@ Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, i
 
     for (auto i = 0; i < numGrandblades; i++)
     {
-        auto grandbladeModel = new Model(BASESIZE, WOUNDS);
+        auto grandbladeModel = new Model(BASESIZE, wounds());
         grandbladeModel->addMeleeWeapon(&m_grandblade);
         addModel(grandbladeModel);
     }
     for (auto i = 0; i < numGrandhammers; i++)
     {
-        auto grandhammerModel = new Model(BASESIZE, WOUNDS);
+        auto grandhammerModel = new Model(BASESIZE, wounds());
         grandhammerModel->addMeleeWeapon(&m_grandhammer);
         addModel(grandhammerModel);
     }
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == Warhammer)
         {
             model->addMeleeWeapon(&m_warhammer);

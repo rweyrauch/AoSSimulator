@@ -19,14 +19,9 @@ class ZarbagsGitz : public GloomspiteGitzBase
 {
 public:
 
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int SQUIG_WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 80;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
 
     ZarbagsGitz();
     ~ZarbagsGitz() override = default;

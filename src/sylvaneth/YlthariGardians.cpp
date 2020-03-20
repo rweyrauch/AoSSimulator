@@ -50,17 +50,17 @@ YltharisGuardians::YltharisGuardians() :
 
 bool YltharisGuardians::configure()
 {
-    auto gallanghann = new Model(BASESIZE, WOUNDS);
+    auto gallanghann = new Model(BASESIZE, wounds());
     gallanghann->addMeleeWeapon(&m_protectorGlaive);
     gallanghann->setName("Gallanghann");
     addModel(gallanghann);
 
-    auto skhathael = new Model(BASESIZE, WOUNDS);
+    auto skhathael = new Model(BASESIZE, wounds());
     skhathael->addMeleeWeapon(&m_enchantedGreatBlade);
     skhathael->setName("Skhathael");
     addModel(skhathael);
 
-    auto ahnslaine = new Model(BASESIZE, WOUNDS);
+    auto ahnslaine = new Model(BASESIZE, wounds());
     ahnslaine->addMissileWeapon(&m_revenantBow);
     ahnslaine->addMeleeWeapon(&m_revenantBowMelee);
     ahnslaine->setName("Ahnslaine");

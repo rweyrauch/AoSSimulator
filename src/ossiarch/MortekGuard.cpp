@@ -112,7 +112,7 @@ bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblad
         return false;
     }
 
-    auto hekatos = new Model(BASESIZE, WOUNDS);
+    auto hekatos = new Model(BASESIZE, wounds());
     if (numGreatblades)
     {
         hekatos->addMeleeWeapon(&m_greatbladeHekatos);
@@ -129,7 +129,7 @@ bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblad
     addModel(hekatos);
     for (auto i = 0; i < numGreatblades; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_greatblade);
         addModel(model);
     }
@@ -137,7 +137,7 @@ bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblad
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (option == NadiriteBladeAndShield)
         {
             model->addMeleeWeapon(&m_bladeHekatos);

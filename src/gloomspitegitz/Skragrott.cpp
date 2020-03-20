@@ -32,7 +32,7 @@ Skragrott::Skragrott() :
 
 bool Skragrott::configure(LoreOfTheMoonclans lore)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
     model->addMeleeWeapon(&m_daMoonOnnaStikk);
 

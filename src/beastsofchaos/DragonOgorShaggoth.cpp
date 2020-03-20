@@ -12,6 +12,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 90; // x52 oval;
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 180;
 
 bool DragonOgorShaggoth::s_registered = false;
 
@@ -30,7 +33,7 @@ DragonOgorShaggoth::DragonOgorShaggoth() :
 
 bool DragonOgorShaggoth::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_stormWroughtAxe);
     model->addMeleeWeapon(&m_sweepingTail);
     model->addMeleeWeapon(&m_talonedForelimbs);
@@ -78,6 +81,11 @@ void DragonOgorShaggoth::Init()
 
         s_registered = UnitFactory::Register("Dragon Ogor Shaggoth", factoryMethod);
     }
+}
+
+int DragonOgorShaggoth::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

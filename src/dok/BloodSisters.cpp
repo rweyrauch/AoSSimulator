@@ -32,14 +32,14 @@ bool BloodSisters::configure(int numModels)
         return false;
     }
 
-    auto gorgai = new Model(BASESIZE, WOUNDS);
+    auto gorgai = new Model(BASESIZE, wounds());
     gorgai->addMeleeWeapon(&m_heartshardGlaiveGorgai);
     gorgai->addMeleeWeapon(&m_crystalTouchGorgai);
     addModel(gorgai);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_heartshardGlaive);
         model->addMeleeWeapon(&m_crystalTouch);
         addModel(model);

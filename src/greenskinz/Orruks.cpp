@@ -51,7 +51,7 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
     m_weaponOption = weapons;
 
     // Add the boss
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     switch (weapons)
     {
         case ChoppaAndShield:
@@ -72,7 +72,7 @@ bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, Standa
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         switch (weapons)
         {
             case ChoppaAndShield:

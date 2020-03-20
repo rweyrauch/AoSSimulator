@@ -36,7 +36,7 @@ bool TzaangorSkyfires::configure(int numModels)
         return false;
     }
 
-    auto aviarch = new Model(BASESIZE, WOUNDS);
+    auto aviarch = new Model(BASESIZE, wounds());
     aviarch->addMissileWeapon(&m_arrowOfFateAviarch);
     aviarch->addMeleeWeapon(&m_bowStave);
     aviarch->addMeleeWeapon(&m_viciousBeak);
@@ -45,7 +45,7 @@ bool TzaangorSkyfires::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_arrowOfFate);
         model->addMeleeWeapon(&m_bowStave);
         model->addMeleeWeapon(&m_viciousBeak);

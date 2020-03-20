@@ -35,7 +35,7 @@ bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == HarpoonLauncher)
         {
             model->addMissileWeapon(&m_harpoonLauncher);

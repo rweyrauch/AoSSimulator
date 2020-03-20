@@ -33,7 +33,7 @@ bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThund
     m_weapon = weapons;
     m_sigmariteThundershield = sigmariteThundershield;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (m_weapon == StormstrikeGlaive)
     {
         model->addMeleeWeapon(&m_stormstrikeGlaive);

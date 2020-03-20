@@ -27,14 +27,14 @@ IronskullsBoyz::IronskullsBoyz() :
 bool IronskullsBoyz::configure()
 {
     // Add the Boss
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMeleeWeapon(&m_eadButt);
     bossModel->addMeleeWeapon(&m_bigChoppa);
     addModel(bossModel);
 
     for (auto i = 1; i < 4; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_eadButt);
         model->addMeleeWeapon(&m_pairedChoppas);
         addModel(model);

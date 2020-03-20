@@ -29,7 +29,7 @@ BloodwrackMedusa::BloodwrackMedusa() :
 
 bool BloodwrackMedusa::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bloodwrackStare);
     model->addMeleeWeapon(&m_whisperclaw);
     model->addMeleeWeapon(&m_tailOfSerpents);

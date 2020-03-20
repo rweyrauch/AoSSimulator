@@ -14,6 +14,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 170; // x105 oval
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 500;
 
 struct TableEntry
 {
@@ -23,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 4;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, LordCelestantOnStardrake::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 3, 3},
@@ -55,7 +58,7 @@ bool LordCelestantOnStardrake::configure(WeaponOption weapons)
 {
     m_weaponOption = weapons;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (weapons == CelestineHammer)
     {
         model->addMeleeWeapon(&m_celestineHammer);
@@ -335,6 +338,11 @@ int LordCelestantOnStardrake::arcaneLineage(const Unit *target)
         }
     }
     return 0;
+}
+
+int LordCelestantOnStardrake::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

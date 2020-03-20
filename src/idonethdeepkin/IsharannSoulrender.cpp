@@ -60,7 +60,7 @@ IsharannSoulrender::IsharannSoulrender() :
 
 bool IsharannSoulrender::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_talunhook);
     model->addMeleeWeapon(&m_bill);
 

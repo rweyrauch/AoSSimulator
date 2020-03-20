@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 13;
+static const int POINTS_PER_UNIT = 320;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, FreeguildGeneralOnGriffon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {15, 6, 4},
@@ -103,7 +106,7 @@ FreeguildGeneralOnGriffon::~FreeguildGeneralOnGriffon()
 
 bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (weapon == RuneSword)
         model->addMeleeWeapon(&m_runesword);
     else if (weapon == Greathammer)
@@ -190,6 +193,11 @@ int FreeguildGeneralOnGriffon::piercingBloodroar(const Unit *target)
     }
 
     return 0;
+}
+
+int FreeguildGeneralOnGriffon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

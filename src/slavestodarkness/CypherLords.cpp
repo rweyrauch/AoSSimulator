@@ -69,13 +69,13 @@ bool CypherLords::configure(int numModels)
         return false;
     }
 
-    auto thrallmaster = new Model(BASESIZE, WOUNDS);
+    auto thrallmaster = new Model(BASESIZE, wounds());
     thrallmaster->addMissileWeapon(&m_throwingStars);
     thrallmaster->addMeleeWeapon(&m_exoticBlades);
     thrallmaster->setName("Thrallmaster");
     addModel(thrallmaster);
 
-    auto luminate = new Model(BASESIZE, WOUNDS);
+    auto luminate = new Model(BASESIZE, wounds());
     luminate->addMissileWeapon(&m_throwingStars);
     luminate->addMeleeWeapon(&m_exoticBlades);
     luminate->setName("Luminate");
@@ -83,7 +83,7 @@ bool CypherLords::configure(int numModels)
 
     for (auto i = 2; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_throwingStars);
         model->addMeleeWeapon(&m_exoticBlades);
         addModel(model);

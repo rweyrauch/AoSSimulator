@@ -27,7 +27,7 @@ SkinkStarseer::SkinkStarseer() :
 
 bool SkinkStarseer::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_astralBolt);
     model->addMeleeWeapon(&m_staff);
     addModel(model);

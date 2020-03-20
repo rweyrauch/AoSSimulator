@@ -97,7 +97,7 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
     m_hornblower = hornblower;
 
     // Add the Handmaiden
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMissileWeapon(&m_javelin);
     bossModel->addMeleeWeapon(&m_staffMaiden);
     bossModel->addMeleeWeapon(&m_antlersAndHooves);
@@ -105,7 +105,7 @@ bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornb
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_javelin);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_antlersAndHooves);

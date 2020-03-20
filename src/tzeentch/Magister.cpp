@@ -66,7 +66,7 @@ Magister::Magister() :
 
 bool Magister::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_staff);
     model->addMeleeWeapon(&m_sword);
     addModel(model);

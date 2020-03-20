@@ -11,6 +11,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 0;
+static const int WOUNDS = 18;
+static const int POINTS_PER_UNIT = 510;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 15, ArkanautIronclad::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 15, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 8, 2},
@@ -113,7 +116,7 @@ ArkanautIronclad::ArkanautIronclad() :
 
 bool ArkanautIronclad::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (option == GreatSkyCannon)
     {
         model->addMissileWeapon(&m_cannonShrapnel);
@@ -225,6 +228,11 @@ void ArkanautIronclad::onStartCombat(PlayerId player)
             nearestUnit->applyDamage({0, wounds});
         }
     }
+}
+
+int ArkanautIronclad::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

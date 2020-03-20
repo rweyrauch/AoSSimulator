@@ -10,6 +10,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 105; // x70 oval
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 200;
 
 struct TableEntry
 {
@@ -19,7 +22,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, GothizzarHarvester::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 2, 6},
@@ -99,7 +102,7 @@ GothizzarHarvester::GothizzarHarvester() :
 
 bool GothizzarHarvester::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     model->addMissileWeapon(&m_deathsHeadMaw);
     if (option == Sickles)
@@ -159,6 +162,11 @@ Wounds GothizzarHarvester::weaponDamage(const Weapon *weapon, const Unit *target
         return {0, 2};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int GothizzarHarvester::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

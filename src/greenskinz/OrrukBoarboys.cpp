@@ -41,7 +41,7 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
     m_weaponOption = weapons;
 
     // Add the boss
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     switch (weapons)
     {
         case Choppa:
@@ -56,7 +56,7 @@ bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBea
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         switch (weapons)
         {
             case Choppa:

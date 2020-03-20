@@ -11,6 +11,10 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 200;
+static const int POINTS_PER_UNIT_WITH_ANOINTED = 300;
 
 struct TableEntry
 {
@@ -20,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, FlamespyrePhoenix::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 6, 5},
@@ -96,7 +100,7 @@ bool FlamespyrePhoenix::configure(bool anointed)
         addKeyword(HERO);
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_talons);
     if (anointed)
     {
@@ -162,6 +166,11 @@ Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds)
         return totalWounds;
     }
     return Unit::applyWoundSave(wounds);
+}
+
+int FlamespyrePhoenix::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

@@ -12,6 +12,9 @@
 
 namespace Death
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 11;
+static const int POINTS_PER_UNIT = 360;
 
 struct TableEntry
 {
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, ArkhanTheBlack::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 6, 2, 2},
@@ -82,7 +85,7 @@ void ArkhanTheBlack::Init()
 
 bool ArkhanTheBlack::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     model->addMeleeWeapon(&m_zefetKar);
     model->addMeleeWeapon(&m_khenashAn);
@@ -154,6 +157,11 @@ void ArkhanTheBlack::onWounded()
 
     m_ebonClaws.setAttacks(g_damageTable[getDamageTableIndex()].m_clawAttacks);
     m_move = g_damageTable[getDamageTableIndex()].m_move;
+}
+
+int ArkhanTheBlack::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Death

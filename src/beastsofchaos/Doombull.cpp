@@ -11,6 +11,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 100;
 
 bool Doombull::s_registered = false;
 
@@ -25,7 +28,7 @@ Doombull::Doombull() :
 
 bool Doombull::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_bullgorHorns);
     model->addMeleeWeapon(&m_slaughtererAxe);
     addModel(model);
@@ -79,6 +82,11 @@ Wounds Doombull::weaponDamage(const Weapon *weapon, const Unit *target, int hitR
         return {weapon->damage(), 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Doombull::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

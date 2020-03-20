@@ -91,13 +91,13 @@ bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower)
     m_hornblower = hornblower;
 
     // Add the Lordling
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMeleeWeapon(&m_swordLordling);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_sword);
         addModel(model);
     }

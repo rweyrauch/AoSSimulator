@@ -10,6 +10,9 @@
 
 namespace OgorMawtribes
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 13;
+static const int POINTS_PER_UNIT = 390;
 
 struct TableEntry
 {
@@ -19,7 +22,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, FrostlordOnThundertusk::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 12, 2},
@@ -158,6 +161,11 @@ void FrostlordOnThundertusk::onStartShooting(PlayerId player)
             m_meleeTarget->applyDamage(wounds);
         }
     }
+}
+
+int FrostlordOnThundertusk::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OgorMawtribes

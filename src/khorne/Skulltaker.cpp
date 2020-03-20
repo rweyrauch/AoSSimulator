@@ -25,7 +25,7 @@ Skulltaker::Skulltaker() :
 
 bool Skulltaker::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_slayerSword);
     addModel(model);
 

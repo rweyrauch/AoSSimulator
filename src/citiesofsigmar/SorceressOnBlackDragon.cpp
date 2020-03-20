@@ -12,6 +12,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 300;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, SorceressOnBlackDragon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 1, 6},
@@ -97,7 +100,7 @@ SorceressOnBlackDragon::SorceressOnBlackDragon() :
 
 bool SorceressOnBlackDragon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_noxiousBreath);
 
     // TODO: weapon options
@@ -155,6 +158,11 @@ Wounds SorceressOnBlackDragon::weaponDamage(const Weapon *weapon, const Unit *ta
         return {0, result.rollsGE(6)};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int SorceressOnBlackDragon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

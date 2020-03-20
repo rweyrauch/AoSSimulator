@@ -87,14 +87,14 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
     m_iconBearer = iconBearer;
     m_drummer = drummer;
 
-    auto champion = new Model(BASESIZE, WOUNDS);
+    auto champion = new Model(BASESIZE, wounds());
     champion->addMeleeWeapon(&m_greataxeChampion);
     champion->setName("Exalted Champion");
     addModel(champion);
 
     if (m_iconBearer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Icon Bearer");
         model->addMeleeWeapon(&m_greataxe);
         addModel(model);
@@ -102,7 +102,7 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
 
     if (m_drummer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Drummer");
         model->addMeleeWeapon(&m_greataxe);
         addModel(model);
@@ -110,7 +110,7 @@ bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer)
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_greataxe);
         addModel(model);
     }

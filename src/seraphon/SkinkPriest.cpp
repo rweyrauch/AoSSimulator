@@ -26,7 +26,7 @@ SkinkPriest::SkinkPriest() :
 
 bool SkinkPriest::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_starbolt);
     model->addMeleeWeapon(&m_staff);
     addModel(model);

@@ -26,7 +26,7 @@ SaurusEternityWarden::SaurusEternityWarden() :
 
 bool SaurusEternityWarden::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_mace);
     model->addMeleeWeapon(&m_jaws);
     addModel(model);

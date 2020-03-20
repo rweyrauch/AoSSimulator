@@ -35,14 +35,14 @@ bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowe
     m_standardBearers = standardBearers;
     m_hornblowers = hornblowers;
 
-    auto kastellan = new Model(BASESIZE, WOUNDS);
+    auto kastellan = new Model(BASESIZE, wounds());
     kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
     kastellan->addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(kastellan);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_templarLanceOrBlade);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);

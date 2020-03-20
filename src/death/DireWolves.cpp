@@ -32,13 +32,13 @@ bool DireWolves::configure(int numModels)
         return false;
     }
 
-    auto doomWolf = new Model(BASESIZE, WOUNDS);
+    auto doomWolf = new Model(BASESIZE, wounds());
     doomWolf->addMeleeWeapon(&m_fangsAndClawsDoom);
     addModel(doomWolf);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_fangsAndClaws);
         addModel(model);
     }

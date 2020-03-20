@@ -66,7 +66,7 @@ CurselingEyeOfTzeentch::CurselingEyeOfTzeentch() :
 
 bool CurselingEyeOfTzeentch::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_sword);
     model->addMeleeWeapon(&m_flail);
     model->addMeleeWeapon(&m_staff);

@@ -61,7 +61,7 @@ EidolonOfMathlannAspectOfTheStorm::EidolonOfMathlannAspectOfTheStorm() :
 
 bool EidolonOfMathlannAspectOfTheStorm::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_spear);
     model->addMeleeWeapon(&m_crulhook);
     model->addMeleeWeapon(&m_stormshoal);

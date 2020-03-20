@@ -11,6 +11,9 @@
 
 namespace GloomspiteGitz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Zarbag::s_registered = false;
 
@@ -27,7 +30,7 @@ Zarbag::Zarbag() :
 
 bool Zarbag::configure(LoreOfTheMoonclans lore)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_sickle);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -92,6 +95,11 @@ int Zarbag::EnumStringToInt(const std::string &enumString)
         return (int) lore;
     }
     return 0;
+}
+
+int Zarbag::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

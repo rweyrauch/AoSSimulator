@@ -50,7 +50,7 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     m_weaponOption = weapons;
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (m_weaponOption == SkyboltBow)
     {
         primeModel->addMissileWeapon(&m_skyboltPrime);
@@ -64,14 +64,14 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
 
     for (auto i = 0; i < numShockboltBows; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_shockboltBow);
         model->addMeleeWeapon(&m_stormGladius);
         addModel(model);
     }
     for (auto i = 0; i < numThunderboltCrossbows; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_thunderboldCrossbow);
         model->addMeleeWeapon(&m_stormGladius);
         addModel(model);
@@ -79,7 +79,7 @@ bool Judicators::configure(int numModels, WeaponOption weapons, int numShockbolt
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == SkyboltBow)
         {
             model->addMissileWeapon(&m_skyboltBow);

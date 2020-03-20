@@ -12,6 +12,10 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 180;
+
 struct TableEntry
 {
     int m_move;
@@ -20,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ChaosGargant::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, RAND_3D6, 6},
@@ -44,7 +48,7 @@ ChaosGargant::ChaosGargant() :
 
 bool ChaosGargant::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_eadbutt);
     model->addMeleeWeapon(&m_massiveClub);
     model->addMeleeWeapon(&m_mightyKick);
@@ -112,6 +116,11 @@ void ChaosGargant::onRestore()
 
     // Reset table-driven attributes
     onWounded();
+}
+
+int ChaosGargant::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace GloomspiteGitz

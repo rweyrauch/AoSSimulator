@@ -12,6 +12,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool GreatBrayShaman::s_registered = false;
 
@@ -35,7 +38,7 @@ GreatBrayShaman::~GreatBrayShaman()
 
 bool GreatBrayShaman::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_fetishStaff);
     addModel(model);
 
@@ -91,6 +94,11 @@ int GreatBrayShaman::infuseWithBestialVigour(const Unit *unit)
         return 3;
     }
     return 0;
+}
+
+int GreatBrayShaman::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

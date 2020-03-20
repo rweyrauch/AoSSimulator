@@ -71,14 +71,14 @@ bool Gnoblars::configure(int numModels)
         return false;
     }
 
-    auto biter = new Model(BASESIZE, WOUNDS);
+    auto biter = new Model(BASESIZE, wounds());
     biter->addMissileWeapon(&m_sharpStuff);
     biter->addMeleeWeapon(&m_motleyWeaponsBiter);
     addModel(biter);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_sharpStuff);
         model->addMeleeWeapon(&m_motleyWeapons);
         addModel(model);

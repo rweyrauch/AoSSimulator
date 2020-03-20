@@ -36,7 +36,7 @@ bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
     }
 
     // Add the Boss
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     if (weapons == PigIronChoppa)
     {
         bossModel->addMeleeWeapon(&m_bossPigironChoppa);
@@ -50,7 +50,7 @@ bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == PigIronChoppa)
         {
             model->addMeleeWeapon(&m_pigironChoppa);

@@ -27,7 +27,7 @@ OrrukWarboss::OrrukWarboss() :
 
 bool OrrukWarboss::configure(WeaponOption weapon, bool warboar)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     m_weapon = weapon;
 

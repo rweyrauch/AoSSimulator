@@ -45,7 +45,7 @@ bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapo
     m_wardrum = wardrum;
 
     // Add the Alpha
-    auto alpha = new Model(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, wounds());
     if (m_weaponOption == CelestiteClub)
     {
         alpha->addMeleeWeapon(&m_celestiteClubAlpha);
@@ -60,7 +60,7 @@ bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapo
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == CelestiteClub)
         {
             model->addMeleeWeapon(&m_celestiteClub);

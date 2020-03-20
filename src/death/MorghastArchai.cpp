@@ -34,7 +34,7 @@ bool MorghastArchai::configure(int numModels, WeaponOptions weapons)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == SpiritHalberd)
         {
             model->addMeleeWeapon(&m_spiritHalberd);

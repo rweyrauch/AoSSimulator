@@ -55,7 +55,7 @@ Ylthari::Ylthari() :
 
 bool Ylthari::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_briarStaff);
     model->addMeleeWeapon(&m_thorns);
     model->addMeleeWeapon(&m_snappingMandibles);

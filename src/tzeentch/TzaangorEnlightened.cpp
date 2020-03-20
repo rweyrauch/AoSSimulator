@@ -34,14 +34,14 @@ bool TzaangorEnlightened::configure(int numModels)
         return false;
     }
 
-    auto aviarch = new Model(BASESIZE, WOUNDS);
+    auto aviarch = new Model(BASESIZE, wounds());
     aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
     aviarch->addMeleeWeapon(&m_viciousBeak);
     addModel(aviarch);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_tzeentchianSpear);
         model->addMeleeWeapon(&m_viciousBeak);
         addModel(model);

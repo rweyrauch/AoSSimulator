@@ -33,7 +33,7 @@ bool BloodStalkers::configure(int numModels, bool bloodWyrm)
         return false;
     }
 
-    auto krone = new Model(BASESIZE, WOUNDS);
+    auto krone = new Model(BASESIZE, wounds());
     krone->addMissileWeapon(&m_heartseekBowKrone);
     krone->addMeleeWeapon(&m_sacraficialDaggarKrone);
     if (bloodWyrm)
@@ -44,7 +44,7 @@ bool BloodStalkers::configure(int numModels, bool bloodWyrm)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_hearseekerBow);
         model->addMeleeWeapon(&m_sacraficialDaggar);
         addModel(model);

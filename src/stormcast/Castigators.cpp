@@ -35,14 +35,14 @@ bool Castigators::configure(int numModels)
     }
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     primeModel->addMissileWeapon(&m_thunderheadGreatbowPrime);
     primeModel->addMeleeWeapon(&m_heavyStock);
     addModel(primeModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_thunderheadGreatbow);
         model->addMeleeWeapon(&m_heavyStock);
         addModel(model);

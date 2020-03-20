@@ -26,7 +26,7 @@ Doomwheel::Doomwheel() :
 
 bool Doomwheel::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_warpBolts);
     model->addMeleeWeapon(&m_grindingWheel);
     model->addMeleeWeapon(&m_teethAndKnives);

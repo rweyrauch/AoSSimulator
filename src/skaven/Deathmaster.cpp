@@ -61,7 +61,7 @@ Deathmaster::Deathmaster() :
 
 bool Deathmaster::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_stars);
     if (option == WeepingBlades)
         model->addMeleeWeapon(&m_blades);

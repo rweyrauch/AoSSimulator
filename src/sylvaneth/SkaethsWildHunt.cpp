@@ -58,29 +58,29 @@ SkaethsWildHunt::SkaethsWildHunt() :
 
 bool SkaethsWildHunt::configure()
 {
-    auto skaeth = new Model(BASESIZE, WOUNDS);
+    auto skaeth = new Model(BASESIZE, wounds());
     skaeth->addMissileWeapon(&m_javalin);
     skaeth->addMeleeWeapon(&m_javalinMelee);
     skaeth->setName("Skaeth");
     addModel(skaeth);
 
-    auto althaen = new Model(BASESIZE, WOUNDS);
+    auto althaen = new Model(BASESIZE, wounds());
     althaen->addMissileWeapon(&m_seekerBow);
     althaen->addMeleeWeapon(&m_huntingWeapon);
     althaen->setName("Althaen");
     addModel(althaen);
 
-    auto karthaen = new Model(BASESIZE, WOUNDS);
+    auto karthaen = new Model(BASESIZE, wounds());
     karthaen->addMeleeWeapon(&m_huntingWeapon);
     karthaen->setName("Karthaen");
     addModel(karthaen);
 
-    auto sheoch = new Model(BASESIZE, WOUNDS);
+    auto sheoch = new Model(BASESIZE, wounds());
     sheoch->addMeleeWeapon(&m_huntingWeapon);
     sheoch->setName("Sheoch");
     addModel(sheoch);
 
-    auto lighaen = new Model(BASESIZE, WOUNDS);
+    auto lighaen = new Model(BASESIZE, wounds());
     lighaen->addMeleeWeapon(&m_teethAndClaws);
     lighaen->setName("Lighaen");
     addModel(lighaen);

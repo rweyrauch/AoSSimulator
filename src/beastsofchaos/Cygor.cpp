@@ -11,6 +11,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 140;
 
 bool Cygor::s_registered = false;
 
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Cygor::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 18, 8},
@@ -43,7 +46,7 @@ Cygor::Cygor() :
 
 bool Cygor::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_desecratedBoulder);
     model->addMeleeWeapon(&m_massiveHorns);
     addModel(model);
@@ -125,6 +128,11 @@ Rerolls Cygor::toHitRerolls(const Weapon *weapon, const Unit *target) const
     if (target->hasKeyword(WIZARD))
         return RerollFailed;
     return Unit::toHitRerolls(weapon, target);
+}
+
+int Cygor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

@@ -64,7 +64,7 @@ SpoilpoxScrivenerHeraldOfNurgle::~SpoilpoxScrivenerHeraldOfNurgle()
 
 bool SpoilpoxScrivenerHeraldOfNurgle::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_sneeze);
     model->addMeleeWeapon(&m_maw);
     addModel(model);

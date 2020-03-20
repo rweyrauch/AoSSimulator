@@ -11,6 +11,9 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 280; // x210 oval
+static const int WOUNDS = 35;
+static const int POINTS_PER_UNIT = 510;
 
 bool DreadSaurian::s_registered = false;
 
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {12, 18, 24, 30, DreadSaurian::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {12, 18, 24, 30, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 6, 2},
@@ -51,7 +54,7 @@ DreadSaurian::~DreadSaurian()
 
 bool DreadSaurian::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_gargantuanJaws);
     model->addMeleeWeapon(&m_rakingClaws);
     model->addMeleeWeapon(&m_armouredTail);
@@ -169,6 +172,11 @@ void DreadSaurian::onSlain()
                 unit->applyDamage({0, Dice::rollD3()});
         }
     }
+}
+
+int DreadSaurian::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

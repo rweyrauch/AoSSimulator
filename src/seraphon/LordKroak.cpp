@@ -29,7 +29,7 @@ LordKroak::LordKroak() :
 
 bool LordKroak::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_barrier);
     addModel(model);
 

@@ -40,7 +40,7 @@ bool PusgoyleBlightlords::configure(int numModels, int numTocsins)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_blightedWeapon);
         model->addMeleeWeapon(&m_mouthparts);
         model->addMeleeWeapon(&m_venemousSting);

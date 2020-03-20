@@ -47,7 +47,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     }
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (primeGrandstave)
     {
         primeModel->addMeleeWeapon(&m_grandStavePrime);
@@ -61,7 +61,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
 
     for (auto i = 0; i < numGrandstaves; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_grandStave);
         addModel(model);
     }
@@ -69,7 +69,7 @@ bool Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstav
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(model);
     }

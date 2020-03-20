@@ -27,7 +27,7 @@ VarghulfCourtier::VarghulfCourtier() :
 
 bool VarghulfCourtier::configure()
 {
-    auto courtier = new Model(BASESIZE, WOUNDS);
+    auto courtier = new Model(BASESIZE, wounds());
     courtier->addMeleeWeapon(&m_immenseClaws);
     courtier->addMeleeWeapon(&m_daggerlikeFangs);
     addModel(courtier);

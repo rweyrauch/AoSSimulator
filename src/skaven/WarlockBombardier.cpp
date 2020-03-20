@@ -62,7 +62,7 @@ WarlockBombardier::WarlockBombardier() :
 
 bool WarlockBombardier::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_doomrocket);
     model->addMeleeWeapon(&m_pole);
     addModel(model);

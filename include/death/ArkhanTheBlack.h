@@ -18,12 +18,9 @@ namespace Death
 class ArkhanTheBlack : public LegionOfNagashBase
 {
 public:
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 11;
-    static const int POINTS_PER_UNIT = 360;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     ArkhanTheBlack();

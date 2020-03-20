@@ -13,6 +13,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 130;
+static const int WOUNDS = 20;
+static const int POINTS_PER_UNIT = 800;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, 16, Archaon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, 16, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6},
@@ -56,7 +59,7 @@ Archaon::~Archaon()
 
 bool Archaon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_slayerOfKings);
     model->addMeleeWeapon(&m_dorgharsClaws);
     model->addMeleeWeapon(&m_dorgharsTails);
@@ -192,6 +195,11 @@ int Archaon::crownOfDomination(const Unit *unit)
     }
 
     return 0;
+}
+
+int Archaon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace SlavesToDarkness

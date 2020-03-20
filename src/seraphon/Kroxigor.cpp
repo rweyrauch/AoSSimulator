@@ -39,14 +39,14 @@ bool Kroxigor::configure(int numModels, int numMoonhammers)
 
     for (auto i = 0; i < numMoonhammers; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_hammer);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
     }
     for (auto i = numMoonhammers; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_maul);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);

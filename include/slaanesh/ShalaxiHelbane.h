@@ -19,10 +19,6 @@ class ShalaxiHelbane : public SlaaneshBase
 {
 public:
 
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 340;
-
     enum WeaponOption
     {
         LivingWhip,
@@ -33,7 +29,7 @@ public:
     static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
 
     ShalaxiHelbane();
     ~ShalaxiHelbane() override = default;

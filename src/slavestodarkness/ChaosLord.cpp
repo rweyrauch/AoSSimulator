@@ -70,7 +70,7 @@ ChaosLord::ChaosLord() :
 
 bool ChaosLord::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     if (option == Reaperblade)
         model->addMeleeWeapon(&m_blade);

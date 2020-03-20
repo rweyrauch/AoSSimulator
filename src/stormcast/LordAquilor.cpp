@@ -29,7 +29,7 @@ LordAquilor::LordAquilor() :
 
 bool LordAquilor::configure(bool astralCompass)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_boltstormPistol);
     model->addMeleeWeapon(&m_starboundBlade);
     model->addMeleeWeapon(&m_shockHandaxe);

@@ -10,6 +10,12 @@
 
 namespace Bonesplitterz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 3;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
 
 bool SavageBoarboys::s_registered = false;
 
@@ -82,7 +88,7 @@ bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullTh
     m_totemBearer = totemBearer;
 
     // Add the Boss
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     if (weapons == Chompa)
     {
         bossModel->addMeleeWeapon(&m_chompaBoss);
@@ -96,7 +102,7 @@ bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullTh
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == Chompa)
         {
             model->addMeleeWeapon(&m_chompa);

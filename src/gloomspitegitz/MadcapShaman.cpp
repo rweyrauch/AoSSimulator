@@ -29,7 +29,7 @@ MadcapShaman::MadcapShaman() :
 
 bool MadcapShaman::configure(LoreOfTheMoonclans lore)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_moonStaff);
 
     m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

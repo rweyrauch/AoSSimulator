@@ -33,13 +33,13 @@ bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer
     m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
-    auto lord = new Model(BASESIZE, WOUNDS);
+    auto lord = new Model(BASESIZE, wounds());
     lord->addMeleeWeapon(&m_greatswordLord);
     addModel(lord);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_greatsword);
         addModel(model);
     }

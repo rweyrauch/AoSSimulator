@@ -31,7 +31,7 @@ KorghosKhul::KorghosKhul() :
 
 bool KorghosKhul::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_axeOfKhorne);
     model->addMeleeWeapon(&m_clawsAndFangs);
     addModel(model);

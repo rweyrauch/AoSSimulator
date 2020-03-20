@@ -19,13 +19,9 @@ class Doombull : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 100;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
+    static int ComputePoints(int numModels);
 
     Doombull();
     ~Doombull() override = default;

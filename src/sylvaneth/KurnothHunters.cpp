@@ -42,7 +42,7 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
 
     m_weaponOption = weapons;
 
-    auto huntmaster = new Model(BASESIZE, WOUNDS);
+    auto huntmaster = new Model(BASESIZE, wounds());
     if (m_weaponOption == Greatbows)
     {
         huntmaster->addMissileWeapon(&m_greatbowHuntmaster);
@@ -60,7 +60,7 @@ bool KurnothHunters::configure(int numModels, WeaponOption weapons)
 
     for (int i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == Greatbows)
         {
             model->addMissileWeapon(&m_greatbow);

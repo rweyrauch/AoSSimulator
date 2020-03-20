@@ -28,7 +28,7 @@ AkhelianKing::AkhelianKing() :
 
 bool AkhelianKing::configure(WeaponOption weapon)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (weapon == BladedPolearm)
     {
         model->addMeleeWeapon(&m_bladedPolearm);

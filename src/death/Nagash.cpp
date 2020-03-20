@@ -12,6 +12,9 @@
 
 namespace Death
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 880;
 
 struct TableEntry
 {
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, Nagash::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {5, 6, 3, 3},
@@ -82,7 +85,7 @@ void Nagash::Init()
 
 bool Nagash::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     model->addMissileWeapon(&m_gaze);
     model->addMeleeWeapon(&m_alakanash);
@@ -140,6 +143,11 @@ Wounds Nagash::weaponDamage(const Weapon *weapon, const Unit *target, int hitRol
         }
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Nagash::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Death

@@ -47,13 +47,13 @@ bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionB
     m_numDoomGongs = doomGongs;
     m_numBaleChimes = baleChimes;
 
-    auto bringer = new Model(BASESIZE, WOUNDS);
+    auto bringer = new Model(BASESIZE, wounds());
     bringer->addMeleeWeapon(&m_foetidBlade);
     addModel(bringer);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == PairedFoetidBlades)
         {
             model->addMeleeWeapon(&m_foetidBlade);

@@ -11,6 +11,10 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 300;
+
 struct TableEntry
 {
     int m_move;
@@ -19,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, DreadlordOnBlackDragon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 2, 6},
@@ -140,7 +144,7 @@ DreadlordOnBlackDragon::DreadlordOnBlackDragon() :
 
 bool DreadlordOnBlackDragon::configure(WeaponOption weapon)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_noxiousBreath);
     model->addMeleeWeapon(&m_jaws);
     model->addMeleeWeapon(&m_claws);
@@ -230,6 +234,11 @@ int DreadlordOnBlackDragon::weaponRend(const Weapon *weapon, const Unit *target,
         return -2;
     }
     return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+}
+
+int DreadlordOnBlackDragon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

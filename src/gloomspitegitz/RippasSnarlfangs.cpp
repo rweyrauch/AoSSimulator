@@ -62,19 +62,19 @@ RippasSnarlfangs::RippasSnarlfangs() :
 
 bool RippasSnarlfangs::configure()
 {
-    auto rippa = new Model(BASESIZE, WOUNDS);
+    auto rippa = new Model(BASESIZE, wounds());
     rippa->addMeleeWeapon(&m_bossLoppa);
     rippa->addMeleeWeapon(&m_jaws);
     rippa->setName("Rippa Narkbad");
     addModel(rippa);
 
-    auto stabbit = new Model(BASESIZE, WOUNDS);
+    auto stabbit = new Model(BASESIZE, wounds());
     stabbit->addMeleeWeapon(&m_stikka);
     stabbit->addMeleeWeapon(&m_jaws);
     stabbit->setName("Stabbit");
     addModel(stabbit);
 
-    auto meanEye = new Model(BASESIZE, WOUNDS);
+    auto meanEye = new Model(BASESIZE, wounds());
     meanEye->addMissileWeapon(&m_grotBow);
     meanEye->addMeleeWeapon(&m_bowStave);
     meanEye->addMeleeWeapon(&m_jaws);

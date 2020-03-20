@@ -46,7 +46,7 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
     m_wardrum = wardrum;
 
     // Add the Alpha
-    auto alpha = new Model(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, wounds());
     if (m_weaponOption == CelestiteBlade)
     {
         alpha->addMeleeWeapon(&m_celestiteBladeAlpha);
@@ -62,7 +62,7 @@ bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == CelestiteBlade)
         {
             model->addMeleeWeapon(&m_celestiteBlade);

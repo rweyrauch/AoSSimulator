@@ -17,12 +17,9 @@ namespace Ironjawz
 class GordrakkTheFistOfGork : public Ironjawz
 {
 public:
-    static const int BASESIZE = 160;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 540;
 
     static Unit *Create(const ParameterList &parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     GordrakkTheFistOfGork();

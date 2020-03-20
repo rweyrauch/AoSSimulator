@@ -63,7 +63,7 @@ ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount() :
 
 bool ChaosLordOnDaemonicMount::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_hammer);
     model->addMeleeWeapon(&m_hooves);
     addModel(model);

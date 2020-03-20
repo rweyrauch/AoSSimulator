@@ -27,7 +27,7 @@ MorathiHighOracleOfKhaine::MorathiHighOracleOfKhaine() :
 
 bool MorathiHighOracleOfKhaine::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_heartrender);
     model->addMeleeWeapon(&m_wings);
     addModel(model);

@@ -34,13 +34,13 @@ bool EternalGuard::configure(int numModels, bool standardBearer, bool hornblower
     m_hornblower = hornblower;
     m_gladeShields = gladeShields;
 
-    auto lord = new Model(BASESIZE, WOUNDS);
+    auto lord = new Model(BASESIZE, wounds());
     lord->addMeleeWeapon(&m_spearStaveWarden);
     addModel(lord);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_spearStave);
         addModel(model);
     }

@@ -97,7 +97,7 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
     m_standardBearer = standardBearer;
     m_hornblower = hornblower;
 
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     if (doomKnightWeapon == EnsorcelledWeapon)
     {
         leader->addMeleeWeapon(&m_ensorcelledWeaponLeader);
@@ -116,7 +116,7 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
 
     if (m_standardBearer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Standard Bearer");
         if (weapons == EnsorcelledWeapon)
             model->addMeleeWeapon(&m_ensorcelledWeapon);
@@ -128,7 +128,7 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
 
     if (m_hornblower)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Hornblower");
         if (weapons == EnsorcelledWeapon)
             model->addMeleeWeapon(&m_ensorcelledWeapon);
@@ -140,7 +140,7 @@ bool ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption d
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == EnsorcelledWeapon)
             model->addMeleeWeapon(&m_ensorcelledWeapon);
         else if (weapons == CursedLance)

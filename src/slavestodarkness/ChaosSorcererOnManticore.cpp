@@ -86,7 +86,7 @@ ChaosSorcererOnManticore::ChaosSorcererOnManticore() :
 
 bool ChaosSorcererOnManticore::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_staff);
     model->addMeleeWeapon(&m_fangsAndClaws);
     model->addMeleeWeapon(&m_tail);

@@ -29,7 +29,7 @@ SaurusOldblood::SaurusOldblood() :
 
 bool SaurusOldblood::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (option == CelestiteMaul)
     {
         model->addMeleeWeapon(&m_maul);

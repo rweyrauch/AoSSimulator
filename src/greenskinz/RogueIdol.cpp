@@ -12,6 +12,9 @@
 
 namespace Greenskinz
 {
+static const int BASESIZE = 170; // x105 oval
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 400;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 11, 13, RogueIdol::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 11, 13, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 2, 10},
@@ -44,7 +47,7 @@ RogueIdol::RogueIdol() :
 
 bool RogueIdol::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_boulderFists);
     model->addMeleeWeapon(&m_stompinFeet);
     addModel(model);
@@ -172,6 +175,11 @@ Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const
         return RerollOnes;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int RogueIdol::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Greenskinz

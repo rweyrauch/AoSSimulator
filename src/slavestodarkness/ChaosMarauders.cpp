@@ -89,7 +89,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
     m_iconBearer = iconBearer;
     m_drummer = drummer;
 
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     if (weapons == AxeAndShield)
     {
         leader->addMeleeWeapon(&m_axeChieftain);
@@ -103,7 +103,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
 
     if (m_iconBearer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Icon Bearer");
         if (weapons == AxeAndShield)
             model->addMeleeWeapon(&m_axe);
@@ -114,7 +114,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
 
     if (m_drummer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Drummer");
         if (weapons == AxeAndShield)
             model->addMeleeWeapon(&m_axe);
@@ -125,7 +125,7 @@ bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBea
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == AxeAndShield)
             model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)

@@ -90,7 +90,7 @@ WarHydra::WarHydra() :
 
 bool WarHydra::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_fieryBreath);
     model->addMeleeWeapon(&m_fangs);
     model->addMeleeWeapon(&m_limbs);

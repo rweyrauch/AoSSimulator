@@ -87,7 +87,7 @@ bool DrakespawnChariots::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_crossbow);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_jaws);

@@ -29,11 +29,11 @@ StormsiresCursebreakers::StormsiresCursebreakers() :
 
 bool StormsiresCursebreakers::configure(LoreOfInvigoration invigoration)
 {
-    auto ammis = new Model(BASESIZE, WOUNDS);
+    auto ammis = new Model(BASESIZE, wounds());
     ammis->addMeleeWeapon(&m_tempestBladeAndStave);
     addModel(ammis);
 
-    auto rastus = new Model(BASESIZE, WOUNDS);
+    auto rastus = new Model(BASESIZE, wounds());
     rastus->addMeleeWeapon(&m_tempestBladeAndStave);
     addModel(rastus);
 

@@ -38,7 +38,7 @@ bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duar
     m_drummers = drummers;
     m_duardinBucklers = duardinBucklers;
 
-    auto veteran = new Model(BASESIZE, WOUNDS);
+    auto veteran = new Model(BASESIZE, wounds());
     if (veteranWeapon == DuardinHandgun)
     {
         veteran->addMissileWeapon(&m_duardinHandgunVeteran);
@@ -53,7 +53,7 @@ bool Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duar
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_duardinHandgun);
         model->addMeleeWeapon(&m_duardinHandgunMelee);
         addModel(model);

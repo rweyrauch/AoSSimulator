@@ -99,7 +99,7 @@ bool Skywardens::configure(int numModels, int numVolleyGuns, int numDrills, int 
         return false;
     }
 
-    auto master = new Model(BASESIZE, WOUNDS);
+    auto master = new Model(BASESIZE, wounds());
     if (numVolleyGuns > 0)
     {
         master->addMissileWeapon(&m_volleyGun);
@@ -133,7 +133,7 @@ bool Skywardens::configure(int numModels, int numVolleyGuns, int numDrills, int 
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (numVolleyGuns > 0)
         {
             model->addMissileWeapon(&m_volleyGun);

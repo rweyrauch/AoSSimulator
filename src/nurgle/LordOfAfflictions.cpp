@@ -65,7 +65,7 @@ LordOfAfflictions::~LordOfAfflictions()
 
 bool LordOfAfflictions::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_festerspike);
     model->addMeleeWeapon(&m_mouthparts);
     model->addMeleeWeapon(&m_sting);

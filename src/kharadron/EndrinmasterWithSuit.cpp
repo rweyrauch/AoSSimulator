@@ -61,7 +61,7 @@ EndrinmasterWithDirigibleSuit::EndrinmasterWithDirigibleSuit() :
 
 bool EndrinmasterWithDirigibleSuit::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_aethercannon);
     model->addMissileWeapon(&m_weaponBattery);
     model->addMissileWeapon(&m_gaze);

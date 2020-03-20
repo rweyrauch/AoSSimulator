@@ -37,7 +37,7 @@ bool LordArcanumOnTauralon::configure(LoreOfTheStorm storm, LoreOfInvigoration i
         return false;
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_hornsAndHooves);
     addModel(model);

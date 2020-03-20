@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 340;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, ShalaxiHelbane::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 2, 5},
@@ -48,7 +51,7 @@ ShalaxiHelbane::ShalaxiHelbane() :
 
 bool ShalaxiHelbane::configure(WeaponOption weapon)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     m_weapon = weapon;
 
@@ -190,6 +193,11 @@ int ShalaxiHelbane::EnumStringToInt(const std::string &enumString)
     if (enumString == "Living Whip") return LivingWhip;
     else if (enumString == "Shining Aegis") return ShiningAegis;
     return SlaaneshBase::EnumStringToInt(enumString);
+}
+
+int ShalaxiHelbane::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

@@ -14,6 +14,10 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 170; // x105 oval
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 420;
+
 struct TableEntry
 {
     int m_move;
@@ -22,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 4;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, DrakeswornTemplar::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 3, 3},
@@ -56,7 +60,7 @@ bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow)
 {
     m_weaponOption = weapons;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (skyboltBow)
     {
         model->addMissileWeapon(&m_skyboltBow);
@@ -333,6 +337,11 @@ int DrakeswornTemplar::arcaneLineage(const Unit *target)
         }
     }
     return 0;
+}
+
+int DrakeswornTemplar::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

@@ -70,13 +70,13 @@ bool CorvusCabal::configure(int numModels)
         return false;
     }
 
-    auto piercer = new Model(BASESIZE, WOUNDS);
+    auto piercer = new Model(BASESIZE, wounds());
     piercer->addMissileWeapon(&m_ravenDarts);
     piercer->addMeleeWeapon(&m_corvusWeaponsLeader);
     piercer->setName("Shadow Piercer");
     addModel(piercer);
 
-    auto talon = new Model(BASESIZE, WOUNDS);
+    auto talon = new Model(BASESIZE, wounds());
     talon->addMissileWeapon(&m_ravenDarts);
     talon->addMeleeWeapon(&m_corvusWeapons);
     talon->setName("Shrike Talon");
@@ -84,7 +84,7 @@ bool CorvusCabal::configure(int numModels)
 
     for (auto i = 2; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_ravenDarts);
         model->addMeleeWeapon(&m_corvusWeapons);
         addModel(model);

@@ -13,6 +13,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 220;
 
 bool BladebringerOnExaltedChariot::s_registered = false;
 
@@ -31,7 +34,7 @@ BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
 
 bool BladebringerOnExaltedChariot::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_flensingWhips);
     model->addMeleeWeapon(&m_piercingClaws);
     model->addMeleeWeapon(&m_poisonedTongues);
@@ -95,6 +98,11 @@ void BladebringerOnExaltedChariot::onCharged()
             ip->applyDamage({0, Dice::rollD3()});
         }
     }
+}
+
+int BladebringerOnExaltedChariot::ComputePoints(int numModels)
+{
+    return 0;
 }
 
 } // Slannesh

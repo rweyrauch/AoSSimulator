@@ -61,7 +61,7 @@ BrokkGrungsson::BrokkGrungsson() :
 
 bool BrokkGrungsson::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_boast);
     model->addMissileWeapon(&m_charter);
     model->addMissileWeapon(&m_aetherblasters);

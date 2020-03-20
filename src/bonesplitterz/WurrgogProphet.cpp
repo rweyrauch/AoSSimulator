@@ -12,6 +12,9 @@
 
 namespace Bonesplitterz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool WurrgogProphet::s_registered = false;
 
@@ -63,7 +66,7 @@ WurrgogProphet::WurrgogProphet() :
 
 bool WurrgogProphet::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_staffAndShiv);
     model->addMeleeWeapon(&m_fangedMaw);
     addModel(model);
@@ -99,6 +102,11 @@ void WurrgogProphet::onStartHero(PlayerId playerId)
             m_roster->addCommandPoints(1);
         }
     }
+}
+
+int WurrgogProphet::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Bonesplitterz

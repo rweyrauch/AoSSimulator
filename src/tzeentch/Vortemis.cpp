@@ -64,7 +64,7 @@ VortemisTheAllSeeing::VortemisTheAllSeeing() :
 
 bool VortemisTheAllSeeing::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_staffMissile);
     model->addMeleeWeapon(&m_staff);
     addModel(model);

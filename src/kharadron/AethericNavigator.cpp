@@ -62,7 +62,7 @@ AethericNavigator::AethericNavigator() :
 
 bool AethericNavigator::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_pistol);
     model->addMeleeWeapon(&m_zephyrscope);
     addModel(model);

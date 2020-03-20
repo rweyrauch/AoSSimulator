@@ -28,19 +28,19 @@ TheFarstriders::TheFarstriders() :
 
 bool TheFarstriders::configure()
 {
-    auto sanson = new Model(BASESIZE, WOUNDS);
+    auto sanson = new Model(BASESIZE, wounds());
     sanson->setName("Sanson");
     sanson->addMissileWeapon(&m_boltstormPistol);
     sanson->addMeleeWeapon(&m_shockHandaxe);
     addModel(sanson);
 
-    auto almeric = new Model(BASESIZE, WOUNDS);
+    auto almeric = new Model(BASESIZE, wounds());
     almeric->setName("Almeric");
     almeric->addMissileWeapon(&m_boltstormPistol);
     almeric->addMeleeWeapon(&m_shockHandaxe);
     addModel(almeric);
 
-    auto elias = new Model(BASESIZE, WOUNDS);
+    auto elias = new Model(BASESIZE, wounds());
     elias->setName("Elias");
     elias->addMissileWeapon(&m_boltstormPistol);
     elias->addMeleeWeapon(&m_stormSaber);

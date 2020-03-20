@@ -44,14 +44,14 @@ bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer
     m_hornblower = hornblowers;
 
     // Add the Hellreaper
-    auto reaperModel = new Model(BASESIZE, WOUNDS);
+    auto reaperModel = new Model(BASESIZE, wounds());
     reaperModel->addMeleeWeapon(&m_hellbladeReaper);
     addModel(reaperModel);
 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_hellblade);
         addModel(model);
     }
@@ -160,7 +160,7 @@ void Bloodletters::restoreModels(int numModels)
     // Icon Bearer
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_hellblade);
         addModel(model);
     }

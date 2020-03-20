@@ -30,7 +30,7 @@ AvatarOfKhaine::~AvatarOfKhaine()
 
 bool AvatarOfKhaine::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_torrentOfBurningBlood);
     model->addMeleeWeapon(&m_sword);
     addModel(model);

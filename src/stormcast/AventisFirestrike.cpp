@@ -37,7 +37,7 @@ bool AventisFirestrike::configure(LoreOfTheStorm storm, LoreOfInvigoration invig
         return false;
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_staffOfHammerhal);
     model->addMeleeWeapon(&m_hornsAndHooves);
     addModel(model);

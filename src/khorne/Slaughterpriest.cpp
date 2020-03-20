@@ -31,7 +31,7 @@ Slaughterpriest::Slaughterpriest() :
 
 bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     if (weapon == BloodbathedAxe)
     {

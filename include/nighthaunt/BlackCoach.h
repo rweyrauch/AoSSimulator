@@ -19,12 +19,8 @@ class BlackCoach : public Nighthaunt
 {
 public:
 
-    static const int BASESIZE = 170; // x105 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 220;
-
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
+    static int ComputePoints(int numModels);
     static void Init();
 
     BlackCoach();

@@ -127,7 +127,7 @@ bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer,
     m_drummer = drummer;
 
     // Add the Sergeant
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     if (weapons == Halberd)
     {
         bossModel->addMeleeWeapon(&m_halberdSergeant);
@@ -144,7 +144,7 @@ bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer,
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == Halberd)
         {
             model->addMeleeWeapon(&m_halberd);

@@ -73,12 +73,12 @@ bool UntamedBeasts::configure(int numModels)
         return false;
     }
 
-    auto hearteater = new Model(BASESIZE, WOUNDS);
+    auto hearteater = new Model(BASESIZE, wounds());
     hearteater->addMeleeWeapon(&m_huntingWeaponsHeartEater);
     hearteater->setName("Heart-eater");
     addModel(hearteater);
 
-    auto firstfang = new Model(BASESIZE, WOUNDS);
+    auto firstfang = new Model(BASESIZE, wounds());
     firstfang->addMissileWeapon(&m_harpoonFirstFang);
     firstfang->addMeleeWeapon(&m_huntingWeapons);
     firstfang->setName("First Fang");
@@ -91,7 +91,7 @@ bool UntamedBeasts::configure(int numModels)
 
     for (auto i = 3; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_huntingWeapons);
         addModel(model);
     }

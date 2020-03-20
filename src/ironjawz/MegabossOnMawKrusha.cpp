@@ -12,6 +12,9 @@
 
 namespace Ironjawz
 {
+static const int BASESIZE = 160;
+static const int WOUNDS = 15;
+static const int POINTS_PER_UNIT = 460;
 
 bool MegabossOnMawKrusha::s_registered = false;
 
@@ -23,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, MegabossOnMawKrusha::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 8, 8},
@@ -46,7 +49,7 @@ MegabossOnMawKrusha::MegabossOnMawKrusha() :
 
 bool MegabossOnMawKrusha::configure(WeaponOption weapons)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bellow);
 
     if (weapons == HackaAndChoppa)
@@ -208,6 +211,11 @@ int MegabossOnMawKrusha::EnumStringToInt(const std::string &enumString)
         return ChoppaAndRiptoofFist;
     }
     return Ironjawz::EnumStringToInt(enumString);
+}
+
+int MegabossOnMawKrusha::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Ironjawz

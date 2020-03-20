@@ -11,6 +11,10 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 170; // x105 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 220;
+
 bool BlackCoach::s_registered = false;
 
 struct TableEntry
@@ -20,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, BlackCoach::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 9},
@@ -75,7 +79,7 @@ BlackCoach::BlackCoach() :
 
 bool BlackCoach::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_graspMissile);
     model->addMeleeWeapon(&m_scythe);
     model->addMeleeWeapon(&m_grasp);
@@ -216,6 +220,11 @@ Rerolls BlackCoach::toHitRerolls(const Weapon *weapon, const Unit *target) const
         return RerollOnes;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int BlackCoach::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nighthaunt

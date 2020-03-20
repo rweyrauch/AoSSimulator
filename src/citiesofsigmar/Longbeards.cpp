@@ -35,7 +35,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool standardBe
     m_standardBearer = standardBearer;
     m_musician = musician;
 
-    auto oldguard = new Model(BASESIZE, WOUNDS);
+    auto oldguard = new Model(BASESIZE, wounds());
     if (weapons == AncestralWeaponAndShield)
     {
         oldguard->addMeleeWeapon(&m_ancestralAxeHammerOldGuard);
@@ -48,7 +48,7 @@ bool Longbeards::configure(int numModels, WeaponOptions weapons, bool standardBe
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == AncestralWeaponAndShield)
         {
             model->addMeleeWeapon(&m_ancestralAxeHammer);

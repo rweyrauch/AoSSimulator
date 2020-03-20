@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 280; // x210 oval
+static const int WOUNDS = 30;
+static const int POINTS_PER_UNIT = 1200;
 
 struct TableEntry
 {
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {5, 10, 15, 20, VorgarothAndSkalok::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {5, 10, 15, 20, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, -3, 2, RAND_3D6},
@@ -48,7 +51,7 @@ VorgarothAndSkalok::VorgarothAndSkalok() :
 
 bool VorgarothAndSkalok::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_balefire);
     model->addMeleeWeapon(&m_skullCleaverAxeOfKhorne);
     model->addMeleeWeapon(&m_evisceratingClaws);
@@ -167,6 +170,11 @@ void VorgarothAndSkalok::onCharged()
 Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds)
 {
     return Unit::applyWoundSave(wounds);
+}
+
+int VorgarothAndSkalok::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

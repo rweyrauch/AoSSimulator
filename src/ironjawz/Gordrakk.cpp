@@ -12,6 +12,9 @@
 
 namespace Ironjawz
 {
+static const int BASESIZE = 160;
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 540;
 
 bool GordrakkTheFistOfGork::s_registered = false;
 
@@ -23,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, GordrakkTheFistOfGork::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 9, 9},
@@ -46,7 +49,7 @@ GordrakkTheFistOfGork::GordrakkTheFistOfGork() :
 
 bool GordrakkTheFistOfGork::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bellow);
     model->addMeleeWeapon(&m_smasha);
     model->addMeleeWeapon(&m_kunnin);
@@ -171,6 +174,11 @@ Wounds GordrakkTheFistOfGork::onEndCombat(PlayerId player)
         m_kunnin.setAttacks(m_kunnin.attacks()+1);
     }
     return Ironjawz::onEndCombat(player);
+}
+
+int GordrakkTheFistOfGork::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Ironjawz

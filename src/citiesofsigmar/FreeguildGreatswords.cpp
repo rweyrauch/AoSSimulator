@@ -92,13 +92,13 @@ bool FreeguildGreatswords::configure(int numModels, bool standardBearer, bool ho
     m_hornblower = hornblower;
 
     // Add the Champion
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMeleeWeapon(&m_zweihanderChampion);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_zweihander);
         addModel(model);
     }

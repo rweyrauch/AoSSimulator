@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 400;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, KairosFateweaver::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 1, 6},
@@ -83,7 +86,7 @@ KairosFateweaver::KairosFateweaver() :
 
 bool KairosFateweaver::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_beakAndTalons);
     model->addMeleeWeapon(&m_staff);
     addModel(model);
@@ -130,6 +133,11 @@ int KairosFateweaver::rollCasting() const
     auto r0 = Dice::rollD6();
     auto r1 = Dice::rollD6();
     return std::max(r0, r1) * 2 + castingModifier();
+}
+
+int KairosFateweaver::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

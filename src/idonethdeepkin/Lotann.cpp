@@ -69,7 +69,7 @@ Lotann::~Lotann()
 
 bool Lotann::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_quill);
     model->addMeleeWeapon(&m_cudgel);
     model->addMeleeWeapon(&m_blade);

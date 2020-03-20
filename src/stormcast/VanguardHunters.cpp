@@ -44,7 +44,7 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
     m_astralCompass = astralCompass;
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (m_weaponOption == StormSabre)
     {
         primeModel->addMeleeWeapon(&m_stormSabrePrime);
@@ -58,7 +58,7 @@ bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astral
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == StormSabre)
         {
             model->addMeleeWeapon(&m_stormSabre);

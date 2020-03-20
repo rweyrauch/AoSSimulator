@@ -40,13 +40,13 @@ bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, 
         m_runAndCharge = true;
     }
 
-    auto hag = new Model(BASESIZE, WOUNDS);
+    auto hag = new Model(BASESIZE, wounds());
     hag->addMeleeWeapon(&m_sacrificialKnifeHag);
     addModel(hag);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto witch = new Model(BASESIZE, WOUNDS);
+        auto witch = new Model(BASESIZE, wounds());
         witch->addMeleeWeapon(&m_sacrificialKnife);
         addModel(witch);
     }

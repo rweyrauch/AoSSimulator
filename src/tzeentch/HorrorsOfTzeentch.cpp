@@ -48,14 +48,14 @@ bool HorrorsOfTzeentch::configure(int numModels, bool iconBearer, bool hornblowe
     m_iconBearer = iconBearer;
     m_hornblower = hornblower;
 
-    auto horror = new Model(BASESIZE, WOUNDS);
+    auto horror = new Model(BASESIZE, wounds());
     horror->addMissileWeapon(&m_magicalFlamesPink);
     horror->addMeleeWeapon(&m_talonedHandsIridescent);
     addModel(horror);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_magicalFlamesPink);
         model->addMeleeWeapon(&m_talonedHandsPink);
         addModel(model);
@@ -128,7 +128,7 @@ void HorrorsOfTzeentch::restoreModels(int numModels)
     // Icon Bearer
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_magicalFlamesPink);
         model->addMeleeWeapon(&m_talonedHandsPink);
         addModel(model);

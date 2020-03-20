@@ -35,7 +35,7 @@ bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption)
 {
     m_weaponOption = weaponOption;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (m_weaponOption == AstralHammers)
     {
         model->addMeleeWeapon(&m_astralHammers);

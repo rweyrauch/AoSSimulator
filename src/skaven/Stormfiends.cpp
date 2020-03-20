@@ -43,7 +43,7 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
 
     for (auto i = 0; i < numWeapon1; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapon1 == WarpfireProjectors)
         {
             model->addMissileWeapon(&m_warpfireProjectors);
@@ -59,7 +59,7 @@ bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, 
     int numWeapon2 = numModels / 3;
     for (auto i = 0; i < numWeapon2; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapon2 == Grinderfists)
         {
             model->addMeleeWeapon(&m_grinderfists);

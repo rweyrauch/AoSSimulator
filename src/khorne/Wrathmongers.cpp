@@ -37,13 +37,13 @@ bool Wrathmongers::configure(int numModels)
         return false;
     }
 
-    auto master = new Model(BASESIZE, WOUNDS);
+    auto master = new Model(BASESIZE, wounds());
     master->addMeleeWeapon(&m_wrathflailsMaster);
     addModel(master);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_wrathflails);
         addModel(model);
     }

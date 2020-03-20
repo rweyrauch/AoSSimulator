@@ -32,7 +32,7 @@ CelestarBallista::CelestarBallista() :
 
 bool CelestarBallista::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_sigmariteBlades);
 
     m_stormboltsRapid.activate(true);

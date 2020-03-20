@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 60;
+static const int POINTS_MAX_UNIT_SIZE = 200;
 
 bool Ungors::s_registered = false;
 
@@ -38,7 +44,7 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
 
     m_runAndCharge = m_brayhorn;
 
-    auto halfhorn = new Model(BASESIZE, WOUNDS);
+    auto halfhorn = new Model(BASESIZE, wounds());
     if (weapons == UngorBlade)
     {
         halfhorn->addMeleeWeapon(&m_ungorBladeHalfhorn);
@@ -51,7 +57,7 @@ bool Ungors::configure(int numModels, WeaponOptions weapons,
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == UngorBlade)
         {
             model->addMeleeWeapon(&m_ungorBlade);

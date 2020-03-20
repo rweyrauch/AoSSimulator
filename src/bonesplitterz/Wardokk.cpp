@@ -11,6 +11,9 @@
 
 namespace Bonesplitterz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool Wardokk::s_registered = false;
 
@@ -62,7 +65,7 @@ Wardokk::Wardokk() :
 
 bool Wardokk::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_bonebeastStikk);
     addModel(model);
 
@@ -72,6 +75,11 @@ bool Wardokk::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Wardokk::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Bonesplitterz

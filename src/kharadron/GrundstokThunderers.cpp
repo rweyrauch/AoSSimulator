@@ -108,7 +108,7 @@ bool GrundstokThunderers::configure(int numModels, int numMortars, int numCannon
         return false;
     }
 
-    auto sergeant = new Model(BASESIZE, WOUNDS);
+    auto sergeant = new Model(BASESIZE, wounds());
     sergeant->addMissileWeapon(&m_doubleBarrelledRifle);
     sergeant->addMeleeWeapon(&m_drillbill);
     sergeant->addMeleeWeapon(&m_gunButt);
@@ -116,7 +116,7 @@ bool GrundstokThunderers::configure(int numModels, int numMortars, int numCannon
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (numMortars > 0)
         {
             model->addMissileWeapon(&m_mortar);

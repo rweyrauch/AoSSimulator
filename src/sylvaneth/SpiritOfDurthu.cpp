@@ -14,6 +14,9 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 105; // x70 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 300;
 
 bool SpiritOfDurthu::s_registered = false;
 
@@ -25,7 +28,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SpiritOfDurthu::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 6,       2},
@@ -54,7 +57,7 @@ SpiritOfDurthu::~SpiritOfDurthu()
 
 bool SpiritOfDurthu::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_verdantBlast);
     model->addMeleeWeapon(&m_guardianSword);
     model->addMeleeWeapon(&m_massiveImpalingTalons);
@@ -176,6 +179,11 @@ int SpiritOfDurthu::championOfTheEverqueensWill(const Unit *target)
     }
 
     return 0;
+}
+
+int SpiritOfDurthu::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

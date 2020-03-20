@@ -29,7 +29,7 @@ NeaveBlacktalon::NeaveBlacktalon() :
 
 bool NeaveBlacktalon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_boltstormPistol);
     model->addMeleeWeapon(&m_whirlwindAxes);
     addModel(model);

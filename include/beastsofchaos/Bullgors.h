@@ -19,13 +19,6 @@ class Bullgors : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 140*4;
-
     enum WeaponOptions
     {
         BullgorAxe,

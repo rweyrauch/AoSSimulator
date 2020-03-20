@@ -27,7 +27,7 @@ AuricRuneson::AuricRuneson() :
 
 bool AuricRuneson::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_throwingAxe);
     model->addMissileWeapon(&m_javelin);
     model->addMeleeWeapon(&m_warAxe);

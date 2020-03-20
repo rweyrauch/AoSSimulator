@@ -11,9 +11,14 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 70;
+static const int POINTS_MAX_UNIT_SIZE = 200;
 
 bool Gors::s_registered = false;
-
 
 Gors::Gors() :
     BeastsOfChaosBase("Gors", 6, WOUNDS, 5, 5, false),
@@ -35,13 +40,13 @@ bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool banne
     m_bannerBearer = bannerBearer;
     m_pairedBlades = pairedBlades;
 
-    auto foe = new Model(BASESIZE, WOUNDS);
+    auto foe = new Model(BASESIZE, wounds());
     foe->addMeleeWeapon(&m_gorBladeFoeRender);
     addModel(foe);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_gorBlade);
         addModel(model);
     }

@@ -11,6 +11,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 13;
+static const int POINTS_PER_UNIT = 0;
+
 struct TableEntry
 {
     int m_move;
@@ -19,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, HagQueenOnCauldronOfBlood::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 8, 18},
@@ -53,7 +57,7 @@ HagQueenOnCauldronOfBlood::~HagQueenOnCauldronOfBlood()
 
 bool HagQueenOnCauldronOfBlood::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_burningBlood);
     model->addMeleeWeapon(&m_knives);
     model->addMeleeWeapon(&m_blade);
@@ -154,6 +158,11 @@ int HagQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon *wea
         return 1;
     }
     return 0;
+}
+
+int HagQueenOnCauldronOfBlood::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine

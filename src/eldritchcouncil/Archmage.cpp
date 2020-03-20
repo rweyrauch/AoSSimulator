@@ -31,7 +31,7 @@ bool Archmage::configure(bool steed)
 {
     m_steed = steed;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_seerstaff);
     if (m_steed)
     {

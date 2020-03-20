@@ -68,7 +68,7 @@ MindstealerSphiranx::~MindstealerSphiranx()
 
 bool MindstealerSphiranx::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     model->addMeleeWeapon(&m_claws);
     model->addMeleeWeapon(&m_tail);

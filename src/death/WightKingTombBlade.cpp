@@ -58,7 +58,7 @@ void WightKingWithBalefulTombBlade::Init()
 
 bool WightKingWithBalefulTombBlade::configure(bool hasSteed)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     m_hasSteed = hasSteed;
 

@@ -34,7 +34,7 @@ bool SkullCannons::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_burningSkulls);
         model->addMeleeWeapon(&m_hellblades);
         model->addMeleeWeapon(&m_gnashingMaw);

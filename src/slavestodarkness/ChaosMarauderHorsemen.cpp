@@ -98,7 +98,7 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
     m_iconBearer = iconBearer;
     m_hornblower = hornblower;
 
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     if (weapons == AxeAndShield)
     {
         leader->addMeleeWeapon(&m_axeMaster);
@@ -118,7 +118,7 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
 
     if (m_iconBearer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Icon Bearer");
         if (weapons == AxeAndShield)
             model->addMeleeWeapon(&m_axe);
@@ -135,7 +135,7 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
 
     if (m_hornblower)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Hornblower");
         if (weapons == AxeAndShield)
             model->addMeleeWeapon(&m_axe);
@@ -152,7 +152,7 @@ bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool 
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == AxeAndShield)
             model->addMeleeWeapon(&m_axe);
         else if (weapons == Flail)

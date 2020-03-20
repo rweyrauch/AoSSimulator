@@ -37,7 +37,7 @@ bool LordArcanumOnGryphcharger::configure(LoreOfTheStorm storm, LoreOfInvigorati
         return false;
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_beakAndClaws);
     addModel(model);

@@ -26,7 +26,7 @@ SaurusSunblood::SaurusSunblood() :
 
 bool SaurusSunblood::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_celestiteWarmace);
     model->addMeleeWeapon(&m_jaws);
     addModel(model);

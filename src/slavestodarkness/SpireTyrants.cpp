@@ -78,24 +78,24 @@ bool SpireTyrants::configure(int numModels)
         return false;
     }
 
-    auto champion = new Model(BASESIZE, WOUNDS);
+    auto champion = new Model(BASESIZE, wounds());
     champion->addMeleeWeapon(&m_gladiatorialWeaponsChampion);
     champion->setName("Pit Champion");
     addModel(champion);
 
-    auto headclaimer = new Model(BASESIZE, WOUNDS);
+    auto headclaimer = new Model(BASESIZE, wounds());
     headclaimer->addMeleeWeapon(&m_gladiatorialWeaponsHeadclaimer);
     headclaimer->setName("Headclaimer");
     addModel(headclaimer);
 
-    auto destroyer = new Model(BASESIZE, WOUNDS);
+    auto destroyer = new Model(BASESIZE, wounds());
     destroyer->addMeleeWeapon(&m_gladiatorialWeaponsDestroyer);
     destroyer->setName("Bestigor Destroyer");
     addModel(destroyer);
 
     for (auto i = 3; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_gladiatorialWeapons);
         addModel(model);
     }

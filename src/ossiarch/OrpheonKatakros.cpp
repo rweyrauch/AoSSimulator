@@ -10,6 +10,9 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 20;
+static const int POINTS_PER_UNIT = 500;
 
 bool OrpheonKatakros::s_registered = false;
 
@@ -73,7 +76,7 @@ OrpheonKatakros::OrpheonKatakros() :
 
 bool OrpheonKatakros::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_indaKhaat);
     model->addMeleeWeapon(&m_shieldImmortis);
     model->addMeleeWeapon(&m_nadiriteDagger);
@@ -129,6 +132,11 @@ Wounds OrpheonKatakros::weaponDamage(const Weapon *weapon, const Unit *target, i
         return {weapon->damage(), 2};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int OrpheonKatakros::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace OssiarchBonereapers

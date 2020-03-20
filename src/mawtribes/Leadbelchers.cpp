@@ -88,7 +88,7 @@ bool Leadbelchers::configure(int numModels)
         m_gun.setRange(m_gun.range()+6);
     }
 
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     boss->addMissileWeapon(&m_gun);
     boss->addMeleeWeapon(&m_blowThunderfist);
     boss->addMeleeWeapon(&m_bite);
@@ -96,7 +96,7 @@ bool Leadbelchers::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_gun);
         model->addMeleeWeapon(&m_blow);
         model->addMeleeWeapon(&m_bite);

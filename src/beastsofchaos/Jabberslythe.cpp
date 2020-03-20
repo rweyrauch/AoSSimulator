@@ -11,6 +11,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 160;
 
 bool Jabberslythe::s_registered = false;
 
@@ -26,7 +29,7 @@ Jabberslythe::Jabberslythe() :
 
 bool Jabberslythe::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_slytheyTongue);
     model->addMeleeWeapon(&m_vorpalClaws);
     model->addMeleeWeapon(&m_spikedTail);
@@ -71,6 +74,11 @@ void Jabberslythe::Init()
 
         s_registered = UnitFactory::Register("Jabberslythe", factoryMethod);
     }
+}
+
+int Jabberslythe::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 5;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 6;
+static const int POINTS_PER_BLOCK = 50;
+static const int POINTS_MAX_UNIT_SIZE = 300;
 
 bool ChaosSpawn::s_registered = false;
 
@@ -31,7 +37,7 @@ bool ChaosSpawn::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_freakingMutations);
         addModel(model);
     }

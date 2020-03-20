@@ -12,6 +12,10 @@
 
 namespace DaughtersOfKhaine
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 13;
+static const int POINTS_PER_UNIT = 0;
+
 struct TableEntry
 {
     int m_move;
@@ -20,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, BloodwrackShrine::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {6, 6, 2},
@@ -49,7 +53,7 @@ BloodwrackShrine::BloodwrackShrine() :
 
 bool BloodwrackShrine::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bloodwrackStare);
     model->addMeleeWeapon(&m_whisperclaw);
     model->addMeleeWeapon(&m_tailOfSerpents);
@@ -163,6 +167,11 @@ Wounds BloodwrackShrine::weaponDamage(const Weapon *weapon, const Unit *target, 
         return {0, result.rollsGE(5)};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int BloodwrackShrine::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace DaughtersOfKhaine

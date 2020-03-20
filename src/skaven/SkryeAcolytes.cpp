@@ -78,7 +78,7 @@ bool SkryeAcolytes::configure(int numModels)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_globe);
         model->addMeleeWeapon(&m_knife);
         addModel(model);

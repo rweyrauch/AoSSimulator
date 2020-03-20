@@ -33,7 +33,7 @@ bool RipperdactylRiders::configure(int numModels)
     }
 
     // Add the Alpha
-    auto alpha = new Model(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, wounds());
     alpha->addMeleeWeapon(&m_spearAlpha);
     alpha->addMeleeWeapon(&m_jaws);
     addModel(alpha);
@@ -41,7 +41,7 @@ bool RipperdactylRiders::configure(int numModels)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);

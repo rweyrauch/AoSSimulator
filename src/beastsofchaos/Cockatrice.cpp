@@ -12,6 +12,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 100;
 
 bool Cockatrice::s_registered = false;
 
@@ -27,7 +30,7 @@ Cockatrice::Cockatrice() :
 
 bool Cockatrice::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     // NOTE: Petrifying Gaze attack is special, do not treat it as a weapon
 
@@ -107,6 +110,11 @@ void Cockatrice::onStartShooting(PlayerId player)
             }
         }
     }
+}
+
+int Cockatrice::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

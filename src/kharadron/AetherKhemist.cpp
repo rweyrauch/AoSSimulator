@@ -67,7 +67,7 @@ AetherKhemist::~AetherKhemist()
 
 bool AetherKhemist::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_anatomiser);
     model->addMeleeWeapon(&m_instruments);
     addModel(model);

@@ -92,7 +92,7 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
     m_hasShields = false;
     m_pairedWeapons = false;
 
-    auto champion = new Model(BASESIZE, WOUNDS);
+    auto champion = new Model(BASESIZE, wounds());
     if (weapons == HandWeaponAndShield)
     {
         champion->addMeleeWeapon(&m_handWeaponsChampion);
@@ -117,7 +117,7 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
 
     if (m_standardBearer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Standard Bearer");
         if (weapons == HandWeaponAndShield)
             model->addMeleeWeapon(&m_handWeapons);
@@ -132,7 +132,7 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
 
     if (m_hornblower)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Hornblower");
         if (weapons == HandWeaponAndShield)
             model->addMeleeWeapon(&m_handWeapons);
@@ -147,7 +147,7 @@ bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standard
 
     for (auto i = (int)m_models.size(); i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == HandWeaponAndShield)
             model->addMeleeWeapon(&m_handWeapons);
         else if (weapons == HalberdAndShield)

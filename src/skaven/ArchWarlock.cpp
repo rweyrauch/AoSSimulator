@@ -62,7 +62,7 @@ ArchWarlock::ArchWarlock() :
 
 bool ArchWarlock::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_halberd);
     model->addMeleeWeapon(&m_claw);
     addModel(model);

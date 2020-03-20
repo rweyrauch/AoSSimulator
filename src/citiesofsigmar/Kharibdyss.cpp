@@ -97,7 +97,7 @@ Kharibdyss::~Kharibdyss()
 
 bool Kharibdyss::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_tentacles);
     model->addMeleeWeapon(&m_tail);
     model->addMeleeWeapon(&m_limbs);

@@ -59,7 +59,7 @@ Slambo::Slambo() :
 
 bool Slambo::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_hurledAxe);
     model->addMeleeWeapon(&m_chaosAxes);
     addModel(model);

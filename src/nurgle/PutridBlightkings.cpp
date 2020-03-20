@@ -40,7 +40,7 @@ bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousT
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_blightedWeapon);
         addModel(model);
     }

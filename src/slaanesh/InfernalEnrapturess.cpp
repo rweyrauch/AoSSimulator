@@ -31,7 +31,7 @@ InfernalEnrapturess::InfernalEnrapturess() :
 
 bool InfernalEnrapturess::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_lyreCacophonousMelody);
     model->addMissileWeapon(&m_lyreEuphonicBlast);
     model->addMeleeWeapon(&m_ravagingClaw);

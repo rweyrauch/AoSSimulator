@@ -28,7 +28,7 @@ LoonbossWithGiantCaveSquig::LoonbossWithGiantCaveSquig() :
 
 bool LoonbossWithGiantCaveSquig::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_moonProdderMissile);
     model->addMeleeWeapon(&m_moonProdder);
     model->addMeleeWeapon(&m_massiveFangFilledGob);

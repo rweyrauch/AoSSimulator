@@ -60,7 +60,7 @@ IsharannSoulscryer::IsharannSoulscryer() :
 
 bool IsharannSoulscryer::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_shoal);
     model->addMeleeWeapon(&m_claw);
 

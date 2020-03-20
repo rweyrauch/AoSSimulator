@@ -36,7 +36,7 @@ bool Skullreapers::configure(int numModels, bool iconBearer)
         m_bravery += 1;
     }
 
-    auto skullseeker = new Model(BASESIZE, WOUNDS);
+    auto skullseeker = new Model(BASESIZE, wounds());
     skullseeker->addMeleeWeapon(&m_viciousMutation);
     skullseeker->addMeleeWeapon(&m_blades);
     addModel(skullseeker);
@@ -44,7 +44,7 @@ bool Skullreapers::configure(int numModels, bool iconBearer)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_blades);
         addModel(model);
     }

@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 320;
 
 bool UngorRaiders::s_registered = false;
 
@@ -36,14 +42,14 @@ bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_runAndCharge = m_brayhorn;
 
-    auto halfhorn = new Model(BASESIZE, WOUNDS);
+    auto halfhorn = new Model(BASESIZE, wounds());
     halfhorn->addMissileWeapon(&m_raiderBowHalfhorn);
     halfhorn->addMeleeWeapon(&m_jaggedShank);
     addModel(halfhorn);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_raiderBow);
         model->addMeleeWeapon(&m_jaggedShank);
         addModel(model);

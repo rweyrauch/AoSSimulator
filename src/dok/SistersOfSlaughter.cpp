@@ -44,7 +44,7 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
         m_runAndCharge = true;
     }
 
-    auto handmaiden = new Model(BASESIZE, WOUNDS);
+    auto handmaiden = new Model(BASESIZE, wounds());
     if (m_hasSacrificialKnife)
     {
         handmaiden->addMeleeWeapon(&m_sacrificialKnifeHandmaiden);
@@ -54,7 +54,7 @@ bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool ho
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_hasSacrificialKnife)
         {
             model->addMeleeWeapon(&m_sacrificialKnife);

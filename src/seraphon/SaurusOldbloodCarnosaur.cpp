@@ -13,6 +13,10 @@
 namespace Seraphon
 {
 
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 250;
+
 struct TableEntry
 {
     int m_move;
@@ -21,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, SaurusOldbloodOnCarnosaur::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 3, 5},
@@ -53,7 +57,7 @@ SaurusOldbloodOnCarnosaur::~SaurusOldbloodOnCarnosaur()
 
 bool SaurusOldbloodOnCarnosaur::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_gauntlet);
     model->addMeleeWeapon(&m_spear);
     model->addMeleeWeapon(&m_forelimbs);
@@ -161,6 +165,11 @@ int SaurusOldbloodOnCarnosaur::terror(const Unit *target)
         return -1;
     }
     return 0;
+}
+
+int SaurusOldbloodOnCarnosaur::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

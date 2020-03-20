@@ -36,7 +36,7 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
     m_gladeBanners = gladeBanners;
     m_waypipes = waypipes;
 
-    auto scion = new Model(BASESIZE, WOUNDS);
+    auto scion = new Model(BASESIZE, wounds());
     if (scionGlaive)
     {
         scion->addMeleeWeapon(&m_protectorGlaive);
@@ -49,7 +49,7 @@ bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_enchantedBlade);
         addModel(model);
     }

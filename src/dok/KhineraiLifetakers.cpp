@@ -30,13 +30,13 @@ bool KhineraiLifetakers::configure(int numModels)
         return false;
     }
 
-    auto harridynn = new Model(BASESIZE, WOUNDS);
+    auto harridynn = new Model(BASESIZE, wounds());
     harridynn->addMeleeWeapon(&m_barbedSickleHarridynn);
     addModel(harridynn);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_barbedSickle);
         addModel(model);
     }

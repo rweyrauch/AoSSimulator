@@ -88,7 +88,7 @@ bool ScourgerunnerChariots::configure(int numModels)
     }
 
     // Add the Master
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMissileWeapon(&m_crossbowMaster);
     bossModel->addMissileWeapon(&m_harpoonMaster);
     bossModel->addMeleeWeapon(&m_hookSpear);
@@ -97,7 +97,7 @@ bool ScourgerunnerChariots::configure(int numModels)
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_crossbow);
         model->addMissileWeapon(&m_harpoon);
         model->addMeleeWeapon(&m_hookSpear);

@@ -11,6 +11,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 400;
+
 struct TableEntry
 {
     int m_move;
@@ -19,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, ThanquolOnBoneripper::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 6, 2},
@@ -81,7 +85,7 @@ ThanquolOnBoneripper::ThanquolOnBoneripper() :
 
 bool ThanquolOnBoneripper::configure(int numProjectors)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     for (auto i = 0; i < numProjectors; i++)
         model->addMissileWeapon(&m_projectors);
@@ -140,6 +144,11 @@ int ThanquolOnBoneripper::getDamageTableIndex() const
         }
     }
     return 0;
+}
+
+int ThanquolOnBoneripper::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

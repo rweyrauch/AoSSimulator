@@ -26,7 +26,7 @@ AuricRunemaster::AuricRunemaster() :
 
 bool AuricRunemaster::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_throwingAxe);
     model->addMeleeWeapon(&m_brazierStaff);
     model->addMeleeWeapon(&m_runicIron);

@@ -35,14 +35,14 @@ bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowe
     m_standardBearers = standardBearers;
     m_hornblowers = hornblowers;
 
-    auto hellKnight = new Model(BASESIZE, WOUNDS);
+    auto hellKnight = new Model(BASESIZE, wounds());
     hellKnight->addMeleeWeapon(&m_barrowLanceKnight);
     hellKnight->addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(hellKnight);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_barrowLance);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);

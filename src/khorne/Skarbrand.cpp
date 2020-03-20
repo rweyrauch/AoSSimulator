@@ -11,6 +11,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 380;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Skarbrand::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {1, 5, 5},
@@ -43,7 +46,7 @@ Skarbrand::Skarbrand() :
 
 bool Skarbrand::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_slaughter);
     // Do not add Carnage or Roar of Total Rage, their attacks are special.
     addModel(model);
@@ -164,6 +167,11 @@ void Skarbrand::onStartShooting(PlayerId player)
         }
     }
     KhorneBase::onStartShooting(player);
+}
+
+int Skarbrand::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

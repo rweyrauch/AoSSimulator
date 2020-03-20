@@ -45,7 +45,7 @@ bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool cl
     // Standard Bearers
     m_retreatAndCharge = (standardBearers > 0);
 
-    auto leader = new Model(BASESIZE, WOUNDS);
+    auto leader = new Model(BASESIZE, wounds());
     if (weapons == RustySpear)
     {
         leader->addMeleeWeapon(&m_rustySpearLeader);
@@ -58,7 +58,7 @@ bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool cl
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == RustySpear)
         {
             model->addMeleeWeapon(&m_rustySpear);

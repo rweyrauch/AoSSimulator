@@ -66,7 +66,7 @@ BloabRotspawned::~BloabRotspawned()
 
 bool BloabRotspawned::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bile);
     model->addMeleeWeapon(&m_scythe);
     model->addMeleeWeapon(&m_claws);

@@ -52,7 +52,7 @@ void ColossalSquig::onRestore()
 
 bool ColossalSquig::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_enormousJaws);
     model->addMeleeWeapon(&m_tramplingFeet);
     model->addMissileWeapon(&m_puffSpores);

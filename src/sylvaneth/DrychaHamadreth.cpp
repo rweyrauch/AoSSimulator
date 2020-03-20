@@ -15,6 +15,9 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 105; // x70 oval
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 320;
 
 bool DrychaHamadreth::s_registered = false;
 
@@ -26,7 +29,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, DrychaHamadreth::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {18, 3, 6},
@@ -51,7 +54,7 @@ DrychaHamadreth::DrychaHamadreth() :
 
 bool DrychaHamadreth::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_colonyOfFlitterfuries);
     model->addMissileWeapon(&m_swarmOfSquirmlings);
     model->addMeleeWeapon(&m_slashingTalons);
@@ -157,6 +160,11 @@ int DrychaHamadreth::extraAttacks(const Model *attackingModel, const Weapon *wea
         extra += 10;
     }
     return extra;
+}
+
+int DrychaHamadreth::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

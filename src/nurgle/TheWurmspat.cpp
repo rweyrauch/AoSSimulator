@@ -55,11 +55,11 @@ TheWurmspat::TheWurmspat() :
 
 bool TheWurmspat::configure()
 {
-    auto sepsimus = new Model(BASESIZE, WOUNDS);
+    auto sepsimus = new Model(BASESIZE, wounds());
     sepsimus->addMeleeWeapon(&m_blightedWeapons);
     addModel(sepsimus);
 
-    auto ghulgoch = new Model(BASESIZE, WOUNDS);
+    auto ghulgoch = new Model(BASESIZE, wounds());
     ghulgoch->addMeleeWeapon(&m_blightedWeapons);
     addModel(ghulgoch);
 

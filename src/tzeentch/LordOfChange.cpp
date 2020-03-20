@@ -12,6 +12,9 @@
 
 namespace Tzeentch
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 380;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, LordOfChange::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 1, 3},
@@ -111,7 +114,7 @@ LordOfChange::LordOfChange() :
 
 bool LordOfChange::configure(LordOfChange::WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (option == RodOfSorcery)
         model->addMissileWeapon(&m_rodOfSorcery);
     else if (option == BalefulSword)
@@ -163,6 +166,11 @@ int LordOfChange::rollCasting() const
     auto r0 = Dice::rollD6();
     auto r1 = Dice::rollD6();
     return std::max(r0, r1) * 2 + castingModifier();
+}
+
+int LordOfChange::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Tzeentch

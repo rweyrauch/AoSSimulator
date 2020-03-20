@@ -37,7 +37,7 @@ bool VanguardPalladors::configure(int numModels, WeaponOption weapons)
     }
 
     // Add the Prime
-    auto primeModel = new Model(BASESIZE, WOUNDS);
+    auto primeModel = new Model(BASESIZE, wounds());
     if (weapons == ShockHandaxe)
     {
         primeModel->addMeleeWeapon(&m_shockHandaxe);
@@ -54,7 +54,7 @@ bool VanguardPalladors::configure(int numModels, WeaponOption weapons)
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == ShockHandaxe)
         {
             model->addMeleeWeapon(&m_shockHandaxe);

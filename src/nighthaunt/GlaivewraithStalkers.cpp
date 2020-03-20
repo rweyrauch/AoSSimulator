@@ -34,7 +34,7 @@ bool GlaivewraithStalkers::configure(int numModels, bool drummer)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_huntersGlaive);
         addModel(model);
     }

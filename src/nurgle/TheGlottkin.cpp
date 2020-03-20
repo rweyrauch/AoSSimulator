@@ -13,6 +13,9 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 130;
+static const int WOUNDS = 18;
+static const int POINTS_PER_UNIT = 420;
 
 struct TableEntry
 {
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, TheGlottkin::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, RAND_2D6, 6},
@@ -50,7 +53,7 @@ TheGlottkin::TheGlottkin() :
 
 bool TheGlottkin::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_pestilentTorrent);
     model->addMeleeWeapon(&m_flailingTentacle);
     model->addMeleeWeapon(&m_lampreyMaw);
@@ -154,6 +157,11 @@ void TheGlottkin::onCharged()
         }
     }
     Unit::onCharged();
+}
+
+int TheGlottkin::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Nurgle

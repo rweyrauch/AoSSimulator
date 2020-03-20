@@ -12,6 +12,9 @@
 
 namespace FleshEaterCourt
 {
+static const int BASESIZE = 130;
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 300;
 
 struct TableEntry
 {
@@ -21,7 +24,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, RoyalTerrorgheist::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {14, 6, 4},
@@ -45,7 +48,7 @@ RoyalTerrorgheist::RoyalTerrorgheist() :
 
 bool RoyalTerrorgheist::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_deathShriek);
     model->addMeleeWeapon(&m_skeletalClaws);
     model->addMeleeWeapon(&m_fangedMaw);
@@ -162,6 +165,11 @@ void RoyalTerrorgheist::onSlain()
         Wounds wounds = {0, Dice::rollD3()};
         ip->applyDamage(wounds);
     }
+}
+
+int RoyalTerrorgheist::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace FleshEasterCourt

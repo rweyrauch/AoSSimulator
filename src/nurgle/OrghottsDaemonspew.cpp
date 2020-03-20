@@ -56,7 +56,7 @@ OrghottsDaemonspew::OrghottsDaemonspew() :
 
 bool OrghottsDaemonspew::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_tongue);
     model->addMeleeWeapon(&m_rotaxes);
     model->addMeleeWeapon(&m_claws);

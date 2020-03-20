@@ -29,13 +29,13 @@ bool DreadscytheHarridans::configure(int numModels)
         return false;
     }
 
-    auto crone = new Model(BASESIZE, WOUNDS);
+    auto crone = new Model(BASESIZE, wounds());
     crone->addMeleeWeapon(&m_scythedLimbsCrone);
     addModel(crone);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_scythedLimbs);
         addModel(model);
     }

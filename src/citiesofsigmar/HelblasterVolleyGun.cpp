@@ -72,7 +72,7 @@ HelblasterVolleyGun::HelblasterVolleyGun() :
 
 bool HelblasterVolleyGun::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     // TODO: allow selection of 1, 2 or 3 decks
     model->addMissileWeapon(&m_volley1);

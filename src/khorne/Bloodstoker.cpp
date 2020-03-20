@@ -26,7 +26,7 @@ Bloodstoker::Bloodstoker() :
 
 bool Bloodstoker::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_tortureBlade);
     model->addMeleeWeapon(&m_bloodWhip);
     addModel(model);

@@ -38,7 +38,7 @@ bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
     m_totemBearers = totemBearers;
 
     // Add the boss
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     boss->addMissileWeapon(&m_spiderBow);
     boss->addMeleeWeapon(&m_crookedSpearBoss);
     boss->addMeleeWeapon(&m_fangs);
@@ -47,7 +47,7 @@ bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers)
     // and the rest
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_spiderBow);
         model->addMeleeWeapon(&m_crookedSpear);
         model->addMeleeWeapon(&m_fangs);

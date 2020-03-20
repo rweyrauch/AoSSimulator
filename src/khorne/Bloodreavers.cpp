@@ -41,7 +41,7 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     m_hornblower = hornblowers;
 
     // Add the Chieftain
-    auto chieftainModel = new Model(BASESIZE, WOUNDS);
+    auto chieftainModel = new Model(BASESIZE, wounds());
     if (m_weaponOption == ReaverBlades)
     {
         chieftainModel->addMeleeWeapon(&m_reaverBladesChieftain);
@@ -55,7 +55,7 @@ bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, 
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (m_weaponOption == ReaverBlades)
         {
             model->addMeleeWeapon(&m_reaverBlades);

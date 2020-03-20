@@ -17,13 +17,9 @@ class WurrgogProphet : public Bonesplitterz
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
 
     WurrgogProphet();
     ~WurrgogProphet() override = default;

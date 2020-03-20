@@ -103,7 +103,7 @@ bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necr
         return false;
     }
 
-    auto hekatos = new Model(BASESIZE, WOUNDS);
+    auto hekatos = new Model(BASESIZE, wounds());
     if (option == NadiriteBladeAndShield)
     {
         hekatos->addMeleeWeapon(&m_bladeHekatos);
@@ -117,7 +117,7 @@ bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necr
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (option == NadiriteBladeAndShield)
         {
             model->addMeleeWeapon(&m_bladeHekatos);

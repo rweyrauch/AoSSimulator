@@ -54,7 +54,7 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     m_numIconbearers = numIconbearers;
 
     // Add the boss
-    auto boss = new Model(BASESIZE, WOUNDS);
+    auto boss = new Model(BASESIZE, wounds());
     if (bossWeapon == Stabba)
     {
         boss->addMeleeWeapon(&m_stabbaBoss);
@@ -70,7 +70,7 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     // add the nets
     for (auto i = 1; i < numBarbedNets; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_barbedNet);
         addModel(model);
     }
@@ -79,7 +79,7 @@ bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWe
     auto currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == Stabba)
         {
             model->addMeleeWeapon(&m_stabba);

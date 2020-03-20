@@ -82,7 +82,7 @@ bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hor
     m_hornblower = hornblower;
     m_bannerBearer = bannerBearer;
 
-    auto skalg = new Model(BASESIZE, WOUNDS);
+    auto skalg = new Model(BASESIZE, wounds());
     skalg->addMissileWeapon(&m_pistol);
     if (weaponOption == CullingClubOrPreyHackerAndIronfist)
         skalg->addMeleeWeapon(&m_clubOrHacker);
@@ -93,7 +93,7 @@ bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hor
 
     if (m_hornblower)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Hornblower");
         if (weaponOption == CullingClubOrPreyHackerAndIronfist)
             model->addMeleeWeapon(&m_clubOrHacker);
@@ -104,7 +104,7 @@ bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hor
     }
     if (m_bannerBearer)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->setName("Banner Bearer");
         if (weaponOption == CullingClubOrPreyHackerAndIronfist)
             model->addMeleeWeapon(&m_clubOrHacker);
@@ -116,7 +116,7 @@ bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hor
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weaponOption == CullingClubOrPreyHackerAndIronfist)
             model->addMeleeWeapon(&m_clubOrHacker);
         else if (weaponOption == GargantHacker)

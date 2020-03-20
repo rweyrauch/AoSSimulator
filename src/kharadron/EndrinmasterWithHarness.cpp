@@ -59,7 +59,7 @@ EndrinmasterWithEndrinharness::EndrinmasterWithEndrinharness() :
 
 bool EndrinmasterWithEndrinharness::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_gaze);
     model->addMeleeWeapon(&m_hammer);
     addModel(model);

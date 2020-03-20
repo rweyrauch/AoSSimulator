@@ -36,7 +36,7 @@ bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShiel
     m_hornblowers = hornblowers;
     m_duardinShields = duardinShields;
 
-    auto veteran = new Model(BASESIZE, WOUNDS);
+    auto veteran = new Model(BASESIZE, wounds());
     if (weapons == DuardinAxeOrHammer)
     {
         veteran->addMeleeWeapon(&m_duardinAxeOrHammerVeteran);
@@ -49,7 +49,7 @@ bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShiel
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapons == DuardinAxeOrHammer)
         {
             model->addMeleeWeapon(&m_duardinAxeOrHammer);

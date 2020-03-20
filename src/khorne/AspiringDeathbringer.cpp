@@ -30,7 +30,7 @@ bool AspiringDeathbringer::configure(WeaponOption weapon)
 {
     m_weaponOption = weapon;
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     if (m_weaponOption == BloodaxeAndWrathhammer)
     {

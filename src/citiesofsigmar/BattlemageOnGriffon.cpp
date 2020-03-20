@@ -13,6 +13,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 90;
+static const int WOUNDS = 13;
+static const int POINTS_PER_UNIT = 300;
 
 struct TableEntry
 {
@@ -22,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 11, BattlemageOnGriffon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 11, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {15, 3, 6},
@@ -93,7 +96,7 @@ BattlemageOnGriffon::BattlemageOnGriffon() :
 
 bool BattlemageOnGriffon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     model->addMeleeWeapon(&m_beastStaff);
     model->addMeleeWeapon(&m_twinBeaks);
@@ -156,6 +159,11 @@ int BattlemageOnGriffon::castingModifier() const
     if (Board::Instance()->getRealm() == Ghur) mod++;
 
     return mod;
+}
+
+int BattlemageOnGriffon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace CitiesOfSigmar

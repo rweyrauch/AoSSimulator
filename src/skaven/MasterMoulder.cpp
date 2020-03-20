@@ -68,7 +68,7 @@ MasterMoulder::~MasterMoulder()
 
 bool MasterMoulder::configure(WeaponOption option)
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     if (option == Lash)
         model->addMeleeWeapon(&m_lash);
     else if (option == ThingsCatcher)

@@ -35,7 +35,7 @@ WardenKing::WardenKing() :
 
 bool WardenKing::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_runeWeapon);
     addModel(model);
 

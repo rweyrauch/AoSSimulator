@@ -19,13 +19,9 @@ class Jabberslythe : public BeastsOfChaosBase
 {
 public:
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 160;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; }
+    static int ComputePoints(int numModels);
 
     Jabberslythe();
     ~Jabberslythe() override = default;

@@ -107,7 +107,7 @@ bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon)
 
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         if (weapon == EnsorcelledWeapon)
         {
             model->addMeleeWeapon(&m_ensorcelledWeapon);

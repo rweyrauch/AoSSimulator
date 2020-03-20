@@ -70,13 +70,13 @@ bool IronGolems::configure(int numModels)
         return false;
     }
 
-    auto dominar = new Model(BASESIZE, WOUNDS);
+    auto dominar = new Model(BASESIZE, wounds());
     dominar->addMissileWeapon(&m_bolas);
     dominar->addMeleeWeapon(&m_legionWeaponsDominar);
     dominar->setName("Dominar");
     addModel(dominar);
 
-    auto signifer = new Model(BASESIZE, WOUNDS);
+    auto signifer = new Model(BASESIZE, wounds());
     signifer->addMissileWeapon(&m_bolas);
     signifer->addMeleeWeapon(&m_legionWeapons);
     signifer->setName("Signifer");
@@ -90,7 +90,7 @@ bool IronGolems::configure(int numModels)
 
     for (auto i = 3; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_bolas);
         model->addMeleeWeapon(&m_legionWeapons);
         addModel(model);

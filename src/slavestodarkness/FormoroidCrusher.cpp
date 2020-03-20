@@ -60,7 +60,7 @@ FomoroidCrusher::FomoroidCrusher() :
 
 bool FomoroidCrusher::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
 
     model->addMissileWeapon(&m_hurledTerrain);
     model->addMeleeWeapon(&m_fists);

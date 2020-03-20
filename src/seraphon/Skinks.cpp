@@ -38,7 +38,7 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     m_weaponOption = weapons;
     
     // Add the Alpha
-    auto alpha = new Model(BASESIZE, WOUNDS);
+    auto alpha = new Model(BASESIZE, wounds());
     switch (m_weaponOption)
     {
         case JavelinsDaggersAndBucklers:
@@ -62,7 +62,7 @@ bool Skinks::configure(int numModels, WeaponOption weapons)
     int currentModelCount = (int) m_models.size();
     for (auto i = currentModelCount; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         switch (m_weaponOption)
         {
             case JavelinsDaggersAndBucklers:

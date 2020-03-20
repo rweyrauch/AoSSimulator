@@ -92,13 +92,13 @@ bool PhoenixGuard::configure(int numModels, bool standardBearer, bool drummer)
     m_drummer = drummer;
 
     // Add the Keeper
-    auto bossModel = new Model(BASESIZE, WOUNDS);
+    auto bossModel = new Model(BASESIZE, wounds());
     bossModel->addMeleeWeapon(&m_halberdKeeper);
     addModel(bossModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
     }

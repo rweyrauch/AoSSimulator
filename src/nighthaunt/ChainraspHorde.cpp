@@ -30,13 +30,13 @@ bool ChainraspHorde::configure(int numModels)
         return false;
     }
 
-    auto warden = new Model(BASESIZE, WOUNDS);
+    auto warden = new Model(BASESIZE, wounds());
     warden->addMeleeWeapon(&m_malignantWeaponWarden);
     addModel(warden);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_malignantWeapon);
         addModel(model);
     }

@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 260;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, AuricRunesmiterOnMagmadroth::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, RAND_D6,  6},
@@ -47,7 +50,7 @@ AuricRunesmiterOnMagmadroth::AuricRunesmiterOnMagmadroth() :
 
 bool AuricRunesmiterOnMagmadroth::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_throwingAxe);
     model->addMissileWeapon(&m_fyrestream);
     model->addMeleeWeapon(&m_clawsAndHorns);
@@ -180,6 +183,11 @@ Wounds AuricRunesmiterOnMagmadroth::computeReturnedDamage(const Weapon *weapon, 
         }
     }
     return Fyreslayer::computeReturnedDamage(weapon, saveRoll);
+}
+
+int AuricRunesmiterOnMagmadroth::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers

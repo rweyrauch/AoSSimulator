@@ -55,7 +55,7 @@ SpiritTorment::SpiritTorment() :
 
 bool SpiritTorment::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_chains);
     addModel(model);
 

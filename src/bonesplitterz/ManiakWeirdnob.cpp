@@ -11,6 +11,9 @@
 
 namespace Bonesplitterz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 120;
 
 bool ManiakWeirdnob::s_registered = false;
 
@@ -64,7 +67,7 @@ ManiakWeirdnob::ManiakWeirdnob() :
 
 bool ManiakWeirdnob::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_bonebeastStaff);
     model->addMeleeWeapon(&m_tusksAndHooves);
 
@@ -76,6 +79,11 @@ bool ManiakWeirdnob::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int ManiakWeirdnob::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Bonesplitterz

@@ -22,7 +22,7 @@ HagQueen::HagQueen() :
 
 bool HagQueen::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_bladeOfKhaine);
     addModel(model);
 

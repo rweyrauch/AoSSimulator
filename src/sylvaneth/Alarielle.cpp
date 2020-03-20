@@ -17,6 +17,10 @@
 
 namespace Sylvaneth
 {
+static const int BASESIZE = 160;
+static const int WOUNDS = 16;
+static const int POINTS_PER_UNIT = 600;
+
 bool Alarielle::s_registered = false;
 
 struct TableEntry
@@ -27,7 +31,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, Alarielle::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {16, 30, 5},
@@ -53,7 +57,7 @@ Alarielle::Alarielle() :
 
 bool Alarielle::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_spearOfKurnoth);
     model->addMeleeWeapon(&m_talonOfDwindling);
     model->addMeleeWeapon(&m_beetleGreatAntlers);
@@ -226,6 +230,11 @@ void Alarielle::onRestore()
 {
     // Restore table-driven attributes
     onWounded();
+}
+
+int Alarielle::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Sylvaneth

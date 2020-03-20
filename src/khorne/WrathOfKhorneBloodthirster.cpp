@@ -11,6 +11,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 300;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WrathOfKhorneBloodthirster::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {10, 6,       2},
@@ -46,7 +49,7 @@ WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
 
 bool WrathOfKhorneBloodthirster::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_bloodflail);
     model->addMissileWeapon(&m_breath);
     model->addMeleeWeapon(&m_mightyAxeOfKhorne);
@@ -142,6 +145,11 @@ Wounds WrathOfKhorneBloodthirster::weaponDamage(const Weapon *weapon, const Unit
         }
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int WrathOfKhorneBloodthirster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

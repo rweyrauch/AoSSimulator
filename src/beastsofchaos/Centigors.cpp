@@ -11,6 +11,12 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 320;
 
 bool Centigors::s_registered = false;
 
@@ -36,14 +42,14 @@ bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer)
 
     m_runAndCharge = m_brayhorn;
 
-    auto gorehoof = new Model(BASESIZE, WOUNDS);
+    auto gorehoof = new Model(BASESIZE, wounds());
     gorehoof->addMeleeWeapon(&m_centigorSpearGorehoof);
     gorehoof->addMeleeWeapon(&m_clawedForelimbs);
     addModel(gorehoof);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_centigorSpear);
         model->addMeleeWeapon(&m_clawedForelimbs);
         addModel(model);

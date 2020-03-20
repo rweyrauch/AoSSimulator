@@ -46,14 +46,14 @@ bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, boo
     m_hornblower = hornblower;
 
     // Add the Heartseeker
-    auto reaperModel = new Model(BASESIZE, WOUNDS);
+    auto reaperModel = new Model(BASESIZE, wounds());
     reaperModel->addMeleeWeapon(&m_piercingClawsHeartseeker);
     reaperModel->addMeleeWeapon(&m_poisonedTongue);
     addModel(reaperModel);
 
     for (auto i = 1; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongue);
         addModel(model);
@@ -122,7 +122,7 @@ void Seekers::restoreModels(int numModels)
     // Icon Bearer
     for (auto i = 0; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongue);
         addModel(model);

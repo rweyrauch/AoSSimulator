@@ -13,6 +13,10 @@
 namespace Seraphon
 {
 
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 260;
+
 struct TableEntry
 {
     int m_move;
@@ -21,7 +25,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, EngineOfTheGods::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 4, 5},
@@ -53,7 +57,7 @@ EngineOfTheGods::~EngineOfTheGods()
 
 bool EngineOfTheGods::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_javelins);
     model->addMeleeWeapon(&m_horns);
     model->addMeleeWeapon(&m_jaws);
@@ -207,6 +211,11 @@ Rerolls EngineOfTheGods::steadfastMajestyBraveryReroll(const Unit *unit)
 {
     if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
     return NoRerolls;
+}
+
+int EngineOfTheGods::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Seraphon

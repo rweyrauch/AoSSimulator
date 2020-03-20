@@ -73,7 +73,7 @@ EidolonOfMathlannAspectOfTheSea::~EidolonOfMathlannAspectOfTheSea()
 
 bool EidolonOfMathlannAspectOfTheSea::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMissileWeapon(&m_abyssalEnergy);
     model->addMeleeWeapon(&m_trident);
     model->addMeleeWeapon(&m_sceptre);

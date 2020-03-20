@@ -43,7 +43,7 @@ bool LordArcanumOnDracoline::configure(LoreOfTheStorm storm, LoreOfInvigoration 
         return false;
     }
 
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_aetherstave);
     model->addMeleeWeapon(&m_monstrousClaws);
     addModel(model);

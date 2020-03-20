@@ -39,7 +39,7 @@ bool SquiqHerd::configure(int numModels)
     // Add the herder
     for (auto i = 0; i < numHerders; i++)
     {
-        auto herder = new Model(BASESIZE, WOUNDS);
+        auto herder = new Model(BASESIZE, wounds());
         herder->addMeleeWeapon(&m_squigProdder);
         addModel(herder);
     }
@@ -47,7 +47,7 @@ bool SquiqHerd::configure(int numModels)
     // and the squigs
     for (auto i = numHerders; i < numModels; i++)
     {
-        auto model = new Model(BASESIZE, WOUNDS);
+        auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_fangFilledGob);
         addModel(model);
     }

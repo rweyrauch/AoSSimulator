@@ -55,7 +55,7 @@ KnightOfShroudsOnEtherealSteed::KnightOfShroudsOnEtherealSteed() :
 
 bool KnightOfShroudsOnEtherealSteed::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_sword);
     model->addMeleeWeapon(&m_hoovesAndTeeth);
     addModel(model);

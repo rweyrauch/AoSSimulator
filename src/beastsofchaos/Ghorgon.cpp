@@ -12,6 +12,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 14;
+static const int POINTS_PER_UNIT = 160;
 
 bool Ghorgon::s_registered = false;
 
@@ -23,7 +26,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, Ghorgon::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {8, 5, 2},
@@ -44,7 +47,7 @@ Ghorgon::Ghorgon() :
 
 bool Ghorgon::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_butcheringBlades);
     model->addMeleeWeapon(&m_hugeSlaveringMaw);
     addModel(model);
@@ -147,6 +150,11 @@ void Ghorgon::onStartCombat(PlayerId player)
             m_meleeTarget->slay(1);
         }
     }
+}
+
+int Ghorgon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos

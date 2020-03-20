@@ -62,18 +62,18 @@ MagoresFiends::MagoresFiends() :
 
 bool MagoresFiends::configure()
 {
-    auto magore = new Model(BASESIZE, WOUNDS);
+    auto magore = new Model(BASESIZE, wounds());
     magore->setName("Magore");
     magore->addMeleeWeapon(&m_bellyMaw);
     magore->addMeleeWeapon(&m_daemonicAxe);
     addModel(magore);
 
-    auto ghartok = new Model(BASESIZE, WOUNDS);
+    auto ghartok = new Model(BASESIZE, wounds());
     ghartok->setName("Ghartok");
     ghartok->addMeleeWeapon(&m_goreaxe);
     addModel(ghartok);
 
-    auto zharkus = new Model(BASESIZE, WOUNDS);
+    auto zharkus = new Model(BASESIZE, wounds());
     zharkus->setName("Zharkus");
     zharkus->addMeleeWeapon(&m_goreaxe);
     addModel(zharkus);

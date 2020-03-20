@@ -24,7 +24,7 @@ LordOfPlagues::LordOfPlagues() :
 
 bool LordOfPlagues::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_plagueriddenGreatBlade);
     addModel(model);
 

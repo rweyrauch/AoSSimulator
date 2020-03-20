@@ -70,7 +70,7 @@ BlackArkFleetmaster::BlackArkFleetmaster() :
 
 bool BlackArkFleetmaster::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_cutlass);
     model->addMeleeWeapon(&m_murderHook);
     addModel(model);

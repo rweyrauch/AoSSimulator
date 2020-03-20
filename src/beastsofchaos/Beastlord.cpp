@@ -11,6 +11,9 @@
 
 namespace BeastsOfChaos
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool Beastlord::s_registered = false;
 
@@ -24,7 +27,7 @@ Beastlord::Beastlord() :
 
 bool Beastlord::configure()
 {
-    auto model = new Model(BASESIZE, WOUNDS);
+    auto model = new Model(BASESIZE, wounds());
     model->addMeleeWeapon(&m_pairedAxes);
     addModel(model);
 
@@ -87,6 +90,11 @@ Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) cons
         return RerollFailed;
     }
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int Beastlord::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace BeastsOfChaos
