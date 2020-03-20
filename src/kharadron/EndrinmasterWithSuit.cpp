@@ -10,6 +10,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 0;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 220;
 
 bool EndrinmasterWithDirigibleSuit::s_registered = false;
 
@@ -71,6 +74,11 @@ bool EndrinmasterWithDirigibleSuit::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int EndrinmasterWithDirigibleSuit::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

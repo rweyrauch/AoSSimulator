@@ -11,6 +11,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 0;
+static const int WOUNDS = 0;
+static const int POINTS_PER_UNIT = 150;
 
 bool GrundstokGunhauler::s_registered = false;
 
@@ -154,6 +157,11 @@ void GrundstokGunhauler::onStartMovement(PlayerId player)
         m_aheadFull = true;
         m_usedAheadFull = true;
     }
+}
+
+int GrundstokGunhauler::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

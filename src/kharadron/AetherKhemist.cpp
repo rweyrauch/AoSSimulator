@@ -10,6 +10,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool AetherKhemist::s_registered = false;
 
@@ -86,6 +89,11 @@ int AetherKhemist::atmosphericIsolation(const Unit* attacker, const Weapon *weap
     }
 
     return 0;
+}
+
+int AetherKhemist::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

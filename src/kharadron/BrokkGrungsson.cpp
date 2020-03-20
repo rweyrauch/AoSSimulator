@@ -10,6 +10,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 240;
 
 bool BrokkGrungsson::s_registered = false;
 
@@ -71,6 +74,11 @@ bool BrokkGrungsson::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int BrokkGrungsson::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

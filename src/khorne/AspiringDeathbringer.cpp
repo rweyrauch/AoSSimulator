@@ -12,6 +12,10 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
+static const int POINTS_PER_UNIT_WITH_GOREAXE = 100;
 
 bool AspiringDeathbringer::s_registered = false;
 
@@ -116,6 +120,11 @@ int AspiringDeathbringer::EnumStringToInt(const std::string &enumString)
         return GoreaxeAndSkullhammer;
     }
     return KhorneBase::EnumStringToInt(enumString);
+}
+
+int AspiringDeathbringer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

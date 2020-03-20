@@ -10,6 +10,9 @@
 
 namespace KharadronOverlords
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 140;
 
 bool ArkanautAdmiral::s_registered = false;
 
@@ -83,6 +86,11 @@ Rerolls ArkanautAdmiral::toWoundRerolls(const Weapon *weapon, const Unit *target
     if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return RerollOnes;
 
     return Unit::toWoundRerolls(weapon, target);
+}
+
+int ArkanautAdmiral::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //KharadronOverlords

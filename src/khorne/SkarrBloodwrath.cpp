@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool SkarrBloodwrath::s_registered = false;
 
@@ -83,6 +86,11 @@ int SkarrBloodwrath::extraAttacks(const Model *attackingModel, const Weapon *wea
     attacks += std::max(totalModels - m_blades.attacks(), 0);
 
     return attacks;
+}
+
+int SkarrBloodwrath::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

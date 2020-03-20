@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool ExaltedDeathbringer::s_registered = false;
 
@@ -188,6 +191,11 @@ Wounds ExaltedDeathbringer::computeReturnedDamage(const Weapon *weapon, int save
         return {0, Dice::rollD3()};
     }
     return Unit::computeReturnedDamage(weapon, saveRoll);
+}
+
+int ExaltedDeathbringer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

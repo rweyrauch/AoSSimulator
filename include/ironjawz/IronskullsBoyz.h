@@ -18,12 +18,9 @@ namespace Ironjawz
 class IronskullsBoyz : public Ironjawz
 {
 public:
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 80;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     IronskullsBoyz();

@@ -11,6 +11,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 100;
 
 bool Slaughterpriest::s_registered = false;
 
@@ -122,6 +125,11 @@ int Slaughterpriest::EnumStringToInt(const std::string &enumString)
     if (enumString == "Bloodbathed Axe") { return BloodbathedAxe; }
     else if (enumString == "Hackblade and Wrath-hammer") { return HackbladeAndWrathHammer; }
     return KhorneBase::EnumStringToInt(enumString);
+}
+
+int Slaughterpriest::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

@@ -11,6 +11,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool LordOfKhorneOnJuggernaut::s_registered = false;
 
@@ -97,6 +100,11 @@ Wounds LordOfKhorneOnJuggernaut::weaponDamage(const Weapon *weapon, const Unit *
         return {RAND_D3, 0};
     }
     return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int LordOfKhorneOnJuggernaut::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

@@ -11,6 +11,9 @@
 
 namespace Ironjawz
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int POINTS_PER_UNIT = 80;
 
 bool IronskullsBoyz::s_registered = false;
 
@@ -98,6 +101,11 @@ int IronskullsBoyz::toHitModifier(const Weapon *weapon, const Unit *target) cons
         return 1;
     }
     return Unit::toHitModifier(weapon, target);
+}
+
+int IronskullsBoyz::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Bloodmaster::s_registered = false;
 
@@ -77,6 +80,11 @@ Wounds Bloodmaster::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return {weapon->damage(), 1};
     }
     return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int Bloodmaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

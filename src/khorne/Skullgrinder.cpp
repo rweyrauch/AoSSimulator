@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Skullgrinder::s_registered = false;
 
@@ -117,6 +120,11 @@ Wounds Skullgrinder::onEndCombat(PlayerId player)
         }
     }
     return wounds;
+}
+
+int Skullgrinder::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

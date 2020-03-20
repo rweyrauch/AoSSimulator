@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool Karanak::s_registered = false;
 
@@ -101,6 +104,11 @@ void Karanak::onBeginTurn(int battleRound)
     }
 
     KhorneBase::onBeginTurn(battleRound);
+}
+
+int Karanak::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

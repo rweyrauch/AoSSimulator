@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool HeraldOfKhorneOnBloodThrone::s_registered = false;
 
@@ -81,6 +84,11 @@ Wounds HeraldOfKhorneOnBloodThrone::weaponDamage(const Weapon *weapon, const Uni
         return {weapon->damage(), 1};
     }
     return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int HeraldOfKhorneOnBloodThrone::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

@@ -11,6 +11,9 @@
 
 namespace Ironjawz
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 150;
 
 bool OrrukMegaboss::s_registered = false;
 
@@ -95,6 +98,11 @@ Wounds OrrukMegaboss::onEndCombat(PlayerId player)
         m_bossChoppaAndFist.setAttacks(m_bossChoppaAndFist.attacks()+1);
     }
     return Ironjawz::onEndCombat(player);
+}
+
+int OrrukMegaboss::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Ironjawz

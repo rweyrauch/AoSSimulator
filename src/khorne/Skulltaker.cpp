@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool Skulltaker::s_registered = false;
 
@@ -103,6 +106,11 @@ Rerolls Skulltaker::toWoundRerolls(const Weapon *weapon, const Unit *target) con
         return RerollFailed;
     }
     return KhorneBase::toWoundRerolls(weapon, target);
+}
+
+int Skulltaker::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

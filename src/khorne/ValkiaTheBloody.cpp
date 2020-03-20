@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool ValkiaTheBloody::s_registered = false;
 
@@ -87,6 +90,11 @@ int ValkiaTheBloody::targetWoundModifier(const Weapon *weapon, const Unit *attac
         return -1;
     }
     return Unit::targetWoundModifier(weapon, attacker);
+}
+
+int ValkiaTheBloody::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Bloodstoker::s_registered = false;
 
@@ -69,6 +72,11 @@ void Bloodstoker::Init()
         };
         s_registered = UnitFactory::Register("Bloodstoker", factoryMethod);
     }
+}
+
+int Bloodstoker::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

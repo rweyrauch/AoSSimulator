@@ -11,6 +11,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 140;
 
 bool MightyLordOfKhorne::s_registered = false;
 
@@ -71,6 +74,11 @@ void MightyLordOfKhorne::Init()
         };
         s_registered = UnitFactory::Register("Mighty Lord of Khorne", factoryMethod);
     }
+}
+
+int MightyLordOfKhorne::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

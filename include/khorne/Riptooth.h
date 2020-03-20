@@ -18,12 +18,9 @@ namespace Khorne
 class Riptooth : public KhorneBase
 {
 public:
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 40;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     Riptooth();

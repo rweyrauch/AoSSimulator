@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int POINTS_PER_UNIT = 80;
 
 bool MagoresFiends::s_registered = false;
 
@@ -112,6 +115,11 @@ Rerolls MagoresFiends::chargeRerolls() const
         return RerollFailed;
     }
     return Unit::chargeRerolls();
+}
+
+int MagoresFiends::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

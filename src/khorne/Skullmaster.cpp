@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 75; // x50 oval
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 120;
 
 bool Skullmaster::s_registered = false;
 
@@ -117,6 +120,11 @@ Rerolls Skullmaster::toHitRerolls(const Weapon *weapon, const Unit *target) cons
         return RerollFailed;
     }
     return KhorneBase::toHitRerolls(weapon, target);
+}
+
+int Skullmaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

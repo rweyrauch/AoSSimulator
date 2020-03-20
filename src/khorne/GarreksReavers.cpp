@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int POINTS_PER_UNIT = 60;
 
 bool GarreksReavers::s_registered = false;
 
@@ -129,6 +132,11 @@ Wounds GarreksReavers::weaponDamage(const Weapon *weapon, const Unit *target, in
         return { 0, 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int GarreksReavers::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

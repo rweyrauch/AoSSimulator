@@ -11,6 +11,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int POINTS_PER_UNIT = 40;
 
 bool Riptooth::s_registered = false;
 
@@ -69,6 +72,11 @@ bool Riptooth::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Riptooth::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne
