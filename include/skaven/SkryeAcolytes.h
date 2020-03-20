@@ -18,12 +18,6 @@ namespace Skaven
 class SkryeAcolytes : public Skaventide
 {
 public:
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

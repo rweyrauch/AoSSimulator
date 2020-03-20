@@ -11,6 +11,12 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 5;
+static const int MIN_UNIT_SIZE = 2;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 260;
+static const int POINTS_MAX_UNIT_SIZE = 1560;
 
 bool Concussors::s_registered = false;
 

@@ -12,6 +12,14 @@
 
 namespace Seraphon
 {
+static const int BASESIZE = 25;
+static const int BASESIZE_SALAMANDER = 60; // x35 oval
+static const int WOUNDS = 1;
+static const int WOUNDS_SALAMANDER = 3;
+static const int MIN_UNIT_SIZE = 4;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 240;
 
 bool Salamanders::s_registered = false;
 

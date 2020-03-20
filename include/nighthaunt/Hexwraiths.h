@@ -19,13 +19,6 @@ class Hexwraiths : public Nighthaunt
 {
 public:
 
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 140*4;
-
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
     static void Init();

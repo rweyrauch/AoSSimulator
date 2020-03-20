@@ -19,13 +19,6 @@ class DreadscytheHarridans : public Nighthaunt
 {
 public:
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
-
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
     static void Init();

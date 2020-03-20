@@ -11,6 +11,12 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 9;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 3;
+static const int POINTS_PER_BLOCK = 150;
+static const int POINTS_MAX_UNIT_SIZE = 450;
 
 bool GorebeastChariots::s_registered = false;
 
@@ -45,10 +51,7 @@ void GorebeastChariots::Init()
             GorebeastChariots::EnumStringToInt,
             GorebeastChariots::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", GorebeastChariots::MIN_UNIT_SIZE, GorebeastChariots::MIN_UNIT_SIZE,
-                    GorebeastChariots::MAX_UNIT_SIZE, GorebeastChariots::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", GorebeastChariots::GreatBladeAndWhip, GorebeastChariots::GreatBladeAndWhip,
                     GorebeastChariots::WarFlailAndWhip, 1

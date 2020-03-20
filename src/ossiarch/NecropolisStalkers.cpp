@@ -10,6 +10,12 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 6;
+static const int POINTS_PER_BLOCK = 200;
+static const int POINTS_MAX_UNIT_SIZE = 400;
 
 bool NecropolisStalkers::s_registered = false;
 
@@ -52,11 +58,8 @@ void NecropolisStalkers::Init()
             NecropolisStalkers::EnumStringToInt,
             NecropolisStalkers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", NecropolisStalkers::MIN_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE,
-                    NecropolisStalkers::MAX_UNIT_SIZE, NecropolisStalkers::MIN_UNIT_SIZE
-                },
-                {ParamType::Integer, "Dread Falchions", 1, 0, NecropolisStalkers::MAX_UNIT_SIZE/3, 1},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Dread Falchions", 1, 0, MAX_UNIT_SIZE/3, 1},
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
             DEATH,

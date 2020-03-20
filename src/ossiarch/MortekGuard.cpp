@@ -10,6 +10,12 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 130;
+static const int POINTS_MAX_UNIT_SIZE = 440;
 
 bool MortekGuard::s_registered = false;
 
@@ -68,13 +74,10 @@ void MortekGuard::Init()
             MortekGuard::EnumStringToInt,
             MortekGuard::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", MortekGuard::MIN_UNIT_SIZE, MortekGuard::MIN_UNIT_SIZE,
-                    MortekGuard::MAX_UNIT_SIZE, MortekGuard::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Enum, "Weapons", MortekGuard::NadiriteBladeAndShield, MortekGuard::NadiriteBladeAndShield, MortekGuard::NadirateSpearAndShield, 1},
-                {ParamType::Integer, "Soulcleaver Greatblade", 1, 0, MortekGuard::MAX_UNIT_SIZE/3, 1},
+                {ParamType::Integer, "Soulcleaver Greatblade", 1, 0, MAX_UNIT_SIZE/3, 1},
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
             DEATH,

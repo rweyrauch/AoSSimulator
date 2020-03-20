@@ -12,6 +12,12 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 160;
+static const int POINTS_MAX_UNIT_SIZE = 580;
 
 bool PutridBlightkings::s_registered = false;
 
@@ -76,10 +82,7 @@ void PutridBlightkings::Init()
             NurgleBase::EnumStringToInt,
             PutridBlightkings::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", PutridBlightkings::MIN_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE,
-                    PutridBlightkings::MAX_UNIT_SIZE, PutridBlightkings::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Sonorous Tocsin", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
             },

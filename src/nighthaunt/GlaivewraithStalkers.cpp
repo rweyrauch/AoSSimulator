@@ -11,6 +11,12 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 4;
+static const int MAX_UNIT_SIZE = 16;
+static const int POINTS_PER_BLOCK = 60;
+static const int POINTS_MAX_UNIT_SIZE = 320;
 
 bool GlaivewraithStalkers::s_registered = false;
 
@@ -69,10 +75,7 @@ void GlaivewraithStalkers::Init()
             nullptr,
             GlaivewraithStalkers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", GlaivewraithStalkers::MIN_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE,
-                    GlaivewraithStalkers::MAX_UNIT_SIZE, GlaivewraithStalkers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0}
             },
             DEATH,

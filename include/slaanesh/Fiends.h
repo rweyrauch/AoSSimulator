@@ -19,13 +19,6 @@ class Fiends : public SlaaneshBase
 {
 public:
 
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 9;
-    static const int POINTS_PER_BLOCK = 210;
-    static const int POINTS_MAX_UNIT_SIZE = 630;
-
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
     static void Init();

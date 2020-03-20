@@ -10,6 +10,12 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 600;
 
 bool ChaosWarriors::s_registered = false;
 
@@ -46,10 +52,7 @@ void ChaosWarriors::Init()
             ChaosWarriors::EnumStringToInt,
             ChaosWarriors::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ChaosWarriors::MIN_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE,
-                    ChaosWarriors::MAX_UNIT_SIZE, ChaosWarriors::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", ChaosWarriors::HandWeaponAndShield, ChaosWarriors::HandWeaponAndShield,
                     ChaosWarriors::PairedHandWeapons, 1

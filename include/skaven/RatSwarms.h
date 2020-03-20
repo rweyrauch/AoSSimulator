@@ -18,12 +18,6 @@ namespace Skaven
 class RatSwarms : public Skaventide
 {
 public:
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 8;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 240;
 
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);

@@ -11,6 +11,13 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 60;
+static const int POINTS_MAX_UNIT_SIZE = 200;
+
 bool GiantRats::s_registered = false;
 
 Unit *GiantRats::Create(const ParameterList &parameters)

@@ -12,6 +12,12 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 6;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 3;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 360;
 
 bool SeekerChariots::s_registered = false;
 
@@ -73,10 +79,7 @@ void SeekerChariots::Init()
             SlaaneshBase::EnumStringToInt,
             SeekerChariots::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", SeekerChariots::MIN_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE,
-                    SeekerChariots::MAX_UNIT_SIZE, SeekerChariots::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders, SlaaneshBase::Godseekers, 1},
             },
             CHAOS,

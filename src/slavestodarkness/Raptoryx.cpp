@@ -10,6 +10,12 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 6;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 90;
+static const int POINTS_MAX_UNIT_SIZE = 450;
 
 bool Raptoryx::s_registered = false;
 
@@ -40,10 +46,7 @@ void Raptoryx::Init()
             SlavesToDarknessBase::EnumStringToInt,
             Raptoryx::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Raptoryx::MIN_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE,
-                    Raptoryx::MAX_UNIT_SIZE, Raptoryx::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
             },
             CHAOS,

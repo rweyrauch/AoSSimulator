@@ -11,6 +11,12 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 7;
+static const int MIN_UNIT_SIZE = 1;
+static const int MAX_UNIT_SIZE = 3;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 360;
 
 bool ChaosChariots::s_registered = false;
 
@@ -45,10 +51,7 @@ void ChaosChariots::Init()
             ChaosChariots::EnumStringToInt,
             ChaosChariots::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ChaosChariots::MIN_UNIT_SIZE, ChaosChariots::MIN_UNIT_SIZE,
-                    ChaosChariots::MAX_UNIT_SIZE, ChaosChariots::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", ChaosChariots::GreatBladeAndWhip, ChaosChariots::GreatBladeAndWhip,
                     ChaosChariots::WarFlailAndWhip, 1

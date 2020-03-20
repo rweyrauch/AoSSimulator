@@ -12,6 +12,12 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 200;
+static const int POINTS_MAX_UNIT_SIZE = 800;
 
 bool PusgoyleBlightlords::s_registered = false;
 
@@ -81,11 +87,8 @@ void PusgoyleBlightlords::Init()
             NurgleBase::EnumStringToInt,
             PusgoyleBlightlords::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", PusgoyleBlightlords::MIN_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE,
-                    PusgoyleBlightlords::MAX_UNIT_SIZE, PusgoyleBlightlords::MIN_UNIT_SIZE
-                },
-                {ParamType::Integer, "Dolorous Tocsin", 0, 0, PusgoyleBlightlords::MAX_UNIT_SIZE/2},
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Integer, "Dolorous Tocsin", 0, 0, MAX_UNIT_SIZE/2},
             },
             CHAOS,
             { NURGLE }

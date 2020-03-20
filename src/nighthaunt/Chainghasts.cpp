@@ -12,6 +12,12 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 2;
+static const int MAX_UNIT_SIZE = 4;
+static const int POINTS_PER_BLOCK = 70;
+static const int POINTS_MAX_UNIT_SIZE = 140;
 
 bool Chainghasts::s_registered = false;
 
@@ -68,10 +74,7 @@ void Chainghasts::Init()
             nullptr,
             Chainghasts::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Chainghasts::MIN_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE,
-                    Chainghasts::MAX_UNIT_SIZE, Chainghasts::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DEATH,
             { NIGHTHAUNT }

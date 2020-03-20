@@ -11,6 +11,13 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 140*4;
+
 bool Hexwraiths::s_registered = false;
 
 Hexwraiths::Hexwraiths() :
@@ -72,10 +79,7 @@ void Hexwraiths::Init()
             nullptr,
             Hexwraiths::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Hexwraiths::MIN_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE,
-                    Hexwraiths::MAX_UNIT_SIZE, Hexwraiths::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DEATH,
             { NIGHTHAUNT }

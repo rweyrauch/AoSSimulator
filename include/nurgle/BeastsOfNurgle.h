@@ -19,13 +19,6 @@ class BeastsOfNurgle : public NurgleBase
 {
 public:
 
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 6;
-
     static Unit* Create(const ParameterList& parameters);
     static int ComputePoints(int numModels);
     static void Init();

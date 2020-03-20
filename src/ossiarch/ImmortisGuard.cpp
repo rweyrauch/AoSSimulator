@@ -10,6 +10,12 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 50;
+static const int WOUNDS = 4;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 200;
+static const int POINTS_MAX_UNIT_SIZE = 800;
 
 bool ImmortisGuard::s_registered = false;
 
@@ -51,10 +57,7 @@ void ImmortisGuard::Init()
             ImmortisGuard::EnumStringToInt,
             ImmortisGuard::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ImmortisGuard::MIN_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE,
-                    ImmortisGuard::MAX_UNIT_SIZE, ImmortisGuard::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
             DEATH,

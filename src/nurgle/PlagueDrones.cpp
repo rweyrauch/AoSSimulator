@@ -12,6 +12,12 @@
 
 namespace Nurgle
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 5;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 200;
+static const int POINTS_MAX_UNIT_SIZE = 800;
 
 bool PlagueDrones::s_registered = false;
 
@@ -110,10 +116,7 @@ void PlagueDrones::Init()
             PlagueDrones::EnumStringToInt,
             PlagueDrones::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", PlagueDrones::MIN_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE,
-                    PlagueDrones::MAX_UNIT_SIZE, PlagueDrones::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Weapons", PlagueDrones::PrehensileProboscis, PlagueDrones::PrehensileProboscis, PlagueDrones::FoulMouthparts},
                 {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
                 {ParamType::Boolean, "Bell Tollers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},

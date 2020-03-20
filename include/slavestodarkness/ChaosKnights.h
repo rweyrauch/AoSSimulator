@@ -19,13 +19,6 @@ class ChaosKnights : public SlavesToDarknessBase
 {
 public:
 
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 720;
-
     enum WeaponOption
     {
         EnsorcelledWeapon = 0,

@@ -19,13 +19,6 @@ class Fulminators : public StormcastEternal
 {
 public:
 
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 240;
-    static const int POINTS_MAX_UNIT_SIZE = 1440;
-
     static Unit *Create(const ParameterList &parameters);
     static int ComputePoints(int numModels);
     static void Init();

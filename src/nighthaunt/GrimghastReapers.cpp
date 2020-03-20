@@ -11,6 +11,13 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 160;
+static const int POINTS_MAX_UNIT_SIZE = 420;
+
 bool GrimghastReapers::s_registered = false;
 
 GrimghastReapers::GrimghastReapers() :
@@ -70,10 +77,7 @@ void GrimghastReapers::Init()
             nullptr,
             GrimghastReapers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", GrimghastReapers::MIN_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE,
-                    GrimghastReapers::MAX_UNIT_SIZE, GrimghastReapers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DEATH,
             { NIGHTHAUNT }

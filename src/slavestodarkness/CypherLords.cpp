@@ -10,6 +10,12 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 8;
+static const int MAX_UNIT_SIZE = 32;
+static const int POINTS_PER_BLOCK = 70;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool CypherLords::s_registered = false;
 
@@ -40,10 +46,7 @@ void CypherLords::Init()
             SlavesToDarknessBase::EnumStringToInt,
             CypherLords::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", CypherLords::MIN_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE,
-                    CypherLords::MAX_UNIT_SIZE, CypherLords::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
             },
             CHAOS,

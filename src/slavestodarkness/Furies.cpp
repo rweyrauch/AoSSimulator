@@ -10,6 +10,12 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 6;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 500;
 
 bool Furies::s_registered = false;
 
@@ -40,10 +46,7 @@ void Furies::Init()
             SlavesToDarknessBase::EnumStringToInt,
             Furies::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Furies::MIN_UNIT_SIZE, Furies::MIN_UNIT_SIZE,
-                    Furies::MAX_UNIT_SIZE, Furies::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
             },
             CHAOS,

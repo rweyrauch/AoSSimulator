@@ -12,6 +12,13 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 5;
+static const int MAX_UNIT_SIZE = 20;
+static const int POINTS_PER_BLOCK = 90;
+static const int POINTS_MAX_UNIT_SIZE = 320;
+
 
 bool BladegheistRevenants::s_registered = false;
 
@@ -68,10 +75,7 @@ void BladegheistRevenants::Init()
             nullptr,
             BladegheistRevenants::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", BladegheistRevenants::MIN_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE,
-                    BladegheistRevenants::MAX_UNIT_SIZE, BladegheistRevenants::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DEATH,
             { NIGHTHAUNT }

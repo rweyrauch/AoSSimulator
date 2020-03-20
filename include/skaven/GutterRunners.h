@@ -18,11 +18,6 @@ namespace Skaven
 class GutterRunners : public Skaventide
 {
 public:
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 60;
     static const int POINTS_MAX_UNIT_SIZE = 200;
 
     static Unit* Create(const ParameterList& parameters);

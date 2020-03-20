@@ -10,6 +10,12 @@
 
 namespace OssiarchBonereapers
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 6;
+static const int MIN_UNIT_SIZE = 2;
+static const int MAX_UNIT_SIZE = 6;
+static const int POINTS_PER_BLOCK = 210;
+static const int POINTS_MAX_UNIT_SIZE = 630;
 
 bool MorghastHarbingers::s_registered = false;
 
@@ -96,13 +102,8 @@ void MorghastHarbingers::Init()
             MorghastHarbingers::EnumStringToInt,
             MorghastHarbingers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MIN_UNIT_SIZE, MorghastHarbingers::MAX_UNIT_SIZE,
-                    MorghastHarbingers::MIN_UNIT_SIZE
-                },
-                {
-                    ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                {ParamType::Enum, "Weapons", MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritHalberd, MorghastHarbingers::SpiritSwords, 1},
                 {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None, OssiarchBonereaperBase::Crematorians, 1},
             },
             DEATH,

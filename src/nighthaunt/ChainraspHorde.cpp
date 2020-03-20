@@ -11,6 +11,12 @@
 
 namespace Nighthaunt
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool ChainraspHorde::s_registered = false;
 
@@ -70,10 +76,7 @@ void ChainraspHorde::Init()
             nullptr,
             ChainraspHorde::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", ChainraspHorde::MIN_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE,
-                    ChainraspHorde::MAX_UNIT_SIZE, ChainraspHorde::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
             },
             DEATH,
             { NIGHTHAUNT }

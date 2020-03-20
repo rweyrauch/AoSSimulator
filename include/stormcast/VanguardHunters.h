@@ -19,13 +19,6 @@ class VanguardHunters : public StormcastEternal
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 330;
-
     enum WeaponOption
     {
         ShockHandaxe,

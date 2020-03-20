@@ -11,6 +11,13 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 2;
+static const int MIN_UNIT_SIZE = 3;
+static const int MAX_UNIT_SIZE = 12;
+static const int POINTS_PER_BLOCK = 140;
+static const int POINTS_MAX_UNIT_SIZE = 560;
+
 bool WarplockJezzails::s_registered = false;
 
 Unit *WarplockJezzails::Create(const ParameterList &parameters)
