@@ -11,6 +11,9 @@
 
 namespace CitiesOfSigmar
 {
+static const int BASESIZE = 105;
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 170;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-const int g_woundThresholds[NUM_TABLE_ENTRIES] = {1, 3, 5, 7, Kharibdyss::WOUNDS};
+const int g_woundThresholds[NUM_TABLE_ENTRIES] = {1, 3, 5, 7, WOUNDS};
 const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {7, 6, 2},
@@ -147,6 +150,11 @@ int Kharibdyss::abyssalHowl(const Unit *target)
     }
 
     return 0;
+}
+
+int Kharibdyss::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace CitiesOfSigmar

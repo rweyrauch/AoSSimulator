@@ -12,6 +12,9 @@
 
 namespace Khorne
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 100;
 
 bool ScylaAnfingrimm::s_registered = false;
 
@@ -84,6 +87,11 @@ int ScylaAnfingrimm::extraAttacks(const Model *attackingModel, const Weapon *wea
     attacks += (WOUNDS - remainingWounds());
 
     return attacks;
+}
+
+int ScylaAnfingrimm::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Khorne

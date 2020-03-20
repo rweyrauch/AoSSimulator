@@ -11,6 +11,9 @@
 
 namespace Fyreslayers
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 100;
 
 bool GrimwrathBerzerker::s_registered = false;
 
@@ -86,6 +89,11 @@ Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal -= mortalSaves.rollsGE(threshold);
 
     return totalWounds.clamp();
+}
+
+int GrimwrathBerzerker::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Fyreslayers
