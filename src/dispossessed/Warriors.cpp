@@ -11,6 +11,12 @@
 
 namespace Dispossessed
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 40;
+static const int POINTS_PER_BLOCK = 80;
+static const int POINTS_MAX_UNIT_SIZE = 280;
 
 bool Warriors::s_registered = false;
 
@@ -94,10 +100,7 @@ void Warriors::Init()
             Warriors::EnumStringToInt,
             Warriors::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Warriors::MIN_UNIT_SIZE, Warriors::MIN_UNIT_SIZE,
-                    Warriors::MAX_UNIT_SIZE, Warriors::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", Warriors::DuardinAxeOrHammer, Warriors::DuardinAxeOrHammer,
                     Warriors::DoubleHandedDuardinAxe, 1

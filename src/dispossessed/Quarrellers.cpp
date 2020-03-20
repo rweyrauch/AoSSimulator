@@ -12,6 +12,13 @@
 
 namespace Dispossessed
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 120;
+static const int POINTS_MAX_UNIT_SIZE = 360;
+
 bool Quarrellers::s_registered = false;
 
 Quarrellers::Quarrellers() :
@@ -80,10 +87,7 @@ void Quarrellers::Init()
             Quarrellers::EnumStringToInt,
             Quarrellers::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Quarrellers::MIN_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE,
-                    Quarrellers::MAX_UNIT_SIZE, Quarrellers::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                 {ParamType::Enum, "Standard", Quarrellers::None, Quarrellers::None, Quarrellers::ClanBanner, 1},
                 {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},

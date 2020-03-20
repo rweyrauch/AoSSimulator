@@ -11,6 +11,12 @@
 
 namespace Dispossessed
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 1;
+static const int MIN_UNIT_SIZE = 10;
+static const int MAX_UNIT_SIZE = 30;
+static const int POINTS_PER_BLOCK = 100;
+static const int POINTS_MAX_UNIT_SIZE = 270;
 
 bool Longbeards::s_registered = false;
 
@@ -94,10 +100,7 @@ void Longbeards::Init()
             Longbeards::EnumStringToInt,
             Longbeards::ComputePoints,
             {
-                {
-                    ParamType::Integer, "Models", Longbeards::MIN_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE,
-                    Longbeards::MAX_UNIT_SIZE, Longbeards::MIN_UNIT_SIZE
-                },
+                {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                 {
                     ParamType::Enum, "Weapons", Longbeards::AncestralAxesOrHammers, Longbeards::AncestralAxesOrHammers,
                     Longbeards::AncestralGreatAxe, 1

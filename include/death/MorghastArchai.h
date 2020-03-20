@@ -19,13 +19,6 @@ class MorghastArchai : public LegionOfNagashBase
 {
 public:
 
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 210;
-    static const int POINTS_MAX_UNIT_SIZE = 630;
-
     enum WeaponOptions
     {
         SpiritHalberd,
