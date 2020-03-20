@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool ViceleaderHeraldOfSlaanesh::s_registered = false;
 
@@ -89,6 +92,11 @@ Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
     return totalWounds;
+}
+
+int ViceleaderHeraldOfSlaanesh::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

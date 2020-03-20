@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 120;
 
 bool TheContortedEpitome::s_registered = false;
 
@@ -85,6 +88,11 @@ Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds)
     totalWounds.mortal = std::max(totalWounds.mortal, 0);
 
     return totalWounds;
+}
+
+int TheContortedEpitome::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

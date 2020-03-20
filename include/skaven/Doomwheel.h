@@ -18,12 +18,9 @@ namespace Skaven
 class Doomwheel : public Skaventide
 {
 public:
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
 
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     Doomwheel();

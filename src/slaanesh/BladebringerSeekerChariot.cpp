@@ -13,6 +13,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool BladebringerOnSeekerChariot::s_registered = false;
 
@@ -93,6 +96,11 @@ void BladebringerOnSeekerChariot::onCharged()
             ip->applyDamage({0, Dice::rollD3()});
         }
     }
+}
+
+int BladebringerOnSeekerChariot::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

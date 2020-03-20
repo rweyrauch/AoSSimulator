@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 9;
+static const int POINTS_PER_UNIT = 180;
 
 bool BladebringerOnHellflayer::s_registered = false;
 
@@ -74,6 +77,11 @@ void BladebringerOnHellflayer::Init()
         };
         s_registered = UnitFactory::Register("Bladebringer, Herald on Hellflayer", factoryMethod);
     }
+}
+
+int BladebringerOnHellflayer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

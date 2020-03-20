@@ -12,6 +12,9 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 180;
 
 bool WarpLightningCannon::s_registered = false;
 
@@ -116,6 +119,11 @@ int WarpLightningCannon::generateMortalWounds(const Unit *unit)
     }
 
     return mortalWounds;
+}
+
+int WarpLightningCannon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Skaven

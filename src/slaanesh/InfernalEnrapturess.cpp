@@ -13,6 +13,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool InfernalEnrapturess::s_registered = false;
 
@@ -96,6 +99,11 @@ void InfernalEnrapturess::onStartShooting(PlayerId player)
             }
         }
     }
+}
+
+int InfernalEnrapturess::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

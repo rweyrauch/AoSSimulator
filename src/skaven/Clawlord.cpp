@@ -11,6 +11,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
+
 bool Clawlord::s_registered = false;
 
 Unit *Clawlord::Create(const ParameterList &parameters)
@@ -72,5 +76,10 @@ int Clawlord::extraAttacks(const Model *attackingModel, const Weapon *weapon, co
     extra += (initialWounds() - remainingWounds());
 
     return extra;
+}
+
+int Clawlord::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 } //namespace Skaven

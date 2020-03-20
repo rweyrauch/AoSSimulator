@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 25;
+static const int WOUNDS = 9;
+static const int POINTS_PER_UNIT = 120;
 
 bool SyllEsske::s_registered = false;
 
@@ -75,6 +78,11 @@ void SyllEsske::Init()
         };
         s_registered = UnitFactory::Register("Syll'Esske The Vengeful Allegiance", factoryMethod);
     }
+}
+
+int SyllEsske::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

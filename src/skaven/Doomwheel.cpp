@@ -11,6 +11,9 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 105; // x70 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 160;
 
 bool Doomwheel::s_registered = false;
 
@@ -111,6 +114,11 @@ Wounds Doomwheel::onEndShooting(PlayerId player)
         m_moreMoreFailed = false;
     }
     return wounds;
+}
+
+int Doomwheel::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

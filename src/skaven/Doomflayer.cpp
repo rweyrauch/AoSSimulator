@@ -11,6 +11,9 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 3;
+static const int POINTS_PER_UNIT = 60;
 
 bool Doomflayer::s_registered = false;
 
@@ -120,6 +123,11 @@ Wounds Doomflayer::onEndCombat(PlayerId player)
         m_moreMoreFailed = false;
     }
     return wounds;
+}
+
+int Doomflayer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

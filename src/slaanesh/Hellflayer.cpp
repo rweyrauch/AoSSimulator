@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 140;
 
 bool Hellflayer::s_registered = false;
 
@@ -68,6 +71,11 @@ void Hellflayer::Init()
         };
         s_registered = UnitFactory::Register("Hellflayer", factoryMethod);
     }
+}
+
+int Hellflayer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

@@ -14,6 +14,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 160;
+
 bool ArchWarlock::s_registered = false;
 
 Unit *ArchWarlock::Create(const ParameterList &parameters)
@@ -133,6 +137,11 @@ void ArchWarlock::onStartShooting(PlayerId player)
             m_usedGauntlet = true;
         }
     }
+}
+
+int ArchWarlock::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

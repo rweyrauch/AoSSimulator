@@ -19,12 +19,8 @@ class BladebringerOnHellflayer : public SlaaneshBase
 {
 public:
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 180;
-
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels) { return POINTS_PER_UNIT; };
+    static int ComputePoints(int numModels);
     static void Init();
 
     BladebringerOnHellflayer();

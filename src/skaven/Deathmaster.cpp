@@ -11,6 +11,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
+
 bool Deathmaster::s_registered = false;
 
 Unit *Deathmaster::Create(const ParameterList &parameters)
@@ -92,6 +96,11 @@ int Deathmaster::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const
         return 2;
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int Deathmaster::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

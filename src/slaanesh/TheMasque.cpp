@@ -12,6 +12,9 @@
 
 namespace Slaanesh
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool TheMasque::s_registered = false;
 
@@ -70,6 +73,11 @@ void TheMasque::Init()
         };
         s_registered = UnitFactory::Register("The Masque", factoryMethod);
     }
+}
+
+int TheMasque::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // Slannesh

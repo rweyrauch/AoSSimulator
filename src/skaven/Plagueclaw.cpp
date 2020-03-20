@@ -11,6 +11,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 120; // x92 oval
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 160;
+
 bool Plagueclaw::s_registered = false;
 
 Unit *Plagueclaw::Create(const ParameterList &parameters)
@@ -86,6 +90,11 @@ Wounds Plagueclaw::weaponDamage(const Weapon *weapon, const Unit *target, int hi
         wounds.normal += Dice::roll2D6();
     }
     return wounds;
+}
+
+int Plagueclaw::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

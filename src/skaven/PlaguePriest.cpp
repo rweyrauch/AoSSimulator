@@ -12,6 +12,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
+
 bool PlaguePriest::s_registered = false;
 
 Unit *PlaguePriest::Create(const ParameterList &parameters)
@@ -128,6 +132,11 @@ void PlaguePriest::onStartHero(PlayerId player)
             }
         }
     }
+}
+
+int PlaguePriest::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

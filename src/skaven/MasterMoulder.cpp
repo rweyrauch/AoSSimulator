@@ -12,6 +12,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
+
 bool MasterMoulder::s_registered = false;
 
 Unit *MasterMoulder::Create(const ParameterList &parameters)
@@ -115,6 +119,11 @@ void MasterMoulder::onStartHero(PlayerId player)
             break;
         }
     }
+}
+
+int MasterMoulder::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven

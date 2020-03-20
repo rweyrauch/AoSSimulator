@@ -11,6 +11,9 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 3;
+static const int POINTS_PER_UNIT = 70;
 
 bool WarpfireThrower::s_registered = false;
 
@@ -99,6 +102,11 @@ int WarpfireThrower::generateMortalWounds(const Unit *unit)
     }
 
     return mortalWounds;
+}
+
+int WarpfireThrower::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace Skaven

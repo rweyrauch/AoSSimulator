@@ -11,6 +11,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 60; // x35 oval
+static const int WOUNDS = 3;
+static const int POINTS_PER_UNIT = 80;
+
 bool WarpGrinder::s_registered = false;
 
 Unit *WarpGrinder::Create(const ParameterList &parameters)
@@ -62,5 +66,10 @@ bool WarpGrinder::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int WarpGrinder::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 } //namespace Skaven

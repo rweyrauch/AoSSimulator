@@ -13,6 +13,10 @@
 
 namespace Skaven
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
+
 bool WarlockEngineer::s_registered = false;
 
 Unit *WarlockEngineer::Create(const ParameterList &parameters)
@@ -115,6 +119,11 @@ Wounds WarlockEngineer::weaponDamage(const Weapon *weapon, const Unit *target, i
         }
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int WarlockEngineer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace Skaven
