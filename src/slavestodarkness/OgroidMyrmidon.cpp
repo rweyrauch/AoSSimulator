@@ -11,6 +11,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 140;
 
 bool OgroidMyrmidon::s_registered = false;
 
@@ -81,6 +84,11 @@ int OgroidMyrmidon::generateHits(int unmodifiedHitRoll, const Weapon *weapon, co
         return 2;
     }
     return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+}
+
+int OgroidMyrmidon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 }//namespace SlavesToDarkness

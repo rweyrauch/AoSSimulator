@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 90;
 
 bool ExaltedHeroOfChaos::s_registered = false;
 
@@ -92,6 +95,11 @@ int ExaltedHeroOfChaos::toHitModifier(const Weapon *weapon, const Unit *target) 
     if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) mod++;
 
     return mod;
+}
+
+int ExaltedHeroOfChaos::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

@@ -14,6 +14,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 140;
 
 bool KnightIncantor::s_registered = false;
 
@@ -127,6 +130,11 @@ void KnightIncantor::onStartCombat(PlayerId player)
     {
         m_shatteredFlasks = DoSpiritFlasks(this);
     }
+}
+
+int KnightIncantor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

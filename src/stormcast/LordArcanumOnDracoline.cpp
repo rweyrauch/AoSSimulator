@@ -14,6 +14,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 220;
 
 bool LordArcanumOnDracoline::s_registered = false;
 
@@ -163,6 +166,11 @@ int LordArcanumOnDracoline::supernaturalRoar(const Unit *target)
     }
 
     return 0;
+}
+
+int LordArcanumOnDracoline::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 280;
 
 bool VandusHammerhand::s_registered = false;
 
@@ -104,6 +107,11 @@ int VandusHammerhand::lordOfTheHammerhandsBraveryMod(const Unit *unit)
 {
     if (isFriendly(unit) && unit->hasKeyword(HAMMERS_OF_SIGMAR) && (distanceTo(unit) <= 24.0f)) return 42;
     return 0;
+}
+
+int VandusHammerhand::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

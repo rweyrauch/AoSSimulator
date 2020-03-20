@@ -19,12 +19,8 @@ class KnightHeraldor : public StormcastEternal
 {
 public:
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
-
     static Unit* Create(const ParameterList& parameters);
-    static int ComputePoints(int numModels)  { return POINTS_PER_UNIT; }
+    static int ComputePoints(int numModels);
     static void Init();
 
     KnightHeraldor();

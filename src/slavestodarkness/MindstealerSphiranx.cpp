@@ -12,6 +12,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 100;
 
 bool MindstealerSphiranx::s_registered = false;
 
@@ -88,6 +91,11 @@ int MindstealerSphiranx::telepathicDread(const Unit *unit)
     }
 
     return 0;
+}
+
+int MindstealerSphiranx::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 }//namespace SlavesToDarkness

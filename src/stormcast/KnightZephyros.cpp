@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool KnightZephyros::s_registered = false;
 
@@ -84,6 +87,11 @@ int KnightZephyros::extraAttacks(const Model *attackingModel, const Weapon *weap
         attacks += 1;
     }
     return attacks;
+}
+
+int KnightZephyros::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

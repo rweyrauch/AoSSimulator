@@ -11,6 +11,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 9;
+static const int POINTS_PER_UNIT = 250;
 
 bool ChaosLordOnKarkadrak::s_registered = false;
 
@@ -115,6 +118,11 @@ Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds)
     Dice::rollD6(savedWounds.mortal, result);
     savedWounds.mortal -= result.rollsGE(5);
     return savedWounds;
+}
+
+int ChaosLordOnKarkadrak::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

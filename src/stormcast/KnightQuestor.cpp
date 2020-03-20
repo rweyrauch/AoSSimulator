@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool KnightQuestor::s_registered = false;
 
@@ -94,6 +97,11 @@ Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int
         return {2, 0};
     }
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int KnightQuestor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

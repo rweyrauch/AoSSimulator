@@ -14,6 +14,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 220;
 
 bool AstreiaSolbright::s_registered = false;
 
@@ -161,6 +164,11 @@ int AstreiaSolbright::supernaturalRoar(const Unit *target)
     }
 
     return 0;
+}
+
+int AstreiaSolbright::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

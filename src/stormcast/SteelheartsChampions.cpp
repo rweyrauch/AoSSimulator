@@ -10,6 +10,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 2;
+static const int POINTS_PER_UNIT = 100;
 
 bool SteelheartsChampions::s_registered = false;
 
@@ -112,6 +115,11 @@ Rerolls SteelheartsChampions::toHitRerolls(const Weapon *weapon, const Unit *tar
         return RerollFailed;
     }
     return StormcastEternal::toHitRerolls(weapon, target);
+}
+
+int SteelheartsChampions::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

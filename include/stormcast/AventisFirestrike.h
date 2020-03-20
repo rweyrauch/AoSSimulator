@@ -20,15 +20,11 @@ class AventisFirestrike : public StormcastEternal
 {
 public:
 
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 340;
-
     static Unit* Create(const ParameterList& parameters);
     static void Init();
     static std::string ValueToString(const Parameter &parameter);
     static int EnumStringToInt(const std::string &enumString);
-    static int ComputePoints(int numModels)  { return POINTS_PER_UNIT; }
+    static int ComputePoints(int numModels);
 
     AventisFirestrike();
     ~AventisFirestrike() override = default;

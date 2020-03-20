@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 170;
 
 bool ChaosLordOnDaemonicMount::s_registered = false;
 
@@ -93,6 +96,11 @@ Wounds ChaosLordOnDaemonicMount::weaponDamage(const Weapon *weapon, const Unit *
         damage.normal = 0;
     }
     return damage;
+}
+
+int ChaosLordOnDaemonicMount::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

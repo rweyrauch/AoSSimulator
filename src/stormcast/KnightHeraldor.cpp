@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool KnightHeraldor::s_registered = false;
 
@@ -68,6 +71,11 @@ void KnightHeraldor::Init()
 
         s_registered = UnitFactory::Register("Knight-Heraldor", factoryMethod);
     }
+}
+
+int KnightHeraldor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 120;
 
 bool NeaveBlacktalon::s_registered = false;
 
@@ -92,6 +95,11 @@ Wounds NeaveBlacktalon::weaponDamage(const Weapon *weapon, const Unit *target, i
         return {weapon->damage()+1, 0};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int NeaveBlacktalon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

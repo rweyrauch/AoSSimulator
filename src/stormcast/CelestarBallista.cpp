@@ -14,6 +14,10 @@
 namespace StormcastEternals
 {
 
+static const int BASESIZE = 60;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 110;
+
 bool CelestarBallista::s_registered = false;
 
 CelestarBallista::CelestarBallista() :
@@ -108,6 +112,11 @@ void CelestarBallista::onStartShooting(PlayerId player)
             m_stormboltsSingle.activate(true);
         }
     }
+}
+
+int CelestarBallista::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

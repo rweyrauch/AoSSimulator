@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool KnightVexillor::s_registered = false;
 
@@ -81,6 +84,11 @@ Rerolls KnightVexillor::iconOfWarChargeReroll(const Unit *unit)
 {
     if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
     return NoRerolls;
+}
+
+int KnightVexillor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

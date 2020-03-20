@@ -11,6 +11,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 110;
 
 bool ChaosSorcerer::s_registered = false;
 
@@ -78,6 +81,11 @@ bool ChaosSorcerer::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int ChaosSorcerer::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

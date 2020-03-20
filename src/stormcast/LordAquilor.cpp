@@ -13,6 +13,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 180;
 
 bool LordAquilor::s_registered = false;
 
@@ -89,6 +92,11 @@ Wounds LordAquilor::weaponDamage(const Weapon *weapon, const Unit *target, int h
         return {0, 1};
     }
     return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int LordAquilor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 90;
 
 bool DarkoathWarqueen::s_registered = false;
 
@@ -65,6 +68,11 @@ bool DarkoathWarqueen::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int DarkoathWarqueen::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

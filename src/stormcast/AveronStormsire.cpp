@@ -14,6 +14,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 130;
 
 bool AveronStormsire::s_registered = false;
 
@@ -126,6 +129,11 @@ void AveronStormsire::onStartCombat(PlayerId player)
     {
         m_shatteredFlasks = DoSpiritFlasks(this);
     }
+}
+
+int AveronStormsire::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

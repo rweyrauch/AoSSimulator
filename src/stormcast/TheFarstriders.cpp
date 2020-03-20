@@ -10,6 +10,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 2;
+static const int POINTS_PER_UNIT = 100;
 
 bool TheFarstriders::s_registered = false;
 
@@ -82,6 +85,11 @@ void TheFarstriders::Init()
 
         s_registered = UnitFactory::Register("The Farstriders", factoryMethod);
     }
+}
+
+int TheFarstriders::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

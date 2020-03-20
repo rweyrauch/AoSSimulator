@@ -13,6 +13,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool LordRelictor::s_registered = false;
 
@@ -96,6 +99,11 @@ int LordRelictor::EnumStringToInt(const std::string &enumString)
         return (int)prayer;
     }
     return StormcastEternal::EnumStringToInt(enumString);
+}
+
+int LordRelictor::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

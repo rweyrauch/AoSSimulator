@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 120;
 
 bool LordCastellant::s_registered = false;
 
@@ -68,6 +71,11 @@ void LordCastellant::Init()
 
         s_registered = UnitFactory::Register("Lord-Castellant", factoryMethod);
     }
+}
+
+int LordCastellant::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

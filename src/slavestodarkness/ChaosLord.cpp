@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 110;
 
 bool ChaosLord::s_registered = false;
 
@@ -119,6 +122,11 @@ int ChaosLord::EnumStringToInt(const std::string &enumString)
     else if (enumString == "Daemonbound War-flail") return DaemonboundWarFlail;
 
     return SlavesToDarknessBase::EnumStringToInt(enumString);
+}
+
+int ChaosLord::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

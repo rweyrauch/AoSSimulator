@@ -15,6 +15,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 340;
 
 bool AventisFirestrike::s_registered = false;
 
@@ -154,6 +157,11 @@ void AventisFirestrike::onStartHero(PlayerId player)
     {
         heal(1);
     }
+}
+
+int AventisFirestrike::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

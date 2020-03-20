@@ -15,6 +15,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool LordExorcist::s_registered = false;
 
@@ -141,6 +144,11 @@ void LordExorcist::onStartShooting(PlayerId player)
             }
         }
     }
+}
+
+int LordExorcist::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

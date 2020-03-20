@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 120;
 
 bool GavrielSureheart::s_registered = false;
 
@@ -95,6 +98,11 @@ int GavrielSureheart::extraAttacks(const Model *attackingModel, const Weapon *we
         attacks += 1;
     }
     return attacks;
+}
+
+int GavrielSureheart::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

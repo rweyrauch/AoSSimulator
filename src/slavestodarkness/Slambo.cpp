@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 80;
 
 bool Slambo::s_registered = false;
 
@@ -67,6 +70,11 @@ bool Slambo::configure()
     m_points = POINTS_PER_UNIT;
 
     return true;
+}
+
+int Slambo::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //SlavesToDarkness

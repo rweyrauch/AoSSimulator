@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 5;
+static const int POINTS_PER_UNIT = 100;
 
 bool LordCelestant::s_registered = false;
 
@@ -93,6 +96,11 @@ void LordCelestant::onStartShooting(PlayerId player)
         }
     }
     StormcastEternal::onStartShooting(player);
+}
+
+int LordCelestant::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

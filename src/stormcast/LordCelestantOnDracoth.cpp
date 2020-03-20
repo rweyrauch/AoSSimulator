@@ -13,6 +13,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 7;
+static const int POINTS_PER_UNIT = 220;
 
 bool LordCelestantOnDracoth::s_registered = false;
 
@@ -212,6 +215,11 @@ Wounds LordCelestantOnDracoth::weaponDamage(const Weapon *weapon, const Unit *ta
     }
 
     return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+}
+
+int LordCelestantOnDracoth::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

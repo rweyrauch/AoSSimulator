@@ -10,6 +10,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 32;
+static const int WOUNDS = 6;
+static const int POINTS_PER_UNIT = 90;
 
 bool DarkoathChieftain::s_registered = false;
 
@@ -77,6 +80,11 @@ int DarkoathChieftain::extraAttacks(const Model *attackingModel, const Weapon *w
     if (m_charged && (weapon->name() == m_broadsword.name())) extra += 3;
 
     return extra;
+}
+
+int DarkoathChieftain::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

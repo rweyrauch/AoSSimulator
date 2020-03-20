@@ -11,6 +11,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 90; // x52 oval
+static const int WOUNDS = 12;
+static const int POINTS_PER_UNIT = 260;
 
 struct TableEntry
 {
@@ -20,7 +23,7 @@ struct TableEntry
 };
 
 const size_t NUM_TABLE_ENTRIES = 5;
-static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, ChaosSorcererOnManticore::WOUNDS};
+static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
 static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
     {
         {12, 1, 5},
@@ -135,6 +138,11 @@ Rerolls ChaosSorcererOnManticore::toHitRerolls(const Weapon *weapon, const Unit 
         return RerollFailed;
     }
     return Unit::toHitRerolls(weapon, target);
+}
+
+int ChaosSorcererOnManticore::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } //namespace SlavesToDarkness

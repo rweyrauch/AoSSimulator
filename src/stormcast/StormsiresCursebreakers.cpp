@@ -13,6 +13,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 40;
+static const int WOUNDS = 3;
+static const int POINTS_PER_UNIT = 130;
 
 bool StormsiresCursebreakers::s_registered = false;
 
@@ -139,6 +142,11 @@ Rerolls StormsiresCursebreakers::toHitRerolls(const Weapon *weapon, const Unit *
         return RerollOnes;
     }
     return StormcastEternal::toHitRerolls(weapon, target);
+}
+
+int StormsiresCursebreakers::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals

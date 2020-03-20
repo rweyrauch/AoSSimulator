@@ -11,6 +11,9 @@
 
 namespace SlavesToDarkness
 {
+static const int BASESIZE = 60;
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 100;
 
 bool FomoroidCrusher::s_registered = false;
 
@@ -95,6 +98,11 @@ int FomoroidCrusher::rollChargeDistance() const
 {
     m_lastChargeDistance = Unit::rollChargeDistance();
     return m_lastChargeDistance;
+}
+
+int FomoroidCrusher::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 }//namespace SlavesToDarkness

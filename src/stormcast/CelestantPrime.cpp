@@ -12,6 +12,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 100; //
+static const int WOUNDS = 8;
+static const int POINTS_PER_UNIT = 340;
 
 bool CelestantPrime::s_registered = false;
 
@@ -96,6 +99,11 @@ int CelestantPrime::bearerOfTheWarhammer(const Unit *target)
     }
 
     return 0;
+}
+
+int CelestantPrime::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 

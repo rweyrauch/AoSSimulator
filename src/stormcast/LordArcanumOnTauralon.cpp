@@ -15,6 +15,9 @@
 
 namespace StormcastEternals
 {
+static const int BASESIZE = 100;
+static const int WOUNDS = 10;
+static const int POINTS_PER_UNIT = 320;
 
 bool LordArcanumOnTauralon::s_registered = false;
 
@@ -145,6 +148,11 @@ void LordArcanumOnTauralon::onStartCombat(PlayerId player)
     {
         m_shatteredFlasks = DoSpiritFlasks(this);
     }
+}
+
+int LordArcanumOnTauralon::ComputePoints(int numModels)
+{
+    return POINTS_PER_UNIT;
 }
 
 } // namespace StormcastEternals
