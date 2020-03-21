@@ -241,6 +241,7 @@ OBJECTS += \
         src/nighthaunt/TombBanshee.o \
         src/nighthaunt/LadyOlynder.o \
         src/nighthaunt/BlackCoach.o \
+        src/nighthaunt/CairnWraith.o \
         src/beastsofchaos/BeastsOfChaosBase.o \
         src/beastsofchaos/Ghorgon.o \
         src/beastsofchaos/Gors.o \
@@ -322,7 +323,6 @@ OBJECTS += \
         src/death/Necromancer.o \
         src/death/BatSwarms.o \
         src/death/BloodseekerPalanquin.o \
-        src/death/CairnWraith.o \
         src/death/CorpseCartBrazier.o \
         src/death/CorpseCartLodestone.o \
         src/death/CovenThrone.o \

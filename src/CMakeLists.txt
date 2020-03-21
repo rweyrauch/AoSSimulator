@@ -232,6 +232,7 @@ add_library(
         nighthaunt/TombBanshee.cpp
         nighthaunt/LadyOlynder.cpp
         nighthaunt/BlackCoach.cpp
+        nighthaunt/CairnWraith.cpp
 
         beastsofchaos/BeastsOfChaosBase.cpp
         beastsofchaos/Ghorgon.cpp
@@ -317,7 +318,6 @@ add_library(
         death/Nagash.cpp
         death/BatSwarms.cpp
         death/BloodseekerPalanquin.cpp
-        death/CairnWraith.cpp
         death/CorpseCartBrazier.cpp
         death/CorpseCartLodestone.cpp
         death/CovenThrone.cpp

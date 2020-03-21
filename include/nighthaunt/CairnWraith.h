@@ -9,12 +9,12 @@
 #ifndef CAIRNWRAITH_H
 #define CAIRNWRAITH_H
 
-#include <death/LegionOfNagash.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace Death {
+namespace Nighthaunt {
 
-    class CairnWraith : public LegionOfNagashBase {
+    class CairnWraith : public Nighthaunt {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -33,7 +33,6 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
-        int toSaveModifier(const Weapon *weapon) const override;
 
     private:
 
@@ -51,6 +50,6 @@ namespace Death {
 // Ethereal                         Yes
 //
 
-} // namespace Death
+} // namespace Nighthaunt
 
 #endif // CAIRNWRAITH_H

@@ -22,7 +22,6 @@
 #include "death/Necromancer.h"
 #include "death/BatSwarms.h"
 #include "death/BloodseekerPalangquin.h"
-#include "death/CairnWraith.h"
 #include "death/CorpseCartBrazier.h"
 #include "death/CorpseCartLodestone.h"
 #include "death/CovenThrone.h"
@@ -113,7 +112,6 @@ namespace Death {
         Necromancer::Init();
         BatSwarms::Init();
         BloodseekerPalanquin::Init();
-        CairnWraith::Init();
         CorpseCartWithBalefireBrazier::Init();
         CorpseCartWithUnholyLodestone::Init();
         CovenThrone::Init();

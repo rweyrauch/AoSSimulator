@@ -6,10 +6,10 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <death/CairnWraith.h>
+#include <nighthaunt/CairnWraith.h>
 #include <UnitFactory.h>
 
-namespace Death {
+namespace Nighthaunt {
     static const int BASESIZE = 25;
     static const int WOUNDS = 6;
     static const int POINTS_PER_UNIT = 60;
@@ -18,9 +18,6 @@ namespace Death {
 
     Unit *CairnWraith::Create(const ParameterList &parameters) {
         auto unit = new CairnWraith();
-
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
-        unit->setLegion(legion);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -38,11 +35,10 @@ namespace Death {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    LegionOfNagashBase::ValueToString,
-                    LegionOfNagashBase::EnumStringToInt,
+                    nullptr,
+                    nullptr,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -52,7 +48,7 @@ namespace Death {
     }
 
     CairnWraith::CairnWraith() :
-            LegionOfNagashBase("Cairn Wraith", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Cairn Wraith", 6, WOUNDS, 10, 4, true),
             m_scythe(Weapon::Type::Melee, "Reaper Scythe", 2, 3, 4, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, CAIRN_WRAITH};
         m_weapons = {&m_scythe};
@@ -82,15 +78,4 @@ namespace Death {
         return Unit::toHitRerolls(weapon, unit);
     }
 
-    int CairnWraith::toSaveModifier(const Weapon *weapon) const {
-        // Ethereal - no save modifiers allowed.
-        int modifier = 0;
-
-        // Ethereal - ignore rend by cancelling it out.
-        if (weapon->rend() < 0) {
-            modifier = -weapon->rend();
-        }
-        return modifier;
-    }
-
-} // namespace Death
+} // namespace Nighthaunt

@@ -27,7 +27,7 @@
 #include "nighthaunt/LordExecutioner.h"
 #include "nighthaunt/TombBanshee.h"
 #include "nighthaunt/BlackCoach.h"
-
+#include "nighthaunt/CairnWraith.h"
 
 namespace Nighthaunt {
 
@@ -83,6 +83,7 @@ namespace Nighthaunt {
         LordExecutioner::Init();
         TombBanshee::Init();
         BlackCoach::Init();
+        CairnWraith::Init();
     }
 
 } // namespace Nighthaunt
