@@ -133,7 +133,7 @@ namespace Death {
     void CovenThrone::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations();
+        if (owningPlayer() == player) deathlyInvocations(3, 12.0f);
     }
 
 } // namespace Death

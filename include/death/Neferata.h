@@ -58,7 +58,7 @@ namespace Death {
 // Dagger of Jet                    TODO
 // Mortarch of Blood                TODO
 // Frightful Touch                  Yes
-// Deathly Invocations              TODO
+// Deathly Invocations              Yes
 // Dark Mist                        TODO
 // Twilight's Allure                TODO
 

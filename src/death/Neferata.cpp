@@ -126,6 +126,6 @@ namespace Death {
     void NeferataMortarchOfBlood::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations();
+        if (owningPlayer() == player) deathlyInvocations(4, 18.0f);
     }
 } // namespace Death

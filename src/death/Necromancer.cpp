@@ -75,7 +75,7 @@ namespace Death {
     void Necromancer::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations();
+        if (owningPlayer() == player) deathlyInvocations(2, 6.0f);
     }
 
 } // namespace Death

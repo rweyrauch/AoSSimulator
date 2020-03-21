@@ -76,9 +76,9 @@ namespace Death {
         }
     }
 
-    void LegionOfNagashBase::deathlyInvocations() {
+    void LegionOfNagashBase::deathlyInvocations(int numUnits, float range) {
 
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), range);
         int unitsHealed = 0;
         for (auto unit : units) {
             if (unit->hasKeyword(SUMMONABLE) && (unit->remainingWounds() < unit->initialWounds())) {
@@ -94,7 +94,7 @@ namespace Death {
                 unitsHealed++;
             }
 
-            if (unitsHealed >= 3) break;
+            if (unitsHealed >= numUnits) break;
         }
     }
 

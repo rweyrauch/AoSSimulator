@@ -144,7 +144,7 @@ namespace Death {
 
         if (owningPlayer() == player) {
 
-            deathlyInvocations();
+            deathlyInvocations(3, 12.0f);
 
             // Chalice of Blood
             if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {
