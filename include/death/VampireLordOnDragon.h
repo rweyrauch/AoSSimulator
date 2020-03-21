@@ -17,6 +17,11 @@ namespace Death {
     class VampireLordOnZombieDragon : public LegionOfNagashBase {
     public:
 
+        enum WeaponOption {
+            Deathlance,
+            VampiricSword
+        };
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
@@ -27,13 +32,19 @@ namespace Death {
 
         ~VampireLordOnZombieDragon() override = default;
 
-        bool configure();
+        bool configure(WeaponOption option, bool shield, bool chalice);
 
     protected:
 
         void onWounded() override;
 
         void onRestore() override;
+
+        void onStartHero(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int getDamageTableIndex() const;
 
@@ -45,6 +56,9 @@ namespace Death {
             m_maw,
             m_claws;
 
+        bool m_haveChaliceOfBlood = false;
+        bool m_usedChaliceOfBlood = false;
+
         static bool s_registered;
 
     };
@@ -53,11 +67,11 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // Pestilential Breath              TODO
-// The Hunger                       TODO
-// Deathlance Charge                TODO
-// Anciet Shield                    TODO
-// Chalice of Blood                 TODO
-// Deathly Invocation               TODO
+// The Hunger                       Yes
+// Deathlance Charge                Yes
+// Anciet Shield                    Yes
+// Chalice of Blood                 Yes
+// Deathly Invocation               Yes
 // Blood Boil                       TODO
 // Dread Knights                    TODO
 //

@@ -122,4 +122,18 @@ namespace Death {
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
+
+    Wounds CovenThrone::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+
+        return Unit::onEndCombat(player);
+    }
+
+    void CovenThrone::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) deathlyInvocations();
+    }
+
 } // namespace Death

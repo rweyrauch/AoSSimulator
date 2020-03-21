@@ -37,6 +37,10 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        Wounds onEndCombat(PlayerId player) override;
+
+        void onStartHero(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -55,8 +59,8 @@ namespace Death {
 // -------------------------------------------
 // Frightful Touch                  Yes
 // Scrying Pool                     TODO
-// The Hunger                       TODO
-// Deathly Invocation               TODO
+// The Hunger                       Yes
+// Deathly Invocation               Yes
 // Beguile                          TODO
 // Tactful Insight                  TODO
 //

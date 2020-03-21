@@ -35,6 +35,14 @@ namespace Death {
 
         void onRestore() override;
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartHero(PlayerId player) override;
+
+        void onStartShooting(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -43,6 +51,8 @@ namespace Death {
             m_maw,
             m_claws;
 
+        bool m_usedChaliceOfBlood = false;
+
         static bool s_registered;
 
     };
@@ -50,11 +60,11 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Hunger                       TODO
-// Chalice of Blood                 TODO
-// Bloodlance Charge                TODO
-// Breath of Shyish                 TODO
-// Deathly Invocation               TODO
+// The Hunger                       Yes
+// Chalice of Blood                 Yes
+// Bloodlance Charge                Yes
+// Breath of Shyish                 Yes
+// Deathly Invocation               Yes
 // Quickblood                       TODO
 // Fist of Nagash                   TODO
 //

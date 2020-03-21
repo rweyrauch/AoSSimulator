@@ -228,6 +228,8 @@ public:
 
     virtual int rollCasting() const;
 
+    int returnModels(int numModels);
+
 protected:
 
     Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);

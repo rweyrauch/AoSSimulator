@@ -72,4 +72,10 @@ namespace Death {
         return POINTS_PER_UNIT;
     }
 
+    void Necromancer::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) deathlyInvocations();
+    }
+
 } // namespace Death

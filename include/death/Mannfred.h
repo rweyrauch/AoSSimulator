@@ -37,6 +37,8 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartHero(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -58,7 +60,7 @@ namespace Death {
 // Sword of Unholy Power            TODO
 // Mortarch of Night                TODO
 // Frightful Touch                  Yes
-// Deathly Invocation               TODO
+// Deathly Invocation               Yes
 // Wind of Death                    TODO
 // Vigour of Undeath                TODO
 //

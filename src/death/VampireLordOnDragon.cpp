@@ -36,10 +36,14 @@ namespace Death {
     Unit *VampireLordOnZombieDragon::Create(const ParameterList &parameters) {
         auto unit = new VampireLordOnZombieDragon();
 
+        auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, Deathlance);
+        bool shield = GetBoolParam("Ancient Shield", parameters, true);
+        bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
+
         auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
-        bool ok = unit->configure();
+        bool ok = unit->configure(weapon, shield, chalice);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -59,6 +63,9 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            {ParamType::Enum, "Weapon", Deathlance, Deathlance, VampiricSword, 1},
+                            {ParamType::Boolean, "Ancient Shield", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Boolean, "Chalice of Blood", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
@@ -75,18 +82,29 @@ namespace Death {
             m_sword(Weapon::Type::Melee, "Vampiric Sword", 1, 4, 3, 3, -1, RAND_D3),
             m_maw(Weapon::Type::Melee, "Zombie Dragon's Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Zombie Dragon's Sword-like Claws", 2, 7, 4, 3, -1, 2) {
-        m_keywords = {DEATH, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD};
+        m_keywords = {DEATH, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD, VAMPIRE};
         m_weapons = {&m_breath, &m_deathlance, &m_maw, &m_claws};
     }
 
-    bool VampireLordOnZombieDragon::configure() {
+    bool VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_breath);
-        model->addMeleeWeapon(&m_deathlance);
-        model->addMeleeWeapon(&m_sword);
+
+        if (option == Deathlance) {
+            model->addMeleeWeapon(&m_deathlance);
+        } else if (option == VampiricSword) {
+            model->addMeleeWeapon(&m_sword);
+        }
         model->addMeleeWeapon(&m_maw);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
+
+        // Ancient Shield
+        if (shield) {
+            m_save = 3;
+        }
+
+        m_haveChaliceOfBlood = chalice;
 
         m_points = POINTS_PER_UNIT;
 
@@ -105,6 +123,8 @@ namespace Death {
     void VampireLordOnZombieDragon::onRestore() {
         Unit::onRestore();
 
+        m_usedChaliceOfBlood = false;
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -117,5 +137,34 @@ namespace Death {
             }
         }
         return 0;
+    }
+
+    void VampireLordOnZombieDragon::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+
+            deathlyInvocations();
+
+            // Chalice of Blood
+            if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {
+                heal(Dice::rollD6());
+                m_usedChaliceOfBlood = true;
+            }
+        }
+    }
+
+    Wounds VampireLordOnZombieDragon::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+
+        return Unit::onEndCombat(player);
+    }
+
+    Wounds VampireLordOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+                                                   int woundRoll) const {
+        // Deathlance Charge
+        if (m_charged && (weapon->name() == m_deathlance.name())) return { 3, 0};
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 } // namespace Death

@@ -88,4 +88,10 @@ namespace Death {
         return POINTS_PER_UNIT;
     }
 
+    void WightKingWithBalefulTombBlade::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) deathlyInvocations();
+    }
+
 } // namespace Death

@@ -33,6 +33,8 @@ namespace Death {
 
         Wounds applyWoundSave(const Wounds &wounds) override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_staff;
@@ -45,7 +47,7 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // Undead Minions                   TODO
-// Deathly Invocation               TODO
+// Deathly Invocation               Yes
 // Vanhel's Danse Macabre           TODO
 //
 

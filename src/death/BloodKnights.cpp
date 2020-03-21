@@ -135,4 +135,11 @@ namespace Death {
         return 0;
     }
 
+    Wounds BloodKnights::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+
+        return Unit::onEndCombat(player);
+    }
+
 } //namespace Death

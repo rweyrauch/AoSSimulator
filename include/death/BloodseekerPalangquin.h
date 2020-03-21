@@ -37,6 +37,8 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartHero(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -55,7 +57,7 @@ namespace Death {
 // Frightful Touch                  Yes
 // A Fine Vintage                   TODO
 // Wail of the Damned               TODO
-// Deathly Invocation               TODO
+// Deathly Invocation               Yes
 // Blood Siphon                     TODO
 //
 

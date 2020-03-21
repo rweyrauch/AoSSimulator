@@ -27,14 +27,21 @@ namespace Death {
 
         ~VampireLord() override = default;
 
-        bool configure(bool withSteed, bool withWings);
+        bool configure(bool withSteed, bool withWings, bool chalice);
 
     protected:
+
+        void onStartHero(PlayerId player) override;
+        void onRestore() override;
+        Wounds onEndCombat(PlayerId player) override;
 
     private:
 
         Weapon m_blades,
             m_hoovesAndTeeth;
+
+        bool m_haveChaliceOfBlood = false;
+        bool m_usedChaliceOfBlood = false;
 
         static bool s_registered;
 
@@ -43,9 +50,9 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Hunger                       TODO
-// Chalice of Blood                 TODO
-// Deathly Invocation               TODO
+// The Hunger                       Yes
+// Chalice of Blood                 Yes
+// Deathly Invocation               Yes
 // Blood Feast                      TODO
 //
 

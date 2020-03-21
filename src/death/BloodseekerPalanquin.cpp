@@ -121,4 +121,10 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
+    void BloodseekerPalanquin::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) deathlyInvocations();
+    }
+
 } // namespace Death

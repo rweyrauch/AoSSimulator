@@ -37,6 +37,8 @@ namespace Death {
 
         int rollChargeDistance() const override;
 
+        Wounds onEndCombat(PlayerId player) override;
+
         int standardBearerBraveryMod(const Unit* unit);
 
     private:
@@ -59,7 +61,7 @@ namespace Death {
 // -------------------------------------------
 // Standard Bearer                  Yes
 // Hornblower                       Yes
-// The Hunger                       TODO
+// The Hunger                       Yes
 // Martial Fury                     Yes
 // Bloodshields                     Yes
 //

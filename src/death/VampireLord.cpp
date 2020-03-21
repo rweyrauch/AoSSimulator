@@ -22,11 +22,12 @@ namespace Death {
 
         bool withSteed = GetBoolParam("Steed", parameters, false);
         bool withWings = GetBoolParam("Wings", parameters, false);
+        bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
 
         auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
-        bool ok = unit->configure(withSteed, withWings);
+        bool ok = unit->configure(withSteed, withWings, chalice);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -48,6 +49,7 @@ namespace Death {
                     {
                             {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Wings", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Boolean, "Chalice of Blood", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
@@ -65,7 +67,7 @@ namespace Death {
         m_weapons = {&m_blades, &m_hoovesAndTeeth};
     }
 
-    bool VampireLord::configure(bool withSteed, bool withWings) {
+    bool VampireLord::configure(bool withSteed, bool withWings, bool chalice) {
         auto model = new Model(BASESIZE, wounds());
 
         if (withSteed) {
@@ -80,8 +82,38 @@ namespace Death {
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
+        m_haveChaliceOfBlood = chalice;
+
         m_points = POINTS_PER_UNIT;
 
         return true;
     }
+
+    void VampireLord::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            deathlyInvocations();
+
+            // Chalice of Blood
+            if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {
+                heal(Dice::rollD6());
+                m_usedChaliceOfBlood = true;
+            }
+        }
+    }
+
+    void VampireLord::onRestore() {
+        Unit::onRestore();
+
+        m_usedChaliceOfBlood = false;
+    }
+
+    Wounds VampireLord::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+
+        return Unit::onEndCombat(player);
+    }
+
 } // namespace Death

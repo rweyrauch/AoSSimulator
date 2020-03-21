@@ -33,6 +33,8 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         bool m_hasSteed = false;
@@ -48,7 +50,7 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // Beheading Strike                 Yes
-// Deathly Invocation               TODO
+// Deathly Invocation               Yes
 // Lord of Bones                    TODO
 //
 

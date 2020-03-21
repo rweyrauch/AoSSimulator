@@ -7,6 +7,7 @@
  */
 
 #include <death/LegionOfNagash.h>
+#include <Board.h>
 
 #include "death/Nagash.h"
 #include "death/BlackKnights.h"
@@ -73,6 +74,28 @@ namespace Death {
             case LegionOfBlood:
                 addKeyword(LEGION_OF_BLOOD);
                 break;
+        }
+    }
+
+    void LegionOfNagashBase::deathlyInvocations() {
+
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        int unitsHealed = 0;
+        for (auto unit : units) {
+            if (unit->hasKeyword(SUMMONABLE) && (unit->remainingWounds() < unit->initialWounds())) {
+                const auto woundsRestored = Dice::rollD3();
+                if (unit->numOfWoundedModels() > 0) {
+                    unit->heal(woundsRestored);
+                }
+                else {
+                    const auto numModels = woundsRestored / unit->wounds();
+                    if (numModels)
+                        unit->returnModels(numModels);
+                }
+                unitsHealed++;
+            }
+
+            if (unitsHealed >= 3) break;
         }
     }
 

@@ -122,4 +122,10 @@ namespace Death {
         if ((hitRoll >= 6) && (weapon->name() == m_clawsAndDaggers.name())) return {0, 1};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
+
+    void NeferataMortarchOfBlood::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) deathlyInvocations();
+    }
 } // namespace Death

@@ -8,6 +8,7 @@
 
 #include <death/PrinceVhordrai.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Death {
     static const int BASESIZE = 130;
@@ -100,6 +101,8 @@ namespace Death {
     void PrinceVhordrai::onRestore() {
         Unit::onRestore();
 
+        m_usedChaliceOfBlood = false;
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -113,4 +116,42 @@ namespace Death {
         }
         return 0;
     }
+
+    Wounds PrinceVhordrai::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Bloodlance Charge
+        if (m_charged && (weapon->name() == m_bloodlance.name())) return {3, 0};
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    void PrinceVhordrai::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            // Chalice of Blood
+            if (!m_usedChaliceOfBlood && remainingWounds() < wounds()) {
+                heal(Dice::rollD6());
+                m_usedChaliceOfBlood = true;
+            }
+        }
+    }
+
+    void PrinceVhordrai::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        if (owningPlayer() == player) {
+            // Breath of Shyish
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && distanceTo(unit) < 8.0f) {
+                unit->applyDamage({0, Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_breath)});
+            }
+        }
+    }
+
+    Wounds PrinceVhordrai::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+
+        return Unit::onEndCombat(player);
+    }
+
 } // namespace Death

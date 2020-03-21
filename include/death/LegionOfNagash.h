@@ -39,6 +39,8 @@ namespace Death {
         LegionOfNagashBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        void deathlyInvocations();
+
     protected:
 
         Legion m_legion = GrandHostOfNagash;

@@ -1322,6 +1322,19 @@ bool Unit::isFriendly(const Unit *unit) const {
     return false;
 }
 
+int Unit::returnModels(int numModels) {
+    int numReturned = 0;
+
+    for (auto &m : m_models) {
+        if (m->slain()) {
+            m->restore();
+            numReturned++;
+        }
+        if (numReturned >= numModels) break;
+    }
+    return numReturned;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {

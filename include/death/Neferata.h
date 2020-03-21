@@ -37,6 +37,8 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartHero(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:

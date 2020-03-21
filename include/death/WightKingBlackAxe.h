@@ -33,6 +33,8 @@ namespace Death {
 
         Wounds applyWoundSave(const Wounds &wounds) override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_blackAxe;
@@ -46,7 +48,7 @@ namespace Death {
 // -------------------------------------------
 // Black Axe                        TODO
 // Barrow Armour                    Yes
-// Deathly Invocation               TODO
+// Deathly Invocation               Yes
 // Lord of Bones                    TODO
 //
 
