@@ -32,6 +32,8 @@ namespace Death {
     protected:
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+        int toSaveModifier(const Weapon *weapon) const override;
 
     private:
 
@@ -45,8 +47,8 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // Frightful Touch                  Yes
-// Reaped Light Corn                TODO
-// Ethereal                         TODO
+// Reaped Light Corn                Yes
+// Ethereal                         Yes
 //
 
 } // namespace Death

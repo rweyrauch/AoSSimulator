@@ -25,23 +25,21 @@ namespace Death {
 
         CorpseCartWithUnholyLodestone();
 
-        ~CorpseCartWithUnholyLodestone() override = default;
+        ~CorpseCartWithUnholyLodestone() override;
 
         bool configure();
 
     protected:
 
-        void onWounded() override;
-
-        void onRestore() override;
-
-        int getDamageTableIndex() const;
+        int unholyLodestoneCastingMod(const Unit* caster);
 
     private:
 
         Weapon m_goad,
             m_lash,
             m_blades;
+
+        lsignal::slot m_lodestoneSlot;
 
         static bool s_registered;
 
@@ -50,7 +48,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Unholy Lodestone                 TODO
+// Unholy Lodestone                 Yes
 // Locus of Undeath                 TODO
 // Cryptsword                       TODO
 //

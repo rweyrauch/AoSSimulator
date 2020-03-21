@@ -58,6 +58,12 @@ namespace Death {
             m_blades(Weapon::Type::Melee, "Zombies' Rusty Blades", 1, RAND_2D6, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, CORPSE_CART};
         m_weapons = {&m_goad, &m_lash, &m_blades};
+        s_globalCastMod.connect(this, &CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod, &m_lodestoneSlot);
+    }
+
+    CorpseCartWithUnholyLodestone::~CorpseCartWithUnholyLodestone()
+    {
+        m_lodestoneSlot.disconnect();
     }
 
     bool CorpseCartWithUnholyLodestone::configure() {
@@ -72,15 +78,9 @@ namespace Death {
         return true;
     }
 
-    void CorpseCartWithUnholyLodestone::onWounded() {
-        Unit::onWounded();
-    }
-
-    void CorpseCartWithUnholyLodestone::onRestore() {
-        Unit::onRestore();
-    }
-
-    int CorpseCartWithUnholyLodestone::getDamageTableIndex() const {
+    int CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod(const Unit *caster) {
+        if (isFriendly(caster) && hasKeyword(DEATH) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0f)) return 1;
         return 0;
     }
+
 } // namespace Death

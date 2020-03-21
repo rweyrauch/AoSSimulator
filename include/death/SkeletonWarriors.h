@@ -34,7 +34,7 @@ namespace Death {
 
         SkeletonWarriors();
 
-        ~SkeletonWarriors() override = default;
+        ~SkeletonWarriors() override;
 
         bool configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers);
 
@@ -46,6 +46,10 @@ namespace Death {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        int rollChargeDistance() const override;
+
+        int standardBearerBraveryMod(const Unit* unit);
+
     private:
 
         bool m_standardBearers = false;
@@ -56,6 +60,8 @@ namespace Death {
             m_ancientSpear,
             m_ancientSpearChampion;
 
+        lsignal::slot m_standardSlot;
+
         static bool s_registered;
 
     };
@@ -63,8 +69,8 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
-// Hornblower                       TODO
+// Standard Bearer                  Yes
+// Hornblower                       Yes
 // Skeleton Legion                  Yes
 // Crypt Shields                    Yes
 //

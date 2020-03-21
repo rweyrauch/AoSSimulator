@@ -28,6 +28,11 @@ namespace Death {
             m_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear", 2, 2, 5, 4, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, SKELETON_WARRIORS};
         m_weapons = {&m_ancientBlade, &m_ancientBladeChampion, &m_ancientSpear, &m_ancientSpearChampion};
+        s_globalBraveryMod.connect(this, &SkeletonWarriors::standardBearerBraveryMod, &m_standardSlot);
+    }
+
+    SkeletonWarriors::~SkeletonWarriors() {
+        m_standardSlot.disconnect();
     }
 
     bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers) {
@@ -160,6 +165,17 @@ namespace Death {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    int SkeletonWarriors::rollChargeDistance() const {
+        // Hornblower
+        auto dist = Unit::rollChargeDistance();
+        return std::max(6, dist);
+    }
+
+    int SkeletonWarriors::standardBearerBraveryMod(const Unit *unit) {
+        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0f)) return -1;
+        return 0;
     }
 
 } //namespace Death

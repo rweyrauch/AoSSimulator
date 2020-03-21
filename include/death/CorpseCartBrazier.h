@@ -25,23 +25,21 @@ namespace Death {
 
         CorpseCartWithBalefireBrazier();
 
-        ~CorpseCartWithBalefireBrazier() override = default;
+        ~CorpseCartWithBalefireBrazier() override;
 
         bool configure();
 
     protected:
 
-        void onWounded() override;
-
-        void onRestore() override;
-
-        int getDamageTableIndex() const;
+        int brazierCastingMod(const Unit* caster);
 
     private:
 
         Weapon m_goad,
             m_lash,
             m_blades;
+
+        lsignal::slot m_brazierSlot;
 
         static bool s_registered;
 
@@ -50,7 +48,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Balefire Brazier                 TODO
+// Balefire Brazier                 Yes
 // Malefic Fumes                    TODO
 // Cryptsword                       TODO
 //

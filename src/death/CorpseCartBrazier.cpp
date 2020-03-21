@@ -58,6 +58,11 @@ namespace Death {
             m_blades(Weapon::Type::Melee, "Zombies' Rusty Blades", 1, RAND_2D6, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, CORPSE_CART};
         m_weapons = {&m_goad, &m_lash, &m_blades};
+        s_globalCastMod.connect(this, &CorpseCartWithBalefireBrazier::brazierCastingMod, &m_brazierSlot);
+    }
+
+    CorpseCartWithBalefireBrazier::~CorpseCartWithBalefireBrazier() {
+        m_brazierSlot.disconnect();
     }
 
     bool CorpseCartWithBalefireBrazier::configure() {
@@ -72,15 +77,9 @@ namespace Death {
         return true;
     }
 
-    void CorpseCartWithBalefireBrazier::onWounded() {
-        Unit::onWounded();
-    }
-
-    void CorpseCartWithBalefireBrazier::onRestore() {
-        Unit::onRestore();
-    }
-
-    int CorpseCartWithBalefireBrazier::getDamageTableIndex() const {
+    int CorpseCartWithBalefireBrazier::brazierCastingMod(const Unit *caster) {
+        if (!isFriendly(caster) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0f)) return -1;
         return 0;
     }
+
 } // namespace Death

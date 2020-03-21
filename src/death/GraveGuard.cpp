@@ -27,10 +27,15 @@ namespace Death {
             m_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade", 1, 3, 3, 3, -1, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
         m_weapons = {&m_wightBlade, &m_wightBladeSeneschal, &m_greatWightBlade, &m_greatWightBladeSeneschal};
+        s_globalBraveryMod.connect(this, &GraveGuard::standardBearerBraveryMod, &m_standardSlot);
     }
 
-    bool
-    GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons, bool standardBearers, bool hornblowers) {
+    GraveGuard::~GraveGuard() {
+        m_standardSlot.disconnect();
+    }
+
+    bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons,
+            bool standardBearers, bool hornblowers) {
         if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
             // Invalid model count.
             return false;
@@ -142,6 +147,17 @@ namespace Death {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    int GraveGuard::rollChargeDistance() const {
+        // Hornblower
+        auto dist = Unit::rollChargeDistance();
+        return std::max(6, dist);
+    }
+
+    int GraveGuard::standardBearerBraveryMod(const Unit *unit) {
+        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0f)) return -1;
+        return 0;
     }
 
 } //namespace Death

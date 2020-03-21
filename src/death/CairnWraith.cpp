@@ -73,4 +73,24 @@ namespace Death {
         if ((hitRoll >= 6) && (weapon->name() == m_scythe.name())) return {0, 2};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
+
+    Rerolls CairnWraith::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
+        // Reaped Like Corn
+        if (weapon->name() == m_scythe.name() && unit->remainingModels() >= 5) {
+            return RerollFailed;
+        }
+        return Unit::toHitRerolls(weapon, unit);
+    }
+
+    int CairnWraith::toSaveModifier(const Weapon *weapon) const {
+        // Ethereal - no save modifiers allowed.
+        int modifier = 0;
+
+        // Ethereal - ignore rend by cancelling it out.
+        if (weapon->rend() < 0) {
+            modifier = -weapon->rend();
+        }
+        return modifier;
+    }
+
 } // namespace Death
