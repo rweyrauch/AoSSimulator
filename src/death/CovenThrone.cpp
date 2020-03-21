@@ -36,6 +36,9 @@ namespace Death {
     Unit *CovenThrone::Create(const ParameterList &parameters) {
         auto unit = new CovenThrone();
 
+        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        unit->setLegion(legion);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -56,6 +59,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -111,5 +115,11 @@ namespace Death {
             }
         }
         return 0;
+    }
+
+    Wounds CovenThrone::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Frightful Touch
+        if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 } // namespace Death

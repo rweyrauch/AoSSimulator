@@ -23,6 +23,9 @@ namespace Death {
         auto unit = new FellBats();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        unit->setLegion(legion);
+
         bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;
@@ -48,6 +51,7 @@ namespace Death {
                     ComputePoints,
                     {
                             {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}

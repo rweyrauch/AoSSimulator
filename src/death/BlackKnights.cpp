@@ -26,6 +26,12 @@ namespace Death {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
         m_weapons = {&m_barrowLance, &m_barrowLanceKnight, &m_hoovesAndTeeth};
+
+        s_globalBraveryMod.connect(this, &BlackKnights::standardBearerBraveryMod, &m_standardSlot);
+    }
+
+    BlackKnights::~BlackKnights() {
+        m_standardSlot.disconnect();
     }
 
     bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowers) {
@@ -60,6 +66,9 @@ namespace Death {
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
+        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        unit->setLegion(legion);
+
         bool ok = unit->configure(numModels, standardBearers, hornblowers);
         if (!ok) {
             delete unit;
@@ -79,6 +88,7 @@ namespace Death {
                             {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
                             {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {DEATHRATTLE}
@@ -122,6 +132,17 @@ namespace Death {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    int BlackKnights::standardBearerBraveryMod(const Unit *unit) {
+        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0f)) return -1;
+        return 0;
+    }
+
+    int BlackKnights::rollChargeDistance() const {
+        // Hornblower
+        auto dist = Unit::rollChargeDistance();
+        return std::max(6, dist);
     }
 
 } //namespace Death

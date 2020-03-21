@@ -24,15 +24,19 @@ namespace Death {
 
         BatSwarms();
 
-        ~BatSwarms() override = default;
+        ~BatSwarms() override;
 
         bool configure(int numModels);
 
     protected:
 
+        int cloudOfHorrors(const Unit* attacker, const Weapon* weapon, const Unit* target);
+
     private:
 
         Weapon m_teeth;
+
+        lsignal::slot m_cloudSlot;
 
         static bool s_registered;
 
@@ -41,7 +45,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Cloud of Horror                  TODO
+// Cloud of Horror                  Yes
 // Blood Suckers                    TODO
 //
 

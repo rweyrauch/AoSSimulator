@@ -19,6 +19,9 @@ namespace Death {
     Unit *CairnWraith::Create(const ParameterList &parameters) {
         auto unit = new CairnWraith();
 
+        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        unit->setLegion(legion);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -39,6 +42,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -62,5 +66,11 @@ namespace Death {
         m_points = POINTS_PER_UNIT;
 
         return true;
+    }
+
+    Wounds CairnWraith::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Frightful Touch
+        if ((hitRoll >= 6) && (weapon->name() == m_scythe.name())) return {0, 2};
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 } // namespace Death

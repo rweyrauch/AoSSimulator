@@ -25,7 +25,7 @@ namespace Death {
 
         BloodKnights();
 
-        ~BloodKnights() override = default;
+        ~BloodKnights() override;
 
         bool configure(int numModels, bool standardBearers, bool hornblowers);
 
@@ -34,6 +34,10 @@ namespace Death {
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int toSaveModifier(const Weapon *weapon) const override;
+
+        int rollChargeDistance() const override;
+
+        int standardBearerBraveryMod(const Unit* unit);
 
     private:
 
@@ -44,6 +48,8 @@ namespace Death {
             m_templarLanceOrBladeKastellan,
             m_hoovesAndTeeth;
 
+        lsignal::slot m_standardSlot;
+
         static bool s_registered;
 
     };
@@ -51,8 +57,8 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
-// Hornblower                       TODO
+// Standard Bearer                  Yes
+// Hornblower                       Yes
 // The Hunger                       TODO
 // Martial Fury                     Yes
 // Bloodshields                     Yes

@@ -36,11 +36,44 @@
 namespace Death {
 
     std::string LegionOfNagashBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Legion") {
+            if (parameter.intValue == GrandHostOfNagash) { return "Grand Host of Nagash"; }
+            else if (parameter.intValue == LegionOfSacrament) { return "Legion of Sacrament"; }
+            else if (parameter.intValue == LegionOfNight) { return "Legion of Night"; }
+            else if (parameter.intValue == LegionOfBlood) { return "Legion of Blood"; }
+        }
         return ParameterValueToString(parameter);
     }
 
     int LegionOfNagashBase::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Grand Host of Nagash") return GrandHostOfNagash;
+        else if (enumString == "Legion of Sacrament") return LegionOfSacrament;
+        else if (enumString == "Legion of Night") return LegionOfNight;
+        else if (enumString == "Legion of Blood") return LegionOfBlood;
         return 0;
+    }
+
+    void LegionOfNagashBase::setLegion(LegionOfNagashBase::Legion legion) {
+        removeKeyword(GRAND_HOST_OF_NAGASH);
+        removeKeyword(LEGION_OF_SACRAMENT);
+        removeKeyword(LEGION_OF_NIGHT);
+        removeKeyword(LEGION_OF_BLOOD);
+
+        m_legion = legion;
+        switch (legion) {
+            case GrandHostOfNagash:
+                addKeyword(GRAND_HOST_OF_NAGASH);
+                break;
+            case LegionOfSacrament:
+                addKeyword(LEGION_OF_SACRAMENT);
+                break;
+            case LegionOfNight:
+                addKeyword(LEGION_OF_NIGHT);
+                break;
+            case LegionOfBlood:
+                addKeyword(LEGION_OF_BLOOD);
+                break;
+        }
     }
 
     void Init() {

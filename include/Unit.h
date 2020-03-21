@@ -351,8 +351,8 @@ protected:
      * @param woundRoll Roll to-wound
      * @return Weapon rend
      */
-    virtual int
-    weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const { return weapon->rend(); }
+    virtual int weaponRend(const Weapon *weapon, const Unit *target,
+                           int hitRoll, int woundRoll) const { return weapon->rend(); }
 
     /*!
      * Some units do mortal wounds for simply existing.

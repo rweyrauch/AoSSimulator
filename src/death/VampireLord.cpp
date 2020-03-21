@@ -23,6 +23,9 @@ namespace Death {
         bool withSteed = GetBoolParam("Steed", parameters, false);
         bool withWings = GetBoolParam("Wings", parameters, false);
 
+        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        unit->setLegion(legion);
+
         bool ok = unit->configure(withSteed, withWings);
         if (!ok) {
             delete unit;
@@ -45,6 +48,7 @@ namespace Death {
                     {
                             {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Wings", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}

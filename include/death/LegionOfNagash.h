@@ -17,6 +17,13 @@ namespace Death {
     class LegionOfNagashBase : public Unit {
     public:
 
+        enum Legion {
+            GrandHostOfNagash,
+            LegionOfSacrament,
+            LegionOfBlood,
+            LegionOfNight
+        };
+
         static std::string ValueToString(const Parameter &parameter);
 
         static int EnumStringToInt(const std::string &enumString);
@@ -25,15 +32,29 @@ namespace Death {
 
         ~LegionOfNagashBase() override = default;
 
+        void setLegion(Legion legion);
+
     protected:
 
         LegionOfNagashBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
+
+    protected:
+
+        Legion m_legion = GrandHostOfNagash;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// The Unquiet Dead                 TODO
+// Deathless Thralls                TODO
+// The Bloodlines                   TODO
+//    Dragon Warriors               TODO
+//    Lords of Night                TODO
+//    Necromantic                   TODO
+//    Swift Death                   TODO
+// Deathless Minons                 TODO
 //
 
     void Init();

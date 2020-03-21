@@ -35,6 +35,8 @@ namespace Death {
 
         void onRestore() override;
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -53,7 +55,7 @@ namespace Death {
 // -------------------------------------------
 // Dagger of Jet                    TODO
 // Mortarch of Blood                TODO
-// Frightful Touch                  TODO
+// Frightful Touch                  Yes
 // Deathly Invocations              TODO
 // Dark Mist                        TODO
 // Twilight's Allure                TODO

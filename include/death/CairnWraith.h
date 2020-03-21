@@ -31,6 +31,8 @@ namespace Death {
 
     protected:
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_scythe;
@@ -42,7 +44,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Frightful Touch                  TODO
+// Frightful Touch                  Yes
 // Reaped Light Corn                TODO
 // Ethereal                         TODO
 //

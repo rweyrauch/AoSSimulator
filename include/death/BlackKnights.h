@@ -25,7 +25,7 @@ namespace Death {
 
         BlackKnights();
 
-        ~BlackKnights() override = default;
+        ~BlackKnights() override;
 
         bool configure(int numModels, bool standardBearers, bool hornblowers);
 
@@ -37,6 +37,10 @@ namespace Death {
 
         int toSaveModifier(const Weapon *weapon) const override;
 
+        int rollChargeDistance() const override;
+
+        int standardBearerBraveryMod(const Unit* unit);
+
     private:
 
         bool m_standardBearers = false;
@@ -46,6 +50,8 @@ namespace Death {
             m_barrowLanceKnight,
             m_hoovesAndTeeth;
 
+        lsignal::slot m_standardSlot;
+
         static bool s_registered;
 
     };
@@ -53,8 +59,8 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
-// Hornblower                       TODO
+// Standard Bearer                  Yes
+// Hornblower                       Yes
 // Deathly Charge                   Yes
 // Crypt Shields                    Yes
 //

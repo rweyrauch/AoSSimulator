@@ -36,6 +36,9 @@ namespace Death {
     Unit *BloodseekerPalanquin::Create(const ParameterList &parameters) {
         auto unit = new BloodseekerPalanquin();
 
+        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        unit->setLegion(legion);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -56,6 +59,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -68,16 +72,16 @@ namespace Death {
             LegionOfNagashBase("Bloodseeker Palanquin", 14, WOUNDS, 10, 4, true),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, 0, 0),
             m_blade(Weapon::Type::Melee, "Sanguinarch's Bloodletting Blade", 1, 4, 3, 3, -1, RAND_D3),
-            m_etherialWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
+            m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, BLOODSEEKER_PALANQUIN};
-        m_weapons = {&m_wail, &m_blade, &m_etherialWeapons};
+        m_weapons = {&m_wail, &m_blade, &m_etherealWeapons};
     }
 
     bool BloodseekerPalanquin::configure() {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_blade);
-        model->addMeleeWeapon(&m_etherialWeapons);
+        model->addMeleeWeapon(&m_etherealWeapons);
         addModel(model);
 
         m_points = POINTS_PER_UNIT;
@@ -89,7 +93,7 @@ namespace Death {
         Unit::onWounded();
 
         const int damageIndex = getDamageTableIndex();
-        m_etherialWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
+        m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
@@ -108,6 +112,13 @@ namespace Death {
             }
         }
         return 0;
+    }
+
+    Wounds BloodseekerPalanquin::weaponDamage(const Weapon *weapon, const Unit *target,
+            int hitRoll, int woundRoll) const {
+        // Frightful Touch
+        if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace Death

@@ -35,6 +35,8 @@ namespace Death {
 
         void onRestore() override;
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -51,7 +53,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Frightful Touch                  TODO
+// Frightful Touch                  Yes
 // Scrying Pool                     TODO
 // The Hunger                       TODO
 // Deathly Invocation               TODO

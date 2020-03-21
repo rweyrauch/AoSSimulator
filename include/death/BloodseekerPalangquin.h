@@ -35,13 +35,15 @@ namespace Death {
 
         void onRestore() override;
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
         int getDamageTableIndex() const;
 
     private:
 
         Weapon m_wail,
             m_blade,
-            m_etherialWeapons;
+            m_etherealWeapons;
 
         static bool s_registered;
 
@@ -50,7 +52,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Frightful Touch                  TODO
+// Frightful Touch                  Yes
 // A Fine Vintage                   TODO
 // Wail of the Damned               TODO
 // Deathly Invocation               TODO
