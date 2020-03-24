@@ -40,6 +40,8 @@ namespace Khorne {
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
+        void onUnboundSpell(Unit *caster, int castRoll) override;
+
     private:
 
         Unit *m_pQuarry = nullptr;
@@ -53,7 +55,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Brass Collar of Bloody Vengeance TODO
+// Brass Collar of Bloody Vengeance Yes
 // Prey of the Blood God            Yes
 // Unflagging Hunter                Yes
 // Call of the Hunt                 TODO

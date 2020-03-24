@@ -190,7 +190,7 @@ public:
 
     int slay(int numModels);
 
-    bool unbind(const Unit *caster, int castRoll);
+    bool unbind(Unit *caster, int castRoll);
 
     float basesizeInches() const { return m_basesize_mm / 25.4f; }
 
@@ -422,7 +422,7 @@ protected:
 
     virtual void onCharged() {}
 
-    virtual void onUnboundSpell(const Unit *caster, int castRoll) {}
+    virtual void onUnboundSpell(Unit *caster, int castRoll) {}
 
     virtual void onCastSpell(const Spell *spell, const Unit *target) {}
 

@@ -39,6 +39,8 @@ namespace Death {
 
         void onStartHero(PlayerId player) override;
 
+        Wounds onEndCombat(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -56,7 +58,7 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // Dagger of Jet                    TODO
-// Mortarch of Blood                TODO
+// Mortarch of Blood                Partial/TODO
 // Frightful Touch                  Yes
 // Deathly Invocations              Yes
 // Dark Mist                        TODO

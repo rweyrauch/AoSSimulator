@@ -26,6 +26,9 @@ namespace Khorne {
             m_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, KHORNE, FLESH_HOUNDS};
         m_weapons = {&m_burningRoar, &m_blooddarkClaws};
+
+        // Collars of Khorne
+        m_totalUnbinds = 1;
     }
 
     bool FleshHounds::configure(int numModels) {
@@ -94,6 +97,13 @@ namespace Khorne {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    int FleshHounds::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        // Collars of Khorne
+        if (remainingModels() >= 10) mod++;
+        return mod;
     }
 
 } // namespace Khorne

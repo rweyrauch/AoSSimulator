@@ -128,4 +128,13 @@ namespace Death {
 
         if (owningPlayer() == player) deathlyInvocations(4, 18.0f);
     }
+
+    Wounds NeferataMortarchOfBlood::onEndCombat(PlayerId player) {
+
+        // Mortarch of Blood
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(2);
+        // TODO: if any HEROs slain heal an additional wound.
+
+        return Unit::onEndCombat(player);
+    }
 } // namespace Death

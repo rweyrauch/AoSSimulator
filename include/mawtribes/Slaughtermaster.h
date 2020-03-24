@@ -33,7 +33,7 @@ namespace OgorMawtribes {
 
         void onCastSpell(const Spell *spell, const Unit *target) override;
 
-        void onUnboundSpell(const Unit *caster, int castRoll) override;
+        void onUnboundSpell(Unit *caster, int castRoll) override;
 
         void onStartHero(PlayerId player) override;
 

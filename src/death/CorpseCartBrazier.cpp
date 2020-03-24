@@ -8,6 +8,7 @@
 
 #include <death/CorpseCartBrazier.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Death {
     static const int BASESIZE = 105; // x70 oval
@@ -80,6 +81,22 @@ namespace Death {
     int CorpseCartWithBalefireBrazier::brazierCastingMod(const Unit *caster) {
         if (!isFriendly(caster) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0f)) return -1;
         return 0;
+    }
+
+    void CorpseCartWithBalefireBrazier::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            // Malefic Fumes
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+            for (auto unit : units) {
+                if (unit->hasKeyword(WIZARD)) {
+                    if (Dice::rollD6() >= 4) {
+                        unit->applyDamage({0, 1});
+                    }
+                }
+            }
+        }
     }
 
 } // namespace Death

@@ -95,7 +95,7 @@ namespace OgorMawtribes {
         else heal(1);
     }
 
-    void Slaughtermaster::onUnboundSpell(const Unit *caster, int castRoll) {
+    void Slaughtermaster::onUnboundSpell(Unit *caster, int castRoll) {
         Unit::onUnboundSpell(caster, castRoll);
 
         // Bloodgruel

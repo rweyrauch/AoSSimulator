@@ -39,6 +39,8 @@ namespace Death {
 
         void onStartHero(PlayerId player) override;
 
+        Wounds onEndCombat(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -55,7 +57,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Feaster of Souls                 TODO
+// Feaster of Souls                 Yes
 // Armour of Templehof              TODO
 // Sword of Unholy Power            TODO
 // Mortarch of Night                TODO

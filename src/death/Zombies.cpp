@@ -25,6 +25,12 @@ namespace Death {
             m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
         m_weapons = {&m_zombieBite};
+
+        s_globalBraveryMod.connect(this, &Zombies::standardBearerBraveryMod, &m_standardSlot);
+    }
+
+    Zombies::~Zombies() {
+        m_standardSlot.disconnect();
     }
 
     bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker) {
@@ -127,6 +133,20 @@ namespace Death {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    int Zombies::standardBearerBraveryMod(const Unit *unit) {
+        if (m_standardBearer && !isFriendly(unit) && (distanceTo(unit) <= 6.0f)) return -1;
+        return 0;
+    }
+
+    int Zombies::rollChargeDistance() const {
+        // Noise Maker
+        auto dist = Unit::rollChargeDistance();
+        if (m_noiseMaker) {
+            return std::max(6, dist);
+        }
+        return dist;
     }
 
 } //namespace Death

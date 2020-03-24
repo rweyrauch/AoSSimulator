@@ -34,6 +34,8 @@ namespace Khorne {
         // Unflagging Hunter
         Rerolls chargeRerolls() const override { return RerollFailed; }
 
+        int unbindingModifier() const override;
+
     private:
 
 
@@ -46,7 +48,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Collars of Khorne                TODO
+// Collars of Khorne                Yes
 // Unflagging Hunters               Yes
 //
 

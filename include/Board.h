@@ -85,7 +85,7 @@ public:
 
     bool isUnitWithin(Quadrant quadrant, const Unit *unit) const;
 
-    bool unbindAttempt(const Unit *caster, int castingRoll);
+    bool unbindAttempt(Unit *caster, int castingRoll);
 
     bool isVisible(const Unit *from, const Unit *target);
 

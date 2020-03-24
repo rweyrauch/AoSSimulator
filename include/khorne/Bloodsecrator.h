@@ -25,15 +25,19 @@ namespace Khorne {
 
         Bloodsecrator();
 
-        ~Bloodsecrator() override = default;
+        ~Bloodsecrator() override;
 
         bool configure();
 
     protected:
 
+        int rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+
     private:
 
         Weapon m_ensorcelledAxe;
+
+        lsignal::slot m_rageOfKhorneSlot;
 
         static bool s_registered;
     };
@@ -42,7 +46,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Loathsome Sorcery                TODO
-// Rage of Khorne                   TODO
+// Rage of Khorne                   Yes
 //
 
 } // namespace Khorne

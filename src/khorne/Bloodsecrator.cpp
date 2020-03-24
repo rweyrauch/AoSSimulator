@@ -22,6 +22,12 @@ namespace Khorne {
             m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
         m_weapons = {&m_ensorcelledAxe};
+
+        s_globalAttackMod.connect(this, &Bloodsecrator::rageOfKhorneAttackMod, &m_rageOfKhorneSlot);
+    }
+
+    Bloodsecrator::~Bloodsecrator() {
+        m_rageOfKhorneSlot.disconnect();
     }
 
     bool Bloodsecrator::configure() {
@@ -68,6 +74,12 @@ namespace Khorne {
 
     int Bloodsecrator::ComputePoints(int numModels) {
         return POINTS_PER_UNIT;
+    }
+
+    int Bloodsecrator::rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                                             const Unit *target) {
+        if (isFriendly(attacker) && attacker->hasKeyword(KHORNE) && !weapon->isMissile() && (distanceTo(attacker) <= 16.0f)) return 1;
+        return 0;
     }
 
 } // namespace Khorne

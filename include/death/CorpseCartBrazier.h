@@ -31,6 +31,8 @@ namespace Death {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
         int brazierCastingMod(const Unit* caster);
 
     private:
@@ -49,7 +51,7 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // Balefire Brazier                 Yes
-// Malefic Fumes                    TODO
+// Malefic Fumes                    Yes
 // Cryptsword                       TODO
 //
 

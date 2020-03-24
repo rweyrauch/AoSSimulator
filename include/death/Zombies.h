@@ -24,7 +24,7 @@ namespace Death {
 
         Zombies();
 
-        ~Zombies() override = default;
+        ~Zombies() override;
 
         bool configure(int numModels, bool standardBearer, bool noiseMaker);
 
@@ -34,12 +34,18 @@ namespace Death {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
+        int rollChargeDistance() const override;
+
+        int standardBearerBraveryMod(const Unit* unit);
+
     private:
 
         bool m_standardBearer = false;
         bool m_noiseMaker = false;
 
         Weapon m_zombieBite;
+
+        lsignal::slot m_standardSlot;
 
         static bool s_registered;
 
@@ -48,8 +54,8 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
-// Noise Maker                      TODO
+// Standard Bearer                  Yes
+// Noise Maker                      Yes
 // Dragged Down and Torn Apart      Yes
 // The Newly Dead                   TODO
 // Vigour Mortis                    Yes

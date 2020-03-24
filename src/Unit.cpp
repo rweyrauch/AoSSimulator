@@ -840,7 +840,7 @@ int Unit::remainingPoints() const {
     return points;
 }
 
-bool Unit::unbind(const Unit *caster, int castRoll) {
+bool Unit::unbind(Unit *caster, int castRoll) {
     bool unbound = false;
     if (m_spellsUnbound < m_totalUnbinds) {
         int unbindRoll = Dice::roll2D6() + unbindingModifier();

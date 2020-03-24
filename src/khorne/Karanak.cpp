@@ -23,6 +23,9 @@ namespace Khorne {
             m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
         m_weapons = {&m_goreSlickClaws, &m_savageMaws};
+
+        // Brass Collar of Bloody Vengeance
+        m_totalUnbinds = 1;
     }
 
     bool Karanak::configure() {
@@ -96,6 +99,13 @@ namespace Khorne {
 
     int Karanak::ComputePoints(int numModels) {
         return POINTS_PER_UNIT;
+    }
+
+    void Karanak::onUnboundSpell(Unit *caster, int castRoll) {
+        Unit::onUnboundSpell(caster, castRoll);
+
+        // Brass Collar of Bloody Vengeance
+        caster->applyDamage({0, Dice::rollD3()});
     }
 
 } // namespace Khorne

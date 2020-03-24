@@ -115,7 +115,7 @@ namespace OgorMawtribes {
         else heal(1);
     }
 
-    void Butcher::onUnboundSpell(const Unit *caster, int castRoll) {
+    void Butcher::onUnboundSpell(Unit *caster, int castRoll) {
         Unit::onUnboundSpell(caster, castRoll);
 
         // Bloodgruel

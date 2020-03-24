@@ -257,7 +257,7 @@ Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword k
     return nullptr;
 }
 
-bool Board::unbindAttempt(const Unit *caster, int castingRoll) {
+bool Board::unbindAttempt(Unit *caster, int castingRoll) {
     int targetId = (int) GetEnemyId(caster->owningPlayer());
     if (m_rosters[targetId]) {
         for (auto ip = m_rosters[targetId]->unitBegin(); ip != m_rosters[targetId]->unitEnd(); ++ip) {

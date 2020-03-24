@@ -142,7 +142,10 @@ namespace Death {
     int BlackKnights::rollChargeDistance() const {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
-        return std::max(6, dist);
+        if (m_hornblowers) {
+            return std::max(6, dist);
+        }
+        return dist;
     }
 
 } //namespace Death
