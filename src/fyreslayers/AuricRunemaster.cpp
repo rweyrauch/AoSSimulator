@@ -23,6 +23,14 @@ namespace Fyreslayers {
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNEMASTER};
         m_weapons = {&m_throwingAxe, &m_brazierStaff, &m_runicIron};
+
+        s_globalToHitReroll.connect(this, &AuricRunemaster::holySeekerToHitRerolls, &m_holySeekerToHitSlot);
+        s_globalToWoundReroll.connect(this, &AuricRunemaster::holySeekerToWoundRerolls, &m_holySeekerToWoundSlot);
+    }
+
+    AuricRunemaster::~AuricRunemaster() {
+        m_holySeekerToHitSlot.disconnect();
+        m_holySeekerToWoundSlot.disconnect();
     }
 
     bool AuricRunemaster::configure() {
@@ -70,6 +78,52 @@ namespace Fyreslayers {
 
     int AuricRunemaster::ComputePoints(int numModels) {
         return POINTS_PER_UNIT;
+    }
+
+    void AuricRunemaster::onStartHero(PlayerId player) {
+        Fyreslayer::onStartHero(player);
+
+        // Holy Seeker
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && (distanceTo(unit) <= 12.0f)) {
+            Dice::RollResult result;
+            Dice::rollD6(2, result);
+            if (result.rollsGE(6) >= 1) {
+                m_holySeekerToHit = true;
+                m_holySeekerTarget = unit;
+            }
+            if (result.rollsGE(6) == 2) {
+                m_holySeekerToWound = true;
+            }
+        }
+    }
+
+    void AuricRunemaster::onRestore() {
+        Unit::onRestore();
+
+        m_holySeekerToHit = false;
+        m_holySeekerToWound = false;
+        m_holySeekerTarget = nullptr;
+    }
+
+    Rerolls AuricRunemaster::holySeekerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+
+        if (m_holySeekerToHit && (target == m_holySeekerTarget)) {
+            if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
+                return RerollOnes;
+            }
+        }
+        return NoRerolls;
+    }
+
+    Rerolls AuricRunemaster::holySeekerToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+
+        if (m_holySeekerToWound && (target == m_holySeekerTarget)) {
+            if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
+                return RerollOnes;
+            }
+        }
+        return NoRerolls;
     }
 
 } // namespace Fyreslayers

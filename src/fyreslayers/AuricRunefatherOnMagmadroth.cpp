@@ -143,6 +143,16 @@ namespace Fyreslayers {
                 wounds += tailWounds;
             }
         }
+
+        // Weapon-breaker
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+        if (unit) {
+            if (Dice::rollD6() == 6) {
+                // TODO: buff only affects a single weapon
+                unit->buffModifier(ToHitMelee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
+            }
+        }
+
         return wounds;
     }
 
@@ -158,6 +168,18 @@ namespace Fyreslayers {
 
     int AuricRunefatherOnMagmadroth::ComputePoints(int numModels) {
         return POINTS_PER_UNIT;
+    }
+
+    void AuricRunefatherOnMagmadroth::onStartHero(PlayerId player) {
+        Fyreslayer::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            // Stare Down
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) <= 3.0f)) {
+                unit->buffModifier(Bravery, -Dice::rollD3(), {Hero, m_battleRound + 1, owningPlayer()});
+            }
+        }
     }
 
 } // namespace Fyreslayers

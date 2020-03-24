@@ -31,6 +31,7 @@ namespace DaughtersOfKhaine {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -42,9 +43,9 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Rune of Khaine                   TODO
-// Wrath of Khaine                  TODO
-// Touch of Death                   TODO
+// Priestess of Khaine              Yes
+//    Rune of Khaine                Yes
+//    Touch of Death                Yes
 // Witchbrew                        TODO
 //
 

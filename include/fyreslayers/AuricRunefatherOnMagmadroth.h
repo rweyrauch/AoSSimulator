@@ -41,6 +41,8 @@ namespace Fyreslayers {
 
         Wounds onEndCombat(PlayerId player) override;
 
+        void onStartHero(PlayerId player) override;
+
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
     private:
@@ -60,8 +62,8 @@ namespace Fyreslayers {
 // Roaring Fyrestream               Yes
 // Lashing Tail                     Yes
 // Volcanic Blood                   Yes
-// Stare Down                       TODO
-// Weapon-breaker                   TODO
+// Stare Down                       Yes
+// Weapon-breaker                   Yes
 // Steadfast Advance                TODO
 //
 

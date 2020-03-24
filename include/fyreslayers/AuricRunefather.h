@@ -31,6 +31,10 @@ namespace Fyreslayers {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon m_throwingAxe,
@@ -42,8 +46,8 @@ namespace Fyreslayers {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Stare Down                       TODO
-// Weapon-breaker                   TODO
+// Stare Down                       Yes
+// Weapon-breaker                   Yes
 // Lodge Leader                     TODO
 //
 

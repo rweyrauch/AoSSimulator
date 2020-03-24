@@ -7,6 +7,7 @@
  */
 #include <dok/HagQueen.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 25;
@@ -61,6 +62,36 @@ namespace DaughtersOfKhaine {
 
     int HagQueen::ComputePoints(int numModels) {
         return POINTS_PER_UNIT;
+    }
+
+    void HagQueen::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        m_bladeOfKhaine.setDamage(1);
+
+        // Priestess of Khaine
+        const auto roll = Dice::rollD6();
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && distanceTo(unit) <= 3.0f) {
+            // Touch of Death
+            if (roll == 1) {
+                applyDamage({0, 1});
+            }
+            else if (roll >= 3) {
+                if (Dice::rollD6() >= 4) {
+                    unit->applyDamage({0, Dice::rollD3()});
+                }
+            }
+        }
+        else {
+            // Rune of Khorne
+            if (roll == 1) {
+                applyDamage({0, 1});
+            }
+            else if (roll >= 3) {
+                m_bladeOfKhaine.setDamage(RAND_D3);
+            }
+        }
     }
 
 } //namespace DaughtersOfKhaine

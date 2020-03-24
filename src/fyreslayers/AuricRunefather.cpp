@@ -70,4 +70,30 @@ namespace Fyreslayers {
         return POINTS_PER_UNIT;
     }
 
+    void AuricRunefather::onStartHero(PlayerId player) {
+        Fyreslayer::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            // Stare Down
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) <= 3.0f)) {
+                unit->buffModifier(Bravery, -Dice::rollD3(), {Hero, m_battleRound + 1, owningPlayer()});
+            }
+        }
+    }
+
+    Wounds AuricRunefather::onEndCombat(PlayerId player) {
+        auto wounds = Unit::onEndCombat(player);
+
+        // Weapon-breaker
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+        if (unit) {
+            if (Dice::rollD6() == 6) {
+                // TODO: buff only affects a single weapon
+                unit->buffModifier(ToHitMelee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
+            }
+        }
+        return wounds;
+    }
+
 } // namespace Fyreslayers

@@ -25,11 +25,18 @@ namespace Fyreslayers {
 
         AuricRunemaster();
 
-        ~AuricRunemaster() override = default;
+        ~AuricRunemaster() override;
 
         bool configure();
 
     protected:
+
+        void onStartHero(PlayerId player) override;
+
+        void onRestore() override;
+
+        Rerolls holySeekerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+        Rerolls holySeekerToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
     private:
 
@@ -37,13 +44,19 @@ namespace Fyreslayers {
                 m_brazierStaff,
                 m_runicIron;
 
+        bool m_holySeekerToHit = false;
+        bool m_holySeekerToWound = false;
+        Unit* m_holySeekerTarget = nullptr;
+
+        lsignal::slot m_holySeekerToHitSlot, m_holySeekerToWoundSlot;
+
         static bool s_registered;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Holy Seeker                      TODO
+// Holy Seeker                      Yes
 // Volcano's Call                   TODO
 //
 

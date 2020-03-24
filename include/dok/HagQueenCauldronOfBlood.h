@@ -37,6 +37,8 @@ namespace DaughtersOfKhaine {
 
         void onCharged() override;
 
+        void onStartHero(PlayerId player) override;
+
         int idolOfWorship(const Unit *unit);
 
         int bloodShield(const Unit *target, const Weapon *weapon);
@@ -61,8 +63,10 @@ namespace DaughtersOfKhaine {
 // Bladed Impact                    Yes
 // Bloodshield                      Yes
 // Witchbrew                        TODO
-// Priestess of Khaine              TODO
-// Wrath of Khaine                  TODO
+// Priestess of Khaine              Yes
+//    Rune of Khaine                Yes
+//    Touch of Death                Yes
+//    Wrath of Khaine               TODO
 // Animated                         TODO
 // Idol of Worship                  Yes
 //
