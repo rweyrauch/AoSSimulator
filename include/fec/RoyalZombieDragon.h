@@ -35,6 +35,8 @@ namespace FleshEaterCourt {
 
         void onRestore() override;
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -49,7 +51,7 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Pestilential Breath              TODO
+// Pestilential Breath              Yes
 //
 
 } // namespace FleshEaterCourt

@@ -31,6 +31,14 @@
 
 namespace Nighthaunt {
 
+    Nighthaunt::Nighthaunt() {
+        s_globalBraveryMod.connect(this, &Nighthaunt::auraOfDread, &m_auraOfDreadSlot);
+    }
+
+    Nighthaunt::~Nighthaunt() {
+        m_auraOfDreadSlot.disconnect();
+    }
+
     Wounds Nighthaunt::applyWoundSave(const Wounds &wounds) {
         // Deathless Spirits
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
@@ -61,6 +69,11 @@ namespace Nighthaunt {
         }
 
         return modifier;
+    }
+
+    int Nighthaunt::auraOfDread(const Unit *unit) {
+        if (!isFriendly(unit) && (distanceTo(unit) < 6.0f)) return -1;
+        return 0;
     }
 
     void Init() {

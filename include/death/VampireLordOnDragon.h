@@ -46,6 +46,8 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -66,7 +68,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Pestilential Breath              TODO
+// Pestilential Breath              Yes
 // The Hunger                       Yes
 // Deathlance Charge                Yes
 // Anciet Shield                    Yes

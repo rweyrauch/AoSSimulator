@@ -167,4 +167,17 @@ namespace Death {
         if (m_charged && (weapon->name() == m_deathlance.name())) return { 3, 0};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
+
+    int VampireLordOnZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        // Pestilential Breath
+        if ((weapon->name() == m_breath.name())) {
+            if (Dice::rollD6() <= target->remainingModels()) {
+                // Auto hits
+                mod += 6;
+            }
+        }
+        return mod;
+    }
 } // namespace Death

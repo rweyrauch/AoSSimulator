@@ -16,9 +16,9 @@ namespace Nighthaunt {
 
     class Nighthaunt : public Unit {
     public:
-        Nighthaunt() = default;
+        Nighthaunt();
 
-        ~Nighthaunt() override = default;
+        ~Nighthaunt() override;
 
     protected:
         Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -27,12 +27,18 @@ namespace Nighthaunt {
         Wounds applyWoundSave(const Wounds &wounds) override;
 
         int toSaveModifier(const Weapon *weapon) const override;
+
+        int auraOfDread(const Unit * unit);
+
+    protected:
+
+        lsignal::slot m_auraOfDreadSlot;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Dread                    TODO
+// Aura of Dread                    Yes
 // Deathless Spirits                Yes
 // From the Underworlds They Come   TODO
 // Feed on Terror                   TODO

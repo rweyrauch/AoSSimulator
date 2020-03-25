@@ -143,4 +143,17 @@ namespace FleshEaterCourt {
         return POINTS_PER_UNIT;
     }
 
+    int AbhorrantGhoulKingOnZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        // Pestilential Breath
+        if ((weapon->name() == m_pestilentialBreath.name())) {
+            if (Dice::rollD6() <= target->remainingModels()) {
+                // Auto hits
+                mod += 6;
+            }
+        }
+        return mod;
+    }
+
 } // namespace FleshEasterCourt
