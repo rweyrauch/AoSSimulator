@@ -151,4 +151,17 @@ namespace FleshEaterCourt {
         return POINTS_PER_UNIT;
     }
 
+    void RoyalTerrorgheist::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        // Death Shriek
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && (distanceTo(unit) <= m_deathShriek.range())) {
+            const auto roll = Dice::rollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
+            if (roll > unit->bravery()) {
+                unit->applyDamage({0, roll-unit->bravery()});
+            }
+        }
+    }
+
 } // namespace FleshEasterCourt

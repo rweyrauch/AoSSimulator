@@ -37,6 +37,8 @@ namespace Death {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartShooting(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -52,7 +54,7 @@ namespace Death {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Wail of the Damned               TODO
+// Wail of the Damned               Yes
 // Frightful Touch                  Yes
 // The Reliquery                    TODO
 // Bound Necromancer                TODO

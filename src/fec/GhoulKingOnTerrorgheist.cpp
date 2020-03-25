@@ -36,7 +36,7 @@ namespace FleshEaterCourt {
 
     AbhorrantGhoulKingOnTerrorgheist::AbhorrantGhoulKingOnTerrorgheist() :
             FleshEaterCourts("Abhorrant Ghoul King on Terrorgheist", 14, WOUNDS, 10, 4, true),
-            m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
+            m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 0, 0, 0, 0, 0),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 5, 3, 3, -1, 1),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6) {
@@ -156,6 +156,19 @@ namespace FleshEaterCourt {
 
     int AbhorrantGhoulKingOnTerrorgheist::ComputePoints(int numModels) {
         return POINTS_PER_UNIT;
+    }
+
+    void AbhorrantGhoulKingOnTerrorgheist::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        // Death Shriek
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && (distanceTo(unit) <= m_deathShriek.range())) {
+            const auto roll = Dice::rollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
+            if (roll > unit->bravery()) {
+                unit->applyDamage({0, roll-unit->bravery()});
+            }
+        }
     }
 
 } // namespace FleshEasterCourt

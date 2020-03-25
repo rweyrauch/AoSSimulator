@@ -8,6 +8,7 @@
 
 #include <death/BloodseekerPalangquin.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Death {
     static const int BASESIZE = 120; // x92 oval
@@ -70,7 +71,7 @@ namespace Death {
 
     BloodseekerPalanquin::BloodseekerPalanquin() :
             LegionOfNagashBase("Bloodseeker Palanquin", 14, WOUNDS, 10, 4, true),
-            m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, 0, 0),
+            m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, -7, 0),
             m_blade(Weapon::Type::Melee, "Sanguinarch's Bloodletting Blade", 1, 4, 3, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, BLOODSEEKER_PALANQUIN};
@@ -125,6 +126,18 @@ namespace Death {
         Unit::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(2, 6.0f);
+    }
+
+    void BloodseekerPalanquin::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        // Wail of the Damned
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_wailRange);
+        for (auto unit : units) {
+            if (Dice::roll2D6() > unit->bravery()) {
+                unit->applyDamage({0, Dice::rollD3()});
+            }
+        }
     }
 
 } // namespace Death

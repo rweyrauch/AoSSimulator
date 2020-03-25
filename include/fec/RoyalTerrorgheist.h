@@ -41,6 +41,8 @@ namespace FleshEaterCourt {
 
         void onRestore() override;
 
+        void onStartShooting(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -55,7 +57,7 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Death Shriek                     TODO
+// Death Shriek                     Yes
 // Gaping Maw                       Yes
 // Infested                         Yes
 // Royal Menagerie                  Yes

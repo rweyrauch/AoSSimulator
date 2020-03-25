@@ -8,6 +8,7 @@
 
 #include <death/MortisEngine.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace Death {
     static const int BASESIZE = 120; // x92 oval
@@ -119,4 +120,17 @@ namespace Death {
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
+
+    void MortisEngine::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        // Wail of the Damned
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_wailRange);
+        for (auto unit : units) {
+            if (Dice::roll2D6() > unit->bravery()) {
+                unit->applyDamage({0, Dice::rollD3()});
+            }
+        }
+    }
+
 } // namespace Death

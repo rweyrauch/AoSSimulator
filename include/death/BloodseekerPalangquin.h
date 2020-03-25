@@ -39,6 +39,8 @@ namespace Death {
 
         void onStartHero(PlayerId player) override;
 
+        void onStartShooting(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -56,7 +58,7 @@ namespace Death {
 // -------------------------------------------
 // Frightful Touch                  Yes
 // A Fine Vintage                   TODO
-// Wail of the Damned               TODO
+// Wail of the Damned               Yes
 // Deathly Invocation               Yes
 // Blood Siphon                     TODO
 //
