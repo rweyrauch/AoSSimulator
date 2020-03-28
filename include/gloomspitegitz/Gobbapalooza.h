@@ -32,6 +32,10 @@ namespace GloomspiteGitz {
 
     protected:
 
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        int toSaveModifier(const Weapon *weapon) const override;
+
     private:
 
         Weapon m_tusksAndFangs,
@@ -46,9 +50,9 @@ namespace GloomspiteGitz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Hallucinogenic Fungus Brews      TODO
+// Hallucinogenic Fungus Brews      Yes
 // Bogeyman                         TODO
-// Splippery Git                    TODO
+// Splippery Git                    Yes
 // Loonshrine Potion                TODO
 // Poison Brewer                    TODO
 // Mesmerise                        TODO

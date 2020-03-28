@@ -7,6 +7,7 @@
  */
 #include <gloomspitegitz/Gobbapalooza.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 32;
@@ -50,12 +51,12 @@ namespace GloomspiteGitz {
     }
 
     Gobbapalooza::Gobbapalooza() :
-            GloomspiteGitzBase(),
-            m_tusksAndFangs(),
-            m_stikka(),
-            m_scorpisquigStikka(),
-            m_staff(),
-            m_knife() {
+            GloomspiteGitzBase("Gobbapalooza", 5, WOUNDS, 5, 6, false),
+            m_tusksAndFangs(Weapon::Type::Melee, "Boingob's Tusks and Fangs", 1, 4, 4, 3, -1, RAND_D3),
+            m_stikka(Weapon::Type::Melee, "Concealed Stikka", 1, 2, 4, 4, -1, 1),
+            m_scorpisquigStikka(Weapon::Type::Melee, "Scorpisquig Stikka", 2, 1, 4, 4, 0, RAND_D3),
+            m_staff(Weapon::Type::Melee, "Mesmerizing Staff", 1, 1, 4, 3, -1, RAND_D3),
+            m_knife(Weapon::Type::Melee, "Moon Staff and Jaggedy Knife", 2, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, GOBBAPALOOZA, SCAREMONGER,
                       BREWGIT, SPIKER, WIZARD, BOGGLEYE, SHROOMANCER};
         m_weapons = {&m_tusksAndFangs, &m_stikka, &m_scorpisquigStikka, &m_staff, &m_knife};
@@ -91,6 +92,32 @@ namespace GloomspiteGitz {
         m_points = ComputePoints(1);
 
         return true;
+    }
+
+    int Gobbapalooza::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+
+        // Slippery Git
+        if (weapon->isMissile()) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+            for (auto unit : units) {
+                if (unit->hasKeyword(MOONCLAN) && (distanceTo(unit) <= 3.0f)) {
+                    mod--;
+                    break;
+                }
+            }
+        }
+        return mod;
+    }
+
+    int Gobbapalooza::toSaveModifier(const Weapon *weapon) const {
+        auto mod = Unit::toSaveModifier(weapon);
+
+        // Hallucinogenic Fungus Brews
+        if (m_battleRound == 1) mod += 2;
+        else if (m_battleRound == 2) mod++;
+
+        return mod;
     }
 
 } // namespace GloomspiteGitz
