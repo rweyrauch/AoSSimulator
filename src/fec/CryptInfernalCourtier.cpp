@@ -84,7 +84,7 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int CryptInfernalCourtier::ComputePoints(int numModels) {
+    int CryptInfernalCourtier::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

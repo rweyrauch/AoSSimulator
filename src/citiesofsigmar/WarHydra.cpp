@@ -120,7 +120,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int WarHydra::ComputePoints(int numModels) {
+    int WarHydra::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

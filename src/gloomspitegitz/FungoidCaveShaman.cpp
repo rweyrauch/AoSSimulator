@@ -105,7 +105,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int FungoidCaveShaman::ComputePoints(int numModels) {
+    int FungoidCaveShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -74,7 +74,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int VarghulfCourtier::ComputePoints(int numModels) {
+    int VarghulfCourtier::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -88,7 +88,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int Zarbag::ComputePoints(int numModels) {
+    int Zarbag::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

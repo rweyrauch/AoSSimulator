@@ -73,7 +73,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int LoonbossWithGiantCaveSquig::ComputePoints(int numModels) {
+    int LoonbossWithGiantCaveSquig::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

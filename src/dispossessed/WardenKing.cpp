@@ -62,7 +62,7 @@ namespace Dispossessed {
         }
     }
 
-    int WardenKing::ComputePoints(int numModels) {
+    int WardenKing::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -138,7 +138,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Chimera::ComputePoints(int numModels) {
+    int Chimera::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

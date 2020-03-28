@@ -62,7 +62,7 @@ namespace Dispossessed {
         }
     }
 
-    Rerolls Unforged::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+    Rerolls Unforged::toHitRerolls(const Weapon * /*weapon*/, const Unit* /*target*/) const {
         // Runic Axes
         return RerollOnes;
     }
@@ -85,7 +85,7 @@ namespace Dispossessed {
         return modifier;
     }
 
-    int Unforged::ComputePoints(int numModels) {
+    int Unforged::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -74,7 +74,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int CryptGhastCourtier::ComputePoints(int numModels) {
+    int CryptGhastCourtier::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -81,7 +81,7 @@ namespace DaughtersOfKhaine {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int BloodwrackMedusa::ComputePoints(int numModels) {
+    int BloodwrackMedusa::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

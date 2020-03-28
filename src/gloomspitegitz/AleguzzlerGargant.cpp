@@ -105,7 +105,7 @@ namespace GloomspiteGitz {
         onWounded();
     }
 
-    int AleguzzlerGargant::ComputePoints(int numModels) {
+    int AleguzzlerGargant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

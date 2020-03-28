@@ -105,7 +105,7 @@ namespace BeastsOfChaos {
         onWounded();
     }
 
-    int ChaosGargant::ComputePoints(int numModels) {
+    int ChaosGargant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

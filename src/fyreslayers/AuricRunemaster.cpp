@@ -76,7 +76,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunemaster::ComputePoints(int numModels) {
+    int AuricRunemaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
@@ -106,7 +106,7 @@ namespace Fyreslayers {
         m_holySeekerTarget = nullptr;
     }
 
-    Rerolls AuricRunemaster::holySeekerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    Rerolls AuricRunemaster::holySeekerToHitRerolls(const Unit *attacker, const Weapon* /*weapon*/, const Unit *target) {
 
         if (m_holySeekerToHit && (target == m_holySeekerTarget)) {
             if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
@@ -116,7 +116,7 @@ namespace Fyreslayers {
         return NoRerolls;
     }
 
-    Rerolls AuricRunemaster::holySeekerToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    Rerolls AuricRunemaster::holySeekerToWoundRerolls(const Unit *attacker, const Weapon* /*weapon*/, const Unit *target) {
 
         if (m_holySeekerToWound && (target == m_holySeekerTarget)) {
             if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {

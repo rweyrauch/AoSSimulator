@@ -97,7 +97,7 @@ namespace DaughtersOfKhaine {
         return totalWounds;
     }
 
-    int MorathiHighOracleOfKhaine::ComputePoints(int numModels) {
+    int MorathiHighOracleOfKhaine::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

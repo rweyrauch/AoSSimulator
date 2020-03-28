@@ -93,7 +93,7 @@ namespace Bonesplitterz {
         }
     }
 
-    int WurrgogProphet::ComputePoints(int numModels) {
+    int WurrgogProphet::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

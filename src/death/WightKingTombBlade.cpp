@@ -59,7 +59,7 @@ namespace Death {
     }
 
     bool WightKingWithBalefulTombBlade::configure(bool hasSteed) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(hasSteed ? BASESIZE_MOUNT : BASESIZE, wounds());
 
         m_hasSteed = hasSteed;
 

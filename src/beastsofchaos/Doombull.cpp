@@ -76,7 +76,7 @@ namespace BeastsOfChaos {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Doombull::ComputePoints(int numModels) {
+    int Doombull::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -129,7 +129,7 @@ namespace GloomspiteGitz {
         Unit::onCharged();
     }
 
-    int ArachnarokSpiderWithSpiderfangWarparty::ComputePoints(int numModels) {
+    int ArachnarokSpiderWithSpiderfangWarparty::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

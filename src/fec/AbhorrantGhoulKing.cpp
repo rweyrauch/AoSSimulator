@@ -89,7 +89,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int AbhorrantGhoulKing::ComputePoints(int numModels) {
+    int AbhorrantGhoulKing::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

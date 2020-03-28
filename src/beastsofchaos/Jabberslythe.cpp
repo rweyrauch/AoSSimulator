@@ -70,7 +70,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Jabberslythe::ComputePoints(int numModels) {
+    int Jabberslythe::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

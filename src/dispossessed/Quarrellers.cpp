@@ -94,7 +94,7 @@ namespace Dispossessed {
     }
 
     int Quarrellers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Dispossessed::extraAttacks(nullptr, weapon, target);
+        auto extra = Dispossessed::extraAttacks(attackingModel, weapon, target);
         if (weapon->name() == m_duardinCrossbow.name() && remainingModels() >= 20) {
             // Volley Fire
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

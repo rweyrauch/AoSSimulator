@@ -116,7 +116,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int MorathiTheShadowQueen::ComputePoints(int numModels) {
+    int MorathiTheShadowQueen::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

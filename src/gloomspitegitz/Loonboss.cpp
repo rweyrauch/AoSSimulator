@@ -68,7 +68,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int Loonboss::ComputePoints(int numModels) {
+    int Loonboss::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

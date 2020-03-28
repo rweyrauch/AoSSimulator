@@ -82,7 +82,7 @@ namespace BeastsOfChaos {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    int Beastlord::ComputePoints(int numModels) {
+    int Beastlord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

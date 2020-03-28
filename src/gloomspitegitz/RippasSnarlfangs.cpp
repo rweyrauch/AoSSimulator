@@ -92,7 +92,7 @@ namespace GloomspiteGitz {
         return mod;
     }
 
-    int RippasSnarlfangs::ComputePoints(int numModels) {
+    int RippasSnarlfangs::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -173,7 +173,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int Archaon::ComputePoints(int numModels) {
+    int Archaon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

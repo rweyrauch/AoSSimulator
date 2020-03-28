@@ -131,7 +131,7 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase::onSlain();
     }
 
-    int ManglerSquigs::ComputePoints(int numModels) {
+    int ManglerSquigs::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

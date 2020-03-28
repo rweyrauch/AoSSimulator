@@ -134,7 +134,7 @@ namespace EldritchCouncil {
         return 0;
     }
 
-    int ArchmageOnDragon::ComputePoints(int numModels) {
+    int ArchmageOnDragon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

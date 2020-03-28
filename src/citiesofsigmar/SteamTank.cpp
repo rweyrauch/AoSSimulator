@@ -188,7 +188,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int SteamTank::ComputePoints(int numModels) {
+    int SteamTank::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

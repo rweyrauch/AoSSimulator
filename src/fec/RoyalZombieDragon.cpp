@@ -119,7 +119,7 @@ namespace FleshEaterCourt {
         onWounded();
     }
 
-    int RoyalZombieDragon::ComputePoints(int numModels) {
+    int RoyalZombieDragon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

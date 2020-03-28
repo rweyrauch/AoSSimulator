@@ -80,7 +80,7 @@ namespace Fyreslayers {
         return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Doomseeker::ComputePoints(int numModels) {
+    int Doomseeker::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

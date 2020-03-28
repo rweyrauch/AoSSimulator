@@ -96,7 +96,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int FreeguildGeneral::ComputePoints(int numModels) {
+    int FreeguildGeneral::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

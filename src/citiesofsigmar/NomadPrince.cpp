@@ -73,7 +73,7 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    int NomadPrince::ComputePoints(int numModels) {
+    int NomadPrince::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

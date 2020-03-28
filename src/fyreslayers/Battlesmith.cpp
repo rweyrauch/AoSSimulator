@@ -66,7 +66,7 @@ namespace Fyreslayers {
         }
     }
 
-    int Battlesmith::ComputePoints(int numModels) {
+    int Battlesmith::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

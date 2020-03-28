@@ -144,7 +144,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int BattlemageOnGriffon::ComputePoints(int numModels) {
+    int BattlemageOnGriffon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

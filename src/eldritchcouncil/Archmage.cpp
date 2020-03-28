@@ -32,7 +32,7 @@ namespace EldritchCouncil {
     bool Archmage::configure(bool steed) {
         m_steed = steed;
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(steed ? BASESIZE_STEED : BASESIZE, wounds());
         model->addMeleeWeapon(&m_seerstaff);
         if (m_steed) {
             model->addMeleeWeapon(&m_steedHooves);
@@ -77,7 +77,7 @@ namespace EldritchCouncil {
         }
     }
 
-    int Archmage::ComputePoints(int numModels) {
+    int Archmage::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

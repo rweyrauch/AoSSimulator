@@ -74,7 +74,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int AvatarOfKhaine::ComputePoints(int numModels) {
+    int AvatarOfKhaine::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

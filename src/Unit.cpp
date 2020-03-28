@@ -215,7 +215,7 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn) {
     onBeginTurn(battleRound);
 }
 
-void Unit::endTurn(int battleRound) {
+void Unit::endTurn(int /*battleRound*/) {
     m_statistics.record(m_currentRecord);
 }
 
@@ -471,7 +471,7 @@ void Unit::movement(PlayerId player) {
         auto distance = distanceTo(closestTarget);
         float totalMoveDistance = 0.0f;
         if (weapon->isMissile()) {
-            const float movement = (float) (move() + moveModifier());
+            const auto movement = (float) (move() + moveModifier());
 
             // get into range (run or not?)
             if (distance > (float) weapon->range() + movement) {
@@ -491,17 +491,13 @@ void Unit::movement(PlayerId player) {
                 m_currentRecord.m_moved = movement;
             } else {
                 // already in range - stand still
-                totalMoveDistance = 0.0f;
-
                 m_currentRecord.m_moved = 0.0f;
             }
         } else {
-            const float movement = (float) (move() + moveModifier());
+            const auto movement = (float) (move() + moveModifier());
 
             if (distance <= MIN_CHARGE_DISTANCE) {
                 // already in charge range - stand still
-                totalMoveDistance = 0.0f;
-
                 m_currentRecord.m_moved = 0.0f;
             }
             if (distance > (float) weapon->range() + movement) {
@@ -714,7 +710,7 @@ bool Unit::makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *t
         auto reroll = toSaveRerolls(weapon);
         if (reroll == RerollFailed) {
             saveRoll = Dice::rollD6();
-        } else if (reroll == RerollOnes && woundRoll == 1) {
+        } else if ((reroll == RerollOnes) && (woundRoll == 1)) {
             saveRoll = Dice::rollD6();
         } else if (reroll == RerollOnesAndTwos && (woundRoll == 1 || woundRoll == 2)) {
             saveRoll = Dice::rollD6();
@@ -1218,7 +1214,7 @@ bool Unit::canRetreatAndCharge() const {
         return m_movementRules[RetreatAndCharge].front().allowed;
 }
 
-int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+int Unit::targetHitModifier(const Weapon *weapon, const Unit* /*attacker*/) const {
     int modifier = 0;
 
     BuffableAttribute which = TargetToHitMelee;
@@ -1231,7 +1227,7 @@ int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
     return modifier;
 }
 
-int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
+int Unit::targetWoundModifier(const Weapon *weapon, const Unit* /*attacker*/) const {
     int modifier = 0;
 
     BuffableAttribute which = TargetToWoundMelee;
@@ -1244,7 +1240,7 @@ int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const 
     return modifier;
 }
 
-int Unit::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+int Unit::targetSaveModifier(const Weapon* /*weapon*/, const Unit* /*attacker*/) const {
     int modifier = 0;
 
     for (auto bi : m_attributeModifiers[TargetToSave]) {
@@ -1318,8 +1314,7 @@ int Unit::initialWounds() const {
 }
 
 bool Unit::isFriendly(const Unit *unit) const {
-    if (unit && (owningPlayer() == unit->owningPlayer())) return true;
-    return false;
+    return (unit && (owningPlayer() == unit->owningPlayer()));
 }
 
 int Unit::returnModels(int numModels) {

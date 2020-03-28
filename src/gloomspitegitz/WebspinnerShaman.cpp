@@ -90,7 +90,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int WebspinnerShaman::ComputePoints(int numModels) {
+    int WebspinnerShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

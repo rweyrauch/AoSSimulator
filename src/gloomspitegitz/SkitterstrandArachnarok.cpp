@@ -113,7 +113,7 @@ namespace GloomspiteGitz {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int SkitterstrandArachnarok::ComputePoints(int numModels) {
+    int SkitterstrandArachnarok::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -31,7 +31,25 @@
 namespace BeastsOfChaos {
 
     void BeastsOfChaosBase::setGreatfray(BeastsOfChaosBase::Greatfray fray) {
+        removeKeyword(ALLHERD);
+        removeKeyword(DARKWALKERS);
+        removeKeyword(GAVESPAWN);
 
+        m_greatfray = fray;
+
+        switch (fray) {
+            case Allherd:
+                addKeyword(ALLHERD);
+                break;
+            case Darkwalkers:
+                addKeyword(DARKWALKERS);
+                break;
+            case Gavespawn:
+                addKeyword(GAVESPAWN);
+                break;
+            default:
+                break;
+        }
     }
 
     std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter) {

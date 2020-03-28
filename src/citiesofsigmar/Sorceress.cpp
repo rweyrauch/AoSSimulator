@@ -80,7 +80,7 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    int Sorceress::ComputePoints(int numModels) {
+    int Sorceress::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

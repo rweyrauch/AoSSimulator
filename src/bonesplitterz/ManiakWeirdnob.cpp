@@ -75,7 +75,7 @@ namespace Bonesplitterz {
         return true;
     }
 
-    int ManiakWeirdnob::ComputePoints(int numModels) {
+    int ManiakWeirdnob::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

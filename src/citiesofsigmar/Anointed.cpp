@@ -90,7 +90,7 @@ namespace CitiesOfSigmar {
         return totalWounds;
     }
 
-    int Anointed::ComputePoints(int numModels) {
+    int Anointed::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

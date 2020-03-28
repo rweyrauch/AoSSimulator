@@ -106,7 +106,7 @@ namespace BeastsOfChaos {
     }
 
     int Gors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = Unit::extraAttacks(nullptr, weapon, target);
+        int attacks = Unit::extraAttacks(attackingModel, weapon, target);
         // Anarchy and Mayhem
         if (remainingModels() >= 20) {
             attacks += 1;

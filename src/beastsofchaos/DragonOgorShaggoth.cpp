@@ -77,7 +77,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int DragonOgorShaggoth::ComputePoints(int numModels) {
+    int DragonOgorShaggoth::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

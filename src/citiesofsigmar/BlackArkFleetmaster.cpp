@@ -83,7 +83,7 @@ namespace CitiesOfSigmar {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int BlackArkFleetmaster::ComputePoints(int numModels) {
+    int BlackArkFleetmaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

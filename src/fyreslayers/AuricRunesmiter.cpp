@@ -68,7 +68,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunesmiter::ComputePoints(int numModels) {
+    int AuricRunesmiter::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

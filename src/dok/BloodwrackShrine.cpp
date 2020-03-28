@@ -149,7 +149,7 @@ namespace DaughtersOfKhaine {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int BloodwrackShrine::ComputePoints(int numModels) {
+    int BloodwrackShrine::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

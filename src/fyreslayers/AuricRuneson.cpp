@@ -86,7 +86,7 @@ namespace Fyreslayers {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int AuricRuneson::ComputePoints(int numModels) {
+    int AuricRuneson::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

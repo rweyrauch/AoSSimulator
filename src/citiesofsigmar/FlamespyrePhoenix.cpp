@@ -147,7 +147,7 @@ namespace CitiesOfSigmar {
         return Unit::applyWoundSave(wounds);
     }
 
-    int FlamespyrePhoenix::ComputePoints(int numModels) {
+    int FlamespyrePhoenix::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

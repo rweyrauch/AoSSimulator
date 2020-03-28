@@ -94,7 +94,7 @@ namespace CitiesOfSigmar {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int HelstormRocketBattery::ComputePoints(int numModels) {
+    int HelstormRocketBattery::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

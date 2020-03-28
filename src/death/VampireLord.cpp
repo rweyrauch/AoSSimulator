@@ -68,7 +68,7 @@ namespace Death {
     }
 
     bool VampireLord::configure(bool withSteed, bool withWings, bool chalice) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(withSteed ? BASESIZE_WITH_STEED : BASESIZE, wounds());
 
         if (withSteed) {
             model->addMeleeWeapon(&m_hoovesAndTeeth);

@@ -94,7 +94,7 @@ namespace DaughtersOfKhaine {
 
     int WitchAelves::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Paired Sacrificial Knives
-        int attacks = DaughterOfKhaine::extraAttacks(nullptr, weapon, target);
+        int attacks = DaughterOfKhaine::extraAttacks(attackingModel, weapon, target);
         if (m_pairedKnives) attacks++;
 
         // Frenzied Fervour

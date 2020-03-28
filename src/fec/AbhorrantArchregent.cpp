@@ -90,7 +90,7 @@ namespace FleshEaterCourt {
 
     }
 
-    int AbhorrantArchregent::ComputePoints(int numModels) {
+    int AbhorrantArchregent::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

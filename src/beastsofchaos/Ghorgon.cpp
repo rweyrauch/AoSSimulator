@@ -134,7 +134,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Ghorgon::ComputePoints(int numModels) {
+    int Ghorgon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

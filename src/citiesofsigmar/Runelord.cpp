@@ -68,7 +68,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int Runelord::ComputePoints(int numModels) {
+    int Runelord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

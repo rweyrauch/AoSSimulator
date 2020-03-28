@@ -65,7 +65,7 @@ namespace Bonesplitterz {
         return true;
     }
 
-    int SavageBigBoss::ComputePoints(int numModels) {
+    int SavageBigBoss::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

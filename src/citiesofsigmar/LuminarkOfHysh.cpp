@@ -162,7 +162,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int LuminarkOfHysh::ComputePoints(int numModels) {
+    int LuminarkOfHysh::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

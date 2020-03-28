@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <cassert>
 #include <ManoAMano.h>
 #include <Dice.h>
 #include <Roster.h>
@@ -73,11 +72,9 @@ void ManoAMano::start() {
         redRoll = Dice::rollD6();
         blueRoll = Dice::rollD6();
     }
-    PlayerId firstUnit = PlayerId::None;
+    PlayerId firstUnit = PlayerId::Blue;
     if (redRoll > blueRoll) {
         firstUnit = PlayerId::Red;
-    } else {
-        firstUnit = PlayerId::Blue;
     }
 
     m_isDone = false;

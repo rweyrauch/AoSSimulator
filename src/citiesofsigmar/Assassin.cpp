@@ -81,7 +81,7 @@ namespace CitiesOfSigmar {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Assassin::ComputePoints(int numModels) {
+    int Assassin::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

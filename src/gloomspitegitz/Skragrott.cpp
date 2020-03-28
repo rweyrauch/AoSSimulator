@@ -131,7 +131,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int Skragrott::ComputePoints(int numModels) {
+    int Skragrott::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

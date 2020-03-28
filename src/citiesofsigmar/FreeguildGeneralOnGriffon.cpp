@@ -174,7 +174,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int FreeguildGeneralOnGriffon::ComputePoints(int numModels) {
+    int FreeguildGeneralOnGriffon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

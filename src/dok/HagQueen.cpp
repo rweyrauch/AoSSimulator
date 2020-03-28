@@ -60,7 +60,7 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int HagQueen::ComputePoints(int numModels) {
+    int HagQueen::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

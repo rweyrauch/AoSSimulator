@@ -141,7 +141,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int ColossalSquig::ComputePoints(int numModels) {
+    int ColossalSquig::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

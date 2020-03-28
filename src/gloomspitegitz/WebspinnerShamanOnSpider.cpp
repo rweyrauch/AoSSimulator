@@ -174,7 +174,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int WebspinnerShamanOnArachnarokSpider::ComputePoints(int numModels) {
+    int WebspinnerShamanOnArachnarokSpider::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -93,7 +93,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int Battlemage::ComputePoints(int numModels) {
+    int Battlemage::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

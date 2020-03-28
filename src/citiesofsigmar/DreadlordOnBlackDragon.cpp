@@ -126,13 +126,12 @@ namespace CitiesOfSigmar {
         } else if (weapon == LanceAndCrossbow) {
             model->addMeleeWeapon(&m_lance);
             model->addMissileWeapon(&m_crossbow);
-        } else if (weapon == ExileBladeAndShield) {
+        } else if ((weapon == ExileBladeAndShield) ||
+                   (weapon == PairExileBlades)) {
             model->addMeleeWeapon(&m_blade);
         } else if (weapon == ExileBladeAndCrossbow) {
             model->addMeleeWeapon(&m_blade);
             model->addMissileWeapon(&m_crossbow);
-        } else if (weapon == PairExileBlades) {
-            model->addMeleeWeapon(&m_blade);
         }
         addModel(model);
 
@@ -191,7 +190,7 @@ namespace CitiesOfSigmar {
         return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
-    int DreadlordOnBlackDragon::ComputePoints(int numModels) {
+    int DreadlordOnBlackDragon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -99,7 +99,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Cockatrice::ComputePoints(int numModels) {
+    int Cockatrice::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

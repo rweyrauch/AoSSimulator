@@ -90,7 +90,7 @@ namespace Death {
         return true;
     }
 
-    int BatSwarms::cloudOfHorrors(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    int BatSwarms::cloudOfHorrors(const Unit* /*attacker*/, const Weapon *weapon, const Unit *target) {
         if (!isFriendly(target) && weapon->isMissile() && (distanceTo(target) <= 12.0f)) return -1;
         return 0;
     }

@@ -75,7 +75,7 @@ namespace GloomspiteGitz {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int ScuttlebossOnGiganticSpider::ComputePoints(int numModels) {
+    int ScuttlebossOnGiganticSpider::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

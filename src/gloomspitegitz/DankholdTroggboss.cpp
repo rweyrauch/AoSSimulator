@@ -117,7 +117,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int DankholdTroggboss::ComputePoints(int numModels) {
+    int DankholdTroggboss::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -79,12 +79,12 @@ namespace FreeAgent {
         return appliedWounds;
     }
 
-    Rerolls GotrekGurnisson::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+    Rerolls GotrekGurnisson::toHitRerolls(const Weapon* /*weapon*/, const Unit* /*target*/) const {
         // Krag Blackhammer's Master Rune
         return RerollFailed;
     }
 
-    Rerolls GotrekGurnisson::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+    Rerolls GotrekGurnisson::toWoundRerolls(const Weapon* /*weapon*/, const Unit* /*target*/) const {
         // Krag Blackhammer's Master Rune
         return RerollFailed;
     }
@@ -125,7 +125,7 @@ namespace FreeAgent {
         return wounds;
     }
 
-    int GotrekGurnisson::ComputePoints(int numModels) {
+    int GotrekGurnisson::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -75,7 +75,7 @@ namespace EldritchCouncil {
         return Unit::toSaveRerolls(weapon);
     }
 
-    int Loremaster::ComputePoints(int numModels) {
+    int Loremaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

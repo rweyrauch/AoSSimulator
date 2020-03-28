@@ -110,7 +110,7 @@ namespace CitiesOfSigmar {
 
         // Free Arm
         if ((m_weaponOption == GrudgeRaker) && (weapon->name() == m_grudgeRaker.name())) mod++;
-        else if ((m_weaponOption == CogAxe) && (weapon->name() == m_cogAxe.name())) mod++;
+        if ((m_weaponOption == CogAxe) && (weapon->name() == m_cogAxe.name())) mod++;
 
         return mod;
     }
@@ -132,7 +132,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int Cogsmith::ComputePoints(int numModels) {
+    int Cogsmith::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -152,7 +152,7 @@ namespace CitiesOfSigmar {
     }
 
     int Irondrakes::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = CitizenOfSigmar::extraAttacks(nullptr, weapon, target);
+        auto extra = CitizenOfSigmar::extraAttacks(attackingModel, weapon, target);
         if (weapon->name() == m_drakegun.name() && !m_moved) {
             // Blaze Away
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

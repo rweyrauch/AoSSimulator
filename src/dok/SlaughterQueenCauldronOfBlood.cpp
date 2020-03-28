@@ -139,7 +139,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int SlaughterQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon *weapon) {
+    int SlaughterQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon* /*weapon*/) {
         if (isFriendly(target) && target->hasKeyword(DAUGHTERS_OF_KHAINE) &&
             (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_bloodshield)) {
             return 1;
@@ -147,7 +147,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int SlaughterQueenOnCauldronOfBlood::ComputePoints(int numModels) {
+    int SlaughterQueenOnCauldronOfBlood::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

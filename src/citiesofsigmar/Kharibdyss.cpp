@@ -135,7 +135,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int Kharibdyss::ComputePoints(int numModels) {
+    int Kharibdyss::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

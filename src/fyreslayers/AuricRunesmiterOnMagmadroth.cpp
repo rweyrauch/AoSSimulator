@@ -158,7 +158,7 @@ namespace Fyreslayers {
         return Fyreslayer::computeReturnedDamage(weapon, saveRoll);
     }
 
-    int AuricRunesmiterOnMagmadroth::ComputePoints(int numModels) {
+    int AuricRunesmiterOnMagmadroth::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

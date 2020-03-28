@@ -89,7 +89,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int HelblasterVolleyGun::ComputePoints(int numModels) {
+    int HelblasterVolleyGun::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

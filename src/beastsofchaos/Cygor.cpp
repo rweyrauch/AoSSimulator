@@ -117,7 +117,7 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int Cygor::ComputePoints(int numModels) {
+    int Cygor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

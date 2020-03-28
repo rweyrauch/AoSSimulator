@@ -65,7 +65,7 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int SlaughterQueen::ComputePoints(int numModels) {
+    int SlaughterQueen::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

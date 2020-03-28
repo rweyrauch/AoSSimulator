@@ -83,7 +83,7 @@ namespace Fyreslayers {
         return totalWounds.clamp();
     }
 
-    int GrimwrathBerzerker::ComputePoints(int numModels) {
+    int GrimwrathBerzerker::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

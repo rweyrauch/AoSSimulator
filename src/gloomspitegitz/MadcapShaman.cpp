@@ -90,7 +90,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int MadcapShaman::ComputePoints(int numModels) {
+    int MadcapShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -71,7 +71,7 @@ namespace Bonesplitterz {
         return true;
     }
 
-    int Wardokk::ComputePoints(int numModels) {
+    int Wardokk::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

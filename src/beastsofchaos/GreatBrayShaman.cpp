@@ -87,7 +87,7 @@ namespace BeastsOfChaos {
         return 0;
     }
 
-    int GreatBrayShaman::ComputePoints(int numModels) {
+    int GreatBrayShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

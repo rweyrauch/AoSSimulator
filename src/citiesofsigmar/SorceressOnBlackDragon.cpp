@@ -145,7 +145,7 @@ namespace CitiesOfSigmar {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int SorceressOnBlackDragon::ComputePoints(int numModels) {
+    int SorceressOnBlackDragon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

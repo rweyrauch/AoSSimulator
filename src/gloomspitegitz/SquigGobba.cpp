@@ -75,7 +75,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int SquigGobba::ComputePoints(int numModels) {
+    int SquigGobba::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

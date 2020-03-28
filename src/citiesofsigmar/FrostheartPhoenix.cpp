@@ -136,7 +136,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int FrostheartPhoenix::blizzardAura(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    int FrostheartPhoenix::blizzardAura(const Unit* /*attacker*/, const Weapon *weapon, const Unit *target) {
         // Blizzard Aura
         if (!weapon->isMissile() && (target->owningPlayer() != owningPlayer()) &&
             (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_blizzazdAura)) {
@@ -164,7 +164,7 @@ namespace CitiesOfSigmar {
         return Unit::applyWoundSave(wounds);
     }
 
-    int FrostheartPhoenix::ComputePoints(int numModels) {
+    int FrostheartPhoenix::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

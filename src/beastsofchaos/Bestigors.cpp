@@ -110,7 +110,7 @@ namespace BeastsOfChaos {
 
     int Bestigors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Beastial Charge
-        int attacks = Unit::extraAttacks(nullptr, weapon, target);
+        int attacks = Unit::extraAttacks(attackingModel, weapon, target);
         if (m_charged) {
             attacks += 1;
         }

@@ -66,7 +66,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunefather::ComputePoints(int numModels) {
+    int AuricRunefather::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

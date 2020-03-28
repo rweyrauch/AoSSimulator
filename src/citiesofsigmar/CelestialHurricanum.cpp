@@ -184,7 +184,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int CelestialHurricanum::portentsOfBattle(const Unit *attacker, const Weapon *weapon, const Unit *unit) {
+    int CelestialHurricanum::portentsOfBattle(const Unit* /*attacker*/, const Weapon* /*weapon*/, const Unit *unit) {
         // Portents of Battle
         if (unit->hasKeyword(CITIES_OF_SIGMAR) &&
             (unit->owningPlayer() == owningPlayer()) &&
@@ -194,7 +194,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int CelestialHurricanum::ComputePoints(int numModels) {
+    int CelestialHurricanum::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

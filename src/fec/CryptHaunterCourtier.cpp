@@ -90,7 +90,7 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }
 
-    int CryptHaunterCourtier::ComputePoints(int numModels) {
+    int CryptHaunterCourtier::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

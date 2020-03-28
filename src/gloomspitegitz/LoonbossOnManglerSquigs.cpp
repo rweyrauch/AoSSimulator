@@ -165,7 +165,7 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::toWoundRerolls(weapon, target);
     }
 
-    int LoonbossOnManglerSquigs::ComputePoints(int numModels) {
+    int LoonbossOnManglerSquigs::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
