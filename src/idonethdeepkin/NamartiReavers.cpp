@@ -91,7 +91,7 @@ namespace IdonethDeepkin {
         }
     }
 
-    void NamartiReavers::onStartShooting(PlayerId player) {
+    void NamartiReavers::onStartShooting(PlayerId /*player*/) {
         auto board = Board::Instance();
         auto otherRoster = board->getPlayerRoster(GetEnemyId(owningPlayer()));
 

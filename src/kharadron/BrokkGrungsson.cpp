@@ -70,7 +70,7 @@ namespace KharadronOverlords {
         return true;
     }
 
-    int BrokkGrungsson::ComputePoints(int numModels) {
+    int BrokkGrungsson::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

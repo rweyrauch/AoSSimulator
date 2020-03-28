@@ -76,7 +76,7 @@ namespace Nighthaunt {
     }
 
     int Chainghasts::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = Nighthaunt::extraAttacks(nullptr, weapon, target);
+        int attacks = Nighthaunt::extraAttacks(attackingModel, weapon, target);
         // Sweeping Blows
         if (weapon->name() == m_ghastflails.name()) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0f);

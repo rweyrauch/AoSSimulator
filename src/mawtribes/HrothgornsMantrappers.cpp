@@ -77,7 +77,7 @@ namespace OgorMawtribes {
         return true;
     }
 
-    int HrothgornsMantrappers::ComputePoints(int numModels) {
+    int HrothgornsMantrappers::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

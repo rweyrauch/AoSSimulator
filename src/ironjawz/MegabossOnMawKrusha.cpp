@@ -183,7 +183,7 @@ namespace Ironjawz {
         return Ironjawz::EnumStringToInt(enumString);
     }
 
-    int MegabossOnMawKrusha::ComputePoints(int numModels) {
+    int MegabossOnMawKrusha::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

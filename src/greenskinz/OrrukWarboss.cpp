@@ -116,7 +116,7 @@ namespace Greenskinz {
     }
 
     int OrrukWarboss::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = Unit::extraAttacks(nullptr, weapon, target);
+        int attacks = Unit::extraAttacks(attackingModel, weapon, target);
         // Choppa Boss
         if ((m_weapon == PairedBossChoppas) && (weapon->name() == m_bossChoppa.name())) {
             attacks += 2;
@@ -132,7 +132,7 @@ namespace Greenskinz {
         return Unit::toSaveRerolls(weapon);
     }
 
-    int OrrukWarboss::ComputePoints(int numModels) {
+    int OrrukWarboss::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

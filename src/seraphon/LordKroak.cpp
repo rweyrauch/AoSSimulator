@@ -122,7 +122,7 @@ namespace Seraphon {
         return mod;
     }
 
-    int LordKroak::ComputePoints(int numModels) {
+    int LordKroak::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

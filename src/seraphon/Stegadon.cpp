@@ -174,7 +174,7 @@ namespace Seraphon {
         return NoRerolls;
     }
 
-    int Stegadon::ComputePoints(int numModels) {
+    int Stegadon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

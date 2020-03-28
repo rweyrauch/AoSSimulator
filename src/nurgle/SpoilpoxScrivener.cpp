@@ -91,8 +91,8 @@ namespace Nurgle {
         return NoRerolls;
     }
 
-    Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit *attacker, const Weapon *weapon,
-                                                                      const Unit *target) {
+    Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit *attacker, const Weapon* /*weapon*/,
+                                                                      const Unit* /*target*/) {
         if ((attacker->hasKeyword(PLAGUEBEARER) || attacker->hasKeyword(PLAGUEBEARERS)) &&
             (distanceTo(attacker) <= 7.0f))
             return RerollOnes;
@@ -100,7 +100,7 @@ namespace Nurgle {
         return NoRerolls;
     }
 
-    int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int numModels) {
+    int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

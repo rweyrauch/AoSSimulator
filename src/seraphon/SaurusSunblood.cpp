@@ -79,7 +79,7 @@ namespace Seraphon {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusSunblood::ComputePoints(int numModels) {
+    int SaurusSunblood::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

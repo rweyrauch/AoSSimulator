@@ -111,7 +111,7 @@ namespace Wanderers {
         return Wanderer::toSaveRerolls(weapon);
     }
 
-    void EternalGuard::onStartHero(PlayerId player) {
+    void EternalGuard::onStartHero(PlayerId /*player*/) {
         m_fortressModifier = 0;
         m_canMove = true;
 

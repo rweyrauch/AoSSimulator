@@ -95,13 +95,13 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls Desolators::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Desolators::toSaveRerolls(const Weapon */*weapon*/) const {
         // Sigmarite Shields
         return RerollOnes;
     }
 
     int Desolators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
         if (weapon->name() == m_thunderAxe.name()) {
             if (remainingModels() >= 6)
                 attacks += 2;

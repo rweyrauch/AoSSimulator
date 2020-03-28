@@ -92,12 +92,12 @@ namespace StormcastEternals {
         StormcastEternal::onStartHero(player);
     }
 
-    Rerolls KnightAzyros::illuminatorOfTheLostReroll(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    Rerolls KnightAzyros::illuminatorOfTheLostReroll(const Unit *attacker, const Weapon* /*weapon*/, const Unit *target) {
         if (isFriendly(attacker) && distanceTo(target) <= 10.0f) return RerollOnes;
         return NoRerolls;
     }
 
-    int KnightAzyros::ComputePoints(int numModels) {
+    int KnightAzyros::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

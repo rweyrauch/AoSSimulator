@@ -9,7 +9,6 @@
 #include <Dice.h>
 #include <sylvaneth/KurnothHunters.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace Sylvaneth {

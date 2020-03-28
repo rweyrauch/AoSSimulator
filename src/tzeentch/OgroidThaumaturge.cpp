@@ -76,7 +76,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int OgroidThaumaturge::ComputePoints(int numModels) {
+    int OgroidThaumaturge::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

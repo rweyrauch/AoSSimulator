@@ -141,7 +141,7 @@ namespace Skaven {
         return 0;
     }
 
-    int LordSkreechVerminking::ComputePoints(int numModels) {
+    int LordSkreechVerminking::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -120,7 +120,7 @@ namespace Greenskinz {
 
     int
     OrrukWarbossOnWyvern::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = Unit::extraAttacks(nullptr, weapon, target);
+        int attacks = Unit::extraAttacks(attackingModel, weapon, target);
         // Choppa Boss
         if (m_pairedChoppas) {
             attacks += 2;
@@ -128,7 +128,7 @@ namespace Greenskinz {
         return attacks;
     }
 
-    int OrrukWarbossOnWyvern::ComputePoints(int numModels) {
+    int OrrukWarbossOnWyvern::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

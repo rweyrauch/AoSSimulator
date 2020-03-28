@@ -124,14 +124,14 @@ namespace StormcastEternals {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    void LordArcanumOnGryphcharger::onStartCombat(PlayerId player) {
+    void LordArcanumOnGryphcharger::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
         }
     }
 
-    int LordArcanumOnGryphcharger::ComputePoints(int numModels) {
+    int LordArcanumOnGryphcharger::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

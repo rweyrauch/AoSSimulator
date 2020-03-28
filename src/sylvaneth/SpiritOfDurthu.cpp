@@ -9,7 +9,6 @@
 #include <Dice.h>
 #include <sylvaneth/SpiritOfDurthu.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace Sylvaneth {
@@ -61,9 +60,6 @@ namespace Sylvaneth {
         m_points = POINTS_PER_UNIT;
 
         return true;
-    }
-
-    void SpiritOfDurthu::onStartHero(PlayerId id) {
     }
 
     void SpiritOfDurthu::onWounded() {
@@ -160,7 +156,7 @@ namespace Sylvaneth {
         return 0;
     }
 
-    int SpiritOfDurthu::ComputePoints(int numModels) {
+    int SpiritOfDurthu::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

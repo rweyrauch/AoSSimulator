@@ -155,7 +155,7 @@ namespace Khorne {
         return Unit::applyWoundSave(wounds);
     }
 
-    int VorgarothAndSkalok::ComputePoints(int numModels) {
+    int VorgarothAndSkalok::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

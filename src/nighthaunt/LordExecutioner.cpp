@@ -92,7 +92,7 @@ namespace Nighthaunt {
         return unsavedWounds;
     }
 
-    int LordExecutioner::ComputePoints(int numModels) {
+    int LordExecutioner::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

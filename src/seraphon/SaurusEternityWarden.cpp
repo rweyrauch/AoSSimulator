@@ -80,7 +80,7 @@ namespace Seraphon {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusEternityWarden::ComputePoints(int numModels) {
+    int SaurusEternityWarden::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

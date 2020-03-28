@@ -52,6 +52,9 @@ namespace Slaanesh {
     Unit *BladebringerOnSeekerChariot::Create(const ParameterList &parameters) {
         auto unit = new BladebringerOnSeekerChariot();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -90,7 +93,7 @@ namespace Slaanesh {
         }
     }
 
-    int BladebringerOnSeekerChariot::ComputePoints(int numModels) {
+    int BladebringerOnSeekerChariot::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

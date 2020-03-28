@@ -1,3 +1,10 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <spells/SylvanethSpells.h>
@@ -65,7 +72,7 @@ namespace Sylvaneth {
         return true;
     }
 
-    int Ylthari::ComputePoints(int numModels) {
+    int Ylthari::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

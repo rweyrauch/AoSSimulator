@@ -75,7 +75,7 @@ namespace SlavesToDarkness {
         return extra;
     }
 
-    int DarkoathChieftain::ComputePoints(int numModels) {
+    int DarkoathChieftain::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -72,7 +72,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int TheChangeling::ComputePoints(int numModels) {
+    int TheChangeling::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

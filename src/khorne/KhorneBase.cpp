@@ -110,7 +110,8 @@ namespace Khorne {
             for (auto ip : units) {
                 if (ip->hasKeyword(GREATER_DAEMON)) {
                     return RerollOnes;
-                } else if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0f) {
+                }
+                if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0f) {
                     return RerollOnes;
                 }
             }

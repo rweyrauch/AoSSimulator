@@ -150,7 +150,7 @@ namespace Khorne {
         KhorneBase::onStartShooting(player);
     }
 
-    int Skarbrand::ComputePoints(int numModels) {
+    int Skarbrand::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

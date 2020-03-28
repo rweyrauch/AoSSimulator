@@ -107,7 +107,7 @@ namespace IdonethDeepkin {
         return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
-    int Volturnos::ComputePoints(int numModels) {
+    int Volturnos::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -82,7 +82,7 @@ namespace Seraphon {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusScarVeteranOnColdOne::ComputePoints(int numModels) {
+    int SaurusScarVeteranOnColdOne::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

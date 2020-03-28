@@ -9,7 +9,6 @@
 #include <Dice.h>
 #include <sylvaneth/Treelord.h>
 #include <UnitFactory.h>
-#include <iostream>
 
 namespace Sylvaneth {
     static const int BASESIZE = 105; // x70 oval
@@ -54,9 +53,6 @@ namespace Sylvaneth {
         m_points = POINTS_PER_UNIT;
 
         return true;
-    }
-
-    void Treelord::onStartHero(PlayerId id) {
     }
 
     void Treelord::onWounded() {
@@ -120,7 +116,7 @@ namespace Sylvaneth {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Treelord::ComputePoints(int numModels) {
+    int Treelord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

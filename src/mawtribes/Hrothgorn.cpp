@@ -77,7 +77,7 @@ namespace OgorMawtribes {
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
-    int Hrothgorn::ComputePoints(int numModels) {
+    int Hrothgorn::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

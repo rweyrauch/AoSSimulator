@@ -66,7 +66,7 @@ namespace KharadronOverlords {
         return true;
     }
 
-    int EndrinmasterWithEndrinharness::ComputePoints(int numModels) {
+    int EndrinmasterWithEndrinharness::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -73,7 +73,7 @@ namespace KharadronOverlords {
         return true;
     }
 
-    int AetherKhemist::atmosphericIsolation(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    int AetherKhemist::atmosphericIsolation(const Unit* /*attacker*/, const Weapon* /*weapon*/, const Unit *target) {
         // Atmospheric Isolation
         if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
             return -1;
@@ -82,7 +82,7 @@ namespace KharadronOverlords {
         return 0;
     }
 
-    int AetherKhemist::ComputePoints(int numModels) {
+    int AetherKhemist::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

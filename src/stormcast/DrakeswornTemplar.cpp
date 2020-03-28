@@ -280,7 +280,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int DrakeswornTemplar::ComputePoints(int numModels) {
+    int DrakeswornTemplar::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

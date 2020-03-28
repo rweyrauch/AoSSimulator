@@ -109,7 +109,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int ChaosWarshrine::ComputePoints(int numModels) {
+    int ChaosWarshrine::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

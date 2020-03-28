@@ -66,7 +66,7 @@ namespace Nurgle {
         return true;
     }
 
-    int SorcererOfNurgle::ComputePoints(int numModels) {
+    int SorcererOfNurgle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

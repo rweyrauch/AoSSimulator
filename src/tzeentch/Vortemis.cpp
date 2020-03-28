@@ -75,7 +75,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int VortemisTheAllSeeing::ComputePoints(int numModels) {
+    int VortemisTheAllSeeing::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

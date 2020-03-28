@@ -117,7 +117,7 @@ namespace OssiarchBonereapers {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Katakros::ComputePoints(int numModels) {
+    int Katakros::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

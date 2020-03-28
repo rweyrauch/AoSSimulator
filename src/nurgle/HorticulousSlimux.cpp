@@ -90,14 +90,14 @@ namespace Nurgle {
     }
 
     Rerolls
-    HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const Weapon* /*weapon*/, const Unit* /*target*/) {
         if (isFriendly(attacker) && (distanceTo(attacker) <= 7.0f)) {
             if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
         }
         return NoRerolls;
     }
 
-    int HorticulousSlimux::ComputePoints(int numModels) {
+    int HorticulousSlimux::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -124,7 +124,7 @@ namespace OgorMawtribes {
         else heal(1);
     }
 
-    int Butcher::ComputePoints(int numModels) {
+    int Butcher::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

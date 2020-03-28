@@ -152,7 +152,7 @@ namespace OssiarchBonereapers {
         return mod;
     }
 
-    int ArkhanTheBlack::ComputePoints(int numModels) {
+    int ArkhanTheBlack::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

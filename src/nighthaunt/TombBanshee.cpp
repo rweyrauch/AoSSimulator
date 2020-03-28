@@ -83,7 +83,7 @@ namespace Nighthaunt {
         }
     }
 
-    int TombBanshee::ComputePoints(int numModels) {
+    int TombBanshee::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

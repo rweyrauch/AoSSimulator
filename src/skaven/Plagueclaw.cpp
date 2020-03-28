@@ -82,7 +82,7 @@ namespace Skaven {
         return wounds;
     }
 
-    int Plagueclaw::ComputePoints(int numModels) {
+    int Plagueclaw::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -9,7 +9,6 @@
 #include <Dice.h>
 #include <sylvaneth/Alarielle.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <spells/MysticShield.h>
 #include <spells/SylvanethSpells.h>
 #include <Board.h>
@@ -201,7 +200,7 @@ namespace Sylvaneth {
         onWounded();
     }
 
-    int Alarielle::ComputePoints(int numModels) {
+    int Alarielle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

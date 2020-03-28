@@ -64,7 +64,7 @@ namespace Skaven {
         return true;
     }
 
-    int GreySeer::ComputePoints(int numModels) {
+    int GreySeer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

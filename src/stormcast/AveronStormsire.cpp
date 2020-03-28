@@ -110,14 +110,14 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    void AveronStormsire::onStartCombat(PlayerId player) {
+    void AveronStormsire::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
         }
     }
 
-    int AveronStormsire::ComputePoints(int numModels) {
+    int AveronStormsire::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

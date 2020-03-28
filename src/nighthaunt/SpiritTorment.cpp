@@ -60,7 +60,7 @@ namespace Nighthaunt {
         return true;
     }
 
-    int SpiritTorment::ComputePoints(int numModels) {
+    int SpiritTorment::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

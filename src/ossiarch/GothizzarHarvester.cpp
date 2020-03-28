@@ -148,7 +148,7 @@ namespace OssiarchBonereapers {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int GothizzarHarvester::ComputePoints(int numModels) {
+    int GothizzarHarvester::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

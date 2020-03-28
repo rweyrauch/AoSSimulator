@@ -156,7 +156,7 @@ namespace Seraphon {
         return 0;
     }
 
-    int Troglodon::ComputePoints(int numModels) {
+    int Troglodon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

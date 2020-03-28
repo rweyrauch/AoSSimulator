@@ -141,7 +141,7 @@ namespace Skaven {
     }
 
     int PlagueMonks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = Skaventide::extraAttacks(nullptr, weapon, target);
+        int attacks = Skaventide::extraAttacks(attackingModel, weapon, target);
         // Frenzied Assault
         if (m_charged && !weapon->isMissile()) {
             attacks += 1;

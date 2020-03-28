@@ -49,6 +49,9 @@ namespace Slaanesh {
     Unit *SyllEsske::Create(const ParameterList &parameters) {
         auto unit = new SyllEsske();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -75,7 +78,7 @@ namespace Slaanesh {
         }
     }
 
-    int SyllEsske::ComputePoints(int numModels) {
+    int SyllEsske::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

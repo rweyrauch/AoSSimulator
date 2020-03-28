@@ -109,7 +109,7 @@ namespace Skaven {
         return wounds;
     }
 
-    int Doomflayer::ComputePoints(int numModels) {
+    int Doomflayer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

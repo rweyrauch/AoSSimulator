@@ -59,7 +59,7 @@ namespace Nurgle {
         return true;
     }
 
-    int FestusTheLeechlord::ComputePoints(int numModels) {
+    int FestusTheLeechlord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

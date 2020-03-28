@@ -78,7 +78,7 @@ namespace StormcastEternals {
         return NoRerolls;
     }
 
-    int KnightVexillor::ComputePoints(int numModels) {
+    int KnightVexillor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -105,7 +105,7 @@ namespace Khorne {
         return KhorneBase::EnumStringToInt(enumString);
     }
 
-    int AspiringDeathbringer::ComputePoints(int numModels) {
+    int AspiringDeathbringer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

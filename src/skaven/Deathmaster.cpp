@@ -87,7 +87,7 @@ namespace Skaven {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int Deathmaster::ComputePoints(int numModels) {
+    int Deathmaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

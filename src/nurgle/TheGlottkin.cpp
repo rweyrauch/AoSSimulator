@@ -138,7 +138,7 @@ namespace Nurgle {
         Unit::onCharged();
     }
 
-    int TheGlottkin::ComputePoints(int numModels) {
+    int TheGlottkin::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -69,7 +69,7 @@ namespace Nurgle {
         return Unit::toSaveRerolls(weapon);
     }
 
-    int LordOfBlights::ComputePoints(int numModels) {
+    int LordOfBlights::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

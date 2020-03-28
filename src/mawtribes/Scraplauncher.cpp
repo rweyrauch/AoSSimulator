@@ -102,7 +102,7 @@ namespace OgorMawtribes {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int GnoblarScraplauncher::ComputePoints(int numModels) {
+    int GnoblarScraplauncher::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -111,14 +111,14 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    void KnightIncantor::onStartCombat(PlayerId player) {
+    void KnightIncantor::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
         }
     }
 
-    int KnightIncantor::ComputePoints(int numModels) {
+    int KnightIncantor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

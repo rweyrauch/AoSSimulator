@@ -122,7 +122,7 @@ namespace Tzeentch {
         return std::max(r0, r1) * 2 + castingModifier();
     }
 
-    int KairosFateweaver::ComputePoints(int numModels) {
+    int KairosFateweaver::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

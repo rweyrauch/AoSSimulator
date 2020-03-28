@@ -104,7 +104,7 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
-    int SteelheartsChampions::ComputePoints(int numModels) {
+    int SteelheartsChampions::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

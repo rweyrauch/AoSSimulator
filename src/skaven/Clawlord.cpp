@@ -70,7 +70,7 @@ namespace Skaven {
         return extra;
     }
 
-    int Clawlord::ComputePoints(int numModels) {
+    int Clawlord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 } //namespace Skaven

@@ -116,7 +116,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    int ChaosLord::ComputePoints(int numModels) {
+    int ChaosLord::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

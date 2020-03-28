@@ -81,7 +81,7 @@ namespace OssiarchBonereapers {
         return true;
     }
 
-    int MortisanSoulmason::ComputePoints(int numModels) {
+    int MortisanSoulmason::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

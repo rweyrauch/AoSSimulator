@@ -50,7 +50,7 @@ bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool
     auto pip = FindParam(name, parameters);
     if (pip != parameters.end()) {
         if (pip->paramType == ParamType::Boolean) {
-            value = (pip->intValue == 0) ? false : true;
+            value = (pip->intValue != 0);
         }
     }
     return value;

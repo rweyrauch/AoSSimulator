@@ -61,7 +61,7 @@ namespace Nurgle {
         return true;
     }
 
-    int GutrotSpume::ComputePoints(int numModels) {
+    int GutrotSpume::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

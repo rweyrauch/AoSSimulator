@@ -93,7 +93,7 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int LordRelictor::ComputePoints(int numModels) {
+    int LordRelictor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

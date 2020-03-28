@@ -68,7 +68,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int Fatemaster::ComputePoints(int numModels) {
+    int Fatemaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

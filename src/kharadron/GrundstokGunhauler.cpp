@@ -141,7 +141,7 @@ namespace KharadronOverlords {
         }
     }
 
-    int GrundstokGunhauler::ComputePoints(int numModels) {
+    int GrundstokGunhauler::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

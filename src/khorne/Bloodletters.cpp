@@ -111,7 +111,7 @@ namespace Khorne {
 
     int Bloodletters::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Murderous Tide
-        int attacks = KhorneBase::extraAttacks(nullptr, weapon, target);
+        int attacks = KhorneBase::extraAttacks(attackingModel, weapon, target);
         if (remainingModels() >= 20) {
             attacks += 1;
         }

@@ -115,7 +115,7 @@ namespace Seraphon {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusOldblood::ComputePoints(int numModels) {
+    int SaurusOldblood::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

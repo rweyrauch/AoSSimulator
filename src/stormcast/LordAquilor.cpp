@@ -86,7 +86,7 @@ namespace StormcastEternals {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int LordAquilor::ComputePoints(int numModels) {
+    int LordAquilor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

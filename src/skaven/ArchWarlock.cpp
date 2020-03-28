@@ -122,7 +122,7 @@ namespace Skaven {
         }
     }
 
-    int ArchWarlock::ComputePoints(int numModels) {
+    int ArchWarlock::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

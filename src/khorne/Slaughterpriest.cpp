@@ -116,7 +116,7 @@ namespace Khorne {
         return KhorneBase::EnumStringToInt(enumString);
     }
 
-    int Slaughterpriest::ComputePoints(int numModels) {
+    int Slaughterpriest::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

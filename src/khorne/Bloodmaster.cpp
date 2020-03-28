@@ -74,7 +74,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Bloodmaster::ComputePoints(int numModels) {
+    int Bloodmaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

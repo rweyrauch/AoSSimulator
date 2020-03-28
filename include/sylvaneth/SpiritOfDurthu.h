@@ -33,8 +33,6 @@ namespace Sylvaneth {
 
         void onStartCombat(PlayerId id) override;
 
-        void onStartHero(PlayerId id) override;
-
         void onWounded() override;
 
         int getDamageTableIndex() const;

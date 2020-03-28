@@ -77,7 +77,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int CurselingEyeOfTzeentch::ComputePoints(int numModels) {
+    int CurselingEyeOfTzeentch::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -82,7 +82,7 @@ namespace Khorne {
         return Unit::targetWoundModifier(weapon, attacker);
     }
 
-    int ValkiaTheBloody::ComputePoints(int numModels) {
+    int ValkiaTheBloody::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

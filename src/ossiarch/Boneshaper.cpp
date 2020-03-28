@@ -79,7 +79,7 @@ namespace OssiarchBonereapers {
         return true;
     }
 
-    int MortisanBoneshaper::ComputePoints(int numModels) {
+    int MortisanBoneshaper::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

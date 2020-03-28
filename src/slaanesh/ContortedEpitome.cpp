@@ -46,6 +46,9 @@ namespace Slaanesh {
     Unit *TheContortedEpitome::Create(const ParameterList &parameters) {
         auto unit = new TheContortedEpitome();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -84,7 +87,7 @@ namespace Slaanesh {
         return totalWounds;
     }
 
-    int TheContortedEpitome::ComputePoints(int numModels) {
+    int TheContortedEpitome::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

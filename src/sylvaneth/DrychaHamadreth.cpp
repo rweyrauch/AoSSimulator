@@ -6,10 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <Dice.h>
 #include <sylvaneth/DrychaHamadreth.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <spells/MysticShield.h>
 #include <spells/SylvanethSpells.h>
 
@@ -64,9 +62,6 @@ namespace Sylvaneth {
         m_points = POINTS_PER_UNIT;
 
         return true;
-    }
-
-    void DrychaHamadreth::onStartHero(PlayerId id) {
     }
 
     void DrychaHamadreth::onWounded() {
@@ -138,13 +133,14 @@ namespace Sylvaneth {
         // Mecurial Aspect
         if (weapon->name() == m_colonyOfFlitterfuries.name() && m_enraged) {
             extra += 10;
-        } else if (weapon->name() == m_swarmOfSquirmlings.name() && !m_enraged) {
+        }
+        if (weapon->name() == m_swarmOfSquirmlings.name() && !m_enraged) {
             extra += 10;
         }
         return extra;
     }
 
-    int DrychaHamadreth::ComputePoints(int numModels) {
+    int DrychaHamadreth::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

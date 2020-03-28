@@ -91,7 +91,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int Firebelly::ComputePoints(int numModels) {
+    int Firebelly::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

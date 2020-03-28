@@ -68,7 +68,7 @@ namespace Khorne {
         }
     }
 
-    int Bloodstoker::ComputePoints(int numModels) {
+    int Bloodstoker::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

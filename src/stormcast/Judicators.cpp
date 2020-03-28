@@ -99,7 +99,7 @@ namespace StormcastEternals {
     }
 
     int Judicators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        auto extra = StormcastEternal::extraAttacks(attackingModel, weapon, target);
         // Rapid Fire
         if (!m_ran && (weapon->name() == m_boltstormCrossbow.name())) {
             extra++;

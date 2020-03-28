@@ -190,7 +190,7 @@ namespace Tzeentch {
     }
 
     int Tzaangors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = TzeentchBase::extraAttacks(nullptr, weapon, target);
+        int attacks = TzeentchBase::extraAttacks(attackingModel, weapon, target);
 
         // Savagery Unleashed
         if (remainingModels() >= 9) attacks++;

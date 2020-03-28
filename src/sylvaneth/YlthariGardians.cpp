@@ -1,3 +1,10 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
 #include <UnitFactory.h>
 #include "sylvaneth/YlthariGardians.h"
 
@@ -67,12 +74,12 @@ namespace Sylvaneth {
         return true;
     }
 
-    Rerolls YltharisGuardians::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+    Rerolls YltharisGuardians::toWoundRerolls(const Weapon* /*weapon*/, const Unit* /*target*/) const {
         // Vigour and Wrath
         return RerollOnes;
     }
 
-    int YltharisGuardians::ComputePoints(int numModels) {
+    int YltharisGuardians::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -90,7 +90,7 @@ namespace Nighthaunt {
     int
     BladegheistRevenants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Whirling Death
-        int attacks = Nighthaunt::extraAttacks(nullptr, weapon, target);
+        int attacks = Nighthaunt::extraAttacks(attackingModel, weapon, target);
         if (m_charged) {
             attacks += 1;
         }

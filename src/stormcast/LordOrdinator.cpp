@@ -139,7 +139,7 @@ namespace StormcastEternals {
         return wounds;
     }
 
-    int LordOrdinator::arcaneEngineer(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    int LordOrdinator::arcaneEngineer(const Unit* /*attacker*/, const Weapon* /*weapon*/, const Unit *target) {
         if (target->hasKeyword(ORDER) && target->hasKeyword(WAR_MACHINE) &&
             (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 9.0f)) {
             return 1;
@@ -148,7 +148,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int LordOrdinator::ComputePoints(int numModels) {
+    int LordOrdinator::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

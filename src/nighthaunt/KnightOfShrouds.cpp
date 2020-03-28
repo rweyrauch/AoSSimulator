@@ -59,7 +59,7 @@ namespace Nighthaunt {
         return true;
     }
 
-    int KnightOfShrouds::ComputePoints(int numModels) {
+    int KnightOfShrouds::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

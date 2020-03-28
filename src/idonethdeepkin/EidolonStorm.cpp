@@ -98,7 +98,7 @@ namespace IdonethDeepkin {
         }
     }
 
-    int EidolonOfMathlannAspectOfTheStorm::ComputePoints(int numModels) {
+    int EidolonOfMathlannAspectOfTheStorm::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

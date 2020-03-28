@@ -65,7 +65,7 @@ namespace StormcastEternals {
         }
     }
 
-    Rerolls GavrielSureheart::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls GavrielSureheart::toSaveRerolls(const Weapon* /*weapon*/) const {
         // Sigmarite Thundershield
         return RerollOnes;
     }
@@ -89,7 +89,7 @@ namespace StormcastEternals {
         return attacks;
     }
 
-    int GavrielSureheart::ComputePoints(int numModels) {
+    int GavrielSureheart::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

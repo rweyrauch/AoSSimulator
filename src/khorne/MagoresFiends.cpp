@@ -105,7 +105,7 @@ namespace Khorne {
         return Unit::chargeRerolls();
     }
 
-    int MagoresFiends::ComputePoints(int numModels) {
+    int MagoresFiends::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

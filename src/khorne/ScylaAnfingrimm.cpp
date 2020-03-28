@@ -82,7 +82,7 @@ namespace Khorne {
         return attacks;
     }
 
-    int ScylaAnfingrimm::ComputePoints(int numModels) {
+    int ScylaAnfingrimm::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

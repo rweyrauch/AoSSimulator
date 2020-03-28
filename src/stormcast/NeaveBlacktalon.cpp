@@ -72,7 +72,7 @@ namespace StormcastEternals {
 
     int NeaveBlacktalon::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Lightning-fast Strikes
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
         if (charged()) {
             attacks += 1;
         }
@@ -87,7 +87,7 @@ namespace StormcastEternals {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int NeaveBlacktalon::ComputePoints(int numModels) {
+    int NeaveBlacktalon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

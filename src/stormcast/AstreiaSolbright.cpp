@@ -130,7 +130,7 @@ namespace StormcastEternals {
         return RerollFailed;
     }
 
-    void AstreiaSolbright::onStartCombat(PlayerId player) {
+    void AstreiaSolbright::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
@@ -146,7 +146,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int AstreiaSolbright::ComputePoints(int numModels) {
+    int AstreiaSolbright::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

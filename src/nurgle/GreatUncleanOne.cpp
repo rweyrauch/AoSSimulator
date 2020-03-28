@@ -181,7 +181,7 @@ namespace Nurgle {
         }
     }
 
-    int GreatUncleanOne::ComputePoints(int numModels) {
+    int GreatUncleanOne::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

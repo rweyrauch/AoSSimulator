@@ -107,7 +107,7 @@ namespace Khorne {
         return wounds;
     }
 
-    int Skullgrinder::ComputePoints(int numModels) {
+    int Skullgrinder::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

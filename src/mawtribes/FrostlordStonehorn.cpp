@@ -145,7 +145,7 @@ namespace OgorMawtribes {
         return totalWounds;
     }
 
-    int FrostlordOnStonehorn::ComputePoints(int numModels) {
+    int FrostlordOnStonehorn::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

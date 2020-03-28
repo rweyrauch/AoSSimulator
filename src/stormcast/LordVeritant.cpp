@@ -95,7 +95,7 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int LordVeritant::ComputePoints(int numModels) {
+    int LordVeritant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

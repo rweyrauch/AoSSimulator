@@ -69,7 +69,7 @@ namespace KharadronOverlords {
         return true;
     }
 
-    int AethericNavigator::ComputePoints(int numModels) {
+    int AethericNavigator::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

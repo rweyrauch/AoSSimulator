@@ -99,7 +99,7 @@ namespace Nurgle {
         return NoRerolls;
     }
 
-    int SloppityBilepiperHeraldOfNurgle::ComputePoints(int numModels) {
+    int SloppityBilepiperHeraldOfNurgle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

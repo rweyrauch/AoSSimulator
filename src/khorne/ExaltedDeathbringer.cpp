@@ -161,7 +161,7 @@ namespace Khorne {
         return Unit::computeReturnedDamage(weapon, saveRoll);
     }
 
-    int ExaltedDeathbringer::ComputePoints(int numModels) {
+    int ExaltedDeathbringer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

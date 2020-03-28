@@ -129,7 +129,7 @@ namespace Seraphon {
         onWounded();
     }
 
-    int Bastiladon::ComputePoints(int numModels) {
+    int Bastiladon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

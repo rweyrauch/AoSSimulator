@@ -90,7 +90,7 @@ namespace SlavesToDarkness {
         return m_lastChargeDistance;
     }
 
-    int FomoroidCrusher::ComputePoints(int numModels) {
+    int FomoroidCrusher::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

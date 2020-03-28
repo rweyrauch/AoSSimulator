@@ -84,7 +84,7 @@ namespace Seraphon {
         }
     }
 
-    int SkinkStarpriest::ComputePoints(int numModels) {
+    int SkinkStarpriest::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

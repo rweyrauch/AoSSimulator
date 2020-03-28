@@ -81,7 +81,7 @@ namespace Seraphon {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int RipperdactylChief::ComputePoints(int numModels) {
+    int RipperdactylChief::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

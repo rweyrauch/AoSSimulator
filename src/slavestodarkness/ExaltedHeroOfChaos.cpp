@@ -90,7 +90,7 @@ namespace SlavesToDarkness {
         return mod;
     }
 
-    int ExaltedHeroOfChaos::ComputePoints(int numModels) {
+    int ExaltedHeroOfChaos::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

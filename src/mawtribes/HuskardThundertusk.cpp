@@ -176,7 +176,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int HuskardOnThundertusk::ComputePoints(int numModels) {
+    int HuskardOnThundertusk::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

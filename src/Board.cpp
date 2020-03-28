@@ -17,7 +17,6 @@
 
 #include <Board.h>
 #include <Roster.h>
-#include "jps.hh"
 #include <sstream>
 #include <cfloat>
 

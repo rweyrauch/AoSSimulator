@@ -109,7 +109,7 @@ namespace Skaven {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int WarlockBombardier::ComputePoints(int numModels) {
+    int WarlockBombardier::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 } //namespace Skaven

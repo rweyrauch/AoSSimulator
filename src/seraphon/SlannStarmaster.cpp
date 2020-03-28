@@ -91,7 +91,7 @@ namespace Seraphon {
         return mod;
     }
 
-    int SlannStarmaster::ComputePoints(int numModels) {
+    int SlannStarmaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

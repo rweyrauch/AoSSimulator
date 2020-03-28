@@ -72,7 +72,7 @@ namespace Nurgle {
         return extra;
     }
 
-    int OrghottsDaemonspew::ComputePoints(int numModels) {
+    int OrghottsDaemonspew::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

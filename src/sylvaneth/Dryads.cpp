@@ -6,10 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <Dice.h>
 #include <sylvaneth/Dryads.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 
 namespace Sylvaneth {

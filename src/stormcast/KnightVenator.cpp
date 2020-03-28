@@ -81,7 +81,7 @@ namespace StormcastEternals {
         return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
-    int KnightVenator::ComputePoints(int numModels) {
+    int KnightVenator::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

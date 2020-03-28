@@ -96,7 +96,7 @@ namespace OssiarchBonereapers {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int MortisanSoulreaper::ComputePoints(int numModels) {
+    int MortisanSoulreaper::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

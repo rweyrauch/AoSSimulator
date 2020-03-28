@@ -74,7 +74,7 @@ namespace Nurgle {
         return totalWounds.clamp();
     }
 
-    int EpidemiusTallymanOfNurgle::ComputePoints(int numModels) {
+    int EpidemiusTallymanOfNurgle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -116,7 +116,7 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    int MortekCrawler::ComputePoints(int numModels) {
+    int MortekCrawler::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

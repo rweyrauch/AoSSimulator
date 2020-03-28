@@ -68,7 +68,7 @@ namespace Nighthaunt {
         return true;
     }
 
-    int GuardianOfSouls::ComputePoints(int numModels) {
+    int GuardianOfSouls::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

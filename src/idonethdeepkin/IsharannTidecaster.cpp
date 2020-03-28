@@ -73,7 +73,7 @@ namespace IdonethDeepkin {
         return true;
     }
 
-    int IsharannTidecaster::ComputePoints(int numModels) {
+    int IsharannTidecaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -72,7 +72,7 @@ namespace Seraphon {
         }
     }
 
-    int SaurusAstrolithBearer::ComputePoints(int numModels) {
+    int SaurusAstrolithBearer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

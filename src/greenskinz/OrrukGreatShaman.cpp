@@ -85,7 +85,7 @@ namespace Greenskinz {
         return modifier;
     }
 
-    int OrrukGreatShaman::ComputePoints(int numModels) {
+    int OrrukGreatShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

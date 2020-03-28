@@ -124,7 +124,7 @@ namespace Nighthaunt {
         m_graveSandsOfTimeUsed = false;
     }
 
-    int LadyOlynder::ComputePoints(int numModels) {
+    int LadyOlynder::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

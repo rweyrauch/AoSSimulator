@@ -145,7 +145,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int FrostlordOnThundertusk::ComputePoints(int numModels) {
+    int FrostlordOnThundertusk::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

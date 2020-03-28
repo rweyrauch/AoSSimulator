@@ -109,7 +109,7 @@ namespace Khorne {
         KhorneBase::onWounded();
     }
 
-    void BloodthirsterOfUnfetteredFury::onStartHero(PlayerId player) {
+    void BloodthirsterOfUnfetteredFury::onStartHero(PlayerId /*player*/) {
         // The Land Rebels
         auto enemyUnits = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
         for (auto ip : enemyUnits) {
@@ -121,7 +121,7 @@ namespace Khorne {
         }
     }
 
-    int BloodthirsterOfUnfetteredFury::ComputePoints(int numModels) {
+    int BloodthirsterOfUnfetteredFury::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

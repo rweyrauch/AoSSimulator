@@ -73,7 +73,7 @@ namespace Nurgle {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int TheWurmspat::ComputePoints(int numModels) {
+    int TheWurmspat::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

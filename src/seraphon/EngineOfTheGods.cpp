@@ -180,7 +180,7 @@ namespace Seraphon {
         return NoRerolls;
     }
 
-    int EngineOfTheGods::ComputePoints(int numModels) {
+    int EngineOfTheGods::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

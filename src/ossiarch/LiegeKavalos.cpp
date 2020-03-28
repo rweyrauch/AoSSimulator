@@ -76,7 +76,7 @@ namespace OssiarchBonereapers {
         return true;
     }
 
-    int LiegeKavalos::ComputePoints(int numModels) {
+    int LiegeKavalos::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

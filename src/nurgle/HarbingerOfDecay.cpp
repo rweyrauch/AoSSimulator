@@ -74,7 +74,7 @@ namespace Nurgle {
         return totalWounds.clamp();
     }
 
-    int HarbingerOfDecay::ComputePoints(int numModels) {
+    int HarbingerOfDecay::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

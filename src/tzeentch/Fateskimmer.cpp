@@ -86,7 +86,7 @@ namespace Tzeentch {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int Fateskimmer::ComputePoints(int numModels) {
+    int Fateskimmer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

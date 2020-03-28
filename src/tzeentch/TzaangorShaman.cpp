@@ -76,7 +76,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int TzaangorShaman::ComputePoints(int numModels) {
+    int TzaangorShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

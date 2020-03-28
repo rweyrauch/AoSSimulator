@@ -43,6 +43,9 @@ namespace Slaanesh {
     Unit *TheMasque::Create(const ParameterList &parameters) {
         auto unit = new TheMasque();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -69,7 +72,7 @@ namespace Slaanesh {
         }
     }
 
-    int TheMasque::ComputePoints(int numModels) {
+    int TheMasque::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

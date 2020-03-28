@@ -70,7 +70,7 @@ namespace Khorne {
         }
     }
 
-    int MightyLordOfKhorne::ComputePoints(int numModels) {
+    int MightyLordOfKhorne::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

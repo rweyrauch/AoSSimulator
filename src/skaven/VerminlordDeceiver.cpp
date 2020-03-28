@@ -159,7 +159,7 @@ namespace Skaven {
         return 0;
     }
 
-    int VerminlordDeceiver::ComputePoints(int numModels) {
+    int VerminlordDeceiver::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

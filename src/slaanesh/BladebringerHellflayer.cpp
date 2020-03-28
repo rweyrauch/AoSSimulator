@@ -48,6 +48,9 @@ namespace Slaanesh {
     Unit *BladebringerOnHellflayer::Create(const ParameterList &parameters) {
         auto unit = new BladebringerOnHellflayer();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -74,7 +77,7 @@ namespace Slaanesh {
         }
     }
 
-    int BladebringerOnHellflayer::ComputePoints(int numModels) {
+    int BladebringerOnHellflayer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

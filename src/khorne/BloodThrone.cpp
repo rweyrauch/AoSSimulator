@@ -79,7 +79,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int HeraldOfKhorneOnBloodThrone::ComputePoints(int numModels) {
+    int HeraldOfKhorneOnBloodThrone::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -81,7 +81,7 @@ namespace OgorMawtribes {
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
-    int IcebrowHunter::ComputePoints(int numModels) {
+    int IcebrowHunter::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

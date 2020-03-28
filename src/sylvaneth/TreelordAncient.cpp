@@ -9,7 +9,6 @@
 #include <Dice.h>
 #include <sylvaneth/TreelordAncient.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <spells/MysticShield.h>
 
 namespace Sylvaneth {
@@ -61,9 +60,6 @@ namespace Sylvaneth {
         m_points = POINTS_PER_UNIT;
 
         return true;
-    }
-
-    void TreelordAncient::onStartHero(PlayerId id) {
     }
 
     void TreelordAncient::onWounded() {
@@ -127,7 +123,7 @@ namespace Sylvaneth {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int TreelordAncient::ComputePoints(int numModels) {
+    int TreelordAncient::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

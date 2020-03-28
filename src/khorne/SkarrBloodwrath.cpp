@@ -80,7 +80,7 @@ namespace Khorne {
         return attacks;
     }
 
-    int SkarrBloodwrath::ComputePoints(int numModels) {
+    int SkarrBloodwrath::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

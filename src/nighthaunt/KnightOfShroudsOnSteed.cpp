@@ -61,7 +61,7 @@ namespace Nighthaunt {
         return true;
     }
 
-    int KnightOfShroudsOnEtherealSteed::ComputePoints(int numModels) {
+    int KnightOfShroudsOnEtherealSteed::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

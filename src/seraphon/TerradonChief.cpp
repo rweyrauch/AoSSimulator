@@ -73,7 +73,7 @@ namespace Seraphon {
         }
     }
 
-    int TerradonChief::ComputePoints(int numModels) {
+    int TerradonChief::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

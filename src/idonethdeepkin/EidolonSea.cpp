@@ -95,7 +95,7 @@ namespace IdonethDeepkin {
         return 0;
     }
 
-    int EidolonOfMathlannAspectOfTheSea::ComputePoints(int numModels) {
+    int EidolonOfMathlannAspectOfTheSea::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -129,7 +129,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LordExorcist::ComputePoints(int numModels) {
+    int LordExorcist::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

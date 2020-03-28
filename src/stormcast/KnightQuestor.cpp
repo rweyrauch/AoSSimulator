@@ -75,7 +75,7 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, unit);
     }
 
-    Rerolls KnightQuestor::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls KnightQuestor::toSaveRerolls(const Weapon* /*weapon*/) const {
         // Sigmarite Shield
         return RerollFailed;
     }
@@ -88,7 +88,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int KnightQuestor::ComputePoints(int numModels) {
+    int KnightQuestor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

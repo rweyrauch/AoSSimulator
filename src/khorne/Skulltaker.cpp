@@ -74,7 +74,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls Skulltaker::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Skulltaker::toSaveRerolls(const Weapon* /*weapon*/) const {
         // Cloak of Skulls
         return RerollFailed;
     }
@@ -95,7 +95,7 @@ namespace Khorne {
         return KhorneBase::toWoundRerolls(weapon, target);
     }
 
-    int Skulltaker::ComputePoints(int numModels) {
+    int Skulltaker::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

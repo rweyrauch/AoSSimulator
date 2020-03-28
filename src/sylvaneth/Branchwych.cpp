@@ -6,7 +6,6 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <Dice.h>
 #include <sylvaneth/Branchwych.h>
 #include <UnitFactory.h>
 #include <iostream>
@@ -100,7 +99,7 @@ namespace Sylvaneth {
         return modifier;
     }
 
-    int Branchwych::ComputePoints(int numModels) {
+    int Branchwych::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

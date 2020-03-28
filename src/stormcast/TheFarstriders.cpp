@@ -81,7 +81,7 @@ namespace StormcastEternals {
         }
     }
 
-    int TheFarstriders::ComputePoints(int numModels) {
+    int TheFarstriders::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

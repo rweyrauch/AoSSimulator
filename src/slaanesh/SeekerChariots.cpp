@@ -54,6 +54,9 @@ namespace Slaanesh {
         auto unit = new SeekerChariots();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;

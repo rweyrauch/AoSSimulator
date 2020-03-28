@@ -149,7 +149,7 @@ namespace Seraphon {
         return 0;
     }
 
-    int SaurusOldbloodOnCarnosaur::ComputePoints(int numModels) {
+    int SaurusOldbloodOnCarnosaur::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

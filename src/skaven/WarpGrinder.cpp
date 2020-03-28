@@ -61,7 +61,7 @@ namespace Skaven {
         return true;
     }
 
-    int WarpGrinder::ComputePoints(int numModels) {
+    int WarpGrinder::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 } //namespace Skaven

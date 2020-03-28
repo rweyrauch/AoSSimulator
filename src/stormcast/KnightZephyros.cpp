@@ -74,14 +74,14 @@ namespace StormcastEternals {
 
     int KnightZephyros::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Lightning-fast Strikes
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
         if (charged()) {
             attacks += 1;
         }
         return attacks;
     }
 
-    int KnightZephyros::ComputePoints(int numModels) {
+    int KnightZephyros::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -174,7 +174,7 @@ namespace Skaven {
         return 0;
     }
 
-    int VerminlordWarpseer::ComputePoints(int numModels) {
+    int VerminlordWarpseer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

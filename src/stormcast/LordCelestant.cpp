@@ -88,7 +88,7 @@ namespace StormcastEternals {
         StormcastEternal::onStartShooting(player);
     }
 
-    int LordCelestant::ComputePoints(int numModels) {
+    int LordCelestant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

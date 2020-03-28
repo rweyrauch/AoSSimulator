@@ -102,7 +102,7 @@ namespace IdonethDeepkin {
         return 0;
     }
 
-    int Lotann::ComputePoints(int numModels) {
+    int Lotann::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

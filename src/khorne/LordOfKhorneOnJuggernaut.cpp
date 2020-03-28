@@ -92,7 +92,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int LordOfKhorneOnJuggernaut::ComputePoints(int numModels) {
+    int LordOfKhorneOnJuggernaut::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

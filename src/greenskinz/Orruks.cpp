@@ -202,7 +202,7 @@ namespace Greenskinz {
     }
 
     int Orruks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto attacks = Unit::extraAttacks(nullptr, weapon, target);
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
         // Mob Rule
         if ((remainingModels() >= 20) && !weapon->isMissile()) {
             attacks += 1;

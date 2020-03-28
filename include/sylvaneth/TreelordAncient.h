@@ -31,8 +31,6 @@ namespace Sylvaneth {
 
     protected:
 
-        void onStartHero(PlayerId id) override;
-
         void onWounded() override;
 
         int getDamageTableIndex() const;

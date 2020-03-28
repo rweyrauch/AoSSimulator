@@ -106,7 +106,7 @@ namespace Skaven {
         return mortalWounds;
     }
 
-    int WarpLightningCannon::ComputePoints(int numModels) {
+    int WarpLightningCannon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

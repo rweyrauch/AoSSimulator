@@ -201,7 +201,7 @@ namespace KharadronOverlords {
         }
     }
 
-    int ArkanautIronclad::ComputePoints(int numModels) {
+    int ArkanautIronclad::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

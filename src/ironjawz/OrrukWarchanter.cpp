@@ -56,8 +56,8 @@ namespace Ironjawz {
                     Ironjawz::EnumStringToInt,
                     OrrukWarchanter::ComputePoints,
                     {
-                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
-                             1},
+                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz,
+                             Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
                     },
                     DESTRUCTION,
                     {IRONJAWZ}
@@ -66,7 +66,7 @@ namespace Ironjawz {
         }
     }
 
-    int OrrukWarchanter::ComputePoints(int numModels) {
+    int OrrukWarchanter::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

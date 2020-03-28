@@ -87,7 +87,7 @@ namespace StormcastEternals {
     }
 
     int GryphHounds::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Loyal Companion
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6);

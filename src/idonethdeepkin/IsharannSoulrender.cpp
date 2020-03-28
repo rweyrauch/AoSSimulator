@@ -68,7 +68,7 @@ namespace IdonethDeepkin {
         return true;
     }
 
-    int IsharannSoulrender::ComputePoints(int numModels) {
+    int IsharannSoulrender::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -117,7 +117,7 @@ namespace Skaven {
         }
     }
 
-    int PlaguePriest::ComputePoints(int numModels) {
+    int PlaguePriest::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

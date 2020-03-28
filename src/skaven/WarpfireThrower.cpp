@@ -92,7 +92,7 @@ namespace Skaven {
         return mortalWounds;
     }
 
-    int WarpfireThrower::ComputePoints(int numModels) {
+    int WarpfireThrower::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

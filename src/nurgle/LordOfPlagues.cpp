@@ -69,7 +69,7 @@ namespace Nurgle {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int LordOfPlagues::ComputePoints(int numModels) {
+    int LordOfPlagues::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

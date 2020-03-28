@@ -72,7 +72,7 @@ namespace Nurgle {
         return totalWounds.clamp();
     }
 
-    int PoxbringerHeraldOfNurgle::ComputePoints(int numModels) {
+    int PoxbringerHeraldOfNurgle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -128,7 +128,7 @@ namespace OgorMawtribes {
         return mod;
     }
 
-    int Tyrant::ComputePoints(int numModels) {
+    int Tyrant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

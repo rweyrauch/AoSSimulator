@@ -154,7 +154,7 @@ namespace Ironjawz {
         return Ironjawz::onEndCombat(player);
     }
 
-    int GordrakkTheFistOfGork::ComputePoints(int numModels) {
+    int GordrakkTheFistOfGork::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

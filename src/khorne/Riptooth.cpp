@@ -68,7 +68,7 @@ namespace Khorne {
         return true;
     }
 
-    int Riptooth::ComputePoints(int numModels) {
+    int Riptooth::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

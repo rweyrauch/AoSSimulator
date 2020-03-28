@@ -179,7 +179,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int StonehornBeastriders::ComputePoints(int numModels) {
+    int StonehornBeastriders::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

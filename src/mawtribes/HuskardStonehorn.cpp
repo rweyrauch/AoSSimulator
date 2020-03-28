@@ -181,7 +181,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int HuskardOnStonehorn::ComputePoints(int numModels) {
+    int HuskardOnStonehorn::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

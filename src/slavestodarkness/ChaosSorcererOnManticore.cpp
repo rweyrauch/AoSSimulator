@@ -128,7 +128,7 @@ namespace SlavesToDarkness {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int ChaosSorcererOnManticore::ComputePoints(int numModels) {
+    int ChaosSorcererOnManticore::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

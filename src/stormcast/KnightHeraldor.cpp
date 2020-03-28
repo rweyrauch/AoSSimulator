@@ -67,7 +67,7 @@ namespace StormcastEternals {
         }
     }
 
-    int KnightHeraldor::ComputePoints(int numModels) {
+    int KnightHeraldor::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

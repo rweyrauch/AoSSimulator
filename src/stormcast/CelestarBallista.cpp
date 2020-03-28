@@ -103,7 +103,7 @@ namespace StormcastEternals {
         }
     }
 
-    int CelestarBallista::ComputePoints(int numModels) {
+    int CelestarBallista::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

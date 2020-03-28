@@ -112,7 +112,7 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    void AventisFirestrike::onStartCombat(PlayerId player) {
+    void AventisFirestrike::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
@@ -140,7 +140,7 @@ namespace StormcastEternals {
         }
     }
 
-    int AventisFirestrike::ComputePoints(int numModels) {
+    int AventisFirestrike::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

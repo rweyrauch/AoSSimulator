@@ -74,7 +74,7 @@ namespace StormcastEternals {
     }
 
     int VandusHammerhand::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Heldensen
         if (m_charged && weapon->name() == m_heldensen.name()) {
@@ -97,7 +97,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int VandusHammerhand::ComputePoints(int numModels) {
+    int VandusHammerhand::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -132,7 +132,7 @@ namespace Skaven {
         return 0;
     }
 
-    int ThanquolOnBoneripper::ComputePoints(int numModels) {
+    int ThanquolOnBoneripper::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

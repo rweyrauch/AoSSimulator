@@ -66,7 +66,7 @@ namespace Nurgle {
         return true;
     }
 
-    int FeculaFlyblown::ComputePoints(int numModels) {
+    int FeculaFlyblown::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    int ChaosSorcerer::ComputePoints(int numModels) {
+    int ChaosSorcerer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

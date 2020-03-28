@@ -67,7 +67,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LordCastellant::ComputePoints(int numModels) {
+    int LordCastellant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

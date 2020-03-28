@@ -122,7 +122,7 @@ namespace Tzeentch {
         m_usedBookOfSecrets = false;
     }
 
-    int GauntSummonerOfTzeentch::ComputePoints(int numModels) {
+    int GauntSummonerOfTzeentch::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

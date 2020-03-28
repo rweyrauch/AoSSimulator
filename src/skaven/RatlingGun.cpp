@@ -98,7 +98,7 @@ namespace Skaven {
         return wounds;
     }
 
-    int RatlingGun::ComputePoints(int numModels) {
+    int RatlingGun::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

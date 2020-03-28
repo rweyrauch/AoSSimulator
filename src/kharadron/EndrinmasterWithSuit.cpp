@@ -70,7 +70,7 @@ namespace KharadronOverlords {
         return true;
     }
 
-    int EndrinmasterWithDirigibleSuit::ComputePoints(int numModels) {
+    int EndrinmasterWithDirigibleSuit::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

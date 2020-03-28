@@ -8,7 +8,6 @@
 #include <sylvaneth/SylvanethBase.h>
 #include <Board.h>
 
-
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
 #include "sylvaneth/SpiritOfDurthu.h"

@@ -80,7 +80,7 @@ namespace KharadronOverlords {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    int ArkanautAdmiral::ComputePoints(int numModels) {
+    int ArkanautAdmiral::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -55,8 +55,8 @@ namespace Ironjawz {
                     Ironjawz::EnumStringToInt,
                     OrrukMegaboss::ComputePoints,
                     {
-                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
-                             1},
+                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz,
+                             Ironjawz::Ironsunz, Ironjawz::DaChoppas, 1},
                     },
                     DESTRUCTION,
                     {IRONJAWZ}
@@ -89,7 +89,7 @@ namespace Ironjawz {
         return Ironjawz::onEndCombat(player);
     }
 
-    int OrrukMegaboss::ComputePoints(int numModels) {
+    int OrrukMegaboss::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

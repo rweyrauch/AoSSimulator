@@ -86,7 +86,7 @@ namespace Nighthaunt {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    int DreadbladeHarrow::ComputePoints(int numModels) {
+    int DreadbladeHarrow::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 } // namespace Nighthaunt

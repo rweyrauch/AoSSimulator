@@ -46,6 +46,9 @@ namespace Slaanesh {
     Unit *ViceleaderHeraldOfSlaanesh::Create(const ParameterList &parameters) {
         auto unit = new ViceleaderHeraldOfSlaanesh();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -87,7 +90,7 @@ namespace Slaanesh {
         return totalWounds;
     }
 
-    int ViceleaderHeraldOfSlaanesh::ComputePoints(int numModels) {
+    int ViceleaderHeraldOfSlaanesh::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -75,6 +75,9 @@ namespace Slaanesh {
         auto unit = new KeeperOfSecrets();
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, RitualKnife);
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure(weapon);
         if (!ok) {
             delete unit;
@@ -216,7 +219,7 @@ namespace Slaanesh {
         return SlaaneshBase::EnumStringToInt(enumString);
     }
 
-    int KeeperOfSecrets::ComputePoints(int numModels) {
+    int KeeperOfSecrets::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

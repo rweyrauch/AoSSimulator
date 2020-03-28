@@ -42,6 +42,9 @@ namespace Slaanesh {
     Unit *ExaltedChariot::Create(const ParameterList &parameters) {
         auto unit = new ExaltedChariot();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -83,7 +86,7 @@ namespace Slaanesh {
         }
     }
 
-    int ExaltedChariot::ComputePoints(int numModels) {
+    int ExaltedChariot::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

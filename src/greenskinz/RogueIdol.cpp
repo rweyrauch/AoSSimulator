@@ -154,7 +154,7 @@ namespace Greenskinz {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int RogueIdol::ComputePoints(int numModels) {
+    int RogueIdol::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

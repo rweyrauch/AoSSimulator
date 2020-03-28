@@ -194,7 +194,7 @@ namespace KharadronOverlords {
         }
     }
 
-    int ArkanautFrigate::ComputePoints(int numModels) {
+    int ArkanautFrigate::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

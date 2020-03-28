@@ -91,7 +91,7 @@ namespace SlavesToDarkness {
         return damage;
     }
 
-    int ChaosLordOnDaemonicMount::ComputePoints(int numModels) {
+    int ChaosLordOnDaemonicMount::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -41,6 +41,9 @@ namespace Slaanesh {
     Unit *Hellflayer::Create(const ParameterList &parameters) {
         auto unit = new Hellflayer();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -67,7 +70,7 @@ namespace Slaanesh {
         }
     }
 
-    int Hellflayer::ComputePoints(int numModels) {
+    int Hellflayer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

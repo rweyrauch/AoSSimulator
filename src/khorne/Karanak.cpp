@@ -97,7 +97,7 @@ namespace Khorne {
         KhorneBase::onBeginTurn(battleRound);
     }
 
-    int Karanak::ComputePoints(int numModels) {
+    int Karanak::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -76,7 +76,7 @@ namespace Tzeentch {
         return true;
     }
 
-    int Magister::ComputePoints(int numModels) {
+    int Magister::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -172,7 +172,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int ThundertuskBeastriders::ComputePoints(int numModels) {
+    int ThundertuskBeastriders::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -6,10 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <Dice.h>
 #include <sylvaneth/Branchwraith.h>
 #include <UnitFactory.h>
-#include <iostream>
 #include <Board.h>
 #include <spells/MysticShield.h>
 
@@ -87,7 +85,7 @@ namespace Sylvaneth {
         return modifier;
     }
 
-    int Branchwraith::ComputePoints(int numModels) {
+    int Branchwraith::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

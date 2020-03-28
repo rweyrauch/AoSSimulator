@@ -121,7 +121,7 @@ namespace IdonethDeepkin {
         Unit::onCharged();
     }
 
-    int AkhelianKing::ComputePoints(int numModels) {
+    int AkhelianKing::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

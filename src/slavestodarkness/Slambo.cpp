@@ -66,7 +66,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    int Slambo::ComputePoints(int numModels) {
+    int Slambo::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

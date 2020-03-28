@@ -64,7 +64,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    int DarkoathWarqueen::ComputePoints(int numModels) {
+    int DarkoathWarqueen::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

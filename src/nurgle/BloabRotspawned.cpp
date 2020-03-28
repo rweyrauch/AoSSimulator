@@ -84,7 +84,7 @@ namespace Nurgle {
         return 0;
     }
 
-    int BloabRotspawned::ComputePoints(int numModels) {
+    int BloabRotspawned::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

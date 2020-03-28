@@ -151,7 +151,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int Slaughtermaster::ComputePoints(int numModels) {
+    int Slaughtermaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

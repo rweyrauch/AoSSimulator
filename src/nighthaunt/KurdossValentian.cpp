@@ -81,7 +81,7 @@ namespace Nighthaunt {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int KurdossValentian::ComputePoints(int numModels) {
+    int KurdossValentian::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

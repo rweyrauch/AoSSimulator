@@ -145,7 +145,7 @@ namespace Khorne {
     }
 
     int Bloodreavers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = KhorneBase::extraAttacks(nullptr, weapon, target);
+        int attacks = KhorneBase::extraAttacks(attackingModel, weapon, target);
 
         // Frenzied Devotion
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);

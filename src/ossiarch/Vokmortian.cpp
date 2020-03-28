@@ -96,7 +96,7 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    int Vokmortian::ComputePoints(int numModels) {
+    int Vokmortian::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

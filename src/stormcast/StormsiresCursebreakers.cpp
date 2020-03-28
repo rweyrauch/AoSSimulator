@@ -128,7 +128,7 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
-    int StormsiresCursebreakers::ComputePoints(int numModels) {
+    int StormsiresCursebreakers::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

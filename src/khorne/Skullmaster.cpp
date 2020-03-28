@@ -106,7 +106,7 @@ namespace Khorne {
         return KhorneBase::toHitRerolls(weapon, target);
     }
 
-    int Skullmaster::ComputePoints(int numModels) {
+    int Skullmaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

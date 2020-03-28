@@ -153,7 +153,7 @@ namespace Nurgle {
         }
     }
 
-    int Rotigus::ComputePoints(int numModels) {
+    int Rotigus::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

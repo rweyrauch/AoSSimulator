@@ -190,7 +190,7 @@ namespace Nighthaunt {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int BlackCoach::ComputePoints(int numModels) {
+    int BlackCoach::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

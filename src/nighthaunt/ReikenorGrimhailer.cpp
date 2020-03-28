@@ -44,7 +44,7 @@ namespace Nighthaunt {
     }
 
     ReikenorTheGrimhailer::ReikenorTheGrimhailer() :
-            Nighthaunt("Reikenor the Grimhailer", 14, 7, 10, 4, true),
+            Nighthaunt("Reikenor the Grimhailer", 14, WOUNDS, 10, 4, true),
             m_fellreaper(Weapon::Type::Melee, "Fellreaper", 2, 4, 4, 3, -1, 2),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
@@ -87,7 +87,7 @@ namespace Nighthaunt {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int ReikenorTheGrimhailer::ComputePoints(int numModels) {
+    int ReikenorTheGrimhailer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

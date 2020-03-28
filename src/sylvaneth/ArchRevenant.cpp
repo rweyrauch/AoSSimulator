@@ -6,10 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <algorithm>
-#include <Dice.h>
 #include <sylvaneth/ArchRevenant.h>
 #include <UnitFactory.h>
-#include <iostream>
 
 namespace Sylvaneth {
     static const int BASESIZE = 32;
@@ -86,7 +84,7 @@ namespace Sylvaneth {
         return Unit::toSaveRerolls(weapon);
     }
 
-    int ArchRevenant::ComputePoints(int numModels) {
+    int ArchRevenant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -45,6 +45,9 @@ namespace Slaanesh {
     Unit *InfernalEnrapturess::Create(const ParameterList &parameters) {
         auto unit = new InfernalEnrapturess();
 
+        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        unit->setHost(host);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -89,7 +92,7 @@ namespace Slaanesh {
         }
     }
 
-    int InfernalEnrapturess::ComputePoints(int numModels) {
+    int InfernalEnrapturess::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

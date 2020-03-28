@@ -109,7 +109,7 @@ namespace SlavesToDarkness {
         return savedWounds;
     }
 
-    int ChaosLordOnKarkadrak::ComputePoints(int numModels) {
+    int ChaosLordOnKarkadrak::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

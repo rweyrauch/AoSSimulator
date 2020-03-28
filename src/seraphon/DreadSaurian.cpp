@@ -154,7 +154,7 @@ namespace Seraphon {
         }
     }
 
-    int DreadSaurian::ComputePoints(int numModels) {
+    int DreadSaurian::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

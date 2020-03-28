@@ -84,7 +84,7 @@ namespace Seraphon {
         }
     }
 
-    int SkinkStarseer::ComputePoints(int numModels) {
+    int SkinkStarseer::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

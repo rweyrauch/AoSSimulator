@@ -95,7 +95,7 @@ namespace StormcastEternals {
         if (!m_moved && weapon->name() == m_hurricaneCrossbow.name()) {
             return 3;
         }
-        return StormcastEternal::extraAttacks(nullptr, weapon, target);
+        return StormcastEternal::extraAttacks(attackingModel, weapon, target);
     }
 
     int VanguardRaptorsHurricane::ComputePoints(int numModels) {

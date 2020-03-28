@@ -133,7 +133,7 @@ namespace StormcastEternals {
         return RerollFailed;
     }
 
-    void LordArcanumOnDracoline::onStartCombat(PlayerId player) {
+    void LordArcanumOnDracoline::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
@@ -149,7 +149,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int LordArcanumOnDracoline::ComputePoints(int numModels) {
+    int LordArcanumOnDracoline::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

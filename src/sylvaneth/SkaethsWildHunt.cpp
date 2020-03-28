@@ -1,3 +1,10 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
 #include <UnitFactory.h>
 #include "sylvaneth/SkaethsWildHunt.h"
 
@@ -86,7 +93,7 @@ namespace Sylvaneth {
         return true;
     }
 
-    int SkaethsWildHunt::ComputePoints(int numModels) {
+    int SkaethsWildHunt::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

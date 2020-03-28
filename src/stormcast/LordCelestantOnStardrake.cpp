@@ -137,7 +137,7 @@ namespace StormcastEternals {
 
     int LordCelestantOnStardrake::extraAttacks(const Model *attackingModel, const Weapon *weapon,
                                                const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Inescapable Vengeance
         if (m_charged) {
@@ -155,7 +155,7 @@ namespace StormcastEternals {
         return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon* /*weapon*/) const {
         // Sigmarite Thundershield
         return RerollOnes;
     }
@@ -286,7 +286,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int LordCelestantOnStardrake::ComputePoints(int numModels) {
+    int LordCelestantOnStardrake::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

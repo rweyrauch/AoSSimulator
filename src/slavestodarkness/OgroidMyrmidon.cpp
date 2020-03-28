@@ -78,7 +78,7 @@ namespace SlavesToDarkness {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int OgroidMyrmidon::ComputePoints(int numModels) {
+    int OgroidMyrmidon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

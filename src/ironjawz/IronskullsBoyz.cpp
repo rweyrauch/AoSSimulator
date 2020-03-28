@@ -93,7 +93,7 @@ namespace Ironjawz {
         return Unit::toHitModifier(weapon, target);
     }
 
-    int IronskullsBoyz::ComputePoints(int numModels) {
+    int IronskullsBoyz::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

@@ -105,7 +105,7 @@ namespace StormcastEternals {
 
     int
     LordCelestantOnDracoth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);
+        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Tempestos Hammer
         if (m_charged && weapon->name() == m_tempestosHammer.name()) {
@@ -176,7 +176,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int LordCelestantOnDracoth::ComputePoints(int numModels) {
+    int LordCelestantOnDracoth::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

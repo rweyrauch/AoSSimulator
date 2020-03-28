@@ -102,7 +102,7 @@ namespace Skaven {
         return wounds;
     }
 
-    int Doomwheel::ComputePoints(int numModels) {
+    int Doomwheel::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

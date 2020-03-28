@@ -119,7 +119,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int Ironblaster::ComputePoints(int numModels) {
+    int Ironblaster::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

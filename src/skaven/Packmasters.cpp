@@ -103,7 +103,7 @@ namespace Skaven {
         return true;
     }
 
-    int Packmasters::crackTheWhip(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+    int Packmasters::crackTheWhip(const Unit *attacker, const Weapon* /*weapon*/, const Unit* /*target*/) {
         // Crack the Whip
         if (attacker->hasKeyword(CLANS_MOULDER) && attacker->hasKeyword(PACK) && (distanceTo(attacker) <= 12.0f)) {
             return 1;

@@ -90,7 +90,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int CelestantPrime::ComputePoints(int numModels) {
+    int CelestantPrime::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

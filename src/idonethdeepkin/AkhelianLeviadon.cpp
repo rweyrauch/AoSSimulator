@@ -82,7 +82,7 @@ namespace IdonethDeepkin {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int AkhelianLeviadon::ComputePoints(int numModels) {
+    int AkhelianLeviadon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

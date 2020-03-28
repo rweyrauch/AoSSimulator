@@ -95,7 +95,7 @@ namespace OssiarchBonereapers {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    int ArchKavalosZandtos::ComputePoints(int numModels) {
+    int ArchKavalosZandtos::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

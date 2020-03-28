@@ -84,7 +84,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int MindstealerSphiranx::ComputePoints(int numModels) {
+    int MindstealerSphiranx::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

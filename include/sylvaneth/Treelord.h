@@ -31,8 +31,6 @@ namespace Sylvaneth {
 
     protected:
 
-        void onStartHero(PlayerId id) override;
-
         void onWounded() override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

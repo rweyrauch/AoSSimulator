@@ -169,7 +169,7 @@ namespace Skaven {
         return 0;
     }
 
-    int HellPitAbomination::ComputePoints(int numModels) {
+    int HellPitAbomination::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 

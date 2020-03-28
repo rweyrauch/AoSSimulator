@@ -127,14 +127,14 @@ namespace StormcastEternals {
         }
     }
 
-    void LordArcanumOnTauralon::onStartCombat(PlayerId player) {
+    void LordArcanumOnTauralon::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
         }
     }
 
-    int LordArcanumOnTauralon::ComputePoints(int numModels) {
+    int LordArcanumOnTauralon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
     }
 
