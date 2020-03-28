@@ -72,10 +72,27 @@ namespace GloomspiteGitz {
         return true;
     }
 
+    void Mollog::onStartHero(PlayerId player) {
+        if (player == owningPlayer()) {
+            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+                // Regeneration - heal D3
+                // Troggoth Renewal
+                if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4))) {
+                    int woundsHealed = Dice::rollD3();
+                    if (inLightOfTheBadMoon())
+                        woundsHealed *= 2;
+                    for (auto &m : m_models) {
+                        m->applyHealing(woundsHealed);
+                    }
+                }
+            }
+        }
+    }
+
     int Mollog::reassuringPresence(const Unit *unit) {
         // Reassuring Presence
-        if (unit->hasKeyword(GLOOMSPITE_GITZ) && (unit->owningPlayer() == owningPlayer()) &&
-            (distanceTo(unit) <= 18.0f)) {
+        if (unit->hasKeyword(GLOOMSPITE_GITZ) && isFriendly(unit) &&
+            (distanceTo(unit) <= 12.0f)) {
             return 1;
         }
         return 0;

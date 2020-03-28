@@ -32,6 +32,8 @@ namespace GloomspiteGitz {
 
     protected:
 
+        void onStartHero(PlayerId player);
+
         int reassuringPresence(const Unit *unit);
 
     private:
@@ -51,7 +53,7 @@ namespace GloomspiteGitz {
 // Puff-fungus Club                 TODO
 // Magical Resistance               TODO
 // Reassuring Presence              Yes
-// Regeneration                     TODO
+// Regeneration                     Yes
 // Bat Squig                        TODO
 // Spiteshroom                      TODO
 // Stalagsquig                      TODO
