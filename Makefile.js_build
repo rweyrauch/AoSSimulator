@@ -189,6 +189,10 @@ OBJECTS += \
         src/gloomspitegitz/RippasSnarlfangs.o \
         src/gloomspitegitz/Zarbag.o \
         src/gloomspitegitz/ZarbagsGitz.o \
+        src/gloomspitegitz/Gobbapalooza.o \
+        src/gloomspitegitz/Mollog.o \
+        src/gloomspitegitz/LoonsmashaFanatics.o \
+        src/gloomspitegitz/SporesplattaFanatics.o \
         src/dok/DaughterOfKhaine.o \
         src/dok/WitchAelves.o \
         src/dok/BloodSisters.o \

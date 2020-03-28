@@ -177,6 +177,10 @@ add_library(
         gloomspitegitz/RippasSnarlfangs.cpp
         gloomspitegitz/Zarbag.cpp
         gloomspitegitz/ZarbagsGitz.cpp
+        gloomspitegitz/Gobbapalooza.cpp
+        gloomspitegitz/Mollog.cpp
+        gloomspitegitz/LoonsmashaFanatics.cpp
+        gloomspitegitz/SporesplattaFanatics.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp

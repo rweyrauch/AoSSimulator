@@ -374,6 +374,16 @@ enum Keyword {
     RIPPAS_SNARLFANGS,
     ZARBAG,
     ZARBAGS_GITZ,
+    FANATIC,
+    LOONSMASHA,
+    SPORESPLATTA,
+    GOBBAPALOOZA,
+    SCAREMONGER,
+    BREWGIT,
+    SPIKER,
+    BOGGLEYE,
+    SHROOMANCER,
+    MOLLOG,
 
     // Daughters of Khaine
     MELUSAI,

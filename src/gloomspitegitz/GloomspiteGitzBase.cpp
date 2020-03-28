@@ -40,6 +40,10 @@
 #include "gloomspitegitz/RippasSnarlfangs.h"
 #include "gloomspitegitz/Zarbag.h"
 #include "gloomspitegitz/ZarbagsGitz.h"
+#include "gloomspitegitz/LoonsmashaFanatics.h"
+#include "gloomspitegitz/SporesplattaFanatics.h"
+#include "gloomspitegitz/Mollog.h"
+#include "gloomspitegitz/Gobbapalooza.h"
 
 namespace GloomspiteGitz {
 
@@ -188,6 +192,10 @@ namespace GloomspiteGitz {
         RippasSnarlfangs::Init();
         Zarbag::Init();
         ZarbagsGitz::Init();
+        LoonsmashaFanatics::Init();
+        SporesmashaFanatics::Init();
+        Mollog::Init();
+        Gobbapalooza::Init();
     }
 
 } //namespace GloomspiteGitz
