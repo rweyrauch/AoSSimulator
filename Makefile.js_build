@@ -246,6 +246,7 @@ OBJECTS += \
         src/nighthaunt/LadyOlynder.o \
         src/nighthaunt/BlackCoach.o \
         src/nighthaunt/CairnWraith.o \
+	    src/nighthaunt/MyrmournBanshees.o \
         src/beastsofchaos/BeastsOfChaosBase.o \
         src/beastsofchaos/Ghorgon.o \
         src/beastsofchaos/Gors.o \
@@ -404,6 +405,8 @@ OBJECTS += \
         src/skaven/WarpGrinder.o \
         src/skaven/WarpLightningCannon.o \
         src/skaven/WarplockJezzails.o \
+        src/skaven/SkritchSpiteclaw.o \
+        src/skaven/SpiteclawsSwarm.o \
         src/tzeentch/TzeentchBase.o \
         src/tzeentch/KairicAcolytes.o \
         src/tzeentch/HorrorsOfTzeentch.o \
@@ -427,6 +430,10 @@ OBJECTS += \
         src/tzeentch/Curseling.o \
         src/tzeentch/Vortemis.o \
         src/tzeentch/Fatemaster.o \
+	    src/tzeentch/BlueScribes.o \
+	    src/tzeentch/ChangeCaster.o \
+	    src/tzeentch/Fluxmaster.o \
+	    src/tzeentch/TheEyesOfNine.o \
         src/ironjawz/Ironjawz.o \
         src/ironjawz/OrrukArdboys.o \
         src/ironjawz/OrrukBrutes.o \
@@ -436,6 +443,7 @@ OBJECTS += \
         src/ironjawz/Gordrakk.o \
         src/ironjawz/MegabossOnMawKrusha.o \
         src/ironjawz/IronskullsBoyz.o \
+	    src/ironjawz/WeirdnobShaman.o \
         src/bonesplitterz/Bonesplitterz.o \
         src/bonesplitterz/BoarboyManiaks.o \
         src/bonesplitterz/ManiakWeirdnob.o \
@@ -535,6 +543,13 @@ OBJECTS += \
         src/slavestodarkness/MindstealerSphiranx.o \
         src/slavestodarkness/FormoroidCrusher.o \
         src/slavestodarkness/OgroidMyrmidon.o \
+	    src/slavestodarkness/Belakor.o \
+	    src/slavestodarkness/DaemonPrince.o \
+	    src/slavestodarkness/GodswornHunt.o \
+	    src/slavestodarkness/SlaughterBrute.o \
+	    src/slavestodarkness/SoulGrinder.o \
+	    src/slavestodarkness/TheddraSkullScryer.o \
+	    src/slavestodarkness/VortexBeast.o \
         src/freeagents/GotrekGurnisson.o \
         src/citiesofsigmar/Anointed.o \
         src/citiesofsigmar/Assassin.o \
@@ -646,6 +661,8 @@ OBJECTS += \
         src/kharadron/GrundstokGunhauler.o \
         src/kharadron/GrundstokThunderers.o \
         src/kharadron/KharadronBase.o \
+	    src/kharadron/BjorgenThundrik.o \
+	    src/kharadron/ThundriksProfiteers.o \
         src/kharadron/Skywardens.o
 
 

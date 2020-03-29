@@ -237,6 +237,7 @@ add_library(
         nighthaunt/LadyOlynder.cpp
         nighthaunt/BlackCoach.cpp
         nighthaunt/CairnWraith.cpp
+        nighthaunt/MyrmournBanshees.cpp
 
         beastsofchaos/BeastsOfChaosBase.cpp
         beastsofchaos/Ghorgon.cpp
@@ -403,6 +404,8 @@ add_library(
         skaven/WarpGrinder.cpp
         skaven/WarpLightningCannon.cpp
         skaven/WarplockJezzails.cpp
+        skaven/SkritchSpiteclaw.cpp
+        skaven/SpiteclawsSwarm.cpp
 
         tzeentch/TzeentchBase.cpp
         tzeentch/KairicAcolytes.cpp
@@ -427,6 +430,10 @@ add_library(
         tzeentch/Curseling.cpp
         tzeentch/Vortemis.cpp
         tzeentch/Fatemaster.cpp
+        tzeentch/BlueScribes.cpp
+        tzeentch/ChangeCaster.cpp
+        tzeentch/Fluxmaster.cpp
+        tzeentch/TheEyesOfNine.cpp
 
         ironjawz/Ironjawz.cpp
         ironjawz/OrrukArdboys.cpp
@@ -437,6 +444,7 @@ add_library(
         ironjawz/Gordrakk.cpp
         ironjawz/MegabossOnMawKrusha.cpp
         ironjawz/IronskullsBoyz.cpp
+        ironjawz/WeirdnobShaman.cpp
 
         bonesplitterz/Bonesplitterz.cpp
         bonesplitterz/BoarboyManiaks.cpp
@@ -543,6 +551,13 @@ add_library(
         slavestodarkness/MindstealerSphiranx.cpp
         slavestodarkness/FormoroidCrusher.cpp
         slavestodarkness/OgroidMyrmidon.cpp
+        slavestodarkness/Belakor.cpp
+        slavestodarkness/DaemonPrince.cpp
+        slavestodarkness/GodswornHunt.cpp
+        slavestodarkness/SlaughterBrute.cpp
+        slavestodarkness/SoulGrinder.cpp
+        slavestodarkness/TheddraSkullScryer.cpp
+        slavestodarkness/VortexBeast.cpp
 
         freeagents/GotrekGurnisson.cpp
 
@@ -660,7 +675,8 @@ add_library(
         kharadron/GrundstokThunderers.cpp
         kharadron/KharadronBase.cpp
         kharadron/Skywardens.cpp
-
+        kharadron/BjorgenThundrik.cpp
+        kharadron/ThundriksProfiteers.cpp
 )
 
 target_include_directories(
