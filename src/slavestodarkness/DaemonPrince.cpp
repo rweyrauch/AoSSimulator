@@ -105,6 +105,23 @@ namespace SlavesToDarkness {
         return true;
     }
 
+    int DaemonPrince::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        // Bounding Charge
+        if (m_charged) mod++;
+
+        return mod;
+    }
+
+    Wounds DaemonPrince::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Hellforged Sword
+        if ((weapon->name() == m_sword.name()) && (hitRoll == 6)) {
+            return {0, 2};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
 } // namespace SlavesToDarkness
 
 

@@ -6,6 +6,9 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
+#include <climits>
+#include <Roster.h>
 #include "slavestodarkness/VortexBeast.h"
 
 namespace SlavesToDarkness {
@@ -73,6 +76,68 @@ namespace SlavesToDarkness {
         m_points = POINTS_PER_UNIT;
 
         return true;
+    }
+
+    void MutalithVortexBeast::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            // Mutant Regeneration
+            heal(Dice::rollD3());
+
+            // Aura of Mutilation
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 18.0f);
+            for (auto unit : units) {
+                const auto roll = Dice::rollD6();
+                switch (roll) {
+                    case 1:
+                        // Hideous Disfigurement
+                        unit->buffModifier(BuffableAttribute::Bravery, -1, {Phase::Hero, INT_MAX, player});
+                        break;
+                    case 2:
+                        // Troggbrains
+                        unit->buffModifier(BuffableAttribute::RunDistance, -1, {Phase::Hero, INT_MAX, player});
+                        break;
+                    case 3:
+                        // Gift of Mutations
+                        unit->buffModifier(BuffableAttribute::MoveDistance, -1, {Phase::Hero, INT_MAX, player});
+                        break;
+                    case 4:
+                        // Tide of Transmogrification
+                        unit->applyDamage({0, Dice::rollD3()});
+                        break;
+                    case 5:
+                        // Maelstrom of Change
+                        unit->applyDamage({0, Dice::rollD6()});
+                        break;
+                    case 6: {
+                        // Spawnchange
+                        auto numSlain = unit->applyDamage({0, Dice::rollD6()});
+                        if (numSlain) {
+                            if (remainingWounds() < initialWounds()) {
+                                heal(Dice::rollD3());
+                            }
+                            else {
+                                // Summon a Chaos Spawn
+                                auto factory = UnitFactory::LookupUnit("Chaos Spawn");
+                                if (factory) {
+                                    if (m_roster) {
+                                        auto unit = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
+                                        unit->setPosition(position(), m_orientation);
+                                        m_roster->addUnit(unit);
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                // Only apply to first enemy unit found
+                break;
+            }
+        }
     }
 
 } // namespace SlavesToDarkness

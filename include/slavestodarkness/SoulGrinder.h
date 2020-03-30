@@ -41,6 +41,7 @@ namespace SlavesToDarkness {
 
     protected:
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
@@ -57,8 +58,8 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Hellforged Claw                  TODO
-// Implacable Advance               TODO
+// Hellforged Claw                  Yes
+// Implacable Advance               Yes
 //
 
 } // SlavesToDarkness

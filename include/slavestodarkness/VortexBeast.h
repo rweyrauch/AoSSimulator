@@ -32,6 +32,7 @@ namespace SlavesToDarkness {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -44,8 +45,14 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Mutant Regeneration              TODO
-// Aura of Mutation                 TODO
+// Mutant Regeneration              Yes
+// Aura of Mutation                 Yes
+//    Hideous Disfigurement         Yes
+//    Troggbrains                   Yes
+//    Gift of Mutations             Yes
+//    Tide of Transmogrification    Yes
+//    Maelstrom of Change           Yes
+//    Spawnchange                   Yes
 //
 
 } // SlavesToDarkness

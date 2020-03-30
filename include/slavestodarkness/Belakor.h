@@ -31,6 +31,7 @@ namespace SlavesToDarkness {
 
     protected:
 
+        int toSaveModifier(const Weapon *weapon) const override;
 
     private:
 
@@ -44,7 +45,7 @@ namespace SlavesToDarkness {
 // -------------------------------------------
 // The Dark Master                  TODO
 // Lord of Torment                  TODO
-// Shadow Form                      TODO
+// Shadow Form                      Yes
 // Enfeeble Foe                     TODO
 //
 

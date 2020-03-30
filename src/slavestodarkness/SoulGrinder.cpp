@@ -91,6 +91,9 @@ namespace SlavesToDarkness {
             m_talon(Weapon::Type::Melee, "Daemonbone Talon", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, MONSTER, MARK_OF_CHAOS, SOUL_GRINDER};
         m_weapons = {&m_cannon, &m_phlegm, &m_legs, &m_claw, &m_blade, &m_talon};
+
+        // Implacable Advance
+        m_runAndShoot = true;
     }
 
     bool SoulGrinder::configure(WeaponOption option) {
@@ -109,6 +112,15 @@ namespace SlavesToDarkness {
         m_points = POINTS_PER_UNIT;
 
         return true;
+    }
+
+    Wounds SoulGrinder::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+
+        // Hellforged Claw
+        if ((weapon->name() == m_claw.name()) && (hitRoll == 6)) {
+            return {0, Dice::rollD6()};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace SlavesToDarkness

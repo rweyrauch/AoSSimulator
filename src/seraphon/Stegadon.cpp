@@ -24,7 +24,7 @@ namespace Seraphon {
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 9, WOUNDS};
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
     static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
                     {8, 4, 5},

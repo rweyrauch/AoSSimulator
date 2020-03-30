@@ -40,6 +40,8 @@ namespace SlavesToDarkness {
 
     protected:
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
@@ -53,8 +55,8 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bounding Charge                  TODO
-// Hellforged Sword                 TODO
+// Bounding Charge                  Yes
+// Hellforged Sword                 Yes
 // Immortal Champion                TODO
 // Blookslick Ground                TODO
 // Arcane Influence                 TODO
