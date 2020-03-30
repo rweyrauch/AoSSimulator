@@ -29,6 +29,10 @@
 #include "tzeentch/Fateskimmer.h"
 #include "tzeentch/Vortemis.h"
 #include "tzeentch/Fatemaster.h"
+#include "tzeentch/BlueScribes.h"
+#include "tzeentch/Changecaster.h"
+#include "tzeentch/Fluxmaster.h"
+#include "tzeentch/TheEyesOfNine.h"
 
 namespace Tzeentch {
 
@@ -146,6 +150,10 @@ namespace Tzeentch {
         TzaangorSkyfires::Init();
         Tzaangors::Init();
         VortemisTheAllSeeing::Init();
+        TheBlueScribes::Init();
+        ChangecasterHeraldOfTzeentch::Init();
+        FluxmasterHeraldOfTzeentchOnDisc::Init();
+        TheEyesOfTheNine::Init();
     }
 
 } //namespace Tzeentch

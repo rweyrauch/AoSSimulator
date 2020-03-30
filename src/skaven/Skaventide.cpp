@@ -46,6 +46,8 @@
 #include "skaven/WarpGrinder.h"
 #include "skaven/WarpLightningCannon.h"
 #include "skaven/WarplockJezzails.h"
+#include "skaven/SkritchSpiteclaw.h"
+#include "skaven/SpiteclawsSwarm.h"
 
 namespace Skaven {
 
@@ -114,7 +116,9 @@ namespace Skaven {
         RatlingGun::Init();
         RatOgors::Init();
         RatSwarms::Init();
+        SkritchSpiteclaw::Init();
         SkryeAcolytes::Init();
+        SpiteclawsSwarm::Init();
         Stormfiends::Init();
         Stormvermin::Init();
         ThanquolOnBoneripper::Init();

@@ -18,7 +18,16 @@ namespace SlavesToDarkness {
     class SoulGrinder : public SlavesToDarknessBase {
     public:
 
+        enum WeaponOption {
+            WarpmetalBlade,
+            DaemonboneTalon
+        };
+
         static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
@@ -28,7 +37,7 @@ namespace SlavesToDarkness {
 
         ~SoulGrinder() override = default;
 
-        bool configure();
+        bool configure(WeaponOption option);
 
     protected:
 

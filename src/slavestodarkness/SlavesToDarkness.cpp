@@ -37,6 +37,13 @@
 #include "slavestodarkness/MindstealerSphiranx.h"
 #include "slavestodarkness/FomoroidCrusher.h"
 #include "slavestodarkness/OgroidMyrmidon.h"
+#include "slavestodarkness/Belakor.h"
+#include "slavestodarkness/DaemonPrince.h"
+#include "slavestodarkness/GodswornHunt.h"
+#include "slavestodarkness/Slaughterbrute.h"
+#include "slavestodarkness/SoulGrinder.h"
+#include "slavestodarkness/TheddraSkullScryer.h"
+#include "slavestodarkness/VortexBeast.h"
 
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
@@ -158,6 +165,13 @@ namespace SlavesToDarkness {
         FomoroidCrusher::Init();
         MindstealerSphiranx::Init();
         OgroidMyrmidon::Init();
+        Belakor::Init();
+        DaemonPrince::Init();
+        GodswornHunt::Init();
+        Slaughterbrute::Init();
+        SoulGrinder::Init();
+        TheddraSkullscryer::Init();
+        MutalithVortexBeast::Init();
     }
 
 } //namespace SlavesToDarkness

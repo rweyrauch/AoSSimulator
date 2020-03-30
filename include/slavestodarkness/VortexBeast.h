@@ -36,8 +36,7 @@ namespace SlavesToDarkness {
     private:
 
         Weapon m_claws,
-                m_jaws,
-                m_talons;
+                m_maw;
 
         static bool s_registered;
     };

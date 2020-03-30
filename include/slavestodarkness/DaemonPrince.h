@@ -17,7 +17,16 @@ namespace SlavesToDarkness {
     class DaemonPrince : public SlavesToDarknessBase {
     public:
 
+        enum WeaponOption {
+            DaemonicAxe,
+            HellforgedSword
+        };
+
         static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
@@ -27,7 +36,7 @@ namespace SlavesToDarkness {
 
         ~DaemonPrince() override = default;
 
-        bool configure();
+        bool configure(WeaponOption option);
 
     protected:
 

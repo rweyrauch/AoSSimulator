@@ -19,6 +19,8 @@
 #include <kharadron/GrundstokGunhauler.h>
 #include <kharadron/GrundstokThunderers.h>
 #include <kharadron/Skywardens.h>
+#include "kharadron/BjorgenThundrik.h"
+#include "kharadron/ThundriksProfiteers.h"
 
 namespace KharadronOverlords {
 
@@ -126,6 +128,8 @@ namespace KharadronOverlords {
         GrundstokGunhauler::Init();
         GrundstokThunderers::Init();
         Skywardens::Init();
+        BjorgenThundrik::Init();
+        ThundriksProfiteers::Init();
     }
 
 } //KharadronOverlords
