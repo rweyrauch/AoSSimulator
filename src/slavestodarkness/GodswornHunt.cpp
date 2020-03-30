@@ -11,7 +11,7 @@
 namespace SlavesToDarkness {
     static const int BASESIZE = 32;
     static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 60;
 
     bool GodswornHunt::s_registered = false;
 

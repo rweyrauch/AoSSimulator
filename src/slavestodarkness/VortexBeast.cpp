@@ -9,9 +9,9 @@
 #include "slavestodarkness/VortexBeast.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 50;
+    static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 170;
 
     bool MutalithVortexBeast::s_registered = false;
 

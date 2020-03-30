@@ -20,8 +20,7 @@ namespace Tzeentch {
     Unit *VortemisTheAllSeeing::Create(const ParameterList &parameters) {
         auto unit = new VortemisTheAllSeeing();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
-        unit->setChangeCoven(coven);
+        unit->setChangeCoven(CultOfTheTransientForm);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -39,8 +38,6 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     VortemisTheAllSeeing::ComputePoints,
                     {
-                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
-                             TzeentchBase::GuildOfSummoners, 1},
                     },
                     CHAOS,
                     {TZEENTCH}

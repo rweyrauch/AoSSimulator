@@ -9,9 +9,9 @@
 #include "slavestodarkness/SoulGrinder.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 50;
+    static const int BASESIZE = 160;
     static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 210;
 
     bool SoulGrinder::s_registered = false;
 

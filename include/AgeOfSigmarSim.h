@@ -681,7 +681,8 @@ enum Keyword {
     RAT_SWARMS,
     GIANT_RATS,
     DEATHMASTER,
-
+    SKRITCH_SPITECLAW,
+    SPITECLAWS_SWARM,
 
     // Tzeentch
     ARCANITE,
@@ -708,6 +709,9 @@ enum Keyword {
     VORTEMIS_THE_ALL_SEEING,
     OGROID_THAUMATURGE,
     FATEMASTER,
+    CHANGECASTER,
+    FLUXMASTER,
+    EYES_OF_THE_NINE,
 
     // Tzeentch Change Covens
     ETERNAL_CONFLAGRATION,

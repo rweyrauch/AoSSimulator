@@ -9,9 +9,9 @@
 #include "slavestodarkness/DaemonPrince.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 50;
+    static const int BASESIZE = 60;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 210;
 
     bool DaemonPrince::s_registered = false;
 
