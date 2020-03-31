@@ -35,6 +35,8 @@ namespace Khorne {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
     private:
 
         Weapon m_wrathforgedAxe,
@@ -46,7 +48,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Brass-clad Shield                TODO
+// Brass-clad Shield                Yes
 // Slaugtherous Charge              Yes
 // Daemonic Axe                     Yes
 // Blood Stampede                   TODO

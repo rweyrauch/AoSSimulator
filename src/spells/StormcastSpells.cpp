@@ -67,7 +67,7 @@ Spell::Result PurifyingBlast::cast(Unit * /*target*/, int round) {
                     total = roll + ip->bravery() / 2;
                 }
                 if (total < 10) {
-                    Wounds wounds = {0, Dice::rollD3()};
+                    Wounds wounds = {0, Dice::rollD3(), Wounds::Source::Spell};
                     int numSlain = ip->applyDamage(wounds);
                     if (numSlain > 0) {
                         SimLog(Verbosity::Narrative, "%s inflicts %d mortal wounds on unit %s.\n",

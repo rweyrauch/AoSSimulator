@@ -572,7 +572,6 @@ enum Keyword {
     CORPSE_CARTS,
     WIGHT_KING,
     NECROMANCER,
-    REANIMANT,
     MORGHAST,
     MORGHAST_ARCHAI,
     MORGHAST_HARBINGERS,
@@ -595,7 +594,6 @@ enum Keyword {
     ABHORRANT,
     CRYPT_GHAST_COURTIER,
     CRYPT_GHOULS,
-    TERRORGHEIST,
     ABHORRANT_GHOUL_KING,
     ZOMBIE_DRAGON,
     CRYPT_FLAYERS,
@@ -758,8 +756,6 @@ enum Keyword {
     // Eldritch Council
     SWORDMASTERS,
     ARCHMAGE,
-    ARCHMAGE_ON_DRAGON,
-    DRAKESEER,
     LOREMASTER,
 
     // Greenskinz
@@ -867,7 +863,6 @@ enum Keyword {
     THEDDRA_SKULL_SCRYER,
     DARKOATH_WARQUEEN,
     DARKOATH_CHIEFTAIN,
-    LORD_ON_DAEMONIC_MOUNT,
     SLAMBO,
     MARK_OF_CHAOS,
     EYE_OF_THE_GODS,
@@ -1075,8 +1070,17 @@ enum Verbosity : int {
 };
 
 struct Wounds {
+
+    enum class Source {
+        Weapon,
+        Ability,
+        Spell,
+        Prayer
+    };
+
     int normal = 0;
     int mortal = 0;
+    Source source = Source::Weapon;
 
     Wounds &operator+=(const Wounds &w) {
         normal += w.normal;

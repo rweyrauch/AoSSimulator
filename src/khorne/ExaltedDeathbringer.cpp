@@ -128,20 +128,16 @@ namespace Khorne {
         if (m_weaponOption == BloodbiteAxeAndRunemarkedShield) {
             auto totalWounds = KhorneBase::applyWoundSave(wounds);
 
-            // TODO: Save only applies to wounds from spells!
-            /*
-            // Runemarked Shield
-            Dice::RollResult resultNormal, resultMortal;
-
-            Dice::rollD6(wounds.normal, resultNormal);
-            Dice::rollD6(wounds.mortal, resultMortal);
-
-            Wounds negatedWounds = {resultNormal.rollsGE(2), resultNormal.rollsGE(2)};
-            totalWounds -= negatedWounds;
-            */
-            return totalWounds.clamp();
+            if (totalWounds.source == Wounds::Source::Spell) {
+                Dice::RollResult result;
+                Dice::rollD6(totalWounds.normal, result);
+                totalWounds.normal -= result.rollsGE(2);
+                Dice::rollD6(totalWounds.mortal, result);
+                totalWounds.mortal -= result.rollsGE(2);
+            }
+            return totalWounds;
         }
-        return Unit::applyWoundSave(wounds);
+        return KhorneBase::applyWoundSave(wounds);
     }
 
     Wounds

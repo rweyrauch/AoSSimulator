@@ -35,10 +35,10 @@ bool DamagePrayer::pray(Unit *target, int round) {
     bool result = false;
 
     int mortalWounds = 0;
-    const int prayingRoll = Dice::roll2D6();
+    const int prayingRoll = Dice::rollD6();
     if (prayingRoll >= m_prayingValue) {
         mortalWounds = Dice::rollSpecial(getDamage(target, prayingRoll));
-        target->applyDamage({0, mortalWounds});
+        target->applyDamage({0, mortalWounds, Wounds::Source::Prayer});
         SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, mortalWounds,
                target->name().c_str());
@@ -80,7 +80,7 @@ bool HealPrayer::pray(Unit *target, int round) {
     bool result = false;
 
     int wounds = 0;
-    const int prayingRoll = Dice::roll2D6();
+    const int prayingRoll = Dice::rollD6();
     if (prayingRoll >= m_prayingValue) {
         wounds = Dice::rollSpecial(getHealing(prayingRoll));
         target->heal(wounds);
@@ -120,7 +120,7 @@ bool BuffModifierPrayer::pray(Unit *target, int round) {
 
     bool result = false;
 
-    const int prayingRoll = Dice::roll2D6();
+    const int prayingRoll = Dice::rollD6();
     if (prayingRoll >= m_prayingValue) {
         target->buffModifier(m_attribute, m_modifier, {Phase::Hero, round + 1, m_priest->owningPlayer()});
 
@@ -128,7 +128,7 @@ bool BuffModifierPrayer::pray(Unit *target, int round) {
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, target->name().c_str());
         result = true;
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1});
+        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer});
     }
 
     return result;
@@ -164,7 +164,7 @@ bool BuffRerollPrayer::pray(Unit *target, int round) {
 
     bool result = false;
 
-    const int prayingRoll = Dice::roll2D6();
+    const int prayingRoll = Dice::rollD6();
     if (prayingRoll >= m_prayingValue) {
         target->buffReroll(m_attribute, m_reroll, {Phase::Hero, round + 1, m_priest->owningPlayer()});
 
@@ -172,7 +172,7 @@ bool BuffRerollPrayer::pray(Unit *target, int round) {
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, target->name().c_str());
         result = true;
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1});
+        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer});
     }
 
     return result;

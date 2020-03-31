@@ -35,6 +35,8 @@ namespace GloomspiteGitz {
 
         void onStartHero(PlayerId player) override;
 
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
         int reassuringPresence(const Unit *unit);
 
     private:
@@ -50,7 +52,7 @@ namespace GloomspiteGitz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Crushing Grip                    Yes
-// Magical Resistance               TODO
+// Magical Resistance               Yes
 // Reassuring Presence              Yes
 // Regeneration                     Yes
 // Squiggly-beast Followers         Yes

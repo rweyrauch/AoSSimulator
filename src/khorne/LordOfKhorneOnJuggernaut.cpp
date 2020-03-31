@@ -96,5 +96,20 @@ namespace Khorne {
         return POINTS_PER_UNIT;
     }
 
+    Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds) {
+        auto totalWounds = Unit::applyWoundSave(wounds);
+
+        // Brass-clad Shield
+        if (totalWounds.source == Wounds::Source::Spell) {
+            Dice::RollResult result;
+            Dice::rollD6(totalWounds.normal, result);
+            totalWounds.normal -= result.rollsGE(5);
+            Dice::rollD6(totalWounds.mortal, result);
+            totalWounds.mortal -= result.rollsGE(5);
+        }
+
+        return totalWounds;
+    }
+
 
 } // namespace Khorne

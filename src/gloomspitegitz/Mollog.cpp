@@ -7,6 +7,7 @@
  */
 #include <gloomspitegitz/Mollog.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 50;
@@ -51,7 +52,7 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase("Mollog", 6, WOUNDS, 7, 4, false),
             m_jabbertoad(Weapon::Type::Missile, "Jabbertoad", 12, 1, 4, 4, 0, 1),
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
-        m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
+        m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};
         m_weapons = {&m_jabbertoad, &m_club};
 
         s_globalBraveryMod.connect(this, &Mollog::reassuringPresence, &m_connection);
@@ -96,6 +97,88 @@ namespace GloomspiteGitz {
             return 1;
         }
         return 0;
+    }
+
+    Wounds Mollog::applyWoundSave(const Wounds &wounds) {
+
+        // Magical Resistance
+        if (wounds.source == Wounds::Source::Spell) {
+            if (Dice::rollD6() >= 4) {
+                return {0, 0,  Wounds::Source::Spell};
+            }
+        }
+
+        auto totalWounds = Unit::applyWoundSave(wounds);
+
+        // Loyal to the End
+        if (m_batSquig) {
+            if (totalWounds.mortal > 0) {
+                totalWounds.mortal--;
+                m_batSquig = false;
+            } else if (totalWounds.normal > 0) {
+                totalWounds.normal--;
+                m_batSquig = false;
+            }
+        }
+        if (m_spiteshroom) {
+            if (totalWounds.mortal > 0) {
+                totalWounds.mortal--;
+                m_spiteshroom = false;
+            } else if (totalWounds.normal > 0) {
+                totalWounds.normal--;
+                m_spiteshroom = false;
+            }
+        }
+        if (m_stalagsquig) {
+            const auto roll = Dice::rollD6();
+            if (totalWounds.mortal > 0) {
+                totalWounds.mortal--;
+                if (roll < 5)
+                    m_stalagsquig = false;
+            } else if (totalWounds.normal > 0) {
+                totalWounds.normal--;
+                if (roll < 5)
+                    m_stalagsquig = false;
+            }
+        }
+
+        return totalWounds;
+    }
+
+    void Mollog::onRestore() {
+        Unit::onRestore();
+
+        m_batSquig = true;
+        m_spiteshroom = true;
+        m_stalagsquig = true;
+    }
+
+    void Mollog::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        if (owningPlayer() == player) {
+            if (m_batSquig) {
+                auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+                if (unit && (distanceTo(unit) <= 18.0f)) {
+                    if (Dice::rollD6() >= 5) {
+                        unit->applyDamage({0, 1});
+                    }
+                }
+            }
+        }
+    }
+
+    void Mollog::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        if (m_spiteshroom) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) <= 3.0f)) {
+                if (Dice::rollD6() >= 5) {
+                    unit->buffModifier(BuffableAttribute::ToHitMelee, -1, {Phase::Combat, m_battleRound, player});
+                }
+            }
+        }
     }
 
 } // namespace GloomspiteGitz

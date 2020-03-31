@@ -48,8 +48,16 @@ namespace Tzeentch {
         }
     }
 
-    TheEyesOfTheNine::TheEyesOfTheNine() {
-
+    TheEyesOfTheNine::TheEyesOfTheNine() :
+            TzeentchBase("The Eyes of the Nine", 6, WOUNDS, 6, 6, false),
+            m_flames(Weapon::Type::Missile, "Magical Flames", 12, 2, 5, 4, 0, 1),
+            m_bolt(Weapon::Type::Missile, "Sorcerous Bolt", 12, 1, 5, 4, 0, 1),
+            m_greatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
+            m_blade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 4, 0, 1),
+            m_beak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
+            m_hands(Weapon::Type::Melee, "Taloned Hands", 1, 1, 5, 4, 0, 1) {
+        m_keywords = {CHAOS, TZEENTCH, CULT_OF_THE_TRANSIENT_FORM, EYES_OF_THE_NINE};
+        m_weapons = {&m_flames, &m_bolt, &m_greatblade, &m_blade, &m_beak, &m_hands};
     }
 
     bool TheEyesOfTheNine::configure() {
@@ -65,7 +73,7 @@ namespace Tzeentch {
         turosh->setName("Turosh");
         addModel(turosh);
 
-        auto kcharik = new Model(BASESIZE, wounds());
+        auto kcharik = new Model(BASESIZE, wounds()+1);
         kcharik->addMeleeWeapon(&m_greatblade);
         kcharik->addMeleeWeapon(&m_beak);
         kcharik->setName("K'charik");

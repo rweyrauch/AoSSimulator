@@ -64,7 +64,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Blooded Lieutenant               Yes
-// Runemarked Shield                TODO
+// Runemarked Shield                Yes
 // Skullgouger                      Yes
 // Brutal Impalement                Yes
 // Brutal Command                   TODO

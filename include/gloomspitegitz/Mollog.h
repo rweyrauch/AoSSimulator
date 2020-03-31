@@ -32,7 +32,15 @@ namespace GloomspiteGitz {
 
     protected:
 
-        void onStartHero(PlayerId player);
+        void onStartHero(PlayerId player) override;
+
+        void onStartShooting(PlayerId player) override;
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
+        void onRestore() override;
 
         int reassuringPresence(const Unit *unit);
 
@@ -43,6 +51,10 @@ namespace GloomspiteGitz {
 
         lsignal::slot m_connection;
 
+        bool m_batSquig = true;
+        bool m_spiteshroom = true;
+        bool m_stalagsquig = true;
+
         static bool s_registered;
     };
 
@@ -51,13 +63,13 @@ namespace GloomspiteGitz {
 // -------------------------------------------
 // Jabbertoad                       TODO
 // Puff-fungus Club                 TODO
-// Magical Resistance               TODO
+// Magical Resistance               Yes
 // Reassuring Presence              Yes
 // Regeneration                     Yes
-// Bat Squig                        TODO
-// Spiteshroom                      TODO
-// Stalagsquig                      TODO
-// Loyal to the End                 TODO
+// Bat Squig                        Yes
+// Spiteshroom                      Yes
+// Stalagsquig                      Yes
+// Loyal to the End                 Yes
 //
 
 } // namespace GloomspiteGitz

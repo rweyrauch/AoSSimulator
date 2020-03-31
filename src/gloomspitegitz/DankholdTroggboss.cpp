@@ -121,5 +121,15 @@ namespace GloomspiteGitz {
         return POINTS_PER_UNIT;
     }
 
+    Wounds DankholdTroggboss::applyWoundSave(const Wounds &wounds) {
+        // Magical Resistance
+        if (wounds.source == Wounds::Source::Spell) {
+            if (Dice::rollD6() >= 4) {
+                return {0, 0, Wounds::Source::Spell};
+            }
+        }
+        return Unit::applyWoundSave(wounds);
+    }
+
 } // namespace GloomspiteGitz
 

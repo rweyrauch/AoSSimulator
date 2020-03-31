@@ -44,7 +44,7 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound) {
             mortalWounds = Dice::rollSpecial(getDamage(castingRoll));
-            target->applyDamage({0, mortalWounds});
+            target->applyDamage({0, mortalWounds, Wounds::Source::Spell});
             SimLog(Verbosity::Narrative,
                    "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                    m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
@@ -104,7 +104,7 @@ Spell::Result AreaOfEffectSpell::cast(float x, float y, int round) {
 
                 if (unitAffected) {
                     mortalWounds = Dice::rollSpecial(getDamage(castingRoll));
-                    target->applyDamage({0, mortalWounds});
+                    target->applyDamage({0, mortalWounds, Wounds::Source::Spell});
                     secondaryEffect(target, round);
                     SimLog(Verbosity::Narrative,
                            "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",

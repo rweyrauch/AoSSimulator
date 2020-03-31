@@ -21,7 +21,8 @@ namespace StormcastEternals {
     StormsiresCursebreakers::StormsiresCursebreakers() :
             StormcastEternal("Stormsire's Cursebreakers", 5, WOUNDS, 8, 4, false),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1) {
-        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, CORPUSCANT, WIZARD, EVOCATORS};
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, CORPUSCANT,
+                      WIZARD, EVOCATORS, STORMSIRES_CURSEBREAKERS};
         m_weapons = {&m_tempestBladeAndStave};
 
         m_totalUnbinds = 1;
