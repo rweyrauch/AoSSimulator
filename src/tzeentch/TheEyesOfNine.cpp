@@ -89,6 +89,24 @@ namespace Tzeentch {
 
         return true;
     }
+
+    Wounds TheEyesOfTheNine::applyWoundSave(const Wounds &wounds) {
+        auto totalWounds = Unit::applyWoundSave(wounds);
+
+        // Arcanite Shield
+        for (auto& model : m_models) {
+            if (((model->getName() == "Narvia") || (model->getName() == "Turosh")) &&
+                !model->slain() && !model->fled()) {
+                Dice::RollResult normalSaves, mortalSaves;
+                Dice::rollD6(totalWounds.normal, normalSaves);
+                Dice::rollD6(totalWounds.mortal, mortalSaves);
+                totalWounds.normal -= normalSaves.rollsGE(6);
+                totalWounds.mortal -= mortalSaves.rollsGE(6);
+                break;
+            }
+        }
+        return totalWounds;
+    }
 } // namespace Tzeentch
 
 

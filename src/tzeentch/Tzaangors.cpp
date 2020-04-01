@@ -156,12 +156,16 @@ namespace Tzeentch {
 
     Wounds Tzaangors::applyWoundSave(const Wounds &wounds) {
         // Arcanite Shield
+        auto totalWounds = Unit::applyWoundSave(wounds);
+
         if (m_weaponOption == SavageBladeAndShield) {
-            auto roll = Dice::rollD6();
-            if (roll == 6)
-                return {0, 0};
+            Dice::RollResult normalSaves, mortalSaves;
+            Dice::rollD6(totalWounds.normal, normalSaves);
+            Dice::rollD6(totalWounds.mortal, mortalSaves);
+            totalWounds.normal -= normalSaves.rollsGE(6);
+            totalWounds.mortal -= mortalSaves.rollsGE(6);
         }
-        return TzeentchBase::applyWoundSave(wounds);
+        return totalWounds;
     }
 
     int Tzaangors::toHitModifier(const Weapon *weapon, const Unit *target) const {

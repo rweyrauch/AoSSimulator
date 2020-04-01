@@ -35,6 +35,8 @@ namespace StormcastEternals {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartShooting(PlayerId player) override;
+
         int lordOfTheHammerhandsBraveryMod(const Unit *unit);
 
     private:
@@ -52,7 +54,7 @@ namespace StormcastEternals {
 // -------------------------------------------
 // Heldensen                        Yes
 // Intolerable Damage               Yes
-// Storm Breath                     TODO
+// Storm Breath                     Yes
 // Lord of the Hammerhands          Yes
 // Vengeful Determination           TODO
 //

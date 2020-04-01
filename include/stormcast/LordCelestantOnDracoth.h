@@ -55,6 +55,8 @@ namespace StormcastEternals {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartShooting(PlayerId player) override;
+
     private:
 
         Weapon m_stormstrikeGlaive,
@@ -73,7 +75,7 @@ namespace StormcastEternals {
 // Intolerable Damage               Yes
 // Sigmarite Thundershield          Yes
 // Stormstrike Glaive               Yes
-// Storm Breath                     TODO
+// Storm Breath                     Yes
 // Tempestos Hammer                 Yes
 // Thunderaxe                       Yes
 // Lord of the Host                 TODO

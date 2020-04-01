@@ -67,7 +67,7 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcanite Shields                 TODO
+// Arcanite Shields                 Yes
 // Gestalt Sorcery                  TODO
 // Paired Cursed Blades             Yes
 // Scroll of Dark Arts              Yes

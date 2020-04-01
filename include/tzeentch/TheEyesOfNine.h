@@ -32,10 +32,12 @@ namespace Tzeentch {
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
     private:
 
         Weapon m_flames,
-            m_bolt,
+                m_bolt,
                 m_greatblade,
                 m_blade,
                 m_beak,
@@ -47,7 +49,7 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcanite Shield                  TODO
+// Arcanite Shield                  Yes
 // Split                            TODO
 //
 

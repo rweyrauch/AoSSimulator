@@ -57,8 +57,14 @@ namespace Tzeentch {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, HERO, WIZARD, TZAANGOR_SHAMAN};
         m_weapons = {&m_staff, &m_dagger, &m_teethAndHorns};
 
+        s_globalToHitMod.connect(this, &TzaangorShaman::visionsToHitMod, &m_visionsSlot);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
+    }
+
+    TzaangorShaman::~TzaangorShaman() {
+        m_visionsSlot.disconnect();
     }
 
     bool TzaangorShaman::configure() {
@@ -78,6 +84,12 @@ namespace Tzeentch {
 
     int TzaangorShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    int TzaangorShaman::visionsToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        if (attacker->hasKeyword(TZAANGOR_SKYFIRES) && (distanceTo(attacker) <= 12.0f) && weapon->isMissile()) return 1;
+        if (attacker->hasKeyword(TZAANGOR_ENLIGHTENED) && (distanceTo(attacker) <= 12.0f)) return 1;
+        return 0;
     }
 
 } // Tzeentch

@@ -25,17 +25,21 @@ namespace Tzeentch {
 
         TzaangorShaman();
 
-        ~TzaangorShaman() override = default;
+        ~TzaangorShaman() override;
 
         bool configure();
 
     protected:
+
+        int visionsToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
     private:
 
         Weapon m_staff,
                 m_dagger,
                 m_teethAndHorns;
+
+        lsignal::slot m_visionsSlot;
 
         static bool s_registered;
     };
@@ -44,8 +48,8 @@ namespace Tzeentch {
 // Abilities                    Implemented
 // -------------------------------------------
 // Sorcerous Elixir                 TODO
-// Visions of the Future            TODO
-// Visions of the Past              TODO
+// Visions of the Future            Yes
+// Visions of the Past              Yes
 // Boon of Mutation                 TODO
 //
 
