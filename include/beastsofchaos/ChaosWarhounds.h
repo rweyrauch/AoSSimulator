@@ -31,6 +31,8 @@ namespace BeastsOfChaos {
 
     protected:
 
+        int rollRunDistance() const override;
+
     private:
 
         Weapon m_slaveringJaws;
@@ -41,7 +43,7 @@ namespace BeastsOfChaos {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Outrunners of Chaos              TODO
+// Outrunners of Chaos              Yes
 //
 
 } // namespace BeastsOfChaos

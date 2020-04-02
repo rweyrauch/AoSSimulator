@@ -74,4 +74,15 @@ namespace BeastsOfChaos {
         return POINTS_PER_UNIT;
     }
 
+    Wounds Jabberslythe::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
+        auto totalWounds = Unit::computeReturnedDamage(weapon, saveRoll);
+
+        // Spurting Bile Blood
+        if (Dice::rollD6() >= 4) {
+            totalWounds.mortal++;
+        }
+
+        return totalWounds;
+    }
+
 } // namespace BeastsOfChaos

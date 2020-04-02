@@ -43,6 +43,12 @@ namespace SlavesToDarkness {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
     private:
 
         Weapon m_cannon,

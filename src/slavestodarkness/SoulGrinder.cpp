@@ -13,6 +13,23 @@ namespace SlavesToDarkness {
     static const int WOUNDS = 16;
     static const int POINTS_PER_UNIT = 210;
 
+    struct TableEntry {
+        int m_move;
+        int m_cannonAttacks;
+        int m_legAttacks;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {12, 6, 6},
+                    {10, 5, 5},
+                    {8, 4, 4},
+                    {7, 3, 3},
+                    {6, 2, 2}
+            };
+
     bool SoulGrinder::s_registered = false;
 
     Unit *SoulGrinder::Create(const ParameterList &parameters) {
@@ -121,6 +138,32 @@ namespace SlavesToDarkness {
             return {0, Dice::rollD6()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    void SoulGrinder::onWounded() {
+        Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_cannon.setAttacks(g_damageTable[damageIndex].m_cannonAttacks);
+        m_legs.setAttacks(g_damageTable[damageIndex].m_legAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    void SoulGrinder::onRestore() {
+        Unit::onRestore();
+
+        // Reset table-drive attributes
+        onWounded();
+    }
+
+    int SoulGrinder::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 } // namespace SlavesToDarkness

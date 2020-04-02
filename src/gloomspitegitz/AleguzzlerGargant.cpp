@@ -109,4 +109,16 @@ namespace GloomspiteGitz {
         return POINTS_PER_UNIT;
     }
 
+    void AleguzzlerGargant::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        // Stuff'Em In Me Bag
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && (distanceTo(unit) <= 3.0f)) {
+            if (Dice::rollD6() >= unit->wounds()*2) {
+                unit->slay(1);
+            }
+        }
+    }
+
 } // namespace GloomspiteGitz

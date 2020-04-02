@@ -83,6 +83,8 @@ namespace Seraphon {
     void Stegadon::onRestore() {
         // Reset table-drive attributes
         onWounded();
+
+        m_armouredCrestAttacker = nullptr;
     }
 
     Unit *Stegadon::Create(const ParameterList &parameters) {
@@ -176,6 +178,30 @@ namespace Seraphon {
 
     int Stegadon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    void Stegadon::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        m_armouredCrestAttacker = nullptr;
+
+        // Armoured Crest
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            for (auto unit : units) {
+                // Select target for Armoured Crest (select first one for now).
+                m_armouredCrestAttacker = unit;
+                break;
+            }
+        }
+    }
+
+    int Stegadon::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetSaveModifier(weapon, attacker);
+
+        if (attacker == m_armouredCrestAttacker) mod++;
+
+        return mod;
     }
 
 } //namespace Seraphon

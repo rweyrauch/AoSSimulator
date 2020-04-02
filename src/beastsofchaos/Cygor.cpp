@@ -121,4 +121,11 @@ namespace BeastsOfChaos {
         return POINTS_PER_UNIT;
     }
 
+    void Cygor::onUnboundSpell(Unit *caster, int castRoll) {
+        Unit::onUnboundSpell(caster, castRoll);
+
+        // Soul-eater
+        caster->applyDamage({0,1});
+    }
+
 } // namespace BeastsOfChaos

@@ -37,6 +37,8 @@ namespace GloomspiteGitz {
 
         void onRestore() override;
 
+        void onStartCombat(PlayerId player) override;
+
     private:
 
         Weapon m_eadbutt,
@@ -50,7 +52,7 @@ namespace GloomspiteGitz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Drunken Stagger                  TODO
-// Stuff 'Em In Me Bag              TODO
+// Stuff 'Em In Me Bag              Yes
 // Timber!                          TODO
 //
 

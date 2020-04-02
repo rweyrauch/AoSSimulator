@@ -34,6 +34,12 @@ namespace SlavesToDarkness {
 
         void onStartHero(PlayerId player) override;
 
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int getDamageTableIndex() const;
+
     private:
 
         Weapon m_claws,

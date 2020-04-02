@@ -39,6 +39,8 @@ namespace BeastsOfChaos {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
+        void onUnboundSpell(Unit *caster, int castRoll) override;
+
     private:
 
         Weapon m_desecratedBoulder,
@@ -50,7 +52,7 @@ namespace BeastsOfChaos {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Soul-eater                       TODO
+// Soul-eater                       Yes
 // Ghostsight                       Yes
 //
 

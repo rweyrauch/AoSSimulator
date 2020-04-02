@@ -51,6 +51,10 @@ namespace Sylvaneth {
         m_totalSpells = 3;
     }
 
+    Alarielle::~Alarielle() {
+        m_ghyransWrathSlot.disconnect();
+    }
+
     bool Alarielle::configure() {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_spearOfKurnoth);
@@ -167,13 +171,16 @@ namespace Sylvaneth {
     void Alarielle::onStartCombat(PlayerId player) {
         Unit::onStartCombat(player);
 
+        m_ghyransWrathSlot.disconnect();
+
         // Ghyran's Wrath
         if (getCommandPoints() > 0) {
             if (m_roster && m_roster->useCommandPoint()) {
                 // Buff Alarielle
                 buffReroll(ToWoundMelee, RerollOnes, {Combat, m_battleRound + 1, owningPlayer()});
 
-                // TODO: buffer all units wholly within 14" of Alarielle
+                // Buff all friends with in 14".
+                s_globalToWoundReroll.connect(this, &Alarielle::ghyransWrathToWoundReroll, &m_ghyransWrathSlot);
             }
         }
     }
@@ -202,6 +209,12 @@ namespace Sylvaneth {
 
     int Alarielle::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    Rerolls Alarielle::ghyransWrathToWoundReroll(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        if (isFriendly(attacker) && attacker->hasKeyword(SYLVANETH) && (distanceTo(attacker) < 14.0f))
+            return RerollOnes;
+        return NoRerolls;
     }
 
 } // namespace Sylvaneth

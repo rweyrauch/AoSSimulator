@@ -41,7 +41,15 @@ namespace Seraphon {
 
         void onStartShooting(PlayerId player) override;
 
+        void onStartCombat(PlayerId player) override;
+
+        int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
+
         Rerolls steadfastMajestyBraveryReroll(const Unit *unit);
+
+        Rerolls cosmicEngineChargeReroll(const Unit *unit);
+
+        int cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
 
     private:
 
@@ -50,7 +58,12 @@ namespace Seraphon {
             m_jaws,
             m_stomps;
 
-        lsignal::slot m_steadfastSlot;
+        lsignal::slot m_steadfastSlot,
+            m_cosmicEngineChargeSlot,
+            m_cosmicEngineAttackSlot;
+
+        bool m_timeStoodStill = false;
+        Unit* m_armouredCrestAttacker = nullptr;
 
         static bool s_registered;
     };
@@ -58,10 +71,10 @@ namespace Seraphon {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Armoured Crest                   TODO
+// Armoured Crest                   Yes
 // Unstoppable Stampede             Yes
 // Steadfast Majesty                Yes
-// Cosmic Engine                    Partial/TODO
+// Cosmic Engine                    Yes
 //
 
 } // namespace Seraphon

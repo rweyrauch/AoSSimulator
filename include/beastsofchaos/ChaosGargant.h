@@ -37,6 +37,8 @@ namespace BeastsOfChaos {
 
         void onRestore() override;
 
+        void onStartCombat(PlayerId player) override;
+
     private:
 
         Weapon m_eadbutt,
@@ -49,9 +51,9 @@ namespace BeastsOfChaos {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Whipped into Frenzy              TODO
+// Whipped into Frenzy              Yes
 // Drunken Stagger                  TODO
-// Stuff 'Em In Me Bag              TODO
+// Stuff 'Em In Me Bag              Yes
 // Timber!                          TODO
 //
 

@@ -175,11 +175,16 @@ namespace OgorMawtribes {
     }
 
     Wounds OgorGluttons::applyWoundSave(const Wounds &wounds) {
-        if (m_lookoutGnoblar) {
-            // TODO: 6+ wound save in shooting phase
+        auto totalWounds = Unit::applyWoundSave(wounds);
+
+        // Lookout Gnoblar
+        if (m_lookoutGnoblar && (wounds.source == Wounds::Source::WeaponMissile)) {
+            Dice::RollResult result;
+            Dice::rollD6(totalWounds.normal, result);
+            totalWounds.normal -= result.rollsGE(6);
         }
 
-        return Unit::applyWoundSave(wounds);
+        return totalWounds;
     }
 
 } // namespace OgorMawtribes

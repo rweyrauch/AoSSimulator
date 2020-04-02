@@ -1072,7 +1072,8 @@ enum Verbosity : int {
 struct Wounds {
 
     enum class Source {
-        Weapon,
+        WeaponMelee,
+        WeaponMissile,
         Ability,
         Spell,
         Prayer
@@ -1080,7 +1081,7 @@ struct Wounds {
 
     int normal = 0;
     int mortal = 0;
-    Source source = Source::Weapon;
+    Source source = Source::WeaponMelee;
 
     Wounds &operator+=(const Wounds &w) {
         normal += w.normal;

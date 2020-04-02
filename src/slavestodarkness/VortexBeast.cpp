@@ -16,6 +16,23 @@ namespace SlavesToDarkness {
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 170;
 
+    struct TableEntry {
+        int m_move;
+        int m_clawToWound;
+        int m_mawAttacks;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {10, 1, RAND_3D6},
+                    {8, 2, RAND_2D6},
+                    {8, 3, RAND_D6},
+                    {6, 4, RAND_D3},
+                    {4, 5, 1}
+            };
+
     bool MutalithVortexBeast::s_registered = false;
 
     Unit *MutalithVortexBeast::Create(const ParameterList &parameters) {
@@ -138,6 +155,32 @@ namespace SlavesToDarkness {
                 break;
             }
         }
+    }
+
+    void MutalithVortexBeast::onWounded() {
+        Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_claws.setToWound(g_damageTable[damageIndex].m_clawToWound);
+        m_maw.setAttacks(g_damageTable[damageIndex].m_mawAttacks);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    void MutalithVortexBeast::onRestore() {
+        Unit::onRestore();
+
+        // Reset table-drive attributes
+        onWounded();
+    }
+
+    int MutalithVortexBeast::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 } // namespace SlavesToDarkness

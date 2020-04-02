@@ -9,6 +9,7 @@
 #include <seraphon/EngineOfTheGods.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <Roster.h>
 
 namespace Seraphon {
 
@@ -45,10 +46,14 @@ namespace Seraphon {
         m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
 
         s_globalBattleshockReroll.connect(this, &EngineOfTheGods::steadfastMajestyBraveryReroll, &m_steadfastSlot);
+        s_globalChargeReroll.connect(this, &EngineOfTheGods::cosmicEngineChargeReroll, &m_cosmicEngineChargeSlot);
+        s_globalAttackMod.connect(this, &EngineOfTheGods::cosmicEngineAttackMod, &m_cosmicEngineAttackSlot);
     }
 
     EngineOfTheGods::~EngineOfTheGods() {
         m_steadfastSlot.disconnect();
+        m_cosmicEngineChargeSlot.disconnect();
+        m_cosmicEngineAttackSlot.disconnect();
     }
 
     bool EngineOfTheGods::configure() {
@@ -67,6 +72,8 @@ namespace Seraphon {
     void EngineOfTheGods::onRestore() {
         // Reset table-drive attributes
         onWounded();
+
+        m_armouredCrestAttacker = nullptr;
     }
 
     Unit *EngineOfTheGods::Create(const ParameterList &parameters) {
@@ -139,6 +146,7 @@ namespace Seraphon {
         if (player != owningPlayer()) return;
 
         // Cosmic Engine
+        m_timeStoodStill = false;
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SLANN, 12.0f);
 
         int roll = Dice::roll2D6();
@@ -168,10 +176,17 @@ namespace Seraphon {
                 }
             }
         } else if (roll <= 17) {
-            // TODO: Setup a unit of 10 Saurus Warriors
-        } else // roll == 18
-        {
-            // TODO: implement this.
+            // Setup a unit of 10 Saurus Warriors
+            auto factory = UnitFactory::LookupUnit("Saurus Warriors");
+            if (factory) {
+                if (m_roster) {
+                    auto unit = UnitFactory::Create("Saurus Warriors", factory->m_parameters);
+                    unit->setPosition(position(), m_orientation);
+                    m_roster->addUnit(unit);
+                }
+            }
+        } else { // roll == 18
+            m_timeStoodStill = true;
         }
     }
 
@@ -182,6 +197,43 @@ namespace Seraphon {
 
     int EngineOfTheGods::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    Rerolls EngineOfTheGods::cosmicEngineChargeReroll(const Unit *unit) {
+        if (m_timeStoodStill && isFriendly(unit) && unit->hasKeyword(SERAPHON) && (distanceTo(unit) <= 24.0f))
+            return RerollFailed;
+        return NoRerolls;
+    }
+
+    int EngineOfTheGods::cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                                               const Unit *target) {
+        if (m_timeStoodStill && isFriendly(attacker) && attacker->hasKeyword(SERAPHON) && (distanceTo(attacker) <= 24.0f))
+            return weapon->attacks();
+        return 0;
+    }
+
+    void EngineOfTheGods::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        m_armouredCrestAttacker = nullptr;
+
+        // Armoured Crest
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            for (auto unit : units) {
+                // Select target for Armoured Crest (select first one for now).
+                m_armouredCrestAttacker = unit;
+                break;
+            }
+        }
+    }
+
+    int EngineOfTheGods::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetSaveModifier(weapon, attacker);
+
+        if (attacker == m_armouredCrestAttacker) mod++;
+
+        return mod;
     }
 
 } //namespace Seraphon

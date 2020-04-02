@@ -109,4 +109,32 @@ namespace BeastsOfChaos {
         return POINTS_PER_UNIT;
     }
 
+    void ChaosGargant::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        // Whipped into a Frenzy
+        if (remainingWounds() > wounds()/2) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+            bool heroesNearby = false;
+            for (auto unit : units) {
+                if (unit->hasKeyword(HERO) && unit->hasKeyword(BEASTS_OF_CHAOS)) {
+                    heroesNearby = true;
+                    break;
+                }
+            }
+            if (heroesNearby) {
+                applyDamage({0, 1});
+                buffModifier(BuffableAttribute::AttacksMelee, 1, {Combat, m_battleRound, player});
+            }
+        }
+
+        // Stuff'Em In Me Bag
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && (distanceTo(unit) <= 3.0f)) {
+            if (Dice::rollD6() >= unit->wounds()*2) {
+                unit->slay(1);
+            }
+        }
+    }
+
 } // namespace GloomspiteGitz

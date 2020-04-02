@@ -25,7 +25,7 @@ namespace Sylvaneth {
 
         Alarielle();
 
-        ~Alarielle() override = default;
+        ~Alarielle() override;
 
         bool configure();
 
@@ -49,11 +49,15 @@ namespace Sylvaneth {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        Rerolls ghyransWrathToWoundReroll(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
 
         Weapon m_spearOfKurnoth,
                 m_talonOfDwindling,
                 m_beetleGreatAntlers;
+
+        lsignal::slot m_ghyransWrathSlot;
 
         bool m_usedSoulAmphorae = false;
 
@@ -67,9 +71,9 @@ namespace Sylvaneth {
 // Lifebloom                        Yes
 // Sweeping Blows                   Yes
 // Living Battering Ram             Yes
-// Soul Amphorae                    Partial/TODO
+// Soul Amphorae                    Yes
 // Metamorphosis                    Partial/TODO
-// Ghyran's Wrath                   Partial/TODO
+// Ghyran's Wrath                   Yes
 //
 
 } // namespace Sylvaneth

@@ -48,6 +48,10 @@ namespace Seraphon {
 
         void onCharged() override;
 
+        void onStartCombat(PlayerId player) override;
+
+        int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
+
         Rerolls steadfastMajestyBraveryReroll(const Unit *unit);
 
     private:
@@ -64,13 +68,15 @@ namespace Seraphon {
 
         lsignal::slot m_steadfastSlot;
 
+        Unit* m_armouredCrestAttacker = nullptr;
+
         static bool s_registered;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Armoured Crest                   TODO
+// Armoured Crest                   Yes
 // Gout of Sunfire                  TODO
 // Steadfast Majesty                Yes
 // Unstoppable Stampede             Yes

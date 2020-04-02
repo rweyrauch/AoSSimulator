@@ -31,6 +31,7 @@ namespace BeastsOfChaos {
 
     protected:
 
+        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
     private:
 
@@ -45,7 +46,7 @@ namespace BeastsOfChaos {
 // Abilities                    Implemented
 // -------------------------------------------
 // Aura of Madness                  TODO
-// Spurting Bile Blood              TODO
+// Spurting Bile Blood              Yes
 //
 
 } // namespace BeastsOfChaos

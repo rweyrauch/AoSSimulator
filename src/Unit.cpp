@@ -729,7 +729,7 @@ bool Unit::makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *t
 
 void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fromModel,
                             Wounds &totalWoundsInflicted, Wounds &totalWoundsSuffered) {
-    totalWoundsInflicted = {0, 0};
+    totalWoundsInflicted = {0, 0, weapon->isMissile() ? Wounds::Source::WeaponMissile : Wounds::Source::WeaponMelee};
     totalWoundsSuffered = {0, 0};
 
     if (!weapon->isActive()) {

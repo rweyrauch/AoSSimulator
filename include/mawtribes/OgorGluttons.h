@@ -77,7 +77,7 @@ namespace OgorMawtribes {
 // Bellower                         Yes
 // Beast Skull Bearer               Yes
 // Tribal Banner Bearer             Yes
-// Lookout Gnoblar                  TODO
+// Lookout Gnoblar                  Yes
 // Paired Clubs or Blades           Yes
 // Ironfist                         Yes
 

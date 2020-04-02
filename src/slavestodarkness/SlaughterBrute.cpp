@@ -13,6 +13,23 @@ namespace SlavesToDarkness {
     static const int WOUNDS = 12;
     static const int POINTS_PER_UNIT = 170;
 
+    struct TableEntry {
+        int m_move;
+        int m_clawAttacks;
+        int m_jawsToWound;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {10, 6, 1},
+                    {8, 5, 2},
+                    {8, 4, 3},
+                    {6, 3, 4},
+                    {4, 2, 5}
+            };
+
     bool Slaughterbrute::s_registered = false;
 
     Unit *Slaughterbrute::Create(const ParameterList &parameters) {
@@ -75,6 +92,32 @@ namespace SlavesToDarkness {
         m_points = POINTS_PER_UNIT;
 
         return true;
+    }
+
+    void Slaughterbrute::onWounded() {
+        Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
+        m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    void Slaughterbrute::onRestore() {
+        Unit::onRestore();
+
+        // Reset table-drive attributes
+        onWounded();
+    }
+
+    int Slaughterbrute::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 } // namespace SlavesToDarkness
