@@ -42,7 +42,6 @@ namespace Death {
         }
 
         m_standardBearers = standardBearers;
-        // TODO: units with hornblowers min charge distance is 6".
         m_hornblowers = hornblowers;
         m_weaponOption = weapons;
 

@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "citiesofsigmar/SorceressOnBlackDragon.h"
 
 namespace CitiesOfSigmar {
@@ -38,10 +39,12 @@ namespace CitiesOfSigmar {
     Unit *SorceressOnBlackDragon::Create(const ParameterList &parameters) {
         auto unit = new SorceressOnBlackDragon();
 
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, WitchRod);
+
         auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
         unit->setCity(city);
 
-        bool ok = unit->configure();
+        bool ok = unit->configure(weapon);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -65,6 +68,7 @@ namespace CitiesOfSigmar {
                     SorceressOnBlackDragon::EnumStringToInt,
                     SorceressOnBlackDragon::ComputePoints,
                     {
+                            {ParamType::Enum, "Weapon", WitchRod, WitchRod, DarklingSword, 1},
                             {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
                              CitizenOfSigmar::TempestsEye, 1},
                     },
@@ -90,12 +94,14 @@ namespace CitiesOfSigmar {
         m_totalUnbinds = 1;
     }
 
-    bool SorceressOnBlackDragon::configure() {
+    bool SorceressOnBlackDragon::configure(WeaponOption option) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_noxiousBreath);
 
-        // TODO: weapon options
-        model->addMeleeWeapon(&m_rod);
+        if (option == WitchRod)
+            model->addMeleeWeapon(&m_rod);
+        else if (option == DarklingSword)
+            model->addMeleeWeapon(&m_sword);
 
         model->addMeleeWeapon(&m_jaws);
         model->addMeleeWeapon(&m_claws);
@@ -113,6 +119,8 @@ namespace CitiesOfSigmar {
     void SorceressOnBlackDragon::onRestore() {
         // Restore table-driven attributes
         onWounded();
+
+        m_bloodSacrificeMod = 0;
     }
 
     void SorceressOnBlackDragon::onWounded() {
@@ -147,6 +155,28 @@ namespace CitiesOfSigmar {
 
     int SorceressOnBlackDragon::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    void SorceressOnBlackDragon::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        // Blood Sacrifice
+        m_bloodSacrificeMod = 0;
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), DARKLING_COVENS, 3.0f);
+        if (unit) {
+            if (unit->remainingModels() > 1) {
+                unit->slay(1);
+                m_bloodSacrificeMod = 2;
+            }
+        }
+    }
+
+    int SorceressOnBlackDragon::castingModifier() const {
+        auto mod = Unit::castingModifier();
+
+        mod += m_bloodSacrificeMod;
+
+        return mod;
     }
 
 } // namespace CitiesOfSigmar

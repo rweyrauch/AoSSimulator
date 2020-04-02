@@ -25,7 +25,7 @@ namespace Sylvaneth {
 
         ArchRevenant();
 
-        ~ArchRevenant() override = default;
+        ~ArchRevenant() override;
 
         bool configure();
 
@@ -41,12 +41,16 @@ namespace Sylvaneth {
         // Buff weapons during our combat phase
         void onStartCombat(PlayerId id) override { m_crescentShieldProtection = true; }
 
+        Rerolls championOfKurnothToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
 
         Weapon m_glaive,
                 m_tailPincers;
 
         bool m_crescentShieldProtection = false;
+
+        lsignal::slot m_championsSlot;
 
         static bool s_registered;
     };
@@ -55,7 +59,7 @@ namespace Sylvaneth {
 // Abilities                    Implemented
 // -------------------------------------------
 // Crescent Shield                  Yes
-// Champion of Kurnoth              TODO
+// Champion of Kurnoth              Yes
 // Ultimate Sacrifice               TODO
 // Call to Battle                   TODO
 //

@@ -39,9 +39,7 @@ namespace Death {
             return false;
         }
 
-        // TODO: standard bearers debuff enemy Bravery within 6".
         m_standardBearer = standardBearer;
-        // TODO: minimum charge distance is 6" with noise maker present
         m_noiseMaker = noiseMaker;
 
         for (auto i = 0; i < numModels; i++) {

@@ -70,8 +70,12 @@ namespace GloomspiteGitz {
 
     void ColossalSquig::onSlain() {
         // Fungoid Squig Explosion
-        // TODO: Roll D6 for each enemy unit w/in 3", on 2+ unit suffers D3 mortal wounds.
-
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        for (auto unit : units) {
+            if (Dice::rollD6() >= 2) {
+                unit->applyDamage({0, Dice::rollD3()});
+            }
+        }
         // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
     }
 

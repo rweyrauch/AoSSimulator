@@ -22,6 +22,12 @@ namespace Sylvaneth {
             m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, HERO, ARCH_REVENANT};
         m_weapons = {&m_glaive, &m_tailPincers};
+
+        s_globalToHitReroll.connect(this, &ArchRevenant::championOfKurnothToHitRerolls, &m_championsSlot);
+    }
+
+    ArchRevenant::~ArchRevenant() {
+        m_championsSlot.disconnect();
     }
 
     bool ArchRevenant::configure() {
@@ -86,6 +92,13 @@ namespace Sylvaneth {
 
     int ArchRevenant::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    Rerolls
+    ArchRevenant::championOfKurnothToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        if (isFriendly(attacker) && attacker->hasKeyword(KURNOTH_HUNTERS) && (distanceTo(attacker) <= 12.0f))
+            return RerollOnes;
+        return NoRerolls;
     }
 
 } // namespace Sylvaneth

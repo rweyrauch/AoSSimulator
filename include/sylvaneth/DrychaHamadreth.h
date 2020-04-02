@@ -25,7 +25,7 @@ namespace Sylvaneth {
 
         DrychaHamadreth();
 
-        ~DrychaHamadreth() override = default;
+        ~DrychaHamadreth() override;
 
         bool configure();
 
@@ -41,6 +41,8 @@ namespace Sylvaneth {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        Rerolls songOfSpiteToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
 
         bool m_enraged = false;
@@ -50,6 +52,8 @@ namespace Sylvaneth {
                 m_slashingTalons,
                 m_thornedSlendervines;
 
+        lsignal::slot m_songSlot;
+
         static bool s_registered;
     };
 
@@ -58,7 +62,7 @@ namespace Sylvaneth {
 // -------------------------------------------
 // Deadly Infestation               Yes
 // Mercurial Aspect                 Yes
-// Song of Spite                    TODO
+// Song of Spite                    Yes
 // Primal Terror                    TODO
 //
 

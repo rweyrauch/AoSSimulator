@@ -17,6 +17,11 @@ namespace CitiesOfSigmar {
     class SorceressOnBlackDragon : public CitizenOfSigmar {
     public:
 
+        enum WeaponOption {
+            WitchRod,
+            DarklingSword
+        };
+
         static Unit *Create(const ParameterList &parameters);
 
         static std::string ValueToString(const Parameter &parameter);
@@ -31,7 +36,7 @@ namespace CitiesOfSigmar {
 
         ~SorceressOnBlackDragon() override = default;
 
-        bool configure();
+        bool configure(WeaponOption option);
 
     protected:
 
@@ -40,6 +45,10 @@ namespace CitiesOfSigmar {
         void onRestore() override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartHero(PlayerId player) override;
+
+        int castingModifier() const override;
 
     private:
 
@@ -52,13 +61,15 @@ namespace CitiesOfSigmar {
                 m_jaws,
                 m_claws;
 
+        int m_bloodSacrificeMod = 0;
+
         static bool s_registered;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood Sacrifice                  TODO
+// Blood Sacrifice                  Yes
 // Noxious Breath                   Yes
 // Bladewind                        TODO
 // Command Underlings               TODO

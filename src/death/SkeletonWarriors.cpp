@@ -41,9 +41,7 @@ namespace Death {
             return false;
         }
 
-        // TODO: standard bearers debuff enemy Bravery within 6".
         m_standardBearers = standardBearers;
-        // TODO: minimum charge distance is 6" with hornblower present
         m_hornblowers = hornblowers;
 
         auto champion = new Model(BASESIZE, wounds());

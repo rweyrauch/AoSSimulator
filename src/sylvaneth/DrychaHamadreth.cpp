@@ -43,8 +43,14 @@ namespace Sylvaneth {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
         m_weapons = {&m_colonyOfFlitterfuries, &m_swarmOfSquirmlings, &m_slashingTalons};
 
+        s_globalToWoundReroll.connect(this, &DrychaHamadreth::songOfSpiteToWoundRerolls, &m_songSlot);
+
         m_totalUnbinds = 1;
         m_totalSpells = 1;
+    }
+
+    DrychaHamadreth::~DrychaHamadreth() {
+        m_songSlot.disconnect();
     }
 
     bool DrychaHamadreth::configure() {
@@ -142,6 +148,14 @@ namespace Sylvaneth {
 
     int DrychaHamadreth::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    Rerolls DrychaHamadreth::songOfSpiteToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+
+        if (isFriendly(attacker) && attacker->hasKeyword(SPITE_REVENANTS) && (distanceTo(attacker) < 16.0f))
+            return RerollOnes;
+
+        return NoRerolls;
     }
 
 } // namespace Sylvaneth
