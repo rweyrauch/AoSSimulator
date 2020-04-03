@@ -29,6 +29,7 @@ namespace Bonesplitterz {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -40,10 +41,10 @@ namespace Bonesplitterz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Ritual Dance                     TODO
-//     Grimdokk
-//     Glyphdokk
-//     Weirddokk
+// Ritual Dance                     Yes
+//     Grimdokk                     Yes
+//     Glyphdokk                    Yes
+//     Weirddokk                    Yes
 //
 
 } // namespace Bonesplitterz

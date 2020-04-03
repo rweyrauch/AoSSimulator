@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "bonesplitterz/OrrukMorboys.h"
 
 namespace Bonesplitterz {
@@ -105,6 +106,23 @@ namespace Bonesplitterz {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    int SavageOrrukMorboys::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        // Power of the Beast Spirit
+        if (!weapon->isMissile()) {
+            // Search for slain enemy monsters
+            auto units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
+            for (auto unit : units) {
+                if (unit->hasKeyword(MONSTER) && (unit->remainingModels() == 0)) {
+                    mod++;
+                    break;
+                }
+            }
+        }
+        return mod;
     }
 
 } // namespace Bonesplitterz

@@ -242,7 +242,7 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted) {
             totalDamage = 0;
         }
         if (remainingWounds == 0) {
-            onModelSlain();
+            onModelSlain(totalWounds.source);
             numSlain++;
         }
     }

@@ -31,7 +31,7 @@ namespace Bonesplitterz {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        void onModelSlain() override;
+        void onModelSlain(Wounds::Source source) override;
 
     private:
 
@@ -43,7 +43,7 @@ namespace Bonesplitterz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Da Final Fling                   TODO
+// Da Final Fling                   Yes
 // The Bigger They Are              Yes
 // Savagely Enthusiastic            Yes
 //

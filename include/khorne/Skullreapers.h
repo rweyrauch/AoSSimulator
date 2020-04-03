@@ -37,7 +37,7 @@ namespace Khorne {
 
         bool battleshockRequired() const override { return false; }
 
-        void onModelSlain() override;
+        void onModelSlain(Wounds::Source source) override;
 
     private:
 

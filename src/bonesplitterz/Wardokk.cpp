@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "bonesplitterz/Wardokk.h"
 
 namespace Bonesplitterz {
@@ -73,6 +74,35 @@ namespace Bonesplitterz {
 
     int Wardokk::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    void Wardokk::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        // Ritual Dance
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            for (auto unit : units) {
+                if (unit->hasKeyword(BONESPLITTERZ) && (unit->remainingWounds() < unit->initialWounds())) {
+                    // Grimdokk Dance
+                    if (Dice::rollD6() >= 3)
+                        unit->heal(Dice::rollD3());
+                    break;
+                }
+                else if (unit->hasKeyword(WIZARD) && unit->hasKeyword(BONESPLITTERZ)) {
+                    // Weirddokk Dance
+                    if (Dice::rollD6() >= 3)
+                        unit->buffModifier(CastingRoll, 1, {Hero, m_battleRound+1, owningPlayer()});
+                    break;
+                }
+                else if (unit->meleeTarget() != nullptr) {
+                    // Glyphdokk Dance
+                    if (Dice::rollD6() >= 3)
+                        unit->buffModifier(ToSave, 1, {Hero, m_battleRound+1, owningPlayer()});
+                    break;
+                }
+            }
+        }
     }
 
 } // namespace Bonesplitterz

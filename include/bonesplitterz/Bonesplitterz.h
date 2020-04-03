@@ -38,6 +38,8 @@ namespace Bonesplitterz {
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
     protected:
 
         Warclan m_warclan = Bonegrinz;
@@ -48,8 +50,11 @@ namespace Bonesplitterz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Tireless Trackers                TODO
-// Warpaint                         TODO
+// Warpaint                         Yes
 // Monster Hunters                  TODO
+//   Wild Abandon                   TODO
+//   Stab! Stab! Stab!              TODO
+//   Berserk Strength               TODO
 // Spirit of the Beast              TODO
 // Bonesplitterz Waaagh!            TODO
 //

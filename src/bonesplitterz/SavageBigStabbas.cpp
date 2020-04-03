@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "bonesplitterz/SavageBigStabbas.h"
 
 namespace Bonesplitterz {
@@ -62,9 +63,18 @@ namespace Bonesplitterz {
         m_runAndCharge = true;
     }
 
-    void SavageBigStabbas::onModelSlain() {
+    void SavageBigStabbas::onModelSlain(Wounds::Source source) {
         // Da Final Fling
-        // TODO: check if slain by a melee weapon
+        if (source == Wounds::Source::WeaponMelee) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) <= 3.0f)) {
+                auto roll = Dice::rollD6();
+                if (unit->hasKeyword(MONSTER)) roll += 2;
+                if (roll >= 4) {
+                    unit->applyDamage({0, Dice::rollD3()});
+                }
+            }
+        }
     }
 
     bool SavageBigStabbas::configure(int numModels) {

@@ -116,12 +116,11 @@ namespace Khorne {
         return points;
     }
 
-    void Skullreapers::onModelSlain() {
-        Unit::onModelSlain();
+    void Skullreapers::onModelSlain(Wounds::Source source) {
+        Unit::onModelSlain(source);
 
         // Murderous to the Last
-        // TODO: if (slain by melee weapon)
-        {
+        if (source == Wounds::Source::WeaponMelee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) <= 1.0f) {
                 if (Dice::rollD6() >= 5) {

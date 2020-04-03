@@ -46,6 +46,8 @@ namespace Bonesplitterz {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
     private:
 
         bool m_thumper = false;
@@ -63,7 +65,7 @@ namespace Bonesplitterz {
 // Thumper                          Yes
 // Totem Bearer                     Yes
 // Spirit of Gorkamorka             Yes
-// Power of the Beast Spirit        TODO
+// Power of the Beast Spirit        Yes
 //
 
 } // namespace Bonesplitterz

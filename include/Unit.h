@@ -412,7 +412,7 @@ protected:
 
     virtual void onSlain() {}
 
-    virtual void onModelSlain() {}
+    virtual void onModelSlain(Wounds::Source source) {}
 
     virtual void onWounded() {}
 

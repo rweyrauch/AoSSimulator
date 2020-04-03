@@ -59,6 +59,20 @@ namespace Bonesplitterz {
         return 0;
     }
 
+    Wounds Bonesplitterz::applyWoundSave(const Wounds &wounds) {
+        auto totalWounds = Unit::applyWoundSave(wounds);
+
+        // Warpaint
+        Dice::RollResult normalResult, mortalResult;
+        Dice::rollD6(totalWounds.normal, normalResult);
+        Dice::rollD6(totalWounds.mortal, mortalResult);
+
+        totalWounds.normal -= normalResult.rollsGE(6);
+        totalWounds.mortal -= mortalResult.rollsGE(6);
+
+        return totalWounds;
+    }
+
     void Init() {
         SavageBoarboyManiaks::Init();
         ManiakWeirdnob::Init();
