@@ -42,6 +42,8 @@ namespace Ironjawz {
 
         int runModifier() const override;
 
+        void onBeginRound(int battleRound) override;
+
     protected:
 
         Warclan m_warclan = Ironsunz;
@@ -55,6 +57,15 @@ namespace Ironjawz {
 // Smashing and Bashing             TODO
 // Eager for Battle                 Yes
 // Mad as Hell                      TODO
+// Ironsunz Kunnin'                 TODO
+// Alright - Get 'Em!               TODO
+// Right Fist of Dakkbad            Yes
+// Hunt and Crush                   Yes
+// Break Through Da Line            TODO
+// Get Da Realmgate                 TODO
+// Vandal Hordes                    TODO
+// Rabble Rouser                    TODO
+// Checked Out                      TODO
 //
 
     void Init();

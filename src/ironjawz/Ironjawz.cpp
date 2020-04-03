@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <Roster.h>
 #include <ironjawz/Ironjawz.h>
 
 #include "ironjawz/OrrukArdboys.h"
@@ -78,6 +79,14 @@ namespace Ironjawz {
         else if (enumString == "Bloodtoofs") { return Bloodtoofs; }
         else if (enumString == "Da Choppas") { return DaChoppas; }
         return 0;
+    }
+
+    void Ironjawz::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        // Right First of Dakkbad
+        if ((battleRound == 1) && (m_warclan == Ironsunz))
+            m_roster->addCommandPoints(1);
     }
 
     void Init() {

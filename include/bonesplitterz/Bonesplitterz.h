@@ -40,10 +40,22 @@ namespace Bonesplitterz {
 
         Wounds applyWoundSave(const Wounds &wounds) override;
 
+        void onStartCombat(PlayerId player) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     protected:
 
         Warclan m_warclan = Bonegrinz;
 
+        bool m_stabStabStab = false;
+        bool m_berserkStrength = false;
     };
 
 //
@@ -51,12 +63,21 @@ namespace Bonesplitterz {
 // -------------------------------------------
 // Tireless Trackers                TODO
 // Warpaint                         Yes
-// Monster Hunters                  TODO
-//   Wild Abandon                   TODO
-//   Stab! Stab! Stab!              TODO
-//   Berserk Strength               TODO
+// Monster Hunters                  Yes
+//   Wild Abandon                   Yes
+//   Stab! Stab! Stab!              Yes
+//   Berserk Strength               Yes
 // Spirit of the Beast              TODO
 // Bonesplitterz Waaagh!            TODO
+// Bring It On!                     TODO
+// Feel Da Spirit!                  TODO
+// A Right Monster                  TODO
+// Freezing Strike                  Yes
+// Freeze and Run                   TODO
+// Pure-bred War Boar               TODO
+// Strength of Purpose              TODO
+// Shout Down da Magic!             TODO
+// Fireball                         TODO
 //
 
     void Init();

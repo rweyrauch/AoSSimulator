@@ -7,6 +7,7 @@
  */
 
 #include <bonesplitterz/Bonesplitterz.h>
+#include <Board.h>
 
 #include "bonesplitterz/BoarboyManiaks.h"
 #include "bonesplitterz/ManiakWeirdnob.h"
@@ -71,6 +72,62 @@ namespace Bonesplitterz {
         totalWounds.mortal -= mortalResult.rollsGE(6);
 
         return totalWounds;
+    }
+
+    void Bonesplitterz::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        // Monster Hunters
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), MONSTER, 3.0f);
+        if (unit) {
+            // Select ability
+            auto roll = Dice::rollD6();
+            if (roll == 1) {
+                // Wild Abandon
+                m_pileInMove = 6;
+            }
+            else if (roll <= 4) {
+                // Stab! Stab! Stab
+                m_stabStabStab = true;
+            }
+            else {
+                // Berserk Strength
+                m_berserkStrength = true;
+            }
+        }
+    }
+
+    Wounds Bonesplitterz::onEndCombat(PlayerId player) {
+        m_pileInMove = 3;
+        m_stabStabStab = false;
+        m_berserkStrength = false;
+
+        return Unit::onEndCombat(player);
+    }
+
+    Wounds Bonesplitterz::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+        if (m_berserkStrength && target->hasKeyword(MONSTER) && (woundRoll == 6)) {
+            wounds.mortal++;
+        }
+
+        return wounds;
+    }
+
+    int Bonesplitterz::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        if (m_stabStabStab && target->hasKeyword(MONSTER)) mod++;
+
+        return mod;
+    }
+
+    int Bonesplitterz::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        // Freezing Strike
+        if ((m_warclan == Icebone) && (woundRoll == 6)) rend--;
+        return rend;
     }
 
     void Init() {
