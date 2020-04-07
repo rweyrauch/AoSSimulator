@@ -36,7 +36,7 @@ namespace StormcastEternals {
     private:
 
         Weapon m_beakAndClaws,
-            m_beakAndClawsAlpha;
+                m_beakAndClawsAlpha;
 
         static bool s_registered;
     };

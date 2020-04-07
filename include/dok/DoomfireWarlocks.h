@@ -38,10 +38,10 @@ namespace DaughtersOfKhaine {
     private:
 
         Weapon m_crossBow,
-            m_scimitar,
-            m_crossBowMaster,
-            m_scimitarMaster,
-            m_steedsBite;
+                m_scimitar,
+                m_crossBowMaster,
+                m_scimitarMaster,
+                m_steedsBite;
 
         static bool s_registered;
     };

@@ -36,8 +36,8 @@ namespace SlavesToDarkness {
     private:
 
         Weapon m_maimingWeapons,
-            m_maimingWeaponsLeader,
-            m_nigthmareSickles;
+                m_maimingWeaponsLeader,
+                m_nigthmareSickles;
 
         lsignal::slot m_connection;
 

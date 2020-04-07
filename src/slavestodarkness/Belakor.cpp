@@ -57,8 +57,8 @@ namespace SlavesToDarkness {
     }
 
     Belakor::Belakor() :
-        SlavesToDarknessBase("Be'lakor", 12, WOUNDS, 10, 4, true),
-        m_blade(Weapon::Type::Melee, "Blade of Shadows", 1, 6, 3, 3, -1, 2) {
+            SlavesToDarknessBase("Be'lakor", 12, WOUNDS, 10, 4, true),
+            m_blade(Weapon::Type::Melee, "Blade of Shadows", 1, 6, 3, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, DAEMON_PRINCE, BELAKOR};
         m_weapons = {&m_blade};
     }

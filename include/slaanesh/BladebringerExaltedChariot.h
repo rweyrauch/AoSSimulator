@@ -36,8 +36,8 @@ namespace Slaanesh {
     private:
 
         Weapon m_flensingWhips,
-            m_piercingClaws,
-            m_poisonedTongues;
+                m_piercingClaws,
+                m_poisonedTongues;
 
         static bool s_registered;
     };

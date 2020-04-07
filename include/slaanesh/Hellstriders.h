@@ -55,10 +55,10 @@ namespace Slaanesh {
     private:
 
         Weapon m_clawSpear,
-            m_clawSpearReaver,
-            m_hellscourge,
-            m_hellscourgeReaver,
-            m_poisonedTongue;
+                m_clawSpearReaver,
+                m_hellscourge,
+                m_hellscourgeReaver,
+                m_poisonedTongue;
 
         lsignal::slot m_hornblowerSlot;
 

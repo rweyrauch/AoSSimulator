@@ -39,7 +39,7 @@ namespace Death {
 
         int rollChargeDistance() const override;
 
-        int standardBearerBraveryMod(const Unit* unit);
+        int standardBearerBraveryMod(const Unit *unit);
 
     private:
 
@@ -47,8 +47,8 @@ namespace Death {
         bool m_hornblowers = false;
 
         Weapon m_barrowLance,
-            m_barrowLanceKnight,
-            m_hoovesAndTeeth;
+                m_barrowLanceKnight,
+                m_hoovesAndTeeth;
 
         lsignal::slot m_standardSlot;
 

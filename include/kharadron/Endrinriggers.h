@@ -42,13 +42,13 @@ namespace KharadronOverlords {
     private:
 
         Weapon m_volleyGun,
-            m_skyhook,
-            m_drillLauncher,
-            m_rivetGun,
-            m_saw,
-            m_gunButt,
-            m_sawMaster,
-            m_gunButtMaster;
+                m_skyhook,
+                m_drillLauncher,
+                m_rivetGun,
+                m_saw,
+                m_gunButt,
+                m_sawMaster,
+                m_gunButtMaster;
 
         static bool s_registered;
     };

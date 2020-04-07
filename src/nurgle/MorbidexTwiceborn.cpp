@@ -69,7 +69,8 @@ namespace Nurgle {
         return true;
     }
 
-    int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon* /*weapon*/, const Unit* /*target*/) {
+    int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon * /*weapon*/,
+                                                  const Unit * /*target*/) {
         if (isFriendly(attacker) && attacker->hasKeyword(NURGLINGS) && (distanceTo(attacker) <= 7.0f)) return 1;
         return 0;
     }

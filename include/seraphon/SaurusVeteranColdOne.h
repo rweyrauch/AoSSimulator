@@ -36,8 +36,8 @@ namespace Seraphon {
     private:
 
         Weapon m_warpick,
-            m_jaws,
-            m_coldOneJaws;
+                m_jaws,
+                m_coldOneJaws;
 
         static bool s_registered;
     };

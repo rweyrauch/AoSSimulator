@@ -29,7 +29,7 @@ namespace Death {
         auto unit = new WightKingWithBalefulTombBlade();
         bool steed = GetBoolParam("Steed", parameters, false);
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure(steed);
@@ -49,7 +49,8 @@ namespace Death {
                     ComputePoints,
                     {
                             {ParamType::Boolean, "Steed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {DEATHRATTLE}

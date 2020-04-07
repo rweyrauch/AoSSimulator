@@ -55,10 +55,10 @@ namespace CitiesOfSigmar {
         bool m_piper = false;
 
         Weapon m_freeguildHandgun,
-            m_dagger,
-            m_longRifle,
-            m_repeaterHandgun,
-            m_handgunMarksman;
+                m_dagger,
+                m_longRifle,
+                m_repeaterHandgun,
+                m_handgunMarksman;
 
         static bool s_registered;
     };

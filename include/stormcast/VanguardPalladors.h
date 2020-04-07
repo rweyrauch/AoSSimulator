@@ -47,10 +47,10 @@ namespace StormcastEternals {
     private:
 
         Weapon m_boltstormPistol,
-            m_starstrikeJavelinMissile,
-            m_shockHandaxe,
-            m_starstrikeJavelin,
-            m_beakAndClaws;
+                m_starstrikeJavelinMissile,
+                m_shockHandaxe,
+                m_starstrikeJavelin,
+                m_beakAndClaws;
 
         static bool s_registered;
     };

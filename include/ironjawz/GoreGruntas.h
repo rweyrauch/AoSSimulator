@@ -42,10 +42,10 @@ namespace Ironjawz {
     protected:
 
         Weapon m_pigironChoppa,
-            m_jaggedGorehacka,
-            m_tusksAndHooves,
-            m_bossPigironChoppa,
-            m_bossJaggedGorehacka;
+                m_jaggedGorehacka,
+                m_tusksAndHooves,
+                m_bossPigironChoppa,
+                m_bossJaggedGorehacka;
 
         static bool s_registered;
     };

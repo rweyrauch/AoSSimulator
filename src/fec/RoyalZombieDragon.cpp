@@ -65,9 +65,10 @@ namespace FleshEaterCourt {
 
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
-        // TODO: error checks - can only select delusion if GrandCourt is NoCourt.
+        // Can only select delusion if GrandCourt is NoCourt.
         unit->setGrandCourt(court);
-        unit->setCourtsOfDelusion(delusion);
+        if (court == NoCourt)
+            unit->setCourtsOfDelusion(delusion);
 
         bool ok = unit->configure();
         if (!ok) {

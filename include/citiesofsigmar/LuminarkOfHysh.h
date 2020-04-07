@@ -48,9 +48,9 @@ namespace CitiesOfSigmar {
         int getDamageTableIndex() const;
 
         Weapon m_beamOfLight,
-            m_wizardsStaff,
-            m_arcaneTools,
-            m_hooves;
+                m_wizardsStaff,
+                m_arcaneTools,
+                m_hooves;
 
         lsignal::slot m_locusSlot;
 

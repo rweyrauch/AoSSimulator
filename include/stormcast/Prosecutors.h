@@ -63,17 +63,17 @@ namespace StormcastEternals {
         WeaponOption m_weaponOption = StormcallJavelinAndShield;
 
         Weapon m_celestialHammersMissile,
-            m_stormcallJavelinMissile,
-            m_stormcallJavelinMissilePrime,
-            m_stormsurgeTridentMissile,
-            m_stormsurgeTridentMissilePrime,
-            m_celestialHammers,
-            m_celestialHammersPrime,
-            m_grandaxe,
-            m_grandblade,
-            m_grandhammer,
-            m_stormcallJavelin,
-            m_stormsurgeTrident;
+                m_stormcallJavelinMissile,
+                m_stormcallJavelinMissilePrime,
+                m_stormsurgeTridentMissile,
+                m_stormsurgeTridentMissilePrime,
+                m_celestialHammers,
+                m_celestialHammersPrime,
+                m_grandaxe,
+                m_grandblade,
+                m_grandhammer,
+                m_stormcallJavelin,
+                m_stormsurgeTrident;
 
         static bool s_registered;
     };

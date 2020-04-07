@@ -36,7 +36,7 @@ namespace DaughtersOfKhaine {
     private:
 
         Weapon m_bladeOfKhaine,
-            m_deathsword;
+                m_deathsword;
 
         static bool s_registered;
     };

@@ -39,7 +39,7 @@ namespace CitiesOfSigmar {
     private:
 
         Weapon m_clattergun,
-            m_rotorBlades;
+                m_rotorBlades;
 
         static bool s_registered;
     };

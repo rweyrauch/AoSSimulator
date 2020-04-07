@@ -40,8 +40,8 @@ namespace OgorMawtribes {
     private:
 
         Weapon m_stumpBlades,
-            m_bite,
-            m_assortedWeapons;
+                m_bite,
+                m_assortedWeapons;
 
         static bool s_registered;
     };

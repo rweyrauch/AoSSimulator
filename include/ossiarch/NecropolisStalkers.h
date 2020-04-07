@@ -59,7 +59,7 @@ namespace OssiarchBonereapers {
         Aspect m_activeAspect = BladeStrike;
 
         Weapon m_falchions,
-            m_blades;
+                m_blades;
 
         static bool s_registered;
     };

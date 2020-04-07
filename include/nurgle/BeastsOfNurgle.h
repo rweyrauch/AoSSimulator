@@ -38,7 +38,7 @@ namespace Nurgle {
     private:
 
         Weapon m_clawsAndTentacles,
-            m_slobberingTongue;
+                m_slobberingTongue;
 
         static bool s_registered;
     };

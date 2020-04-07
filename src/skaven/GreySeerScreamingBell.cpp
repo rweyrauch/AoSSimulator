@@ -231,7 +231,8 @@ namespace Skaven {
         }
     }
 
-    int GreySeerOnScreamingBell::wallOfUnholySound(const Unit* /*attacker*/, const Weapon* /*weapon*/, const Unit *unit) {
+    int
+    GreySeerOnScreamingBell::wallOfUnholySound(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *unit) {
         // Wall of Unholy Sound
         if (m_unholySoundActive && (unit->owningPlayer() != owningPlayer()) &&
             (distanceTo(unit) <= g_damageTable[getDamageTableIndex()].m_pealRange)) {

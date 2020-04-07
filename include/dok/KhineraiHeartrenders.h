@@ -44,9 +44,9 @@ namespace DaughtersOfKhaine {
         int m_setupInRound = 0;
 
         Weapon m_barbedJavelinMissile,
-            m_barbedJavelin,
-            m_barbedJavelinShrykeMissile,
-            m_barbedJavelinShryke;
+                m_barbedJavelin,
+                m_barbedJavelinShrykeMissile,
+                m_barbedJavelinShryke;
 
         static bool s_registered;
     };

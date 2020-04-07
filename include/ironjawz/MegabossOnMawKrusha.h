@@ -59,9 +59,9 @@ namespace Ironjawz {
         int m_modelsSlainAtStartOfCombat = 0;
 
         Weapon m_bellow,
-            m_hackaAndChoppa,
-            m_ripToofFist,
-            m_fistsAndTail;
+                m_hackaAndChoppa,
+                m_ripToofFist,
+                m_fistsAndTail;
 
         static bool s_registered;
     };

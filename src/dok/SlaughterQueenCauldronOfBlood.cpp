@@ -139,7 +139,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int SlaughterQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon* /*weapon*/) {
+    int SlaughterQueenOnCauldronOfBlood::bloodShield(const Unit *target, const Weapon * /*weapon*/) {
         if (isFriendly(target) && target->hasKeyword(DAUGHTERS_OF_KHAINE) &&
             (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_bloodshield)) {
             return 1;
@@ -163,19 +163,16 @@ namespace DaughtersOfKhaine {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});
-            }
-            else if (roll >= 3) {
+            } else if (roll >= 3) {
                 if (Dice::rollD6() >= 4) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }
             }
-        }
-        else {
+        } else {
             // Rune of Khorne
             if (roll == 1) {
                 applyDamage({0, 1});
-            }
-            else if (roll >= 3) {
+            } else if (roll >= 3) {
                 m_blade.setDamage(RAND_D3);
             }
         }

@@ -83,7 +83,7 @@ namespace EldritchCouncil {
         }
     }
 
-    Rerolls Swordmasters::toHitRerolls(const Weapon* /*weapon*/, const Unit* /*target*/) const {
+    Rerolls Swordmasters::toHitRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // A Blur of Blades
         return RerollOnes;
     }

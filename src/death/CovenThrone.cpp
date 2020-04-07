@@ -27,8 +27,8 @@ namespace Death {
                     {14, 8, 12},
                     {12, 7, 10},
                     {10, 6, 8},
-                    {8, 5, 6},
-                    {4, 4, 4}
+                    {8,  5, 6},
+                    {4,  4, 4}
             };
 
     bool CovenThrone::s_registered = false;
@@ -36,7 +36,7 @@ namespace Death {
     Unit *CovenThrone::Create(const ParameterList &parameters) {
         auto unit = new CovenThrone();
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -59,7 +59,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}

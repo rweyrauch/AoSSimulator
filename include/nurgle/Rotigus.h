@@ -44,8 +44,8 @@ namespace Nurgle {
     private:
 
         Weapon m_gnarlrod,
-            m_fangedMaw,
-            m_nurglings;
+                m_fangedMaw,
+                m_nurglings;
 
         static bool s_registered;
     };

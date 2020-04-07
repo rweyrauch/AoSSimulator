@@ -34,7 +34,7 @@ namespace GloomspiteGitz {
     private:
 
         Weapon m_sickle,
-            m_gnashers;
+                m_gnashers;
 
         static bool s_registered;
     };

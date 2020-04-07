@@ -66,10 +66,10 @@ namespace StormcastEternals {
     private:
 
         Weapon m_skyboltBow,
-            m_tempestAxe,
-            m_arcHammer,
-            m_stormlance,
-            m_greatClaws;
+                m_tempestAxe,
+                m_arcHammer,
+                m_stormlance,
+                m_greatClaws;
 
         lsignal::slot m_connection;
 

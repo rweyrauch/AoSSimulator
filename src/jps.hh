@@ -1440,7 +1440,7 @@ namespace JPS {
                    unsigned step = 0, // optional
                    void *user = 0)    // memory allocation userdata
     {
-        Searcher<GRID> search(grid, user);
+        Searcher <GRID> search(grid, user);
         if (!search.findPath(path, Pos(startx, starty), Pos(endx, endy), step))
             return 0;
         const SizeT done = search.getStepsDone();

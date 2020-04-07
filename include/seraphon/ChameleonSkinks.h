@@ -36,7 +36,7 @@ namespace Seraphon {
     private:
 
         Weapon m_dartpipe,
-            m_dagger;
+                m_dagger;
 
         static bool s_registered;
     };

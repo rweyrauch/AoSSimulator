@@ -33,6 +33,7 @@ namespace SlavesToDarkness {
     protected:
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
     private:

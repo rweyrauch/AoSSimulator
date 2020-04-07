@@ -36,8 +36,8 @@ namespace Skaven {
     private:
 
         Weapon m_throwingWeapons,
-            m_stabbingBlade,
-            m_stabbingBladeLeader;
+                m_stabbingBlade,
+                m_stabbingBladeLeader;
 
         static bool s_registered;
     };

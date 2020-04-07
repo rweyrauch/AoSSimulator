@@ -61,9 +61,9 @@ namespace Slaanesh {
         WeaponOption m_weapon = RitualKnife;
 
         Weapon m_livingWhip,
-            m_ritualKnifeOrHand,
-            m_greatblade,
-            m_impalingClaws;
+                m_ritualKnifeOrHand,
+                m_greatblade,
+                m_impalingClaws;
 
         static bool s_registered;
     };

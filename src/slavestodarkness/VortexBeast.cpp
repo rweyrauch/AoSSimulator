@@ -27,10 +27,10 @@ namespace SlavesToDarkness {
     static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
                     {10, 1, RAND_3D6},
-                    {8, 2, RAND_2D6},
-                    {8, 3, RAND_D6},
-                    {6, 4, RAND_D3},
-                    {4, 5, 1}
+                    {8,  2, RAND_2D6},
+                    {8,  3, RAND_D6},
+                    {6,  4, RAND_D3},
+                    {4,  5, 1}
             };
 
     bool MutalithVortexBeast::s_registered = false;
@@ -133,8 +133,7 @@ namespace SlavesToDarkness {
                         if (numSlain) {
                             if (remainingWounds() < initialWounds()) {
                                 heal(Dice::rollD3());
-                            }
-                            else {
+                            } else {
                                 // Summon a Chaos Spawn
                                 auto factory = UnitFactory::LookupUnit("Chaos Spawn");
                                 if (factory) {

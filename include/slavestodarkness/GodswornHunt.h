@@ -32,16 +32,17 @@ namespace SlavesToDarkness {
     protected:
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
     private:
 
         Weapon m_huntingBow,
-            m_javelin,
-            m_knife,
-            m_greatWeapon,
-            m_bowMelee,
-            m_bite;
+                m_javelin,
+                m_knife,
+                m_greatWeapon,
+                m_bowMelee,
+                m_bite;
 
         static bool s_registered;
     };

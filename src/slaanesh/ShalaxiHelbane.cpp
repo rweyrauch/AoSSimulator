@@ -72,7 +72,7 @@ namespace Slaanesh {
         auto unit = new ShalaxiHelbane();
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, LivingWhip);
 
-        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
         unit->setHost(host);
 
         bool ok = unit->configure(weapon);

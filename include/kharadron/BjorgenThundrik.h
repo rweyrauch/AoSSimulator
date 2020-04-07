@@ -33,7 +33,7 @@ namespace KharadronOverlords {
 
     private:
 
-        Weapon  m_anatomiser,
+        Weapon m_anatomiser,
                 m_instruments;
 
         static bool s_registered;

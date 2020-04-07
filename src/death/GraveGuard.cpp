@@ -35,7 +35,7 @@ namespace Death {
     }
 
     bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons,
-            bool standardBearers, bool hornblowers) {
+                               bool standardBearers, bool hornblowers) {
         if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
             // Invalid model count.
             return false;
@@ -75,7 +75,7 @@ namespace Death {
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
@@ -98,7 +98,8 @@ namespace Death {
                             {ParamType::Enum, "Weapons", WightBlade, WightBlade, GreatWightBlade, 1},
                             {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {DEATHRATTLE}

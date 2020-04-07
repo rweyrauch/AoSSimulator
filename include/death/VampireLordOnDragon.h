@@ -53,10 +53,10 @@ namespace Death {
     private:
 
         Weapon m_breath,
-            m_deathlance,
-            m_sword,
-            m_maw,
-            m_claws;
+                m_deathlance,
+                m_sword,
+                m_maw,
+                m_claws;
 
         bool m_haveChaliceOfBlood = false;
         bool m_usedChaliceOfBlood = false;

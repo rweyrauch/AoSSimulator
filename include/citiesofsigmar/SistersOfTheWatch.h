@@ -42,8 +42,8 @@ namespace CitiesOfSigmar {
     private:
 
         Weapon m_bow,
-            m_sword,
-            m_bowHighSister;
+                m_sword,
+                m_bowHighSister;
 
         static bool s_registered;
     };

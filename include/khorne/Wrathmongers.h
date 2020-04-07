@@ -40,7 +40,7 @@ namespace Khorne {
     private:
 
         Weapon m_wrathflails,
-            m_wrathflailsMaster;
+                m_wrathflailsMaster;
 
         lsignal::slot m_hazeSlot;
 

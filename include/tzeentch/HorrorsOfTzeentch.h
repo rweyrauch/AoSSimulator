@@ -47,12 +47,12 @@ namespace Tzeentch {
         bool m_hornblower = false;
 
         Weapon m_magicalFlamesPink,
-            m_magicalFlamesBlue,
-            m_magicalFlamesBrimstone,
-            m_talonedHandsPink,
-            m_talonedHandsBlue,
-            m_talonedHandsBrimstone,
-            m_talonedHandsIridescent;
+                m_magicalFlamesBlue,
+                m_magicalFlamesBrimstone,
+                m_talonedHandsPink,
+                m_talonedHandsBlue,
+                m_talonedHandsBrimstone,
+                m_talonedHandsIridescent;
 
         static bool s_registered;
     };

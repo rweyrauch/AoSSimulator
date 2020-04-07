@@ -43,8 +43,8 @@ namespace BeastsOfChaos {
         bool m_bannerBearer = false;
 
         Weapon m_raiderBow,
-            m_raiderBowHalfhorn,
-            m_jaggedShank;
+                m_raiderBowHalfhorn,
+                m_jaggedShank;
 
         static bool s_registered;
     };

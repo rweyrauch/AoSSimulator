@@ -40,9 +40,9 @@ namespace CitiesOfSigmar {
     private:
 
         Weapon m_volley1,
-            m_volley2,
-            m_volley3,
-            m_crewsTools;
+                m_volley2,
+                m_volley3,
+                m_crewsTools;
 
         static bool s_registered;
     };

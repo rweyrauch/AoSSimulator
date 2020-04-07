@@ -59,12 +59,12 @@ namespace Skaven {
         WeaponOption_3 m_weapons3 = DoomflayerGauntlets;
 
         Weapon m_ratlingCannons,
-            m_windlaunchers,
-            m_warpfireProjectors,
-            m_doomfireGauntlets,
-            m_grinderfists,
-            m_shockGauntlets,
-            m_clubbingBlows;
+                m_windlaunchers,
+                m_warpfireProjectors,
+                m_doomfireGauntlets,
+                m_grinderfists,
+                m_shockGauntlets,
+                m_clubbingBlows;
 
         static bool s_registered;
     };

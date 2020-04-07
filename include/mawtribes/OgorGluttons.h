@@ -63,8 +63,8 @@ namespace OgorMawtribes {
         bool m_lookoutGnoblar = false;
 
         Weapon m_clubOrBlade,
-            m_bite,
-            m_clubOrBladeCrusher;
+                m_bite,
+                m_clubOrBladeCrusher;
 
         lsignal::slot m_connection;
 

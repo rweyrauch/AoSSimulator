@@ -46,9 +46,9 @@ namespace Death {
     private:
 
         Weapon m_bite,
-            m_stiletto,
-            m_poniards,
-            m_etherealWeapons;
+                m_stiletto,
+                m_poniards,
+                m_etherealWeapons;
 
         static bool s_registered;
 

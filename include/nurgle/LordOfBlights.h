@@ -36,8 +36,8 @@ namespace Nurgle {
     private:
 
         Weapon m_ripenedDeathsHead,
-            m_bountyDeathsHead,
-            m_hammer;
+                m_bountyDeathsHead,
+                m_hammer;
 
         static bool s_registered;
     };

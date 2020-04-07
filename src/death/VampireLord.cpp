@@ -24,7 +24,7 @@ namespace Death {
         bool withWings = GetBoolParam("Wings", parameters, false);
         bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure(withSteed, withWings, chalice);
@@ -50,7 +50,8 @@ namespace Death {
                             {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Wings", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Chalice of Blood", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -73,8 +74,7 @@ namespace Death {
         if (withSteed) {
             model->addMeleeWeapon(&m_hoovesAndTeeth);
             m_move = 10;
-        }
-        else if (withWings) {
+        } else if (withWings) {
             m_move = 10;
             m_fly = true;
         }

@@ -85,12 +85,10 @@ namespace Bonesplitterz {
             if (roll == 1) {
                 // Wild Abandon
                 m_pileInMove = 6;
-            }
-            else if (roll <= 4) {
+            } else if (roll <= 4) {
                 // Stab! Stab! Stab
                 m_stabStabStab = true;
-            }
-            else {
+            } else {
                 // Berserk Strength
                 m_berserkStrength = true;
             }

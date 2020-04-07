@@ -56,8 +56,8 @@ namespace Nighthaunt {
     }
 
     MyrmournBanshees::MyrmournBanshees() :
-        Nighthaunt("Myrmourn Banshees", 8, WOUNDS, 10, 4, true),
-        m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
+            Nighthaunt("Myrmourn Banshees", 8, WOUNDS, 10, 4, true),
+            m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, MYRMOURN_BANSHEES};
         m_weapons = {&m_dagger};
     }

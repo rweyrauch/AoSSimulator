@@ -61,10 +61,10 @@ namespace KharadronOverlords {
         WeaponOption m_weaponOption = HeavySkyCannon;
 
         Weapon m_cannonShrapnel,
-            m_cannonShell,
-            m_skyhook,
-            m_carbines,
-            m_boardingWeapons;
+                m_cannonShell,
+                m_skyhook,
+                m_carbines,
+                m_boardingWeapons;
 
         static bool s_registered;
     };

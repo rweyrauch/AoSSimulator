@@ -73,7 +73,7 @@ namespace Tzeentch {
         turosh->setName("Turosh");
         addModel(turosh);
 
-        auto kcharik = new Model(BASESIZE, wounds()+1);
+        auto kcharik = new Model(BASESIZE, wounds() + 1);
         kcharik->addMeleeWeapon(&m_greatblade);
         kcharik->addMeleeWeapon(&m_beak);
         kcharik->setName("K'charik");
@@ -94,7 +94,7 @@ namespace Tzeentch {
         auto totalWounds = Unit::applyWoundSave(wounds);
 
         // Arcanite Shield
-        for (auto& model : m_models) {
+        for (auto &model : m_models) {
             if (((model->getName() == "Narvia") || (model->getName() == "Turosh")) &&
                 !model->slain() && !model->fled()) {
                 Dice::RollResult normalSaves, mortalSaves;

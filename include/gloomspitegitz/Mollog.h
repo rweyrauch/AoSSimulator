@@ -47,7 +47,7 @@ namespace GloomspiteGitz {
     private:
 
         Weapon m_jabbertoad,
-            m_club;
+                m_club;
 
         lsignal::slot m_connection;
 

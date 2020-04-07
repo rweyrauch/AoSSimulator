@@ -24,10 +24,10 @@ namespace SlavesToDarkness {
     static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
                     {10, 6, 1},
-                    {8, 5, 2},
-                    {8, 4, 3},
-                    {6, 3, 4},
-                    {4, 2, 5}
+                    {8,  5, 2},
+                    {8,  4, 3},
+                    {6,  3, 4},
+                    {4,  2, 5}
             };
 
     bool Slaughterbrute::s_registered = false;

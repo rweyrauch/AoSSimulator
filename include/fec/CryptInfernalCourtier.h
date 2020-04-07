@@ -36,7 +36,7 @@ namespace FleshEaterCourt {
     private:
 
         Weapon m_foetidBreath,
-            m_skeweringTalons;
+                m_skeweringTalons;
 
         static bool s_registered;
     };

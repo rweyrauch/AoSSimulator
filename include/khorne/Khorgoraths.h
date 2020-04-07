@@ -40,7 +40,7 @@ namespace Khorne {
         int m_modelsSlainAtStartOfCombat = 0;
 
         Weapon m_boneTentacles,
-            m_clawAndFangs;
+                m_clawAndFangs;
 
         static bool s_registered;
     };

@@ -52,9 +52,9 @@ namespace CitiesOfSigmar {
         int getDamageTableIndex() const;
 
         Weapon m_stormOfShemtek,
-            m_wizardStaff,
-            m_arcaneTools,
-            m_hooves;
+                m_wizardStaff,
+                m_arcaneTools,
+                m_hooves;
 
         lsignal::slot m_locusConnection;
         lsignal::slot m_portentsConnection;

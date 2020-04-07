@@ -49,6 +49,14 @@ namespace SlavesToDarkness {
         SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+    protected:
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
     private:
 
         DamnedLegion m_legion = Ravagers;
@@ -61,8 +69,8 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Aura of Chaos
-//    Aura of Khorne                TODO
-//    Aura of Tzeentch              TODO
+//    Aura of Khorne                Yes
+//    Aura of Tzeentch              Partial/TODO
 //    Aura of Nurgle                TODO
 //    Aura of Slaanesh              TODO
 //    Aura of Chaos Undivided       TODO

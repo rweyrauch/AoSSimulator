@@ -53,9 +53,9 @@ namespace OgorMawtribes {
         BigName m_bigName = Deathcheater;
 
         Weapon m_pistols,
-            m_thundermace,
-            m_glaive,
-            m_bite;
+                m_thundermace,
+                m_glaive,
+                m_bite;
 
         static bool s_registered;
     };

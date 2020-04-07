@@ -48,8 +48,8 @@ namespace CitiesOfSigmar {
         int getDamageTableIndex() const;
 
         Weapon m_beastStaff,
-            m_twinBeaks,
-            m_razorClaws;
+                m_twinBeaks,
+                m_razorClaws;
 
         static bool s_registered;
     };

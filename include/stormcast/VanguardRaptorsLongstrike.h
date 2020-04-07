@@ -38,8 +38,8 @@ namespace StormcastEternals {
     private:
 
         Weapon m_longstikeCrossbow,
-            m_heavyStock,
-            m_beakAndClaws;
+                m_heavyStock,
+                m_beakAndClaws;
 
         static bool s_registered;
     };

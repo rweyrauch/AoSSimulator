@@ -47,10 +47,10 @@ namespace Seraphon {
     private:
 
         Weapon m_maul,
-            m_warblade,
-            m_warspear,
-            m_greatblade,
-            m_jaws;
+                m_warblade,
+                m_warspear,
+                m_greatblade,
+                m_jaws;
 
         static bool s_registered;
     };

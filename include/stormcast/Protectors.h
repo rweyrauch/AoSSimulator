@@ -38,8 +38,8 @@ namespace StormcastEternals {
     private:
 
         Weapon m_glaive,
-            m_glaivePrime,
-            m_starsoulMace;
+                m_glaivePrime,
+                m_starsoulMace;
 
         static bool s_registered;
     };

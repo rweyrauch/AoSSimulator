@@ -58,6 +58,16 @@ namespace Khorne {
 // Skull Hunters                    Yes
 // Tireless Conquerors              Yes
 // Slay the Mighty                  Yes
+// Blood for the Blood God          TODO
+//    Bloody Exemplar               TODO
+//    Spelleater Curse              TODO
+//    Murderlust                    TODO
+//    Apoplectic Frenzy             TODO
+//    Brass Skull Meteor            TODO
+//    Relentless Fury               TODO
+//    Crimson Rain                  TODO
+//    Slaughter Triumphant          TODO
+// Summon Daemons of Khorne         TODO
 //
 
 } // namespace Khorne

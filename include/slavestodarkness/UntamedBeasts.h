@@ -34,8 +34,8 @@ namespace SlavesToDarkness {
     private:
 
         Weapon m_harpoonFirstFang,
-            m_huntingWeapons,
-            m_huntingWeaponsHeartEater;
+                m_huntingWeapons,
+                m_huntingWeaponsHeartEater;
 
         static bool s_registered;
     };

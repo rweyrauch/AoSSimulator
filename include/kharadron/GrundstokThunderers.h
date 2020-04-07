@@ -39,13 +39,13 @@ namespace KharadronOverlords {
     private:
 
         Weapon m_rifle,
-            m_doubleBarrelledRifle,
-            m_fumigator,
-            m_decksweeper,
-            m_aethercannon,
-            m_mortar,
-            m_drillbill,
-            m_gunButt;
+                m_doubleBarrelledRifle,
+                m_fumigator,
+                m_decksweeper,
+                m_aethercannon,
+                m_mortar,
+                m_drillbill,
+                m_gunButt;
 
         static bool s_registered;
     };

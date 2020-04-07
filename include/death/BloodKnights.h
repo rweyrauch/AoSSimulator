@@ -39,7 +39,7 @@ namespace Death {
 
         Wounds onEndCombat(PlayerId player) override;
 
-        int standardBearerBraveryMod(const Unit* unit);
+        int standardBearerBraveryMod(const Unit *unit);
 
     private:
 
@@ -47,8 +47,8 @@ namespace Death {
         bool m_hornblowers = false;
 
         Weapon m_templarLanceOrBlade,
-            m_templarLanceOrBladeKastellan,
-            m_hoovesAndTeeth;
+                m_templarLanceOrBladeKastellan,
+                m_hoovesAndTeeth;
 
         lsignal::slot m_standardSlot;
 

@@ -46,8 +46,8 @@ namespace Sylvaneth {
     private:
 
         Weapon m_verdantBlast,
-            m_guardianSword,
-            m_massiveImpalingTalons;
+                m_guardianSword,
+                m_massiveImpalingTalons;
 
         lsignal::slot m_connection;
 

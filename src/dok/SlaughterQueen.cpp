@@ -81,21 +81,18 @@ namespace DaughtersOfKhaine {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});
-            }
-            else if (roll >= 3) {
+            } else if (roll >= 3) {
                 if (Dice::rollD6() >= 4) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }
             }
-        }
-        else {
+        } else {
             // TODO: Dance of Doom
 
             // Rune of Khorne
             if (roll == 1) {
                 applyDamage({0, 1});
-            }
-            else if (roll >= 3) {
+            } else if (roll >= 3) {
                 m_bladeOfKhaine.setDamage(RAND_D3);
             }
         }

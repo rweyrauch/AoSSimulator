@@ -32,13 +32,15 @@ namespace Death {
     protected:
 
         void onStartHero(PlayerId player) override;
+
         void onRestore() override;
+
         Wounds onEndCombat(PlayerId player) override;
 
     private:
 
         Weapon m_blades,
-            m_hoovesAndTeeth;
+                m_hoovesAndTeeth;
 
         bool m_haveChaliceOfBlood = false;
         bool m_usedChaliceOfBlood = false;

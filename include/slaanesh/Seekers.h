@@ -50,8 +50,8 @@ namespace Slaanesh {
     private:
 
         Weapon m_piercingClaws,
-            m_piercingClawsHeartseeker,
-            m_poisonedTongue;
+                m_piercingClawsHeartseeker,
+                m_poisonedTongue;
 
         lsignal::slot m_hornblowerSlot;
 

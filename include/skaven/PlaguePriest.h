@@ -40,7 +40,7 @@ namespace Skaven {
     private:
 
         Weapon m_staff,
-            m_censer;
+                m_censer;
 
         static bool s_registered;
     };

@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "slavestodarkness/ChaosWarshrine.h"
 
 namespace SlavesToDarkness {
@@ -115,6 +116,44 @@ namespace SlavesToDarkness {
 
     int ChaosWarshrine::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    void ChaosWarshrine::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        // Favour of the Ruinous Powers
+        if (owningPlayer() == player) {
+            Unit *target = nullptr;
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0f);
+            for (auto unit : units) {
+                if (unit->hasKeyword(MORTAL) && unit->hasKeyword(SLAVES_TO_DARKNESS)) {
+                    target = unit;
+                    break;
+                }
+            }
+            if (target) {
+                auto roll = Dice::rollD6();
+                if (roll >= 3) {
+                    if (target->hasKeyword(KHORNE)) {
+                        // Favour of Khorne
+                        target->buffReroll(AttacksMelee, RerollFailed, {Hero, m_battleRound + 1, player});
+                    } else if (target->hasKeyword(TZEENTCH)) {
+                        // TODO: Favour of Tzeentch
+                        // Allow save against magic
+                    } else if (target->hasKeyword(NURGLE)) {
+                        // Favour of Nurgle
+                        target->buffModifier(ToSave, 1, {Hero, m_battleRound + 1, player});
+                    } else if (target->hasKeyword(SLAANESH)) {
+                        // Favour of Slanesh
+                        // Target does not take battle shock (implement with a large bravery modifier).
+                        target->buffModifier(Bravery, 200, {Hero, m_battleRound + 1, player});
+                    } else if (target->hasKeyword(UNDIVIDED)) {
+                        // Favour of Chaos
+                        target->buffReroll(ChargeDistance, RerollFailed, {Hero, m_battleRound + 1, player});
+                    }
+                }
+            }
+        }
     }
 
 } //namespace SlavesToDarkness

@@ -85,8 +85,7 @@ namespace Death {
                 const auto woundsRestored = Dice::rollD3();
                 if (unit->numOfWoundedModels() > 0) {
                     unit->heal(woundsRestored);
-                }
-                else {
+                } else {
                     const auto numModels = woundsRestored / unit->wounds();
                     if (numModels)
                         unit->returnModels(numModels);

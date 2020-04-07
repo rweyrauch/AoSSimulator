@@ -51,7 +51,7 @@ namespace SlavesToDarkness {
     private:
 
         Weapon m_greataxe,
-            m_greataxeChampion;
+                m_greataxeChampion;
 
         lsignal::slot m_braverySlot;
 

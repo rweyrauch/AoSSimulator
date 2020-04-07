@@ -32,8 +32,8 @@ namespace GloomspiteGitz {
     protected:
 
         Weapon m_fangFilledGob,
-            m_slitta,
-            m_slittaBoss;
+                m_slitta,
+                m_slittaBoss;
 
         static bool s_registered;
     };

@@ -27,8 +27,8 @@ namespace Death {
                     {16, 6, 15},
                     {13, 5, 12},
                     {10, 4, 9},
-                    {7, 3, 6},
-                    {4, 2, 3}
+                    {7,  3, 6},
+                    {4,  2, 3}
             };
 
     bool MannfredMortarchOfNight::s_registered = false;
@@ -36,7 +36,7 @@ namespace Death {
     Unit *MannfredMortarchOfNight::Create(const ParameterList &parameters) {
         auto unit = new MannfredMortarchOfNight();
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -59,7 +59,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT, DEATHLORDS}
@@ -117,7 +118,7 @@ namespace Death {
     }
 
     Wounds MannfredMortarchOfNight::weaponDamage(const Weapon *weapon, const Unit *target,
-            int hitRoll, int woundRoll) const {
+                                                 int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_clawsAndDaggers.name())) return {0, 1};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);

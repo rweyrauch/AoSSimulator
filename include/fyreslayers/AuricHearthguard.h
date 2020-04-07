@@ -36,9 +36,9 @@ namespace Fyreslayers {
     private:
 
         Weapon m_magmapike,
-            m_magmapikeKarl,
-            m_throwingAxe,
-            m_magmapikeMelee;
+                m_magmapikeKarl,
+                m_throwingAxe,
+                m_magmapikeMelee;
 
         static bool s_registered;
     };

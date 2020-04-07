@@ -34,7 +34,7 @@ namespace SlavesToDarkness {
     private:
 
         Weapon m_hurledAxe,
-            m_chaosAxes;
+                m_chaosAxes;
 
         static bool s_registered;
     };

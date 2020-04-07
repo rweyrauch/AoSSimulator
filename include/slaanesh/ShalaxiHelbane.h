@@ -55,8 +55,8 @@ namespace Slaanesh {
         WeaponOption m_weapon = ShiningAegis;
 
         Weapon m_livingWhip,
-            m_soulpiercer,
-            m_impalingClaws;
+                m_soulpiercer,
+                m_impalingClaws;
 
         static bool s_registered;
     };

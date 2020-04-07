@@ -25,9 +25,9 @@ namespace SlavesToDarkness {
             {
                     {12, 6, 6},
                     {10, 5, 5},
-                    {8, 4, 4},
-                    {7, 3, 3},
-                    {6, 2, 2}
+                    {8,  4, 4},
+                    {7,  3, 3},
+                    {6,  2, 2}
             };
 
     bool SoulGrinder::s_registered = false;

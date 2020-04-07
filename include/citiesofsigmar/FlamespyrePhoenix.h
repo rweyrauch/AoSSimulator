@@ -46,7 +46,7 @@ namespace CitiesOfSigmar {
         int getDamageTableIndex() const;
 
         Weapon m_talons,
-            m_halberd;
+                m_halberd;
 
         static bool s_registered;
     };

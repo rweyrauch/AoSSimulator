@@ -7,6 +7,7 @@
  */
 
 #include <slavestodarkness/SlavesToDarkness.h>
+#include <Board.h>
 
 #include "slavestodarkness/ChaosChosen.h"
 #include "slavestodarkness/ChaosKnights.h"
@@ -130,6 +131,42 @@ namespace SlavesToDarkness {
                 addKeyword(TZEENTCH);
                 break;
         }
+    }
+
+    Rerolls SlavesToDarknessBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Aura of Khorne
+        if (hasKeyword(KHORNE)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
+            if (hero && hero->hasKeyword(KHORNE)) {
+                return RerollOnes;
+            }
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int SlavesToDarknessBase::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+
+        // Aura of Khorne
+        if (hasKeyword(KHORNE)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
+            if (hero && hero->hasKeyword(KHORNE) && hero->isGeneral()) {
+                mod++;
+            }
+        }
+
+        return mod;
+    }
+
+    Rerolls SlavesToDarknessBase::toSaveRerolls(const Weapon *weapon) const {
+        // Aura of Tzeentch
+        if (hasKeyword(TZEENTCH)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
+            if (hero && hero->hasKeyword(TZEENTCH)) {
+                return RerollOnes;
+            }
+        }
+        return Unit::toSaveRerolls(weapon);
     }
 
     void Init() {

@@ -46,9 +46,9 @@ namespace Seraphon {
     private:
 
         Weapon m_gauntlet,
-            m_spear,
-            m_forelimbs,
-            m_jaws;
+                m_spear,
+                m_forelimbs,
+                m_jaws;
 
         lsignal::slot m_connection;
 

@@ -88,17 +88,15 @@ namespace Bonesplitterz {
                     if (Dice::rollD6() >= 3)
                         unit->heal(Dice::rollD3());
                     break;
-                }
-                else if (unit->hasKeyword(WIZARD) && unit->hasKeyword(BONESPLITTERZ)) {
+                } else if (unit->hasKeyword(WIZARD) && unit->hasKeyword(BONESPLITTERZ)) {
                     // Weirddokk Dance
                     if (Dice::rollD6() >= 3)
-                        unit->buffModifier(CastingRoll, 1, {Hero, m_battleRound+1, owningPlayer()});
+                        unit->buffModifier(CastingRoll, 1, {Hero, m_battleRound + 1, owningPlayer()});
                     break;
-                }
-                else if (unit->meleeTarget() != nullptr) {
+                } else if (unit->meleeTarget() != nullptr) {
                     // Glyphdokk Dance
                     if (Dice::rollD6() >= 3)
-                        unit->buffModifier(ToSave, 1, {Hero, m_battleRound+1, owningPlayer()});
+                        unit->buffModifier(ToSave, 1, {Hero, m_battleRound + 1, owningPlayer()});
                     break;
                 }
             }

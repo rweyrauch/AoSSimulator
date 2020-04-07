@@ -52,9 +52,9 @@ namespace Tzeentch {
     private:
 
         Weapon m_rodOfSorcery,
-            m_staff,
-            m_sword,
-            m_beakAndTalons;
+                m_staff,
+                m_sword,
+                m_beakAndTalons;
 
         static bool s_registered;
     };

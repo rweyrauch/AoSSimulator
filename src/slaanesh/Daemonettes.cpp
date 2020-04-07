@@ -70,7 +70,7 @@ namespace Slaanesh {
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
         unit->setHost(host);
 
         bool ok = unit->configure(numModels, iconBearer, bannerBearer, hornblowers);

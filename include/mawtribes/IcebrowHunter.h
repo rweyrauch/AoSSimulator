@@ -38,9 +38,9 @@ namespace OgorMawtribes {
     private:
 
         Weapon m_spear,
-            m_crossbow,
-            m_club,
-            m_bite;
+                m_crossbow,
+                m_club,
+                m_bite;
 
         static bool s_registered;
     };

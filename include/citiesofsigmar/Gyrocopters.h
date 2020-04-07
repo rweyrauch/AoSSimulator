@@ -44,8 +44,8 @@ namespace CitiesOfSigmar {
     private:
 
         Weapon m_brimstoneGun,
-            m_steamGun,
-            m_rotorBlades;
+                m_steamGun,
+                m_rotorBlades;
 
         static bool s_registered;
     };

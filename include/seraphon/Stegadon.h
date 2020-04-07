@@ -68,7 +68,7 @@ namespace Seraphon {
 
         lsignal::slot m_steadfastSlot;
 
-        Unit* m_armouredCrestAttacker = nullptr;
+        Unit *m_armouredCrestAttacker = nullptr;
 
         static bool s_registered;
     };

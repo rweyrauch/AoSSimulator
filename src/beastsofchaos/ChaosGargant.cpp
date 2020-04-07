@@ -113,7 +113,7 @@ namespace BeastsOfChaos {
         Unit::onStartCombat(player);
 
         // Whipped into a Frenzy
-        if (remainingWounds() > wounds()/2) {
+        if (remainingWounds() > wounds() / 2) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
             bool heroesNearby = false;
             for (auto unit : units) {
@@ -131,7 +131,7 @@ namespace BeastsOfChaos {
         // Stuff'Em In Me Bag
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 3.0f)) {
-            if (Dice::rollD6() >= unit->wounds()*2) {
+            if (Dice::rollD6() >= unit->wounds() * 2) {
                 unit->slay(1);
             }
         }

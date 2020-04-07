@@ -65,7 +65,7 @@ namespace StormcastEternals {
         }
     }
 
-    Rerolls GavrielSureheart::toSaveRerolls(const Weapon* /*weapon*/) const {
+    Rerolls GavrielSureheart::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Thundershield
         return RerollOnes;
     }

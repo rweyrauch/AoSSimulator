@@ -27,8 +27,8 @@ namespace Death {
                     {14, 2, 7},
                     {12, 3, 6},
                     {10, 4, 5},
-                    {8, 5, 4},
-                    {6, 6, 3}
+                    {8,  5, 4},
+                    {6,  6, 3}
             };
 
     bool VampireLordOnZombieDragon::s_registered = false;
@@ -36,11 +36,11 @@ namespace Death {
     Unit *VampireLordOnZombieDragon::Create(const ParameterList &parameters) {
         auto unit = new VampireLordOnZombieDragon();
 
-        auto weapon = (WeaponOption)GetEnumParam("Weapon", parameters, Deathlance);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Deathlance);
         bool shield = GetBoolParam("Ancient Shield", parameters, true);
         bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure(weapon, shield, chalice);
@@ -66,7 +66,8 @@ namespace Death {
                             {ParamType::Enum, "Weapon", Deathlance, Deathlance, VampiricSword, 1},
                             {ParamType::Boolean, "Ancient Shield", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Chalice of Blood", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -164,7 +165,7 @@ namespace Death {
     Wounds VampireLordOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Deathlance Charge
-        if (m_charged && (weapon->name() == m_deathlance.name())) return { 3, 0};
+        if (m_charged && (weapon->name() == m_deathlance.name())) return {3, 0};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 

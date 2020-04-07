@@ -45,7 +45,7 @@ namespace Slaanesh {
     Unit *InfernalEnrapturess::Create(const ParameterList &parameters) {
         auto unit = new InfernalEnrapturess();
 
-        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
         unit->setHost(host);
 
         bool ok = unit->configure();

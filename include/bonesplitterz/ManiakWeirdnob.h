@@ -33,7 +33,7 @@ namespace Bonesplitterz {
     private:
 
         Weapon m_bonebeastStaff,
-            m_tusksAndHooves;
+                m_tusksAndHooves;
 
         static bool s_registered;
     };

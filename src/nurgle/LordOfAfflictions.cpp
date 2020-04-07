@@ -113,7 +113,8 @@ namespace Nurgle {
     }
 
     Rerolls
-    LordOfAfflictions::plagueVectorToHitRerolls(const Unit *attacker, const Weapon* /*weapon*/, const Unit* /*target*/) {
+    LordOfAfflictions::plagueVectorToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
+                                                const Unit * /*target*/) {
         if (isFriendly(attacker) && attacker->hasKeyword(ROTBRINGER) && (distanceTo(attacker) <= 7.0f))
             return RerollOnes;
 

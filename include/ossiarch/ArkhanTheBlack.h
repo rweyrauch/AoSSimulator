@@ -50,9 +50,9 @@ namespace OssiarchBonereapers {
         int getDamageTableIndex() const;
 
         Weapon m_zefetKar,
-            m_khenashAn,
-            m_claws,
-            m_clawsAndDaggers;
+                m_khenashAn,
+                m_claws,
+                m_clawsAndDaggers;
 
         static bool s_registered;
     };

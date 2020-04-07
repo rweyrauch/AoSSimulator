@@ -46,7 +46,7 @@ namespace Khorne {
         bool m_attackedInPreviousRound = false;
 
         Weapon m_slaughter,
-            m_carnage;
+                m_carnage;
 
         static bool s_registered;
     };

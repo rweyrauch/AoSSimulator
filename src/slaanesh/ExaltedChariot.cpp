@@ -42,7 +42,7 @@ namespace Slaanesh {
     Unit *ExaltedChariot::Create(const ParameterList &parameters) {
         auto unit = new ExaltedChariot();
 
-        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
         unit->setHost(host);
 
         bool ok = unit->configure();

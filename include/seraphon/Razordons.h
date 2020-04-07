@@ -36,8 +36,8 @@ namespace Seraphon {
     private:
 
         Weapon m_spikes,
-            m_tail,
-            m_goad;
+                m_tail,
+                m_goad;
 
         static bool s_registered;
     };

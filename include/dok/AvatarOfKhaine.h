@@ -36,7 +36,7 @@ namespace DaughtersOfKhaine {
     private:
 
         Weapon m_torrentOfBurningBlood,
-            m_sword;
+                m_sword;
 
         lsignal::slot m_idolSlot;
 

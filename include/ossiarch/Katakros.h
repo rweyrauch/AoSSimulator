@@ -50,11 +50,11 @@ namespace OssiarchBonereapers {
         }
 
         Weapon m_indaKhaat,
-            m_shieldImmortis,
-            m_nadiriteDagger,
-            m_blades,
-            m_greatblade,
-            m_spiritDagger;
+                m_shieldImmortis,
+                m_nadiriteDagger,
+                m_blades,
+                m_greatblade,
+                m_spiritDagger;
 
         static bool s_registered;
     };

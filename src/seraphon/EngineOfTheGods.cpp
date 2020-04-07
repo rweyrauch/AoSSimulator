@@ -207,7 +207,8 @@ namespace Seraphon {
 
     int EngineOfTheGods::cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
                                                const Unit *target) {
-        if (m_timeStoodStill && isFriendly(attacker) && attacker->hasKeyword(SERAPHON) && (distanceTo(attacker) <= 24.0f))
+        if (m_timeStoodStill && isFriendly(attacker) && attacker->hasKeyword(SERAPHON) &&
+            (distanceTo(attacker) <= 24.0f))
             return weapon->attacks();
         return 0;
     }

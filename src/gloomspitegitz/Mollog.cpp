@@ -49,7 +49,7 @@ namespace GloomspiteGitz {
     }
 
     Mollog::Mollog() :
-        GloomspiteGitzBase("Mollog", 6, WOUNDS, 7, 4, false),
+            GloomspiteGitzBase("Mollog", 6, WOUNDS, 7, 4, false),
             m_jabbertoad(Weapon::Type::Missile, "Jabbertoad", 12, 1, 4, 4, 0, 1),
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};
@@ -104,7 +104,7 @@ namespace GloomspiteGitz {
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
             if (Dice::rollD6() >= 4) {
-                return {0, 0,  Wounds::Source::Spell};
+                return {0, 0, Wounds::Source::Spell};
             }
         }
 

@@ -46,8 +46,8 @@ namespace Death {
     private:
 
         Weapon m_wail,
-            m_blade,
-            m_etherealWeapons;
+                m_blade,
+                m_etherealWeapons;
 
         static bool s_registered;
 

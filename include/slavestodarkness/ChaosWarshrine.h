@@ -35,6 +35,8 @@ namespace SlavesToDarkness {
 
         void onRestore() override;
 
+        void onStartHero(PlayerId player) override;
+
         int getDamageTableIndex() const;
 
     private:
@@ -50,12 +52,12 @@ namespace SlavesToDarkness {
 // -------------------------------------------
 // Mark of Chaos                    Yes
 // Protection of the Dark Gods      TODO
-// Favour of the Ruinous Powers     TODO
-//   Favour of Khorne               TODO
+// Favour of the Ruinous Powers
+//   Favour of Khorne               Yes
 //   Favour of Tzeentch             TODO
-//   Favour of Nurgle               TODO
-//   Favour of Slaanesh             TODO
-//   Favour of Chaos                TODO
+//   Favour of Nurgle               Yes
+//   Favour of Slaanesh             Yes
+//   Favour of Chaos                Yes
 //
 
 } // SlavesToDarkness

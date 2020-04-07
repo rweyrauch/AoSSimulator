@@ -39,10 +39,10 @@ namespace GloomspiteGitz {
     private:
 
         Weapon m_tusksAndFangs,
-            m_stikka,
-            m_scorpisquigStikka,
-            m_staff,
-            m_knife;
+                m_stikka,
+                m_scorpisquigStikka,
+                m_staff,
+                m_knife;
 
         static bool s_registered;
     };

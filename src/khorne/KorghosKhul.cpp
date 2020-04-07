@@ -73,7 +73,7 @@ namespace Khorne {
         }
     }
 
-    Rerolls KorghosKhul::toHitRerolls(const Weapon* /*weapon*/, const Unit* /*target*/) const {
+    Rerolls KorghosKhul::toHitRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Favoured of Khorne
         return RerollFailed;
     }

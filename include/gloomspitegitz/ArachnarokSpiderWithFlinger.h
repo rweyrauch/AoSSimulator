@@ -42,10 +42,10 @@ namespace GloomspiteGitz {
         int getDamageTableIndex() const;
 
         Weapon m_spiderBows,
-            m_flinger,
-            m_chitinousLegs,
-            m_monstrousFangs,
-            m_crookedSpears;
+                m_flinger,
+                m_chitinousLegs,
+                m_monstrousFangs,
+                m_crookedSpears;
 
         static bool s_registered;
     };

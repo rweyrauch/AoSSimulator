@@ -51,11 +51,11 @@ namespace OssiarchBonereapers {
         bool m_necrophoros = false;
 
         Weapon m_blade,
-            m_spear,
-            m_greatblade,
-            m_bladeHekatos,
-            m_spearHekatos,
-            m_greatbladeHekatos;
+                m_spear,
+                m_greatblade,
+                m_bladeHekatos,
+                m_spearHekatos,
+                m_greatbladeHekatos;
 
         static bool s_registered;
     };

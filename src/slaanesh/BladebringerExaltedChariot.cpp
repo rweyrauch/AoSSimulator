@@ -49,7 +49,7 @@ namespace Slaanesh {
     Unit *BladebringerOnExaltedChariot::Create(const ParameterList &parameters) {
         auto unit = new BladebringerOnExaltedChariot();
 
-        auto host = (Host)GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
         unit->setHost(host);
 
         bool ok = unit->configure();

@@ -33,7 +33,7 @@ namespace Death {
     private:
 
         Weapon m_fangsAndTalons,
-            m_fangsAndTalonsVargoyle;
+                m_fangsAndTalonsVargoyle;
 
         static bool s_registered;
 

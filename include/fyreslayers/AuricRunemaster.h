@@ -36,6 +36,7 @@ namespace Fyreslayers {
         void onRestore() override;
 
         Rerolls holySeekerToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
         Rerolls holySeekerToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
     private:
@@ -46,7 +47,7 @@ namespace Fyreslayers {
 
         bool m_holySeekerToHit = false;
         bool m_holySeekerToWound = false;
-        Unit* m_holySeekerTarget = nullptr;
+        Unit *m_holySeekerTarget = nullptr;
 
         lsignal::slot m_holySeekerToHitSlot, m_holySeekerToWoundSlot;
 

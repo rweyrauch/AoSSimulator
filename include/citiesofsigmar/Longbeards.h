@@ -55,9 +55,9 @@ namespace CitiesOfSigmar {
         bool m_musician = false;
 
         Weapon m_ancestralAxeHammer,
-            m_ancestralGreatAxe,
-            m_ancestralAxeHammerOldGuard,
-            m_ancestralGreatAxeOldGuard;
+                m_ancestralGreatAxe,
+                m_ancestralAxeHammerOldGuard,
+                m_ancestralGreatAxeOldGuard;
 
         static bool s_registered;
     };

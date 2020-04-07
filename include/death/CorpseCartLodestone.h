@@ -31,13 +31,13 @@ namespace Death {
 
     protected:
 
-        int unholyLodestoneCastingMod(const Unit* caster);
+        int unholyLodestoneCastingMod(const Unit *caster);
 
     private:
 
         Weapon m_goad,
-            m_lash,
-            m_blades;
+                m_lash,
+                m_blades;
 
         lsignal::slot m_lodestoneSlot;
 

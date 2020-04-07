@@ -74,7 +74,7 @@ namespace Sylvaneth {
         return true;
     }
 
-    Rerolls YltharisGuardians::toWoundRerolls(const Weapon* /*weapon*/, const Unit* /*target*/) const {
+    Rerolls YltharisGuardians::toWoundRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Vigour and Wrath
         return RerollOnes;
     }

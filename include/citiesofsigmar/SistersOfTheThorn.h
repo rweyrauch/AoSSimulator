@@ -47,9 +47,9 @@ namespace CitiesOfSigmar {
         bool m_hornblower = false;
 
         Weapon m_javelin,
-            m_staff,
-            m_antlersAndHooves,
-            m_staffMaiden;
+                m_staff,
+                m_antlersAndHooves,
+                m_staffMaiden;
 
         static bool s_registered;
     };

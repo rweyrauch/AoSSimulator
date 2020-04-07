@@ -42,7 +42,7 @@ namespace Tzeentch {
     private:
 
         Weapon m_staff,
-            m_beakAndTalons;
+                m_beakAndTalons;
 
         static bool s_registered;
     };

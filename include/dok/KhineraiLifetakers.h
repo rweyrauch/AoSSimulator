@@ -42,7 +42,7 @@ namespace DaughtersOfKhaine {
     private:
 
         Weapon m_barbedSickle,
-            m_barbedSickleHarridynn;
+                m_barbedSickleHarridynn;
 
         static bool s_registered;
     };

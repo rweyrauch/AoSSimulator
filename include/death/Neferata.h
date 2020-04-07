@@ -46,9 +46,9 @@ namespace Death {
     private:
 
         Weapon m_akmetHar,
-            m_akenSeth,
-            m_skeletalClaws,
-            m_clawsAndDaggers;
+                m_akenSeth,
+                m_skeletalClaws,
+                m_clawsAndDaggers;
 
         static bool s_registered;
 

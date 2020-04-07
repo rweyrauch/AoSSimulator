@@ -39,8 +39,8 @@ namespace CitiesOfSigmar {
     private:
 
         Weapon m_bow,
-            m_blade,
-            m_bowWalker;
+                m_blade,
+                m_bowWalker;
 
         static bool s_registered;
     };

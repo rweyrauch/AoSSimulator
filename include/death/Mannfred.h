@@ -46,9 +46,9 @@ namespace Death {
     private:
 
         Weapon m_gheistvor,
-            m_glaive,
-            m_ebonClaws,
-            m_clawsAndDaggers;
+                m_glaive,
+                m_ebonClaws,
+                m_clawsAndDaggers;
 
         static bool s_registered;
 

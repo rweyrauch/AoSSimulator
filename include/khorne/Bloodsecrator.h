@@ -31,7 +31,8 @@ namespace Khorne {
 
     protected:
 
-        int rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+        int rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                                  const Unit *target);
 
     private:
 

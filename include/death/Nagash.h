@@ -46,9 +46,9 @@ namespace Death {
     private:
 
         Weapon m_gaze,
-            m_alakanash,
-            m_zefetNebtar,
-            m_clawsAndDaggers;
+                m_alakanash,
+                m_zefetNebtar,
+                m_clawsAndDaggers;
 
         static bool s_registered;
 

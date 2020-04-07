@@ -28,7 +28,7 @@ namespace Nighthaunt {
 
         int toSaveModifier(const Weapon *weapon) const override;
 
-        int auraOfDread(const Unit * unit);
+        int auraOfDread(const Unit *unit);
 
     protected:
 

@@ -76,9 +76,12 @@ namespace Khorne {
         return POINTS_PER_UNIT;
     }
 
-    int Bloodsecrator::rageOfKhorneAttackMod(const Unit *attacker, const Model* /*attackingModel*/, const Weapon *weapon,
-                                             const Unit* /*target*/) {
-        if (isFriendly(attacker) && attacker->hasKeyword(KHORNE) && !weapon->isMissile() && (distanceTo(attacker) <= 16.0f)) return 1;
+    int
+    Bloodsecrator::rageOfKhorneAttackMod(const Unit *attacker, const Model * /*attackingModel*/, const Weapon *weapon,
+                                         const Unit * /*target*/) {
+        if (isFriendly(attacker) && attacker->hasKeyword(KHORNE) && !weapon->isMissile() &&
+            (distanceTo(attacker) <= 16.0f))
+            return 1;
         return 0;
     }
 

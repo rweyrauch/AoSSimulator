@@ -1214,7 +1214,7 @@ bool Unit::canRetreatAndCharge() const {
         return m_movementRules[RetreatAndCharge].front().allowed;
 }
 
-int Unit::targetHitModifier(const Weapon *weapon, const Unit* /*attacker*/) const {
+int Unit::targetHitModifier(const Weapon *weapon, const Unit * /*attacker*/) const {
     int modifier = 0;
 
     BuffableAttribute which = TargetToHitMelee;
@@ -1227,7 +1227,7 @@ int Unit::targetHitModifier(const Weapon *weapon, const Unit* /*attacker*/) cons
     return modifier;
 }
 
-int Unit::targetWoundModifier(const Weapon *weapon, const Unit* /*attacker*/) const {
+int Unit::targetWoundModifier(const Weapon *weapon, const Unit * /*attacker*/) const {
     int modifier = 0;
 
     BuffableAttribute which = TargetToWoundMelee;
@@ -1240,7 +1240,7 @@ int Unit::targetWoundModifier(const Weapon *weapon, const Unit* /*attacker*/) co
     return modifier;
 }
 
-int Unit::targetSaveModifier(const Weapon* /*weapon*/, const Unit* /*attacker*/) const {
+int Unit::targetSaveModifier(const Weapon * /*weapon*/, const Unit * /*attacker*/) const {
     int modifier = 0;
 
     for (auto bi : m_attributeModifiers[TargetToSave]) {

@@ -33,13 +33,13 @@ namespace Death {
 
         void onStartHero(PlayerId player) override;
 
-        int brazierCastingMod(const Unit* caster);
+        int brazierCastingMod(const Unit *caster);
 
     private:
 
         Weapon m_goad,
-            m_lash,
-            m_blades;
+                m_lash,
+                m_blades;
 
         lsignal::slot m_brazierSlot;
 

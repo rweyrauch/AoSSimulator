@@ -155,7 +155,7 @@ namespace StormcastEternals {
         return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon* /*weapon*/) const {
+    Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Thundershield
         return RerollOnes;
     }

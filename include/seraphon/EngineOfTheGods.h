@@ -49,21 +49,22 @@ namespace Seraphon {
 
         Rerolls cosmicEngineChargeReroll(const Unit *unit);
 
-        int cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+        int cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                                  const Unit *target);
 
     private:
 
         Weapon m_javelins,
-            m_horns,
-            m_jaws,
-            m_stomps;
+                m_horns,
+                m_jaws,
+                m_stomps;
 
         lsignal::slot m_steadfastSlot,
-            m_cosmicEngineChargeSlot,
-            m_cosmicEngineAttackSlot;
+                m_cosmicEngineChargeSlot,
+                m_cosmicEngineAttackSlot;
 
         bool m_timeStoodStill = false;
-        Unit* m_armouredCrestAttacker = nullptr;
+        Unit *m_armouredCrestAttacker = nullptr;
 
         static bool s_registered;
     };

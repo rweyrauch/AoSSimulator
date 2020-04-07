@@ -36,8 +36,8 @@ namespace Fyreslayers {
     private:
 
         Weapon m_throwingAxe,
-            m_warIron,
-            m_doomseekerAxe;
+                m_warIron,
+                m_doomseekerAxe;
 
         static bool s_registered;
     };

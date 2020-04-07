@@ -34,7 +34,7 @@ namespace OgorMawtribes {
     private:
 
         Weapon m_sharpStuff,
-            m_motleyWeapons;
+                m_motleyWeapons;
 
         static bool s_registered;
     };

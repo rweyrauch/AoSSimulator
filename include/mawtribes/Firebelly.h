@@ -36,7 +36,7 @@ namespace OgorMawtribes {
     private:
 
         Weapon m_fireBreath,
-            m_hammer;
+                m_hammer;
 
         static bool s_registered;
     };

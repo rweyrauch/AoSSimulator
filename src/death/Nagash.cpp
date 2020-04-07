@@ -25,22 +25,22 @@ namespace Death {
     const size_t NUM_TABLE_ENTRIES = 5;
     const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
     const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-        {
-            {5, 6, 3, 3},
-            {4, 5, 3, 2},
-            {3, 4, 2, 2},
-            {2, 3, 2, 1},
-            {1, 2, 1, 1}
-        };
+            {
+                    {5, 6, 3, 3},
+                    {4, 5, 3, 2},
+                    {3, 4, 2, 2},
+                    {2, 3, 2, 1},
+                    {1, 2, 1, 1}
+            };
 
     bool Nagash::s_registered = false;
 
     Nagash::Nagash() :
-        LegionOfNagashBase("Nagash", 9, WOUNDS, 10, 3, true),
-        m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
-        m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
-        m_zefetNebtar(Weapon::Type::Melee, "Zefet-nebtar", 2, 6, 3, 3, -2, 3),
-        m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
+            LegionOfNagashBase("Nagash", 9, WOUNDS, 10, 3, true),
+            m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
+            m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
+            m_zefetNebtar(Weapon::Type::Melee, "Zefet-nebtar", 2, 6, 3, 3, -2, 3),
+            m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, DEATHLORDS, MONSTER, HERO, PRIEST, WIZARD, NAGASH};
         m_weapons = {&m_gaze, &m_alakanash, &m_zefetNebtar, &m_clawsAndDaggers};
 
@@ -52,7 +52,7 @@ namespace Death {
     Unit *Nagash::Create(const ParameterList &parameters) {
         auto unit = new Nagash();
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -66,15 +66,16 @@ namespace Death {
     void Nagash::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
-                Create,
-                LegionOfNagashBase::ValueToString,
-                LegionOfNagashBase::EnumStringToInt,
-                ComputePoints,
-                {
-                        {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
-                },
-                DEATH,
-                {DEATHLORDS, OSSIARCH_BONEREAPERS}
+                    Create,
+                    LegionOfNagashBase::ValueToString,
+                    LegionOfNagashBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
+                    },
+                    DEATH,
+                    {DEATHLORDS, OSSIARCH_BONEREAPERS}
             };
             s_registered = UnitFactory::Register("Nagash", factoryMethod);
         }

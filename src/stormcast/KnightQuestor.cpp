@@ -75,7 +75,7 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, unit);
     }
 
-    Rerolls KnightQuestor::toSaveRerolls(const Weapon* /*weapon*/) const {
+    Rerolls KnightQuestor::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Shield
         return RerollFailed;
     }

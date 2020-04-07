@@ -48,7 +48,7 @@ namespace CitiesOfSigmar {
         int getDamageTableIndex() const;
 
         Weapon m_talons,
-            m_halberd;
+                m_halberd;
 
         lsignal::slot m_connection;
 

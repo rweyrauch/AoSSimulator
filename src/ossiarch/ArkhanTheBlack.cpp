@@ -24,13 +24,13 @@ namespace OssiarchBonereapers {
     const size_t NUM_TABLE_ENTRIES = 5;
     static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
     static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
-        {
-            {16, 6, 2, 2},
-            {13, 5, 2, 1},
-            {10, 4, 1, 1},
-            {7,  3, 1, 0},
-            {4,  2, 0, 0}
-        };
+            {
+                    {16, 6, 2, 2},
+                    {13, 5, 2, 1},
+                    {10, 4, 1, 1},
+                    {7,  3, 1, 0},
+                    {4,  2, 0, 0}
+            };
 
     bool ArkhanTheBlack::s_registered = false;
 
@@ -59,27 +59,27 @@ namespace OssiarchBonereapers {
     void ArkhanTheBlack::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
-                ArkhanTheBlack::Create,
-                ArkhanTheBlack::ValueToString,
-                ArkhanTheBlack::EnumStringToInt,
-                ArkhanTheBlack::ComputePoints,
-                {
-                    {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                     OssiarchBonereaperBase::Crematorians, 1},
-                },
-                DEATH,
-                {OSSIARCH_BONEREAPERS, DEATHLORDS}
+                    ArkhanTheBlack::Create,
+                    ArkhanTheBlack::ValueToString,
+                    ArkhanTheBlack::EnumStringToInt,
+                    ArkhanTheBlack::ComputePoints,
+                    {
+                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                             OssiarchBonereaperBase::Crematorians, 1},
+                    },
+                    DEATH,
+                    {OSSIARCH_BONEREAPERS, DEATHLORDS}
             };
             s_registered = UnitFactory::Register("Arkhan the Black, Mortarch of Sacrament", factoryMethod);
         }
     }
 
     ArkhanTheBlack::ArkhanTheBlack() :
-        OssiarchBonereaperBase("Arkhan the Black, Mortarch of Sacrament", 16, WOUNDS, 10, 4, true),
-        m_zefetKar(Weapon::Type::Melee, "Zefet-kar", 1, 1, 3, 3, -1, RAND_D3),
-        m_khenashAn(Weapon::Type::Melee, "Khenash-an", 2, 1, 4, 3, -1, RAND_D3),
-        m_claws(Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2),
-        m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Dagger", 1, 6, 5, 4, 0, 1) {
+            OssiarchBonereaperBase("Arkhan the Black, Mortarch of Sacrament", 16, WOUNDS, 10, 4, true),
+            m_zefetKar(Weapon::Type::Melee, "Zefet-kar", 1, 1, 3, 3, -1, RAND_D3),
+            m_khenashAn(Weapon::Type::Melee, "Khenash-an", 2, 1, 4, 3, -1, RAND_D3),
+            m_claws(Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2),
+            m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Dagger", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, ARKHAN};
         m_weapons = {&m_zefetKar, &m_khenashAn, &m_claws, &m_clawsAndDaggers};
 

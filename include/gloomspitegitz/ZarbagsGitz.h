@@ -36,9 +36,9 @@ namespace GloomspiteGitz {
     private:
 
         Weapon m_bow,
-            m_teeth,
-            m_prodder,
-            m_slitta;
+                m_teeth,
+                m_prodder,
+                m_slitta;
 
         static bool s_registered;
     };

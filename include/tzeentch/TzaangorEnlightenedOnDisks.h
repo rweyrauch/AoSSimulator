@@ -38,9 +38,9 @@ namespace Tzeentch {
     private:
 
         Weapon m_tzeentchianSpear,
-            m_tzeentchianSpearAviarch,
-            m_viciousBeak,
-            m_teethAndHorns;
+                m_tzeentchianSpearAviarch,
+                m_viciousBeak,
+                m_teethAndHorns;
 
         static bool s_registered;
     };

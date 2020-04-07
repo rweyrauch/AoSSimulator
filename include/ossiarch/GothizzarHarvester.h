@@ -51,9 +51,9 @@ namespace OssiarchBonereapers {
         int getDamageTableIndex() const;
 
         Weapon m_deathsHeadMaw,
-            m_sickles,
-            m_bludgeons,
-            m_hoovesAndTail;
+                m_sickles,
+                m_bludgeons,
+                m_hoovesAndTail;
 
         static bool s_registered;
     };

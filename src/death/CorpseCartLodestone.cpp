@@ -19,7 +19,7 @@ namespace Death {
     Unit *CorpseCartWithUnholyLodestone::Create(const ParameterList &parameters) {
         auto unit = new CorpseCartWithUnholyLodestone();
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -42,7 +42,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {DEADWALKERS}
@@ -61,8 +62,7 @@ namespace Death {
         s_globalCastMod.connect(this, &CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod, &m_lodestoneSlot);
     }
 
-    CorpseCartWithUnholyLodestone::~CorpseCartWithUnholyLodestone()
-    {
+    CorpseCartWithUnholyLodestone::~CorpseCartWithUnholyLodestone() {
         m_lodestoneSlot.disconnect();
     }
 

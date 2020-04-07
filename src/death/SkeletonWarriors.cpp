@@ -74,7 +74,7 @@ namespace Death {
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
@@ -97,7 +97,8 @@ namespace Death {
                             {ParamType::Enum, "Weapons", AncientBlade, AncientBlade, AncientSpear, 1},
                             {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
                             {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {DEATHRATTLE}
@@ -131,7 +132,8 @@ namespace Death {
         return modifier;
     }
 
-    int SkeletonWarriors::extraAttacks(const Model* /*attackingModel*/, const Weapon *weapon, const Unit *target) const {
+    int
+    SkeletonWarriors::extraAttacks(const Model * /*attackingModel*/, const Weapon *weapon, const Unit *target) const {
         int attacks = Unit::extraAttacks(nullptr, weapon, target);
         // Skeleton Legion
         if (remainingModels() >= 30) {

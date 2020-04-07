@@ -45,7 +45,7 @@ namespace Skaven {
     private:
 
         Weapon m_lash,
-            m_catcher;
+                m_catcher;
 
         lsignal::slot m_whipSlot, m_whipBraverySlot;
 

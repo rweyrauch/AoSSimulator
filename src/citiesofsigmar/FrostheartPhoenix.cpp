@@ -136,7 +136,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int FrostheartPhoenix::blizzardAura(const Unit* /*attacker*/, const Weapon *weapon, const Unit *target) {
+    int FrostheartPhoenix::blizzardAura(const Unit * /*attacker*/, const Weapon *weapon, const Unit *target) {
         // Blizzard Aura
         if (!weapon->isMissile() && (target->owningPlayer() != owningPlayer()) &&
             (distanceTo(target) <= g_damageTable[getDamageTableIndex()].m_blizzazdAura)) {

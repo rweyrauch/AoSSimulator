@@ -38,8 +38,8 @@ namespace Khorne {
     private:
 
         Weapon m_burningSkulls,
-            m_hellblades,
-            m_gnashingMaw;
+                m_hellblades,
+                m_gnashingMaw;
 
         static bool s_registered;
     };

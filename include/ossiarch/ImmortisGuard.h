@@ -40,7 +40,7 @@ namespace OssiarchBonereapers {
     private:
 
         Weapon m_halberd,
-            m_battleShield;
+                m_battleShield;
 
         static bool s_registered;
     };

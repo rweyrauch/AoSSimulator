@@ -23,7 +23,7 @@ namespace Death {
         auto unit = new BatSwarms();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels);
@@ -51,7 +51,8 @@ namespace Death {
                     ComputePoints,
                     {
                             {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -90,7 +91,7 @@ namespace Death {
         return true;
     }
 
-    int BatSwarms::cloudOfHorrors(const Unit* /*attacker*/, const Weapon *weapon, const Unit *target) {
+    int BatSwarms::cloudOfHorrors(const Unit * /*attacker*/, const Weapon *weapon, const Unit *target) {
         if (!isFriendly(target) && weapon->isMissile() && (distanceTo(target) <= 12.0f)) return -1;
         return 0;
     }

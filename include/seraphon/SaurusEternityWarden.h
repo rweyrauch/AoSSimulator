@@ -36,7 +36,7 @@ namespace Seraphon {
     private:
 
         Weapon m_mace,
-            m_jaws;
+                m_jaws;
 
         static bool s_registered;
     };

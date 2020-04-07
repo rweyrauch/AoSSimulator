@@ -43,10 +43,10 @@ namespace Seraphon {
     private:
 
         Weapon m_javelin,
-            m_javelinLeader,
-            m_bolas,
-            m_bolasLeader,
-            m_jaws;
+                m_javelinLeader,
+                m_bolas,
+                m_bolasLeader,
+                m_jaws;
 
         static bool s_registered;
     };

@@ -51,10 +51,10 @@ namespace Fyreslayers {
         bool m_hornOfGrimnir = false;
 
         Weapon m_handaxe,
-            m_handaxeKarl,
-            m_warpick,
-            m_warpickKarl,
-            m_throwingAxe;
+                m_handaxeKarl,
+                m_warpick,
+                m_warpickKarl,
+                m_throwingAxe;
 
         static bool s_registered;
     };

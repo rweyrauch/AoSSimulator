@@ -40,29 +40,29 @@ namespace OssiarchBonereapers {
     void Katakros::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
-                Katakros::Create,
-                Katakros::ValueToString,
-                Katakros::EnumStringToInt,
-                Katakros::ComputePoints,
-                {
-                    {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                     OssiarchBonereaperBase::Crematorians, 1},
-                },
-                DEATH,
-                {OSSIARCH_BONEREAPERS}
+                    Katakros::Create,
+                    Katakros::ValueToString,
+                    Katakros::EnumStringToInt,
+                    Katakros::ComputePoints,
+                    {
+                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
+                             OssiarchBonereaperBase::Crematorians, 1},
+                    },
+                    DEATH,
+                    {OSSIARCH_BONEREAPERS}
             };
             s_registered = UnitFactory::Register("Orpheon Katakros", factoryMethod);
         }
     }
 
     Katakros::Katakros() :
-        OssiarchBonereaperBase("Orpheon Katakros", 4, WOUNDS, 10, 3, false),
-        m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
-        m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
-        m_nadiriteDagger(Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1),
-        m_blades(Weapon::Type::Melee, "Nadirite Duelling Blades", 1, 6, 3, 3, -1, 1),
-        m_greatblade(Weapon::Type::Melee, "Soulreaver Greatblade", 1, 3, 3, 3, -1, 1),
-        m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1) {
+            OssiarchBonereaperBase("Orpheon Katakros", 4, WOUNDS, 10, 3, false),
+            m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
+            m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
+            m_nadiriteDagger(Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1),
+            m_blades(Weapon::Type::Melee, "Nadirite Duelling Blades", 1, 6, 3, 3, -1, 1),
+            m_greatblade(Weapon::Type::Melee, "Soulreaver Greatblade", 1, 3, 3, 3, -1, 1),
+            m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1) {
         m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
         m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
     }

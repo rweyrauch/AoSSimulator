@@ -34,8 +34,8 @@ namespace Seraphon {
     private:
 
         Weapon m_streamOfFire,
-            m_jaws,
-            m_goad;
+                m_jaws,
+                m_goad;
 
         static bool s_registered;
     };

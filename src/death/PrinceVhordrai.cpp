@@ -25,11 +25,11 @@ namespace Death {
     const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
     const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                    {14, 6, 7},
+                    {14, 6,       7},
                     {12, RAND_D6, 6},
-                    {10, 3, 5},
-                    {8, RAND_D3, 4},
-                    {6, 1, 3}
+                    {10, 3,       5},
+                    {8,  RAND_D3, 4},
+                    {6,  1,       3}
             };
 
     bool PrinceVhordrai::s_registered = false;
@@ -37,7 +37,7 @@ namespace Death {
     Unit *PrinceVhordrai::Create(const ParameterList &parameters) {
         auto unit = new PrinceVhordrai();
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -60,7 +60,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}

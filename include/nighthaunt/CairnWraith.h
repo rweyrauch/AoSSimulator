@@ -32,6 +32,7 @@ namespace Nighthaunt {
     protected:
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
     private:

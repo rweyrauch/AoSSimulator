@@ -53,10 +53,10 @@ namespace CitiesOfSigmar {
         bool m_trumpeter = false;
 
         Weapon m_pistols,
-            m_handgun,
-            m_sabreAndPistolButt,
-            m_hooves,
-            m_sabreAndPistolButtOutrider;
+                m_handgun,
+                m_sabreAndPistolButt,
+                m_hooves,
+                m_sabreAndPistolButtOutrider;
 
         static bool s_registered;
     };

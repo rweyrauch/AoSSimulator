@@ -36,7 +36,7 @@ namespace Death {
 
         int rollChargeDistance() const override;
 
-        int standardBearerBraveryMod(const Unit* unit);
+        int standardBearerBraveryMod(const Unit *unit);
 
     private:
 

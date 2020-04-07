@@ -41,8 +41,8 @@ namespace Seraphon {
         bool m_wardrum = false;
 
         Weapon m_celestitePolearm,
-            m_celestitePolearmAlpha,
-            m_jaws;
+                m_celestitePolearmAlpha,
+                m_jaws;
 
         lsignal::slot m_connection;
 

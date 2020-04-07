@@ -38,7 +38,7 @@ namespace Sylvaneth {
     private:
 
         Weapon m_cruelTalonsAndFangs,
-            m_cruelTalonsAndFangsShadestalker;
+                m_cruelTalonsAndFangsShadestalker;
 
         lsignal::slot m_connection;
 

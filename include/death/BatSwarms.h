@@ -30,7 +30,7 @@ namespace Death {
 
     protected:
 
-        int cloudOfHorrors(const Unit* attacker, const Weapon* weapon, const Unit* target);
+        int cloudOfHorrors(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
     private:
 

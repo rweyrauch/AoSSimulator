@@ -38,7 +38,7 @@ namespace SlavesToDarkness {
     private:
 
         Weapon m_hammer,
-            m_hooves;
+                m_hooves;
 
         static bool s_registered;
     };

@@ -46,7 +46,7 @@ namespace Death {
 
         int rollChargeDistance() const override;
 
-        int standardBearerBraveryMod(const Unit* unit);
+        int standardBearerBraveryMod(const Unit *unit);
 
     private:
 
@@ -55,9 +55,9 @@ namespace Death {
         WeaponOptions m_weaponOption = WightBlade;
 
         Weapon m_wightBlade,
-            m_wightBladeSeneschal,
-            m_greatWightBlade,
-            m_greatWightBladeSeneschal;
+                m_wightBladeSeneschal,
+                m_greatWightBlade,
+                m_greatWightBladeSeneschal;
 
         lsignal::slot m_standardSlot;
 

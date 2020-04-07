@@ -28,8 +28,8 @@ namespace Death {
                     {14, 9, 12},
                     {12, 8, 10},
                     {10, 7, 8},
-                    {8, 6, 6},
-                    {4, 5, 4}
+                    {8,  6, 6},
+                    {4,  5, 4}
             };
 
     bool BloodseekerPalanquin::s_registered = false;
@@ -37,7 +37,7 @@ namespace Death {
     Unit *BloodseekerPalanquin::Create(const ParameterList &parameters) {
         auto unit = new BloodseekerPalanquin();
 
-        auto legion = (Legion)GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -60,7 +60,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion ::GrandHostOfNagash, Legion::LegionOfBlood, 1},
+                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
+                             Legion::LegionOfBlood, 1},
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -116,7 +117,7 @@ namespace Death {
     }
 
     Wounds BloodseekerPalanquin::weaponDamage(const Weapon *weapon, const Unit *target,
-            int hitRoll, int woundRoll) const {
+                                              int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
@@ -132,7 +133,8 @@ namespace Death {
         Unit::onStartShooting(player);
 
         // Wail of the Damned
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_wailRange);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
+                                                       g_damageTable[getDamageTableIndex()].m_wailRange);
         for (auto unit : units) {
             if (Dice::roll2D6() > unit->bravery()) {
                 unit->applyDamage({0, Dice::rollD3()});
