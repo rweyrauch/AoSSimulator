@@ -24,7 +24,11 @@ TEST(Circle, POI_CenterHit) {
     hit = PointOfIntersection(c1, {3, 1}, c2, poi);
     ASSERT_TRUE(hit);
     auto expectedPoi = Vector2(c1.center(), c2.center()).length() - (c1.radius() + c2.radius());
-    ASSERT_DOUBLE_EQ(poi, expectedPoi);
+    ASSERT_NEAR(poi, expectedPoi, EPSILON);
+
+    hit = PointOfIntersection(c2, {-3, -1}, c1, poi);
+    ASSERT_TRUE(hit);
+    ASSERT_NEAR(poi, expectedPoi, EPSILON);
 }
 
 TEST(Circle, POI_GlancingHit) {
@@ -38,6 +42,10 @@ TEST(Circle, POI_GlancingHit) {
     ASSERT_GE(hit, 1.0);
 
     hit = PointOfIntersection(c1, {10, 0}, c2, poi);
+    ASSERT_TRUE(hit);
+    ASSERT_GE(hit, 1.0);
+
+    hit = PointOfIntersection(c2, {-10, 0}, c1, poi);
     ASSERT_TRUE(hit);
     ASSERT_GE(hit, 1.0);
 }
