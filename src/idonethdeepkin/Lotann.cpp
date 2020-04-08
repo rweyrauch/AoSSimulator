@@ -95,7 +95,7 @@ namespace IdonethDeepkin {
     int Lotann::catalogueOfSouls(const Unit *target) {
         // Catalogue of Souls
         if (target->hasKeyword(IDONETH_DEEPKIN) && (target->owningPlayer() == owningPlayer()) &&
-            (distanceTo(target) <= 12.0f)) {
+            (distanceTo(target) <= 12.0)) {
             return 1;
         }
 

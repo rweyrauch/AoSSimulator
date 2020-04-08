@@ -136,7 +136,7 @@ namespace SlavesToDarkness {
     Rerolls SlavesToDarknessBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Aura of Khorne
         if (hasKeyword(KHORNE)) {
-            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(KHORNE)) {
                 return RerollOnes;
             }
@@ -149,7 +149,7 @@ namespace SlavesToDarkness {
 
         // Aura of Khorne
         if (hasKeyword(KHORNE)) {
-            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(KHORNE) && hero->isGeneral()) {
                 mod++;
             }
@@ -161,7 +161,7 @@ namespace SlavesToDarkness {
     Rerolls SlavesToDarknessBase::toSaveRerolls(const Weapon *weapon) const {
         // Aura of Tzeentch
         if (hasKeyword(TZEENTCH)) {
-            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0f);
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(TZEENTCH)) {
                 return RerollOnes;
             }

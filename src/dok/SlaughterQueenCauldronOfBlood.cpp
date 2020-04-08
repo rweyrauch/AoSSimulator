@@ -17,7 +17,7 @@ namespace DaughtersOfKhaine {
     struct TableEntry {
         int m_move;
         int m_knifeAttacks;
-        float m_bloodshield;
+        double m_bloodshield;
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
@@ -127,14 +127,14 @@ namespace DaughtersOfKhaine {
 
         // Bladed Impact
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 1.0f)) {
+        if (unit && (distanceTo(unit) <= 1.0)) {
             if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
         }
     }
 
     int SlaughterQueenOnCauldronOfBlood::idolOfWorship(const Unit *unit) {
         // Idol of Worship
-        if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
+        if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0)) return 1;
 
         return 0;
     }
@@ -159,7 +159,7 @@ namespace DaughtersOfKhaine {
         // Priestess of Khaine
         const auto roll = Dice::rollD6();
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && distanceTo(unit) <= 3.0f) {
+        if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});

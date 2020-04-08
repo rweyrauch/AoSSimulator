@@ -141,7 +141,7 @@ namespace StormcastEternals {
 
     int LordOrdinator::arcaneEngineer(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *target) {
         if (target->hasKeyword(ORDER) && target->hasKeyword(WAR_MACHINE) &&
-            (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 9.0f)) {
+            (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 9.0)) {
             return 1;
         }
 

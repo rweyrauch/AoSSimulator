@@ -104,7 +104,7 @@ namespace FleshEaterCourt {
     void RoyalTerrorgheist::onStartHero(PlayerId player) {
         // Royal Menagerie
         if (player == owningPlayer()) {
-            auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 6.0f);
+            auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 6.0);
             if (unit != nullptr) {
                 if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
                     int woundsHealed = Dice::rollD3();
@@ -141,7 +141,7 @@ namespace FleshEaterCourt {
         FleshEaterCourts::onSlain();
 
         // Infested
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto ip : units) {
             Wounds wounds = {0, Dice::rollD3()};
             ip->applyDamage(wounds);
@@ -157,7 +157,7 @@ namespace FleshEaterCourt {
 
         // Death Shriek
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= (float) m_deathShriek.range())) {
+        if (unit && (distanceTo(unit) <= (double) m_deathShriek.range())) {
             const auto roll = Dice::rollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
             if (roll > unit->bravery()) {
                 unit->applyDamage({0, roll - unit->bravery()});

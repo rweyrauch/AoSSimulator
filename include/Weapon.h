@@ -87,9 +87,9 @@ public:
 
     // Returns/computes the weapon's relative 'strength' heuristic.  The larger the 'strength'
     // value the more powerful the weapon is.
-    float strength() const;
+    double strength() const;
 
-    float averageDamage(int againstSave = 4) const;
+    double averageDamage(int againstSave = 4) const;
 
 protected:
 
@@ -108,7 +108,7 @@ private:
     int m_hitsPerAttack = 1;
     bool m_isActive = true;
 
-    mutable float m_strength = -1.0f;
+    mutable double m_strength = -1.0;
 };
 
 #endif //WEAPON_H

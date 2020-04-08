@@ -120,11 +120,11 @@ namespace Fyreslayers {
         if (player == owningPlayer()) {
             // Roaring Fyrestream
             if (m_shootingTarget) {
-                float dist = distanceTo(m_shootingTarget);
-                if (dist <= (float) m_fyrestream.range()) {
+                double dist = distanceTo(m_shootingTarget);
+                if (dist <= (double) m_fyrestream.range()) {
                     int rs = Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
                     if (rs <= m_shootingTarget->remainingModels()) {
-                        if (dist < 6.0f) {
+                        if (dist < 6.0) {
                             m_shootingTarget->applyDamage({0, Dice::rollD6()});
                         } else {
                             m_shootingTarget->applyDamage({0, Dice::rollD3()});
@@ -139,7 +139,7 @@ namespace Fyreslayers {
         auto wounds = Fyreslayer::onEndCombat(player);
 
         // Lashing Tail
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
             if (Dice::rollD6() < ip->remainingModels()) {
                 Wounds tailWounds = {0, Dice::rollD3()};
@@ -162,7 +162,7 @@ namespace Fyreslayers {
 
     Rerolls AuricRunesonOnMagmadroth::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Vying for Glory
-        if (Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AURIC_RUNESON, 6.0f)) {
+        if (Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AURIC_RUNESON, 6.0)) {
             return RerollFailed;
         }
         return Fyreslayer::toHitRerolls(weapon, target);

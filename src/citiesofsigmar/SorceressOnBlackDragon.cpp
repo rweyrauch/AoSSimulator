@@ -162,7 +162,7 @@ namespace CitiesOfSigmar {
 
         // Blood Sacrifice
         m_bloodSacrificeMod = 0;
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), DARKLING_COVENS, 3.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), DARKLING_COVENS, 3.0);
         if (unit) {
             if (unit->remainingModels() > 1) {
                 unit->slay(1);

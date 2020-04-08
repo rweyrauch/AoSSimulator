@@ -119,7 +119,7 @@ namespace GloomspiteGitz {
     void ManglerSquigs::onSlain() {
         // Watch Out!
         // get all units within 6" (friend and foe)
-        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
         for (auto ip : units) {
             int roll = Dice::rollD6();
             if (roll >= 4) {

@@ -26,17 +26,17 @@ public:
 
     int basesize() const { return m_baseSize_mm; }
 
-    float basesizeInches() const { return (float) m_baseSize_mm / 25.4f; }
+    double basesizeInches() const { return (double) m_baseSize_mm / 25.4; }
 
     void setPosition(const Math::Point3 &pos) { m_position = pos; }
 
     const Math::Point3 &position() const { return m_position; }
 
-    float x() const { return m_position.x; }
+    double x() const { return m_position.x; }
 
-    float y() const { return m_position.y; }
+    double y() const { return m_position.y; }
 
-    float z() const { return m_position.z; }
+    double z() const { return m_position.z; }
 
     void setOrientation(const Math::Vector3 &dir) { m_orientation = dir; }
 
@@ -84,7 +84,7 @@ public:
 
     const Weapon *preferredWeapon() const { return m_preferredWeapon; }
 
-    static float distanceBetween(const Model *m0, const Model *m1);
+    static double distanceBetween(const Model *m0, const Model *m1);
 
 private:
 

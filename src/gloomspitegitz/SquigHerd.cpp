@@ -117,7 +117,7 @@ namespace GloomspiteGitz {
         if (numMortalWounds) {
             auto board = Board::Instance();
             auto closestTarget = board->getNearestUnit(this, PlayerId::None);
-            if (closestTarget && distanceTo(closestTarget) <= 6.0f) {
+            if (closestTarget && distanceTo(closestTarget) <= 6.0) {
                 closestTarget->applyDamage({0, numMortalWounds});
             }
         }

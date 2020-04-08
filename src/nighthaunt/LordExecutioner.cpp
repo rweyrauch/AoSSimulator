@@ -72,7 +72,7 @@ namespace Nighthaunt {
         Unit::onStartCombat(player);
 
         // Staring Death in the Face
-        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
             unit->buffModifier(ToHitMelee, -1, {Phase::Battleshock, m_battleRound, player});
         }

@@ -111,7 +111,7 @@ namespace Khorne {
 
     void BloodthirsterOfUnfetteredFury::onStartHero(PlayerId /*player*/) {
         // The Land Rebels
-        auto enemyUnits = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
+        auto enemyUnits = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
         for (auto ip : enemyUnits) {
             int roll = Dice::rollD6();
             if (roll == 6) {

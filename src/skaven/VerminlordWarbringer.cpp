@@ -110,7 +110,7 @@ namespace Skaven {
 
     int VerminlordWarbringer::terrifying(const Unit *target) {
         // Terrifying
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
         return 0;
@@ -127,7 +127,7 @@ namespace Skaven {
 
     Rerolls VerminlordWarbringer::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Amidst the Seething Tide
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 13.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 13.0);
         int totalModels = 0;
         for (auto unit : units) {
             if (unit->hasKeyword(SKAVEN)) {

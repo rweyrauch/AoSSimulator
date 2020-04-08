@@ -132,7 +132,7 @@ namespace Seraphon {
         SeraphonBase::onCharged();
 
         // Unstoppable Stampede
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
             if (Dice::rollD6() >= 3) {
                 unit->applyDamage({0, Dice::rollD3()});
@@ -147,7 +147,7 @@ namespace Seraphon {
 
         // Cosmic Engine
         m_timeStoodStill = false;
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SLANN, 12.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SLANN, 12.0);
 
         int roll = Dice::roll2D6();
         if (unit) {
@@ -156,7 +156,7 @@ namespace Seraphon {
         if (roll <= 3) {
             applyDamage({0, Dice::rollD3()});
         } else if (roll <= 8) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto u : units) {
                 if (u->hasKeyword(SERAPHON)) {
                     u->heal(Dice::rollD3());
@@ -164,9 +164,9 @@ namespace Seraphon {
             }
             heal(Dice::rollD3());
         } else if (roll <= 12) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
             if (units.empty()) {
-                units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 24.0f);
+                units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 24.0);
                 if (!units.empty()) {
                     units.front()->applyDamage({0, Dice::rollD3()});
                 }
@@ -191,7 +191,7 @@ namespace Seraphon {
     }
 
     Rerolls EngineOfTheGods::steadfastMajestyBraveryReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
+        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return RerollFailed;
         return NoRerolls;
     }
 
@@ -200,7 +200,7 @@ namespace Seraphon {
     }
 
     Rerolls EngineOfTheGods::cosmicEngineChargeReroll(const Unit *unit) {
-        if (m_timeStoodStill && isFriendly(unit) && unit->hasKeyword(SERAPHON) && (distanceTo(unit) <= 24.0f))
+        if (m_timeStoodStill && isFriendly(unit) && unit->hasKeyword(SERAPHON) && (distanceTo(unit) <= 24.0))
             return RerollFailed;
         return NoRerolls;
     }
@@ -208,7 +208,7 @@ namespace Seraphon {
     int EngineOfTheGods::cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
                                                const Unit *target) {
         if (m_timeStoodStill && isFriendly(attacker) && attacker->hasKeyword(SERAPHON) &&
-            (distanceTo(attacker) <= 24.0f))
+            (distanceTo(attacker) <= 24.0))
             return weapon->attacks();
         return 0;
     }
@@ -220,7 +220,7 @@ namespace Seraphon {
 
         // Armoured Crest
         if (owningPlayer() == player) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
                 // Select target for Armoured Crest (select first one for now).
                 m_armouredCrestAttacker = unit;

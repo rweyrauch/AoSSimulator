@@ -130,7 +130,7 @@ namespace CitiesOfSigmar {
     int FreeguildGreatswords::toHitModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toHitModifier(weapon, target);
         // Oathsworn Honour Guard
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0);
         if (unit && unit->hasKeyword(FREEGUILD)) mod++;
         return mod;
     }

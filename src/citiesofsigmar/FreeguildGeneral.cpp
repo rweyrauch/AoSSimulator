@@ -89,7 +89,7 @@ namespace CitiesOfSigmar {
     int FreeguildGeneral::inspiringLeader(const Unit *target) {
         // Inspiring Leader
         if (target->hasKeyword(FREEGUILD) && (target->owningPlayer() == owningPlayer()) &&
-            (distanceTo(target) <= 18.0f)) {
+            (distanceTo(target) <= 18.0)) {
             return 1;
         }
 

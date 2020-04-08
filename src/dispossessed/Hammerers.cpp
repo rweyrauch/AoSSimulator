@@ -87,7 +87,7 @@ namespace Dispossessed {
     }
 
     bool Hammerers::battleshockRequired() const {
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0);
         for (auto ip : units) {
             // Kingsguard
             if (ip->hasKeyword(DISPOSSESSED) && ip->hasKeyword(HERO))

@@ -110,7 +110,7 @@ namespace IdonethDeepkin {
 
     void AkhelianKing::onCharged() {
         // Deepmare Horn
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
             int roll = Dice::rollD6();
             if (roll >= 2) {

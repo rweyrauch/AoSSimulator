@@ -239,7 +239,7 @@ namespace StormcastEternals {
     }
 
     bool DoSpiritFlasks(Unit *owner) {
-        auto units = Board::Instance()->getUnitsWithin(owner, GetEnemyId(owner->owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(owner, GetEnemyId(owner->owningPlayer()), 3.0);
         int potentialWoundsPerFlask = 0;
         for (auto ip : units) {
             if (ip->remainingModels() >= 10)

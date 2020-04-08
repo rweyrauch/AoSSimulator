@@ -41,7 +41,7 @@ namespace FleshEaterCourt {
         } else if (m_delusion == None) {
             // Morgaunt Court - Blood Loyalty
             if (hasKeyword(MORGAUNT) && hasKeyword(COURTIER)) {
-                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                 for (auto ip : units) {
                     if (ip->hasKeyword(MORGAUNT) && ip->hasKeyword(SERFS)) {
                         return RerollOnes;
@@ -109,7 +109,7 @@ namespace FleshEaterCourt {
 
     Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds) {
         // Deathless Courtiers
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(FLESH_EATER_COURTS) && ip->hasKeyword(HERO)) {
                 Dice::RollResult woundSaves, mortalSaves;

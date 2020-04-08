@@ -114,7 +114,7 @@ namespace GloomspiteGitz {
 
         // Stuff'Em In Me Bag
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 3.0f)) {
+        if (unit && (distanceTo(unit) <= 3.0)) {
             if (Dice::rollD6() >= unit->wounds() * 2) {
                 unit->slay(1);
             }

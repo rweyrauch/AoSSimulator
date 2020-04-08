@@ -127,7 +127,7 @@ namespace Ironjawz {
         Unit::onCharged();
 
         // Destructive Bulk
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
             auto unit = units.front();
             Dice::RollResult result;

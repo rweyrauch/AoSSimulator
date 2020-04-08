@@ -16,8 +16,8 @@ public:
 
 private:
 
-    //float m_x, m_y;
-    //float m_width, m_depth, m_height;
+    //double m_x, m_y;
+    //double m_width, m_depth, m_height;
 
 };
 

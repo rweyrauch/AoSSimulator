@@ -78,7 +78,7 @@ namespace Nurgle {
 
     int BloabRotspawned::windspeakerBellsCastingMod(const Unit *caster) {
         // Windspeaker Bells
-        if (!isFriendly(caster) && caster->hasKeyword(WIZARD) && (distanceTo(caster) <= 14.0f)) {
+        if (!isFriendly(caster) && caster->hasKeyword(WIZARD) && (distanceTo(caster) <= 14.0)) {
             return -1;
         }
         return 0;

@@ -160,7 +160,7 @@ namespace GloomspiteGitz {
     int WebspinnerShamanOnArachnarokSpider::catchwebSpidershrine(const Unit *caster) {
         // Catchweb Spidershrine
         if (caster->hasKeyword(SPIDERFANG) && caster->hasKeyword(WIZARD) &&
-            (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0f)) {
+            (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0)) {
             return 1;
         }
         return 0;
@@ -168,7 +168,7 @@ namespace GloomspiteGitz {
 
     int WebspinnerShamanOnArachnarokSpider::prophetOfTheSpiderGod(const Unit *unit) {
         // Prophet of the Spider God
-        if (unit->hasKeyword(SPIDERFANG) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 24.0f)) {
+        if (unit->hasKeyword(SPIDERFANG) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 24.0)) {
             return 2;
         }
         return 0;

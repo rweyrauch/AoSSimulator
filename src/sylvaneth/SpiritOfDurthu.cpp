@@ -127,7 +127,7 @@ namespace Sylvaneth {
         Unit::onStartCombat(id);
 
         // Groundshaking Stomp
-        if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0f) {
+        if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {
             if (Dice::rollD6() >= 4) {
                 // TODO: Make m_meleeTarget fight last
             }
@@ -138,7 +138,7 @@ namespace Sylvaneth {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
 
         // Wrathful Guardian
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 8.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 8.0);
         if (unit != nullptr) {
             attacks += 2;
         }
@@ -149,7 +149,7 @@ namespace Sylvaneth {
     int SpiritOfDurthu::championOfTheEverqueensWill(const Unit *target) {
         // Champion of the Everqueen's Will
         if (target->hasKeyword(SYLVANETH) && (target->owningPlayer() == owningPlayer()) &&
-            (distanceTo(target) <= 12.0f)) {
+            (distanceTo(target) <= 12.0)) {
             return 1;
         }
 

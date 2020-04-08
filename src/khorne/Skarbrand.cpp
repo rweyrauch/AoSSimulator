@@ -108,7 +108,7 @@ namespace Khorne {
 
     int Skarbrand::generateMortalWounds(const Unit *unit) {
         // Total Carnage
-        if (distanceTo(unit) <= (float) m_carnage.range()) {
+        if (distanceTo(unit) <= (double) m_carnage.range()) {
             int index = getDamageTableIndex();
             if (!m_attackedInPreviousRound)
                 index = NUM_TABLE_ENTRIES - 1;
@@ -134,7 +134,7 @@ namespace Khorne {
     void Skarbrand::onStartShooting(PlayerId player) {
         // Roar of Total Rage
         if (m_shootingTarget) {
-            if (distanceTo(m_shootingTarget) <= 8.0f) {
+            if (distanceTo(m_shootingTarget) <= 8.0) {
                 Dice::RollResult results;
                 Dice::rollD6(g_damageTable[getDamageTableIndex()].m_roarOfTotalRage, results);
                 if (results.rollsGE(4)) {

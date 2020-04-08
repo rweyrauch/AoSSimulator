@@ -19,7 +19,7 @@ namespace Skaven {
     struct TableEntry {
         int m_move;
         int m_spikesToHit;
-        float m_pealRange;
+        double m_pealRange;
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
@@ -150,7 +150,7 @@ namespace Skaven {
     }
 
     int GreySeerOnScreamingBell::altarOfTheHornedRat(const Unit *unit) {
-        if (unit->hasKeyword(SKAVENTIDE) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 13.0f)) {
+        if (unit->hasKeyword(SKAVENTIDE) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 13.0)) {
             // Make unit battleshock immune
             return 13;
         }
@@ -167,7 +167,7 @@ namespace Skaven {
             int roll = Dice::roll2D6();
             if (roll == 2) {
                 // Magical Backlash
-                auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+                auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
                 for (auto unit : units) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }

@@ -122,7 +122,7 @@ namespace CitiesOfSigmar {
     int BlackGuard::toHitModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toHitModifier(weapon, target);
         // Elite Bodyguard
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0);
         if (unit && unit->hasKeyword(DARKLING_COVENS)) mod++;
         return mod;
     }

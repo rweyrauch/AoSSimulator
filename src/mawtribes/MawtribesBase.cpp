@@ -66,7 +66,7 @@ namespace OgorMawtribes {
         // Trampling Charge
         if (hasKeyword(OGOR) || hasKeyword(RHINOX)) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 1.0f)) {
+            if (unit && (distanceTo(unit) <= 1.0)) {
                 Dice::RollResult result;
                 int numDice = m_unmodifiedChargeRoll;
 
@@ -88,7 +88,7 @@ namespace OgorMawtribes {
 
         // Grasp of the Everwinter
         if ((player == owningPlayer()) && hasKeyword(BEASTCLAW_RAIDERS)) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
                 int roll = Dice::rollD6();
                 if (roll < m_battleRound) {
@@ -107,7 +107,7 @@ namespace OgorMawtribes {
         auto mod = Unit::moveModifier();
 
         // Ravenous Brutes
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         const bool isHungery = units.empty();
         if (isHungery) mod += 2;
 
@@ -118,7 +118,7 @@ namespace OgorMawtribes {
         auto mod = Unit::braveryModifier();
 
         // Ravenous Brutes
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         const bool isEating = !units.empty();
         if (isEating) mod += 2;
 

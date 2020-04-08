@@ -69,7 +69,7 @@ namespace Skaven {
             bool moreMoreWarpfire = ((Dice::rollD6() >= 2) || remainingWounds() <= 1);
 
             // Warpfire
-            if (distanceTo(m_shootingTarget) <= (float) m_warpfireThrower.range()) {
+            if (distanceTo(m_shootingTarget) <= (double) m_warpfireThrower.range()) {
                 int numTargetModels = m_shootingTarget->remainingModels();
                 Dice::RollResult rollResult;
                 Dice::rollD6(numTargetModels, rollResult);

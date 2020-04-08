@@ -115,7 +115,7 @@ namespace Skaven {
         // Warpfire Gauntlet
         if ((owningPlayer() == player) && !m_usedGauntlet) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) < 8.0f) {
+            if (unit && distanceTo(unit) < 8.0) {
                 if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
                 m_usedGauntlet = true;
             }

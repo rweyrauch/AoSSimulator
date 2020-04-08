@@ -84,8 +84,8 @@ namespace Nurgle {
 
     int SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod(const Unit *unit) {
         if (isFriendly(unit)) {
-            if ((unit->hasKeyword(NURGLE) && unit->hasKeyword(DAEMON)) && (distanceTo(unit) <= 7.0f)) return 1;
-        } else if (distanceTo(unit) <= 7.0f) {
+            if ((unit->hasKeyword(NURGLE) && unit->hasKeyword(DAEMON)) && (distanceTo(unit) <= 7.0)) return 1;
+        } else if (distanceTo(unit) <= 7.0) {
             return -1;
         }
 
@@ -93,7 +93,7 @@ namespace Nurgle {
     }
 
     Rerolls SloppityBilepiperHeraldOfNurgle::jollyGutpipesChargeReroll(const Unit *unit) {
-        if ((unit->hasKeyword(NURGLINGS) || unit->hasKeyword(GREAT_UNCLEAN_ONE)) && (distanceTo(unit) <= 7.0f))
+        if ((unit->hasKeyword(NURGLINGS) || unit->hasKeyword(GREAT_UNCLEAN_ONE)) && (distanceTo(unit) <= 7.0))
             return RerollOnes;
 
         return NoRerolls;

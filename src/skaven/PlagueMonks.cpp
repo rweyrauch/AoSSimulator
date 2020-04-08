@@ -153,7 +153,7 @@ namespace Skaven {
         if (owningPlayer() == player) {
             // Book of Woes
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(player));
-            if (distanceTo(unit) <= 13.0f && !unit->hasKeyword(CLANS_PESTILENS)) {
+            if (distanceTo(unit) <= 13.0 && !unit->hasKeyword(CLANS_PESTILENS)) {
                 int roll = Dice::rollD6();
                 if (roll == 6) {
                     unit->applyDamage({0, Dice::rollD3()});

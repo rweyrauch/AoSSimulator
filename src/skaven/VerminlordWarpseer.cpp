@@ -109,7 +109,7 @@ namespace Skaven {
 
     int VerminlordWarpseer::terrifying(const Unit *target) {
         // Terrifying
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
         return 0;
@@ -139,7 +139,7 @@ namespace Skaven {
 
         if (!m_usedOrb) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) <= 13.0f) {
+            if (unit && distanceTo(unit) <= 13.0) {
                 unit->applyDamage({0, Dice::rollD6()});
                 m_usedOrb = true;
             }

@@ -106,7 +106,7 @@ namespace CitiesOfSigmar {
         // Scythed Runners
         for (int i = 0; i < remainingModels(); i++) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) <= 1.0f) {
+            if (unit && distanceTo(unit) <= 1.0) {
                 if (Dice::rollD6() >= 2) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }

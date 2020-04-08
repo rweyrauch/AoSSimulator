@@ -105,7 +105,7 @@ namespace Skaven {
 
     int Packmasters::crackTheWhip(const Unit *attacker, const Weapon * /*weapon*/, const Unit * /*target*/) {
         // Crack the Whip
-        if (attacker->hasKeyword(CLANS_MOULDER) && attacker->hasKeyword(PACK) && (distanceTo(attacker) <= 12.0f)) {
+        if (attacker->hasKeyword(CLANS_MOULDER) && attacker->hasKeyword(PACK) && (distanceTo(attacker) <= 12.0)) {
             return 1;
         }
         return 0;
@@ -113,7 +113,7 @@ namespace Skaven {
 
     int Packmasters::crackTheWhipBravery(const Unit *unit) {
         // Crack the Whip
-        if (unit->hasKeyword(CLANS_MOULDER) && unit->hasKeyword(PACK) && (distanceTo(unit) <= 12.0f)) {
+        if (unit->hasKeyword(CLANS_MOULDER) && unit->hasKeyword(PACK) && (distanceTo(unit) <= 12.0)) {
             // Double unit's bravery
             return unit->bravery();
         }

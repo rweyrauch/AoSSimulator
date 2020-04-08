@@ -156,7 +156,7 @@ namespace CitiesOfSigmar {
 
     int LuminarkOfHysh::locusOfHysh(const Unit *caster) {
         if (caster->hasKeyword(COLLEGIATE_ARCANE) && caster->hasKeyword(WIZARD) &&
-            ((caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0f))) {
+            ((caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0))) {
             return 1;
         }
         return 0;

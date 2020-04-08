@@ -9,6 +9,7 @@
 
 #include <cmath>
 #include <cassert>
+#include <cfloat>
 
 #ifndef __EMSCRIPTEN__
 
@@ -26,12 +27,9 @@ namespace Math {
     };
 
 // How close to zero is to considered zero?
-    const float EPSILON = 1.0e-6f;
-    const float INFINITE = 1.0e38f;
-
-// Pi
-    const float PI = (float) M_PI;
-
+    const double EPSILON = 1.0e-6;
+    const double INFINITE = DBL_MAX;
+    
     template<class T>
     inline T Clamp(T val, T min, T max) {
         return ((val > max) ? max : ((val < min) ? min : val));
@@ -99,10 +97,10 @@ namespace Math {
         b = tmp;
     }
 
-    inline float Trunc(float val) {
-        if (val >= 0.0f)
-            return floorf(val);
-        return ceilf(val);
+    inline double Trunc(double val) {
+        if (val >= 0.0)
+            return floor(val);
+        return ceil(val);
     }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -118,7 +116,7 @@ namespace Math {
 
         Point2(const Point2 &p) = default;
 
-        Point2(float x_, float y_) :
+        Point2(double x_, double y_) :
                 x(x_),
                 y(y_) {}
 
@@ -136,7 +134,7 @@ namespace Math {
             return *this;
         }
 
-        Point2 &operator*=(float scale) {
+        Point2 &operator*=(double scale) {
             x *= scale;
             y *= scale;
             return *this;
@@ -150,11 +148,11 @@ namespace Math {
             return Point2(x - v.x, y - v.y);
         }
 
-        Point2 operator*(float scale) const {
+        Point2 operator*(double scale) const {
             return Point2(x * scale, y * scale);
         }
 
-        friend Point2 operator*(float scale, const Point2 &v) {
+        friend Point2 operator*(double scale, const Point2 &v) {
             return Point2(v.x * scale, v.y * scale);
         }
 
@@ -166,16 +164,16 @@ namespace Math {
             return !(*this == v);
         }
 
-        bool equal(const Point2 &v, float e = EPSILON) const {
+        bool equal(const Point2 &v, double e = EPSILON) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e));
         }
 
-        float distanceSquare(const Point2 &v) const {
+        double distanceSquare(const Point2 &v) const {
             return (Sqr(x - v.x) + Sqr(y - v.y));
         }
 
-        float distance(const Point2 &v) const {
+        double distance(const Point2 &v) const {
             return sqrtf(distanceSquare(v));
         }
 
@@ -184,18 +182,20 @@ namespace Math {
             this->y = v.y;
         }
 
-        void set(float x, float y) {
-            this->x = x;
-            this->y = y;
+        void set(double xx, double yy) {
+            this->x = xx;
+            this->y = yy;
         }
 
-        float &at(int index) {
+        double &at(int index) {
             switch (index) {
                 case 0:
                     return x;
                 case 1:
                     return y;
-            };
+                default:
+                    break;
+            }
 #ifndef __EMSCRIPTEN__
             throw std::out_of_range("Invalid index.");
 #else
@@ -203,13 +203,15 @@ namespace Math {
 #endif
         }
 
-        const float &at(int index) const {
+        const double &at(int index) const {
             switch (index) {
                 case 0:
                     return x;
                 case 1:
                     return y;
-            };
+                default:
+                    break;
+            }
 #ifndef __EMSCRIPTEN__
             throw std::out_of_range("Invalid index.");
 #else
@@ -219,7 +221,7 @@ namespace Math {
 
     public:
 
-        float x = 0.0f, y = 0.0f;
+        double x = 0.0f, y = 0.0f;
 
     };
 
@@ -236,12 +238,12 @@ namespace Math {
 
         Point3(const Point3 &p) = default;
 
-        Point3(const Point2 &p) :
-                x(p.x),
-                y(p.y),
-                z(0.0f) {}
+        Point3(double x_, double y_) :
+            x(x_),
+            y(y_),
+            z(0.0f) {}
 
-        Point3(float x_, float y_, float z_) :
+        Point3(double x_, double y_, double z_) :
                 x(x_),
                 y(y_),
                 z(z_) {}
@@ -262,7 +264,7 @@ namespace Math {
             return *this;
         }
 
-        Point3 &operator*=(float scale) {
+        Point3 &operator*=(double scale) {
             x *= scale;
             y *= scale;
             z *= scale;
@@ -277,11 +279,11 @@ namespace Math {
             return Point3(x - v.x, y - v.y, z - v.z);
         }
 
-        Point3 operator*(float scale) const {
+        Point3 operator*(double scale) const {
             return Point3(x * scale, y * scale, z * scale);
         }
 
-        friend Point3 operator*(float scale, const Point3 &v) {
+        friend Point3 operator*(double scale, const Point3 &v) {
             return Point3(v.x * scale, v.y * scale, v.z * scale);
         }
 
@@ -293,17 +295,17 @@ namespace Math {
             return !(*this == v);
         }
 
-        bool equal(const Point3 &v, float e = EPSILON) const {
+        bool equal(const Point3 &v, double e = EPSILON) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e) &&
                     Equal(z, v.z, e));
         }
 
-        float distanceSquare(const Point3 &v) const {
+        double distanceSquare(const Point3 &v) const {
             return (Sqr(x - v.x) + Sqr(y - v.y) + Sqr(z - v.z));
         }
 
-        float distance(const Point3 &v) const {
+        double distance(const Point3 &v) const {
             const auto distSqr = distanceSquare(v);
             return (distSqr > 0.0f) ? sqrtf(distanceSquare(v)) : 0.0f;
         }
@@ -314,13 +316,13 @@ namespace Math {
             this->z = v.z;
         }
 
-        void set(float x, float y, float z) {
-            this->x = x;
-            this->y = y;
-            this->z = z;
+        void set(double xx, double yy, double zz) {
+            this->x = xx;
+            this->y = yy;
+            this->z = zz;
         }
 
-        float &at(int index) {
+        double &at(int index) {
             switch (index) {
                 case 0:
                     return x;
@@ -328,7 +330,9 @@ namespace Math {
                     return y;
                 case 2:
                     return z;
-            };
+                default:
+                    break;
+            }
 #ifndef __EMSCRIPTEN__
             throw std::out_of_range("Invalid index.");
 #else
@@ -336,7 +340,7 @@ namespace Math {
 #endif
         }
 
-        const float &at(int index) const {
+        const double &at(int index) const {
             switch (index) {
                 case 0:
                     return x;
@@ -344,7 +348,9 @@ namespace Math {
                     return y;
                 case 2:
                     return z;
-            };
+                default:
+                    break;
+            }
 #ifndef __EMSCRIPTEN__
             throw std::out_of_range("Invalid index.");
 #else
@@ -354,7 +360,7 @@ namespace Math {
 
     public:
 
-        float x = 0.0f, y = 0.0f, z = 0.0f;
+        double x = 0.0f, y = 0.0f, z = 0.0f;
 
     };
 
@@ -367,17 +373,15 @@ namespace Math {
     class Vector2 {
     public:
 
-        Vector2() {}
+        Vector2() = default;
 
-        Vector2(const Vector2 &v) :
-                x(v.x),
-                y(v.y) {}
+        Vector2(const Vector2 &v) = default;
 
-        Vector2(const Point2 &p) :
+        explicit Vector2(const Point2 &p) :
                 x(p.x),
                 y(p.y) {}
 
-        Vector2(float x_, float y_) :
+        Vector2(double x_, double y_) :
                 x(x_),
                 y(y_) {}
 
@@ -385,11 +389,7 @@ namespace Math {
                 x(end.x - origin.x),
                 y(end.y - origin.y) {}
 
-        inline Vector2 &operator=(const Vector2 &v) {
-            x = v.x;
-            y = v.y;
-            return *this;
-        }
+        inline Vector2 &operator=(const Vector2 &v) = default;
 
         inline Vector2 &operator+=(const Vector2 &v) {
             x += v.x;
@@ -403,13 +403,13 @@ namespace Math {
             return *this;
         }
 
-        inline Vector2 &operator*=(float scale) {
+        inline Vector2 &operator*=(double scale) {
             x *= scale;
             y *= scale;
             return *this;
         }
 
-        inline Vector2 &operator/=(float scale) {
+        inline Vector2 &operator/=(double scale) {
             x /= scale;
             y /= scale;
             return *this;
@@ -431,15 +431,15 @@ namespace Math {
             return Vector2(x - v.x, y - v.y);
         }
 
-        inline Vector2 operator*(float scale) const {
+        inline Vector2 operator*(double scale) const {
             return Vector2(x * scale, y * scale);
         }
 
-        inline Vector2 operator/(float scale) const {
+        inline Vector2 operator/(double scale) const {
             return Vector2(x / scale, y / scale);
         }
 
-        friend Vector2 operator*(float scale, const Vector2 &v) {
+        friend Vector2 operator*(double scale, const Vector2 &v) {
             return Vector2(v.x * scale, v.y * scale);
         }
 
@@ -451,30 +451,30 @@ namespace Math {
             return !(*this == v);
         }
 
-        inline bool equal(const Vector2 &v, float e = EPSILON) const {
+        inline bool equal(const Vector2 &v, double e = EPSILON) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e));
         }
 
-        float normalize();
+        Vector2 normalize() const;
 
-        inline float length() const {
+        inline double length() const {
             return sqrtf(x * x + y * y);
         }
 
-        inline float lengthSquare() const {
+        inline double lengthSquare() const {
             return (x * x + y * y);
         }
 
-        inline float dot(const Vector2 &v) const {
+        inline double dot(const Vector2 &v) const {
             return (x * v.x + y * v.y);
         }
 
-        inline float distanceSquare(const Vector2 &v) const {
+        inline double distanceSquare(const Vector2 &v) const {
             return (Sqr(x - v.x) + Sqr(y - v.y));
         }
 
-        inline float distance(const Vector2 &v) const {
+        inline double distance(const Vector2 &v) const {
             return sqrtf(distanceSquare(v));
         }
 
@@ -483,14 +483,14 @@ namespace Math {
             y = v.y;
         }
 
-        inline void set(float x, float y) {
-            this->x = x;
-            this->y = y;
+        inline void set(double xx, double yy) {
+            this->x = xx;
+            this->y = yy;
         }
 
     public:
 
-        float x, y;
+        double x, y;
 
     };
 
@@ -507,7 +507,7 @@ namespace Math {
 
         Vector3(const Vector3 &v) = default;
 
-        Vector3(float x_, float y_, float z_) :
+        Vector3(double x_, double y_, double z_) :
                 x(x_),
                 y(y_),
                 z(z_) {}
@@ -533,15 +533,15 @@ namespace Math {
             return *this;
         }
 
-        Vector3 &operator*=(float scale) {
+        Vector3 &operator*=(double scale) {
             x *= scale;
             y *= scale;
             z *= scale;
             return *this;
         }
 
-        Vector3 &operator/=(float scale) {
-            const float invScale = 1.0f / scale;
+        Vector3 &operator/=(double scale) {
+            const double invScale = 1.0f / scale;
             x *= invScale;
             y *= invScale;
             z *= invScale;
@@ -564,16 +564,16 @@ namespace Math {
             return Vector3(x - v.x, y - v.y, z - v.z);
         }
 
-        Vector3 operator*(float scale) const {
+        Vector3 operator*(double scale) const {
             return Vector3(x * scale, y * scale, z * scale);
         }
 
-        Vector3 operator/(float scale) const {
-            const float invScale = 1.0f / scale;
+        Vector3 operator/(double scale) const {
+            const double invScale = 1.0f / scale;
             return Vector3(x * invScale, y * invScale, z * invScale);
         }
 
-        friend Vector3 operator*(float scale, const Vector3 &v) {
+        friend Vector3 operator*(double scale, const Vector3 &v) {
             return Vector3(v.x * scale, v.y * scale, v.z * scale);
         }
 
@@ -585,35 +585,35 @@ namespace Math {
             return !(*this == v);
         }
 
-        bool equal(const Vector3 &v, float e = EPSILON) const {
+        bool equal(const Vector3 &v, double e = EPSILON) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e) &&
                     Equal(z, v.z, e));
         }
 
-        float normalize();
+        Vector3 normalize() const;
 
-        float length() const {
+        double length() const {
             return sqrtf(x * x + y * y + z * z);
         }
 
-        float lengthSquare() const {
+        double lengthSquare() const {
             return (x * x + y * y + z * z);
         }
 
-        float dot(const Vector3 &v) const {
+        double dot(const Vector3 &v) const {
             return (x * v.x + y * v.y + z * v.z);
         }
 
-        float dot(const Point3 &p) const {
+        double dot(const Point3 &p) const {
             return (x * p.x + y * p.y + z * p.z);
         }
 
-        float distanceSquare(const Vector3 &v) const {
+        double distanceSquare(const Vector3 &v) const {
             return (Sqr(x - v.x) + Sqr(y - v.y) + Sqr(z - v.z));
         }
 
-        float distance(const Vector3 &v) const {
+        double distance(const Vector3 &v) const {
             return sqrtf(distanceSquare(v));
         }
 
@@ -623,13 +623,13 @@ namespace Math {
             this->z = v.z;
         }
 
-        void set(float x, float y, float z) {
-            this->x = x;
-            this->y = y;
-            this->z = z;
+        void set(double xx, double yy, double zz) {
+            this->x = xx;
+            this->y = yy;
+            this->z = zz;
         }
 
-        float &at(int index) {
+        double &at(int index) {
             switch (index) {
                 case 0:
                     return x;
@@ -637,7 +637,9 @@ namespace Math {
                     return y;
                 case 2:
                     return z;
-            };
+                default:
+                    break;
+            }
 #ifndef __EMSCRIPTEN__
             throw std::out_of_range("Invalid index.");
 #else
@@ -645,7 +647,7 @@ namespace Math {
 #endif
         }
 
-        const float &at(int index) const {
+        const double &at(int index) const {
             switch (index) {
                 case 0:
                     return x;
@@ -653,7 +655,9 @@ namespace Math {
                     return y;
                 case 2:
                     return z;
-            };
+                default:
+                    break;
+            }
 #ifndef __EMSCRIPTEN__
             throw std::out_of_range("Invalid index.");
 #else
@@ -661,9 +665,9 @@ namespace Math {
 #endif
         }
 
-        static float Dot(const Vector3 &v1, const Vector3 &v2);
+        static double Dot(const Vector3 &v1, const Vector3 &v2);
 
-        static float Dot(const Vector3 &v1, const Point3 &p2);
+        static double Dot(const Vector3 &v1, const Point3 &p2);
 
         static Vector3 Cross(const Vector3 &v1, const Vector3 &v2);
 
@@ -675,13 +679,13 @@ namespace Math {
 
         // Compute refraction vector from unit incident and normal vectors.
         // Eta is relative index of refraction.
-        static Vector3 Refract(const Vector3 &inc, const Vector3 &normal, float eta);
+        static Vector3 Refract(const Vector3 &inc, const Vector3 &normal, double eta);
 
         static Vector3 Subtract(const Point3 &p0, const Point3 &p1);
 
     public:
 
-        float x = 0.0f, y = 0.0f, z = 0.0f;
+        double x = 0.0f, y = 0.0f, z = 0.0f;
 
     };
 
@@ -704,7 +708,7 @@ namespace Math {
                 m_center(),
                 m_radius(0.0f) {}
 
-        Circle(const Point2 &center, float r) :
+        Circle(const Point2 &center, double r) :
                 m_center(center),
                 m_radius(r) {}
 
@@ -716,16 +720,16 @@ namespace Math {
             return m_center;
         }
 
-        inline const float &radius() const {
+        inline const double &radius() const {
             return m_radius;
         }
 
-        inline float &radius() {
+        inline double &radius() {
             return m_radius;
         }
 
         // Get point at angle t (radians) on circle
-        Point2 pointAt(float t) const {
+        Point2 pointAt(double t) const {
             // Parametric form of an circle:
             // t   : angle from 0..2pi
             // X(t) = centerX + radius * cos(t)
@@ -738,19 +742,19 @@ namespace Math {
             return point;
         }
 
-        float area() const {
-            const auto a = static_cast<float>(M_PI) * m_radius * m_radius;
+        double area() const {
+            const auto a = static_cast<double>(M_PI) * m_radius * m_radius;
             return a;
         }
 
-        float circumference() const {
-            const float c = static_cast<float>(2) * static_cast<float>(M_PI) * m_radius;
+        double circumference() const {
+            const double c = static_cast<double>(2) * static_cast<double>(M_PI) * m_radius;
             return c;
         }
 
     private:
         Point2 m_center;
-        float m_radius;
+        double m_radius;
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -764,7 +768,7 @@ namespace Math {
 
         Sphere() = default;
 
-        Sphere(const Point3 &center, float radius) :
+        Sphere(const Point3 &center, double radius) :
                 m_center(center),
                 m_radius(radius) {}
 
@@ -778,19 +782,19 @@ namespace Math {
             return m_center;
         }
 
-        void setRadius(const float radius) {
+        void setRadius(const double radius) {
             m_radius = radius;
         }
 
-        float getRadius() const {
+        double getRadius() const {
             return m_radius;
         }
 
-        float getRadiusSqr() const {
+        double getRadiusSqr() const {
             return (m_radius * m_radius);
         }
 
-        float getInvRadius() const {
+        double getInvRadius() const {
             return (1.0f / m_radius);
         }
 
@@ -799,7 +803,7 @@ namespace Math {
     protected:
 
         Point3 m_center = {0.0f, 0.0f, 0.0f};
-        float m_radius = 1.0f;
+        double m_radius = 1.0f;
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -813,7 +817,7 @@ namespace Math {
 
         Plane() = default;
 
-        Plane(const Vector3 &normal, float offset) :
+        Plane(const Vector3 &normal, double offset) :
                 m_normal(normal),
                 m_offset(offset) {}
 
@@ -821,14 +825,14 @@ namespace Math {
 
         Point3 nearestPointOnPlane(const Point3 &point) const;
 
-        float distance(const Point3 &point) const;
+        double distance(const Point3 &point) const;
 
         EContainment contains(const Point3 &point) const;
 
     public:
 
         Vector3 m_normal = {0.0f, 0.0f, 1.0f};
-        float m_offset = 0.0f;
+        double m_offset = 0.0f;
 
     };
 
@@ -867,7 +871,7 @@ namespace Math {
             m_maxMin[BI_MIN_Z] = min.z;
         }
 
-        Box3(float maxX, float maxY, float maxZ, float minX, float minY, float minZ) {
+        Box3(double maxX, double maxY, double maxZ, double minX, double minY, double minZ) {
             m_maxMin[BI_MAX_X] = maxX;
             m_maxMin[BI_MAX_Y] = maxY;
             m_maxMin[BI_MAX_Z] = maxZ;
@@ -885,7 +889,7 @@ namespace Math {
             m_maxMin[BI_MIN_Z] = INFINITE;
         }
 
-        bool split(float plane, unsigned int axis, Box3 &boxL, Box3 &boxR) const;
+        bool split(double plane, unsigned int axis, Box3 &boxL, Box3 &boxR) const;
 
         void getCorner(unsigned int which, Point3 &corner) const;
 
@@ -909,7 +913,7 @@ namespace Math {
             min.set(m_maxMin[BI_MIN_X], m_maxMin[BI_MIN_Y], m_maxMin[BI_MIN_Z]);
         }
 
-        float getSurfaceArea() const;
+        double getSurfaceArea() const;
 
         EContainment contains(const Point3 &point) const;
 
@@ -919,7 +923,7 @@ namespace Math {
 
     public:
 
-        float m_maxMin[BI_NUM_NDX] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+        double m_maxMin[BI_NUM_NDX] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
     private:
 
@@ -953,13 +957,13 @@ namespace Math {
         Vector3 m_bu = {1.0f, 0.0f, 0.0f};
 
         // Half length
-        float m_hu = 0.0f;
+        double m_hu = 0.0f;
 
         Vector3 m_bv = {0.0f, 1.0f, 0.0f};
-        float m_hv = 0.0f;
+        double m_hv = 0.0f;
 
         Vector3 m_bw = {0.0f, 0.0f, 1.0f};
-        float m_hw = 0.0f;
+        double m_hw = 0.0f;
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -980,10 +984,10 @@ namespace Math {
         Ray2(const Point2 &origin, const Point2 &end) :
                 m_origin(origin),
                 m_dir(origin, end) {
-            m_dir.normalize();
+            m_dir = m_dir.normalize();
         }
 
-        Point2 point_at(float t) const {
+        Point2 point_at(double t) const {
             Point2 point(m_origin);
             point.x += m_dir.x * t;
             point.y += m_dir.y * t;
@@ -1018,16 +1022,16 @@ namespace Math {
         Ray(const Point3 &origin, const Vector3 &dir) :
                 m_origin(origin),
                 m_dir(dir) {
-            m_dir.normalize();
+            m_dir = m_dir.normalize();
         }
 
         Ray(const Point3 &origin, const Point3 &end) :
                 m_origin(origin),
                 m_dir(origin, end) {
-            m_dir.normalize();
+            m_dir = m_dir.normalize();
         }
 
-        Point3 point_at(const float t) const {
+        Point3 point_at(const double t) const {
             Point3 point(m_origin);
             point.x += m_dir.x * t;
             point.y += m_dir.y * t;
@@ -1056,7 +1060,7 @@ namespace Math {
 ///////////////////////////////////////////////////////////////////////////////
 
     struct RayHit {
-        float m_t;
+        double m_t;
         Point3 m_point;
         Vector3 m_norm;
         Vector3 m_bary;
@@ -1070,7 +1074,7 @@ namespace Math {
                 m_v1(v1),
                 m_v2(v2) {}
 
-        float getArea() const;
+        double getArea() const;
 
         Point3 m_v0;
         Point3 m_v1;
@@ -1081,28 +1085,37 @@ namespace Math {
         explicit TriangleFast(const Triangle &tri);
 
         Point3 m_v0;
-        int pad0;
 
-        float m_nu, m_nv, m_nd;   // Plane coeff of projection plane
+        double m_nu, m_nv, m_nd;   // Plane coeff of projection plane
+        double m_bnu, m_bnv;       // Projection plane edge equations
+        double m_cnu, m_cnv;
         int m_k;                // Projection plane index (X, Y, Z)
-
-        float m_bnu, m_bnv;       // Projection plane edge equations
-        float m_cnu, m_cnv;
     };
 
-    extern bool Intersect(const Ray2 &ray, const Circle &sphere, RayHit &h0, RayHit &h1);
+    bool Intersect(const Ray2 &ray, const Circle &circle, RayHit &h0, RayHit &h1);
 
-    extern bool Intersect(const Ray &ray, const Sphere &sphere, RayHit &h0, RayHit &h1);
+    bool Intersect(const Ray &ray, const Sphere &sphere, RayHit &h0, RayHit &h1);
 
-    extern bool Intersect(const Ray &ray, const Box3 &box, float &t0, float &t1);
+    bool Intersect(const Ray &ray, const Box3 &box, double &t0, double &t1);
 
-    extern bool Intersect(const Ray &ray, const Plane &plane, RayHit &h0);
+    bool Intersect(const Ray &ray, const Plane &plane, RayHit &h0);
 
-    extern bool Intersect(const Ray &ray, const Triangle &tri, RayHit &h0);
+    bool Intersect(const Ray &ray, const Triangle &tri, RayHit &h0);
 
-    extern bool Intersect(const Ray &ray, const TriangleFast &tri, RayHit &h0);
+    bool Intersect(const Ray &ray, const TriangleFast &tri, RayHit &h0);
 
-    extern bool Intersect(const Triangle &tri, const Box3 &box);
+    bool Intersect(const Triangle &tri, const Box3 &box);
+
+    /*!
+     * Determines the point of intersection between a moving circle (c0) and a stationary circle (c1).
+     * The point of intersection is returned as the distance along the motion vector.
+     * @param c0 Moving circle
+     * @param motion0 Motion vector of c0
+     * @param c1 Circle being intersected against
+     * @param[out] poi Point of intersection along motion vector
+     * @return True if the circles intersect, false otherwise.
+     */
+    bool PointOfIntersection(const Circle &c0, const Vector2 &motion0, const Circle &c1, double &poi);
 
 #define MAX_INTERSECT_POINTS 4
 
@@ -1111,10 +1124,11 @@ namespace Math {
         Point3 m_points[MAX_INTERSECT_POINTS];
     };
 
-    extern bool Intersect(const Plane &plane, const Box3 &box, IntersectInfo &hitInfo);
+    bool Intersect(const Plane &plane, const Box3 &box, IntersectInfo &hitInfo);
 
-    extern bool Intersect(const Plane &plane, const OrientedBox &box, IntersectInfo &hitInfo);
+    bool Intersect(const Plane &plane, const OrientedBox &box, IntersectInfo &hitInfo);
+
+    bool Intersect(const Circle &c0, const Circle &c1, IntersectInfo &hitInfo);
+
 
 } // namespace Math
-
-

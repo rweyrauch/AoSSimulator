@@ -256,7 +256,7 @@ namespace SlavesToDarkness {
 
     int ChaosKnights::terrifyingChampions(const Unit *unit) {
         // Terrifying Champions
-        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0f)) {
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0)) {
             return -1;
         }
         return 0;

@@ -135,7 +135,7 @@ namespace Death {
     }
 
     int Zombies::standardBearerBraveryMod(const Unit *unit) {
-        if (m_standardBearer && !isFriendly(unit) && (distanceTo(unit) <= 6.0f)) return -1;
+        if (m_standardBearer && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

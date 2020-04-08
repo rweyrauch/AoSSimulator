@@ -148,7 +148,7 @@ namespace FleshEaterCourt {
         FleshEaterCourts::onSlain();
 
         // Infested
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto ip : units) {
             Wounds wounds = {0, Dice::rollD3()};
             ip->applyDamage(wounds);

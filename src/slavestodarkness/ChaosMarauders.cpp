@@ -220,7 +220,7 @@ namespace SlavesToDarkness {
 
     int ChaosMarauders::iconBearer(const Unit *unit) {
         // Icon Bearer
-        if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f)) {
+        if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

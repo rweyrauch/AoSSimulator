@@ -79,7 +79,7 @@ namespace Death {
     }
 
     int CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod(const Unit *caster) {
-        if (isFriendly(caster) && hasKeyword(DEATH) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0f)) return 1;
+        if (isFriendly(caster) && hasKeyword(DEATH) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0)) return 1;
         return 0;
     }
 

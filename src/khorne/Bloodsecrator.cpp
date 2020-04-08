@@ -80,7 +80,7 @@ namespace Khorne {
     Bloodsecrator::rageOfKhorneAttackMod(const Unit *attacker, const Model * /*attackingModel*/, const Weapon *weapon,
                                          const Unit * /*target*/) {
         if (isFriendly(attacker) && attacker->hasKeyword(KHORNE) && !weapon->isMissile() &&
-            (distanceTo(attacker) <= 16.0f))
+            (distanceTo(attacker) <= 16.0))
             return 1;
         return 0;
     }

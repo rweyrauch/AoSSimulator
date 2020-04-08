@@ -98,7 +98,7 @@ namespace DaughtersOfKhaine {
         if (m_pairedKnives) attacks++;
 
         // Frenzied Fervour
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 8.0);
         for (auto unit : units) {
             if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && unit->hasKeyword(HERO)) {
                 attacks++;

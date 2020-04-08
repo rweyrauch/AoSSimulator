@@ -94,7 +94,7 @@ namespace StormcastEternals {
     }
 
     int VandusHammerhand::lordOfTheHammerhandsBraveryMod(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(HAMMERS_OF_SIGMAR) && (distanceTo(unit) <= 24.0f)) return 42;
+        if (isFriendly(unit) && unit->hasKeyword(HAMMERS_OF_SIGMAR) && (distanceTo(unit) <= 24.0)) return 42;
         return 0;
     }
 
@@ -108,11 +108,11 @@ namespace StormcastEternals {
         // Storm Breath
         if (owningPlayer() == player) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 12.0f)) {
+            if (unit && (distanceTo(unit) <= 12.0)) {
                 if (Dice::rollD6() >= 4) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }
-                auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0f);
+                auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0);
                 for (auto target : units) {
                     if (Dice::rollD6() >= 4) {
                         target->applyDamage({0, Dice::rollD3()});

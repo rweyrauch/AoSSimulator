@@ -1152,7 +1152,7 @@ Verbosity GetVerbosity();
 void SimLog(Verbosity verbosity, const char *format, ...);
 
 
-float AverageRandomValue(int value);
+double AverageRandomValue(int value);
 
 
 #endif //AGEOFSIGMARSIM_H

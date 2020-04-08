@@ -74,7 +74,7 @@ namespace StormcastEternals {
     }
 
     Rerolls KnightVexillor::iconOfWarChargeReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
+        if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0)) return RerollFailed;
         return NoRerolls;
     }
 

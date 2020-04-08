@@ -70,7 +70,7 @@ namespace Skaven {
             bool moreMoreWarpLightning = ((Dice::rollD6() >= 2) || remainingWounds() <= 2);
 
             // Warp Lightning Blast
-            if (distanceTo(m_shootingTarget) <= (float) m_warpLightningBlast.range()) {
+            if (distanceTo(m_shootingTarget) <= (double) m_warpLightningBlast.range()) {
                 int power = Dice::rollD6();
                 Dice::RollResult rollResult;
                 Dice::rollD6(6, rollResult);
@@ -79,7 +79,7 @@ namespace Skaven {
                 // More-more Warp Lightning!
                 if (moreMoreWarpLightning) {
                     bool foundEngineer = false;
-                    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+                    auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
                     for (auto ip : units) {
                         if (ip->hasKeyword(WARLOCK) && ip->hasKeyword(ENGINEER)) {
                             foundEngineer = true;

@@ -10,7 +10,7 @@
 #include <Board.h>
 
 MysticShield::MysticShield(Unit *caster) :
-        Spell(caster, "Mystic Shield", 6, 18.0f) {
+        Spell(caster, "Mystic Shield", 6, 18.0) {
     m_targetFriendly = true;
 }
 
@@ -20,7 +20,7 @@ Spell::Result MysticShield::cast(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }

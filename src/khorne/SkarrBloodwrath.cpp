@@ -69,7 +69,7 @@ namespace Khorne {
     int SkarrBloodwrath::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         int attacks = KhorneBase::extraAttacks(attackingModel, weapon, target);
         // Slaughterstorm
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         int totalModels = 0;
         for (auto ip : units) {
             // TODO: check for models within 3"

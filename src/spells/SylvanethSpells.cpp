@@ -18,7 +18,7 @@ protected:
 };
 
 Metamorphosis::Metamorphosis(Unit *caster) :
-        DamageSpell(caster, "Metamorphosis", 7, 16.0f, 1) {
+        DamageSpell(caster, "Metamorphosis", 7, 16.0, 1) {
 }
 
 int Metamorphosis::getDamage(int castingRoll) const {
@@ -34,7 +34,7 @@ Spell *CreateMetamorphosis(Unit *caster) {
 class UnleashSpites : public AreaOfEffectSpell {
 public:
     explicit UnleashSpites(Unit *caster) :
-            AreaOfEffectSpell(caster, "Unleash Spites", 5, 0.0f, 9.0f, 1, 0) {}
+            AreaOfEffectSpell(caster, "Unleash Spites", 5, 0.0, 9.0, 1, 0) {}
 
 protected:
     int getDamage(int castingRoll) const override {
@@ -62,7 +62,7 @@ Spell *CreateThroneOfVines(Unit *caster) {
 }
 
 Spell *CreateRegrowth(Unit *caster) {
-    return new HealSpell(caster, "Regrowth", 5, 18.0f, RAND_D6);
+    return new HealSpell(caster, "Regrowth", 5, 18.0, RAND_D6);
 }
 
 Spell *CreateTheDwellersBelow(Unit *caster) {
@@ -70,7 +70,7 @@ Spell *CreateTheDwellersBelow(Unit *caster) {
 }
 
 Spell *CreateDeadlyHarvest(Unit *caster) {
-    return new AreaOfEffectSpell(caster, "Deadly Harvest", 6, 0.0f, 3.0f, RAND_D3, 0);
+    return new AreaOfEffectSpell(caster, "Deadly Harvest", 6, 0.0, 3.0, RAND_D3, 0);
 }
 
 Spell *CreateVerdurousHarmony(Unit *caster) {

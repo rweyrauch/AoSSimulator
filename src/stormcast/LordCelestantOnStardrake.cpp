@@ -226,7 +226,7 @@ namespace StormcastEternals {
         bool preferRainOfStars = true;
         if (m_shootingTarget) {
             auto range = distanceTo(m_shootingTarget);
-            if (range <= 18.0f) {
+            if (range <= 18.0) {
                 // Roiling Thunder
                 preferRainOfStars = false;
             }
@@ -274,7 +274,7 @@ namespace StormcastEternals {
     }
 
     int LordCelestantOnStardrake::arcaneLineage(const Unit *target) {
-        if (target->hasKeyword(WIZARD) && (distanceTo(target) <= 18.0f)) {
+        if (target->hasKeyword(WIZARD) && (distanceTo(target) <= 18.0)) {
             if (target->owningPlayer() != owningPlayer()) {
                 // Enemy
                 return -1;

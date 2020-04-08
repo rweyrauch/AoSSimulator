@@ -114,7 +114,7 @@ namespace StormcastEternals {
 
         // Thunderaxe
         if ((weapon->name() == m_thunderaxe.name())) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(STORMCAST_ETERNAL)) attacks++;
             }
@@ -186,11 +186,11 @@ namespace StormcastEternals {
         // Storm Breath
         if (owningPlayer() == player) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 12.0f)) {
+            if (unit && (distanceTo(unit) <= 12.0)) {
                 if (Dice::rollD6() >= 4) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }
-                auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0f);
+                auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0);
                 for (auto target : units) {
                     if (Dice::rollD6() >= 4) {
                         target->applyDamage({0, Dice::rollD3()});

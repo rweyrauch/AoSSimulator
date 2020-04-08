@@ -73,7 +73,7 @@ namespace Nighthaunt {
 
         // Ghostly Howl
         if (player == owningPlayer()) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0);
             if (!units.empty()) {
                 const auto roll = Dice::roll2D6();
                 if (roll > units[0]->bravery()) {

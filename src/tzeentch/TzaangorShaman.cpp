@@ -87,8 +87,8 @@ namespace Tzeentch {
     }
 
     int TzaangorShaman::visionsToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target) {
-        if (attacker->hasKeyword(TZAANGOR_SKYFIRES) && (distanceTo(attacker) <= 12.0f) && weapon->isMissile()) return 1;
-        if (attacker->hasKeyword(TZAANGOR_ENLIGHTENED) && (distanceTo(attacker) <= 12.0f)) return 1;
+        if (attacker->hasKeyword(TZAANGOR_SKYFIRES) && (distanceTo(attacker) <= 12.0) && weapon->isMissile()) return 1;
+        if (attacker->hasKeyword(TZAANGOR_ENLIGHTENED) && (distanceTo(attacker) <= 12.0)) return 1;
         return 0;
     }
 

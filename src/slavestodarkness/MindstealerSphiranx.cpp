@@ -77,7 +77,7 @@ namespace SlavesToDarkness {
 
     int MindstealerSphiranx::telepathicDread(const Unit *unit) {
         // Telepathic Dread
-        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0f)) {
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0)) {
             return -2;
         }
 

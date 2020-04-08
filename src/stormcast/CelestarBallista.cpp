@@ -92,8 +92,8 @@ namespace StormcastEternals {
 
         auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
         if (nearestUnit) {
-            float rangeTo = distanceTo(nearestUnit);
-            if (rangeTo < (float) m_stormboltsRapid.range()) {
+            double rangeTo = distanceTo(nearestUnit);
+            if (rangeTo < (double) m_stormboltsRapid.range()) {
                 m_stormboltsRapid.activate(true);
                 m_stormboltsSingle.activate(false);
             } else {

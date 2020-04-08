@@ -80,8 +80,8 @@ namespace Slaanesh {
 
             Unit *nearestUnit = enemyRoster ? enemyRoster->nearestUnit(this) : nullptr;
             if (nearestUnit) {
-                float rangeTo = distanceTo(nearestUnit);
-                if (rangeTo < (float) m_lyreCacophonousMelody.range()) {
+                double rangeTo = distanceTo(nearestUnit);
+                if (rangeTo < (double) m_lyreCacophonousMelody.range()) {
                     m_lyreCacophonousMelody.activate(true);
                     m_lyreEuphonicBlast.activate(false);
                 } else {

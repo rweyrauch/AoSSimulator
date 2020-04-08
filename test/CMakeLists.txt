@@ -41,6 +41,7 @@ add_executable(
         manoamanotest.cpp
         spelltest.cpp
         paramtest.cpp
+        movementtest.cpp
 )
 
 target_link_libraries(

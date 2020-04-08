@@ -153,7 +153,7 @@ namespace Dispossessed {
         if (weapon->name() == m_drakegun.name() && !m_moved) {
             // Blaze Away
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) > 3.0f) {
+            if (unit && distanceTo(unit) > 3.0) {
                 extra++;
             }
         }

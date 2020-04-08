@@ -101,7 +101,7 @@ namespace Khorne {
 
     void Bloodcrushers::onCharged() {
         // Murderous Charge
-        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f)) {
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
             Dice::rollD6(remainingModels(), rolls);
             Wounds wounds = {0, 0};
@@ -155,7 +155,7 @@ namespace Khorne {
     }
 
     Rerolls Bloodcrushers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0f)) return RerollOnes;
+        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return RerollOnes;
 
         return NoRerolls;
     }

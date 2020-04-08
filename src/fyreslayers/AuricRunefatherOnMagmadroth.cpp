@@ -115,11 +115,11 @@ namespace Fyreslayers {
         if (player == owningPlayer()) {
             // Roaring Fyrestream
             if (m_shootingTarget) {
-                float dist = distanceTo(m_shootingTarget);
-                if (dist <= (float) m_fyrestream.range()) {
+                double dist = distanceTo(m_shootingTarget);
+                if (dist <= (double) m_fyrestream.range()) {
                     int rs = Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
                     if (rs <= m_shootingTarget->remainingModels()) {
-                        if (dist < 6.0f) {
+                        if (dist < 6.0) {
                             m_shootingTarget->applyDamage({0, Dice::rollD6()});
                         } else {
                             m_shootingTarget->applyDamage({0, Dice::rollD3()});
@@ -135,7 +135,7 @@ namespace Fyreslayers {
         auto wounds = Fyreslayer::onEndCombat(player);
 
         // Lashing Tail
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
             if (Dice::rollD6() < ip->remainingModels()) {
                 Wounds tailWounds = {0, Dice::rollD3()};
@@ -145,7 +145,7 @@ namespace Fyreslayers {
         }
 
         // Weapon-breaker
-        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
             if (Dice::rollD6() == 6) {
                 // TODO: buff only affects a single weapon
@@ -176,7 +176,7 @@ namespace Fyreslayers {
         if (owningPlayer() == player) {
             // Stare Down
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 3.0f)) {
+            if (unit && (distanceTo(unit) <= 3.0)) {
                 unit->buffModifier(Bravery, -Dice::rollD3(), {Hero, m_battleRound + 1, owningPlayer()});
             }
         }

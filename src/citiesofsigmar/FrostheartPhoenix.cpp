@@ -18,7 +18,7 @@ namespace CitiesOfSigmar {
     struct TableEntry {
         int m_move;
         int m_talonAttacks;
-        float m_blizzazdAura;
+        double m_blizzazdAura;
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;

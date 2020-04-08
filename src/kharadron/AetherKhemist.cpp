@@ -75,7 +75,7 @@ namespace KharadronOverlords {
 
     int AetherKhemist::atmosphericIsolation(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *target) {
         // Atmospheric Isolation
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
 

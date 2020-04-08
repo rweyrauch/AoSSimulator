@@ -113,7 +113,7 @@ namespace GloomspiteGitz {
         }
 
         // Squiggly-beast Followers
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
             int roll = Dice::rollD6();
             if (roll >= ip->remainingModels()) {
@@ -134,7 +134,7 @@ namespace GloomspiteGitz {
     int DankholdTroggoths::reassuringPresence(const Unit *unit) {
         // Reassuring Presence
         if (unit->hasKeyword(GLOOMSPITE_GITZ) && (unit->owningPlayer() == owningPlayer()) &&
-            (distanceTo(unit) <= 18.0f)) {
+            (distanceTo(unit) <= 18.0)) {
             return 1;
         }
 

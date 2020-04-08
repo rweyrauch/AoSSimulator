@@ -122,7 +122,7 @@ namespace Nurgle {
         Unit::onStartHero(player);
 
         if (owningPlayer() == player) {
-            auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
 
             // Virulent Discharge
             for (auto unit : units) {

@@ -167,7 +167,7 @@ namespace OgorMawtribes {
 
     int OgorGluttons::bellower(const Unit *target) {
         // Bellower
-        if (m_bellower && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f)) {
+        if (m_bellower && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

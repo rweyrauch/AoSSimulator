@@ -103,11 +103,11 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(float x, float y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Failed; }
 };
 
 TheGreatGreenSpite::TheGreatGreenSpite(Unit *caster) :
-        Spell(caster, "The Great Green Spite", 7, 18.0f) {}
+        Spell(caster, "The Great Green Spite", 7, 18.0) {}
 
 Spell::Result TheGreatGreenSpite::cast(Unit *target, int round) {
     if (target == nullptr) {
@@ -115,7 +115,7 @@ Spell::Result TheGreatGreenSpite::cast(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }

@@ -103,7 +103,7 @@ namespace Skaven {
         int mortalWounds = 0;
 
         // Avalanche of Flesh
-        if (distanceTo(unit) <= 3.0f) {
+        if (distanceTo(unit) <= 3.0) {
             // TODO: check distance for each model in target unit
             int numRolls = unit->remainingModels();
             for (auto i = 0; i < numRolls; i++) {
@@ -151,7 +151,7 @@ namespace Skaven {
                 m_models.front()->applyWound(WOUNDS - roll);
             } else if (roll >= 3) {
                 // The Rats Emerge
-                auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+                auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
                 for (auto ip : units) {
                     roll = Dice::rollD3();
                     ip->applyDamage({0, roll});
@@ -163,7 +163,7 @@ namespace Skaven {
 
     int HellPitAbomination::terrifying(const Unit *unit) {
         // Terrifying
-        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0f)) {
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0)) {
             return -1;
         }
         return 0;

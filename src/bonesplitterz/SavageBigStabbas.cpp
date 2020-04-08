@@ -67,7 +67,7 @@ namespace Bonesplitterz {
         // Da Final Fling
         if (source == Wounds::Source::WeaponMelee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 3.0f)) {
+            if (unit && (distanceTo(unit) <= 3.0)) {
                 auto roll = Dice::rollD6();
                 if (unit->hasKeyword(MONSTER)) roll += 2;
                 if (roll >= 4) {

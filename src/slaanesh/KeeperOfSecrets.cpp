@@ -134,7 +134,7 @@ namespace Slaanesh {
 
         auto target = m_meleeTarget;
         if (target == nullptr) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             if (!units.empty()) {
                 target = units.front();
             }
@@ -183,7 +183,7 @@ namespace Slaanesh {
         Unit::onStartCombat(player);
 
         // Dark Temptations
-        auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+        auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (hero != nullptr) {
             // Heros _always_ refuse right now and take D3
             // TODO: give hero the choice

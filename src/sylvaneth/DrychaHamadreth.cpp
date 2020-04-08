@@ -152,7 +152,7 @@ namespace Sylvaneth {
 
     Rerolls DrychaHamadreth::songOfSpiteToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
 
-        if (isFriendly(attacker) && attacker->hasKeyword(SPITE_REVENANTS) && (distanceTo(attacker) < 16.0f))
+        if (isFriendly(attacker) && attacker->hasKeyword(SPITE_REVENANTS) && (distanceTo(attacker) < 16.0))
             return RerollOnes;
 
         return NoRerolls;

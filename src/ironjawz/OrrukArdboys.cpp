@@ -174,7 +174,7 @@ namespace Ironjawz {
     int OrrukArdboys::glyphBearer(const Unit *target) {
         // Gorkamorka Glyph Bearer
         if ((m_standardBearer == GlyphBearer) && (target->owningPlayer() != owningPlayer()) &&
-            (distanceTo(target) <= 3.0f)) {
+            (distanceTo(target) <= 3.0)) {
             return -1;
         }
         return 0;

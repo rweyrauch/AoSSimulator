@@ -74,7 +74,7 @@ namespace Fyreslayers {
 
         int threshold = 6;
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 3.0f)) threshold--;
+        if (unit && (distanceTo(unit) <= 3.0)) threshold--;
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(threshold);

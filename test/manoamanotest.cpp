@@ -71,7 +71,7 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
     bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
 
-    ok = reavers->configure(Khorne::Bloodreavers::MAX_UNIT_SIZE, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ok = reavers->configure(20, Khorne::Bloodreavers::ReaverBlades, true, true);
     ASSERT_TRUE(ok);
 
     battle.combatants(libs, reavers);
@@ -120,7 +120,7 @@ TEST(ManoAMano, StatsSequitersVsReavers)
     bool ok = seqs->configure(10, StormcastEternals::Sequitors::TempestBlade, 2, true, false);
     ASSERT_TRUE(ok);
 
-    ok = reavers->configure(Khorne::Bloodreavers::MAX_UNIT_SIZE, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ok = reavers->configure(20, Khorne::Bloodreavers::ReaverBlades, true, true);
     ASSERT_TRUE(ok);
 
     battle.combatants(seqs, reavers);
@@ -165,10 +165,10 @@ TEST(ManoAMano, StatsLiberatorsVsStabbas)
     auto libs = new StormcastEternals::Liberators();
     auto grots = new GloomspiteGitz::Stabbas();
 
-    bool ok = libs->configure(StormcastEternals::Liberators::MAX_UNIT_SIZE, StormcastEternals::Liberators::Warhammer, false, 0, 0);
+    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 0, 0);
     ASSERT_TRUE(ok);
 
-    ok = grots->configure(GloomspiteGitz::Stabbas::MAX_UNIT_SIZE, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
+    ok = grots->configure(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
     ASSERT_TRUE(ok);
 
     battle.combatants(libs, grots);
@@ -216,7 +216,7 @@ TEST(ManoAMano, StatsSequitorVsStabbas)
     bool ok = seqs->configure(15, StormcastEternals::Sequitors::TempestBlade, 6, true, false);
     ASSERT_TRUE(ok);
 
-    ok = grots->configure(GloomspiteGitz::Stabbas::MAX_UNIT_SIZE, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
+    ok = grots->configure(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
     ASSERT_TRUE(ok);
 
     battle.combatants(seqs, grots);

@@ -70,7 +70,7 @@ namespace GloomspiteGitz {
 
     void ColossalSquig::onSlain() {
         // Fungoid Squig Explosion
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
             if (Dice::rollD6() >= 2) {
                 unit->applyDamage({0, Dice::rollD3()});

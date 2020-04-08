@@ -26,7 +26,7 @@ void Board::addObjective(Objective *objective) {
     m_objectives.push_back(objective);
 }
 
-void Board::moveObjective(int id, float x, float y) {
+void Board::moveObjective(int id, double x, double y) {
     auto matchId = [id](const Objective *obj) -> bool {
         return (obj->m_id == id);
     };
@@ -57,8 +57,8 @@ Board *Board::Instance() {
 void Board::render(const std::string &filename) const {
 #ifdef HAVE_CAIRO
     // use cairomm to create a raster image of the current board state
-    int imageW = (int) (m_width * 10.0f); // tenth's of inches
-    int imageH = (int) (m_depth * 10.0f);
+    int imageW = (int) (m_width * 10.0); // tenth's of inches
+    int imageH = (int) (m_depth * 10.0);
 
     Cairo::RefPtr<Cairo::ImageSurface> surface =
         Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32, imageW, imageH);
@@ -89,7 +89,7 @@ void Board::render(const std::string &filename) const {
     {
         const Unit *unit = *ip;
         auto baseSize = unit->basesizeInches();
-        auto radiusInches = baseSize * 0.5f;
+        auto radiusInches = baseSize * 0.5;
 
         cr->set_source_rgb(1.0, 0.0, 0.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
@@ -119,7 +119,7 @@ void Board::render(const std::string &filename) const {
     {
         const Unit *unit = *ip;
         auto baseSize = unit->basesizeInches();
-        auto radiusInches = baseSize * 0.5f;
+        auto radiusInches = baseSize * 0.5;
 
         cr->set_source_rgb(0.0, 0.0, 1.0);
         for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
@@ -145,11 +145,11 @@ void Board::render(const std::string &filename) const {
     {
         const Unit *unit = *ip;
         auto baseSize = unit->basesizeInches();
-        auto radiusInches = baseSize * 0.5f;
+        auto radiusInches = baseSize * 0.5;
 
         // label with the number of remaining models
         cr->save();
-        cr->move_to((unit->position().x - 2.0f * radiusInches) * 10, (unit->position().y - radiusInches) * 10);
+        cr->move_to((unit->position().x - 2.0 * radiusInches) * 10, (unit->position().y - radiusInches) * 10);
         cr->set_source_rgb(1, 1, 1);
         cr->set_font_face(font);
         cr->set_font_size(12.0);
@@ -163,7 +163,7 @@ void Board::render(const std::string &filename) const {
     {
         const Unit *unit = *ip;
         auto baseSize = unit->basesizeInches();
-        auto radiusInches = baseSize * 0.5f;
+        auto radiusInches = baseSize * 0.5;
 
         // label with the number of remaining models
         cr->save();
@@ -181,7 +181,7 @@ void Board::render(const std::string &filename) const {
 #endif
 }
 
-std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, float distance) {
+std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, double distance) {
     std::vector<Unit *> units;
     if (which == PlayerId::None) {
         if (m_rosters[0] != nullptr) {
@@ -189,7 +189,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
                 if (*ip == unit) {
                     continue;
                 }
-                float dist = unit->distanceTo(*ip);
+                double dist = unit->distanceTo(*ip);
                 if (dist <= distance) {
                     units.push_back(*ip);
                 }
@@ -200,7 +200,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
                 if (*ip == unit) {
                     continue;
                 }
-                float dist = unit->distanceTo(*ip);
+                double dist = unit->distanceTo(*ip);
                 if (dist <= distance) {
                     units.push_back(*ip);
                 }
@@ -212,7 +212,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, floa
                 if (*ip == unit) {
                     continue;
                 }
-                float dist = unit->distanceTo(*ip);
+                double dist = unit->distanceTo(*ip);
                 if (dist <= distance) {
                     units.push_back(*ip);
                 }
@@ -244,7 +244,7 @@ Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer) {
     return nearestUnit;
 }
 
-Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance) {
+Unit *Board::getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, double distance) {
     auto units = getUnitsWithin(unit, fromPlayer, distance);
 
     for (auto ip : units) {
@@ -270,8 +270,8 @@ bool Board::unbindAttempt(Unit *caster, int castingRoll) {
 }
 
 std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId fromPlayer) {
-    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth / 2.0f);
-    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width / 2.0f);
+    const Math::Plane northSouth(Math::Vector3(0.0, 1.0, 0.0), m_depth / 2.0);
+    const Math::Plane eastWest(Math::Vector3(1.0, 0.0, 0.0), m_width / 2.0);
 
     std::vector<Unit *> units;
     if (fromPlayer == PlayerId::None) {
@@ -350,8 +350,8 @@ bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, 
 }
 
 bool Board::isUnitWithin(Quadrant quadrant, const Unit *unit) const {
-    const Math::Plane northSouth(Math::Vector3(0.0f, 1.0f, 0.0f), m_depth / 2.0f);
-    const Math::Plane eastWest(Math::Vector3(1.0f, 0.0f, 0.0f), m_width / 2.0f);
+    const Math::Plane northSouth(Math::Vector3(0.0, 1.0, 0.0), m_depth / 2.0);
+    const Math::Plane eastWest(Math::Vector3(1.0, 0.0, 0.0), m_width / 2.0);
 
     if (unit) {
         return inQuadrant(quadrant, northSouth, eastWest, unit->position());
@@ -359,12 +359,12 @@ bool Board::isUnitWithin(Quadrant quadrant, const Unit *unit) const {
     return false;
 }
 
-std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId which, float distance) {
+std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId which, double distance) {
     std::vector<Unit *> units;
     if (which == PlayerId::None) {
         if (m_rosters[0] != nullptr) {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
-                float dist = point.distance((*ip)->position());
+                double dist = point.distance((*ip)->position());
                 if (dist <= distance) {
                     units.push_back(*ip);
                 }
@@ -372,7 +372,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
         }
         if (m_rosters[1] != nullptr) {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
-                float dist = point.distance((*ip)->position());
+                double dist = point.distance((*ip)->position());
                 if (dist <= distance) {
                     units.push_back(*ip);
                 }
@@ -381,7 +381,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
     } else {
         if (m_rosters[(int) which] != nullptr) {
             for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
-                float dist = point.distance((*ip)->position());
+                double dist = point.distance((*ip)->position());
                 if (dist <= distance) {
                     units.push_back(*ip);
                 }
@@ -402,12 +402,12 @@ bool Board::isVisible(const Unit *from, const Unit *target) {
 }
 
 bool Board::castRay(const Math::Ray &ray, Math::RayHit &result) const {
-    result.m_t = 0.0f;
+    result.m_t = 0.0;
     return false;
 }
 
 bool Board::castRay(const Math::Ray2 &ray, Math::RayHit &result) const {
-    result.m_t = 0.0f;
+    result.m_t = 0.0;
     return false;
 }
 
@@ -420,9 +420,9 @@ const Objective *Board::getNearestObjective(const Unit *unit) {
         return nullptr;
     }
     Objective *nearestObjective = m_objectives.front();
-    float minDistance = FLT_MAX;
+    double minDistance = DBL_MAX;
     for (auto o : m_objectives) {
-        float dist = unit->distanceTo(o->m_pos);
+        double dist = unit->distanceTo(o->m_pos);
         if (dist < minDistance) {
             minDistance = dist;
             nearestObjective = o;

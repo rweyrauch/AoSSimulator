@@ -108,7 +108,7 @@ namespace FreeAgent {
 
         // Unstoppable Battle Fury
         auto totalMoveDistance = distanceTo(meleeTarget);
-        if (meleeTarget && (totalMoveDistance <= 3.0f)) {
+        if (meleeTarget && (totalMoveDistance <= 3.0)) {
             Math::Ray ray(position(), meleeTarget->position());
             auto newPos = ray.point_at(totalMoveDistance);
             setPosition(newPos, ray.get_direction());

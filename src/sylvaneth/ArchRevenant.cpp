@@ -96,7 +96,7 @@ namespace Sylvaneth {
 
     Rerolls
     ArchRevenant::championOfKurnothToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
-        if (isFriendly(attacker) && attacker->hasKeyword(KURNOTH_HUNTERS) && (distanceTo(attacker) <= 12.0f))
+        if (isFriendly(attacker) && attacker->hasKeyword(KURNOTH_HUNTERS) && (distanceTo(attacker) <= 12.0))
             return RerollOnes;
         return NoRerolls;
     }

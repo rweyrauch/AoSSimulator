@@ -112,7 +112,7 @@ namespace Khorne {
 
         // Blooded Lieutenant
         if (!isGeneral()) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if (unit->isGeneral()) {
                     extra += 2;

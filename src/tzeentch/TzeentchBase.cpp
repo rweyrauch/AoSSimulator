@@ -117,7 +117,7 @@ namespace Tzeentch {
 
         // Locus of Change
         if (!weapon->isMissile() && hasKeyword(DAEMON)) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(HERO) && unit->hasKeyword(DAEMON)) {
                     mod--;

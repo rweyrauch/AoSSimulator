@@ -139,7 +139,7 @@ namespace Slaanesh {
 
     int Fiends::disruptiveSong(const Unit *caster) {
         // Disruptive Song
-        if (caster->hasKeyword(WIZARD) && (caster->owningPlayer() != owningPlayer()) && (distanceTo(caster) <= 12.0f)) {
+        if (caster->hasKeyword(WIZARD) && (caster->owningPlayer() != owningPlayer()) && (distanceTo(caster) <= 12.0)) {
             return -1;
         }
 

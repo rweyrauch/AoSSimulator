@@ -72,7 +72,7 @@ namespace SlavesToDarkness {
         Unit::onCharged();
 
         // Rampage
-        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f)) {
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
             Dice::rollD6(m_lastChargeDistance, rolls);
 

@@ -87,7 +87,7 @@ namespace CitiesOfSigmar {
 
     Rerolls HelstormRocketBattery::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Calculated Trajectory
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto unit : units) {
             if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return RerollOnes;
         }

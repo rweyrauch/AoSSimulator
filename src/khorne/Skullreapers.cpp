@@ -122,7 +122,7 @@ namespace Khorne {
         // Murderous to the Last
         if (source == Wounds::Source::WeaponMelee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) <= 1.0f) {
+            if (unit && distanceTo(unit) <= 1.0) {
                 if (Dice::rollD6() >= 5) {
                     unit->applyDamage({0, Dice::rollD3()});
                 }

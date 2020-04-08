@@ -13,7 +13,7 @@ namespace StormcastEternals {
     class Sanction : public DamagePrayer {
     public:
         explicit Sanction(Unit *priest) :
-                DamagePrayer(priest, "Sanction", 4, 7.0f, RAND_D3) {}
+                DamagePrayer(priest, "Sanction", 4, 7.0, RAND_D3) {}
 
     protected:
         int getDamage(Unit *target, int prayingRoll) const override;
@@ -30,13 +30,13 @@ namespace StormcastEternals {
     }
 
     Prayer *CreateHealingStorm(Unit *priest) {
-        return new HealPrayer(priest, "Healing Storm", 3, 12.0f, RAND_D3);
+        return new HealPrayer(priest, "Healing Storm", 3, 12.0, RAND_D3);
     }
 
     class LightningStorm : public DamagePrayer {
     public:
         explicit LightningStorm(Unit *priest) :
-                DamagePrayer(priest, "Lightning Storm", 3, 12.0f, RAND_D3) {}
+                DamagePrayer(priest, "Lightning Storm", 3, 12.0, RAND_D3) {}
 
     protected:
 

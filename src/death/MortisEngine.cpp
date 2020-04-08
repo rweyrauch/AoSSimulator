@@ -17,7 +17,7 @@ namespace Death {
 
     struct TableEntry {
         int m_move;
-        float m_wailRange;
+        double m_wailRange;
         int m_hostAttacks;
     };
 

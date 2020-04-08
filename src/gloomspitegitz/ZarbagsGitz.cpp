@@ -94,7 +94,7 @@ namespace GloomspiteGitz {
     int ZarbagsGitz::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
         // Netters
-        if (distanceTo(attacker) <= 2.0f) {
+        if (distanceTo(attacker) <= 2.0) {
             bool hasNets = false;
             for (auto &ip : m_models) {
                 if (ip->getName() == "Netter") {

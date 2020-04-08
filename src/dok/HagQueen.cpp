@@ -72,7 +72,7 @@ namespace DaughtersOfKhaine {
         // Priestess of Khaine
         const auto roll = Dice::rollD6();
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && distanceTo(unit) <= 3.0f) {
+        if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});

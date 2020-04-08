@@ -19,9 +19,9 @@ struct TurnRecord {
     int m_round = 0;
     PlayerId m_playerWithTurn = PlayerId::None;
 
-    float m_moved = 0.0f;
-    float m_ran = 0.0f;
-    float m_charged = 0.0f;
+    double m_moved = 0;
+    double m_ran = 0;
+    double m_charged = 0;
 
     int m_attacksMade = 0;
     int m_attacksHitting = 0;
@@ -53,17 +53,17 @@ public:
     int numberOfRoundsCharged() const;
 
     // Totals
-    float totalMovementDistance() const;
+    double totalMovementDistance() const;
 
-    float averageMovementDistance() const;
+    double averageMovementDistance() const;
 
-    float totalRunDistance() const;
+    double totalRunDistance() const;
 
-    float averageRunDistance() const;
+    double averageRunDistance() const;
 
-    float totalChargeDistance() const;
+    double totalChargeDistance() const;
 
-    float averageChargeDistance() const;
+    double averageChargeDistance() const;
 
     int totalSavesMade() const;
 

@@ -29,7 +29,7 @@ class Board {
 public:
     static Board *Instance();
 
-    void setSize(float width, float depth) {
+    void setSize(double width, double depth) {
         m_width = width;
         m_depth = depth;
     }
@@ -38,13 +38,13 @@ public:
 
     void addObjective(Objective *objective);
 
-    void moveObjective(int which, float x, float y);
+    void moveObjective(int which, double x, double y);
 
     void addRosters(Roster *pRedRoster, Roster *pBlueRoster);
 
-    float width() const { return m_width; }
+    double width() const { return m_width; }
 
-    float depth() const { return m_depth; }
+    double depth() const { return m_depth; }
 
     int getNumFeatures() const { return (int) m_features.size(); }
 
@@ -60,11 +60,11 @@ public:
 
     Unit *getNearestUnit(const Unit *unit, PlayerId fromPlayer);
 
-    std::vector<Unit *> getUnitsWithin(const Unit *unit, PlayerId fromPlayer, float distance);
+    std::vector<Unit *> getUnitsWithin(const Unit *unit, PlayerId fromPlayer, double distance);
 
-    std::vector<Unit *> getUnitsWithin(const Math::Point3 &point, PlayerId fromPlayer, float distance);
+    std::vector<Unit *> getUnitsWithin(const Math::Point3 &point, PlayerId fromPlayer, double distance);
 
-    Unit *getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, float distance);
+    Unit *getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, double distance);
 
     void setRealm(Realm realm) {
         m_realm = realm;
@@ -104,7 +104,7 @@ protected:
                     const Math::Point3 &point3) const;
 
 private:
-    float m_width = 0.0f, m_depth = 0.0f;
+    double m_width = 0.0f, m_depth = 0.0f;
     std::vector<TerrainFeature *> m_features;
     std::vector<Objective *> m_objectives;
     Roster *m_rosters[2] = {nullptr, nullptr};

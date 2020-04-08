@@ -120,7 +120,7 @@ namespace Khorne {
 
     Rerolls Bloodletters::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Locus of Fury
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(DAEMON) && ip->hasKeyword(KHORNE) && ip->hasKeyword(HERO)) {
                 return RerollOnes;
@@ -162,7 +162,7 @@ namespace Khorne {
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {
-        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0f)) return RerollOnes;
+        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return RerollOnes;
 
         return NoRerolls;
     }

@@ -69,7 +69,7 @@ namespace DaughtersOfKhaine {
 
     int AvatarOfKhaine::idolOfWorship(const Unit *unit) {
         // Idol of Worship
-        if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0f)) return 1;
+        if (unit->hasKeyword(DAUGHTERS_OF_KHAINE) && (distanceTo(unit) <= 7.0)) return 1;
 
         return 0;
     }

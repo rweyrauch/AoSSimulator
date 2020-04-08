@@ -77,7 +77,7 @@ namespace Nighthaunt {
 
     Rerolls BladegheistRevenants::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Fearful Frenzy
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(SPIRIT_TORMENT) || ip->hasKeyword(CHAINGHASTS)) {
                 return RerollFailed;

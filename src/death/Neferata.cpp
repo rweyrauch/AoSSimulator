@@ -17,7 +17,7 @@ namespace Death {
     struct TableEntry {
         int m_move;
         int m_clawAttacks;
-        float m_allureRange;
+        double m_allureRange;
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
@@ -127,7 +127,7 @@ namespace Death {
     void NeferataMortarchOfBlood::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations(4, 18.0f);
+        if (owningPlayer() == player) deathlyInvocations(4, 18.0);
     }
 
     Wounds NeferataMortarchOfBlood::onEndCombat(PlayerId player) {

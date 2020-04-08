@@ -91,7 +91,7 @@ namespace Sylvaneth {
         int modifier = Unit::toHitModifier(weapon, target);
 
         // Fury of the Forest
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0);
         if (unit != nullptr) {
             modifier += 1;
         }

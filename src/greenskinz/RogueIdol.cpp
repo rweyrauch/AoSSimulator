@@ -106,7 +106,7 @@ namespace Greenskinz {
 
     void RogueIdol::onSlain() {
         // Avalanche!
-        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
         for (auto ip : units) {
             int roll = Dice::rollD6();
             if (roll >= 4) {
@@ -134,7 +134,7 @@ namespace Greenskinz {
         auto wounds = Unit::onEndCombat(player);
 
         // Rubble and Ruin
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
             int roll = Dice::rollD6();
             if (roll >= 4) {

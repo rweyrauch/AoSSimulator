@@ -159,7 +159,7 @@ namespace StormcastEternals {
     Wounds Prosecutors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Stormcall Javelin
         if (weapon->name() == m_stormcallJavelin.name()) {
-            if (distanceTo(target) >= 9.0f) {
+            if (distanceTo(target) >= 9.0) {
                 return {weapon->damage() + 1, 0};
             }
         }
@@ -280,7 +280,7 @@ namespace StormcastEternals {
         auto extra = StormcastEternal::extraAttacks(nullptr, weapon, target);
         if (weapon->name() == m_grandaxe.name()) {
             // count the number of models in the unit w/in 1 in of this model
-            extra += target->numModelsWithin(attackingModel, (float) weapon->range());
+            extra += target->numModelsWithin(attackingModel, (double) weapon->range());
         }
         return extra;
     }

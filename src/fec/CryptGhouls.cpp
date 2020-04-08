@@ -101,7 +101,7 @@ namespace FleshEaterCourt {
 
     Rerolls CryptGhouls::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Royal Approval
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0);
         if (unit != nullptr) {
             return RerollOnes;
         }

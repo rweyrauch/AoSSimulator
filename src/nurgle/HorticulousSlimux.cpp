@@ -83,7 +83,7 @@ namespace Nurgle {
     }
 
     Rerolls HorticulousSlimux::beastHandlerChargeReroll(const Unit *unit) {
-        if (isFriendly(unit) && (distanceTo(unit) <= 7.0f)) {
+        if (isFriendly(unit) && (distanceTo(unit) <= 7.0)) {
             if (unit->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
         }
         return NoRerolls;
@@ -92,7 +92,7 @@ namespace Nurgle {
     Rerolls
     HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                 const Unit * /*target*/) {
-        if (isFriendly(attacker) && (distanceTo(attacker) <= 7.0f)) {
+        if (isFriendly(attacker) && (distanceTo(attacker) <= 7.0)) {
             if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
         }
         return NoRerolls;

@@ -108,8 +108,8 @@ namespace OgorMawtribes {
 
         auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
         if (nearestUnit) {
-            float rangeTo = distanceTo(nearestUnit);
-            if (rangeTo < (float) m_hailShot.range()) {
+            double rangeTo = distanceTo(nearestUnit);
+            if (rangeTo < (double) m_hailShot.range()) {
                 m_hailShot.activate(true);
                 m_cannonBall.activate(false);
             } else {

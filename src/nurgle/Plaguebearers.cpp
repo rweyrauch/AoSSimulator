@@ -121,7 +121,7 @@ namespace Nurgle {
 
     Rerolls Plaguebearers::toSaveRerolls(const Weapon *weapon) const {
         // Locus of Fecundity
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
         for (auto unit : units) {
             if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return RerollOnes;
         }

@@ -84,7 +84,7 @@ namespace CitiesOfSigmar {
         auto mod = Unit::toHitModifier(weapon, target);
 
         // Point Blank
-        if (weapon->isMissile() && (distanceTo(target) <= 12.0f)) mod++;
+        if (weapon->isMissile() && (distanceTo(target) <= 12.0)) mod++;
 
         return mod;
     }

@@ -88,7 +88,7 @@ namespace IdonethDeepkin {
     int EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss(const Unit *target) {
         // Tranquility of the Abyss
         if (target->hasKeyword(IDONETH_DEEPKIN) && (target->owningPlayer() == owningPlayer()) &&
-            (distanceTo(target) <= 9.0f)) {
+            (distanceTo(target) <= 9.0)) {
             return 3;
         }
 

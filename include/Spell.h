@@ -23,7 +23,7 @@ public:
         Success,
     };
 
-    Spell(Unit *caster, const std::string &name, int castingValue, float range) :
+    Spell(Unit *caster, const std::string &name, int castingValue, double range) :
             m_caster(caster),
             m_name(name),
             m_castingValue(castingValue),
@@ -33,7 +33,7 @@ public:
 
     int castingValue() const { return m_castingValue; }
 
-    float range() const { return m_range; }
+    double range() const { return m_range; }
 
     const std::string &name() const { return m_name; }
 
@@ -41,26 +41,26 @@ public:
 
     virtual Result cast(Unit *target, int round) = 0;
 
-    virtual Result cast(float x, float y, int round) = 0;
+    virtual Result cast(double x, double y, int round) = 0;
 
 protected:
 
     Unit *m_caster = nullptr;
     std::string m_name;
     int m_castingValue = 0;
-    float m_range = 0.0f;
+    double m_range = 0.0f;
 
     bool m_targetFriendly = false;
 };
 
 class DamageSpell : public Spell {
 public:
-    DamageSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage,
+    DamageSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
                 int castingValue2 = -1, int damage2 = -1);
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(float x, float y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Failed; }
 
 protected:
 
@@ -75,12 +75,12 @@ DamageSpell *CreateArcaneBolt(Unit *caster);
 
 class AreaOfEffectSpell : public Spell {
 public:
-    AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, float range, float radius, int damage,
+    AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, double radius, int damage,
                       int affectedRoll);
 
     Result cast(Unit *target, int round) override { return Failed; }
 
-    Result cast(float x, float y, int round) override;
+    Result cast(double x, double y, int round) override;
 
 protected:
 
@@ -89,18 +89,18 @@ protected:
     virtual void secondaryEffect(Unit *target, int round) const {}
 
     int m_damage = 0;
-    float m_radius = 0.0f;
+    double m_radius = 0.0f;
     int m_affectedRoll = 0;
 };
 
 class LineOfEffectSpell : public Spell {
 public:
-    LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage,
+    LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
                       int affectedRoll);
 
     Result cast(Unit *target, int round) override { return Failed; }
 
-    Result cast(float x, float y, int round) override;
+    Result cast(double x, double y, int round) override;
 
 protected:
 
@@ -113,12 +113,12 @@ protected:
 
 class HealSpell : public Spell {
 public:
-    HealSpell(Unit *caster, const std::string &name, int castingValue, float range, int healing, int castingValue2 = -1,
+    HealSpell(Unit *caster, const std::string &name, int castingValue, double range, int healing, int castingValue2 = -1,
               int healing2 = -1);
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(float x, float y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Failed; }
 
 protected:
 
@@ -131,12 +131,12 @@ protected:
 
 class BuffModifierSpell : public Spell {
 public:
-    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, float range,
+    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, double range,
                       BuffableAttribute which, int modifier, bool targetFriendly);
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(float x, float y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Failed; }
 
 protected:
 
@@ -148,12 +148,12 @@ protected:
 
 class BuffRerollSpell : public Spell {
 public:
-    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, float range, BuffableAttribute which,
+    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, double range, BuffableAttribute which,
                     Rerolls reroll, bool targetFriendly);
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(float x, float y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Failed; }
 
 protected:
 

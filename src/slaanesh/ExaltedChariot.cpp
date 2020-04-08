@@ -75,7 +75,7 @@ namespace Slaanesh {
         Unit::onCharged();
 
         // Excess of Blades
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
             int roll = Dice::rollD6();
             if (roll >= 5) {

@@ -109,7 +109,7 @@ namespace Khorne {
     Wrathmongers::crimsonHaze(const Unit * /*attacker*/, const Model * /*attackingModel*/, const Weapon * /*weapon*/,
                               const Unit *target) {
         // Crimson Haze
-        if (distanceTo(target) <= 8.0f) {
+        if (distanceTo(target) <= 8.0) {
             // TODO: Does not apply for attacking WRATHMONGER models
             return 1;
         }
@@ -120,7 +120,7 @@ namespace Khorne {
         Unit::onModelSlain(source);
 
         // Bloodfury
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         auto mod = 0;
         if (units.size() >= 2) mod = 1;
 

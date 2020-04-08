@@ -38,19 +38,19 @@ void ManoAMano::combatants(Unit *red, Unit *blue) {
     // |                       |
     // +-----------------------+
 
-    float redX = board->width() / 10.0f;
-    float redY = board->depth() / 2.0f;
+    double redX = board->width() / 10.0;
+    double redY = board->depth() / 2.0;
 
     // left center
-    m_initialPos[0] = Math::Point3(redX, redY, 0.0f);
-    red->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
+    m_initialPos[0] = Math::Point3(redX, redY, 0.0);
+    red->setPosition(m_initialPos[0], Math::Vector3(1.0, 0.0, 0.0));
 
-    float blueX = board->width() - (board->width() / 10.0f);
-    float blueY = board->depth() / 2.0f;
+    double blueX = board->width() - (board->width() / 10.0);
+    double blueY = board->depth() / 2.0;
 
     // right center
-    m_initialPos[1] = Math::Point3(blueX, blueY, 0.0f);
-    blue->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
+    m_initialPos[1] = Math::Point3(blueX, blueY, 0.0);
+    blue->setPosition(m_initialPos[1], Math::Vector3(-1.0, 0.0, 0.0));
 
     board->addRosters(m_rosters[0], m_rosters[1]);
 
@@ -63,8 +63,8 @@ void ManoAMano::combatants(Unit *red, Unit *blue) {
 }
 
 void ManoAMano::start() {
-    redUnit()->setPosition(m_initialPos[0], Math::Vector3(1.0f, 0.0f, 0.0f));
-    blueUnit()->setPosition(m_initialPos[1], Math::Vector3(-1.0f, 0.0f, 0.0f));
+    redUnit()->setPosition(m_initialPos[0], Math::Vector3(1.0, 0.0, 0.0));
+    blueUnit()->setPosition(m_initialPos[1], Math::Vector3(-1.0, 0.0, 0.0));
 
     int redRoll = 0;
     int blueRoll = 0;
@@ -350,13 +350,13 @@ PlayerId ManoAMano::getVictor() const {
         return PlayerId::Red;
     }
     // Red suffered fewer losses
-    if ((float) redUnit()->remainingPoints() / (float) redUnit()->points() >
-        (float) blueUnit()->remainingPoints() / (float) blueUnit()->points()) {
+    if ((double) redUnit()->remainingPoints() / (double) redUnit()->points() >
+        (double) blueUnit()->remainingPoints() / (double) blueUnit()->points()) {
         return PlayerId::Red;
     }
     // Blue suffered few losses
-    if ((float) redUnit()->remainingPoints() / (float) redUnit()->points() <
-        (float) blueUnit()->remainingPoints() / (float) blueUnit()->points()) {
+    if ((double) redUnit()->remainingPoints() / (double) redUnit()->points() <
+        (double) blueUnit()->remainingPoints() / (double) blueUnit()->points()) {
         return PlayerId::Blue;
     }
 

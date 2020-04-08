@@ -85,7 +85,7 @@ namespace Fyreslayers {
 
         // Holy Seeker
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 12.0f)) {
+        if (unit && (distanceTo(unit) <= 12.0)) {
             Dice::RollResult result;
             Dice::rollD6(2, result);
             if (result.rollsGE(6) >= 1) {

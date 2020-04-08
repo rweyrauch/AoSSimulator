@@ -83,7 +83,7 @@ namespace Khorne {
                 for (auto i = 0; i < numObjMarkers; i++) {
                     const auto obj = Board::Instance()->getObjective(i);
                     if (obj) {
-                        if (position().distance(obj->m_pos) <= 12.0f) {
+                        if (position().distance(obj->m_pos) <= 12.0) {
                             return RerollOnes;
                         }
                     }
@@ -97,7 +97,7 @@ namespace Khorne {
         // Skull Hunters
         if (m_slaughterHost == SkullfiendTribe) {
             if (hasKeyword(MORTAL)) {
-                auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0f);
+                auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0);
                 if (hero) {
                     return RerollOnes;
                 }
@@ -106,12 +106,12 @@ namespace Khorne {
 
         // Locus of Fury
         if (hasKeyword(DAEMON)) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(GREATER_DAEMON)) {
                     return RerollOnes;
                 }
-                if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0f) {
+                if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0) {
                     return RerollOnes;
                 }
             }

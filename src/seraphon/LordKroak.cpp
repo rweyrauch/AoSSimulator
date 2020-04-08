@@ -84,7 +84,7 @@ namespace Seraphon {
 
         // Azyrite Force Barrier
         if (target) {
-            extra += target->numModelsWithin(attackingModel, 3.0f);
+            extra += target->numModelsWithin(attackingModel, 3.0);
         }
 
         return extra;

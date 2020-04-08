@@ -233,8 +233,7 @@ TEST(Unit, DamageTable)
     wounds.normal = 1;
     wounds.mortal = 0;
 
-
-    for (auto i = 0; i < Sylvaneth::Alarielle::WOUNDS; i++)
+    for (auto i = 0; i < alarielle.wounds(); i++)
     {
         alarielle.applyDamage(wounds);
         std::cout << "Wound: " << alarielle.remainingWounds() << "  Move: " << alarielle.move() << std::endl;

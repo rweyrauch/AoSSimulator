@@ -90,7 +90,7 @@ namespace OgorMawtribes {
         auto mod = Unit::chargeModifier();
 
         // Their Master's Voice
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0);
         if (unit) mod += 3;
 
         return mod;
@@ -100,7 +100,7 @@ namespace OgorMawtribes {
         auto mod = MawtribesBase::braveryModifier();
 
         // Their Master's Voice
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0);
         if (unit) mod += 2;
 
         return mod;

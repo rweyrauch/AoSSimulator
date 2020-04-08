@@ -89,7 +89,7 @@ namespace Tzeentch {
 
     Rerolls TzaangorEnlightened::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Guided by the Past
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         bool enemyHasFought = false;
         for (auto ip : units) {
             enemyHasFought |= ip->hasFought();
@@ -101,7 +101,7 @@ namespace Tzeentch {
 
     Rerolls TzaangorEnlightened::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Guided by the Past
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         bool enemyHasFought = false;
         for (auto ip : units) {
             enemyHasFought |= ip->hasFought();

@@ -78,7 +78,7 @@ namespace IdonethDeepkin {
 
     void Volturnos::onCharged() {
         // Deepmare Horn
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
             int roll = Dice::rollD6();
             if (roll >= 2) {
@@ -92,7 +92,7 @@ namespace IdonethDeepkin {
     int Volturnos::crestOfTheHighKings(const Unit *target) {
         // The Crest of the High Kings
         if (target->hasKeyword(IDONETH_DEEPKIN) && (target->owningPlayer() == owningPlayer()) &&
-            (distanceTo(target) <= 18.0f)) {
+            (distanceTo(target) <= 18.0)) {
             return 1;
         }
 

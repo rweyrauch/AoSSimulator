@@ -82,7 +82,7 @@ namespace Nighthaunt {
         Unit::onStartShooting(player);
 
         // Wail of the Damned
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0);
         for (auto unit : units) {
             auto roll = Dice::roll2D6();
             if (roll > unit->bravery()) {
@@ -95,7 +95,7 @@ namespace Nighthaunt {
         Unit::onStartHero(player);
 
         // Lifting the Veil
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
         if (!units.empty()) {
             const auto roll = Dice::rollD6();
             if (roll >= 2) {
@@ -107,7 +107,7 @@ namespace Nighthaunt {
         }
 
         if (!m_graveSandsOfTimeUsed) {
-            auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0f);
+            auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0);
             if (unit) {
                 unit->applyDamage({0, Dice::rollD6()});
                 m_graveSandsOfTimeUsed = true;

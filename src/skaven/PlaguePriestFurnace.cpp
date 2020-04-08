@@ -131,7 +131,7 @@ namespace Skaven {
         Wounds wounds = Unit::onEndCombat(player);
 
         // Poisonous Fumes
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
             if (!unit->hasKeyword(CLANS_PESTILENS)) {
                 int mortalWounds = 0;
@@ -148,7 +148,7 @@ namespace Skaven {
 
     int PlaguePriestOnPlagueFurnace::altarOfTheHornedRat(const Unit *unit) {
         // Altar of the Horned Rat
-        if (unit->hasKeyword(SKAVENTIDE) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 13.0f)) {
+        if (unit->hasKeyword(SKAVENTIDE) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 13.0)) {
             // Make unit battleshock immune
             return 13;
         }
@@ -186,7 +186,7 @@ namespace Skaven {
 
         if (player == owningPlayer()) {
             // Noxious Prayers
-            auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), CLANS_PESTILENS, 13.0f);
+            auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), CLANS_PESTILENS, 13.0);
 
             if (!unit) {
                 // No other units - pray for this unit.

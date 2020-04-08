@@ -11,7 +11,7 @@
 #include <Board.h>
 #include <MathUtils.h>
 
-DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage,
+DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
                          int castingValue2, int damage2) :
         Spell(caster, name, castingValue, range),
         m_damage(damage),
@@ -26,7 +26,7 @@ Spell::Result DamageSpell::cast(Unit *target, int /*round*/) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }
@@ -66,10 +66,10 @@ int DamageSpell::getDamage(int castingRoll) const {
 }
 
 DamageSpell *CreateArcaneBolt(Unit *caster) {
-    return new DamageSpell(caster, "Arcane Bolt", 5, 18.0f, 1, 10, RAND_D3);
+    return new DamageSpell(caster, "Arcane Bolt", 5, 18.0, 1, 10, RAND_D3);
 }
 
-AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, float range, float radius,
+AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, double radius,
                                      int damage, int affectedRoll) :
         Spell(caster, name, castingValue, range),
         m_damage(damage),
@@ -78,11 +78,11 @@ AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int 
     m_targetFriendly = false;
 }
 
-Spell::Result AreaOfEffectSpell::cast(float x, float y, int round) {
-    const Math::Point3 targetPoint(x, y, 0.0f);
+Spell::Result AreaOfEffectSpell::cast(double x, double y, int round) {
+    const Math::Point3 targetPoint(x, y, 0.0);
 
     // Distance to point
-    const float distance = m_caster->position().distance(targetPoint);
+    const double distance = m_caster->position().distance(targetPoint);
     if (distance > m_range) {
         return Failed;
     }
@@ -125,7 +125,7 @@ int AreaOfEffectSpell::getDamage(int /*castingRoll*/) const {
     return m_damage;
 }
 
-LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, float range, int damage,
+LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
                                      int affectedRoll) :
         Spell(caster, name, castingValue, range),
         m_damage(damage),
@@ -133,7 +133,7 @@ LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int 
     m_targetFriendly = false;
 }
 
-Spell::Result LineOfEffectSpell::cast(float x, float y, int round) {
+Spell::Result LineOfEffectSpell::cast(double x, double y, int round) {
     return Failed;
 }
 
@@ -141,7 +141,7 @@ int LineOfEffectSpell::getDamage(int castingRoll) const {
     return m_damage;
 }
 
-HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, float range, int healing,
+HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, double range, int healing,
                      int castingValue2, int healing2) :
         Spell(caster, name, castingValue, range),
         m_healing(healing),
@@ -156,7 +156,7 @@ Spell::Result HealSpell::cast(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }
@@ -194,7 +194,7 @@ int HealSpell::getHealing(int castingRoll) const {
     return m_healing;
 }
 
-BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, float range,
+BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, double range,
                                      BuffableAttribute which, int modifier, bool targetFriendly) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
@@ -208,7 +208,7 @@ Spell::Result BuffModifierSpell::cast(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }
@@ -243,7 +243,7 @@ int BuffModifierSpell::getModifier(int /*castingRoll*/) const {
     return m_modifier;
 }
 
-BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, float range,
+BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, double range,
                                  BuffableAttribute which, Rerolls reroll, bool targetFriendly) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
@@ -257,7 +257,7 @@ Spell::Result BuffRerollSpell::cast(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }

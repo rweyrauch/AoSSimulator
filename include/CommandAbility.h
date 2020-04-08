@@ -24,7 +24,7 @@ public:
 
     virtual int apply(const Unit *target) = 0;
 
-    float range() const { return m_range; }
+    double range() const { return m_range; }
 
     const std::string &name() const { return m_name; }
 
@@ -37,7 +37,7 @@ protected:
     Unit *m_source = nullptr;
     std::string m_name = "";
     //Duration m_duration;
-    float m_range = 0.0f;
+    double m_range = 0.0f;
 
     bool m_targetFriendly = true;
     Phase m_phase = Phase::Hero;

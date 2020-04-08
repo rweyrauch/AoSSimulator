@@ -105,7 +105,7 @@ namespace Tzeentch {
 
         // Guided by Billowing Flames
         if (weapon->name() == m_warpflame.name()) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(EXALTED_FLAMERS)) {
                     mod++;

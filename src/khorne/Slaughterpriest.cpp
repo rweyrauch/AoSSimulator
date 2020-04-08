@@ -43,7 +43,7 @@ namespace Khorne {
 
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateBloodBlessingsOfKhorne(blessing, this)));
         m_knownPrayers.push_back(
-                std::unique_ptr<Prayer>(new DamagePrayer(this, "Blood Boil", 4, 16.0f, RAND_D6, RAND_D3)));
+                std::unique_ptr<Prayer>(new DamagePrayer(this, "Blood Boil", 4, 16.0, RAND_D6, RAND_D3)));
 
         m_points = POINTS_PER_UNIT;
 

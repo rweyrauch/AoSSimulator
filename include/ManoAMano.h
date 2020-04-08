@@ -43,17 +43,17 @@ public:
 
     PlayerId getVictor() const;
 
-    float getInitialRedX() const { return m_initialPos[0].x; }
+    double getInitialRedX() const { return m_initialPos[0].x; }
 
-    float getInitialRedY() const { return m_initialPos[0].y; }
+    double getInitialRedY() const { return m_initialPos[0].y; }
 
-    float getInitialBlueX() const { return m_initialPos[1].x; }
+    double getInitialBlueX() const { return m_initialPos[1].x; }
 
-    float getInitialBlueY() const { return m_initialPos[1].y; }
+    double getInitialBlueY() const { return m_initialPos[1].y; }
 
-    float getBoardWidth() const { return BoardWidth; }
+    double getBoardWidth() const { return BoardWidth; }
 
-    float getBoardDepth() const { return BoardDepth; }
+    double getBoardDepth() const { return BoardDepth; }
 
 protected:
 

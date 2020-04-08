@@ -17,7 +17,7 @@ namespace Death {
 
     struct TableEntry {
         int m_move;
-        float m_wailRange;
+        double m_wailRange;
         int m_hostAttacks;
     };
 
@@ -126,7 +126,7 @@ namespace Death {
     void BloodseekerPalanquin::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations(2, 6.0f);
+        if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }
 
     void BloodseekerPalanquin::onStartShooting(PlayerId player) {

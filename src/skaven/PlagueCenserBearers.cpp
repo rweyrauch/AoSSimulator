@@ -91,7 +91,7 @@ namespace Skaven {
 
     Rerolls PlagueCenserBearers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Plaque Disciples
-        auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0f);
+        auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
         if (monks) return RerollFailed;
 
         return Unit::toHitRerolls(weapon, target);
@@ -99,7 +99,7 @@ namespace Skaven {
 
     Rerolls PlagueCenserBearers::battleshockRerolls() const {
         // Plaque Disciples
-        auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0f);
+        auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
         if (monks) return RerollFailed;
 
         return Unit::battleshockRerolls();
@@ -109,7 +109,7 @@ namespace Skaven {
         Wounds wounds = Unit::onEndCombat(player);
 
         // Poisonous Fumes
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
             if (!unit->hasKeyword(CLANS_PESTILENS)) {
                 int mortalWounds = 0;

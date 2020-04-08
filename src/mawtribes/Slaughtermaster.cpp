@@ -119,7 +119,7 @@ namespace OgorMawtribes {
                     // Troggoth Guts
                     heal(Dice::rollD3());
                     {
-                        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+                        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                         for (auto unit : units) {
                             if (unit->hasKeyword(OGOR)) unit->heal(1);
                         }
@@ -129,7 +129,7 @@ namespace OgorMawtribes {
                 case 4:
                     // Spinemarrow
                 {
-                    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), OGOR, 12.0f);
+                    auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), OGOR, 12.0);
                     if (unit) {
                         unit->buffModifier(BuffableAttribute::ToHitMelee, 1, {Hero, m_battleRound + 1, owningPlayer()});
                     }
@@ -139,7 +139,7 @@ namespace OgorMawtribes {
                 case 6:
                     // Bonecrusher
                 {
-                    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+                    auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
                     for (auto unit : units) {
                         if (Dice::rollD6() >= 4) unit->applyDamage({0, Dice::rollD3()});
                     }

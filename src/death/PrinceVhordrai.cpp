@@ -142,7 +142,7 @@ namespace Death {
         if (owningPlayer() == player) {
             // Breath of Shyish
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) < 8.0f) {
+            if (unit && distanceTo(unit) < 8.0) {
                 unit->applyDamage({0, Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_breath)});
             }
         }

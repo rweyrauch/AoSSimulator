@@ -83,7 +83,7 @@ namespace StormcastEternals {
 
     int CelestantPrime::bearerOfTheWarhammer(const Unit *target) {
         // Bearer of the Warhammer
-        if (target->hasKeyword(ORDER) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0f)) {
+        if (target->hasKeyword(ORDER) && (target->owningPlayer() == owningPlayer()) && (distanceTo(target) <= 18.0)) {
             return 1;
         }
 

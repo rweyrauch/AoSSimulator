@@ -120,7 +120,7 @@ namespace CitiesOfSigmar {
 
         if (owningPlayer() == player) {
             // Master Engineer
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(IRONWELD_ARSENAL) && unit->hasKeyword(WAR_MACHINE) &&
                     (unit->remainingWounds() < unit->wounds())) {

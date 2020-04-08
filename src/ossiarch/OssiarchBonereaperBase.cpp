@@ -85,8 +85,8 @@ namespace OssiarchBonereapers {
 
     Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds) {
         // Deathless Warriors
-        auto hekatos = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HEKATOS, 6.0f);
-        auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 16.0f);
+        auto hekatos = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HEKATOS, 6.0);
+        auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 16.0);
 
         Wounds totalWounds = wounds;
 

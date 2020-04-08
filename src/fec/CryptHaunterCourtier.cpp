@@ -84,7 +84,7 @@ namespace FleshEaterCourt {
 
     Rerolls CryptHaunterCourtier::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Chosen of the King
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
         for (auto unit : units) {
             if (unit->hasKeyword(ABHORRANT)) return RerollFailed;
         }

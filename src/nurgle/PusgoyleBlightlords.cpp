@@ -111,7 +111,7 @@ namespace Nurgle {
 
     void PusgoyleBlightlords::onStartHero(PlayerId player) {
         // Virulent Discharge
-        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
         for (auto ip : units) {
             if (ip->hasKeyword(NURGLE)) {
                 // Heal D3

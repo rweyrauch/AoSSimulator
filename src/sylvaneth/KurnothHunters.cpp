@@ -148,7 +148,7 @@ namespace Sylvaneth {
         auto wounds = Unit::onEndCombat(player);
 
         // Trample Underfoot
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
             auto unit = units.front();
             Dice::RollResult result;

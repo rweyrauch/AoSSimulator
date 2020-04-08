@@ -140,7 +140,7 @@ namespace Greenskinz {
     int OrrukBoarboys::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
         if (m_glyphBearer) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (!units.empty()) {
                 modifier += 2;
             }

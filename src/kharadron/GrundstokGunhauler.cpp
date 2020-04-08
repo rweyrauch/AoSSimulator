@@ -115,7 +115,7 @@ namespace KharadronOverlords {
 
         // Bomb Racks
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 1.0f)) {
+        if (unit && (distanceTo(unit) <= 1.0)) {
             if (Dice::rollD6() >= 4) {
                 unit->applyDamage({0, Dice::rollD3()});
             }

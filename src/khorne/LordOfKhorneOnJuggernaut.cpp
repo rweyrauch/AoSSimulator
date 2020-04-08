@@ -69,7 +69,7 @@ namespace Khorne {
 
     void LordOfKhorneOnJuggernaut::onCharged() {
         // Slaughterous Charge
-        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f)) {
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             int roll = Dice::rollD6();
             if (roll >= 2) {
                 Wounds wounds = {0, Dice::rollD3()};

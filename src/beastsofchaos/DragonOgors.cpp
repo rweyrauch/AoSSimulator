@@ -105,7 +105,7 @@ namespace BeastsOfChaos {
 
     Rerolls DragonOgors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Storm Rage
-        auto shaggoth = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), DRAGON_OGOR, 12.0f);
+        auto shaggoth = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), DRAGON_OGOR, 12.0);
         if (shaggoth) {
             return RerollOnes;
         }

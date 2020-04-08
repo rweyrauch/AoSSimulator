@@ -76,7 +76,7 @@ namespace Fyreslayers {
         if (owningPlayer() == player) {
             // Stare Down
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 3.0f)) {
+            if (unit && (distanceTo(unit) <= 3.0)) {
                 unit->buffModifier(Bravery, -Dice::rollD3(), {Hero, m_battleRound + 1, owningPlayer()});
             }
         }
@@ -86,7 +86,7 @@ namespace Fyreslayers {
         auto wounds = Unit::onEndCombat(player);
 
         // Weapon-breaker
-        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
             if (Dice::rollD6() == 6) {
                 // TODO: buff only affects a single weapon

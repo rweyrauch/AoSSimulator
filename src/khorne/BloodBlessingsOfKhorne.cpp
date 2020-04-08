@@ -45,15 +45,15 @@ bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessi
 Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest) {
     switch (which) {
         case BloodBlessingsOfKhorne::BronzedFlesh:
-            return new BuffModifierPrayer(priest, "Bronzed Flesh", 4, 16.0f, ToSave, 1, true, 1);
+            return new BuffModifierPrayer(priest, "Bronzed Flesh", 4, 16.0, ToSave, 1, true, 1);
         case BloodBlessingsOfKhorne::BloodSacrifice:
-            return new DamagePrayer(priest, "Blood Sacrifice", 4, 8.0f, RAND_D3, 1);
+            return new DamagePrayer(priest, "Blood Sacrifice", 4, 8.0, RAND_D3, 1);
         case BloodBlessingsOfKhorne::Resanguination:
-            return new HealPrayer(priest, "Resanguination", 4, 16.0f, RAND_D3, 1);
+            return new HealPrayer(priest, "Resanguination", 4, 16.0, RAND_D3, 1);
         case BloodBlessingsOfKhorne::BrazenFury:
             return nullptr;
         case BloodBlessingsOfKhorne::KillingFrenzy:
-            return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16.0f, ToHitMelee, 1, true, 1);
+            return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16.0, ToHitMelee, 1, true, 1);
         case BloodBlessingsOfKhorne::SpellbaneHex:
         case BloodBlessingsOfKhorne::None:
             return nullptr;

@@ -89,7 +89,7 @@ namespace Nighthaunt {
         int modifier = Nighthaunt::targetHitModifier(weapon, attacker);
 
         // Harrowing Shriek
-        if ((distanceTo(attacker) <= 3.0f) && (attacker->bravery() < 6)) {
+        if ((distanceTo(attacker) <= 3.0) && (attacker->bravery() < 6)) {
             modifier -= 1;
         }
 

@@ -126,7 +126,7 @@ namespace Khorne {
 
             // These mortal wounds are applied to all enemy units within 8".
             // Skip the target unit as the weaponDamage function will handle it.
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
             for (auto ip : units) {
                 if (ip != target) {
                     // TODO: need to allow unit a wound save

@@ -98,8 +98,8 @@ namespace IdonethDeepkin {
         // Fluid Firing Style
         auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
         if (nearestUnit) {
-            float rangeTo = distanceTo(nearestUnit);
-            if (rangeTo < (float) m_whisperbowStormFire.range()) {
+            double rangeTo = distanceTo(nearestUnit);
+            if (rangeTo < (double) m_whisperbowStormFire.range()) {
                 m_whisperbowStormFire.activate(true);
                 m_whisperbowAimedFire.activate(false);
             } else {

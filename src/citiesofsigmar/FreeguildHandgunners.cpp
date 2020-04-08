@@ -156,7 +156,7 @@ namespace CitiesOfSigmar {
         auto mod = Unit::toHitModifier(weapon, target);
 
         // Steady Aim
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         if ((remainingModels() >= 10) && !m_moved && units.empty()) mod++;
 
         return mod;

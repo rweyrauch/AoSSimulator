@@ -81,7 +81,7 @@ namespace Bonesplitterz {
 
         // Ritual Dance
         if (owningPlayer() == player) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(BONESPLITTERZ) && (unit->remainingWounds() < unit->initialWounds())) {
                     // Grimdokk Dance

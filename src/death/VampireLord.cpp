@@ -93,7 +93,7 @@ namespace Death {
         Unit::onStartHero(player);
 
         if (owningPlayer() == player) {
-            deathlyInvocations(3, 12.0f);
+            deathlyInvocations(3, 12.0);
 
             // Chalice of Blood
             if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {

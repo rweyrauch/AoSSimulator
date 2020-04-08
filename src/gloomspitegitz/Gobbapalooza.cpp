@@ -99,9 +99,9 @@ namespace GloomspiteGitz {
 
         // Slippery Git
         if (weapon->isMissile()) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
             for (auto unit : units) {
-                if (unit->hasKeyword(MOONCLAN) && (distanceTo(unit) <= 3.0f)) {
+                if (unit->hasKeyword(MOONCLAN) && (distanceTo(unit) <= 3.0)) {
                     mod--;
                     break;
                 }

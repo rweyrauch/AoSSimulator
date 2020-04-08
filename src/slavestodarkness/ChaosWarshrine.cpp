@@ -124,7 +124,7 @@ namespace SlavesToDarkness {
         // Favour of the Ruinous Powers
         if (owningPlayer() == player) {
             Unit *target = nullptr;
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(MORTAL) && unit->hasKeyword(SLAVES_TO_DARKNESS)) {
                     target = unit;

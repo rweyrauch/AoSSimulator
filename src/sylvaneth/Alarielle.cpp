@@ -90,7 +90,7 @@ namespace Sylvaneth {
             }
 
             // Lifebloom
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 30.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 30.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(SYLVANETH))
                     ip->heal(Dice::rollD3());
@@ -149,7 +149,7 @@ namespace Sylvaneth {
 
     void Alarielle::onCharged() {
         // Living Battering Ram
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
             if (Dice::rollD6() >= 4) {
                 Wounds wounds = {0, 0};
@@ -212,7 +212,7 @@ namespace Sylvaneth {
     }
 
     Rerolls Alarielle::ghyransWrathToWoundReroll(const Unit *attacker, const Weapon *weapon, const Unit *target) {
-        if (isFriendly(attacker) && attacker->hasKeyword(SYLVANETH) && (distanceTo(attacker) < 14.0f))
+        if (isFriendly(attacker) && attacker->hasKeyword(SYLVANETH) && (distanceTo(attacker) < 14.0))
             return RerollOnes;
         return NoRerolls;
     }

@@ -182,7 +182,7 @@ namespace Tzeentch {
         int modifier = TzeentchBase::toWoundModifier(weapon, target);
 
         // Destined Mayhem
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(ARCANITE) && ip->hasKeyword(HERO)) {
                 modifier += 1;

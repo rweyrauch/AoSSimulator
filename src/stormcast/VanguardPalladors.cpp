@@ -132,7 +132,7 @@ namespace StormcastEternals {
 
         // TODO: make sure prime model exists
         // Lunar Blade
-        if (distanceTo(m_meleeTarget) <= 1.0f) {
+        if (distanceTo(m_meleeTarget) <= 1.0) {
             int roll = Dice::rollD6();
             if (roll >= 2) {
                 Wounds bladeWounds = {0, 1};

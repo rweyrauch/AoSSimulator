@@ -10,31 +10,31 @@
 #include <Unit.h>
 
 DamageSpell *CreatePrimeElectrids(Unit *caster) {
-    return new DamageSpell(caster, "Prime Electrids", 5, 18.0f, RAND_D3, 10, RAND_D6);
+    return new DamageSpell(caster, "Prime Electrids", 5, 18.0, RAND_D3, 10, RAND_D6);
 }
 
 DamageSpell *CreateSpiritStorm(Unit *caster) {
-    return new DamageSpell(caster, "Spirit Storm", 7, 18.0f, 1);
+    return new DamageSpell(caster, "Spirit Storm", 7, 18.0, 1);
 }
 
 LineOfEffectSpell *CreatePyroelectricBlast(Unit *caster) {
-    return new LineOfEffectSpell(caster, "Pyroelectric Blast", 6, 9.0f, RAND_D3, 0);
+    return new LineOfEffectSpell(caster, "Pyroelectric Blast", 6, 9.0, RAND_D3, 0);
 }
 
 AreaOfEffectSpell *CreateLightningPulse(Unit *caster) {
-    return new AreaOfEffectSpell(caster, "Lightning Pulse", 5, 0.0f, 12.0f, 1, 5);
+    return new AreaOfEffectSpell(caster, "Lightning Pulse", 5, 0.0, 12.0, 1, 5);
 }
 
 AreaOfEffectSpell *CreateLightningOrb(Unit *caster) {
-    return new AreaOfEffectSpell(caster, "Lightning Orb", 6, 12.0f, 3.0f, RAND_D3, 4);
+    return new AreaOfEffectSpell(caster, "Lightning Orb", 6, 12.0, 3.0, RAND_D3, 4);
 }
 
 LineOfEffectSpell *CreateStormLance(Unit *caster) {
-    return new LineOfEffectSpell(caster, "Storm Lance", 5, 12.0f, 1, 5);
+    return new LineOfEffectSpell(caster, "Storm Lance", 5, 12.0, 1, 5);
 }
 
 HealSpell *CreateHealingLight(Unit *caster) {
-    return new HealSpell(caster, "Healing Light", 5, 18.0f, RAND_D3, 10, RAND_D6);
+    return new HealSpell(caster, "Healing Light", 5, 18.0, RAND_D3, 10, RAND_D6);
 }
 
 class PurifyingBlast : public Spell {
@@ -43,12 +43,12 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(float x, float y, int round) override { return cast(nullptr, round); }
+    Result cast(double x, double y, int round) override { return cast(nullptr, round); }
 
 };
 
 PurifyingBlast::PurifyingBlast(Unit *caster) :
-        Spell(caster, "Purifying Blast", 5, 6.0f) {
+        Spell(caster, "Purifying Blast", 5, 6.0) {
 
 }
 

@@ -127,7 +127,7 @@ namespace StormcastEternals {
         auto extra = StormcastEternal::extraAttacks(nullptr, weapon, target);
         if (weapon->name() == m_thunderaxe.name()) {
             // count the number of models in the unit w/in 2 in of this model
-            extra += target->numModelsWithin(attackingModel, (float) weapon->range());
+            extra += target->numModelsWithin(attackingModel, (double) weapon->range());
         }
         return extra;
     }
@@ -142,7 +142,7 @@ namespace StormcastEternals {
 
     int Decimators::grimHarvestors(const Unit *target) {
         // Grim Harvestors
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -2;
         }
 

@@ -90,7 +90,7 @@ namespace OssiarchBonereapers {
 
     int Vokmortian::grimWarning(const Unit *unit) {
         // Grim Warning
-        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0f)) {
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0)) {
             return 1;
         }
         return 0;

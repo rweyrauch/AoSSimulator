@@ -128,7 +128,7 @@ namespace Fyreslayers {
 
         int saveValue = 6;
 
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 10.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 10.0);
         for (auto unit : units) {
             if (unit->hasKeyword(HERO) && unit->hasKeyword(FYRESLAYERS)) {
                 saveValue -= 2;

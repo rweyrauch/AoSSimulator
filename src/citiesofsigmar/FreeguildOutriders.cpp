@@ -153,7 +153,7 @@ namespace CitiesOfSigmar {
     int FreeguildOutriders::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto extras = Unit::extraAttacks(attackingModel, weapon, target);
         // Expert Gunners
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         if ((weapon->name() == m_handgun.name()) && units.empty()) {
             extras++;
         }

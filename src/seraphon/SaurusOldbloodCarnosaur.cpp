@@ -143,7 +143,7 @@ namespace Seraphon {
 
     int SaurusOldbloodOnCarnosaur::terror(const Unit *target) {
         // Terror
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
         return 0;

@@ -89,7 +89,7 @@ namespace BeastsOfChaos {
         if (player == owningPlayer()) {
             // Petrifying Gaze
             if (m_shootingTarget) {
-                if (distanceTo(m_shootingTarget) <= (float) m_petrifyingGaze.range()) {
+                if (distanceTo(m_shootingTarget) <= (double) m_petrifyingGaze.range()) {
                     if (Dice::rollD6() >= 4) {
                         Wounds gazeDamage = {0, Dice::rollD6()};
                         m_shootingTarget->applyDamage(gazeDamage);

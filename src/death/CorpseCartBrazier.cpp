@@ -80,7 +80,7 @@ namespace Death {
     }
 
     int CorpseCartWithBalefireBrazier::brazierCastingMod(const Unit *caster) {
-        if (!isFriendly(caster) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0f)) return -1;
+        if (!isFriendly(caster) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0)) return -1;
         return 0;
     }
 
@@ -89,7 +89,7 @@ namespace Death {
 
         if (owningPlayer() == player) {
             // Malefic Fumes
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(WIZARD)) {
                     if (Dice::rollD6() >= 4) {

@@ -144,7 +144,7 @@ namespace CitiesOfSigmar {
 
     bool PhoenixGuard::battleshockRequired() const {
         // Emboldened
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto unit : units) {
             if (unit->hasKeyword(PHOENIX_TEMPLE) && unit->hasKeyword(HERO)) return false;
         }

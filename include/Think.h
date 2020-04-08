@@ -20,7 +20,7 @@ class CommandAbility;
 struct AbilityTarget {
     bool targetUnit = false;
     Unit *target = nullptr;
-    float x = 0.0f, y = 0.0f;
+    double x = 0, y = 0;
 };
 
 Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget);

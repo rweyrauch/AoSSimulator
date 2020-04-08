@@ -83,7 +83,7 @@ namespace Khorne {
     int Skullgrinder::favouredByKhorne(const Unit *unit) {
         // Favoured by Khorne
         if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL) &&
-            (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0f)) {
+            (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0)) {
             return 1;
         }
         return 0;
@@ -93,7 +93,7 @@ namespace Khorne {
         auto wounds = Unit::onEndCombat(player);
 
         // Fiery Anvil
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0);
         for (auto unit : units) {
             if (unit->hasKeyword(HERO) || unit->hasKeyword(MONSTER)) {
                 if (Dice::rollD6() >= 2) {

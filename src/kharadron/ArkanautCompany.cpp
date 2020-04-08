@@ -157,7 +157,7 @@ namespace KharadronOverlords {
 
         // Glory-seekers
         auto obj = Board::Instance()->getNearestObjective(this);
-        if (obj && (distanceTo(obj->m_pos) <= 9.0f)) {
+        if (obj && (distanceTo(obj->m_pos) <= 9.0)) {
             mod++;
         }
         return mod;
@@ -166,7 +166,7 @@ namespace KharadronOverlords {
     Rerolls ArkanautCompany::battleshockRerolls() const {
         // Glory-seekers
         auto obj = Board::Instance()->getNearestObjective(this);
-        if (obj && (distanceTo(obj->m_pos) <= 9.0f)) {
+        if (obj && (distanceTo(obj->m_pos) <= 9.0)) {
             return RerollFailed;
         }
 

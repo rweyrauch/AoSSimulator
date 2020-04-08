@@ -76,7 +76,7 @@ namespace Death {
         }
     }
 
-    void LegionOfNagashBase::deathlyInvocations(int numUnits, float range) {
+    void LegionOfNagashBase::deathlyInvocations(int numUnits, double range) {
 
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), range);
         int unitsHealed = 0;

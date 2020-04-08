@@ -182,7 +182,7 @@ namespace Nurgle {
 
         // Locus of Contagion
         if (!weapon->isMissile()) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) {
                     extra++;
@@ -196,7 +196,7 @@ namespace Nurgle {
     Rerolls PlagueDrones::bellTollersBattleshockReroll(const Unit *unit) {
         // Bell Tollers
         if (m_bellTollers && !isFriendly(unit)) {
-            if (distanceTo(unit) <= 6.0f) return RerollOnes;
+            if (distanceTo(unit) <= 6.0) return RerollOnes;
         }
         return RerollOnes;
     }

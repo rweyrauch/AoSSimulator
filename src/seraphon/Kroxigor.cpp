@@ -108,7 +108,7 @@ namespace Seraphon {
         auto mod = SeraphonBase::toHitModifier(weapon, target);
 
         // Battle Synergy
-        auto skinks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKINK, 6.0f);
+        auto skinks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKINK, 6.0);
         if (skinks) mod++;
 
         return mod;
@@ -117,7 +117,7 @@ namespace Seraphon {
     int Kroxigor::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto extra = SeraphonBase::extraAttacks(attackingModel, weapon, target);
         if ((weapon->name() == m_hammer.name())) {
-            extra += getModelsWithin(attackingModel, target, 2.0f);
+            extra += getModelsWithin(attackingModel, target, 2.0);
         }
         return extra;
     }

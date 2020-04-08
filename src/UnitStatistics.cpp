@@ -7,46 +7,46 @@
  */
 #include <UnitStatistics.h>
 
-float UnitStatistics::totalMovementDistance() const {
-    float totalDistance = 0.0f;
+double UnitStatistics::totalMovementDistance() const {
+    double totalDistance = 0;
     for (auto ip : m_actions) {
         totalDistance += ip.m_moved;
     }
     return totalDistance;
 }
 
-float UnitStatistics::averageMovementDistance() const {
+double UnitStatistics::averageMovementDistance() const {
     int numRounds = numberOfRoundsMoved();
-    if (numRounds <= 0) { return 0.0f; }
-    return totalMovementDistance() / (float) numRounds;
+    if (numRounds <= 0) { return 0; }
+    return totalMovementDistance() / (double) numRounds;
 }
 
-float UnitStatistics::totalRunDistance() const {
-    float totalDistance = 0.0f;
+double UnitStatistics::totalRunDistance() const {
+    double totalDistance = 0;
     for (auto ip : m_actions) {
         totalDistance += ip.m_ran;
     }
     return totalDistance;
 }
 
-float UnitStatistics::averageRunDistance() const {
+double UnitStatistics::averageRunDistance() const {
     int numRounds = numberOfRoundsRan();
-    if (numRounds <= 0) { return 0.0f; }
-    return totalRunDistance() / (float) numRounds;
+    if (numRounds <= 0) { return 0; }
+    return totalRunDistance() / (double) numRounds;
 }
 
-float UnitStatistics::totalChargeDistance() const {
-    float totalDistance = 0.0f;
+double UnitStatistics::totalChargeDistance() const {
+    double totalDistance = 0;
     for (auto ip : m_actions) {
         totalDistance += ip.m_charged;
     }
     return totalDistance;
 }
 
-float UnitStatistics::averageChargeDistance() const {
+double UnitStatistics::averageChargeDistance() const {
     int numRounds = numberOfRoundsCharged();
-    if (numRounds <= 0) { return 0.0f; }
-    return totalChargeDistance() / (float) numRounds;
+    if (numRounds <= 0) { return 0; }
+    return totalChargeDistance() / (double) numRounds;
 }
 
 int UnitStatistics::totalEnemyModelsSlain() const {
@@ -84,7 +84,7 @@ void UnitStatistics::totalWoundsTaken(Wounds &wounds) const {
 int UnitStatistics::numberOfRoundsMoved() const {
     int numRounds = 0;
     for (auto ip : m_actions) {
-        if (ip.m_moved > 0.0f) { numRounds++; }
+        if (ip.m_moved > 0) { numRounds++; }
     }
     return numRounds;
 }
@@ -92,7 +92,7 @@ int UnitStatistics::numberOfRoundsMoved() const {
 int UnitStatistics::numberOfRoundsRan() const {
     int numRounds = 0;
     for (auto ip : m_actions) {
-        if (ip.m_ran > 0.0f) { numRounds++; }
+        if (ip.m_ran > 0) { numRounds++; }
     }
     return numRounds;
 }
@@ -100,7 +100,7 @@ int UnitStatistics::numberOfRoundsRan() const {
 int UnitStatistics::numberOfRoundsCharged() const {
     int numRounds = 0;
     for (auto ip : m_actions) {
-        if (ip.m_charged > 0.0f) { numRounds++; }
+        if (ip.m_charged > 0) { numRounds++; }
     }
     return numRounds;
 }
@@ -139,9 +139,9 @@ void TurnRecord::clear() {
     m_round = 0;
     m_playerWithTurn = PlayerId::None;
 
-    m_moved = 0.0f;
-    m_ran = 0.0f;
-    m_charged = 0.0f;
+    m_moved = 0;
+    m_ran = 0;
+    m_charged = 0;
 
     m_attacksMade = 0;
     m_attacksHitting = 0;

@@ -71,7 +71,7 @@ namespace Fyreslayers {
     }
 
     Rerolls AuricRuneson::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6.0);
         for (auto unit : units) {
             if (unit->hasKeyword(AURIC_RUNESON)) return RerollFailed;
         }

@@ -125,23 +125,23 @@ int Weapon::numTotalHits() const {
     return Dice::rollSpecial(m_hitsPerAttack);
 }
 
-float Weapon::strength() const {
-    if (m_strength < 0.0f) {
-        float effDamage = AverageRandomValue(m_damage);
-        float effAttacks = AverageRandomValue(m_attacks);
-        float effHitsPerAttack = AverageRandomValue(m_hitsPerAttack);
+double Weapon::strength() const {
+    if (m_strength < 0.0) {
+        const auto effDamage = AverageRandomValue(m_damage);
+        const auto effAttacks = AverageRandomValue(m_attacks);
+        const auto effHitsPerAttack = AverageRandomValue(m_hitsPerAttack);
         int toSave4 = std::max(1, std::min(6, 4 + m_rend));
-        float rawStrength =
-                ((float) (6 - m_toHit) / 6.0f) * ((float) (6 - m_toWound) / 6.0f) * ((float) toSave4 / 6.0f) *
+        double rawStrength =
+                ((double) (6 - m_toHit) / 6.0) * ((double) (6 - m_toWound) / 6.0) * ((double) toSave4 / 6.0) *
                 effDamage * effAttacks * effHitsPerAttack;
-        rawStrength *= 100.0f;
-        rawStrength *= logf((float) m_range / 6.0f + 3.0f);
+        rawStrength *= 100.0;
+        rawStrength *= log((double) m_range / 6.0 + 3.0);
         m_strength = rawStrength;
     }
 
     return m_strength;
 }
 
-float Weapon::averageDamage(int againstSave) const {
+double Weapon::averageDamage(int againstSave) const {
     return AverageRandomValue(damage());
 }

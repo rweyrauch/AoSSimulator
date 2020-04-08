@@ -17,7 +17,7 @@ namespace Death {
     struct TableEntry {
         int m_move;
         int m_clawAttacks;
-        float m_vigourRange;
+        double m_vigourRange;
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
@@ -127,7 +127,7 @@ namespace Death {
     void MannfredMortarchOfNight::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations(4, 18.0f);
+        if (owningPlayer() == player) deathlyInvocations(4, 18.0);
     }
 
     Wounds MannfredMortarchOfNight::onEndCombat(PlayerId player) {

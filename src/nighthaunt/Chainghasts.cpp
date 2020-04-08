@@ -79,7 +79,7 @@ namespace Nighthaunt {
         int attacks = Nighthaunt::extraAttacks(attackingModel, weapon, target);
         // Sweeping Blows
         if (weapon->name() == m_ghastflails.name()) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0);
             attacks += (int) units.size();
         }
         return attacks;

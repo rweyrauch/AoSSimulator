@@ -14,8 +14,8 @@
 #include <Think.h>
 #include <Roster.h>
 
-const float MAX_CHARGE_DISTANCE = 12.0f;
-const float MIN_CHARGE_DISTANCE = 3.0;
+const double MAX_CHARGE_DISTANCE = 12.0;
+const double MIN_CHARGE_DISTANCE = 3.0;
 
 lsignal::signal<int(const Unit *)> Unit::s_globalMoveMod;
 lsignal::signal<int(const Unit *)> Unit::s_globalRunMod;
@@ -221,7 +221,7 @@ void Unit::endTurn(int /*battleRound*/) {
 
 void Unit::addModel(Model *model) {
     m_models.push_back(std::unique_ptr<Model>(model));
-    m_basesize_mm = (float) model->basesize();
+    m_basesize_mm = (double) model->basesize();
 }
 
 int Unit::applyDamage(const Wounds &totalWoundsInflicted) {
@@ -343,7 +343,7 @@ bool Unit::setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation
     }
 
     int unitW = (int) m_models.size() / m_ranks;
-    float unitWidth = m_models.size() * basesizeInches() / (float) m_ranks;
+    double unitWidth = m_models.size() * basesizeInches() / (double) m_ranks;
 
     Math::Vector3 up(0, 0, 1);
     Math::Vector3 left = Math::Vector3::Cross(up, orientation);
@@ -355,7 +355,7 @@ bool Unit::setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation
     Math::Vector3 dx = -left * basesizeInches();
     Math::Vector3 dy = -orientation * basesizeInches();
 
-    Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0f;
+    Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0;
     Math::Vector3 curPos = pos0;
 
     for (auto &m : m_models) {
@@ -368,7 +368,7 @@ bool Unit::setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation
             yi++;
 
             curPos = pos0;
-            curPos += (float) yi * dy;
+            curPos += (double) yi * dy;
         }
     }
 
@@ -383,50 +383,50 @@ bool Unit::formation(int ranks) {
     return true;
 }
 
-float Unit::distanceTo(const Unit *unit) const {
+double Unit::distanceTo(const Unit *unit) const {
     if (unit == nullptr || unit->remainingModels() == 0 || remainingModels() == 0)
-        return 0.0f;
+        return 0;
 
     const auto pos = position();
     const auto unitPos = unit->position();
 
-    float dist = pos.distance(unitPos);
-    return std::max(0.0f, dist - (basesizeInches() + unit->basesizeInches()) / 2.0f);
+    double dist = pos.distance(unitPos);
+    return std::max(0.0, dist - (basesizeInches() + unit->basesizeInches()) / 2.0);
 }
 
-float Unit::distanceTo(const Math::Point3 &point) const {
+double Unit::distanceTo(const Math::Point3 &point) const {
     const auto pos = position();
 
-    float dist = pos.distance(point);
-    return std::max(0.0f, dist - basesizeInches() / 2.0f);
+    double dist = pos.distance(point);
+    return std::max(0.0, dist - basesizeInches() / 2.0);
 }
 
-float Unit::distanceBetween(const Model *model, const Unit *unit) const {
+double Unit::distanceBetween(const Model *model, const Unit *unit) const {
     if (model == nullptr || unit == nullptr || unit->remainingModels() == 0)
-        return 0.0f;
+        return 0;
 
-    const float tbs = unit->basesizeInches() / 2;
+    const double tbs = unit->basesizeInches() / 2;
 
-    const float x = model->x();
-    const float y = model->y();
+    const double x = model->x();
+    const double y = model->y();
 
-    float minDist = FLT_MAX;
+    auto minDist = DBL_MAX;
 
     // find closes model in target unit
     for (auto &m : unit->m_models) {
-        const float tx = m->x();
-        const float ty = m->y();
+        const double tx = m->x();
+        const double ty = m->y();
 
-        const float dx = fabsf(tx - x);
-        const float dy = fabsf(ty - y);
+        const double dx = fabs(tx - x);
+        const double dy = fabs(ty - y);
 
-        auto dist = sqrtf(dx * dx + dy * dy) - (basesizeInches() / 2 + tbs);
+        auto dist = sqrt(dx * dx + dy * dy) - (basesizeInches() / 2 + tbs);
         if (dist < minDist) {
             minDist = dist;
         }
     }
 
-    return std::max(0.0f, minDist);
+    return std::max(0.0, minDist);
 }
 
 void Unit::hero(PlayerId player) {
@@ -469,12 +469,12 @@ void Unit::movement(PlayerId player) {
 
     if (closestTarget) {
         auto distance = distanceTo(closestTarget);
-        float totalMoveDistance = 0.0f;
+        double totalMoveDistance = 0;
         if (weapon->isMissile()) {
-            const auto movement = (float) (move() + moveModifier());
+            const auto movement = (double) (move() + moveModifier());
 
             // get into range (run or not?)
-            if (distance > (float) weapon->range() + movement) {
+            if (distance > (double) weapon->range() + movement) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != NoRerolls))
@@ -484,23 +484,23 @@ void Unit::movement(PlayerId player) {
 
                 m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
-            } else if (distance > (float) weapon->range()) {
+            } else if (distance > (double) weapon->range()) {
                 // move toward unit
                 totalMoveDistance = movement;
 
                 m_currentRecord.m_moved = movement;
             } else {
                 // already in range - stand still
-                m_currentRecord.m_moved = 0.0f;
+                m_currentRecord.m_moved = 0;
             }
         } else {
-            const auto movement = (float) (move() + moveModifier());
+            const auto movement = (double) (move() + moveModifier());
 
             if (distance <= MIN_CHARGE_DISTANCE) {
                 // already in charge range - stand still
-                m_currentRecord.m_moved = 0.0f;
+                m_currentRecord.m_moved = 0;
             }
-            if (distance > (float) weapon->range() + movement) {
+            if (distance > (double) weapon->range() + movement) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != NoRerolls))
@@ -512,7 +512,7 @@ void Unit::movement(PlayerId player) {
                 m_currentRecord.m_ran = runDist;
             } else {
                 // normal move toward unit
-                totalMoveDistance = std::min(movement, std::max(0.0f, distance - MIN_CHARGE_DISTANCE));
+                totalMoveDistance = std::min(movement, std::max(0.0, distance - MIN_CHARGE_DISTANCE));
 
                 m_currentRecord.m_moved = totalMoveDistance;
             }
@@ -521,7 +521,7 @@ void Unit::movement(PlayerId player) {
         auto newPos = ray.point_at(totalMoveDistance);
         setPosition(newPos, ray.get_direction());
 
-        m_moved = (totalMoveDistance > 0.0f);
+        m_moved = (totalMoveDistance > 0.0);
     } else {
         // no target units - stand here confused!!!
         m_moved = false;
@@ -610,7 +610,7 @@ void Unit::charge(PlayerId player) {
         auto distance = distanceTo(closestTarget);
 
         if ((distance <= MAX_CHARGE_DISTANCE) && (distance >= MIN_CHARGE_DISTANCE)) {
-            auto chargeDist = (float) rollChargeDistance();
+            auto chargeDist = (double) rollChargeDistance();
             if (chargeDist >= distance) {
                 m_charged = true;
 
@@ -620,7 +620,7 @@ void Unit::charge(PlayerId player) {
                 auto newPos = ray.point_at(chargeDist);
                 setPosition(newPos, ray.get_direction());
             } else if (chargeRerolls() != NoRerolls) {
-                chargeDist = (float) rollChargeDistance();
+                chargeDist = (double) rollChargeDistance();
                 if (chargeDist >= distance) {
                     m_charged = true;
 
@@ -635,11 +635,11 @@ void Unit::charge(PlayerId player) {
             m_currentRecord.m_charged = chargeDist;
         } else {
             // too far to charge
-            m_currentRecord.m_charged = 0.0f;
+            m_currentRecord.m_charged = 0;
         }
     } else {
         // no target units - stand here confused!!!
-        m_currentRecord.m_charged = 0.0f;
+        m_currentRecord.m_charged = 0;
     }
 
     if (m_charged)
@@ -738,8 +738,8 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
     }
 
     // check range to target unit
-    float distanceToTarget = distanceBetween(fromModel, target);
-    if (distanceToTarget > (float) weapon->range()) {
+    double distanceToTarget = distanceBetween(fromModel, target);
+    if (distanceToTarget > (double) weapon->range()) {
         // out of range
         return;
     }
@@ -831,8 +831,8 @@ void Unit::computeBattleshockEffect(int roll, int &numFled, int &numRestored) co
 }
 
 int Unit::remainingPoints() const {
-    auto pointsPerWound = (float) m_points / (float) (m_models.size() * wounds());
-    auto points = (int) roundf(pointsPerWound * (float) remainingWounds());
+    auto pointsPerWound = (double) m_points / (double) (m_models.size() * wounds());
+    auto points = (int) round(pointsPerWound * (double) remainingWounds());
     return points;
 }
 
@@ -968,7 +968,7 @@ void Unit::doPileIn() {
         auto closestTarget = nearestModel(m.get(), m_meleeTarget);
         // Move toward that model if possible
         if (closestTarget) {
-            auto totalMoveDistance = std::min((float) m_pileInMove, Model::distanceBetween(m.get(), closestTarget));
+            auto totalMoveDistance = std::min((double) m_pileInMove, Model::distanceBetween(m.get(), closestTarget));
             const Math::Ray ray(m->position(), closestTarget->position());
             auto newPos = ray.point_at(totalMoveDistance);
             m->setPosition(newPos);
@@ -976,12 +976,12 @@ void Unit::doPileIn() {
     }
 }
 
-int Unit::numModelsWithin(const Model *model, float range) const {
+int Unit::numModelsWithin(const Model *model, double range) const {
     int count = 0;
     // Count the number of remaining models from this unit within 'range' of the given model.
     for (auto &m : m_models) {
         if (!m->slain() && !m->fled()) {
-            float distanceToModel = Model::distanceBetween(m.get(), model);
+            double distanceToModel = Model::distanceBetween(m.get(), model);
             if (distanceToModel <= range) count++;
         }
     }
@@ -1290,7 +1290,7 @@ void Unit::setRoster(Roster *roster) {
     m_roster = roster;
 }
 
-int Unit::getModelsWithin(const Model *model, const Unit *targetUnit, float distance) const {
+int Unit::getModelsWithin(const Model *model, const Unit *targetUnit, double distance) const {
     if (!targetUnit || targetUnit->m_models.empty()) { return 0; }
 
     int count = 0;

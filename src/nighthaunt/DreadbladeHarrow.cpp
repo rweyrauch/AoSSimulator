@@ -79,7 +79,7 @@ namespace Nighthaunt {
     }
 
     Rerolls DreadbladeHarrow::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), KNIGHT_OF_SHROUDS, 9.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), KNIGHT_OF_SHROUDS, 9.0);
         if (unit && (weapon->name() == m_dreadblade.name())) {
             return RerollOnes;
         }

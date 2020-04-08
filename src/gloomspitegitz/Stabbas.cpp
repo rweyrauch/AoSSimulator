@@ -194,7 +194,7 @@ namespace GloomspiteGitz {
     int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
         // Netters
-        if (distanceTo(attacker) <= 2.0f) {
+        if (distanceTo(attacker) <= 2.0) {
             bool hasNets = false;
             for (const auto &ip : m_models) {
                 for (auto wip = ip->meleeWeaponBegin(); wip != ip->meleeWeaponEnd(); ++wip) {

@@ -81,7 +81,7 @@ namespace BeastsOfChaos {
 
     int GreatBrayShaman::infuseWithBestialVigour(const Unit *unit) {
         // Infuse with Bestial Vigour
-        if (unit->hasKeyword(BRAYHERD) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0f)) {
+        if (unit->hasKeyword(BRAYHERD) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0)) {
             return 3;
         }
         return 0;

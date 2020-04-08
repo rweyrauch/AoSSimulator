@@ -120,7 +120,7 @@ namespace Seraphon {
 
     int SaurusGuard::stardrakeIcon(const Unit *target) {
         // Icon Bearer
-        if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0f)) {
+        if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

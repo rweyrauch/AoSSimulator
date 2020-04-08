@@ -77,7 +77,7 @@ namespace StormcastEternals {
     void KnightAzyros::onStartHero(PlayerId player) {
         if ((player == owningPlayer()) && !m_usedLightOfSigmar) {
             // The Light of Sigmar - use the first chance is can
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
             if (!units.empty()) {
                 for (auto ip : units) {
                     if (ip->hasKeyword(CHAOS)) {
@@ -94,7 +94,7 @@ namespace StormcastEternals {
 
     Rerolls
     KnightAzyros::illuminatorOfTheLostReroll(const Unit *attacker, const Weapon * /*weapon*/, const Unit *target) {
-        if (isFriendly(attacker) && distanceTo(target) <= 10.0f) return RerollOnes;
+        if (isFriendly(attacker) && distanceTo(target) <= 10.0) return RerollOnes;
         return NoRerolls;
     }
 

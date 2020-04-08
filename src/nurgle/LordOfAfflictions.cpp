@@ -92,7 +92,7 @@ namespace Nurgle {
             // Rotten Regeneration
             heal(1);
 
-            auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
 
             // Incubatch
             for (auto unit : units) {
@@ -115,7 +115,7 @@ namespace Nurgle {
     Rerolls
     LordOfAfflictions::plagueVectorToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                 const Unit * /*target*/) {
-        if (isFriendly(attacker) && attacker->hasKeyword(ROTBRINGER) && (distanceTo(attacker) <= 7.0f))
+        if (isFriendly(attacker) && attacker->hasKeyword(ROTBRINGER) && (distanceTo(attacker) <= 7.0))
             return RerollOnes;
 
         return NoRerolls;

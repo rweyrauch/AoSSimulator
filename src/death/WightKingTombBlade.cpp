@@ -92,7 +92,7 @@ namespace Death {
     void WightKingWithBalefulTombBlade::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (owningPlayer() == player) deathlyInvocations(2, 6.0f);
+        if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }
 
 } // namespace Death

@@ -163,7 +163,7 @@ namespace Seraphon {
         SeraphonBase::onCharged();
 
         // Unstoppable Stampede
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
             if (Dice::rollD6() >= 3) {
                 unit->applyDamage({0, Dice::rollD3()});
@@ -172,7 +172,7 @@ namespace Seraphon {
     }
 
     Rerolls Stegadon::steadfastMajestyBraveryReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0f)) return RerollFailed;
+        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return RerollFailed;
         return NoRerolls;
     }
 
@@ -187,7 +187,7 @@ namespace Seraphon {
 
         // Armoured Crest
         if (owningPlayer() == player) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
                 // Select target for Armoured Crest (select first one for now).
                 m_armouredCrestAttacker = unit;

@@ -9,7 +9,7 @@
 #include <Unit.h>
 #include "Prayer.h"
 
-DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingValue, float range, int damage,
+DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingValue, double range, int damage,
                            int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_damage(damage) {
@@ -22,7 +22,7 @@ bool DamagePrayer::pray(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_priest->distanceTo(target);
+    const double distance = m_priest->distanceTo(target);
     if (distance > m_range) {
         return false;
     }
@@ -54,7 +54,7 @@ int DamagePrayer::getDamage(Unit *target, int prayingRoll) const {
     return m_damage;
 }
 
-HealPrayer::HealPrayer(Unit *priest, const std::string &name, int prayingValue, float range, int healing, int damageOn1)
+HealPrayer::HealPrayer(Unit *priest, const std::string &name, int prayingValue, double range, int healing, int damageOn1)
         :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_healing(healing) {
@@ -67,7 +67,7 @@ bool HealPrayer::pray(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_priest->distanceTo(target);
+    const double distance = m_priest->distanceTo(target);
     if (distance > m_range) {
         return false;
     }
@@ -94,7 +94,7 @@ bool HealPrayer::pray(Unit *target, int round) {
     return result;
 }
 
-BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, float range,
+BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
                                        BuffableAttribute which, int modifier, bool targetFriendly, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
@@ -108,7 +108,7 @@ bool BuffModifierPrayer::pray(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_priest->distanceTo(target);
+    const double distance = m_priest->distanceTo(target);
     if (distance > m_range) {
         return false;
     }
@@ -138,7 +138,7 @@ int BuffModifierPrayer::getModifier(int prayingRoll) const {
     return m_modifier;
 }
 
-BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, float range,
+BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
                                    BuffableAttribute which, Rerolls reroll, bool targetFriendly, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
@@ -152,7 +152,7 @@ bool BuffRerollPrayer::pray(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_priest->distanceTo(target);
+    const double distance = m_priest->distanceTo(target);
     if (distance > m_range) {
         return false;
     }

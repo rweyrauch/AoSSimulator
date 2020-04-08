@@ -147,7 +147,7 @@ namespace Khorne {
 
     void MightySkullcrushers::onCharged() {
         // Murderous Charge
-        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0f)) {
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
             Dice::rollD6(remainingModels(), rolls);
             Wounds wounds = {0, 0};

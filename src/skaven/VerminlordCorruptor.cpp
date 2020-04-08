@@ -108,7 +108,7 @@ namespace Skaven {
 
     int VerminlordCorruptor::terrifying(const Unit *target) {
         // Terrifying
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
         return 0;
@@ -127,7 +127,7 @@ namespace Skaven {
         auto wounds = Unit::onEndCombat(player);
 
         // Plaguemaster
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
             if (Dice::rollD6() >= 4) {
                 Wounds plague = {0, Dice::rollD3()};

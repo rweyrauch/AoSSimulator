@@ -85,7 +85,7 @@ namespace Slaanesh {
         Unit::onCharged();
 
         // Multilating Blades
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
             if (Dice::rollD6() >= 2) {
                 ip->applyDamage({0, Dice::rollD3()});

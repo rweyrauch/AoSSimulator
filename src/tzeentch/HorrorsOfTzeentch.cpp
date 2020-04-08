@@ -137,7 +137,7 @@ namespace Tzeentch {
         int modifier = TzeentchBase::castingModifier();
 
         // Locus of Conjuration
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
         for (auto ip : units) {
             if (ip->hasKeyword(TZEENTCH) && ip->hasKeyword(DAEMON) && ip->hasKeyword(HERO)) {
                 modifier += 1;

@@ -100,7 +100,7 @@ namespace Seraphon {
 
     int Razordons::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Piercing Barbs
-        if ((weapon->name() == m_spikes.name()) && (distanceTo(m_shootingTarget) <= 6.0f)) {
+        if ((weapon->name() == m_spikes.name()) && (distanceTo(m_shootingTarget) <= 6.0)) {
             return -1;
         }
         return SeraphonBase::weaponRend(weapon, target, hitRoll, woundRoll);

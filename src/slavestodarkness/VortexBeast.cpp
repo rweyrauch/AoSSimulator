@@ -103,7 +103,7 @@ namespace SlavesToDarkness {
             heal(Dice::rollD3());
 
             // Aura of Mutilation
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 18.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 18.0);
             for (auto unit : units) {
                 const auto roll = Dice::rollD6();
                 switch (roll) {

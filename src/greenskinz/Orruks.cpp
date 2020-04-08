@@ -185,7 +185,7 @@ namespace Greenskinz {
     int Orruks::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
         if (m_standardBearer == OrrukBanner) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (!units.empty()) {
                 modifier += 2;
             }
@@ -224,7 +224,7 @@ namespace Greenskinz {
         // Ready Boyz! Aim! Fire!
         if (weapon->name() == m_orrukBows.name()) {
             if (!m_moved) {
-                auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+                auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
                 if (units.empty()) {
                     modifier += 1;
                 }

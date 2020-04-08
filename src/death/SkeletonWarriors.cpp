@@ -174,7 +174,7 @@ namespace Death {
     }
 
     int SkeletonWarriors::standardBearerBraveryMod(const Unit *unit) {
-        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0f)) return -1;
+        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

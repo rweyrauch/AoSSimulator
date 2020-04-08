@@ -93,7 +93,7 @@ namespace GloomspiteGitz {
     int Mollog::reassuringPresence(const Unit *unit) {
         // Reassuring Presence
         if (unit->hasKeyword(GLOOMSPITE_GITZ) && isFriendly(unit) &&
-            (distanceTo(unit) <= 12.0f)) {
+            (distanceTo(unit) <= 12.0)) {
             return 1;
         }
         return 0;
@@ -159,7 +159,7 @@ namespace GloomspiteGitz {
         if (owningPlayer() == player) {
             if (m_batSquig) {
                 auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-                if (unit && (distanceTo(unit) <= 18.0f)) {
+                if (unit && (distanceTo(unit) <= 18.0)) {
                     if (Dice::rollD6() >= 5) {
                         unit->applyDamage({0, 1});
                     }
@@ -173,7 +173,7 @@ namespace GloomspiteGitz {
 
         if (m_spiteshroom) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 3.0f)) {
+            if (unit && (distanceTo(unit) <= 3.0)) {
                 if (Dice::rollD6() >= 5) {
                     unit->buffModifier(BuffableAttribute::ToHitMelee, -1, {Phase::Combat, m_battleRound, player});
                 }

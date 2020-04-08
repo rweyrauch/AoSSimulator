@@ -10,7 +10,7 @@
 #include <Board.h>
 
 Empower::Empower(Unit *caster) :
-        Spell(caster, "Empower", 6, 12.0f) {
+        Spell(caster, "Empower", 6, 12.0) {
     m_targetFriendly = true;
 }
 
@@ -20,7 +20,7 @@ Spell::Result Empower::cast(Unit *target, int round) {
     }
 
     // Distance to target
-    const float distance = m_caster->distanceTo(target);
+    const auto distance = m_caster->distanceTo(target);
     if (distance > m_range) {
         return Failed;
     }

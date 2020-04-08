@@ -105,7 +105,7 @@ namespace Sylvaneth {
 
     int SpiteRevenants::unbridledMalice(const Unit *target) {
         // Unbridled Malice
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
 

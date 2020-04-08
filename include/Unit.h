@@ -121,17 +121,17 @@ public:
 
     const Math::Point3 &position() const { return m_position; };
 
-    float x() const { return m_position.x; }
+    double x() const { return m_position.x; }
 
-    float y() const { return m_position.y; }
+    double y() const { return m_position.y; }
 
-    float distanceTo(const Unit *unit) const;
+    double distanceTo(const Unit *unit) const;
 
-    float distanceTo(const Math::Point3 &point) const;
+    double distanceTo(const Math::Point3 &point) const;
 
-    float distanceBetween(const Model *model, const Unit *unit) const;
+    double distanceBetween(const Model *model, const Unit *unit) const;
 
-    int numModelsWithin(const Model *model, float range) const;
+    int numModelsWithin(const Model *model, double range) const;
 
     //
     // Combat
@@ -192,7 +192,7 @@ public:
 
     bool unbind(Unit *caster, int castRoll);
 
-    float basesizeInches() const { return m_basesize_mm / 25.4f; }
+    double basesizeInches() const { return m_basesize_mm / 25.4f; }
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor);
 
@@ -247,7 +247,7 @@ protected:
 
     const Model *nearestModel(const Model *model, const Unit *targetUnit) const;
 
-    int getModelsWithin(const Model *model, const Unit *targetUnit, float distance) const;
+    int getModelsWithin(const Model *model, const Unit *targetUnit, double distance) const;
 
     void doPileIn();
 
@@ -456,7 +456,7 @@ protected:
     int m_wounds = 0;
     int m_bravery = 0;
     int m_save = 0;
-    float m_basesize_mm = 0.0f;
+    double m_basesize_mm = 0.0f;
     int m_points = 0;
     Role m_battleFieldRole = Role::Other;
     int m_pileInMove = 3;

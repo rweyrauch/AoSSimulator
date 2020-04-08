@@ -78,7 +78,7 @@ namespace Bonesplitterz {
         Unit::onStartCombat(player);
 
         // Monster Hunters
-        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), MONSTER, 3.0f);
+        auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), MONSTER, 3.0);
         if (unit) {
             // Select ability
             auto roll = Dice::rollD6();

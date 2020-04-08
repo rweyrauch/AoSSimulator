@@ -164,9 +164,9 @@ namespace SlavesToDarkness {
 
     int Archaon::crownOfDomination(const Unit *unit) {
         // The Crown of Domination
-        if (unit->hasKeyword(CHAOS) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0f)) {
+        if (unit->hasKeyword(CHAOS) && (unit->owningPlayer() == owningPlayer()) && (distanceTo(unit) <= 12.0)) {
             return 2;
-        } else if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0f)) {
+        } else if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 12.0)) {
             return -2;
         }
 

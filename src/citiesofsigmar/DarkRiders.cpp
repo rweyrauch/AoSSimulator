@@ -143,7 +143,7 @@ namespace CitiesOfSigmar {
 
     int DarkRiders::sowTerrorAndConfusion(const Unit *target) {
         // Sow Terror and Confusion
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 12.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 12.0)) {
             return -1;
         }
 

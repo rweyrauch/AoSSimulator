@@ -167,7 +167,7 @@ namespace CitiesOfSigmar {
 
     int FreeguildGeneralOnGriffon::piercingBloodroar(const Unit *target) {
         // Piercing Bloodroar
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 8.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 8.0)) {
             return -1;
         }
 

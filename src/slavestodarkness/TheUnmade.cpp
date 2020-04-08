@@ -104,7 +104,7 @@ namespace SlavesToDarkness {
 
     int TheUnmade::frozenInFear(const Unit *unit) {
         // Frozen in Fear
-        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0f)) {
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

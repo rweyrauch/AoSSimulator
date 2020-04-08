@@ -68,7 +68,7 @@ namespace Skaven {
         Wounds wounds = Unit::onEndCombat(player);
 
         // Poisonous Fumes
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0f);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
             if (!unit->hasKeyword(CLANS_PESTILENS)) {
                 int mortalWounds = 0;
@@ -97,7 +97,7 @@ namespace Skaven {
 
         if (player == owningPlayer()) {
             // Plague Prayers
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 13.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 13.0);
             if (!units.empty()) {
                 Dice::RollResult result;
 

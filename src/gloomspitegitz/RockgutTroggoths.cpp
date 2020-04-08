@@ -124,7 +124,7 @@ namespace GloomspiteGitz {
         auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
         if (nearestUnit) {
             // Throwin Boulders
-            float rangeTo = distanceTo(nearestUnit);
+            double rangeTo = distanceTo(nearestUnit);
             if (rangeTo < 12) {
                 int roll = Dice::rollD6();
                 if (roll <= nearestUnit->remainingModels()) {

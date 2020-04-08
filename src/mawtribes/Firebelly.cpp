@@ -83,7 +83,7 @@ namespace OgorMawtribes {
 
         // Fire Breath
         if (player == owningPlayer() && m_shootingTarget) {
-            if (distanceTo(m_shootingTarget) <= (float) m_fireBreath.range()) {
+            if (distanceTo(m_shootingTarget) <= (double) m_fireBreath.range()) {
                 if (Dice::rollD6() >= 4) {
                     m_shootingTarget->applyDamage({0, Dice::rollD3()});
                 }

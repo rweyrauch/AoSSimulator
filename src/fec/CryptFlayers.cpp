@@ -102,7 +102,7 @@ namespace FleshEaterCourt {
         // Death Scream
         if (weapon->name() == m_deathScream.name()) {
             int roll = Dice::roll2D6();
-            if (distanceTo(target) > 3.0f)
+            if (distanceTo(target) > 3.0)
                 roll -= 2;
             if (roll > target->bravery()) {
                 return {0, roll - target->bravery()};

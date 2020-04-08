@@ -75,7 +75,7 @@ namespace Sylvaneth {
         }
             // Shield the Arcane
         else if (hasKeyword(GNARLROOT)) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(GNARLROOT) && ip->hasKeyword(WIZARD)) {
                     return RerollOnes;
@@ -122,7 +122,7 @@ namespace Sylvaneth {
     Rerolls SylvanethBase::battleshockRerolls() const {
         // Stubborn and Taciturn
         if (hasKeyword(IRONBARK)) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(HERO) && ip->hasKeyword(IRONBARK)) {
                     return RerollFailed;
@@ -137,7 +137,7 @@ namespace Sylvaneth {
 
         // Courage for Kurnoth
         if (hasKeyword(HEARTWOOD)) {
-            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(HERO) && ip->hasKeyword(HEARTWOOD)) {
                     mod++;

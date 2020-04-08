@@ -155,7 +155,7 @@ namespace SlavesToDarkness {
 
         // Swift Death
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 1.0f)) {
+        if (unit && (distanceTo(unit) <= 1.0)) {
             Dice::RollResult result;
             Dice::rollD6(m_unmodifiedChargeRoll, result);
             unit->applyDamage({0, result.rollsGE(5)});

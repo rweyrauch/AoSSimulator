@@ -108,7 +108,7 @@ namespace Nurgle {
     void Rotigus::onCharged() {
         // Mountain of Loathsome Flesh
         if (m_charged) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             for (auto ip : units) {
                 int roll = Dice::rollD6();
                 if (roll >= 4) {
@@ -141,7 +141,7 @@ namespace Nurgle {
             // Corpulent Mass
             heal(Dice::rollD3());
 
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0f);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
 
             // Streams of Brackish Filth
             for (auto unit : units) {

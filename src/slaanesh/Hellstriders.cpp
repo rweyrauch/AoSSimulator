@@ -149,7 +149,7 @@ namespace Slaanesh {
     }
 
     Rerolls Hellstriders::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0f)) return RerollOnes;
+        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return RerollOnes;
 
         return NoRerolls;
     }

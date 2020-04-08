@@ -190,7 +190,7 @@ namespace StormcastEternals {
 
     int EvocatorsOnCelestialDracolines::supernaturalRoar(const Unit *target) {
         // Supernatural Roar
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
 

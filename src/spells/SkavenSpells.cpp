@@ -11,11 +11,11 @@
 
 DamageSpell *CreateWarpLightning(Unit *caster) {
     // TODO: Implement the 'warp-power accumulator' option.
-    return new DamageSpell(caster, "Warp Lightning", 5, 13.0f, RAND_D3);
+    return new DamageSpell(caster, "Warp Lightning", 5, 13.0, RAND_D3);
 }
 
 AreaOfEffectSpell *CreateWarpLightningStorm(Unit *caster) {
     // TODO: Implement the 'warp-power accumulator' option.
     // TODO: Storm is limited to D3 units (really D3 casts of WarpLightning)
-    return new AreaOfEffectSpell(caster, "Warp Lightning Storm", 7, 0.0f, 13.0f, RAND_D3, 0);
+    return new AreaOfEffectSpell(caster, "Warp Lightning Storm", 7, 0.0, 13.0, RAND_D3, 0);
 }

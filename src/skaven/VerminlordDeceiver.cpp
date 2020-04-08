@@ -109,7 +109,7 @@ namespace Skaven {
 
     int VerminlordDeceiver::terrifying(const Unit *target) {
         // Terrifying
-        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0f)) {
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
             return -1;
         }
         return 0;

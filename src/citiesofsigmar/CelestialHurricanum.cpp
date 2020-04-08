@@ -19,7 +19,7 @@ namespace CitiesOfSigmar {
 
     struct TableEntry {
         int m_move;
-        float m_portentsOfBattle;
+        double m_portentsOfBattle;
         int m_stormOfShemtek;
     };
 
@@ -154,7 +154,7 @@ namespace CitiesOfSigmar {
         if (m_shootingTarget) {
             // Storm of Shemtek
             auto dist = distanceTo(m_shootingTarget);
-            if (dist <= (float) m_stormOfShemtek.range()) {
+            if (dist <= (double) m_stormOfShemtek.range()) {
                 Dice::RollResult result;
                 Dice::rollD6(g_damageTable[getDamageTableIndex()].m_stormOfShemtek, result);
                 auto numHits = result.rollsGE(2);
@@ -178,7 +178,7 @@ namespace CitiesOfSigmar {
     int CelestialHurricanum::locusOfAzyr(const Unit *caster) {
         // Locus of Azyr
         if (caster->hasKeyword(COLLEGIATE_ARCANE) && caster->hasKeyword(WIZARD) &&
-            (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0f)) {
+            (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= 12.0)) {
             return 1;
         }
         return 0;
