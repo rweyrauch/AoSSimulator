@@ -871,13 +871,30 @@ namespace Math {
         const auto dN = dirC0ToC1.normalize();
         const auto rTotal = c0.radius() + c1.radius();
         const auto mN = motion0.normalize();
-        const auto phi = dN.dot(mN);
-        const auto theta = asin(d * sin(phi) / rTotal);
+        const auto cosPhi = dN.dot(mN);
+        const auto phi = acos(cosPhi);
 
-        const auto omega = M_PI - (phi + theta);
+        bool intersected = false;
 
-        poi = sin(omega) * rTotal / sin(phi);
-        return true;
+        if (!Equal(phi, 0.0, EPSILON)) {
+            // Law of sines
+            const auto sinTheta = d * sin(phi) / rTotal;
+            if (fabs(sinTheta) <= 1.0) {
+                const auto theta = asin(sinTheta);
+                const auto omega = M_PI - (phi + theta);
+                poi = sin(omega) * rTotal / sin(phi) - c0.radius();
+                intersected = true;
+            }
+        }
+        else {
+            Ray2 ray(c0.center(), dN);
+            RayHit h0, h1;
+            if (Intersect(ray, c1, h0, h1)) {
+                poi = std::min(h0.m_t, h1.m_t) - c0.radius();
+                intersected = true;
+            }
+        }
+        return intersected;
     }
 
     bool Intersect(const Circle &c0, const Circle &c1, IntersectInfo &hitInfo) {
