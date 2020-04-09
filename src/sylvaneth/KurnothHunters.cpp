@@ -122,7 +122,7 @@ namespace Sylvaneth {
                 return "Greatbows";
             }
         }
-        return ParameterValueToString(parameter);
+        return SylvanethBase::ValueToString(parameter);
     }
 
     int KurnothHunters::EnumStringToInt(const std::string &enumString) {
@@ -133,7 +133,7 @@ namespace Sylvaneth {
         } else if (enumString == "Greatbows") {
             return Greatbows;
         }
-        return 0;
+        return SylvanethBase::EnumStringToInt(enumString);
     }
 
     Wounds KurnothHunters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
