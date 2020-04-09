@@ -337,14 +337,13 @@ void Unit::restore() {
 
 void Unit::deploy(const Math::Point3 &pos, const Math::Vector3 &orientation) {
 
-    // Select the formatation
-    auto numRanks = numModels() / 10;
-    formation(numRanks);
+    formation(computeFormation());
 
     m_position = pos;
 
+    const auto modelSpacing = std::min(1.0, basesizeInches() * 0.3);
     int unitW = (int) m_models.size() / m_ranks;
-    double unitWidth = m_models.size() * basesizeInches() / (double) m_ranks;
+    double unitWidth = m_models.size() * (basesizeInches() + modelSpacing) / (double) m_ranks;
 
     Math::Vector3 up(0, 0, 1);
     Math::Vector3 left = Math::Vector3::Cross(up, orientation);
@@ -353,7 +352,7 @@ void Unit::deploy(const Math::Point3 &pos, const Math::Vector3 &orientation) {
     int xi = 0;
     int yi = 0;
 
-    Math::Vector3 dx = -left * basesizeInches();
+    Math::Vector3 dx = -left * (basesizeInches() + modelSpacing);
     Math::Vector3 dy = -orientation * basesizeInches();
 
     Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0;
@@ -751,9 +750,11 @@ bool Unit::makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *t
         auto reroll = toSaveRerolls(weapon);
         if (reroll == RerollFailed) {
             saveRoll = Dice::rollD6();
-        } else if ((reroll == RerollOnes) && (woundRoll == 1)) {
+        }
+        if ((reroll == RerollOnes) && (woundRoll == 1)) {
             saveRoll = Dice::rollD6();
-        } else if (reroll == RerollOnesAndTwos && (woundRoll == 1 || woundRoll == 2)) {
+        }
+        if ((reroll == RerollOnesAndTwos) && (woundRoll == 1 || woundRoll == 2)) {
             saveRoll = Dice::rollD6();
         }
     }
@@ -857,9 +858,11 @@ int Unit::rerolling(int initialRoll, Rerolls reroll) const {
     int roll = initialRoll;
     if (reroll == RerollFailed) {
         roll = Dice::rollD6();
-    } else if ((reroll == RerollOnes) && (initialRoll == 1)) {
+    }
+    if ((reroll == RerollOnes) && (initialRoll == 1)) {
         roll = Dice::rollD6();
-    } else if ((reroll == RerollOnesAndTwos) && ((initialRoll == 1) || (initialRoll == 2))) {
+    }
+    if ((reroll == RerollOnesAndTwos) && ((initialRoll == 1) || (initialRoll == 2))) {
         roll = Dice::rollD6();
     }
     return roll;
@@ -1370,6 +1373,23 @@ int Unit::returnModels(int numModels) {
         if (numReturned >= numModels) break;
     }
     return numReturned;
+}
+
+int Unit::computeFormation() const {
+    // Select the formatation based on number of models, base size and weapon range
+    double avgWeaponRange = 0;
+    for (auto i = 0; i < numModels(); i++) {
+        avgWeaponRange += getModel(i)->preferredWeapon() ? getModel(i)->preferredWeapon()->range() : 0;
+    }
+    avgWeaponRange /= numModels();
+    auto weaponRanks = std::min(4, (int)ceil(avgWeaponRange / basesizeInches()));
+
+    int modelsPerRank = 10;
+    if (basesizeInches() <= 30) modelsPerRank = 20;
+    else if (basesizeInches() >= 50) modelsPerRank = 1;
+    auto numRanks = numModels() / modelsPerRank;
+
+    return std::max(numRanks, weaponRanks);
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

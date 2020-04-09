@@ -257,6 +257,8 @@ protected:
 
     int getCommandPoints() const;
 
+    int computeFormation() const;
+
 protected:
 
     /*!
