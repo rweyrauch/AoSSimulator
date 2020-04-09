@@ -117,7 +117,9 @@ public:
     //
     bool formation(int ranks);
 
-    bool setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation);
+    void deploy(const Math::Point3 &pos, const Math::Vector3 &orientation);
+
+    bool move(const Math::Point3 &pos, const Math::Vector3 &orientation);
 
     const Math::Point3 &position() const { return m_position; };
 

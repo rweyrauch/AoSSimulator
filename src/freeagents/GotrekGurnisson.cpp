@@ -111,7 +111,7 @@ namespace FreeAgent {
         if (meleeTarget && (totalMoveDistance <= 3.0)) {
             Math::Ray ray(position(), meleeTarget->position());
             auto newPos = ray.point_at(totalMoveDistance);
-            setPosition(newPos, ray.get_direction());
+            move(newPos, ray.get_direction());
 
             int numSlain = 0;
             wounds += fight(-1, meleeTarget, numSlain);

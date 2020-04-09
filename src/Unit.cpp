@@ -335,12 +335,13 @@ void Unit::restore() {
     onRestore();
 }
 
-bool Unit::setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation) {
-    // TODO: pack models into block of (numModels x m_ranks)
+void Unit::deploy(const Math::Point3 &pos, const Math::Vector3 &orientation) {
+
+    // Select the formatation
+    auto numRanks = numModels() / 10;
+    formation(numRanks);
+
     m_position = pos;
-    for (auto &m : m_models) {
-        m->setPosition(pos);
-    }
 
     int unitW = (int) m_models.size() / m_ranks;
     double unitWidth = m_models.size() * basesizeInches() / (double) m_ranks;
@@ -358,8 +359,47 @@ bool Unit::setPosition(const Math::Point3 &pos, const Math::Vector3 &orientation
     Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0;
     Math::Vector3 curPos = pos0;
 
+    // Pack models into block of (numModels x m_ranks)
     for (auto &m : m_models) {
         m->setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
+        curPos += dx;
+        xi++;
+        if (xi >= unitW) {
+            xi = 0;
+            yi++;
+
+            curPos = pos0;
+            curPos += (double) yi * dy;
+        }
+    }
+}
+
+bool Unit::move(const Math::Point3 &pos, const Math::Vector3 &orientation) {
+    // TODO: pack models into block of (numModels x m_ranks)
+    m_position = pos;
+    //for (auto &m : m_models) {
+    //    m->setPosition(pos);
+    //}
+
+    int unitW = (int) m_models.size() / m_ranks;
+    double unitWidth = m_models.size() * basesizeInches() * 1.5 / (double) m_ranks;
+
+    Math::Vector3 up(0, 0, 1);
+    Math::Vector3 left = Math::Vector3::Cross(up, orientation);
+    left.normalize();
+
+    int xi = 0;
+    int yi = 0;
+
+    Math::Vector3 dx = -left * basesizeInches();
+    Math::Vector3 dy = -orientation * basesizeInches();
+
+    Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0;
+    Math::Vector3 curPos = pos0;
+
+    for (auto &m : m_models) {
+        //m->setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
+        Board::Instance()->moveModel(*m, Math::Point3(curPos.x, curPos.y, curPos.z));
 
         xi++;
         curPos += dx;
@@ -519,7 +559,8 @@ void Unit::movement(PlayerId player) {
         }
         Math::Ray ray(position(), closestTarget->position());
         auto newPos = ray.point_at(totalMoveDistance);
-        setPosition(newPos, ray.get_direction());
+
+        move(newPos, ray.get_direction());
 
         m_moved = (totalMoveDistance > 0.0);
     } else {
@@ -618,7 +659,7 @@ void Unit::charge(PlayerId player) {
 
                 Math::Ray ray(position(), closestTarget->position());
                 auto newPos = ray.point_at(chargeDist);
-                setPosition(newPos, ray.get_direction());
+                move(newPos, ray.get_direction());
             } else if (chargeRerolls() != NoRerolls) {
                 chargeDist = (double) rollChargeDistance();
                 if (chargeDist >= distance) {
@@ -628,7 +669,7 @@ void Unit::charge(PlayerId player) {
 
                     Math::Ray ray(position(), closestTarget->position());
                     auto newPos = ray.point_at(chargeDist);
-                    setPosition(newPos, ray.get_direction());
+                    move(newPos, ray.get_direction());
                 }
             }
 
@@ -972,6 +1013,7 @@ void Unit::doPileIn() {
             const Math::Ray ray(m->position(), closestTarget->position());
             auto newPos = ray.point_at(totalMoveDistance);
             m->setPosition(newPos);
+            //Board::Instance()->moveModel(*m, newPos);
         }
     }
 }

@@ -95,7 +95,7 @@ public:
 
     bool castRay(const Math::Ray2 &ray, Math::RayHit &result) const;
 
-    bool moveModel(Model &model, const Math::Point3 &toPoint) const;
+    double moveModel(Model &model, const Math::Point3 &toPoint) const;
 
 protected:
     Board() = default;

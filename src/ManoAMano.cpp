@@ -43,14 +43,14 @@ void ManoAMano::combatants(Unit *red, Unit *blue) {
 
     // left center
     m_initialPos[0] = Math::Point3(redX, redY, 0.0);
-    red->setPosition(m_initialPos[0], Math::Vector3(1.0, 0.0, 0.0));
+    red->deploy(m_initialPos[0], Math::Vector3(1.0, 0.0, 0.0));
 
     double blueX = board->width() - (board->width() / 10.0);
     double blueY = board->depth() / 2.0;
 
     // right center
     m_initialPos[1] = Math::Point3(blueX, blueY, 0.0);
-    blue->setPosition(m_initialPos[1], Math::Vector3(-1.0, 0.0, 0.0));
+    blue->deploy(m_initialPos[1], Math::Vector3(-1.0, 0.0, 0.0));
 
     board->addRosters(m_rosters[0], m_rosters[1]);
 
@@ -63,8 +63,8 @@ void ManoAMano::combatants(Unit *red, Unit *blue) {
 }
 
 void ManoAMano::start() {
-    redUnit()->setPosition(m_initialPos[0], Math::Vector3(1.0, 0.0, 0.0));
-    blueUnit()->setPosition(m_initialPos[1], Math::Vector3(-1.0, 0.0, 0.0));
+    redUnit()->deploy(m_initialPos[0], Math::Vector3(1.0, 0.0, 0.0));
+    blueUnit()->deploy(m_initialPos[1], Math::Vector3(-1.0, 0.0, 0.0));
 
     int redRoll = 0;
     int blueRoll = 0;

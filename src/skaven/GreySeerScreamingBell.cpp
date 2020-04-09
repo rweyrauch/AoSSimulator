@@ -223,7 +223,7 @@ namespace Skaven {
                 if (factory) {
                     if (m_roster) {
                         auto unit = UnitFactory::Create(VerminlordUnitNames[which], factory->m_parameters);
-                        unit->setPosition(position(), m_orientation);
+                        unit->deploy(position(), m_orientation);
                         m_roster->addUnit(unit);
                     }
                 }

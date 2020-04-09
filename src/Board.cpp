@@ -92,13 +92,13 @@ void Board::render(const std::string &filename) const {
         auto radiusInches = baseSize * 0.5;
 
         cr->set_source_rgb(1.0, 0.0, 0.0);
-        for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
-        {
-            if (mip->slain() || mip->fled())
+        for (auto i = 0; i < unit->numModels(); i++) {
+            auto m = unit->getModel(i);
+            if (m->slain() || m->fled())
             {
                 continue;
             }
-            auto pos = mip->position();
+            auto pos = m->position();
             cr->arc(pos.x * 10.0, pos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
         }
@@ -122,14 +122,14 @@ void Board::render(const std::string &filename) const {
         auto radiusInches = baseSize * 0.5;
 
         cr->set_source_rgb(0.0, 0.0, 1.0);
-        for (auto mip = unit->modelBegin(); mip != unit->modelEnd(); ++mip)
-        {
-            if (mip->slain() || mip->fled())
+        for (auto i = 0; i < unit->numModels(); i++) {
+            auto m = unit->getModel(i);
+            if (m->slain() || m->fled())
             {
                 continue;
             }
 
-            auto pos = mip->position();
+            auto pos = m->position();
             cr->arc(pos.x * 10.0, pos.y * 10.0, radiusInches * 10.0, 0.0, 2.0 * M_PI);
             cr->fill();
         }
@@ -411,8 +411,57 @@ bool Board::castRay(const Math::Ray2 &ray, Math::RayHit &result) const {
     return false;
 }
 
-bool Board::moveModel(Model &model, const Math::Point3 &toPoint) const {
-    return false;
+double Board::moveModel(Model &model, const Math::Point3 &toPoint) const {
+
+    // Check requested movement against all other models on the board.
+
+    // Project onto z-plane for 2D movement.
+    const Math::Point2 modelPos = {model.x(), model.y()};
+    const Math::Point2 destination = {toPoint.x, toPoint.y};
+    auto movement = Math::Vector2(modelPos, destination);
+
+    // Move the model in a straight line as until the target position is reached or the model hits
+    // another model.
+
+    const Math::Circle modelBase = {modelPos, model.basesizeInches()};
+    double minPoi = movement.length();
+    if (m_rosters[0] != nullptr) {
+        for (auto uip = m_rosters[0]->unitBegin(); uip != m_rosters[0]->unitEnd(); ++uip) {
+            auto unit = *uip;
+            for (auto i = 0; i < unit->numModels(); i++) {
+                auto m = unit->getModel(i);
+                if (&model == m) continue;
+                const Math::Circle mBase = {{m->position().x, m->position().y}, m->basesizeInches()};
+                double poi = -1.0;
+                auto hit = Math::PointOfIntersection(modelBase, movement, mBase, poi);
+                if (hit) {
+                    if (poi < minPoi) minPoi = poi;
+                }
+            }
+        }
+    }
+    if (m_rosters[1] != nullptr) {
+        for (auto uip = m_rosters[1]->unitBegin(); uip != m_rosters[1]->unitEnd(); ++uip) {
+            auto unit = *uip;
+            for (auto i = 0; i < unit->numModels(); i++) {
+                auto m = unit->getModel(i);
+                if (&model == m) continue;
+                const Math::Circle mBase = {{m->position().x, m->position().y}, m->basesizeInches()};
+                double poi = -1.0;
+                auto hit = Math::PointOfIntersection(modelBase, movement, mBase, poi);
+                if (hit) {
+                    if (poi < minPoi) minPoi = poi;
+                }
+            }
+        }
+    }
+
+    auto totalMoveDistance = minPoi;
+    const Math::Ray ray(model.position(),toPoint);
+    auto newPos = ray.point_at(totalMoveDistance);
+    model.setPosition(newPos);
+
+    return totalMoveDistance;
 }
 
 const Objective *Board::getNearestObjective(const Unit *unit) {

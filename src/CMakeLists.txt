@@ -696,3 +696,7 @@ target_compile_options(
         -Wall
         -Wno-unused-parameter
 )
+
+target_compile_definitions(
+        AoSSim PUBLIC HAVE_CAIRO
+)

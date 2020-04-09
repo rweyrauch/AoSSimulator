@@ -139,7 +139,7 @@ namespace SlavesToDarkness {
                                 if (factory) {
                                     if (m_roster) {
                                         auto unit = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
-                                        unit->setPosition(position(), m_orientation);
+                                        unit->deploy(position(), m_orientation);
                                         m_roster->addUnit(unit);
                                     }
                                 }
