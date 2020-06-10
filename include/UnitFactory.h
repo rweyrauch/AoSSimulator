@@ -41,7 +41,7 @@ Parameter BoolParameter(const char* name);
 Parameter IntegerParameter(const char* name, int value, int min, int max, int incr);
 
 template<std::size_t N>
-Parameter EnumParameter(const char* name, int value, std::array<int, N> values) {
+Parameter EnumParameter(const char* name, int value, const std::array<int, N>& values) {
     return { ParamType::Enum, name, value, 0, N-1, 1, (int)N, values.data()};
 }
 

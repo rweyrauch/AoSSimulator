@@ -42,6 +42,7 @@ namespace SlavesToDarkness {
     void ChaosWarriors::Init() {
         if (!s_registered) {
             static const std::array<int, 4> weapons = {HandWeaponAndShield, HalberdAndShield, GreatBlade, PairedHandWeapons};
+
             static FactoryMethod factoryMethod = {
                     ChaosWarriors::Create,
                     ChaosWarriors::ValueToString,

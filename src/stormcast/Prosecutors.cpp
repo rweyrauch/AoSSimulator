@@ -114,6 +114,9 @@ namespace StormcastEternals {
                 prime->addMeleeWeapon(&m_grandhammer);
                 numGrandhammers--;
                 break;
+            default:
+                SimLog(Verbosity::Normal, "Unknown Prosecutor prime weapon %d", primeGrandWeapon);
+                break;
         }
         addModel(prime);
 
@@ -147,6 +150,9 @@ namespace StormcastEternals {
             } else if (m_weaponOption == StormcallJavelinAndShield) {
                 model->addMissileWeapon(&m_stormcallJavelinMissile);
                 model->addMeleeWeapon(&m_stormcallJavelin);
+            }
+            else {
+                SimLog(Verbosity::Normal, "Unknown Prosecutor weapon %d", m_weaponOption);
             }
             addModel(model);
         }
@@ -238,9 +244,9 @@ namespace StormcastEternals {
     void Prosecutors::Init() {
         if (!s_registered) {
             static const std::array<int, 3> weapons = {StormcallJavelinAndShield,
-                                                       PairedCelestialHammers, CelestialHammerAndShield};
+                                                             PairedCelestialHammers, CelestialHammerAndShield};
             static const std::array<int, 5> primeWeapons = {NoGrandWeapon,
-                                                            StormsurgeTrident,Grandaxe,Grandblade,Grandhammer};
+                                                                  StormsurgeTrident,Grandaxe,Grandblade,Grandhammer};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,

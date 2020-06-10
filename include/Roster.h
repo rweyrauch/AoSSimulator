@@ -9,7 +9,7 @@
 #ifndef ROSTER_H
 #define ROSTER_H
 
-#include <vector>
+#include <list>
 #include <Unit.h>
 
 class Roster {
@@ -20,11 +20,7 @@ public:
 
     PlayerId getOwningPlayer() const { return m_id; }
 
-    void addUnit(Unit *unit) {
-        if (unit == nullptr) return;
-        unit->setRoster(this);
-        m_units.push_back(unit);
-    }
+    void addUnit(Unit *unit);
 
     void beginRound(int battleRound);
 
@@ -48,9 +44,9 @@ public:
 
     Unit *nearestUnit(const Unit *unit) const;
 
-    std::vector<Unit *>::iterator unitBegin() { return m_units.begin(); }
+    std::list<Unit *>::iterator unitBegin() { return m_units.begin(); }
 
-    std::vector<Unit *>::iterator unitEnd() { return m_units.end(); }
+    std::list<Unit *>::iterator unitEnd() { return m_units.end(); }
 
     int totalPoints() const;
 
@@ -64,7 +60,7 @@ public:
 
 private:
     const PlayerId m_id;
-    std::vector<Unit *> m_units;
+    std::list<Unit *> m_units; // NOTE: using a list so that units may be added while iterating over the list
 
     int m_cp = 0;
 };

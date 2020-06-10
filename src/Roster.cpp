@@ -8,6 +8,12 @@
 #include <cfloat>
 #include <Roster.h>
 
+void Roster::addUnit(Unit *unit) {
+    if (unit == nullptr) return;
+    unit->setRoster(this);
+    m_units.push_back(unit);
+}
+
 void Roster::doHeroPhase() {
     for (auto u : m_units) {
         u->hero(m_id);

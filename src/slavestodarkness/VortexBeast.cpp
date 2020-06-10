@@ -132,8 +132,6 @@ namespace SlavesToDarkness {
                             if (remainingWounds() < initialWounds()) {
                                 heal(Dice::rollD3());
                             } else {
-                                // TODO: fix this
-                                /*
                                 // Summon a Chaos Spawn
                                 if (m_roster) {
                                     auto factory = UnitFactory::LookupUnit("Chaos Spawn");
@@ -143,7 +141,7 @@ namespace SlavesToDarkness {
                                         m_roster->addUnit(spawn);
                                     }
                                 }
-                                */
+
                             }
                         }
                         break;
