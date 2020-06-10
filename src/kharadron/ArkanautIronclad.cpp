@@ -37,7 +37,7 @@ namespace KharadronOverlords {
         auto unit = new ArkanautIronclad();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, GreatSkyCannon);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure(option);
@@ -66,19 +66,15 @@ namespace KharadronOverlords {
 
     void ArkanautIronclad::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {GreatSkyCannon, GreatSkyhook, GreatVolleyCannon};
             static FactoryMethod factoryMethod = {
                     ArkanautIronclad::Create,
                     ArkanautIronclad::ValueToString,
                     ArkanautIronclad::EnumStringToInt,
                     ArkanautIronclad::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", ArkanautIronclad::GreatSkyCannon,
-                                    ArkanautIronclad::GreatSkyCannon,
-                                    ArkanautIronclad::GreatVolleyCannon, 1
-                            },
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            EnumParameter("Weapon", GreatSkyCannon, weapons),
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

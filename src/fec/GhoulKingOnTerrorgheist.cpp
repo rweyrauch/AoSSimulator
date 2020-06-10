@@ -90,10 +90,8 @@ namespace FleshEaterCourt {
                     FleshEaterCourts::EnumStringToInt,
                     AbhorrantGhoulKingOnTerrorgheist::ComputePoints,
                     {
-                            {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt,
-                             FleshEaterCourts::Gristlegore, 1},
-                            {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None,
-                             FleshEaterCourts::DefendersOfTheRealm, 1},
+                            EnumParameter("Grand Court", g_grandCourt[0], g_grandCourt),
+                            EnumParameter("Delusion", g_delusion[0], g_delusion),
                     },
                     DEATH,
                     {FLESH_EATER_COURTS}

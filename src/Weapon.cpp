@@ -7,14 +7,15 @@
  */
 
 #include <algorithm>
+#include <utility>
 #include <Weapon.h>
 #include <AgeOfSigmarSim.h>
 #include <Dice.h>
 
-Weapon::Weapon(Type type, const std::string &name, int range, int attacks, int toHit, int toWound, int rend,
+Weapon::Weapon(Type type, std::string name, int range, int attacks, int toHit, int toWound, int rend,
                int damage) noexcept :
         m_type(type),
-        m_name(name),
+        m_name(std::move(name)),
         m_range(range),
         m_attacks(attacks),
         m_toHit(toHit),
@@ -84,7 +85,7 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
     }
     const int toWound = m_toWound - modifier;
 
-    int numWoundingHits = 0;
+    int numWoundingHits;
 
     if (rerolls == RerollOnes) {
         Dice::rollD6(totalHits, 1, rollResult);
@@ -142,6 +143,6 @@ double Weapon::strength() const {
     return m_strength;
 }
 
-double Weapon::averageDamage(int againstSave) const {
+double Weapon::averageDamage(int /*againstSave*/) const {
     return AverageRandomValue(damage());
 }

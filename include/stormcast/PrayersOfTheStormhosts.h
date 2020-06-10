@@ -10,11 +10,20 @@
 #define PRAYERSOFTHESTORMHOSTS_H
 
 #include <Prayer.h>
+#include <array>
 
 namespace StormcastEternals {
 
-    enum class PrayersOfTheStormhost : int {
-        None = 0,
+    enum PrayersOfTheStormhost : int {
+        DivineLight,
+        BlessWeapons,
+        BolsterFaith,
+        Abjuration,
+        GodKingsAspect,
+        Translocation,
+    };
+
+    const std::array<int, 6> g_prayersOfTheStormhost = {
         DivineLight,
         BlessWeapons,
         BolsterFaith,

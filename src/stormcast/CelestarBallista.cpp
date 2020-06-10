@@ -52,7 +52,7 @@ namespace StormcastEternals {
     Unit *CelestarBallista::Create(const ParameterList &parameters) {
         auto ballista = new CelestarBallista();
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         ballista->setStormhost(stormhost);
 
         bool ok = ballista->configure();
@@ -71,8 +71,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

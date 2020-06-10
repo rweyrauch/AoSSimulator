@@ -36,6 +36,9 @@ namespace DaughtersOfKhaine {
     Unit *HagQueen::Create(const ParameterList &parameters) {
         auto unit = new HagQueen();
 
+        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        unit->setTemple(temple);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -48,10 +51,11 @@ namespace DaughtersOfKhaine {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    nullptr,
-                    nullptr,
+                    DaughterOfKhaine::ValueToString,
+                    DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

@@ -194,7 +194,7 @@ public:
 
     bool unbind(Unit *caster, int castRoll);
 
-    double basesizeInches() const { return m_basesize_mm / 25.4f; }
+    double basesizeInches() const { return m_basesizeMm / 25.4f; }
 
     void visitWeapons(std::function<void(const Weapon &)> &visitor);
 
@@ -234,7 +234,7 @@ public:
 
 protected:
 
-    Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+    Unit(std::string name, int move, int wounds, int bravery, int save, bool fly);
 
     void attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fromModel,
                           Wounds &totalWoundsInflicted, Wounds &totalWoundsSuffered);
@@ -460,7 +460,7 @@ protected:
     int m_wounds = 0;
     int m_bravery = 0;
     int m_save = 0;
-    double m_basesize_mm = 0.0f;
+    double m_basesizeMm = 0.0f;
     int m_points = 0;
     Role m_battleFieldRole = Role::Other;
     int m_pileInMove = 3;

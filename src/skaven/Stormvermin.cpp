@@ -82,10 +82,10 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Clanshields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Integer, "Standard Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Drummers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Clanshields"),
+                            IntegerParameter("Standard Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Drummers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1)
                     },
                     CHAOS,
                     {SKAVEN}

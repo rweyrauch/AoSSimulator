@@ -90,7 +90,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    void CitizenOfSigmar::setCity(CitizenOfSigmar::City city) {
+    void CitizenOfSigmar::setCity(City city) {
         removeKeyword(HAMMERHAL);
         removeKeyword(LIVING_CITY);
         removeKeyword(GREYWATER_FASTNESS);

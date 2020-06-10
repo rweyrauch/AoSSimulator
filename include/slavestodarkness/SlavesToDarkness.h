@@ -10,27 +10,42 @@
 #define SLAVESTODARKNESS_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace SlavesToDarkness {
 
-    class SlavesToDarknessBase : public Unit {
-    public:
+    enum DamnedLegion {
+        Ravagers,
+        Cabalists,
+        Despoilers,
+        HostOfTheEverchosen
+    };
 
-        enum DamnedLegion {
+    enum MarkOfChaos {
+        Undivided,
+        Nurgle,
+        Khorne,
+        Slaanesh,
+        Tzeentch
+    };
+
+    const std::array<int, 4> g_damnedLegion = {
             Ravagers,
             Cabalists,
             Despoilers,
             HostOfTheEverchosen
-        };
-
-        enum MarkOfChaos {
+    };
+    const std::array<int, 5> g_markOfChaos = {
             Undivided,
             Nurgle,
             Khorne,
             Slaanesh,
             Tzeentch
-        };
+    };
+
+    class SlavesToDarknessBase : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 

@@ -26,7 +26,7 @@ namespace KharadronOverlords {
         int numGrapnels = GetIntParam("Grapnel Launchers", parameters, 1);
         int numSkyhooks = GetIntParam("Skyhooks", parameters, 0);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure(numModel, numVolleyGuns, numDrills, numGrapnels, numSkyhooks);
@@ -53,13 +53,12 @@ namespace KharadronOverlords {
                     Endrinriggers::EnumStringToInt,
                     Endrinriggers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Volley Guns", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Skyhooks", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Grapnel Launchers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Drill Launchers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Volley Guns", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Skyhooks", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Grapnel Launchers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Drill Launchers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

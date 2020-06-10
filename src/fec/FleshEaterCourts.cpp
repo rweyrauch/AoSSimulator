@@ -38,7 +38,7 @@ namespace FleshEaterCourt {
             if (!isGeneral()) {
                 return RerollOnes;
             }
-        } else if (m_delusion == None) {
+        } else {
             // Morgaunt Court - Blood Loyalty
             if (hasKeyword(MORGAUNT) && hasKeyword(COURTIER)) {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
@@ -61,7 +61,7 @@ namespace FleshEaterCourt {
             if (target->isGeneral()) {
                 return RerollOnes;
             }
-        } else if (m_delusion == None) {
+        } else {
             // Hollowmourne - Shattering Charge
             if (hasKeyword(HOLLOWMOURNE) && (hasKeyword(COURTIER) || hasKeyword(KNIGHTS))) {
                 if (charged()) {
@@ -165,7 +165,7 @@ namespace FleshEaterCourt {
         return 0;
     }
 
-    void FleshEaterCourts::setGrandCourt(FleshEaterCourts::GrandCourt court) {
+    void FleshEaterCourts::setGrandCourt(FleshEaterCourt::GrandCourt court) {
         removeKeyword(MORGAUNT);
         removeKeyword(HOLLOWMOURNE);
         removeKeyword(BLISTERSKIN);

@@ -211,7 +211,7 @@ void ManoAMano::next() {
     }
 }
 
-bool ManoAMano::done() {
+bool ManoAMano::done() const {
     return m_isDone;
 }
 

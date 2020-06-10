@@ -38,7 +38,7 @@ public:
 
     Weapon() = default;
 
-    Weapon(Type type, const std::string &name, int range, int attacks, int toHit, int toWound, int rend,
+    Weapon(Type type, std::string name, int range, int attacks, int toHit, int toWound, int rend,
            int damage) noexcept;
 
     Weapon(const Weapon &w);

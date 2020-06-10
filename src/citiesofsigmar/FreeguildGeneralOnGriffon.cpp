@@ -39,7 +39,7 @@ namespace CitiesOfSigmar {
         bool shield = GetBoolParam("Freeguild Shield", parameters, true);
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Lance);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(weapon, shield);
@@ -60,16 +60,16 @@ namespace CitiesOfSigmar {
 
     void FreeguildGeneralOnGriffon::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {RuneSword, Greathammer, Lance};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", Lance, RuneSword, Lance, 1},
-                            {ParamType::Boolean, "Freeguild Shield", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter("Weapon", Lance, weapons),
+                            BoolParameter("Freeguild Shield"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

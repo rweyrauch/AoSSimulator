@@ -39,19 +39,18 @@ namespace OgorMawtribes {
 
     void MournfangPack::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {CullingClubOrPreyHackerAndIronfist, GargantHacker};
             static FactoryMethod factoryMethod = {
                     MournfangPack::Create,
                     MournfangPack::ValueToString,
                     MournfangPack::EnumStringToInt,
                     MournfangPack::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", MournfangPack::CullingClubOrPreyHackerAndIronfist,
-                             MournfangPack::CullingClubOrPreyHackerAndIronfist, MournfangPack::GargantHacker, 1},
-                            {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", CullingClubOrPreyHackerAndIronfist, weapons),
+                            BoolParameter("Banner Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

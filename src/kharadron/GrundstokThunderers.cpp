@@ -27,7 +27,7 @@ namespace KharadronOverlords {
         int numDecksweepers = GetIntParam("Desksweepers", parameters, 1);
         int numHonourBearers = GetIntParam("Honour Bearers", parameters, 1);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure(numModel, numMortars, numCannons, numFumigators, numDecksweepers, numHonourBearers);
@@ -54,14 +54,13 @@ namespace KharadronOverlords {
                     GrundstokThunderers::EnumStringToInt,
                     GrundstokThunderers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Grundstok Mortars", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Aethercannons", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Aetheric Fumigator", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Desksweepers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Honour Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Grundstok Mortars", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Aethercannons", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Aetheric Fumigator", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Desksweepers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Honour Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

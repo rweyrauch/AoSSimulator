@@ -57,17 +57,17 @@ namespace Death {
 
     void VampireLordOnZombieDragon::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Deathlance, VampiricSword};
             static FactoryMethod factoryMethod = {
                     Create,
                     LegionOfNagashBase::ValueToString,
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", Deathlance, Deathlance, VampiricSword, 1},
-                            {ParamType::Boolean, "Ancient Shield", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Chalice of Blood", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
-                             Legion::LegionOfBlood, 1},
+                            EnumParameter("Weapon", Deathlance, weapons),
+                            BoolParameter("Ancient Shield"),
+                            BoolParameter("Chalice of Blood"),
+                            EnumParameter("Legion", g_legion[0], g_legion)
                     },
                     DEATH,
                     {SOULBLIGHT}

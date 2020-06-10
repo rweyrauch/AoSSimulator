@@ -10,21 +10,26 @@
 #define BONESPLITTERZ_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Bonesplitterz {
+
+    enum Warclan {
+        Bonegrinz,
+        Drakkfoot,
+        Icebone
+    };
+
+    const std::array<int, 3> g_warclan = {
+            Bonegrinz, Drakkfoot, Icebone
+    };
 
     class Bonesplitterz : public Unit {
     public:
         Bonesplitterz() = default;
 
         ~Bonesplitterz() override = default;
-
-        enum Warclan {
-            Bonegrinz,
-            Drakkfoot,
-            Icebone
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 

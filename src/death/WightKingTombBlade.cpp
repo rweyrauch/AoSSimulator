@@ -48,9 +48,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Boolean, "Steed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
-                             Legion::LegionOfBlood, 1},
+                            BoolParameter("Steed"),
+                            EnumParameter("Legion", g_legion[0], g_legion)
                     },
                     DEATH,
                     {DEATHRATTLE}

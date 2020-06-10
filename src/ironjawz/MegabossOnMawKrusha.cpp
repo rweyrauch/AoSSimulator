@@ -68,7 +68,7 @@ namespace Ironjawz {
         auto unit = new MegabossOnMawKrusha();
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HackaAndChoppa);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(weapons);
@@ -81,19 +81,15 @@ namespace Ironjawz {
 
     void MegabossOnMawKrusha::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {HackaAndChoppa, ChoppaAndRiptoofFist};
             static FactoryMethod factoryMethod = {
                     MegabossOnMawKrusha::Create,
                     MegabossOnMawKrusha::ValueToString,
                     MegabossOnMawKrusha::EnumStringToInt,
                     MegabossOnMawKrusha::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapons", MegabossOnMawKrusha::HackaAndChoppa,
-                                    MegabossOnMawKrusha::HackaAndChoppa,
-                                    MegabossOnMawKrusha::ChoppaAndRiptoofFist, 1
-                            },
-                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
-                             1},
+                            EnumParameter("Weapons", HackaAndChoppa, weapons),
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

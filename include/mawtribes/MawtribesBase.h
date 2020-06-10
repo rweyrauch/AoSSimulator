@@ -10,22 +10,33 @@
 #define MAWTRIBESBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace OgorMawtribes {
 
-    class MawtribesBase : public Unit {
-    public:
+    enum Mawtribe {
+        NoMawtribe = 0,
+        Meatfist,
+        Bloodgullet,
+        Underguts,
+        Boulderhead,
+        Thunderbellies,
+        Winterbite
+    };
 
-        enum Mawtribe {
-            None = 0,
+    const std::array<int, 7> g_mawtribe = {
+            NoMawtribe,
             Meatfist,
             Bloodgullet,
             Underguts,
             Boulderhead,
             Thunderbellies,
             Winterbite
-        };
+    };
+
+    class MawtribesBase : public Unit {
+    public:
 
         MawtribesBase() = default;
 
@@ -43,7 +54,7 @@ namespace OgorMawtribes {
 
     protected:
 
-        Mawtribe m_tribe = None;
+        Mawtribe m_tribe = NoMawtribe;
 
         mutable int m_unmodifiedChargeRoll = 0;
 

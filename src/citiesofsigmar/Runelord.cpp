@@ -41,7 +41,7 @@ namespace CitiesOfSigmar {
     Unit *Runelord::Create(const ParameterList &parameters) {
         auto unit = new Runelord();
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure();
@@ -60,6 +60,7 @@ namespace CitiesOfSigmar {
                     CitizenOfSigmar::EnumStringToInt,
                     Runelord::ComputePoints,
                     {
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

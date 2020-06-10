@@ -40,7 +40,7 @@ namespace CitiesOfSigmar {
 
         auto commander = GetBoolParam("Commander", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(commander);
@@ -67,8 +67,8 @@ namespace CitiesOfSigmar {
                     SteamTank::EnumStringToInt,
                     SteamTank::ComputePoints,
                     {
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                        BoolParameter("Commander"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

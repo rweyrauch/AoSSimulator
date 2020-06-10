@@ -27,7 +27,7 @@ namespace CitiesOfSigmar {
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, WickedCutlass);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standard, hornblower, weapons);
@@ -60,18 +60,18 @@ namespace CitiesOfSigmar {
 
     void BlackArkCorsairs::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {RepeaterHandbow, WickedCutlass};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", WickedCutlass, RepeaterHandbow, WickedCutlass, 1},
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", WickedCutlass, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

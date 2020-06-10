@@ -10,21 +10,28 @@
 #define IRONJAWZ_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Ironjawz {
+
+    enum Warclan {
+        Ironsunz,
+        Bloodtoofs,
+        DaChoppas
+    };
+
+    const std::array<int, 3> g_warclan = {
+            Ironsunz,
+            Bloodtoofs,
+            DaChoppas
+    };
 
     class Ironjawz : public Unit {
     public:
         Ironjawz() = default;
 
         ~Ironjawz() override = default;
-
-        enum Warclan {
-            Ironsunz,
-            Bloodtoofs,
-            DaChoppas
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 

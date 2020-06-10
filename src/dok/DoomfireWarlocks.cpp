@@ -71,6 +71,9 @@ namespace DaughtersOfKhaine {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         bool crossbows = GetBoolParam("Crossbows", parameters, false);
 
+        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        unit->setTemple(temple);
+
         bool ok = unit->configure(numModels, crossbows);
         if (!ok) {
             delete unit;
@@ -83,12 +86,13 @@ namespace DaughtersOfKhaine {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    nullptr,
-                    nullptr,
+                    DaughterOfKhaine::ValueToString,
+                    DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Crossbows", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Crossbows"),
+                            EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

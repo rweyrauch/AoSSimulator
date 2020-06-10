@@ -48,7 +48,7 @@ namespace Tzeentch {
         auto unit = new ScreamersOfTzeentch();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels);
@@ -67,9 +67,8 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     ScreamersOfTzeentch::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
-                             TzeentchBase::GuildOfSummoners, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
                     {TZEENTCH}

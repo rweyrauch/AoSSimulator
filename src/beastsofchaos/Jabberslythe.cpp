@@ -40,7 +40,7 @@ namespace BeastsOfChaos {
     Unit *Jabberslythe::Create(const ParameterList &parameters) {
         auto unit = new Jabberslythe();
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
         bool ok = unit->configure();
@@ -59,8 +59,7 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
-                             BeastsOfChaosBase::Gavespawn, 1},
+                            EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

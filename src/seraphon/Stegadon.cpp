@@ -92,8 +92,8 @@ namespace Seraphon {
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, SkystreakBow);
         bool chief = GetBoolParam("Skink Chief", parameters, false);
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure(option, chief);
@@ -106,18 +106,17 @@ namespace Seraphon {
 
     void Stegadon::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {SkystreakBow, SunfireThrowers};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", SkystreakBow, SkystreakBow, SunfireThrowers, 1},
-                            {ParamType::Boolean, "Skink Chief", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
-                             SeraphonBase::Coalesced, 1},
-                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
-                             SeraphonBase::FangsOfSotek, 1}
+                            EnumParameter("Weapon", SkystreakBow, weapons),
+                            BoolParameter("Skink Chief"),
+                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", NoConstellation, g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

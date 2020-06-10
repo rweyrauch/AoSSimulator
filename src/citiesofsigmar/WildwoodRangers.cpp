@@ -56,7 +56,7 @@ namespace CitiesOfSigmar {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standardBearer, hornblower);
@@ -75,11 +75,10 @@ namespace CitiesOfSigmar {
                     CitizenOfSigmar::EnumStringToInt,
                     WildwoodRangers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

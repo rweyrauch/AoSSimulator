@@ -78,7 +78,7 @@ namespace StormcastEternals {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels, numStarsoulMaces);
@@ -97,10 +97,9 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Starsoul Maces", 2, 0, (MAX_UNIT_SIZE / 5) * 2, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Starsoul Maces", 2, 0, (MAX_UNIT_SIZE / 5) * 2, 1),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

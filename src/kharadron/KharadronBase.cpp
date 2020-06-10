@@ -71,7 +71,7 @@ namespace KharadronOverlords {
         return 0;
     }
 
-    void KharadronBase::setSkyport(KharadronBase::Skyport skyport) {
+    void KharadronBase::setSkyport(Skyport skyport) {
         removeKeyword(BARAK_NAR);
         removeKeyword(BARAK_ZON);
         removeKeyword(BARAK_ZILFIN);
@@ -104,8 +104,8 @@ namespace KharadronOverlords {
         }
     }
 
-    void KharadronBase::setCode(KharadronBase::Artycle artycle, KharadronBase::Amendment amendment,
-                                KharadronBase::Footnote footnote) {
+    void KharadronBase::setCode(Artycle artycle, Amendment amendment,
+                                Footnote footnote) {
         if (m_skyport != Custom) {
             // Error.
         }

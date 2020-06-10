@@ -38,25 +38,25 @@ namespace Tzeentch {
 
     std::string TzeentchBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Change Coven") {
-            if (parameter.intValue == None) return "None";
-            else if (parameter.intValue == EternalConflagration) return "Eternal Conflagration";
-            else if (parameter.intValue == HostsDuplicitous) return "Hosts Duplicitous";
-            else if (parameter.intValue == HostsArcanum) return "Hosts Arcanum";
-            else if (parameter.intValue == CultOfTheTransientForm) return "Cult of the Transient Form";
-            else if (parameter.intValue == PyrofaneCult) return "Pyrofane Cult";
-            else if (parameter.intValue == GuildOfSummoners) return "Guild of Summoners";
+            if (parameter.intValue == (int)ChangeCoven::None) return "None";
+            else if (parameter.intValue == (int)ChangeCoven::EternalConflagration) return "Eternal Conflagration";
+            else if (parameter.intValue == (int)ChangeCoven::HostsDuplicitous) return "Hosts Duplicitous";
+            else if (parameter.intValue == (int)ChangeCoven::HostsArcanum) return "Hosts Arcanum";
+            else if (parameter.intValue == (int)ChangeCoven::CultOfTheTransientForm) return "Cult of the Transient Form";
+            else if (parameter.intValue == (int)ChangeCoven::PyrofaneCult) return "Pyrofane Cult";
+            else if (parameter.intValue == (int)ChangeCoven::GuildOfSummoners) return "Guild of Summoners";
         }
         return ParameterValueToString(parameter);
     }
 
     int TzeentchBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "None") return None;
-        else if (enumString == "Eternal Conflagration") return EternalConflagration;
-        else if (enumString == "Hosts Duplicitous") return HostsDuplicitous;
-        else if (enumString == "Hosts Arcanum") return HostsArcanum;
-        else if (enumString == "Cult of the Transient Form") return CultOfTheTransientForm;
-        else if (enumString == "Pyrofane Cult") return PyrofaneCult;
-        else if (enumString == "Guild of Summoners") return GuildOfSummoners;
+        if (enumString == "None") return (int)ChangeCoven::None;
+        else if (enumString == "Eternal Conflagration") return (int)ChangeCoven::EternalConflagration;
+        else if (enumString == "Hosts Duplicitous") return (int)ChangeCoven::HostsDuplicitous;
+        else if (enumString == "Hosts Arcanum") return (int)ChangeCoven::HostsArcanum;
+        else if (enumString == "Cult of the Transient Form") return (int)ChangeCoven::CultOfTheTransientForm;
+        else if (enumString == "Pyrofane Cult") return (int)ChangeCoven::PyrofaneCult;
+        else if (enumString == "Guild of Summoners") return (int)ChangeCoven::GuildOfSummoners;
 
         return 0;
     }
@@ -71,22 +71,22 @@ namespace Tzeentch {
 
         m_coven = coven;
         switch (coven) {
-            case EternalConflagration:
+            case ChangeCoven::EternalConflagration:
                 addKeyword(ETERNAL_CONFLAGRATION);
                 break;
-            case HostsDuplicitous:
+            case ChangeCoven::HostsDuplicitous:
                 addKeyword(HOSTS_DUPLICITOUS);
                 break;
-            case HostsArcanum:
+            case ChangeCoven::HostsArcanum:
                 addKeyword(HOSTS_ARCANUM);
                 break;
-            case CultOfTheTransientForm:
+            case ChangeCoven::CultOfTheTransientForm:
                 addKeyword(CULT_OF_THE_TRANSIENT_FORM);
                 break;
-            case PyrofaneCult:
+            case ChangeCoven::PyrofaneCult:
                 addKeyword(PYROFANE_CULT);
                 break;
-            case GuildOfSummoners:
+            case ChangeCoven::GuildOfSummoners:
                 addKeyword(GUILD_OF_SUMMONERS);
                 break;
             default:

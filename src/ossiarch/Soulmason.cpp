@@ -19,7 +19,7 @@ namespace OssiarchBonereapers {
     Unit *MortisanSoulmason::Create(const ParameterList &parameters) {
         auto unit = new MortisanSoulmason();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -46,8 +46,7 @@ namespace OssiarchBonereapers {
                     MortisanSoulmason::EnumStringToInt,
                     MortisanSoulmason::ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                             OssiarchBonereaperBase::Crematorians, 1},
+                            EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

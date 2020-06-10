@@ -40,7 +40,7 @@ namespace Fyreslayers {
     Unit *Doomseeker::Create(const ParameterList &parameters) {
         auto unit = new Doomseeker();
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
         unit->setLodge(lodge);
 
         bool ok = unit->configure();
@@ -59,7 +59,7 @@ namespace Fyreslayers {
                     Fyreslayer::EnumStringToInt,
                     Doomseeker::ComputePoints,
                     {
-                            {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+                            EnumParameter("Lodge", g_lodge[0], g_lodge),
                     },
                     ORDER,
                     {FYRESLAYERS}

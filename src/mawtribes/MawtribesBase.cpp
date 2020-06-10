@@ -38,7 +38,7 @@ namespace OgorMawtribes {
 
     std::string MawtribesBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Mawtribe") {
-            if (parameter.intValue == None) return "None";
+            if (parameter.intValue == NoMawtribe) return "No Mawtribe";
             else if (parameter.intValue == Meatfist) return "Meatfist";
             else if (parameter.intValue == Bloodgullet) return "Bloodgullet";
             else if (parameter.intValue == Underguts) return "Underguts";
@@ -50,7 +50,7 @@ namespace OgorMawtribes {
     }
 
     int MawtribesBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "None") return None;
+        if (enumString == "No Mawtribe") return NoMawtribe;
         else if (enumString == "Meatfist") return Meatfist;
         else if (enumString == "Bloodgullet") return Bloodgullet;
         else if (enumString == "Underguts") return Underguts;
@@ -125,7 +125,7 @@ namespace OgorMawtribes {
         return mod;
     }
 
-    void MawtribesBase::setMawtribe(MawtribesBase::Mawtribe tribe) {
+    void MawtribesBase::setMawtribe(Mawtribe tribe) {
         removeKeyword(MEATFIST);
         removeKeyword(BLOODGULLET);
         removeKeyword(UNDERGUTS);

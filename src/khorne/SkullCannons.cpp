@@ -51,7 +51,7 @@ namespace Khorne {
         auto unit = new SkullCannons();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(numModels);
@@ -70,9 +70,8 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     SkullCannons::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

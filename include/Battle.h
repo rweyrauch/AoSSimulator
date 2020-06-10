@@ -28,7 +28,7 @@ public:
 
     void next();
 
-    bool done();
+    bool done() const;
 
     int currentRound() const { return m_round; }
 

@@ -74,6 +74,9 @@ namespace DaughtersOfKhaine {
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
 
+        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        unit->setTemple(temple);
+
         bool ok = unit->configure(numModels, sacrificialKnife, hornblowers, standardBearers);
         if (!ok) {
             delete unit;
@@ -86,14 +89,15 @@ namespace DaughtersOfKhaine {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    nullptr,
-                    nullptr,
+                    DaughterOfKhaine::ValueToString,
+                    DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Sacrificial Knife", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Sacrificial Knife"),
+                            BoolParameter("Hornblowers"),
+                            BoolParameter("Standard Bearers"),
+                            EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

@@ -50,7 +50,7 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    void OssiarchBonereaperBase::setLegion(OssiarchBonereaperBase::Legion legion) {
+    void OssiarchBonereaperBase::setLegion(Legion legion) {
         removeKeyword(MORTIS_PRAETORIANS);
         removeKeyword(PETRIFEX_ELITE);
         removeKeyword(STALLIARCH_LORDS);

@@ -19,7 +19,7 @@ namespace SlavesToDarkness {
     Unit *OgroidMyrmidon::Create(const ParameterList &parameters) {
         auto unit = new OgroidMyrmidon();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
         unit->setDamnedLegion(legion);
 
         bool ok = unit->configure();
@@ -38,8 +38,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     OgroidMyrmidon::ComputePoints,
                     {
-                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
-                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                            EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS}

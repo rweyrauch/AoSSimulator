@@ -41,7 +41,7 @@ namespace CitiesOfSigmar {
 
         auto battlemage = GetBoolParam("Battlemage", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(battlemage);
@@ -68,9 +68,8 @@ namespace CitiesOfSigmar {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
-                            {ParamType::Boolean, "Battlemage", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            EnumParameter("City", g_city[0], g_city),
+                            BoolParameter("Battlemage"),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

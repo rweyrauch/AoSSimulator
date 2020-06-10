@@ -39,7 +39,7 @@ namespace StormcastEternals {
     Unit *LordCelestant::Create(const ParameterList &parameters) {
         auto unit = new LordCelestant();
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure();
@@ -58,8 +58,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

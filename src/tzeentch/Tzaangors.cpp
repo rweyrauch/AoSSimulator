@@ -94,7 +94,7 @@ namespace Tzeentch {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool brayhorns = GetBoolParam("Brayhorns", parameters, false);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
@@ -107,24 +107,20 @@ namespace Tzeentch {
 
     void Tzaangors::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {PairedSavageBlades, SavageBladeAndShield};
             static FactoryMethod factoryMethod = {
                     Tzaangors::Create,
                     Tzaangors::ValueToString,
                     Tzaangors::EnumStringToInt,
                     Tzaangors::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", Tzaangors::PairedSavageBlades,
-                                    Tzaangors::PairedSavageBlades,
-                                    Tzaangors::SavageBladeAndShield, 1
-                            },
-                            {ParamType::Integer, "Greatblades", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE * 2, 1},
-                            {ParamType::Integer, "Mutants", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
-                            {ParamType::Boolean, "Brayhorns", SIM_FALSE, SIM_FALSE, SIM_FALSE, 1},
-                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
-                             TzeentchBase::GuildOfSummoners, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", PairedSavageBlades, weapons),
+                            IntegerParameter("Greatblades", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE * 2, 1),
+                            IntegerParameter("Mutants", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            BoolParameter("Icon Bearer"),
+                            BoolParameter("Brayhorns"),
+                            EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
                     {TZEENTCH, BEASTS_OF_CHAOS}

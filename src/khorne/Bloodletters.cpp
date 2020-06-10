@@ -76,7 +76,7 @@ namespace Khorne {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
@@ -95,12 +95,11 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Bloodletters::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblowers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Icon Bearer"),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblowers"),
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

@@ -25,7 +25,7 @@ namespace Bonesplitterz {
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels, weapons, thumper, totem);
@@ -38,18 +38,18 @@ namespace Bonesplitterz {
 
     void SavageOrruks::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Chompa, SavageStikka};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", Chompa, Chompa, SavageStikka, 1},
-                            {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz,
-                             Bonesplitterz::Icebone, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter<2>("Weapons", weapons[0], weapons),
+                            BoolParameter("Skull Thumper"),
+                            BoolParameter("Bone Totem Bearer"),
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

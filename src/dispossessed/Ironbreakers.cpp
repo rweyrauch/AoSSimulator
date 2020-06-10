@@ -83,22 +83,18 @@ namespace Dispossessed {
 
     void Ironbreakers::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {IronbreakerAxeOrHammer, DrakefirePistolAndCinderblastBomb, PairedDrakefirePistols};
             static FactoryMethod factoryMethod = {
                     Ironbreakers::Create,
                     Ironbreakers::ValueToString,
                     Ironbreakers::EnumStringToInt,
                     Ironbreakers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer,
-                                    Ironbreakers::IronbreakerAxeOrHammer,
-                                    Ironbreakers::PairedDrakefirePistols, 1
-                            },
-                            {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Ironbeard Weapon", IronbreakerAxeOrHammer, weapons),
+                            BoolParameter("Icon Bearer"),
+                            BoolParameter("Drummer"),
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

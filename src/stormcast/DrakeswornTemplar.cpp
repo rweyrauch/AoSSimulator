@@ -79,7 +79,7 @@ namespace StormcastEternals {
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, TempestAxe);
         auto skyboltBow = GetBoolParam("Skybolt Bow", parameters, true);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons, skyboltBow);
@@ -92,16 +92,16 @@ namespace StormcastEternals {
 
     void DrakeswornTemplar::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {TempestAxe, ArcHammer, Stormlance};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", TempestAxe, TempestAxe, Stormlance, 1},
-                            {ParamType::Boolean, "Skybolt Bow", SIM_TRUE, SIM_FALSE, SIM_FALSE, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Weapon", TempestAxe, weapons),
+                            BoolParameter("Skybolt Bow"),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

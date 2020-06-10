@@ -85,16 +85,15 @@ namespace Slaanesh {
 
     void ShalaxiHelbane::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = { LivingWhip, ShiningAegis};
             static FactoryMethod factoryMethod = {
                     ShalaxiHelbane::Create,
                     ShalaxiHelbane::ValueToString,
                     ShalaxiHelbane::EnumStringToInt,
                     ShalaxiHelbane::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", ShalaxiHelbane::LivingWhip, ShalaxiHelbane::LivingWhip,
-                             ShalaxiHelbane::ShiningAegis, 1},
-                            {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders,
-                             SlaaneshBase::Godseekers, 1},
+                            EnumParameter("Weapon", LivingWhip, weapons),
+                            EnumParameter("Host", g_host[0], g_host),
                     },
                     CHAOS,
                     {SLAANESH}

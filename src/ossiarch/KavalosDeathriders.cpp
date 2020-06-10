@@ -25,7 +25,7 @@ namespace OssiarchBonereapers {
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
         bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, necrophoros);
@@ -56,18 +56,17 @@ namespace OssiarchBonereapers {
 
     void KavalosDeathriders::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {NadiriteBladeAndShield, NadirateSpearAndShield};
             static FactoryMethod factoryMethod = {
                     KavalosDeathriders::Create,
                     KavalosDeathriders::ValueToString,
                     KavalosDeathriders::EnumStringToInt,
                     KavalosDeathriders::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Necrophoros", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Weapons", KavalosDeathriders::NadiriteBladeAndShield,
-                             KavalosDeathriders::NadiriteBladeAndShield, KavalosDeathriders::NadirateSpearAndShield, 1},
-                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                             OssiarchBonereaperBase::Crematorians, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Necrophoros"),
+                            EnumParameter("Weapons", NadiriteBladeAndShield, weapons),
+                            EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

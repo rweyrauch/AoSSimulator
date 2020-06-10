@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
         ~EvocatorsOnCelestialDracolines() override;
 
-        bool configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration);
+        bool configure(int numModels, int numGrandstaves, bool primeGrandstave, Lore lore);
 
     protected:
 

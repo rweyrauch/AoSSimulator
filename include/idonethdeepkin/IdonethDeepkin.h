@@ -10,22 +10,33 @@
 #define IDONETHDEEPKINBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace IdonethDeepkin {
 
-    class IdonethDeepkinBase : public Unit {
-    public:
+    enum Enclave {
+        Custom,
+        Ionrach,
+        DhomHain,
+        Fuethan,
+        Morphann,
+        Nautilar,
+        Briomdar
+    };
 
-        enum Enclave {
-            None,
+    const std::array<int, 7> g_enclave = {
+            Custom,
             Ionrach,
             DhomHain,
             Fuethan,
             Morphann,
             Nautilar,
             Briomdar
-        };
+    };
+
+    class IdonethDeepkinBase : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -44,7 +55,7 @@ namespace IdonethDeepkin {
 
     protected:
 
-        Enclave m_enclave = Enclave::None;
+        Enclave m_enclave = Enclave::Custom;
     };
 
 //

@@ -18,7 +18,7 @@ namespace Tzeentch {
     Unit *TheEyesOfTheNine::Create(const ParameterList &parameters) {
         auto unit = new TheEyesOfTheNine();
 
-        unit->setChangeCoven(CultOfTheTransientForm);
+        unit->setChangeCoven(ChangeCoven::CultOfTheTransientForm);
 
         bool ok = unit->configure();
         if (!ok) {

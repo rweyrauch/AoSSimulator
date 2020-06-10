@@ -38,7 +38,7 @@ namespace Tzeentch {
         auto unit = new LordOfChange();
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BalefulSword);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(weapon);
@@ -67,18 +67,15 @@ namespace Tzeentch {
 
     void LordOfChange::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {BalefulSword, RodOfSorcery, CurvedBeakAndTalons};
             static const FactoryMethod factoryMethod = {
                     LordOfChange::Create,
                     LordOfChange::ValueToString,
                     LordOfChange::EnumStringToInt,
                     LordOfChange::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", LordOfChange::BalefulSword, LordOfChange::BalefulSword,
-                                    LordOfChange::CurvedBeakAndTalons, 1
-                            },
-                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
-                             TzeentchBase::GuildOfSummoners, 1},
+                            EnumParameter( "Weapon", BalefulSword, weapons),
+                            EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
                     {TZEENTCH}

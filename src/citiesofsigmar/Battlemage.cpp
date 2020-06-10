@@ -23,7 +23,7 @@ namespace CitiesOfSigmar {
 
         auto realm = (Realm) GetEnumParam("Realm", parameters, Azyr);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters,Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(realm);
@@ -44,15 +44,17 @@ namespace CitiesOfSigmar {
 
     void Battlemage::Init() {
         if (!s_registered) {
+            static const std::array<int, 8> realm = {Aqshy,Azyr,
+                                                     Chamon,Ghur,Ghyran,Hysh,
+                                                     Shyish,Ulgu};
             static FactoryMethod factoryMethod = {
                     Battlemage::Create,
                     Battlemage::ValueToString,
                     Battlemage::EnumStringToInt,
                     Battlemage::ComputePoints,
                     {
-                            {ParamType::Enum, "Realm", Azyr, Aqshy, Ulgu},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter("Realm", Azyr, realm),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

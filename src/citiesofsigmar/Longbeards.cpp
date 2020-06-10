@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool musician = GetBoolParam("Musician", parameters, false);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, weapons, standardBearer, musician);
@@ -82,22 +82,18 @@ namespace CitiesOfSigmar {
 
     void Longbeards::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {AncestralWeaponAndShield, AncestralGreatAxe};
             static FactoryMethod factoryMethod = {
                     Longbeards::Create,
                     Longbeards::ValueToString,
                     Longbeards::EnumStringToInt,
                     Longbeards::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", Longbeards::AncestralWeaponAndShield,
-                                    Longbeards::AncestralWeaponAndShield,
-                                    Longbeards::AncestralGreatAxe, 1
-                            },
-                            {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", AncestralWeaponAndShield, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Musician"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

@@ -91,17 +91,17 @@ namespace Greenskinz {
 
     void OrrukBoarboys::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Choppa, PigstikkaSpear};
             static FactoryMethod factoryMethod = {
                     OrrukBoarboys::Create,
                     OrrukBoarboys::ValueToString,
                     OrrukBoarboys::EnumStringToInt,
                     OrrukBoarboys::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", OrrukBoarboys::Choppa, OrrukBoarboys::Choppa,
-                             OrrukBoarboys::PigstikkaSpear, 1},
-                            {ParamType::Boolean, "Glyph Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Waaagh! Horns", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", Choppa, weapons),
+                            BoolParameter("Glyph Bearer"),
+                            BoolParameter("Waaagh! Horns"),
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

@@ -57,8 +57,8 @@ namespace Seraphon {
         auto unit = new RipperdactylRiders();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure(numModels);
@@ -77,11 +77,9 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
-                             SeraphonBase::Coalesced, 1},
-                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
-                             SeraphonBase::FangsOfSotek, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", NoConstellation, g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

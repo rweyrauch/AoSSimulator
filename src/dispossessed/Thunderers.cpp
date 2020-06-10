@@ -83,24 +83,20 @@ namespace Dispossessed {
 
     void Thunderers::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> veteranWeapons = {DuardinHandgun, BraceOfDuardinPistols};
+            static const std::array<int, 3> weapons = {Thunderers::None, Thunderers::RunicIcon, Thunderers::ClanBanner};
             static FactoryMethod factoryMethod = {
                     Thunderers::Create,
                     Thunderers::ValueToString,
                     Thunderers::EnumStringToInt,
                     Thunderers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Veteran Weapon", Thunderers::DuardinHandgun,
-                                    Thunderers::DuardinHandgun,
-                                    Thunderers::BraceOfDuardinPistols, 1
-                            },
-                            {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Standard", Thunderers::None, Thunderers::None, Thunderers::ClanBanner,
-                             1},
-                            {ParamType::Boolean, "Drummers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Veteran Weapon", DuardinHandgun, veteranWeapons),
+                            BoolParameter("Duardin Bucklers"),
+                            EnumParameter("Standard", Thunderers::None, weapons),
+                            BoolParameter("Drummers"),
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

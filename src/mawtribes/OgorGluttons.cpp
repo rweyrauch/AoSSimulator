@@ -56,21 +56,20 @@ namespace OgorMawtribes {
 
     void OgorGluttons::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {ClubOrBladeAndIronfist, PairedClubOrBlade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", ClubOrBladeAndIronfist, ClubOrBladeAndIronfist,
-                             PairedClubOrBlade, 1},
-                            {ParamType::Boolean, "Beast Skull Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Lookout Gnoblar", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Bellower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", ClubOrBladeAndIronfist, weapons),
+                            BoolParameter("Beast Skull Bearer"),
+                            BoolParameter("Banner Bearer"),
+                            BoolParameter("Lookout Gnoblar"),
+                            BoolParameter("Bellower"),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

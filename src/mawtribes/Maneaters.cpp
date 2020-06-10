@@ -56,17 +56,16 @@ namespace OgorMawtribes {
 
     void Maneaters::Init() {
         if (!s_registered) {
+            static const std::array<int, 4> abilities = {Brawlers, CrackShots, Striders, Stubborn};
             static FactoryMethod factoryMethod = {
                     Maneaters::Create,
                     Maneaters::ValueToString,
                     Maneaters::EnumStringToInt,
                     Maneaters::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Ability", Maneaters::Brawlers, Maneaters::Brawlers, Maneaters::Stubborn,
-                             1},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Ability", Brawlers, abilities),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

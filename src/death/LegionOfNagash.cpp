@@ -53,7 +53,7 @@ namespace Death {
         return 0;
     }
 
-    void LegionOfNagashBase::setLegion(LegionOfNagashBase::Legion legion) {
+    void LegionOfNagashBase::setLegion(Legion legion) {
         removeKeyword(GRAND_HOST_OF_NAGASH);
         removeKeyword(LEGION_OF_SACRAMENT);
         removeKeyword(LEGION_OF_NIGHT);

@@ -10,6 +10,7 @@
 #define SPELL_H
 
 #include <string>
+#include <utility>
 #include "AgeOfSigmarSim.h"
 
 class Unit;
@@ -23,9 +24,9 @@ public:
         Success,
     };
 
-    Spell(Unit *caster, const std::string &name, int castingValue, double range) :
+    Spell(Unit *caster, std::string name, int castingValue, double range) :
             m_caster(caster),
-            m_name(name),
+            m_name(std::move(name)),
             m_castingValue(castingValue),
             m_range(range) {}
 

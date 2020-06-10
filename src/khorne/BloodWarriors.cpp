@@ -94,7 +94,7 @@ namespace Khorne {
         int numGoreglaives = GetIntParam("Goreglaives", parameters, 0);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(numModels, pairedGoreax, numGoreglaives, iconBearer);
@@ -113,12 +113,11 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     BloodWarriors::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Paired Goreaxe", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Integer, "Goreglaives", 0, 0, MAX_UNIT_SIZE / 10, 1},
-                            {ParamType::Boolean, "Icon Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Paired Goreaxe"),
+                            IntegerParameter("Goreglaives", 0, 0, MAX_UNIT_SIZE / 10, 1),
+                            BoolParameter("Icon Bearer"),
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

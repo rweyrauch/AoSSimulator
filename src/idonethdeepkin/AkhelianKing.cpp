@@ -49,7 +49,7 @@ namespace IdonethDeepkin {
         auto unit = new AkhelianKing();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BladedPolearm);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::None);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(weapon);
@@ -62,15 +62,15 @@ namespace IdonethDeepkin {
 
     void AkhelianKing::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {BladedPolearm, Greatsword};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", BladedPolearm, BladedPolearm, Greatsword, 1},
-                            {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None,
-                             IdonethDeepkinBase::Briomdar, 1},
+                            EnumParameter("Weapon", BladedPolearm, weapons),
+                            EnumParameter("Enclave", g_enclave[0], g_enclave),
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

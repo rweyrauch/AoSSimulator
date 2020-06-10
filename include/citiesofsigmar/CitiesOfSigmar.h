@@ -10,25 +10,36 @@
 #define CITIESOFSIGMAR_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace CitiesOfSigmar {
+
+    enum City {
+        Hammerhal,
+        LivingCity,
+        GreywaterFastness,
+        Phoenicium,
+        Anvilgard,
+        Hallowheart,
+        TempestsEye
+    };
+
+    const std::array<int, 7> g_city = {
+        Hammerhal,
+        LivingCity,
+        GreywaterFastness,
+        Phoenicium,
+        Anvilgard,
+        Hallowheart,
+        TempestsEye
+    };
 
     class CitizenOfSigmar : public Unit {
     public:
         CitizenOfSigmar() = default;
 
         ~CitizenOfSigmar() override = default;
-
-        enum City {
-            Hammerhal,
-            LivingCity,
-            GreywaterFastness,
-            Phoenicium,
-            Anvilgard,
-            Hallowheart,
-            TempestsEye
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 

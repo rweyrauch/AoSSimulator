@@ -27,7 +27,7 @@ namespace CitiesOfSigmar {
         bool trumpeter = GetBoolParam("Trumpeter", parameters, true);
         auto sharpshooterWeapon = (WeaponOption) GetEnumParam("Sharpshooter Weapon", parameters, RepeaterHandgun);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, trumpeter, sharpshooterWeapon);
@@ -64,21 +64,17 @@ namespace CitiesOfSigmar {
 
     void FreeguildOutriders::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {RepeaterHandgun, Blunderbuss, BraceOfPistols};
             static FactoryMethod factoryMethod = {
                     FreeguildOutriders::Create,
                     FreeguildOutriders::ValueToString,
                     FreeguildOutriders::EnumStringToInt,
                     FreeguildOutriders::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Sharpshooter Weapon", FreeguildOutriders::RepeaterHandgun,
-                                    FreeguildOutriders::RepeaterHandgun,
-                                    FreeguildOutriders::BraceOfPistols, 1
-                            },
-                            {ParamType::Boolean, "Trumpeter", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Sharpshooter Weapon", RepeaterHandgun, weapons),
+                            BoolParameter("Trumpeter"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

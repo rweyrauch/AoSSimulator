@@ -28,14 +28,14 @@ namespace GloomspiteGitz {
         m_totalSpells = 1;
     }
 
-    bool WebspinnerShaman::configure(LoreOfTheSpiderFangs lore) {
+    bool WebspinnerShaman::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_spiderGodStaff);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         //m_knownSpells.push_back(std::make_unique<SpeedOfTheSpiderGod>(this));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheSpiderFangs(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);
 
@@ -46,8 +46,8 @@ namespace GloomspiteGitz {
 
     Unit *WebspinnerShaman::Create(const ParameterList &parameters) {
         auto unit = new WebspinnerShaman();
-        auto lore = (LoreOfTheSpiderFangs) GetEnumParam("Lore of the Moonclans", parameters,
-                                                        (int) LoreOfTheSpiderFangs::None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters,
+                                                        (int) None);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -65,8 +65,7 @@ namespace GloomspiteGitz {
                     WebspinnerShaman::EnumStringToInt,
                     WebspinnerShaman::ComputePoints,
                     {
-                            {ParamType::Enum, "Lore of the Spiderfangs", (int) LoreOfTheSpiderFangs::None,
-                             (int) LoreOfTheSpiderFangs::None, (int) LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
+                        EnumParameter("Lore of the Spiderfangs", None, g_loreOfTheSpiderFangs)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -77,13 +76,13 @@ namespace GloomspiteGitz {
 
     std::string WebspinnerShaman::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lore of the Spiderfangs") {
-            return ToString((LoreOfTheSpiderFangs) parameter.intValue);
+            return ToString((Lore) parameter.intValue);
         }
         return ParameterValueToString(parameter);
     }
 
     int WebspinnerShaman::EnumStringToInt(const std::string &enumString) {
-        LoreOfTheSpiderFangs lore;
+        Lore lore;
         if (FromString(enumString, lore)) {
             return (int) lore;
         }

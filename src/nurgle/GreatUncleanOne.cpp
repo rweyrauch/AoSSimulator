@@ -88,17 +88,16 @@ namespace Nurgle {
 
     void GreatUncleanOne::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons1 = {PlagueFlail, Bileblade};
+            static const std::array<int, 2> weapons2 = {MassiveBilesword, DoomsdayBell};
             static FactoryMethod factoryMethod = {
                     GreatUncleanOne::Create,
                     GreatUncleanOne::ValueToString,
                     GreatUncleanOne::EnumStringToInt,
                     GreatUncleanOne::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon One", GreatUncleanOne::PlagueFlail, GreatUncleanOne::PlagueFlail,
-                             GreatUncleanOne::Bileblade},
-                            {ParamType::Enum, "Weapon Two", GreatUncleanOne::MassiveBilesword,
-                             GreatUncleanOne::MassiveBilesword, GreatUncleanOne::DoomsdayBell},
-
+                            EnumParameter("Weapon One", PlagueFlail, weapons1),
+                            EnumParameter("Weapon Two", MassiveBilesword, weapons2),
                     },
                     CHAOS,
                     {NURGLE}

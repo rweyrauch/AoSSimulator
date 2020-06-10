@@ -32,7 +32,7 @@ namespace GloomspiteGitz {
 
         ~WebspinnerShamanOnArachnarokSpider() override;
 
-        bool configure(LoreOfTheSpiderFangs lore);
+        bool configure(Lore lore);
 
     protected:
 

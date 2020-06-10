@@ -24,7 +24,7 @@ namespace StormcastEternals {
         };
 
         enum GrandWeaponOption {
-            None,
+            NoGrandWeapon,
             StormsurgeTrident,
             Grandaxe,
             Grandblade,

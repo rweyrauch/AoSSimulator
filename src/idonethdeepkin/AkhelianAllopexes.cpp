@@ -58,7 +58,7 @@ namespace IdonethDeepkin {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HarpoonLauncher);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::None);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(numModels, weapons);
@@ -71,16 +71,16 @@ namespace IdonethDeepkin {
 
     void AkhelianAllopexes::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {HarpoonLauncher, NetLauncher};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", HarpoonLauncher, HarpoonLauncher, NetLauncher, 1},
-                            {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None,
-                             IdonethDeepkinBase::Briomdar, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", HarpoonLauncher, weapons),
+                            EnumParameter("Enclave", g_enclave[0], g_enclave),
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

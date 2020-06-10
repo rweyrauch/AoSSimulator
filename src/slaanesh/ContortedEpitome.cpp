@@ -65,8 +65,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     TheContortedEpitome::ComputePoints,
                     {
-                            {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders,
-                             SlaaneshBase::Godseekers, 1},
+                            EnumParameter("Host", g_host[0], g_host),
                     },
                     CHAOS,
                     {SLAANESH}

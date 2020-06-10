@@ -68,8 +68,8 @@ namespace Seraphon {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto option = (WeaponOption) GetEnumParam("Weapons", parameters, StarstrikeJavelins);
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure(numModels, option);
@@ -82,18 +82,17 @@ namespace Seraphon {
 
     void TerradonRiders::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {StarstrikeJavelins, SunleechBolas};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", StarstrikeJavelins, StarstrikeJavelins, SunleechBolas, 1},
-                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
-                             SeraphonBase::Coalesced, 1},
-                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
-                             SeraphonBase::FangsOfSotek, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", StarstrikeJavelins, weapons),
+                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", NoConstellation, g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

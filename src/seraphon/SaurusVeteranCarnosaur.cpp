@@ -75,8 +75,8 @@ namespace Seraphon {
         auto unit = new SaurusScarVeteranOnCarnosaur();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, CelestiteWarblade);
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure(option);
@@ -105,17 +105,16 @@ namespace Seraphon {
 
     void SaurusScarVeteranOnCarnosaur::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {CelestiteWarblade, CelestiteWarspear, CelestiteGreatblade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", CelestiteWarblade, CelestiteWarblade, CelestiteGreatblade, 1},
-                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
-                             SeraphonBase::Coalesced, 1},
-                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
-                             SeraphonBase::FangsOfSotek, 1}
+                            EnumParameter("Weapon", CelestiteWarblade, weapons),
+                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", NoConstellation, g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

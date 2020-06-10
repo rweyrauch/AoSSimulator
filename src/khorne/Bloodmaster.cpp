@@ -37,7 +37,7 @@ namespace Khorne {
     Unit *Bloodmaster::Create(const ParameterList &parameters) {
         auto unit = new Bloodmaster();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure();
@@ -56,8 +56,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Bloodmaster::ComputePoints,
                     {
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

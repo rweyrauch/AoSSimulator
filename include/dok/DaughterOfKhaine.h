@@ -10,15 +10,38 @@
 #define DAUGHTERSOFKHAINE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace DaughtersOfKhaine {
+
+    enum Temple {
+        Custom,
+        HaggNar,
+        DraichiGaneth,
+        TheKraith,
+        Khailebron
+    };
+
+    const std::array<int, 5> g_temple = {
+        Custom,
+        HaggNar,
+        DraichiGaneth,
+        TheKraith,
+        Khailebron
+    };
 
     class DaughterOfKhaine : public Unit {
     public:
         DaughterOfKhaine() = default;
 
         ~DaughterOfKhaine() override = default;
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        void setTemple(Temple temple);
 
     protected:
         DaughterOfKhaine(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -40,6 +63,9 @@ namespace DaughtersOfKhaine {
 
         Wounds applyWoundSave(const Wounds &wounds) override;
 
+    protected:
+
+        Temple m_temple = Custom;
     };
 
 //

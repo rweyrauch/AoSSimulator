@@ -56,11 +56,11 @@ namespace GloomspiteGitz {
                     nullptr,
                     Shootas::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Barbed Nets", 0, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Barbed Nets", 0, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

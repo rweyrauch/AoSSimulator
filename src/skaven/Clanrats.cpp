@@ -88,17 +88,18 @@ namespace Skaven {
 
     void Clanrats::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {RustySpear, RustyBlade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", RustySpear, RustySpear, RustyBlade, 1},
-                            {ParamType::Boolean, "Clanshields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Integer, "Standard Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Bell Ringers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", RustySpear, weapons),
+                            BoolParameter("Clanshields"),
+                            IntegerParameter("Standard Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Bell Ringers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1)
                     },
                     CHAOS,
                     {SKAVEN}

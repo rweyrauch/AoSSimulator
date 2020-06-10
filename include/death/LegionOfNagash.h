@@ -10,19 +10,27 @@
 #define LEGIONOFNAGASH_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Death {
 
-    class LegionOfNagashBase : public Unit {
-    public:
+    enum Legion {
+        GrandHostOfNagash,
+        LegionOfSacrament,
+        LegionOfBlood,
+        LegionOfNight
+    };
 
-        enum Legion {
+    const std::array<int, 4> g_legion = {
             GrandHostOfNagash,
             LegionOfSacrament,
             LegionOfBlood,
             LegionOfNight
-        };
+    };
+
+    class LegionOfNagashBase : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 

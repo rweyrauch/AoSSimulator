@@ -59,6 +59,10 @@ namespace Dispossessed {
             ironwarden->addMissileWeapon(&m_grudgehammerTorpedo);
             ironwarden->addMeleeWeapon(&m_mailedFist);
         }
+        else {
+            // Unknown weapon
+            SimLog(Verbosity::Normal, "Unknown Iron Warden weapon. %d\n", ironWardenWeapons);
+        }
         addModel(ironwarden);
 
         for (auto i = 1; i < numModels; i++) {
@@ -76,7 +80,7 @@ namespace Dispossessed {
     Unit *Irondrakes::Create(const ParameterList &parameters) {
         auto unit = new Irondrakes();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, (int) Drakegun);
+        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, Drakegun);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -90,21 +94,19 @@ namespace Dispossessed {
 
     void Irondrakes::Init() {
         if (!s_registered) {
+            static const std::array<int, 4> weapons = {Drakegun, GrudgehammerTorpedo,
+                                                       DrakefirePistolAndCinderblastBomb, PairedDrakefirePistols};
             static FactoryMethod factoryMethod = {
                     Irondrakes::Create,
                     Irondrakes::ValueToString,
                     Irondrakes::EnumStringToInt,
                     Irondrakes::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Ironwarden Weapon", Irondrakes::Drakegun, Irondrakes::Drakegun,
-                                    Irondrakes::PairedDrakefirePistols, 1
-                            },
-                            {ParamType::Boolean, "Icon Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Hornblower", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Ironwarden Weapon", Drakegun, weapons),
+                            BoolParameter("Icon Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

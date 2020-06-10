@@ -10,18 +10,27 @@
 #define BEASTSOFCHAOSBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace BeastsOfChaos {
 
+    enum class Greatfray : int {
+        None,
+        Allherd,
+        Darkwalkers,
+        Gavespawn
+    };
+
+    const std::array<int, 4> g_greatFray = {
+        (int)Greatfray::None,
+        (int)Greatfray::Allherd,
+        (int)Greatfray::Darkwalkers,
+        (int)Greatfray::Gavespawn
+    };
+
     class BeastsOfChaosBase : public Unit {
     public:
-        enum Greatfray {
-            None,
-            Allherd,
-            Darkwalkers,
-            Gavespawn
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -37,9 +46,11 @@ namespace BeastsOfChaos {
         BeastsOfChaosBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        Wounds onEndCombat(PlayerId player) override;
+
     protected:
 
-        Greatfray m_greatfray = None;
+        Greatfray m_greatfray = Greatfray::None;
 
     };
 
@@ -48,7 +59,7 @@ namespace BeastsOfChaos {
 // -------------------------------------------
 // Brayherd Ambush                  TODO
 // Creatures of the Storm           TODO
-// Bloodgorge                       TODO
+// Bloodgorge                       Yes
 // Primordial Call                  TODO
 // Bestial Might                    TODO
 // Booming Roar                     TODO

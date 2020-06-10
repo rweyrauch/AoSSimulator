@@ -75,7 +75,7 @@ namespace StormcastEternals {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StarstrikeJavelin);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels, weapons);
@@ -88,16 +88,16 @@ namespace StormcastEternals {
 
     void VanguardPalladors::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {ShockHandaxe, StarstrikeJavelin};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", StarstrikeJavelin, ShockHandaxe, StarstrikeJavelin, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", StarstrikeJavelin, weapons),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

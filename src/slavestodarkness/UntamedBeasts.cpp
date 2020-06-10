@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
         auto unit = new UntamedBeasts();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
         unit->setDamnedLegion(legion);
 
         bool ok = unit->configure(numModels);
@@ -41,9 +41,8 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     UntamedBeasts::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
-                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS}

@@ -10,14 +10,42 @@
 #define KHARADRONBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace KharadronOverlords {
 
-    class KharadronBase : public Unit {
-    public:
-        enum Skyport {
-            None,
+    enum Skyport {
+        None,
+        BarakNar,
+        BarakZilfin,
+        BarakZon,
+        BarakUrbaz,
+        BarakMhornar,
+        BarakThryng,
+        Custom
+    };
+
+    enum Artycle {
+        HonourIsEverything,
+        MasterTheSkies,
+        SettleTheGrudges
+    };
+
+    enum Amendment {
+        AlwaysTakeWhatYouAreOwed,
+        ProsecuteWarsWithAllHaste,
+        TrustToYourGuns
+    };
+
+    enum Footnote {
+        TheresNoRewardWithoutRisk,
+        TheresNoTradingWithSomePeople,
+        WithoutOurShipsWeAreNaught
+    };
+
+    const std::array<int, 8> g_skyport = {
+            Custom,
             BarakNar,
             BarakZilfin,
             BarakZon,
@@ -25,25 +53,10 @@ namespace KharadronOverlords {
             BarakMhornar,
             BarakThryng,
             Custom
-        };
+    };
 
-        enum Artycle {
-            HonourIsEverything,
-            MasterTheSkies,
-            SettleTheGrudges
-        };
-
-        enum Amendment {
-            AlwaysTakeWhatYouAreOwed,
-            ProsecuteWarsWithAllHaste,
-            TrustToYourGuns
-        };
-
-        enum Footnote {
-            TheresNoRewardWithoutRisk,
-            TheresNoTradingWithSomePeople,
-            WithoutOurShipsWeAreNaught
-        };
+    class KharadronBase : public Unit {
+    public:
 
         KharadronBase() = default;
 

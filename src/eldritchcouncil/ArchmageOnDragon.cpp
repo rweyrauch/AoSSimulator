@@ -101,9 +101,8 @@ namespace EldritchCouncil {
                     nullptr,
                     ComputePoints,
                     {
-                            {ParamType::Boolean, "Arcane Tome", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Talisman of Arcane Power", SIM_FALSE, SIM_FALSE, SIM_FALSE,
-                             SIM_FALSE},
+                            BoolParameter("Arcane Tome"),
+                            BoolParameter("Talisman of Arcane Power"),
                     },
                     ORDER,
                     {ELDRITCH_COUNCIL}

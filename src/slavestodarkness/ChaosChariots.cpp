@@ -24,7 +24,7 @@ namespace SlavesToDarkness {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, GreatBladeAndWhip);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
         unit->setDamnedLegion(legion);
 
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
@@ -40,22 +40,17 @@ namespace SlavesToDarkness {
 
     void ChaosChariots::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {GreatBladeAndWhip, WarFlailAndWhip};
             static FactoryMethod factoryMethod = {
                     ChaosChariots::Create,
                     ChaosChariots::ValueToString,
                     ChaosChariots::EnumStringToInt,
                     ChaosChariots::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", ChaosChariots::GreatBladeAndWhip,
-                                    ChaosChariots::GreatBladeAndWhip,
-                                    ChaosChariots::WarFlailAndWhip, 1
-                            },
-                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
-                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-                            {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided,
-                             SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter( "Weapons", GreatBladeAndWhip, weapons),
+                            EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
+                            EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE}

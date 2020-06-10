@@ -10,22 +10,33 @@
 #define OSSIARCHBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace OssiarchBonereapers {
 
-    class OssiarchBonereaperBase : public Unit {
-    public:
+    enum Legion {
+        NoLegion,
+        MortisPraetorians,
+        PetrifexElite,
+        StalliarchLords,
+        IvoryHost,
+        NullMyriad,
+        Crematorians,
+    };
 
-        enum Legion {
-            None,
+    const std::array<int, 7> g_legion = {
+            NoLegion,
             MortisPraetorians,
             PetrifexElite,
             StalliarchLords,
             IvoryHost,
             NullMyriad,
             Crematorians,
-        };
+    };
+
+    class OssiarchBonereaperBase : public Unit {
+    public:
 
         OssiarchBonereaperBase() = default;
 
@@ -45,7 +56,7 @@ namespace OssiarchBonereapers {
 
     protected:
 
-        Legion m_legion = None;
+        Legion m_legion = NoLegion;
 
     };
 

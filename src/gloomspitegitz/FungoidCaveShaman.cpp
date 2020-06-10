@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
+
 #include <gloomspitegitz/FungoidCaveShaman.h>
 #include <UnitFactory.h>
 #include <Roster.h>
@@ -30,7 +30,7 @@ namespace GloomspiteGitz {
         m_totalSpells = 1;
     }
 
-    bool FungoidCaveShaman::configure(LoreOfTheMoonclans lore) {
+    bool FungoidCaveShaman::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_moonSickle);
         model->addMeleeWeapon(&m_squigsTeeth);
@@ -38,7 +38,7 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         //m_knownSpells.push_back(std::make_unique<SporeMaws>(this));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);
 
@@ -49,8 +49,7 @@ namespace GloomspiteGitz {
 
     Unit *FungoidCaveShaman::Create(const ParameterList &parameters) {
         auto unit = new FungoidCaveShaman();
-        auto lore = (LoreOfTheMoonclans) GetEnumParam("Lore of the Moonclans", parameters,
-                                                      (int) LoreOfTheMoonclans::None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, None);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -68,8 +67,7 @@ namespace GloomspiteGitz {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Lore of the Moonclans", (int) LoreOfTheMoonclans::None,
-                             (int) LoreOfTheMoonclans::None, (int) LoreOfTheMoonclans::CallDaMoon, 1},
+                        EnumParameter("Lore of the Moonclans", None, g_loreOfTheMoonclans),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -81,15 +79,15 @@ namespace GloomspiteGitz {
 
     std::string FungoidCaveShaman::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lore of the Moonclans") {
-            return ToString((LoreOfTheMoonclans) parameter.intValue);
+            return ToString((Lore) parameter.intValue);
         }
         return ParameterValueToString(parameter);
     }
 
     int FungoidCaveShaman::EnumStringToInt(const std::string &enumString) {
-        LoreOfTheMoonclans lore;
+        Lore lore;
         if (FromString(enumString, lore)) {
-            return (int) lore;
+            return lore;
         }
         return 0;
     }
@@ -107,6 +105,19 @@ namespace GloomspiteGitz {
 
     int FungoidCaveShaman::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds) {
+        // Spore Squig
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::rollD6(wounds.normal, woundSaves);
+        Dice::rollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(4);
+        totalWounds.mortal -= mortalSaves.rollsGE(4);
+
+        return totalWounds.clamp();
     }
 
 } // namespace GloomspiteGitz

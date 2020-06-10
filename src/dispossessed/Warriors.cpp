@@ -81,23 +81,19 @@ namespace Dispossessed {
 
     void Warriors::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Warriors::DuardinAxeOrHammer, Warriors::DoubleHandedDuardinAxe};
             static FactoryMethod factoryMethod = {
                     Warriors::Create,
                     Warriors::ValueToString,
                     Warriors::EnumStringToInt,
                     Warriors::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", Warriors::DuardinAxeOrHammer,
-                                    Warriors::DuardinAxeOrHammer,
-                                    Warriors::DoubleHandedDuardinAxe, 1
-                            },
-                            {ParamType::Boolean, "Duardin Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", Warriors::DuardinAxeOrHammer, weapons),
+                            BoolParameter("Duardin Shields"),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblowers"),
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

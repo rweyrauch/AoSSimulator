@@ -41,7 +41,7 @@ namespace CitiesOfSigmar {
 
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, WitchRod);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(weapon);
@@ -62,15 +62,15 @@ namespace CitiesOfSigmar {
 
     void SorceressOnBlackDragon::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {WitchRod, DarklingSword};
             static FactoryMethod factoryMethod = {
                     SorceressOnBlackDragon::Create,
                     SorceressOnBlackDragon::ValueToString,
                     SorceressOnBlackDragon::EnumStringToInt,
                     SorceressOnBlackDragon::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", WitchRod, WitchRod, DarklingSword, 1},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter("Weapon", WitchRod, weapons),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

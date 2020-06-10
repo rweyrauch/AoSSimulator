@@ -108,6 +108,49 @@ namespace DaughtersOfKhaine {
         return totalWounds;
     }
 
+    std::string DaughterOfKhaine::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Temple") {
+            if (parameter.intValue == HaggNar) { return "Hagg Nar"; }
+            else if (parameter.intValue == DraichiGaneth) { return "Draichi Ganeth"; }
+            else if (parameter.intValue == TheKraith) { return "The Kraith"; }
+            else if (parameter.intValue == Khailebron) { return "Khailebron"; }
+        }
+        return ParameterValueToString(parameter);
+    }
+
+    int DaughterOfKhaine::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Hagg Nar") return HaggNar;
+        else if (enumString == "Draichi Ganeth") return DraichiGaneth;
+        else if (enumString == "The Kraith") return TheKraith;
+        else if (enumString == "Khailebron") return Khailebron;
+        return 0;
+    }
+
+    void DaughterOfKhaine::setTemple(Temple temple) {
+        removeKeyword(HAGG_NAR);
+        removeKeyword(DRAICHI_GANETH);
+        removeKeyword(THE_KRAITH);
+        removeKeyword(KHAILEBRON);
+
+        m_temple = temple;
+        switch (temple) {
+            case HaggNar:
+                addKeyword(HAGG_NAR);
+                break;
+            case DraichiGaneth:
+                addKeyword(DRAICHI_GANETH);
+                break;
+            case TheKraith:
+                addKeyword(THE_KRAITH);
+                break;
+            case Khailebron:
+                addKeyword(KHAILEBRON);
+                break;
+            default:
+                break;
+        }
+    }
+
     void Init() {
         AvatarOfKhaine::Init();
         BloodSisters::Init();

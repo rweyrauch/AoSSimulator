@@ -47,7 +47,7 @@ namespace Ironjawz {
     Unit *IronskullsBoyz::Create(const ParameterList &parameters) {
         auto unit = new IronskullsBoyz();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure();
@@ -66,8 +66,7 @@ namespace Ironjawz {
                     Ironjawz::EnumStringToInt,
                     IronskullsBoyz::ComputePoints,
                     {
-                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
-                             1},
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

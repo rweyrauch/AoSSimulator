@@ -48,9 +48,9 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Warpfire Guns", MIN_UNIT_SIZE / 2, MIN_UNIT_SIZE / 2,
-                             MAX_UNIT_SIZE / 2, MIN_UNIT_SIZE / 2},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Warpfire Guns", MIN_UNIT_SIZE / 2, MIN_UNIT_SIZE / 2,
+                             MAX_UNIT_SIZE / 2, MIN_UNIT_SIZE / 2),
                     },
                     CHAOS,
                     {SKAVEN}

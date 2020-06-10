@@ -38,7 +38,7 @@ namespace SlavesToDarkness {
     Unit *MutalithVortexBeast::Create(const ParameterList &parameters) {
         auto unit = new MutalithVortexBeast();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
         unit->setDamnedLegion(legion);
 
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
@@ -64,10 +64,8 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     MutalithVortexBeast::ComputePoints,
                     {
-                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
-                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-                            {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided,
-                             SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch, 1},
+                            EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
+                            EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS, TZEENTCH}
@@ -134,15 +132,18 @@ namespace SlavesToDarkness {
                             if (remainingWounds() < initialWounds()) {
                                 heal(Dice::rollD3());
                             } else {
+                                // TODO: fix this
+                                /*
                                 // Summon a Chaos Spawn
-                                auto factory = UnitFactory::LookupUnit("Chaos Spawn");
-                                if (factory) {
-                                    if (m_roster) {
-                                        auto unit = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
-                                        unit->deploy(position(), m_orientation);
-                                        m_roster->addUnit(unit);
+                                if (m_roster) {
+                                    auto factory = UnitFactory::LookupUnit("Chaos Spawn");
+                                    if (factory) {
+                                        auto spawn = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
+                                        spawn->deploy(position(), m_orientation);
+                                        m_roster->addUnit(spawn);
                                     }
                                 }
+                                */
                             }
                         }
                         break;

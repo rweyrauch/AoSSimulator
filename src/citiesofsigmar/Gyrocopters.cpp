@@ -25,7 +25,7 @@ namespace CitiesOfSigmar {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BrimstoneGun);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, weapons);
@@ -58,19 +58,16 @@ namespace CitiesOfSigmar {
 
     void Gyrocopters::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {BrimstoneGun, SteamGun};
             static FactoryMethod factoryMethod = {
                     Gyrocopters::Create,
                     Gyrocopters::ValueToString,
                     Gyrocopters::EnumStringToInt,
                     Gyrocopters::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", Gyrocopters::BrimstoneGun, Gyrocopters::BrimstoneGun,
-                                    Gyrocopters::SteamGun, 1
-                            },
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", BrimstoneGun, weapons),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

@@ -10,20 +10,31 @@
 #define DISPOSSESSED_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Dispossessed {
 
-    class Dispossessed : public Unit {
-    public:
-        enum Grudge {
+    enum Grudge {
+        StuckUp,
+        SpeedMerchants,
+        MonstrousCheaters,
+        CowardlyHorders,
+        ShoddyCraftsmanship,
+        SneakyAmbushers
+    };
+
+    const std::array<int, 6> g_grudge = {
             StuckUp,
             SpeedMerchants,
             MonstrousCheaters,
             CowardlyHorders,
             ShoddyCraftsmanship,
             SneakyAmbushers
-        };
+    };
+
+    class Dispossessed : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 

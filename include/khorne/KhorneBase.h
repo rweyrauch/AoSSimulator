@@ -10,20 +10,29 @@
 #define KHORNEBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Khorne {
 
-    class KhorneBase : public Unit {
-    public:
+    enum SlaughterHost {
+        None = 0,
+        ReapersOfVengeance,
+        Bloodlords,
+        Goretide,
+        SkullfiendTribe
+    };
 
-        enum SlaughterHost {
-            None = 0,
+    const std::array<int, 5> g_slaughterHost = {
+            None,
             ReapersOfVengeance,
             Bloodlords,
             Goretide,
             SkullfiendTribe
-        };
+    };
+
+    class KhorneBase : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 

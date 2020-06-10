@@ -9,9 +9,144 @@
 #define GLOOMSPITEBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <gloomspitegitz/BadMoon.h>
+#include <array>
 
 namespace GloomspiteGitz {
+
+    //
+    // Command Traits
+    //
+    enum CommandTrait {
+        // BlessingsOfTheBadMoon
+        CunningPlans,
+        FightAnotherDay,
+        SneakyStabba,
+        ToughNLeathery,
+        DeadShouty,
+        TheClammyHand,
+        //GiftsOfTheGloomspite
+        LowCunning,
+        SpitefulGit,
+        GreatShaman,
+        DodgyCharacter,
+        BossShaman,
+        LoonTouched,
+
+        // MarksOfTheSpiderGodsFavour
+        MonstrousMount,
+        MasterSpiderRider,
+        UlutatingBattleCry,
+        //ToughNLeathery,
+        //DeadShouty,
+        CreepingAssault,
+
+        // FortuitousTroggbossTraits
+        ToughAsRocks,
+        AlphaTrogg,
+        Loonskin,
+        PulverisingGrip,
+        MightyBlow,
+        RealmstoneStuddedHide
+    };
+
+    const std::array<int, 6> g_blessingsOfTheBadMoon = {
+        CunningPlans,
+        FightAnotherDay,
+        SneakyStabba,
+        ToughNLeathery,
+        DeadShouty,
+        TheClammyHand
+    };
+
+    const std::array<int, 6> g_giftsOfTheGloomspite = {
+        LowCunning,
+        SpitefulGit,
+        GreatShaman,
+        DodgyCharacter,
+        BossShaman,
+        LoonTouched
+    };
+
+    const std::array<int, 6> g_marksOfTheSpiderGodsFavour = {
+        MonstrousMount,
+        MasterSpiderRider,
+        UlutatingBattleCry,
+        ToughNLeathery,
+        DeadShouty,
+        CreepingAssault,
+    };
+
+    const std::array<int, 6> g_fortuitousTroggbossTraits = {
+        ToughAsRocks,
+        AlphaTrogg,
+        Loonskin,
+        PulverisingGrip,
+        MightyBlow,
+        RealmstoneStuddedHide
+    };
+
+    //
+    // Artefact
+    //
+    enum Artefact {
+        // TroglodyticTreasures
+        SpitefulProdder,
+        BackstabbersBlade,
+        LoonstoneTalisman,
+        ThePipesOfDoom,
+        TheClammyCowl,
+        LeeringGitshield,
+
+        // FoetidFetishes
+        SpiteshroomFamiliar,
+        MoonfaceMommet,
+        StaffOfSneakyStealin,
+
+        // VenomousValuables
+        TotemOfTheSpiderGod,
+        HeaddressOfManyEyes,
+        TheBlackFang,
+        NibblasIttyRing,
+        Earskuttla,
+        WebStrungCloak,
+
+        // GlintyGubbinzThatTroggothsFound
+        ShinyWotnot,
+        GlowyHowzit,
+        PetGribbly
+    };
+
+    const std::array<int, 6> g_troglodyticTreasures = {
+        SpitefulProdder,
+        BackstabbersBlade,
+        LoonstoneTalisman,
+        ThePipesOfDoom,
+        TheClammyCowl,
+        LeeringGitshield
+    };
+
+    const std::array<int, 6> g_foetidFetishes = {
+        SpiteshroomFamiliar,
+        MoonfaceMommet,
+        StaffOfSneakyStealin
+    };
+
+    const std::array<int, 6> g_venomousValuables = {
+        TotemOfTheSpiderGod,
+        HeaddressOfManyEyes,
+        TheBlackFang,
+        NibblasIttyRing,
+        Earskuttla,
+        WebStrungCloak
+    };
+
+    const std::array<int, 3> g_glintyGubbinzThatTroggothsFound = {
+        ShinyWotnot,
+        GlowyHowzit,
+        PetGribbly
+    };
 
     class GloomspiteGitzBase : public Unit {
     public:

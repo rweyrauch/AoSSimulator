@@ -25,7 +25,7 @@ namespace SlavesToDarkness {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, SlavesToDarknessBase::Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
         unit->setDamnedLegion(legion);
 
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
@@ -41,24 +41,19 @@ namespace SlavesToDarkness {
 
     void ChaosWarriors::Init() {
         if (!s_registered) {
+            static const std::array<int, 4> weapons = {HandWeaponAndShield, HalberdAndShield, GreatBlade, PairedHandWeapons};
             static FactoryMethod factoryMethod = {
                     ChaosWarriors::Create,
                     ChaosWarriors::ValueToString,
                     ChaosWarriors::EnumStringToInt,
                     ChaosWarriors::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", ChaosWarriors::HandWeaponAndShield,
-                                    ChaosWarriors::HandWeaponAndShield,
-                                    ChaosWarriors::PairedHandWeapons, 1
-                            },
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Damned Legion", SlavesToDarknessBase::Ravagers,
-                             SlavesToDarknessBase::Ravagers, SlavesToDarknessBase::HostOfTheEverchosen, 1},
-                            {ParamType::Enum, "Mark of Chaos", SlavesToDarknessBase::Undivided,
-                             SlavesToDarknessBase::Undivided, SlavesToDarknessBase::Tzeentch},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", HandWeaponAndShield, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
+                            EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE}

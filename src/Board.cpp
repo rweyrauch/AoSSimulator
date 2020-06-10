@@ -10,7 +10,6 @@
 #include <algorithm>
 
 #ifdef HAVE_CAIRO
-#include <cairommconfig.h>
 #include <cairomm/context.h>
 #include <cairomm/surface.h>
 #endif
@@ -469,7 +468,7 @@ const Objective *Board::getNearestObjective(const Unit *unit) {
         return nullptr;
     }
     Objective *nearestObjective = m_objectives.front();
-    double minDistance = DBL_MAX;
+    auto minDistance = DBL_MAX;
     for (auto o : m_objectives) {
         double dist = unit->distanceTo(o->m_pos);
         if (dist < minDistance) {

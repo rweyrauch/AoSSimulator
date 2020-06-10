@@ -66,7 +66,7 @@ namespace Sylvaneth {
         bool gladeBanners = GetBoolParam("Glade Banners", parameters, false);
         bool waypipes = GetBoolParam("Waypipes", parameters, false);
 
-        auto glade = (Glade) GetEnumParam("Glade", parameters, SylvanethBase::None);
+        auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
         bool ok = unit->configure(numModels, scionGlaive, gladeBanners, waypipes);
@@ -85,12 +85,11 @@ namespace Sylvaneth {
                     SylvanethBase::EnumStringToInt,
                     TreeRevenants::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Scion Glaive", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Glade Banners", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Waypipes", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None,
-                             SylvanethBase::Harvestboon, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Scion Glaive"),
+                            BoolParameter("Glade Banners"),
+                            BoolParameter("Waypipes"),
+                            EnumParameter("Glade", g_glade[0], g_glade),
                     },
                     ORDER,
                     {SYLVANETH}

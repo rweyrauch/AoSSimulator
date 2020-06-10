@@ -52,6 +52,9 @@ namespace DaughtersOfKhaine {
         auto unit = new KhineraiLifetakers();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        unit->setTemple(temple);
+
         bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;
@@ -64,11 +67,12 @@ namespace DaughtersOfKhaine {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    nullptr,
-                    nullptr,
+                    DaughterOfKhaine::ValueToString,
+                    DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

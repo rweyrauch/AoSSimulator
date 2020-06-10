@@ -72,19 +72,18 @@ namespace Dispossessed {
 
     void Quarrellers::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {Quarrellers::None, Quarrellers::ClanBanner};
             static FactoryMethod factoryMethod = {
                     Quarrellers::Create,
                     Quarrellers::ValueToString,
                     Quarrellers::EnumStringToInt,
                     Quarrellers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Duardin Bucklers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Standard", Quarrellers::None, Quarrellers::None, Quarrellers::ClanBanner,
-                             1},
-                            {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Duardin Bucklers"),
+                            EnumParameter("Standard", Quarrellers::None, weapons),
+                            BoolParameter("Drummer"),
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

@@ -79,7 +79,7 @@ namespace Ironjawz {
         int numGoreChoppas = GetIntParam("Gore Choppas", parameters, 0);
         BossWeaponOption bossWeapon = (BossWeaponOption) GetEnumParam("Boss Weapon", parameters, BossChoppa);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels, weapons, numGoreChoppas, bossWeapon);
@@ -92,25 +92,19 @@ namespace Ironjawz {
 
     void OrrukBrutes::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {TwoBruteChoppas, JaggedGorehacka};
+            static const std::array<int, 2> bossWeapons = {BossChoppa, BossKlaw};
             static FactoryMethod factoryMethod = {
                     OrrukBrutes::Create,
                     OrrukBrutes::ValueToString,
                     OrrukBrutes::EnumStringToInt,
                     OrrukBrutes::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", OrrukBrutes::TwoBruteChoppas,
-                                    OrrukBrutes::TwoBruteChoppas,
-                                    OrrukBrutes::JaggedGorehacka, 1
-                            },
-                            {ParamType::Integer, "Gore Choppas", 0, 0, MAX_UNIT_SIZE / 5, 1},
-                            {
-                                    ParamType::Enum, "Boss Weapon", OrrukBrutes::BossChoppa, OrrukBrutes::BossChoppa,
-                                    OrrukBrutes::BossKlaw, 1
-                            },
-                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
-                             1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", TwoBruteChoppas, weapons),
+                            IntegerParameter("Gore Choppas", 0, 0, MAX_UNIT_SIZE / 5, 1),
+                            EnumParameter("Boss Weapon", BossChoppa, bossWeapons),
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

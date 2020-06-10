@@ -66,16 +66,15 @@ namespace OgorMawtribes {
 
     void StonehornBeastriders::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Chaintrap, BloodVulture};
             static FactoryMethod factoryMethod = {
                     StonehornBeastriders::Create,
                     StonehornBeastriders::ValueToString,
                     StonehornBeastriders::EnumStringToInt,
                     StonehornBeastriders::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", StonehornBeastriders::Chaintrap,
-                             StonehornBeastriders::Chaintrap, StonehornBeastriders::BloodVulture, 1},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            EnumParameter("Weapon", Chaintrap, weapons),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

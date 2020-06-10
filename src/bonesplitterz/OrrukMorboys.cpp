@@ -25,7 +25,7 @@ namespace Bonesplitterz {
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels, thumper, totem);
@@ -44,11 +44,10 @@ namespace Bonesplitterz {
                     Bonesplitterz::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Skull Thumper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Bone Totem Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz,
-                             Bonesplitterz::Icebone, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Skull Thumper"),
+                            BoolParameter("Bone Totem Bearer"),
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

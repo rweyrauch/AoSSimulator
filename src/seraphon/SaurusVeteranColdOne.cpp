@@ -41,8 +41,8 @@ namespace Seraphon {
     Unit *SaurusScarVeteranOnColdOne::Create(const ParameterList &parameters) {
         auto unit = new SaurusScarVeteranOnColdOne();
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, SeraphonBase::Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, SeraphonBase::None);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure();
@@ -61,10 +61,8 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Way of the Seraphon", SeraphonBase::Starborne, SeraphonBase::Starborne,
-                             SeraphonBase::Coalesced, 1},
-                            {ParamType::Enum, "Constellation", SeraphonBase::None, SeraphonBase::None,
-                             SeraphonBase::FangsOfSotek, 1}
+                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", NoConstellation, g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

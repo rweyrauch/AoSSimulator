@@ -46,7 +46,7 @@ namespace BeastsOfChaos {
         auto unit = new ChaosWarhounds();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
         bool ok = unit->configure(numModels);
@@ -65,9 +65,8 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
-                             BeastsOfChaosBase::Gavespawn, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

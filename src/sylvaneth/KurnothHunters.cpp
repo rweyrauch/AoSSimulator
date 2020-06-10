@@ -78,7 +78,7 @@ namespace Sylvaneth {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, KurnothHunters::Greatswords);
 
-        auto glade = (Glade) GetEnumParam("Glade", parameters, SylvanethBase::None);
+        auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
         bool ok = unit->configure(numModels, weapons);
@@ -91,19 +91,16 @@ namespace Sylvaneth {
 
     void KurnothHunters::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {Greatswords, Scythes, Greatbows};
             static FactoryMethod factoryMethod = {
                     KurnothHunters::Create,
                     KurnothHunters::ValueToString,
                     KurnothHunters::EnumStringToInt,
                     KurnothHunters::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", KurnothHunters::Greatswords,
-                                    KurnothHunters::Greatswords, KurnothHunters::Greatbows, 1
-                            },
-                            {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None,
-                             SylvanethBase::Harvestboon, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", Greatswords, weapons),
+                            EnumParameter("Glade", g_glade[0], g_glade),
                     },
                     ORDER,
                     {SYLVANETH}

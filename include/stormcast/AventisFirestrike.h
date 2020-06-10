@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
         ~AventisFirestrike() override = default;
 
-        bool configure(LoreOfTheStorm storm, LoreOfInvigoration invigoration);
+        bool configure(Lore lore);
 
     protected:
 

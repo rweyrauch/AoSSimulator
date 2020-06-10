@@ -65,7 +65,7 @@ void Battle::next() {
     }
 }
 
-bool Battle::done() {
+bool Battle::done() const {
     return m_isDone;
 }
 

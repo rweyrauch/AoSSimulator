@@ -20,7 +20,7 @@ namespace CitiesOfSigmar {
     Unit *HelstormRocketBattery::Create(const ParameterList &parameters) {
         auto unit = new HelstormRocketBattery();
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure();
@@ -47,8 +47,7 @@ namespace CitiesOfSigmar {
                     HelstormRocketBattery::EnumStringToInt,
                     HelstormRocketBattery::ComputePoints,
                     {
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

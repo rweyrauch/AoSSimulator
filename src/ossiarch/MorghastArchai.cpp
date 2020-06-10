@@ -54,7 +54,7 @@ namespace OssiarchBonereapers {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, SpiritHalberd);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons);
@@ -81,17 +81,16 @@ namespace OssiarchBonereapers {
 
     void MorghastArchai::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {SpiritHalberd, SpiritSwords};
             static FactoryMethod factoryMethod = {
                     MorghastArchai::Create,
                     MorghastArchai::ValueToString,
                     MorghastArchai::EnumStringToInt,
                     MorghastArchai::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", MorghastArchai::SpiritHalberd, MorghastArchai::SpiritHalberd,
-                             MorghastArchai::SpiritSwords, 1},
-                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                             OssiarchBonereaperBase::Crematorians, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", SpiritHalberd, weapons),
+                            EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS, DEATHLORDS}

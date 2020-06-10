@@ -20,7 +20,7 @@ namespace Tzeentch {
     Unit *VortemisTheAllSeeing::Create(const ParameterList &parameters) {
         auto unit = new VortemisTheAllSeeing();
 
-        unit->setChangeCoven(CultOfTheTransientForm);
+        unit->setChangeCoven(ChangeCoven::CultOfTheTransientForm);
 
         bool ok = unit->configure();
         if (!ok) {

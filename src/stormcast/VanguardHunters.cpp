@@ -78,7 +78,7 @@ namespace StormcastEternals {
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormSabre);
         bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         hunters->setStormhost(stormhost);
 
         bool ok = hunters->configure(numModels, weapons, astralCompass);
@@ -91,17 +91,17 @@ namespace StormcastEternals {
 
     void VanguardHunters::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {ShockHandaxe, StormSabre};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", StormSabre, ShockHandaxe, StormSabre, 1},
-                            {ParamType::Boolean, "Astral Compass", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", StormSabre, weapons),
+                            BoolParameter("Astral Compass"),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

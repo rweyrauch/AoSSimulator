@@ -9,31 +9,40 @@
 #ifndef FYRESLAYER_H
 #define FYRESLAYER_H
 
-#include <map>
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
+#include <map>
 
 namespace Fyreslayers {
 
-    class Fyreslayer : public Unit {
-    public:
+    enum Lodge {
+        Custom = 0,
+        Vostarg,
+        Greyfyrd,
+        Hermdar,
+        Lofnir
+    };
 
-        enum Lodge {
-            None = 0,
+    enum class Rune {
+        OfFury,
+        OfSearingHeat,
+        OfAwakenedSteel,
+        OfFieryDetermination,
+        OfRelentlessZeal,
+        OfFarsight
+    };
+
+    const std::array<int, 5> g_lodge = {
+            Custom,
             Vostarg,
             Greyfyrd,
             Hermdar,
             Lofnir
-        };
+    };
 
-        enum class Rune {
-            OfFury,
-            OfSearingHeat,
-            OfAwakenedSteel,
-            OfFieryDetermination,
-            OfRelentlessZeal,
-            OfFarsight
-        };
+    class Fyreslayer : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -61,7 +70,7 @@ namespace Fyreslayers {
 
     protected:
 
-        Lodge m_lodge = None;
+        Lodge m_lodge = Custom;
 
         bool m_activatedRune = false;
         std::map<Rune, bool> m_availableRunes;

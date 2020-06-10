@@ -62,7 +62,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     Nurglings::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
                     },
                     CHAOS,
                     {NURGLE}

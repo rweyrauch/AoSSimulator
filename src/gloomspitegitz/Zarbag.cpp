@@ -26,14 +26,14 @@ namespace GloomspiteGitz {
         m_totalSpells = 1;
     }
 
-    bool Zarbag::configure(LoreOfTheMoonclans lore) {
+    bool Zarbag::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_sickle);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         //m_knownSpells.push_back(std::make_unique<FaceOfDaBadMoon>(this));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);
 
@@ -44,8 +44,7 @@ namespace GloomspiteGitz {
 
     Unit *Zarbag::Create(const ParameterList &parameters) {
         auto unit = new Zarbag();
-        auto lore = (LoreOfTheMoonclans) GetEnumParam("Lore of the Moonclans", parameters,
-                                                      (int) LoreOfTheMoonclans::None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, (int)None);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -63,8 +62,7 @@ namespace GloomspiteGitz {
                     Zarbag::EnumStringToInt,
                     Zarbag::ComputePoints,
                     {
-                            {ParamType::Enum, "Lore of the Moonclans", (int) LoreOfTheMoonclans::None,
-                             (int) LoreOfTheMoonclans::None, (int) LoreOfTheMoonclans::CallDaMoon, 1},
+                            EnumParameter("Lore of the Moonclans", None, g_loreOfTheMoonclans)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -75,13 +73,13 @@ namespace GloomspiteGitz {
 
     std::string Zarbag::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lore of the Moonclans") {
-            return ToString((LoreOfTheMoonclans) parameter.intValue);
+            return ToString((Lore) parameter.intValue);
         }
         return ParameterValueToString(parameter);
     }
 
     int Zarbag::EnumStringToInt(const std::string &enumString) {
-        LoreOfTheMoonclans lore;
+        Lore lore;
         if (FromString(enumString, lore)) {
             return (int) lore;
         }

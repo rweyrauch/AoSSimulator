@@ -76,8 +76,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     PusgoyleBlightlords::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Dolorous Tocsin", 0, 0, MAX_UNIT_SIZE / 2},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Dolorous Tocsin", 0, 0, MAX_UNIT_SIZE / 2, 1),
                     },
                     CHAOS,
                     {NURGLE}

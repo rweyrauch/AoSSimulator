@@ -39,7 +39,7 @@ namespace CitiesOfSigmar {
 
         auto anointed = GetBoolParam("Anointed", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(anointed);
@@ -66,9 +66,8 @@ namespace CitiesOfSigmar {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
-                            {ParamType::Boolean, "Anointed", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            EnumParameter("City", g_city[0], g_city),
+                            BoolParameter("Anointed"),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

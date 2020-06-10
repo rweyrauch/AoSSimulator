@@ -10,53 +10,77 @@
 #define LOREOFTHESTORM_H
 
 #include <Spell.h>
+#include <array>
 
-enum class LoreOfTheStorm : int {
-    None = 0,
-    LightningBlast,
-    Starfall,
-    Thundershock,
-    AzyriteHalo,
-    ChainLightning,
-    Stormcaller,
-};
+namespace StormcastEternals {
 
-std::string ToString(LoreOfTheStorm which);
+    enum Lore : int {
 
-bool FromString(const std::string &enumString, LoreOfTheStorm &outLore);
+        // LoreOfTheStorm
+        LightningBlast,
+        Starfall,
+        Thundershock,
+        AzyriteHalo,
+        ChainLightning,
+        Stormcaller,
 
-enum class LoreOfInvigoration : int {
-    None = 0,
-    TerrifyingAspect,
-    CelestialBlades,
-    SpeedOfLightning,
-};
+        // LoreOfInvigoration
+        TerrifyingAspect,
+        CelestialBlades,
+        SpeedOfLightning
+    };
 
-std::string ToString(LoreOfInvigoration which);
+    const std::array<int, 6> g_loreOfTheStorm = {
+        LightningBlast,
+        Starfall,
+        Thundershock,
+        AzyriteHalo,
+        ChainLightning,
+        Stormcaller,
+    };
 
-bool FromString(const std::string &enumString, LoreOfInvigoration &outLore);
+    const std::array<int, 3> g_loreOfInvigoration = {
+        TerrifyingAspect,
+        CelestialBlades,
+        SpeedOfLightning
+    };
 
-DamageSpell *CreateLightningBlast(Unit *caster);
+    const std::array<int, 9> g_lore = {
+        LightningBlast,
+        Starfall,
+        Thundershock,
+        AzyriteHalo,
+        ChainLightning,
+        Stormcaller,
+        TerrifyingAspect,
+        CelestialBlades,
+        SpeedOfLightning
+    };
 
-AreaOfEffectSpell *CreateStarfall(Unit *caster);
+    std::string ToString(Lore which);
 
-AreaOfEffectSpell *CreateThundershock(Unit *caster);
+    bool FromString(const std::string &enumString, Lore &outLore);
 
-Spell *CreateAzyriteHalo(Unit *caster);
+    DamageSpell *CreateLightningBlast(Unit *caster);
 
-AreaOfEffectSpell *CreateChainLightning(Unit *caster);
+    AreaOfEffectSpell *CreateStarfall(Unit *caster);
 
-AreaOfEffectSpell *CreateStormcaller(Unit *caster);
+    AreaOfEffectSpell *CreateThundershock(Unit *caster);
 
-Spell *CreateLoreOfTheStorm(LoreOfTheStorm which, Unit *caster);
+    Spell *CreateAzyriteHalo(Unit *caster);
 
+    AreaOfEffectSpell *CreateChainLightning(Unit *caster);
 
-Spell *CreateTerrifyingAspect(Unit *caster);
+    AreaOfEffectSpell *CreateStormcaller(Unit *caster);
 
-Spell *CreateCelestialBlades(Unit *caster);
+    Spell *CreateTerrifyingAspect(Unit *caster);
 
-Spell *CreateSpeedOfLightning(Unit *caster);
+    Spell *CreateCelestialBlades(Unit *caster);
 
-Spell *CreateLoreOfInvigoration(LoreOfInvigoration which, Unit *caster);
+    Spell *CreateSpeedOfLightning(Unit *caster);
+
+    Spell *CreateLore(Lore which, Unit *caster);
+
+} // namespace StormcastEternals
 
 #endif //LOREOFTHESTORM_H

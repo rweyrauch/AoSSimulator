@@ -10,22 +10,33 @@
 #define TZEENTCHBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Tzeentch {
 
+    enum class ChangeCoven: int {
+        None,
+        EternalConflagration,
+        HostsDuplicitous,
+        HostsArcanum,
+        CultOfTheTransientForm,
+        PyrofaneCult,
+        GuildOfSummoners
+    };
+
+    const std::array<int, 7> g_changeCoven = {
+            (int)ChangeCoven::None,
+            (int)ChangeCoven::EternalConflagration,
+            (int)ChangeCoven::HostsDuplicitous,
+            (int)ChangeCoven::HostsArcanum,
+            (int)ChangeCoven::CultOfTheTransientForm,
+            (int)ChangeCoven::PyrofaneCult,
+            (int)ChangeCoven::GuildOfSummoners
+    };
+
     class TzeentchBase : public Unit {
     public:
-
-        enum ChangeCoven {
-            None,
-            EternalConflagration,
-            HostsDuplicitous,
-            HostsArcanum,
-            CultOfTheTransientForm,
-            PyrofaneCult,
-            GuildOfSummoners
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -52,7 +63,7 @@ namespace Tzeentch {
 
     private:
 
-        ChangeCoven m_coven = None;
+        ChangeCoven m_coven = ChangeCoven::None;
     };
 
     void Init();

@@ -10,17 +10,21 @@
 #define SLAANESHBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Slaanesh {
+
+    enum Host {
+        Invaders = 0,
+        Pretenders,
+        Godseekers,
+    };
+
+    const std::array<int, 3> g_host = {Invaders,Pretenders,Godseekers};
+
     class SlaaneshBase : public Unit {
     public:
-
-        enum Host {
-            Invaders = 0,
-            Pretenders,
-            Godseekers,
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 

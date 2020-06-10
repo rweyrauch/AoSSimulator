@@ -57,7 +57,7 @@ namespace StormcastEternals {
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, LightningHammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons, sigmariteThundershield);
@@ -70,16 +70,16 @@ namespace StormcastEternals {
 
     void LordCelestantOnDracoth::Init() {
         if (!s_registered) {
+            static const std::array<int, 4> weapons = {TempestosHammer, Thunderaxe, LightningHammer, StormstrikeGlaive};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", TempestosHammer, TempestosHammer, StormstrikeGlaive, 1},
-                            {ParamType::Boolean, "Sigmarite Thundershield", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Weapon", TempestosHammer, weapons),
+                            BoolParameter("Sigmarite Thundershield"),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

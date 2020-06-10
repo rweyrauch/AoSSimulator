@@ -36,15 +36,15 @@ namespace OgorMawtribes {
 
     void Butcher::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Tenderiser, Cleaver};
             static FactoryMethod factoryMethod = {
                     Butcher::Create,
                     Butcher::ValueToString,
                     Butcher::EnumStringToInt,
                     Butcher::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", Butcher::Cleaver, Butcher::Tenderiser, Butcher::Cleaver, 1},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            EnumParameter("Weapon", Cleaver, weapons),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

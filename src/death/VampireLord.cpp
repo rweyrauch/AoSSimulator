@@ -47,11 +47,10 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Wings", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Chalice of Blood", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
-                             Legion::LegionOfBlood, 1},
+                            BoolParameter("Steed"),
+                            BoolParameter("Wings"),
+                            BoolParameter("Chalice of Blood"),
+                            EnumParameter("Legion", g_legion[0], g_legion)
                     },
                     DEATH,
                     {SOULBLIGHT}

@@ -18,7 +18,7 @@ namespace OssiarchBonereapers {
     Unit *ArchKavalosZandtos::Create(const ParameterList &parameters) {
         auto unit = new ArchKavalosZandtos();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -45,8 +45,7 @@ namespace OssiarchBonereapers {
                     ArchKavalosZandtos::EnumStringToInt,
                     ArchKavalosZandtos::ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                             OssiarchBonereaperBase::Crematorians, 1},
+                            EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

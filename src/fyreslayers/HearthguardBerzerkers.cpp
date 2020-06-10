@@ -66,7 +66,7 @@ namespace Fyreslayers {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BerzerkerBroadaxe);
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
         unit->setLodge(lodge);
 
         bool ok = unit->configure(numModels, weapons);
@@ -79,16 +79,16 @@ namespace Fyreslayers {
 
     void HearthguardBerzerkers::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {BerzerkerBroadaxe, FlamestrikePoleaxe};
             static FactoryMethod factoryMethod = {
                     HearthguardBerzerkers::Create,
                     HearthguardBerzerkers::ValueToString,
                     HearthguardBerzerkers::EnumStringToInt,
                     HearthguardBerzerkers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", HearthguardBerzerkers::BerzerkerBroadaxe,
-                             HearthguardBerzerkers::BerzerkerBroadaxe, HearthguardBerzerkers::FlamestrikePoleaxe, 1},
-                            {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", BerzerkerBroadaxe, weapons),
+                            EnumParameter("Lodge", g_lodge[0], g_lodge),
                     },
                     ORDER,
                     {FYRESLAYERS}

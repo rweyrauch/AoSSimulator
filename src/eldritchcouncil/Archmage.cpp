@@ -68,7 +68,7 @@ namespace EldritchCouncil {
                     nullptr,
                     ComputePoints,
                     {
-                            {ParamType::Boolean, "Steed", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            BoolParameter("Steed"),
                     },
                     ORDER,
                     {ELDRITCH_COUNCIL}

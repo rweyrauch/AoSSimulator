@@ -28,7 +28,7 @@ namespace CitiesOfSigmar {
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
         auto marksmanWeapon = (WeaponOption) GetEnumParam("Marksman Weapon", parameters, Handgun);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standard, hornblower, marksmanWeapon);
@@ -65,22 +65,18 @@ namespace CitiesOfSigmar {
 
     void FreeguildHandgunners::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {Handgun, LongRifle, RepeaterHandgun};
             static FactoryMethod factoryMethod = {
                     FreeguildHandgunners::Create,
                     FreeguildHandgunners::ValueToString,
                     FreeguildHandgunners::EnumStringToInt,
                     FreeguildHandgunners::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Marksman Weapon", FreeguildHandgunners::Handgun,
-                                    FreeguildHandgunners::Handgun,
-                                    FreeguildHandgunners::RepeaterHandgun, 1
-                            },
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Piper", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter<3>("Marksman Weapon", Handgun, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Piper"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

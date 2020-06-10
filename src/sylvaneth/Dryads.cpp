@@ -54,7 +54,7 @@ namespace Sylvaneth {
         auto unit = new Dryads();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto glade = (Glade) GetEnumParam("Glade", parameters, SylvanethBase::None);
+        auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
         bool ok = unit->configure(numModels);
@@ -73,9 +73,8 @@ namespace Sylvaneth {
                     SylvanethBase::EnumStringToInt,
                     Dryads::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None,
-                             SylvanethBase::Harvestboon, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Glade", g_glade[0], g_glade),
                     },
                     ORDER,
                     {SYLVANETH}

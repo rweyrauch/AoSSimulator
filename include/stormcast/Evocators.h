@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
         ~Evocators() override = default;
 
-        bool configure(int numModels, int numGrandstaves, bool primeGrandstave, LoreOfInvigoration invigoration);
+        bool configure(int numModels, int numGrandstaves, bool primeGrandstave, Lore lore);
 
     protected:
 

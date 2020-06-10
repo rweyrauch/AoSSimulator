@@ -57,7 +57,7 @@ namespace Fyreslayers {
         auto unit = new AuricHearthguard();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
         unit->setLodge(lodge);
 
         bool ok = unit->configure(numModels);
@@ -76,8 +76,8 @@ namespace Fyreslayers {
                     Fyreslayer::EnumStringToInt,
                     AuricHearthguard::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Lodge", g_lodge[0], g_lodge),
                     },
                     ORDER,
                     {FYRESLAYERS}

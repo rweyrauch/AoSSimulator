@@ -67,8 +67,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     BladebringerOnHellflayer::ComputePoints,
                     {
-                            {ParamType::Enum, "Host", SlaaneshBase::Godseekers, SlaaneshBase::Invaders,
-                             SlaaneshBase::Godseekers, 1},
+                            EnumParameter("Host", g_host[0], g_host),
                     },
                     CHAOS,
                     {SLAANESH}

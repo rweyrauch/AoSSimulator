@@ -10,21 +10,34 @@
 #define BLOODBLESSINGSOFKHORNE_H
 
 #include <Prayer.h>
+#include <array>
 
-enum class BloodBlessingsOfKhorne : int {
-    None = 0,
-    BronzedFlesh,
-    BloodSacrifice,
-    Resanguination,
-    BrazenFury,
-    KillingFrenzy,
-    SpellbaneHex,
-};
+namespace Khorne {
 
-std::string ToString(BloodBlessingsOfKhorne which);
+    enum BloodBlessingsOfKhorne : int {
+        BronzedFlesh,
+        BloodSacrifice,
+        Resanguination,
+        BrazenFury,
+        KillingFrenzy,
+        SpellbaneHex,
+    };
 
-bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessing);
+    const std::array<int, 6> g_bloodBlessingsOfKhorne = {
+            BronzedFlesh,
+            BloodSacrifice,
+            Resanguination,
+            BrazenFury,
+            KillingFrenzy,
+            SpellbaneHex,
+    };
 
-Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest);
+    std::string ToString(BloodBlessingsOfKhorne which);
+
+    bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessing);
+
+    Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest);
+
+} // namespace Khorne
 
 #endif //BLOODBLESSINGSOFKHORNE_H

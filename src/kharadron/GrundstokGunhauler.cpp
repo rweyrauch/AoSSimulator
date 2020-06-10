@@ -20,7 +20,7 @@ namespace KharadronOverlords {
         auto unit = new GrundstokGunhauler();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, SkyCannon);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure(option);
@@ -47,19 +47,15 @@ namespace KharadronOverlords {
 
     void GrundstokGunhauler::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {SkyCannon, DrillCannon};
             static FactoryMethod factoryMethod = {
                     GrundstokGunhauler::Create,
                     GrundstokGunhauler::ValueToString,
                     GrundstokGunhauler::EnumStringToInt,
                     GrundstokGunhauler::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", GrundstokGunhauler::SkyCannon,
-                                    GrundstokGunhauler::SkyCannon,
-                                    GrundstokGunhauler::DrillCannon, 1
-                            },
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            EnumParameter("Weapon", SkyCannon, weapons),
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

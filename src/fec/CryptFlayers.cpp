@@ -79,11 +79,9 @@ namespace FleshEaterCourt {
                     FleshEaterCourts::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Grand Court", FleshEaterCourts::NoCourt, FleshEaterCourts::NoCourt,
-                             FleshEaterCourts::Gristlegore, 1},
-                            {ParamType::Enum, "Delusion", FleshEaterCourts::None, FleshEaterCourts::None,
-                             FleshEaterCourts::DefendersOfTheRealm, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Grand Court", g_grandCourt[0], g_grandCourt),
+                            EnumParameter("Delusion", g_delusion[0], g_delusion),
                     },
                     DEATH,
                     {FLESH_EATER_COURTS}

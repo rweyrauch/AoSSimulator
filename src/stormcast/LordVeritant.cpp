@@ -46,9 +46,9 @@ namespace StormcastEternals {
     Unit *LordVeritant::Create(const ParameterList &parameters) {
         auto unit = new LordVeritant();
         auto prayer = (PrayersOfTheStormhost) GetEnumParam("Prayers of the Stormhost", parameters,
-                                                           (int) PrayersOfTheStormhost::None);
+                                                           g_prayersOfTheStormhost[0]);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(prayer);
@@ -67,10 +67,8 @@ namespace StormcastEternals {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Prayers of the Stormhost", (int) PrayersOfTheStormhost::None,
-                             (int) PrayersOfTheStormhost::None, (int) PrayersOfTheStormhost::Translocation, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Prayers of the Stormhost", g_prayersOfTheStormhost[0], g_prayersOfTheStormhost),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

@@ -20,7 +20,7 @@ namespace Tzeentch {
     Unit *TheChangeling::Create(const ParameterList &parameters) {
         auto unit = new TheChangeling();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure();
@@ -39,8 +39,7 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     TheChangeling::ComputePoints,
                     {
-                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
-                             TzeentchBase::GuildOfSummoners, 1},
+                            EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
                     {TZEENTCH}

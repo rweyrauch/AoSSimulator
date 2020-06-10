@@ -32,11 +32,13 @@ namespace GloomspiteGitz {
 
         ~FungoidCaveShaman() override = default;
 
-        bool configure(LoreOfTheMoonclans lore);
+        bool configure(Lore lore);
 
     protected:
 
         void onStartHero(PlayerId playerId) override;
+
+        Wounds applyWoundSave(const Wounds &wounds) override;
 
     private:
 
@@ -49,9 +51,9 @@ namespace GloomspiteGitz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Mouthpiece of Mork               TODO
+// Mouthpiece of Mork               Yes
 // Deffcap Mushroom                 TODO
-// Spore Squig                      TODO
+// Spore Squig                      Yes
 // Spore Maws                       TODO
 //
 

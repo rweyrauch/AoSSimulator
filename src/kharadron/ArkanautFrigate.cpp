@@ -38,7 +38,7 @@ namespace KharadronOverlords {
         auto unit = new ArkanautFrigate();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, HeavySkyCannon);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure(option);
@@ -65,19 +65,15 @@ namespace KharadronOverlords {
 
     void ArkanautFrigate::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {HeavySkyCannon, HeavySkyhook};
             static FactoryMethod factoryMethod = {
                     ArkanautFrigate::Create,
                     ArkanautFrigate::ValueToString,
                     ArkanautFrigate::EnumStringToInt,
                     ArkanautFrigate::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", ArkanautFrigate::HeavySkyCannon,
-                                    ArkanautFrigate::HeavySkyCannon,
-                                    ArkanautFrigate::HeavySkyhook, 1
-                            },
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            EnumParameter("Weapon", HeavySkyCannon, weapons),
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

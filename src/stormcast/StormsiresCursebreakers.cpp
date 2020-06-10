@@ -29,7 +29,7 @@ namespace StormcastEternals {
         m_totalSpells = 1;
     }
 
-    bool StormsiresCursebreakers::configure(LoreOfInvigoration invigoration) {
+    bool StormsiresCursebreakers::configure(Lore lore) {
         auto ammis = new Model(BASESIZE, wounds());
         ammis->addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(ammis);
@@ -39,8 +39,7 @@ namespace StormcastEternals {
         addModel(rastus);
 
         m_knownSpells.push_back(std::make_unique<Empower>(this));
-        if (invigoration != LoreOfInvigoration::None)
-            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfInvigoration(invigoration, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_points = POINTS_PER_UNIT;
 
@@ -74,8 +73,7 @@ namespace StormcastEternals {
 
     Unit *StormsiresCursebreakers::Create(const ParameterList &parameters) {
         auto *evos = new StormsiresCursebreakers();
-        auto invigoration = (LoreOfInvigoration) GetEnumParam("Lore of Invigoration", parameters,
-                                                              (int) LoreOfInvigoration::None);
+        auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, None);
 
         evos->setStormhost(HammersOfSigmar);
 
@@ -95,8 +93,7 @@ namespace StormcastEternals {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Lore of Invigoration", (int) LoreOfInvigoration::None,
-                             (int) LoreOfInvigoration::None, (int) LoreOfInvigoration::SpeedOfLightning, 1},
+                            EnumParameter("Lore of Invigoration", None, g_loreOfInvigoration)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}
@@ -107,17 +104,10 @@ namespace StormcastEternals {
     }
 
     std::string StormsiresCursebreakers::ValueToString(const Parameter &parameter) {
-        if (std::string(parameter.name) == "Lore of Invigoration") {
-            return ToString((LoreOfInvigoration) parameter.intValue);
-        }
         return StormcastEternal::ValueToString(parameter);
     }
 
     int StormsiresCursebreakers::EnumStringToInt(const std::string &enumString) {
-        LoreOfInvigoration invigoration;
-        if (FromString(enumString, invigoration)) {
-            return (int) invigoration;
-        }
         return StormcastEternal::EnumStringToInt(enumString);
     }
 

@@ -51,7 +51,7 @@ namespace StormcastEternals {
         auto unit = new LordOrdinator();
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons);
@@ -64,15 +64,15 @@ namespace StormcastEternals {
 
     void LordOrdinator::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {AstralHammers, AstralGrandhammer};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", AstralHammers, AstralHammers, AstralGrandhammer, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Weapon", AstralHammers, weapons),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

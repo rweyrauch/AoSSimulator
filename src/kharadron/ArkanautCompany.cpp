@@ -27,7 +27,7 @@ namespace KharadronOverlords {
         int numSkypikes = GetIntParam("Skypikes", parameters, 1);
         auto option = (CaptainWeapon) GetEnumParam("Captain Weapon", parameters, AetherflarePistol);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure(numModel, numVolleyGuns, numSkyhooks, numSkypikes, option);
@@ -54,23 +54,19 @@ namespace KharadronOverlords {
 
     void ArkanautCompany::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {AetherflarePistol, VolleyPistol, PrivateerPistol};
             static FactoryMethod factoryMethod = {
                     ArkanautCompany::Create,
                     ArkanautCompany::ValueToString,
                     ArkanautCompany::EnumStringToInt,
                     ArkanautCompany::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Volley Guns", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Light Skyhooks", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Skypikes", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {
-                                    ParamType::Enum, "Captain Weapon", ArkanautCompany::AetherflarePistol,
-                                    ArkanautCompany::AetherflarePistol,
-                                    ArkanautCompany::PrivateerPistol, 1
-                            },
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Volley Guns", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Light Skyhooks", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Skypikes", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            EnumParameter("Captain Weapon", AetherflarePistol, weapons),
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

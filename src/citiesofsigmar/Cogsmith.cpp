@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, GrudgeRaker);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(weapon);
@@ -56,18 +56,15 @@ namespace CitiesOfSigmar {
 
     void Cogsmith::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapon =  { Cogsmith::GrudgeRaker, Cogsmith::CogAxe};
             static FactoryMethod factoryMethod = {
                     Cogsmith::Create,
                     Cogsmith::ValueToString,
                     Cogsmith::EnumStringToInt,
                     Cogsmith::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", Cogsmith::GrudgeRaker, Cogsmith::GrudgeRaker,
-                                    Cogsmith::CogAxe, 1
-                            },
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter<2>("Weapon", Cogsmith::GrudgeRaker, weapon),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

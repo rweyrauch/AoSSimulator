@@ -1102,41 +1102,6 @@ struct Wounds {
     }
 };
 
-
-enum ParamType {
-    Boolean,
-    Integer,
-    Enum,
-};
-
-enum {
-    SIM_FALSE = 0,
-    SIM_TRUE = 1,
-};
-
-struct Parameter {
-    ParamType paramType = Integer;
-    const char *name = nullptr;
-    int intValue = 0;
-    int minValue = 0;
-    int maxValue = 0;
-    int increment = 1;
-};
-
-typedef std::vector<Parameter> ParameterList;
-
-std::string ParameterValueToString(const Parameter &param);
-
-ParameterList::const_iterator FindParam(const std::string &name, const ParameterList &parameters);
-
-ParameterList::iterator FindParam(const std::string &name, ParameterList &parameters);
-
-int GetIntParam(const std::string &name, const ParameterList &parameters, int defaultValue);
-
-int GetEnumParam(const std::string &name, const ParameterList &parameters, int defaultValue);
-
-bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool defaultValue);
-
 std::string PhaseToString(Phase phase);
 
 std::string PlayerIdToString(PlayerId id);

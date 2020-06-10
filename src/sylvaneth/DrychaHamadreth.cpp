@@ -90,7 +90,7 @@ namespace Sylvaneth {
     Unit *DrychaHamadreth::Create(const ParameterList &parameters) {
         auto unit = new DrychaHamadreth();
 
-        auto glade = (Glade) GetEnumParam("Glade", parameters, SylvanethBase::None);
+        auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
         bool ok = unit->configure();
@@ -109,8 +109,7 @@ namespace Sylvaneth {
                     SylvanethBase::EnumStringToInt,
                     DrychaHamadreth::ComputePoints,
                     {
-                            {ParamType::Enum, "Glade", SylvanethBase::None, SylvanethBase::None,
-                             SylvanethBase::Harvestboon, 1},
+                            EnumParameter("Glade", g_glade[0], g_glade),
                     },
                     ORDER,
                     {SYLVANETH}

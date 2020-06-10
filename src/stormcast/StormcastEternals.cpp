@@ -145,6 +145,10 @@ namespace StormcastEternals {
     }
 
     std::string StormcastEternal::ValueToString(const Parameter &parameter) {
+        if ((std::string(parameter.name) == "Lore of the Storm") || (std::string(parameter.name) == "Lore of Invigoration") ||
+            (std::string(parameter.name) == "Lore")) {
+            return ToString((Lore) parameter.intValue);
+        }
         if (std::string(parameter.name) == "Stormhost") {
             if (parameter.intValue == HammersOfSigmar) { return "Hammers of Sigmar"; }
             else if (parameter.intValue == HallowedKnights) { return "Hallowed Knights"; }
@@ -154,12 +158,15 @@ namespace StormcastEternals {
             else if (parameter.intValue == CelestialWarbringers) return "Celestial Warbringers";
             else if (parameter.intValue == TempestLords) return "Tempest Lords";
             else if (parameter.intValue == AstralTemplars) return "Astral Templars";
-            else if (parameter.intValue == None) { return "None"; }
+            else if (parameter.intValue == NoStormhost) { return "No Stormhost"; }
         }
         return ParameterValueToString(parameter);
     }
 
     int StormcastEternal::EnumStringToInt(const std::string &enumString) {
+        Lore lore;
+        if (FromString(enumString, lore)) return lore;
+
         if (enumString == "Hammers of Sigmar") { return HammersOfSigmar; }
         else if (enumString == "Hallowed Knights") { return HallowedKnights; }
         else if (enumString == "Celestial Vindicators") { return CelestialVindicators; }
@@ -168,7 +175,8 @@ namespace StormcastEternals {
         else if (enumString == "Celestial Warbringers") { return CelestialWarbringers; }
         else if (enumString == "Tempest Lords") { return TempestLords; }
         else if (enumString == "Astral Templars") { return AstralTemplars; }
-        else if (enumString == "None") { return None; }
+        else if (enumString == "No Stormhost") { return NoStormhost; }
+
         return 0;
     }
 

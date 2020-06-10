@@ -10,29 +10,46 @@
 #define FLESHEATERCOURTS_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace FleshEaterCourt {
 
-    class FleshEaterCourts : public Unit {
-    public:
+    enum GrandCourt {
+        NoCourt = 0,
+        Morgaunt,
+        Hollowmourne,
+        Blisterskin,
+        Gristlegore,
+    };
+    enum Delusion {
+        CrusadingArmy = 0,
+        TheRoyalHunt,
+        TheFeastDay,
+        AMatterOfHonour,
+        TheGrandTournament,
+        DefendersOfTheRealm
+    };
 
-        enum GrandCourt {
-            NoCourt = 0,
+    const std::array<int, 5> g_grandCourt = {
+            NoCourt,
             Morgaunt,
             Hollowmourne,
             Blisterskin,
             Gristlegore,
-        };
-        enum Delusion {
-            None = 0,
+    };
+
+    const std::array<int, 6> g_delusion = {
             CrusadingArmy,
             TheRoyalHunt,
             TheFeastDay,
             AMatterOfHonour,
             TheGrandTournament,
             DefendersOfTheRealm
-        };
+    };
+
+    class FleshEaterCourts : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -69,7 +86,7 @@ namespace FleshEaterCourt {
     protected:
 
         GrandCourt m_grandCourt = NoCourt;
-        Delusion m_delusion = None;
+        Delusion m_delusion = CrusadingArmy;
     };
 
     void Init();

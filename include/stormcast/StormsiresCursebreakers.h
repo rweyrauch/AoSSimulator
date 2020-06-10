@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
         ~StormsiresCursebreakers() override = default;
 
-        bool configure(LoreOfInvigoration invigoration);
+        bool configure(Lore lore);
 
     protected:
 

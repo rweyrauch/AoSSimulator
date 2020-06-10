@@ -37,7 +37,7 @@ namespace OssiarchBonereapers {
 
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, GothizzarHarvester::Sickles);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
         unit->setLegion(legion);
 
         bool ok = unit->configure(option);
@@ -64,16 +64,15 @@ namespace OssiarchBonereapers {
 
     void GothizzarHarvester::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Sickles, Bludgeons};
             static FactoryMethod factoryMethod = {
                     GothizzarHarvester::Create,
                     GothizzarHarvester::ValueToString,
                     GothizzarHarvester::EnumStringToInt,
                     GothizzarHarvester::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", GothizzarHarvester::Sickles, GothizzarHarvester::Sickles,
-                             GothizzarHarvester::Bludgeons, 1},
-                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                             OssiarchBonereaperBase::Crematorians, 1},
+                            EnumParameter("Weapon", Sickles, weapons),
+                            EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

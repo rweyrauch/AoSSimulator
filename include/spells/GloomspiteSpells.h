@@ -10,39 +10,59 @@
 #define GLOOMSPITESPELLS_H
 
 #include <Spell.h>
+#include <array>
 
-enum class LoreOfTheMoonclans {
-    None,
-    VindictiveGlare,
-    ItchyNuisance,
-    TheGreatGreenSpite,
-    TheHandOfGork,
-    SquigLure,
-    CallDaMoon
-};
+namespace GloomspiteGitz {
 
-std::string ToString(LoreOfTheMoonclans which);
+    enum Lore {
+        None,
 
-bool FromString(const std::string &enumString, LoreOfTheMoonclans &outLore);
+        // LoreOfTheMoonclans
+        VindictiveGlare,
+        ItchyNuisance,
+        TheGreatGreenSpite,
+        TheHandOfGork,
+        SquigLure,
+        CallDaMoon,
 
-enum class LoreOfTheSpiderFangs {
-    None,
-    DeadlyWebbing,
-    VenomousSpiderlings,
-    ScuttlingTerrors,
-    SneakyDistraction,
-    CurseOfDaSpiderGod,
-    GiftOfDaSpiderGod
-};
+        // LoreOfTheSpiderFangs
+        DeadlyWebbing,
+        VenomousSpiderlings,
+        ScuttlingTerrors,
+        SneakyDistraction,
+        CurseOfDaSpiderGod,
+        GiftOfDaSpiderGod
+    };
 
-std::string ToString(LoreOfTheSpiderFangs which);
+    const std::array<int, 7> g_loreOfTheMoonclans = {
+        None,
+        VindictiveGlare,
+        ItchyNuisance,
+        TheGreatGreenSpite,
+        TheHandOfGork,
+        SquigLure,
+        CallDaMoon
+    };
 
-bool FromString(const std::string &enumString, LoreOfTheSpiderFangs &outLore);
+    const std::array<int, 7> g_loreOfTheSpiderFangs = {
+        None,
+        DeadlyWebbing,
+        VenomousSpiderlings,
+        ScuttlingTerrors,
+        SneakyDistraction,
+        CurseOfDaSpiderGod,
+        GiftOfDaSpiderGod
+    };
 
-Spell *CreateLoreOfTheSpiderFangs(LoreOfTheSpiderFangs which, Unit *caster);
 
-Spell *CreateLoreOfTheMoonclans(LoreOfTheMoonclans which, Unit *caster);
+    std::string ToString(Lore which);
 
-DamageSpell *CreateVindictiveGlare(Unit *caster);
+    bool FromString(const std::string &enumString, Lore &outLore);
+
+    Spell *CreateLore(Lore which, Unit *caster);
+
+    DamageSpell *CreateVindictiveGlare(Unit *caster);
+
+} // namespace GloomspiteGitz
 
 #endif //GLOOMSPITESPELLS_H

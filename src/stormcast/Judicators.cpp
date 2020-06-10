@@ -114,7 +114,7 @@ namespace StormcastEternals {
         int numShockboltBows = GetIntParam("Shockbolt Bows", parameters, 0);
         int numThunderboltCrossbows = GetIntParam("Thunderbolt Crossbows", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         juds->setStormhost(stormhost);
 
         bool ok = juds->configure(numModels, weapons, numShockboltBows, numThunderboltCrossbows);
@@ -127,18 +127,18 @@ namespace StormcastEternals {
 
     void Judicators::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {SkyboltBow, BoltstormCrossbow};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", SkyboltBow, SkyboltBow, BoltstormCrossbow, 1},
-                            {ParamType::Integer, "Shockbolt Bows", 1, 0, MAX_UNIT_SIZE / 5, 1},
-                            {ParamType::Integer, "Thunderbolt Crossbows", 0, 0, MAX_UNIT_SIZE / 5, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", SkyboltBow, weapons),
+                            IntegerParameter("Shockbolt Bows", 1, 0, MAX_UNIT_SIZE / 5, 1),
+                            IntegerParameter("Thunderbolt Crossbows", 0, 0, MAX_UNIT_SIZE / 5, 1),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

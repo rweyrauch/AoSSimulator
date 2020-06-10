@@ -48,31 +48,31 @@ namespace Seraphon {
             else if (parameter.intValue == ThunderLizard) return "ThunderLizard";
             else if (parameter.intValue == DracothionsTail) return "Dracothion's Tail";
             else if (parameter.intValue == FangsOfSotek) return "Fangs of Sotek";
-            else if (parameter.intValue == None) return "None";
+            else if (parameter.intValue == NoConstellation) return "None";
         }
         return ParameterValueToString(parameter);
     }
 
     int SeraphonBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Starborne") return Starborne;
-        else if (enumString == "Coalesced") return Coalesced;
+        if (enumString == "Starborne") return WayOfTheSeraphon::Starborne;
+        else if (enumString == "Coalesced") return WayOfTheSeraphon::Coalesced;
         else if (enumString == "Koatl's Claw") return KoatlsClaw;
         else if (enumString == "ThunderLizard") return ThunderLizard;
         else if (enumString == "Dracothion's Tail") return DracothionsTail;
         else if (enumString == "Fangs of Sotek") return FangsOfSotek;
-        else if (enumString == "None") return None;
+        else if (enumString == "None") return NoConstellation;
 
         return 0;
     }
 
-    void SeraphonBase::setWayOfTheSeraphon(SeraphonBase::WayOfTheSeraphon way, Constellation constellation) {
+    void SeraphonBase::setWayOfTheSeraphon(Seraphon::WayOfTheSeraphon way, Constellation constellation) {
         // TODO: validate the combination of way and constellation and warn caller
         if (way == Starborne) {
             if (constellation == KoatlsClaw || constellation == ThunderLizard)
-                constellation = None;
+                constellation = NoConstellation;
         } else if (way == Coalesced) {
             if (constellation == DracothionsTail || constellation == FangsOfSotek)
-                constellation = None;
+                constellation = NoConstellation;
         }
 
         removeKeyword(COALESCED);

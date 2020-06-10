@@ -10,6 +10,7 @@
 #define ARCHMAGEONDRAGON_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace EldritchCouncil {

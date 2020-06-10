@@ -39,7 +39,7 @@ namespace Fyreslayers {
         AuricRunesonOnMagmadroth::Init();
     }
 
-    void Fyreslayer::setLodge(Fyreslayer::Lodge lodge) {
+    void Fyreslayer::setLodge(Fyreslayers::Lodge lodge) {
         removeKeyword(VOSTARG);
         removeKeyword(GREYFYRD);
         removeKeyword(HERMDAR);

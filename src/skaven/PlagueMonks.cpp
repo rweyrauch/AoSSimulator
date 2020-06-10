@@ -87,19 +87,19 @@ namespace Skaven {
 
     void PlagueMonks::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {PairedFoetidBlades, FoetidBladeAndWoeStave};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", PairedFoetidBlades, PairedFoetidBlades, FoetidBladeAndWoeStave,
-                             1},
-                            {ParamType::Integer, "Contagion Banners", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Icons Of Pestilence", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Doom Gongs", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Bale Chimes", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", PairedFoetidBlades, weapons),
+                            IntegerParameter("Contagion Banners", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Icons Of Pestilence", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Doom Gongs", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Bale Chimes", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1)
                     },
                     CHAOS,
                     {SKAVEN}

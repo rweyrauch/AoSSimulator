@@ -19,7 +19,7 @@ namespace Bonesplitterz {
     Unit *ManiakWeirdnob::Create(const ParameterList &parameters) {
         auto unit = new ManiakWeirdnob();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure();
@@ -38,8 +38,7 @@ namespace Bonesplitterz {
                     Bonesplitterz::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz,
-                             Bonesplitterz::Icebone, 1},
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

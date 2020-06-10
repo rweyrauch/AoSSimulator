@@ -18,7 +18,7 @@ namespace KharadronOverlords {
     Unit *EndrinmasterWithDirigibleSuit::Create(const ParameterList &parameters) {
         auto unit = new EndrinmasterWithDirigibleSuit();
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronBase::None);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
         unit->setSkyport(port);
 
         bool ok = unit->configure();
@@ -37,8 +37,7 @@ namespace KharadronOverlords {
                     KharadronBase::EnumStringToInt,
                     EndrinmasterWithDirigibleSuit::ComputePoints,
                     {
-                            {ParamType::Enum, "Skyport", KharadronBase::None, KharadronBase::None,
-                             KharadronBase::Custom, 1},
+                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

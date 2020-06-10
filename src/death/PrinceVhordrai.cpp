@@ -60,8 +60,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
-                             Legion::LegionOfBlood, 1},
+                            EnumParameter("Legion", g_legion[0], g_legion)
                     },
                     DEATH,
                     {SOULBLIGHT}

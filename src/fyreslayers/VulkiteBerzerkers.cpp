@@ -69,7 +69,7 @@ namespace Fyreslayers {
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HandaxeAndShield);
         auto horn = GetBoolParam("Horn of Grimnir", parameters, false);
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayer::None);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
         unit->setLodge(lodge);
 
         bool ok = unit->configure(numModels, weapons, horn);
@@ -82,20 +82,17 @@ namespace Fyreslayers {
 
     void VulkiteBerzerkers::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {HandaxeAndShield, WarpickAndShield, PairedHandaxes};
             static FactoryMethod factoryMethod = {
                     VulkiteBerzerkers::Create,
                     VulkiteBerzerkers::ValueToString,
                     VulkiteBerzerkers::EnumStringToInt,
                     VulkiteBerzerkers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", VulkiteBerzerkers::HandaxeAndShield,
-                                    VulkiteBerzerkers::HandaxeAndShield,
-                                    VulkiteBerzerkers::PairedHandaxes, 1
-                            },
-                            {ParamType::Boolean, "Horn of Grimnir", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Lodge", Fyreslayer::None, Fyreslayer::None, Fyreslayer::Lofnir, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", HandaxeAndShield, weapons),
+                            BoolParameter("Horn of Grimnir"),
+                            EnumParameter("Lodge", g_lodge[0], g_lodge),
                     },
                     ORDER,
                     {FYRESLAYERS}

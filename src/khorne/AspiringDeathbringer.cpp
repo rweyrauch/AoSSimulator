@@ -51,7 +51,7 @@ namespace Khorne {
         auto unit = new AspiringDeathbringer();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BloodaxeAndWrathhammer);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(weapon);
@@ -64,19 +64,15 @@ namespace Khorne {
 
     void AspiringDeathbringer::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {BloodaxeAndWrathhammer,GoreaxeAndSkullhammer};
             static FactoryMethod factoryMethod = {
                     AspiringDeathbringer::Create,
                     AspiringDeathbringer::ValueToString,
                     AspiringDeathbringer::EnumStringToInt,
                     AspiringDeathbringer::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", AspiringDeathbringer::BloodaxeAndWrathhammer,
-                                    AspiringDeathbringer::BloodaxeAndWrathhammer,
-                                    AspiringDeathbringer::GoreaxeAndSkullhammer, 1
-                            },
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            EnumParameter("Weapon", BloodaxeAndWrathhammer, weapons),
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

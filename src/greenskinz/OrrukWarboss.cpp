@@ -43,6 +43,9 @@ namespace Greenskinz {
                 model->addMeleeWeapon(&m_greatWaaaghBanner);
                 addKeyword(TOTEM);
                 break;
+            default:
+                SimLog(Verbosity::Narrative, "Unknown Orruk Warboss weapon %d", weapon);
+                break;
         }
         if (warboar) {
             model->addMeleeWeapon(&m_boarTusks);
@@ -70,15 +73,16 @@ namespace Greenskinz {
 
     void OrrukWarboss::Init() {
         if (!s_registered) {
+            static const std::array<int, 4> weapons = {BossChoppaAndShield, PairedBossChoppas,
+                                                       MassiveChoppa, GreatWaaaghBanner};
             static FactoryMethod factoryMethod = {
                     OrrukWarboss::Create,
                     OrrukWarboss::ValueToString,
                     OrrukWarboss::EnumStringToInt,
                     OrrukWarboss::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", OrrukWarboss::BossChoppaAndShield,
-                             OrrukWarboss::BossChoppaAndShield, OrrukWarboss::GreatWaaaghBanner, 1},
-                            {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            EnumParameter("Weapon", BossChoppaAndShield, weapons),
+                            BoolParameter("War Boar"),
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

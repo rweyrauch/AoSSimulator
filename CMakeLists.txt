@@ -6,7 +6,7 @@ pkg_check_modules(GTK3 REQUIRED gtk+-3.0 gtkmm-3.0)
 include_directories(${GTK3_INCLUDE_DIRS})
 link_directories(${GTK3_LIBRARY_DIRS})
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 
 add_executable(

@@ -55,7 +55,7 @@ namespace IdonethDeepkin {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::None);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(numModels, numIconBearers);
@@ -74,10 +74,9 @@ namespace IdonethDeepkin {
                     IdonethDeepkinBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / 10, 1},
-                            {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None,
-                             IdonethDeepkinBase::Briomdar, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Icon Bearers", 0, 0, MAX_UNIT_SIZE / 10, 1),
+                            EnumParameter("Enclave", g_enclave[0], g_enclave),
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

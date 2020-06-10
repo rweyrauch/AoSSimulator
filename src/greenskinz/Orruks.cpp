@@ -113,18 +113,19 @@ namespace Greenskinz {
 
     void Orruks::Init() {
         if (!s_registered) {
-            static FactoryMethod factoryMethod = {
+            static const std::array<int, 4> weapons = {ChoppaAndShield, SpearAndShield, PairedChoppas, OrrukBowAndCutta};
+            static const std::array<int, 3> banners = {None, OrrukBanner, SkullIcon};
+
+            static FactoryMethod factoryMethod {
                     Orruks::Create,
                     Orruks::ValueToString,
                     Orruks::EnumStringToInt,
                     Orruks::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", Orruks::ChoppaAndShield, Orruks::ChoppaAndShield,
-                             Orruks::OrrukBowAndCutta, 1},
-                            {ParamType::Boolean, "Waaagh! Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Standard Bearer", Orruks::OrrukBanner, Orruks::None, Orruks::SkullIcon,
-                             1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", weapons[0], weapons),
+                            BoolParameter("Waaagh! Drummer"),
+                            EnumParameter("Standard Bearer", banners[0], banners),
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

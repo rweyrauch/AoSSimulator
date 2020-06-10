@@ -10,15 +10,16 @@
 #define PRAYER_H
 
 #include <string>
+#include <utility>
 #include "AgeOfSigmarSim.h"
 
 class Unit;
 
 class Prayer {
 public:
-    explicit Prayer(Unit *priest, const std::string &name, int prayingValue, double range, int damageOn1 = 0) :
+    explicit Prayer(Unit *priest, std::string name, int prayingValue, double range, int damageOn1 = 0) :
             m_priest(priest),
-            m_name(name),
+            m_name(std::move(name)),
             m_prayingValue(prayingValue),
             m_range(range),
             m_damageOn1(damageOn1) {}

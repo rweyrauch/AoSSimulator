@@ -27,7 +27,7 @@ namespace CitiesOfSigmar {
         bool drummer = GetBoolParam("Drummer", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Halberd);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standard, drummer, weapons);
@@ -64,21 +64,18 @@ namespace CitiesOfSigmar {
 
     void FreeguildGuard::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {Halberd, Spear, Sword};
             static FactoryMethod factoryMethod = {
                     FreeguildGuard::Create,
                     FreeguildGuard::ValueToString,
                     FreeguildGuard::EnumStringToInt,
                     FreeguildGuard::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", FreeguildGuard::Spear, FreeguildGuard::Halberd,
-                                    FreeguildGuard::Sword, 1
-                            },
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", Spear, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

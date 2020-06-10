@@ -36,7 +36,7 @@ namespace CitiesOfSigmar {
     Unit *WarHydra::Create(const ParameterList &parameters) {
         auto unit = new WarHydra();
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure();
@@ -63,8 +63,7 @@ namespace CitiesOfSigmar {
                     WarHydra::EnumStringToInt,
                     WarHydra::ComputePoints,
                     {
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

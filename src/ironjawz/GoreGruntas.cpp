@@ -69,7 +69,7 @@ namespace Ironjawz {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PigIronChoppa);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironjawz::Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels, weapons);
@@ -102,20 +102,16 @@ namespace Ironjawz {
 
     void OrrukGoreGruntas::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {PigIronChoppa, JaggedGorehacka};
             static FactoryMethod factoryMethod = {
                     OrrukGoreGruntas::Create,
                     OrrukGoreGruntas::ValueToString,
                     OrrukGoreGruntas::EnumStringToInt,
                     OrrukGoreGruntas::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", OrrukGoreGruntas::PigIronChoppa,
-                                    OrrukGoreGruntas::PigIronChoppa,
-                                    OrrukGoreGruntas::JaggedGorehacka, 1
-                            },
-                            {ParamType::Enum, "Warclan", Ironjawz::Ironsunz, Ironjawz::Ironsunz, Ironjawz::DaChoppas,
-                             1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", PigIronChoppa, weapons),
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

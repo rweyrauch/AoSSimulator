@@ -44,7 +44,7 @@ namespace Ironjawz {
         return mod;
     }
 
-    void Ironjawz::setWarclan(Ironjawz::Warclan warclan) {
+    void Ironjawz::setWarclan(Warclan warclan) {
         removeKeyword(IRONSUNZ);
         removeKeyword(BLOODTOOFS);
         removeKeyword(CHOPPAS);

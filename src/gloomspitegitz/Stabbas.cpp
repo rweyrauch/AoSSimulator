@@ -109,19 +109,20 @@ namespace GloomspiteGitz {
 
     void Stabbas::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Stabbas::Stabba, Stabbas::PokinSpear};
             static FactoryMethod factoryMethod = {
                     Stabbas::Create,
                     Stabbas::ValueToString,
                     Stabbas::EnumStringToInt,
                     Stabbas::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-                            {ParamType::Enum, "Boss Weapon", Stabbas::Stabba, Stabbas::Stabba, Stabbas::PokinSpear, 1},
-                            {ParamType::Integer, "Barbed Nets", 3, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter( "Weapons", Stabbas::Stabba, weapons),
+                            EnumParameter("Boss Weapon", Stabbas::Stabba, weapons),
+                            IntegerParameter( "Barbed Nets", 3, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

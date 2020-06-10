@@ -23,7 +23,7 @@ namespace Bonesplitterz {
         auto unit = new SavageBigStabbas();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonesplitterz::Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels);
@@ -42,9 +42,8 @@ namespace Bonesplitterz {
                     Bonesplitterz::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Warclan", Bonesplitterz::Bonegrinz, Bonesplitterz::Bonegrinz,
-                             Bonesplitterz::Icebone, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

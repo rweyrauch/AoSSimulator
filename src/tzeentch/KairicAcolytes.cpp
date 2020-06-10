@@ -96,23 +96,19 @@ namespace Tzeentch {
 
     void KairicAcolytes::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {CursedBlade, PairedCursedBlades, CursedBladeAndShield};
             static FactoryMethod factoryMethod = {
                     KairicAcolytes::Create,
                     KairicAcolytes::ValueToString,
                     KairicAcolytes::EnumStringToInt,
                     KairicAcolytes::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", KairicAcolytes::CursedBlade,
-                                    KairicAcolytes::CursedBlade,
-                                    KairicAcolytes::CursedBladeAndShield, 1
-                            },
-                            {ParamType::Integer, "Cursed Glaives", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE * 3, 1},
-                            {ParamType::Integer, "Scrolls Of Dark Arts", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Integer, "Vulcharcs", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1},
-                            {ParamType::Enum, "Change Coven", TzeentchBase::None, TzeentchBase::None,
-                             TzeentchBase::GuildOfSummoners, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", CursedBlade, weapons),
+                            IntegerParameter("Cursed Glaives", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE * 3, 1),
+                            IntegerParameter("Scrolls Of Dark Arts", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Vulcharcs", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
                     {TZEENTCH}
@@ -129,7 +125,7 @@ namespace Tzeentch {
         int numScrollsOfDarkArts = GetIntParam("Scrolls Of Dark Arts", parameters, 0);
         int numVulcharcs = GetIntParam("Vulcharcs", parameters, 0);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, TzeentchBase::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels, weapons, numCursedGlaives, numScrollsOfDarkArts, numVulcharcs);

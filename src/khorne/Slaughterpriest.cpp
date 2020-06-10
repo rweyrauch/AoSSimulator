@@ -54,9 +54,9 @@ namespace Khorne {
         auto unit = new Slaughterpriest();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BloodbathedAxe);
         auto blessing = (BloodBlessingsOfKhorne) GetEnumParam("Blood Blessings of Khorne", parameters,
-                                                              (int) BloodBlessingsOfKhorne::None);
+                                                              g_bloodBlessingsOfKhorne[0]);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(weapon, blessing);
@@ -69,24 +69,16 @@ namespace Khorne {
 
     void Slaughterpriest::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {BloodbathedAxe, HackbladeAndWrathHammer};
             static FactoryMethod factoryMethod = {
                     Slaughterpriest::Create,
                     Slaughterpriest::ValueToString,
                     Slaughterpriest::EnumStringToInt,
                     Slaughterpriest::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", Slaughterpriest::BloodbathedAxe,
-                                    Slaughterpriest::BloodbathedAxe,
-                                    Slaughterpriest::HackbladeAndWrathHammer, 1
-                            },
-                            {
-                                    ParamType::Enum, "Blood Blessings of Khorne",
-                                    (int) BloodBlessingsOfKhorne::BronzedFlesh,
-                                    (int) BloodBlessingsOfKhorne::None, (int) BloodBlessingsOfKhorne::SpellbaneHex, 1
-                            },
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            EnumParameter("Weapon", BloodbathedAxe, weapons),
+                            EnumParameter("Blood Blessings of Khorne", g_bloodBlessingsOfKhorne[0], g_bloodBlessingsOfKhorne),
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

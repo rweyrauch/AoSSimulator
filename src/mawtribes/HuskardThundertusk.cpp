@@ -67,16 +67,15 @@ namespace OgorMawtribes {
 
     void HuskardOnThundertusk::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {HarpoonLauncher, Chaintrap, BloodVulture};
             static FactoryMethod factoryMethod = {
                     HuskardOnThundertusk::Create,
                     HuskardOnThundertusk::ValueToString,
                     HuskardOnThundertusk::EnumStringToInt,
                     HuskardOnThundertusk::ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", HuskardOnThundertusk::HarpoonLauncher,
-                             HuskardOnThundertusk::HarpoonLauncher, HuskardOnThundertusk::BloodVulture, 1},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            EnumParameter("Weapon", HarpoonLauncher, weapons),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

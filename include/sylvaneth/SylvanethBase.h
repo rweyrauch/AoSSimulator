@@ -10,23 +10,35 @@
 #define SYLVANETHBASE_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Sylvaneth {
 
+    enum class Glade: int {
+        None = 0,
+        Oakenbrow,
+        Gnarlroot,
+        Heartwood,
+        Ironbark,
+        Winterleaf,
+        Dreadwood,
+        Harvestboon
+    };
+
+    const std::array<int, 8> g_glade = {
+            (int)Glade::None,
+            (int)Glade::Oakenbrow,
+            (int)Glade::Gnarlroot,
+            (int)Glade::Heartwood,
+            (int)Glade::Ironbark,
+            (int)Glade::Winterleaf,
+            (int)Glade::Dreadwood,
+            (int)Glade::Harvestboon
+    };
+
     class SylvanethBase : public Unit {
     public:
-
-        enum Glade {
-            None = 0,
-            Oakenbrow,
-            Gnarlroot,
-            Heartwood,
-            Ironbark,
-            Winterleaf,
-            Dreadwood,
-            Harvestboon
-        };
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -54,7 +66,7 @@ namespace Sylvaneth {
 
     protected:
 
-        Glade m_glade = None;
+        Glade m_glade = Glade::None;
     };
 
     void Init();

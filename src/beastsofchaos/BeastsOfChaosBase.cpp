@@ -30,7 +30,7 @@
 
 namespace BeastsOfChaos {
 
-    void BeastsOfChaosBase::setGreatfray(BeastsOfChaosBase::Greatfray fray) {
+    void BeastsOfChaosBase::setGreatfray(Greatfray fray) {
         removeKeyword(ALLHERD);
         removeKeyword(DARKWALKERS);
         removeKeyword(GAVESPAWN);
@@ -38,13 +38,13 @@ namespace BeastsOfChaos {
         m_greatfray = fray;
 
         switch (fray) {
-            case Allherd:
+            case Greatfray::Allherd:
                 addKeyword(ALLHERD);
                 break;
-            case Darkwalkers:
+            case Greatfray::Darkwalkers:
                 addKeyword(DARKWALKERS);
                 break;
-            case Gavespawn:
+            case Greatfray::Gavespawn:
                 addKeyword(GAVESPAWN);
                 break;
             default:
@@ -54,20 +54,31 @@ namespace BeastsOfChaos {
 
     std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Greatfray") {
-            if (parameter.intValue == Allherd) { return "Allherd"; }
-            else if (parameter.intValue == Darkwalkers) { return "Darkwalkers"; }
-            else if (parameter.intValue == Gavespawn) { return "Gavespawn"; }
-            else if (parameter.intValue == None) { return "None"; }
+            if (parameter.intValue == (int)Greatfray::Allherd) { return "Allherd"; }
+            else if (parameter.intValue == (int)Greatfray::Darkwalkers) { return "Darkwalkers"; }
+            else if (parameter.intValue == (int)Greatfray::Gavespawn) { return "Gavespawn"; }
+            else if (parameter.intValue == (int)Greatfray::None) { return "None"; }
         }
         return ParameterValueToString(parameter);
     }
 
     int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Allherd") { return Allherd; }
-        else if (enumString == "Darkwalkers") { return Darkwalkers; }
-        else if (enumString == "Gavespawn") { return Gavespawn; }
-        else if (enumString == "None") { return None; }
+        if (enumString == "Allherd") { return (int)Greatfray::Allherd; }
+        else if (enumString == "Darkwalkers") { return (int)Greatfray::Darkwalkers; }
+        else if (enumString == "Gavespawn") { return (int)Greatfray::Gavespawn; }
+        else if (enumString == "None") { return (int)Greatfray::None; }
         return 0;
+    }
+
+    Wounds BeastsOfChaosBase::onEndCombat(PlayerId player) {
+        auto wounds = Unit::onEndCombat(player);
+
+        // Bloodgorge
+        if (m_currentRecord.m_enemyUnitsSlain) {
+            heal(Dice::rollD3());
+        }
+
+        return wounds;
     }
 
     void Init() {

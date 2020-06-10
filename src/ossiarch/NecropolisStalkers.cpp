@@ -24,7 +24,7 @@ namespace OssiarchBonereapers {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         int numFalchions = GetIntParam("Dread Falchions", parameters, 1);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, None);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, numFalchions);
@@ -51,10 +51,9 @@ namespace OssiarchBonereapers {
                     NecropolisStalkers::EnumStringToInt,
                     NecropolisStalkers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Dread Falchions", 1, 0, MAX_UNIT_SIZE / 3, 1},
-                            {ParamType::Enum, "Legion", OssiarchBonereaperBase::None, OssiarchBonereaperBase::None,
-                             OssiarchBonereaperBase::Crematorians, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Dread Falchions", 1, 0, MAX_UNIT_SIZE / 3, 1),
+                            EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

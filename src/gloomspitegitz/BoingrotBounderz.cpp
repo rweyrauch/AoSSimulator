@@ -75,7 +75,7 @@ namespace GloomspiteGitz {
                     nullptr,
                     BoingrotBounderz::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

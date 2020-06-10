@@ -81,23 +81,19 @@ namespace Dispossessed {
 
     void Longbeards::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {AncestralAxesOrHammers, AncestralGreatAxe};
             static FactoryMethod factoryMethod = {
                     Longbeards::Create,
                     Longbeards::ValueToString,
                     Longbeards::EnumStringToInt,
                     Longbeards::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Weapons", Longbeards::AncestralAxesOrHammers,
-                                    Longbeards::AncestralAxesOrHammers,
-                                    Longbeards::AncestralGreatAxe, 1
-                            },
-                            {ParamType::Boolean, "Gromril Shields", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Musician", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", AncestralAxesOrHammers, weapons),
+                            BoolParameter("Gromril Shields"),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Musician"),
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

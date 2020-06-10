@@ -32,9 +32,7 @@ namespace StormcastEternals {
     bool FromString(const std::string &enumString, PrayersOfTheStormhost &outPrayer) {
         bool valid = true;
 
-        if (enumString == "None")
-            outPrayer = PrayersOfTheStormhost::None;
-        else if (enumString == "Divine Light")
+        if (enumString == "Divine Light")
             outPrayer = PrayersOfTheStormhost::DivineLight;
         else if (enumString == "Bless Weapons")
             outPrayer = PrayersOfTheStormhost::BlessWeapons;

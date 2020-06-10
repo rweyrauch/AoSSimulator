@@ -71,7 +71,7 @@ namespace StormcastEternals {
         auto unit = new LordCelestantOnStardrake();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, CelestineHammer);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons);
@@ -84,15 +84,15 @@ namespace StormcastEternals {
 
     void LordCelestantOnStardrake::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {CelestineHammer, StormboundBlade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Weapon", CelestineHammer, CelestineHammer, StormboundBlade, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            EnumParameter("Weapon", CelestineHammer, weapons),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

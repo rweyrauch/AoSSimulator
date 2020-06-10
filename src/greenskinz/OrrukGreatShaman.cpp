@@ -59,7 +59,7 @@ namespace Greenskinz {
                     nullptr,
                     OrrukGreatShaman::ComputePoints,
                     {
-                            {ParamType::Boolean, "War Boar", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            BoolParameter("War Boar"),
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

@@ -28,7 +28,7 @@ namespace CitiesOfSigmar {
 
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Lance);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standard, hornblower, weapons);
@@ -61,19 +61,18 @@ namespace CitiesOfSigmar {
 
     void DemigryphKnights::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = { DemigryphKnights::Halberd, DemigryphKnights::Lance};
             static FactoryMethod factoryMethod = {
                     DemigryphKnights::Create,
                     DemigryphKnights::ValueToString,
                     DemigryphKnights::EnumStringToInt,
                     DemigryphKnights::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", DemigryphKnights::Lance, DemigryphKnights::Halberd,
-                             DemigryphKnights::Lance, 1},
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", DemigryphKnights::Lance, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Hornblower"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

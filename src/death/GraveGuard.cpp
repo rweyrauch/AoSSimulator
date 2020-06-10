@@ -88,18 +88,18 @@ namespace Death {
 
     void GraveGuard::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {WightBlade, GreatWightBlade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", WightBlade, WightBlade, GreatWightBlade, 1},
-                            {ParamType::Boolean, "Standard Bearers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Hornblowers", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "Legion", Legion::GrandHostOfNagash, Legion::GrandHostOfNagash,
-                             Legion::LegionOfBlood, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", WightBlade, weapons),
+                            BoolParameter("Standard Bearers"),
+                            BoolParameter("Hornblowers"),
+                            EnumParameter("Legion", g_legion[0], g_legion)
                     },
                     DEATH,
                     {DEATHRATTLE}

@@ -38,7 +38,7 @@ namespace CitiesOfSigmar {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, LanceAndShield);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(weapon);
@@ -83,19 +83,16 @@ namespace CitiesOfSigmar {
 
     void DreadlordOnBlackDragon::Init() {
         if (!s_registered) {
+            static const std::array<int, 5> weapons = { ExileBladeAndShield, ExileBladeAndCrossbow, LanceAndShield,
+                                                        LanceAndCrossbow, PairExileBlades};
             static FactoryMethod factoryMethod = {
                     DreadlordOnBlackDragon::Create,
                     DreadlordOnBlackDragon::ValueToString,
                     DreadlordOnBlackDragon::EnumStringToInt,
                     DreadlordOnBlackDragon::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", DreadlordOnBlackDragon::LanceAndShield,
-                                    DreadlordOnBlackDragon::ExileBladeAndShield,
-                                    DreadlordOnBlackDragon::PairExileBlades, 1
-                            },
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            EnumParameter("Weapon", LanceAndShield, weapons),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

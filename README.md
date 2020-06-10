@@ -161,19 +161,19 @@ units include the following:
         Rogue Idol
 
     Idoneth Deepkin:
-	    Akhelian Alloplexes
-	    Akhelian Ishlaen Guard
-	    Akhelian King
-	    Akhelian Leviadon
-	    Akhelian Morrsarr Guard
-	    Namarti Reavers
-	    Namarti Thralls
+        Akhelian Alloplexes
+        Akhelian Ishlaen Guard
+        Akhelian King
+        Akhelian Leviadon
+        Akhelian Morrsarr Guard
+        Namarti Reavers
+        Namarti Thralls
 
     Ironjawz:
-	    Orruk Ardboys
-	    Orruk Brutes
-	    Orruk Gore-gruntas
-	    Orruk Megaboss
+        Orruk Ardboys
+        Orruk Brutes
+        Orruk Gore-gruntas
+        Orruk Megaboss
 
     Khorne:
         Blood Warriors
@@ -224,9 +224,9 @@ units include the following:
         Warpfire Thrower
 
     Slaanesh:
-	    Daemonettes
-	    Fiends
-	    Seekers
+        Daemonettes
+        Fiends
+        Seekers
 
     Stormcast Eternals:
         Castigators
@@ -280,9 +280,9 @@ units include the following:
         Tzaangors
 
     Wanderers:
-	    Eternal Guard
-	    Glade Guard
-	    Wildwood Rangers
+        Eternal Guard
+        Glade Guard
+        Wildwood Rangers
     
     
 The following specifies the parameters needed to create a unit of 10 Liberators with 2 Grandhammers.

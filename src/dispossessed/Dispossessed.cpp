@@ -65,7 +65,7 @@ namespace Dispossessed {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    void Dispossessed::setGrudge(Dispossessed::Grudge grudge) {
+    void Dispossessed::setGrudge(Grudge grudge) {
         m_grudge = grudge;
     }
 

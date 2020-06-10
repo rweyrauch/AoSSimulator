@@ -77,7 +77,7 @@ namespace Greenskinz {
                     nullptr,
                     OrrukWarbossOnWyvern::ComputePoints,
                     {
-                            {ParamType::Boolean, "Two Boss Choppas", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
+                            BoolParameter("Two Boss Choppas"),
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

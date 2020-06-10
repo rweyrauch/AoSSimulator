@@ -6,7 +6,77 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <sstream>
+#include <algorithm>
 #include <UnitFactory.h>
+#include <Unit.h>
+
+Parameter BoolParameter(const char* name) {
+    return {ParamType::Boolean, name, 0, 0, 1, 1, {}};
+}
+
+Parameter IntegerParameter(const char* name, int value, int min, int max, int incr) {
+    return { ParamType::Integer, name, value, min, max, incr, {}};
+}
+
+std::vector<Parameter>::const_iterator FindParam(const std::string &name, const ParameterList &parameters) {
+    auto matchName = [name](const Parameter &param) -> bool { return (param.name == name); };
+    auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
+    return pip;
+}
+
+std::vector<Parameter>::iterator FindParam(const std::string &name, ParameterList &parameters) {
+    auto matchName = [name](const Parameter &param) -> bool { return (param.name == name); };
+    auto pip = std::find_if(parameters.begin(), parameters.end(), matchName);
+    return pip;
+}
+
+int GetIntParam(const std::string &name, const ParameterList &parameters, int defaultValue) {
+    int value = defaultValue;
+    auto pip = FindParam(name, parameters);
+    if (pip != parameters.end()) {
+        if (pip->paramType == ParamType::Integer) {
+            value = pip->intValue;
+        }
+    }
+    return value;
+}
+
+int GetEnumParam(const std::string &name, const ParameterList &parameters, int defaultValue) {
+    int value = defaultValue;
+    auto pip = FindParam(name, parameters);
+    if (pip != parameters.end()) {
+        if (pip->paramType == ParamType::Enum) {
+            value = pip->values[pip->intValue];
+        }
+    }
+    return value;
+}
+
+bool GetBoolParam(const std::string &name, const ParameterList &parameters, bool defaultValue) {
+    bool value = defaultValue;
+    auto pip = FindParam(name, parameters);
+    if (pip != parameters.end()) {
+        if (pip->paramType == ParamType::Boolean) {
+            value = (pip->intValue != 0);
+        }
+    }
+    return value;
+}
+
+std::string ParameterValueToString(const Parameter &param) {
+    std::stringstream ss;
+    if (param.paramType == ParamType::Integer) {
+        ss << param.intValue;
+    } else if (param.paramType == ParamType::Enum) {
+        ss << param.values[param.intValue];
+    } else if (param.paramType == ParamType::Boolean) {
+        if (param.intValue != 0)
+            ss << "true";
+        else
+            ss << "false";
+    }
+    return ss.str();
+}
 
 static void
 LogUnitDescriptor(FactoryMethod *factory, const std::string &name, const std::vector<Parameter> &parameters) {
@@ -51,7 +121,8 @@ Unit *UnitFactory::Create(const std::string &name, const std::vector<Parameter> 
 
     LogUnitDescriptor(&registeredPair->second, name, parameters);
 
-    return registeredPair->second.m_create(parameters);
+    auto unit = registeredPair->second.m_create(parameters);
+    return unit;
 }
 
 

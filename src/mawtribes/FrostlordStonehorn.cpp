@@ -62,8 +62,7 @@ namespace OgorMawtribes {
                     FrostlordOnStonehorn::EnumStringToInt,
                     FrostlordOnStonehorn::ComputePoints,
                     {
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

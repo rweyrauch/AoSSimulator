@@ -59,7 +59,7 @@ namespace GloomspiteGitz {
         m_prophetConnection.disconnect();
     }
 
-    bool WebspinnerShamanOnArachnarokSpider::configure(LoreOfTheSpiderFangs lore) {
+    bool WebspinnerShamanOnArachnarokSpider::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_spiderBows);
         model->addMeleeWeapon(&m_spiderGodStaff);
@@ -71,7 +71,7 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         //m_knownSpells.push_back(std::make_unique<SpeedOfTheSpiderGod>(this));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheSpiderFangs(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_points = POINTS_PER_UNIT;
 
@@ -102,8 +102,8 @@ namespace GloomspiteGitz {
 
     Unit *WebspinnerShamanOnArachnarokSpider::Create(const ParameterList &parameters) {
         auto unit = new WebspinnerShamanOnArachnarokSpider();
-        auto lore = (LoreOfTheSpiderFangs) GetEnumParam("Lore of the Moonclans", parameters,
-                                                        (int) LoreOfTheSpiderFangs::None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters,
+                                                        (int) None);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -121,8 +121,7 @@ namespace GloomspiteGitz {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Lore of the Spiderfangs", (int) LoreOfTheSpiderFangs::None,
-                             (int) LoreOfTheSpiderFangs::None, (int) LoreOfTheSpiderFangs::GiftOfDaSpiderGod, 1},
+                            EnumParameter("Lore of the Spiderfangs", None, g_loreOfTheSpiderFangs)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -134,13 +133,13 @@ namespace GloomspiteGitz {
 
     std::string WebspinnerShamanOnArachnarokSpider::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lore of the Spiderfangs") {
-            return ToString((LoreOfTheSpiderFangs) parameter.intValue);
+            return ToString((Lore) parameter.intValue);
         }
         return ParameterValueToString(parameter);
     }
 
     int WebspinnerShamanOnArachnarokSpider::EnumStringToInt(const std::string &enumString) {
-        LoreOfTheSpiderFangs lore;
+        Lore lore;
         if (FromString(enumString, lore)) {
             return (int) lore;
         }

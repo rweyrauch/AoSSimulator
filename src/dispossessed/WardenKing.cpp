@@ -52,8 +52,7 @@ namespace Dispossessed {
                     Dispossessed::EnumStringToInt,
                     WardenKing::ComputePoints,
                     {
-                            {ParamType::Enum, "Grudge", Dispossessed::StuckUp, Dispossessed::StuckUp,
-                             Dispossessed::SneakyAmbushers, 1}
+                            EnumParameter("Grudge", g_grudge[0], g_grudge)
                     },
                     ORDER,
                     {DISPOSSESSED}

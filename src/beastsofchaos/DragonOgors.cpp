@@ -66,7 +66,7 @@ namespace BeastsOfChaos {
         int numGlaives = GetIntParam("Draconic War-glaive", parameters, 0);
         int numCrushers = GetIntParam("Draconic Crusher", parameters, 0);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
         bool ok = unit->configure(numModels, numPairedWeapons, numGlaives, numCrushers);
@@ -85,15 +85,11 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Paired Ancient Weapons", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE,
-                             MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Draconic War-glaive", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE,
-                             MIN_UNIT_SIZE},
-                            {ParamType::Integer, "Draconic Crusher", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE,
-                             MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
-                             BeastsOfChaosBase::Gavespawn, 1},
+                        IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                        IntegerParameter("Paired Ancient Weapons", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                        IntegerParameter("Draconic War-glaive", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                        IntegerParameter("Draconic Crusher", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE,MIN_UNIT_SIZE),
+                        EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

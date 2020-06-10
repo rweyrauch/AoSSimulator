@@ -38,25 +38,25 @@ namespace Sylvaneth {
 
         m_glade = glade;
         switch (m_glade) {
-            case Oakenbrow:
+            case Glade::Oakenbrow:
                 addKeyword(OAKENBROW);
                 break;
-            case Gnarlroot:
+            case Glade::Gnarlroot:
                 addKeyword(GNARLROOT);
                 break;
-            case Heartwood:
+            case Glade::Heartwood:
                 addKeyword(HEARTWOOD);
                 break;
-            case Ironbark:
+            case Glade::Ironbark:
                 addKeyword(IRONBARK);
                 break;
-            case Winterleaf:
+            case Glade::Winterleaf:
                 addKeyword(WINTERLEAF);
                 break;
-            case Dreadwood:
+            case Glade::Dreadwood:
                 addKeyword(DREADWOOD);
                 break;
-            case Harvestboon:
+            case Glade::Harvestboon:
                 addKeyword(HARVESTBOON);
                 break;
             default:
@@ -87,27 +87,27 @@ namespace Sylvaneth {
 
     std::string SylvanethBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Glade") {
-            if (parameter.intValue == Oakenbrow) { return "Oakenbrow"; }
-            else if (parameter.intValue == Gnarlroot) { return "Gnarlroot"; }
-            else if (parameter.intValue == Heartwood) { return "Heartwood"; }
-            else if (parameter.intValue == Ironbark) { return "Ironbark"; }
-            else if (parameter.intValue == Winterleaf) { return "Winterleaf"; }
-            else if (parameter.intValue == Dreadwood) { return "Dreadwood"; }
-            else if (parameter.intValue == Harvestboon) { return "Harvestboon"; }
-            else if (parameter.intValue == None) { return "None"; }
+            if (parameter.intValue == (int)Glade::Oakenbrow) { return "Oakenbrow"; }
+            else if (parameter.intValue == (int)Glade::Gnarlroot) { return "Gnarlroot"; }
+            else if (parameter.intValue == (int)Glade::Heartwood) { return "Heartwood"; }
+            else if (parameter.intValue == (int)Glade::Ironbark) { return "Ironbark"; }
+            else if (parameter.intValue == (int)Glade::Winterleaf) { return "Winterleaf"; }
+            else if (parameter.intValue == (int)Glade::Dreadwood) { return "Dreadwood"; }
+            else if (parameter.intValue == (int)Glade::Harvestboon) { return "Harvestboon"; }
+            else if (parameter.intValue == (int)Glade::None) { return "None"; }
         }
         return ParameterValueToString(parameter);
     }
 
     int SylvanethBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Oakenbrow") { return Oakenbrow; }
-        else if (enumString == "Gnarlroot") { return Gnarlroot; }
-        else if (enumString == "Heartwood") { return Heartwood; }
-        else if (enumString == "Ironbark") { return Ironbark; }
-        else if (enumString == "Winterleaf") { return Winterleaf; }
-        else if (enumString == "Dreadwood") { return Dreadwood; }
-        else if (enumString == "Harvestboon") { return Harvestboon; }
-        else if (enumString == "None") { return None; }
+        if (enumString == "Oakenbrow") { return (int)Glade::Oakenbrow; }
+        else if (enumString == "Gnarlroot") { return (int)Glade::Gnarlroot; }
+        else if (enumString == "Heartwood") { return (int)Glade::Heartwood; }
+        else if (enumString == "Ironbark") { return (int)Glade::Ironbark; }
+        else if (enumString == "Winterleaf") { return (int)Glade::Winterleaf; }
+        else if (enumString == "Dreadwood") { return (int)Glade::Dreadwood; }
+        else if (enumString == "Harvestboon") { return (int)Glade::Harvestboon; }
+        else if (enumString == "None") { return (int)Glade::None; }
         return 0;
     }
 

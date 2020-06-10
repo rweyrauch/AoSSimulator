@@ -32,7 +32,7 @@ namespace GloomspiteGitz {
 
         ~Zarbag() override = default;
 
-        bool configure(LoreOfTheMoonclans lore);
+        bool configure(Lore lore);
 
     protected:
 

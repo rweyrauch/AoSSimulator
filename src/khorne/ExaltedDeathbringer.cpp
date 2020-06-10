@@ -49,7 +49,7 @@ namespace Khorne {
         auto unit = new ExaltedDeathbringer();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, RuinousAxeAndSkullgouger);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, KhorneBase::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(weapon);
@@ -62,19 +62,15 @@ namespace Khorne {
 
     void ExaltedDeathbringer::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {RuinousAxeAndSkullgouger, BloodbiteAxeAndRunemarkedShield, ImpalingSpear};
             static FactoryMethod factoryMethod = {
                     ExaltedDeathbringer::Create,
                     ExaltedDeathbringer::ValueToString,
                     ExaltedDeathbringer::EnumStringToInt,
                     ExaltedDeathbringer::ComputePoints,
                     {
-                            {
-                                    ParamType::Enum, "Weapon", ExaltedDeathbringer::RuinousAxeAndSkullgouger,
-                                    ExaltedDeathbringer::RuinousAxeAndSkullgouger,
-                                    ExaltedDeathbringer::ImpalingSpear, 1
-                            },
-                            {ParamType::Enum, "Slaughter Host", KhorneBase::None, KhorneBase::None,
-                             KhorneBase::SkullfiendTribe, 1}
+                            EnumParameter("Weapon", RuinousAxeAndSkullgouger, weapons),
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}

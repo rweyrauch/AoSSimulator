@@ -62,7 +62,7 @@ namespace IdonethDeepkin {
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
         bool musicians = GetBoolParam("Musicians", parameters, true);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::None);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(numModels, standardBearers, musicians);
@@ -81,11 +81,10 @@ namespace IdonethDeepkin {
                     IdonethDeepkinBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Standard Bearers", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Musicians", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None,
-                             IdonethDeepkinBase::Briomdar, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Standard Bearers"),
+                            BoolParameter("Musicians"),
+                            EnumParameter("Enclave", g_enclave[0], g_enclave),
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

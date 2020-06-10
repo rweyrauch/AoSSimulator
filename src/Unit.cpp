@@ -7,12 +7,12 @@
  */
 #include <cfloat>
 #include <algorithm>
+#include <utility>
 #include <Unit.h>
 #include <Dice.h>
 #include <Board.h>
 #include <Roster.h>
 #include <Think.h>
-#include <Roster.h>
 
 const double MAX_CHARGE_DISTANCE = 12.0;
 const double MIN_CHARGE_DISTANCE = 3.0;
@@ -179,8 +179,8 @@ int Unit::applyBattleshock() {
     return numFled;
 }
 
-Unit::Unit(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-        m_name(name),
+Unit::Unit(std::string name, int move, int wounds, int bravery, int save, bool fly) :
+        m_name(std::move(name)),
         m_move(move),
         m_wounds(wounds),
         m_bravery(bravery),
@@ -221,7 +221,7 @@ void Unit::endTurn(int /*battleRound*/) {
 
 void Unit::addModel(Model *model) {
     m_models.push_back(std::unique_ptr<Model>(model));
-    m_basesize_mm = (double) model->basesize();
+    m_basesizeMm = (double) model->basesize();
 }
 
 int Unit::applyDamage(const Wounds &totalWoundsInflicted) {
@@ -353,12 +353,12 @@ void Unit::deploy(const Math::Point3 &pos, const Math::Vector3 &orientation) {
     int yi = 0;
 
     Math::Vector3 dx = -left * (basesizeInches() + modelSpacing);
-    Math::Vector3 dy = -orientation * basesizeInches();
+    Math::Vector3 dy = -orientation * (basesizeInches() + modelSpacing);
 
     Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0;
     Math::Vector3 curPos = pos0;
 
-    // Pack models into block of (numModels x m_ranks)
+    // Pack models into block of [numModels / m_ranks, m_ranks]
     for (auto &m : m_models) {
         m->setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
         curPos += dx;
@@ -374,14 +374,11 @@ void Unit::deploy(const Math::Point3 &pos, const Math::Vector3 &orientation) {
 }
 
 bool Unit::move(const Math::Point3 &pos, const Math::Vector3 &orientation) {
-    // TODO: pack models into block of (numModels x m_ranks)
     m_position = pos;
-    //for (auto &m : m_models) {
-    //    m->setPosition(pos);
-    //}
 
+    const auto modelSpacing = std::min(1.0, basesizeInches() * 0.3);
     int unitW = (int) m_models.size() / m_ranks;
-    double unitWidth = m_models.size() * basesizeInches() * 1.5 / (double) m_ranks;
+    double unitWidth = m_models.size() * (basesizeInches() + modelSpacing) / (double) m_ranks;
 
     Math::Vector3 up(0, 0, 1);
     Math::Vector3 left = Math::Vector3::Cross(up, orientation);
@@ -390,19 +387,19 @@ bool Unit::move(const Math::Point3 &pos, const Math::Vector3 &orientation) {
     int xi = 0;
     int yi = 0;
 
-    Math::Vector3 dx = -left * basesizeInches();
-    Math::Vector3 dy = -orientation * basesizeInches();
+    Math::Vector3 dx = -left * (basesizeInches() + modelSpacing);
+    Math::Vector3 dy = -orientation * (basesizeInches() + modelSpacing);
 
     Math::Vector3 pos0 = Math::Vector3(pos.x, pos.y, pos.z) + left * unitWidth / 2.0;
     Math::Vector3 curPos = pos0;
 
+    // Move models as a pack of [numModels / m_ranks, m_ranks]
     for (auto &m : m_models) {
-        //m->setPosition(Math::Point3(curPos.x, curPos.y, curPos.z));
         Board::Instance()->moveModel(*m, Math::Point3(curPos.x, curPos.y, curPos.z));
 
         xi++;
         curPos += dx;
-        if (xi > unitW) {
+        if (xi >= unitW) {
             xi = 0;
             yi++;
 
@@ -500,6 +497,8 @@ void Unit::movement(PlayerId player) {
     if (!m_canMove) return;
 
     auto weapon = m_models.front()->preferredWeapon();
+    assert(weapon);
+
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
         otherPlayer = PlayerId::Blue;
@@ -509,7 +508,7 @@ void Unit::movement(PlayerId player) {
     if (closestTarget) {
         auto distance = distanceTo(closestTarget);
         double totalMoveDistance = 0;
-        if (weapon->isMissile()) {
+        if (weapon && weapon->isMissile()) {
             const auto movement = (double) (move() + moveModifier());
 
             // get into range (run or not?)
@@ -539,7 +538,7 @@ void Unit::movement(PlayerId player) {
                 // already in charge range - stand still
                 m_currentRecord.m_moved = 0;
             }
-            if (distance > (double) weapon->range() + movement) {
+            if (weapon && (distance > (double) weapon->range() + movement)) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != NoRerolls))
@@ -633,7 +632,8 @@ void Unit::charge(PlayerId player) {
     auto board = Board::Instance();
 
     auto weapon = m_models.front()->preferredWeapon();
-    if (weapon->isMissile()) return;
+    assert(weapon);
+    if (weapon && weapon->isMissile()) return;
 
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)

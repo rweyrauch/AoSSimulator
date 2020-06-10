@@ -102,17 +102,19 @@ namespace Skaven {
 
     void Stormfiends::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weaponA = {WarpfireProjectors, Windlaunchers};
+            static const std::array<int, 2> weaponB = {Grinderfists, RatlingCannons};
+            static const std::array<int, 2> weaponC = {DoomflayerGauntlets, ShockGauntlets};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapon A", WarpfireProjectors, WarpfireProjectors, Windlaunchers, 1},
-                            {ParamType::Enum, "Weapon B", Grinderfists, Grinderfists, RatlingCannons, 1},
-                            {ParamType::Enum, "Weapon C", DoomflayerGauntlets, DoomflayerGauntlets, ShockGauntlets, 1
-                            },
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapon A", WarpfireProjectors, weaponA),
+                            EnumParameter("Weapon B", Grinderfists, weaponB),
+                            EnumParameter("Weapon C", DoomflayerGauntlets, weaponC),
                     },
                     CHAOS,
                     {SKAVEN}

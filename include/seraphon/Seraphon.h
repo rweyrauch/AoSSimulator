@@ -10,25 +10,160 @@
 #define SERAPHON_H
 
 #include <Unit.h>
+#include <UnitFactory.h>
 #include <Weapon.h>
 
 namespace Seraphon {
 
-    class SeraphonBase : public Unit {
-    public:
+    enum WayOfTheSeraphon {
+        Starborne,
+        Coalesced
+    };
 
-        enum WayOfTheSeraphon {
+    const std::array<int, 2> g_wayOfTheSeraphon = {
             Starborne,
             Coalesced
-        };
+    };
 
-        enum Constellation {
-            None,
+    enum Constellation {
+        NoConstellation,
+        KoatlsClaw,        // Coalesced
+        ThunderLizard,     // Coalesced
+        DracothionsTail,   // Starborne
+        FangsOfSotek,      // Starborne
+    };
+
+    const std::array<int, 5> g_constellation = {
+            NoConstellation,
             KoatlsClaw,        // Coalesced
             ThunderLizard,     // Coalesced
             DracothionsTail,   // Starborne
             FangsOfSotek,      // Starborne
-        };
+    };
+
+    //
+    // Command Traits
+    //
+    enum CommandTraits {
+        // Slann
+        ArcaneMight,
+        VastIntellect,
+        GreatRememberer,
+
+        // Saurus
+        DisciplinedFury,
+        ThicklyScaledHide,
+        MightyWarleader,
+
+        // Skink
+        MasterOfStarRituals,
+        Nimble,
+        Cunning
+    };
+
+    const CommandTraits g_slannCommandTrait[] = {
+        ArcaneMight,
+        VastIntellect,
+        GreatRememberer
+    };
+
+    const CommandTraits g_saurusCommandTrait[] = {
+        DisciplinedFury,
+        ThicklyScaledHide,
+        MightyWarleader
+    };
+
+    const CommandTraits g_skinkCommandTrait[] = {
+        MasterOfStarRituals,
+        Nimble,
+        Cunning
+    };
+
+    //
+    // Artefacts
+    //
+    enum Artefacts {
+        //TreasuresOfTheOldOnes
+        ZoeticDial,
+        LightOfDracothian,
+        PrismOfAmyntok,
+        ItxiGrubs,
+        PlaqueOfDominion,
+        ThroneOfTheLostGods,
+
+        // CelestialRelicsOfTheWarrior
+        BladeOfRealities,
+        SigilsOfThePrimeHunter,
+        BloodRagePendant,
+
+        // VestmentsOfThePriesthood
+        IncandescentRectrices,
+        CloakOfFeathers,
+        SacredStegadonHelm
+    };
+
+    const Artefacts g_treasuresOfTheOldOnes[] = {
+        ZoeticDial,
+        LightOfDracothian,
+        PrismOfAmyntok,
+        ItxiGrubs,
+        PlaqueOfDominion,
+        ThroneOfTheLostGods
+    };
+
+    const Artefacts g_celestialRelicsOfTheWarrior[] = {
+        BladeOfRealities,
+        SigilsOfThePrimeHunter,
+        BloodRagePendant
+    };
+
+    const Artefacts g_vestmentsOfThePriesthood[] = {
+        IncandescentRectrices,
+        CloakOfFeathers,
+        SacredStegadonHelm
+    };
+
+    //
+    // Spells
+    //
+    enum Lore {
+        // LoreOfCelestialDomination
+        CelestialApotheosis,
+        WalkBetweenRealms,
+        MysticalUnforging,
+        CelestialEquilibrium,
+        StellarTempest,
+        DrainMagic,
+
+        // LoreOfCelestialManipulation
+        CelestialHarmony,
+        HandOfGlory,
+        ExtendAstromatrix,
+        FieryConvocation,
+        BindEndlessSpell,
+        TideOfSerpents
+    };
+
+    const std::array<int, 6> g_loreOfCelestialDomination = {
+        CelestialApotheosis,
+        WalkBetweenRealms,
+        MysticalUnforging,
+        CelestialEquilibrium,
+        StellarTempest,
+        DrainMagic
+    };
+
+    const std::array<int, 6> g_loreOfCelestialManipulation = {
+        CelestialHarmony,
+        HandOfGlory,
+        ExtendAstromatrix,
+        FieryConvocation,
+        BindEndlessSpell,
+        TideOfSerpents
+    };
+
+    class SeraphonBase : public Unit {
+    public:
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -62,8 +197,8 @@ namespace Seraphon {
 
     protected:
 
-        WayOfTheSeraphon m_way = Coalesced;
-        Constellation m_constellation = ThunderLizard;
+        WayOfTheSeraphon m_way = WayOfTheSeraphon::Coalesced;
+        Constellation m_constellation = Constellation::ThunderLizard;
 
     };
 

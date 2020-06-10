@@ -58,7 +58,7 @@ namespace BeastsOfChaos {
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
         bool ok = unit->configure(numModels, pairedBlades, brayhorn, bannerBearer);
@@ -77,12 +77,11 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Boolean, "Paired Blades", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Brayhorn", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
-                             BeastsOfChaosBase::Gavespawn, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            BoolParameter("Paired Blades"),
+                            BoolParameter("Brayhorn"),
+                            BoolParameter("Banner Bearer"),
+                            EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

@@ -88,7 +88,7 @@ namespace StormcastEternals {
 
         auto prime = new Model(BASESIZE, wounds());
         switch (primeGrandWeapon) {
-            case None:
+            case NoGrandWeapon:
                 if (weapons == CelestialHammerAndShield || weapons == PairedCelestialHammers) {
                     prime->addMissileWeapon(&m_celestialHammersMissile);
                     prime->addMeleeWeapon(&m_celestialHammersPrime);
@@ -176,7 +176,7 @@ namespace StormcastEternals {
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels, weapons, primeGrandWeapon, numTridents, numGrandaxes, numGrandblades,
@@ -198,8 +198,8 @@ namespace StormcastEternals {
                 return "Paired Celestial Hammers";
             }
         } else if (std::string(parameter.name) == "Prime Grand Weapon") {
-            if (parameter.intValue == None) {
-                return "None";
+            if (parameter.intValue == NoGrandWeapon) {
+                return "No Grand Weapon";
             } else if (parameter.intValue == StormsurgeTrident) {
                 return "Stormsurge Trident";
             } else if (parameter.intValue == Grandaxe) {
@@ -221,8 +221,8 @@ namespace StormcastEternals {
             return CelestialHammerAndShield;
         } else if (enumString == "Paired Celestial Hammers") {
             return PairedCelestialHammers;
-        } else if (enumString == "None") {
-            return None;
+        } else if (enumString == "No Grand Weapon") {
+            return NoGrandWeapon;
         } else if (enumString == "Stormsurge Trident") {
             return StormsurgeTrident;
         } else if (enumString == "Grandaxe") {
@@ -237,22 +237,24 @@ namespace StormcastEternals {
 
     void Prosecutors::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {StormcallJavelinAndShield,
+                                                       PairedCelestialHammers, CelestialHammerAndShield};
+            static const std::array<int, 5> primeWeapons = {NoGrandWeapon,
+                                                            StormsurgeTrident,Grandaxe,Grandblade,Grandhammer};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", StormcallJavelinAndShield, StormcallJavelinAndShield,
-                             CelestialHammerAndShield, 1},
-                            {ParamType::Enum, "Prime Grand Weapon", None, None, Grandhammer, 1},
-                            {ParamType::Integer, "Stormsurge Tridents", 0, 0, MAX_UNIT_SIZE / 3, 1},
-                            {ParamType::Integer, "Grandaxes", 0, 0, MAX_UNIT_SIZE / 3, 1},
-                            {ParamType::Integer, "Grandblades", 0, 0, MAX_UNIT_SIZE / 3, 1},
-                            {ParamType::Integer, "Grandhammers", 0, 0, MAX_UNIT_SIZE / 3, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", StormcallJavelinAndShield, weapons),
+                            EnumParameter("Prime Grand Weapon", NoGrandWeapon, primeWeapons),
+                            IntegerParameter("Stormsurge Tridents", 0, 0, MAX_UNIT_SIZE / 3, 1),
+                            IntegerParameter("Grandaxes", 0, 0, MAX_UNIT_SIZE / 3, 1),
+                            IntegerParameter("Grandblades", 0, 0, MAX_UNIT_SIZE / 3, 1),
+                            IntegerParameter("Grandhammers", 0, 0, MAX_UNIT_SIZE / 3, 1),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

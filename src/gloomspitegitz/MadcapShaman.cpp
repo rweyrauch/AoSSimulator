@@ -28,14 +28,14 @@ namespace GloomspiteGitz {
         m_totalSpells = 1;
     }
 
-    bool MadcapShaman::configure(LoreOfTheMoonclans lore) {
+    bool MadcapShaman::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_moonStaff);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         //m_knownSpells.push_back(std::make_unique<NightShroud>(this));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLoreOfTheMoonclans(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);
 
@@ -46,8 +46,8 @@ namespace GloomspiteGitz {
 
     Unit *MadcapShaman::Create(const ParameterList &parameters) {
         auto unit = new MadcapShaman();
-        auto lore = (LoreOfTheMoonclans) GetEnumParam("Lore of the Moonclans", parameters,
-                                                      (int) LoreOfTheMoonclans::None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters,
+                                                      (int) None);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -65,8 +65,7 @@ namespace GloomspiteGitz {
                     MadcapShaman::EnumStringToInt,
                     MadcapShaman::ComputePoints,
                     {
-                            {ParamType::Enum, "Lore of the Moonclans", (int) LoreOfTheMoonclans::None,
-                             (int) LoreOfTheMoonclans::None, (int) LoreOfTheMoonclans::CallDaMoon, 1},
+                        EnumParameter("Lore of the Moonclans", None, g_loreOfTheMoonclans)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -77,13 +76,13 @@ namespace GloomspiteGitz {
 
     std::string MadcapShaman::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lore of the Moonclans") {
-            return ToString((LoreOfTheMoonclans) parameter.intValue);
+            return ToString((Lore) parameter.intValue);
         }
         return ParameterValueToString(parameter);
     }
 
     int MadcapShaman::EnumStringToInt(const std::string &enumString) {
-        LoreOfTheMoonclans lore;
+        Lore lore;
         if (FromString(enumString, lore)) {
             return (int) lore;
         }

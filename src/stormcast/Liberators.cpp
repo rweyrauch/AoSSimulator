@@ -122,7 +122,7 @@ namespace StormcastEternals {
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, StormcastEternal::None);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
         libs->setStormhost(stormhost);
 
         bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
@@ -135,19 +135,19 @@ namespace StormcastEternals {
 
     void Liberators::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Warhammer, Warblade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", Warhammer, Warhammer, Warblade, 1},
-                            {ParamType::Boolean, "Paired Weapons", SIM_FALSE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Integer, "Grandhammers", 0, 0, MAX_UNIT_SIZE / 5, 1},
-                            {ParamType::Integer, "Grandblades", 0, 0, MAX_UNIT_SIZE / 5, 1},
-                            {ParamType::Enum, "Stormhost", StormcastEternal::None, StormcastEternal::None,
-                             StormcastEternal::AstralTemplars, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", Warhammer, weapons),
+                            BoolParameter( "Paired Weapons"),
+                            IntegerParameter("Grandhammers", 0, 0, MAX_UNIT_SIZE / 5, 1),
+                            IntegerParameter("Grandblades", 0, 0, MAX_UNIT_SIZE / 5, 1),
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

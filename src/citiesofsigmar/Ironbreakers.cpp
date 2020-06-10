@@ -73,7 +73,7 @@ namespace CitiesOfSigmar {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
 
-        auto city = (City) GetEnumParam("City", parameters, CitizenOfSigmar::Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, weapon, standardBearer, drummer);
@@ -86,22 +86,18 @@ namespace CitiesOfSigmar {
 
     void Ironbreakers::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = { IronbreakerAxeOrHammer, DrakefirePistolAndCinderblastBomb, PairedDrakefirePistols};
             static FactoryMethod factoryMethod = {
                     Ironbreakers::Create,
                     Ironbreakers::ValueToString,
                     Ironbreakers::EnumStringToInt,
                     Ironbreakers::ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {
-                                    ParamType::Enum, "Ironbeard Weapon", Ironbreakers::IronbreakerAxeOrHammer,
-                                    Ironbreakers::IronbreakerAxeOrHammer,
-                                    Ironbreakers::PairedDrakefirePistols, 1
-                            },
-                            {ParamType::Boolean, "Standard Bearer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Boolean, "Drummer", SIM_FALSE, SIM_FALSE, SIM_FALSE, SIM_FALSE},
-                            {ParamType::Enum, "City", CitizenOfSigmar::Hammerhal, CitizenOfSigmar::Hammerhal,
-                             CitizenOfSigmar::TempestsEye, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Ironbeard Weapon", IronbreakerAxeOrHammer, weapons),
+                            BoolParameter("Standard Bearer"),
+                            BoolParameter("Drummer"),
+                            EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

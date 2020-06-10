@@ -18,7 +18,7 @@ namespace IdonethDeepkin {
     Unit *IsharannSoulrender::Create(const ParameterList &parameters) {
         auto unit = new IsharannSoulrender();
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::None);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure();
@@ -37,8 +37,7 @@ namespace IdonethDeepkin {
                     IdonethDeepkinBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Enum, "Enclave", IdonethDeepkinBase::None, IdonethDeepkinBase::None,
-                             IdonethDeepkinBase::Briomdar, 1},
+                            EnumParameter("Enclave", g_enclave[0], g_enclave),
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

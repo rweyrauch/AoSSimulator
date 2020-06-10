@@ -57,16 +57,16 @@ namespace OgorMawtribes {
 
     void Tyrant::Init() {
         if (!s_registered) {
+            static const std::array<int, 6> bignames = {Deathcheater, Brawlerguts, Fateseeker,
+                                                                   Longstrider, Giantbreaker, Wallcrusher};
             static FactoryMethod factoryMethod = {
                     Tyrant::Create,
                     Tyrant::ValueToString,
                     Tyrant::EnumStringToInt,
                     Tyrant::ComputePoints,
                     {
-                            {ParamType::Enum, "Big Name", Tyrant::Fateseeker, Tyrant::Deathcheater, Tyrant::Wallcrusher,
-                             1},
-                            {ParamType::Enum, "Mawtribe", MawtribesBase::None, MawtribesBase::None,
-                             MawtribesBase::Winterbite, 1}
+                            EnumParameter("Big Name", Fateseeker, bignames),
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

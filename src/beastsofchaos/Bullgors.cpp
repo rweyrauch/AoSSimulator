@@ -73,7 +73,7 @@ namespace BeastsOfChaos {
         bool drummer = GetBoolParam("Drummer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, BeastsOfChaosBase::None);
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
         bool ok = unit->configure(numModels, weapon, drummer, bannerBearer);
@@ -86,18 +86,18 @@ namespace BeastsOfChaos {
 
     void Bullgors::Init() {
         if (!s_registered) {
+            static const std::array<int, 3> weapons = {BullgorAxe, PairedBullgorAxes, BullgorGreatAxe};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            {ParamType::Integer, "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE},
-                            {ParamType::Enum, "Weapons", BullgorAxe, BullgorAxe, BullgorGreatAxe, 1},
-                            {ParamType::Boolean, "Drummer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Banner Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Enum, "Greatfray", BeastsOfChaosBase::None, BeastsOfChaosBase::None,
-                             BeastsOfChaosBase::Gavespawn, 1},
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Weapons", weapons[0], weapons),
+                            BoolParameter("Drummer"),
+                            BoolParameter("Banner Bearer"),
+                            EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}
