@@ -11,7 +11,7 @@
 #include <Roster.h>
 #include <iostream>
 #include <spells/MysticShield.h>
-#include <spells/NikkitNikkit.h>
+#include <gloomspitegitz/NikkitNikkit.h>
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 60; // x35 oval

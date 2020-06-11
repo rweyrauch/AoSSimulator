@@ -10,7 +10,7 @@
 #include <sylvaneth/Alarielle.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
-#include <spells/SylvanethSpells.h>
+#include <sylvaneth/SylvanethSpells.h>
 #include <Board.h>
 #include <Roster.h>
 

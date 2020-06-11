@@ -9,7 +9,7 @@
 #include <skaven/ArchWarlock.h>
 #include <UnitFactory.h>
 #include <Board.h>
-#include <spells/SkavenSpells.h>
+#include <skaven/SkavenSpells.h>
 #include <spells/MysticShield.h>
 
 namespace Skaven {

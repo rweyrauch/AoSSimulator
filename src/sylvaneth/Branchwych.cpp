@@ -11,7 +11,7 @@
 #include <iostream>
 #include <Board.h>
 #include <spells/MysticShield.h>
-#include <spells/SylvanethSpells.h>
+#include <sylvaneth/SylvanethSpells.h>
 
 namespace Sylvaneth {
     static const int BASESIZE = 32;

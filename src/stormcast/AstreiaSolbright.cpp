@@ -9,7 +9,7 @@
 #include <stormcast/AstreiaSolbright.h>
 #include <iostream>
 #include <spells/MysticShield.h>
-#include <spells/StormcastSpells.h>
+#include <stormcast/StormcastSpells.h>
 #include "UnitFactory.h"
 #include "StormcastEternalsPrivate.h"
 

@@ -11,7 +11,7 @@
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/PrayersOfTheStormhosts.h>
-#include <spells/LoreOfTheStorm.h>
+#include <stormcast/LoreOfTheStorm.h>
 #include "../AoSSimPrivate.h"
 #include <array>
 

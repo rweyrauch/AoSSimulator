@@ -8,7 +8,7 @@
 
 #include <skaven/WarlockBombardier.h>
 #include <UnitFactory.h>
-#include <spells/SkavenSpells.h>
+#include <skaven/SkavenSpells.h>
 #include <spells/MysticShield.h>
 
 namespace Skaven {

@@ -9,7 +9,7 @@
 #include <UnitFactory.h>
 #include <stormcast/EvocatorsOnDracolines.h>
 #include <iostream>
-#include <spells/Empower.h>
+#include <stormcast/Empower.h>
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {

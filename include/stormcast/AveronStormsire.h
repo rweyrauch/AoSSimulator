@@ -10,7 +10,7 @@
 #define AVERONSTORMSIRE_H
 
 #include <stormcast/StormcastEternals.h>
-#include <spells/LoreOfTheStorm.h>
+#include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {

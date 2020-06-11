@@ -11,7 +11,7 @@
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
-#include <spells/GloomspiteSpells.h>
+#include <gloomspitegitz/GloomspiteSpells.h>
 
 namespace GloomspiteGitz {
 

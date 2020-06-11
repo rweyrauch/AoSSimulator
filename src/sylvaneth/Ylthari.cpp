@@ -7,7 +7,7 @@
  */
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
-#include <spells/SylvanethSpells.h>
+#include <sylvaneth/SylvanethSpells.h>
 #include "sylvaneth/Ylthari.h"
 
 namespace Sylvaneth {

@@ -10,7 +10,6 @@
 #define CELESTANTPRIME_H
 
 #include <stormcast/StormcastEternals.h>
-#include <spells/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {

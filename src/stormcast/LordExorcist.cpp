@@ -9,7 +9,7 @@
 #include <stormcast/LordExorcist.h>
 #include <iostream>
 #include <spells/MysticShield.h>
-#include <spells/StormcastSpells.h>
+#include <stormcast/StormcastSpells.h>
 #include <Board.h>
 #include "UnitFactory.h"
 #include "StormcastEternalsPrivate.h"

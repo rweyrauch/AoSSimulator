@@ -9,7 +9,7 @@
 #include <sylvaneth/DrychaHamadreth.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
-#include <spells/SylvanethSpells.h>
+#include <sylvaneth/SylvanethSpells.h>
 
 namespace Sylvaneth {
     static const int BASESIZE = 105; // x70 oval

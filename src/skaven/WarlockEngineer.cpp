@@ -9,7 +9,7 @@
 #include <skaven/WarlockEngineer.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
-#include <spells/SkavenSpells.h>
+#include <skaven/SkavenSpells.h>
 
 namespace Skaven {
     static const int BASESIZE = 32;

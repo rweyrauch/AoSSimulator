@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <spells/SylvanethSpells.h>
+#include <sylvaneth/SylvanethSpells.h>
 #include <Board.h>
 #include <Unit.h>
 

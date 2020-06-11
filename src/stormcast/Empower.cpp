@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <spells/Empower.h>
+#include <stormcast/Empower.h>
 #include <Unit.h>
 #include <Board.h>
 

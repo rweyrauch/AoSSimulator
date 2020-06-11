@@ -25,13 +25,6 @@ add_library(
         pathfinders.cpp
 
         spells/MysticShield.cpp
-        spells/StormcastSpells.cpp
-        spells/Empower.cpp
-        spells/NikkitNikkit.cpp
-        spells/LoreOfTheStorm.cpp
-        spells/GloomspiteSpells.cpp
-        spells/SylvanethSpells.cpp
-        spells/SkavenSpells.cpp
 
         stormcast/CelestantPrime.cpp
         stormcast/Aetherwings.cpp
@@ -88,6 +81,9 @@ add_library(
         stormcast/TheFarstriders.cpp
         stormcast/AveronStormsire.cpp
         stormcast/StormsiresCursebreakers.cpp
+        stormcast/StormcastSpells.cpp
+        stormcast/Empower.cpp
+        stormcast/LoreOfTheStorm.cpp
 
         khorne/KhorneBase.cpp
         khorne/Bloodreavers.cpp
@@ -143,6 +139,7 @@ add_library(
         sylvaneth/Ylthari.cpp
         sylvaneth/YlthariGardians.cpp
         sylvaneth/SkaethsWildHunt.cpp
+        sylvaneth/SylvanethSpells.cpp
 
         gloomspitegitz/SquigHerd.cpp
         gloomspitegitz/SquigHoppers.cpp
@@ -181,6 +178,8 @@ add_library(
         gloomspitegitz/Mollog.cpp
         gloomspitegitz/LoonsmashaFanatics.cpp
         gloomspitegitz/SporesplattaFanatics.cpp
+        gloomspitegitz/NikkitNikkit.cpp
+        gloomspitegitz/GloomspiteSpells.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
@@ -406,6 +405,7 @@ add_library(
         skaven/WarplockJezzails.cpp
         skaven/SkritchSpiteclaw.cpp
         skaven/SpiteclawsSwarm.cpp
+        skaven/SkavenSpells.cpp
 
         tzeentch/TzeentchBase.cpp
         tzeentch/KairicAcolytes.cpp

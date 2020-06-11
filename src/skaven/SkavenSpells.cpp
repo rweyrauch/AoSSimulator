@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <spells/SkavenSpells.h>
+#include <skaven/SkavenSpells.h>
 #include <Board.h>
 #include <Unit.h>
 

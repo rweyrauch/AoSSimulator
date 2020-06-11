@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <spells/NikkitNikkit.h>
+#include <gloomspitegitz/NikkitNikkit.h>
 
 NikkitNikkit::NikkitNikkit(Unit *caster) :
         DamageSpell(caster, "Nikkit! Nikkit!", 8, 18.0, RAND_D3) {}

@@ -9,7 +9,7 @@
 #include <UnitFactory.h>
 #include <stormcast/StormsiresCursebreakers.h>
 #include <iostream>
-#include <spells/Empower.h>
+#include <stormcast/Empower.h>
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
