@@ -9,6 +9,7 @@
 #include <nurgle/PlagueDrones.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <array>
 
 namespace Nurgle {
     static const int BASESIZE = 60;

@@ -9,6 +9,7 @@
 #include <skaven/PlagueMonks.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include <array>
 
 namespace Skaven {
     static const int BASESIZE = 25;

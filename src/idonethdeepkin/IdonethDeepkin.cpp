@@ -26,7 +26,7 @@ namespace IdonethDeepkin {
 
     std::string IdonethDeepkinBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Enclave") {
-            if (parameter.intValue == None) return "None";
+            if (parameter.intValue == Custom) return "Custom";
             else if (parameter.intValue == Ionrach) return "Ionrach";
             else if (parameter.intValue == DhomHain) return "Dhom-hain";
             else if (parameter.intValue == Fuethan) return "Fuethan";
@@ -38,7 +38,7 @@ namespace IdonethDeepkin {
     }
 
     int IdonethDeepkinBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "None") return None;
+        if (enumString == "Custom") return Custom;
         else if (enumString == "Ionrach") return Ionrach;
         else if (enumString == "Dhom-hain") return DhomHain;
         else if (enumString == "Fuethan") return Fuethan;

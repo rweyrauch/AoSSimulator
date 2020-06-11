@@ -114,6 +114,7 @@ namespace DaughtersOfKhaine {
             else if (parameter.intValue == DraichiGaneth) { return "Draichi Ganeth"; }
             else if (parameter.intValue == TheKraith) { return "The Kraith"; }
             else if (parameter.intValue == Khailebron) { return "Khailebron"; }
+            else if (parameter.intValue == Custom) return "Custom";
         }
         return ParameterValueToString(parameter);
     }
@@ -123,6 +124,7 @@ namespace DaughtersOfKhaine {
         else if (enumString == "Draichi Ganeth") return DraichiGaneth;
         else if (enumString == "The Kraith") return TheKraith;
         else if (enumString == "Khailebron") return Khailebron;
+        else if (enumString == "Custom") return Custom;
         return 0;
     }
 

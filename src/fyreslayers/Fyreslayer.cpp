@@ -89,7 +89,7 @@ namespace Fyreslayers {
             else if (parameter.intValue == Greyfyrd) { return "Greyfyrd"; }
             else if (parameter.intValue == Hermdar) { return "Hermdar"; }
             else if (parameter.intValue == Lofnir) { return "Lofnir"; }
-            else if (parameter.intValue == None) { return "None"; }
+            else if (parameter.intValue == Custom) { return "Custom"; }
         }
         return ParameterValueToString(parameter);
     }
@@ -99,7 +99,7 @@ namespace Fyreslayers {
         else if (enumString == "Greyfyrd") { return Greyfyrd; }
         else if (enumString == "Hermdar") { return Hermdar; }
         else if (enumString == "Lofnir") { return Lofnir; }
-        else if (enumString == "None") { return None; }
+        else if (enumString == "Custom") { return Custom; }
         return 0;
     }
 

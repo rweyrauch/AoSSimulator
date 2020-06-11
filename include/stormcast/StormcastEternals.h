@@ -12,6 +12,7 @@
 #include <Unit.h>
 #include <UnitFactory.h>
 #include <Weapon.h>
+#include <array>
 
 namespace StormcastEternals {
 
@@ -26,6 +27,15 @@ namespace StormcastEternals {
         ZealousCrusader,
         StaunchDefender,
         ChampionOfTheRealms
+    };
+
+    const std::array<int, 6> g_commandTrait {
+            ShieldedByFaith,
+            ConsummateCommander,
+            CunningStrategist,
+            ZealousCrusader,
+            StaunchDefender,
+            ChampionOfTheRealms
     };
 
     //

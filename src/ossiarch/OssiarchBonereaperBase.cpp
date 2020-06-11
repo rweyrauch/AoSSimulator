@@ -36,6 +36,7 @@ namespace OssiarchBonereapers {
             else if (parameter.intValue == IvoryHost) return "Ivory Host";
             else if (parameter.intValue == NullMyriad) return "Null Myriad";
             else if (parameter.intValue == Crematorians) return "Crematorians";
+            else if (parameter.intValue == NoLegion) return "No Legion";
         }
         return ParameterValueToString(parameter);
     }
@@ -47,6 +48,7 @@ namespace OssiarchBonereapers {
         else if (enumString == "Ivory Host") return IvoryHost;
         else if (enumString == "Null Myriad") return NullMyriad;
         else if (enumString == "Crematorians") return Crematorians;
+        else if (enumString == "No Legion") return NoLegion;
         return 0;
     }
 

@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "everchosen/Varanguard.h"
+#include <array>
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 75; //x42 oval

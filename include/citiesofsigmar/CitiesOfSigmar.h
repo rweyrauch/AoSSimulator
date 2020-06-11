@@ -12,6 +12,7 @@
 #include <Unit.h>
 #include <UnitFactory.h>
 #include <Weapon.h>
+#include <array>
 
 namespace CitiesOfSigmar {
 

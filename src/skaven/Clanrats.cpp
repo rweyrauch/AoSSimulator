@@ -8,6 +8,7 @@
 
 #include <skaven/Clanrats.h>
 #include <UnitFactory.h>
+#include <array>
 
 namespace Skaven {
     static const int BASESIZE = 25;

@@ -72,7 +72,8 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Weapon", AstralHammers, weapons),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

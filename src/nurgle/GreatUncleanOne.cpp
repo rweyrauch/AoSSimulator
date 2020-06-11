@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <spells/MysticShield.h>
+#include <array>
 
 namespace Nurgle {
     static const int BASESIZE = 130;

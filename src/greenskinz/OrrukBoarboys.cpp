@@ -9,6 +9,7 @@
 #include <greenskinz/OrrukBoarboys.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <array>
 
 namespace Greenskinz {
     static const int BASESIZE = 60; // x35 ovals

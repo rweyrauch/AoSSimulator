@@ -48,7 +48,44 @@ namespace Seraphon {
             else if (parameter.intValue == ThunderLizard) return "ThunderLizard";
             else if (parameter.intValue == DracothionsTail) return "Dracothion's Tail";
             else if (parameter.intValue == FangsOfSotek) return "Fangs of Sotek";
-            else if (parameter.intValue == NoConstellation) return "None";
+            else if (parameter.intValue == NoConstellation) return "No Constellation";
+        } else if (std::string(parameter.name) == "Command Trait") {
+            if (parameter.intValue == ArcaneMight) return "Arcane Might";
+            else if (parameter.intValue == VastIntellect) return "Vast Intellect";
+            else if (parameter.intValue == GreatRememberer) return "Great Remember";
+            else if (parameter.intValue == DisciplinedFury) return "Disciplined Fury";
+            else if (parameter.intValue == ThicklyScaledHide) return "Thickly Scaled Hide";
+            else if (parameter.intValue == MightyWarleader) return "Mighty Warleader";
+            else if (parameter.intValue == MasterOfStarRituals) return "Master of Star Rituals";
+            else if (parameter.intValue == Nimble) return "Nimble";
+            else if (parameter.intValue == Cunning) return "Cunning";
+        } else if (std::string(parameter.name) == "Artefact") {
+            if (parameter.intValue == ZoeticDial) return "Zoetic Dial";
+            else if (parameter.intValue == LightOfDracothian) return "LightoOf Dracothian";
+            else if (parameter.intValue == PrismOfAmyntok) return "Prism of Amyntok";
+            else if (parameter.intValue == ItxiGrubs) return "Itxi Grubs";
+            else if (parameter.intValue == PlaqueOfDominion) return "Plaque of Dominion";
+            else if (parameter.intValue == ThroneOfTheLostGods) return "Throne of the Lost Gods";
+            else if (parameter.intValue == BladeOfRealities) return "Blade of Realities";
+            else if (parameter.intValue == SigilsOfThePrimeHunter) return "Sigils of the Prime Hunter";
+            else if (parameter.intValue == BloodRagePendant) return "Blood Rage Pendant";
+            else if (parameter.intValue == IncandescentRectrices) return "Incandescent Rectrices";
+            else if (parameter.intValue == CloakOfFeathers) return "Cloak of Feathers";
+            else if (parameter.intValue == SacredStegadonHelm) return "Sacred Stegadon Helm";
+        } else if (std::string(parameter.name) == "Lore of Celestial Manipulation") {
+            if (parameter.intValue == CelestialApotheosis) return "Celestial Apotheosis";
+            else if (parameter.intValue == WalkBetweenRealms) return "Walk Between Realms";
+            else if (parameter.intValue == MysticalUnforging) return "Mystical Unforging";
+            else if (parameter.intValue == CelestialEquilibrium) return "Celestial Equilibrium";
+            else if (parameter.intValue == StellarTempest) return "Stellar Tempest";
+            else if (parameter.intValue == DrainMagic) return "Drain Magic";
+        } else if (std::string(parameter.name) == "Lore of Celestial Domination") {
+            if (parameter.intValue == CelestialHarmony) return "Celestial Harmony";
+            else if (parameter.intValue == HandOfGlory) return "Hand of Glory";
+            else if (parameter.intValue == ExtendAstromatrix) return "Extend Astromatrix";
+            else if (parameter.intValue == FieryConvocation) return "Fiery Convocation";
+            else if (parameter.intValue == BindEndlessSpell) return "Bind Endless Spell";
+            else if (parameter.intValue == TideOfSerpents) return "Tide of Serpents";
         }
         return ParameterValueToString(parameter);
     }
@@ -60,8 +97,40 @@ namespace Seraphon {
         else if (enumString == "ThunderLizard") return ThunderLizard;
         else if (enumString == "Dracothion's Tail") return DracothionsTail;
         else if (enumString == "Fangs of Sotek") return FangsOfSotek;
-        else if (enumString == "None") return NoConstellation;
-
+        else if (enumString == "No Constellation") return NoConstellation;
+        else if (enumString == "Arcane Might") return ArcaneMight;
+        else if (enumString == "Vast Intellect") return VastIntellect;
+        else if (enumString == "Great Rememberer") return GreatRememberer;
+        else if (enumString == "Disciplined Fury") return DisciplinedFury;
+        else if (enumString == "Thickly Scaled Hide") return ThicklyScaledHide;
+        else if (enumString == "Mighty Warleader") return MightyWarleader;
+        else if (enumString == "Master of Star Rituals") return MasterOfStarRituals;
+        else if (enumString == "Nimble") return Nimble;
+        else if (enumString == "Cunning") return Cunning;
+        else if (enumString == "Zoetic Dial") return ZoeticDial;
+        else if (enumString == "Light of Dracothian") return LightOfDracothian;
+        else if (enumString == "Prism of Amyntok") return PrismOfAmyntok;
+        else if (enumString == "Itxi Grubs") return ItxiGrubs;
+        else if (enumString == "Plaque of Dominion") return PlaqueOfDominion;
+        else if (enumString == "Throne of the Lost Gods") return ThroneOfTheLostGods;
+        else if (enumString == "Blade of Realities") return BladeOfRealities;
+        else if (enumString == "Sigils of the Prime Hunter") return SigilsOfThePrimeHunter;
+        else if (enumString == "Blood Rage Pendant") return BloodRagePendant;
+        else if (enumString == "Incandescent Rectrices") return IncandescentRectrices;
+        else if (enumString == "Cloak of Feathers") return CloakOfFeathers;
+        else if (enumString == "Sacred Stegadon Helm") return SacredStegadonHelm;
+        else if (enumString == "Celestial Apotheosis") return CelestialApotheosis;
+        else if (enumString == "Walk Between Realms") return WalkBetweenRealms;
+        else if (enumString == "Mystical Unforging") return MysticalUnforging;
+        else if (enumString == "Celestial Equilibrium") return CelestialEquilibrium;
+        else if (enumString == "Stellar Tempest") return StellarTempest;
+        else if (enumString == "Drain Magic") return DrainMagic;
+        else if (enumString == "Celestial Harmony") return CelestialHarmony;
+        else if (enumString == "Hand of Glory") return HandOfGlory;
+        else if (enumString == "Extend Astromatrix") return ExtendAstromatrix;
+        else if (enumString == "Fiery Convocation") return FieryConvocation;
+        else if (enumString == "Bind Endless Spell") return BindEndlessSpell;
+        else if (enumString == "Tide of Serpents") return TideOfSerpents;
         return 0;
     }
 

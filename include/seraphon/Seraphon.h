@@ -12,6 +12,7 @@
 #include <Unit.h>
 #include <UnitFactory.h>
 #include <Weapon.h>
+#include <array>
 
 namespace Seraphon {
 
@@ -44,7 +45,7 @@ namespace Seraphon {
     //
     // Command Traits
     //
-    enum CommandTraits {
+    enum CommandTrait {
         // Slann
         ArcaneMight,
         VastIntellect,
@@ -61,19 +62,19 @@ namespace Seraphon {
         Cunning
     };
 
-    const CommandTraits g_slannCommandTrait[] = {
+    const std::array<int, 3> g_slannCommandTrait = {
         ArcaneMight,
         VastIntellect,
         GreatRememberer
     };
 
-    const CommandTraits g_saurusCommandTrait[] = {
+    const std::array<int, 3> g_saurusCommandTrait {
         DisciplinedFury,
         ThicklyScaledHide,
         MightyWarleader
     };
 
-    const CommandTraits g_skinkCommandTrait[] = {
+    const std::array<int, 3> g_skinkCommandTrait {
         MasterOfStarRituals,
         Nimble,
         Cunning
@@ -82,8 +83,8 @@ namespace Seraphon {
     //
     // Artefacts
     //
-    enum Artefacts {
-        //TreasuresOfTheOldOnes
+    enum Artefact {
+        // TreasuresOfTheOldOnes
         ZoeticDial,
         LightOfDracothian,
         PrismOfAmyntok,
@@ -102,7 +103,7 @@ namespace Seraphon {
         SacredStegadonHelm
     };
 
-    const Artefacts g_treasuresOfTheOldOnes[] = {
+    const std::array<int, 6> g_treasuresOfTheOldOnes {
         ZoeticDial,
         LightOfDracothian,
         PrismOfAmyntok,
@@ -111,13 +112,13 @@ namespace Seraphon {
         ThroneOfTheLostGods
     };
 
-    const Artefacts g_celestialRelicsOfTheWarrior[] = {
+    const std::array<int, 3> g_celestialRelicsOfTheWarrior {
         BladeOfRealities,
         SigilsOfThePrimeHunter,
         BloodRagePendant
     };
 
-    const Artefacts g_vestmentsOfThePriesthood[] = {
+    const std::array<int, 3> g_vestmentsOfThePriesthood {
         IncandescentRectrices,
         CloakOfFeathers,
         SacredStegadonHelm

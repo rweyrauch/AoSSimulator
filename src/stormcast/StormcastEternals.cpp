@@ -160,6 +160,46 @@ namespace StormcastEternals {
             else if (parameter.intValue == AstralTemplars) return "Astral Templars";
             else if (parameter.intValue == NoStormhost) { return "No Stormhost"; }
         }
+        if (std::string(parameter.name) == "Command Trait") {
+            if (parameter.intValue == ShieldedByFaith) return "Shielded By Faith";
+            else if (parameter.intValue == ConsummateCommander) return "Consummate Commander";
+            else if (parameter.intValue == CunningStrategist) return "Cunning Strategist";
+            else if (parameter.intValue == ZealousCrusader) return "Zealous Crusader";
+            else if (parameter.intValue == StaunchDefender) return "Staunch Defender";
+            else if (parameter.intValue == ChampionOfTheRealms) return "Champion of the Realms";
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            if (parameter.intValue == StrifeEnder) return "Strife Ender";
+            else if (parameter.intValue == BladeOfHeroes) return "Blade of Heroes";
+            else if (parameter.intValue == HammerOfMight) return "Hammer of Might";
+            else if (parameter.intValue == FangOfDracothian) return "Fang of Dracothian";
+            else if (parameter.intValue == ObsidianBlade) return "Obsidian Blade";
+            else if (parameter.intValue == GiftOfTheSixSmiths) return "Gift of the Six Smiths";
+            else if (parameter.intValue == ArmourOfDestiny) return "Armour of Destiny";
+            else if (parameter.intValue == ArmourOfSilveredSigmarite) return "Armour of Silvered Sigmarite";
+            else if (parameter.intValue == DrakescaleArmour) return "Drakescale Armour";
+            else if (parameter.intValue == Mirrorshield) return "Mirrorshield";
+            else if (parameter.intValue == Spellshield) return "Spellshield";
+            else if (parameter.intValue == FeatherfoeTorc) return "Featherfoe Torc";
+            else if (parameter.intValue == TalismanOfEndurance) return "Talisman of Endurance";
+            else if (parameter.intValue == ObsidianAmulet) return "Obsidian Amulet";
+            else if (parameter.intValue == Luckstone) return "Luckstone";
+            else if (parameter.intValue == SeedOfRebirth) return "Seed of Rebirth";
+            else if (parameter.intValue == SigmaritePendant) return "Sigmarite Pendant";
+            else if (parameter.intValue == QuicksilverDraught) return "Quicksilver Draught";
+            else if (parameter.intValue == HurricaneStandard) return "Hurricane Standard";
+            else if (parameter.intValue == LicheboneStandard) return "Lichebone Standard";
+            else if (parameter.intValue == PennantOfSigmaron) return "Pennant of Sigmaron";
+            else if (parameter.intValue == ShrivingLight) return "Shriving Light";
+            else if (parameter.intValue == FuryBrand) return "Fury Brand";
+            else if (parameter.intValue == LanternOfTheTempest) return "Lantern of the Tempest";
+            else if (parameter.intValue == StaffOfFocus) return "Staff of Focus";
+            else if (parameter.intValue == MindlockStaff) return "Mindlock Staff";
+            else if (parameter.intValue == StaffOfAzyr) return "Staff of Azyr";
+            else if (parameter.intValue == ScrollOfUnravelling) return "Scroll of Unravelling";
+            else if (parameter.intValue == ScrollOfCondemnation) return "Scroll of Condemnation";
+            else if (parameter.intValue == StormScroll) return "Storm Scroll";
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -176,6 +216,42 @@ namespace StormcastEternals {
         else if (enumString == "Tempest Lords") { return TempestLords; }
         else if (enumString == "Astral Templars") { return AstralTemplars; }
         else if (enumString == "No Stormhost") { return NoStormhost; }
+        else if (enumString == "Shielded By Faith") return ShieldedByFaith;
+        else if (enumString == "Consummate Commander") return ConsummateCommander;
+        else if (enumString == "Cunning Strategist") return CunningStrategist;
+        else if (enumString == "Zealous Crusader") return ZealousCrusader;
+        else if (enumString == "Staunch Defender") return StaunchDefender;
+        else if (enumString == "Champion of the Realms") return ChampionOfTheRealms;
+        else if (enumString == "Strife Ender") return StrifeEnder;
+        else if (enumString == "Blade of Heroes") return BladeOfHeroes;
+        else if (enumString == "Hammer of Might") return HammerOfMight;
+        else if (enumString == "Fang of Dracothian") return FangOfDracothian;
+        else if (enumString == "Obsidian Blade") return ObsidianBlade;
+        else if (enumString == "Gift of the Six Smiths") return GiftOfTheSixSmiths;
+        else if (enumString == "Armour of Destiny") return ArmourOfDestiny;
+        else if (enumString == "Armour of Silvered Sigmarite") return ArmourOfSilveredSigmarite;
+        else if (enumString == "Drakescale Armour") return DrakescaleArmour;
+        else if (enumString == "Mirrorshield") return Mirrorshield;
+        else if (enumString == "Spellshield") return Spellshield;
+        else if (enumString == "Featherfoe Torc") return FeatherfoeTorc;
+        else if (enumString == "Talisman of Endurance") return TalismanOfEndurance;
+        else if (enumString == "Obsidian Amulet") return ObsidianAmulet;
+        else if (enumString == "Luckstone") return Luckstone;
+        else if (enumString == "Seed of Rebirth") return SeedOfRebirth;
+        else if (enumString == "Sigmarite Pendant") return SigmaritePendant;
+        else if (enumString == "Quicksilver Draught") return QuicksilverDraught;
+        else if (enumString == "Hurricane Standard") return HurricaneStandard;
+        else if (enumString == "Lichebone Standard") return LicheboneStandard;
+        else if (enumString == "Pennant of Sigmaron") return PennantOfSigmaron;
+        else if (enumString == "Shriving Light") return ShrivingLight;
+        else if (enumString == "Fury Brand") return FuryBrand;
+        else if (enumString == "Lantern of the Tempest") return LanternOfTheTempest;
+        else if (enumString == "Staff of Focus") return StaffOfFocus;
+        else if (enumString == "Mindlock Staff") return MindlockStaff;
+        else if (enumString == "Staff of Azyr") return StaffOfAzyr;
+        else if (enumString == "Scroll of Unravelling") return ScrollOfUnravelling;
+        else if (enumString == "Scroll of Condemnation") return ScrollOfCondemnation;
+        else if (enumString == "Storm Scroll") return StormScroll;
 
         return 0;
     }

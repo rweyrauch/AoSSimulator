@@ -9,6 +9,7 @@
 #include <greenskinz/Orruks.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <array>
 
 namespace Greenskinz {
     static const int BASESIZE = 32;

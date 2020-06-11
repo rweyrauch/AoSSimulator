@@ -13,6 +13,7 @@
 #include <UnitFactory.h>
 #include <Weapon.h>
 #include <map>
+#include <array>
 
 namespace Fyreslayers {
 

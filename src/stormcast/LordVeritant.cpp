@@ -68,7 +68,8 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Prayers of the Stormhost", g_prayersOfTheStormhost[0], g_prayersOfTheStormhost),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}
