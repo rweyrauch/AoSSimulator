@@ -9,6 +9,7 @@
 #include <stormcast/Castigators.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -58,7 +59,7 @@ namespace StormcastEternals {
         auto unit = new Castigators();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels);
@@ -78,7 +79,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

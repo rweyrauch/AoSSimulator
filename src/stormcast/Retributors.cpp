@@ -9,6 +9,7 @@
 #include <stormcast/Retributors.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -78,7 +79,7 @@ namespace StormcastEternals {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels, numStarsoulMaces);
@@ -99,7 +100,7 @@ namespace StormcastEternals {
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
                             IntegerParameter("Starsoul Maces", 2, 0, (MAX_UNIT_SIZE / 5) * 2, 1),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

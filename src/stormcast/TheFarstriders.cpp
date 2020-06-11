@@ -54,7 +54,7 @@ namespace StormcastEternals {
 
     Unit *TheFarstriders::Create(const ParameterList &parameters) {
         auto unit = new TheFarstriders();
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure();
         if (!ok) {

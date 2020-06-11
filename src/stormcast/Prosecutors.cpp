@@ -9,6 +9,7 @@
 #include <stormcast/Prosecutors.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -182,7 +183,7 @@ namespace StormcastEternals {
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels, weapons, primeGrandWeapon, numTridents, numGrandaxes, numGrandblades,
@@ -260,7 +261,7 @@ namespace StormcastEternals {
                             IntegerParameter("Grandaxes", 0, 0, MAX_UNIT_SIZE / 3, 1),
                             IntegerParameter("Grandblades", 0, 0, MAX_UNIT_SIZE / 3, 1),
                             IntegerParameter("Grandhammers", 0, 0, MAX_UNIT_SIZE / 3, 1),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

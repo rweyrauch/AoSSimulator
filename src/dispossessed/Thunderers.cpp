@@ -9,6 +9,7 @@
 #include <dispossessed/Thunderers.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "DispossessedPrivate.h"
 
 namespace Dispossessed {
     static const int BASESIZE = 25;

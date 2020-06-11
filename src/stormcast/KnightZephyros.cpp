@@ -9,6 +9,7 @@
 #include <stormcast/KnightZephyros.h>
 #include <iostream>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -42,7 +43,7 @@ namespace StormcastEternals {
     Unit *KnightZephyros::Create(const ParameterList &parameters) {
         auto unit = new KnightZephyros();
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure();
@@ -61,7 +62,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <stormcast/StormcastPrayers.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -48,7 +49,7 @@ namespace StormcastEternals {
         auto prayer = (PrayersOfTheStormhost) GetEnumParam("Prayers of the Stormhost", parameters,
                                                            g_prayersOfTheStormhost[0]);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(prayer);
@@ -68,7 +69,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Prayers of the Stormhost", g_prayersOfTheStormhost[0], g_prayersOfTheStormhost),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,

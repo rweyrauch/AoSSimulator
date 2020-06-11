@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stormcast/Aetherwings.h>
 #include <UnitFactory.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 32;
@@ -51,7 +52,7 @@ namespace StormcastEternals {
         auto unit = new Aetherwings();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, to_integer(Stormhost::None));
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels);
@@ -71,7 +72,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

@@ -11,6 +11,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 170; // x105 oval
@@ -79,7 +80,7 @@ namespace StormcastEternals {
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, TempestAxe);
         auto skyboltBow = GetBoolParam("Skybolt Bow", parameters, true);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons, skyboltBow);
@@ -101,7 +102,7 @@ namespace StormcastEternals {
                     {
                             EnumParameter("Weapon", TempestAxe, weapons),
                             BoolParameter("Skybolt Bow"),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

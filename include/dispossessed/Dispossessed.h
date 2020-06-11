@@ -12,26 +12,16 @@
 #include <Unit.h>
 #include <UnitFactory.h>
 #include <Weapon.h>
-#include <array>
 
 namespace Dispossessed {
 
-    enum Grudge {
-        StuckUp,
-        SpeedMerchants,
-        MonstrousCheaters,
-        CowardlyHorders,
-        ShoddyCraftsmanship,
-        SneakyAmbushers
-    };
-
-    const std::array<int, 6> g_grudge = {
-            StuckUp,
-            SpeedMerchants,
-            MonstrousCheaters,
-            CowardlyHorders,
-            ShoddyCraftsmanship,
-            SneakyAmbushers
+    enum class Grudge : int {
+        Stuck_Up,
+        Speed_Merchants,
+        Monstrous_Cheaters,
+        Cowardly_Horders,
+        Shoddy_Craftsmanship,
+        Sneaky_Ambushers
     };
 
     class Dispossessed : public Unit {
@@ -57,7 +47,7 @@ namespace Dispossessed {
 
     private:
 
-        Grudge m_grudge = StuckUp;
+        Grudge m_grudge = Grudge::Stuck_Up;
     };
 
 //

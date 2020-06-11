@@ -10,6 +10,7 @@
 #include <stormcast/StormsiresCursebreakers.h>
 #include <iostream>
 #include <spells/Empower.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -75,7 +76,7 @@ namespace StormcastEternals {
         auto *evos = new StormsiresCursebreakers();
         auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, None);
 
-        evos->setStormhost(HammersOfSigmar);
+        evos->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = evos->configure(invigoration);
         if (!ok) {
@@ -93,7 +94,7 @@ namespace StormcastEternals {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Lore of Invigoration", None, g_loreOfInvigoration)
+                            EnumParameter("Lore of Invigoration", g_loreOfInvigoration[0], g_loreOfInvigoration)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

@@ -9,6 +9,7 @@
 #include <stormcast/LordOrdinator.h>
 #include <iostream>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -51,7 +52,7 @@ namespace StormcastEternals {
         auto unit = new LordOrdinator();
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons);
@@ -72,7 +73,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Weapon", AstralHammers, weapons),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,

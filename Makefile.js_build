@@ -8,8 +8,8 @@ BUILD := release
 # BUILD := debug
 ACTIVE = AosSim
 
-LINK_OPTS = -std=c++14 -s MODULARIZE=1 -s 'EXPORT_NAME="AosSim"' -s NO_FILESYSTEM=0 -s EXPORT_BINDINGS=1 -s RESERVED_FUNCTION_POINTERS=20 --post-js aossim_glue.js --memory-init-file 0 -s NO_EXIT_RUNTIME=1 glue_stub.cpp -s EXPORTED_RUNTIME_METHODS=[]
-OPTS = -std=c++14
+LINK_OPTS = -std=c++17 -s MODULARIZE=1 -s 'EXPORT_NAME="AosSim"' -s NO_FILESYSTEM=0 -s EXPORT_BINDINGS=1 -s RESERVED_FUNCTION_POINTERS=20 --post-js aossim_glue.js --memory-init-file 0 -s NO_EXIT_RUNTIME=1 glue_stub.cpp -s EXPORTED_RUNTIME_METHODS=[]
+OPTS = -std=c++17
 
 ifeq ($(BUILD), debug)
 	OPTS += -O0 -g2

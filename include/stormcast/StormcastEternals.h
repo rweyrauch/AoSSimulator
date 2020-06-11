@@ -19,147 +19,75 @@ namespace StormcastEternals {
     //
     // Command Traits
     //
-    enum CommandTrait {
+    enum class CommandTrait : int {
         // AspectsOfAzyr
-        ShieldedByFaith,
-        ConsummateCommander,
-        CunningStrategist,
-        ZealousCrusader,
-        StaunchDefender,
-        ChampionOfTheRealms
-    };
-
-    const std::array<int, 6> g_commandTrait {
-            ShieldedByFaith,
-            ConsummateCommander,
-            CunningStrategist,
-            ZealousCrusader,
-            StaunchDefender,
-            ChampionOfTheRealms
+        Shielded_By_Faith,
+        Consummate_Commander,
+        Cunning_Strategist,
+        Zealous_Crusader,
+        Staunch_Defender,
+        Champion_of_the_Realms
     };
 
     //
     // Artefacts
     //
-    enum Artefact {
+    enum class Artefact : int {
         // StormForgedWeapons
-        StrifeEnder,
-        BladeOfHeroes,
-        HammerOfMight,
-        FangOfDracothian,
-        ObsidianBlade,
-        GiftOfTheSixSmiths,
+        Strife_Ender,
+        Blade_of_Heroes,
+        Hammer_of_Might,
+        Fang_of_Dracothian,
+        Obsidian_Blade,
+        Gift_of_the_Six_Smiths,
 
         // HeavenWroughtArmour
-        ArmourOfDestiny,
-        ArmourOfSilveredSigmarite,
-        DrakescaleArmour,
+        Armour_of_Destiny,
+        Armour_of_Silvered_Sigmarite,
+        Drakescale_Armour,
         Mirrorshield,
         Spellshield,
-        FeatherfoeTorc,
+        Featherfoe_Torc,
 
         // ArtefactsOfTheTempests
-        TalismanOfEndurance,
-        ObsidianAmulet,
+        Talisman_of_Endurance,
+        Obsidian_Amulet,
         Luckstone,
-        SeedOfRebirth,
-        SigmaritePendant,
-        QuicksilverDraught,
+        Seed_of_Rebirth,
+        Sigmarite_Pendant,
+        Quicksilver_Draught,
 
         // TreasuredStandards
-        HurricaneStandard,
-        LicheboneStandard,
-        PennantOfSigmaron,
+        Hurricane_Standard,
+        Lichebone_Standard,
+        Pennant_of_Sigmaron,
 
         // MysticLights
-        ShrivingLight,
-        FuryBrand,
-        LanternOfTheTempest,
+        Shriving_Light,
+        Fury_Brand,
+        Lantern_of_the_Tempest,
 
         // CelestialStaves
-        StaffOfFocus,
-        MindlockStaff,
-        StaffOfAzyr,
+        Staff_of_Focus,
+        Mindlock_Staff,
+        Staff_of_Azyr,
 
         // ScrollsOfPower
-        ScrollOfUnravelling,
-        ScrollOfCondemnation,
-        StormScroll
+        Scroll_of_Unravelling,
+        Scroll_of_Condemnation,
+        Storm_Scroll
     };
 
-    const std::array<int, 6> g_stormForgedWeapons = {
-        StrifeEnder,
-        BladeOfHeroes,
-        HammerOfMight,
-        FangOfDracothian,
-        ObsidianBlade,
-        GiftOfTheSixSmiths
-    };
-
-    const std::array<int, 6> g_heavenWroughtArmour = {
-        ArmourOfDestiny,
-        ArmourOfSilveredSigmarite,
-        DrakescaleArmour,
-        Mirrorshield,
-        Spellshield,
-        FeatherfoeTorc
-    };
-
-    const std::array<int, 6> g_artefactsOfTheTempests = {
-        TalismanOfEndurance,
-        ObsidianAmulet,
-        Luckstone,
-        SeedOfRebirth,
-        SigmaritePendant,
-        QuicksilverDraught
-    };
-
-    const std::array<int, 3> g_treasuredStandards = {
-        HurricaneStandard,
-        LicheboneStandard,
-        PennantOfSigmaron
-    };
-
-    const std::array<int, 3> g_mysticLights = {
-        ShrivingLight,
-        FuryBrand,
-        LanternOfTheTempest
-    };
-
-    const std::array<int, 3> g_celestialStaves = {
-        StaffOfFocus,
-        MindlockStaff,
-        StaffOfAzyr
-    };
-
-    const std::array<int, 3> g_scrollsOfPower = {
-        ScrollOfUnravelling,
-        ScrollOfCondemnation,
-        StormScroll
-    };
-
-    enum Stormhost {
-        NoStormhost = 0,
-        HammersOfSigmar,
-        HallowedKnights,
-        CelestialVindicators,
-        AnvilsOfTheHeldenhammer,
-        KnightsExcelsior,
-        CelestialWarbringers,
-        TempestLords,
-        AstralTemplars,
-    };
-
-    const std::array<int, 9> g_stormhost = {
-        NoStormhost,
-        HammersOfSigmar,
-        HallowedKnights,
-        CelestialVindicators,
-        AnvilsOfTheHeldenhammer,
-        KnightsExcelsior,
-        CelestialWarbringers,
-        TempestLords,
-        AstralTemplars,
+    enum class Stormhost : int {
+        None = 0,
+        Hammers_of_Sigmar,
+        Hallowed_Knights,
+        Celestial_Vindicators,
+        Anvils_of_the_Heldenhammer,
+        Knights_Excelsior,
+        Celestial_Warbringers,
+        Tempest_Lords,
+        Astral_Templars,
     };
 
     class StormcastEternal : public Unit {
@@ -191,7 +119,7 @@ namespace StormcastEternals {
 
     protected:
 
-        Stormhost m_stormHost = NoStormhost;
+        Stormhost m_stormHost = Stormhost::None;
 
     };
 

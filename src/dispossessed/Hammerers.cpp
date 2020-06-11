@@ -7,6 +7,7 @@
  */
 
 #include <dispossessed/Hammerers.h>
+#include "DispossessedPrivate.h"
 #include <UnitFactory.h>
 #include <Board.h>
 

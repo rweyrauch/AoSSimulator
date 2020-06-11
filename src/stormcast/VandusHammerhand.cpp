@@ -47,7 +47,7 @@ namespace StormcastEternals {
     Unit *VandusHammerhand::Create(const ParameterList &parameters) {
         auto unit = new VandusHammerhand();
 
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure();
         if (!ok) {

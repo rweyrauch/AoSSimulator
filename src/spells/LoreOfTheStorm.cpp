@@ -8,57 +8,18 @@
 #include <cfloat>
 #include <spells/LoreOfTheStorm.h>
 #include <Unit.h>
+#include "magic_enum.hpp"
 
 namespace StormcastEternals {
 
     std::string ToString(Lore which) {
-        switch (which) {
-            case LightningBlast:
-                return "Lightning Blast";
-            case Starfall:
-                return "Starfall";
-            case Thundershock:
-                return "Thundershock";
-            case AzyriteHalo:
-                return "Azyrite Halo";
-            case ChainLightning:
-                return "Chain Lightning";
-            case Stormcaller:
-                return "Stormcaller";
-            case TerrifyingAspect:
-                return "Terrifying Aspect";
-            case CelestialBlades:
-                return "Celestial Blades";
-            case SpeedOfLightning:
-                return "SpeedOfLightning";
-        }
-        return "";
+        return std::string(magic_enum::enum_name(which));
     }
 
     bool FromString(const std::string &enumString, Lore &outLore) {
-        bool valid = true;
-
-        if (enumString == "Lightning Blast")
-            outLore = LightningBlast;
-        else if (enumString == "Starfall")
-            outLore = Starfall;
-        else if (enumString == "Thundershock")
-            outLore = Thundershock;
-        else if (enumString == "Azyrite Halo")
-            outLore = AzyriteHalo;
-        else if (enumString == "Chain Lightning")
-            outLore = ChainLightning;
-        else if (enumString == "Stormcaller")
-            outLore = Stormcaller;
-        else if (enumString == "Terrifying Aspect")
-            outLore = TerrifyingAspect;
-        else if (enumString == "Celestial Blades")
-            outLore = CelestialBlades;
-        else if (enumString == "Speed of Lightning")
-            outLore = SpeedOfLightning;
-        else
-            valid = false;
-        return valid;
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        outLore = lore.value();
+        return lore.has_value();
     }
 
     DamageSpell *CreateLightningBlast(Unit *caster) {
@@ -115,23 +76,23 @@ namespace StormcastEternals {
 
     Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
-            case LightningBlast:
+            case Lore::Lightning_Blast:
                 return CreateLightningBlast(caster);
-            case Starfall:
+            case Lore::Starfall:
                 return CreateStarfall(caster);
-            case Thundershock:
+            case Lore::Thundershock:
                 return CreateThundershock(caster);
-            case AzyriteHalo:
+            case Lore::Azyrite_Halo:
                 return CreateAzyriteHalo(caster);
-            case ChainLightning:
+            case Lore::Chain_Lightning:
                 return CreateChainLightning(caster);
-            case Stormcaller:
+            case Lore::Stormcaller:
                 return CreateStormcaller(caster);
-            case CelestialBlades:
+            case Lore::Celestial_Blades:
                 return CreateCelestialBlades(caster);
-            case TerrifyingAspect:
+            case Lore::Terrifying_Aspect:
                 return CreateTerrifyingAspect(caster);
-            case SpeedOfLightning:
+            case Lore::Speed_of_Lightning:
                 return CreateSpeedOfLightning(caster);
             default:
                 return nullptr;

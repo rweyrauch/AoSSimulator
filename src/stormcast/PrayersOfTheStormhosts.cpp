@@ -7,46 +7,18 @@
  */
 
 #include <stormcast/PrayersOfTheStormhosts.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
 
     std::string ToString(PrayersOfTheStormhost which) {
-        switch (which) {
-            case PrayersOfTheStormhost::DivineLight:
-                return "Divine Light";
-            case PrayersOfTheStormhost::BlessWeapons:
-                return "Bless Weapons";
-            case PrayersOfTheStormhost::BolsterFaith:
-                return "Bolster Faith";
-            case PrayersOfTheStormhost::Abjuration:
-                return "Abjuration";
-            case PrayersOfTheStormhost::GodKingsAspect:
-                return "God-King's Aspect";
-            case PrayersOfTheStormhost::Translocation:
-                return "Translocation";
-            default:
-                return "None";
-        }
+        return std::string(magic_enum::enum_name(which));
     }
 
     bool FromString(const std::string &enumString, PrayersOfTheStormhost &outPrayer) {
-        bool valid = true;
-
-        if (enumString == "Divine Light")
-            outPrayer = PrayersOfTheStormhost::DivineLight;
-        else if (enumString == "Bless Weapons")
-            outPrayer = PrayersOfTheStormhost::BlessWeapons;
-        else if (enumString == "Bolster Faith")
-            outPrayer = PrayersOfTheStormhost::BolsterFaith;
-        else if (enumString == "Abjuration")
-            outPrayer = PrayersOfTheStormhost::Abjuration;
-        else if (enumString == "God-King's Aspect")
-            outPrayer = PrayersOfTheStormhost::GodKingsAspect;
-        else if (enumString == "Translocation")
-            outPrayer = PrayersOfTheStormhost::Translocation;
-        else
-            valid = false;
-        return valid;
+        auto prayer = magic_enum::enum_cast<PrayersOfTheStormhost>(enumString);
+        outPrayer = prayer.value();
+        return prayer.has_value();
     }
 
     Prayer *CreateDivineLight(Unit *caster) {
@@ -75,15 +47,15 @@ namespace StormcastEternals {
 
     Prayer *CreatePrayerOfTheStormhost(PrayersOfTheStormhost which, Unit *caster) {
         switch (which) {
-            case PrayersOfTheStormhost::DivineLight:
+            case PrayersOfTheStormhost::Divine_Light:
                 return CreateDivineLight(caster);
-            case PrayersOfTheStormhost::BlessWeapons:
+            case PrayersOfTheStormhost::Bless_Weapons:
                 return CreateBlessWeapons(caster);
-            case PrayersOfTheStormhost::BolsterFaith:
+            case PrayersOfTheStormhost::Bolster_Faith:
                 return CreateBolsterFaith(caster);
             case PrayersOfTheStormhost::Abjuration:
                 return CreateAbjuration(caster);
-            case PrayersOfTheStormhost::GodKingsAspect:
+            case PrayersOfTheStormhost::God_Kings_Aspect:
                 return CreateGodKingsAspect(caster);
             case PrayersOfTheStormhost::Translocation:
                 return CreateTranslocation(caster);

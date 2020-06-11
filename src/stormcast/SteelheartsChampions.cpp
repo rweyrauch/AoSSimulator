@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include <stormcast/SteelheartsChampions.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -70,7 +71,7 @@ namespace StormcastEternals {
 
     Unit *SteelheartsChampions::Create(const ParameterList &parameters) {
         auto unit = new SteelheartsChampions();
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure();
         if (!ok) {

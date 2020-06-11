@@ -14,21 +14,12 @@
 
 namespace StormcastEternals {
 
-    enum PrayersOfTheStormhost : int {
-        DivineLight,
-        BlessWeapons,
-        BolsterFaith,
+    enum class PrayersOfTheStormhost : int {
+        Divine_Light,
+        Bless_Weapons,
+        Bolster_Faith,
         Abjuration,
-        GodKingsAspect,
-        Translocation,
-    };
-
-    const std::array<int, 6> g_prayersOfTheStormhost = {
-        DivineLight,
-        BlessWeapons,
-        BolsterFaith,
-        Abjuration,
-        GodKingsAspect,
+        God_Kings_Aspect,
         Translocation,
     };
 

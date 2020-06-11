@@ -10,6 +10,7 @@
 #include <iostream>
 #include <Board.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
@@ -57,7 +58,7 @@ namespace StormcastEternals {
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, LightningHammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(weapons, sigmariteThundershield);
@@ -79,7 +80,7 @@ namespace StormcastEternals {
                     {
                             EnumParameter("Weapon", TempestosHammer, weapons),
                             BoolParameter("Sigmarite Thundershield"),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,

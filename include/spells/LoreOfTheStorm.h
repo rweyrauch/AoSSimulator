@@ -10,51 +10,23 @@
 #define LOREOFTHESTORM_H
 
 #include <Spell.h>
-#include <array>
 
 namespace StormcastEternals {
 
-    enum Lore : int {
+    enum class Lore : int {
 
         // LoreOfTheStorm
-        LightningBlast,
+        Lightning_Blast,
         Starfall,
         Thundershock,
-        AzyriteHalo,
-        ChainLightning,
+        Azyrite_Halo,
+        Chain_Lightning,
         Stormcaller,
 
         // LoreOfInvigoration
-        TerrifyingAspect,
-        CelestialBlades,
-        SpeedOfLightning
-    };
-
-    const std::array<int, 6> g_loreOfTheStorm = {
-        LightningBlast,
-        Starfall,
-        Thundershock,
-        AzyriteHalo,
-        ChainLightning,
-        Stormcaller,
-    };
-
-    const std::array<int, 3> g_loreOfInvigoration = {
-        TerrifyingAspect,
-        CelestialBlades,
-        SpeedOfLightning
-    };
-
-    const std::array<int, 9> g_lore = {
-        LightningBlast,
-        Starfall,
-        Thundershock,
-        AzyriteHalo,
-        ChainLightning,
-        Stormcaller,
-        TerrifyingAspect,
-        CelestialBlades,
-        SpeedOfLightning
+        Terrifying_Aspect,
+        Celestial_Blades,
+        Speed_of_Lightning
     };
 
     std::string ToString(Lore which);

@@ -11,6 +11,7 @@
 #include <spells/MysticShield.h>
 #include <spells/StormcastSpells.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -49,7 +50,7 @@ namespace StormcastEternals {
         auto unit = new KnightIncantor();
         auto lore = (Lore) GetEnumParam("Lore", parameters, None);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(lore);
@@ -68,8 +69,8 @@ namespace StormcastEternals {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Lore", None, g_lore),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

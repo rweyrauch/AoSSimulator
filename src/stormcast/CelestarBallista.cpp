@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
 
@@ -52,7 +53,7 @@ namespace StormcastEternals {
     Unit *CelestarBallista::Create(const ParameterList &parameters) {
         auto ballista = new CelestarBallista();
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         ballista->setStormhost(stormhost);
 
         bool ok = ballista->configure();
@@ -71,7 +72,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

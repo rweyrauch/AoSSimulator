@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <stormcast/Liberators.h>
 #include <iostream>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -122,7 +123,7 @@ namespace StormcastEternals {
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         libs->setStormhost(stormhost);
 
         bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
@@ -147,7 +148,7 @@ namespace StormcastEternals {
                             BoolParameter( "Paired Weapons"),
                             IntegerParameter("Grandhammers", 0, 0, MAX_UNIT_SIZE / 5, 1),
                             IntegerParameter("Grandblades", 0, 0, MAX_UNIT_SIZE / 5, 1),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

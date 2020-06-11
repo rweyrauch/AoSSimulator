@@ -19,6 +19,8 @@
 #include "dispossessed/WardenKing.h"
 #include "dispossessed/Runelord.h"
 
+#include <magic_enum.hpp>
+
 namespace Dispossessed {
 
     void Dispossessed::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
@@ -33,32 +35,32 @@ namespace Dispossessed {
 
     Rerolls Dispossessed::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         switch (m_grudge) {
-            case StuckUp:
+            case Grudge::Stuck_Up:
                 if (target->hasKeyword(HERO)) {
                     return RerollOnes;
                 }
                 break;
-            case SpeedMerchants:
+            case Grudge::Speed_Merchants:
                 if (target->move() >= 10) {
                     return RerollOnes;
                 }
                 break;
-            case MonstrousCheaters:
+            case Grudge::Monstrous_Cheaters:
                 if (target->hasKeyword(MONSTER)) {
                     return RerollOnes;
                 }
                 break;
-            case CowardlyHorders:
+            case Grudge::Cowardly_Horders:
                 if (target->initialModels() >= 20) {
                     return RerollOnes;
                 }
                 break;
-            case ShoddyCraftsmanship:
+            case Grudge::Shoddy_Craftsmanship:
                 if (target->save() >= 2 && target->save() <= 4) {
                     return RerollOnes;
                 }
                 break;
-            case SneakyAmbushers:
+            case Grudge::Sneaky_Ambushers:
                 // TODO:
                 break;
         }
@@ -71,23 +73,15 @@ namespace Dispossessed {
 
     std::string Dispossessed::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Grudge") {
-            if (parameter.intValue == StuckUp) { return "Stuck-up"; }
-            else if (parameter.intValue == SpeedMerchants) { return "Speed Merchants"; }
-            else if (parameter.intValue == MonstrousCheaters) { return "Monstrous Cheaters"; }
-            else if (parameter.intValue == CowardlyHorders) { return "Cowardly Horders"; }
-            else if (parameter.intValue == ShoddyCraftsmanship) { return "Shoddy Craftsmanship"; }
-            else if (parameter.intValue == SneakyAmbushers) { return "Sneaky Ambushers"; }
+            auto grudgeName = magic_enum::enum_name((Grudge)parameter.intValue);
+            return std::string(grudgeName);
         }
         return ParameterValueToString(parameter);
     }
 
     int Dispossessed::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Stuck-up") { return StuckUp; }
-        else if (enumString == "Speed Merchants") { return SpeedMerchants; }
-        else if (enumString == "Monstrous Cheaters") { return MonstrousCheaters; }
-        else if (enumString == "Cowardly Horders") { return CowardlyHorders; }
-        else if (enumString == "ShoddyCraftsmanship") { return ShoddyCraftsmanship; }
-        else if (enumString == "Sneaky Ambushers") { return SneakyAmbushers; }
+        auto grudge = magic_enum::enum_cast<Grudge>(enumString);
+        if (grudge.has_value()) return (int)grudge.value();
         return 0;
     }
 

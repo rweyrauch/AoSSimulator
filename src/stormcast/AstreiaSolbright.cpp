@@ -11,6 +11,7 @@
 #include <spells/MysticShield.h>
 #include <spells/StormcastSpells.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
@@ -58,7 +59,7 @@ namespace StormcastEternals {
         auto unit = new AstreiaSolbright();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure(lore);
         if (!ok) {

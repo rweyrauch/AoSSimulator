@@ -12,6 +12,7 @@
 #include <spells/StormcastSpells.h>
 #include <Board.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 100;
@@ -53,7 +54,7 @@ namespace StormcastEternals {
         auto unit = new AventisFirestrike();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure(lore);
         if (!ok) {

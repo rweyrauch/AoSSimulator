@@ -9,6 +9,7 @@
 #include <stormcast/Judicators.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -114,7 +115,7 @@ namespace StormcastEternals {
         int numShockboltBows = GetIntParam("Shockbolt Bows", parameters, 0);
         int numThunderboltCrossbows = GetIntParam("Thunderbolt Crossbows", parameters, 0);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         juds->setStormhost(stormhost);
 
         bool ok = juds->configure(numModels, weapons, numShockboltBows, numThunderboltCrossbows);
@@ -138,7 +139,7 @@ namespace StormcastEternals {
                             EnumParameter("Weapons", SkyboltBow, weapons),
                             IntegerParameter("Shockbolt Bows", 1, 0, MAX_UNIT_SIZE / 5, 1),
                             IntegerParameter("Thunderbolt Crossbows", 0, 0, MAX_UNIT_SIZE / 5, 1),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

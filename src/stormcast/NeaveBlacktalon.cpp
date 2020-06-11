@@ -9,6 +9,7 @@
 #include <stormcast/NeaveBlacktalon.h>
 #include <iostream>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -43,7 +44,7 @@ namespace StormcastEternals {
     Unit *NeaveBlacktalon::Create(const ParameterList &parameters) {
         auto unit = new NeaveBlacktalon();
 
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure();
         if (!ok) {

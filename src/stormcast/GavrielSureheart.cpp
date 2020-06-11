@@ -9,6 +9,7 @@
 #include <stormcast/GavrielSureheart.h>
 #include <iostream>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -38,7 +39,7 @@ namespace StormcastEternals {
     Unit *GavrielSureheart::Create(const ParameterList &parameters) {
         auto unit = new GavrielSureheart();
 
-        unit->setStormhost(HammersOfSigmar);
+        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
         bool ok = unit->configure();
         if (!ok) {

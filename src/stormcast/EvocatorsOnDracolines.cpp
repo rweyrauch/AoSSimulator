@@ -10,6 +10,7 @@
 #include <stormcast/EvocatorsOnDracolines.h>
 #include <iostream>
 #include <spells/Empower.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
@@ -122,7 +123,7 @@ namespace StormcastEternals {
         int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
         auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, g_loreOfInvigoration[0]);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         evos->setStormhost(stormhost);
 
         bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave, invigoration);
@@ -144,7 +145,7 @@ namespace StormcastEternals {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
                             BoolParameter("Prime Grandstave"),
                             IntegerParameter("Grandstaves", 2, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE * 2, 1),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost),
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Lore of Invigoration", g_loreOfInvigoration[0], g_loreOfInvigoration)
                     },
                     ORDER,

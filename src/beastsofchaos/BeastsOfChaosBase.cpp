@@ -5,7 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
+#include <magic_enum.hpp>
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include "beastsofchaos/Gors.h"
 #include "beastsofchaos/Ghorgon.h"
@@ -54,19 +54,15 @@ namespace BeastsOfChaos {
 
     std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Greatfray") {
-            if (parameter.intValue == (int)Greatfray::Allherd) { return "Allherd"; }
-            else if (parameter.intValue == (int)Greatfray::Darkwalkers) { return "Darkwalkers"; }
-            else if (parameter.intValue == (int)Greatfray::Gavespawn) { return "Gavespawn"; }
-            else if (parameter.intValue == (int)Greatfray::None) { return "None"; }
+            auto frayName = magic_enum::enum_name((Greatfray)parameter.intValue);
+            return std::string(frayName);
         }
         return ParameterValueToString(parameter);
     }
 
     int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Allherd") { return (int)Greatfray::Allherd; }
-        else if (enumString == "Darkwalkers") { return (int)Greatfray::Darkwalkers; }
-        else if (enumString == "Gavespawn") { return (int)Greatfray::Gavespawn; }
-        else if (enumString == "None") { return (int)Greatfray::None; }
+        auto fray = magic_enum::enum_cast<Greatfray>(enumString);
+        if (fray.has_value()) return (int)fray.value();
         return 0;
     }
 

@@ -8,6 +8,7 @@
 
 #include <dispossessed/Unforged.h>
 #include <UnitFactory.h>
+#include "DispossessedPrivate.h"
 
 namespace Dispossessed {
     static const int BASESIZE = 25;

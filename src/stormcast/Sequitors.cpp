@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -144,7 +145,7 @@ namespace StormcastEternals {
         bool primeGreatmace = GetBoolParam("Prime Greatmace", parameters, false);
         bool redemptionCache = GetBoolParam("Redemption Cache", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
@@ -169,7 +170,7 @@ namespace StormcastEternals {
                             IntegerParameter("Greatmaces", 2, 0, MAX_UNIT_SIZE / 5 * 2, 1),
                             BoolParameter("Prime Greatmace"),
                             BoolParameter("Redemption Cache"),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

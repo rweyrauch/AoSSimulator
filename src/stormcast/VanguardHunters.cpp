@@ -9,6 +9,7 @@
 #include <stormcast/VanguardHunters.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int BASESIZE = 40;
@@ -78,7 +79,7 @@ namespace StormcastEternals {
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormSabre);
         bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, NoStormhost);
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         hunters->setStormhost(stormhost);
 
         bool ok = hunters->configure(numModels, weapons, astralCompass);
@@ -101,7 +102,7 @@ namespace StormcastEternals {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
                             EnumParameter("Weapons", StormSabre, weapons),
                             BoolParameter("Astral Compass"),
-                            EnumParameter("Stormhost", NoStormhost, g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}
