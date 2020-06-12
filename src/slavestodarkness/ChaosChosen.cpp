@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "slavestodarkness/ChaosChosen.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 32;
@@ -24,10 +25,10 @@ namespace SlavesToDarkness {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
         bool ok = unit->configure(numModels, iconBearer, drummer);

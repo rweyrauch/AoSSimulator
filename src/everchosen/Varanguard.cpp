@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "everchosen/Varanguard.h"
+#include "../slavestodarkness/SlavesToDarknessPrivate.h"
 #include <array>
 
 namespace SlavesToDarkness {
@@ -24,10 +25,10 @@ namespace SlavesToDarkness {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, DaemonforgedBlade);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
         bool ok = unit->configure(numModels, weapons);

@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "slavestodarkness/FomoroidCrusher.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 60;
@@ -19,7 +20,7 @@ namespace SlavesToDarkness {
     Unit *FomoroidCrusher::Create(const ParameterList &parameters) {
         auto unit = new FomoroidCrusher();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
         bool ok = unit->configure();

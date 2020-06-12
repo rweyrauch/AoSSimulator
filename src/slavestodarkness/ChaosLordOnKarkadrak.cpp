@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "slavestodarkness/ChaosLordOnKarkadrak.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 90; // x52 oval
@@ -19,10 +20,10 @@ namespace SlavesToDarkness {
     Unit *ChaosLordOnKarkadrak::Create(const ParameterList &parameters) {
         auto unit = new ChaosLordOnKarkadrak();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
         bool ok = unit->configure();

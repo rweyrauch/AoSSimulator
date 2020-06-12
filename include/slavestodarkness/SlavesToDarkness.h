@@ -16,14 +16,14 @@
 
 namespace SlavesToDarkness {
 
-    enum DamnedLegion {
+    enum class DamnedLegion : int {
         Ravagers,
         Cabalists,
         Despoilers,
-        HostOfTheEverchosen
+        Host_of_the_Everchosen
     };
 
-    enum MarkOfChaos {
+    enum class MarkOfChaos : int {
         Undivided,
         Nurgle,
         Khorne,
@@ -31,18 +31,72 @@ namespace SlavesToDarkness {
         Tzeentch
     };
 
-    const std::array<int, 4> g_damnedLegion = {
-            Ravagers,
-            Cabalists,
-            Despoilers,
-            HostOfTheEverchosen
+    enum class Lore : int {
+        None,
+
+        // Lore of the Damned
+        Binding_Damnation,
+        Spite_Tongue_Curse,
+        Whispers_of_Chaos,
+        Mask_of_Darkness,
+        Call_to_Glory,
+        Ruinous_Vigour
     };
-    const std::array<int, 5> g_markOfChaos = {
-            Undivided,
-            Nurgle,
-            Khorne,
-            Slaanesh,
-            Tzeentch
+
+    enum class CommandTrait : int {
+        None,
+
+        // Ravagers
+        Bolstered_by_Hate,
+        Unquestioned_Resolve,
+        Favoured_of_the_Pantheon,
+        Eternal_Vendetta,
+        Flames_of_Spite,
+        Master_of_Deception,
+
+        // Cabalists
+        //Bolstered_by_Hate,
+        Lord_of_Terror,
+        //Favoured_of_the_Pantheon,
+        Mighty_Ritualist,
+        Blasphemous_Influence,
+        All_for_One,
+
+        // Despoilers
+        //Bolstered_by_Hate,
+        //Lord_of_Terror,
+        Lightning_Reflexes,
+        Radiance_of_Dark_Glory,
+        Distorting_Miasma,
+        Paragon_of_Ruin,
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Ravagers
+        Hellfire_Sword,
+        Blasphemous_Cuirass,
+        Helm_of_the_Oppressor,
+        Cloak_of_the_Relentless_Conqueror,
+        Mark_of_the_High_Favoured,
+        Desecrator_Gauntlets,
+
+        // Cabalists
+        Soul_Feeder,
+        Black_Athame,
+        Infernal_Puppet,
+        Spelleater_Pendant,
+        Scroll_of_Dark_Unravelling,
+        Spell_Familiar,
+
+        // Despoilers
+        Crown_of_Hellish_Adoration,
+        Helm_of_Many_Eyes,
+        Armour_of_Tortured_Souls,
+        Diabolic_Mantle,
+        Doombringer_Blade,
+        Realmwarpers_Twist_Rune
     };
 
     class SlavesToDarknessBase : public Unit {
@@ -75,8 +129,8 @@ namespace SlavesToDarkness {
 
     private:
 
-        DamnedLegion m_legion = Ravagers;
-        MarkOfChaos m_markOfChaos = Undivided;
+        DamnedLegion m_legion = DamnedLegion::Ravagers;
+        MarkOfChaos m_markOfChaos = MarkOfChaos::Undivided;
     };
 
     void Init();

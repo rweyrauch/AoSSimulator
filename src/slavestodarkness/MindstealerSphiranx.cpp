@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "slavestodarkness/MindstealerSphiranx.h"
+#include "SlavesToDarknessPrivate.h"
 
 
 namespace SlavesToDarkness {
@@ -20,7 +21,7 @@ namespace SlavesToDarkness {
     Unit *MindstealerSphiranx::Create(const ParameterList &parameters) {
         auto unit = new MindstealerSphiranx();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
         bool ok = unit->configure();

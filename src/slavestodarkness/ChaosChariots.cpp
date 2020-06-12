@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "slavestodarkness/ChaosChariots.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 120; // x92 oval
@@ -24,10 +25,10 @@ namespace SlavesToDarkness {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, GreatBladeAndWhip);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
         bool ok = unit->configure(numModels, weapons);

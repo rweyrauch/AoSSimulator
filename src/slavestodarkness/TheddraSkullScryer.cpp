@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "slavestodarkness/TheddraSkullScryer.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 32;
@@ -18,10 +19,12 @@ namespace SlavesToDarkness {
     Unit *TheddraSkullscryer::Create(const ParameterList &parameters) {
         auto unit = new TheddraSkullscryer();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -42,6 +45,7 @@ namespace SlavesToDarkness {
                     TheddraSkullscryer::ComputePoints,
                     {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS}
@@ -57,7 +61,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_wand};
     }
 
-    bool TheddraSkullscryer::configure() {
+    bool TheddraSkullscryer::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_wand);
         addModel(model);

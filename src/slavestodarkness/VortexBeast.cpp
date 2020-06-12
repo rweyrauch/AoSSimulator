@@ -10,6 +10,7 @@
 #include <climits>
 #include <Roster.h>
 #include "slavestodarkness/VortexBeast.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 120; // x92 oval
@@ -38,10 +39,10 @@ namespace SlavesToDarkness {
     Unit *MutalithVortexBeast::Create(const ParameterList &parameters) {
         auto unit = new MutalithVortexBeast();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
         bool ok = unit->configure();

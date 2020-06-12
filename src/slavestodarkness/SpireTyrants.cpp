@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "slavestodarkness/SpireTyrants.h"
+#include "SlavesToDarknessPrivate.h"
 
 
 namespace SlavesToDarkness {
@@ -24,7 +25,7 @@ namespace SlavesToDarkness {
         auto unit = new SpireTyrants();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
         bool ok = unit->configure(numModels);

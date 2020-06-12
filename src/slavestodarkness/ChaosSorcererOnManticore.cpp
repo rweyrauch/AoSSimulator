@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "slavestodarkness/ChaosSorcererOnManticore.h"
+#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 90; // x52 oval
@@ -36,13 +37,15 @@ namespace SlavesToDarkness {
     Unit *ChaosSorcererOnManticore::Create(const ParameterList &parameters) {
         auto unit = new ChaosSorcererOnManticore();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, Undivided);
+        auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -60,6 +63,7 @@ namespace SlavesToDarkness {
                     {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE}
@@ -81,7 +85,7 @@ namespace SlavesToDarkness {
         m_totalSpells = 1;
     }
 
-    bool ChaosSorcererOnManticore::configure() {
+    bool ChaosSorcererOnManticore::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_fangsAndClaws);

@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <magic_enum.hpp>
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Board.h>
 
@@ -49,34 +50,33 @@
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
 
+
 namespace SlavesToDarkness {
 
     std::string SlavesToDarknessBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Damned Legion") {
-            if (parameter.intValue == Ravagers) return "Ravagers";
-            else if (parameter.intValue == Cabalists) return "Cabalists";
-            else if (parameter.intValue == Despoilers) return "Despoilers";
-            else if (parameter.intValue == HostOfTheEverchosen) return "Host of the Everchosen";
+            auto legionName = magic_enum::enum_name((DamnedLegion)parameter.intValue);
+            return std::string(legionName);
         } else if (std::string(parameter.name) == "Mark of Chaos") {
-            if (parameter.intValue == Undivided) return "Undivided";
-            if (parameter.intValue == Nurgle) return "Nurgle";
-            if (parameter.intValue == Khorne) return "Khorne";
-            if (parameter.intValue == Slaanesh) return "Slaanesh";
-            if (parameter.intValue == Tzeentch) return "Tzeentch";
+            auto markName = magic_enum::enum_name((MarkOfChaos)parameter.intValue);
+            return std::string(markName);
+        } else if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
         }
         return ParameterValueToString(parameter);
     }
 
     int SlavesToDarknessBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Ravagers") return Ravagers;
-        else if (enumString == "Cabalists") return Cabalists;
-        else if (enumString == "Despoilers") return Despoilers;
-        else if (enumString == "Host of the Everchosen") return HostOfTheEverchosen;
-        else if (enumString == "Undivided") return Undivided;
-        else if (enumString == "Nurgle") return Nurgle;
-        else if (enumString == "Khorne") return Khorne;
-        else if (enumString == "Slaanesh") return Slaanesh;
-        else if (enumString == "Tzeentch") return Tzeentch;
+        auto legion = magic_enum::enum_cast<DamnedLegion>(enumString);
+        if (legion.has_value()) return (int)legion.value();
+
+        auto mark = magic_enum::enum_cast<MarkOfChaos>(enumString);
+        if (mark.has_value()) return (int)mark.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
         return 0;
     }
 
@@ -88,16 +88,16 @@ namespace SlavesToDarkness {
 
         m_legion = legion;
         switch (legion) {
-            case Ravagers:
+            case DamnedLegion::Ravagers:
                 addKeyword(RAVAGERS);
                 break;
-            case Cabalists:
+            case DamnedLegion::Cabalists:
                 addKeyword(CABALISTS);
                 break;
-            case Despoilers:
+            case DamnedLegion::Despoilers:
                 addKeyword(DESPOILERS);
                 break;
-            case HostOfTheEverchosen:
+            case DamnedLegion::Host_of_the_Everchosen:
                 addKeyword(HOST_OF_THE_EVERCHOSEN);
                 break;
             default:
@@ -115,19 +115,19 @@ namespace SlavesToDarkness {
         m_markOfChaos = mark;
 
         switch (mark) {
-            case Undivided:
+            case MarkOfChaos::Undivided:
                 addKeyword(UNDIVIDED);
                 break;
-            case Nurgle:
+            case MarkOfChaos::Nurgle:
                 addKeyword(NURGLE);
                 break;
-            case Khorne:
+            case MarkOfChaos::Khorne:
                 addKeyword(KHORNE);
                 break;
-            case Slaanesh:
+            case MarkOfChaos::Slaanesh:
                 addKeyword(SLAANESH);
                 break;
-            case Tzeentch:
+            case MarkOfChaos::Tzeentch:
                 addKeyword(TZEENTCH);
                 break;
         }

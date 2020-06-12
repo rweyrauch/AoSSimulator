@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <spells/MysticShield.h>
+#include "../slavestodarkness/SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int BASESIZE = 130;
@@ -54,7 +55,7 @@ namespace SlavesToDarkness {
         m_connection.disconnect();
     }
 
-    bool Archaon::configure() {
+    bool Archaon::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_slayerOfKings);
         model->addMeleeWeapon(&m_dorgharsClaws);
@@ -78,10 +79,12 @@ namespace SlavesToDarkness {
     Unit *Archaon::Create(const ParameterList &parameters) {
         auto unit = new Archaon();
 
-        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, Ravagers);
+        auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -98,6 +101,7 @@ namespace SlavesToDarkness {
                     ComputePoints,
                     {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     CHAOS,
                     {EVERCHOSEN, SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, NURGLE, SLAANESH}
