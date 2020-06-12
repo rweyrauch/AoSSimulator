@@ -9,6 +9,7 @@
 #include <beastsofchaos/GreatBrayShaman.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 32;
@@ -33,11 +34,13 @@ namespace BeastsOfChaos {
         m_connection.disconnect();
     }
 
-    bool GreatBrayShaman::configure() {
+    bool GreatBrayShaman::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_fetishStaff);
         addModel(model);
 
+        m_lore = lore;
+        
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -52,7 +55,13 @@ namespace BeastsOfChaos {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_brayherdCommandTrait[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_brayherdArtefact[0]);
+        unit->setArtefact(artefact);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheTwistedWilds[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -69,6 +78,10 @@ namespace BeastsOfChaos {
                     ComputePoints,
                     {
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
+                            EnumParameter("Command Trait", g_brayherdCommandTrait[0], g_brayherdCommandTrait),
+                            EnumParameter("Artefact", g_brayherdArtefact[0], g_brayherdArtefact),
+                            EnumParameter("Lore", g_loreOfTheTwistedWilds[0], g_loreOfTheTwistedWilds),
+
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

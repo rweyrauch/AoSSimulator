@@ -20,19 +20,33 @@ namespace StormcastEternals {
     // Command Traits
     //
     enum class CommandTrait : int {
+        None,
+
         // AspectsOfAzyr
         Shielded_By_Faith,
         Consummate_Commander,
         Cunning_Strategist,
         Zealous_Crusader,
         Staunch_Defender,
-        Champion_of_the_Realms
+        Champion_of_the_Realms,
+
+        // Stormhosts
+        We_Cannot_Fail, // Hammers of Sigmar
+        Martyrs_Strength, // Hallowed Knights
+        Single_Minded_Fury, // Celestial Vindicators
+        Deathly_Aura, // Anvils
+        Divine_Executioner, // Knights Excelsior
+        Portents_and_Omens, // Celestial Warbringers
+        Bonds_of_Noble_Duty, // Tempest Lords
+        Dauntless_Hunters // Astral Templars
     };
 
     //
     // Artefacts
     //
     enum class Artefact : int {
+        None,
+
         // StormForgedWeapons
         Strife_Ender,
         Blade_of_Heroes,
@@ -75,11 +89,22 @@ namespace StormcastEternals {
         // ScrollsOfPower
         Scroll_of_Unravelling,
         Scroll_of_Condemnation,
-        Storm_Scroll
+        Storm_Scroll,
+
+        // Stormhost
+        God_Forged_Blade,   // Hammers of Sigmar
+        Parchment_of_Purity, // Hallowed Knights
+        Stormrage_Blade, // Celestial Vindicators
+        Soulthief, // Anvils
+        Chains_of_Celestial_Lightning, // Knights Excelsior
+        Hammers_of_Augury, // Celestial Warbringers
+        Patricians_Helm, // Tempest Lords
+        Godbeast_Plate // Astral Templars
     };
 
     enum class Stormhost : int {
         None = 0,
+
         Hammers_of_Sigmar,
         Hallowed_Knights,
         Celestial_Vindicators,
@@ -102,6 +127,8 @@ namespace StormcastEternals {
         ~StormcastEternal() override = default;
 
         void setStormhost(Stormhost host);
+        void setArtefact(Artefact artefact);
+        void setCommandTrait(CommandTrait commandTrait);
 
     protected:
         StormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -120,7 +147,8 @@ namespace StormcastEternals {
     protected:
 
         Stormhost m_stormHost = Stormhost::None;
-
+        Artefact m_artefact = Artefact::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
     };
 
     void Init();

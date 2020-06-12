@@ -27,7 +27,7 @@ namespace Sylvaneth {
 
         ~DrychaHamadreth() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

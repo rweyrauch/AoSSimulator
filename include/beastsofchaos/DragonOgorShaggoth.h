@@ -27,7 +27,7 @@ namespace BeastsOfChaos {
 
         ~DragonOgorShaggoth() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -36,6 +36,8 @@ namespace BeastsOfChaos {
         Weapon m_stormWroughtAxe,
                 m_sweepingTail,
                 m_talonedForelimbs;
+
+        Lore m_lore = Lore::None;
 
         static bool s_registered;
     };

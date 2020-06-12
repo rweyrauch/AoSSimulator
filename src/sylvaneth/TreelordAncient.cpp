@@ -10,6 +10,7 @@
 #include <sylvaneth/TreelordAncient.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 105; // x70 oval
@@ -47,7 +48,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool TreelordAncient::configure() {
+    bool TreelordAncient::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_doomTendrilStaff);
         model->addMeleeWeapon(&m_sweepingBlows);
@@ -89,7 +90,14 @@ namespace Sylvaneth {
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
+
+        unit->setArtefact(artefact);
+        unit->setCommandTrait(trait);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -106,6 +114,9 @@ namespace Sylvaneth {
                     TreelordAncient::ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
+                            EnumParameter("Command Trait", g_aspectsOfRenewal[0], g_aspectsOfRenewal),
+                            EnumParameter("Artefact", g_relicsOfNature[0], g_relicsOfNature)
                     },
                     ORDER,
                     {SYLVANETH}

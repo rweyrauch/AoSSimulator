@@ -41,13 +41,13 @@ OBJECTS += \
         src/Think.o \
         src/pathfinders.o \
         src/spells/MysticShield.o \
-        src/spells/StormcastSpells.o \
-        src/spells/Empower.o \
-        src/spells/NikkitNikkit.o \
-        src/spells/LoreOfTheStorm.o \
-        src/spells/GloomspiteSpells.o \
-        src/spells/SylvanethSpells.o \
-        src/spells/SkavenSpells.o \
+        src/stormcast/StormcastSpells.o \
+        src/stormcast/Empower.o \
+        src/gloomspitegitz/NikkitNikkit.o \
+        src/stormcast/LoreOfTheStorm.o \
+        src/gloomspitegitz/GloomspiteSpells.o \
+        src/sylvaneth/SylvanethSpells.o \
+        src/skaven/SkavenSpells.o \
         src/stormcast/CelestantPrime.o \
         src/stormcast/Aetherwings.o \
         src/stormcast/StormcastEternals.o \

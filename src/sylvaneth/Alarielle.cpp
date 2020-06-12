@@ -13,6 +13,7 @@
 #include <sylvaneth/SylvanethSpells.h>
 #include <Board.h>
 #include <Roster.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 160;
@@ -55,7 +56,7 @@ namespace Sylvaneth {
         m_ghyransWrathSlot.disconnect();
     }
 
-    bool Alarielle::configure() {
+    bool Alarielle::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_spearOfKurnoth);
         model->addMeleeWeapon(&m_talonOfDwindling);
@@ -121,7 +122,9 @@ namespace Sylvaneth {
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -138,6 +141,7 @@ namespace Sylvaneth {
                     ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood)
                     },
                     ORDER,
                     {SYLVANETH}

@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/Bullgors.h>
 #include <UnitFactory.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 50;

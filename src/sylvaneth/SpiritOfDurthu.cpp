@@ -10,6 +10,7 @@
 #include <sylvaneth/SpiritOfDurthu.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 105; // x70 oval
@@ -89,6 +90,12 @@ namespace Sylvaneth {
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfWar[0]);
+
+        unit->setCommandTrait(trait);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -106,6 +113,8 @@ namespace Sylvaneth {
                     SpiritOfDurthu::ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Command Trait", g_aspectsOfWar[0], g_aspectsOfWar),
                     },
                     ORDER,
                     {SYLVANETH}

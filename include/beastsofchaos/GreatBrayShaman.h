@@ -27,7 +27,7 @@ namespace BeastsOfChaos {
 
         ~GreatBrayShaman() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -36,6 +36,7 @@ namespace BeastsOfChaos {
     private:
 
         Weapon m_fetishStaff;
+        Lore m_lore = Lore::None;
 
         lsignal::slot m_connection;
 

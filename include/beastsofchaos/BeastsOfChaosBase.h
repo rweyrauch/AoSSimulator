@@ -12,7 +12,6 @@
 #include <Unit.h>
 #include <UnitFactory.h>
 #include <Weapon.h>
-#include <array>
 
 namespace BeastsOfChaos {
 
@@ -23,11 +22,87 @@ namespace BeastsOfChaos {
         Gavespawn
     };
 
-    const std::array<int, 4> g_greatFray = {
-        (int)Greatfray::None,
-        (int)Greatfray::Allherd,
-        (int)Greatfray::Darkwalkers,
-        (int)Greatfray::Gavespawn
+    enum class CommandTrait : int {
+        None,
+
+        // Brayherd Alphabeast
+        Beastial_Cunning,
+        Indomitable_Beast,
+        Apex_Predator,
+        Malevolent_Despoiler,
+        Oracle_of_the_Dark_Tongue,
+        Shadowpelt,
+
+        // Warherd Alphabeast
+        Eater_of_Heroes,
+        Rampant_Juggernaut,
+        Gorger,
+        Gouge_Tusks,
+        Roaring_Brute,
+        Rugged_Hide,
+
+        // Thunderscorn
+        Tempestuous_Tyrant,
+        Magnetic_Monstrosity,
+        Father_of_the_Storm,
+        Lightning_Fast_Monstrosity,
+        Adamantine_Scales,
+        Ancient_Beyond_Knowledge,
+
+        // Fray-specific
+        Dominator, // Allherd
+        Nomadic_Leader, // Darkwalkers
+        Unraveling_Aura, // Gavespawn
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Spoils of the Brayherds
+        Ramhorn_Helm,
+        Brayblast_Trumpet,
+        The_Knowing_Eye,
+        Volcanic_Axe,
+        Bleating_Gnarlstaff,
+        Troggoth_Hide_Cloak,
+
+        // Spoils of the Warherds
+        Cleaver_of_the_Brass_Bell,
+        Gilded_Horns,
+        Glyph_Etched_Talisman,
+        Blackened_Armour_of_Chaos,
+        Champions_Doomcloak,
+        Herdstone_Shard,
+
+        // Spoils of the Thunderscorn
+        Ancestral_Azyrite_Blade,
+        Lightning_Chained_Bracers,
+        Thunderstrike_Lodestone,
+        Horn_of_the_Tempest,
+        Tanglehorn_Familiars,
+        Ruinous_Icon,
+
+        // Fray-specific
+        Blade_of_the_Desecrator, // Allherd
+        Desolate_Shard, // Darkwalkers
+        Mutating_Gnarlblade // Gavespawn
+    };
+
+    enum class Lore : int {
+        None,
+
+        // Lore of the Twisted Wilds
+        Viletide,
+        Vicious_Stanglethorns,
+        Savage_Dominion,
+        Tendrils_of_Atrophy,
+        Wild_Rampage,
+        Titanic_Fury,
+
+        // Lore of Dark Storms
+        Thunderwave,
+        Hailstorm,
+        Sundering_Blades
     };
 
     class BeastsOfChaosBase : public Unit {
@@ -43,6 +118,9 @@ namespace BeastsOfChaos {
 
         void setGreatfray(Greatfray fray);
 
+        void setArtefact(Artefact artefact);
+        void setCommandTrait(CommandTrait commandTrait);
+
     protected:
         BeastsOfChaosBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
@@ -52,7 +130,8 @@ namespace BeastsOfChaos {
     protected:
 
         Greatfray m_greatfray = Greatfray::None;
-
+        Artefact m_artefact = Artefact::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
     };
 
 //

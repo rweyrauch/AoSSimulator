@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/Razorgors.h>
 #include <UnitFactory.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 60; // x35 oval

@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/Cygor.h>
 #include <UnitFactory.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 120; // x92 oval

@@ -9,6 +9,7 @@
 #include <Dice.h>
 #include <sylvaneth/Treelord.h>
 #include <UnitFactory.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 105; // x70 oval

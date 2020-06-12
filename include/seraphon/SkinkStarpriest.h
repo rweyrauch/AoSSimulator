@@ -27,7 +27,7 @@ namespace Seraphon {
 
         ~SkinkStarpriest() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

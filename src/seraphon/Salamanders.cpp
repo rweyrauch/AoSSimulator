@@ -9,6 +9,7 @@
 #include <seraphon/Salamanders.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SeraphonPrivate.h"
 
 namespace Seraphon {
     static const int BASESIZE = 25;
@@ -56,8 +57,8 @@ namespace Seraphon {
         auto unit = new Salamanders();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure(numModels);
@@ -79,8 +80,8 @@ namespace Seraphon {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
                             BoolParameter("Stardrake Icon"),
                             BoolParameter("Wardrum"),
-                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
-                            EnumParameter("Constellation", NoConstellation, g_constellation)
+                            EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

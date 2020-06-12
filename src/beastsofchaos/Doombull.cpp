@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/Doombull.h>
 #include <UnitFactory.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 50;
@@ -41,6 +42,10 @@ namespace BeastsOfChaos {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
+        // TODO: set command trait
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_warherdCommandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_warherdArtefact[0]);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -58,6 +63,9 @@ namespace BeastsOfChaos {
                     ComputePoints,
                     {
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
+                            EnumParameter("Command Trait", g_warherdCommandTrait[0], g_warherdCommandTrait),
+                            EnumParameter("Artefact", g_warherdArtefact[0], g_warherdArtefact)
+
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

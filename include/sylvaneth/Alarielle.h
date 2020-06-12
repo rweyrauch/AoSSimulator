@@ -27,7 +27,7 @@ namespace Sylvaneth {
 
         ~Alarielle() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

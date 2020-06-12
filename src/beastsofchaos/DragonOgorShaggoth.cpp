@@ -9,6 +9,7 @@
 #include <beastsofchaos/DragonOgorShaggoth.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 90; // x52 oval;
@@ -29,12 +30,14 @@ namespace BeastsOfChaos {
         m_totalSpells = 1;
     }
 
-    bool DragonOgorShaggoth::configure() {
+    bool DragonOgorShaggoth::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_stormWroughtAxe);
         model->addMeleeWeapon(&m_sweepingTail);
         model->addMeleeWeapon(&m_talonedForelimbs);
         addModel(model);
+
+        m_lore = lore;
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -50,7 +53,15 @@ namespace BeastsOfChaos {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
-        bool ok = unit->configure();
+        // TODO: set command trait
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_thunderscornCommandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_thunderscornArtefact[0]);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDarkStorms[0]);
+
+        unit->setArtefact(artefact);
+        unit->setCommandTrait(trait);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -67,6 +78,9 @@ namespace BeastsOfChaos {
                     ComputePoints,
                     {
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
+                            EnumParameter("Command Trait", g_thunderscornCommandTrait[0], g_thunderscornCommandTrait),
+                            EnumParameter("Artefact", g_thunderscornArtefact[0], g_thunderscornArtefact),
+                            EnumParameter("Lore", g_loreOfTheDarkStorms[0], g_loreOfTheDarkStorms),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

@@ -27,7 +27,7 @@ namespace Sylvaneth {
 
         ~Branchwraith() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

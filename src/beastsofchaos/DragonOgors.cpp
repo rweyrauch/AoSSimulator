@@ -9,6 +9,7 @@
 #include <beastsofchaos/DragonOgors.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 90; // x52 oval

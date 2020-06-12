@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "sylvaneth/YlthariGardians.h"
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 32;

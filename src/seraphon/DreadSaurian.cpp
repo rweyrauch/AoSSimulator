@@ -8,6 +8,7 @@
 #include <seraphon/DreadSaurian.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SeraphonPrivate.h"
 
 namespace Seraphon {
     static const int BASESIZE = 280; // x210 oval
@@ -68,8 +69,8 @@ namespace Seraphon {
     Unit *DreadSaurian::Create(const ParameterList &parameters) {
         auto unit = new DreadSaurian();
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Seraphon::Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
         bool ok = unit->configure();
@@ -88,8 +89,8 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
-                            EnumParameter("Constellation", NoConstellation, g_constellation)
+                            EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },
                     ORDER,
                     {SERAPHON}

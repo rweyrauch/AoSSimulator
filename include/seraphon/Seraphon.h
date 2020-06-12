@@ -16,66 +16,37 @@
 
 namespace Seraphon {
 
-    enum WayOfTheSeraphon {
+    enum class WayOfTheSeraphon : int {
         Starborne,
         Coalesced
     };
 
-    const std::array<int, 2> g_wayOfTheSeraphon = {
-            Starborne,
-            Coalesced
-    };
-
-    enum Constellation {
-        NoConstellation,
-        KoatlsClaw,        // Coalesced
-        ThunderLizard,     // Coalesced
-        DracothionsTail,   // Starborne
-        FangsOfSotek,      // Starborne
-    };
-
-    const std::array<int, 5> g_constellation = {
-            NoConstellation,
-            KoatlsClaw,        // Coalesced
-            ThunderLizard,     // Coalesced
-            DracothionsTail,   // Starborne
-            FangsOfSotek,      // Starborne
+    enum class Constellation : int {
+        None,
+        Koatls_Claw,        // Coalesced
+        Thunder_Lizard,     // Coalesced
+        Dracothions_Tail,   // Starborne
+        Fangs_of_Sotek,      // Starborne
     };
 
     //
     // Command Traits
     //
-    enum CommandTrait {
+    enum class CommandTrait : int {
+        None,
+
         // Slann
-        ArcaneMight,
-        VastIntellect,
-        GreatRememberer,
+        Arcane_Might,
+        Vast_Intellect,
+        Great_Rememberer,
 
         // Saurus
-        DisciplinedFury,
-        ThicklyScaledHide,
-        MightyWarleader,
+        Disciplined_Fury,
+        Thickly_Scaled_Hide,
+        Mighty_Warleader,
 
         // Skink
-        MasterOfStarRituals,
-        Nimble,
-        Cunning
-    };
-
-    const std::array<int, 3> g_slannCommandTrait = {
-        ArcaneMight,
-        VastIntellect,
-        GreatRememberer
-    };
-
-    const std::array<int, 3> g_saurusCommandTrait {
-        DisciplinedFury,
-        ThicklyScaledHide,
-        MightyWarleader
-    };
-
-    const std::array<int, 3> g_skinkCommandTrait {
-        MasterOfStarRituals,
+        Master_of_Star_Rituals,
         Nimble,
         Cunning
     };
@@ -83,84 +54,49 @@ namespace Seraphon {
     //
     // Artefacts
     //
-    enum Artefact {
+    enum class Artefact : int {
+        None,
+
         // TreasuresOfTheOldOnes
-        ZoeticDial,
-        LightOfDracothian,
-        PrismOfAmyntok,
-        ItxiGrubs,
-        PlaqueOfDominion,
-        ThroneOfTheLostGods,
+        Zoetic_Dial,
+        Light_of_Dracothian,
+        Prism_of_Amyntok,
+        Itxi_Grubs,
+        Plaque_of_Dominion,
+        Throne_of_the_Lost_Gods,
 
         // CelestialRelicsOfTheWarrior
-        BladeOfRealities,
-        SigilsOfThePrimeHunter,
-        BloodRagePendant,
+        Blade_of_Realities,
+        Sigils_of_the_Prime_Hunter,
+        Blood_Rage_Pendant,
 
         // VestmentsOfThePriesthood
-        IncandescentRectrices,
-        CloakOfFeathers,
-        SacredStegadonHelm
-    };
-
-    const std::array<int, 6> g_treasuresOfTheOldOnes {
-        ZoeticDial,
-        LightOfDracothian,
-        PrismOfAmyntok,
-        ItxiGrubs,
-        PlaqueOfDominion,
-        ThroneOfTheLostGods
-    };
-
-    const std::array<int, 3> g_celestialRelicsOfTheWarrior {
-        BladeOfRealities,
-        SigilsOfThePrimeHunter,
-        BloodRagePendant
-    };
-
-    const std::array<int, 3> g_vestmentsOfThePriesthood {
-        IncandescentRectrices,
-        CloakOfFeathers,
-        SacredStegadonHelm
+        Incandescent_Rectrices,
+        Cloak_of_Feathers,
+        Sacred_Stegadon_Helm
     };
 
     //
     // Spells
     //
-    enum Lore {
+    enum class Lore : int {
+        None,
+
         // LoreOfCelestialDomination
-        CelestialApotheosis,
-        WalkBetweenRealms,
-        MysticalUnforging,
-        CelestialEquilibrium,
-        StellarTempest,
-        DrainMagic,
+        Celestial_Apotheosis,
+        Walk_Between_Realms,
+        Mystical_Unforging,
+        Celestial_Equilibrium,
+        Stellar_Tempest,
+        Drain_Magic,
 
         // LoreOfCelestialManipulation
-        CelestialHarmony,
-        HandOfGlory,
-        ExtendAstromatrix,
-        FieryConvocation,
-        BindEndlessSpell,
-        TideOfSerpents
-    };
-
-    const std::array<int, 6> g_loreOfCelestialDomination = {
-        CelestialApotheosis,
-        WalkBetweenRealms,
-        MysticalUnforging,
-        CelestialEquilibrium,
-        StellarTempest,
-        DrainMagic
-    };
-
-    const std::array<int, 6> g_loreOfCelestialManipulation = {
-        CelestialHarmony,
-        HandOfGlory,
-        ExtendAstromatrix,
-        FieryConvocation,
-        BindEndlessSpell,
-        TideOfSerpents
+        Celestial_Harmony,
+        Hand_of_Glory,
+        Extend_Astromatrix,
+        Fiery_Convocation,
+        Bind_Endless_Spell,
+        Tide_of_Serpents
     };
 
     class SeraphonBase : public Unit {
@@ -175,6 +111,8 @@ namespace Seraphon {
         ~SeraphonBase() override = default;
 
         void setWayOfTheSeraphon(WayOfTheSeraphon way, Constellation constellation);
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
 
     protected:
 
@@ -199,8 +137,9 @@ namespace Seraphon {
     protected:
 
         WayOfTheSeraphon m_way = WayOfTheSeraphon::Coalesced;
-        Constellation m_constellation = Constellation::ThunderLizard;
-
+        Constellation m_constellation = Constellation::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

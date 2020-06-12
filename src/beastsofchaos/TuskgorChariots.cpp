@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/TuskgorChariots.h>
 #include <UnitFactory.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int BASESIZE = 105; // x70 ovals

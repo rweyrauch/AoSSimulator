@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <sylvaneth/TreeRevenants.h>
 #include <UnitFactory.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 32;

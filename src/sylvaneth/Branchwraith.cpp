@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <spells/MysticShield.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 32;
@@ -28,7 +29,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool Branchwraith::configure() {
+    bool Branchwraith::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_piercingTalons);
         addModel(model);
@@ -47,7 +48,14 @@ namespace Sylvaneth {
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
+
+        unit->setCommandTrait(trait);
+        unit->setArtefact(artefact);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -64,6 +72,9 @@ namespace Sylvaneth {
                     Branchwraith::ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
+                            EnumParameter("Artefact", g_relicsOfNature[0], g_relicsOfNature),
+                            EnumParameter("Command Trait", g_aspectsOfRenewal[0], g_aspectsOfRenewal)
                     },
                     ORDER,
                     {SYLVANETH}

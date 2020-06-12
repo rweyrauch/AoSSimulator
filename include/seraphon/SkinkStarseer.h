@@ -27,7 +27,7 @@ namespace Seraphon {
 
         ~SkinkStarseer() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

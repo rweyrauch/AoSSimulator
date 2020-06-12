@@ -7,6 +7,7 @@
  */
 #include <sylvaneth/SylvanethBase.h>
 #include <Board.h>
+#include <magic_enum.hpp>
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -87,27 +88,34 @@ namespace Sylvaneth {
 
     std::string SylvanethBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Glade") {
-            if (parameter.intValue == (int)Glade::Oakenbrow) { return "Oakenbrow"; }
-            else if (parameter.intValue == (int)Glade::Gnarlroot) { return "Gnarlroot"; }
-            else if (parameter.intValue == (int)Glade::Heartwood) { return "Heartwood"; }
-            else if (parameter.intValue == (int)Glade::Ironbark) { return "Ironbark"; }
-            else if (parameter.intValue == (int)Glade::Winterleaf) { return "Winterleaf"; }
-            else if (parameter.intValue == (int)Glade::Dreadwood) { return "Dreadwood"; }
-            else if (parameter.intValue == (int)Glade::Harvestboon) { return "Harvestboon"; }
-            else if (parameter.intValue == (int)Glade::None) { return "None"; }
+            auto gladeName = magic_enum::enum_name((Glade)parameter.intValue);
+            return std::string(gladeName);
+        } else if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        } else if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        } else if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
         }
         return ParameterValueToString(parameter);
     }
 
     int SylvanethBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Oakenbrow") { return (int)Glade::Oakenbrow; }
-        else if (enumString == "Gnarlroot") { return (int)Glade::Gnarlroot; }
-        else if (enumString == "Heartwood") { return (int)Glade::Heartwood; }
-        else if (enumString == "Ironbark") { return (int)Glade::Ironbark; }
-        else if (enumString == "Winterleaf") { return (int)Glade::Winterleaf; }
-        else if (enumString == "Dreadwood") { return (int)Glade::Dreadwood; }
-        else if (enumString == "Harvestboon") { return (int)Glade::Harvestboon; }
-        else if (enumString == "None") { return (int)Glade::None; }
+        auto glade = magic_enum::enum_cast<Glade>(enumString);
+        if (glade.has_value()) return (int)glade.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
         return 0;
     }
 
@@ -146,6 +154,14 @@ namespace Sylvaneth {
             }
         }
         return mod;
+    }
+
+    void SylvanethBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
+    }
+
+    void SylvanethBase::setCommandTrait(CommandTrait commandTrait) {
+        m_commandTrait = commandTrait;
     }
 
     void Init() {

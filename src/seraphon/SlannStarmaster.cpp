@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include "SeraphonPrivate.h"
 
 namespace Seraphon {
     static const int BASESIZE = 50;
@@ -25,7 +26,7 @@ namespace Seraphon {
         m_weapons = {&m_lightning};
     }
 
-    bool SlannStarmaster::configure() {
+    bool SlannStarmaster::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_lightning);
         addModel(model);
@@ -38,11 +39,19 @@ namespace Seraphon {
     Unit *SlannStarmaster::Create(const ParameterList &parameters) {
         auto unit = new SlannStarmaster();
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialDomination[0]);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_slannCommandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_treasuresOfTheOldOnes[0]);
+
+        unit->setArtefact(artefact);
+        unit->setCommandTrait(trait);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -58,8 +67,11 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
-                            EnumParameter("Constellation", NoConstellation, g_constellation)
+                            EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", g_constellation[0], g_constellation),
+                            EnumParameter("Command Trait", g_slannCommandTrait[0], g_slannCommandTrait),
+                            EnumParameter("Artefact", g_treasuresOfTheOldOnes[0], g_treasuresOfTheOldOnes),
+                            EnumParameter("Lore", g_loreOfCelestialDomination[0], g_loreOfCelestialDomination)
                     },
                     ORDER,
                     {SERAPHON}

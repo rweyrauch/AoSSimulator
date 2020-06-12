@@ -9,6 +9,7 @@
 #include <seraphon/SaurusOldblood.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SeraphonPrivate.h"
 
 namespace Seraphon {
     static const int BASESIZE = 32;
@@ -51,9 +52,15 @@ namespace Seraphon {
         auto unit = new SaurusOldblood();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, CelestiteWarblade);
 
-        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, Starborne);
-        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, NoConstellation);
+        auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
+        auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
+
+        unit->setArtefact(artefact);
+        unit->setCommandTrait(trait);
 
         bool ok = unit->configure(option);
         if (!ok) {
@@ -74,8 +81,10 @@ namespace Seraphon {
                     ComputePoints,
                     {
                             EnumParameter("Weapon", CelestiteWarblade, weapons),
-                            EnumParameter("Way of the Seraphon", Seraphon::Starborne, g_wayOfTheSeraphon),
-                            EnumParameter("Constellation", NoConstellation, g_constellation)
+                            EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
+                            EnumParameter("Constellation", g_constellation[0], g_constellation),
+                            EnumParameter("Command Trait", g_saurusCommandTrait[0], g_saurusCommandTrait),
+                            EnumParameter("Artefact", g_celestialRelicsOfTheWarrior[0], g_celestialRelicsOfTheWarrior)
                     },
                     ORDER,
                     {SERAPHON}

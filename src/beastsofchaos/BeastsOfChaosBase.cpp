@@ -77,6 +77,14 @@ namespace BeastsOfChaos {
         return wounds;
     }
 
+    void BeastsOfChaosBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
+    }
+
+    void BeastsOfChaosBase::setCommandTrait(CommandTrait commandTrait) {
+        m_commandTrait = commandTrait;
+    }
+
     void Init() {
         Beastlord::Init();
         Bestigors::Init();

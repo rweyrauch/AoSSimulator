@@ -10,6 +10,7 @@
 #include <sylvaneth/KurnothHunters.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int BASESIZE = 50;

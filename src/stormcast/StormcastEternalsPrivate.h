@@ -35,7 +35,7 @@ namespace StormcastEternals {
             to_integer(CommandTrait::Cunning_Strategist),
             to_integer(CommandTrait::Zealous_Crusader),
             to_integer(CommandTrait::Staunch_Defender),
-            to_integer(CommandTrait::Champion_of_the_Realms)
+            to_integer(CommandTrait::Champion_of_the_Realms),
     };
 
     constexpr std::array<int, 6> g_stormForgedWeapons = {
