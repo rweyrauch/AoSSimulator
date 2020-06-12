@@ -18,141 +18,87 @@ namespace GloomspiteGitz {
     //
     // Command Traits
     //
-    enum CommandTrait {
+    enum class CommandTrait : int {
+        None,
+
         // BlessingsOfTheBadMoon
-        CunningPlans,
-        FightAnotherDay,
-        SneakyStabba,
-        ToughNLeathery,
-        DeadShouty,
-        TheClammyHand,
+        Cunning_Plans,
+        Fight_Another_Day,
+        Sneaky_Stabba,
+        Tough_N_Leathery,
+        Dead_Shouty,
+        The_Clammy_Hand,
+
         //GiftsOfTheGloomspite
-        LowCunning,
-        SpitefulGit,
-        GreatShaman,
-        DodgyCharacter,
-        BossShaman,
-        LoonTouched,
+        Low_Cunning,
+        Spiteful_Git,
+        Great_Shaman,
+        Dodgy_Character,
+        Boss_Shaman,
+        Loon_Touched,
 
         // MarksOfTheSpiderGodsFavour
-        MonstrousMount,
-        MasterSpiderRider,
-        UlutatingBattleCry,
+        Monstrous_Mount,
+        Master_Spider_Rider,
+        Ulutating_Battle_Cry,
         //ToughNLeathery,
         //DeadShouty,
-        CreepingAssault,
+        Creeping_Assault,
 
         // FortuitousTroggbossTraits
-        ToughAsRocks,
-        AlphaTrogg,
+        Tough_As_Rocks,
+        Alpha_Trogg,
         Loonskin,
-        PulverisingGrip,
-        MightyBlow,
-        RealmstoneStuddedHide
-    };
-
-    const std::array<int, 6> g_blessingsOfTheBadMoon = {
-        CunningPlans,
-        FightAnotherDay,
-        SneakyStabba,
-        ToughNLeathery,
-        DeadShouty,
-        TheClammyHand
-    };
-
-    const std::array<int, 6> g_giftsOfTheGloomspite = {
-        LowCunning,
-        SpitefulGit,
-        GreatShaman,
-        DodgyCharacter,
-        BossShaman,
-        LoonTouched
-    };
-
-    const std::array<int, 6> g_marksOfTheSpiderGodsFavour = {
-        MonstrousMount,
-        MasterSpiderRider,
-        UlutatingBattleCry,
-        ToughNLeathery,
-        DeadShouty,
-        CreepingAssault,
-    };
-
-    const std::array<int, 6> g_fortuitousTroggbossTraits = {
-        ToughAsRocks,
-        AlphaTrogg,
-        Loonskin,
-        PulverisingGrip,
-        MightyBlow,
-        RealmstoneStuddedHide
+        Pulverising_Grip,
+        Mighty_Blow,
+        Realmstone_Studded_Hide
     };
 
     //
     // Artefact
     //
-    enum Artefact {
+    enum class Artefact : int {
+        None,
+
         // TroglodyticTreasures
-        SpitefulProdder,
-        BackstabbersBlade,
-        LoonstoneTalisman,
-        ThePipesOfDoom,
-        TheClammyCowl,
-        LeeringGitshield,
+        Spiteful_Prodder,
+        Backstabbers_Blade,
+        Loonstone_Talisman,
+        The_Pipes_of_Doom,
+        The_Clammy_Cowl,
+        Leering_Gitshield,
 
         // FoetidFetishes
-        SpiteshroomFamiliar,
-        MoonfaceMommet,
-        StaffOfSneakyStealin,
+        Spiteshroom_Familiar,
+        Moonface_Mommet,
+        Staff_of_Sneaky_Stealin,
 
         // VenomousValuables
-        TotemOfTheSpiderGod,
-        HeaddressOfManyEyes,
-        TheBlackFang,
-        NibblasIttyRing,
+        Totem_of_the_Spider_God,
+        Headdress_of_Many_Eyes,
+        The_Black_Fang,
+        Nibblas_Itty_Ring,
         Earskuttla,
-        WebStrungCloak,
+        Web_Strung_Cloak,
 
         // GlintyGubbinzThatTroggothsFound
-        ShinyWotnot,
-        GlowyHowzit,
-        PetGribbly
-    };
-
-    const std::array<int, 6> g_troglodyticTreasures = {
-        SpitefulProdder,
-        BackstabbersBlade,
-        LoonstoneTalisman,
-        ThePipesOfDoom,
-        TheClammyCowl,
-        LeeringGitshield
-    };
-
-    const std::array<int, 6> g_foetidFetishes = {
-        SpiteshroomFamiliar,
-        MoonfaceMommet,
-        StaffOfSneakyStealin
-    };
-
-    const std::array<int, 6> g_venomousValuables = {
-        TotemOfTheSpiderGod,
-        HeaddressOfManyEyes,
-        TheBlackFang,
-        NibblasIttyRing,
-        Earskuttla,
-        WebStrungCloak
-    };
-
-    const std::array<int, 3> g_glintyGubbinzThatTroggothsFound = {
-        ShinyWotnot,
-        GlowyHowzit,
-        PetGribbly
+        Shiny_Wotnot,
+        Glowy_Howzit,
+        Pet_Gribbly
     };
 
     class GloomspiteGitzBase : public Unit {
     public:
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
         GloomspiteGitzBase() = default;
 
         ~GloomspiteGitzBase() override = default;
+
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
 
     protected:
 
@@ -177,6 +123,8 @@ namespace GloomspiteGitz {
 
         bool m_movedMoon = false;
 
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

@@ -8,73 +8,18 @@
 #include <gloomspitegitz/GloomspiteSpells.h>
 #include <Unit.h>
 #include <Board.h>
+#include <magic_enum.hpp>
 
 namespace GloomspiteGitz {
 
     std::string ToString(Lore which) {
-        switch (which) {
-            case None:
-                return "None";
-            case VindictiveGlare:
-                return "Vindictive Glare";
-            case ItchyNuisance:
-                return "Itchy Nuisance";
-            case TheGreatGreenSpite:
-                return "The Great Green Spite";
-            case TheHandOfGork:
-                return "The Hand of Gork";
-            case SquigLure:
-                return "Squig Lure";
-            case CallDaMoon:
-                return "Call da Moon";
-            case DeadlyWebbing:
-                return "Deadly Webbing";
-            case VenomousSpiderlings:
-                return "Venomous Spiderlings";
-            case ScuttlingTerrors:
-                return "Scuttling Terrors";
-            case SneakyDistraction:
-                return "Sneaky Distraction";
-            case CurseOfDaSpiderGod:
-                return "Curse of da Spider God";
-            case GiftOfDaSpiderGod:
-                return "Gift of da Spider God";
-        }
-        return "";
+        return std::string(magic_enum::enum_name<Lore>(which));
     }
 
     bool FromString(const std::string &enumString, Lore &outLore) {
-        bool valid = true;
-
-        if (enumString == "None")
-            outLore = None;
-        else if (enumString == "Vindictive Glare")
-            outLore = VindictiveGlare;
-        else if (enumString == "Itchy Nuisance")
-            outLore = ItchyNuisance;
-        else if (enumString == "The Great Green Spite")
-            outLore = TheGreatGreenSpite;
-        else if (enumString == "The Hand of Gork")
-            outLore = TheHandOfGork;
-        else if (enumString == "Squig Lure")
-            outLore = SquigLure;
-        else if (enumString == "Call da Moon")
-            outLore = CallDaMoon;
-        else if (enumString == "Deadly Webbing")
-            outLore = DeadlyWebbing;
-        else if (enumString == "Venomous Spiderlings")
-            outLore = VenomousSpiderlings;
-        else if (enumString == "Scuttling Terrors")
-            outLore = ScuttlingTerrors;
-        else if (enumString == "Sneaky Distraction")
-            outLore = SneakyDistraction;
-        else if (enumString == "Curse of da Spider God")
-            outLore = CurseOfDaSpiderGod;
-        else if (enumString == "Gift of da Spider God")
-            outLore = GiftOfDaSpiderGod;
-        else
-            valid = false;
-        return valid;
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        outLore = lore.value();
+        return lore.has_value();
     }
 
     DamageSpell *CreateVindictiveGlare(Unit *caster) {
@@ -141,31 +86,31 @@ namespace GloomspiteGitz {
 
     Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
-            case None:
+            case Lore::None:
                 return nullptr;
-            case VindictiveGlare:
+            case Lore::Vindictive_Glare:
                 return CreateVindictiveGlare(caster);
-            case ItchyNuisance:
+            case Lore::Itchy_Nuisance:
                 return nullptr;
-            case TheGreatGreenSpite:
+            case Lore::The_Great_Green_Spite:
                 return new GreatGreenSpite(caster);
-            case TheHandOfGork:
+            case Lore::The_Hand_of_Gork:
                 return nullptr;
-            case SquigLure:
+            case Lore::Squig_Lure:
                 return nullptr;
-            case CallDaMoon:
+            case Lore::Call_da_Moon:
                 return nullptr;
-            case DeadlyWebbing:
+            case Lore::Deadly_Webbing:
                 return nullptr;
-            case VenomousSpiderlings:
+            case Lore::Venomous_Spiderlings:
                 return nullptr;
-            case ScuttlingTerrors:
+            case Lore::Scuttling_Terrors:
                 return nullptr;
-            case SneakyDistraction:
+            case Lore::Sneaky_Distraction:
                 return nullptr;
-            case CurseOfDaSpiderGod:
+            case Lore::Curse_of_da_Spider_God:
                 return nullptr;
-            case GiftOfDaSpiderGod:
+            case Lore::Gift_of_da_Spider_God:
                 return nullptr;
         }
         return nullptr;

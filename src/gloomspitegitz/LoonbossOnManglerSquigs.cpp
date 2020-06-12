@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 80;
@@ -98,6 +99,12 @@ namespace GloomspiteGitz {
     Unit *LoonbossOnManglerSquigs::Create(const ParameterList &parameters) {
         auto unit = new LoonbossOnManglerSquigs();
 
+        auto trait = (CommandTrait)GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact)GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -110,10 +117,12 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     LoonbossOnManglerSquigs::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     LoonbossOnManglerSquigs::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
+                            EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

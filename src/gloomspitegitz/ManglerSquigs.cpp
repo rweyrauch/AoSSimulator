@@ -104,8 +104,8 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     ManglerSquigs::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     ManglerSquigs::ComputePoints,
                     {
                     },

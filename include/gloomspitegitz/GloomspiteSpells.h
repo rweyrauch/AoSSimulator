@@ -14,46 +14,25 @@
 
 namespace GloomspiteGitz {
 
-    enum Lore {
+    enum class Lore : int {
         None,
 
         // LoreOfTheMoonclans
-        VindictiveGlare,
-        ItchyNuisance,
-        TheGreatGreenSpite,
-        TheHandOfGork,
-        SquigLure,
-        CallDaMoon,
+        Vindictive_Glare,
+        Itchy_Nuisance,
+        The_Great_Green_Spite,
+        The_Hand_of_Gork,
+        Squig_Lure,
+        Call_da_Moon,
 
         // LoreOfTheSpiderFangs
-        DeadlyWebbing,
-        VenomousSpiderlings,
-        ScuttlingTerrors,
-        SneakyDistraction,
-        CurseOfDaSpiderGod,
-        GiftOfDaSpiderGod
+        Deadly_Webbing,
+        Venomous_Spiderlings,
+        Scuttling_Terrors,
+        Sneaky_Distraction,
+        Curse_of_da_Spider_God,
+        Gift_of_da_Spider_God
     };
-
-    const std::array<int, 7> g_loreOfTheMoonclans = {
-        None,
-        VindictiveGlare,
-        ItchyNuisance,
-        TheGreatGreenSpite,
-        TheHandOfGork,
-        SquigLure,
-        CallDaMoon
-    };
-
-    const std::array<int, 7> g_loreOfTheSpiderFangs = {
-        None,
-        DeadlyWebbing,
-        VenomousSpiderlings,
-        ScuttlingTerrors,
-        SneakyDistraction,
-        CurseOfDaSpiderGod,
-        GiftOfDaSpiderGod
-    };
-
 
     std::string ToString(Lore which);
 

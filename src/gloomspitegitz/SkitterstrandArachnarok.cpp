@@ -91,8 +91,8 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     SkitterstrandArachnarok::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     SkitterstrandArachnarok::ComputePoints,
                     {
                     },

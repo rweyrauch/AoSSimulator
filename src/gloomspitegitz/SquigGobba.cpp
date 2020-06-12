@@ -53,8 +53,8 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     SquigGobba::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     SquigGobba::ComputePoints,
                     {
                     },

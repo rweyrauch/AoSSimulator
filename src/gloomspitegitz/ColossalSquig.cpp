@@ -114,8 +114,8 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     ColossalSquig::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     ColossalSquig::ComputePoints,
                     {
                     },

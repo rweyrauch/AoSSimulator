@@ -11,6 +11,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 40;
@@ -48,6 +49,12 @@ namespace GloomspiteGitz {
         auto unit = new LoonbossOnGiantCaveSquig();
         WeaponOptions weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
 
+        auto trait = (CommandTrait)GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact)GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure(weapon);
         if (!ok) {
             delete unit;
@@ -61,7 +68,7 @@ namespace GloomspiteGitz {
             if (parameter.intValue == Mooncutta) { return "Mooncutta"; }
             else if (parameter.intValue == MoonclanStabba) { return "MoonclanStabba"; }
         }
-        return ParameterValueToString(parameter);
+        return GloomspiteGitzBase::ValueToString(parameter);
     }
 
     int LoonbossOnGiantCaveSquig::EnumStringToInt(const std::string &enumString) {
@@ -70,7 +77,7 @@ namespace GloomspiteGitz {
         } else if (enumString == "MoonclanStabba") {
             return MoonclanStabba;
         }
-        return 0;
+        return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
     void LoonbossOnGiantCaveSquig::Init() {
@@ -81,6 +88,8 @@ namespace GloomspiteGitz {
                     LoonbossOnGiantCaveSquig::EnumStringToInt,
                     LoonbossOnGiantCaveSquig::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
+                            EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

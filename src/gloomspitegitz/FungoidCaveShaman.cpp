@@ -11,6 +11,7 @@
 #include <Roster.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 32;
@@ -51,6 +52,9 @@ namespace GloomspiteGitz {
         auto unit = new FungoidCaveShaman();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, None);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
+        unit->setCommandTrait(trait);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -67,7 +71,8 @@ namespace GloomspiteGitz {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Lore of the Moonclans", None, g_loreOfTheMoonclans),
+                        EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
+                        EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -81,15 +86,11 @@ namespace GloomspiteGitz {
         if (std::string(parameter.name) == "Lore of the Moonclans") {
             return ToString((Lore) parameter.intValue);
         }
-        return ParameterValueToString(parameter);
+        return GloomspiteGitzBase::ValueToString(parameter);
     }
 
     int FungoidCaveShaman::EnumStringToInt(const std::string &enumString) {
-        Lore lore;
-        if (FromString(enumString, lore)) {
-            return lore;
-        }
-        return 0;
+        return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
     void FungoidCaveShaman::onStartHero(PlayerId playerId) {

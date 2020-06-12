@@ -128,7 +128,7 @@ Unit* GenerateRandomUnit()
             int value = allInts(gen) % 2;
             ip.intValue = value;
         }
-        else if (ip.paramType == ParamType::Integer || ip.paramType == ParamType::Enum)
+        else if (ip.paramType == ParamType::Integer)
         {
             int minValue = ip.minValue;
             if (ip.increment != 0) minValue /= ip.increment;
@@ -140,6 +140,11 @@ Unit* GenerateRandomUnit()
             int value = allInts(gen) % valueRange + minValue;
             if (ip.increment != 0) value *= ip.increment;
 
+            ip.intValue = value;
+        }
+        else if (ip.paramType == ParamType::Enum)
+        {
+            int value = allInts(gen) % ip.numValues;
             ip.intValue = value;
         }
     }

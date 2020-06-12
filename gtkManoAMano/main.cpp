@@ -403,10 +403,10 @@ void createConfigUI(const std::string& unitName, Gtk::Box *pContainer)
                 pLabel->show();
 
                 Gtk::ComboBoxText *pCombo = Gtk::manage(new Gtk::ComboBoxText());
-                for (auto i = ip.minValue; i <= ip.maxValue; i += ip.increment)
+                for (auto i = 0; i < ip.numValues; i++)
                 {
                     Parameter param = ip;
-                    param.intValue = i;
+                    param.intValue = ip.values[i];
                     pCombo->append(factory->m_paramToString(param));
                 }
                 pCombo->set_active_text(factory->m_paramToString(ip));

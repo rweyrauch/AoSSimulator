@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 160;
@@ -102,8 +103,13 @@ namespace GloomspiteGitz {
 
     Unit *WebspinnerShamanOnArachnarokSpider::Create(const ParameterList &parameters) {
         auto unit = new WebspinnerShamanOnArachnarokSpider();
-        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters,
-                                                        (int) None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheSpiderFangs[0]);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -121,7 +127,9 @@ namespace GloomspiteGitz {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Lore of the Spiderfangs", None, g_loreOfTheSpiderFangs)
+                            EnumParameter("Lore of the Spiderfangs", g_loreOfTheSpiderFangs[0], g_loreOfTheSpiderFangs),
+                            EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
+                            EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -135,15 +143,11 @@ namespace GloomspiteGitz {
         if (std::string(parameter.name) == "Lore of the Spiderfangs") {
             return ToString((Lore) parameter.intValue);
         }
-        return ParameterValueToString(parameter);
+        return GloomspiteGitzBase::ValueToString(parameter);
     }
 
     int WebspinnerShamanOnArachnarokSpider::EnumStringToInt(const std::string &enumString) {
-        Lore lore;
-        if (FromString(enumString, lore)) {
-            return (int) lore;
-        }
-        return 0;
+        return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
     Wounds WebspinnerShamanOnArachnarokSpider::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,

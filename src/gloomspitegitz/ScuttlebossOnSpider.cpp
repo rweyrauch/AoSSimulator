@@ -11,6 +11,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 60;
@@ -41,6 +42,12 @@ namespace GloomspiteGitz {
     Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters) {
         auto unit = new ScuttlebossOnGiganticSpider();
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_marksOfTheSpiderGodsFavour[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -53,10 +60,12 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     ScuttlebossOnGiganticSpider::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     ScuttlebossOnGiganticSpider::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_marksOfTheSpiderGodsFavour[0], g_marksOfTheSpiderGodsFavour),
+                            EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

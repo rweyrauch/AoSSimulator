@@ -180,7 +180,7 @@ namespace GloomspiteGitz {
                 return "Pokin' Spear";
             }
         }
-        return ParameterValueToString(parameter);
+        return GloomspiteGitzBase::ValueToString(parameter);
     }
 
     int Stabbas::EnumStringToInt(const std::string &enumString) {
@@ -189,7 +189,7 @@ namespace GloomspiteGitz {
         } else if (enumString == "Pokin' Spear") {
             return PokinSpear;
         }
-        return 0;
+        return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
     int Stabbas::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

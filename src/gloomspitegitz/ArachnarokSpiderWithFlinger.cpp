@@ -99,8 +99,8 @@ namespace GloomspiteGitz {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     ArachnarokSpiderWithFlinger::Create,
-                    nullptr,
-                    nullptr,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
                     ArachnarokSpiderWithFlinger::ComputePoints,
                     {
                     },

@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int BASESIZE = 32;
@@ -46,8 +47,13 @@ namespace GloomspiteGitz {
 
     Unit *MadcapShaman::Create(const ParameterList &parameters) {
         auto unit = new MadcapShaman();
-        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters,
-                                                      (int) None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_foetidFetishes[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -65,7 +71,9 @@ namespace GloomspiteGitz {
                     MadcapShaman::EnumStringToInt,
                     MadcapShaman::ComputePoints,
                     {
-                        EnumParameter("Lore of the Moonclans", None, g_loreOfTheMoonclans)
+                        EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
+                            EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
+                            EnumParameter("Artefact", g_foetidFetishes[0], g_foetidFetishes)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -78,15 +86,11 @@ namespace GloomspiteGitz {
         if (std::string(parameter.name) == "Lore of the Moonclans") {
             return ToString((Lore) parameter.intValue);
         }
-        return ParameterValueToString(parameter);
+        return GloomspiteGitzBase::ValueToString(parameter);
     }
 
     int MadcapShaman::EnumStringToInt(const std::string &enumString) {
-        Lore lore;
-        if (FromString(enumString, lore)) {
-            return (int) lore;
-        }
-        return 0;
+        return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
     int MadcapShaman::ComputePoints(int /*numModels*/) {

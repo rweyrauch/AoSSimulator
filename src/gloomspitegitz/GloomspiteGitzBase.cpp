@@ -9,6 +9,7 @@
 #include <Board.h>
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <gloomspitegitz/BadMoon.h>
+#include <magic_enum.hpp>
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
 #include "gloomspitegitz/LoonbossOnManglerSquigs.h"
@@ -44,8 +45,37 @@
 #include "gloomspitegitz/SporesplattaFanatics.h"
 #include "gloomspitegitz/Mollog.h"
 #include "gloomspitegitz/Gobbapalooza.h"
+#include "../AoSSimPrivate.h"
 
 namespace GloomspiteGitz {
+
+    std::string GloomspiteGitzBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Lore") {
+            return ToString((Lore) parameter.intValue);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        return ParameterValueToString(parameter);
+    }
+
+    int GloomspiteGitzBase::EnumStringToInt(const std::string &enumString) {
+        Lore lore;
+        if (FromString(enumString, lore)) return to_integer(lore);
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        return 0;
+    }
 
     void GloomspiteGitzBase::onBeginRound(int battleRound) {
         Unit::onBeginRound(battleRound);
@@ -158,6 +188,14 @@ namespace GloomspiteGitz {
         if (hasKeyword(SQUIG) && inLightOfTheBadMoon()) {
             buffMovement(RunAndCharge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
         }
+    }
+
+    void GloomspiteGitzBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void GloomspiteGitzBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {
