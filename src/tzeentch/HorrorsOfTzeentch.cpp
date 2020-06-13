@@ -9,6 +9,7 @@
 #include <tzeentch/HorrorsOfTzeentch.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 32;
@@ -73,7 +74,7 @@ namespace Tzeentch {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels, iconBearer, hornblower);

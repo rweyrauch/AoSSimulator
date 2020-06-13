@@ -128,6 +128,14 @@ namespace Tzeentch {
         return mod;
     }
 
+    void TzeentchBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void TzeentchBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
+    }
+
     void Init() {
         CurselingEyeOfTzeentch::Init();
         ExaltedFlamersOfTzeentch::Init();

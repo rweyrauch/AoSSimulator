@@ -11,9 +11,9 @@
 #include <stormcast/KnightIncantor.h>
 #include <stormcast/Liberators.h>
 #include <Spell.h>
-#include <spells/LoreOfTheStorm.h>
-#include <spells/GloomspiteSpells.h>
-#include <spells/StormcastSpells.h>
+#include <stormcast/LoreOfTheStorm.h>
+#include <gloomspitegitz/GloomspiteSpells.h>
+#include <stormcast/StormcastSpells.h>
 #include <Roster.h>
 #include <Board.h>
 
@@ -21,12 +21,12 @@
 TEST(Spells, ArcaneBolt)
 {
     auto caster = std::make_unique<StormcastEternals::KnightIncantor>();
-    caster->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
-    caster->setPosition(Math::Point3(0,0,0), Math::Vector3(1,0,0));
+    caster->configure(StormcastEternals::Lore::Lightning_Blast);
+    caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto target = std::make_unique<StormcastEternals::Liberators>();
     target->configure(5, StormcastEternals::Liberators::Warhammer, false, 0, 0);
-    target->setPosition(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
+    target->deploy(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
     auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster.get()));
 
@@ -42,7 +42,7 @@ TEST(Spells, ArcaneBolt)
     }
 
     // Move target out of range
-    target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
+    target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
     auto ok = spell->cast(target.get(), 1);
     ASSERT_EQ(ok, Spell::Failed);
 }
@@ -50,12 +50,12 @@ TEST(Spells, ArcaneBolt)
 TEST(Spells, PrimeElectrids)
 {
     auto caster = std::make_unique<StormcastEternals::KnightIncantor>();
-    caster->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
-    caster->setPosition(Math::Point3(0,0,0), Math::Vector3(1,0,0));
+    caster->configure(StormcastEternals::Lore::Lightning_Blast);
+    caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto target = std::make_unique<StormcastEternals::Liberators>();
     target->configure(5, StormcastEternals::Liberators::Warhammer, false, 0, 0);
-    target->setPosition(Math::Point3(12,0,0), Math::Vector3(-1,0,0));
+    target->deploy(Math::Point3(12,0,0), Math::Vector3(-1,0,0));
 
     auto spell = std::unique_ptr<Spell>(CreatePrimeElectrids(caster.get()));
 
@@ -72,7 +72,7 @@ TEST(Spells, PrimeElectrids)
     }
 
     // Move target out of range
-    target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
+    target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
     auto ok = spell->cast(target.get(), 1);
     ASSERT_EQ(ok, Spell::Failed);
 }
@@ -80,15 +80,15 @@ TEST(Spells, PrimeElectrids)
 TEST(Spells, Unbind)
 {
     auto caster = new StormcastEternals::KnightIncantor();
-    caster->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
-    caster->setPosition(Math::Point3(0,0,0), Math::Vector3(1,0,0));
+    caster->configure(StormcastEternals::Lore::Azyrite_Halo);
+    caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto red = new Roster(PlayerId::Red);
     red->addUnit(caster);
 
     auto target = new StormcastEternals::KnightIncantor();
-    target->configure(LoreOfTheStorm::None, LoreOfInvigoration::None);
-    target->setPosition(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
+    target->configure(StormcastEternals::Lore::Azyrite_Halo);
+    target->deploy(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
     auto blue = new Roster(PlayerId::Blue);
     blue->addUnit(target);
@@ -113,7 +113,7 @@ TEST(Spells, Unbind)
     }
 
     // Move target out of range
-    target->setPosition(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
+    target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
     auto ok = spell->cast(target, 1);
     ASSERT_EQ(ok, Spell::Failed);
 

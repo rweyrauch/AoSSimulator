@@ -192,6 +192,14 @@ namespace StormcastEternals {
         }
     }
 
+    void StormcastEternal::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
+    }
+
+    void StormcastEternal::setCommandTrait(CommandTrait commandTrait) {
+        m_commandTrait = commandTrait;
+    }
+
     void Init() {
         CelestantPrime::Init();
         AventisFirestrike::Init();

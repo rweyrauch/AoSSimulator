@@ -164,7 +164,7 @@ TEST(Unit, BallistaVsAlarielle)
     //ballista2.buffToHitMissile(1);
 
     Sylvaneth::Alarielle alarielle;
-    ok = alarielle.configure();
+    ok = alarielle.configure(Sylvaneth::Lore::None);
     ASSERT_TRUE(ok);
 
     for (auto i = 0; i < 5; i++)
@@ -226,7 +226,7 @@ TEST(Unit, BallistaVsAlarielle)
 TEST(Unit, DamageTable)
 {
     Sylvaneth::Alarielle alarielle;
-    bool ok = alarielle.configure();
+    bool ok = alarielle.configure(Sylvaneth::Lore::None);
     ASSERT_TRUE(ok);
 
     Wounds wounds;

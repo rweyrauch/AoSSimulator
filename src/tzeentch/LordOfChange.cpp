@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/LordOfChange.h"
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 100;
@@ -40,6 +41,12 @@ namespace Tzeentch {
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(weapon);
         if (!ok) {
@@ -76,6 +83,9 @@ namespace Tzeentch {
                     {
                             EnumParameter( "Weapon", BalefulSword, weapons),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
+                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange)
                     },
                     CHAOS,
                     {TZEENTCH}

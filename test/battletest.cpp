@@ -46,7 +46,7 @@ TEST(Battle, BallistaVsAlarielle)
     //ballista2->buffToHitMissile(1);
 
     auto alarielle = new Sylvaneth::Alarielle();
-    ok = alarielle->configure();
+    ok = alarielle->configure(Sylvaneth::Lore::None);
     ASSERT_TRUE(ok);
 
     ballista0->setShootingTarget(alarielle);

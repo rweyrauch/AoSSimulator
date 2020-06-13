@@ -49,7 +49,13 @@ namespace Khorne {
         //Slaughterborn,
         Rage_Unchained,
         Aspect_of_Death,
-        Devastating_Blow
+        Devastating_Blow,
+
+        // Slaughterhost specific
+        Mage_Eater, // Reapers
+        Slaughterers_Thirst,    // Bloodlords
+        Hew_the_Foe,    // Goretide
+        Master_Decapitator  // Skullfiend
     };
 
     enum class Artefact : int {
@@ -89,7 +95,13 @@ namespace Khorne {
         Mark_of_the_Bloodreaper,
         Collar_of_Khorne,
         Crimson_Soulstone,
-        Mark_of_the_Slayer
+        Mark_of_the_Slayer,
+
+        // Slaughterhost specific
+        Skullshard_Mantle,  // Reapers
+        Halo_of_Blood,  // Bloodlords
+        Thronebreakers_Torc,    // Goretide
+        Crowncleaver    // Skullfiend
     };
 
     class KhorneBase : public Unit {

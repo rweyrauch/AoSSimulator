@@ -9,6 +9,7 @@
 #include <tzeentch/ExaltedFlamersOfTzeentch.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 75; // x42
@@ -49,7 +50,7 @@ namespace Tzeentch {
         auto unit = new ExaltedFlamersOfTzeentch();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels);

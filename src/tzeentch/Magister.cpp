@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/Magister.h"
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 32;
@@ -40,6 +41,9 @@ namespace Tzeentch {
                     Magister::ComputePoints,
                     {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
+                            EnumParameter("Command Trait", g_arcaniteCommandTraits[0], g_arcaniteCommandTraits),
+                            EnumParameter("Artefact", g_arcaniteArtefacts[0], g_arcaniteArtefacts),
+                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate)
                     },
                     CHAOS,
                     {TZEENTCH}

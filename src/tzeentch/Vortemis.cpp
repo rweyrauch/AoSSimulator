@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/Vortemis.h"
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 40;
@@ -38,6 +39,7 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     VortemisTheAllSeeing::ComputePoints,
                     {
+                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate)
                     },
                     CHAOS,
                     {TZEENTCH}

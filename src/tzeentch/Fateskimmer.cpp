@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/Fateskimmer.h"
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 40;
@@ -20,7 +21,7 @@ namespace Tzeentch {
     Unit *Fateskimmer::Create(const ParameterList &parameters) {
         auto unit = new Fateskimmer();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure();
@@ -40,6 +41,9 @@ namespace Tzeentch {
                     Fateskimmer::ComputePoints,
                     {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
+                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange)
                     },
                     CHAOS,
                     {TZEENTCH}

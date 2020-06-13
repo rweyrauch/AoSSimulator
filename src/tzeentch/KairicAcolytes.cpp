@@ -9,6 +9,7 @@
 #include <tzeentch/KairicAcolytes.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 32;
@@ -125,7 +126,7 @@ namespace Tzeentch {
         int numScrollsOfDarkArts = GetIntParam("Scrolls Of Dark Arts", parameters, 0);
         int numVulcharcs = GetIntParam("Vulcharcs", parameters, 0);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels, weapons, numCursedGlaives, numScrollsOfDarkArts, numVulcharcs);

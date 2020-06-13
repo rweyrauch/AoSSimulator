@@ -16,7 +16,7 @@
 
 namespace Tzeentch {
 
-    enum class ChangeCoven: int {
+    enum class ChangeCoven : int {
         None,
         EternalConflagration,
         HostsDuplicitous,
@@ -26,14 +26,91 @@ namespace Tzeentch {
         GuildOfSummoners
     };
 
-    const std::array<int, 7> g_changeCoven = {
-            (int)ChangeCoven::None,
-            (int)ChangeCoven::EternalConflagration,
-            (int)ChangeCoven::HostsDuplicitous,
-            (int)ChangeCoven::HostsArcanum,
-            (int)ChangeCoven::CultOfTheTransientForm,
-            (int)ChangeCoven::PyrofaneCult,
-            (int)ChangeCoven::GuildOfSummoners
+    enum class CommandTrait : int {
+        None,
+
+        // Arcanites
+        Arch_Sorcerer,
+        Nexus_of_Fate,
+        Magical_Supremancy,
+        Boundless_Mutation,
+        Cult_Demagogue,
+        Arcane_Sacrifice,
+
+        // Mortals
+        // Nexus_of_Fate,
+        Soul_Burn,
+        Illusionist,
+
+        // Daemons
+        //Arch_Sorcerer,
+        //Nexus_of_Fate,
+        //Magical_Supremancy,
+        Daemonspark,
+        Incorporeal_Form,
+        Aether_Tether,
+
+        // Coven specific
+        Coruscating_Flames,  // Eternal Conflaguration
+        Will_of_the_Phantom_Lord,   // Host Duplicitous
+        Spell_Hunters,  // Hosts Arcanum
+        Defiant_in_their_Pursuit,   // Transient Form
+        Shrouded_in_Unnatural_Flame,    // Pyrofane Cult
+        Prophet_of_the_Ostensible  // Guild of Summoners
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Arcanites
+        Ambitions_End,
+        Secret_Eater,
+        Spiteful_Shield,
+
+        // Mortals
+        Wicked_Shard,
+        Changeblade,
+        Nexus_Staff,
+        Timeslip_Pendant,
+        Daemonheart,
+        Paradoxical_Shield,
+
+        // Daemons
+        Warpfire_Blade,
+        Sentient_Weapon,
+        Blade_of_Fate,
+        Souleater,
+        Phatasmal_Weapons,
+        Pyrofyre_Stave,
+        Aura_of_Mutabulity,
+        Wellspring_of_Arcane_Might,
+        Aspect_of_Tzeentch,
+
+        // Coven specific
+        Shroud_of_Warpflame, // Eternal Conflaguration
+        Brand_of_the_Split_Daemon,   // Host Duplicitous
+        The_Fanged_Circlet, // Hosts Arcanum
+        Chaotica_Amulet,    // Transient Form
+        Chainfire_Amulet,   // Pyrofane Cult
+        Brimstone_Familiar // Guild of Summoners
+    };
+
+    enum class Lore : int {
+        // Lore of Fate
+        Bolt_of_Tzeentch,
+        Arcane_Suggestion,
+        Glimpse_the_Future,
+        Shield_of_Faith,
+        Infusion_Arcanum,
+        Treacherous_Bond,
+
+        // Lore of Change
+        //Bolt_of_Tzeentch,
+        Treason_of_Tzeentch,
+        Arcane_Transformation,
+        Unchecked_Mutation,
+        Fold_Reality,
+        Tzeentchs_Firestorm
     };
 
     class TzeentchBase : public Unit {
@@ -48,7 +125,8 @@ namespace Tzeentch {
         ~TzeentchBase() override = default;
 
         void setChangeCoven(ChangeCoven coven);
-
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
     protected:
 
         TzeentchBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -65,6 +143,9 @@ namespace Tzeentch {
     private:
 
         ChangeCoven m_coven = ChangeCoven::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
+
     };
 
     void Init();

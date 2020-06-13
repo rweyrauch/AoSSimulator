@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/KairosFateweaver.h"
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 100;
@@ -37,7 +38,7 @@ namespace Tzeentch {
     Unit *KairosFateweaver::Create(const ParameterList &parameters) {
         auto unit = new KairosFateweaver();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure();
@@ -57,6 +58,7 @@ namespace Tzeentch {
                     KairosFateweaver::ComputePoints,
                     {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
+                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange)
                     },
                     CHAOS,
                     {TZEENTCH}
@@ -70,8 +72,7 @@ namespace Tzeentch {
             m_staff(Weapon::Type::Melee, "Staff of Tomorrow", 3, 3, 3, 1, -1, 2),
             m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, MONSTER, HERO, WIZARD, LORD_OF_CHANGE, KAIROS_FATEWEAVER};
-        m_weapons = {&m_staff,
-                     &m_beakAndTalons};
+        m_weapons = {&m_staff, &m_beakAndTalons};
 
         m_totalSpells = 3;
         m_totalUnbinds = 3;

@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include <Roster.h>
 #include "tzeentch/GauntSummoner.h"
+#include "TzeentchPrivate.h"
 
 namespace Tzeentch {
     static const int BASESIZE = 40;
@@ -21,7 +22,7 @@ namespace Tzeentch {
     Unit *GauntSummonerOfTzeentch::Create(const ParameterList &parameters) {
         auto unit = new GauntSummonerOfTzeentch();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure();
@@ -41,6 +42,8 @@ namespace Tzeentch {
                     GauntSummonerOfTzeentch::ComputePoints,
                     {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
+                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange)
+
                     },
                     CHAOS,
                     {TZEENTCH, SLAVES_TO_DARKNESS}
