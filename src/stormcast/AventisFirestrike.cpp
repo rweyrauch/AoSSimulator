@@ -73,7 +73,6 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
-                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

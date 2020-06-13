@@ -7,6 +7,7 @@
  */
 #include <khorne/KhorneBase.h>
 #include <Board.h>
+#include <magic_enum.hpp>
 
 #include "khorne/Bloodreavers.h"
 #include "khorne/BloodWarriors.h"
@@ -52,16 +53,16 @@ namespace Khorne {
 
         m_slaughterHost = host;
         switch (m_slaughterHost) {
-            case ReapersOfVengeance:
+            case SlaughterHost::Reapers_of_Vengeance:
                 addKeyword(REAPERS_OF_VENGEANCE);
                 break;
-            case Bloodlords:
+            case SlaughterHost::Bloodlords:
                 addKeyword(BLOODLORDS);
                 break;
-            case Goretide:
+            case SlaughterHost::Goretide:
                 addKeyword(GORETIDE);
                 break;
-            case SkullfiendTribe:
+            case SlaughterHost::Skullfiend_Tribe:
                 addKeyword(SKULLFIEND_TRIBE);
                 break;
             default:
@@ -71,13 +72,13 @@ namespace Khorne {
 
     Rerolls KhorneBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Slay the Mighty
-        if (m_slaughterHost == Bloodlords) {
+        if (m_slaughterHost == SlaughterHost::Bloodlords) {
             if (hasKeyword(DAEMON) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
                 return RerollOnes;
             }
         }
-            // Tireless Conquerors
-        else if (m_slaughterHost == Goretide) {
+        // Tireless Conquerors
+        else if (m_slaughterHost == SlaughterHost::Goretide) {
             if (hasKeyword(MORTAL)) {
                 auto numObjMarkers = Board::Instance()->getNumObjectives();
                 for (auto i = 0; i < numObjMarkers; i++) {
@@ -95,7 +96,7 @@ namespace Khorne {
 
     Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Skull Hunters
-        if (m_slaughterHost == SkullfiendTribe) {
+        if (m_slaughterHost == SlaughterHost::Skullfiend_Tribe) {
             if (hasKeyword(MORTAL)) {
                 auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0);
                 if (hero) {
@@ -121,22 +122,39 @@ namespace Khorne {
 
     std::string KhorneBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Slaughter Host") {
-            if (parameter.intValue == ReapersOfVengeance) { return "Reapers of Vengeance"; }
-            else if (parameter.intValue == Bloodlords) { return "Bloodlords"; }
-            else if (parameter.intValue == Goretide) { return "Goretide"; }
-            else if (parameter.intValue == SkullfiendTribe) { return "Skullfiend Tribe"; }
-            else if (parameter.intValue == None) { return "None"; }
+            auto hostName = magic_enum::enum_name((SlaughterHost)parameter.intValue);
+            return std::string(hostName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
     }
 
     int KhorneBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Reapers of Vengeance") { return ReapersOfVengeance; }
-        else if (enumString == "Bloodlords") { return Bloodlords; }
-        else if (enumString == "Goretide") { return Goretide; }
-        else if (enumString == "Skullfiend Tribe") { return SkullfiendTribe; }
-        else if (enumString == "None") { return None; }
+        auto host = magic_enum::enum_cast<SlaughterHost>(enumString);
+        if (host.has_value()) return (int)host.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
         return 0;
+    }
+
+    void KhorneBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void KhorneBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

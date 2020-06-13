@@ -7,6 +7,7 @@
  */
 
 #include <Board.h>
+#include <magic_enum.hpp>
 #include "ossiarch/OssiarchBonereaperBase.h"
 
 #include "ossiarch/MortekGuard.h"
@@ -30,25 +31,34 @@ namespace OssiarchBonereapers {
 
     std::string OssiarchBonereaperBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Legion") {
-            if (parameter.intValue == MortisPraetorians) return "Mortis Praetorians";
-            else if (parameter.intValue == PetrifexElite) return "Petrifex Elite";
-            else if (parameter.intValue == StalliarchLords) return "Stalliarch Lords";
-            else if (parameter.intValue == IvoryHost) return "Ivory Host";
-            else if (parameter.intValue == NullMyriad) return "Null Myriad";
-            else if (parameter.intValue == Crematorians) return "Crematorians";
-            else if (parameter.intValue == NoLegion) return "No Legion";
+            auto legionName = magic_enum::enum_name((Legion)parameter.intValue);
+            return std::string(legionName);
+        } else if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        } else if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        } else if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
         }
         return ParameterValueToString(parameter);
     }
 
     int OssiarchBonereaperBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Mortis Praetorians") return MortisPraetorians;
-        else if (enumString == "Petrifex Elite") return PetrifexElite;
-        else if (enumString == "Stalliarch Lords") return StalliarchLords;
-        else if (enumString == "Ivory Host") return IvoryHost;
-        else if (enumString == "Null Myriad") return NullMyriad;
-        else if (enumString == "Crematorians") return Crematorians;
-        else if (enumString == "No Legion") return NoLegion;
+        auto legion = magic_enum::enum_cast<Legion>(enumString);
+        if (legion.has_value()) return (int)legion.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
         return 0;
     }
 
@@ -62,22 +72,22 @@ namespace OssiarchBonereapers {
 
         m_legion = legion;
         switch (legion) {
-            case MortisPraetorians:
+            case Legion::Mortis_Praetorians:
                 addKeyword(MORTIS_PRAETORIANS);
                 break;
-            case PetrifexElite:
+            case Legion::Petrifex_Elite:
                 addKeyword(PETRIFEX_ELITE);
                 break;
-            case StalliarchLords:
+            case Legion::Stalliarch_Lords:
                 addKeyword(STALLIARCH_LORDS);
                 break;
-            case IvoryHost:
+            case Legion::Ivory_Host:
                 addKeyword(IVORY_HOST);
                 break;
-            case NullMyriad:
+            case Legion::Null_Myriad:
                 addKeyword(NULL_MYRIAD);
                 break;
-            case Crematorians:
+            case Legion::Crematorians:
                 addKeyword(CREMATORIANS);
                 break;
             default:
@@ -103,6 +113,14 @@ namespace OssiarchBonereapers {
             totalWounds.mortal = std::max(totalWounds.mortal, 0);
         }
         return totalWounds;
+    }
+
+    void OssiarchBonereaperBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void OssiarchBonereaperBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

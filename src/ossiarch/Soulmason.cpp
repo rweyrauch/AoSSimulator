@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "ossiarch/Soulmason.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 40;
@@ -19,10 +20,18 @@ namespace OssiarchBonereapers {
     Unit *MortisanSoulmason::Create(const ParameterList &parameters) {
         auto unit = new MortisanSoulmason();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortisanCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_soulmasonArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -47,6 +56,9 @@ namespace OssiarchBonereapers {
                     MortisanSoulmason::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Command Trait", g_mortisanCommandTraits[0], g_mortisanCommandTraits),
+                            EnumParameter("Artefact", g_soulmasonArtefacts[0], g_soulmasonArtefacts),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}
@@ -66,11 +78,13 @@ namespace OssiarchBonereapers {
         m_totalUnbinds = 2;
     }
 
-    bool MortisanSoulmason::configure() {
+    bool MortisanSoulmason::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
+
+        m_lore = lore;
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

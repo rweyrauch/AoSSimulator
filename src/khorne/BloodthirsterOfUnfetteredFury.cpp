@@ -9,6 +9,7 @@
 #include <khorne/BloodthirsterOfUnfetteredFury.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 120; // x92 oval
@@ -56,8 +57,14 @@ namespace Khorne {
     Unit *BloodthirsterOfUnfetteredFury::Create(const ParameterList &parameters) {
         auto unit = new BloodthirsterOfUnfetteredFury();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -75,7 +82,9 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     BloodthirsterOfUnfetteredFury::ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts)
                     },
                     CHAOS,
                     {KHORNE}

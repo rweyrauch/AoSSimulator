@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/MortekGuard.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 25;
@@ -26,7 +27,7 @@ namespace OssiarchBonereapers {
         bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
         int numGreatblades = GetIntParam("Soulcleaver Greatblade", parameters, 1);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, numGreatblades, necrophoros);

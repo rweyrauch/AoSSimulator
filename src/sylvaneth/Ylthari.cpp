@@ -22,11 +22,6 @@ namespace Sylvaneth {
         auto unit = new Ylthari();
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
-
-        unit->setCommandTrait(trait);
-        unit->setArtefact(artefact);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -44,9 +39,7 @@ namespace Sylvaneth {
                     SylvanethBase::EnumStringToInt,
                     Ylthari::ComputePoints,
                     {
-                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
-                            EnumParameter("Artefact", g_relicsOfNature[0], g_relicsOfNature),
-                            EnumParameter("Command Trait", g_aspectsOfRenewal[0], g_aspectsOfRenewal),
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood)
                     },
                     ORDER,
                     {SYLVANETH}

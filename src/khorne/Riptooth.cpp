@@ -8,6 +8,7 @@
 
 #include <khorne/Riptooth.h>
 #include <UnitFactory.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 32;
@@ -19,7 +20,7 @@ namespace Khorne {
     Unit *Riptooth::Create(const ParameterList &parameters) {
         auto unit = new Riptooth();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure();

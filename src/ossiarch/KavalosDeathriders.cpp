@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/KavalosDeathriders.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 60; // x35
@@ -25,7 +26,7 @@ namespace OssiarchBonereapers {
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
         bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, necrophoros);

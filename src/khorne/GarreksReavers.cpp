@@ -9,6 +9,7 @@
 #include <khorne/GarreksReavers.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 32;
@@ -20,7 +21,7 @@ namespace Khorne {
     Unit *GarreksReavers::Create(const ParameterList &parameters) {
         auto unit = new GarreksReavers();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure();

@@ -53,9 +53,6 @@ namespace GloomspiteGitz {
         auto unit = new Skragrott();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
-        unit->setCommandTrait(trait);
-
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -73,7 +70,6 @@ namespace GloomspiteGitz {
                     ComputePoints,
                     {
                         EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                        EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

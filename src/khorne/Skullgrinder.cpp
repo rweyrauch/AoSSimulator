@@ -9,6 +9,7 @@
 #include <khorne/Skullgrinder.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 40;
@@ -43,7 +44,7 @@ namespace Khorne {
     Unit *Skullgrinder::Create(const ParameterList &parameters) {
         auto unit = new Skullgrinder();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure();

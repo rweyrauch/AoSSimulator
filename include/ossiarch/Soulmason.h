@@ -31,7 +31,7 @@ namespace OssiarchBonereapers {
 
         ~MortisanSoulmason() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -40,6 +40,7 @@ namespace OssiarchBonereapers {
 
         Weapon m_staff,
                 m_claws;
+        Lore m_lore = Lore::Empower_Nadirite_Weapons;
 
         static bool s_registered;
     };

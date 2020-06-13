@@ -27,7 +27,7 @@ namespace Fyreslayers {
 
         ~AuricRunesonOnMagmadroth() override = default;
 
-        bool configure();
+        bool configure(MountTrait trait);
 
     protected:
 
@@ -56,6 +56,7 @@ namespace Fyreslayers {
                 m_javelin,
                 m_warAxe,
                 m_javelinMelee;
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

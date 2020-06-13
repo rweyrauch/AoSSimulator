@@ -27,7 +27,7 @@ namespace Fyreslayers {
 
         ~AuricRunefatherOnMagmadroth() override = default;
 
-        bool configure();
+        bool configure(MountTrait trait);
 
     protected:
 
@@ -52,6 +52,7 @@ namespace Fyreslayers {
                 m_clawsAndHorns,
                 m_blazingMaw,
                 m_grandAxe;
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

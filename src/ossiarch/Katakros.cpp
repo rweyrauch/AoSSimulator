@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/Katakros.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 120; // x92 oval
@@ -18,7 +19,7 @@ namespace OssiarchBonereapers {
     Unit *Katakros::Create(const ParameterList &parameters) {
         auto unit = new Katakros();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();

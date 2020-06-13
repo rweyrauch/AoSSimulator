@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/GothizzarHarvester.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 105; // x70 oval
@@ -37,7 +38,7 @@ namespace OssiarchBonereapers {
 
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, GothizzarHarvester::Sickles);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(option);

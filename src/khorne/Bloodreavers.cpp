@@ -11,6 +11,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 32;
@@ -94,7 +95,7 @@ namespace Khorne {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(numModels, weapons, iconBearer, hornblowers);

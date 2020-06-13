@@ -9,6 +9,7 @@
 #include <khorne/Skullmaster.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 75; // x50 oval
@@ -39,8 +40,14 @@ namespace Khorne {
     Unit *Skullmaster::Create(const ParameterList &parameters) {
         auto unit = new Skullmaster();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -58,7 +65,9 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Skullmaster::ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts)
                     },
                     CHAOS,
                     {KHORNE}

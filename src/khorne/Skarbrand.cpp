@@ -8,6 +8,7 @@
 
 #include <khorne/Skarbrand.h>
 #include <UnitFactory.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 100;
@@ -55,7 +56,7 @@ namespace Khorne {
     Unit *Skarbrand::Create(const ParameterList &parameters) {
         auto unit = new Skarbrand();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure();
@@ -74,7 +75,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Skarbrand::ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
                     },
                     CHAOS,
                     {KHORNE}

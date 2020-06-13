@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/LiegeKavalos.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 80;
@@ -18,8 +19,14 @@ namespace OssiarchBonereapers {
     Unit *LiegeKavalos::Create(const ParameterList &parameters) {
         auto unit = new LiegeKavalos();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_kavalosCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_kavaloiArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -46,6 +53,8 @@ namespace OssiarchBonereapers {
                     LiegeKavalos::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
+                            EnumParameter("Command Trait", g_kavalosCommandTraits[0], g_kavalosCommandTraits),
+                            EnumParameter("Artefact", g_kavaloiArtefacts[0], g_kavaloiArtefacts),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

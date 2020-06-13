@@ -31,14 +31,14 @@ namespace OssiarchBonereapers {
 
         ~MortisanBoneshaper() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
     private:
 
-
         Weapon m_talons;
+        Lore m_lore = Lore::Empower_Nadirite_Weapons;
 
         static bool s_registered;
     };

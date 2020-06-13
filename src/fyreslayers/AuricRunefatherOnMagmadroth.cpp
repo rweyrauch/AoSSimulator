@@ -8,6 +8,7 @@
 #include <fyreslayers/AuricRunefatherOnMagmadroth.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 120; // x92 oval
@@ -44,7 +45,7 @@ namespace Fyreslayers {
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_grandAxe};
     }
 
-    bool AuricRunefatherOnMagmadroth::configure() {
+    bool AuricRunefatherOnMagmadroth::configure(MountTrait trait) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
@@ -52,6 +53,8 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_blazingMaw);
         model->addMeleeWeapon(&m_grandAxe);
         addModel(model);
+
+        m_mountTrait = trait;
 
         m_points = POINTS_PER_UNIT;
 
@@ -66,10 +69,18 @@ namespace Fyreslayers {
     Unit *AuricRunefatherOnMagmadroth::Create(const ParameterList &parameters) {
         auto unit = new AuricRunefatherOnMagmadroth();
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
+
+        bool ok = unit->configure(mount);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -86,6 +97,9 @@ namespace Fyreslayers {
                     AuricRunefatherOnMagmadroth::ComputePoints,
                     {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
+                            EnumParameter("Mount Trait", g_mountTraits[0], g_mountTraits),
+                            EnumParameter("Command Trait", g_fatherSonTraits[0], g_fatherSonTraits),
+                            EnumParameter("Artefact", g_heirloomArtefacts[0], g_heirloomArtefacts),
                     },
                     ORDER,
                     {FYRESLAYERS}

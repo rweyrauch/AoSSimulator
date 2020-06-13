@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "ossiarch/Vokmortian.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 40;
@@ -19,10 +20,12 @@ namespace OssiarchBonereapers {
     Unit *Vokmortian::Create(const ParameterList &parameters) {
         auto unit = new Vokmortian();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -47,6 +50,7 @@ namespace OssiarchBonereapers {
                     ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
+                            EnumParameter("Lore", g_lore[0], g_lore),
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}
@@ -73,11 +77,13 @@ namespace OssiarchBonereapers {
         m_connection.disconnect();
     }
 
-    bool Vokmortian::configure() {
+    bool Vokmortian::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_gazeOfDeath);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
+
+        m_lore = lore;
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/ImmortisGuard.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 50;
@@ -23,7 +24,7 @@ namespace OssiarchBonereapers {
 
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels);

@@ -7,6 +7,7 @@
  */
 #include <fyreslayers/AuricHearthguard.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 32;
@@ -57,7 +58,7 @@ namespace Fyreslayers {
         auto unit = new AuricHearthguard();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
 
         bool ok = unit->configure(numModels);

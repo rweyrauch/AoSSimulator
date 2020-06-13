@@ -8,6 +8,7 @@
 #include <fyreslayers/AuricRunemaster.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 32;
@@ -33,12 +34,14 @@ namespace Fyreslayers {
         m_holySeekerToWoundSlot.disconnect();
     }
 
-    bool AuricRunemaster::configure() {
+    bool AuricRunemaster::configure(Prayer prayer) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_brazierStaff);
         model->addMeleeWeapon(&m_runicIron);
         addModel(model);
+
+        m_prayer = prayer;
 
         m_points = POINTS_PER_UNIT;
 
@@ -48,10 +51,18 @@ namespace Fyreslayers {
     Unit *AuricRunemaster::Create(const ParameterList &parameters) {
         auto unit = new AuricRunemaster();
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterSmiterTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+
+        bool ok = unit->configure(prayer);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -68,6 +79,9 @@ namespace Fyreslayers {
                     AuricRunemaster::ComputePoints,
                     {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
+                            EnumParameter("Command Trait", g_masterSmiterTraits[0], g_masterSmiterTraits),
+                            EnumParameter("Artefact", g_forgeTempleArtefacts[0], g_forgeTempleArtefacts),
+                            EnumParameter("Prayer", g_prayers[0], g_prayers)
                     },
                     ORDER,
                     {FYRESLAYERS}

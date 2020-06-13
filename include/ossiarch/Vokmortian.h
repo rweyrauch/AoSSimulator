@@ -31,7 +31,7 @@ namespace OssiarchBonereapers {
 
         ~Vokmortian() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -41,6 +41,7 @@ namespace OssiarchBonereapers {
 
         Weapon m_gazeOfDeath,
                 m_staff;
+        Lore m_lore = Lore::Empower_Nadirite_Weapons;
 
         lsignal::slot m_connection;
 

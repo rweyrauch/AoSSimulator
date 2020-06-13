@@ -14,22 +14,13 @@
 
 namespace Khorne {
 
-    enum BloodBlessingsOfKhorne : int {
-        BronzedFlesh,
-        BloodSacrifice,
+    enum class BloodBlessingsOfKhorne : int {
+        Bronzed_Flesh,
+        Blood_Sacrifice,
         Resanguination,
-        BrazenFury,
-        KillingFrenzy,
-        SpellbaneHex,
-    };
-
-    const std::array<int, 6> g_bloodBlessingsOfKhorne = {
-            BronzedFlesh,
-            BloodSacrifice,
-            Resanguination,
-            BrazenFury,
-            KillingFrenzy,
-            SpellbaneHex,
+        Brazen_Fury,
+        Killing_Frenzy,
+        Spellbane_Hex,
     };
 
     std::string ToString(BloodBlessingsOfKhorne which);

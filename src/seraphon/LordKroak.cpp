@@ -53,12 +53,6 @@ namespace Seraphon {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialDomination[0]);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_slannCommandTrait[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_treasuresOfTheOldOnes[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -77,8 +71,6 @@ namespace Seraphon {
                     {
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
-                            EnumParameter("Command Trait", g_slannCommandTrait[0], g_slannCommandTrait),
-                            EnumParameter("Artefact", g_treasuresOfTheOldOnes[0], g_treasuresOfTheOldOnes),
                             EnumParameter("Lore", g_loreOfCelestialDomination[0], g_loreOfCelestialDomination)
                     },
                     ORDER,

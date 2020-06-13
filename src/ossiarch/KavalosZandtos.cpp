@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/KavalosZandtos.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 80;
@@ -18,7 +19,7 @@ namespace OssiarchBonereapers {
     Unit *ArchKavalosZandtos::Create(const ParameterList &parameters) {
         auto unit = new ArchKavalosZandtos();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();

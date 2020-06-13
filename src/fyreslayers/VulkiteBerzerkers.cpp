@@ -7,6 +7,7 @@
  */
 #include <fyreslayers/VulkiteBerzerkers.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 32;
@@ -69,7 +70,7 @@ namespace Fyreslayers {
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HandaxeAndShield);
         auto horn = GetBoolParam("Horn of Grimnir", parameters, false);
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
 
         bool ok = unit->configure(numModels, weapons, horn);

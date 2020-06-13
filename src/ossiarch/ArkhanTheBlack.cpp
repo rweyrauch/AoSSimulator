@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "ossiarch/ArkhanTheBlack.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 105;
@@ -37,7 +38,7 @@ namespace OssiarchBonereapers {
     Unit *ArkhanTheBlack::Create(const ParameterList &parameters) {
         auto unit = new ArkhanTheBlack();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();

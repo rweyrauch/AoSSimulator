@@ -17,15 +17,15 @@
 
 namespace Fyreslayers {
 
-    enum Lodge {
-        Custom = 0,
+    enum class Lodge : int {
+        None = 0,
         Vostarg,
         Greyfyrd,
         Hermdar,
         Lofnir
     };
 
-    enum class Rune {
+    enum class Rune : int {
         OfFury,
         OfSearingHeat,
         OfAwakenedSteel,
@@ -34,12 +34,89 @@ namespace Fyreslayers {
         OfFarsight
     };
 
-    const std::array<int, 5> g_lodge = {
-            Custom,
-            Vostarg,
-            Greyfyrd,
-            Hermdar,
-            Lofnir
+    enum class CommandTrait : int {
+        None,
+
+        // Inheritance of Grimnir
+        Fury_of_the_Fyreslayers,
+        Honour_of_the_Ancestors,
+        Spirit_of_Grimnir,
+        Blood_of_the_Berserker,
+        Iron_Will_of_the_Guardian,
+        Destroyer_of_Foes,
+
+        // Magmic Empowerments
+        Fyremantle,
+        Wisdom_and_Authority,
+        Oathsayer,
+        Ash_Beard,
+        Fyresteel_Weaponsmith,
+        Master_Priest,
+
+        // Lodge specific
+        Fiery_Endurance,    // Vostarg
+        Battle_Scarred_Veteran, // Greyfyrd
+        Warrior_Indominate, // Hermdar
+        Explosive_Charge    // Lofnir
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Heirlooms of the Lodge
+        Magnetised_Runes,
+        Draught_of_Magmalt_Ale,
+        Drakeslayer,
+        Obsidian_Glowhelm,
+        Shimmering_Blade,
+        Axe_of_Grimnir,
+
+        // Artefacts of Wrath and Doom
+        Beastslayer,
+        Bracers_of_Ember_Iron,
+        Rune_of_Blazing_Fury,
+
+        // Artefacts of the Forge-temple
+        Salamander_Cloak,
+        Ash_Cloud_Rune,
+        Volatile_Brazier,
+        Ancestor_Helm,
+        Emberstone_Rune,
+        Droth_Helm,
+
+        // Icons of Grimnir
+        Icon_of_the_Ancestors,
+        Icon_of_Grimnirs_Condemnation,
+        The_Nulsidian_Icon,
+
+        // Lodge specific
+        Vosaxe,             // Vostarg
+        Helm_of_Obsidia,    // Greyfyrd
+        Tyrant_Slayer,      // Hermdar
+        Igneous_Battle_Throne   // Lofnir
+    };
+
+    enum class MountTrait : int {
+        None,
+
+        // Magmadroth
+        Cinder_Crest_Youngblood,
+        Flame_Scale_Youngblood,
+        Fire_Claw_Adult,
+        Lava_Tongue_Adult,
+        Coal_Heart_Ancient,
+        Ash_Horn_Ancient
+    };
+
+    enum class Prayer : int {
+        None,
+
+        Molten_Infusion,
+        Searing_Heat,
+        Prayer_of_Ash,
+        Ember_Storm,
+        Prayer_of_Grimnirs_Fury,
+        Gilded_Claws
     };
 
     class Fyreslayer : public Unit {
@@ -54,6 +131,8 @@ namespace Fyreslayers {
         ~Fyreslayer() override = default;
 
         void setLodge(Lodge lodge);
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
 
     protected:
         Fyreslayer(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -71,7 +150,9 @@ namespace Fyreslayers {
 
     protected:
 
-        Lodge m_lodge = Custom;
+        Lodge m_lodge = Lodge::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
 
         bool m_activatedRune = false;
         std::map<Rune, bool> m_availableRunes;

@@ -8,6 +8,7 @@
 #include <fyreslayers/AuricRunesmiterOnMagmadroth.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 120; // x92 oval
@@ -45,7 +46,7 @@ namespace Fyreslayers {
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_latchAxe, &m_runicIron};
     }
 
-    bool AuricRunesmiterOnMagmadroth::configure() {
+    bool AuricRunesmiterOnMagmadroth::configure(Prayer prayer, MountTrait trait) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
@@ -54,6 +55,8 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_latchAxe);
         model->addMeleeWeapon(&m_runicIron);
         addModel(model);
+
+        m_mountTrait = trait;
 
         m_points = POINTS_PER_UNIT;
 
@@ -68,10 +71,20 @@ namespace Fyreslayers {
     Unit *AuricRunesmiterOnMagmadroth::Create(const ParameterList &parameters) {
         auto unit = new AuricRunesmiterOnMagmadroth();
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterSmiterTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+
+        auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
+
+        bool ok = unit->configure(prayer, mount);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -88,6 +101,10 @@ namespace Fyreslayers {
                     AuricRunesmiterOnMagmadroth::ComputePoints,
                     {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
+                            EnumParameter("Command Trait", g_masterSmiterTraits[0], g_masterSmiterTraits),
+                            EnumParameter("Artefact", g_forgeTempleArtefacts[0], g_forgeTempleArtefacts),
+                            EnumParameter("Mount Trait", g_mountTraits[0], g_mountTraits),
+                            EnumParameter("Prayer", g_prayers[0], g_prayers)
                     },
                     ORDER,
                     {FYRESLAYERS}

@@ -8,6 +8,7 @@
 
 #include <khorne/Bloodcrushers.h>
 #include <UnitFactory.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 90; // x52 oval
@@ -67,7 +68,7 @@ namespace Khorne {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure(numModels, iconBearer, hornblowers);

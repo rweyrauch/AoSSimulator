@@ -8,6 +8,7 @@
 
 #include <khorne/KorghosKhul.h>
 #include <UnitFactory.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 60;
@@ -44,7 +45,7 @@ namespace Khorne {
     Unit *KorghosKhul::Create(const ParameterList &parameters) {
         auto unit = new KorghosKhul();
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
         bool ok = unit->configure();

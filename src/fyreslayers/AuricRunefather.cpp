@@ -8,6 +8,7 @@
 #include <fyreslayers/AuricRunefather.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 32;
@@ -38,8 +39,14 @@ namespace Fyreslayers {
     Unit *AuricRunefather::Create(const ParameterList &parameters) {
         auto unit = new AuricRunefather();
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -57,7 +64,9 @@ namespace Fyreslayers {
                     Fyreslayer::EnumStringToInt,
                     AuricRunefather::ComputePoints,
                     {
-                            EnumParameter("Lodge", g_lodge[0], g_lodge),
+                        EnumParameter("Lodge", g_lodge[0], g_lodge),
+                        EnumParameter("Command Trait", g_fatherSonTraits[0], g_fatherSonTraits),
+                        EnumParameter("Artefact", g_heirloomArtefacts[0], g_heirloomArtefacts),
                     },
                     ORDER,
                     {FYRESLAYERS}

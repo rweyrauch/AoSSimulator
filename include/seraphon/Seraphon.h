@@ -48,7 +48,13 @@ namespace Seraphon {
         // Skink
         Master_of_Star_Rituals,
         Nimble,
-        Cunning
+        Cunning,
+
+        // Constellation specific
+        Ancient_Knowledge, // Dracothions Tail
+        Old_and_Grizzled,   // Fangs of Sotek
+        Dominant_Predator,  // Koatls Claw
+        Prime_Warbeast      // The Thunder Lizard
     };
 
     //
@@ -73,7 +79,13 @@ namespace Seraphon {
         // VestmentsOfThePriesthood
         Incandescent_Rectrices,
         Cloak_of_Feathers,
-        Sacred_Stegadon_Helm
+        Sacred_Stegadon_Helm,
+
+        // Constellation specific
+        Godbeast_Pendant,   // Dracothions Tail
+        Serpent_God_Dagger, // Fangs of Sotek
+        Eviscerating_Blade, // Koatls Claw
+        Fusil_of_Conflagration  // The Thunder Lizard
     };
 
     //

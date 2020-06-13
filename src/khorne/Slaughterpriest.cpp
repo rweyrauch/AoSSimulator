@@ -8,6 +8,7 @@
 
 #include <khorne/Slaughterpriest.h>
 #include <UnitFactory.h>
+#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int BASESIZE = 40;
@@ -56,8 +57,14 @@ namespace Khorne {
         auto blessing = (BloodBlessingsOfKhorne) GetEnumParam("Blood Blessings of Khorne", parameters,
                                                               g_bloodBlessingsOfKhorne[0]);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, Khorne::None);
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(weapon, blessing);
         if (!ok) {
@@ -78,7 +85,9 @@ namespace Khorne {
                     {
                             EnumParameter("Weapon", BloodbathedAxe, weapons),
                             EnumParameter("Blood Blessings of Khorne", g_bloodBlessingsOfKhorne[0], g_bloodBlessingsOfKhorne),
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts)
                     },
                     CHAOS,
                     {KHORNE}

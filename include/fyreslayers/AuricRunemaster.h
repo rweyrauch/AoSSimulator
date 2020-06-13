@@ -27,7 +27,7 @@ namespace Fyreslayers {
 
         ~AuricRunemaster() override;
 
-        bool configure();
+        bool configure(Prayer prayer);
 
     protected:
 
@@ -48,6 +48,7 @@ namespace Fyreslayers {
         bool m_holySeekerToHit = false;
         bool m_holySeekerToWound = false;
         Unit *m_holySeekerTarget = nullptr;
+        Prayer m_prayer = Prayer::None;
 
         lsignal::slot m_holySeekerToHitSlot, m_holySeekerToWoundSlot;
 

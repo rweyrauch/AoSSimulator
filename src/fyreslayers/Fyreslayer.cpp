@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <fyreslayers/Fyreslayer.h>
+#include <magic_enum.hpp>
 
 #include "fyreslayers/AuricHearthguard.h"
 #include "fyreslayers/Battlesmith.h"
@@ -39,7 +40,7 @@ namespace Fyreslayers {
         AuricRunesonOnMagmadroth::Init();
     }
 
-    void Fyreslayer::setLodge(Fyreslayers::Lodge lodge) {
+    void Fyreslayer::setLodge(Lodge lodge) {
         removeKeyword(VOSTARG);
         removeKeyword(GREYFYRD);
         removeKeyword(HERMDAR);
@@ -47,16 +48,16 @@ namespace Fyreslayers {
 
         m_lodge = lodge;
         switch (m_lodge) {
-            case Vostarg:
+            case Lodge::Vostarg:
                 addKeyword(VOSTARG);
                 break;
-            case Greyfyrd:
+            case Lodge::Greyfyrd:
                 addKeyword(GREYFYRD);
                 break;
-            case Hermdar:
+            case Lodge::Hermdar:
                 addKeyword(HERMDAR);
                 break;
-            case Lofnir:
+            case Lodge::Lofnir:
                 addKeyword(LOFNIR);
                 break;
             default:
@@ -68,7 +69,7 @@ namespace Fyreslayers {
         auto modifier = Unit::chargeModifier();
 
         // Fearsome Surge
-        if (m_lodge == Vostarg) {
+        if (m_lodge == Lodge::Vostarg) {
             modifier += 1;
         }
 
@@ -77,7 +78,7 @@ namespace Fyreslayers {
 
     int Fyreslayer::rollRunDistance() const {
         // Fearsome Surge
-        if ((m_lodge == Vostarg) && (m_battleRound == 1)) {
+        if ((m_lodge == Lodge::Vostarg) && (m_battleRound == 1)) {
             return 6;
         }
         return Unit::rollRunDistance();
@@ -85,21 +86,45 @@ namespace Fyreslayers {
 
     std::string Fyreslayer::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lodge") {
-            if (parameter.intValue == Vostarg) { return "Vostarg"; }
-            else if (parameter.intValue == Greyfyrd) { return "Greyfyrd"; }
-            else if (parameter.intValue == Hermdar) { return "Hermdar"; }
-            else if (parameter.intValue == Lofnir) { return "Lofnir"; }
-            else if (parameter.intValue == Custom) { return "Custom"; }
+            auto lodgeName = magic_enum::enum_name((Lodge)parameter.intValue);
+            return std::string(lodgeName);
         }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Mount Trait") {
+            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Prayer") {
+            auto prayerName = magic_enum::enum_name((Prayer)parameter.intValue);
+            return std::string(prayerName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int Fyreslayer::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Vostarg") { return Vostarg; }
-        else if (enumString == "Greyfyrd") { return Greyfyrd; }
-        else if (enumString == "Hermdar") { return Hermdar; }
-        else if (enumString == "Lofnir") { return Lofnir; }
-        else if (enumString == "Custom") { return Custom; }
+        auto lodge = magic_enum::enum_cast<Lodge>(enumString);
+        if (lodge.has_value()) return (int)lodge.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto mount = magic_enum::enum_cast<MountTrait>(enumString);
+        if (mount.has_value()) return (int)mount.value();
+
+        auto prayer = magic_enum::enum_cast<Prayer>(enumString);
+        if (prayer.has_value()) return (int)prayer.value();
+
         return 0;
     }
 
@@ -120,6 +145,14 @@ namespace Fyreslayers {
             activateRune();
             m_activatedRune = true;
         }
+    }
+
+    void Fyreslayer::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void Fyreslayer::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
 } // namespace Fyreslayers

@@ -95,11 +95,6 @@ namespace Sylvaneth {
         unit->setGlade(glade);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
-
-        unit->setCommandTrait(trait);
-        unit->setArtefact(artefact);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -118,9 +113,7 @@ namespace Sylvaneth {
                     DrychaHamadreth::ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
-                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
-                            EnumParameter("Command Trait", g_aspectsOfRenewal[0], g_aspectsOfRenewal),
-                            EnumParameter("Artefact", g_relicsOfNature[0], g_relicsOfNature)
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood)
                     },
                     ORDER,
                     {SYLVANETH}

@@ -31,7 +31,7 @@ namespace OssiarchBonereapers {
 
         ~MortisanSoulreaper() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -42,6 +42,7 @@ namespace OssiarchBonereapers {
     private:
 
         Weapon m_scythe;
+        Lore m_lore = Lore::Empower_Nadirite_Weapons;
 
         static bool s_registered;
     };

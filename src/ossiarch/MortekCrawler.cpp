@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ossiarch/MortekCrawler.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 170; // x105 oval
@@ -35,7 +36,7 @@ namespace OssiarchBonereapers {
     Unit *MortekCrawler::Create(const ParameterList &parameters) {
         auto unit = new MortekCrawler();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();

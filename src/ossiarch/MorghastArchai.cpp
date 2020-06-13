@@ -7,6 +7,7 @@
  */
 #include <ossiarch/MorghastArchai.h>
 #include <UnitFactory.h>
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
     static const int BASESIZE = 60;
@@ -54,7 +55,7 @@ namespace OssiarchBonereapers {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, SpiritHalberd);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, NoLegion);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons);

@@ -8,6 +8,7 @@
 #include <fyreslayers/Battlesmith.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int BASESIZE = 32;
@@ -38,8 +39,11 @@ namespace Fyreslayers {
     Unit *Battlesmith::Create(const ParameterList &parameters) {
         auto unit = new Battlesmith();
 
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, Fyreslayers::Custom);
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_iconArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -58,6 +62,7 @@ namespace Fyreslayers {
                     Battlesmith::ComputePoints,
                     {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
+                            EnumParameter("Artefact", g_iconArtefacts[0], g_iconArtefacts),
                     },
                     ORDER,
                     {FYRESLAYERS}

@@ -47,12 +47,6 @@ namespace GloomspiteGitz {
         auto unit = new Zarbag();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_foetidFetishes[0]);
-        unit->setArtefact(artefact);
-
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -70,8 +64,6 @@ namespace GloomspiteGitz {
                     Zarbag::ComputePoints,
                     {
                             EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                            EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
-                            EnumParameter("Artefact", g_foetidFetishes[0], g_foetidFetishes)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
