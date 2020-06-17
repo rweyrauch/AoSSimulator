@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "citiesofsigmar/SteamTank.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -40,7 +41,7 @@ namespace CitiesOfSigmar {
 
         auto commander = GetBoolParam("Commander", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure(commander);

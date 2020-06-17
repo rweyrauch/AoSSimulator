@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/FrostheartPhoenix.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -39,10 +40,18 @@ namespace CitiesOfSigmar {
 
         auto anointed = GetBoolParam("Anointed", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        bool ok = unit->configure(anointed);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(anointed, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -91,7 +100,7 @@ namespace CitiesOfSigmar {
         m_connection.disconnect();
     }
 
-    bool FrostheartPhoenix::configure(bool anointed) {
+    bool FrostheartPhoenix::configure(bool anointed, Lore lore) {
         if (anointed) {
             addKeyword(HERO);
         }

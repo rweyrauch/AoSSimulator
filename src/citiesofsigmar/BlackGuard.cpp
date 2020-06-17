@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "citiesofsigmar/BlackGuard.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 25;
@@ -23,7 +24,7 @@ namespace CitiesOfSigmar {
     Unit *BlackGuard::Create(const ParameterList &parameters) {
         auto unit = new BlackGuard();
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);

@@ -31,7 +31,7 @@ namespace CitiesOfSigmar {
 
         ~Battlemage() override = default;
 
-        bool configure(Realm realm);
+        bool configure(Realm realm, Lore lore);
 
     protected:
 

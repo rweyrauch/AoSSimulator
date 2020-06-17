@@ -31,7 +31,7 @@ namespace CitiesOfSigmar {
 
         ~CelestialHurricanum() override;
 
-        bool configure(bool battlemage);
+        bool configure(bool battlemage, Lore lore);
 
     protected:
 

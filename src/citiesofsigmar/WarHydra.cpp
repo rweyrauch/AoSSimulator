@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/WarHydra.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -36,7 +37,7 @@ namespace CitiesOfSigmar {
     Unit *WarHydra::Create(const ParameterList &parameters) {
         auto unit = new WarHydra();
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure();

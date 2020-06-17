@@ -232,6 +232,8 @@ public:
 
     int returnModels(int numModels);
 
+    virtual bool canActInPhase(Phase phase) const { return true; }
+
 protected:
 
     Unit(std::string name, int move, int wounds, int bravery, int save, bool fly);

@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/FlamespyrePhoenix.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -39,10 +40,18 @@ namespace CitiesOfSigmar {
 
         auto anointed = GetBoolParam("Anointed", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        bool ok = unit->configure(anointed);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(anointed, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -68,6 +77,8 @@ namespace CitiesOfSigmar {
                     {
                         BoolParameter("Anointed"),
                             EnumParameter("City", g_city[0], g_city),
+                        EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                        EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -84,7 +95,7 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_talons, &m_halberd};
     }
 
-    bool FlamespyrePhoenix::configure(bool anointed) {
+    bool FlamespyrePhoenix::configure(bool anointed, Lore lore) {
         if (anointed) {
             addKeyword(HERO);
         }

@@ -31,7 +31,7 @@ namespace CitiesOfSigmar {
 
         ~LuminarkOfHysh() override;
 
-        bool configure(bool battlemage);
+        bool configure(bool battlemage, Lore lore);
 
     protected:
 

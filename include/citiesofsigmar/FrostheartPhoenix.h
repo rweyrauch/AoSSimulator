@@ -31,7 +31,7 @@ namespace CitiesOfSigmar {
 
         ~FrostheartPhoenix() override;
 
-        bool configure(bool anointed);
+        bool configure(bool anointed, Lore lore);
 
     protected:
 

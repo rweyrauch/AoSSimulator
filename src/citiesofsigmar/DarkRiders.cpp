@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/DarkRiders.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 65;
@@ -26,7 +27,7 @@ namespace CitiesOfSigmar {
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standard, hornblower);

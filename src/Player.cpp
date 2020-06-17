@@ -8,42 +8,6 @@
 
 #include <Player.h>
 
-void Player::doHeroPhase() {
-    if (m_roster) {
-        m_roster->doHeroPhase();
-    }
-}
-
-void Player::doMovementPhase() {
-    if (m_roster) {
-        m_roster->doMovementPhase();
-    }
-}
-
-void Player::doShootingPhase() {
-    if (m_roster) {
-        m_roster->doShootingPhase();
-    }
-}
-
-void Player::doChargePhase() {
-    if (m_roster) {
-        m_roster->doChargePhase();
-    }
-}
-
-void Player::doCombatPhase() {
-    if (m_roster) {
-        m_roster->doCombatPhase();
-    }
-}
-
-void Player::doBattleshockPhase() {
-    if (m_roster) {
-        m_roster->doBattleshockPhase();
-    }
-}
-
 void Player::beginTurn(int battleRound, PlayerId playerWithTurn) {
     if (m_id == playerWithTurn) {
         m_commandPoints++;
@@ -51,5 +15,30 @@ void Player::beginTurn(int battleRound, PlayerId playerWithTurn) {
 
     if (m_roster) {
         m_roster->beginTurn(battleRound, playerWithTurn);
+    }
+}
+
+Unit* Player::startPhase(Phase phase) {
+    // TODO: rosters/units to perform start of phase actions...
+    m_currentPhase = phase;
+    if (m_roster) {
+        m_activatedUnit = m_roster->unitBegin();
+        return *m_activatedUnit;
+    }
+    return nullptr;
+}
+
+Unit *Player::advancePhase() {
+    if (m_roster && (m_activatedUnit != m_roster->unitEnd())) {
+        auto unit = *m_activatedUnit;
+        ++m_activatedUnit;
+        return unit;
+    }
+    return nullptr;
+}
+
+void Player::endPhase() {
+    if (m_roster) {
+        m_activatedUnit = m_roster->unitEnd();
     }
 }

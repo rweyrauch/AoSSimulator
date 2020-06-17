@@ -12,28 +12,139 @@
 #include <Unit.h>
 #include <UnitFactory.h>
 #include <Weapon.h>
-#include <array>
 
 namespace CitiesOfSigmar {
 
-    enum City {
+    enum class City : int {
         Hammerhal,
-        LivingCity,
-        GreywaterFastness,
+        Living_City,
+        Greywater_Fastness,
         Phoenicium,
         Anvilgard,
         Hallowheart,
-        TempestsEye
+        Tempests_Eye
     };
 
-    const std::array<int, 7> g_city = {
-        Hammerhal,
-        LivingCity,
-        GreywaterFastness,
-        Phoenicium,
-        Anvilgard,
-        Hallowheart,
-        TempestsEye
+    enum class CommandTrait : int {
+        None,
+
+        // Hammerhal
+        Acadamae_Prodigy,
+        Blood_of_the_Twelve,
+        Aggressive_General,
+
+        // Living City
+        Ironoak_Artisan,
+        Forest_Strider,
+        Druid_of_the_Everspring,
+
+        // Greywater Fastness
+        Seat_on_the_Council,
+        Drillmaster,
+        Ghoul_Mere_Ranger,
+
+        // Phoenicium
+        Seeder_of_Vengeance,
+        One_with_Fire_and_Ice,
+        Aura_of_Serenity,
+
+        // Anvilgard
+        Blackfang_Crimelord,
+        Slayer_of_Monsters,
+        Secretive_Warlock,
+
+        // Hallowheart
+        Veteran_of_the_Blazing_Crusade,
+        Warden_of_the_Flame,
+        Famed_Spell_Hunter,
+
+        // Tempests Eye
+        Aetherguard_Captain,
+        Hawk_Eyed,
+        Swift_as_the_Wind,
+
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Hammerhal
+        Armour_of_Mallus,
+        Saints_Blade,
+        The_Twinstone,
+
+        // Living City
+        Spear_of_the_Hunt,
+        Deepmire_Cloak,
+        Wardroth_Horn,
+
+        // Greywater Fastness
+        Steam_Piston_Plate_Mail,
+        Runic_Munitions,
+        Mastro_Vivettis_Magnificent_Macroscrope,
+
+        // Phoenicium
+        Amber_Armour,
+        Phoenix_Pinion,
+        Phoenix_Pyre_Ashes,
+
+        // Anvilgard
+        Acidic_Blood,
+        Jutting_Bones,
+        Fell_Gaze,
+
+        // Hallowheart
+        Agloraxi_Prism,
+        Pauldrons_of_Living_Flame,
+        Whitefire_Tome,
+
+        // Tempests Eye
+        Patricians_Helm,
+        Seerstone_Amulet,
+        Zephyrite_Banner,
+
+    };
+
+    enum class Lore : int {
+        None,
+
+        // Hammerhal
+        Wings_of_Fire,
+        Cindercloud,
+        Twin_Tailed_Comet,
+
+        // Living City
+        Lifesurge,
+        Cage_of_Thorns,
+        Ironoak_Skin,
+
+        // Greywater Fastness
+        Descending_Ash_Cloud,
+        Eroding_Blast,
+        Choking_Fumes,
+
+        // Phoenicium
+        Amber_Tide,
+        Phoenix_Cry,
+        Golden_Mist,
+
+        // Anvilgard
+        Sap_Strength,
+        Shadow_Daggers,
+        Vitriolic_Spray,
+
+        // Hallowheart
+        Roaming_Wildfire,
+        Sear_Wounds,
+        Elemental_Cyclone,
+        Warding_Brand,
+        Crystal_Aegis,
+        Ignite_Weapons,
+
+        // Tempests Eye
+        Aura_of_Glory,
+        Strike_of_Eagles,
+        Celestial_Visions,
     };
 
     class CitizenOfSigmar : public Unit {
@@ -48,16 +159,18 @@ namespace CitiesOfSigmar {
 
         void setCity(City city);
 
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
+
     protected:
         CitizenOfSigmar(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
     protected:
 
-    protected:
-
-        City m_city = Hammerhal;
-
+        City m_city = City::Hammerhal;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

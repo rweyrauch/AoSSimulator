@@ -36,7 +36,7 @@ namespace CitiesOfSigmar {
 
         ~SorceressOnBlackDragon() override = default;
 
-        bool configure(WeaponOption option);
+        bool configure(WeaponOption option, Lore lore);
 
     protected:
 

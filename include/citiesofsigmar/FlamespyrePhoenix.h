@@ -31,7 +31,7 @@ namespace CitiesOfSigmar {
 
         ~FlamespyrePhoenix() override = default;
 
-        bool configure(bool anointed);
+        bool configure(bool anointed, Lore lore);
 
     protected:
 

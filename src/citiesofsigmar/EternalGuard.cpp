@@ -8,6 +8,7 @@
 
 #include <citiesofsigmar/EternalGuard.h>
 #include <UnitFactory.h>
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 32;
@@ -58,7 +59,7 @@ namespace CitiesOfSigmar {
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
         bool shields = GetBoolParam("Glade Shields", parameters, false);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standardBearer, hornblower, shields);

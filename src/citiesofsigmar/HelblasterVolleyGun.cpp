@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/HelblasterVolleyGun.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 25;
@@ -19,7 +20,7 @@ namespace CitiesOfSigmar {
     Unit *HelblasterVolleyGun::Create(const ParameterList &parameters) {
         auto unit = new HelblasterVolleyGun();
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure();

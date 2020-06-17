@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include <Board.h>
 #include "citiesofsigmar/BattlemageOnGriffon.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 90;
@@ -38,10 +39,18 @@ namespace CitiesOfSigmar {
     Unit *BattlemageOnGriffon::Create(const ParameterList &parameters) {
         auto unit = new BattlemageOnGriffon();
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -66,6 +75,9 @@ namespace CitiesOfSigmar {
                     BattlemageOnGriffon::ComputePoints,
                     {
                             EnumParameter("City", g_city[0], g_city),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -85,7 +97,7 @@ namespace CitiesOfSigmar {
         m_totalSpells = 1;
     }
 
-    bool BattlemageOnGriffon::configure() {
+    bool BattlemageOnGriffon::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
 
         model->addMeleeWeapon(&m_beastStaff);

@@ -17,25 +17,24 @@ public:
 
     void setRoster(Roster *roster) {
         m_roster = roster;
+        if (m_roster)
+            m_activatedUnit = m_roster->unitEnd();
     }
 
     void beginTurn(int battleRound, PlayerId playerWithTurn);
 
-    void doHeroPhase();
+    Unit* startPhase(Phase phase);
 
-    void doMovementPhase();
+    Unit* advancePhase();
 
-    void doShootingPhase();
-
-    void doChargePhase();
-
-    void doCombatPhase();
-
-    void doBattleshockPhase();
+    void endPhase();
 
 private:
     const PlayerId m_id;
     Roster *m_roster = nullptr;
+
+    Phase m_currentPhase = Phase::Initiative;
+    std::list<Unit *>::iterator m_activatedUnit;
 
     int m_commandPoints = 0;
 };

@@ -127,40 +127,126 @@ void Battle::runInitiativePhase() {
 }
 
 void Battle::runHeroPhase() {
-    const auto playerIdx = (int) m_currentPlayer;
-    m_players[playerIdx]->doHeroPhase();
+    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Hero);
+    while (unit) {
+        unit->hero(m_currentPlayer);
+
+        unit = m_players[m_currentPlayer]->advancePhase();
+    }
+    m_players[m_currentPlayer]->endPhase();
 }
 
 void Battle::runMovementPhase() {
-    const auto playerIdx = (int) m_currentPlayer;
-    m_players[playerIdx]->doMovementPhase();
+    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Movement);
+    while (unit) {
+        unit->movement(m_currentPlayer);
+
+        unit = m_players[m_currentPlayer]->advancePhase();
+    }
+    m_players[m_currentPlayer]->endPhase();
 }
 
 void Battle::runShootingPhase() {
-    const auto playerIdx = (int) m_currentPlayer;
-    m_players[playerIdx]->doShootingPhase();
+    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Shooting);
+    while (unit) {
+        unit->shooting(m_currentPlayer);
+
+        int numSlain = 0;
+        auto totalDamage = unit->shoot(numSlain);
+        SimLog(Verbosity::Narrative, "%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
+                PlayerIdToString(m_currentPlayer).c_str(),
+                unit->name().c_str(),
+                (totalDamage.normal + totalDamage.mortal),
+                PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
+                unit->meleeTarget()->name().c_str(), numSlain);
+
+        unit = m_players[m_currentPlayer]->advancePhase();
+    }
+    m_players[m_currentPlayer]->endPhase();
 }
 
 void Battle::runChargePhase() {
-    const auto playerIdx = (int) m_currentPlayer;
-    m_players[playerIdx]->doChargePhase();
+    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Charge);
+    while (unit) {
+        unit->charge(m_currentPlayer);
+
+        if (unit->charged()) {
+            SimLog(Verbosity::Narrative, "%s:%s charged %s:%s.\n",
+                    PlayerIdToString(m_currentPlayer).c_str(),
+                    unit->name().c_str(),
+                    PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
+                    unit->meleeTarget()->name().c_str());
+        }
+
+        unit = m_players[m_currentPlayer]->advancePhase();
+    }
+    m_players[m_currentPlayer]->endPhase();
 }
 
 void Battle::runCombatPhase() {
-    const auto playerIdx = (int) m_currentPlayer;
-    m_players[playerIdx]->doCombatPhase();
+
+    // Combine/sort activated units
+    // TODO: Some abilities move enemy units to attack first
+    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Combat);
+    const auto defendingPlayer = GetEnemyId(m_currentPlayer);
+    auto eunit = m_players[defendingPlayer]->startPhase(Phase::Combat);
+    while (unit || eunit) {
+        if (unit) {
+            unit->combat(m_currentPlayer);
+
+            int numSlain = 0;
+            auto totalDamage = unit->fight(m_currentPlayer, numSlain);
+
+            SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+                   PlayerIdToString(m_currentPlayer).c_str(),
+                   unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                   PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
+                   numSlain);
+        }
+        if (eunit) {
+            eunit->combat(m_currentPlayer);
+
+            int numSlain = 0;
+            auto totalDamage = eunit->fight(m_currentPlayer, numSlain);
+
+            SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+                   PlayerIdToString(defendingPlayer).c_str(),
+                   unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                   PlayerIdToString(m_currentPlayer).c_str(), unit->meleeTarget()->name().c_str(),
+                   numSlain);
+        }
+
+        // Advance to next units
+        unit = m_players[m_currentPlayer]->advancePhase();
+        eunit = m_players[GetEnemyId(m_currentPlayer)]->advancePhase();
+    }
+
+    m_players[m_currentPlayer]->endPhase();
+    m_players[GetEnemyId(m_currentPlayer)]->endPhase();
 }
 
 void Battle::runBattleshockPhase() {
-    const auto playerIdx = (int) m_currentPlayer;
-    m_players[playerIdx]->doBattleshockPhase();
+    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Battleshock);
+    while (unit) {
+        unit->battleshock(m_currentPlayer);
+
+        unit = m_players[m_currentPlayer]->advancePhase();
+    }
+    unit = m_players[GetEnemyId(m_currentPlayer)]->startPhase(Phase::Battleshock);
+    while (unit) {
+        unit->battleshock(m_currentPlayer);
+
+        unit = m_players[GetEnemyId(m_currentPlayer)]->advancePhase();
+    }
+
+    m_players[m_currentPlayer]->endPhase();
+    m_players[GetEnemyId(m_currentPlayer)]->endPhase();
 }
 
 void Battle::deployment() {
-    //
+
     // initiative to select player deploying first
 
     // loop until all units have been deployed
-
 
 }

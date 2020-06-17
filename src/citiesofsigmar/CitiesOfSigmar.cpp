@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <magic_enum.hpp>
 #include "citiesofsigmar/CitiesOfSigmar.h"
 
 #include "citiesofsigmar/Anointed.h"
@@ -68,25 +69,37 @@ namespace CitiesOfSigmar {
 
     std::string CitizenOfSigmar::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "City") {
-            if (parameter.intValue == Hammerhal) { return "Hammerhal"; }
-            else if (parameter.intValue == LivingCity) { return "Living City"; }
-            else if (parameter.intValue == GreywaterFastness) { return "Greywater Fastness"; }
-            else if (parameter.intValue == Phoenicium) { return "Phoenicium"; }
-            else if (parameter.intValue == Anvilgard) { return "Anvilgard"; }
-            else if (parameter.intValue == Hallowheart) { return "Hallowheart"; }
-            else if (parameter.intValue == TempestsEye) { return "Tempest's Eye"; }
+            auto cityName = magic_enum::enum_name((City)parameter.intValue);
+            return std::string(cityName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
         }
         return ParameterValueToString(parameter);
     }
 
     int CitizenOfSigmar::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Hammerhal") { return Hammerhal; }
-        else if (enumString == "Living City") { return LivingCity; }
-        else if (enumString == "Greywater Fastness") { return GreywaterFastness; }
-        else if (enumString == "Phoenicium") { return Phoenicium; }
-        else if (enumString == "Anvilgard") { return Anvilgard; }
-        else if (enumString == "Hallowheart") { return Hallowheart; }
-        else if (enumString == "Tempest's Eye") { return TempestsEye; }
+        auto city = magic_enum::enum_cast<City>(enumString);
+        if (city.has_value()) return (int)city.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
         return 0;
     }
 
@@ -101,30 +114,38 @@ namespace CitiesOfSigmar {
 
         m_city = city;
         switch (city) {
-            case Hammerhal:
+            case City::Hammerhal:
                 addKeyword(HAMMERHAL);
                 break;
-            case LivingCity:
+            case City::Living_City:
                 addKeyword(LIVING_CITY);
                 break;
-            case GreywaterFastness:
+            case City::Greywater_Fastness:
                 addKeyword(GREYWATER_FASTNESS);
                 break;
-            case Phoenicium:
+            case City::Phoenicium:
                 addKeyword(PHOENICIUM);
                 break;
-            case Anvilgard:
+            case City::Anvilgard:
                 addKeyword(ANVILGARD);
                 break;
-            case Hallowheart:
+            case City::Hallowheart:
                 addKeyword(HALLOWHEART);
                 break;
-            case TempestsEye:
+            case City::Tempests_Eye:
                 addKeyword(TEMPESTS_EYE);
                 break;
             default:
                 break;
         }
+    }
+
+    void CitizenOfSigmar::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void CitizenOfSigmar::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

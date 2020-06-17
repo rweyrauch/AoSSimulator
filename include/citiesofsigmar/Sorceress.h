@@ -31,7 +31,7 @@ namespace CitiesOfSigmar {
 
         ~Sorceress() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

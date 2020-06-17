@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/FreeguildPistoliers.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 60;
@@ -26,7 +27,7 @@ namespace CitiesOfSigmar {
         bool trumpeter = GetBoolParam("Trumpeter", parameters, true);
         auto outriderWeapon = (WeaponOption) GetEnumParam("Outrider Weapon", parameters, RepeaterHandgun);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, trumpeter, outriderWeapon);

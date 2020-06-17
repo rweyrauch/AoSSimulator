@@ -9,6 +9,7 @@
 #include <citiesofsigmar/Irondrakes.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 25;
@@ -80,7 +81,7 @@ namespace CitiesOfSigmar {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, weapon, standardBearer, hornblower);

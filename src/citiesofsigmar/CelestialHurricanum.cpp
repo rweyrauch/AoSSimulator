@@ -10,6 +10,7 @@
 #include <Board.h>
 #include <spells/MysticShield.h>
 #include "citiesofsigmar/CelestialHurricanum.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -41,10 +42,18 @@ namespace CitiesOfSigmar {
 
         auto battlemage = GetBoolParam("Battlemage", parameters, true);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        bool ok = unit->configure(battlemage);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(battlemage, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -70,6 +79,9 @@ namespace CitiesOfSigmar {
                     {
                             EnumParameter("City", g_city[0], g_city),
                             BoolParameter("Battlemage"),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -97,7 +109,7 @@ namespace CitiesOfSigmar {
         m_portentsConnection.disconnect();
     }
 
-    bool CelestialHurricanum::configure(bool battlemage) {
+    bool CelestialHurricanum::configure(bool battlemage, Lore lore) {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);

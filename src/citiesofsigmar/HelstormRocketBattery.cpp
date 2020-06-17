@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "citiesofsigmar/HelstormRocketBattery.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 25;
@@ -20,7 +21,7 @@ namespace CitiesOfSigmar {
     Unit *HelstormRocketBattery::Create(const ParameterList &parameters) {
         auto unit = new HelstormRocketBattery();
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure();

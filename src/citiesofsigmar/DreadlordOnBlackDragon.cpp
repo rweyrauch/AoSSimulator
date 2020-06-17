@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/DreadlordOnBlackDragon.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -38,8 +39,14 @@ namespace CitiesOfSigmar {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, LanceAndShield);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(weapon);
         if (!ok) {
@@ -93,6 +100,8 @@ namespace CitiesOfSigmar {
                     {
                             EnumParameter("Weapon", LanceAndShield, weapons),
                             EnumParameter("City", g_city[0], g_city),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

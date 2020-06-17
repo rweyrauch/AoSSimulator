@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "citiesofsigmar/FreeguildGuard.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 25;
@@ -27,7 +28,7 @@ namespace CitiesOfSigmar {
         bool drummer = GetBoolParam("Drummer", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Halberd);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
         bool ok = unit->configure(numModels, standard, drummer, weapons);

@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include <Board.h>
 #include "citiesofsigmar/SorceressOnBlackDragon.h"
+#include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
     static const int BASESIZE = 105;
@@ -41,10 +42,18 @@ namespace CitiesOfSigmar {
 
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, WitchRod);
 
-        auto city = (City) GetEnumParam("City", parameters, Hammerhal);
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        bool ok = unit->configure(weapon);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(weapon, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -71,6 +80,9 @@ namespace CitiesOfSigmar {
                     {
                             EnumParameter("Weapon", WitchRod, weapons),
                             EnumParameter("City", g_city[0], g_city),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -94,7 +106,7 @@ namespace CitiesOfSigmar {
         m_totalUnbinds = 1;
     }
 
-    bool SorceressOnBlackDragon::configure(WeaponOption option) {
+    bool SorceressOnBlackDragon::configure(WeaponOption option, Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_noxiousBreath);
 
