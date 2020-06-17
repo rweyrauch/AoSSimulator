@@ -8,6 +8,7 @@
 #include <dok/SlaughterQueenCauldronOfBlood.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 120; // x92 oval
@@ -56,7 +57,7 @@ namespace DaughtersOfKhaine {
         m_bloodshieldSlot.disconnect();
     }
 
-    bool SlaughterQueenOnCauldronOfBlood::configure() {
+    bool SlaughterQueenOnCauldronOfBlood::configure(Prayer prayer) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_burningBlood);
         model->addMeleeWeapon(&m_knives);
@@ -76,7 +77,15 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+
+        bool ok = unit->configure(prayer);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -92,7 +101,10 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Temple", g_temple[0], g_temple)
+                            EnumParameter("Temple", g_temple[0], g_temple),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_priestArtefacts[0], g_priestArtefacts),
+                            EnumParameter("Prayer", g_prayers[0], g_prayers)
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

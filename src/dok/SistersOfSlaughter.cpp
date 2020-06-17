@@ -9,6 +9,7 @@
 #include <dok/SistersOfSlaughter.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 25;

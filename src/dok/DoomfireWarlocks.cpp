@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 60; // x35 oval

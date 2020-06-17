@@ -8,6 +8,7 @@
 #include <dok/MorathiShadowQueen.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 100;
@@ -46,7 +47,7 @@ namespace DaughtersOfKhaine {
         m_totalUnbinds = 1;
     }
 
-    bool MorathiTheShadowQueen::configure() {
+    bool MorathiTheShadowQueen::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_gaze);
         model->addMeleeWeapon(&m_heartrender);
@@ -68,7 +69,9 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -84,7 +87,8 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Temple", g_temple[0], g_temple)
+                            EnumParameter("Temple", g_temple[0], g_temple),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

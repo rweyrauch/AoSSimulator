@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <dok/DaughterOfKhaine.h>
+#include <magic_enum.hpp>
 
 #include "dok/WitchAelves.h"
 #include "dok/BloodSisters.h"
@@ -110,21 +111,44 @@ namespace DaughtersOfKhaine {
 
     std::string DaughterOfKhaine::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Temple") {
-            if (parameter.intValue == HaggNar) { return "Hagg Nar"; }
-            else if (parameter.intValue == DraichiGaneth) { return "Draichi Ganeth"; }
-            else if (parameter.intValue == TheKraith) { return "The Kraith"; }
-            else if (parameter.intValue == Khailebron) { return "Khailebron"; }
-            else if (parameter.intValue == Custom) return "Custom";
+            auto templeName = magic_enum::enum_name((Temple)parameter.intValue);
+            return std::string(templeName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        }
+        if (std::string(parameter.name) == "Prayer") {
+            auto prayerName = magic_enum::enum_name((Prayer)parameter.intValue);
+            return std::string(prayerName);
         }
         return ParameterValueToString(parameter);
     }
 
     int DaughterOfKhaine::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Hagg Nar") return HaggNar;
-        else if (enumString == "Draichi Ganeth") return DraichiGaneth;
-        else if (enumString == "The Kraith") return TheKraith;
-        else if (enumString == "Khailebron") return Khailebron;
-        else if (enumString == "Custom") return Custom;
+        auto temple = magic_enum::enum_cast<Temple>(enumString);
+        if (temple.has_value()) return (int)temple.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto prayer = magic_enum::enum_cast<Prayer>(enumString);
+        if (prayer.has_value()) return (int)prayer.value();
+
         return 0;
     }
 
@@ -136,21 +160,29 @@ namespace DaughtersOfKhaine {
 
         m_temple = temple;
         switch (temple) {
-            case HaggNar:
+            case Temple::HaggNar:
                 addKeyword(HAGG_NAR);
                 break;
-            case DraichiGaneth:
+            case Temple::DraichiGaneth:
                 addKeyword(DRAICHI_GANETH);
                 break;
-            case TheKraith:
+            case Temple::TheKraith:
                 addKeyword(THE_KRAITH);
                 break;
-            case Khailebron:
+            case Temple::Khailebron:
                 addKeyword(KHAILEBRON);
                 break;
             default:
                 break;
         }
+    }
+
+    void DaughterOfKhaine::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void DaughterOfKhaine::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 25;

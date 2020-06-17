@@ -7,6 +7,7 @@
  */
 #include <dok/AvatarOfKhaine.h>
 #include <UnitFactory.h>
+#include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 40;

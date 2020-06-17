@@ -16,20 +16,81 @@
 
 namespace DaughtersOfKhaine {
 
-    enum Temple {
-        Custom,
+    enum class Temple : int {
+        None = 0,
         HaggNar,
         DraichiGaneth,
         TheKraith,
         Khailebron
     };
 
-    const std::array<int, 5> g_temple = {
-        Custom,
-        HaggNar,
-        DraichiGaneth,
-        TheKraith,
-        Khailebron
+    enum class CommandTrait : int {
+        None,
+
+        Bathed_in_Blood,
+        Zealous_Orator,
+        Bloody_Sacrificer,
+        Terrifying_Beauty,
+        Mistress_of_Poisons,
+        True_Believer,
+
+        // Temple specific
+        Devoted_Disciples,  // Hagg Nar
+        Murder_of_Illusion, // Khailebron
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Hero
+        Crown_of_Woe,
+        Cursed_Blade,
+        Amulet_of_Dark_Fire,
+        Crone_Blade,
+        Thousand_and_One_Dark_Blessings,
+        Bloodbane_Venom,
+
+        // Wizard
+        Shadow_Stone,
+        Rune_of_Ulgu,
+        The_Mirror_Glaive,
+        Seven_Fold_Shadow,
+        Crystal_Heart,
+        Shade_Claw,
+
+        // Priest
+        Blood_Sigil,
+        Iron_Circlet,
+        Rune_of_Khaine,
+        Crimson_Shard,
+        Khainite_Pendant,
+        Hagbrew,
+
+        // Temple specific
+        The_Darksword,  // Draichi Ganeth
+        Venom_of_Nagendra,  // The Kraith
+    };
+
+    enum class Lore : int {
+        None,
+
+        Steed_of_Shadows,
+        Pit_of_Shades,
+        Mirror_Dance,
+        The_Withering,
+        Mindrazor,
+        Shroud_of_Despair,
+    };
+
+    enum class Prayer : int {
+        None,
+
+        Catechism_of_Murder,
+        Blessing_of_Khaine,
+        Martyrs_Sacrifice,
+        Crimson_Rejuvination,
+        Covenant_of_the_Iron_Heart,
+        Sacrament_of_Blood,
     };
 
     class DaughterOfKhaine : public Unit {
@@ -43,6 +104,10 @@ namespace DaughtersOfKhaine {
         static int EnumStringToInt(const std::string &enumString);
 
         void setTemple(Temple temple);
+
+        void setCommandTrait(CommandTrait trait);
+
+        void setArtefact(Artefact artefact);
 
     protected:
         DaughterOfKhaine(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -66,7 +131,9 @@ namespace DaughtersOfKhaine {
 
     protected:
 
-        Temple m_temple = Custom;
+        Temple m_temple = Temple::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

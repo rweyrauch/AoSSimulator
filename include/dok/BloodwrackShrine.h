@@ -27,7 +27,7 @@ namespace DaughtersOfKhaine {
 
         ~BloodwrackShrine() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

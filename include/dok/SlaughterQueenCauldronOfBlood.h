@@ -27,7 +27,7 @@ namespace DaughtersOfKhaine {
 
         ~SlaughterQueenOnCauldronOfBlood() override;
 
-        bool configure();
+        bool configure(Prayer prayer);
 
     protected:
 
