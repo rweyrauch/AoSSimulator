@@ -36,7 +36,7 @@ namespace OgorMawtribes {
 
         ~Butcher() override = default;
 
-        bool configure(WeaponOption weaponOption);
+        bool configure(WeaponOption weaponOption, Lore lore);
 
     protected:
 

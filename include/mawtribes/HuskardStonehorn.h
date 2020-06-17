@@ -37,7 +37,7 @@ namespace OgorMawtribes {
 
         ~HuskardOnStonehorn() override = default;
 
-        bool configure(WeaponOption option);
+        bool configure(WeaponOption option, MountTrait mountTrait);
 
     protected:
 
@@ -63,6 +63,8 @@ namespace OgorMawtribes {
                 m_kicks,
                 m_horns,
                 m_hooves;
+
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/OgorGluttons.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 40;
@@ -28,7 +29,7 @@ namespace OgorMawtribes {
         bool bellower = GetBoolParam("Bellower", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, ClubOrBladeAndIronfist);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure(numModels, weapons, skullBearer, bannerBearer, lookout, bellower);

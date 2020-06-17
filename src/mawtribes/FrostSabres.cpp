@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "mawtribes/FrostSabres.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 60; // x35 oval
@@ -25,7 +26,7 @@ namespace OgorMawtribes {
 
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure(numModels);

@@ -31,7 +31,7 @@ namespace OgorMawtribes {
 
         ~FrostlordOnThundertusk() override = default;
 
-        bool configure();
+        bool configure(MountTrait mountTrait);
 
     protected:
 
@@ -51,6 +51,8 @@ namespace OgorMawtribes {
                 m_spear,
                 m_kicks,
                 m_tusks;
+
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

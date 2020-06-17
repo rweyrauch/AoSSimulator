@@ -11,8 +11,9 @@
 #include <sstream>
 #include <Board.h>
 #include <Dice.h>
-#include <ManoAMano.h>
+#include <Battle.h>
 #include <UnitFactory.h>
+#include <codecvt>
 #include "cxxopts.hpp"
 
 void displayUnits(Verbosity verbose, const std::string& faction);
@@ -93,7 +94,8 @@ int main(int argc, char* argv[])
         return EXIT_SUCCESS;
     }
 
-    ManoAMano battle(numRounds);
+    Battle battle;
+    battle.setNumRounds(numRounds);
 
     auto board = Board::Instance();
 
@@ -126,7 +128,16 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    battle.combatants(pRed, pBlue);
+    auto pRedRoster = new Roster(PlayerId::Red);
+    pRedRoster->addUnit(pRed);
+    auto pRedPlayer = new Player(PlayerId::Red);
+    pRedPlayer->setRoster(pRedRoster);
+
+    auto pBlueRoster = new Roster(PlayerId::Blue);
+    pBlueRoster->addUnit(pBlue);
+    auto pBluePlayer = new Player(PlayerId::Blue);
+    pBluePlayer->setRoster(pBlueRoster);
+    battle.addPlayers(pRedPlayer, pBluePlayer);
 
     std::cout << "Red Points: " << pRed->points() << "   Blue Points: " << pBlue->points() << std::endl;
 
@@ -141,7 +152,7 @@ int main(int argc, char* argv[])
         pRed->restore();
         pBlue->restore();
 
-        battle.start();
+        battle.start(PlayerId::Red);
 
         if (saveMaps)
         {
@@ -166,33 +177,7 @@ int main(int argc, char* argv[])
             battle.next();
         }
 
-        auto victor = battle.getVictor();
-
-        if (verbosity == Verbosity::Normal)
-        {
-            std::cout << "Team " << PlayerIdToString(victor) << " was victorious." << std::endl;
-            battle.logStatistics();
-        }
-
-        if (victor == PlayerId::Blue)
-            blueVictories++;
-        else if (victor == PlayerId::Red)
-            redVictories++;
-        else
-            ties++;
-
-        if (saveMaps)
-        {
-            fn.str("");
-            fn << mapBaseName << "_end.png";
-            board->render(fn.str());
-        }
     }
-
-    std::cout << "Victor Breakdown (%):" << std::endl
-              << "\tRed: " << (float)redVictories * 100.0f/numIterations << std::endl
-              << "\tBlue: " << (float)blueVictories * 100.0f/numIterations << std::endl
-              << "\tTies: " << (float)ties * 100.0f/numIterations << std::endl;
 
     return EXIT_SUCCESS;
 }

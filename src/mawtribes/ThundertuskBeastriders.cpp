@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/ThundertuskBeastriders.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
@@ -37,7 +38,7 @@ namespace OgorMawtribes {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Chaintrap);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure(weapon);

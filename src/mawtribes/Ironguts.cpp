@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/Ironguts.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 40;
@@ -26,7 +27,7 @@ namespace OgorMawtribes {
         bool mawBearer = GetBoolParam("Rune Maw Bearer", parameters, true);
         bool bellower = GetBoolParam("Bellower", parameters, true);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure(numModels, mawBearer, bellower);

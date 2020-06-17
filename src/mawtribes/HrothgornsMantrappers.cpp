@@ -18,7 +18,7 @@ namespace OgorMawtribes {
     Unit *HrothgornsMantrappers::Create(const ParameterList &parameters) {
         auto unit = new HrothgornsMantrappers();
 
-        unit->setMawtribe(Winterbite);
+        unit->setMawtribe(Mawtribe::Winterbite);
 
         bool ok = unit->configure();
         if (!ok) {

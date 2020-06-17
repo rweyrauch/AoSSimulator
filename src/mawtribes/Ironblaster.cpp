@@ -10,6 +10,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include "mawtribes/Ironblaster.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
@@ -21,7 +22,7 @@ namespace OgorMawtribes {
     Unit *Ironblaster::Create(const ParameterList &parameters) {
         auto unit = new Ironblaster();
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure();

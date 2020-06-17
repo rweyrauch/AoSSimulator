@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include <Board.h>
 #include "mawtribes/Slaughtermaster.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 105; // x70 oval
@@ -21,10 +22,18 @@ namespace OgorMawtribes {
     Unit *Slaughtermaster::Create(const ParameterList &parameters) {
         auto unit = new Slaughtermaster();
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_butcherTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -41,7 +50,10 @@ namespace OgorMawtribes {
                     MawtribesBase::EnumStringToInt,
                     Slaughtermaster::ComputePoints,
                     {
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_butcherTraits[0], g_butcherTraits),
+                            EnumParameter("Artefact", g_butcherArtefacts[0], g_butcherArtefacts),
+                            EnumParameter("Lore", g_butcherLore[0], g_butcherLore)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}
@@ -62,7 +74,7 @@ namespace OgorMawtribes {
         m_totalSpells = 1;
     }
 
-    bool Slaughtermaster::configure() {
+    bool Slaughtermaster::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
 
         model->addMeleeWeapon(&m_stumpBlades);

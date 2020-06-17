@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/MournfangPack.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 90; // x52 oval
@@ -26,7 +27,7 @@ namespace OgorMawtribes {
         bool banner = GetBoolParam("Banner Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure(numModels, weapons, hornblower, banner);

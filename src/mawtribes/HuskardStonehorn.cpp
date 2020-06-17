@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/HuskardStonehorn.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
@@ -37,10 +38,18 @@ namespace OgorMawtribes {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, HarpoonLauncher);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
-        bool ok = unit->configure(weapon);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_stonehornTraits[0]);
+
+        bool ok = unit->configure(weapon, mountTrait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -75,7 +84,10 @@ namespace OgorMawtribes {
                     HuskardOnStonehorn::ComputePoints,
                     {
                             EnumParameter("Weapon", HarpoonLauncher, weapons),
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_frostlordTraits[0], g_frostlordTraits),
+                            EnumParameter("Artefact", g_frostlordArtefacts[0], g_frostlordArtefacts),
+                            EnumParameter("Mount Trait", g_stonehornTraits[0], g_stonehornTraits)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}
@@ -96,10 +108,11 @@ namespace OgorMawtribes {
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
     }
 
-    bool HuskardOnStonehorn::configure(WeaponOption option) {
+    bool HuskardOnStonehorn::configure(WeaponOption option, MountTrait mountTrait) {
         auto model = new Model(BASESIZE, wounds());
 
         m_option = option;
+        m_mountTrait = mountTrait;
 
         if (option == HarpoonLauncher)
             model->addMissileWeapon(&m_harpoon);

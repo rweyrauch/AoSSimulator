@@ -31,7 +31,7 @@ namespace OgorMawtribes {
 
         ~FrostlordOnStonehorn() override = default;
 
-        bool configure();
+        bool configure(MountTrait mountTrait);
 
     protected:
 
@@ -51,6 +51,8 @@ namespace OgorMawtribes {
                 m_kicks,
                 m_horns,
                 m_hooves;
+
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

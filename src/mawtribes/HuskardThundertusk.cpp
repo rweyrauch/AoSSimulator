@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/HuskardThundertusk.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
@@ -37,10 +38,19 @@ namespace OgorMawtribes {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, HarpoonLauncher);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
-        bool ok = unit->configure(weapon);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_thundertuskTraits[0]);
+        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+
+        bool ok = unit->configure(weapon, mountTrait, prayer);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -75,7 +85,11 @@ namespace OgorMawtribes {
                     HuskardOnThundertusk::ComputePoints,
                     {
                             EnumParameter("Weapon", HarpoonLauncher, weapons),
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_frostlordTraits[0], g_frostlordTraits),
+                            EnumParameter("Artefact", g_frostlordArtefacts[0], g_frostlordArtefacts),
+                            EnumParameter("Mount Trait", g_thundertuskTraits[0], g_thundertuskTraits),
+                            EnumParameter("Prayer", g_prayers[0], g_prayers)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}
@@ -97,10 +111,12 @@ namespace OgorMawtribes {
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
     }
 
-    bool HuskardOnThundertusk::configure(WeaponOption option) {
+    bool HuskardOnThundertusk::configure(WeaponOption option, MountTrait mountTrait, Prayer prayer) {
         auto model = new Model(BASESIZE, wounds());
 
         m_option = option;
+        m_prayer = prayer;
+        m_mountTrait = mountTrait;
 
         if (option == HarpoonLauncher)
             model->addMissileWeapon(&m_harpoon);

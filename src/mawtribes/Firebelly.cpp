@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "mawtribes/Firebelly.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 50;
@@ -20,10 +21,12 @@ namespace OgorMawtribes {
     Unit *Firebelly::Create(const ParameterList &parameters) {
         auto unit = new Firebelly();
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_firebellyLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -40,7 +43,9 @@ namespace OgorMawtribes {
                     MawtribesBase::EnumStringToInt,
                     Firebelly::ComputePoints,
                     {
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Lore", g_firebellyLore[0], g_firebellyLore)
+
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}
@@ -60,7 +65,7 @@ namespace OgorMawtribes {
         m_totalSpells = 1;
     }
 
-    bool Firebelly::configure() {
+    bool Firebelly::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
 
         model->addMissileWeapon(&m_fireBreath);

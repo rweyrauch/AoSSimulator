@@ -37,7 +37,7 @@ namespace OgorMawtribes {
 
         ~HuskardOnThundertusk() override = default;
 
-        bool configure(WeaponOption option);
+        bool configure(WeaponOption option, MountTrait mountTrait, Prayer prayer);
 
     protected:
 
@@ -61,6 +61,9 @@ namespace OgorMawtribes {
                 m_ice,
                 m_kicks,
                 m_tusks;
+
+        Prayer m_prayer = Prayer::None;
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

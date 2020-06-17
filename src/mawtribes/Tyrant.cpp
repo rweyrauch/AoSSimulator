@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "mawtribes/Tyrant.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 50;
@@ -21,8 +22,14 @@ namespace OgorMawtribes {
 
         auto bigName = (BigName) GetEnumParam("Big Name", parameters, Fateseeker);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_tyrantTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_tyrantArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(bigName);
         if (!ok) {
@@ -66,7 +73,9 @@ namespace OgorMawtribes {
                     Tyrant::ComputePoints,
                     {
                             EnumParameter("Big Name", Fateseeker, bignames),
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_tyrantTraits[0], g_tyrantTraits),
+                            EnumParameter("Artefact", g_tyrantArtefacts[0], g_tyrantArtefacts),
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "mawtribes/Butcher.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 50;
@@ -22,10 +23,18 @@ namespace OgorMawtribes {
 
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Cleaver);
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
-        bool ok = unit->configure(weapon);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_butcherTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
+
+        bool ok = unit->configure(weapon, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -44,7 +53,10 @@ namespace OgorMawtribes {
                     Butcher::ComputePoints,
                     {
                             EnumParameter("Weapon", Cleaver, weapons),
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_butcherTraits[0], g_butcherTraits),
+                            EnumParameter("Artefact", g_butcherArtefacts[0], g_butcherArtefacts),
+                            EnumParameter("Lore", g_butcherLore[0], g_butcherLore)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}
@@ -65,7 +77,7 @@ namespace OgorMawtribes {
         m_totalSpells = 1;
     }
 
-    bool Butcher::configure(WeaponOption weaponOption) {
+    bool Butcher::configure(WeaponOption weaponOption, Lore lore) {
         auto model = new Model(BASESIZE, wounds());
 
         if (weaponOption == Tenderiser) {

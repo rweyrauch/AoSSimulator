@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "mawtribes/IcebrowHunter.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 50;
@@ -19,8 +20,14 @@ namespace OgorMawtribes {
     Unit *IcebrowHunter::Create(const ParameterList &parameters) {
         auto unit = new IcebrowHunter();
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_icebrowTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_icebrowArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -38,7 +45,9 @@ namespace OgorMawtribes {
                     IcebrowHunter::EnumStringToInt,
                     IcebrowHunter::ComputePoints,
                     {
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_icebrowTraits[0], g_icebrowTraits),
+                            EnumParameter("Artefact", g_icebrowArtefacts[0], g_icebrowArtefacts),
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

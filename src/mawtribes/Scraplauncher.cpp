@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/Scraplauncher.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
@@ -18,7 +19,7 @@ namespace OgorMawtribes {
     Unit *GnoblarScraplauncher::Create(const ParameterList &parameters) {
         auto unit = new GnoblarScraplauncher();
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
         bool ok = unit->configure();

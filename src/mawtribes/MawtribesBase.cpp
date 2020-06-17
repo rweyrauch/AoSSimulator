@@ -7,6 +7,7 @@
  */
 
 #include <Board.h>
+#include <magic_enum.hpp>
 #include "mawtribes/MawtribesBase.h"
 
 #include "mawtribes/Tyrant.h"
@@ -38,25 +39,52 @@ namespace OgorMawtribes {
 
     std::string MawtribesBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Mawtribe") {
-            if (parameter.intValue == NoMawtribe) return "No Mawtribe";
-            else if (parameter.intValue == Meatfist) return "Meatfist";
-            else if (parameter.intValue == Bloodgullet) return "Bloodgullet";
-            else if (parameter.intValue == Underguts) return "Underguts";
-            else if (parameter.intValue == Boulderhead) return "Boulderhead";
-            else if (parameter.intValue == Thunderbellies) return "Thunderbellies";
-            else if (parameter.intValue == Winterbite) return "Winterbite";
+            auto tribeName = magic_enum::enum_name((Mawtribe)parameter.intValue);
+            return std::string(tribeName);
         }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        }
+        if (std::string(parameter.name) == "Prayer") {
+            auto prayerName = magic_enum::enum_name((Prayer)parameter.intValue);
+            return std::string(prayerName);
+        }
+        if (std::string(parameter.name) == "Mount Trait") {
+            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int MawtribesBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "No Mawtribe") return NoMawtribe;
-        else if (enumString == "Meatfist") return Meatfist;
-        else if (enumString == "Bloodgullet") return Bloodgullet;
-        else if (enumString == "Underguts") return Underguts;
-        else if (enumString == "Boulderhead") return Boulderhead;
-        else if (enumString == "Thunderbellies") return Thunderbellies;
-        else if (enumString == "Winterbite") return Winterbite;
+        auto tribe = magic_enum::enum_cast<Mawtribe>(enumString);
+        if (tribe.has_value()) return (int)tribe.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto prayer = magic_enum::enum_cast<Prayer>(enumString);
+        if (prayer.has_value()) return (int)prayer.value();
+
+        auto mount = magic_enum::enum_cast<MountTrait>(enumString);
+        if (mount.has_value()) return (int)mount.value();
+
         return 0;
     }
 
@@ -136,27 +164,35 @@ namespace OgorMawtribes {
         m_tribe = tribe;
 
         switch (m_tribe) {
-            case Meatfist:
+            case Mawtribe::Meatfist:
                 addKeyword(MEATFIST);
                 break;
-            case Bloodgullet:
+            case Mawtribe::Bloodgullet:
                 addKeyword(BLOODGULLET);
                 break;
-            case Underguts:
+            case Mawtribe::Underguts:
                 addKeyword(UNDERGUTS);
                 break;
-            case Boulderhead:
+            case Mawtribe::Boulderhead:
                 addKeyword(BOULDERHEAD);
                 break;
-            case Thunderbellies:
+            case Mawtribe::Thunderbellies:
                 addKeyword(THUNDERBELLIES);
                 break;
-            case Winterbite:
+            case Mawtribe::Winterbite:
                 addKeyword(WINTERBITE);
                 break;
             default:
                 break;
         }
+    }
+
+    void MawtribesBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void MawtribesBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

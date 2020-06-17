@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "mawtribes/FrostlordThundertusk.h"
+#include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
@@ -35,10 +36,18 @@ namespace OgorMawtribes {
     Unit *FrostlordOnThundertusk::Create(const ParameterList &parameters) {
         auto unit = new FrostlordOnThundertusk();
 
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, None);
+        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_thundertuskTraits[0]);
+
+        bool ok = unit->configure(mountTrait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -62,7 +71,10 @@ namespace OgorMawtribes {
                     FrostlordOnThundertusk::EnumStringToInt,
                     FrostlordOnThundertusk::ComputePoints,
                     {
-                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
+                            EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
+                            EnumParameter("Command Trait", g_frostlordTraits[0], g_frostlordTraits),
+                            EnumParameter("Artefact", g_frostlordArtefacts[0], g_frostlordArtefacts),
+                            EnumParameter("Mount Trait", g_thundertuskTraits[0], g_thundertuskTraits)
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}
@@ -81,8 +93,10 @@ namespace OgorMawtribes {
         m_weapons = {&m_ice, &m_spear, &m_kicks, &m_tusks};
     }
 
-    bool FrostlordOnThundertusk::configure() {
+    bool FrostlordOnThundertusk::configure(MountTrait mountTrait) {
         auto model = new Model(BASESIZE, wounds());
+
+        m_mountTrait = mountTrait;
 
         model->addMissileWeapon(&m_ice);
         model->addMeleeWeapon(&m_spear);
