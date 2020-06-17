@@ -36,7 +36,7 @@ namespace Slaanesh {
 
         ~ShalaxiHelbane() override = default;
 
-        bool configure(WeaponOption weapon);
+        bool configure(WeaponOption weapon, Lore lore);
 
     protected:
 

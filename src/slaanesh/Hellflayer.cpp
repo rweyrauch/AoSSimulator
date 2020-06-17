@@ -9,6 +9,7 @@
 #include <slaanesh/Hellflayer.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 120; // x92 oval
@@ -41,7 +42,7 @@ namespace Slaanesh {
     Unit *Hellflayer::Create(const ParameterList &parameters) {
         auto unit = new Hellflayer();
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
         bool ok = unit->configure();

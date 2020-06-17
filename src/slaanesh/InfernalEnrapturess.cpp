@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <Board.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 25;
@@ -45,8 +46,14 @@ namespace Slaanesh {
     Unit *InfernalEnrapturess::Create(const ParameterList &parameters) {
         auto unit = new InfernalEnrapturess();
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -65,6 +72,8 @@ namespace Slaanesh {
                     InfernalEnrapturess::ComputePoints,
                     {
                             EnumParameter("Host", g_host[0], g_host),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     CHAOS,
                     {SLAANESH}

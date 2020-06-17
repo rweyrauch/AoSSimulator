@@ -27,7 +27,7 @@ namespace Slaanesh {
 
         ~BladebringerOnSeekerChariot() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

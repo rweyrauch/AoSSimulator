@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <Board.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 100;
@@ -48,7 +49,7 @@ namespace Slaanesh {
         m_totalUnbinds = 2;
     }
 
-    bool KeeperOfSecrets::configure(WeaponOption weapon) {
+    bool KeeperOfSecrets::configure(WeaponOption weapon, Lore lore) {
         auto model = new Model(BASESIZE, wounds());
 
         m_weapon = weapon;
@@ -75,10 +76,18 @@ namespace Slaanesh {
         auto unit = new KeeperOfSecrets();
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, RitualKnife);
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
-        bool ok = unit->configure(weapon);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
+
+        bool ok = unit->configure(weapon, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -97,6 +106,9 @@ namespace Slaanesh {
                     {
                             EnumParameter("Weapon", RitualKnife, weapons),
                             EnumParameter("Host", g_host[0], g_host),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_greaterDaemonLore[0], g_greaterDaemonLore)
                     },
                     CHAOS,
                     {SLAANESH}

@@ -9,6 +9,7 @@
 #include <slaanesh/Seekers.h>
 #include <Weapon.h>
 #include <UnitFactory.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 60; // x35 oval
@@ -72,7 +73,7 @@ namespace Slaanesh {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
         bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);

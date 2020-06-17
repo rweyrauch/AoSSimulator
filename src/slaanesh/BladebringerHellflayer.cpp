@@ -9,6 +9,7 @@
 #include <slaanesh/BladebringerHellflayer.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 120; // x92 oval
@@ -30,7 +31,7 @@ namespace Slaanesh {
         m_totalUnbinds = 1;
     }
 
-    bool BladebringerOnHellflayer::configure() {
+    bool BladebringerOnHellflayer::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
@@ -48,10 +49,18 @@ namespace Slaanesh {
     Unit *BladebringerOnHellflayer::Create(const ParameterList &parameters) {
         auto unit = new BladebringerOnHellflayer();
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -68,6 +77,9 @@ namespace Slaanesh {
                     BladebringerOnHellflayer::ComputePoints,
                     {
                             EnumParameter("Host", g_host[0], g_host),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
                     },
                     CHAOS,
                     {SLAANESH}

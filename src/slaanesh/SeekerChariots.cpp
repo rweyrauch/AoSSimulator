@@ -9,6 +9,7 @@
 #include <slaanesh/SeekerChariots.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 120; // x92 oval
@@ -54,7 +55,7 @@ namespace Slaanesh {
         auto unit = new SeekerChariots();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
         bool ok = unit->configure(numModels);

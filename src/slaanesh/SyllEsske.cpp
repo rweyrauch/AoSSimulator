@@ -9,6 +9,7 @@
 #include <slaanesh/SyllEsske.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 25;
@@ -32,7 +33,7 @@ namespace Slaanesh {
         m_totalUnbinds = 1;
     }
 
-    bool SyllEsske::configure() {
+    bool SyllEsske::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_axeOfDominion);
         model->addMeleeWeapon(&m_scourgingWhip);
@@ -49,10 +50,12 @@ namespace Slaanesh {
     Unit *SyllEsske::Create(const ParameterList &parameters) {
         auto unit = new SyllEsske();
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -69,6 +72,7 @@ namespace Slaanesh {
                     SyllEsske::ComputePoints,
                     {
                             EnumParameter("Host", g_host[0], g_host),
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
                     },
                     CHAOS,
                     {SLAANESH}

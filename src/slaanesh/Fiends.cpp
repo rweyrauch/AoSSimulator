@@ -9,6 +9,7 @@
 #include <slaanesh/Fiends.h>
 #include <Weapon.h>
 #include <UnitFactory.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 75; // x42 oval
@@ -61,7 +62,7 @@ namespace Slaanesh {
         auto unit = new Fiends();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
         bool ok = unit->configure(numModels);

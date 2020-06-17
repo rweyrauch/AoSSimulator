@@ -27,7 +27,7 @@ namespace Slaanesh {
 
         ~SyllEsske() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

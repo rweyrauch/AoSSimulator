@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <magic_enum.hpp>
 #include <slaanesh/SlaaneshBase.h>
 #include "slaanesh/Fiends.h"
 #include "slaanesh/Seekers.h"
@@ -34,13 +35,13 @@ namespace Slaanesh {
 
         m_host = host;
         switch (m_host) {
-            case Invaders:
+            case Host::Invaders:
                 addKeyword(INVADERS);
                 break;
-            case Pretenders:
+            case Host::Pretenders:
                 addKeyword(PRETENDERS);
                 break;
-            case Godseekers:
+            case Host::Godseekers:
                 addKeyword(GODSEEKERS);
                 break;
             default:
@@ -50,17 +51,37 @@ namespace Slaanesh {
 
     std::string SlaaneshBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Host") {
-            if (parameter.intValue == Invaders) { return "Invaders"; }
-            else if (parameter.intValue == Pretenders) { return "Pretenders"; }
-            else if (parameter.intValue == Godseekers) { return "Godseekers"; }
+            auto hostName = magic_enum::enum_name((Host)parameter.intValue);
+            return std::string(hostName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
         }
         return ParameterValueToString(parameter);
     }
 
     int SlaaneshBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Invaders") { return Invaders; }
-        else if (enumString == "Pretenders") { return Pretenders; }
-        else if (enumString == "Godseekers") { return Godseekers; }
+        auto host = magic_enum::enum_cast<Host>(enumString);
+        if (host.has_value()) return (int)host.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
         return 0;
     }
 
@@ -79,7 +100,7 @@ namespace Slaanesh {
 
     Rerolls SlaaneshBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Heir to the Throne
-        if ((m_host == Pretenders) && (remainingModels() >= 10)) {
+        if ((m_host == Host::Pretenders) && (remainingModels() >= 10)) {
             return RerollOnes;
         }
         return Unit::toHitRerolls(weapon, target);
@@ -89,10 +110,18 @@ namespace Slaanesh {
         int modifier = Unit::chargeModifier();
 
         // Thundering Cavalcade
-        if (m_host == Godseekers) {
+        if (m_host == Host::Godseekers) {
             modifier += 1;
         }
         return modifier;
+    }
+
+    void SlaaneshBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void SlaaneshBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

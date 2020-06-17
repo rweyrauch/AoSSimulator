@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <Board.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 120; // x92 oval
@@ -42,7 +43,7 @@ namespace Slaanesh {
     Unit *ExaltedChariot::Create(const ParameterList &parameters) {
         auto unit = new ExaltedChariot();
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
         bool ok = unit->configure();

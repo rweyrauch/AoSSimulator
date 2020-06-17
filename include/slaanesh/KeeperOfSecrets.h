@@ -38,7 +38,7 @@ namespace Slaanesh {
 
         ~KeeperOfSecrets() override = default;
 
-        bool configure(WeaponOption weapon);
+        bool configure(WeaponOption weapon, Lore lore);
 
     protected:
 

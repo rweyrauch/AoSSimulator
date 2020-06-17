@@ -9,6 +9,7 @@
 #include <slaanesh/TheMasque.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
     static const int BASESIZE = 32;
@@ -43,7 +44,7 @@ namespace Slaanesh {
     Unit *TheMasque::Create(const ParameterList &parameters) {
         auto unit = new TheMasque();
 
-        auto host = (Host) GetEnumParam("Host", parameters, Godseekers);
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
         bool ok = unit->configure();
