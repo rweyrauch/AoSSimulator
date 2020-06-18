@@ -8,6 +8,7 @@
 #include <kharadron/ArkanautCompany.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
     static const int BASESIZE = 32;
@@ -27,8 +28,13 @@ namespace KharadronOverlords {
         int numSkypikes = GetIntParam("Skypikes", parameters, 1);
         auto option = (CaptainWeapon) GetEnumParam("Captain Weapon", parameters, AetherflarePistol);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
         unit->setSkyport(port);
+
+        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
+        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
+        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
+        unit->setCode(artycle, amendment, footnote);
 
         bool ok = unit->configure(numModel, numVolleyGuns, numSkyhooks, numSkypikes, option);
         if (!ok) {
@@ -66,7 +72,10 @@ namespace KharadronOverlords {
                             IntegerParameter("Light Skyhooks", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
                             IntegerParameter("Skypikes", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
                             EnumParameter("Captain Weapon", AetherflarePistol, weapons),
-                            EnumParameter("Skyport", g_skyport[0], g_skyport)
+                            EnumParameter("Skyport", g_skyport[0], g_skyport),
+                            EnumParameter("Artycle", g_artycles[0], g_artycles),
+                            EnumParameter("Amendment", g_amendments[0], g_amendments),
+                            EnumParameter("Footnote", g_footnotes[0], g_footnotes),
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

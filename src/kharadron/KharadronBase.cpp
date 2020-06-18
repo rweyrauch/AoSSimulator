@@ -5,6 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#include <magic_enum.hpp>
 #include <kharadron/KharadronBase.h>
 #include <kharadron/AethericNavigator.h>
 #include <kharadron/AetherKhemist.h>
@@ -26,48 +27,52 @@ namespace KharadronOverlords {
 
     std::string KharadronBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Skyport") {
-            if (parameter.intValue == BarakNar) return "Barak-Nar";
-            else if (parameter.intValue == BarakZon) return "Barak-Zon";
-            else if (parameter.intValue == BarakZilfin) return "Barak-Zilfin";
-            else if (parameter.intValue == BarakUrbaz) return "Barak-Urbaz";
-            else if (parameter.intValue == BarakThryng) return "Barak-Thryng";
-            else if (parameter.intValue == BarakMhornar) return "Barak-Mhornar";
-            else if (parameter.intValue == None) return "None";
-            else if (parameter.intValue == Custom) return "Custom";
-        } else if (std::string(parameter.name) == "Artycle") {
-            if (parameter.intValue == HonourIsEverything) return "Honour is Everything";
-            else if (parameter.intValue == MasterTheSkies) return "Master the Skies";
-            else if (parameter.intValue == SettleTheGrudges) return "Settle the Grudges";
-        } else if (std::string(parameter.name) == "Amendment") {
-            if (parameter.intValue == AlwaysTakeWhatYouAreOwed) return "Always Take What You Are Owed";
-            else if (parameter.intValue == ProsecuteWarsWithAllHaste) return "Prosecute Wars With All Haste";
-            else if (parameter.intValue == TrustToYourGuns) return "Trust To Your Guns";
-        } else if (std::string(parameter.name) == "Footnote") {
-            if (parameter.intValue == TheresNoRewardWithoutRisk) return "There's No Reward Without Risk";
-            else if (parameter.intValue == TheresNoTradingWithSomePeople) return "There's No Trading With Some People";
-            else if (parameter.intValue == WithoutOurShipsWeAreNaught) return "Without Our Ships, We Are Naught";
+            auto portName = magic_enum::enum_name((Skyport)parameter.intValue);
+            return std::string(portName);
         }
+        if (std::string(parameter.name) == "Artycle") {
+            auto artycleName = magic_enum::enum_name((Artycle)parameter.intValue);
+            return std::string(artycleName);
+        }
+        if (std::string(parameter.name) == "Amendment") {
+            auto amendmentName = magic_enum::enum_name((Amendment)parameter.intValue);
+            return std::string(amendmentName);
+        }
+        if (std::string(parameter.name) == "Footnote") {
+            auto noteName = magic_enum::enum_name((Footnote)parameter.intValue);
+            return std::string(noteName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int KharadronBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Barak=Nar") return BarakNar;
-        else if (enumString == "Barak-Zon") return BarakZon;
-        else if (enumString == "BarakZilfin") return BarakZilfin;
-        else if (enumString == "BarakUrbaz") return BarakUrbaz;
-        else if (enumString == "BarakThryng") return BarakThryng;
-        else if (enumString == "BarakMhornar") return BarakMhornar;
-        else if (enumString == "None") return None;
-        else if (enumString == "Custom") return Custom;
-        else if (enumString == "Honour is Everything") return HonourIsEverything;
-        else if (enumString == "Master the Skies") return MasterTheSkies;
-        else if (enumString == "Settle the Grudges") return SettleTheGrudges;
-        else if (enumString == "Always Take What You Are Owed") return AlwaysTakeWhatYouAreOwed;
-        else if (enumString == "Prosecute Wars With All Haste") return ProsecuteWarsWithAllHaste;
-        else if (enumString == "Trust To Your Guns") return TrustToYourGuns;
-        else if (enumString == "There's No Reward Without Risk") return TheresNoRewardWithoutRisk;
-        else if (enumString == "There's No Trading With Some People") return TheresNoTradingWithSomePeople;
-        else if (enumString == "Without Our Ships, We Are Naught") return WithoutOurShipsWeAreNaught;
+        auto port = magic_enum::enum_cast<Skyport>(enumString);
+        if (port.has_value()) return (int)port.value();
+
+        auto artycle = magic_enum::enum_cast<Artycle>(enumString);
+        if (artycle.has_value()) return (int)artycle.value();
+
+        auto amendment = magic_enum::enum_cast<Amendment>(enumString);
+        if (amendment.has_value()) return (int)amendment.value();
+
+        auto note = magic_enum::enum_cast<Footnote>(enumString);
+        if (note.has_value()) return (int)note.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
         return 0;
     }
 
@@ -81,23 +86,29 @@ namespace KharadronOverlords {
 
         m_skyport = skyport;
         switch (skyport) {
-            case BarakNar:
+            case Skyport::Barak_Nar:
                 addKeyword(BARAK_NAR);
+                setCode(Artycle::Respect_Your_Commanders, Amendment::Trust_Aethermatics_Not_Superstition, Footnote::Through_Knowledge_Power);
                 break;
-            case BarakZon:
+            case Skyport::Barak_Zon:
                 addKeyword(BARAK_ZON);
+                setCode(Artycle::Honour_Is_Everything, Amendment::Leave_No_Duardin_Behind, Footnote::Show_Them_Your_Steel);
                 break;
-            case BarakZilfin:
+            case Skyport::Barak_Zilfin:
                 addKeyword(BARAK_ZILFIN);
+                setCode(Artycle::Master_the_Skies, Amendment::Dont_Argue_With_the_Wind, Footnote::Theres_Always_a_Breeze);
                 break;
-            case BarakUrbaz:
+            case Skyport::Barak_Urbaz:
                 addKeyword(BARAK_URBAZ);
+                setCode(Artycle::Seek_New_Prospects, Amendment::Always_Take_What_You_Are_Owed, Footnote::Where_Theres_War_Theres_Gold);
                 break;
-            case BarakThryng:
+            case Skyport::Barak_Thryng:
                 addKeyword(BARAK_THRYNG);
+                setCode(Artycle::Chronicle_of_Grudges, Amendment::Take_Help_Where_You_Can_Get_It, Footnote::Honour_the_Gods_Just_in_Case);
                 break;
-            case BarakMhornar:
+            case Skyport::Barak_Mhornar:
                 addKeyword(BARAK_MHORNAR);
+                setCode(Artycle::Seek_New_Prospects, Amendment::Prosecute_Wars_With_All_Haste, Footnote::Who_Strikes_First_Strikes_Hardest);
                 break;
             default:
                 break;
@@ -106,12 +117,20 @@ namespace KharadronOverlords {
 
     void KharadronBase::setCode(Artycle artycle, Amendment amendment,
                                 Footnote footnote) {
-        if (m_skyport != Custom) {
+        if (m_skyport != Skyport::None) {
             // Error.
         }
         m_artycle = artycle;
         m_amendment = amendment;
         m_footnote = footnote;
+    }
+
+    void KharadronBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void KharadronBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

@@ -36,7 +36,7 @@ namespace KharadronOverlords {
 
         ~ArkanautFrigate() override = default;
 
-        bool configure(WeaponOption option);
+        bool configure(WeaponOption option, Endrinwork endrinwork);
 
     protected:
 
@@ -65,6 +65,8 @@ namespace KharadronOverlords {
                 m_skyhook,
                 m_carbines,
                 m_boardingWeapons;
+
+        Endrinwork m_endrinwork = Endrinwork::None;
 
         static bool s_registered;
     };

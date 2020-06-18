@@ -7,6 +7,7 @@
  */
 #include <kharadron/BrokkGrungsson.h>
 #include <UnitFactory.h>
+#include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
     static const int BASESIZE = 40;
@@ -18,8 +19,7 @@ namespace KharadronOverlords {
     Unit *BrokkGrungsson::Create(const ParameterList &parameters) {
         auto unit = new BrokkGrungsson();
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
-        unit->setSkyport(port);
+        unit->setSkyport(Skyport::Barak_Nar);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -37,7 +37,6 @@ namespace KharadronOverlords {
                     KharadronBase::EnumStringToInt,
                     BrokkGrungsson::ComputePoints,
                     {
-                            EnumParameter("Skyport", g_skyport[0], g_skyport)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

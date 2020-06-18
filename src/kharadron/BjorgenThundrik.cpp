@@ -18,7 +18,7 @@ namespace KharadronOverlords {
     Unit *BjorgenThundrik::Create(const ParameterList &parameters) {
         auto unit = new BjorgenThundrik();
 
-        unit->setSkyport(BarakNar);
+        unit->setSkyport(Skyport::Barak_Nar);
 
         bool ok = unit->configure();
         if (!ok) {

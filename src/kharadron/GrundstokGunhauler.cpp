@@ -8,6 +8,7 @@
 #include <kharadron/GrundstokGunhauler.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
     static const int BASESIZE = 0;
@@ -20,10 +21,17 @@ namespace KharadronOverlords {
         auto unit = new GrundstokGunhauler();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, SkyCannon);
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
         unit->setSkyport(port);
 
-        bool ok = unit->configure(option);
+        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
+        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
+        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
+        unit->setCode(artycle, amendment, footnote);
+
+        auto endrinwork = (Endrinwork) GetEnumParam("Endrinwork", parameters, g_gunhaulerEndrinworks[0]);
+
+        bool ok = unit->configure(option, endrinwork);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -55,7 +63,11 @@ namespace KharadronOverlords {
                     GrundstokGunhauler::ComputePoints,
                     {
                             EnumParameter("Weapon", SkyCannon, weapons),
-                            EnumParameter("Skyport", g_skyport[0], g_skyport)
+                            EnumParameter("Skyport", g_skyport[0], g_skyport),
+                            EnumParameter("Artycle", g_artycles[0], g_artycles),
+                            EnumParameter("Amendment", g_amendments[0], g_amendments),
+                            EnumParameter("Footnote", g_footnotes[0], g_footnotes),
+                            EnumParameter("Endrinworks", g_gunhaulerEndrinworks[0], g_gunhaulerEndrinworks)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}
@@ -79,7 +91,7 @@ namespace KharadronOverlords {
                      &m_boardingWeapons};
     }
 
-    bool GrundstokGunhauler::configure(WeaponOption option) {
+    bool GrundstokGunhauler::configure(WeaponOption option, Endrinwork endrinwork) {
         auto model = new Model(BASESIZE, wounds());
         if (option == SkyCannon) {
             model->addMissileWeapon(&m_cannonShrapnel);
@@ -91,6 +103,8 @@ namespace KharadronOverlords {
         model->addMissileWeapon(&m_carbines);
         model->addMeleeWeapon(&m_boardingWeapons);
         addModel(model);
+
+        m_endrinwork = endrinwork;
 
         m_points = POINTS_PER_UNIT;
 

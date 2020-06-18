@@ -7,6 +7,7 @@
  */
 #include <kharadron/AethericNavigator.h>
 #include <UnitFactory.h>
+#include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
     static const int BASESIZE = 40;
@@ -18,8 +19,19 @@ namespace KharadronOverlords {
     Unit *AethericNavigator::Create(const ParameterList &parameters) {
         auto unit = new AethericNavigator();
 
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, KharadronOverlords::Custom);
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
         unit->setSkyport(port);
+
+        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
+        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
+        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
+        unit->setCode(artycle, amendment, footnote);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_navigatorCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_navigatorArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -37,7 +49,12 @@ namespace KharadronOverlords {
                     KharadronBase::EnumStringToInt,
                     AethericNavigator::ComputePoints,
                     {
-                            EnumParameter("Skyport", g_skyport[0], g_skyport)
+                            EnumParameter("Skyport", g_skyport[0], g_skyport),
+                            EnumParameter("Artycle", g_artycles[0], g_artycles),
+                            EnumParameter("Amendment", g_amendments[0], g_amendments),
+                            EnumParameter("Footnote", g_footnotes[0], g_footnotes),
+                            EnumParameter("Command Trait", g_navigatorCommandTraits[0], g_navigatorCommandTraits),
+                            EnumParameter("Artefact", g_navigatorArtefacts[0], g_navigatorArtefacts)
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}
