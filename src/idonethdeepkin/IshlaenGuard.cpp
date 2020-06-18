@@ -8,6 +8,7 @@
 
 #include <idonethdeepkin/IshlaenGuard.h>
 #include <UnitFactory.h>
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 60; // x35 oval
@@ -62,7 +63,7 @@ namespace IdonethDeepkin {
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
         bool musicians = GetBoolParam("Musicians", parameters, true);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(numModels, standardBearers, musicians);

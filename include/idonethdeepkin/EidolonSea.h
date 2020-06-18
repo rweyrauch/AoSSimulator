@@ -27,7 +27,7 @@ namespace IdonethDeepkin {
 
         ~EidolonOfMathlannAspectOfTheSea() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

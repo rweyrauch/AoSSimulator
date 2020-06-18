@@ -9,6 +9,7 @@
 #include <idonethdeepkin/NamartiThralls.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 32;
@@ -55,7 +56,7 @@ namespace IdonethDeepkin {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(numModels, numIconBearers);

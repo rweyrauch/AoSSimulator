@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "idonethdeepkin/IsharannSoulscryer.h"
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 32;
@@ -18,8 +19,14 @@ namespace IdonethDeepkin {
     Unit *IsharannSoulscryer::Create(const ParameterList &parameters) {
         auto unit = new IsharannSoulscryer();
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_isharannArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -38,6 +45,8 @@ namespace IdonethDeepkin {
                     ComputePoints,
                     {
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_isharannArtefacts[0], g_isharannArtefacts),
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

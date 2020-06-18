@@ -7,6 +7,7 @@
  */
 #include <idonethdeepkin/AkhelianLeviadon.h>
 #include <UnitFactory.h>
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 120; // x92 oval
@@ -44,7 +45,7 @@ namespace IdonethDeepkin {
     Unit *AkhelianLeviadon::Create(const ParameterList &parameters) {
         auto unit = new AkhelianLeviadon();
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure();

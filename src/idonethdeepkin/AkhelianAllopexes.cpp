@@ -8,6 +8,7 @@
 
 #include <idonethdeepkin/AkhelianAllopexes.h>
 #include <UnitFactory.h>
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 90; // x52 oval
@@ -58,7 +59,7 @@ namespace IdonethDeepkin {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HarpoonLauncher);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure(numModels, weapons);

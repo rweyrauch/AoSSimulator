@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "idonethdeepkin/EidolonSea.h"
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 100;
@@ -19,10 +20,18 @@ namespace IdonethDeepkin {
     Unit *EidolonOfMathlannAspectOfTheSea::Create(const ParameterList &parameters) {
         auto unit = new EidolonOfMathlannAspectOfTheSea();
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaneArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -39,6 +48,10 @@ namespace IdonethDeepkin {
                     ComputePoints,
                     {
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_arcaneArtefacts[0], g_arcaneArtefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore)
+
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}
@@ -67,7 +80,7 @@ namespace IdonethDeepkin {
         m_connection.disconnect();
     }
 
-    bool EidolonOfMathlannAspectOfTheSea::configure() {
+    bool EidolonOfMathlannAspectOfTheSea::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_abyssalEnergy);
         model->addMeleeWeapon(&m_trident);

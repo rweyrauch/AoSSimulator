@@ -7,6 +7,7 @@
  */
 
 #include <idonethdeepkin/IdonethDeepkin.h>
+#include <magic_enum.hpp>
 #include "idonethdeepkin/NamartiThralls.h"
 #include "idonethdeepkin/NamartiReavers.h"
 #include "idonethdeepkin/IshlaenGuard.h"
@@ -26,25 +27,38 @@ namespace IdonethDeepkin {
 
     std::string IdonethDeepkinBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Enclave") {
-            if (parameter.intValue == Custom) return "Custom";
-            else if (parameter.intValue == Ionrach) return "Ionrach";
-            else if (parameter.intValue == DhomHain) return "Dhom-hain";
-            else if (parameter.intValue == Fuethan) return "Fuethan";
-            else if (parameter.intValue == Morphann) return "Mor'phann";
-            else if (parameter.intValue == Nautilar) return "Nautilar";
-            else if (parameter.intValue == Briomdar) return "Briomdar";
+            auto enclaveName = magic_enum::enum_name((Enclave)parameter.intValue);
+            return std::string(enclaveName);
         }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int IdonethDeepkinBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Custom") return Custom;
-        else if (enumString == "Ionrach") return Ionrach;
-        else if (enumString == "Dhom-hain") return DhomHain;
-        else if (enumString == "Fuethan") return Fuethan;
-        else if (enumString == "Mor'phann") return Morphann;
-        else if (enumString == "Nautilar") return Nautilar;
-        else if (enumString == "Briomdar") return Briomdar;
+        auto enclave = magic_enum::enum_cast<Enclave>(enumString);
+        if (enclave.has_value()) return (int)enclave.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
         return 0;
     }
 
@@ -58,27 +72,35 @@ namespace IdonethDeepkin {
 
         m_enclave = enclave;
         switch (enclave) {
-            case Ionrach:
+            case Enclave::Ionrach:
                 addKeyword(IONRACH);
                 break;
-            case DhomHain:
+            case Enclave::Dhom_Hain:
                 addKeyword(DHOMHAIN);
                 break;
-            case Fuethan:
+            case Enclave::Fuethan:
                 addKeyword(FUETHAN);
                 break;
-            case Morphann:
+            case Enclave::Morphann:
                 addKeyword(MORPHANN);
                 break;
-            case Nautilar:
+            case Enclave::Nautilar:
                 addKeyword(NAUTILAR);
                 break;
-            case Briomdar:
+            case Enclave::Briomdar:
                 addKeyword(BRIOMDAR);
                 break;
             default:
                 break;
         }
+    }
+
+    void IdonethDeepkinBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void IdonethDeepkinBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

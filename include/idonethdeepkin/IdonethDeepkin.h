@@ -16,24 +16,81 @@
 
 namespace IdonethDeepkin {
 
-    enum Enclave {
-        Custom,
+    enum class Enclave : int {
+        Custom = 0,
         Ionrach,
-        DhomHain,
+        Dhom_Hain,
         Fuethan,
         Morphann,
         Nautilar,
         Briomdar
     };
 
-    const std::array<int, 7> g_enclave = {
-            Custom,
-            Ionrach,
-            DhomHain,
-            Fuethan,
-            Morphann,
-            Nautilar,
-            Briomdar
+    enum class CommandTrait : int {
+        None,
+
+        Merciless_Raider,
+        Hunter_of_Souls,
+        Unstoppable_Fury,
+        Born_From_Agony,
+        Nightmare_Legacy,
+        Lord_of_Storm_and_Sea,
+
+        // Enclave
+        Emissary_of_the_Deep_Places, // Ionrach
+
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Akhelian
+        Sanguine_Pearl,
+        Potion_of_Hateful_Frenzy,
+        Ankusha_Spear,
+        Armour_of_the_Cythai,
+        Bioshock_Shell,
+        Abyssal_Blade,
+
+        // Idoneth
+        Rune_of_the_Surging_Tide,
+        Black_Pearl,
+        Lliandras_Last_Lament,
+        Terrornight_Venom,
+        Cloud_of_Midnight,
+        Whorlshell,
+
+        // Isharann
+        Steelshell_Pearl,
+        Mind_Flare,
+        Dritchleech,
+        Auric_Lantern,
+        Disharmony_Stones,
+        Brain_Barnacles,
+
+        // Arcane
+        Arcane_Pearl,
+        Sands_of_Infinity,
+        Coral_Ring,
+        Bauble_of_Buoyancy,
+        Kraken_Tooth,
+        Augury_Shells,
+    };
+
+    enum class Lore : int {
+        None,
+
+        Steed_of_Tides,
+        Abyssal_Darkness,
+        Vorpal_Maelstrom,
+        Pressure_of_the_Deep,
+        Tide_of_Fear,
+        Arcane_Corrasion,
+
+        // Enclave specific
+        Freezing_Mists,  // Morphann
+        Protective_Barrier, // Nautilar
+
     };
 
     class IdonethDeepkinBase : public Unit {
@@ -49,6 +106,8 @@ namespace IdonethDeepkin {
 
         void setEnclave(Enclave enclave);
 
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
     protected:
 
         IdonethDeepkinBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -57,6 +116,8 @@ namespace IdonethDeepkin {
     protected:
 
         Enclave m_enclave = Enclave::Custom;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

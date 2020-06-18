@@ -8,6 +8,7 @@
 #include <idonethdeepkin/Volturnos.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 60;
@@ -46,7 +47,7 @@ namespace IdonethDeepkin {
     Unit *Volturnos::Create(const ParameterList &parameters) {
         auto unit = new Volturnos();
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure();

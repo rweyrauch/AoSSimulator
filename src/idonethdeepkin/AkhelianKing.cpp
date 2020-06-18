@@ -8,6 +8,7 @@
 #include <idonethdeepkin/AkhelianKing.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 60;
@@ -49,8 +50,14 @@ namespace IdonethDeepkin {
         auto unit = new AkhelianKing();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BladedPolearm);
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_akhelianArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(weapon);
         if (!ok) {
@@ -71,6 +78,8 @@ namespace IdonethDeepkin {
                     {
                             EnumParameter("Weapon", BladedPolearm, weapons),
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_akhelianArtefacts[0], g_akhelianArtefacts)
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

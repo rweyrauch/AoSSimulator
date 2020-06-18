@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "idonethdeepkin/Lotann.h"
+#include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
     static const int BASESIZE = 40;
@@ -18,7 +19,7 @@ namespace IdonethDeepkin {
     Unit *Lotann::Create(const ParameterList &parameters) {
         auto unit = new Lotann();
 
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, Enclave::Custom);
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
         bool ok = unit->configure();
